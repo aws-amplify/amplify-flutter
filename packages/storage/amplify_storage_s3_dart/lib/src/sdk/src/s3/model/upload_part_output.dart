@@ -3,14 +3,12 @@
 
 library amplify_storage_s3_dart.s3.model.upload_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
 
 part 'upload_part_output.g.dart';
@@ -22,7 +20,7 @@ abstract class UploadPartOutput
         _i2.EmptyPayload,
         _i2.HasPayload<UploadPartOutputPayload> {
   factory UploadPartOutput({
-    _i3.ServerSideEncryption? serverSideEncryption,
+    ServerSideEncryption? serverSideEncryption,
     String? eTag,
     String? checksumCrc32,
     String? checksumCrc32C,
@@ -32,7 +30,7 @@ abstract class UploadPartOutput
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
     bool? bucketKeyEnabled,
-    _i4.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$UploadPartOutput._(
       serverSideEncryption: serverSideEncryption,
@@ -61,7 +59,7 @@ abstract class UploadPartOutput
   ) =>
       UploadPartOutput.build((b) {
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i3.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response.headers['ETag'] != null) {
@@ -103,7 +101,7 @@ abstract class UploadPartOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -112,7 +110,7 @@ abstract class UploadPartOutput
       [UploadPartOutputRestXmlSerializer()];
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
-  _i3.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// Entity tag for the uploaded object.
   String? get eTag;
@@ -142,7 +140,7 @@ abstract class UploadPartOutput
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   UploadPartOutputPayload getPayload() => UploadPartOutputPayload();
   @override
@@ -210,7 +208,7 @@ abstract class UploadPartOutput
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class UploadPartOutputPayload
     with _i1.AWSEquatable<UploadPartOutputPayload>
     implements

@@ -10,15 +10,15 @@ class _$ImportTableInput extends ImportTableInput {
   @override
   final String? clientToken;
   @override
-  final _i3.S3BucketSource s3BucketSource;
+  final S3BucketSource s3BucketSource;
   @override
-  final _i4.InputFormat inputFormat;
+  final InputFormat inputFormat;
   @override
-  final _i5.InputFormatOptions? inputFormatOptions;
+  final InputFormatOptions? inputFormatOptions;
   @override
-  final _i6.InputCompressionType? inputCompressionType;
+  final InputCompressionType? inputCompressionType;
   @override
-  final _i7.TableCreationParameters tableCreationParameters;
+  final TableCreationParameters tableCreationParameters;
 
   factory _$ImportTableInput(
           [void Function(ImportTableInputBuilder)? updates]) =>
@@ -82,35 +82,34 @@ class ImportTableInputBuilder
   String? get clientToken => _$this._clientToken;
   set clientToken(String? clientToken) => _$this._clientToken = clientToken;
 
-  _i3.S3BucketSourceBuilder? _s3BucketSource;
-  _i3.S3BucketSourceBuilder get s3BucketSource =>
-      _$this._s3BucketSource ??= new _i3.S3BucketSourceBuilder();
-  set s3BucketSource(_i3.S3BucketSourceBuilder? s3BucketSource) =>
+  S3BucketSourceBuilder? _s3BucketSource;
+  S3BucketSourceBuilder get s3BucketSource =>
+      _$this._s3BucketSource ??= new S3BucketSourceBuilder();
+  set s3BucketSource(S3BucketSourceBuilder? s3BucketSource) =>
       _$this._s3BucketSource = s3BucketSource;
 
-  _i4.InputFormat? _inputFormat;
-  _i4.InputFormat? get inputFormat => _$this._inputFormat;
-  set inputFormat(_i4.InputFormat? inputFormat) =>
+  InputFormat? _inputFormat;
+  InputFormat? get inputFormat => _$this._inputFormat;
+  set inputFormat(InputFormat? inputFormat) =>
       _$this._inputFormat = inputFormat;
 
-  _i5.InputFormatOptionsBuilder? _inputFormatOptions;
-  _i5.InputFormatOptionsBuilder get inputFormatOptions =>
-      _$this._inputFormatOptions ??= new _i5.InputFormatOptionsBuilder();
-  set inputFormatOptions(_i5.InputFormatOptionsBuilder? inputFormatOptions) =>
+  InputFormatOptionsBuilder? _inputFormatOptions;
+  InputFormatOptionsBuilder get inputFormatOptions =>
+      _$this._inputFormatOptions ??= new InputFormatOptionsBuilder();
+  set inputFormatOptions(InputFormatOptionsBuilder? inputFormatOptions) =>
       _$this._inputFormatOptions = inputFormatOptions;
 
-  _i6.InputCompressionType? _inputCompressionType;
-  _i6.InputCompressionType? get inputCompressionType =>
+  InputCompressionType? _inputCompressionType;
+  InputCompressionType? get inputCompressionType =>
       _$this._inputCompressionType;
-  set inputCompressionType(_i6.InputCompressionType? inputCompressionType) =>
+  set inputCompressionType(InputCompressionType? inputCompressionType) =>
       _$this._inputCompressionType = inputCompressionType;
 
-  _i7.TableCreationParametersBuilder? _tableCreationParameters;
-  _i7.TableCreationParametersBuilder get tableCreationParameters =>
-      _$this._tableCreationParameters ??=
-          new _i7.TableCreationParametersBuilder();
+  TableCreationParametersBuilder? _tableCreationParameters;
+  TableCreationParametersBuilder get tableCreationParameters =>
+      _$this._tableCreationParameters ??= new TableCreationParametersBuilder();
   set tableCreationParameters(
-          _i7.TableCreationParametersBuilder? tableCreationParameters) =>
+          TableCreationParametersBuilder? tableCreationParameters) =>
       _$this._tableCreationParameters = tableCreationParameters;
 
   ImportTableInputBuilder() {

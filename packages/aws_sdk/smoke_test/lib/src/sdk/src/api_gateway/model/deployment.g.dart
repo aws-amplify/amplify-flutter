@@ -14,8 +14,7 @@ class _$Deployment extends Deployment {
   @override
   final DateTime? createdDate;
   @override
-  final _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
-      apiSummary;
+  final _i2.BuiltMap<String, _i2.BuiltMap<String, MethodSnapshot>>? apiSummary;
 
   factory _$Deployment([void Function(DeploymentBuilder)? updates]) =>
       (new DeploymentBuilder()..update(updates))._build();
@@ -67,12 +66,12 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
   DateTime? get createdDate => _$this._createdDate;
   set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
 
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>? _apiSummary;
-  _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>
-      get apiSummary => _$this._apiSummary ??= new _i3
-          .MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>();
+  _i2.MapBuilder<String, _i2.BuiltMap<String, MethodSnapshot>>? _apiSummary;
+  _i2.MapBuilder<String, _i2.BuiltMap<String, MethodSnapshot>> get apiSummary =>
+      _$this._apiSummary ??=
+          new _i2.MapBuilder<String, _i2.BuiltMap<String, MethodSnapshot>>();
   set apiSummary(
-          _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
+          _i2.MapBuilder<String, _i2.BuiltMap<String, MethodSnapshot>>?
               apiSummary) =>
       _$this._apiSummary = apiSummary;
 

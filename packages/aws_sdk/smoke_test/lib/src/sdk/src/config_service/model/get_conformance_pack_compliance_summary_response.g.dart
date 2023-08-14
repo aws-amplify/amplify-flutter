@@ -9,7 +9,7 @@ part of 'get_conformance_pack_compliance_summary_response.dart';
 class _$GetConformancePackComplianceSummaryResponse
     extends GetConformancePackComplianceSummaryResponse {
   @override
-  final _i3.BuiltList<_i2.ConformancePackComplianceSummary>?
+  final _i2.BuiltList<ConformancePackComplianceSummary>?
       conformancePackComplianceSummaryList;
   @override
   final String? nextToken;
@@ -60,14 +60,14 @@ class GetConformancePackComplianceSummaryResponseBuilder
             GetConformancePackComplianceSummaryResponseBuilder> {
   _$GetConformancePackComplianceSummaryResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConformancePackComplianceSummary>?
+  _i2.ListBuilder<ConformancePackComplianceSummary>?
       _conformancePackComplianceSummaryList;
-  _i3.ListBuilder<_i2.ConformancePackComplianceSummary>
+  _i2.ListBuilder<ConformancePackComplianceSummary>
       get conformancePackComplianceSummaryList =>
           _$this._conformancePackComplianceSummaryList ??=
-              new _i3.ListBuilder<_i2.ConformancePackComplianceSummary>();
+              new _i2.ListBuilder<ConformancePackComplianceSummary>();
   set conformancePackComplianceSummaryList(
-          _i3.ListBuilder<_i2.ConformancePackComplianceSummary>?
+          _i2.ListBuilder<ConformancePackComplianceSummary>?
               conformancePackComplianceSummaryList) =>
       _$this._conformancePackComplianceSummaryList =
           conformancePackComplianceSummaryList;

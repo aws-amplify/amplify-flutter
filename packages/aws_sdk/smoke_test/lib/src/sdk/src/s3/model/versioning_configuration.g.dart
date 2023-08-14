@@ -8,9 +8,9 @@ part of 'versioning_configuration.dart';
 
 class _$VersioningConfiguration extends VersioningConfiguration {
   @override
-  final _i2.MfaDelete? mfaDelete;
+  final MfaDelete? mfaDelete;
   @override
-  final _i3.BucketVersioningStatus? status;
+  final BucketVersioningStatus? status;
 
   factory _$VersioningConfiguration(
           [void Function(VersioningConfigurationBuilder)? updates]) =>
@@ -50,13 +50,13 @@ class VersioningConfigurationBuilder
         Builder<VersioningConfiguration, VersioningConfigurationBuilder> {
   _$VersioningConfiguration? _$v;
 
-  _i2.MfaDelete? _mfaDelete;
-  _i2.MfaDelete? get mfaDelete => _$this._mfaDelete;
-  set mfaDelete(_i2.MfaDelete? mfaDelete) => _$this._mfaDelete = mfaDelete;
+  MfaDelete? _mfaDelete;
+  MfaDelete? get mfaDelete => _$this._mfaDelete;
+  set mfaDelete(MfaDelete? mfaDelete) => _$this._mfaDelete = mfaDelete;
 
-  _i3.BucketVersioningStatus? _status;
-  _i3.BucketVersioningStatus? get status => _$this._status;
-  set status(_i3.BucketVersioningStatus? status) => _$this._status = status;
+  BucketVersioningStatus? _status;
+  BucketVersioningStatus? get status => _$this._status;
+  set status(BucketVersioningStatus? status) => _$this._status = status;
 
   VersioningConfigurationBuilder();
 

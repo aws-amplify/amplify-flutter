@@ -8,24 +8,24 @@ part of 'lifecycle_rule.dart';
 
 class _$LifecycleRule extends LifecycleRule {
   @override
-  final _i2.LifecycleExpiration? expiration;
+  final LifecycleExpiration? expiration;
   @override
   final String? id;
   @override
   final String? prefix;
   @override
-  final _i3.LifecycleRuleFilter? filter;
+  final LifecycleRuleFilter? filter;
   @override
-  final _i4.ExpirationStatus status;
+  final ExpirationStatus status;
   @override
-  final _i9.BuiltList<_i5.Transition>? transitions;
+  final _i2.BuiltList<Transition>? transitions;
   @override
-  final _i9.BuiltList<_i6.NoncurrentVersionTransition>?
+  final _i2.BuiltList<NoncurrentVersionTransition>?
       noncurrentVersionTransitions;
   @override
-  final _i7.NoncurrentVersionExpiration? noncurrentVersionExpiration;
+  final NoncurrentVersionExpiration? noncurrentVersionExpiration;
   @override
-  final _i8.AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload;
+  final AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload;
 
   factory _$LifecycleRule([void Function(LifecycleRuleBuilder)? updates]) =>
       (new LifecycleRuleBuilder()..update(updates))._build();
@@ -87,10 +87,10 @@ class LifecycleRuleBuilder
     implements Builder<LifecycleRule, LifecycleRuleBuilder> {
   _$LifecycleRule? _$v;
 
-  _i2.LifecycleExpirationBuilder? _expiration;
-  _i2.LifecycleExpirationBuilder get expiration =>
-      _$this._expiration ??= new _i2.LifecycleExpirationBuilder();
-  set expiration(_i2.LifecycleExpirationBuilder? expiration) =>
+  LifecycleExpirationBuilder? _expiration;
+  LifecycleExpirationBuilder get expiration =>
+      _$this._expiration ??= new LifecycleExpirationBuilder();
+  set expiration(LifecycleExpirationBuilder? expiration) =>
       _$this._expiration = expiration;
 
   String? _id;
@@ -101,47 +101,44 @@ class LifecycleRuleBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i3.LifecycleRuleFilter? _filter;
-  _i3.LifecycleRuleFilter? get filter => _$this._filter;
-  set filter(_i3.LifecycleRuleFilter? filter) => _$this._filter = filter;
+  LifecycleRuleFilter? _filter;
+  LifecycleRuleFilter? get filter => _$this._filter;
+  set filter(LifecycleRuleFilter? filter) => _$this._filter = filter;
 
-  _i4.ExpirationStatus? _status;
-  _i4.ExpirationStatus? get status => _$this._status;
-  set status(_i4.ExpirationStatus? status) => _$this._status = status;
+  ExpirationStatus? _status;
+  ExpirationStatus? get status => _$this._status;
+  set status(ExpirationStatus? status) => _$this._status = status;
 
-  _i9.ListBuilder<_i5.Transition>? _transitions;
-  _i9.ListBuilder<_i5.Transition> get transitions =>
-      _$this._transitions ??= new _i9.ListBuilder<_i5.Transition>();
-  set transitions(_i9.ListBuilder<_i5.Transition>? transitions) =>
+  _i2.ListBuilder<Transition>? _transitions;
+  _i2.ListBuilder<Transition> get transitions =>
+      _$this._transitions ??= new _i2.ListBuilder<Transition>();
+  set transitions(_i2.ListBuilder<Transition>? transitions) =>
       _$this._transitions = transitions;
 
-  _i9.ListBuilder<_i6.NoncurrentVersionTransition>?
-      _noncurrentVersionTransitions;
-  _i9.ListBuilder<_i6.NoncurrentVersionTransition>
+  _i2.ListBuilder<NoncurrentVersionTransition>? _noncurrentVersionTransitions;
+  _i2.ListBuilder<NoncurrentVersionTransition>
       get noncurrentVersionTransitions =>
           _$this._noncurrentVersionTransitions ??=
-              new _i9.ListBuilder<_i6.NoncurrentVersionTransition>();
+              new _i2.ListBuilder<NoncurrentVersionTransition>();
   set noncurrentVersionTransitions(
-          _i9.ListBuilder<_i6.NoncurrentVersionTransition>?
+          _i2.ListBuilder<NoncurrentVersionTransition>?
               noncurrentVersionTransitions) =>
       _$this._noncurrentVersionTransitions = noncurrentVersionTransitions;
 
-  _i7.NoncurrentVersionExpirationBuilder? _noncurrentVersionExpiration;
-  _i7.NoncurrentVersionExpirationBuilder get noncurrentVersionExpiration =>
+  NoncurrentVersionExpirationBuilder? _noncurrentVersionExpiration;
+  NoncurrentVersionExpirationBuilder get noncurrentVersionExpiration =>
       _$this._noncurrentVersionExpiration ??=
-          new _i7.NoncurrentVersionExpirationBuilder();
+          new NoncurrentVersionExpirationBuilder();
   set noncurrentVersionExpiration(
-          _i7.NoncurrentVersionExpirationBuilder?
-              noncurrentVersionExpiration) =>
+          NoncurrentVersionExpirationBuilder? noncurrentVersionExpiration) =>
       _$this._noncurrentVersionExpiration = noncurrentVersionExpiration;
 
-  _i8.AbortIncompleteMultipartUploadBuilder? _abortIncompleteMultipartUpload;
-  _i8.AbortIncompleteMultipartUploadBuilder
-      get abortIncompleteMultipartUpload =>
-          _$this._abortIncompleteMultipartUpload ??=
-              new _i8.AbortIncompleteMultipartUploadBuilder();
+  AbortIncompleteMultipartUploadBuilder? _abortIncompleteMultipartUpload;
+  AbortIncompleteMultipartUploadBuilder get abortIncompleteMultipartUpload =>
+      _$this._abortIncompleteMultipartUpload ??=
+          new AbortIncompleteMultipartUploadBuilder();
   set abortIncompleteMultipartUpload(
-          _i8.AbortIncompleteMultipartUploadBuilder?
+          AbortIncompleteMultipartUploadBuilder?
               abortIncompleteMultipartUpload) =>
       _$this._abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
 

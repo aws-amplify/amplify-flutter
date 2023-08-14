@@ -8,7 +8,7 @@ part of 'resource_identifier.dart';
 
 class _$ResourceIdentifier extends ResourceIdentifier {
   @override
-  final _i2.ResourceType? resourceType;
+  final ResourceType? resourceType;
   @override
   final String? resourceId;
   @override
@@ -62,9 +62,9 @@ class ResourceIdentifierBuilder
     implements Builder<ResourceIdentifier, ResourceIdentifierBuilder> {
   _$ResourceIdentifier? _$v;
 
-  _i2.ResourceType? _resourceType;
-  _i2.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i2.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
   String? _resourceId;

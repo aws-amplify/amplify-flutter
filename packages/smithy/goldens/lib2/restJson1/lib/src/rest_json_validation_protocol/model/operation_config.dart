@@ -6,9 +6,8 @@ library rest_json1_v2.rest_json_validation_protocol.model.operation_config; // i
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/s3_config.dart'
-    as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/s3_config.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'operation_config.g.dart';
 
@@ -17,7 +16,7 @@ abstract class OperationConfig
     with _i1.AWSEquatable<OperationConfig>
     implements Built<OperationConfig, OperationConfigBuilder> {
   /// Configuration that is set for the scope of a single operation.
-  factory OperationConfig({_i2.S3Config? s3}) {
+  factory OperationConfig({S3Config? s3}) {
     return _$OperationConfig._(s3: s3);
   }
 
@@ -27,12 +26,12 @@ abstract class OperationConfig
 
   const OperationConfig._();
 
-  static const List<_i3.SmithySerializer<OperationConfig>> serializers = [
+  static const List<_i2.SmithySerializer<OperationConfig>> serializers = [
     OperationConfigRestJson1Serializer()
   ];
 
   /// Configuration specific to S3.
-  _i2.S3Config? get s3;
+  S3Config? get s3;
   @override
   List<Object?> get props => [s3];
   @override
@@ -47,7 +46,7 @@ abstract class OperationConfig
 }
 
 class OperationConfigRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<OperationConfig> {
+    extends _i2.StructuredSmithySerializer<OperationConfig> {
   const OperationConfigRestJson1Serializer() : super('OperationConfig');
 
   @override
@@ -56,8 +55,8 @@ class OperationConfigRestJson1Serializer
         _$OperationConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -81,8 +80,8 @@ class OperationConfigRestJson1Serializer
         case 's3':
           result.s3.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Config),
-          ) as _i2.S3Config));
+            specifiedType: const FullType(S3Config),
+          ) as S3Config));
       }
     }
 
@@ -102,7 +101,7 @@ class OperationConfigRestJson1Serializer
         ..add('s3')
         ..add(serializers.serialize(
           s3,
-          specifiedType: const FullType(_i2.S3Config),
+          specifiedType: const FullType(S3Config),
         ));
     }
     return result$;

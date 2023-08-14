@@ -6,8 +6,8 @@ library smoke_test.api_gateway.model.patch_operation; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/op.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/op.dart';
 
 part 'patch_operation.g.dart';
 
@@ -17,7 +17,7 @@ abstract class PatchOperation
     implements Built<PatchOperation, PatchOperationBuilder> {
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   factory PatchOperation({
-    _i2.Op? op,
+    Op? op,
     String? path,
     String? value,
     String? from,
@@ -36,12 +36,12 @@ abstract class PatchOperation
 
   const PatchOperation._();
 
-  static const List<_i3.SmithySerializer<PatchOperation>> serializers = [
+  static const List<_i2.SmithySerializer<PatchOperation>> serializers = [
     PatchOperationRestJson1Serializer()
   ];
 
   /// An update operation to be performed with this PATCH request. The valid value can be add, remove, replace or copy. Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message..
-  _i2.Op? get op;
+  Op? get op;
 
   /// The op operation's target, as identified by a JSON Pointer value that references a location within the targeted resource. For example, if the target resource has an updateable property of {"name":"value"}, the path for this property is /name. If the name property value is a JSON object (e.g., {"name": {"child/name": "child-value"}}), the path for the child/name property will be /name/child~1name. Any slash ("/") character appearing in path names must be escaped with "~1", as shown in the example above. Each op operation can have only one path associated with it.
   String? get path;
@@ -82,7 +82,7 @@ abstract class PatchOperation
 }
 
 class PatchOperationRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<PatchOperation> {
+    extends _i2.StructuredSmithySerializer<PatchOperation> {
   const PatchOperationRestJson1Serializer() : super('PatchOperation');
 
   @override
@@ -91,8 +91,8 @@ class PatchOperationRestJson1Serializer
         _$PatchOperation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -121,8 +121,8 @@ class PatchOperationRestJson1Serializer
         case 'op':
           result.op = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Op),
-          ) as _i2.Op);
+            specifiedType: const FullType(Op),
+          ) as Op);
         case 'path':
           result.path = (serializers.deserialize(
             value,
@@ -160,7 +160,7 @@ class PatchOperationRestJson1Serializer
         ..add('op')
         ..add(serializers.serialize(
           op,
-          specifiedType: const FullType(_i2.Op),
+          specifiedType: const FullType(Op),
         ));
     }
     if (path != null) {

@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.authorizer; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer_type.dart';
 
 part 'authorizer.g.dart';
 
@@ -21,7 +20,7 @@ abstract class Authorizer
   factory Authorizer({
     String? id,
     String? name,
-    _i2.AuthorizerType? type,
+    AuthorizerType? type,
     List<String>? providerArNs,
     String? authType,
     String? authorizerUri,
@@ -34,7 +33,7 @@ abstract class Authorizer
       id: id,
       name: name,
       type: type,
-      providerArNs: providerArNs == null ? null : _i3.BuiltList(providerArNs),
+      providerArNs: providerArNs == null ? null : _i2.BuiltList(providerArNs),
       authType: authType,
       authorizerUri: authorizerUri,
       authorizerCredentials: authorizerCredentials,
@@ -57,7 +56,7 @@ abstract class Authorizer
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Authorizer>> serializers = [
+  static const List<_i3.SmithySerializer<Authorizer>> serializers = [
     AuthorizerRestJson1Serializer()
   ];
 
@@ -68,10 +67,10 @@ abstract class Authorizer
   String? get name;
 
   /// The authorizer type. Valid values are `TOKEN` for a Lambda function using a single authorization token submitted in a custom header, `REQUEST` for a Lambda function using incoming request parameters, and `COGNITO\_USER\_POOLS` for using an Amazon Cognito user pool.
-  _i2.AuthorizerType? get type;
+  AuthorizerType? get type;
 
   /// A list of the Amazon Cognito user pool ARNs for the `COGNITO\_USER\_POOLS` authorizer. Each element is of this format: `arn:aws:cognito-idp:{region}:{account\_id}:userpool/{user\_pool_id}`. For a `TOKEN` or `REQUEST` authorizer, this is not defined.
-  _i3.BuiltList<String>? get providerArNs;
+  _i2.BuiltList<String>? get providerArNs;
 
   /// Optional customer-defined field, used in OpenAPI imports and exports without functional impact.
   String? get authType;
@@ -151,7 +150,7 @@ abstract class Authorizer
 }
 
 class AuthorizerRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Authorizer> {
+    extends _i3.StructuredSmithySerializer<Authorizer> {
   const AuthorizerRestJson1Serializer() : super('Authorizer');
 
   @override
@@ -160,8 +159,8 @@ class AuthorizerRestJson1Serializer
         _$Authorizer,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -226,15 +225,15 @@ class AuthorizerRestJson1Serializer
           result.providerArNs.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AuthorizerType),
-          ) as _i2.AuthorizerType);
+            specifiedType: const FullType(AuthorizerType),
+          ) as AuthorizerType);
       }
     }
 
@@ -330,7 +329,7 @@ class AuthorizerRestJson1Serializer
         ..add(serializers.serialize(
           providerArNs,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -340,7 +339,7 @@ class AuthorizerRestJson1Serializer
         ..add('type')
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType(_i2.AuthorizerType),
+          specifiedType: const FullType(AuthorizerType),
         ));
     }
     return result$;

@@ -8,7 +8,7 @@ part of 'recursive_structures_input.dart';
 
 class _$RecursiveStructuresInput extends RecursiveStructuresInput {
   @override
-  final _i3.RecursiveUnionOne? union;
+  final RecursiveUnionOne? union;
 
   factory _$RecursiveStructuresInput(
           [void Function(RecursiveStructuresInputBuilder)? updates]) =>
@@ -45,9 +45,9 @@ class RecursiveStructuresInputBuilder
         Builder<RecursiveStructuresInput, RecursiveStructuresInputBuilder> {
   _$RecursiveStructuresInput? _$v;
 
-  _i3.RecursiveUnionOne? _union;
-  _i3.RecursiveUnionOne? get union => _$this._union;
-  set union(_i3.RecursiveUnionOne? union) => _$this._union = union;
+  RecursiveUnionOne? _union;
+  RecursiveUnionOne? get union => _$this._union;
+  set union(RecursiveUnionOne? union) => _$this._union = union;
 
   RecursiveStructuresInputBuilder();
 

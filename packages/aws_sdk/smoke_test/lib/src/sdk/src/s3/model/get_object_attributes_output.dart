@@ -6,14 +6,13 @@ library smoke_test.s3.model.get_object_attributes_output; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i7;
-import 'package:meta/meta.dart' as _i8;
+import 'package:fixnum/fixnum.dart' as _i3;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_parts.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_parts.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart';
 
 part 'get_object_attributes_output.g.dart';
 
@@ -26,12 +25,12 @@ abstract class GetObjectAttributesOutput
     bool? deleteMarker,
     DateTime? lastModified,
     String? versionId,
-    _i3.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
     String? eTag,
-    _i4.Checksum? checksum,
-    _i5.GetObjectAttributesParts? objectParts,
-    _i6.StorageClass? storageClass,
-    _i7.Int64? objectSize,
+    Checksum? checksum,
+    GetObjectAttributesParts? objectParts,
+    StorageClass? storageClass,
+    _i3.Int64? objectSize,
   }) {
     return _$GetObjectAttributesOutput._(
       deleteMarker: deleteMarker,
@@ -80,7 +79,7 @@ abstract class GetObjectAttributesOutput
           b.versionId = response.headers['x-amz-version-id']!;
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -98,24 +97,24 @@ abstract class GetObjectAttributesOutput
   String? get versionId;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
 
   /// An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
 
   /// The checksum or digest of the object.
-  _i4.Checksum? get checksum;
+  Checksum? get checksum;
 
   /// A collection of parts associated with a multipart upload.
-  _i5.GetObjectAttributesParts? get objectParts;
+  GetObjectAttributesParts? get objectParts;
 
   /// Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   ///
   /// For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html).
-  _i6.StorageClass? get storageClass;
+  StorageClass? get storageClass;
 
   /// The size of the object in bytes.
-  _i7.Int64? get objectSize;
+  _i3.Int64? get objectSize;
   @override
   GetObjectAttributesOutputPayload getPayload() =>
       GetObjectAttributesOutputPayload((b) {
@@ -184,7 +183,7 @@ abstract class GetObjectAttributesOutput
   }
 }
 
-@_i8.internal
+@_i4.internal
 abstract class GetObjectAttributesOutputPayload
     with
         _i1.AWSEquatable<GetObjectAttributesOutputPayload>
@@ -198,21 +197,21 @@ abstract class GetObjectAttributesOutputPayload
   const GetObjectAttributesOutputPayload._();
 
   /// The checksum or digest of the object.
-  _i4.Checksum? get checksum;
+  Checksum? get checksum;
 
   /// An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
 
   /// A collection of parts associated with a multipart upload.
-  _i5.GetObjectAttributesParts? get objectParts;
+  GetObjectAttributesParts? get objectParts;
 
   /// The size of the object in bytes.
-  _i7.Int64? get objectSize;
+  _i3.Int64? get objectSize;
 
   /// Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   ///
   /// For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html).
-  _i6.StorageClass? get storageClass;
+  StorageClass? get storageClass;
   @override
   List<Object?> get props => [
         checksum,
@@ -287,8 +286,8 @@ class GetObjectAttributesOutputRestXmlSerializer
         case 'Checksum':
           result.checksum.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Checksum),
-          ) as _i4.Checksum));
+            specifiedType: const FullType(Checksum),
+          ) as Checksum));
         case 'ETag':
           result.eTag = (serializers.deserialize(
             value,
@@ -297,18 +296,18 @@ class GetObjectAttributesOutputRestXmlSerializer
         case 'ObjectParts':
           result.objectParts.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.GetObjectAttributesParts),
-          ) as _i5.GetObjectAttributesParts));
+            specifiedType: const FullType(GetObjectAttributesParts),
+          ) as GetObjectAttributesParts));
         case 'ObjectSize':
           result.objectSize = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.Int64),
-          ) as _i7.Int64);
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.StorageClass),
-          ) as _i6.StorageClass);
+            specifiedType: const FullType(StorageClass),
+          ) as StorageClass);
       }
     }
 
@@ -339,7 +338,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Checksum'))
         ..add(serializers.serialize(
           checksum,
-          specifiedType: const FullType(_i4.Checksum),
+          specifiedType: const FullType(Checksum),
         ));
     }
     if (eTag != null) {
@@ -355,7 +354,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('ObjectParts'))
         ..add(serializers.serialize(
           objectParts,
-          specifiedType: const FullType(_i5.GetObjectAttributesParts),
+          specifiedType: const FullType(GetObjectAttributesParts),
         ));
     }
     if (objectSize != null) {
@@ -363,7 +362,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('ObjectSize'))
         ..add(serializers.serialize(
           objectSize,
-          specifiedType: const FullType.nullable(_i7.Int64),
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
     if (storageClass != null) {
@@ -371,7 +370,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i6.StorageClass),
+          specifiedType: const FullType.nullable(StorageClass),
         ));
     }
     return result$;

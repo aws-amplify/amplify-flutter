@@ -18,7 +18,7 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
   @override
   final String? uploadId;
   @override
-  final _i3.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -30,9 +30,9 @@ class _$CreateMultipartUploadOutput extends CreateMultipartUploadOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i4.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$CreateMultipartUploadOutput(
           [void Function(CreateMultipartUploadOutputBuilder)? updates]) =>
@@ -129,10 +129,10 @@ class CreateMultipartUploadOutputBuilder
   String? get uploadId => _$this._uploadId;
   set uploadId(String? uploadId) => _$this._uploadId = uploadId;
 
-  _i3.ServerSideEncryption? _serverSideEncryption;
-  _i3.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i3.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -159,14 +159,14 @@ class CreateMultipartUploadOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i4.RequestCharged? _requestCharged;
-  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i4.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   CreateMultipartUploadOutputBuilder();

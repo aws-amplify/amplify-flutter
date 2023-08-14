@@ -8,7 +8,7 @@ part of 'mfa_option_type.dart';
 
 class _$MfaOptionType extends MfaOptionType {
   @override
-  final _i2.DeliveryMediumType? deliveryMedium;
+  final DeliveryMediumType? deliveryMedium;
   @override
   final String? attributeName;
 
@@ -46,9 +46,9 @@ class MfaOptionTypeBuilder
     implements Builder<MfaOptionType, MfaOptionTypeBuilder> {
   _$MfaOptionType? _$v;
 
-  _i2.DeliveryMediumType? _deliveryMedium;
-  _i2.DeliveryMediumType? get deliveryMedium => _$this._deliveryMedium;
-  set deliveryMedium(_i2.DeliveryMediumType? deliveryMedium) =>
+  DeliveryMediumType? _deliveryMedium;
+  DeliveryMediumType? get deliveryMedium => _$this._deliveryMedium;
+  set deliveryMedium(DeliveryMediumType? deliveryMedium) =>
       _$this._deliveryMedium = deliveryMedium;
 
   String? _attributeName;
@@ -56,9 +56,7 @@ class MfaOptionTypeBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  MfaOptionTypeBuilder() {
-    MfaOptionType._init(this);
-  }
+  MfaOptionTypeBuilder();
 
   MfaOptionTypeBuilder get _$this {
     final $v = _$v;

@@ -28,17 +28,17 @@ class _$DomainName extends DomainName {
   @override
   final String? distributionHostedZoneId;
   @override
-  final _i2.EndpointConfiguration? endpointConfiguration;
+  final EndpointConfiguration? endpointConfiguration;
   @override
-  final _i3.DomainNameStatus? domainNameStatus;
+  final DomainNameStatus? domainNameStatus;
   @override
   final String? domainNameStatusMessage;
   @override
-  final _i4.SecurityPolicy? securityPolicy;
+  final SecurityPolicy? securityPolicy;
   @override
-  final _i6.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
   @override
-  final _i5.MutualTlsAuthentication? mutualTlsAuthentication;
+  final MutualTlsAuthentication? mutualTlsAuthentication;
   @override
   final String? ownershipVerificationCertificateArn;
 
@@ -173,16 +173,16 @@ class DomainNameBuilder implements Builder<DomainName, DomainNameBuilder> {
   set distributionHostedZoneId(String? distributionHostedZoneId) =>
       _$this._distributionHostedZoneId = distributionHostedZoneId;
 
-  _i2.EndpointConfigurationBuilder? _endpointConfiguration;
-  _i2.EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new _i2.EndpointConfigurationBuilder();
+  EndpointConfigurationBuilder? _endpointConfiguration;
+  EndpointConfigurationBuilder get endpointConfiguration =>
+      _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
   set endpointConfiguration(
-          _i2.EndpointConfigurationBuilder? endpointConfiguration) =>
+          EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
-  _i3.DomainNameStatus? _domainNameStatus;
-  _i3.DomainNameStatus? get domainNameStatus => _$this._domainNameStatus;
-  set domainNameStatus(_i3.DomainNameStatus? domainNameStatus) =>
+  DomainNameStatus? _domainNameStatus;
+  DomainNameStatus? get domainNameStatus => _$this._domainNameStatus;
+  set domainNameStatus(DomainNameStatus? domainNameStatus) =>
       _$this._domainNameStatus = domainNameStatus;
 
   String? _domainNameStatusMessage;
@@ -190,22 +190,21 @@ class DomainNameBuilder implements Builder<DomainName, DomainNameBuilder> {
   set domainNameStatusMessage(String? domainNameStatusMessage) =>
       _$this._domainNameStatusMessage = domainNameStatusMessage;
 
-  _i4.SecurityPolicy? _securityPolicy;
-  _i4.SecurityPolicy? get securityPolicy => _$this._securityPolicy;
-  set securityPolicy(_i4.SecurityPolicy? securityPolicy) =>
+  SecurityPolicy? _securityPolicy;
+  SecurityPolicy? get securityPolicy => _$this._securityPolicy;
+  set securityPolicy(SecurityPolicy? securityPolicy) =>
       _$this._securityPolicy = securityPolicy;
 
-  _i6.MapBuilder<String, String>? _tags;
-  _i6.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i6.MapBuilder<String, String>();
-  set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  _i5.MutualTlsAuthenticationBuilder? _mutualTlsAuthentication;
-  _i5.MutualTlsAuthenticationBuilder get mutualTlsAuthentication =>
-      _$this._mutualTlsAuthentication ??=
-          new _i5.MutualTlsAuthenticationBuilder();
+  MutualTlsAuthenticationBuilder? _mutualTlsAuthentication;
+  MutualTlsAuthenticationBuilder get mutualTlsAuthentication =>
+      _$this._mutualTlsAuthentication ??= new MutualTlsAuthenticationBuilder();
   set mutualTlsAuthentication(
-          _i5.MutualTlsAuthenticationBuilder? mutualTlsAuthentication) =>
+          MutualTlsAuthenticationBuilder? mutualTlsAuthentication) =>
       _$this._mutualTlsAuthentication = mutualTlsAuthentication;
 
   String? _ownershipVerificationCertificateArn;

@@ -8,11 +8,11 @@ part of 'global_secondary_index_update.dart';
 
 class _$GlobalSecondaryIndexUpdate extends GlobalSecondaryIndexUpdate {
   @override
-  final _i2.UpdateGlobalSecondaryIndexAction? update_;
+  final UpdateGlobalSecondaryIndexAction? update_;
   @override
-  final _i3.CreateGlobalSecondaryIndexAction? create;
+  final CreateGlobalSecondaryIndexAction? create;
   @override
-  final _i4.DeleteGlobalSecondaryIndexAction? delete;
+  final DeleteGlobalSecondaryIndexAction? delete;
 
   factory _$GlobalSecondaryIndexUpdate(
           [void Function(GlobalSecondaryIndexUpdateBuilder)? updates]) =>
@@ -55,22 +55,22 @@ class GlobalSecondaryIndexUpdateBuilder
         Builder<GlobalSecondaryIndexUpdate, GlobalSecondaryIndexUpdateBuilder> {
   _$GlobalSecondaryIndexUpdate? _$v;
 
-  _i2.UpdateGlobalSecondaryIndexActionBuilder? _update_;
-  _i2.UpdateGlobalSecondaryIndexActionBuilder get update_ =>
-      _$this._update_ ??= new _i2.UpdateGlobalSecondaryIndexActionBuilder();
-  set update_(_i2.UpdateGlobalSecondaryIndexActionBuilder? update_) =>
+  UpdateGlobalSecondaryIndexActionBuilder? _update_;
+  UpdateGlobalSecondaryIndexActionBuilder get update_ =>
+      _$this._update_ ??= new UpdateGlobalSecondaryIndexActionBuilder();
+  set update_(UpdateGlobalSecondaryIndexActionBuilder? update_) =>
       _$this._update_ = update_;
 
-  _i3.CreateGlobalSecondaryIndexActionBuilder? _create;
-  _i3.CreateGlobalSecondaryIndexActionBuilder get create =>
-      _$this._create ??= new _i3.CreateGlobalSecondaryIndexActionBuilder();
-  set create(_i3.CreateGlobalSecondaryIndexActionBuilder? create) =>
+  CreateGlobalSecondaryIndexActionBuilder? _create;
+  CreateGlobalSecondaryIndexActionBuilder get create =>
+      _$this._create ??= new CreateGlobalSecondaryIndexActionBuilder();
+  set create(CreateGlobalSecondaryIndexActionBuilder? create) =>
       _$this._create = create;
 
-  _i4.DeleteGlobalSecondaryIndexActionBuilder? _delete;
-  _i4.DeleteGlobalSecondaryIndexActionBuilder get delete =>
-      _$this._delete ??= new _i4.DeleteGlobalSecondaryIndexActionBuilder();
-  set delete(_i4.DeleteGlobalSecondaryIndexActionBuilder? delete) =>
+  DeleteGlobalSecondaryIndexActionBuilder? _delete;
+  DeleteGlobalSecondaryIndexActionBuilder get delete =>
+      _$this._delete ??= new DeleteGlobalSecondaryIndexActionBuilder();
+  set delete(DeleteGlobalSecondaryIndexActionBuilder? delete) =>
       _$this._delete = delete;
 
   GlobalSecondaryIndexUpdateBuilder();

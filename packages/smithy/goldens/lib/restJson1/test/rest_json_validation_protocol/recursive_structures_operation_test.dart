@@ -4,19 +4,14 @@
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_validation_protocol.test.recursive_structures_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/recursive_structures_input.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/recursive_union_one.dart'
-    as _i6;
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/validation_exception.dart'
-    as _i7;
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/validation_exception_field.dart'
-    as _i9;
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/operation/recursive_structures_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/recursive_structures_input.dart';
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/recursive_union_one.dart';
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/validation_exception.dart';
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/validation_exception_field.dart';
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/operation/recursive_structures_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -25,14 +20,14 @@ void main() {
     'RestJsonRecursiveStructuresValidate (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.RecursiveStructuresOperation(
+        operation: RecursiveStructuresOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonRecursiveStructuresValidate',
           documentation: 'Validation should work with recursive structures.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -69,26 +64,26 @@ void main() {
 }
 
 class RecursiveStructuresInputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.RecursiveStructuresInput> {
+    extends _i3.StructuredSmithySerializer<RecursiveStructuresInput> {
   const RecursiveStructuresInputRestJson1Serializer()
       : super('RecursiveStructuresInput');
 
   @override
-  Iterable<Type> get types => const [_i5.RecursiveStructuresInput];
+  Iterable<Type> get types => const [RecursiveStructuresInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.RecursiveStructuresInput deserialize(
+  RecursiveStructuresInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.RecursiveStructuresInputBuilder();
+    final result = RecursiveStructuresInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -101,8 +96,8 @@ class RecursiveStructuresInputRestJson1Serializer
         case 'union':
           result.union = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.RecursiveUnionOne),
-          ) as _i6.RecursiveUnionOne);
+            specifiedType: const FullType(RecursiveUnionOne),
+          ) as RecursiveUnionOne);
       }
     }
 
@@ -112,7 +107,7 @@ class RecursiveStructuresInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.RecursiveStructuresInput object, {
+    RecursiveStructuresInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -120,25 +115,25 @@ class RecursiveStructuresInputRestJson1Serializer
 }
 
 class ValidationExceptionRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i7.ValidationException> {
+    extends _i3.StructuredSmithySerializer<ValidationException> {
   const ValidationExceptionRestJson1Serializer() : super('ValidationException');
 
   @override
-  Iterable<Type> get types => const [_i7.ValidationException];
+  Iterable<Type> get types => const [ValidationException];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i7.ValidationException deserialize(
+  ValidationException deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.ValidationExceptionBuilder();
+    final result = ValidationExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -157,10 +152,10 @@ class ValidationExceptionRestJson1Serializer
           result.fieldList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i9.ValidationExceptionField)],
+              _i4.BuiltList,
+              [FullType(ValidationExceptionField)],
             ),
-          ) as _i8.BuiltList<_i9.ValidationExceptionField>));
+          ) as _i4.BuiltList<ValidationExceptionField>));
       }
     }
 
@@ -170,7 +165,7 @@ class ValidationExceptionRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.ValidationException object, {
+    ValidationException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -178,26 +173,26 @@ class ValidationExceptionRestJson1Serializer
 }
 
 class ValidationExceptionFieldRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i9.ValidationExceptionField> {
+    extends _i3.StructuredSmithySerializer<ValidationExceptionField> {
   const ValidationExceptionFieldRestJson1Serializer()
       : super('ValidationExceptionField');
 
   @override
-  Iterable<Type> get types => const [_i9.ValidationExceptionField];
+  Iterable<Type> get types => const [ValidationExceptionField];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i9.ValidationExceptionField deserialize(
+  ValidationExceptionField deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i9.ValidationExceptionFieldBuilder();
+    final result = ValidationExceptionFieldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -226,7 +221,7 @@ class ValidationExceptionFieldRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i9.ValidationExceptionField object, {
+    ValidationExceptionField object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -14,13 +14,13 @@ class _$VpcLink extends VpcLink {
   @override
   final String? description;
   @override
-  final _i3.BuiltList<String>? targetArns;
+  final _i2.BuiltList<String>? targetArns;
   @override
-  final _i2.VpcLinkStatus? status;
+  final VpcLinkStatus? status;
   @override
   final String? statusMessage;
   @override
-  final _i3.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
 
   factory _$VpcLink([void Function(VpcLinkBuilder)? updates]) =>
       (new VpcLinkBuilder()..update(updates))._build();
@@ -85,25 +85,25 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i3.ListBuilder<String>? _targetArns;
-  _i3.ListBuilder<String> get targetArns =>
-      _$this._targetArns ??= new _i3.ListBuilder<String>();
-  set targetArns(_i3.ListBuilder<String>? targetArns) =>
+  _i2.ListBuilder<String>? _targetArns;
+  _i2.ListBuilder<String> get targetArns =>
+      _$this._targetArns ??= new _i2.ListBuilder<String>();
+  set targetArns(_i2.ListBuilder<String>? targetArns) =>
       _$this._targetArns = targetArns;
 
-  _i2.VpcLinkStatus? _status;
-  _i2.VpcLinkStatus? get status => _$this._status;
-  set status(_i2.VpcLinkStatus? status) => _$this._status = status;
+  VpcLinkStatus? _status;
+  VpcLinkStatus? get status => _$this._status;
+  set status(VpcLinkStatus? status) => _$this._status = status;
 
   String? _statusMessage;
   String? get statusMessage => _$this._statusMessage;
   set statusMessage(String? statusMessage) =>
       _$this._statusMessage = statusMessage;
 
-  _i3.MapBuilder<String, String>? _tags;
-  _i3.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i3.MapBuilder<String, String>();
-  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   VpcLinkBuilder();
 

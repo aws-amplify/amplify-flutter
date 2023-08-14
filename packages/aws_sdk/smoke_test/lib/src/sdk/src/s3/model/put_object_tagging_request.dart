@@ -3,32 +3,32 @@
 
 library smoke_test.s3.model.put_object_tagging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart';
 
 part 'put_object_tagging_request.g.dart';
 
 abstract class PutObjectTaggingRequest
-    with _i1.HttpInput<_i2.Tagging>, _i3.AWSEquatable<PutObjectTaggingRequest>
+    with _i1.HttpInput<Tagging>, _i2.AWSEquatable<PutObjectTaggingRequest>
     implements
         Built<PutObjectTaggingRequest, PutObjectTaggingRequestBuilder>,
-        _i1.HasPayload<_i2.Tagging> {
+        _i1.HasPayload<Tagging> {
   factory PutObjectTaggingRequest({
     required String bucket,
     required String key,
     String? versionId,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.Tagging tagging,
+    ChecksumAlgorithm? checksumAlgorithm,
+    required Tagging tagging,
     String? expectedBucketOwner,
-    _i5.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
   }) {
     return _$PutObjectTaggingRequest._(
       bucket: bucket,
@@ -49,8 +49,8 @@ abstract class PutObjectTaggingRequest
   const PutObjectTaggingRequest._();
 
   factory PutObjectTaggingRequest.fromRequest(
-    _i2.Tagging payload,
-    _i3.AWSBaseHttpRequest request, {
+    Tagging payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutObjectTaggingRequest.build((b) {
@@ -59,7 +59,7 @@ abstract class PutObjectTaggingRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -67,7 +67,7 @@ abstract class PutObjectTaggingRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i5.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.queryParameters['versionId'] != null) {
@@ -81,7 +81,7 @@ abstract class PutObjectTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Tagging>> serializers = [
+  static const List<_i1.SmithySerializer<Tagging>> serializers = [
     PutObjectTaggingRequestRestXmlSerializer()
   ];
 
@@ -106,16 +106,16 @@ abstract class PutObjectTaggingRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container for the `TagSet` and `Tag` elements
-  _i2.Tagging get tagging;
+  Tagging get tagging;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i5.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -131,7 +131,7 @@ abstract class PutObjectTaggingRequest
   }
 
   @override
-  _i2.Tagging getPayload() => tagging;
+  Tagging getPayload() => tagging;
   @override
   List<Object?> get props => [
         bucket,
@@ -183,7 +183,7 @@ abstract class PutObjectTaggingRequest
 }
 
 class PutObjectTaggingRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.Tagging> {
+    extends _i1.StructuredSmithySerializer<Tagging> {
   const PutObjectTaggingRequestRestXmlSerializer()
       : super('PutObjectTaggingRequest');
 
@@ -200,12 +200,12 @@ class PutObjectTaggingRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.Tagging deserialize(
+  Tagging deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.TaggingBuilder();
+    final result = TaggingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -221,10 +221,10 @@ class PutObjectTaggingRequestRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i7.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i6.BuiltList<_i7.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -234,7 +234,7 @@ class PutObjectTaggingRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.Tagging object, {
+    Tagging object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -243,15 +243,15 @@ class PutObjectTaggingRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.Tagging(:tagSet) = object;
+    final Tagging(:tagSet) = object;
     result$
       ..add(const _i1.XmlElementName('TagSet'))
       ..add(const _i1.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i7.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

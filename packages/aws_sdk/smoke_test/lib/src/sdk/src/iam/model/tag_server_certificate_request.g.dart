@@ -10,7 +10,7 @@ class _$TagServerCertificateRequest extends TagServerCertificateRequest {
   @override
   final String serverCertificateName;
   @override
-  final _i4.BuiltList<_i3.Tag> tags;
+  final _i3.BuiltList<Tag> tags;
 
   factory _$TagServerCertificateRequest(
           [void Function(TagServerCertificateRequestBuilder)? updates]) =>
@@ -63,10 +63,9 @@ class TagServerCertificateRequestBuilder
   set serverCertificateName(String? serverCertificateName) =>
       _$this._serverCertificateName = serverCertificateName;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   TagServerCertificateRequestBuilder();
 

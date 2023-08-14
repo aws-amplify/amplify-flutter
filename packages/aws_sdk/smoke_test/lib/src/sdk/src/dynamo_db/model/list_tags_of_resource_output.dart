@@ -4,11 +4,11 @@
 library smoke_test.dynamo_db.model.list_tags_of_resource_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart';
 
 part 'list_tags_of_resource_output.g.dart';
 
@@ -17,11 +17,11 @@ abstract class ListTagsOfResourceOutput
     implements
         Built<ListTagsOfResourceOutput, ListTagsOfResourceOutputBuilder> {
   factory ListTagsOfResourceOutput({
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
     String? nextToken,
   }) {
     return _$ListTagsOfResourceOutput._(
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
       nextToken: nextToken,
     );
   }
@@ -39,11 +39,11 @@ abstract class ListTagsOfResourceOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListTagsOfResourceOutput>>
+  static const List<_i3.SmithySerializer<ListTagsOfResourceOutput>>
       serializers = [ListTagsOfResourceOutputAwsJson10Serializer()];
 
   /// The tags currently associated with the Amazon DynamoDB resource.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
 
   /// If this value is returned, there are additional results to be displayed. To retrieve them, call ListTagsOfResource again, with NextToken set to this value.
   String? get nextToken;
@@ -68,7 +68,7 @@ abstract class ListTagsOfResourceOutput
 }
 
 class ListTagsOfResourceOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListTagsOfResourceOutput> {
+    extends _i3.StructuredSmithySerializer<ListTagsOfResourceOutput> {
   const ListTagsOfResourceOutputAwsJson10Serializer()
       : super('ListTagsOfResourceOutput');
 
@@ -78,8 +78,8 @@ class ListTagsOfResourceOutputAwsJson10Serializer
         _$ListTagsOfResourceOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -104,10 +104,10 @@ class ListTagsOfResourceOutputAwsJson10Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -133,8 +133,8 @@ class ListTagsOfResourceOutputAwsJson10Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

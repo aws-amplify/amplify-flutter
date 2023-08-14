@@ -8,7 +8,7 @@ part of 'resend_confirmation_code_response.dart';
 
 class _$ResendConfirmationCodeResponse extends ResendConfirmationCodeResponse {
   @override
-  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
+  final CodeDeliveryDetailsType? codeDeliveryDetails;
 
   factory _$ResendConfirmationCodeResponse(
           [void Function(ResendConfirmationCodeResponseBuilder)? updates]) =>
@@ -47,16 +47,14 @@ class ResendConfirmationCodeResponseBuilder
             ResendConfirmationCodeResponseBuilder> {
   _$ResendConfirmationCodeResponse? _$v;
 
-  _i2.CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
-  _i2.CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new _i2.CodeDeliveryDetailsTypeBuilder();
+  CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
+  CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
+      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
+          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
-  ResendConfirmationCodeResponseBuilder() {
-    ResendConfirmationCodeResponse._init(this);
-  }
+  ResendConfirmationCodeResponseBuilder();
 
   ResendConfirmationCodeResponseBuilder get _$this {
     final $v = _$v;

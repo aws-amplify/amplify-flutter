@@ -3,14 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.campaign_event_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/event_dimensions.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/filter_type.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/event_dimensions.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/filter_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'campaign_event_filter.g.dart';
 
@@ -20,8 +18,8 @@ abstract class CampaignEventFilter
     implements Built<CampaignEventFilter, CampaignEventFilterBuilder> {
   /// Specifies the settings for events that cause a campaign to be sent.
   factory CampaignEventFilter({
-    required _i2.EventDimensions dimensions,
-    required _i3.FilterType filterType,
+    required EventDimensions dimensions,
+    required FilterType filterType,
   }) {
     return _$CampaignEventFilter._(
       dimensions: dimensions,
@@ -36,15 +34,15 @@ abstract class CampaignEventFilter
 
   const CampaignEventFilter._();
 
-  static const List<_i4.SmithySerializer<CampaignEventFilter>> serializers = [
+  static const List<_i2.SmithySerializer<CampaignEventFilter>> serializers = [
     CampaignEventFilterRestJson1Serializer()
   ];
 
   /// The dimension settings of the event filter for the campaign.
-  _i2.EventDimensions get dimensions;
+  EventDimensions get dimensions;
 
   /// The type of event that causes the campaign to be sent. Valid values are: SYSTEM, sends the campaign when a system event occurs; and, ENDPOINT, sends the campaign when an endpoint event (Events resource) occurs.
-  _i3.FilterType get filterType;
+  FilterType get filterType;
   @override
   List<Object?> get props => [
         dimensions,
@@ -66,7 +64,7 @@ abstract class CampaignEventFilter
 }
 
 class CampaignEventFilterRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<CampaignEventFilter> {
+    extends _i2.StructuredSmithySerializer<CampaignEventFilter> {
   const CampaignEventFilterRestJson1Serializer() : super('CampaignEventFilter');
 
   @override
@@ -75,8 +73,8 @@ class CampaignEventFilterRestJson1Serializer
         _$CampaignEventFilter,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -100,13 +98,13 @@ class CampaignEventFilterRestJson1Serializer
         case 'Dimensions':
           result.dimensions.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EventDimensions),
-          ) as _i2.EventDimensions));
+            specifiedType: const FullType(EventDimensions),
+          ) as EventDimensions));
         case 'FilterType':
           result.filterType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.FilterType),
-          ) as _i3.FilterType);
+            specifiedType: const FullType(FilterType),
+          ) as FilterType);
       }
     }
 
@@ -125,12 +123,12 @@ class CampaignEventFilterRestJson1Serializer
       'Dimensions',
       serializers.serialize(
         dimensions,
-        specifiedType: const FullType(_i2.EventDimensions),
+        specifiedType: const FullType(EventDimensions),
       ),
       'FilterType',
       serializers.serialize(
         filterType,
-        specifiedType: const FullType(_i3.FilterType),
+        specifiedType: const FullType(FilterType),
       ),
     ]);
     return result$;

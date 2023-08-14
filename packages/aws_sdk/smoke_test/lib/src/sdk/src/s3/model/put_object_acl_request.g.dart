@@ -8,15 +8,15 @@ part of 'put_object_acl_request.dart';
 
 class _$PutObjectAclRequest extends PutObjectAclRequest {
   @override
-  final _i4.ObjectCannedAcl? acl;
+  final ObjectCannedAcl? acl;
   @override
-  final _i2.AccessControlPolicy? accessControlPolicy;
+  final AccessControlPolicy? accessControlPolicy;
   @override
   final String bucket;
   @override
   final String? contentMd5;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? grantFullControl;
   @override
@@ -30,7 +30,7 @@ class _$PutObjectAclRequest extends PutObjectAclRequest {
   @override
   final String key;
   @override
-  final _i6.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? versionId;
   @override
@@ -116,15 +116,14 @@ class PutObjectAclRequestBuilder
     implements Builder<PutObjectAclRequest, PutObjectAclRequestBuilder> {
   _$PutObjectAclRequest? _$v;
 
-  _i4.ObjectCannedAcl? _acl;
-  _i4.ObjectCannedAcl? get acl => _$this._acl;
-  set acl(_i4.ObjectCannedAcl? acl) => _$this._acl = acl;
+  ObjectCannedAcl? _acl;
+  ObjectCannedAcl? get acl => _$this._acl;
+  set acl(ObjectCannedAcl? acl) => _$this._acl = acl;
 
-  _i2.AccessControlPolicyBuilder? _accessControlPolicy;
-  _i2.AccessControlPolicyBuilder get accessControlPolicy =>
-      _$this._accessControlPolicy ??= new _i2.AccessControlPolicyBuilder();
-  set accessControlPolicy(
-          _i2.AccessControlPolicyBuilder? accessControlPolicy) =>
+  AccessControlPolicyBuilder? _accessControlPolicy;
+  AccessControlPolicyBuilder get accessControlPolicy =>
+      _$this._accessControlPolicy ??= new AccessControlPolicyBuilder();
+  set accessControlPolicy(AccessControlPolicyBuilder? accessControlPolicy) =>
       _$this._accessControlPolicy = accessControlPolicy;
 
   String? _bucket;
@@ -135,9 +134,9 @@ class PutObjectAclRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _grantFullControl;
@@ -166,9 +165,9 @@ class PutObjectAclRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i6.RequestPayer? _requestPayer;
-  _i6.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i6.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _versionId;

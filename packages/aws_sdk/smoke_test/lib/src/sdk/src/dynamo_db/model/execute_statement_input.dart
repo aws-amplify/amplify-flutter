@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.execute_statement_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
-    as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart';
 
 part 'execute_statement_input.g.dart';
 
@@ -24,17 +21,16 @@ abstract class ExecuteStatementInput
     implements Built<ExecuteStatementInput, ExecuteStatementInputBuilder> {
   factory ExecuteStatementInput({
     required String statement,
-    List<_i3.AttributeValue>? parameters,
+    List<AttributeValue>? parameters,
     bool? consistentRead,
     String? nextToken,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    ReturnConsumedCapacity? returnConsumedCapacity,
     int? limit,
-    _i5.ReturnValuesOnConditionCheckFailure?
-        returnValuesOnConditionCheckFailure,
+    ReturnValuesOnConditionCheckFailure? returnValuesOnConditionCheckFailure,
   }) {
     return _$ExecuteStatementInput._(
       statement: statement,
-      parameters: parameters == null ? null : _i6.BuiltList(parameters),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
       consistentRead: consistentRead,
       nextToken: nextToken,
       returnConsumedCapacity: returnConsumedCapacity,
@@ -64,7 +60,7 @@ abstract class ExecuteStatementInput
   String get statement;
 
   /// The parameters for the PartiQL statement, if any.
-  _i6.BuiltList<_i3.AttributeValue>? get parameters;
+  _i3.BuiltList<AttributeValue>? get parameters;
 
   /// The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
   bool? get consistentRead;
@@ -81,7 +77,7 @@ abstract class ExecuteStatementInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, along with a key in `LastEvaluatedKey` to apply in a subsequent operation so you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation.
   int? get limit;
@@ -89,8 +85,7 @@ abstract class ExecuteStatementInput
   /// An optional parameter that returns the item attributes for an `ExecuteStatement` operation that failed a condition check.
   ///
   /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
-  _i5.ReturnValuesOnConditionCheckFailure?
-      get returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure? get returnValuesOnConditionCheckFailure;
   @override
   ExecuteStatementInput getPayload() => this;
   @override
@@ -180,10 +175,10 @@ class ExecuteStatementInputAwsJson10Serializer
           result.parameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.AttributeValue)],
+              _i3.BuiltList,
+              [FullType(AttributeValue)],
             ),
-          ) as _i6.BuiltList<_i3.AttributeValue>));
+          ) as _i3.BuiltList<AttributeValue>));
         case 'ConsistentRead':
           result.consistentRead = (serializers.deserialize(
             value,
@@ -197,8 +192,8 @@ class ExecuteStatementInputAwsJson10Serializer
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -207,9 +202,8 @@ class ExecuteStatementInputAwsJson10Serializer
         case 'ReturnValuesOnConditionCheckFailure':
           result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i5.ReturnValuesOnConditionCheckFailure),
-          ) as _i5.ReturnValuesOnConditionCheckFailure);
+            specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
+          ) as ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -245,8 +239,8 @@ class ExecuteStatementInputAwsJson10Serializer
         ..add(serializers.serialize(
           parameters,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i3.AttributeValue)],
+            _i3.BuiltList,
+            [FullType(AttributeValue)],
           ),
         ));
     }
@@ -271,7 +265,7 @@ class ExecuteStatementInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     if (limit != null) {
@@ -287,8 +281,7 @@ class ExecuteStatementInputAwsJson10Serializer
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
           returnValuesOnConditionCheckFailure,
-          specifiedType:
-              const FullType(_i5.ReturnValuesOnConditionCheckFailure),
+          specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

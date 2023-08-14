@@ -8,13 +8,13 @@ part of 'respond_to_auth_challenge_response.dart';
 
 class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
   @override
-  final _i2.ChallengeNameType? challengeName;
+  final ChallengeNameType? challengeName;
   @override
   final String? session;
   @override
-  final _i4.BuiltMap<String, String?>? challengeParameters;
+  final _i2.BuiltMap<String, String?>? challengeParameters;
   @override
-  final _i3.AuthenticationResultType? authenticationResult;
+  final AuthenticationResultType? authenticationResult;
 
   factory _$RespondToAuthChallengeResponse(
           [void Function(RespondToAuthChallengeResponseBuilder)? updates]) =>
@@ -64,33 +64,30 @@ class RespondToAuthChallengeResponseBuilder
             RespondToAuthChallengeResponseBuilder> {
   _$RespondToAuthChallengeResponse? _$v;
 
-  _i2.ChallengeNameType? _challengeName;
-  _i2.ChallengeNameType? get challengeName => _$this._challengeName;
-  set challengeName(_i2.ChallengeNameType? challengeName) =>
+  ChallengeNameType? _challengeName;
+  ChallengeNameType? get challengeName => _$this._challengeName;
+  set challengeName(ChallengeNameType? challengeName) =>
       _$this._challengeName = challengeName;
 
   String? _session;
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  _i4.MapBuilder<String, String?>? _challengeParameters;
-  _i4.MapBuilder<String, String?> get challengeParameters =>
-      _$this._challengeParameters ??= new _i4.MapBuilder<String, String?>();
+  _i2.MapBuilder<String, String?>? _challengeParameters;
+  _i2.MapBuilder<String, String?> get challengeParameters =>
+      _$this._challengeParameters ??= new _i2.MapBuilder<String, String?>();
   set challengeParameters(
-          _i4.MapBuilder<String, String?>? challengeParameters) =>
+          _i2.MapBuilder<String, String?>? challengeParameters) =>
       _$this._challengeParameters = challengeParameters;
 
-  _i3.AuthenticationResultTypeBuilder? _authenticationResult;
-  _i3.AuthenticationResultTypeBuilder get authenticationResult =>
-      _$this._authenticationResult ??=
-          new _i3.AuthenticationResultTypeBuilder();
+  AuthenticationResultTypeBuilder? _authenticationResult;
+  AuthenticationResultTypeBuilder get authenticationResult =>
+      _$this._authenticationResult ??= new AuthenticationResultTypeBuilder();
   set authenticationResult(
-          _i3.AuthenticationResultTypeBuilder? authenticationResult) =>
+          AuthenticationResultTypeBuilder? authenticationResult) =>
       _$this._authenticationResult = authenticationResult;
 
-  RespondToAuthChallengeResponseBuilder() {
-    RespondToAuthChallengeResponse._init(this);
-  }
+  RespondToAuthChallengeResponseBuilder();
 
   RespondToAuthChallengeResponseBuilder get _$this {
     final $v = _$v;

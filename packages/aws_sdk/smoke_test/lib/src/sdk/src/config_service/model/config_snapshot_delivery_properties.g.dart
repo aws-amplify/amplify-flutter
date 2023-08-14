@@ -9,7 +9,7 @@ part of 'config_snapshot_delivery_properties.dart';
 class _$ConfigSnapshotDeliveryProperties
     extends ConfigSnapshotDeliveryProperties {
   @override
-  final _i2.MaximumExecutionFrequency? deliveryFrequency;
+  final MaximumExecutionFrequency? deliveryFrequency;
 
   factory _$ConfigSnapshotDeliveryProperties(
           [void Function(ConfigSnapshotDeliveryPropertiesBuilder)? updates]) =>
@@ -48,10 +48,9 @@ class ConfigSnapshotDeliveryPropertiesBuilder
             ConfigSnapshotDeliveryPropertiesBuilder> {
   _$ConfigSnapshotDeliveryProperties? _$v;
 
-  _i2.MaximumExecutionFrequency? _deliveryFrequency;
-  _i2.MaximumExecutionFrequency? get deliveryFrequency =>
-      _$this._deliveryFrequency;
-  set deliveryFrequency(_i2.MaximumExecutionFrequency? deliveryFrequency) =>
+  MaximumExecutionFrequency? _deliveryFrequency;
+  MaximumExecutionFrequency? get deliveryFrequency => _$this._deliveryFrequency;
+  set deliveryFrequency(MaximumExecutionFrequency? deliveryFrequency) =>
       _$this._deliveryFrequency = deliveryFrequency;
 
   ConfigSnapshotDeliveryPropertiesBuilder();

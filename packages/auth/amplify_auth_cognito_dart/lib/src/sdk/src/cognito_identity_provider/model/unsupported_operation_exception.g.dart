@@ -56,9 +56,7 @@ class UnsupportedOperationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnsupportedOperationExceptionBuilder() {
-    UnsupportedOperationException._init(this);
-  }
+  UnsupportedOperationExceptionBuilder();
 
   UnsupportedOperationExceptionBuilder get _$this {
     final $v = _$v;

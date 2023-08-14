@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.api_stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart';
 
 part 'api_stage.g.dart';
 
@@ -21,12 +20,12 @@ abstract class ApiStage
   factory ApiStage({
     String? apiId,
     String? stage,
-    Map<String, _i2.ThrottleSettings>? throttle,
+    Map<String, ThrottleSettings>? throttle,
   }) {
     return _$ApiStage._(
       apiId: apiId,
       stage: stage,
-      throttle: throttle == null ? null : _i3.BuiltMap(throttle),
+      throttle: throttle == null ? null : _i2.BuiltMap(throttle),
     );
   }
 
@@ -35,7 +34,7 @@ abstract class ApiStage
 
   const ApiStage._();
 
-  static const List<_i4.SmithySerializer<ApiStage>> serializers = [
+  static const List<_i3.SmithySerializer<ApiStage>> serializers = [
     ApiStageRestJson1Serializer()
   ];
 
@@ -46,7 +45,7 @@ abstract class ApiStage
   String? get stage;
 
   /// Map containing method level throttling information for API stage in a usage plan.
-  _i3.BuiltMap<String, _i2.ThrottleSettings>? get throttle;
+  _i2.BuiltMap<String, ThrottleSettings>? get throttle;
   @override
   List<Object?> get props => [
         apiId,
@@ -73,7 +72,7 @@ abstract class ApiStage
 }
 
 class ApiStageRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<ApiStage> {
+    extends _i3.StructuredSmithySerializer<ApiStage> {
   const ApiStageRestJson1Serializer() : super('ApiStage');
 
   @override
@@ -82,8 +81,8 @@ class ApiStageRestJson1Serializer
         _$ApiStage,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -118,13 +117,13 @@ class ApiStageRestJson1Serializer
           result.throttle.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.ThrottleSettings),
+                FullType(ThrottleSettings),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.ThrottleSettings>));
+          ) as _i2.BuiltMap<String, ThrottleSettings>));
       }
     }
 
@@ -161,10 +160,10 @@ class ApiStageRestJson1Serializer
         ..add(serializers.serialize(
           throttle,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.ThrottleSettings),
+              FullType(ThrottleSettings),
             ],
           ),
         ));

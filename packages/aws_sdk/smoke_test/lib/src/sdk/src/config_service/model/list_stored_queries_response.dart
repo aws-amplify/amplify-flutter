@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.list_stored_queries_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/stored_query_metadata.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/stored_query_metadata.dart';
 
 part 'list_stored_queries_response.g.dart';
 
@@ -18,13 +17,13 @@ abstract class ListStoredQueriesResponse
     implements
         Built<ListStoredQueriesResponse, ListStoredQueriesResponseBuilder> {
   factory ListStoredQueriesResponse({
-    List<_i2.StoredQueryMetadata>? storedQueryMetadata,
+    List<StoredQueryMetadata>? storedQueryMetadata,
     String? nextToken,
   }) {
     return _$ListStoredQueriesResponse._(
       storedQueryMetadata: storedQueryMetadata == null
           ? null
-          : _i3.BuiltList(storedQueryMetadata),
+          : _i2.BuiltList(storedQueryMetadata),
       nextToken: nextToken,
     );
   }
@@ -42,11 +41,11 @@ abstract class ListStoredQueriesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListStoredQueriesResponse>>
+  static const List<_i3.SmithySerializer<ListStoredQueriesResponse>>
       serializers = [ListStoredQueriesResponseAwsJson11Serializer()];
 
   /// A list of `StoredQueryMetadata` objects.
-  _i3.BuiltList<_i2.StoredQueryMetadata>? get storedQueryMetadata;
+  _i2.BuiltList<StoredQueryMetadata>? get storedQueryMetadata;
 
   /// If the previous paginated request didn't return all of the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
   String? get nextToken;
@@ -71,7 +70,7 @@ abstract class ListStoredQueriesResponse
 }
 
 class ListStoredQueriesResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ListStoredQueriesResponse> {
+    extends _i3.StructuredSmithySerializer<ListStoredQueriesResponse> {
   const ListStoredQueriesResponseAwsJson11Serializer()
       : super('ListStoredQueriesResponse');
 
@@ -81,8 +80,8 @@ class ListStoredQueriesResponseAwsJson11Serializer
         _$ListStoredQueriesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,10 +106,10 @@ class ListStoredQueriesResponseAwsJson11Serializer
           result.storedQueryMetadata.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.StoredQueryMetadata)],
+              _i2.BuiltList,
+              [FullType(StoredQueryMetadata)],
             ),
-          ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
+          ) as _i2.BuiltList<StoredQueryMetadata>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -136,8 +135,8 @@ class ListStoredQueriesResponseAwsJson11Serializer
         ..add(serializers.serialize(
           storedQueryMetadata,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.StoredQueryMetadata)],
+            _i2.BuiltList,
+            [FullType(StoredQueryMetadata)],
           ),
         ));
     }

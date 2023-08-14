@@ -8,9 +8,9 @@ part of 'batch_get_resource_config_response.dart';
 
 class _$BatchGetResourceConfigResponse extends BatchGetResourceConfigResponse {
   @override
-  final _i4.BuiltList<_i2.BaseConfigurationItem>? baseConfigurationItems;
+  final _i2.BuiltList<BaseConfigurationItem>? baseConfigurationItems;
   @override
-  final _i4.BuiltList<_i3.ResourceKey>? unprocessedResourceKeys;
+  final _i2.BuiltList<ResourceKey>? unprocessedResourceKeys;
 
   factory _$BatchGetResourceConfigResponse(
           [void Function(BatchGetResourceConfigResponseBuilder)? updates]) =>
@@ -53,20 +53,19 @@ class BatchGetResourceConfigResponseBuilder
             BatchGetResourceConfigResponseBuilder> {
   _$BatchGetResourceConfigResponse? _$v;
 
-  _i4.ListBuilder<_i2.BaseConfigurationItem>? _baseConfigurationItems;
-  _i4.ListBuilder<_i2.BaseConfigurationItem> get baseConfigurationItems =>
+  _i2.ListBuilder<BaseConfigurationItem>? _baseConfigurationItems;
+  _i2.ListBuilder<BaseConfigurationItem> get baseConfigurationItems =>
       _$this._baseConfigurationItems ??=
-          new _i4.ListBuilder<_i2.BaseConfigurationItem>();
+          new _i2.ListBuilder<BaseConfigurationItem>();
   set baseConfigurationItems(
-          _i4.ListBuilder<_i2.BaseConfigurationItem>? baseConfigurationItems) =>
+          _i2.ListBuilder<BaseConfigurationItem>? baseConfigurationItems) =>
       _$this._baseConfigurationItems = baseConfigurationItems;
 
-  _i4.ListBuilder<_i3.ResourceKey>? _unprocessedResourceKeys;
-  _i4.ListBuilder<_i3.ResourceKey> get unprocessedResourceKeys =>
-      _$this._unprocessedResourceKeys ??=
-          new _i4.ListBuilder<_i3.ResourceKey>();
+  _i2.ListBuilder<ResourceKey>? _unprocessedResourceKeys;
+  _i2.ListBuilder<ResourceKey> get unprocessedResourceKeys =>
+      _$this._unprocessedResourceKeys ??= new _i2.ListBuilder<ResourceKey>();
   set unprocessedResourceKeys(
-          _i4.ListBuilder<_i3.ResourceKey>? unprocessedResourceKeys) =>
+          _i2.ListBuilder<ResourceKey>? unprocessedResourceKeys) =>
       _$this._unprocessedResourceKeys = unprocessedResourceKeys;
 
   BatchGetResourceConfigResponseBuilder();

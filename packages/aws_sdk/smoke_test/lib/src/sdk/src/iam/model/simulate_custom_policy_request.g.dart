@@ -8,13 +8,13 @@ part of 'simulate_custom_policy_request.dart';
 
 class _$SimulateCustomPolicyRequest extends SimulateCustomPolicyRequest {
   @override
-  final _i4.BuiltList<String> policyInputList;
+  final _i3.BuiltList<String> policyInputList;
   @override
-  final _i4.BuiltList<String>? permissionsBoundaryPolicyInputList;
+  final _i3.BuiltList<String>? permissionsBoundaryPolicyInputList;
   @override
-  final _i4.BuiltList<String> actionNames;
+  final _i3.BuiltList<String> actionNames;
   @override
-  final _i4.BuiltList<String>? resourceArns;
+  final _i3.BuiltList<String>? resourceArns;
   @override
   final String? resourcePolicy;
   @override
@@ -22,7 +22,7 @@ class _$SimulateCustomPolicyRequest extends SimulateCustomPolicyRequest {
   @override
   final String? callerArn;
   @override
-  final _i4.BuiltList<_i3.ContextEntry>? contextEntries;
+  final _i3.BuiltList<ContextEntry>? contextEntries;
   @override
   final String? resourceHandlingOption;
   @override
@@ -105,31 +105,31 @@ class SimulateCustomPolicyRequestBuilder
             SimulateCustomPolicyRequestBuilder> {
   _$SimulateCustomPolicyRequest? _$v;
 
-  _i4.ListBuilder<String>? _policyInputList;
-  _i4.ListBuilder<String> get policyInputList =>
-      _$this._policyInputList ??= new _i4.ListBuilder<String>();
-  set policyInputList(_i4.ListBuilder<String>? policyInputList) =>
+  _i3.ListBuilder<String>? _policyInputList;
+  _i3.ListBuilder<String> get policyInputList =>
+      _$this._policyInputList ??= new _i3.ListBuilder<String>();
+  set policyInputList(_i3.ListBuilder<String>? policyInputList) =>
       _$this._policyInputList = policyInputList;
 
-  _i4.ListBuilder<String>? _permissionsBoundaryPolicyInputList;
-  _i4.ListBuilder<String> get permissionsBoundaryPolicyInputList =>
+  _i3.ListBuilder<String>? _permissionsBoundaryPolicyInputList;
+  _i3.ListBuilder<String> get permissionsBoundaryPolicyInputList =>
       _$this._permissionsBoundaryPolicyInputList ??=
-          new _i4.ListBuilder<String>();
+          new _i3.ListBuilder<String>();
   set permissionsBoundaryPolicyInputList(
-          _i4.ListBuilder<String>? permissionsBoundaryPolicyInputList) =>
+          _i3.ListBuilder<String>? permissionsBoundaryPolicyInputList) =>
       _$this._permissionsBoundaryPolicyInputList =
           permissionsBoundaryPolicyInputList;
 
-  _i4.ListBuilder<String>? _actionNames;
-  _i4.ListBuilder<String> get actionNames =>
-      _$this._actionNames ??= new _i4.ListBuilder<String>();
-  set actionNames(_i4.ListBuilder<String>? actionNames) =>
+  _i3.ListBuilder<String>? _actionNames;
+  _i3.ListBuilder<String> get actionNames =>
+      _$this._actionNames ??= new _i3.ListBuilder<String>();
+  set actionNames(_i3.ListBuilder<String>? actionNames) =>
       _$this._actionNames = actionNames;
 
-  _i4.ListBuilder<String>? _resourceArns;
-  _i4.ListBuilder<String> get resourceArns =>
-      _$this._resourceArns ??= new _i4.ListBuilder<String>();
-  set resourceArns(_i4.ListBuilder<String>? resourceArns) =>
+  _i3.ListBuilder<String>? _resourceArns;
+  _i3.ListBuilder<String> get resourceArns =>
+      _$this._resourceArns ??= new _i3.ListBuilder<String>();
+  set resourceArns(_i3.ListBuilder<String>? resourceArns) =>
       _$this._resourceArns = resourceArns;
 
   String? _resourcePolicy;
@@ -146,10 +146,10 @@ class SimulateCustomPolicyRequestBuilder
   String? get callerArn => _$this._callerArn;
   set callerArn(String? callerArn) => _$this._callerArn = callerArn;
 
-  _i4.ListBuilder<_i3.ContextEntry>? _contextEntries;
-  _i4.ListBuilder<_i3.ContextEntry> get contextEntries =>
-      _$this._contextEntries ??= new _i4.ListBuilder<_i3.ContextEntry>();
-  set contextEntries(_i4.ListBuilder<_i3.ContextEntry>? contextEntries) =>
+  _i3.ListBuilder<ContextEntry>? _contextEntries;
+  _i3.ListBuilder<ContextEntry> get contextEntries =>
+      _$this._contextEntries ??= new _i3.ListBuilder<ContextEntry>();
+  set contextEntries(_i3.ListBuilder<ContextEntry>? contextEntries) =>
       _$this._contextEntries = contextEntries;
 
   String? _resourceHandlingOption;

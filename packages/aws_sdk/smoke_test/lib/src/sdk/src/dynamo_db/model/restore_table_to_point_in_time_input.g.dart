@@ -18,15 +18,15 @@ class _$RestoreTableToPointInTimeInput extends RestoreTableToPointInTimeInput {
   @override
   final DateTime? restoreDateTime;
   @override
-  final _i3.BillingMode? billingModeOverride;
+  final BillingMode? billingModeOverride;
   @override
-  final _i8.BuiltList<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride;
+  final _i3.BuiltList<GlobalSecondaryIndex>? globalSecondaryIndexOverride;
   @override
-  final _i8.BuiltList<_i5.LocalSecondaryIndex>? localSecondaryIndexOverride;
+  final _i3.BuiltList<LocalSecondaryIndex>? localSecondaryIndexOverride;
   @override
-  final _i6.ProvisionedThroughput? provisionedThroughputOverride;
+  final ProvisionedThroughput? provisionedThroughputOverride;
   @override
-  final _i7.SseSpecification? sseSpecificationOverride;
+  final SseSpecification? sseSpecificationOverride;
 
   factory _$RestoreTableToPointInTimeInput(
           [void Function(RestoreTableToPointInTimeInputBuilder)? updates]) =>
@@ -122,42 +122,41 @@ class RestoreTableToPointInTimeInputBuilder
   set restoreDateTime(DateTime? restoreDateTime) =>
       _$this._restoreDateTime = restoreDateTime;
 
-  _i3.BillingMode? _billingModeOverride;
-  _i3.BillingMode? get billingModeOverride => _$this._billingModeOverride;
-  set billingModeOverride(_i3.BillingMode? billingModeOverride) =>
+  BillingMode? _billingModeOverride;
+  BillingMode? get billingModeOverride => _$this._billingModeOverride;
+  set billingModeOverride(BillingMode? billingModeOverride) =>
       _$this._billingModeOverride = billingModeOverride;
 
-  _i8.ListBuilder<_i4.GlobalSecondaryIndex>? _globalSecondaryIndexOverride;
-  _i8.ListBuilder<_i4.GlobalSecondaryIndex> get globalSecondaryIndexOverride =>
+  _i3.ListBuilder<GlobalSecondaryIndex>? _globalSecondaryIndexOverride;
+  _i3.ListBuilder<GlobalSecondaryIndex> get globalSecondaryIndexOverride =>
       _$this._globalSecondaryIndexOverride ??=
-          new _i8.ListBuilder<_i4.GlobalSecondaryIndex>();
+          new _i3.ListBuilder<GlobalSecondaryIndex>();
   set globalSecondaryIndexOverride(
-          _i8.ListBuilder<_i4.GlobalSecondaryIndex>?
+          _i3.ListBuilder<GlobalSecondaryIndex>?
               globalSecondaryIndexOverride) =>
       _$this._globalSecondaryIndexOverride = globalSecondaryIndexOverride;
 
-  _i8.ListBuilder<_i5.LocalSecondaryIndex>? _localSecondaryIndexOverride;
-  _i8.ListBuilder<_i5.LocalSecondaryIndex> get localSecondaryIndexOverride =>
+  _i3.ListBuilder<LocalSecondaryIndex>? _localSecondaryIndexOverride;
+  _i3.ListBuilder<LocalSecondaryIndex> get localSecondaryIndexOverride =>
       _$this._localSecondaryIndexOverride ??=
-          new _i8.ListBuilder<_i5.LocalSecondaryIndex>();
+          new _i3.ListBuilder<LocalSecondaryIndex>();
   set localSecondaryIndexOverride(
-          _i8.ListBuilder<_i5.LocalSecondaryIndex>?
-              localSecondaryIndexOverride) =>
+          _i3.ListBuilder<LocalSecondaryIndex>? localSecondaryIndexOverride) =>
       _$this._localSecondaryIndexOverride = localSecondaryIndexOverride;
 
-  _i6.ProvisionedThroughputBuilder? _provisionedThroughputOverride;
-  _i6.ProvisionedThroughputBuilder get provisionedThroughputOverride =>
+  ProvisionedThroughputBuilder? _provisionedThroughputOverride;
+  ProvisionedThroughputBuilder get provisionedThroughputOverride =>
       _$this._provisionedThroughputOverride ??=
-          new _i6.ProvisionedThroughputBuilder();
+          new ProvisionedThroughputBuilder();
   set provisionedThroughputOverride(
-          _i6.ProvisionedThroughputBuilder? provisionedThroughputOverride) =>
+          ProvisionedThroughputBuilder? provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  _i7.SseSpecificationBuilder? _sseSpecificationOverride;
-  _i7.SseSpecificationBuilder get sseSpecificationOverride =>
-      _$this._sseSpecificationOverride ??= new _i7.SseSpecificationBuilder();
+  SseSpecificationBuilder? _sseSpecificationOverride;
+  SseSpecificationBuilder get sseSpecificationOverride =>
+      _$this._sseSpecificationOverride ??= new SseSpecificationBuilder();
   set sseSpecificationOverride(
-          _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
+          SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
   RestoreTableToPointInTimeInputBuilder();

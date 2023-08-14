@@ -10,7 +10,7 @@ class _$GetObjectTaggingOutput extends GetObjectTaggingOutput {
   @override
   final String? versionId;
   @override
-  final _i4.BuiltList<_i3.Tag> tagSet;
+  final _i3.BuiltList<Tag> tagSet;
 
   factory _$GetObjectTaggingOutput(
           [void Function(GetObjectTaggingOutputBuilder)? updates]) =>
@@ -57,10 +57,10 @@ class GetObjectTaggingOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  _i4.ListBuilder<_i3.Tag>? _tagSet;
-  _i4.ListBuilder<_i3.Tag> get tagSet =>
-      _$this._tagSet ??= new _i4.ListBuilder<_i3.Tag>();
-  set tagSet(_i4.ListBuilder<_i3.Tag>? tagSet) => _$this._tagSet = tagSet;
+  _i3.ListBuilder<Tag>? _tagSet;
+  _i3.ListBuilder<Tag> get tagSet =>
+      _$this._tagSet ??= new _i3.ListBuilder<Tag>();
+  set tagSet(_i3.ListBuilder<Tag>? tagSet) => _$this._tagSet = tagSet;
 
   GetObjectTaggingOutputBuilder();
 
@@ -112,7 +112,7 @@ class GetObjectTaggingOutputBuilder
 
 class _$GetObjectTaggingOutputPayload extends GetObjectTaggingOutputPayload {
   @override
-  final _i4.BuiltList<_i3.Tag> tagSet;
+  final _i3.BuiltList<Tag> tagSet;
 
   factory _$GetObjectTaggingOutputPayload(
           [void Function(GetObjectTaggingOutputPayloadBuilder)? updates]) =>
@@ -153,10 +153,10 @@ class GetObjectTaggingOutputPayloadBuilder
             GetObjectTaggingOutputPayloadBuilder> {
   _$GetObjectTaggingOutputPayload? _$v;
 
-  _i4.ListBuilder<_i3.Tag>? _tagSet;
-  _i4.ListBuilder<_i3.Tag> get tagSet =>
-      _$this._tagSet ??= new _i4.ListBuilder<_i3.Tag>();
-  set tagSet(_i4.ListBuilder<_i3.Tag>? tagSet) => _$this._tagSet = tagSet;
+  _i3.ListBuilder<Tag>? _tagSet;
+  _i3.ListBuilder<Tag> get tagSet =>
+      _$this._tagSet ??= new _i3.ListBuilder<Tag>();
+  set tagSet(_i3.ListBuilder<Tag>? tagSet) => _$this._tagSet = tagSet;
 
   GetObjectTaggingOutputPayloadBuilder();
 

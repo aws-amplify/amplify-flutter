@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.describe_type_registration_output; // i
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registration_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registration_status.dart';
 
 part 'describe_type_registration_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DescribeTypeRegistrationOutput
         Built<DescribeTypeRegistrationOutput,
             DescribeTypeRegistrationOutputBuilder> {
   factory DescribeTypeRegistrationOutput({
-    _i2.RegistrationStatus? progressStatus,
+    RegistrationStatus? progressStatus,
     String? description,
     String? typeArn,
     String? typeVersionArn,
@@ -45,11 +44,11 @@ abstract class DescribeTypeRegistrationOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeTypeRegistrationOutput>>
+  static const List<_i2.SmithySerializer<DescribeTypeRegistrationOutput>>
       serializers = [DescribeTypeRegistrationOutputAwsQuerySerializer()];
 
   /// The current status of the extension registration request.
-  _i2.RegistrationStatus? get progressStatus;
+  RegistrationStatus? get progressStatus;
 
   /// The description of the extension registration request.
   String? get description;
@@ -94,7 +93,7 @@ abstract class DescribeTypeRegistrationOutput
 }
 
 class DescribeTypeRegistrationOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeTypeRegistrationOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeTypeRegistrationOutput> {
   const DescribeTypeRegistrationOutputAwsQuerySerializer()
       : super('DescribeTypeRegistrationOutput');
 
@@ -104,8 +103,8 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         _$DescribeTypeRegistrationOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -129,8 +128,8 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         case 'ProgressStatus':
           result.progressStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RegistrationStatus),
-          ) as _i2.RegistrationStatus);
+            specifiedType: const FullType(RegistrationStatus),
+          ) as RegistrationStatus);
         case 'Description':
           result.description = (serializers.deserialize(
             value,
@@ -159,9 +158,9 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeTypeRegistrationOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeTypeRegistrationOutput(
@@ -172,15 +171,15 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
     ) = object;
     if (progressStatus != null) {
       result$
-        ..add(const _i3.XmlElementName('ProgressStatus'))
+        ..add(const _i2.XmlElementName('ProgressStatus'))
         ..add(serializers.serialize(
           progressStatus,
-          specifiedType: const FullType.nullable(_i2.RegistrationStatus),
+          specifiedType: const FullType.nullable(RegistrationStatus),
         ));
     }
     if (description != null) {
       result$
-        ..add(const _i3.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -188,7 +187,7 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
     }
     if (typeArn != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeArn'))
+        ..add(const _i2.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
           specifiedType: const FullType(String),
@@ -196,7 +195,7 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
     }
     if (typeVersionArn != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeVersionArn'))
+        ..add(const _i2.XmlElementName('TypeVersionArn'))
         ..add(serializers.serialize(
           typeVersionArn,
           specifiedType: const FullType(String),

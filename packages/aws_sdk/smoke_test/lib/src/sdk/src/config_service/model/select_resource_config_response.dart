@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.select_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/query_info.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/query_info.dart';
 
 part 'select_resource_config_response.g.dart';
 
@@ -21,11 +20,11 @@ abstract class SelectResourceConfigResponse
             SelectResourceConfigResponseBuilder> {
   factory SelectResourceConfigResponse({
     List<String>? results,
-    _i2.QueryInfo? queryInfo,
+    QueryInfo? queryInfo,
     String? nextToken,
   }) {
     return _$SelectResourceConfigResponse._(
-      results: results == null ? null : _i3.BuiltList(results),
+      results: results == null ? null : _i2.BuiltList(results),
       queryInfo: queryInfo,
       nextToken: nextToken,
     );
@@ -44,14 +43,14 @@ abstract class SelectResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<SelectResourceConfigResponse>>
+  static const List<_i3.SmithySerializer<SelectResourceConfigResponse>>
       serializers = [SelectResourceConfigResponseAwsJson11Serializer()];
 
   /// Returns the results for the SQL query.
-  _i3.BuiltList<String>? get results;
+  _i2.BuiltList<String>? get results;
 
   /// Returns the `QueryInfo` object.
-  _i2.QueryInfo? get queryInfo;
+  QueryInfo? get queryInfo;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -81,7 +80,7 @@ abstract class SelectResourceConfigResponse
 }
 
 class SelectResourceConfigResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<SelectResourceConfigResponse> {
+    extends _i3.StructuredSmithySerializer<SelectResourceConfigResponse> {
   const SelectResourceConfigResponseAwsJson11Serializer()
       : super('SelectResourceConfigResponse');
 
@@ -91,8 +90,8 @@ class SelectResourceConfigResponseAwsJson11Serializer
         _$SelectResourceConfigResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -117,15 +116,15 @@ class SelectResourceConfigResponseAwsJson11Serializer
           result.results.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'QueryInfo':
           result.queryInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.QueryInfo),
-          ) as _i2.QueryInfo));
+            specifiedType: const FullType(QueryInfo),
+          ) as QueryInfo));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -152,7 +151,7 @@ class SelectResourceConfigResponseAwsJson11Serializer
         ..add(serializers.serialize(
           results,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -162,7 +161,7 @@ class SelectResourceConfigResponseAwsJson11Serializer
         ..add('QueryInfo')
         ..add(serializers.serialize(
           queryInfo,
-          specifiedType: const FullType(_i2.QueryInfo),
+          specifiedType: const FullType(QueryInfo),
         ));
     }
     if (nextToken != null) {

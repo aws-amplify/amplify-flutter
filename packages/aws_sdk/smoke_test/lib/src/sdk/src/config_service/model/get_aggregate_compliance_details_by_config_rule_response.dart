@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_aggregate_compliance_details_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart';
 
 part 'get_aggregate_compliance_details_by_config_rule_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
         Built<GetAggregateComplianceDetailsByConfigRuleResponse,
             GetAggregateComplianceDetailsByConfigRuleResponseBuilder> {
   factory GetAggregateComplianceDetailsByConfigRuleResponse({
-    List<_i2.AggregateEvaluationResult>? aggregateEvaluationResults,
+    List<AggregateEvaluationResult>? aggregateEvaluationResults,
     String? nextToken,
   }) {
     return _$GetAggregateComplianceDetailsByConfigRuleResponse._(
       aggregateEvaluationResults: aggregateEvaluationResults == null
           ? null
-          : _i3.BuiltList(aggregateEvaluationResults),
+          : _i2.BuiltList(aggregateEvaluationResults),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,14 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
       payload;
 
   static const List<
-      _i4.SmithySerializer<
-          GetAggregateComplianceDetailsByConfigRuleResponse>> serializers = [
+          _i3
+          .SmithySerializer<GetAggregateComplianceDetailsByConfigRuleResponse>>
+      serializers = [
     GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
 
   /// Returns an AggregateEvaluationResults object.
-  _i3.BuiltList<_i2.AggregateEvaluationResult>? get aggregateEvaluationResults;
+  _i2.BuiltList<AggregateEvaluationResult>? get aggregateEvaluationResults;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -77,7 +77,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
 }
 
 class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         GetAggregateComplianceDetailsByConfigRuleResponse> {
   const GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
       : super('GetAggregateComplianceDetailsByConfigRuleResponse');
@@ -88,8 +88,8 @@ class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
         _$GetAggregateComplianceDetailsByConfigRuleResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -114,10 +114,10 @@ class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
           result.aggregateEvaluationResults.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregateEvaluationResult)],
+              _i2.BuiltList,
+              [FullType(AggregateEvaluationResult)],
             ),
-          ) as _i3.BuiltList<_i2.AggregateEvaluationResult>));
+          ) as _i2.BuiltList<AggregateEvaluationResult>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -146,8 +146,8 @@ class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
         ..add(serializers.serialize(
           aggregateEvaluationResults,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregateEvaluationResult)],
+            _i2.BuiltList,
+            [FullType(AggregateEvaluationResult)],
           ),
         ));
     }

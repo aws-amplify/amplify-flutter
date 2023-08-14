@@ -11,16 +11,16 @@ class _$ReplicaGlobalSecondaryIndexSettingsDescription
   @override
   final String indexName;
   @override
-  final _i2.IndexStatus? indexStatus;
+  final IndexStatus? indexStatus;
   @override
-  final _i3.Int64? provisionedReadCapacityUnits;
+  final _i2.Int64? provisionedReadCapacityUnits;
   @override
-  final _i4.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       provisionedReadCapacityAutoScalingSettings;
   @override
-  final _i3.Int64? provisionedWriteCapacityUnits;
+  final _i2.Int64? provisionedWriteCapacityUnits;
   @override
-  final _i4.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       provisionedWriteCapacityAutoScalingSettings;
 
   factory _$ReplicaGlobalSecondaryIndexSettingsDescription(
@@ -91,43 +91,43 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.IndexStatus? _indexStatus;
-  _i2.IndexStatus? get indexStatus => _$this._indexStatus;
-  set indexStatus(_i2.IndexStatus? indexStatus) =>
+  IndexStatus? _indexStatus;
+  IndexStatus? get indexStatus => _$this._indexStatus;
+  set indexStatus(IndexStatus? indexStatus) =>
       _$this._indexStatus = indexStatus;
 
-  _i3.Int64? _provisionedReadCapacityUnits;
-  _i3.Int64? get provisionedReadCapacityUnits =>
+  _i2.Int64? _provisionedReadCapacityUnits;
+  _i2.Int64? get provisionedReadCapacityUnits =>
       _$this._provisionedReadCapacityUnits;
-  set provisionedReadCapacityUnits(_i3.Int64? provisionedReadCapacityUnits) =>
+  set provisionedReadCapacityUnits(_i2.Int64? provisionedReadCapacityUnits) =>
       _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
 
-  _i4.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _provisionedReadCapacityAutoScalingSettings;
-  _i4.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get provisionedReadCapacityAutoScalingSettings =>
           _$this._provisionedReadCapacityAutoScalingSettings ??=
-              new _i4.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set provisionedReadCapacityAutoScalingSettings(
-          _i4.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               provisionedReadCapacityAutoScalingSettings) =>
       _$this._provisionedReadCapacityAutoScalingSettings =
           provisionedReadCapacityAutoScalingSettings;
 
-  _i3.Int64? _provisionedWriteCapacityUnits;
-  _i3.Int64? get provisionedWriteCapacityUnits =>
+  _i2.Int64? _provisionedWriteCapacityUnits;
+  _i2.Int64? get provisionedWriteCapacityUnits =>
       _$this._provisionedWriteCapacityUnits;
-  set provisionedWriteCapacityUnits(_i3.Int64? provisionedWriteCapacityUnits) =>
+  set provisionedWriteCapacityUnits(_i2.Int64? provisionedWriteCapacityUnits) =>
       _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
 
-  _i4.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _provisionedWriteCapacityAutoScalingSettings;
-  _i4.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get provisionedWriteCapacityAutoScalingSettings =>
           _$this._provisionedWriteCapacityAutoScalingSettings ??=
-              new _i4.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set provisionedWriteCapacityAutoScalingSettings(
-          _i4.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               provisionedWriteCapacityAutoScalingSettings) =>
       _$this._provisionedWriteCapacityAutoScalingSettings =
           provisionedWriteCapacityAutoScalingSettings;

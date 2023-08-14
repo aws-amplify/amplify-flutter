@@ -8,11 +8,11 @@ part of 'resource_target_definition.dart';
 
 class _$ResourceTargetDefinition extends ResourceTargetDefinition {
   @override
-  final _i2.ResourceAttribute? attribute;
+  final ResourceAttribute? attribute;
   @override
   final String? name;
   @override
-  final _i3.RequiresRecreation? requiresRecreation;
+  final RequiresRecreation? requiresRecreation;
 
   factory _$ResourceTargetDefinition(
           [void Function(ResourceTargetDefinitionBuilder)? updates]) =>
@@ -56,18 +56,17 @@ class ResourceTargetDefinitionBuilder
         Builder<ResourceTargetDefinition, ResourceTargetDefinitionBuilder> {
   _$ResourceTargetDefinition? _$v;
 
-  _i2.ResourceAttribute? _attribute;
-  _i2.ResourceAttribute? get attribute => _$this._attribute;
-  set attribute(_i2.ResourceAttribute? attribute) =>
-      _$this._attribute = attribute;
+  ResourceAttribute? _attribute;
+  ResourceAttribute? get attribute => _$this._attribute;
+  set attribute(ResourceAttribute? attribute) => _$this._attribute = attribute;
 
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i3.RequiresRecreation? _requiresRecreation;
-  _i3.RequiresRecreation? get requiresRecreation => _$this._requiresRecreation;
-  set requiresRecreation(_i3.RequiresRecreation? requiresRecreation) =>
+  RequiresRecreation? _requiresRecreation;
+  RequiresRecreation? get requiresRecreation => _$this._requiresRecreation;
+  set requiresRecreation(RequiresRecreation? requiresRecreation) =>
       _$this._requiresRecreation = requiresRecreation;
 
   ResourceTargetDefinitionBuilder();

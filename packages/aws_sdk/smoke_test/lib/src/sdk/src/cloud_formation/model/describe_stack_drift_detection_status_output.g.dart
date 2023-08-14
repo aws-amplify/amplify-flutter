@@ -13,9 +13,9 @@ class _$DescribeStackDriftDetectionStatusOutput
   @override
   final String stackDriftDetectionId;
   @override
-  final _i2.StackDriftStatus? stackDriftStatus;
+  final StackDriftStatus? stackDriftStatus;
   @override
-  final _i3.StackDriftDetectionStatus detectionStatus;
+  final StackDriftDetectionStatus detectionStatus;
   @override
   final String? detectionStatusReason;
   @override
@@ -101,14 +101,14 @@ class DescribeStackDriftDetectionStatusOutputBuilder
   set stackDriftDetectionId(String? stackDriftDetectionId) =>
       _$this._stackDriftDetectionId = stackDriftDetectionId;
 
-  _i2.StackDriftStatus? _stackDriftStatus;
-  _i2.StackDriftStatus? get stackDriftStatus => _$this._stackDriftStatus;
-  set stackDriftStatus(_i2.StackDriftStatus? stackDriftStatus) =>
+  StackDriftStatus? _stackDriftStatus;
+  StackDriftStatus? get stackDriftStatus => _$this._stackDriftStatus;
+  set stackDriftStatus(StackDriftStatus? stackDriftStatus) =>
       _$this._stackDriftStatus = stackDriftStatus;
 
-  _i3.StackDriftDetectionStatus? _detectionStatus;
-  _i3.StackDriftDetectionStatus? get detectionStatus => _$this._detectionStatus;
-  set detectionStatus(_i3.StackDriftDetectionStatus? detectionStatus) =>
+  StackDriftDetectionStatus? _detectionStatus;
+  StackDriftDetectionStatus? get detectionStatus => _$this._detectionStatus;
+  set detectionStatus(StackDriftDetectionStatus? detectionStatus) =>
       _$this._detectionStatus = detectionStatus;
 
   String? _detectionStatusReason;

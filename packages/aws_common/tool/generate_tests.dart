@@ -21,6 +21,9 @@ Future<void> generateParserTests() async {
 
   final output = StringBuffer(
     '''
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
 import 'dart:convert';
@@ -130,9 +133,12 @@ Future<void> generateFileLocationTests() async {
 
   final output = StringBuffer(
     '''
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:os_detect/override.dart';
 import 'package:test/test.dart';
 
@@ -186,6 +192,9 @@ Future<void> generateProfileTests() async {
 
   final output = StringBuffer(
     '''
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
 import 'dart:convert';

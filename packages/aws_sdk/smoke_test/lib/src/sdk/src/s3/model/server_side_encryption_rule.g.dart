@@ -8,7 +8,7 @@ part of 'server_side_encryption_rule.dart';
 
 class _$ServerSideEncryptionRule extends ServerSideEncryptionRule {
   @override
-  final _i2.ServerSideEncryptionByDefault? applyServerSideEncryptionByDefault;
+  final ServerSideEncryptionByDefault? applyServerSideEncryptionByDefault;
   @override
   final bool? bucketKeyEnabled;
 
@@ -53,13 +53,12 @@ class ServerSideEncryptionRuleBuilder
         Builder<ServerSideEncryptionRule, ServerSideEncryptionRuleBuilder> {
   _$ServerSideEncryptionRule? _$v;
 
-  _i2.ServerSideEncryptionByDefaultBuilder? _applyServerSideEncryptionByDefault;
-  _i2.ServerSideEncryptionByDefaultBuilder
-      get applyServerSideEncryptionByDefault =>
-          _$this._applyServerSideEncryptionByDefault ??=
-              new _i2.ServerSideEncryptionByDefaultBuilder();
+  ServerSideEncryptionByDefaultBuilder? _applyServerSideEncryptionByDefault;
+  ServerSideEncryptionByDefaultBuilder get applyServerSideEncryptionByDefault =>
+      _$this._applyServerSideEncryptionByDefault ??=
+          new ServerSideEncryptionByDefaultBuilder();
   set applyServerSideEncryptionByDefault(
-          _i2.ServerSideEncryptionByDefaultBuilder?
+          ServerSideEncryptionByDefaultBuilder?
               applyServerSideEncryptionByDefault) =>
       _$this._applyServerSideEncryptionByDefault =
           applyServerSideEncryptionByDefault;

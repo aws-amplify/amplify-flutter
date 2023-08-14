@@ -4,11 +4,11 @@
 library smoke_test.s3.model.analytics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'analytics_and_operator.g.dart';
 
@@ -19,11 +19,11 @@ abstract class AnalyticsAndOperator
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates in any combination, and an object must match all of the predicates for the filter to apply.
   factory AnalyticsAndOperator({
     String? prefix,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$AnalyticsAndOperator._(
       prefix: prefix,
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -34,7 +34,7 @@ abstract class AnalyticsAndOperator
 
   const AnalyticsAndOperator._();
 
-  static const List<_i4.SmithySerializer<AnalyticsAndOperator>> serializers = [
+  static const List<_i3.SmithySerializer<AnalyticsAndOperator>> serializers = [
     AnalyticsAndOperatorRestXmlSerializer()
   ];
 
@@ -42,7 +42,7 @@ abstract class AnalyticsAndOperator
   String? get prefix;
 
   /// The list of tags to use when evaluating an AND predicate.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         prefix,
@@ -64,7 +64,7 @@ abstract class AnalyticsAndOperator
 }
 
 class AnalyticsAndOperatorRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<AnalyticsAndOperator> {
+    extends _i3.StructuredSmithySerializer<AnalyticsAndOperator> {
   const AnalyticsAndOperatorRestXmlSerializer() : super('AnalyticsAndOperator');
 
   @override
@@ -73,8 +73,8 @@ class AnalyticsAndOperatorRestXmlSerializer
         _$AnalyticsAndOperator,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -103,8 +103,8 @@ class AnalyticsAndOperatorRestXmlSerializer
         case 'Tag':
           result.tags.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
-          ) as _i2.Tag));
+            specifiedType: const FullType(Tag),
+          ) as Tag));
       }
     }
 
@@ -118,15 +118,15 @@ class AnalyticsAndOperatorRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'AnalyticsAndOperator',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AnalyticsAndOperator(:prefix, :tags) = object;
     if (prefix != null) {
       result$
-        ..add(const _i4.XmlElementName('Prefix'))
+        ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
@@ -134,12 +134,12 @@ class AnalyticsAndOperatorRestXmlSerializer
     }
     if (tags != null) {
       result$
-          .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
+          .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Tag)],
+          _i2.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     }

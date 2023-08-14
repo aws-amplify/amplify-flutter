@@ -8,15 +8,15 @@ part of 'list_types_input.dart';
 
 class _$ListTypesInput extends ListTypesInput {
   @override
-  final _i3.Visibility? visibility;
+  final Visibility? visibility;
   @override
-  final _i4.ProvisioningType? provisioningType;
+  final ProvisioningType? provisioningType;
   @override
-  final _i5.DeprecatedStatus? deprecatedStatus;
+  final DeprecatedStatus? deprecatedStatus;
   @override
-  final _i6.RegistryType? type;
+  final RegistryType? type;
   @override
-  final _i7.TypeFilters? filters;
+  final TypeFilters? filters;
   @override
   final int? maxResults;
   @override
@@ -75,28 +75,28 @@ class ListTypesInputBuilder
     implements Builder<ListTypesInput, ListTypesInputBuilder> {
   _$ListTypesInput? _$v;
 
-  _i3.Visibility? _visibility;
-  _i3.Visibility? get visibility => _$this._visibility;
-  set visibility(_i3.Visibility? visibility) => _$this._visibility = visibility;
+  Visibility? _visibility;
+  Visibility? get visibility => _$this._visibility;
+  set visibility(Visibility? visibility) => _$this._visibility = visibility;
 
-  _i4.ProvisioningType? _provisioningType;
-  _i4.ProvisioningType? get provisioningType => _$this._provisioningType;
-  set provisioningType(_i4.ProvisioningType? provisioningType) =>
+  ProvisioningType? _provisioningType;
+  ProvisioningType? get provisioningType => _$this._provisioningType;
+  set provisioningType(ProvisioningType? provisioningType) =>
       _$this._provisioningType = provisioningType;
 
-  _i5.DeprecatedStatus? _deprecatedStatus;
-  _i5.DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
-  set deprecatedStatus(_i5.DeprecatedStatus? deprecatedStatus) =>
+  DeprecatedStatus? _deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
+  set deprecatedStatus(DeprecatedStatus? deprecatedStatus) =>
       _$this._deprecatedStatus = deprecatedStatus;
 
-  _i6.RegistryType? _type;
-  _i6.RegistryType? get type => _$this._type;
-  set type(_i6.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
-  _i7.TypeFiltersBuilder? _filters;
-  _i7.TypeFiltersBuilder get filters =>
-      _$this._filters ??= new _i7.TypeFiltersBuilder();
-  set filters(_i7.TypeFiltersBuilder? filters) => _$this._filters = filters;
+  TypeFiltersBuilder? _filters;
+  TypeFiltersBuilder get filters =>
+      _$this._filters ??= new TypeFiltersBuilder();
+  set filters(TypeFiltersBuilder? filters) => _$this._filters = filters;
 
   int? _maxResults;
   int? get maxResults => _$this._maxResults;

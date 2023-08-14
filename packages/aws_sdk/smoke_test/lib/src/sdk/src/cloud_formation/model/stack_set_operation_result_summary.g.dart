@@ -12,11 +12,11 @@ class _$StackSetOperationResultSummary extends StackSetOperationResultSummary {
   @override
   final String? region;
   @override
-  final _i2.StackSetOperationResultStatus? status;
+  final StackSetOperationResultStatus? status;
   @override
   final String? statusReason;
   @override
-  final _i3.AccountGateResult? accountGateResult;
+  final AccountGateResult? accountGateResult;
   @override
   final String? organizationalUnitId;
 
@@ -82,19 +82,18 @@ class StackSetOperationResultSummaryBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  _i2.StackSetOperationResultStatus? _status;
-  _i2.StackSetOperationResultStatus? get status => _$this._status;
-  set status(_i2.StackSetOperationResultStatus? status) =>
-      _$this._status = status;
+  StackSetOperationResultStatus? _status;
+  StackSetOperationResultStatus? get status => _$this._status;
+  set status(StackSetOperationResultStatus? status) => _$this._status = status;
 
   String? _statusReason;
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  _i3.AccountGateResultBuilder? _accountGateResult;
-  _i3.AccountGateResultBuilder get accountGateResult =>
-      _$this._accountGateResult ??= new _i3.AccountGateResultBuilder();
-  set accountGateResult(_i3.AccountGateResultBuilder? accountGateResult) =>
+  AccountGateResultBuilder? _accountGateResult;
+  AccountGateResultBuilder get accountGateResult =>
+      _$this._accountGateResult ??= new AccountGateResultBuilder();
+  set accountGateResult(AccountGateResultBuilder? accountGateResult) =>
       _$this._accountGateResult = accountGateResult;
 
   String? _organizationalUnitId;

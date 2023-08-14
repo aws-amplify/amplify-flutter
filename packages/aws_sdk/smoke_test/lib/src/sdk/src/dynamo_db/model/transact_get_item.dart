@@ -6,8 +6,8 @@ library smoke_test.dynamo_db.model.transact_get_item; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/get.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/get.dart';
 
 part 'transact_get_item.g.dart';
 
@@ -16,7 +16,7 @@ abstract class TransactGetItem
     with _i1.AWSEquatable<TransactGetItem>
     implements Built<TransactGetItem, TransactGetItemBuilder> {
   /// Specifies an item to be retrieved as part of the transaction.
-  factory TransactGetItem({required _i2.Get get}) {
+  factory TransactGetItem({required Get get}) {
     return _$TransactGetItem._(get: get);
   }
 
@@ -26,12 +26,12 @@ abstract class TransactGetItem
 
   const TransactGetItem._();
 
-  static const List<_i3.SmithySerializer<TransactGetItem>> serializers = [
+  static const List<_i2.SmithySerializer<TransactGetItem>> serializers = [
     TransactGetItemAwsJson10Serializer()
   ];
 
   /// Contains the primary key that identifies the item to get, together with the name of the table that contains the item, and optionally the specific attributes of the item to retrieve.
-  _i2.Get get get;
+  Get get get;
   @override
   List<Object?> get props => [get];
   @override
@@ -46,7 +46,7 @@ abstract class TransactGetItem
 }
 
 class TransactGetItemAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<TransactGetItem> {
+    extends _i2.StructuredSmithySerializer<TransactGetItem> {
   const TransactGetItemAwsJson10Serializer() : super('TransactGetItem');
 
   @override
@@ -55,8 +55,8 @@ class TransactGetItemAwsJson10Serializer
         _$TransactGetItem,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -80,8 +80,8 @@ class TransactGetItemAwsJson10Serializer
         case 'Get':
           result.get.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Get),
-          ) as _i2.Get));
+            specifiedType: const FullType(Get),
+          ) as Get));
       }
     }
 
@@ -100,7 +100,7 @@ class TransactGetItemAwsJson10Serializer
       'Get',
       serializers.serialize(
         get,
-        specifiedType: const FullType(_i2.Get),
+        specifiedType: const FullType(Get),
       ),
     ]);
     return result$;

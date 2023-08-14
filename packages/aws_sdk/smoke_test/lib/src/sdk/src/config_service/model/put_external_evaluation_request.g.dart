@@ -10,7 +10,7 @@ class _$PutExternalEvaluationRequest extends PutExternalEvaluationRequest {
   @override
   final String configRuleName;
   @override
-  final _i3.ExternalEvaluation externalEvaluation;
+  final ExternalEvaluation externalEvaluation;
 
   factory _$PutExternalEvaluationRequest(
           [void Function(PutExternalEvaluationRequestBuilder)? updates]) =>
@@ -63,10 +63,10 @@ class PutExternalEvaluationRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i3.ExternalEvaluationBuilder? _externalEvaluation;
-  _i3.ExternalEvaluationBuilder get externalEvaluation =>
-      _$this._externalEvaluation ??= new _i3.ExternalEvaluationBuilder();
-  set externalEvaluation(_i3.ExternalEvaluationBuilder? externalEvaluation) =>
+  ExternalEvaluationBuilder? _externalEvaluation;
+  ExternalEvaluationBuilder get externalEvaluation =>
+      _$this._externalEvaluation ??= new ExternalEvaluationBuilder();
+  set externalEvaluation(ExternalEvaluationBuilder? externalEvaluation) =>
       _$this._externalEvaluation = externalEvaluation;
 
   PutExternalEvaluationRequestBuilder();

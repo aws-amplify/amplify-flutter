@@ -3,21 +3,18 @@
 
 library rest_xml_v2.rest_xml_protocol.operation.xml_lists_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_xml_v2/src/rest_xml_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/common/endpoint_resolver.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/common/serializers.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
-class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
-    _i2.XmlListsInputOutput, _i2.XmlListsInputOutput, _i2.XmlListsInputOutput> {
+class XmlListsOperation extends _i1.HttpOperation<XmlListsInputOutput,
+    XmlListsInputOutput, XmlListsInputOutput, XmlListsInputOutput> {
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
   XmlListsOperation({
     required String region,
@@ -31,17 +28,17 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.XmlListsInputOutput, _i2.XmlListsInputOutput,
-          _i2.XmlListsInputOutput, _i2.XmlListsInputOutput>> protocols = [
-    _i3.RestXmlProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<XmlListsInputOutput, XmlListsInputOutput,
+          XmlListsInputOutput, XmlListsInputOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -50,8 +47,8 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -64,19 +61,19 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.XmlListsInputOutput input) =>
+  _i1.HttpRequest buildRequest(XmlListsInputOutput input) =>
       _i1.HttpRequest((b) {
         b.method = 'PUT';
         b.path = r'/XmlLists';
       });
   @override
-  int successCode([_i2.XmlListsInputOutput? output]) => 200;
+  int successCode([XmlListsInputOutput? output]) => 200;
   @override
-  _i2.XmlListsInputOutput buildOutput(
-    _i2.XmlListsInputOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  XmlListsInputOutput buildOutput(
+    XmlListsInputOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.XmlListsInputOutput.fromResponse(
+      XmlListsInputOutput.fromResponse(
         payload,
         response,
       );
@@ -85,18 +82,18 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
   @override
   String get runtimeTypeName => 'XmlLists';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.XmlListsInputOutput> run(
-    _i2.XmlListsInputOutput input, {
-    _i6.AWSHttpClient? client,
+  _i1.SmithyOperation<XmlListsInputOutput> run(
+    XmlListsInputOutput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -104,7 +101,7 @@ class XmlListsOperation extends _i1.HttpOperation<_i2.XmlListsInputOutput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

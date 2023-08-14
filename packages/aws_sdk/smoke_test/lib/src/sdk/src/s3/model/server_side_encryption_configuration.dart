@@ -4,12 +4,11 @@
 library smoke_test.s3.model.server_side_encryption_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart';
 
 part 'server_side_encryption_configuration.g.dart';
 
@@ -22,8 +21,8 @@ abstract class ServerSideEncryptionConfiguration
             ServerSideEncryptionConfigurationBuilder> {
   /// Specifies the default server-side-encryption configuration.
   factory ServerSideEncryptionConfiguration(
-      {required List<_i2.ServerSideEncryptionRule> rules}) {
-    return _$ServerSideEncryptionConfiguration._(rules: _i3.BuiltList(rules));
+      {required List<ServerSideEncryptionRule> rules}) {
+    return _$ServerSideEncryptionConfiguration._(rules: _i2.BuiltList(rules));
   }
 
   /// Specifies the default server-side-encryption configuration.
@@ -33,11 +32,11 @@ abstract class ServerSideEncryptionConfiguration
 
   const ServerSideEncryptionConfiguration._();
 
-  static const List<_i4.SmithySerializer<ServerSideEncryptionConfiguration>>
+  static const List<_i3.SmithySerializer<ServerSideEncryptionConfiguration>>
       serializers = [ServerSideEncryptionConfigurationRestXmlSerializer()];
 
   /// Container for information about a particular server-side encryption configuration rule.
-  _i3.BuiltList<_i2.ServerSideEncryptionRule> get rules;
+  _i2.BuiltList<ServerSideEncryptionRule> get rules;
   @override
   List<Object?> get props => [rules];
   @override
@@ -53,7 +52,7 @@ abstract class ServerSideEncryptionConfiguration
 }
 
 class ServerSideEncryptionConfigurationRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<ServerSideEncryptionConfiguration> {
+    extends _i3.StructuredSmithySerializer<ServerSideEncryptionConfiguration> {
   const ServerSideEncryptionConfigurationRestXmlSerializer()
       : super('ServerSideEncryptionConfiguration');
 
@@ -63,8 +62,8 @@ class ServerSideEncryptionConfigurationRestXmlSerializer
         _$ServerSideEncryptionConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -88,8 +87,8 @@ class ServerSideEncryptionConfigurationRestXmlSerializer
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServerSideEncryptionRule),
-          ) as _i2.ServerSideEncryptionRule));
+            specifiedType: const FullType(ServerSideEncryptionRule),
+          ) as ServerSideEncryptionRule));
       }
     }
 
@@ -103,19 +102,19 @@ class ServerSideEncryptionConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ServerSideEncryptionConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ServerSideEncryptionConfiguration(:rules) = object;
     result$
-        .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Rule').serialize(
+        .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i3.BuiltList,
-        [FullType(_i2.ServerSideEncryptionRule)],
+        _i2.BuiltList,
+        [FullType(ServerSideEncryptionRule)],
       ),
     ));
     return result$;

@@ -4,22 +4,17 @@
 library smoke_test.s3.model.lifecycle_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/s3/model/abort_incomplete_multipart_upload.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/s3/model/expiration_status.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_expiration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule_filter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/noncurrent_version_expiration.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/noncurrent_version_transition.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/transition.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/abort_incomplete_multipart_upload.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/expiration_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_expiration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule_filter.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/noncurrent_version_expiration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/noncurrent_version_transition.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/transition.dart';
 
 part 'lifecycle_rule.g.dart';
 
@@ -33,16 +28,17 @@ abstract class LifecycleRule
   ///
   /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleRule({
-    _i2.LifecycleExpiration? expiration,
+    LifecycleExpiration? expiration,
     String? id,
-    @Deprecated('No longer recommended for use. See API documentation for more details.')
-        String? prefix,
-    _i3.LifecycleRuleFilter? filter,
-    required _i4.ExpirationStatus status,
-    List<_i5.Transition>? transitions,
-    List<_i6.NoncurrentVersionTransition>? noncurrentVersionTransitions,
-    _i7.NoncurrentVersionExpiration? noncurrentVersionExpiration,
-    _i8.AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload,
+    @Deprecated(
+        'No longer recommended for use. See API documentation for more details.')
+    String? prefix,
+    LifecycleRuleFilter? filter,
+    required ExpirationStatus status,
+    List<Transition>? transitions,
+    List<NoncurrentVersionTransition>? noncurrentVersionTransitions,
+    NoncurrentVersionExpiration? noncurrentVersionExpiration,
+    AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload,
   }) {
     return _$LifecycleRule._(
       expiration: expiration,
@@ -50,10 +46,10 @@ abstract class LifecycleRule
       prefix: prefix,
       filter: filter,
       status: status,
-      transitions: transitions == null ? null : _i9.BuiltList(transitions),
+      transitions: transitions == null ? null : _i2.BuiltList(transitions),
       noncurrentVersionTransitions: noncurrentVersionTransitions == null
           ? null
-          : _i9.BuiltList(noncurrentVersionTransitions),
+          : _i2.BuiltList(noncurrentVersionTransitions),
       noncurrentVersionExpiration: noncurrentVersionExpiration,
       abortIncompleteMultipartUpload: abortIncompleteMultipartUpload,
     );
@@ -67,12 +63,12 @@ abstract class LifecycleRule
 
   const LifecycleRule._();
 
-  static const List<_i10.SmithySerializer<LifecycleRule>> serializers = [
+  static const List<_i3.SmithySerializer<LifecycleRule>> serializers = [
     LifecycleRuleRestXmlSerializer()
   ];
 
   /// Specifies the expiration for the lifecycle of the object in the form of date, days and, whether the object has a delete marker.
-  _i2.LifecycleExpiration? get expiration;
+  LifecycleExpiration? get expiration;
 
   /// Unique identifier for the rule. The value cannot be longer than 255 characters.
   String? get id;
@@ -85,23 +81,22 @@ abstract class LifecycleRule
   String? get prefix;
 
   /// The `Filter` is used to identify objects that a Lifecycle Rule applies to. A `Filter` must have exactly one of `Prefix`, `Tag`, or `And` specified. `Filter` is required if the `LifecycleRule` does not contain a `Prefix` element.
-  _i3.LifecycleRuleFilter? get filter;
+  LifecycleRuleFilter? get filter;
 
   /// If 'Enabled', the rule is currently being applied. If 'Disabled', the rule is not currently being applied.
-  _i4.ExpirationStatus get status;
+  ExpirationStatus get status;
 
   /// Specifies when an Amazon S3 object transitions to a specified storage class.
-  _i9.BuiltList<_i5.Transition>? get transitions;
+  _i2.BuiltList<Transition>? get transitions;
 
   /// Specifies the transition rule for the lifecycle rule that describes when noncurrent objects transition to a specific storage class. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 transition noncurrent object versions to a specific storage class at a set period in the object's lifetime.
-  _i9.BuiltList<_i6.NoncurrentVersionTransition>?
-      get noncurrentVersionTransitions;
+  _i2.BuiltList<NoncurrentVersionTransition>? get noncurrentVersionTransitions;
 
   /// Specifies when noncurrent object versions expire. Upon expiration, Amazon S3 permanently deletes the noncurrent object versions. You set this lifecycle configuration action on a bucket that has versioning enabled (or suspended) to request that Amazon S3 delete noncurrent object versions at a specific period in the object's lifetime.
-  _i7.NoncurrentVersionExpiration? get noncurrentVersionExpiration;
+  NoncurrentVersionExpiration? get noncurrentVersionExpiration;
 
   /// Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
-  _i8.AbortIncompleteMultipartUpload? get abortIncompleteMultipartUpload;
+  AbortIncompleteMultipartUpload? get abortIncompleteMultipartUpload;
   @override
   List<Object?> get props => [
         expiration,
@@ -158,7 +153,7 @@ abstract class LifecycleRule
 }
 
 class LifecycleRuleRestXmlSerializer
-    extends _i10.StructuredSmithySerializer<LifecycleRule> {
+    extends _i3.StructuredSmithySerializer<LifecycleRule> {
   const LifecycleRuleRestXmlSerializer() : super('LifecycleRule');
 
   @override
@@ -167,8 +162,8 @@ class LifecycleRuleRestXmlSerializer
         _$LifecycleRule,
       ];
   @override
-  Iterable<_i10.ShapeId> get supportedProtocols => const [
-        _i10.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -193,18 +188,18 @@ class LifecycleRuleRestXmlSerializer
           result.abortIncompleteMultipartUpload
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.AbortIncompleteMultipartUpload),
-          ) as _i8.AbortIncompleteMultipartUpload));
+            specifiedType: const FullType(AbortIncompleteMultipartUpload),
+          ) as AbortIncompleteMultipartUpload));
         case 'Expiration':
           result.expiration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LifecycleExpiration),
-          ) as _i2.LifecycleExpiration));
+            specifiedType: const FullType(LifecycleExpiration),
+          ) as LifecycleExpiration));
         case 'Filter':
           result.filter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.LifecycleRuleFilter),
-          ) as _i3.LifecycleRuleFilter);
+            specifiedType: const FullType(LifecycleRuleFilter),
+          ) as LifecycleRuleFilter);
         case 'ID':
           result.id = (serializers.deserialize(
             value,
@@ -213,13 +208,13 @@ class LifecycleRuleRestXmlSerializer
         case 'NoncurrentVersionExpiration':
           result.noncurrentVersionExpiration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.NoncurrentVersionExpiration),
-          ) as _i7.NoncurrentVersionExpiration));
+            specifiedType: const FullType(NoncurrentVersionExpiration),
+          ) as NoncurrentVersionExpiration));
         case 'NoncurrentVersionTransition':
           result.noncurrentVersionTransitions.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.NoncurrentVersionTransition),
-          ) as _i6.NoncurrentVersionTransition));
+            specifiedType: const FullType(NoncurrentVersionTransition),
+          ) as NoncurrentVersionTransition));
         case 'Prefix':
           result.prefix = (serializers.deserialize(
             value,
@@ -228,13 +223,13 @@ class LifecycleRuleRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ExpirationStatus),
-          ) as _i4.ExpirationStatus);
+            specifiedType: const FullType(ExpirationStatus),
+          ) as ExpirationStatus);
         case 'Transition':
           result.transitions.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Transition),
-          ) as _i5.Transition));
+            specifiedType: const FullType(Transition),
+          ) as Transition));
       }
     }
 
@@ -248,9 +243,9 @@ class LifecycleRuleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i10.XmlElementName(
+      const _i3.XmlElementName(
         'LifecycleRule',
-        _i10.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final LifecycleRule(
@@ -266,31 +261,31 @@ class LifecycleRuleRestXmlSerializer
     ) = object;
     if (abortIncompleteMultipartUpload != null) {
       result$
-        ..add(const _i10.XmlElementName('AbortIncompleteMultipartUpload'))
+        ..add(const _i3.XmlElementName('AbortIncompleteMultipartUpload'))
         ..add(serializers.serialize(
           abortIncompleteMultipartUpload,
-          specifiedType: const FullType(_i8.AbortIncompleteMultipartUpload),
+          specifiedType: const FullType(AbortIncompleteMultipartUpload),
         ));
     }
     if (expiration != null) {
       result$
-        ..add(const _i10.XmlElementName('Expiration'))
+        ..add(const _i3.XmlElementName('Expiration'))
         ..add(serializers.serialize(
           expiration,
-          specifiedType: const FullType(_i2.LifecycleExpiration),
+          specifiedType: const FullType(LifecycleExpiration),
         ));
     }
     if (filter != null) {
       result$
-        ..add(const _i10.XmlElementName('Filter'))
+        ..add(const _i3.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i3.LifecycleRuleFilter),
+          specifiedType: const FullType(LifecycleRuleFilter),
         ));
     }
     if (id != null) {
       result$
-        ..add(const _i10.XmlElementName('ID'))
+        ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
@@ -298,46 +293,46 @@ class LifecycleRuleRestXmlSerializer
     }
     if (noncurrentVersionExpiration != null) {
       result$
-        ..add(const _i10.XmlElementName('NoncurrentVersionExpiration'))
+        ..add(const _i3.XmlElementName('NoncurrentVersionExpiration'))
         ..add(serializers.serialize(
           noncurrentVersionExpiration,
-          specifiedType: const FullType(_i7.NoncurrentVersionExpiration),
+          specifiedType: const FullType(NoncurrentVersionExpiration),
         ));
     }
     if (noncurrentVersionTransitions != null) {
-      result$.addAll(const _i10.XmlBuiltListSerializer(
+      result$.addAll(const _i3.XmlBuiltListSerializer(
               memberName: 'NoncurrentVersionTransition')
           .serialize(
         serializers,
         noncurrentVersionTransitions,
         specifiedType: const FullType.nullable(
-          _i9.BuiltList,
-          [FullType(_i6.NoncurrentVersionTransition)],
+          _i2.BuiltList,
+          [FullType(NoncurrentVersionTransition)],
         ),
       ));
     }
     if (prefix != null) {
       result$
-        ..add(const _i10.XmlElementName('Prefix'))
+        ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i10.XmlElementName('Status'))
+      ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i4.ExpirationStatus),
+        specifiedType: const FullType.nullable(ExpirationStatus),
       ));
     if (transitions != null) {
       result$.addAll(
-          const _i10.XmlBuiltListSerializer(memberName: 'Transition').serialize(
+          const _i3.XmlBuiltListSerializer(memberName: 'Transition').serialize(
         serializers,
         transitions,
         specifiedType: const FullType.nullable(
-          _i9.BuiltList,
-          [FullType(_i5.Transition)],
+          _i2.BuiltList,
+          [FullType(Transition)],
         ),
       ));
     }

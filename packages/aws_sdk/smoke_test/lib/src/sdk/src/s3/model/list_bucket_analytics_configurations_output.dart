@@ -4,12 +4,11 @@
 library smoke_test.s3.model.list_bucket_analytics_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/analytics_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/analytics_configuration.dart';
 
 part 'list_bucket_analytics_configurations_output.g.dart';
 
@@ -23,7 +22,7 @@ abstract class ListBucketAnalyticsConfigurationsOutput
     bool? isTruncated,
     String? continuationToken,
     String? nextContinuationToken,
-    List<_i2.AnalyticsConfiguration>? analyticsConfigurationList,
+    List<AnalyticsConfiguration>? analyticsConfigurationList,
   }) {
     return _$ListBucketAnalyticsConfigurationsOutput._(
       isTruncated: isTruncated,
@@ -31,7 +30,7 @@ abstract class ListBucketAnalyticsConfigurationsOutput
       nextContinuationToken: nextContinuationToken,
       analyticsConfigurationList: analyticsConfigurationList == null
           ? null
-          : _i3.BuiltList(analyticsConfigurationList),
+          : _i2.BuiltList(analyticsConfigurationList),
     );
   }
 
@@ -49,7 +48,7 @@ abstract class ListBucketAnalyticsConfigurationsOutput
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListBucketAnalyticsConfigurationsOutput>>
+          _i3.SmithySerializer<ListBucketAnalyticsConfigurationsOutput>>
       serializers = [
     ListBucketAnalyticsConfigurationsOutputRestXmlSerializer()
   ];
@@ -64,7 +63,7 @@ abstract class ListBucketAnalyticsConfigurationsOutput
   String? get nextContinuationToken;
 
   /// The list of analytics configurations for a bucket.
-  _i3.BuiltList<_i2.AnalyticsConfiguration>? get analyticsConfigurationList;
+  _i2.BuiltList<AnalyticsConfiguration>? get analyticsConfigurationList;
   @override
   List<Object?> get props => [
         isTruncated,
@@ -96,7 +95,7 @@ abstract class ListBucketAnalyticsConfigurationsOutput
   }
 }
 
-class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
+class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i3
     .StructuredSmithySerializer<ListBucketAnalyticsConfigurationsOutput> {
   const ListBucketAnalyticsConfigurationsOutputRestXmlSerializer()
       : super('ListBucketAnalyticsConfigurationsOutput');
@@ -107,8 +106,8 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
         _$ListBucketAnalyticsConfigurationsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -132,8 +131,8 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
         case 'AnalyticsConfiguration':
           result.analyticsConfigurationList.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AnalyticsConfiguration),
-          ) as _i2.AnalyticsConfiguration));
+            specifiedType: const FullType(AnalyticsConfiguration),
+          ) as AnalyticsConfiguration));
         case 'ContinuationToken':
           result.continuationToken = (serializers.deserialize(
             value,
@@ -162,9 +161,9 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListBucketAnalyticsConfigurationResult',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ListBucketAnalyticsConfigurationsOutput(
@@ -175,19 +174,19 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
     ) = object;
     if (analyticsConfigurationList != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'AnalyticsConfiguration')
+          const _i3.XmlBuiltListSerializer(memberName: 'AnalyticsConfiguration')
               .serialize(
         serializers,
         analyticsConfigurationList,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.AnalyticsConfiguration)],
+          _i2.BuiltList,
+          [FullType(AnalyticsConfiguration)],
         ),
       ));
     }
     if (continuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('ContinuationToken'))
+        ..add(const _i3.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
           continuationToken,
           specifiedType: const FullType(String),
@@ -195,7 +194,7 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
     }
     if (isTruncated != null) {
       result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
           specifiedType: const FullType.nullable(bool),
@@ -203,7 +202,7 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
     }
     if (nextContinuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextContinuationToken'))
+        ..add(const _i3.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
           nextContinuationToken,
           specifiedType: const FullType(String),

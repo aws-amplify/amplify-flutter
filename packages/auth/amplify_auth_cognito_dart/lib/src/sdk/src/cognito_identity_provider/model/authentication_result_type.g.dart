@@ -18,7 +18,7 @@ class _$AuthenticationResultType extends AuthenticationResultType {
   @override
   final String? idToken;
   @override
-  final _i2.NewDeviceMetadataType? newDeviceMetadata;
+  final NewDeviceMetadataType? newDeviceMetadata;
 
   factory _$AuthenticationResultType(
           [void Function(AuthenticationResultTypeBuilder)? updates]) =>
@@ -96,10 +96,10 @@ class AuthenticationResultTypeBuilder
   String? get idToken => _$this._idToken;
   set idToken(String? idToken) => _$this._idToken = idToken;
 
-  _i2.NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
-  _i2.NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
-      _$this._newDeviceMetadata ??= new _i2.NewDeviceMetadataTypeBuilder();
-  set newDeviceMetadata(_i2.NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
+  NewDeviceMetadataTypeBuilder? _newDeviceMetadata;
+  NewDeviceMetadataTypeBuilder get newDeviceMetadata =>
+      _$this._newDeviceMetadata ??= new NewDeviceMetadataTypeBuilder();
+  set newDeviceMetadata(NewDeviceMetadataTypeBuilder? newDeviceMetadata) =>
       _$this._newDeviceMetadata = newDeviceMetadata;
 
   AuthenticationResultTypeBuilder() {

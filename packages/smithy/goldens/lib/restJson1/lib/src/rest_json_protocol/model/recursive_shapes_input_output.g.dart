@@ -8,7 +8,7 @@ part of 'recursive_shapes_input_output.dart';
 
 class _$RecursiveShapesInputOutput extends RecursiveShapesInputOutput {
   @override
-  final _i3.RecursiveShapesInputOutputNested1? nested;
+  final RecursiveShapesInputOutputNested1? nested;
 
   factory _$RecursiveShapesInputOutput(
           [void Function(RecursiveShapesInputOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class RecursiveShapesInputOutputBuilder
         Builder<RecursiveShapesInputOutput, RecursiveShapesInputOutputBuilder> {
   _$RecursiveShapesInputOutput? _$v;
 
-  _i3.RecursiveShapesInputOutputNested1Builder? _nested;
-  _i3.RecursiveShapesInputOutputNested1Builder get nested =>
-      _$this._nested ??= new _i3.RecursiveShapesInputOutputNested1Builder();
-  set nested(_i3.RecursiveShapesInputOutputNested1Builder? nested) =>
+  RecursiveShapesInputOutputNested1Builder? _nested;
+  RecursiveShapesInputOutputNested1Builder get nested =>
+      _$this._nested ??= new RecursiveShapesInputOutputNested1Builder();
+  set nested(RecursiveShapesInputOutputNested1Builder? nested) =>
       _$this._nested = nested;
 
   RecursiveShapesInputOutputBuilder();

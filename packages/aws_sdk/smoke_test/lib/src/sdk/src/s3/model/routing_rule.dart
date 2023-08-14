@@ -6,9 +6,9 @@ library smoke_test.s3.model.routing_rule; // ignore_for_file: no_leading_undersc
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/condition.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/redirect.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/condition.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/redirect.dart';
 
 part 'routing_rule.g.dart';
 
@@ -18,8 +18,8 @@ abstract class RoutingRule
     implements Built<RoutingRule, RoutingRuleBuilder> {
   /// Specifies the redirect behavior and when a redirect is applied. For more information about routing rules, see [Configuring advanced conditional redirects](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html#advanced-conditional-redirects) in the _Amazon S3 User Guide_.
   factory RoutingRule({
-    _i2.Condition? condition,
-    required _i3.Redirect redirect,
+    Condition? condition,
+    required Redirect redirect,
   }) {
     return _$RoutingRule._(
       condition: condition,
@@ -33,15 +33,15 @@ abstract class RoutingRule
 
   const RoutingRule._();
 
-  static const List<_i4.SmithySerializer<RoutingRule>> serializers = [
+  static const List<_i2.SmithySerializer<RoutingRule>> serializers = [
     RoutingRuleRestXmlSerializer()
   ];
 
   /// A container for describing a condition that must be met for the specified redirect to apply. For example, 1. If request is for pages in the `/docs` folder, redirect to the `/documents` folder. 2. If request results in HTTP error 4xx, redirect request to another host where you might process the error.
-  _i2.Condition? get condition;
+  Condition? get condition;
 
   /// Container for redirect information. You can redirect requests to another host, to another page, or with another protocol. In the event of an error, you can specify a different error code to return.
-  _i3.Redirect get redirect;
+  Redirect get redirect;
   @override
   List<Object?> get props => [
         condition,
@@ -63,7 +63,7 @@ abstract class RoutingRule
 }
 
 class RoutingRuleRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<RoutingRule> {
+    extends _i2.StructuredSmithySerializer<RoutingRule> {
   const RoutingRuleRestXmlSerializer() : super('RoutingRule');
 
   @override
@@ -72,8 +72,8 @@ class RoutingRuleRestXmlSerializer
         _$RoutingRule,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -97,13 +97,13 @@ class RoutingRuleRestXmlSerializer
         case 'Condition':
           result.condition.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Condition),
-          ) as _i2.Condition));
+            specifiedType: const FullType(Condition),
+          ) as Condition));
         case 'Redirect':
           result.redirect.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Redirect),
-          ) as _i3.Redirect));
+            specifiedType: const FullType(Redirect),
+          ) as Redirect));
       }
     }
 
@@ -117,25 +117,25 @@ class RoutingRuleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'RoutingRule',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final RoutingRule(:condition, :redirect) = object;
     if (condition != null) {
       result$
-        ..add(const _i4.XmlElementName('Condition'))
+        ..add(const _i2.XmlElementName('Condition'))
         ..add(serializers.serialize(
           condition,
-          specifiedType: const FullType(_i2.Condition),
+          specifiedType: const FullType(Condition),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('Redirect'))
+      ..add(const _i2.XmlElementName('Redirect'))
       ..add(serializers.serialize(
         redirect,
-        specifiedType: const FullType(_i3.Redirect),
+        specifiedType: const FullType(Redirect),
       ));
     return result$;
   }

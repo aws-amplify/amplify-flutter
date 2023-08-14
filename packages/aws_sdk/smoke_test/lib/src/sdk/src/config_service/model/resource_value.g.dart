@@ -8,7 +8,7 @@ part of 'resource_value.dart';
 
 class _$ResourceValue extends ResourceValue {
   @override
-  final _i2.ResourceValueType value;
+  final ResourceValueType value;
 
   factory _$ResourceValue([void Function(ResourceValueBuilder)? updates]) =>
       (new ResourceValueBuilder()..update(updates))._build();
@@ -43,9 +43,9 @@ class ResourceValueBuilder
     implements Builder<ResourceValue, ResourceValueBuilder> {
   _$ResourceValue? _$v;
 
-  _i2.ResourceValueType? _value;
-  _i2.ResourceValueType? get value => _$this._value;
-  set value(_i2.ResourceValueType? value) => _$this._value = value;
+  ResourceValueType? _value;
+  ResourceValueType? get value => _$this._value;
+  set value(ResourceValueType? value) => _$this._value = value;
 
   ResourceValueBuilder();
 

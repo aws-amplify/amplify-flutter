@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.list_types_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_summary.dart';
 
 part 'list_types_output.g.dart';
 
@@ -17,12 +16,12 @@ abstract class ListTypesOutput
     with _i1.AWSEquatable<ListTypesOutput>
     implements Built<ListTypesOutput, ListTypesOutputBuilder> {
   factory ListTypesOutput({
-    List<_i2.TypeSummary>? typeSummaries,
+    List<TypeSummary>? typeSummaries,
     String? nextToken,
   }) {
     return _$ListTypesOutput._(
       typeSummaries:
-          typeSummaries == null ? null : _i3.BuiltList(typeSummaries),
+          typeSummaries == null ? null : _i2.BuiltList(typeSummaries),
       nextToken: nextToken,
     );
   }
@@ -39,12 +38,12 @@ abstract class ListTypesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListTypesOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListTypesOutput>> serializers = [
     ListTypesOutputAwsQuerySerializer()
   ];
 
   /// A list of `TypeSummary` structures that contain information about the specified extensions.
-  _i3.BuiltList<_i2.TypeSummary>? get typeSummaries;
+  _i2.BuiltList<TypeSummary>? get typeSummaries;
 
   /// If the request doesn't return all the remaining results, `NextToken` is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If the request returns all results, `NextToken` is set to `null`.
   String? get nextToken;
@@ -69,7 +68,7 @@ abstract class ListTypesOutput
 }
 
 class ListTypesOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListTypesOutput> {
+    extends _i3.StructuredSmithySerializer<ListTypesOutput> {
   const ListTypesOutputAwsQuerySerializer() : super('ListTypesOutput');
 
   @override
@@ -78,8 +77,8 @@ class ListTypesOutputAwsQuerySerializer
         _$ListTypesOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -101,16 +100,16 @@ class ListTypesOutputAwsQuerySerializer
       }
       switch (key) {
         case 'TypeSummaries':
-          result.typeSummaries.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.typeSummaries.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.TypeSummary)],
+              _i2.BuiltList,
+              [FullType(TypeSummary)],
             ),
-          ) as _i3.BuiltList<_i2.TypeSummary>));
+          ) as _i2.BuiltList<TypeSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -129,29 +128,29 @@ class ListTypesOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListTypesOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListTypesOutput(:typeSummaries, :nextToken) = object;
     if (typeSummaries != null) {
       result$
-        ..add(const _i4.XmlElementName('TypeSummaries'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('TypeSummaries'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           typeSummaries,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.TypeSummary)],
+            _i2.BuiltList,
+            [FullType(TypeSummary)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

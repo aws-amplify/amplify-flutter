@@ -9,7 +9,7 @@ part of 'get_compliance_details_by_resource_response.dart';
 class _$GetComplianceDetailsByResourceResponse
     extends GetComplianceDetailsByResourceResponse {
   @override
-  final _i3.BuiltList<_i2.EvaluationResult>? evaluationResults;
+  final _i2.BuiltList<EvaluationResult>? evaluationResults;
   @override
   final String? nextToken;
 
@@ -57,11 +57,10 @@ class GetComplianceDetailsByResourceResponseBuilder
             GetComplianceDetailsByResourceResponseBuilder> {
   _$GetComplianceDetailsByResourceResponse? _$v;
 
-  _i3.ListBuilder<_i2.EvaluationResult>? _evaluationResults;
-  _i3.ListBuilder<_i2.EvaluationResult> get evaluationResults =>
-      _$this._evaluationResults ??= new _i3.ListBuilder<_i2.EvaluationResult>();
-  set evaluationResults(
-          _i3.ListBuilder<_i2.EvaluationResult>? evaluationResults) =>
+  _i2.ListBuilder<EvaluationResult>? _evaluationResults;
+  _i2.ListBuilder<EvaluationResult> get evaluationResults =>
+      _$this._evaluationResults ??= new _i2.ListBuilder<EvaluationResult>();
+  set evaluationResults(_i2.ListBuilder<EvaluationResult>? evaluationResults) =>
       _$this._evaluationResults = evaluationResults;
 
   String? _nextToken;

@@ -3,20 +3,16 @@
 
 library amplify_storage_s3_dart.s3.operation.delete_object_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i9;
+import 'dart:async' as _i5;
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart'
-    as _i6;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/delete_object_output.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/delete_object_request.dart'
-    as _i2;
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/delete_object_output.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/delete_object_request.dart';
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not remove any objects but will still respond that the command was successful.
 ///
@@ -32,10 +28,10 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 ///
 /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
 class DeleteObjectOperation extends _i1.HttpOperation<
-    _i2.DeleteObjectRequestPayload,
-    _i2.DeleteObjectRequest,
-    _i3.DeleteObjectOutputPayload,
-    _i3.DeleteObjectOutput> {
+    DeleteObjectRequestPayload,
+    DeleteObjectRequest,
+    DeleteObjectOutputPayload,
+    DeleteObjectOutput> {
   /// Removes the null version (if there is one) of an object and inserts a delete marker, which becomes the latest version of the object. If there isn't a null version, Amazon S3 does not remove any objects but will still respond that the command was successful.
   ///
   /// To remove a specific version, you must use the version Id subresource. Using this subresource permanently deletes the version. If the object deleted is a delete marker, Amazon S3 sets the response header, `x-amz-delete-marker`, to true.
@@ -52,9 +48,9 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   DeleteObjectOperation({
     required String region,
     Uri? baseUri,
-    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-    _i5.AWSCredentialsProvider credentialsProvider =
-        const _i5.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -66,23 +62,23 @@ class DeleteObjectOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.DeleteObjectRequestPayload, _i2.DeleteObjectRequest,
-          _i3.DeleteObjectOutputPayload, _i3.DeleteObjectOutput>> protocols = [
-    _i4.RestXmlProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<DeleteObjectRequestPayload, DeleteObjectRequest,
+          DeleteObjectOutputPayload, DeleteObjectOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i4.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i7.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -91,8 +87,8 @@ class DeleteObjectOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -100,16 +96,16 @@ class DeleteObjectOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i5.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.DeleteObjectRequest input) =>
+  _i1.HttpRequest buildRequest(DeleteObjectRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'DELETE';
         b.path = _s3ClientConfig.usePathStyle
@@ -142,13 +138,13 @@ class DeleteObjectOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i3.DeleteObjectOutput? output]) => 204;
+  int successCode([DeleteObjectOutput? output]) => 204;
   @override
-  _i3.DeleteObjectOutput buildOutput(
-    _i3.DeleteObjectOutputPayload payload,
-    _i7.AWSBaseHttpResponse response,
+  DeleteObjectOutput buildOutput(
+    DeleteObjectOutputPayload payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.DeleteObjectOutput.fromResponse(
+      DeleteObjectOutput.fromResponse(
         payload,
         response,
       );
@@ -157,7 +153,7 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'DeleteObject';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -179,12 +175,12 @@ class DeleteObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DeleteObjectOutput> run(
-    _i2.DeleteObjectRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<DeleteObjectOutput> run(
+    DeleteObjectRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i9.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -192,7 +188,7 @@ class DeleteObjectOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

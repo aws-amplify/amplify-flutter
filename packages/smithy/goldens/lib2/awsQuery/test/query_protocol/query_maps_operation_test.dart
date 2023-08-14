@@ -4,17 +4,13 @@
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.query_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v2/src/query_protocol/model/greeting_struct.dart'
-    as _i7;
-import 'package:aws_query_v2/src/query_protocol/model/nested_struct_with_map.dart'
-    as _i8;
-import 'package:aws_query_v2/src/query_protocol/model/query_maps_input.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/operation/query_maps_operation.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_query_v2/src/query_protocol/model/greeting_struct.dart';
+import 'package:aws_query_v2/src/query_protocol/model/nested_struct_with_map.dart';
+import 'package:aws_query_v2/src/query_protocol/model/query_maps_input.dart';
+import 'package:aws_query_v2/src/query_protocol/operation/query_maps_operation.dart';
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -23,14 +19,14 @@ void main() {
     'QuerySimpleQueryMaps (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleQueryMaps',
           documentation: 'Serializes query maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -71,14 +67,14 @@ void main() {
     'QuerySimpleQueryMapsWithXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleQueryMapsWithXmlName',
           documentation: 'Serializes query maps and uses xmlName',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -116,14 +112,14 @@ void main() {
     'QueryComplexQueryMaps (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryComplexQueryMaps',
           documentation: 'Serializes complex query maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -164,14 +160,14 @@ void main() {
     'QueryEmptyQueryMaps (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryEmptyQueryMaps',
           documentation: 'Does not serialize empty query maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -206,7 +202,7 @@ void main() {
     'QueryQueryMapWithMemberXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -214,7 +210,7 @@ void main() {
           id: 'QueryQueryMapWithMemberXmlName',
           documentation:
               'Serializes query maps where the member has an xmlName trait',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -255,14 +251,14 @@ void main() {
     'QueryFlattenedQueryMaps (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryFlattenedQueryMaps',
           documentation: 'Serializes flattened query maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -303,14 +299,14 @@ void main() {
     'QueryFlattenedQueryMapsWithXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryFlattenedQueryMapsWithXmlName',
           documentation: 'Serializes flattened query maps that use an xmlName',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -351,14 +347,14 @@ void main() {
     'QueryQueryMapOfLists (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryQueryMapOfLists',
           documentation: 'Serializes query map of lists',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -405,14 +401,14 @@ void main() {
     'QueryNestedStructWithMap (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryMapsOperation(
+        operation: QueryMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryNestedStructWithMap',
           documentation: 'Serializes nested struct with map member',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -454,25 +450,25 @@ void main() {
 }
 
 class QueryMapsInputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.QueryMapsInput> {
+    extends _i3.StructuredSmithySerializer<QueryMapsInput> {
   const QueryMapsInputAwsQuerySerializer() : super('QueryMapsInput');
 
   @override
-  Iterable<Type> get types => const [_i5.QueryMapsInput];
+  Iterable<Type> get types => const [QueryMapsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.QueryMapsInput deserialize(
+  QueryMapsInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.QueryMapsInputBuilder();
+    final result = QueryMapsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -486,84 +482,84 @@ class QueryMapsInputAwsQuerySerializer
           result.mapArg.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'RenamedMapArg':
           result.renamedMapArg.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'ComplexMapArg':
           result.complexMapArg.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(_i7.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
+          ) as _i4.BuiltMap<String, GreetingStruct>));
         case 'MapWithXmlMemberName':
           result.mapWithXmlMemberName.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'FlattenedMap':
           result.flattenedMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'FlattenedMapWithXmlName':
           result.flattenedMapWithXmlName.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'MapOfLists':
           result.mapOfLists.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltListMultimap,
+              _i4.BuiltListMultimap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltListMultimap<String, String>));
+          ) as _i4.BuiltListMultimap<String, String>));
         case 'NestedStructWithMap':
           result.nestedStructWithMap.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.NestedStructWithMap),
-          ) as _i8.NestedStructWithMap));
+            specifiedType: const FullType(NestedStructWithMap),
+          ) as NestedStructWithMap));
       }
     }
 
@@ -573,7 +569,7 @@ class QueryMapsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.QueryMapsInput object, {
+    QueryMapsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -581,25 +577,25 @@ class QueryMapsInputAwsQuerySerializer
 }
 
 class GreetingStructAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i7.GreetingStruct> {
+    extends _i3.StructuredSmithySerializer<GreetingStruct> {
   const GreetingStructAwsQuerySerializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [_i7.GreetingStruct];
+  Iterable<Type> get types => const [GreetingStruct];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i7.GreetingStruct deserialize(
+  GreetingStruct deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.GreetingStructBuilder();
+    final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -623,7 +619,7 @@ class GreetingStructAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.GreetingStruct object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -631,25 +627,25 @@ class GreetingStructAwsQuerySerializer
 }
 
 class NestedStructWithMapAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i8.NestedStructWithMap> {
+    extends _i3.StructuredSmithySerializer<NestedStructWithMap> {
   const NestedStructWithMapAwsQuerySerializer() : super('NestedStructWithMap');
 
   @override
-  Iterable<Type> get types => const [_i8.NestedStructWithMap];
+  Iterable<Type> get types => const [NestedStructWithMap];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i8.NestedStructWithMap deserialize(
+  NestedStructWithMap deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i8.NestedStructWithMapBuilder();
+    final result = NestedStructWithMapBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -663,13 +659,13 @@ class NestedStructWithMapAwsQuerySerializer
           result.mapArg.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
       }
     }
 
@@ -679,7 +675,7 @@ class NestedStructWithMapAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i8.NestedStructWithMap object, {
+    NestedStructWithMap object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

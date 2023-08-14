@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.list_discovered_resources_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'list_discovered_resources_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ListDiscoveredResourcesRequest
         Built<ListDiscoveredResourcesRequest,
             ListDiscoveredResourcesRequestBuilder> {
   factory ListDiscoveredResourcesRequest({
-    required _i3.ResourceType resourceType,
+    required ResourceType resourceType,
     List<String>? resourceIds,
     String? resourceName,
     int? limit,
@@ -32,7 +31,7 @@ abstract class ListDiscoveredResourcesRequest
     includeDeletedResources ??= false;
     return _$ListDiscoveredResourcesRequest._(
       resourceType: resourceType,
-      resourceIds: resourceIds == null ? null : _i4.BuiltList(resourceIds),
+      resourceIds: resourceIds == null ? null : _i3.BuiltList(resourceIds),
       resourceName: resourceName,
       limit: limit,
       includeDeletedResources: includeDeletedResources,
@@ -64,10 +63,10 @@ abstract class ListDiscoveredResourcesRequest
   }
 
   /// The type of resources that you want Config to list in the response.
-  _i3.ResourceType get resourceType;
+  ResourceType get resourceType;
 
   /// The IDs of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered. You can list a minimum of 1 resourceID and a maximum of 20 resourceIds.
-  _i4.BuiltList<String>? get resourceIds;
+  _i3.BuiltList<String>? get resourceIds;
 
   /// The custom name of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered.
   String? get resourceName;
@@ -158,16 +157,16 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceIds':
           result.resourceIds.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'resourceName':
           result.resourceName = (serializers.deserialize(
             value,
@@ -213,7 +212,7 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
       'resourceType',
       serializers.serialize(
         resourceType,
-        specifiedType: const FullType(_i3.ResourceType),
+        specifiedType: const FullType(ResourceType),
       ),
       'limit',
       serializers.serialize(
@@ -232,7 +231,7 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           resourceIds,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));

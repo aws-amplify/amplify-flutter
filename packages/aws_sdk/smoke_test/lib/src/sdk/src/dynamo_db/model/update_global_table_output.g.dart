@@ -8,7 +8,7 @@ part of 'update_global_table_output.dart';
 
 class _$UpdateGlobalTableOutput extends UpdateGlobalTableOutput {
   @override
-  final _i2.GlobalTableDescription? globalTableDescription;
+  final GlobalTableDescription? globalTableDescription;
 
   factory _$UpdateGlobalTableOutput(
           [void Function(UpdateGlobalTableOutputBuilder)? updates]) =>
@@ -46,12 +46,11 @@ class UpdateGlobalTableOutputBuilder
         Builder<UpdateGlobalTableOutput, UpdateGlobalTableOutputBuilder> {
   _$UpdateGlobalTableOutput? _$v;
 
-  _i2.GlobalTableDescriptionBuilder? _globalTableDescription;
-  _i2.GlobalTableDescriptionBuilder get globalTableDescription =>
-      _$this._globalTableDescription ??=
-          new _i2.GlobalTableDescriptionBuilder();
+  GlobalTableDescriptionBuilder? _globalTableDescription;
+  GlobalTableDescriptionBuilder get globalTableDescription =>
+      _$this._globalTableDescription ??= new GlobalTableDescriptionBuilder();
   set globalTableDescription(
-          _i2.GlobalTableDescriptionBuilder? globalTableDescription) =>
+          GlobalTableDescriptionBuilder? globalTableDescription) =>
       _$this._globalTableDescription = globalTableDescription;
 
   UpdateGlobalTableOutputBuilder();

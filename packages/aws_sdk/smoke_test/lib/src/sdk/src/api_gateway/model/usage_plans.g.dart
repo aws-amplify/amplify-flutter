@@ -8,7 +8,7 @@ part of 'usage_plans.dart';
 
 class _$UsagePlans extends UsagePlans {
   @override
-  final _i3.BuiltList<_i2.UsagePlan>? items;
+  final _i2.BuiltList<UsagePlan>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$UsagePlans extends UsagePlans {
 class UsagePlansBuilder implements Builder<UsagePlans, UsagePlansBuilder> {
   _$UsagePlans? _$v;
 
-  _i3.ListBuilder<_i2.UsagePlan>? _items;
-  _i3.ListBuilder<_i2.UsagePlan> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.UsagePlan>();
-  set items(_i3.ListBuilder<_i2.UsagePlan>? items) => _$this._items = items;
+  _i2.ListBuilder<UsagePlan>? _items;
+  _i2.ListBuilder<UsagePlan> get items =>
+      _$this._items ??= new _i2.ListBuilder<UsagePlan>();
+  set items(_i2.ListBuilder<UsagePlan>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

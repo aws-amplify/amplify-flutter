@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_organization_config_rule_detailed_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/member_account_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/member_account_status.dart';
 
 part 'get_organization_config_rule_detailed_status_response.g.dart';
 
@@ -20,14 +19,14 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
         Built<GetOrganizationConfigRuleDetailedStatusResponse,
             GetOrganizationConfigRuleDetailedStatusResponseBuilder> {
   factory GetOrganizationConfigRuleDetailedStatusResponse({
-    List<_i2.MemberAccountStatus>? organizationConfigRuleDetailedStatus,
+    List<MemberAccountStatus>? organizationConfigRuleDetailedStatus,
     String? nextToken,
   }) {
     return _$GetOrganizationConfigRuleDetailedStatusResponse._(
       organizationConfigRuleDetailedStatus:
           organizationConfigRuleDetailedStatus == null
               ? null
-              : _i3.BuiltList(organizationConfigRuleDetailedStatus),
+              : _i2.BuiltList(organizationConfigRuleDetailedStatus),
       nextToken: nextToken,
     );
   }
@@ -46,14 +45,13 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetOrganizationConfigRuleDetailedStatusResponse>>
+          _i3.SmithySerializer<GetOrganizationConfigRuleDetailedStatusResponse>>
       serializers = [
     GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer()
   ];
 
   /// A list of `MemberAccountStatus` objects.
-  _i3.BuiltList<_i2.MemberAccountStatus>?
-      get organizationConfigRuleDetailedStatus;
+  _i2.BuiltList<MemberAccountStatus>? get organizationConfigRuleDetailedStatus;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -79,7 +77,7 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
 }
 
 class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         GetOrganizationConfigRuleDetailedStatusResponse> {
   const GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer()
       : super('GetOrganizationConfigRuleDetailedStatusResponse');
@@ -90,8 +88,8 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
         _$GetOrganizationConfigRuleDetailedStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -117,10 +115,10 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.MemberAccountStatus)],
+              _i2.BuiltList,
+              [FullType(MemberAccountStatus)],
             ),
-          ) as _i3.BuiltList<_i2.MemberAccountStatus>));
+          ) as _i2.BuiltList<MemberAccountStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -149,8 +147,8 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
         ..add(serializers.serialize(
           organizationConfigRuleDetailedStatus,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.MemberAccountStatus)],
+            _i2.BuiltList,
+            [FullType(MemberAccountStatus)],
           ),
         ));
     }

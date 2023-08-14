@@ -6,9 +6,8 @@ library smoke_test.dynamo_db_streams.model.describe_stream_output; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_description.dart';
 
 part 'describe_stream_output.g.dart';
 
@@ -17,7 +16,7 @@ abstract class DescribeStreamOutput
     with _i1.AWSEquatable<DescribeStreamOutput>
     implements Built<DescribeStreamOutput, DescribeStreamOutputBuilder> {
   /// Represents the output of a `DescribeStream` operation.
-  factory DescribeStreamOutput({_i2.StreamDescription? streamDescription}) {
+  factory DescribeStreamOutput({StreamDescription? streamDescription}) {
     return _$DescribeStreamOutput._(streamDescription: streamDescription);
   }
 
@@ -35,12 +34,12 @@ abstract class DescribeStreamOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeStreamOutput>> serializers = [
+  static const List<_i2.SmithySerializer<DescribeStreamOutput>> serializers = [
     DescribeStreamOutputAwsJson10Serializer()
   ];
 
   /// A complete description of the stream, including its creation date and time, the DynamoDB table associated with the stream, the shard IDs within the stream, and the beginning and ending sequence numbers of stream records within the shards.
-  _i2.StreamDescription? get streamDescription;
+  StreamDescription? get streamDescription;
   @override
   List<Object?> get props => [streamDescription];
   @override
@@ -55,7 +54,7 @@ abstract class DescribeStreamOutput
 }
 
 class DescribeStreamOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeStreamOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeStreamOutput> {
   const DescribeStreamOutputAwsJson10Serializer()
       : super('DescribeStreamOutput');
 
@@ -65,8 +64,8 @@ class DescribeStreamOutputAwsJson10Serializer
         _$DescribeStreamOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -90,8 +89,8 @@ class DescribeStreamOutputAwsJson10Serializer
         case 'StreamDescription':
           result.streamDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StreamDescription),
-          ) as _i2.StreamDescription));
+            specifiedType: const FullType(StreamDescription),
+          ) as StreamDescription));
       }
     }
 
@@ -111,7 +110,7 @@ class DescribeStreamOutputAwsJson10Serializer
         ..add('StreamDescription')
         ..add(serializers.serialize(
           streamDescription,
-          specifiedType: const FullType(_i2.StreamDescription),
+          specifiedType: const FullType(StreamDescription),
         ));
     }
     return result$;

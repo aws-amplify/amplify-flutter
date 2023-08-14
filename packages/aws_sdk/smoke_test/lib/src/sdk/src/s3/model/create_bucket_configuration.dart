@@ -6,9 +6,8 @@ library smoke_test.s3.model.create_bucket_configuration; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart';
 
 part 'create_bucket_configuration.g.dart';
 
@@ -19,7 +18,7 @@ abstract class CreateBucketConfiguration
         Built<CreateBucketConfiguration, CreateBucketConfigurationBuilder> {
   /// The configuration information for the bucket.
   factory CreateBucketConfiguration(
-      {_i2.BucketLocationConstraint? locationConstraint}) {
+      {BucketLocationConstraint? locationConstraint}) {
     return _$CreateBucketConfiguration._(
         locationConstraint: locationConstraint);
   }
@@ -31,11 +30,11 @@ abstract class CreateBucketConfiguration
 
   const CreateBucketConfiguration._();
 
-  static const List<_i3.SmithySerializer<CreateBucketConfiguration>>
+  static const List<_i2.SmithySerializer<CreateBucketConfiguration>>
       serializers = [CreateBucketConfigurationRestXmlSerializer()];
 
   /// Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1).
-  _i2.BucketLocationConstraint? get locationConstraint;
+  BucketLocationConstraint? get locationConstraint;
   @override
   List<Object?> get props => [locationConstraint];
   @override
@@ -50,7 +49,7 @@ abstract class CreateBucketConfiguration
 }
 
 class CreateBucketConfigurationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<CreateBucketConfiguration> {
+    extends _i2.StructuredSmithySerializer<CreateBucketConfiguration> {
   const CreateBucketConfigurationRestXmlSerializer()
       : super('CreateBucketConfiguration');
 
@@ -60,8 +59,8 @@ class CreateBucketConfigurationRestXmlSerializer
         _$CreateBucketConfiguration,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -85,8 +84,8 @@ class CreateBucketConfigurationRestXmlSerializer
         case 'LocationConstraint':
           result.locationConstraint = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BucketLocationConstraint),
-          ) as _i2.BucketLocationConstraint);
+            specifiedType: const FullType(BucketLocationConstraint),
+          ) as BucketLocationConstraint);
       }
     }
 
@@ -100,18 +99,18 @@ class CreateBucketConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateBucketConfiguration',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final CreateBucketConfiguration(:locationConstraint) = object;
     if (locationConstraint != null) {
       result$
-        ..add(const _i3.XmlElementName('LocationConstraint'))
+        ..add(const _i2.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
           locationConstraint,
-          specifiedType: const FullType.nullable(_i2.BucketLocationConstraint),
+          specifiedType: const FullType.nullable(BucketLocationConstraint),
         ));
     }
     return result$;

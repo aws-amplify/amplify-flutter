@@ -22,7 +22,7 @@ class _$StackEvent extends StackEvent {
   @override
   final DateTime timestamp;
   @override
-  final _i2.ResourceStatus? resourceStatus;
+  final ResourceStatus? resourceStatus;
   @override
   final String? resourceStatusReason;
   @override
@@ -32,13 +32,13 @@ class _$StackEvent extends StackEvent {
   @override
   final String? hookType;
   @override
-  final _i3.HookStatus? hookStatus;
+  final HookStatus? hookStatus;
   @override
   final String? hookStatusReason;
   @override
-  final _i4.HookInvocationPoint? hookInvocationPoint;
+  final HookInvocationPoint? hookInvocationPoint;
   @override
-  final _i5.HookFailureMode? hookFailureMode;
+  final HookFailureMode? hookFailureMode;
 
   factory _$StackEvent([void Function(StackEventBuilder)? updates]) =>
       (new StackEventBuilder()..update(updates))._build();
@@ -155,9 +155,9 @@ class StackEventBuilder implements Builder<StackEvent, StackEventBuilder> {
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  _i2.ResourceStatus? _resourceStatus;
-  _i2.ResourceStatus? get resourceStatus => _$this._resourceStatus;
-  set resourceStatus(_i2.ResourceStatus? resourceStatus) =>
+  ResourceStatus? _resourceStatus;
+  ResourceStatus? get resourceStatus => _$this._resourceStatus;
+  set resourceStatus(ResourceStatus? resourceStatus) =>
       _$this._resourceStatus = resourceStatus;
 
   String? _resourceStatusReason;
@@ -179,24 +179,23 @@ class StackEventBuilder implements Builder<StackEvent, StackEventBuilder> {
   String? get hookType => _$this._hookType;
   set hookType(String? hookType) => _$this._hookType = hookType;
 
-  _i3.HookStatus? _hookStatus;
-  _i3.HookStatus? get hookStatus => _$this._hookStatus;
-  set hookStatus(_i3.HookStatus? hookStatus) => _$this._hookStatus = hookStatus;
+  HookStatus? _hookStatus;
+  HookStatus? get hookStatus => _$this._hookStatus;
+  set hookStatus(HookStatus? hookStatus) => _$this._hookStatus = hookStatus;
 
   String? _hookStatusReason;
   String? get hookStatusReason => _$this._hookStatusReason;
   set hookStatusReason(String? hookStatusReason) =>
       _$this._hookStatusReason = hookStatusReason;
 
-  _i4.HookInvocationPoint? _hookInvocationPoint;
-  _i4.HookInvocationPoint? get hookInvocationPoint =>
-      _$this._hookInvocationPoint;
-  set hookInvocationPoint(_i4.HookInvocationPoint? hookInvocationPoint) =>
+  HookInvocationPoint? _hookInvocationPoint;
+  HookInvocationPoint? get hookInvocationPoint => _$this._hookInvocationPoint;
+  set hookInvocationPoint(HookInvocationPoint? hookInvocationPoint) =>
       _$this._hookInvocationPoint = hookInvocationPoint;
 
-  _i5.HookFailureMode? _hookFailureMode;
-  _i5.HookFailureMode? get hookFailureMode => _$this._hookFailureMode;
-  set hookFailureMode(_i5.HookFailureMode? hookFailureMode) =>
+  HookFailureMode? _hookFailureMode;
+  HookFailureMode? get hookFailureMode => _$this._hookFailureMode;
+  set hookFailureMode(HookFailureMode? hookFailureMode) =>
       _$this._hookFailureMode = hookFailureMode;
 
   StackEventBuilder();

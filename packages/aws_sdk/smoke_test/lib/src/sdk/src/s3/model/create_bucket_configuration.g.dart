@@ -8,7 +8,7 @@ part of 'create_bucket_configuration.dart';
 
 class _$CreateBucketConfiguration extends CreateBucketConfiguration {
   @override
-  final _i2.BucketLocationConstraint? locationConstraint;
+  final BucketLocationConstraint? locationConstraint;
 
   factory _$CreateBucketConfiguration(
           [void Function(CreateBucketConfigurationBuilder)? updates]) =>
@@ -46,10 +46,10 @@ class CreateBucketConfigurationBuilder
         Builder<CreateBucketConfiguration, CreateBucketConfigurationBuilder> {
   _$CreateBucketConfiguration? _$v;
 
-  _i2.BucketLocationConstraint? _locationConstraint;
-  _i2.BucketLocationConstraint? get locationConstraint =>
+  BucketLocationConstraint? _locationConstraint;
+  BucketLocationConstraint? get locationConstraint =>
       _$this._locationConstraint;
-  set locationConstraint(_i2.BucketLocationConstraint? locationConstraint) =>
+  set locationConstraint(BucketLocationConstraint? locationConstraint) =>
       _$this._locationConstraint = locationConstraint;
 
   CreateBucketConfigurationBuilder();

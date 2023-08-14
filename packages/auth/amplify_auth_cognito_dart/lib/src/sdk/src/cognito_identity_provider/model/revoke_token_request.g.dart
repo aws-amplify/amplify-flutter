@@ -72,9 +72,7 @@ class RevokeTokenRequestBuilder
   String? get clientSecret => _$this._clientSecret;
   set clientSecret(String? clientSecret) => _$this._clientSecret = clientSecret;
 
-  RevokeTokenRequestBuilder() {
-    RevokeTokenRequest._init(this);
-  }
+  RevokeTokenRequestBuilder();
 
   RevokeTokenRequestBuilder get _$this {
     final $v = _$v;

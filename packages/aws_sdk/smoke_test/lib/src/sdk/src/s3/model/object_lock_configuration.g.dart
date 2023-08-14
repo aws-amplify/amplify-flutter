@@ -8,9 +8,9 @@ part of 'object_lock_configuration.dart';
 
 class _$ObjectLockConfiguration extends ObjectLockConfiguration {
   @override
-  final _i2.ObjectLockEnabled? objectLockEnabled;
+  final ObjectLockEnabled? objectLockEnabled;
   @override
-  final _i3.ObjectLockRule? rule;
+  final ObjectLockRule? rule;
 
   factory _$ObjectLockConfiguration(
           [void Function(ObjectLockConfigurationBuilder)? updates]) =>
@@ -50,15 +50,15 @@ class ObjectLockConfigurationBuilder
         Builder<ObjectLockConfiguration, ObjectLockConfigurationBuilder> {
   _$ObjectLockConfiguration? _$v;
 
-  _i2.ObjectLockEnabled? _objectLockEnabled;
-  _i2.ObjectLockEnabled? get objectLockEnabled => _$this._objectLockEnabled;
-  set objectLockEnabled(_i2.ObjectLockEnabled? objectLockEnabled) =>
+  ObjectLockEnabled? _objectLockEnabled;
+  ObjectLockEnabled? get objectLockEnabled => _$this._objectLockEnabled;
+  set objectLockEnabled(ObjectLockEnabled? objectLockEnabled) =>
       _$this._objectLockEnabled = objectLockEnabled;
 
-  _i3.ObjectLockRuleBuilder? _rule;
-  _i3.ObjectLockRuleBuilder get rule =>
-      _$this._rule ??= new _i3.ObjectLockRuleBuilder();
-  set rule(_i3.ObjectLockRuleBuilder? rule) => _$this._rule = rule;
+  ObjectLockRuleBuilder? _rule;
+  ObjectLockRuleBuilder get rule =>
+      _$this._rule ??= new ObjectLockRuleBuilder();
+  set rule(ObjectLockRuleBuilder? rule) => _$this._rule = rule;
 
   ObjectLockConfigurationBuilder();
 

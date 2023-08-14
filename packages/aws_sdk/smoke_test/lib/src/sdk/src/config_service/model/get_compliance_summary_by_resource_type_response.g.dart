@@ -9,7 +9,7 @@ part of 'get_compliance_summary_by_resource_type_response.dart';
 class _$GetComplianceSummaryByResourceTypeResponse
     extends GetComplianceSummaryByResourceTypeResponse {
   @override
-  final _i3.BuiltList<_i2.ComplianceSummaryByResourceType>?
+  final _i2.BuiltList<ComplianceSummaryByResourceType>?
       complianceSummariesByResourceType;
 
   factory _$GetComplianceSummaryByResourceTypeResponse(
@@ -55,14 +55,14 @@ class GetComplianceSummaryByResourceTypeResponseBuilder
             GetComplianceSummaryByResourceTypeResponseBuilder> {
   _$GetComplianceSummaryByResourceTypeResponse? _$v;
 
-  _i3.ListBuilder<_i2.ComplianceSummaryByResourceType>?
+  _i2.ListBuilder<ComplianceSummaryByResourceType>?
       _complianceSummariesByResourceType;
-  _i3.ListBuilder<_i2.ComplianceSummaryByResourceType>
+  _i2.ListBuilder<ComplianceSummaryByResourceType>
       get complianceSummariesByResourceType =>
           _$this._complianceSummariesByResourceType ??=
-              new _i3.ListBuilder<_i2.ComplianceSummaryByResourceType>();
+              new _i2.ListBuilder<ComplianceSummaryByResourceType>();
   set complianceSummariesByResourceType(
-          _i3.ListBuilder<_i2.ComplianceSummaryByResourceType>?
+          _i2.ListBuilder<ComplianceSummaryByResourceType>?
               complianceSummariesByResourceType) =>
       _$this._complianceSummariesByResourceType =
           complianceSummariesByResourceType;

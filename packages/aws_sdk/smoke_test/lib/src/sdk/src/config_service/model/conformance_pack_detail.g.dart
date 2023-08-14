@@ -18,14 +18,14 @@ class _$ConformancePackDetail extends ConformancePackDetail {
   @override
   final String? deliveryS3KeyPrefix;
   @override
-  final _i4.BuiltList<_i2.ConformancePackInputParameter>?
+  final _i2.BuiltList<ConformancePackInputParameter>?
       conformancePackInputParameters;
   @override
   final DateTime? lastUpdateRequestedTime;
   @override
   final String? createdBy;
   @override
-  final _i3.TemplateSsmDocumentDetails? templateSsmDocumentDetails;
+  final TemplateSsmDocumentDetails? templateSsmDocumentDetails;
 
   factory _$ConformancePackDetail(
           [void Function(ConformancePackDetailBuilder)? updates]) =>
@@ -121,14 +121,14 @@ class ConformancePackDetailBuilder
   set deliveryS3KeyPrefix(String? deliveryS3KeyPrefix) =>
       _$this._deliveryS3KeyPrefix = deliveryS3KeyPrefix;
 
-  _i4.ListBuilder<_i2.ConformancePackInputParameter>?
+  _i2.ListBuilder<ConformancePackInputParameter>?
       _conformancePackInputParameters;
-  _i4.ListBuilder<_i2.ConformancePackInputParameter>
+  _i2.ListBuilder<ConformancePackInputParameter>
       get conformancePackInputParameters =>
           _$this._conformancePackInputParameters ??=
-              new _i4.ListBuilder<_i2.ConformancePackInputParameter>();
+              new _i2.ListBuilder<ConformancePackInputParameter>();
   set conformancePackInputParameters(
-          _i4.ListBuilder<_i2.ConformancePackInputParameter>?
+          _i2.ListBuilder<ConformancePackInputParameter>?
               conformancePackInputParameters) =>
       _$this._conformancePackInputParameters = conformancePackInputParameters;
 
@@ -141,12 +141,12 @@ class ConformancePackDetailBuilder
   String? get createdBy => _$this._createdBy;
   set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
-  _i3.TemplateSsmDocumentDetailsBuilder? _templateSsmDocumentDetails;
-  _i3.TemplateSsmDocumentDetailsBuilder get templateSsmDocumentDetails =>
+  TemplateSsmDocumentDetailsBuilder? _templateSsmDocumentDetails;
+  TemplateSsmDocumentDetailsBuilder get templateSsmDocumentDetails =>
       _$this._templateSsmDocumentDetails ??=
-          new _i3.TemplateSsmDocumentDetailsBuilder();
+          new TemplateSsmDocumentDetailsBuilder();
   set templateSsmDocumentDetails(
-          _i3.TemplateSsmDocumentDetailsBuilder? templateSsmDocumentDetails) =>
+          TemplateSsmDocumentDetailsBuilder? templateSsmDocumentDetails) =>
       _$this._templateSsmDocumentDetails = templateSsmDocumentDetails;
 
   ConformancePackDetailBuilder();

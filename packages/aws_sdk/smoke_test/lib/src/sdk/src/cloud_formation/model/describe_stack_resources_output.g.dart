@@ -8,7 +8,7 @@ part of 'describe_stack_resources_output.dart';
 
 class _$DescribeStackResourcesOutput extends DescribeStackResourcesOutput {
   @override
-  final _i3.BuiltList<_i2.StackResource>? stackResources;
+  final _i2.BuiltList<StackResource>? stackResources;
 
   factory _$DescribeStackResourcesOutput(
           [void Function(DescribeStackResourcesOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class DescribeStackResourcesOutputBuilder
             DescribeStackResourcesOutputBuilder> {
   _$DescribeStackResourcesOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackResource>? _stackResources;
-  _i3.ListBuilder<_i2.StackResource> get stackResources =>
-      _$this._stackResources ??= new _i3.ListBuilder<_i2.StackResource>();
-  set stackResources(_i3.ListBuilder<_i2.StackResource>? stackResources) =>
+  _i2.ListBuilder<StackResource>? _stackResources;
+  _i2.ListBuilder<StackResource> get stackResources =>
+      _$this._stackResources ??= new _i2.ListBuilder<StackResource>();
+  set stackResources(_i2.ListBuilder<StackResource>? stackResources) =>
       _$this._stackResources = stackResources;
 
   DescribeStackResourcesOutputBuilder();

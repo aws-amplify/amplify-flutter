@@ -8,9 +8,9 @@ part of 'resource_count.dart';
 
 class _$ResourceCount extends ResourceCount {
   @override
-  final _i2.ResourceType? resourceType;
+  final ResourceType? resourceType;
   @override
-  final _i3.Int64 count;
+  final _i2.Int64 count;
 
   factory _$ResourceCount([void Function(ResourceCountBuilder)? updates]) =>
       (new ResourceCountBuilder()..update(updates))._build();
@@ -48,14 +48,14 @@ class ResourceCountBuilder
     implements Builder<ResourceCount, ResourceCountBuilder> {
   _$ResourceCount? _$v;
 
-  _i2.ResourceType? _resourceType;
-  _i2.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i2.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
-  _i3.Int64? _count;
-  _i3.Int64? get count => _$this._count;
-  set count(_i3.Int64? count) => _$this._count = count;
+  _i2.Int64? _count;
+  _i2.Int64? get count => _$this._count;
+  set count(_i2.Int64? count) => _$this._count = count;
 
   ResourceCountBuilder() {
     ResourceCount._init(this);

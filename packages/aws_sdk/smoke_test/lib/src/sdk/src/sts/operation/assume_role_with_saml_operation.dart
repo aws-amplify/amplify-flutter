@@ -3,31 +3,22 @@
 
 library smoke_test.sts.operation.assume_role_with_saml_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/expired_token_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/sts/model/idp_rejected_claim_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/sts/model/invalid_identity_token_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/sts/model/malformed_policy_document_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/sts/model/packed_policy_too_large_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
-    as _i14;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/expired_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/idp_rejected_claim_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/invalid_identity_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/malformed_policy_document_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/packed_policy_too_large_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart';
 
 /// Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. This operation provides a mechanism for tying an enterprise identity store or directory to role-based Amazon Web Services access without user-specific credentials or configuration. For a comparison of `AssumeRoleWithSAML` with the other API operations that produce temporary credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) and [Comparing the Amazon Web Services STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison) in the _IAM User Guide_.
 ///
@@ -77,10 +68,10 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// *   [Creating a Role for SAML 2.0 Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_saml.html) in the _IAM User Guide_.
 class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
-    _i2.AssumeRoleWithSamlRequest,
-    _i2.AssumeRoleWithSamlRequest,
-    _i3.AssumeRoleWithSamlResponse,
-    _i3.AssumeRoleWithSamlResponse> {
+    AssumeRoleWithSamlRequest,
+    AssumeRoleWithSamlRequest,
+    AssumeRoleWithSamlResponse,
+    AssumeRoleWithSamlResponse> {
   /// Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. This operation provides a mechanism for tying an enterprise identity store or directory to role-based Amazon Web Services access without user-specific credentials or configuration. For a comparison of `AssumeRoleWithSAML` with the other API operations that produce temporary credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) and [Comparing the Amazon Web Services STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison) in the _IAM User Guide_.
   ///
   /// The temporary security credentials returned by this operation consist of an access key ID, a secret access key, and a security token. Applications can use these temporary security credentials to sign calls to Amazon Web Services services.
@@ -131,8 +122,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
   AssumeRoleWithSamlOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -143,25 +134,22 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.AssumeRoleWithSamlRequest,
-          _i2.AssumeRoleWithSamlRequest,
-          _i3.AssumeRoleWithSamlResponse,
-          _i3.AssumeRoleWithSamlResponse>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<AssumeRoleWithSamlRequest, AssumeRoleWithSamlRequest,
+          AssumeRoleWithSamlResponse, AssumeRoleWithSamlResponse>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.sts,
+              service: _i4.AWSService.sts,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -169,32 +157,32 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
       action: 'AssumeRoleWithSAML',
       version: '2011-06-15',
       awsQueryErrors: const [
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ExpiredTokenException',
           code: 'ExpiredTokenException',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'IDPRejectedClaimException',
           code: 'IDPRejectedClaim',
           httpResponseCode: 403,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'InvalidIdentityTokenException',
           code: 'InvalidIdentityToken',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'MalformedPolicyDocumentException',
           code: 'MalformedPolicyDocument',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'PackedPolicyTooLargeException',
           code: 'PackedPolicyTooLarge',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'RegionDisabledException',
           code: 'RegionDisabledException',
           httpResponseCode: 403,
@@ -203,8 +191,8 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -212,112 +200,110 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.AssumeRoleWithSamlRequest input) =>
+  _i1.HttpRequest buildRequest(AssumeRoleWithSamlRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.AssumeRoleWithSamlResponse? output]) => 200;
+  int successCode([AssumeRoleWithSamlResponse? output]) => 200;
   @override
-  _i3.AssumeRoleWithSamlResponse buildOutput(
-    _i3.AssumeRoleWithSamlResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  AssumeRoleWithSamlResponse buildOutput(
+    AssumeRoleWithSamlResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.AssumeRoleWithSamlResponse.fromResponse(
+      AssumeRoleWithSamlResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
+        _i1.SmithyError<ExpiredTokenException, ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
           ),
           _i1.ErrorKind.client,
-          _i9.ExpiredTokenException,
+          ExpiredTokenException,
           statusCode: 400,
-          builder: _i9.ExpiredTokenException.fromResponse,
+          builder: ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i10.IdpRejectedClaimException,
-            _i10.IdpRejectedClaimException>(
+        _i1.SmithyError<IdpRejectedClaimException, IdpRejectedClaimException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPRejectedClaimException',
           ),
           _i1.ErrorKind.client,
-          _i10.IdpRejectedClaimException,
+          IdpRejectedClaimException,
           statusCode: 403,
-          builder: _i10.IdpRejectedClaimException.fromResponse,
+          builder: IdpRejectedClaimException.fromResponse,
         ),
-        _i1.SmithyError<_i11.InvalidIdentityTokenException,
-            _i11.InvalidIdentityTokenException>(
+        _i1.SmithyError<InvalidIdentityTokenException,
+            InvalidIdentityTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'InvalidIdentityTokenException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidIdentityTokenException,
+          InvalidIdentityTokenException,
           statusCode: 400,
-          builder: _i11.InvalidIdentityTokenException.fromResponse,
+          builder: InvalidIdentityTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i12.MalformedPolicyDocumentException,
-            _i12.MalformedPolicyDocumentException>(
+        _i1.SmithyError<MalformedPolicyDocumentException,
+            MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
           ),
           _i1.ErrorKind.client,
-          _i12.MalformedPolicyDocumentException,
+          MalformedPolicyDocumentException,
           statusCode: 400,
-          builder: _i12.MalformedPolicyDocumentException.fromResponse,
+          builder: MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError<_i13.PackedPolicyTooLargeException,
-            _i13.PackedPolicyTooLargeException>(
+        _i1.SmithyError<PackedPolicyTooLargeException,
+            PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
           ),
           _i1.ErrorKind.client,
-          _i13.PackedPolicyTooLargeException,
+          PackedPolicyTooLargeException,
           statusCode: 400,
-          builder: _i13.PackedPolicyTooLargeException.fromResponse,
+          builder: PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError<_i14.RegionDisabledException,
-            _i14.RegionDisabledException>(
+        _i1.SmithyError<RegionDisabledException, RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',
           ),
           _i1.ErrorKind.client,
-          _i14.RegionDisabledException,
+          RegionDisabledException,
           statusCode: 403,
-          builder: _i14.RegionDisabledException.fromResponse,
+          builder: RegionDisabledException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'AssumeRoleWithSAML';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.AssumeRoleWithSamlResponse> run(
-    _i2.AssumeRoleWithSamlRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<AssumeRoleWithSamlResponse> run(
+    AssumeRoleWithSamlRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -325,7 +311,7 @@ class AssumeRoleWithSamlOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

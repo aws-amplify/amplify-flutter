@@ -8,7 +8,7 @@ part of 'list_virtual_mfa_devices_response.dart';
 
 class _$ListVirtualMfaDevicesResponse extends ListVirtualMfaDevicesResponse {
   @override
-  final _i3.BuiltList<_i2.VirtualMfaDevice> virtualMfaDevices;
+  final _i2.BuiltList<VirtualMfaDevice> virtualMfaDevices;
   @override
   final bool isTruncated;
   @override
@@ -62,11 +62,10 @@ class ListVirtualMfaDevicesResponseBuilder
             ListVirtualMfaDevicesResponseBuilder> {
   _$ListVirtualMfaDevicesResponse? _$v;
 
-  _i3.ListBuilder<_i2.VirtualMfaDevice>? _virtualMfaDevices;
-  _i3.ListBuilder<_i2.VirtualMfaDevice> get virtualMfaDevices =>
-      _$this._virtualMfaDevices ??= new _i3.ListBuilder<_i2.VirtualMfaDevice>();
-  set virtualMfaDevices(
-          _i3.ListBuilder<_i2.VirtualMfaDevice>? virtualMfaDevices) =>
+  _i2.ListBuilder<VirtualMfaDevice>? _virtualMfaDevices;
+  _i2.ListBuilder<VirtualMfaDevice> get virtualMfaDevices =>
+      _$this._virtualMfaDevices ??= new _i2.ListBuilder<VirtualMfaDevice>();
+  set virtualMfaDevices(_i2.ListBuilder<VirtualMfaDevice>? virtualMfaDevices) =>
       _$this._virtualMfaDevices = virtualMfaDevices;
 
   bool? _isTruncated;

@@ -4,21 +4,16 @@
 library smoke_test.dynamo_db.model.replica_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
-import 'package:smithy/smithy.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode_summary.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_settings_description.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart'
-    as _i7;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode_summary.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_settings_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart';
 
 part 'replica_settings_description.g.dart';
 
@@ -30,17 +25,17 @@ abstract class ReplicaSettingsDescription
   /// Represents the properties of a replica.
   factory ReplicaSettingsDescription({
     required String regionName,
-    _i2.ReplicaStatus? replicaStatus,
-    _i3.BillingModeSummary? replicaBillingModeSummary,
-    _i4.Int64? replicaProvisionedReadCapacityUnits,
-    _i5.AutoScalingSettingsDescription?
+    ReplicaStatus? replicaStatus,
+    BillingModeSummary? replicaBillingModeSummary,
+    _i2.Int64? replicaProvisionedReadCapacityUnits,
+    AutoScalingSettingsDescription?
         replicaProvisionedReadCapacityAutoScalingSettings,
-    _i4.Int64? replicaProvisionedWriteCapacityUnits,
-    _i5.AutoScalingSettingsDescription?
+    _i2.Int64? replicaProvisionedWriteCapacityUnits,
+    AutoScalingSettingsDescription?
         replicaProvisionedWriteCapacityAutoScalingSettings,
-    List<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>?
+    List<ReplicaGlobalSecondaryIndexSettingsDescription>?
         replicaGlobalSecondaryIndexSettings,
-    _i7.TableClassSummary? replicaTableClassSummary,
+    TableClassSummary? replicaTableClassSummary,
   }) {
     return _$ReplicaSettingsDescription._(
       regionName: regionName,
@@ -56,7 +51,7 @@ abstract class ReplicaSettingsDescription
       replicaGlobalSecondaryIndexSettings:
           replicaGlobalSecondaryIndexSettings == null
               ? null
-              : _i8.BuiltList(replicaGlobalSecondaryIndexSettings),
+              : _i3.BuiltList(replicaGlobalSecondaryIndexSettings),
       replicaTableClassSummary: replicaTableClassSummary,
     );
   }
@@ -68,7 +63,7 @@ abstract class ReplicaSettingsDescription
 
   const ReplicaSettingsDescription._();
 
-  static const List<_i9.SmithySerializer<ReplicaSettingsDescription>>
+  static const List<_i4.SmithySerializer<ReplicaSettingsDescription>>
       serializers = [ReplicaSettingsDescriptionAwsJson10Serializer()];
 
   /// The Region name of the replica.
@@ -83,31 +78,31 @@ abstract class ReplicaSettingsDescription
   /// *   `DELETING` \- The Region is being deleted.
   ///
   /// *   `ACTIVE` \- The Region is ready for use.
-  _i2.ReplicaStatus? get replicaStatus;
+  ReplicaStatus? get replicaStatus;
 
   /// The read/write capacity mode of the replica.
-  _i3.BillingModeSummary? get replicaBillingModeSummary;
+  BillingModeSummary? get replicaBillingModeSummary;
 
   /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`. For more information, see [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput) in the _Amazon DynamoDB Developer Guide_.
-  _i4.Int64? get replicaProvisionedReadCapacityUnits;
+  _i2.Int64? get replicaProvisionedReadCapacityUnits;
 
   /// Auto scaling settings for a global table replica's read capacity units.
-  _i5.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get replicaProvisionedReadCapacityAutoScalingSettings;
 
   /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`. For more information, see [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput) in the _Amazon DynamoDB Developer Guide_.
-  _i4.Int64? get replicaProvisionedWriteCapacityUnits;
+  _i2.Int64? get replicaProvisionedWriteCapacityUnits;
 
   /// Auto scaling settings for a global table replica's write capacity units.
-  _i5.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get replicaProvisionedWriteCapacityAutoScalingSettings;
 
   /// Replica global secondary index settings for the global table.
-  _i8.BuiltList<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>?
+  _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsDescription>?
       get replicaGlobalSecondaryIndexSettings;
 
   /// Contains details of the table class.
-  _i7.TableClassSummary? get replicaTableClassSummary;
+  TableClassSummary? get replicaTableClassSummary;
   @override
   List<Object?> get props => [
         regionName,
@@ -164,7 +159,7 @@ abstract class ReplicaSettingsDescription
 }
 
 class ReplicaSettingsDescriptionAwsJson10Serializer
-    extends _i9.StructuredSmithySerializer<ReplicaSettingsDescription> {
+    extends _i4.StructuredSmithySerializer<ReplicaSettingsDescription> {
   const ReplicaSettingsDescriptionAwsJson10Serializer()
       : super('ReplicaSettingsDescription');
 
@@ -174,8 +169,8 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         _$ReplicaSettingsDescription,
       ];
   @override
-  Iterable<_i9.ShapeId> get supportedProtocols => const [
-        _i9.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -204,51 +199,50 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         case 'ReplicaStatus':
           result.replicaStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ReplicaStatus),
-          ) as _i2.ReplicaStatus);
+            specifiedType: const FullType(ReplicaStatus),
+          ) as ReplicaStatus);
         case 'ReplicaBillingModeSummary':
           result.replicaBillingModeSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BillingModeSummary),
-          ) as _i3.BillingModeSummary));
+            specifiedType: const FullType(BillingModeSummary),
+          ) as BillingModeSummary));
         case 'ReplicaProvisionedReadCapacityUnits':
           result.replicaProvisionedReadCapacityUnits = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ReplicaProvisionedReadCapacityAutoScalingSettings':
           result.replicaProvisionedReadCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.AutoScalingSettingsDescription),
-          ) as _i5.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
         case 'ReplicaProvisionedWriteCapacityUnits':
           result.replicaProvisionedWriteCapacityUnits =
               (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ReplicaProvisionedWriteCapacityAutoScalingSettings':
           result.replicaProvisionedWriteCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.AutoScalingSettingsDescription),
-          ) as _i5.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
         case 'ReplicaGlobalSecondaryIndexSettings':
-          result.replicaGlobalSecondaryIndexSettings.replace((serializers
-              .deserialize(
+          result.replicaGlobalSecondaryIndexSettings
+              .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i6.ReplicaGlobalSecondaryIndexSettingsDescription)],
+              _i3.BuiltList,
+              [FullType(ReplicaGlobalSecondaryIndexSettingsDescription)],
             ),
-          ) as _i8
-              .BuiltList<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>));
+          ) as _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsDescription>));
         case 'ReplicaTableClassSummary':
           result.replicaTableClassSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.TableClassSummary),
-          ) as _i7.TableClassSummary));
+            specifiedType: const FullType(TableClassSummary),
+          ) as TableClassSummary));
       }
     }
 
@@ -285,7 +279,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
-          specifiedType: const FullType(_i2.ReplicaStatus),
+          specifiedType: const FullType(ReplicaStatus),
         ));
     }
     if (replicaBillingModeSummary != null) {
@@ -293,7 +287,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaBillingModeSummary')
         ..add(serializers.serialize(
           replicaBillingModeSummary,
-          specifiedType: const FullType(_i3.BillingModeSummary),
+          specifiedType: const FullType(BillingModeSummary),
         ));
     }
     if (replicaProvisionedReadCapacityUnits != null) {
@@ -301,7 +295,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityUnits,
-          specifiedType: const FullType(_i4.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (replicaProvisionedReadCapacityAutoScalingSettings != null) {
@@ -309,7 +303,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i5.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     if (replicaProvisionedWriteCapacityUnits != null) {
@@ -317,7 +311,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityUnits,
-          specifiedType: const FullType(_i4.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (replicaProvisionedWriteCapacityAutoScalingSettings != null) {
@@ -325,7 +319,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i5.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     if (replicaGlobalSecondaryIndexSettings != null) {
@@ -334,8 +328,8 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           replicaGlobalSecondaryIndexSettings,
           specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i6.ReplicaGlobalSecondaryIndexSettingsDescription)],
+            _i3.BuiltList,
+            [FullType(ReplicaGlobalSecondaryIndexSettingsDescription)],
           ),
         ));
     }
@@ -344,7 +338,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
           replicaTableClassSummary,
-          specifiedType: const FullType(_i7.TableClassSummary),
+          specifiedType: const FullType(TableClassSummary),
         ));
     }
     return result$;

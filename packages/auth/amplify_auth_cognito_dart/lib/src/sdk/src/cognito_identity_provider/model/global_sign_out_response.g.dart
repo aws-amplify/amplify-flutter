@@ -38,9 +38,7 @@ class GlobalSignOutResponseBuilder
     implements Builder<GlobalSignOutResponse, GlobalSignOutResponseBuilder> {
   _$GlobalSignOutResponse? _$v;
 
-  GlobalSignOutResponseBuilder() {
-    GlobalSignOutResponse._init(this);
-  }
+  GlobalSignOutResponseBuilder();
 
   @override
   void replace(GlobalSignOutResponse other) {

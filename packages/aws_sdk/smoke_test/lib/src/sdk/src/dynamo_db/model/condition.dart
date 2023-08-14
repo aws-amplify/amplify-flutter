@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.condition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/comparison_operator.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/comparison_operator.dart';
 
 part 'condition.g.dart';
 
@@ -37,12 +35,12 @@ abstract class Condition
   ///
   /// *   For a `Scan` operation, `Condition` is used in a `ScanFilter`, which evaluates the scan results and returns only the desired values.
   factory Condition({
-    List<_i2.AttributeValue>? attributeValueList,
-    required _i3.ComparisonOperator comparisonOperator,
+    List<AttributeValue>? attributeValueList,
+    required ComparisonOperator comparisonOperator,
   }) {
     return _$Condition._(
       attributeValueList:
-          attributeValueList == null ? null : _i4.BuiltList(attributeValueList),
+          attributeValueList == null ? null : _i2.BuiltList(attributeValueList),
       comparisonOperator: comparisonOperator,
     );
   }
@@ -61,7 +59,7 @@ abstract class Condition
 
   const Condition._();
 
-  static const List<_i5.SmithySerializer<Condition>> serializers = [
+  static const List<_i3.SmithySerializer<Condition>> serializers = [
     ConditionAwsJson10Serializer()
   ];
 
@@ -72,7 +70,7 @@ abstract class Condition
   /// String value comparisons for greater than, equals, or less than are based on ASCII character code values. For example, `a` is greater than `A`, and `a` is greater than `B`. For a list of code values, see [http://en.wikipedia.org/wiki/ASCII#ASCII\_printable\_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
   ///
   /// For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values.
-  _i4.BuiltList<_i2.AttributeValue>? get attributeValueList;
+  _i2.BuiltList<AttributeValue>? get attributeValueList;
 
   /// A comparator for evaluating attributes. For example, equals, greater than, less than, etc.
   ///
@@ -140,7 +138,7 @@ abstract class Condition
   ///
   ///
   /// For usage examples of `AttributeValueList` and `ComparisonOperator`, see [Legacy Conditional Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ComparisonOperator get comparisonOperator;
+  ComparisonOperator get comparisonOperator;
   @override
   List<Object?> get props => [
         attributeValueList,
@@ -162,7 +160,7 @@ abstract class Condition
 }
 
 class ConditionAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<Condition> {
+    extends _i3.StructuredSmithySerializer<Condition> {
   const ConditionAwsJson10Serializer() : super('Condition');
 
   @override
@@ -171,8 +169,8 @@ class ConditionAwsJson10Serializer
         _$Condition,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -197,15 +195,15 @@ class ConditionAwsJson10Serializer
           result.attributeValueList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.AttributeValue)],
+              _i2.BuiltList,
+              [FullType(AttributeValue)],
             ),
-          ) as _i4.BuiltList<_i2.AttributeValue>));
+          ) as _i2.BuiltList<AttributeValue>));
         case 'ComparisonOperator':
           result.comparisonOperator = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComparisonOperator),
-          ) as _i3.ComparisonOperator);
+            specifiedType: const FullType(ComparisonOperator),
+          ) as ComparisonOperator);
       }
     }
 
@@ -224,7 +222,7 @@ class ConditionAwsJson10Serializer
       'ComparisonOperator',
       serializers.serialize(
         comparisonOperator,
-        specifiedType: const FullType(_i3.ComparisonOperator),
+        specifiedType: const FullType(ComparisonOperator),
       ),
     ]);
     if (attributeValueList != null) {
@@ -233,8 +231,8 @@ class ConditionAwsJson10Serializer
         ..add(serializers.serialize(
           attributeValueList,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.AttributeValue)],
+            _i2.BuiltList,
+            [FullType(AttributeValue)],
           ),
         ));
     }

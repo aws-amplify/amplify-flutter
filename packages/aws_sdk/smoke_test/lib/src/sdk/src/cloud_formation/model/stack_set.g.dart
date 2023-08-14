@@ -14,15 +14,15 @@ class _$StackSet extends StackSet {
   @override
   final String? description;
   @override
-  final _i2.StackSetStatus? status;
+  final StackSetStatus? status;
   @override
   final String? templateBody;
   @override
-  final _i10.BuiltList<_i3.Parameter>? parameters;
+  final _i2.BuiltList<Parameter>? parameters;
   @override
-  final _i10.BuiltList<_i4.Capability>? capabilities;
+  final _i2.BuiltList<Capability>? capabilities;
   @override
-  final _i10.BuiltList<_i5.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
   final String? stackSetArn;
   @override
@@ -30,17 +30,17 @@ class _$StackSet extends StackSet {
   @override
   final String? executionRoleName;
   @override
-  final _i6.StackSetDriftDetectionDetails? stackSetDriftDetectionDetails;
+  final StackSetDriftDetectionDetails? stackSetDriftDetectionDetails;
   @override
-  final _i7.AutoDeployment? autoDeployment;
+  final AutoDeployment? autoDeployment;
   @override
-  final _i8.PermissionModels? permissionModel;
+  final PermissionModels? permissionModel;
   @override
-  final _i10.BuiltList<String>? organizationalUnitIds;
+  final _i2.BuiltList<String>? organizationalUnitIds;
   @override
-  final _i9.ManagedExecution? managedExecution;
+  final ManagedExecution? managedExecution;
   @override
-  final _i10.BuiltList<String>? regions;
+  final _i2.BuiltList<String>? regions;
 
   factory _$StackSet([void Function(StackSetBuilder)? updates]) =>
       (new StackSetBuilder()..update(updates))._build();
@@ -135,30 +135,29 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i2.StackSetStatus? _status;
-  _i2.StackSetStatus? get status => _$this._status;
-  set status(_i2.StackSetStatus? status) => _$this._status = status;
+  StackSetStatus? _status;
+  StackSetStatus? get status => _$this._status;
+  set status(StackSetStatus? status) => _$this._status = status;
 
   String? _templateBody;
   String? get templateBody => _$this._templateBody;
   set templateBody(String? templateBody) => _$this._templateBody = templateBody;
 
-  _i10.ListBuilder<_i3.Parameter>? _parameters;
-  _i10.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i10.ListBuilder<_i3.Parameter>();
-  set parameters(_i10.ListBuilder<_i3.Parameter>? parameters) =>
+  _i2.ListBuilder<Parameter>? _parameters;
+  _i2.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<Parameter>();
+  set parameters(_i2.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  _i10.ListBuilder<_i4.Capability>? _capabilities;
-  _i10.ListBuilder<_i4.Capability> get capabilities =>
-      _$this._capabilities ??= new _i10.ListBuilder<_i4.Capability>();
-  set capabilities(_i10.ListBuilder<_i4.Capability>? capabilities) =>
+  _i2.ListBuilder<Capability>? _capabilities;
+  _i2.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i2.ListBuilder<Capability>();
+  set capabilities(_i2.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i10.ListBuilder<_i5.Tag>? _tags;
-  _i10.ListBuilder<_i5.Tag> get tags =>
-      _$this._tags ??= new _i10.ListBuilder<_i5.Tag>();
-  set tags(_i10.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   String? _stackSetArn;
   String? get stackSetArn => _$this._stackSetArn;
@@ -174,42 +173,42 @@ class StackSetBuilder implements Builder<StackSet, StackSetBuilder> {
   set executionRoleName(String? executionRoleName) =>
       _$this._executionRoleName = executionRoleName;
 
-  _i6.StackSetDriftDetectionDetailsBuilder? _stackSetDriftDetectionDetails;
-  _i6.StackSetDriftDetectionDetailsBuilder get stackSetDriftDetectionDetails =>
+  StackSetDriftDetectionDetailsBuilder? _stackSetDriftDetectionDetails;
+  StackSetDriftDetectionDetailsBuilder get stackSetDriftDetectionDetails =>
       _$this._stackSetDriftDetectionDetails ??=
-          new _i6.StackSetDriftDetectionDetailsBuilder();
+          new StackSetDriftDetectionDetailsBuilder();
   set stackSetDriftDetectionDetails(
-          _i6.StackSetDriftDetectionDetailsBuilder?
+          StackSetDriftDetectionDetailsBuilder?
               stackSetDriftDetectionDetails) =>
       _$this._stackSetDriftDetectionDetails = stackSetDriftDetectionDetails;
 
-  _i7.AutoDeploymentBuilder? _autoDeployment;
-  _i7.AutoDeploymentBuilder get autoDeployment =>
-      _$this._autoDeployment ??= new _i7.AutoDeploymentBuilder();
-  set autoDeployment(_i7.AutoDeploymentBuilder? autoDeployment) =>
+  AutoDeploymentBuilder? _autoDeployment;
+  AutoDeploymentBuilder get autoDeployment =>
+      _$this._autoDeployment ??= new AutoDeploymentBuilder();
+  set autoDeployment(AutoDeploymentBuilder? autoDeployment) =>
       _$this._autoDeployment = autoDeployment;
 
-  _i8.PermissionModels? _permissionModel;
-  _i8.PermissionModels? get permissionModel => _$this._permissionModel;
-  set permissionModel(_i8.PermissionModels? permissionModel) =>
+  PermissionModels? _permissionModel;
+  PermissionModels? get permissionModel => _$this._permissionModel;
+  set permissionModel(PermissionModels? permissionModel) =>
       _$this._permissionModel = permissionModel;
 
-  _i10.ListBuilder<String>? _organizationalUnitIds;
-  _i10.ListBuilder<String> get organizationalUnitIds =>
-      _$this._organizationalUnitIds ??= new _i10.ListBuilder<String>();
-  set organizationalUnitIds(_i10.ListBuilder<String>? organizationalUnitIds) =>
+  _i2.ListBuilder<String>? _organizationalUnitIds;
+  _i2.ListBuilder<String> get organizationalUnitIds =>
+      _$this._organizationalUnitIds ??= new _i2.ListBuilder<String>();
+  set organizationalUnitIds(_i2.ListBuilder<String>? organizationalUnitIds) =>
       _$this._organizationalUnitIds = organizationalUnitIds;
 
-  _i9.ManagedExecutionBuilder? _managedExecution;
-  _i9.ManagedExecutionBuilder get managedExecution =>
-      _$this._managedExecution ??= new _i9.ManagedExecutionBuilder();
-  set managedExecution(_i9.ManagedExecutionBuilder? managedExecution) =>
+  ManagedExecutionBuilder? _managedExecution;
+  ManagedExecutionBuilder get managedExecution =>
+      _$this._managedExecution ??= new ManagedExecutionBuilder();
+  set managedExecution(ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
-  _i10.ListBuilder<String>? _regions;
-  _i10.ListBuilder<String> get regions =>
-      _$this._regions ??= new _i10.ListBuilder<String>();
-  set regions(_i10.ListBuilder<String>? regions) => _$this._regions = regions;
+  _i2.ListBuilder<String>? _regions;
+  _i2.ListBuilder<String> get regions =>
+      _$this._regions ??= new _i2.ListBuilder<String>();
+  set regions(_i2.ListBuilder<String>? regions) => _$this._regions = regions;
 
   StackSetBuilder();
 

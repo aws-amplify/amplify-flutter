@@ -4,13 +4,12 @@
 library smoke_test.dynamo_db.model.local_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart';
 
 part 'local_secondary_index.g.dart';
 
@@ -21,12 +20,12 @@ abstract class LocalSecondaryIndex
   /// Represents the properties of a local secondary index.
   factory LocalSecondaryIndex({
     required String indexName,
-    required List<_i2.KeySchemaElement> keySchema,
-    required _i3.Projection projection,
+    required List<KeySchemaElement> keySchema,
+    required Projection projection,
   }) {
     return _$LocalSecondaryIndex._(
       indexName: indexName,
-      keySchema: _i4.BuiltList(keySchema),
+      keySchema: _i2.BuiltList(keySchema),
       projection: projection,
     );
   }
@@ -38,7 +37,7 @@ abstract class LocalSecondaryIndex
 
   const LocalSecondaryIndex._();
 
-  static const List<_i5.SmithySerializer<LocalSecondaryIndex>> serializers = [
+  static const List<_i3.SmithySerializer<LocalSecondaryIndex>> serializers = [
     LocalSecondaryIndexAwsJson10Serializer()
   ];
 
@@ -55,10 +54,10 @@ abstract class LocalSecondaryIndex
   /// The partition key of an item is also known as its _hash attribute_. The term "hash attribute" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.
   ///
   /// The sort key of an item is also known as its _range attribute_. The term "range attribute" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
-  _i4.BuiltList<_i2.KeySchemaElement> get keySchema;
+  _i2.BuiltList<KeySchemaElement> get keySchema;
 
   /// Represents attributes that are copied (projected) from the table into the local secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-  _i3.Projection get projection;
+  Projection get projection;
   @override
   List<Object?> get props => [
         indexName,
@@ -85,7 +84,7 @@ abstract class LocalSecondaryIndex
 }
 
 class LocalSecondaryIndexAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<LocalSecondaryIndex> {
+    extends _i3.StructuredSmithySerializer<LocalSecondaryIndex> {
   const LocalSecondaryIndexAwsJson10Serializer() : super('LocalSecondaryIndex');
 
   @override
@@ -94,8 +93,8 @@ class LocalSecondaryIndexAwsJson10Serializer
         _$LocalSecondaryIndex,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -125,15 +124,15 @@ class LocalSecondaryIndexAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.KeySchemaElement)],
+              _i2.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i4.BuiltList<_i2.KeySchemaElement>));
+          ) as _i2.BuiltList<KeySchemaElement>));
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Projection),
-          ) as _i3.Projection));
+            specifiedType: const FullType(Projection),
+          ) as Projection));
       }
     }
 
@@ -158,14 +157,14 @@ class LocalSecondaryIndexAwsJson10Serializer
       serializers.serialize(
         keySchema,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i2.KeySchemaElement)],
+          _i2.BuiltList,
+          [FullType(KeySchemaElement)],
         ),
       ),
       'Projection',
       serializers.serialize(
         projection,
-        specifiedType: const FullType(_i3.Projection),
+        specifiedType: const FullType(Projection),
       ),
     ]);
     return result$;

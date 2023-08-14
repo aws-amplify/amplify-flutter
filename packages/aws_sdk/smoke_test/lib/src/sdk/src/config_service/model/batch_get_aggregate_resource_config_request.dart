@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.batch_get_aggregate_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart';
 
 part 'batch_get_aggregate_resource_config_request.g.dart';
 
@@ -22,11 +21,11 @@ abstract class BatchGetAggregateResourceConfigRequest
             BatchGetAggregateResourceConfigRequestBuilder> {
   factory BatchGetAggregateResourceConfigRequest({
     required String configurationAggregatorName,
-    required List<_i3.AggregateResourceIdentifier> resourceIdentifiers,
+    required List<AggregateResourceIdentifier> resourceIdentifiers,
   }) {
     return _$BatchGetAggregateResourceConfigRequest._(
       configurationAggregatorName: configurationAggregatorName,
-      resourceIdentifiers: _i4.BuiltList(resourceIdentifiers),
+      resourceIdentifiers: _i3.BuiltList(resourceIdentifiers),
     );
   }
 
@@ -53,7 +52,7 @@ abstract class BatchGetAggregateResourceConfigRequest
   String get configurationAggregatorName;
 
   /// A list of aggregate ResourceIdentifiers objects.
-  _i4.BuiltList<_i3.AggregateResourceIdentifier> get resourceIdentifiers;
+  _i3.BuiltList<AggregateResourceIdentifier> get resourceIdentifiers;
   @override
   BatchGetAggregateResourceConfigRequest getPayload() => this;
   @override
@@ -119,10 +118,10 @@ class BatchGetAggregateResourceConfigRequestAwsJson11Serializer extends _i1
           result.resourceIdentifiers.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AggregateResourceIdentifier)],
+              _i3.BuiltList,
+              [FullType(AggregateResourceIdentifier)],
             ),
-          ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
+          ) as _i3.BuiltList<AggregateResourceIdentifier>));
       }
     }
 
@@ -150,8 +149,8 @@ class BatchGetAggregateResourceConfigRequestAwsJson11Serializer extends _i1
       serializers.serialize(
         resourceIdentifiers,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.AggregateResourceIdentifier)],
+          _i3.BuiltList,
+          [FullType(AggregateResourceIdentifier)],
         ),
       ),
     ]);

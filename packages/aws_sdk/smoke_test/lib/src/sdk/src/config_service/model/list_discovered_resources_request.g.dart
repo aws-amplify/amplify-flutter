@@ -8,9 +8,9 @@ part of 'list_discovered_resources_request.dart';
 
 class _$ListDiscoveredResourcesRequest extends ListDiscoveredResourcesRequest {
   @override
-  final _i3.ResourceType resourceType;
+  final ResourceType resourceType;
   @override
-  final _i4.BuiltList<String>? resourceIds;
+  final _i3.BuiltList<String>? resourceIds;
   @override
   final String? resourceName;
   @override
@@ -81,15 +81,15 @@ class ListDiscoveredResourcesRequestBuilder
             ListDiscoveredResourcesRequestBuilder> {
   _$ListDiscoveredResourcesRequest? _$v;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
-  _i4.ListBuilder<String>? _resourceIds;
-  _i4.ListBuilder<String> get resourceIds =>
-      _$this._resourceIds ??= new _i4.ListBuilder<String>();
-  set resourceIds(_i4.ListBuilder<String>? resourceIds) =>
+  _i3.ListBuilder<String>? _resourceIds;
+  _i3.ListBuilder<String> get resourceIds =>
+      _$this._resourceIds ??= new _i3.ListBuilder<String>();
+  set resourceIds(_i3.ListBuilder<String>? resourceIds) =>
       _$this._resourceIds = resourceIds;
 
   String? _resourceName;

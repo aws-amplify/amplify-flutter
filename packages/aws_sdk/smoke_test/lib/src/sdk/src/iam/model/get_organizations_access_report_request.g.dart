@@ -15,7 +15,7 @@ class _$GetOrganizationsAccessReportRequest
   @override
   final String? marker;
   @override
-  final _i3.SortKeyType? sortKey;
+  final SortKeyType? sortKey;
 
   factory _$GetOrganizationsAccessReportRequest(
           [void Function(GetOrganizationsAccessReportRequestBuilder)?
@@ -79,9 +79,9 @@ class GetOrganizationsAccessReportRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  _i3.SortKeyType? _sortKey;
-  _i3.SortKeyType? get sortKey => _$this._sortKey;
-  set sortKey(_i3.SortKeyType? sortKey) => _$this._sortKey = sortKey;
+  SortKeyType? _sortKey;
+  SortKeyType? get sortKey => _$this._sortKey;
+  set sortKey(SortKeyType? sortKey) => _$this._sortKey = sortKey;
 
   GetOrganizationsAccessReportRequestBuilder();
 

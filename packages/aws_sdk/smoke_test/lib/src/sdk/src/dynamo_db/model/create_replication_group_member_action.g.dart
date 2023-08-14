@@ -13,11 +13,11 @@ class _$CreateReplicationGroupMemberAction
   @override
   final String? kmsMasterKeyId;
   @override
-  final _i2.ProvisionedThroughputOverride? provisionedThroughputOverride;
+  final ProvisionedThroughputOverride? provisionedThroughputOverride;
   @override
-  final _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes;
+  final _i2.BuiltList<ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes;
   @override
-  final _i4.TableClass? tableClassOverride;
+  final TableClass? tableClassOverride;
 
   factory _$CreateReplicationGroupMemberAction(
           [void Function(CreateReplicationGroupMemberActionBuilder)?
@@ -84,27 +84,27 @@ class CreateReplicationGroupMemberActionBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  _i2.ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
-  _i2.ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
+  ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
+  ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
       _$this._provisionedThroughputOverride ??=
-          new _i2.ProvisionedThroughputOverrideBuilder();
+          new ProvisionedThroughputOverrideBuilder();
   set provisionedThroughputOverride(
-          _i2.ProvisionedThroughputOverrideBuilder?
+          ProvisionedThroughputOverrideBuilder?
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex> get globalSecondaryIndexes =>
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndex> get globalSecondaryIndexes =>
       _$this._globalSecondaryIndexes ??=
-          new _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>();
+          new _i2.ListBuilder<ReplicaGlobalSecondaryIndex>();
   set globalSecondaryIndexes(
-          _i5.ListBuilder<_i3.ReplicaGlobalSecondaryIndex>?
+          _i2.ListBuilder<ReplicaGlobalSecondaryIndex>?
               globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i4.TableClass? _tableClassOverride;
-  _i4.TableClass? get tableClassOverride => _$this._tableClassOverride;
-  set tableClassOverride(_i4.TableClass? tableClassOverride) =>
+  TableClass? _tableClassOverride;
+  TableClass? get tableClassOverride => _$this._tableClassOverride;
+  set tableClassOverride(TableClass? tableClassOverride) =>
       _$this._tableClassOverride = tableClassOverride;
 
   CreateReplicationGroupMemberActionBuilder();

@@ -4,20 +4,15 @@
 library smoke_test.api_gateway.model.stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/access_log_settings.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/method_setting.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/access_log_settings.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_status.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/method_setting.dart';
 
 part 'stage.g.dart';
 
@@ -32,13 +27,13 @@ abstract class Stage
     String? stageName,
     String? description,
     bool? cacheClusterEnabled,
-    _i2.CacheClusterSize? cacheClusterSize,
-    _i3.CacheClusterStatus? cacheClusterStatus,
-    Map<String, _i4.MethodSetting>? methodSettings,
+    CacheClusterSize? cacheClusterSize,
+    CacheClusterStatus? cacheClusterStatus,
+    Map<String, MethodSetting>? methodSettings,
     Map<String, String>? variables,
     String? documentationVersion,
-    _i5.AccessLogSettings? accessLogSettings,
-    _i6.CanarySettings? canarySettings,
+    AccessLogSettings? accessLogSettings,
+    CanarySettings? canarySettings,
     bool? tracingEnabled,
     String? webAclArn,
     Map<String, String>? tags,
@@ -56,14 +51,14 @@ abstract class Stage
       cacheClusterSize: cacheClusterSize,
       cacheClusterStatus: cacheClusterStatus,
       methodSettings:
-          methodSettings == null ? null : _i7.BuiltMap(methodSettings),
-      variables: variables == null ? null : _i7.BuiltMap(variables),
+          methodSettings == null ? null : _i2.BuiltMap(methodSettings),
+      variables: variables == null ? null : _i2.BuiltMap(variables),
       documentationVersion: documentationVersion,
       accessLogSettings: accessLogSettings,
       canarySettings: canarySettings,
       tracingEnabled: tracingEnabled,
       webAclArn: webAclArn,
-      tags: tags == null ? null : _i7.BuiltMap(tags),
+      tags: tags == null ? null : _i2.BuiltMap(tags),
       createdDate: createdDate,
       lastUpdatedDate: lastUpdatedDate,
     );
@@ -81,7 +76,7 @@ abstract class Stage
   ) =>
       payload;
 
-  static const List<_i8.SmithySerializer<Stage>> serializers = [
+  static const List<_i3.SmithySerializer<Stage>> serializers = [
     StageRestJson1Serializer()
   ];
 
@@ -108,25 +103,25 @@ abstract class Stage
   bool get cacheClusterEnabled;
 
   /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
-  _i2.CacheClusterSize? get cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize;
 
   /// The status of the cache cluster for the stage, if enabled.
-  _i3.CacheClusterStatus? get cacheClusterStatus;
+  CacheClusterStatus? get cacheClusterStatus;
 
   /// A map that defines the method settings for a Stage resource. Keys (designated as `/{method\_setting\_key` below) are method paths defined as `{resource\_path}/{http\_method}` for an individual method override, or `/\*/\*` for overriding all methods in the stage.
-  _i7.BuiltMap<String, _i4.MethodSetting>? get methodSettings;
+  _i2.BuiltMap<String, MethodSetting>? get methodSettings;
 
   /// A map that defines the stage variables for a Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i7.BuiltMap<String, String>? get variables;
+  _i2.BuiltMap<String, String>? get variables;
 
   /// The version of the associated API documentation.
   String? get documentationVersion;
 
   /// Settings for logging access in this stage.
-  _i5.AccessLogSettings? get accessLogSettings;
+  AccessLogSettings? get accessLogSettings;
 
   /// Settings for the canary deployment in this stage.
-  _i6.CanarySettings? get canarySettings;
+  CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool get tracingEnabled;
@@ -135,7 +130,7 @@ abstract class Stage
   String? get webAclArn;
 
   /// The collection of tags. Each tag element is associated with a given resource.
-  _i7.BuiltMap<String, String>? get tags;
+  _i2.BuiltMap<String, String>? get tags;
 
   /// The timestamp when the stage was created.
   DateTime? get createdDate;
@@ -237,7 +232,7 @@ abstract class Stage
   }
 }
 
-class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
+class StageRestJson1Serializer extends _i3.StructuredSmithySerializer<Stage> {
   const StageRestJson1Serializer() : super('Stage');
 
   @override
@@ -246,8 +241,8 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         _$Stage,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -271,8 +266,8 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         case 'accessLogSettings':
           result.accessLogSettings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.AccessLogSettings),
-          ) as _i5.AccessLogSettings));
+            specifiedType: const FullType(AccessLogSettings),
+          ) as AccessLogSettings));
         case 'cacheClusterEnabled':
           result.cacheClusterEnabled = (serializers.deserialize(
             value,
@@ -281,18 +276,18 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         case 'cacheClusterSize':
           result.cacheClusterSize = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CacheClusterSize),
-          ) as _i2.CacheClusterSize);
+            specifiedType: const FullType(CacheClusterSize),
+          ) as CacheClusterSize);
         case 'cacheClusterStatus':
           result.cacheClusterStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CacheClusterStatus),
-          ) as _i3.CacheClusterStatus);
+            specifiedType: const FullType(CacheClusterStatus),
+          ) as CacheClusterStatus);
         case 'canarySettings':
           result.canarySettings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.CanarySettings),
-          ) as _i6.CanarySettings));
+            specifiedType: const FullType(CanarySettings),
+          ) as CanarySettings));
         case 'clientCertificateId':
           result.clientCertificateId = (serializers.deserialize(
             value,
@@ -327,13 +322,13 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           result.methodSettings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i4.MethodSetting),
+                FullType(MethodSetting),
               ],
             ),
-          ) as _i7.BuiltMap<String, _i4.MethodSetting>));
+          ) as _i2.BuiltMap<String, MethodSetting>));
         case 'stageName':
           result.stageName = (serializers.deserialize(
             value,
@@ -343,13 +338,13 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'tracingEnabled':
           result.tracingEnabled = (serializers.deserialize(
             value,
@@ -359,13 +354,13 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           result.variables.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'webAclArn':
           result.webAclArn = (serializers.deserialize(
             value,
@@ -420,7 +415,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add('accessLogSettings')
         ..add(serializers.serialize(
           accessLogSettings,
-          specifiedType: const FullType(_i5.AccessLogSettings),
+          specifiedType: const FullType(AccessLogSettings),
         ));
     }
     if (cacheClusterSize != null) {
@@ -428,7 +423,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
           cacheClusterSize,
-          specifiedType: const FullType(_i2.CacheClusterSize),
+          specifiedType: const FullType(CacheClusterSize),
         ));
     }
     if (cacheClusterStatus != null) {
@@ -436,7 +431,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add('cacheClusterStatus')
         ..add(serializers.serialize(
           cacheClusterStatus,
-          specifiedType: const FullType(_i3.CacheClusterStatus),
+          specifiedType: const FullType(CacheClusterStatus),
         ));
     }
     if (canarySettings != null) {
@@ -444,7 +439,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add('canarySettings')
         ..add(serializers.serialize(
           canarySettings,
-          specifiedType: const FullType(_i6.CanarySettings),
+          specifiedType: const FullType(CanarySettings),
         ));
     }
     if (clientCertificateId != null) {
@@ -501,10 +496,10 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add(serializers.serialize(
           methodSettings,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.MethodSetting),
+              FullType(MethodSetting),
             ],
           ),
         ));
@@ -523,7 +518,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -537,7 +532,7 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
         ..add(serializers.serialize(
           variables,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

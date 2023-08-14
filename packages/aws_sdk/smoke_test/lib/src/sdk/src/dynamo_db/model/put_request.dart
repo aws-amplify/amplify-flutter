@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.put_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'put_request.g.dart';
 
@@ -18,8 +17,8 @@ abstract class PutRequest
     with _i1.AWSEquatable<PutRequest>
     implements Built<PutRequest, PutRequestBuilder> {
   /// Represents a request to perform a `PutItem` operation on an item.
-  factory PutRequest({required Map<String, _i2.AttributeValue> item}) {
-    return _$PutRequest._(item: _i3.BuiltMap(item));
+  factory PutRequest({required Map<String, AttributeValue> item}) {
+    return _$PutRequest._(item: _i2.BuiltMap(item));
   }
 
   /// Represents a request to perform a `PutItem` operation on an item.
@@ -28,12 +27,12 @@ abstract class PutRequest
 
   const PutRequest._();
 
-  static const List<_i4.SmithySerializer<PutRequest>> serializers = [
+  static const List<_i3.SmithySerializer<PutRequest>> serializers = [
     PutRequestAwsJson10Serializer()
   ];
 
   /// A map of attribute name to attribute values, representing the primary key of an item to be processed by `PutItem`. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
-  _i3.BuiltMap<String, _i2.AttributeValue> get item;
+  _i2.BuiltMap<String, AttributeValue> get item;
   @override
   List<Object?> get props => [item];
   @override
@@ -48,7 +47,7 @@ abstract class PutRequest
 }
 
 class PutRequestAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<PutRequest> {
+    extends _i3.StructuredSmithySerializer<PutRequest> {
   const PutRequestAwsJson10Serializer() : super('PutRequest');
 
   @override
@@ -57,8 +56,8 @@ class PutRequestAwsJson10Serializer
         _$PutRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -83,13 +82,13 @@ class PutRequestAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -109,10 +108,10 @@ class PutRequestAwsJson10Serializer
       serializers.serialize(
         item,
         specifiedType: const FullType(
-          _i3.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.AttributeValue),
+            FullType(AttributeValue),
           ],
         ),
       ),

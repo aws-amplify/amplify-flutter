@@ -3,30 +3,29 @@
 
 library smoke_test.s3.model.put_bucket_ownership_controls_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls_rule.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls_rule.dart';
 
 part 'put_bucket_ownership_controls_request.g.dart';
 
 abstract class PutBucketOwnershipControlsRequest
     with
-        _i1.HttpInput<_i2.OwnershipControls>,
-        _i3.AWSEquatable<PutBucketOwnershipControlsRequest>
+        _i1.HttpInput<OwnershipControls>,
+        _i2.AWSEquatable<PutBucketOwnershipControlsRequest>
     implements
         Built<PutBucketOwnershipControlsRequest,
             PutBucketOwnershipControlsRequestBuilder>,
-        _i1.HasPayload<_i2.OwnershipControls> {
+        _i1.HasPayload<OwnershipControls> {
   factory PutBucketOwnershipControlsRequest({
     required String bucket,
     String? contentMd5,
     String? expectedBucketOwner,
-    required _i2.OwnershipControls ownershipControls,
+    required OwnershipControls ownershipControls,
   }) {
     return _$PutBucketOwnershipControlsRequest._(
       bucket: bucket,
@@ -43,8 +42,8 @@ abstract class PutBucketOwnershipControlsRequest
   const PutBucketOwnershipControlsRequest._();
 
   factory PutBucketOwnershipControlsRequest.fromRequest(
-    _i2.OwnershipControls payload,
-    _i3.AWSBaseHttpRequest request, {
+    OwnershipControls payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketOwnershipControlsRequest.build((b) {
@@ -61,7 +60,7 @@ abstract class PutBucketOwnershipControlsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.OwnershipControls>> serializers = [
+  static const List<_i1.SmithySerializer<OwnershipControls>> serializers = [
     PutBucketOwnershipControlsRequestRestXmlSerializer()
   ];
 
@@ -77,7 +76,7 @@ abstract class PutBucketOwnershipControlsRequest
   String? get expectedBucketOwner;
 
   /// The `OwnershipControls` (BucketOwnerEnforced, BucketOwnerPreferred, or ObjectWriter) that you want to apply to this Amazon S3 bucket.
-  _i2.OwnershipControls get ownershipControls;
+  OwnershipControls get ownershipControls;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -91,7 +90,7 @@ abstract class PutBucketOwnershipControlsRequest
   }
 
   @override
-  _i2.OwnershipControls getPayload() => ownershipControls;
+  OwnershipControls getPayload() => ownershipControls;
   @override
   List<Object?> get props => [
         bucket,
@@ -124,7 +123,7 @@ abstract class PutBucketOwnershipControlsRequest
 }
 
 class PutBucketOwnershipControlsRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.OwnershipControls> {
+    extends _i1.StructuredSmithySerializer<OwnershipControls> {
   const PutBucketOwnershipControlsRequestRestXmlSerializer()
       : super('PutBucketOwnershipControlsRequest');
 
@@ -141,12 +140,12 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.OwnershipControls deserialize(
+  OwnershipControls deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.OwnershipControlsBuilder();
+    final result = OwnershipControlsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -159,8 +158,8 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.OwnershipControlsRule),
-          ) as _i4.OwnershipControlsRule));
+            specifiedType: const FullType(OwnershipControlsRule),
+          ) as OwnershipControlsRule));
       }
     }
 
@@ -170,7 +169,7 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.OwnershipControls object, {
+    OwnershipControls object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -179,14 +178,14 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.OwnershipControls(:rules) = object;
+    final OwnershipControls(:rules) = object;
     result$
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i5.BuiltList,
-        [FullType(_i4.OwnershipControlsRule)],
+        _i3.BuiltList,
+        [FullType(OwnershipControlsRule)],
       ),
     ));
     return result$;

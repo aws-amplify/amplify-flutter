@@ -6,9 +6,8 @@ library smoke_test.s3.model.tiering; // ignore_for_file: no_leading_underscores_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_access_tier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_access_tier.dart';
 
 part 'tiering.g.dart';
 
@@ -19,7 +18,7 @@ abstract class Tiering
   /// The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead.
   factory Tiering({
     int? days,
-    required _i2.IntelligentTieringAccessTier accessTier,
+    required IntelligentTieringAccessTier accessTier,
   }) {
     return _$Tiering._(
       days: days,
@@ -32,7 +31,7 @@ abstract class Tiering
 
   const Tiering._();
 
-  static const List<_i3.SmithySerializer<Tiering>> serializers = [
+  static const List<_i2.SmithySerializer<Tiering>> serializers = [
     TieringRestXmlSerializer()
   ];
 
@@ -40,7 +39,7 @@ abstract class Tiering
   int? get days;
 
   /// S3 Intelligent-Tiering access tier. See [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access) for a list of access tiers in the S3 Intelligent-Tiering storage class.
-  _i2.IntelligentTieringAccessTier get accessTier;
+  IntelligentTieringAccessTier get accessTier;
   @override
   List<Object?> get props => [
         days,
@@ -61,7 +60,7 @@ abstract class Tiering
   }
 }
 
-class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
+class TieringRestXmlSerializer extends _i2.StructuredSmithySerializer<Tiering> {
   const TieringRestXmlSerializer() : super('Tiering');
 
   @override
@@ -70,8 +69,8 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
         _$Tiering,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -95,8 +94,8 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
         case 'AccessTier':
           result.accessTier = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.IntelligentTieringAccessTier),
-          ) as _i2.IntelligentTieringAccessTier);
+            specifiedType: const FullType(IntelligentTieringAccessTier),
+          ) as IntelligentTieringAccessTier);
         case 'Days':
           result.days = (serializers.deserialize(
             value,
@@ -115,22 +114,21 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'Tiering',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Tiering(:accessTier, :days) = object;
     result$
-      ..add(const _i3.XmlElementName('AccessTier'))
+      ..add(const _i2.XmlElementName('AccessTier'))
       ..add(serializers.serialize(
         accessTier,
-        specifiedType:
-            const FullType.nullable(_i2.IntelligentTieringAccessTier),
+        specifiedType: const FullType.nullable(IntelligentTieringAccessTier),
       ));
     if (days != null) {
       result$
-        ..add(const _i3.XmlElementName('Days'))
+        ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
           specifiedType: const FullType.nullable(int),

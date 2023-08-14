@@ -16,9 +16,9 @@ class _$ClientConfig extends ClientConfig {
   @override
   final String? region;
   @override
-  final _i2.S3Config? s3;
+  final S3Config? s3;
   @override
-  final _i3.RetryConfig? retryConfig;
+  final RetryConfig? retryConfig;
   @override
   final String? awsProfile;
 
@@ -93,14 +93,14 @@ class ClientConfigBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  _i2.S3ConfigBuilder? _s3;
-  _i2.S3ConfigBuilder get s3 => _$this._s3 ??= new _i2.S3ConfigBuilder();
-  set s3(_i2.S3ConfigBuilder? s3) => _$this._s3 = s3;
+  S3ConfigBuilder? _s3;
+  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
-  _i3.RetryConfigBuilder? _retryConfig;
-  _i3.RetryConfigBuilder get retryConfig =>
-      _$this._retryConfig ??= new _i3.RetryConfigBuilder();
-  set retryConfig(_i3.RetryConfigBuilder? retryConfig) =>
+  RetryConfigBuilder? _retryConfig;
+  RetryConfigBuilder get retryConfig =>
+      _$this._retryConfig ??= new RetryConfigBuilder();
+  set retryConfig(RetryConfigBuilder? retryConfig) =>
       _$this._retryConfig = retryConfig;
 
   String? _awsProfile;

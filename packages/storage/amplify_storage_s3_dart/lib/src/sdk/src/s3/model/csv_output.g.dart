@@ -8,7 +8,7 @@ part of 'csv_output.dart';
 
 class _$CsvOutput extends CsvOutput {
   @override
-  final _i2.QuoteFields? quoteFields;
+  final QuoteFields? quoteFields;
   @override
   final String? quoteEscapeCharacter;
   @override
@@ -63,9 +63,9 @@ class _$CsvOutput extends CsvOutput {
 class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   _$CsvOutput? _$v;
 
-  _i2.QuoteFields? _quoteFields;
-  _i2.QuoteFields? get quoteFields => _$this._quoteFields;
-  set quoteFields(_i2.QuoteFields? quoteFields) =>
+  QuoteFields? _quoteFields;
+  QuoteFields? get quoteFields => _$this._quoteFields;
+  set quoteFields(QuoteFields? quoteFields) =>
       _$this._quoteFields = quoteFields;
 
   String? _quoteEscapeCharacter;

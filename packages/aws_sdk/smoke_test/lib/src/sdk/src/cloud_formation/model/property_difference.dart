@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.property_difference; // ignore_for_file
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/difference_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/difference_type.dart';
 
 part 'property_difference.g.dart';
 
@@ -21,7 +20,7 @@ abstract class PropertyDifference
     required String propertyPath,
     required String expectedValue,
     required String actualValue,
-    required _i2.DifferenceType differenceType,
+    required DifferenceType differenceType,
   }) {
     return _$PropertyDifference._(
       propertyPath: propertyPath,
@@ -38,7 +37,7 @@ abstract class PropertyDifference
 
   const PropertyDifference._();
 
-  static const List<_i3.SmithySerializer<PropertyDifference>> serializers = [
+  static const List<_i2.SmithySerializer<PropertyDifference>> serializers = [
     PropertyDifferenceAwsQuerySerializer()
   ];
 
@@ -58,7 +57,7 @@ abstract class PropertyDifference
   /// *   `REMOVE`: The property has been removed from the current resource configuration.
   ///
   /// *   `NOT_EQUAL`: The current property value differs from its expected value (as defined in the stack template and any values specified as template parameters).
-  _i2.DifferenceType get differenceType;
+  DifferenceType get differenceType;
   @override
   List<Object?> get props => [
         propertyPath,
@@ -90,7 +89,7 @@ abstract class PropertyDifference
 }
 
 class PropertyDifferenceAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<PropertyDifference> {
+    extends _i2.StructuredSmithySerializer<PropertyDifference> {
   const PropertyDifferenceAwsQuerySerializer() : super('PropertyDifference');
 
   @override
@@ -99,8 +98,8 @@ class PropertyDifferenceAwsQuerySerializer
         _$PropertyDifference,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -139,8 +138,8 @@ class PropertyDifferenceAwsQuerySerializer
         case 'DifferenceType':
           result.differenceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DifferenceType),
-          ) as _i2.DifferenceType);
+            specifiedType: const FullType(DifferenceType),
+          ) as DifferenceType);
       }
     }
 
@@ -154,9 +153,9 @@ class PropertyDifferenceAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'PropertyDifferenceResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final PropertyDifference(
@@ -166,28 +165,28 @@ class PropertyDifferenceAwsQuerySerializer
       :differenceType
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('PropertyPath'))
+      ..add(const _i2.XmlElementName('PropertyPath'))
       ..add(serializers.serialize(
         propertyPath,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('ExpectedValue'))
+      ..add(const _i2.XmlElementName('ExpectedValue'))
       ..add(serializers.serialize(
         expectedValue,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('ActualValue'))
+      ..add(const _i2.XmlElementName('ActualValue'))
       ..add(serializers.serialize(
         actualValue,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('DifferenceType'))
+      ..add(const _i2.XmlElementName('DifferenceType'))
       ..add(serializers.serialize(
         differenceType,
-        specifiedType: const FullType.nullable(_i2.DifferenceType),
+        specifiedType: const FullType.nullable(DifferenceType),
       ));
     return result$;
   }

@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.domain_names; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name.dart';
 
 part 'domain_names.g.dart';
 
@@ -19,11 +18,11 @@ abstract class DomainNames
     implements Built<DomainNames, DomainNamesBuilder> {
   /// Represents a collection of DomainName resources.
   factory DomainNames({
-    List<_i2.DomainName>? items,
+    List<DomainName>? items,
     String? position,
   }) {
     return _$DomainNames._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class DomainNames
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DomainNames>> serializers = [
+  static const List<_i3.SmithySerializer<DomainNames>> serializers = [
     DomainNamesRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.DomainName>? get items;
+  _i2.BuiltList<DomainName>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -71,7 +70,7 @@ abstract class DomainNames
 }
 
 class DomainNamesRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<DomainNames> {
+    extends _i3.StructuredSmithySerializer<DomainNames> {
   const DomainNamesRestJson1Serializer() : super('DomainNames');
 
   @override
@@ -80,8 +79,8 @@ class DomainNamesRestJson1Serializer
         _$DomainNames,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class DomainNamesRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.DomainName)],
+              _i2.BuiltList,
+              [FullType(DomainName)],
             ),
-          ) as _i3.BuiltList<_i2.DomainName>));
+          ) as _i2.BuiltList<DomainName>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class DomainNamesRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.DomainName)],
+            _i2.BuiltList,
+            [FullType(DomainName)],
           ),
         ));
     }

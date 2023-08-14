@@ -6,9 +6,8 @@ library smoke_test.config_service.model.compliance_summary; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_contributor_count.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_contributor_count.dart';
 
 part 'compliance_summary.g.dart';
 
@@ -18,8 +17,8 @@ abstract class ComplianceSummary
     implements Built<ComplianceSummary, ComplianceSummaryBuilder> {
   /// The number of Config rules or Amazon Web Services resources that are compliant and noncompliant.
   factory ComplianceSummary({
-    _i2.ComplianceContributorCount? compliantResourceCount,
-    _i2.ComplianceContributorCount? nonCompliantResourceCount,
+    ComplianceContributorCount? compliantResourceCount,
+    ComplianceContributorCount? nonCompliantResourceCount,
     DateTime? complianceSummaryTimestamp,
   }) {
     return _$ComplianceSummary._(
@@ -35,15 +34,15 @@ abstract class ComplianceSummary
 
   const ComplianceSummary._();
 
-  static const List<_i3.SmithySerializer<ComplianceSummary>> serializers = [
+  static const List<_i2.SmithySerializer<ComplianceSummary>> serializers = [
     ComplianceSummaryAwsJson11Serializer()
   ];
 
   /// The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules and 100 for resources.
-  _i2.ComplianceContributorCount? get compliantResourceCount;
+  ComplianceContributorCount? get compliantResourceCount;
 
   /// The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for rules and 100 for resources.
-  _i2.ComplianceContributorCount? get nonCompliantResourceCount;
+  ComplianceContributorCount? get nonCompliantResourceCount;
 
   /// The time that Config created the compliance summary.
   DateTime? get complianceSummaryTimestamp;
@@ -73,7 +72,7 @@ abstract class ComplianceSummary
 }
 
 class ComplianceSummaryAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ComplianceSummary> {
+    extends _i2.StructuredSmithySerializer<ComplianceSummary> {
   const ComplianceSummaryAwsJson11Serializer() : super('ComplianceSummary');
 
   @override
@@ -82,8 +81,8 @@ class ComplianceSummaryAwsJson11Serializer
         _$ComplianceSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,13 +106,13 @@ class ComplianceSummaryAwsJson11Serializer
         case 'CompliantResourceCount':
           result.compliantResourceCount.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceContributorCount),
-          ) as _i2.ComplianceContributorCount));
+            specifiedType: const FullType(ComplianceContributorCount),
+          ) as ComplianceContributorCount));
         case 'NonCompliantResourceCount':
           result.nonCompliantResourceCount.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceContributorCount),
-          ) as _i2.ComplianceContributorCount));
+            specifiedType: const FullType(ComplianceContributorCount),
+          ) as ComplianceContributorCount));
         case 'ComplianceSummaryTimestamp':
           result.complianceSummaryTimestamp = (serializers.deserialize(
             value,
@@ -142,7 +141,7 @@ class ComplianceSummaryAwsJson11Serializer
         ..add('CompliantResourceCount')
         ..add(serializers.serialize(
           compliantResourceCount,
-          specifiedType: const FullType(_i2.ComplianceContributorCount),
+          specifiedType: const FullType(ComplianceContributorCount),
         ));
     }
     if (nonCompliantResourceCount != null) {
@@ -150,7 +149,7 @@ class ComplianceSummaryAwsJson11Serializer
         ..add('NonCompliantResourceCount')
         ..add(serializers.serialize(
           nonCompliantResourceCount,
-          specifiedType: const FullType(_i2.ComplianceContributorCount),
+          specifiedType: const FullType(ComplianceContributorCount),
         ));
     }
     if (complianceSummaryTimestamp != null) {

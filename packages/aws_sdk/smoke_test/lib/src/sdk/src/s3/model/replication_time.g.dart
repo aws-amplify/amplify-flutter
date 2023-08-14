@@ -8,9 +8,9 @@ part of 'replication_time.dart';
 
 class _$ReplicationTime extends ReplicationTime {
   @override
-  final _i2.ReplicationTimeStatus status;
+  final ReplicationTimeStatus status;
   @override
-  final _i3.ReplicationTimeValue time;
+  final ReplicationTimeValue time;
 
   factory _$ReplicationTime([void Function(ReplicationTimeBuilder)? updates]) =>
       (new ReplicationTimeBuilder()..update(updates))._build();
@@ -50,14 +50,14 @@ class ReplicationTimeBuilder
     implements Builder<ReplicationTime, ReplicationTimeBuilder> {
   _$ReplicationTime? _$v;
 
-  _i2.ReplicationTimeStatus? _status;
-  _i2.ReplicationTimeStatus? get status => _$this._status;
-  set status(_i2.ReplicationTimeStatus? status) => _$this._status = status;
+  ReplicationTimeStatus? _status;
+  ReplicationTimeStatus? get status => _$this._status;
+  set status(ReplicationTimeStatus? status) => _$this._status = status;
 
-  _i3.ReplicationTimeValueBuilder? _time;
-  _i3.ReplicationTimeValueBuilder get time =>
-      _$this._time ??= new _i3.ReplicationTimeValueBuilder();
-  set time(_i3.ReplicationTimeValueBuilder? time) => _$this._time = time;
+  ReplicationTimeValueBuilder? _time;
+  ReplicationTimeValueBuilder get time =>
+      _$this._time ??= new ReplicationTimeValueBuilder();
+  set time(ReplicationTimeValueBuilder? time) => _$this._time = time;
 
   ReplicationTimeBuilder();
 

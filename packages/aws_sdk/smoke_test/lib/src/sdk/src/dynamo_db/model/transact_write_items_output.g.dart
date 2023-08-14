@@ -8,9 +8,9 @@ part of 'transact_write_items_output.dart';
 
 class _$TransactWriteItemsOutput extends TransactWriteItemsOutput {
   @override
-  final _i4.BuiltList<_i2.ConsumedCapacity>? consumedCapacity;
+  final _i2.BuiltList<ConsumedCapacity>? consumedCapacity;
   @override
-  final _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
+  final _i2.BuiltListMultimap<String, ItemCollectionMetrics>?
       itemCollectionMetrics;
 
   factory _$TransactWriteItemsOutput(
@@ -53,20 +53,19 @@ class TransactWriteItemsOutputBuilder
         Builder<TransactWriteItemsOutput, TransactWriteItemsOutputBuilder> {
   _$TransactWriteItemsOutput? _$v;
 
-  _i4.ListBuilder<_i2.ConsumedCapacity>? _consumedCapacity;
-  _i4.ListBuilder<_i2.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i4.ListBuilder<_i2.ConsumedCapacity>();
-  set consumedCapacity(
-          _i4.ListBuilder<_i2.ConsumedCapacity>? consumedCapacity) =>
+  _i2.ListBuilder<ConsumedCapacity>? _consumedCapacity;
+  _i2.ListBuilder<ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i2.ListBuilder<ConsumedCapacity>();
+  set consumedCapacity(_i2.ListBuilder<ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  _i4.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>?
+  _i2.ListMultimapBuilder<String, ItemCollectionMetrics>?
       _itemCollectionMetrics;
-  _i4.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>
+  _i2.ListMultimapBuilder<String, ItemCollectionMetrics>
       get itemCollectionMetrics => _$this._itemCollectionMetrics ??=
-          new _i4.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>();
+          new _i2.ListMultimapBuilder<String, ItemCollectionMetrics>();
   set itemCollectionMetrics(
-          _i4.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>?
+          _i2.ListMultimapBuilder<String, ItemCollectionMetrics>?
               itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 

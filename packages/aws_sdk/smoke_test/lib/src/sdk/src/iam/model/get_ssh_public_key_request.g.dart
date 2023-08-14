@@ -12,7 +12,7 @@ class _$GetSshPublicKeyRequest extends GetSshPublicKeyRequest {
   @override
   final String sshPublicKeyId;
   @override
-  final _i3.EncodingType encoding;
+  final EncodingType encoding;
 
   factory _$GetSshPublicKeyRequest(
           [void Function(GetSshPublicKeyRequestBuilder)? updates]) =>
@@ -73,9 +73,9 @@ class GetSshPublicKeyRequestBuilder
   set sshPublicKeyId(String? sshPublicKeyId) =>
       _$this._sshPublicKeyId = sshPublicKeyId;
 
-  _i3.EncodingType? _encoding;
-  _i3.EncodingType? get encoding => _$this._encoding;
-  set encoding(_i3.EncodingType? encoding) => _$this._encoding = encoding;
+  EncodingType? _encoding;
+  EncodingType? get encoding => _$this._encoding;
+  set encoding(EncodingType? encoding) => _$this._encoding = encoding;
 
   GetSshPublicKeyRequestBuilder();
 

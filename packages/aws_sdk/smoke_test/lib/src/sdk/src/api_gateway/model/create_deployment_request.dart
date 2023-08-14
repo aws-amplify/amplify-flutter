@@ -4,15 +4,13 @@
 library smoke_test.api_gateway.model.create_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/deployment_canary_settings.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/deployment_canary_settings.dart';
 
 part 'create_deployment_request.g.dart';
 
@@ -31,9 +29,9 @@ abstract class CreateDeploymentRequest
     String? stageDescription,
     String? description,
     bool? cacheClusterEnabled,
-    _i3.CacheClusterSize? cacheClusterSize,
+    CacheClusterSize? cacheClusterSize,
     Map<String, String>? variables,
-    _i4.DeploymentCanarySettings? canarySettings,
+    DeploymentCanarySettings? canarySettings,
     bool? tracingEnabled,
   }) {
     return _$CreateDeploymentRequest._(
@@ -43,7 +41,7 @@ abstract class CreateDeploymentRequest
       description: description,
       cacheClusterEnabled: cacheClusterEnabled,
       cacheClusterSize: cacheClusterSize,
-      variables: variables == null ? null : _i5.BuiltMap(variables),
+      variables: variables == null ? null : _i3.BuiltMap(variables),
       canarySettings: canarySettings,
       tracingEnabled: tracingEnabled,
     );
@@ -98,13 +96,13 @@ abstract class CreateDeploymentRequest
   bool? get cacheClusterEnabled;
 
   /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
-  _i3.CacheClusterSize? get cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize;
 
   /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  _i3.BuiltMap<String, String>? get variables;
 
   /// The input configuration for the canary deployment when the deployment is a canary release deployment.
-  _i4.DeploymentCanarySettings? get canarySettings;
+  DeploymentCanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool? get tracingEnabled;
@@ -191,7 +189,7 @@ abstract class CreateDeploymentRequest
   }
 }
 
-@_i6.internal
+@_i4.internal
 abstract class CreateDeploymentRequestPayload
     with
         _i2.AWSEquatable<CreateDeploymentRequestPayload>
@@ -208,10 +206,10 @@ abstract class CreateDeploymentRequestPayload
   bool? get cacheClusterEnabled;
 
   /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
-  _i3.CacheClusterSize? get cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize;
 
   /// The input configuration for the canary deployment when the deployment is a canary release deployment.
-  _i4.DeploymentCanarySettings? get canarySettings;
+  DeploymentCanarySettings? get canarySettings;
 
   /// The description for the Deployment resource to create.
   String? get description;
@@ -226,7 +224,7 @@ abstract class CreateDeploymentRequestPayload
   bool? get tracingEnabled;
 
   /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  _i3.BuiltMap<String, String>? get variables;
   @override
   List<Object?> get props => [
         cacheClusterEnabled,
@@ -320,13 +318,13 @@ class CreateDeploymentRequestRestJson1Serializer
         case 'cacheClusterSize':
           result.cacheClusterSize = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CacheClusterSize),
-          ) as _i3.CacheClusterSize);
+            specifiedType: const FullType(CacheClusterSize),
+          ) as CacheClusterSize);
         case 'canarySettings':
           result.canarySettings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.DeploymentCanarySettings),
-          ) as _i4.DeploymentCanarySettings));
+            specifiedType: const FullType(DeploymentCanarySettings),
+          ) as DeploymentCanarySettings));
         case 'description':
           result.description = (serializers.deserialize(
             value,
@@ -351,13 +349,13 @@ class CreateDeploymentRequestRestJson1Serializer
           result.variables.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -394,7 +392,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
           cacheClusterSize,
-          specifiedType: const FullType(_i3.CacheClusterSize),
+          specifiedType: const FullType(CacheClusterSize),
         ));
     }
     if (canarySettings != null) {
@@ -402,7 +400,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ..add('canarySettings')
         ..add(serializers.serialize(
           canarySettings,
-          specifiedType: const FullType(_i4.DeploymentCanarySettings),
+          specifiedType: const FullType(DeploymentCanarySettings),
         ));
     }
     if (description != null) {
@@ -443,7 +441,7 @@ class CreateDeploymentRequestRestJson1Serializer
         ..add(serializers.serialize(
           variables,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

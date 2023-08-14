@@ -1,65 +1,52 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.verify_user_attribute_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i22;
+import 'dart:async' as _i5;
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/serializers.dart'
-    as _i6;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/alias_exists_exception.dart'
-    as _i9;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_mismatch_exception.dart'
-    as _i10;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart'
-    as _i11;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart'
-    as _i12;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/internal_error_exception.dart'
-    as _i13;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_parameter_exception.dart'
-    as _i14;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/limit_exceeded_exception.dart'
-    as _i15;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart'
-    as _i16;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart'
-    as _i17;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart'
-    as _i18;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_requests_exception.dart'
-    as _i19;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_confirmed_exception.dart'
-    as _i20;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_found_exception.dart'
-    as _i21;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart'
-    as _i2;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_response.dart'
-    as _i3;
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/endpoint_resolver.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/common/serializers.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/alias_exists_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_mismatch_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/expired_code_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/forbidden_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/internal_error_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_parameter_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/limit_exceeded_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/password_reset_required_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/too_many_requests_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_confirmed_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_not_found_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_request.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_user_attribute_response.dart';
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Verifies the specified user attributes in the user pool.
 ///
 /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class VerifyUserAttributeOperation extends _i1.HttpOperation<
-    _i2.VerifyUserAttributeRequest,
-    _i2.VerifyUserAttributeRequest,
-    _i3.VerifyUserAttributeResponse,
-    _i3.VerifyUserAttributeResponse> {
+    VerifyUserAttributeRequest,
+    VerifyUserAttributeRequest,
+    VerifyUserAttributeResponse,
+    VerifyUserAttributeResponse> {
   /// Verifies the specified user attributes in the user pool.
   ///
   /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   VerifyUserAttributeOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -71,13 +58,13 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.VerifyUserAttributeRequest,
-          _i2.VerifyUserAttributeRequest,
-          _i3.VerifyUserAttributeResponse,
-          _i3.VerifyUserAttributeResponse>> protocols = [
-    _i5.AwsJson1_1Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          VerifyUserAttributeRequest,
+          VerifyUserAttributeRequest,
+          VerifyUserAttributeResponse,
+          VerifyUserAttributeResponse>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -85,15 +72,15 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'AWSCognitoIdentityProviderService.VerifyUserAttribute',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.cognitoIdentityProvider,
+              service: _i4.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider,
               isOptional: true,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -101,8 +88,8 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -110,184 +97,177 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.VerifyUserAttributeRequest input) =>
+  _i1.HttpRequest buildRequest(VerifyUserAttributeRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.VerifyUserAttributeResponse? output]) => 200;
+  int successCode([VerifyUserAttributeResponse? output]) => 200;
   @override
-  _i3.VerifyUserAttributeResponse buildOutput(
-    _i3.VerifyUserAttributeResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  VerifyUserAttributeResponse buildOutput(
+    VerifyUserAttributeResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.VerifyUserAttributeResponse.fromResponse(
+      VerifyUserAttributeResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.AliasExistsException, _i9.AliasExistsException>(
+        _i1.SmithyError<AliasExistsException, AliasExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'AliasExistsException',
           ),
           _i1.ErrorKind.client,
-          _i9.AliasExistsException,
+          AliasExistsException,
           statusCode: 400,
-          builder: _i9.AliasExistsException.fromResponse,
+          builder: AliasExistsException.fromResponse,
         ),
-        _i1.SmithyError<_i10.CodeMismatchException, _i10.CodeMismatchException>(
+        _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'CodeMismatchException',
           ),
           _i1.ErrorKind.client,
-          _i10.CodeMismatchException,
+          CodeMismatchException,
           statusCode: 400,
-          builder: _i10.CodeMismatchException.fromResponse,
+          builder: CodeMismatchException.fromResponse,
         ),
-        _i1.SmithyError<_i11.ExpiredCodeException, _i11.ExpiredCodeException>(
+        _i1.SmithyError<ExpiredCodeException, ExpiredCodeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ExpiredCodeException',
           ),
           _i1.ErrorKind.client,
-          _i11.ExpiredCodeException,
+          ExpiredCodeException,
           statusCode: 400,
-          builder: _i11.ExpiredCodeException.fromResponse,
+          builder: ExpiredCodeException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ForbiddenException, _i12.ForbiddenException>(
+        _i1.SmithyError<ForbiddenException, ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
           ),
           _i1.ErrorKind.client,
-          _i12.ForbiddenException,
+          ForbiddenException,
           statusCode: 403,
-          builder: _i12.ForbiddenException.fromResponse,
+          builder: ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.InternalErrorException,
-            _i13.InternalErrorException>(
+        _i1.SmithyError<InternalErrorException, InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
           ),
           _i1.ErrorKind.server,
-          _i13.InternalErrorException,
-          builder: _i13.InternalErrorException.fromResponse,
+          InternalErrorException,
+          builder: InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError<_i14.InvalidParameterException,
-            _i14.InvalidParameterException>(
+        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
           ),
           _i1.ErrorKind.client,
-          _i14.InvalidParameterException,
+          InvalidParameterException,
           statusCode: 400,
-          builder: _i14.InvalidParameterException.fromResponse,
+          builder: InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError<_i15.LimitExceededException,
-            _i15.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i15.LimitExceededException,
+          LimitExceededException,
           statusCode: 400,
-          builder: _i15.LimitExceededException.fromResponse,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i16.NotAuthorizedException,
-            _i16.NotAuthorizedException>(
+        _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
           ),
           _i1.ErrorKind.client,
-          _i16.NotAuthorizedException,
+          NotAuthorizedException,
           statusCode: 403,
-          builder: _i16.NotAuthorizedException.fromResponse,
+          builder: NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError<_i17.PasswordResetRequiredException,
-            _i17.PasswordResetRequiredException>(
+        _i1.SmithyError<PasswordResetRequiredException,
+            PasswordResetRequiredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'PasswordResetRequiredException',
           ),
           _i1.ErrorKind.client,
-          _i17.PasswordResetRequiredException,
+          PasswordResetRequiredException,
           statusCode: 400,
-          builder: _i17.PasswordResetRequiredException.fromResponse,
+          builder: PasswordResetRequiredException.fromResponse,
         ),
-        _i1.SmithyError<_i18.ResourceNotFoundException,
-            _i18.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i18.ResourceNotFoundException,
+          ResourceNotFoundException,
           statusCode: 404,
-          builder: _i18.ResourceNotFoundException.fromResponse,
+          builder: ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError<_i19.TooManyRequestsException,
-            _i19.TooManyRequestsException>(
+        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
           ),
           _i1.ErrorKind.client,
-          _i19.TooManyRequestsException,
+          TooManyRequestsException,
           statusCode: 429,
-          builder: _i19.TooManyRequestsException.fromResponse,
+          builder: TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError<_i20.UserNotConfirmedException,
-            _i20.UserNotConfirmedException>(
+        _i1.SmithyError<UserNotConfirmedException, UserNotConfirmedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotConfirmedException',
           ),
           _i1.ErrorKind.client,
-          _i20.UserNotConfirmedException,
+          UserNotConfirmedException,
           statusCode: 400,
-          builder: _i20.UserNotConfirmedException.fromResponse,
+          builder: UserNotConfirmedException.fromResponse,
         ),
-        _i1.SmithyError<_i21.UserNotFoundException, _i21.UserNotFoundException>(
+        _i1.SmithyError<UserNotFoundException, UserNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UserNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i21.UserNotFoundException,
+          UserNotFoundException,
           statusCode: 404,
-          builder: _i21.UserNotFoundException.fromResponse,
+          builder: UserNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'VerifyUserAttribute';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.VerifyUserAttributeResponse> run(
-    _i2.VerifyUserAttributeRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<VerifyUserAttributeResponse> run(
+    VerifyUserAttributeRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i22.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -295,7 +275,7 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

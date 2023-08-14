@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_compliance_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'describe_compliance_by_config_rule_request.g.dart';
 
@@ -22,14 +21,14 @@ abstract class DescribeComplianceByConfigRuleRequest
             DescribeComplianceByConfigRuleRequestBuilder> {
   factory DescribeComplianceByConfigRuleRequest({
     List<String>? configRuleNames,
-    List<_i3.ComplianceType>? complianceTypes,
+    List<ComplianceType>? complianceTypes,
     String? nextToken,
   }) {
     return _$DescribeComplianceByConfigRuleRequest._(
       configRuleNames:
-          configRuleNames == null ? null : _i4.BuiltList(configRuleNames),
+          configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
       complianceTypes:
-          complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
+          complianceTypes == null ? null : _i3.BuiltList(complianceTypes),
       nextToken: nextToken,
     );
   }
@@ -53,10 +52,10 @@ abstract class DescribeComplianceByConfigRuleRequest
   ];
 
   /// Specify one or more Config rule names to filter the results by rule.
-  _i4.BuiltList<String>? get configRuleNames;
+  _i3.BuiltList<String>? get configRuleNames;
 
   /// Filters the results by compliance.
-  _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
+  _i3.BuiltList<ComplianceType>? get complianceTypes;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -125,18 +124,18 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
           result.configRuleNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ComplianceTypes':
           result.complianceTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ComplianceType)],
+              _i3.BuiltList,
+              [FullType(ComplianceType)],
             ),
-          ) as _i4.BuiltList<_i3.ComplianceType>));
+          ) as _i3.BuiltList<ComplianceType>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -166,7 +165,7 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           configRuleNames,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -177,8 +176,8 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           complianceTypes,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ComplianceType)],
+            _i3.BuiltList,
+            [FullType(ComplianceType)],
           ),
         ));
     }

@@ -9,7 +9,7 @@ part of 'list_aggregate_discovered_resources_response.dart';
 class _$ListAggregateDiscoveredResourcesResponse
     extends ListAggregateDiscoveredResourcesResponse {
   @override
-  final _i3.BuiltList<_i2.AggregateResourceIdentifier>? resourceIdentifiers;
+  final _i2.BuiltList<AggregateResourceIdentifier>? resourceIdentifiers;
   @override
   final String? nextToken;
 
@@ -57,13 +57,12 @@ class ListAggregateDiscoveredResourcesResponseBuilder
             ListAggregateDiscoveredResourcesResponseBuilder> {
   _$ListAggregateDiscoveredResourcesResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregateResourceIdentifier>? _resourceIdentifiers;
-  _i3.ListBuilder<_i2.AggregateResourceIdentifier> get resourceIdentifiers =>
+  _i2.ListBuilder<AggregateResourceIdentifier>? _resourceIdentifiers;
+  _i2.ListBuilder<AggregateResourceIdentifier> get resourceIdentifiers =>
       _$this._resourceIdentifiers ??=
-          new _i3.ListBuilder<_i2.AggregateResourceIdentifier>();
+          new _i2.ListBuilder<AggregateResourceIdentifier>();
   set resourceIdentifiers(
-          _i3.ListBuilder<_i2.AggregateResourceIdentifier>?
-              resourceIdentifiers) =>
+          _i2.ListBuilder<AggregateResourceIdentifier>? resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
   String? _nextToken;

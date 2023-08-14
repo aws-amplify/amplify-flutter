@@ -11,14 +11,14 @@ class _$OrganizationCustomPolicyRuleMetadata
   @override
   final String? description;
   @override
-  final _i4.BuiltList<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
+  final _i2.BuiltList<OrganizationConfigRuleTriggerTypeNoSn>?
       organizationConfigRuleTriggerTypes;
   @override
   final String? inputParameters;
   @override
-  final _i3.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final _i4.BuiltList<String>? resourceTypesScope;
+  final _i2.BuiltList<String>? resourceTypesScope;
   @override
   final String? resourceIdScope;
   @override
@@ -30,7 +30,7 @@ class _$OrganizationCustomPolicyRuleMetadata
   @override
   final String policyText;
   @override
-  final _i4.BuiltList<String>? debugLogDeliveryAccounts;
+  final _i2.BuiltList<String>? debugLogDeliveryAccounts;
 
   factory _$OrganizationCustomPolicyRuleMetadata(
           [void Function(OrganizationCustomPolicyRuleMetadataBuilder)?
@@ -113,14 +113,14 @@ class OrganizationCustomPolicyRuleMetadataBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
+  _i2.ListBuilder<OrganizationConfigRuleTriggerTypeNoSn>?
       _organizationConfigRuleTriggerTypes;
-  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerTypeNoSn>
+  _i2.ListBuilder<OrganizationConfigRuleTriggerTypeNoSn>
       get organizationConfigRuleTriggerTypes =>
           _$this._organizationConfigRuleTriggerTypes ??=
-              new _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerTypeNoSn>();
+              new _i2.ListBuilder<OrganizationConfigRuleTriggerTypeNoSn>();
   set organizationConfigRuleTriggerTypes(
-          _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
+          _i2.ListBuilder<OrganizationConfigRuleTriggerTypeNoSn>?
               organizationConfigRuleTriggerTypes) =>
       _$this._organizationConfigRuleTriggerTypes =
           organizationConfigRuleTriggerTypes;
@@ -130,17 +130,17 @@ class OrganizationCustomPolicyRuleMetadataBuilder
   set inputParameters(String? inputParameters) =>
       _$this._inputParameters = inputParameters;
 
-  _i3.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  MaximumExecutionFrequency? _maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i3.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  _i4.ListBuilder<String>? _resourceTypesScope;
-  _i4.ListBuilder<String> get resourceTypesScope =>
-      _$this._resourceTypesScope ??= new _i4.ListBuilder<String>();
-  set resourceTypesScope(_i4.ListBuilder<String>? resourceTypesScope) =>
+  _i2.ListBuilder<String>? _resourceTypesScope;
+  _i2.ListBuilder<String> get resourceTypesScope =>
+      _$this._resourceTypesScope ??= new _i2.ListBuilder<String>();
+  set resourceTypesScope(_i2.ListBuilder<String>? resourceTypesScope) =>
       _$this._resourceTypesScope = resourceTypesScope;
 
   String? _resourceIdScope;
@@ -166,11 +166,11 @@ class OrganizationCustomPolicyRuleMetadataBuilder
   String? get policyText => _$this._policyText;
   set policyText(String? policyText) => _$this._policyText = policyText;
 
-  _i4.ListBuilder<String>? _debugLogDeliveryAccounts;
-  _i4.ListBuilder<String> get debugLogDeliveryAccounts =>
-      _$this._debugLogDeliveryAccounts ??= new _i4.ListBuilder<String>();
+  _i2.ListBuilder<String>? _debugLogDeliveryAccounts;
+  _i2.ListBuilder<String> get debugLogDeliveryAccounts =>
+      _$this._debugLogDeliveryAccounts ??= new _i2.ListBuilder<String>();
   set debugLogDeliveryAccounts(
-          _i4.ListBuilder<String>? debugLogDeliveryAccounts) =>
+          _i2.ListBuilder<String>? debugLogDeliveryAccounts) =>
       _$this._debugLogDeliveryAccounts = debugLogDeliveryAccounts;
 
   OrganizationCustomPolicyRuleMetadataBuilder();

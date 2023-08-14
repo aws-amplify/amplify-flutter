@@ -50,9 +50,7 @@ class AnalyticsMetadataTypeBuilder
   set analyticsEndpointId(String? analyticsEndpointId) =>
       _$this._analyticsEndpointId = analyticsEndpointId;
 
-  AnalyticsMetadataTypeBuilder() {
-    AnalyticsMetadataType._init(this);
-  }
+  AnalyticsMetadataTypeBuilder();
 
   AnalyticsMetadataTypeBuilder get _$this {
     final $v = _$v;

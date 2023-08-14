@@ -6,9 +6,8 @@ library smoke_test.config_service.model.configuration_recorder_status; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/recorder_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/recorder_status.dart';
 
 part 'configuration_recorder_status.g.dart';
 
@@ -27,7 +26,7 @@ abstract class ConfigurationRecorderStatus
     DateTime? lastStartTime,
     DateTime? lastStopTime,
     bool? recording,
-    _i2.RecorderStatus? lastStatus,
+    RecorderStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
     DateTime? lastStatusChangeTime,
@@ -54,7 +53,7 @@ abstract class ConfigurationRecorderStatus
 
   const ConfigurationRecorderStatus._();
 
-  static const List<_i3.SmithySerializer<ConfigurationRecorderStatus>>
+  static const List<_i2.SmithySerializer<ConfigurationRecorderStatus>>
       serializers = [ConfigurationRecorderStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -75,7 +74,7 @@ abstract class ConfigurationRecorderStatus
   bool get recording;
 
   /// The status of the latest recording event processed by the recorder.
-  _i2.RecorderStatus? get lastStatus;
+  RecorderStatus? get lastStatus;
 
   /// The latest error code from when the recorder last failed.
   String? get lastErrorCode;
@@ -136,7 +135,7 @@ abstract class ConfigurationRecorderStatus
 }
 
 class ConfigurationRecorderStatusAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigurationRecorderStatus> {
+    extends _i2.StructuredSmithySerializer<ConfigurationRecorderStatus> {
   const ConfigurationRecorderStatusAwsJson11Serializer()
       : super('ConfigurationRecorderStatus');
 
@@ -146,8 +145,8 @@ class ConfigurationRecorderStatusAwsJson11Serializer
         _$ConfigurationRecorderStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -191,8 +190,8 @@ class ConfigurationRecorderStatusAwsJson11Serializer
         case 'lastStatus':
           result.lastStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RecorderStatus),
-          ) as _i2.RecorderStatus);
+            specifiedType: const FullType(RecorderStatus),
+          ) as RecorderStatus);
         case 'lastErrorCode':
           result.lastErrorCode = (serializers.deserialize(
             value,
@@ -267,7 +266,7 @@ class ConfigurationRecorderStatusAwsJson11Serializer
         ..add('lastStatus')
         ..add(serializers.serialize(
           lastStatus,
-          specifiedType: const FullType(_i2.RecorderStatus),
+          specifiedType: const FullType(RecorderStatus),
         ));
     }
     if (lastErrorCode != null) {

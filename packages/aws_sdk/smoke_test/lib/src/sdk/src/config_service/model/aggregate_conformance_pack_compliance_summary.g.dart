@@ -9,7 +9,7 @@ part of 'aggregate_conformance_pack_compliance_summary.dart';
 class _$AggregateConformancePackComplianceSummary
     extends AggregateConformancePackComplianceSummary {
   @override
-  final _i2.AggregateConformancePackComplianceCount? complianceSummary;
+  final AggregateConformancePackComplianceCount? complianceSummary;
   @override
   final String? groupName;
 
@@ -57,13 +57,12 @@ class AggregateConformancePackComplianceSummaryBuilder
             AggregateConformancePackComplianceSummaryBuilder> {
   _$AggregateConformancePackComplianceSummary? _$v;
 
-  _i2.AggregateConformancePackComplianceCountBuilder? _complianceSummary;
-  _i2.AggregateConformancePackComplianceCountBuilder get complianceSummary =>
+  AggregateConformancePackComplianceCountBuilder? _complianceSummary;
+  AggregateConformancePackComplianceCountBuilder get complianceSummary =>
       _$this._complianceSummary ??=
-          new _i2.AggregateConformancePackComplianceCountBuilder();
+          new AggregateConformancePackComplianceCountBuilder();
   set complianceSummary(
-          _i2.AggregateConformancePackComplianceCountBuilder?
-              complianceSummary) =>
+          AggregateConformancePackComplianceCountBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
   String? _groupName;

@@ -11,7 +11,7 @@ class _$StartRemediationExecutionResponse
   @override
   final String? failureMessage;
   @override
-  final _i3.BuiltList<_i2.ResourceKey>? failedItems;
+  final _i2.BuiltList<ResourceKey>? failedItems;
 
   factory _$StartRemediationExecutionResponse(
           [void Function(StartRemediationExecutionResponseBuilder)? updates]) =>
@@ -59,10 +59,10 @@ class StartRemediationExecutionResponseBuilder
   set failureMessage(String? failureMessage) =>
       _$this._failureMessage = failureMessage;
 
-  _i3.ListBuilder<_i2.ResourceKey>? _failedItems;
-  _i3.ListBuilder<_i2.ResourceKey> get failedItems =>
-      _$this._failedItems ??= new _i3.ListBuilder<_i2.ResourceKey>();
-  set failedItems(_i3.ListBuilder<_i2.ResourceKey>? failedItems) =>
+  _i2.ListBuilder<ResourceKey>? _failedItems;
+  _i2.ListBuilder<ResourceKey> get failedItems =>
+      _$this._failedItems ??= new _i2.ListBuilder<ResourceKey>();
+  set failedItems(_i2.ListBuilder<ResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
 
   StartRemediationExecutionResponseBuilder();

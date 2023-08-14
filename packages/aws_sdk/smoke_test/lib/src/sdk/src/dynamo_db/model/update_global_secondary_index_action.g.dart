@@ -11,7 +11,7 @@ class _$UpdateGlobalSecondaryIndexAction
   @override
   final String indexName;
   @override
-  final _i2.ProvisionedThroughput provisionedThroughput;
+  final ProvisionedThroughput provisionedThroughput;
 
   factory _$UpdateGlobalSecondaryIndexAction(
           [void Function(UpdateGlobalSecondaryIndexActionBuilder)? updates]) =>
@@ -63,11 +63,11 @@ class UpdateGlobalSecondaryIndexActionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i2.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i2.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i2.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
   UpdateGlobalSecondaryIndexActionBuilder();

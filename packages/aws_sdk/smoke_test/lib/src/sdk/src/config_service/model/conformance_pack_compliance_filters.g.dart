@@ -9,9 +9,9 @@ part of 'conformance_pack_compliance_filters.dart';
 class _$ConformancePackComplianceFilters
     extends ConformancePackComplianceFilters {
   @override
-  final _i3.BuiltList<String>? configRuleNames;
+  final _i2.BuiltList<String>? configRuleNames;
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
+  final ConformancePackComplianceType? complianceType;
 
   factory _$ConformancePackComplianceFilters(
           [void Function(ConformancePackComplianceFiltersBuilder)? updates]) =>
@@ -54,16 +54,15 @@ class ConformancePackComplianceFiltersBuilder
             ConformancePackComplianceFiltersBuilder> {
   _$ConformancePackComplianceFilters? _$v;
 
-  _i3.ListBuilder<String>? _configRuleNames;
-  _i3.ListBuilder<String> get configRuleNames =>
-      _$this._configRuleNames ??= new _i3.ListBuilder<String>();
-  set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
+  _i2.ListBuilder<String>? _configRuleNames;
+  _i2.ListBuilder<String> get configRuleNames =>
+      _$this._configRuleNames ??= new _i2.ListBuilder<String>();
+  set configRuleNames(_i2.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   ConformancePackComplianceFiltersBuilder();

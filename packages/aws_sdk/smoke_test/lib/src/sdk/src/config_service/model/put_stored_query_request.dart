@@ -4,13 +4,12 @@
 library smoke_test.config_service.model.put_stored_query_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/stored_query.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/stored_query.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 
 part 'put_stored_query_request.g.dart';
 
@@ -20,12 +19,12 @@ abstract class PutStoredQueryRequest
         _i2.AWSEquatable<PutStoredQueryRequest>
     implements Built<PutStoredQueryRequest, PutStoredQueryRequestBuilder> {
   factory PutStoredQueryRequest({
-    required _i3.StoredQuery storedQuery,
-    List<_i4.Tag>? tags,
+    required StoredQuery storedQuery,
+    List<Tag>? tags,
   }) {
     return _$PutStoredQueryRequest._(
       storedQuery: storedQuery,
-      tags: tags == null ? null : _i5.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -49,10 +48,10 @@ abstract class PutStoredQueryRequest
   /// A list of `StoredQuery` objects. The mandatory fields are `QueryName` and `Expression`.
   ///
   /// When you are creating a query, you must provide a query name and an expression. When you are updating a query, you must provide a query name but updating the description is optional.
-  _i3.StoredQuery get storedQuery;
+  StoredQuery get storedQuery;
 
   /// A list of `Tags` object.
-  _i5.BuiltList<_i4.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   PutStoredQueryRequest getPayload() => this;
   @override
@@ -111,16 +110,16 @@ class PutStoredQueryRequestAwsJson11Serializer
         case 'StoredQuery':
           result.storedQuery.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StoredQuery),
-          ) as _i3.StoredQuery));
+            specifiedType: const FullType(StoredQuery),
+          ) as StoredQuery));
         case 'Tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i5.BuiltList<_i4.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -139,7 +138,7 @@ class PutStoredQueryRequestAwsJson11Serializer
       'StoredQuery',
       serializers.serialize(
         storedQuery,
-        specifiedType: const FullType(_i3.StoredQuery),
+        specifiedType: const FullType(StoredQuery),
       ),
     ]);
     if (tags != null) {
@@ -148,8 +147,8 @@ class PutStoredQueryRequestAwsJson11Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

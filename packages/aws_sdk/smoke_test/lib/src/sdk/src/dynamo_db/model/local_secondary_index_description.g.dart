@@ -10,13 +10,13 @@ class _$LocalSecondaryIndexDescription extends LocalSecondaryIndexDescription {
   @override
   final String? indexName;
   @override
-  final _i5.BuiltList<_i2.KeySchemaElement>? keySchema;
+  final _i3.BuiltList<KeySchemaElement>? keySchema;
   @override
-  final _i3.Projection? projection;
+  final Projection? projection;
   @override
-  final _i4.Int64? indexSizeBytes;
+  final _i2.Int64? indexSizeBytes;
   @override
-  final _i4.Int64? itemCount;
+  final _i2.Int64? itemCount;
   @override
   final String? indexArn;
 
@@ -78,26 +78,26 @@ class LocalSecondaryIndexDescriptionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i5.ListBuilder<_i2.KeySchemaElement>? _keySchema;
-  _i5.ListBuilder<_i2.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i5.ListBuilder<_i2.KeySchemaElement>();
-  set keySchema(_i5.ListBuilder<_i2.KeySchemaElement>? keySchema) =>
+  _i3.ListBuilder<KeySchemaElement>? _keySchema;
+  _i3.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i3.ListBuilder<KeySchemaElement>();
+  set keySchema(_i3.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i3.ProjectionBuilder? _projection;
-  _i3.ProjectionBuilder get projection =>
-      _$this._projection ??= new _i3.ProjectionBuilder();
-  set projection(_i3.ProjectionBuilder? projection) =>
+  ProjectionBuilder? _projection;
+  ProjectionBuilder get projection =>
+      _$this._projection ??= new ProjectionBuilder();
+  set projection(ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  _i4.Int64? _indexSizeBytes;
-  _i4.Int64? get indexSizeBytes => _$this._indexSizeBytes;
-  set indexSizeBytes(_i4.Int64? indexSizeBytes) =>
+  _i2.Int64? _indexSizeBytes;
+  _i2.Int64? get indexSizeBytes => _$this._indexSizeBytes;
+  set indexSizeBytes(_i2.Int64? indexSizeBytes) =>
       _$this._indexSizeBytes = indexSizeBytes;
 
-  _i4.Int64? _itemCount;
-  _i4.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i4.Int64? itemCount) => _$this._itemCount = itemCount;
+  _i2.Int64? _itemCount;
+  _i2.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
 
   String? _indexArn;
   String? get indexArn => _$this._indexArn;

@@ -8,9 +8,9 @@ part of 'write_request.dart';
 
 class _$WriteRequest extends WriteRequest {
   @override
-  final _i2.PutRequest? putRequest;
+  final PutRequest? putRequest;
   @override
-  final _i3.DeleteRequest? deleteRequest;
+  final DeleteRequest? deleteRequest;
 
   factory _$WriteRequest([void Function(WriteRequestBuilder)? updates]) =>
       (new WriteRequestBuilder()..update(updates))._build();
@@ -46,16 +46,16 @@ class WriteRequestBuilder
     implements Builder<WriteRequest, WriteRequestBuilder> {
   _$WriteRequest? _$v;
 
-  _i2.PutRequestBuilder? _putRequest;
-  _i2.PutRequestBuilder get putRequest =>
-      _$this._putRequest ??= new _i2.PutRequestBuilder();
-  set putRequest(_i2.PutRequestBuilder? putRequest) =>
+  PutRequestBuilder? _putRequest;
+  PutRequestBuilder get putRequest =>
+      _$this._putRequest ??= new PutRequestBuilder();
+  set putRequest(PutRequestBuilder? putRequest) =>
       _$this._putRequest = putRequest;
 
-  _i3.DeleteRequestBuilder? _deleteRequest;
-  _i3.DeleteRequestBuilder get deleteRequest =>
-      _$this._deleteRequest ??= new _i3.DeleteRequestBuilder();
-  set deleteRequest(_i3.DeleteRequestBuilder? deleteRequest) =>
+  DeleteRequestBuilder? _deleteRequest;
+  DeleteRequestBuilder get deleteRequest =>
+      _$this._deleteRequest ??= new DeleteRequestBuilder();
+  set deleteRequest(DeleteRequestBuilder? deleteRequest) =>
       _$this._deleteRequest = deleteRequest;
 
   WriteRequestBuilder();

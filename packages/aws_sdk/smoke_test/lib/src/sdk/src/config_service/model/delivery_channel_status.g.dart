@@ -10,11 +10,11 @@ class _$DeliveryChannelStatus extends DeliveryChannelStatus {
   @override
   final String? name;
   @override
-  final _i2.ConfigExportDeliveryInfo? configSnapshotDeliveryInfo;
+  final ConfigExportDeliveryInfo? configSnapshotDeliveryInfo;
   @override
-  final _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo;
+  final ConfigExportDeliveryInfo? configHistoryDeliveryInfo;
   @override
-  final _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo;
+  final ConfigStreamDeliveryInfo? configStreamDeliveryInfo;
 
   factory _$DeliveryChannelStatus(
           [void Function(DeliveryChannelStatusBuilder)? updates]) =>
@@ -66,28 +66,28 @@ class DeliveryChannelStatusBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i2.ConfigExportDeliveryInfoBuilder? _configSnapshotDeliveryInfo;
-  _i2.ConfigExportDeliveryInfoBuilder get configSnapshotDeliveryInfo =>
+  ConfigExportDeliveryInfoBuilder? _configSnapshotDeliveryInfo;
+  ConfigExportDeliveryInfoBuilder get configSnapshotDeliveryInfo =>
       _$this._configSnapshotDeliveryInfo ??=
-          new _i2.ConfigExportDeliveryInfoBuilder();
+          new ConfigExportDeliveryInfoBuilder();
   set configSnapshotDeliveryInfo(
-          _i2.ConfigExportDeliveryInfoBuilder? configSnapshotDeliveryInfo) =>
+          ConfigExportDeliveryInfoBuilder? configSnapshotDeliveryInfo) =>
       _$this._configSnapshotDeliveryInfo = configSnapshotDeliveryInfo;
 
-  _i2.ConfigExportDeliveryInfoBuilder? _configHistoryDeliveryInfo;
-  _i2.ConfigExportDeliveryInfoBuilder get configHistoryDeliveryInfo =>
+  ConfigExportDeliveryInfoBuilder? _configHistoryDeliveryInfo;
+  ConfigExportDeliveryInfoBuilder get configHistoryDeliveryInfo =>
       _$this._configHistoryDeliveryInfo ??=
-          new _i2.ConfigExportDeliveryInfoBuilder();
+          new ConfigExportDeliveryInfoBuilder();
   set configHistoryDeliveryInfo(
-          _i2.ConfigExportDeliveryInfoBuilder? configHistoryDeliveryInfo) =>
+          ConfigExportDeliveryInfoBuilder? configHistoryDeliveryInfo) =>
       _$this._configHistoryDeliveryInfo = configHistoryDeliveryInfo;
 
-  _i3.ConfigStreamDeliveryInfoBuilder? _configStreamDeliveryInfo;
-  _i3.ConfigStreamDeliveryInfoBuilder get configStreamDeliveryInfo =>
+  ConfigStreamDeliveryInfoBuilder? _configStreamDeliveryInfo;
+  ConfigStreamDeliveryInfoBuilder get configStreamDeliveryInfo =>
       _$this._configStreamDeliveryInfo ??=
-          new _i3.ConfigStreamDeliveryInfoBuilder();
+          new ConfigStreamDeliveryInfoBuilder();
   set configStreamDeliveryInfo(
-          _i3.ConfigStreamDeliveryInfoBuilder? configStreamDeliveryInfo) =>
+          ConfigStreamDeliveryInfoBuilder? configStreamDeliveryInfo) =>
       _$this._configStreamDeliveryInfo = configStreamDeliveryInfo;
 
   DeliveryChannelStatusBuilder();

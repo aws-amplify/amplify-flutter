@@ -3,24 +3,18 @@
 
 library rest_json1_v1.rest_json_protocol.operation.malformed_string_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i8;
-import 'dart:convert' as _i6;
+import 'dart:async' as _i5;
+import 'dart:convert' as _i3;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_string_input.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_string_input.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class MalformedStringOperation extends _i1.HttpOperation<
-    _i2.MalformedStringInputPayload,
-    _i2.MalformedStringInput,
-    _i1.Unit,
-    _i1.Unit> {
+    MalformedStringInputPayload, MalformedStringInput, _i1.Unit, _i1.Unit> {
   MalformedStringOperation({
     required String region,
     Uri? baseUri,
@@ -33,18 +27,18 @@ class MalformedStringOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.MalformedStringInputPayload,
-          _i2.MalformedStringInput, _i1.Unit, _i1.Unit>> protocols = [
-    _i3.RestJson1Protocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<MalformedStringInputPayload, MalformedStringInput,
+          _i1.Unit, _i1.Unit>> protocols = [
+    _i2.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -52,8 +46,8 @@ class MalformedStringOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -66,13 +60,13 @@ class MalformedStringOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.MalformedStringInput input) =>
+  _i1.HttpRequest buildRequest(MalformedStringInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/MalformedString';
         if (input.blob != null) {
-          b.headers['amz-media-typed-header'] = _i6
-              .base64Encode(_i6.utf8.encode(_i6.jsonEncode(input.blob!.value)));
+          b.headers['amz-media-typed-header'] = _i3
+              .base64Encode(_i3.utf8.encode(_i3.jsonEncode(input.blob!.value)));
         }
       });
   @override
@@ -80,7 +74,7 @@ class MalformedStringOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i7.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -88,18 +82,18 @@ class MalformedStringOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'MalformedString';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.MalformedStringInput input, {
-    _i7.AWSHttpClient? client,
+    MalformedStringInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i8.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -107,7 +101,7 @@ class MalformedStringOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

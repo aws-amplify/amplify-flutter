@@ -1,17 +1,15 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/authentication_result_type.dart'
-    as _i3;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/authentication_result_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'initiate_auth_response.g.dart';
 
@@ -21,17 +19,17 @@ abstract class InitiateAuthResponse
     implements Built<InitiateAuthResponse, InitiateAuthResponseBuilder> {
   /// Initiates the authentication response.
   factory InitiateAuthResponse({
-    _i2.ChallengeNameType? challengeName,
+    ChallengeNameType? challengeName,
     String? session,
     Map<String, String?>? challengeParameters,
-    _i3.AuthenticationResultType? authenticationResult,
+    AuthenticationResultType? authenticationResult,
   }) {
     return _$InitiateAuthResponse._(
       challengeName: challengeName,
       session: session,
       challengeParameters: challengeParameters == null
           ? null
-          : _i4.BuiltMap(challengeParameters),
+          : _i2.BuiltMap(challengeParameters),
       authenticationResult: authenticationResult,
     );
   }
@@ -50,12 +48,9 @@ abstract class InitiateAuthResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<InitiateAuthResponse>> serializers = [
+  static const List<_i3.SmithySerializer<InitiateAuthResponse>> serializers = [
     InitiateAuthResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InitiateAuthResponseBuilder b) {}
 
   /// The name of the challenge that you're responding to with this call. This name is returned in the `AdminInitiateAuth` response if you must pass another challenge.
   ///
@@ -82,7 +77,7 @@ abstract class InitiateAuthResponse
   /// *   `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for the user pool will be listed in the challenge parameters `MFA\_CAN\_SETUP` value.
   ///
   ///     To set up software token MFA, use the session returned here from `InitiateAuth` as an input to `AssociateSoftwareToken`. Use the session returned by `VerifySoftwareToken` as an input to `RespondToAuthChallenge` with challenge name `MFA_SETUP` to complete sign-in. To set up SMS MFA, an administrator should help the user to add a phone number to their account, and then the user should call `InitiateAuth` again to restart sign-in.
-  _i2.ChallengeNameType? get challengeName;
+  ChallengeNameType? get challengeName;
 
   /// The session that should pass both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
@@ -90,10 +85,10 @@ abstract class InitiateAuthResponse
   /// The challenge parameters. These are returned in the `InitiateAuth` response if you must pass another challenge. The responses in this parameter should be used to compute inputs to the next call (`RespondToAuthChallenge`).
   ///
   /// All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
-  _i4.BuiltMap<String, String?>? get challengeParameters;
+  _i2.BuiltMap<String, String?>? get challengeParameters;
 
   /// The result of the authentication response. This result is only returned if the caller doesn't need to pass another challenge. If the caller does need to pass another challenge before it gets tokens, `ChallengeName`, `ChallengeParameters`, and `Session` are returned.
-  _i3.AuthenticationResultType? get authenticationResult;
+  AuthenticationResultType? get authenticationResult;
   @override
   List<Object?> get props => [
         challengeName,
@@ -125,7 +120,7 @@ abstract class InitiateAuthResponse
 }
 
 class InitiateAuthResponseAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<InitiateAuthResponse> {
+    extends _i3.StructuredSmithySerializer<InitiateAuthResponse> {
   const InitiateAuthResponseAwsJson11Serializer()
       : super('InitiateAuthResponse');
 
@@ -135,8 +130,8 @@ class InitiateAuthResponseAwsJson11Serializer
         _$InitiateAuthResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -160,8 +155,8 @@ class InitiateAuthResponseAwsJson11Serializer
         case 'ChallengeName':
           result.challengeName = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChallengeNameType),
-          ) as _i2.ChallengeNameType);
+            specifiedType: const FullType(ChallengeNameType),
+          ) as ChallengeNameType);
         case 'Session':
           result.session = (serializers.deserialize(
             value,
@@ -171,18 +166,18 @@ class InitiateAuthResponseAwsJson11Serializer
           result.challengeParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType.nullable(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String?>));
+          ) as _i2.BuiltMap<String, String?>));
         case 'AuthenticationResult':
           result.authenticationResult.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AuthenticationResultType),
-          ) as _i3.AuthenticationResultType));
+            specifiedType: const FullType(AuthenticationResultType),
+          ) as AuthenticationResultType));
       }
     }
 
@@ -207,7 +202,7 @@ class InitiateAuthResponseAwsJson11Serializer
         ..add('ChallengeName')
         ..add(serializers.serialize(
           challengeName,
-          specifiedType: const FullType(_i2.ChallengeNameType),
+          specifiedType: const FullType(ChallengeNameType),
         ));
     }
     if (session != null) {
@@ -224,7 +219,7 @@ class InitiateAuthResponseAwsJson11Serializer
         ..add(serializers.serialize(
           challengeParameters,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType.nullable(String),
@@ -237,7 +232,7 @@ class InitiateAuthResponseAwsJson11Serializer
         ..add('AuthenticationResult')
         ..add(serializers.serialize(
           authenticationResult,
-          specifiedType: const FullType(_i3.AuthenticationResultType),
+          specifiedType: const FullType(AuthenticationResultType),
         ));
     }
     return result$;

@@ -4,11 +4,11 @@
 library smoke_test.iam.model.tag_saml_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'tag_saml_provider_request.g.dart';
 
@@ -19,11 +19,11 @@ abstract class TagSamlProviderRequest
     implements Built<TagSamlProviderRequest, TagSamlProviderRequestBuilder> {
   factory TagSamlProviderRequest({
     required String samlProviderArn,
-    required List<_i3.Tag> tags,
+    required List<Tag> tags,
   }) {
     return _$TagSamlProviderRequest._(
       samlProviderArn: samlProviderArn,
-      tags: _i4.BuiltList(tags),
+      tags: _i3.BuiltList(tags),
     );
   }
 
@@ -49,7 +49,7 @@ abstract class TagSamlProviderRequest
   String get samlProviderArn;
 
   /// The list of tags that you want to attach to the SAML identity provider in IAM. Each tag consists of a key name and an associated value.
-  _i4.BuiltList<_i3.Tag> get tags;
+  _i3.BuiltList<Tag> get tags;
   @override
   TagSamlProviderRequest getPayload() => this;
   @override
@@ -117,10 +117,10 @@ class TagSamlProviderRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -154,8 +154,8 @@ class TagSamlProviderRequestAwsQuerySerializer
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

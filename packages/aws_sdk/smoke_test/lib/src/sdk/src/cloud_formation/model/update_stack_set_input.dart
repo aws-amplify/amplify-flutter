@@ -4,27 +4,19 @@
 library smoke_test.cloud_formation.model.update_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i12;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 
 part 'update_stack_set_input.g.dart';
 
@@ -39,20 +31,20 @@ abstract class UpdateStackSetInput
     String? templateBody,
     String? templateUrl,
     bool? usePreviousTemplate,
-    List<_i3.Parameter>? parameters,
-    List<_i4.Capability>? capabilities,
-    List<_i5.Tag>? tags,
-    _i6.StackSetOperationPreferences? operationPreferences,
+    List<Parameter>? parameters,
+    List<Capability>? capabilities,
+    List<Tag>? tags,
+    StackSetOperationPreferences? operationPreferences,
     String? administrationRoleArn,
     String? executionRoleName,
-    _i7.DeploymentTargets? deploymentTargets,
-    _i8.PermissionModels? permissionModel,
-    _i9.AutoDeployment? autoDeployment,
+    DeploymentTargets? deploymentTargets,
+    PermissionModels? permissionModel,
+    AutoDeployment? autoDeployment,
     String? operationId,
     List<String>? accounts,
     List<String>? regions,
-    _i10.CallAs? callAs,
-    _i11.ManagedExecution? managedExecution,
+    CallAs? callAs,
+    ManagedExecution? managedExecution,
   }) {
     return _$UpdateStackSetInput._(
       stackSetName: stackSetName,
@@ -60,9 +52,9 @@ abstract class UpdateStackSetInput
       templateBody: templateBody,
       templateUrl: templateUrl,
       usePreviousTemplate: usePreviousTemplate,
-      parameters: parameters == null ? null : _i12.BuiltList(parameters),
-      capabilities: capabilities == null ? null : _i12.BuiltList(capabilities),
-      tags: tags == null ? null : _i12.BuiltList(tags),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      capabilities: capabilities == null ? null : _i3.BuiltList(capabilities),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       operationPreferences: operationPreferences,
       administrationRoleArn: administrationRoleArn,
       executionRoleName: executionRoleName,
@@ -70,8 +62,8 @@ abstract class UpdateStackSetInput
       permissionModel: permissionModel,
       autoDeployment: autoDeployment,
       operationId: operationId,
-      accounts: accounts == null ? null : _i12.BuiltList(accounts),
-      regions: regions == null ? null : _i12.BuiltList(regions),
+      accounts: accounts == null ? null : _i3.BuiltList(accounts),
+      regions: regions == null ? null : _i3.BuiltList(regions),
       callAs: callAs,
       managedExecution: managedExecution,
     );
@@ -123,7 +115,7 @@ abstract class UpdateStackSetInput
   bool? get usePreviousTemplate;
 
   /// A list of input parameters for the stack set template.
-  _i12.BuiltList<_i3.Parameter>? get parameters;
+  _i3.BuiltList<Parameter>? get parameters;
 
   /// In some cases, you must explicitly acknowledge that your stack template contains certain capabilities in order for CloudFormation to update the stack set and its associated stack instances.
   ///
@@ -157,14 +149,14 @@ abstract class UpdateStackSetInput
   ///     *   [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/using-iam-template.html#capabilities).
   ///
   /// *   `CAPABILITY\_AUTO\_EXPAND`
   ///
-  ///     Some templates reference macros. If your stack set template references one or more macros, you must update the stack set directly from the processed template, without first reviewing the resulting changes in a change set. To update the stack set directly, you must acknowledge this capability. For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     Some templates reference macros. If your stack set template references one or more macros, you must update the stack set directly from the processed template, without first reviewing the resulting changes in a change set. To update the stack set directly, you must acknowledge this capability. For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](https://docs.aws.amazon.com/AWSCloudFormation/template-macros.html).
   ///
-  ///     Stack sets with service-managed permissions do not currently support the use of macros in templates. (This includes the [AWS::Include](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.) Even if you specify this capability for a stack set with service-managed permissions, if you reference a macro in your template the stack set operation will fail.
-  _i12.BuiltList<_i4.Capability>? get capabilities;
+  ///     Stack sets with service-managed permissions do not currently support the use of macros in templates. (This includes the [AWS::Include](https://docs.aws.amazon.com/AWSCloudFormation/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](https://docs.aws.amazon.com/AWSCloudFormation/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.) Even if you specify this capability for a stack set with service-managed permissions, if you reference a macro in your template the stack set operation will fail.
+  _i3.BuiltList<Capability>? get capabilities;
 
   /// The key-value pairs to associate with this stack set and the stacks created from it. CloudFormation also propagates these tags to supported resources that are created in the stacks. You can specify a maximum number of 50 tags.
   ///
@@ -178,14 +170,14 @@ abstract class UpdateStackSetInput
   ///
   ///
   /// If you specify new tags as part of an `UpdateStackSet` action, CloudFormation checks to see if you have the required IAM permission to tag resources. If you omit tags that are currently associated with the stack set from the list of tags you specify, CloudFormation assumes that you want to remove those tags from the stack set, and checks to see if you have permission to untag resources. If you don't have the necessary permission(s), the entire `UpdateStackSet` action fails with an `access denied` error, and the stack set is not updated.
-  _i12.BuiltList<_i5.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// Preferences for how CloudFormation performs this stack set operation.
-  _i6.StackSetOperationPreferences? get operationPreferences;
+  StackSetOperationPreferences? get operationPreferences;
 
   /// The Amazon Resource Name (ARN) of the IAM role to use to update this stack set.
   ///
-  /// Specify an IAM role only if you are using customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html) in the _CloudFormation User Guide_.
+  /// Specify an IAM role only if you are using customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Granting Permissions for Stack Set Operations](https://docs.aws.amazon.com/AWSCloudFormation/stacksets-prereqs.html) in the _CloudFormation User Guide_.
   ///
   /// If you specified a customized administrator role when you created the stack set, you must specify a customized administrator role, even if it is the same customized administrator role used with this stack set previously.
   String? get administrationRoleArn;
@@ -202,19 +194,19 @@ abstract class UpdateStackSetInput
   /// To update all the stack instances associated with this stack set, do not specify `DeploymentTargets` or `Regions`.
   ///
   /// If the stack set update includes changes to the template (that is, if `TemplateBody` or `TemplateURL` is specified), or the `Parameters`, CloudFormation marks all stack instances with a status of `OUTDATED` prior to updating the stack instances in the specified accounts and Amazon Web Services Regions. If the stack set update doesn't include changes to the template or parameters, CloudFormation updates the stack instances in the specified accounts and Regions, while leaving all other stack instances with their existing stack instance status.
-  _i7.DeploymentTargets? get deploymentTargets;
+  DeploymentTargets? get deploymentTargets;
 
   /// Describes how the IAM roles required for stack set operations are created. You cannot modify `PermissionModel` if there are stack instances associated with your stack set.
   ///
   /// *   With `self-managed` permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see [Grant Self-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html).
   ///
   /// *   With `service-managed` permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see [Grant Service-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html).
-  _i8.PermissionModels? get permissionModel;
+  PermissionModels? get permissionModel;
 
   /// \[Service-managed permissions\] Describes whether StackSets automatically deploys to Organizations accounts that are added to a target organization or organizational unit (OU).
   ///
   /// If you specify `AutoDeployment`, don't specify `DeploymentTargets` or `Regions`.
-  _i9.AutoDeployment? get autoDeployment;
+  AutoDeployment? get autoDeployment;
 
   /// The unique ID for this stack set operation.
   ///
@@ -230,14 +222,14 @@ abstract class UpdateStackSetInput
   /// To update _all_ the stack instances associated with this stack set, don't specify the `Accounts` or `Regions` properties.
   ///
   /// If the stack set update includes changes to the template (that is, if the `TemplateBody` or `TemplateURL` properties are specified), or the `Parameters` property, CloudFormation marks all stack instances with a status of `OUTDATED` prior to updating the stack instances in the specified accounts and Amazon Web Services Regions. If the stack set update does not include changes to the template or parameters, CloudFormation updates the stack instances in the specified accounts and Amazon Web Services Regions, while leaving all other stack instances with their existing stack instance status.
-  _i12.BuiltList<String>? get accounts;
+  _i3.BuiltList<String>? get accounts;
 
   /// The Amazon Web Services Regions in which to update associated stack instances. If you specify Regions, you must also specify accounts in which to update stack set instances.
   ///
   /// To update _all_ the stack instances associated with this stack set, do not specify the `Accounts` or `Regions` properties.
   ///
   /// If the stack set update includes changes to the template (that is, if the `TemplateBody` or `TemplateURL` properties are specified), or the `Parameters` property, CloudFormation marks all stack instances with a status of `OUTDATED` prior to updating the stack instances in the specified accounts and Regions. If the stack set update does not include changes to the template or parameters, CloudFormation updates the stack instances in the specified accounts and Regions, while leaving all other stack instances with their existing stack instance status.
-  _i12.BuiltList<String>? get regions;
+  _i3.BuiltList<String>? get regions;
 
   /// \[Service-managed permissions\] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account.
   ///
@@ -248,10 +240,10 @@ abstract class UpdateStackSetInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i10.CallAs? get callAs;
+  CallAs? get callAs;
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
-  _i11.ManagedExecution? get managedExecution;
+  ManagedExecution? get managedExecution;
   @override
   UpdateStackSetInput getPayload() => this;
   @override
@@ -423,10 +415,10 @@ class UpdateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i12.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i12.BuiltList<_i3.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
         case 'Capabilities':
           result.capabilities.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -434,10 +426,10 @@ class UpdateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i12.BuiltList,
-              [FullType(_i4.Capability)],
+              _i3.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i12.BuiltList<_i4.Capability>));
+          ) as _i3.BuiltList<Capability>));
         case 'Tags':
           result.tags.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -445,15 +437,15 @@ class UpdateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i12.BuiltList,
-              [FullType(_i5.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i12.BuiltList<_i5.Tag>));
+          ) as _i3.BuiltList<Tag>));
         case 'OperationPreferences':
           result.operationPreferences.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.StackSetOperationPreferences),
-          ) as _i6.StackSetOperationPreferences));
+            specifiedType: const FullType(StackSetOperationPreferences),
+          ) as StackSetOperationPreferences));
         case 'AdministrationRoleARN':
           result.administrationRoleArn = (serializers.deserialize(
             value,
@@ -467,18 +459,18 @@ class UpdateStackSetInputAwsQuerySerializer
         case 'DeploymentTargets':
           result.deploymentTargets.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.DeploymentTargets),
-          ) as _i7.DeploymentTargets));
+            specifiedType: const FullType(DeploymentTargets),
+          ) as DeploymentTargets));
         case 'PermissionModel':
           result.permissionModel = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.PermissionModels),
-          ) as _i8.PermissionModels);
+            specifiedType: const FullType(PermissionModels),
+          ) as PermissionModels);
         case 'AutoDeployment':
           result.autoDeployment.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.AutoDeployment),
-          ) as _i9.AutoDeployment));
+            specifiedType: const FullType(AutoDeployment),
+          ) as AutoDeployment));
         case 'OperationId':
           result.operationId = (serializers.deserialize(
             value,
@@ -491,10 +483,10 @@ class UpdateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i12.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i12.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'Regions':
           result.regions.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -502,20 +494,20 @@ class UpdateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i12.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i12.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i10.CallAs),
-          ) as _i10.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
         case 'ManagedExecution':
           result.managedExecution.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i11.ManagedExecution),
-          ) as _i11.ManagedExecution));
+            specifiedType: const FullType(ManagedExecution),
+          ) as ManagedExecution));
       }
     }
 
@@ -602,8 +594,8 @@ class UpdateStackSetInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i12.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
@@ -616,8 +608,8 @@ class UpdateStackSetInputAwsQuerySerializer
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i12.BuiltList,
-            [FullType(_i4.Capability)],
+            _i3.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
@@ -630,8 +622,8 @@ class UpdateStackSetInputAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i12.BuiltList,
-            [FullType(_i5.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }
@@ -640,7 +632,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
-          specifiedType: const FullType(_i6.StackSetOperationPreferences),
+          specifiedType: const FullType(StackSetOperationPreferences),
         ));
     }
     if (administrationRoleArn != null) {
@@ -664,7 +656,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
-          specifiedType: const FullType(_i7.DeploymentTargets),
+          specifiedType: const FullType(DeploymentTargets),
         ));
     }
     if (permissionModel != null) {
@@ -672,7 +664,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(_i8.PermissionModels),
+          specifiedType: const FullType.nullable(PermissionModels),
         ));
     }
     if (autoDeployment != null) {
@@ -680,7 +672,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
-          specifiedType: const FullType(_i9.AutoDeployment),
+          specifiedType: const FullType(AutoDeployment),
         ));
     }
     if (operationId != null) {
@@ -700,7 +692,7 @@ class UpdateStackSetInputAwsQuerySerializer
           serializers,
           accounts,
           specifiedType: const FullType.nullable(
-            _i12.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -714,7 +706,7 @@ class UpdateStackSetInputAwsQuerySerializer
           serializers,
           regions,
           specifiedType: const FullType.nullable(
-            _i12.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -724,7 +716,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i10.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     if (managedExecution != null) {
@@ -732,7 +724,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
-          specifiedType: const FullType(_i11.ManagedExecution),
+          specifiedType: const FullType(ManagedExecution),
         ));
     }
     return result$;

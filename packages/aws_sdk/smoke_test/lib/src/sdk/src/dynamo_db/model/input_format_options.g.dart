@@ -8,7 +8,7 @@ part of 'input_format_options.dart';
 
 class _$InputFormatOptions extends InputFormatOptions {
   @override
-  final _i2.CsvOptions? csv;
+  final CsvOptions? csv;
 
   factory _$InputFormatOptions(
           [void Function(InputFormatOptionsBuilder)? updates]) =>
@@ -44,9 +44,9 @@ class InputFormatOptionsBuilder
     implements Builder<InputFormatOptions, InputFormatOptionsBuilder> {
   _$InputFormatOptions? _$v;
 
-  _i2.CsvOptionsBuilder? _csv;
-  _i2.CsvOptionsBuilder get csv => _$this._csv ??= new _i2.CsvOptionsBuilder();
-  set csv(_i2.CsvOptionsBuilder? csv) => _$this._csv = csv;
+  CsvOptionsBuilder? _csv;
+  CsvOptionsBuilder get csv => _$this._csv ??= new CsvOptionsBuilder();
+  set csv(CsvOptionsBuilder? csv) => _$this._csv = csv;
 
   InputFormatOptionsBuilder();
 

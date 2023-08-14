@@ -8,9 +8,9 @@ part of 'stack_set_drift_detection_details.dart';
 
 class _$StackSetDriftDetectionDetails extends StackSetDriftDetectionDetails {
   @override
-  final _i2.StackSetDriftStatus? driftStatus;
+  final StackSetDriftStatus? driftStatus;
   @override
-  final _i3.StackSetDriftDetectionStatus? driftDetectionStatus;
+  final StackSetDriftDetectionStatus? driftDetectionStatus;
   @override
   final DateTime? lastDriftCheckTimestamp;
   @override
@@ -95,16 +95,16 @@ class StackSetDriftDetectionDetailsBuilder
             StackSetDriftDetectionDetailsBuilder> {
   _$StackSetDriftDetectionDetails? _$v;
 
-  _i2.StackSetDriftStatus? _driftStatus;
-  _i2.StackSetDriftStatus? get driftStatus => _$this._driftStatus;
-  set driftStatus(_i2.StackSetDriftStatus? driftStatus) =>
+  StackSetDriftStatus? _driftStatus;
+  StackSetDriftStatus? get driftStatus => _$this._driftStatus;
+  set driftStatus(StackSetDriftStatus? driftStatus) =>
       _$this._driftStatus = driftStatus;
 
-  _i3.StackSetDriftDetectionStatus? _driftDetectionStatus;
-  _i3.StackSetDriftDetectionStatus? get driftDetectionStatus =>
+  StackSetDriftDetectionStatus? _driftDetectionStatus;
+  StackSetDriftDetectionStatus? get driftDetectionStatus =>
       _$this._driftDetectionStatus;
   set driftDetectionStatus(
-          _i3.StackSetDriftDetectionStatus? driftDetectionStatus) =>
+          StackSetDriftDetectionStatus? driftDetectionStatus) =>
       _$this._driftDetectionStatus = driftDetectionStatus;
 
   DateTime? _lastDriftCheckTimestamp;

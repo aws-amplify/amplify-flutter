@@ -12,11 +12,11 @@ class _$GetFederationTokenRequest extends GetFederationTokenRequest {
   @override
   final String? policy;
   @override
-  final _i5.BuiltList<_i3.PolicyDescriptorType>? policyArns;
+  final _i3.BuiltList<PolicyDescriptorType>? policyArns;
   @override
   final int? durationSeconds;
   @override
-  final _i5.BuiltList<_i4.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$GetFederationTokenRequest(
           [void Function(GetFederationTokenRequestBuilder)? updates]) =>
@@ -79,10 +79,10 @@ class GetFederationTokenRequestBuilder
   String? get policy => _$this._policy;
   set policy(String? policy) => _$this._policy = policy;
 
-  _i5.ListBuilder<_i3.PolicyDescriptorType>? _policyArns;
-  _i5.ListBuilder<_i3.PolicyDescriptorType> get policyArns =>
-      _$this._policyArns ??= new _i5.ListBuilder<_i3.PolicyDescriptorType>();
-  set policyArns(_i5.ListBuilder<_i3.PolicyDescriptorType>? policyArns) =>
+  _i3.ListBuilder<PolicyDescriptorType>? _policyArns;
+  _i3.ListBuilder<PolicyDescriptorType> get policyArns =>
+      _$this._policyArns ??= new _i3.ListBuilder<PolicyDescriptorType>();
+  set policyArns(_i3.ListBuilder<PolicyDescriptorType>? policyArns) =>
       _$this._policyArns = policyArns;
 
   int? _durationSeconds;
@@ -90,10 +90,9 @@ class GetFederationTokenRequestBuilder
   set durationSeconds(int? durationSeconds) =>
       _$this._durationSeconds = durationSeconds;
 
-  _i5.ListBuilder<_i4.Tag>? _tags;
-  _i5.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
-  set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   GetFederationTokenRequestBuilder();
 

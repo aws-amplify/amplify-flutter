@@ -8,7 +8,7 @@ part of 'stack_instance_filter.dart';
 
 class _$StackInstanceFilter extends StackInstanceFilter {
   @override
-  final _i2.StackInstanceFilterName? name;
+  final StackInstanceFilterName? name;
   @override
   final String? values;
 
@@ -49,9 +49,9 @@ class StackInstanceFilterBuilder
     implements Builder<StackInstanceFilter, StackInstanceFilterBuilder> {
   _$StackInstanceFilter? _$v;
 
-  _i2.StackInstanceFilterName? _name;
-  _i2.StackInstanceFilterName? get name => _$this._name;
-  set name(_i2.StackInstanceFilterName? name) => _$this._name = name;
+  StackInstanceFilterName? _name;
+  StackInstanceFilterName? get name => _$this._name;
+  set name(StackInstanceFilterName? name) => _$this._name = name;
 
   String? _values;
   String? get values => _$this._values;

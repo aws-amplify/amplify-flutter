@@ -14,7 +14,7 @@ class _$EnvironmentConfig extends EnvironmentConfig {
   @override
   final String? awsDefaultRegion;
   @override
-  final _i2.RetryMode? awsRetryMode;
+  final RetryMode? awsRetryMode;
   @override
   final String? awsSessionToken;
   @override
@@ -86,9 +86,9 @@ class EnvironmentConfigBuilder
   set awsDefaultRegion(String? awsDefaultRegion) =>
       _$this._awsDefaultRegion = awsDefaultRegion;
 
-  _i2.RetryMode? _awsRetryMode;
-  _i2.RetryMode? get awsRetryMode => _$this._awsRetryMode;
-  set awsRetryMode(_i2.RetryMode? awsRetryMode) =>
+  RetryMode? _awsRetryMode;
+  RetryMode? get awsRetryMode => _$this._awsRetryMode;
+  set awsRetryMode(RetryMode? awsRetryMode) =>
       _$this._awsRetryMode = awsRetryMode;
 
   String? _awsSessionToken;

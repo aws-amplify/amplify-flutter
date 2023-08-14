@@ -1,12 +1,11 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart'
-    as _i3;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -22,15 +21,15 @@ abstract class UpdateUserAttributesRequest
         Built<UpdateUserAttributesRequest, UpdateUserAttributesRequestBuilder> {
   /// Represents the request to update user attributes.
   factory UpdateUserAttributesRequest({
-    required List<_i3.AttributeType> userAttributes,
+    required List<AttributeType> userAttributes,
     required String accessToken,
     Map<String, String>? clientMetadata,
   }) {
     return _$UpdateUserAttributesRequest._(
-      userAttributes: _i4.BuiltList(userAttributes),
+      userAttributes: _i3.BuiltList(userAttributes),
       accessToken: accessToken,
       clientMetadata:
-          clientMetadata == null ? null : _i4.BuiltMap(clientMetadata),
+          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -51,15 +50,12 @@ abstract class UpdateUserAttributesRequest
   static const List<_i1.SmithySerializer<UpdateUserAttributesRequest>>
       serializers = [UpdateUserAttributesRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUserAttributesRequestBuilder b) {}
-
   /// An array of name-value pairs representing user attributes.
   ///
   /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
   ///
   /// If you have set an attribute to require verification before Amazon Cognito updates its value, this request doesn’t immediately update the value of that attribute. After your user receives and responds to a verification message to verify the new value, Amazon Cognito updates the attribute value. Your user can sign in and receive messages with the original attribute value until they verify the new value.
-  _i4.BuiltList<_i3.AttributeType> get userAttributes;
+  _i3.BuiltList<AttributeType> get userAttributes;
 
   /// A valid access token that Amazon Cognito issued to the user whose user attributes you want to update.
   String get accessToken;
@@ -77,7 +73,7 @@ abstract class UpdateUserAttributesRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i4.BuiltMap<String, String>? get clientMetadata;
+  _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   UpdateUserAttributesRequest getPayload() => this;
   @override
@@ -142,10 +138,10 @@ class UpdateUserAttributesRequestAwsJson11Serializer
           result.userAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AttributeType)],
+              _i3.BuiltList,
+              [FullType(AttributeType)],
             ),
-          ) as _i4.BuiltList<_i3.AttributeType>));
+          ) as _i3.BuiltList<AttributeType>));
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
             value,
@@ -155,13 +151,13 @@ class UpdateUserAttributesRequestAwsJson11Serializer
           result.clientMetadata.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -185,8 +181,8 @@ class UpdateUserAttributesRequestAwsJson11Serializer
       serializers.serialize(
         userAttributes,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.AttributeType)],
+          _i3.BuiltList,
+          [FullType(AttributeType)],
         ),
       ),
       'AccessToken',
@@ -201,7 +197,7 @@ class UpdateUserAttributesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           clientMetadata,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

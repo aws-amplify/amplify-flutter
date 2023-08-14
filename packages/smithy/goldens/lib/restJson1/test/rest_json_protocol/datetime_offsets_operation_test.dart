@@ -5,11 +5,9 @@
 library rest_json1_v1.rest_json_protocol.test.datetime_offsets_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/datetime_offsets_output.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/datetime_offsets_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/datetime_offsets_output.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/datetime_offsets_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestJsonDateTimeWithNegativeOffset (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.DatetimeOffsetsOperation(
+        operation: DatetimeOffsetsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestJsonDateTimeWithNegativeOffset',
           documentation:
               'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -52,7 +50,7 @@ void main() {
     'RestJsonDateTimeWithPositiveOffset (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.DatetimeOffsetsOperation(
+        operation: DatetimeOffsetsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -60,7 +58,7 @@ void main() {
           id: 'RestJsonDateTimeWithPositiveOffset',
           documentation:
               'Ensures that clients can correctly parse datetime (timestamps) with offsets',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -85,26 +83,26 @@ void main() {
 }
 
 class DatetimeOffsetsOutputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.DatetimeOffsetsOutput> {
+    extends _i3.StructuredSmithySerializer<DatetimeOffsetsOutput> {
   const DatetimeOffsetsOutputRestJson1Serializer()
       : super('DatetimeOffsetsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.DatetimeOffsetsOutput];
+  Iterable<Type> get types => const [DatetimeOffsetsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.DatetimeOffsetsOutput deserialize(
+  DatetimeOffsetsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.DatetimeOffsetsOutputBuilder();
+    final result = DatetimeOffsetsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -115,7 +113,7 @@ class DatetimeOffsetsOutputRestJson1Serializer
       }
       switch (key) {
         case 'datetime':
-          result.datetime = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.datetime = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -128,7 +126,7 @@ class DatetimeOffsetsOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.DatetimeOffsetsOutput object, {
+    DatetimeOffsetsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -4,25 +4,18 @@
 library smoke_test.cloud_formation.model.stack_set; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i10;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i11;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_details.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_details.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 
 part 'stack_set.g.dart';
 
@@ -35,19 +28,19 @@ abstract class StackSet
     String? stackSetName,
     String? stackSetId,
     String? description,
-    _i2.StackSetStatus? status,
+    StackSetStatus? status,
     String? templateBody,
-    List<_i3.Parameter>? parameters,
-    List<_i4.Capability>? capabilities,
-    List<_i5.Tag>? tags,
+    List<Parameter>? parameters,
+    List<Capability>? capabilities,
+    List<Tag>? tags,
     String? stackSetArn,
     String? administrationRoleArn,
     String? executionRoleName,
-    _i6.StackSetDriftDetectionDetails? stackSetDriftDetectionDetails,
-    _i7.AutoDeployment? autoDeployment,
-    _i8.PermissionModels? permissionModel,
+    StackSetDriftDetectionDetails? stackSetDriftDetectionDetails,
+    AutoDeployment? autoDeployment,
+    PermissionModels? permissionModel,
     List<String>? organizationalUnitIds,
-    _i9.ManagedExecution? managedExecution,
+    ManagedExecution? managedExecution,
     List<String>? regions,
   }) {
     return _$StackSet._(
@@ -56,9 +49,9 @@ abstract class StackSet
       description: description,
       status: status,
       templateBody: templateBody,
-      parameters: parameters == null ? null : _i10.BuiltList(parameters),
-      capabilities: capabilities == null ? null : _i10.BuiltList(capabilities),
-      tags: tags == null ? null : _i10.BuiltList(tags),
+      parameters: parameters == null ? null : _i2.BuiltList(parameters),
+      capabilities: capabilities == null ? null : _i2.BuiltList(capabilities),
+      tags: tags == null ? null : _i2.BuiltList(tags),
       stackSetArn: stackSetArn,
       administrationRoleArn: administrationRoleArn,
       executionRoleName: executionRoleName,
@@ -67,9 +60,9 @@ abstract class StackSet
       permissionModel: permissionModel,
       organizationalUnitIds: organizationalUnitIds == null
           ? null
-          : _i10.BuiltList(organizationalUnitIds),
+          : _i2.BuiltList(organizationalUnitIds),
       managedExecution: managedExecution,
-      regions: regions == null ? null : _i10.BuiltList(regions),
+      regions: regions == null ? null : _i2.BuiltList(regions),
     );
   }
 
@@ -78,7 +71,7 @@ abstract class StackSet
 
   const StackSet._();
 
-  static const List<_i11.SmithySerializer<StackSet>> serializers = [
+  static const List<_i3.SmithySerializer<StackSet>> serializers = [
     StackSetAwsQuerySerializer()
   ];
 
@@ -92,26 +85,26 @@ abstract class StackSet
   String? get description;
 
   /// The status of the stack set.
-  _i2.StackSetStatus? get status;
+  StackSetStatus? get status;
 
   /// The structure that contains the body of the template that was used to create or update the stack set.
   String? get templateBody;
 
   /// A list of input parameters for a stack set.
-  _i10.BuiltList<_i3.Parameter>? get parameters;
+  _i2.BuiltList<Parameter>? get parameters;
 
   /// The capabilities that are allowed in the stack set. Some stack set templates might include resources that can affect permissions in your Amazon Web Services account—for example, by creating new Identity and Access Management (IAM) users. For more information, see [Acknowledging IAM Resources in CloudFormation Templates.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities)
-  _i10.BuiltList<_i4.Capability>? get capabilities;
+  _i2.BuiltList<Capability>? get capabilities;
 
   /// A list of tags that specify information about the stack set. A maximum number of 50 tags can be specified.
-  _i10.BuiltList<_i5.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
 
   /// The Amazon Resource Name (ARN) of the stack set.
   String? get stackSetArn;
 
   /// The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
   ///
-  /// Use customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html) in the _CloudFormation User Guide_.
+  /// Use customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](https://docs.aws.amazon.com/AWSCloudFormation/stacksets-prereqs.html) in the _CloudFormation User Guide_.
   String? get administrationRoleArn;
 
   /// The name of the IAM execution role used to create or update the stack set.
@@ -122,26 +115,26 @@ abstract class StackSet
   /// Detailed information about the drift status of the stack set.
   ///
   /// For stack sets, contains information about the last _completed_ drift operation performed on the stack set. Information about drift operations currently in progress isn't included.
-  _i6.StackSetDriftDetectionDetails? get stackSetDriftDetectionDetails;
+  StackSetDriftDetectionDetails? get stackSetDriftDetectionDetails;
 
   /// \[Service-managed permissions\] Describes whether StackSets automatically deploys to Organizations accounts that are added to a target organization or organizational unit (OU).
-  _i7.AutoDeployment? get autoDeployment;
+  AutoDeployment? get autoDeployment;
 
   /// Describes how the IAM roles required for stack set operations are created.
   ///
   /// *   With `self-managed` permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see [Grant Self-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html).
   ///
   /// *   With `service-managed` permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see [Grant Service-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html).
-  _i8.PermissionModels? get permissionModel;
+  PermissionModels? get permissionModel;
 
   /// \[Service-managed permissions\] The organization root ID or organizational unit (OU) IDs that you specified for [DeploymentTargets](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html).
-  _i10.BuiltList<String>? get organizationalUnitIds;
+  _i2.BuiltList<String>? get organizationalUnitIds;
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
-  _i9.ManagedExecution? get managedExecution;
+  ManagedExecution? get managedExecution;
 
   /// Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon Web Services Regions list output is in no particular order.
-  _i10.BuiltList<String>? get regions;
+  _i2.BuiltList<String>? get regions;
   @override
   List<Object?> get props => [
         stackSetName,
@@ -238,7 +231,7 @@ abstract class StackSet
 }
 
 class StackSetAwsQuerySerializer
-    extends _i11.StructuredSmithySerializer<StackSet> {
+    extends _i3.StructuredSmithySerializer<StackSet> {
   const StackSetAwsQuerySerializer() : super('StackSet');
 
   @override
@@ -247,8 +240,8 @@ class StackSetAwsQuerySerializer
         _$StackSet,
       ];
   @override
-  Iterable<_i11.ShapeId> get supportedProtocols => const [
-        _i11.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -287,46 +280,46 @@ class StackSetAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSetStatus),
-          ) as _i2.StackSetStatus);
+            specifiedType: const FullType(StackSetStatus),
+          ) as StackSetStatus);
         case 'TemplateBody':
           result.templateBody = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
         case 'Parameters':
-          result.parameters.replace((const _i11.XmlBuiltListSerializer(
-                  indexer: _i11.XmlIndexer.awsQueryList)
+          result.parameters.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i2.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i10.BuiltList<_i3.Parameter>));
+          ) as _i2.BuiltList<Parameter>));
         case 'Capabilities':
-          result.capabilities.replace((const _i11.XmlBuiltListSerializer(
-                  indexer: _i11.XmlIndexer.awsQueryList)
+          result.capabilities.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i4.Capability)],
+              _i2.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i10.BuiltList<_i4.Capability>));
+          ) as _i2.BuiltList<Capability>));
         case 'Tags':
-          result.tags.replace((const _i11.XmlBuiltListSerializer(
-                  indexer: _i11.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i5.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i10.BuiltList<_i5.Tag>));
+          ) as _i2.BuiltList<Tag>));
         case 'StackSetARN':
           result.stackSetArn = (serializers.deserialize(
             value,
@@ -345,46 +338,46 @@ class StackSetAwsQuerySerializer
         case 'StackSetDriftDetectionDetails':
           result.stackSetDriftDetectionDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
-          ) as _i6.StackSetDriftDetectionDetails));
+            specifiedType: const FullType(StackSetDriftDetectionDetails),
+          ) as StackSetDriftDetectionDetails));
         case 'AutoDeployment':
           result.autoDeployment.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.AutoDeployment),
-          ) as _i7.AutoDeployment));
+            specifiedType: const FullType(AutoDeployment),
+          ) as AutoDeployment));
         case 'PermissionModel':
           result.permissionModel = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.PermissionModels),
-          ) as _i8.PermissionModels);
+            specifiedType: const FullType(PermissionModels),
+          ) as PermissionModels);
         case 'OrganizationalUnitIds':
           result.organizationalUnitIds.replace(
-              (const _i11.XmlBuiltListSerializer(
-                      indexer: _i11.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i10.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ManagedExecution':
           result.managedExecution.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.ManagedExecution),
-          ) as _i9.ManagedExecution));
+            specifiedType: const FullType(ManagedExecution),
+          ) as ManagedExecution));
         case 'Regions':
-          result.regions.replace((const _i11.XmlBuiltListSerializer(
-                  indexer: _i11.XmlIndexer.awsQueryList)
+          result.regions.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i10.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -398,10 +391,9 @@ class StackSetAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i11.XmlElementName(
+      const _i3.XmlElementName(
         'StackSetResponse',
-        _i11.XmlNamespace(
-            'http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSet(
@@ -425,7 +417,7 @@ class StackSetAwsQuerySerializer
     ) = object;
     if (stackSetName != null) {
       result$
-        ..add(const _i11.XmlElementName('StackSetName'))
+        ..add(const _i3.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
           stackSetName,
           specifiedType: const FullType(String),
@@ -433,7 +425,7 @@ class StackSetAwsQuerySerializer
     }
     if (stackSetId != null) {
       result$
-        ..add(const _i11.XmlElementName('StackSetId'))
+        ..add(const _i3.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
           specifiedType: const FullType(String),
@@ -441,7 +433,7 @@ class StackSetAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i11.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -449,15 +441,15 @@ class StackSetAwsQuerySerializer
     }
     if (status != null) {
       result$
-        ..add(const _i11.XmlElementName('Status'))
+        ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.StackSetStatus),
+          specifiedType: const FullType.nullable(StackSetStatus),
         ));
     }
     if (templateBody != null) {
       result$
-        ..add(const _i11.XmlElementName('TemplateBody'))
+        ..add(const _i3.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
           specifiedType: const FullType(String),
@@ -465,49 +457,49 @@ class StackSetAwsQuerySerializer
     }
     if (parameters != null) {
       result$
-        ..add(const _i11.XmlElementName('Parameters'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Parameters'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i2.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
     if (capabilities != null) {
       result$
-        ..add(const _i11.XmlElementName('Capabilities'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Capabilities'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i4.Capability)],
+            _i2.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
     if (tags != null) {
       result$
-        ..add(const _i11.XmlElementName('Tags'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i5.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }
     if (stackSetArn != null) {
       result$
-        ..add(const _i11.XmlElementName('StackSetARN'))
+        ..add(const _i3.XmlElementName('StackSetARN'))
         ..add(serializers.serialize(
           stackSetArn,
           specifiedType: const FullType(String),
@@ -515,7 +507,7 @@ class StackSetAwsQuerySerializer
     }
     if (administrationRoleArn != null) {
       result$
-        ..add(const _i11.XmlElementName('AdministrationRoleARN'))
+        ..add(const _i3.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
           administrationRoleArn,
           specifiedType: const FullType(String),
@@ -523,7 +515,7 @@ class StackSetAwsQuerySerializer
     }
     if (executionRoleName != null) {
       result$
-        ..add(const _i11.XmlElementName('ExecutionRoleName'))
+        ..add(const _i3.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
           executionRoleName,
           specifiedType: const FullType(String),
@@ -531,60 +523,60 @@ class StackSetAwsQuerySerializer
     }
     if (stackSetDriftDetectionDetails != null) {
       result$
-        ..add(const _i11.XmlElementName('StackSetDriftDetectionDetails'))
+        ..add(const _i3.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
           stackSetDriftDetectionDetails,
-          specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
+          specifiedType: const FullType(StackSetDriftDetectionDetails),
         ));
     }
     if (autoDeployment != null) {
       result$
-        ..add(const _i11.XmlElementName('AutoDeployment'))
+        ..add(const _i3.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
-          specifiedType: const FullType(_i7.AutoDeployment),
+          specifiedType: const FullType(AutoDeployment),
         ));
     }
     if (permissionModel != null) {
       result$
-        ..add(const _i11.XmlElementName('PermissionModel'))
+        ..add(const _i3.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(_i8.PermissionModels),
+          specifiedType: const FullType.nullable(PermissionModels),
         ));
     }
     if (organizationalUnitIds != null) {
       result$
-        ..add(const _i11.XmlElementName('OrganizationalUnitIds'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('OrganizationalUnitIds'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           organizationalUnitIds,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (managedExecution != null) {
       result$
-        ..add(const _i11.XmlElementName('ManagedExecution'))
+        ..add(const _i3.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
-          specifiedType: const FullType(_i9.ManagedExecution),
+          specifiedType: const FullType(ManagedExecution),
         ));
     }
     if (regions != null) {
       result$
-        ..add(const _i11.XmlElementName('Regions'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Regions'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           regions,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

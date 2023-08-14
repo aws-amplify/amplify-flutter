@@ -4,29 +4,20 @@
 library smoke_test.dynamo_db.model.create_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i13;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart' as _i11;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag.dart';
 
 part 'create_table_input.g.dart';
 
@@ -36,34 +27,34 @@ abstract class CreateTableInput
     implements Built<CreateTableInput, CreateTableInputBuilder> {
   /// Represents the input of a `CreateTable` operation.
   factory CreateTableInput({
-    required List<_i3.AttributeDefinition> attributeDefinitions,
+    required List<AttributeDefinition> attributeDefinitions,
     required String tableName,
-    required List<_i4.KeySchemaElement> keySchema,
-    List<_i5.LocalSecondaryIndex>? localSecondaryIndexes,
-    List<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes,
-    _i7.BillingMode? billingMode,
-    _i8.ProvisionedThroughput? provisionedThroughput,
-    _i9.StreamSpecification? streamSpecification,
-    _i10.SseSpecification? sseSpecification,
-    List<_i11.Tag>? tags,
-    _i12.TableClass? tableClass,
+    required List<KeySchemaElement> keySchema,
+    List<LocalSecondaryIndex>? localSecondaryIndexes,
+    List<GlobalSecondaryIndex>? globalSecondaryIndexes,
+    BillingMode? billingMode,
+    ProvisionedThroughput? provisionedThroughput,
+    StreamSpecification? streamSpecification,
+    SseSpecification? sseSpecification,
+    List<Tag>? tags,
+    TableClass? tableClass,
     bool? deletionProtectionEnabled,
   }) {
     return _$CreateTableInput._(
-      attributeDefinitions: _i13.BuiltList(attributeDefinitions),
+      attributeDefinitions: _i3.BuiltList(attributeDefinitions),
       tableName: tableName,
-      keySchema: _i13.BuiltList(keySchema),
+      keySchema: _i3.BuiltList(keySchema),
       localSecondaryIndexes: localSecondaryIndexes == null
           ? null
-          : _i13.BuiltList(localSecondaryIndexes),
+          : _i3.BuiltList(localSecondaryIndexes),
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i13.BuiltList(globalSecondaryIndexes),
+          : _i3.BuiltList(globalSecondaryIndexes),
       billingMode: billingMode,
       provisionedThroughput: provisionedThroughput,
       streamSpecification: streamSpecification,
       sseSpecification: sseSpecification,
-      tags: tags == null ? null : _i13.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       tableClass: tableClass,
       deletionProtectionEnabled: deletionProtectionEnabled,
     );
@@ -87,7 +78,7 @@ abstract class CreateTableInput
   ];
 
   /// An array of attributes that describe the key schema for the table and indexes.
-  _i13.BuiltList<_i3.AttributeDefinition> get attributeDefinitions;
+  _i3.BuiltList<AttributeDefinition> get attributeDefinitions;
 
   /// The name of the table to create.
   String get tableName;
@@ -114,7 +105,7 @@ abstract class CreateTableInput
   /// For a composite primary key (partition key and sort key), you must provide exactly two elements, in this order: The first element must have a `KeyType` of `HASH`, and the second element must have a `KeyType` of `RANGE`.
   ///
   /// For more information, see [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#WorkingWithTables.primary.key) in the _Amazon DynamoDB Developer Guide_.
-  _i13.BuiltList<_i4.KeySchemaElement> get keySchema;
+  _i3.BuiltList<KeySchemaElement> get keySchema;
 
   /// One or more local secondary indexes (the maximum is 5) to be created on the table. Each index is scoped to a given partition key value. There is a 10 GB size limit per partition key value; otherwise, the size of a local secondary index is unconstrained.
   ///
@@ -135,7 +126,7 @@ abstract class CreateTableInput
   ///         *   `ALL` \- All of the table attributes are projected into the index.
   ///
   ///     *   `NonKeyAttributes` \- A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-  _i13.BuiltList<_i5.LocalSecondaryIndex>? get localSecondaryIndexes;
+  _i3.BuiltList<LocalSecondaryIndex>? get localSecondaryIndexes;
 
   /// One or more global secondary indexes (the maximum is 20) to be created on the table. Each global secondary index in the array includes the following:
   ///
@@ -156,21 +147,21 @@ abstract class CreateTableInput
   ///     *   `NonKeyAttributes` \- A list of one or more non-key attribute names that are projected into the secondary index. The total count of attributes provided in `NonKeyAttributes`, summed across all of the secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
   ///
   /// *   `ProvisionedThroughput` \- The provisioned throughput settings for the global secondary index, consisting of read and write capacity units.
-  _i13.BuiltList<_i6.GlobalSecondaryIndex>? get globalSecondaryIndexes;
+  _i3.BuiltList<GlobalSecondaryIndex>? get globalSecondaryIndexes;
 
   /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
   ///
   /// *   `PROVISIONED` \- We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual).
   ///
   /// *   `PAY\_PER\_REQUEST` \- We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads. `PAY\_PER\_REQUEST` sets the billing mode to [On-Demand Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand).
-  _i7.BillingMode? get billingMode;
+  BillingMode? get billingMode;
 
   /// Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the `UpdateTable` operation.
   ///
   /// If you set BillingMode as `PROVISIONED`, you must specify this property. If you set BillingMode as `PAY\_PER\_REQUEST`, you cannot specify this property.
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.ProvisionedThroughput? get provisionedThroughput;
+  ProvisionedThroughput? get provisionedThroughput;
 
   /// The settings for DynamoDB Streams on the table. These settings consist of:
   ///
@@ -185,16 +176,16 @@ abstract class CreateTableInput
   ///     *   `OLD_IMAGE` \- The entire item, as it appeared before it was modified, is written to the stream.
   ///
   ///     *   `NEW\_AND\_OLD_IMAGES` \- Both the new and the old item images of the item are written to the stream.
-  _i9.StreamSpecification? get streamSpecification;
+  StreamSpecification? get streamSpecification;
 
   /// Represents the settings used to enable server-side encryption.
-  _i10.SseSpecification? get sseSpecification;
+  SseSpecification? get sseSpecification;
 
   /// A list of key-value pairs to label the table. For more information, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html).
-  _i13.BuiltList<_i11.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// The table class of the new table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
-  _i12.TableClass? get tableClass;
+  TableClass? get tableClass;
 
   /// Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
   bool? get deletionProtectionEnabled;
@@ -306,10 +297,10 @@ class CreateTableInputAwsJson10Serializer
           result.attributeDefinitions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i13.BuiltList,
-              [FullType(_i3.AttributeDefinition)],
+              _i3.BuiltList,
+              [FullType(AttributeDefinition)],
             ),
-          ) as _i13.BuiltList<_i3.AttributeDefinition>));
+          ) as _i3.BuiltList<AttributeDefinition>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -319,59 +310,59 @@ class CreateTableInputAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i13.BuiltList,
-              [FullType(_i4.KeySchemaElement)],
+              _i3.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i13.BuiltList<_i4.KeySchemaElement>));
+          ) as _i3.BuiltList<KeySchemaElement>));
         case 'LocalSecondaryIndexes':
           result.localSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i13.BuiltList,
-              [FullType(_i5.LocalSecondaryIndex)],
+              _i3.BuiltList,
+              [FullType(LocalSecondaryIndex)],
             ),
-          ) as _i13.BuiltList<_i5.LocalSecondaryIndex>));
+          ) as _i3.BuiltList<LocalSecondaryIndex>));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i13.BuiltList,
-              [FullType(_i6.GlobalSecondaryIndex)],
+              _i3.BuiltList,
+              [FullType(GlobalSecondaryIndex)],
             ),
-          ) as _i13.BuiltList<_i6.GlobalSecondaryIndex>));
+          ) as _i3.BuiltList<GlobalSecondaryIndex>));
         case 'BillingMode':
           result.billingMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.BillingMode),
-          ) as _i7.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.ProvisionedThroughput),
-          ) as _i8.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
         case 'StreamSpecification':
           result.streamSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.StreamSpecification),
-          ) as _i9.StreamSpecification));
+            specifiedType: const FullType(StreamSpecification),
+          ) as StreamSpecification));
         case 'SSESpecification':
           result.sseSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i10.SseSpecification),
-          ) as _i10.SseSpecification));
+            specifiedType: const FullType(SseSpecification),
+          ) as SseSpecification));
         case 'Tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i13.BuiltList,
-              [FullType(_i11.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i13.BuiltList<_i11.Tag>));
+          ) as _i3.BuiltList<Tag>));
         case 'TableClass':
           result.tableClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i12.TableClass),
-          ) as _i12.TableClass);
+            specifiedType: const FullType(TableClass),
+          ) as TableClass);
         case 'DeletionProtectionEnabled':
           result.deletionProtectionEnabled = (serializers.deserialize(
             value,
@@ -409,8 +400,8 @@ class CreateTableInputAwsJson10Serializer
       serializers.serialize(
         attributeDefinitions,
         specifiedType: const FullType(
-          _i13.BuiltList,
-          [FullType(_i3.AttributeDefinition)],
+          _i3.BuiltList,
+          [FullType(AttributeDefinition)],
         ),
       ),
       'TableName',
@@ -422,8 +413,8 @@ class CreateTableInputAwsJson10Serializer
       serializers.serialize(
         keySchema,
         specifiedType: const FullType(
-          _i13.BuiltList,
-          [FullType(_i4.KeySchemaElement)],
+          _i3.BuiltList,
+          [FullType(KeySchemaElement)],
         ),
       ),
     ]);
@@ -433,8 +424,8 @@ class CreateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           localSecondaryIndexes,
           specifiedType: const FullType(
-            _i13.BuiltList,
-            [FullType(_i5.LocalSecondaryIndex)],
+            _i3.BuiltList,
+            [FullType(LocalSecondaryIndex)],
           ),
         ));
     }
@@ -444,8 +435,8 @@ class CreateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i13.BuiltList,
-            [FullType(_i6.GlobalSecondaryIndex)],
+            _i3.BuiltList,
+            [FullType(GlobalSecondaryIndex)],
           ),
         ));
     }
@@ -454,7 +445,7 @@ class CreateTableInputAwsJson10Serializer
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
-          specifiedType: const FullType(_i7.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     if (provisionedThroughput != null) {
@@ -462,7 +453,7 @@ class CreateTableInputAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i8.ProvisionedThroughput),
+          specifiedType: const FullType(ProvisionedThroughput),
         ));
     }
     if (streamSpecification != null) {
@@ -470,7 +461,7 @@ class CreateTableInputAwsJson10Serializer
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
-          specifiedType: const FullType(_i9.StreamSpecification),
+          specifiedType: const FullType(StreamSpecification),
         ));
     }
     if (sseSpecification != null) {
@@ -478,7 +469,7 @@ class CreateTableInputAwsJson10Serializer
         ..add('SSESpecification')
         ..add(serializers.serialize(
           sseSpecification,
-          specifiedType: const FullType(_i10.SseSpecification),
+          specifiedType: const FullType(SseSpecification),
         ));
     }
     if (tags != null) {
@@ -487,8 +478,8 @@ class CreateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i13.BuiltList,
-            [FullType(_i11.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }
@@ -497,7 +488,7 @@ class CreateTableInputAwsJson10Serializer
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
-          specifiedType: const FullType(_i12.TableClass),
+          specifiedType: const FullType(TableClass),
         ));
     }
     if (deletionProtectionEnabled != null) {

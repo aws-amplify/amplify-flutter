@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'item_response.g.dart';
 
@@ -18,8 +17,8 @@ abstract class ItemResponse
     with _i1.AWSEquatable<ItemResponse>
     implements Built<ItemResponse, ItemResponseBuilder> {
   /// Details for the requested item.
-  factory ItemResponse({Map<String, _i2.AttributeValue>? item}) {
-    return _$ItemResponse._(item: item == null ? null : _i3.BuiltMap(item));
+  factory ItemResponse({Map<String, AttributeValue>? item}) {
+    return _$ItemResponse._(item: item == null ? null : _i2.BuiltMap(item));
   }
 
   /// Details for the requested item.
@@ -28,12 +27,12 @@ abstract class ItemResponse
 
   const ItemResponse._();
 
-  static const List<_i4.SmithySerializer<ItemResponse>> serializers = [
+  static const List<_i3.SmithySerializer<ItemResponse>> serializers = [
     ItemResponseAwsJson10Serializer()
   ];
 
   /// Map of attribute data consisting of the data type and attribute value.
-  _i3.BuiltMap<String, _i2.AttributeValue>? get item;
+  _i2.BuiltMap<String, AttributeValue>? get item;
   @override
   List<Object?> get props => [item];
   @override
@@ -48,7 +47,7 @@ abstract class ItemResponse
 }
 
 class ItemResponseAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ItemResponse> {
+    extends _i3.StructuredSmithySerializer<ItemResponse> {
   const ItemResponseAwsJson10Serializer() : super('ItemResponse');
 
   @override
@@ -57,8 +56,8 @@ class ItemResponseAwsJson10Serializer
         _$ItemResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -83,13 +82,13 @@ class ItemResponseAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -110,10 +109,10 @@ class ItemResponseAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

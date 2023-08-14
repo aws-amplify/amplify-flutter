@@ -3,17 +3,14 @@
 
 library amplify_storage_s3_dart.s3.model.multipart_upload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/initiator.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart' as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart'
-    as _i2;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/initiator.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/storage_class.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'multipart_upload.g.dart';
 
@@ -26,10 +23,10 @@ abstract class MultipartUpload
     String? uploadId,
     String? key,
     DateTime? initiated,
-    _i2.StorageClass? storageClass,
-    _i3.Owner? owner,
-    _i4.Initiator? initiator,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    StorageClass? storageClass,
+    Owner? owner,
+    Initiator? initiator,
+    ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$MultipartUpload._(
       uploadId: uploadId,
@@ -48,7 +45,7 @@ abstract class MultipartUpload
 
   const MultipartUpload._();
 
-  static const List<_i6.SmithySerializer<MultipartUpload>> serializers = [
+  static const List<_i2.SmithySerializer<MultipartUpload>> serializers = [
     MultipartUploadRestXmlSerializer()
   ];
 
@@ -62,16 +59,16 @@ abstract class MultipartUpload
   DateTime? get initiated;
 
   /// The class of storage used to store the object.
-  _i2.StorageClass? get storageClass;
+  StorageClass? get storageClass;
 
   /// Specifies the owner of the object that is part of the multipart upload.
-  _i3.Owner? get owner;
+  Owner? get owner;
 
   /// Identifies who initiated the multipart upload.
-  _i4.Initiator? get initiator;
+  Initiator? get initiator;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   @override
   List<Object?> get props => [
         uploadId,
@@ -118,7 +115,7 @@ abstract class MultipartUpload
 }
 
 class MultipartUploadRestXmlSerializer
-    extends _i6.StructuredSmithySerializer<MultipartUpload> {
+    extends _i2.StructuredSmithySerializer<MultipartUpload> {
   const MultipartUploadRestXmlSerializer() : super('MultipartUpload');
 
   @override
@@ -127,8 +124,8 @@ class MultipartUploadRestXmlSerializer
         _$MultipartUpload,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -152,8 +149,8 @@ class MultipartUploadRestXmlSerializer
         case 'ChecksumAlgorithm':
           result.checksumAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ChecksumAlgorithm),
-          ) as _i5.ChecksumAlgorithm);
+            specifiedType: const FullType(ChecksumAlgorithm),
+          ) as ChecksumAlgorithm);
         case 'Initiated':
           result.initiated = (serializers.deserialize(
             value,
@@ -162,8 +159,8 @@ class MultipartUploadRestXmlSerializer
         case 'Initiator':
           result.initiator.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Initiator),
-          ) as _i4.Initiator));
+            specifiedType: const FullType(Initiator),
+          ) as Initiator));
         case 'Key':
           result.key = (serializers.deserialize(
             value,
@@ -172,13 +169,13 @@ class MultipartUploadRestXmlSerializer
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Owner),
-          ) as _i3.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StorageClass),
-          ) as _i2.StorageClass);
+            specifiedType: const FullType(StorageClass),
+          ) as StorageClass);
         case 'UploadId':
           result.uploadId = (serializers.deserialize(
             value,
@@ -197,9 +194,9 @@ class MultipartUploadRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i2.XmlElementName(
         'MultipartUpload',
-        _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final MultipartUpload(
@@ -213,15 +210,15 @@ class MultipartUploadRestXmlSerializer
     ) = object;
     if (checksumAlgorithm != null) {
       result$
-        ..add(const _i6.XmlElementName('ChecksumAlgorithm'))
+        ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           checksumAlgorithm,
-          specifiedType: const FullType.nullable(_i5.ChecksumAlgorithm),
+          specifiedType: const FullType.nullable(ChecksumAlgorithm),
         ));
     }
     if (initiated != null) {
       result$
-        ..add(const _i6.XmlElementName('Initiated'))
+        ..add(const _i2.XmlElementName('Initiated'))
         ..add(serializers.serialize(
           initiated,
           specifiedType: const FullType.nullable(DateTime),
@@ -229,15 +226,15 @@ class MultipartUploadRestXmlSerializer
     }
     if (initiator != null) {
       result$
-        ..add(const _i6.XmlElementName('Initiator'))
+        ..add(const _i2.XmlElementName('Initiator'))
         ..add(serializers.serialize(
           initiator,
-          specifiedType: const FullType(_i4.Initiator),
+          specifiedType: const FullType(Initiator),
         ));
     }
     if (key != null) {
       result$
-        ..add(const _i6.XmlElementName('Key'))
+        ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
           specifiedType: const FullType(String),
@@ -245,23 +242,23 @@ class MultipartUploadRestXmlSerializer
     }
     if (owner != null) {
       result$
-        ..add(const _i6.XmlElementName('Owner'))
+        ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     if (storageClass != null) {
       result$
-        ..add(const _i6.XmlElementName('StorageClass'))
+        ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i2.StorageClass),
+          specifiedType: const FullType.nullable(StorageClass),
         ));
     }
     if (uploadId != null) {
       result$
-        ..add(const _i6.XmlElementName('UploadId'))
+        ..add(const _i2.XmlElementName('UploadId'))
         ..add(serializers.serialize(
           uploadId,
           specifiedType: const FullType(String),

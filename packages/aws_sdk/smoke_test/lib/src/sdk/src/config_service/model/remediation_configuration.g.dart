@@ -10,23 +10,23 @@ class _$RemediationConfiguration extends RemediationConfiguration {
   @override
   final String configRuleName;
   @override
-  final _i2.RemediationTargetType targetType;
+  final RemediationTargetType targetType;
   @override
   final String targetId;
   @override
   final String? targetVersion;
   @override
-  final _i6.BuiltMap<String, _i3.RemediationParameterValue>? parameters;
+  final _i3.BuiltMap<String, RemediationParameterValue>? parameters;
   @override
   final String? resourceType;
   @override
   final bool automatic;
   @override
-  final _i4.ExecutionControls? executionControls;
+  final ExecutionControls? executionControls;
   @override
   final int? maximumAutomaticAttempts;
   @override
-  final _i5.Int64? retryAttemptSeconds;
+  final _i2.Int64? retryAttemptSeconds;
   @override
   final String? arn;
   @override
@@ -117,9 +117,9 @@ class RemediationConfigurationBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i2.RemediationTargetType? _targetType;
-  _i2.RemediationTargetType? get targetType => _$this._targetType;
-  set targetType(_i2.RemediationTargetType? targetType) =>
+  RemediationTargetType? _targetType;
+  RemediationTargetType? get targetType => _$this._targetType;
+  set targetType(RemediationTargetType? targetType) =>
       _$this._targetType = targetType;
 
   String? _targetId;
@@ -131,12 +131,12 @@ class RemediationConfigurationBuilder
   set targetVersion(String? targetVersion) =>
       _$this._targetVersion = targetVersion;
 
-  _i6.MapBuilder<String, _i3.RemediationParameterValue>? _parameters;
-  _i6.MapBuilder<String, _i3.RemediationParameterValue> get parameters =>
+  _i3.MapBuilder<String, RemediationParameterValue>? _parameters;
+  _i3.MapBuilder<String, RemediationParameterValue> get parameters =>
       _$this._parameters ??=
-          new _i6.MapBuilder<String, _i3.RemediationParameterValue>();
+          new _i3.MapBuilder<String, RemediationParameterValue>();
   set parameters(
-          _i6.MapBuilder<String, _i3.RemediationParameterValue>? parameters) =>
+          _i3.MapBuilder<String, RemediationParameterValue>? parameters) =>
       _$this._parameters = parameters;
 
   String? _resourceType;
@@ -147,10 +147,10 @@ class RemediationConfigurationBuilder
   bool? get automatic => _$this._automatic;
   set automatic(bool? automatic) => _$this._automatic = automatic;
 
-  _i4.ExecutionControlsBuilder? _executionControls;
-  _i4.ExecutionControlsBuilder get executionControls =>
-      _$this._executionControls ??= new _i4.ExecutionControlsBuilder();
-  set executionControls(_i4.ExecutionControlsBuilder? executionControls) =>
+  ExecutionControlsBuilder? _executionControls;
+  ExecutionControlsBuilder get executionControls =>
+      _$this._executionControls ??= new ExecutionControlsBuilder();
+  set executionControls(ExecutionControlsBuilder? executionControls) =>
       _$this._executionControls = executionControls;
 
   int? _maximumAutomaticAttempts;
@@ -158,9 +158,9 @@ class RemediationConfigurationBuilder
   set maximumAutomaticAttempts(int? maximumAutomaticAttempts) =>
       _$this._maximumAutomaticAttempts = maximumAutomaticAttempts;
 
-  _i5.Int64? _retryAttemptSeconds;
-  _i5.Int64? get retryAttemptSeconds => _$this._retryAttemptSeconds;
-  set retryAttemptSeconds(_i5.Int64? retryAttemptSeconds) =>
+  _i2.Int64? _retryAttemptSeconds;
+  _i2.Int64? get retryAttemptSeconds => _$this._retryAttemptSeconds;
+  set retryAttemptSeconds(_i2.Int64? retryAttemptSeconds) =>
       _$this._retryAttemptSeconds = retryAttemptSeconds;
 
   String? _arn;

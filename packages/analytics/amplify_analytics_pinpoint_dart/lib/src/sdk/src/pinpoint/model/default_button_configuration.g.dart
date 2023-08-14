@@ -12,7 +12,7 @@ class _$DefaultButtonConfiguration extends DefaultButtonConfiguration {
   @override
   final int? borderRadius;
   @override
-  final _i2.ButtonAction buttonAction;
+  final ButtonAction buttonAction;
   @override
   final String? link;
   @override
@@ -87,9 +87,9 @@ class DefaultButtonConfigurationBuilder
   int? get borderRadius => _$this._borderRadius;
   set borderRadius(int? borderRadius) => _$this._borderRadius = borderRadius;
 
-  _i2.ButtonAction? _buttonAction;
-  _i2.ButtonAction? get buttonAction => _$this._buttonAction;
-  set buttonAction(_i2.ButtonAction? buttonAction) =>
+  ButtonAction? _buttonAction;
+  ButtonAction? get buttonAction => _$this._buttonAction;
+  set buttonAction(ButtonAction? buttonAction) =>
       _$this._buttonAction = buttonAction;
 
   String? _link;

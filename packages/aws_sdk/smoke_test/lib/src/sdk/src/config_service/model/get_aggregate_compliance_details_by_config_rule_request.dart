@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'get_aggregate_compliance_details_by_config_rule_request.g.dart';
 
@@ -24,7 +23,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
     required String configRuleName,
     required String accountId,
     required String awsRegion,
-    _i3.ComplianceType? complianceType,
+    ComplianceType? complianceType,
     int? limit,
     String? nextToken,
   }) {
@@ -54,8 +53,9 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          GetAggregateComplianceDetailsByConfigRuleRequest>> serializers = [
+          _i1
+          .SmithySerializer<GetAggregateComplianceDetailsByConfigRuleRequest>>
+      serializers = [
     GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer()
   ];
 
@@ -79,7 +79,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   /// The resource compliance status.
   ///
   /// For the `GetAggregateComplianceDetailsByConfigRuleRequest` data type, Config supports only the `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and `INSUFFICIENT_DATA` values.
-  _i3.ComplianceType? get complianceType;
+  ComplianceType? get complianceType;
 
   /// The maximum number of evaluation results returned on each page. The default is 50. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int get limit;
@@ -191,8 +191,8 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplianceType),
-          ) as _i3.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -257,7 +257,7 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i3.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (nextToken != null) {

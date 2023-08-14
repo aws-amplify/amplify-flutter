@@ -4,13 +4,12 @@
 library smoke_test.api_gateway.model.put_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart';
 
 part 'put_gateway_response_request.g.dart';
 
@@ -25,7 +24,7 @@ abstract class PutGatewayResponseRequest
   /// Creates a customization of a GatewayResponse of a specified response type and status code on the given RestApi.
   factory PutGatewayResponseRequest({
     required String restApiId,
-    required _i3.GatewayResponseType responseType,
+    required GatewayResponseType responseType,
     String? statusCode,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
@@ -35,9 +34,9 @@ abstract class PutGatewayResponseRequest
       responseType: responseType,
       statusCode: statusCode,
       responseParameters:
-          responseParameters == null ? null : _i4.BuiltMap(responseParameters),
+          responseParameters == null ? null : _i3.BuiltMap(responseParameters),
       responseTemplates:
-          responseTemplates == null ? null : _i4.BuiltMap(responseTemplates),
+          responseTemplates == null ? null : _i3.BuiltMap(responseTemplates),
     );
   }
 
@@ -66,7 +65,7 @@ abstract class PutGatewayResponseRequest
         }
         if (labels['responseType'] != null) {
           b.responseType =
-              _i3.GatewayResponseType.values.byValue(labels['responseType']!);
+              GatewayResponseType.values.byValue(labels['responseType']!);
         }
       });
 
@@ -77,16 +76,16 @@ abstract class PutGatewayResponseRequest
   String get restApiId;
 
   /// The response type of the associated GatewayResponse
-  _i3.GatewayResponseType get responseType;
+  GatewayResponseType get responseType;
 
   /// The HTTP status code of the GatewayResponse.
   String? get statusCode;
 
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
-  _i4.BuiltMap<String, String>? get responseParameters;
+  _i3.BuiltMap<String, String>? get responseParameters;
 
   /// Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
-  _i4.BuiltMap<String, String>? get responseTemplates;
+  _i3.BuiltMap<String, String>? get responseTemplates;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -147,7 +146,7 @@ abstract class PutGatewayResponseRequest
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class PutGatewayResponseRequestPayload
     with
         _i2.AWSEquatable<PutGatewayResponseRequestPayload>
@@ -161,10 +160,10 @@ abstract class PutGatewayResponseRequestPayload
   const PutGatewayResponseRequestPayload._();
 
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
-  _i4.BuiltMap<String, String>? get responseParameters;
+  _i3.BuiltMap<String, String>? get responseParameters;
 
   /// Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
-  _i4.BuiltMap<String, String>? get responseTemplates;
+  _i3.BuiltMap<String, String>? get responseTemplates;
 
   /// The HTTP status code of the GatewayResponse.
   String? get statusCode;
@@ -233,24 +232,24 @@ class PutGatewayResponseRequestRestJson1Serializer
           result.responseParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'responseTemplates':
           result.responseTemplates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'statusCode':
           result.statusCode = (serializers.deserialize(
             value,
@@ -280,7 +279,7 @@ class PutGatewayResponseRequestRestJson1Serializer
         ..add(serializers.serialize(
           responseParameters,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -294,7 +293,7 @@ class PutGatewayResponseRequestRestJson1Serializer
         ..add(serializers.serialize(
           responseTemplates,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

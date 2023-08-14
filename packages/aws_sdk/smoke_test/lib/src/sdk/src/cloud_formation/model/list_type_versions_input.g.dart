@@ -8,7 +8,7 @@ part of 'list_type_versions_input.dart';
 
 class _$ListTypeVersionsInput extends ListTypeVersionsInput {
   @override
-  final _i3.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
@@ -18,7 +18,7 @@ class _$ListTypeVersionsInput extends ListTypeVersionsInput {
   @override
   final String? nextToken;
   @override
-  final _i4.DeprecatedStatus? deprecatedStatus;
+  final DeprecatedStatus? deprecatedStatus;
   @override
   final String? publisherId;
 
@@ -77,9 +77,9 @@ class ListTypeVersionsInputBuilder
     implements Builder<ListTypeVersionsInput, ListTypeVersionsInputBuilder> {
   _$ListTypeVersionsInput? _$v;
 
-  _i3.RegistryType? _type;
-  _i3.RegistryType? get type => _$this._type;
-  set type(_i3.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;
@@ -97,9 +97,9 @@ class ListTypeVersionsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i4.DeprecatedStatus? _deprecatedStatus;
-  _i4.DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
-  set deprecatedStatus(_i4.DeprecatedStatus? deprecatedStatus) =>
+  DeprecatedStatus? _deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
+  set deprecatedStatus(DeprecatedStatus? deprecatedStatus) =>
       _$this._deprecatedStatus = deprecatedStatus;
 
   String? _publisherId;

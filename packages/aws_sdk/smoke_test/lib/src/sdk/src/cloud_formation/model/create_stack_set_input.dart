@@ -4,23 +4,17 @@
 library smoke_test.cloud_formation.model.create_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i10;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 
 part 'create_stack_set_input.g.dart';
 
@@ -35,16 +29,16 @@ abstract class CreateStackSetInput
     String? templateBody,
     String? templateUrl,
     String? stackId,
-    List<_i3.Parameter>? parameters,
-    List<_i4.Capability>? capabilities,
-    List<_i5.Tag>? tags,
+    List<Parameter>? parameters,
+    List<Capability>? capabilities,
+    List<Tag>? tags,
     String? administrationRoleArn,
     String? executionRoleName,
-    _i6.PermissionModels? permissionModel,
-    _i7.AutoDeployment? autoDeployment,
-    _i8.CallAs? callAs,
+    PermissionModels? permissionModel,
+    AutoDeployment? autoDeployment,
+    CallAs? callAs,
     String? clientRequestToken,
-    _i9.ManagedExecution? managedExecution,
+    ManagedExecution? managedExecution,
   }) {
     return _$CreateStackSetInput._(
       stackSetName: stackSetName,
@@ -52,9 +46,9 @@ abstract class CreateStackSetInput
       templateBody: templateBody,
       templateUrl: templateUrl,
       stackId: stackId,
-      parameters: parameters == null ? null : _i10.BuiltList(parameters),
-      capabilities: capabilities == null ? null : _i10.BuiltList(capabilities),
-      tags: tags == null ? null : _i10.BuiltList(tags),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      capabilities: capabilities == null ? null : _i3.BuiltList(capabilities),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       administrationRoleArn: administrationRoleArn,
       executionRoleName: executionRoleName,
       permissionModel: permissionModel,
@@ -111,7 +105,7 @@ abstract class CreateStackSetInput
   String? get stackId;
 
   /// The input parameters for the stack set template.
-  _i10.BuiltList<_i3.Parameter>? get parameters;
+  _i3.BuiltList<Parameter>? get parameters;
 
   /// In some cases, you must explicitly acknowledge that your stack set template contains certain capabilities in order for CloudFormation to create the stack set and related stack instances.
   ///
@@ -145,23 +139,23 @@ abstract class CreateStackSetInput
   ///     *   [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/using-iam-template.html#capabilities).
   ///
   /// *   `CAPABILITY\_AUTO\_EXPAND`
   ///
-  ///     Some templates reference macros. If your stack set template references one or more macros, you must create the stack set directly from the processed template, without first reviewing the resulting changes in a change set. To create the stack set directly, you must acknowledge this capability. For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     Some templates reference macros. If your stack set template references one or more macros, you must create the stack set directly from the processed template, without first reviewing the resulting changes in a change set. To create the stack set directly, you must acknowledge this capability. For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](https://docs.aws.amazon.com/AWSCloudFormation/template-macros.html).
   ///
-  ///     Stack sets with service-managed permissions don't currently support the use of macros in templates. (This includes the [AWS::Include](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.) Even if you specify this capability for a stack set with service-managed permissions, if you reference a macro in your template the stack set operation will fail.
-  _i10.BuiltList<_i4.Capability>? get capabilities;
+  ///     Stack sets with service-managed permissions don't currently support the use of macros in templates. (This includes the [AWS::Include](https://docs.aws.amazon.com/AWSCloudFormation/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](https://docs.aws.amazon.com/AWSCloudFormation/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.) Even if you specify this capability for a stack set with service-managed permissions, if you reference a macro in your template the stack set operation will fail.
+  _i3.BuiltList<Capability>? get capabilities;
 
   /// The key-value pairs to associate with this stack set and the stacks created from it. CloudFormation also propagates these tags to supported resources that are created in the stacks. A maximum number of 50 tags can be specified.
   ///
   /// If you specify tags as part of a `CreateStackSet` action, CloudFormation checks to see if you have the required IAM permission to tag resources. If you don't, the entire `CreateStackSet` action fails with an `access denied` error, and the stack set is not created.
-  _i10.BuiltList<_i5.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// The Amazon Resource Name (ARN) of the IAM role to use to create this stack set.
   ///
-  /// Specify an IAM role only if you are using customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html) in the _CloudFormation User Guide_.
+  /// Specify an IAM role only if you are using customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](https://docs.aws.amazon.com/AWSCloudFormation/stacksets-prereqs.html) in the _CloudFormation User Guide_.
   String? get administrationRoleArn;
 
   /// The name of the IAM execution role to use to create the stack set. If you do not specify an execution role, CloudFormation uses the `AWSCloudFormationStackSetExecutionRole` role for the stack set operation.
@@ -174,10 +168,10 @@ abstract class CreateStackSetInput
   /// *   With `self-managed` permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see [Grant Self-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html).
   ///
   /// *   With `service-managed` permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see [Grant Service-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html).
-  _i6.PermissionModels? get permissionModel;
+  PermissionModels? get permissionModel;
 
   /// Describes whether StackSets automatically deploys to Organizations accounts that are added to the target organization or organizational unit (OU). Specify only if `PermissionModel` is `SERVICE_MANAGED`.
-  _i7.AutoDeployment? get autoDeployment;
+  AutoDeployment? get autoDeployment;
 
   /// \[Service-managed permissions\] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account.
   ///
@@ -191,7 +185,7 @@ abstract class CreateStackSetInput
   ///
   ///
   /// Stack sets with service-managed permissions are created in the management account, including stack sets that are created by delegated administrators.
-  _i8.CallAs? get callAs;
+  CallAs? get callAs;
 
   /// A unique identifier for this `CreateStackSet` request. Specify this token if you plan to retry requests so that CloudFormation knows that you're not attempting to create another stack set with the same name. You might retry `CreateStackSet` requests to ensure that CloudFormation successfully received them.
   ///
@@ -199,7 +193,7 @@ abstract class CreateStackSetInput
   String? get clientRequestToken;
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
-  _i9.ManagedExecution? get managedExecution;
+  ManagedExecution? get managedExecution;
   @override
   CreateStackSetInput getPayload() => this;
   @override
@@ -351,10 +345,10 @@ class CreateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i10.BuiltList<_i3.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
         case 'Capabilities':
           result.capabilities.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -362,10 +356,10 @@ class CreateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i4.Capability)],
+              _i3.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i10.BuiltList<_i4.Capability>));
+          ) as _i3.BuiltList<Capability>));
         case 'Tags':
           result.tags.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -373,10 +367,10 @@ class CreateStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i10.BuiltList,
-              [FullType(_i5.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i10.BuiltList<_i5.Tag>));
+          ) as _i3.BuiltList<Tag>));
         case 'AdministrationRoleARN':
           result.administrationRoleArn = (serializers.deserialize(
             value,
@@ -390,18 +384,18 @@ class CreateStackSetInputAwsQuerySerializer
         case 'PermissionModel':
           result.permissionModel = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.PermissionModels),
-          ) as _i6.PermissionModels);
+            specifiedType: const FullType(PermissionModels),
+          ) as PermissionModels);
         case 'AutoDeployment':
           result.autoDeployment.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.AutoDeployment),
-          ) as _i7.AutoDeployment));
+            specifiedType: const FullType(AutoDeployment),
+          ) as AutoDeployment));
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.CallAs),
-          ) as _i8.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
         case 'ClientRequestToken':
           result.clientRequestToken = (serializers.deserialize(
             value,
@@ -410,8 +404,8 @@ class CreateStackSetInputAwsQuerySerializer
         case 'ManagedExecution':
           result.managedExecution.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.ManagedExecution),
-          ) as _i9.ManagedExecution));
+            specifiedType: const FullType(ManagedExecution),
+          ) as ManagedExecution));
       }
     }
 
@@ -494,8 +488,8 @@ class CreateStackSetInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
@@ -508,8 +502,8 @@ class CreateStackSetInputAwsQuerySerializer
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i4.Capability)],
+            _i3.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
@@ -522,8 +516,8 @@ class CreateStackSetInputAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(_i5.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }
@@ -548,7 +542,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(_i6.PermissionModels),
+          specifiedType: const FullType.nullable(PermissionModels),
         ));
     }
     if (autoDeployment != null) {
@@ -556,7 +550,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
-          specifiedType: const FullType(_i7.AutoDeployment),
+          specifiedType: const FullType(AutoDeployment),
         ));
     }
     if (callAs != null) {
@@ -564,7 +558,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i8.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     if (clientRequestToken != null) {
@@ -580,7 +574,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
-          specifiedType: const FullType(_i9.ManagedExecution),
+          specifiedType: const FullType(ManagedExecution),
         ));
     }
     return result$;

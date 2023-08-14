@@ -6,10 +6,9 @@ library smoke_test.api_gateway.model.create_documentation_part_request; // ignor
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_location.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_location.dart';
 
 part 'create_documentation_part_request.g.dart';
 
@@ -25,7 +24,7 @@ abstract class CreateDocumentationPartRequest
   /// Creates a new documentation part of a given API.
   factory CreateDocumentationPartRequest({
     required String restApiId,
-    required _i3.DocumentationPartLocation location,
+    required DocumentationPartLocation location,
     required String properties,
   }) {
     return _$CreateDocumentationPartRequest._(
@@ -62,7 +61,7 @@ abstract class CreateDocumentationPartRequest
   String get restApiId;
 
   /// The location of the targeted API entity of the to-be-created documentation part.
-  _i3.DocumentationPartLocation get location;
+  DocumentationPartLocation get location;
 
   /// The new documentation content map of the targeted API entity. Enclosed key-value pairs are API-specific, but only OpenAPI-compliant key-value pairs can be exported and, hence, published.
   String get properties;
@@ -109,7 +108,7 @@ abstract class CreateDocumentationPartRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class CreateDocumentationPartRequestPayload
     with
         _i2.AWSEquatable<CreateDocumentationPartRequestPayload>
@@ -123,7 +122,7 @@ abstract class CreateDocumentationPartRequestPayload
   const CreateDocumentationPartRequestPayload._();
 
   /// The location of the targeted API entity of the to-be-created documentation part.
-  _i3.DocumentationPartLocation get location;
+  DocumentationPartLocation get location;
 
   /// The new documentation content map of the targeted API entity. Enclosed key-value pairs are API-specific, but only OpenAPI-compliant key-value pairs can be exported and, hence, published.
   String get properties;
@@ -186,8 +185,8 @@ class CreateDocumentationPartRequestRestJson1Serializer extends _i1
         case 'location':
           result.location.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DocumentationPartLocation),
-          ) as _i3.DocumentationPartLocation));
+            specifiedType: const FullType(DocumentationPartLocation),
+          ) as DocumentationPartLocation));
         case 'properties':
           result.properties = (serializers.deserialize(
             value,
@@ -212,7 +211,7 @@ class CreateDocumentationPartRequestRestJson1Serializer extends _i1
       'location',
       serializers.serialize(
         location,
-        specifiedType: const FullType(_i3.DocumentationPartLocation),
+        specifiedType: const FullType(DocumentationPartLocation),
       ),
       'properties',
       serializers.serialize(

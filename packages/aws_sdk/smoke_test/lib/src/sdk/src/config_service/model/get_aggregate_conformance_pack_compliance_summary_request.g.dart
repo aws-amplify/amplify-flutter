@@ -11,9 +11,9 @@ class _$GetAggregateConformancePackComplianceSummaryRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.AggregateConformancePackComplianceSummaryFilters? filters;
+  final AggregateConformancePackComplianceSummaryFilters? filters;
   @override
-  final _i4.AggregateConformancePackComplianceSummaryGroupKey? groupByKey;
+  final AggregateConformancePackComplianceSummaryGroupKey? groupByKey;
   @override
   final int limit;
   @override
@@ -90,20 +90,19 @@ class GetAggregateConformancePackComplianceSummaryRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.AggregateConformancePackComplianceSummaryFiltersBuilder? _filters;
-  _i3.AggregateConformancePackComplianceSummaryFiltersBuilder get filters =>
+  AggregateConformancePackComplianceSummaryFiltersBuilder? _filters;
+  AggregateConformancePackComplianceSummaryFiltersBuilder get filters =>
       _$this._filters ??=
-          new _i3.AggregateConformancePackComplianceSummaryFiltersBuilder();
+          new AggregateConformancePackComplianceSummaryFiltersBuilder();
   set filters(
-          _i3.AggregateConformancePackComplianceSummaryFiltersBuilder?
-              filters) =>
+          AggregateConformancePackComplianceSummaryFiltersBuilder? filters) =>
       _$this._filters = filters;
 
-  _i4.AggregateConformancePackComplianceSummaryGroupKey? _groupByKey;
-  _i4.AggregateConformancePackComplianceSummaryGroupKey? get groupByKey =>
+  AggregateConformancePackComplianceSummaryGroupKey? _groupByKey;
+  AggregateConformancePackComplianceSummaryGroupKey? get groupByKey =>
       _$this._groupByKey;
   set groupByKey(
-          _i4.AggregateConformancePackComplianceSummaryGroupKey? groupByKey) =>
+          AggregateConformancePackComplianceSummaryGroupKey? groupByKey) =>
       _$this._groupByKey = groupByKey;
 
   int? _limit;

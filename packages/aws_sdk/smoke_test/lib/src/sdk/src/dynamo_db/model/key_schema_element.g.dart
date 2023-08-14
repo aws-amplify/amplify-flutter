@@ -10,7 +10,7 @@ class _$KeySchemaElement extends KeySchemaElement {
   @override
   final String attributeName;
   @override
-  final _i2.KeyType keyType;
+  final KeyType keyType;
 
   factory _$KeySchemaElement(
           [void Function(KeySchemaElementBuilder)? updates]) =>
@@ -59,9 +59,9 @@ class KeySchemaElementBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  _i2.KeyType? _keyType;
-  _i2.KeyType? get keyType => _$this._keyType;
-  set keyType(_i2.KeyType? keyType) => _$this._keyType = keyType;
+  KeyType? _keyType;
+  KeyType? get keyType => _$this._keyType;
+  set keyType(KeyType? keyType) => _$this._keyType = keyType;
 
   KeySchemaElementBuilder();
 

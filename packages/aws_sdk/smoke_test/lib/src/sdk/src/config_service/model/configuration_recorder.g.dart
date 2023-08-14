@@ -12,7 +12,7 @@ class _$ConfigurationRecorder extends ConfigurationRecorder {
   @override
   final String? roleArn;
   @override
-  final _i2.RecordingGroup? recordingGroup;
+  final RecordingGroup? recordingGroup;
 
   factory _$ConfigurationRecorder(
           [void Function(ConfigurationRecorderBuilder)? updates]) =>
@@ -62,10 +62,10 @@ class ConfigurationRecorderBuilder
   String? get roleArn => _$this._roleArn;
   set roleArn(String? roleArn) => _$this._roleArn = roleArn;
 
-  _i2.RecordingGroupBuilder? _recordingGroup;
-  _i2.RecordingGroupBuilder get recordingGroup =>
-      _$this._recordingGroup ??= new _i2.RecordingGroupBuilder();
-  set recordingGroup(_i2.RecordingGroupBuilder? recordingGroup) =>
+  RecordingGroupBuilder? _recordingGroup;
+  RecordingGroupBuilder get recordingGroup =>
+      _$this._recordingGroup ??= new RecordingGroupBuilder();
+  set recordingGroup(RecordingGroupBuilder? recordingGroup) =>
       _$this._recordingGroup = recordingGroup;
 
   ConfigurationRecorderBuilder();

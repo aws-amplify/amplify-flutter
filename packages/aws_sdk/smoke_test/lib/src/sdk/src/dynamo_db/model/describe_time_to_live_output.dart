@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.describe_time_to_live_output; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_description.dart';
 
 part 'describe_time_to_live_output.g.dart';
 
@@ -17,7 +16,7 @@ abstract class DescribeTimeToLiveOutput
     implements
         Built<DescribeTimeToLiveOutput, DescribeTimeToLiveOutputBuilder> {
   factory DescribeTimeToLiveOutput(
-      {_i2.TimeToLiveDescription? timeToLiveDescription}) {
+      {TimeToLiveDescription? timeToLiveDescription}) {
     return _$DescribeTimeToLiveOutput._(
         timeToLiveDescription: timeToLiveDescription);
   }
@@ -35,10 +34,10 @@ abstract class DescribeTimeToLiveOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeTimeToLiveOutput>>
+  static const List<_i2.SmithySerializer<DescribeTimeToLiveOutput>>
       serializers = [DescribeTimeToLiveOutputAwsJson10Serializer()];
 
-  _i2.TimeToLiveDescription? get timeToLiveDescription;
+  TimeToLiveDescription? get timeToLiveDescription;
   @override
   List<Object?> get props => [timeToLiveDescription];
   @override
@@ -53,7 +52,7 @@ abstract class DescribeTimeToLiveOutput
 }
 
 class DescribeTimeToLiveOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeTimeToLiveOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeTimeToLiveOutput> {
   const DescribeTimeToLiveOutputAwsJson10Serializer()
       : super('DescribeTimeToLiveOutput');
 
@@ -63,8 +62,8 @@ class DescribeTimeToLiveOutputAwsJson10Serializer
         _$DescribeTimeToLiveOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -88,8 +87,8 @@ class DescribeTimeToLiveOutputAwsJson10Serializer
         case 'TimeToLiveDescription':
           result.timeToLiveDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TimeToLiveDescription),
-          ) as _i2.TimeToLiveDescription));
+            specifiedType: const FullType(TimeToLiveDescription),
+          ) as TimeToLiveDescription));
       }
     }
 
@@ -109,7 +108,7 @@ class DescribeTimeToLiveOutputAwsJson10Serializer
         ..add('TimeToLiveDescription')
         ..add(serializers.serialize(
           timeToLiveDescription,
-          specifiedType: const FullType(_i2.TimeToLiveDescription),
+          specifiedType: const FullType(TimeToLiveDescription),
         ));
     }
     return result$;

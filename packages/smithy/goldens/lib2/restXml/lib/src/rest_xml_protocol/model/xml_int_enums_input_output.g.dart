@@ -8,17 +8,17 @@ part of 'xml_int_enums_input_output.dart';
 
 class _$XmlIntEnumsInputOutput extends XmlIntEnumsInputOutput {
   @override
-  final _i3.IntegerEnum? intEnum1;
+  final IntegerEnum? intEnum1;
   @override
-  final _i3.IntegerEnum? intEnum2;
+  final IntegerEnum? intEnum2;
   @override
-  final _i3.IntegerEnum? intEnum3;
+  final IntegerEnum? intEnum3;
   @override
-  final _i4.BuiltList<_i3.IntegerEnum>? intEnumList;
+  final _i3.BuiltList<IntegerEnum>? intEnumList;
   @override
-  final _i4.BuiltSet<_i3.IntegerEnum>? intEnumSet;
+  final _i3.BuiltSet<IntegerEnum>? intEnumSet;
   @override
-  final _i4.BuiltMap<String, _i3.IntegerEnum>? intEnumMap;
+  final _i3.BuiltMap<String, IntegerEnum>? intEnumMap;
 
   factory _$XmlIntEnumsInputOutput(
           [void Function(XmlIntEnumsInputOutputBuilder)? updates]) =>
@@ -72,34 +72,34 @@ class XmlIntEnumsInputOutputBuilder
     implements Builder<XmlIntEnumsInputOutput, XmlIntEnumsInputOutputBuilder> {
   _$XmlIntEnumsInputOutput? _$v;
 
-  _i3.IntegerEnum? _intEnum1;
-  _i3.IntegerEnum? get intEnum1 => _$this._intEnum1;
-  set intEnum1(_i3.IntegerEnum? intEnum1) => _$this._intEnum1 = intEnum1;
+  IntegerEnum? _intEnum1;
+  IntegerEnum? get intEnum1 => _$this._intEnum1;
+  set intEnum1(IntegerEnum? intEnum1) => _$this._intEnum1 = intEnum1;
 
-  _i3.IntegerEnum? _intEnum2;
-  _i3.IntegerEnum? get intEnum2 => _$this._intEnum2;
-  set intEnum2(_i3.IntegerEnum? intEnum2) => _$this._intEnum2 = intEnum2;
+  IntegerEnum? _intEnum2;
+  IntegerEnum? get intEnum2 => _$this._intEnum2;
+  set intEnum2(IntegerEnum? intEnum2) => _$this._intEnum2 = intEnum2;
 
-  _i3.IntegerEnum? _intEnum3;
-  _i3.IntegerEnum? get intEnum3 => _$this._intEnum3;
-  set intEnum3(_i3.IntegerEnum? intEnum3) => _$this._intEnum3 = intEnum3;
+  IntegerEnum? _intEnum3;
+  IntegerEnum? get intEnum3 => _$this._intEnum3;
+  set intEnum3(IntegerEnum? intEnum3) => _$this._intEnum3 = intEnum3;
 
-  _i4.ListBuilder<_i3.IntegerEnum>? _intEnumList;
-  _i4.ListBuilder<_i3.IntegerEnum> get intEnumList =>
-      _$this._intEnumList ??= new _i4.ListBuilder<_i3.IntegerEnum>();
-  set intEnumList(_i4.ListBuilder<_i3.IntegerEnum>? intEnumList) =>
+  _i3.ListBuilder<IntegerEnum>? _intEnumList;
+  _i3.ListBuilder<IntegerEnum> get intEnumList =>
+      _$this._intEnumList ??= new _i3.ListBuilder<IntegerEnum>();
+  set intEnumList(_i3.ListBuilder<IntegerEnum>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
-  _i4.SetBuilder<_i3.IntegerEnum>? _intEnumSet;
-  _i4.SetBuilder<_i3.IntegerEnum> get intEnumSet =>
-      _$this._intEnumSet ??= new _i4.SetBuilder<_i3.IntegerEnum>();
-  set intEnumSet(_i4.SetBuilder<_i3.IntegerEnum>? intEnumSet) =>
+  _i3.SetBuilder<IntegerEnum>? _intEnumSet;
+  _i3.SetBuilder<IntegerEnum> get intEnumSet =>
+      _$this._intEnumSet ??= new _i3.SetBuilder<IntegerEnum>();
+  set intEnumSet(_i3.SetBuilder<IntegerEnum>? intEnumSet) =>
       _$this._intEnumSet = intEnumSet;
 
-  _i4.MapBuilder<String, _i3.IntegerEnum>? _intEnumMap;
-  _i4.MapBuilder<String, _i3.IntegerEnum> get intEnumMap =>
-      _$this._intEnumMap ??= new _i4.MapBuilder<String, _i3.IntegerEnum>();
-  set intEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? intEnumMap) =>
+  _i3.MapBuilder<String, IntegerEnum>? _intEnumMap;
+  _i3.MapBuilder<String, IntegerEnum> get intEnumMap =>
+      _$this._intEnumMap ??= new _i3.MapBuilder<String, IntegerEnum>();
+  set intEnumMap(_i3.MapBuilder<String, IntegerEnum>? intEnumMap) =>
       _$this._intEnumMap = intEnumMap;
 
   XmlIntEnumsInputOutputBuilder();

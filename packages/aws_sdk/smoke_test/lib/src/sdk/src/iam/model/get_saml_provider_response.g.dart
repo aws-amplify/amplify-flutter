@@ -14,7 +14,7 @@ class _$GetSamlProviderResponse extends GetSamlProviderResponse {
   @override
   final DateTime? validUntil;
   @override
-  final _i3.BuiltList<_i2.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$GetSamlProviderResponse(
           [void Function(GetSamlProviderResponseBuilder)? updates]) =>
@@ -73,10 +73,9 @@ class GetSamlProviderResponseBuilder
   DateTime? get validUntil => _$this._validUntil;
   set validUntil(DateTime? validUntil) => _$this._validUntil = validUntil;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   GetSamlProviderResponseBuilder();
 

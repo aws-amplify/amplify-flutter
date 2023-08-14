@@ -3,13 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_messages_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message_campaign.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message_campaign.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'in_app_messages_response.g.dart';
 
@@ -19,11 +18,11 @@ abstract class InAppMessagesResponse
     implements Built<InAppMessagesResponse, InAppMessagesResponseBuilder> {
   /// Get in-app messages response object.
   factory InAppMessagesResponse(
-      {List<_i2.InAppMessageCampaign>? inAppMessageCampaigns}) {
+      {List<InAppMessageCampaign>? inAppMessageCampaigns}) {
     return _$InAppMessagesResponse._(
         inAppMessageCampaigns: inAppMessageCampaigns == null
             ? null
-            : _i3.BuiltList(inAppMessageCampaigns));
+            : _i2.BuiltList(inAppMessageCampaigns));
   }
 
   /// Get in-app messages response object.
@@ -33,12 +32,12 @@ abstract class InAppMessagesResponse
 
   const InAppMessagesResponse._();
 
-  static const List<_i4.SmithySerializer<InAppMessagesResponse>> serializers = [
+  static const List<_i3.SmithySerializer<InAppMessagesResponse>> serializers = [
     InAppMessagesResponseRestJson1Serializer()
   ];
 
   /// List of targeted in-app message campaigns.
-  _i3.BuiltList<_i2.InAppMessageCampaign>? get inAppMessageCampaigns;
+  _i2.BuiltList<InAppMessageCampaign>? get inAppMessageCampaigns;
   @override
   List<Object?> get props => [inAppMessageCampaigns];
   @override
@@ -53,7 +52,7 @@ abstract class InAppMessagesResponse
 }
 
 class InAppMessagesResponseRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<InAppMessagesResponse> {
+    extends _i3.StructuredSmithySerializer<InAppMessagesResponse> {
   const InAppMessagesResponseRestJson1Serializer()
       : super('InAppMessagesResponse');
 
@@ -63,8 +62,8 @@ class InAppMessagesResponseRestJson1Serializer
         _$InAppMessagesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -89,10 +88,10 @@ class InAppMessagesResponseRestJson1Serializer
           result.inAppMessageCampaigns.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.InAppMessageCampaign)],
+              _i2.BuiltList,
+              [FullType(InAppMessageCampaign)],
             ),
-          ) as _i3.BuiltList<_i2.InAppMessageCampaign>));
+          ) as _i2.BuiltList<InAppMessageCampaign>));
       }
     }
 
@@ -113,8 +112,8 @@ class InAppMessagesResponseRestJson1Serializer
         ..add(serializers.serialize(
           inAppMessageCampaigns,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.InAppMessageCampaign)],
+            _i2.BuiltList,
+            [FullType(InAppMessageCampaign)],
           ),
         ));
     }

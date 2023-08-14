@@ -5,17 +5,12 @@
 library rest_xml_v1.rest_xml_protocol.test.greeting_with_errors_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/complex_error.dart'
-    as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/complex_nested_error_data.dart'
-    as _i8;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_with_errors_output.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/invalid_greeting.dart'
-    as _i7;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/greeting_with_errors_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/complex_error.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/complex_nested_error_data.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_with_errors_output.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/invalid_greeting.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/greeting_with_errors_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -24,7 +19,7 @@ void main() {
     'GreetingWithErrors (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.GreetingWithErrorsOperation(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -32,7 +27,7 @@ void main() {
           id: 'GreetingWithErrors',
           documentation:
               'Ensures that operations with errors successfully know how to deserialize the successful response',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -57,19 +52,19 @@ void main() {
     'ComplexError (error)',
     () async {
       await _i2.httpErrorResponseTest<
-          _i4.Unit,
-          _i4.Unit,
-          _i5.GreetingWithErrorsOutputPayload,
-          _i5.GreetingWithErrorsOutput,
-          _i6.ComplexError>(
-        operation: _i3.GreetingWithErrorsOperation(
+          _i3.Unit,
+          _i3.Unit,
+          GreetingWithErrorsOutputPayload,
+          GreetingWithErrorsOutput,
+          ComplexError>(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'ComplexError',
           documentation: null,
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -105,19 +100,19 @@ void main() {
     'InvalidGreetingError (error)',
     () async {
       await _i2.httpErrorResponseTest<
-          _i4.Unit,
-          _i4.Unit,
-          _i5.GreetingWithErrorsOutputPayload,
-          _i5.GreetingWithErrorsOutput,
-          _i7.InvalidGreeting>(
-        operation: _i3.GreetingWithErrorsOperation(
+          _i3.Unit,
+          _i3.Unit,
+          GreetingWithErrorsOutputPayload,
+          GreetingWithErrorsOutput,
+          InvalidGreeting>(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'InvalidGreetingError',
           documentation: 'Parses simple XML errors',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -142,26 +137,26 @@ void main() {
 }
 
 class GreetingWithErrorsOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.GreetingWithErrorsOutput> {
+    extends _i3.StructuredSmithySerializer<GreetingWithErrorsOutput> {
   const GreetingWithErrorsOutputRestXmlSerializer()
       : super('GreetingWithErrorsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.GreetingWithErrorsOutput];
+  Iterable<Type> get types => const [GreetingWithErrorsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.GreetingWithErrorsOutput deserialize(
+  GreetingWithErrorsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.GreetingWithErrorsOutputBuilder();
+    final result = GreetingWithErrorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -185,7 +180,7 @@ class GreetingWithErrorsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.GreetingWithErrorsOutput object, {
+    GreetingWithErrorsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -193,25 +188,25 @@ class GreetingWithErrorsOutputRestXmlSerializer
 }
 
 class ComplexErrorRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i6.ComplexError> {
+    extends _i3.StructuredSmithySerializer<ComplexError> {
   const ComplexErrorRestXmlSerializer() : super('ComplexError');
 
   @override
-  Iterable<Type> get types => const [_i6.ComplexError];
+  Iterable<Type> get types => const [ComplexError];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i6.ComplexError deserialize(
+  ComplexError deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.ComplexErrorBuilder();
+    final result = ComplexErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -234,8 +229,8 @@ class ComplexErrorRestXmlSerializer
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.ComplexNestedErrorData),
-          ) as _i8.ComplexNestedErrorData));
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ) as ComplexNestedErrorData));
       }
     }
 
@@ -245,7 +240,7 @@ class ComplexErrorRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.ComplexError object, {
+    ComplexError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -253,26 +248,26 @@ class ComplexErrorRestXmlSerializer
 }
 
 class ComplexNestedErrorDataRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i8.ComplexNestedErrorData> {
+    extends _i3.StructuredSmithySerializer<ComplexNestedErrorData> {
   const ComplexNestedErrorDataRestXmlSerializer()
       : super('ComplexNestedErrorData');
 
   @override
-  Iterable<Type> get types => const [_i8.ComplexNestedErrorData];
+  Iterable<Type> get types => const [ComplexNestedErrorData];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i8.ComplexNestedErrorData deserialize(
+  ComplexNestedErrorData deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i8.ComplexNestedErrorDataBuilder();
+    final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -296,7 +291,7 @@ class ComplexNestedErrorDataRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i8.ComplexNestedErrorData object, {
+    ComplexNestedErrorData object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -304,25 +299,25 @@ class ComplexNestedErrorDataRestXmlSerializer
 }
 
 class InvalidGreetingRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i7.InvalidGreeting> {
+    extends _i3.StructuredSmithySerializer<InvalidGreeting> {
   const InvalidGreetingRestXmlSerializer() : super('InvalidGreeting');
 
   @override
-  Iterable<Type> get types => const [_i7.InvalidGreeting];
+  Iterable<Type> get types => const [InvalidGreeting];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i7.InvalidGreeting deserialize(
+  InvalidGreeting deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.InvalidGreetingBuilder();
+    final result = InvalidGreetingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -346,7 +341,7 @@ class InvalidGreetingRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.InvalidGreeting object, {
+    InvalidGreeting object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -3,12 +3,11 @@
 
 library amplify_integration_test.cognito_identity_provider.model.event_feedback_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/feedback_value_type.dart'
-    as _i2;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/feedback_value_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'event_feedback_type.g.dart';
 
@@ -18,7 +17,7 @@ abstract class EventFeedbackType
     implements Built<EventFeedbackType, EventFeedbackTypeBuilder> {
   /// Specifies the event feedback type.
   factory EventFeedbackType({
-    required _i2.FeedbackValueType feedbackValue,
+    required FeedbackValueType feedbackValue,
     required String provider,
     DateTime? feedbackDate,
   }) {
@@ -35,12 +34,12 @@ abstract class EventFeedbackType
 
   const EventFeedbackType._();
 
-  static const List<_i3.SmithySerializer<EventFeedbackType>> serializers = [
+  static const List<_i2.SmithySerializer<EventFeedbackType>> serializers = [
     EventFeedbackTypeAwsJson11Serializer()
   ];
 
-  /// The event feedback value.
-  _i2.FeedbackValueType get feedbackValue;
+  /// The authentication event feedback value. When you provide a `FeedbackValue` value of `valid`, you tell Amazon Cognito that you trust a user session where Amazon Cognito has evaluated some level of risk. When you provide a `FeedbackValue` value of `invalid`, you tell Amazon Cognito that you don't trust a user session, or you don't believe that Amazon Cognito evaluated a high-enough risk level.
+  FeedbackValueType get feedbackValue;
 
   /// The provider.
   String get provider;
@@ -73,7 +72,7 @@ abstract class EventFeedbackType
 }
 
 class EventFeedbackTypeAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<EventFeedbackType> {
+    extends _i2.StructuredSmithySerializer<EventFeedbackType> {
   const EventFeedbackTypeAwsJson11Serializer() : super('EventFeedbackType');
 
   @override
@@ -82,8 +81,8 @@ class EventFeedbackTypeAwsJson11Serializer
         _$EventFeedbackType,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,8 +106,8 @@ class EventFeedbackTypeAwsJson11Serializer
         case 'FeedbackValue':
           result.feedbackValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.FeedbackValueType),
-          ) as _i2.FeedbackValueType);
+            specifiedType: const FullType(FeedbackValueType),
+          ) as FeedbackValueType);
         case 'Provider':
           result.provider = (serializers.deserialize(
             value,
@@ -137,7 +136,7 @@ class EventFeedbackTypeAwsJson11Serializer
       'FeedbackValue',
       serializers.serialize(
         feedbackValue,
-        specifiedType: const FullType(_i2.FeedbackValueType),
+        specifiedType: const FullType(FeedbackValueType),
       ),
       'Provider',
       serializers.serialize(

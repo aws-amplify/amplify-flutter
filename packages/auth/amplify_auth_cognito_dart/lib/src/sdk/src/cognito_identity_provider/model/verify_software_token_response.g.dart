@@ -8,7 +8,7 @@ part of 'verify_software_token_response.dart';
 
 class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
   @override
-  final _i2.VerifySoftwareTokenResponseType? status;
+  final VerifySoftwareTokenResponseType? status;
   @override
   final String? session;
 
@@ -51,18 +51,16 @@ class VerifySoftwareTokenResponseBuilder
             VerifySoftwareTokenResponseBuilder> {
   _$VerifySoftwareTokenResponse? _$v;
 
-  _i2.VerifySoftwareTokenResponseType? _status;
-  _i2.VerifySoftwareTokenResponseType? get status => _$this._status;
-  set status(_i2.VerifySoftwareTokenResponseType? status) =>
+  VerifySoftwareTokenResponseType? _status;
+  VerifySoftwareTokenResponseType? get status => _$this._status;
+  set status(VerifySoftwareTokenResponseType? status) =>
       _$this._status = status;
 
   String? _session;
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  VerifySoftwareTokenResponseBuilder() {
-    VerifySoftwareTokenResponse._init(this);
-  }
+  VerifySoftwareTokenResponseBuilder();
 
   VerifySoftwareTokenResponseBuilder get _$this {
     final $v = _$v;

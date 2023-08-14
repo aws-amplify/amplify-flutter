@@ -54,9 +54,7 @@ class AttributeTypeBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  AttributeTypeBuilder() {
-    AttributeType._init(this);
-  }
+  AttributeTypeBuilder();
 
   AttributeTypeBuilder get _$this {
     final $v = _$v;

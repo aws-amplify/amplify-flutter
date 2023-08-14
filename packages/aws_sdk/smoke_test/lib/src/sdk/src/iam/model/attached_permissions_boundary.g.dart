@@ -8,7 +8,7 @@ part of 'attached_permissions_boundary.dart';
 
 class _$AttachedPermissionsBoundary extends AttachedPermissionsBoundary {
   @override
-  final _i2.PermissionsBoundaryAttachmentType? permissionsBoundaryType;
+  final PermissionsBoundaryAttachmentType? permissionsBoundaryType;
   @override
   final String? permissionsBoundaryArn;
 
@@ -53,11 +53,11 @@ class AttachedPermissionsBoundaryBuilder
             AttachedPermissionsBoundaryBuilder> {
   _$AttachedPermissionsBoundary? _$v;
 
-  _i2.PermissionsBoundaryAttachmentType? _permissionsBoundaryType;
-  _i2.PermissionsBoundaryAttachmentType? get permissionsBoundaryType =>
+  PermissionsBoundaryAttachmentType? _permissionsBoundaryType;
+  PermissionsBoundaryAttachmentType? get permissionsBoundaryType =>
       _$this._permissionsBoundaryType;
   set permissionsBoundaryType(
-          _i2.PermissionsBoundaryAttachmentType? permissionsBoundaryType) =>
+          PermissionsBoundaryAttachmentType? permissionsBoundaryType) =>
       _$this._permissionsBoundaryType = permissionsBoundaryType;
 
   String? _permissionsBoundaryArn;

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.list_resource_evaluations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart';
 
 part 'list_resource_evaluations_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class ListResourceEvaluationsResponse
         Built<ListResourceEvaluationsResponse,
             ListResourceEvaluationsResponseBuilder> {
   factory ListResourceEvaluationsResponse({
-    List<_i2.ResourceEvaluation>? resourceEvaluations,
+    List<ResourceEvaluation>? resourceEvaluations,
     String? nextToken,
   }) {
     return _$ListResourceEvaluationsResponse._(
       resourceEvaluations: resourceEvaluations == null
           ? null
-          : _i3.BuiltList(resourceEvaluations),
+          : _i2.BuiltList(resourceEvaluations),
       nextToken: nextToken,
     );
   }
@@ -44,11 +43,11 @@ abstract class ListResourceEvaluationsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListResourceEvaluationsResponse>>
+  static const List<_i3.SmithySerializer<ListResourceEvaluationsResponse>>
       serializers = [ListResourceEvaluationsResponseAwsJson11Serializer()];
 
   /// Returns a `ResourceEvaluations` object.
-  _i3.BuiltList<_i2.ResourceEvaluation>? get resourceEvaluations;
+  _i2.BuiltList<ResourceEvaluation>? get resourceEvaluations;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -74,7 +73,7 @@ abstract class ListResourceEvaluationsResponse
 }
 
 class ListResourceEvaluationsResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ListResourceEvaluationsResponse> {
+    extends _i3.StructuredSmithySerializer<ListResourceEvaluationsResponse> {
   const ListResourceEvaluationsResponseAwsJson11Serializer()
       : super('ListResourceEvaluationsResponse');
 
@@ -84,8 +83,8 @@ class ListResourceEvaluationsResponseAwsJson11Serializer
         _$ListResourceEvaluationsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -110,10 +109,10 @@ class ListResourceEvaluationsResponseAwsJson11Serializer
           result.resourceEvaluations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ResourceEvaluation)],
+              _i2.BuiltList,
+              [FullType(ResourceEvaluation)],
             ),
-          ) as _i3.BuiltList<_i2.ResourceEvaluation>));
+          ) as _i2.BuiltList<ResourceEvaluation>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -140,8 +139,8 @@ class ListResourceEvaluationsResponseAwsJson11Serializer
         ..add(serializers.serialize(
           resourceEvaluations,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ResourceEvaluation)],
+            _i2.BuiltList,
+            [FullType(ResourceEvaluation)],
           ),
         ));
     }

@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/chronological_order.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/chronological_order.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'get_resource_config_history_request.g.dart';
 
@@ -24,11 +22,11 @@ abstract class GetResourceConfigHistoryRequest
             GetResourceConfigHistoryRequestBuilder> {
   /// The input for the GetResourceConfigHistory action.
   factory GetResourceConfigHistoryRequest({
-    required _i3.ResourceType resourceType,
+    required ResourceType resourceType,
     required String resourceId,
     DateTime? laterTime,
     DateTime? earlierTime,
-    _i4.ChronologicalOrder? chronologicalOrder,
+    ChronologicalOrder? chronologicalOrder,
     int? limit,
     String? nextToken,
   }) {
@@ -67,7 +65,7 @@ abstract class GetResourceConfigHistoryRequest
   }
 
   /// The resource type.
-  _i3.ResourceType get resourceType;
+  ResourceType get resourceType;
 
   /// The ID of the resource (for example., `sg-xxxxxx`).
   String get resourceId;
@@ -79,7 +77,7 @@ abstract class GetResourceConfigHistoryRequest
   DateTime? get earlierTime;
 
   /// The chronological order for configuration items listed. By default, the results are listed in reverse chronological order.
-  _i4.ChronologicalOrder? get chronologicalOrder;
+  ChronologicalOrder? get chronologicalOrder;
 
   /// The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int get limit;
@@ -170,8 +168,8 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -190,8 +188,8 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         case 'chronologicalOrder':
           result.chronologicalOrder = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ChronologicalOrder),
-          ) as _i4.ChronologicalOrder);
+            specifiedType: const FullType(ChronologicalOrder),
+          ) as ChronologicalOrder);
         case 'limit':
           result.limit = (serializers.deserialize(
             value,
@@ -228,7 +226,7 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
       'resourceType',
       serializers.serialize(
         resourceType,
-        specifiedType: const FullType(_i3.ResourceType),
+        specifiedType: const FullType(ResourceType),
       ),
       'resourceId',
       serializers.serialize(
@@ -262,7 +260,7 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ..add('chronologicalOrder')
         ..add(serializers.serialize(
           chronologicalOrder,
-          specifiedType: const FullType(_i4.ChronologicalOrder),
+          specifiedType: const FullType(ChronologicalOrder),
         ));
     }
     if (nextToken != null) {

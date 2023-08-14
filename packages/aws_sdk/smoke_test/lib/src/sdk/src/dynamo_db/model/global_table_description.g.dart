@@ -8,13 +8,13 @@ part of 'global_table_description.dart';
 
 class _$GlobalTableDescription extends GlobalTableDescription {
   @override
-  final _i4.BuiltList<_i2.ReplicaDescription>? replicationGroup;
+  final _i2.BuiltList<ReplicaDescription>? replicationGroup;
   @override
   final String? globalTableArn;
   @override
   final DateTime? creationDateTime;
   @override
-  final _i3.GlobalTableStatus? globalTableStatus;
+  final GlobalTableStatus? globalTableStatus;
   @override
   final String? globalTableName;
 
@@ -67,12 +67,10 @@ class GlobalTableDescriptionBuilder
     implements Builder<GlobalTableDescription, GlobalTableDescriptionBuilder> {
   _$GlobalTableDescription? _$v;
 
-  _i4.ListBuilder<_i2.ReplicaDescription>? _replicationGroup;
-  _i4.ListBuilder<_i2.ReplicaDescription> get replicationGroup =>
-      _$this._replicationGroup ??=
-          new _i4.ListBuilder<_i2.ReplicaDescription>();
-  set replicationGroup(
-          _i4.ListBuilder<_i2.ReplicaDescription>? replicationGroup) =>
+  _i2.ListBuilder<ReplicaDescription>? _replicationGroup;
+  _i2.ListBuilder<ReplicaDescription> get replicationGroup =>
+      _$this._replicationGroup ??= new _i2.ListBuilder<ReplicaDescription>();
+  set replicationGroup(_i2.ListBuilder<ReplicaDescription>? replicationGroup) =>
       _$this._replicationGroup = replicationGroup;
 
   String? _globalTableArn;
@@ -85,9 +83,9 @@ class GlobalTableDescriptionBuilder
   set creationDateTime(DateTime? creationDateTime) =>
       _$this._creationDateTime = creationDateTime;
 
-  _i3.GlobalTableStatus? _globalTableStatus;
-  _i3.GlobalTableStatus? get globalTableStatus => _$this._globalTableStatus;
-  set globalTableStatus(_i3.GlobalTableStatus? globalTableStatus) =>
+  GlobalTableStatus? _globalTableStatus;
+  GlobalTableStatus? get globalTableStatus => _$this._globalTableStatus;
+  set globalTableStatus(GlobalTableStatus? globalTableStatus) =>
       _$this._globalTableStatus = globalTableStatus;
 
   String? _globalTableName;

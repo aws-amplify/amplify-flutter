@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
 
 part 'get_item_output.g.dart';
 
@@ -21,11 +19,11 @@ abstract class GetItemOutput
     implements Built<GetItemOutput, GetItemOutputBuilder> {
   /// Represents the output of a `GetItem` operation.
   factory GetItemOutput({
-    Map<String, _i2.AttributeValue>? item,
-    _i3.ConsumedCapacity? consumedCapacity,
+    Map<String, AttributeValue>? item,
+    ConsumedCapacity? consumedCapacity,
   }) {
     return _$GetItemOutput._(
-      item: item == null ? null : _i4.BuiltMap(item),
+      item: item == null ? null : _i2.BuiltMap(item),
       consumedCapacity: consumedCapacity,
     );
   }
@@ -43,15 +41,15 @@ abstract class GetItemOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<GetItemOutput>> serializers = [
+  static const List<_i3.SmithySerializer<GetItemOutput>> serializers = [
     GetItemOutputAwsJson10Serializer()
   ];
 
   /// A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
-  _i4.BuiltMap<String, _i2.AttributeValue>? get item;
+  _i2.BuiltMap<String, AttributeValue>? get item;
 
   /// The capacity units consumed by the `GetItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ConsumedCapacity? get consumedCapacity;
+  ConsumedCapacity? get consumedCapacity;
   @override
   List<Object?> get props => [
         item,
@@ -73,7 +71,7 @@ abstract class GetItemOutput
 }
 
 class GetItemOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<GetItemOutput> {
+    extends _i3.StructuredSmithySerializer<GetItemOutput> {
   const GetItemOutputAwsJson10Serializer() : super('GetItemOutput');
 
   @override
@@ -82,8 +80,8 @@ class GetItemOutputAwsJson10Serializer
         _$GetItemOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,18 +106,18 @@ class GetItemOutputAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConsumedCapacity),
-          ) as _i3.ConsumedCapacity));
+            specifiedType: const FullType(ConsumedCapacity),
+          ) as ConsumedCapacity));
       }
     }
 
@@ -140,10 +138,10 @@ class GetItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -153,7 +151,7 @@ class GetItemOutputAwsJson10Serializer
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
-          specifiedType: const FullType(_i3.ConsumedCapacity),
+          specifiedType: const FullType(ConsumedCapacity),
         ));
     }
     return result$;

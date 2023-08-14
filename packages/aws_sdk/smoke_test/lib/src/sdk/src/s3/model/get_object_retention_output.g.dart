@@ -8,7 +8,7 @@ part of 'get_object_retention_output.dart';
 
 class _$GetObjectRetentionOutput extends GetObjectRetentionOutput {
   @override
-  final _i3.ObjectLockRetention? retention;
+  final ObjectLockRetention? retention;
 
   factory _$GetObjectRetentionOutput(
           [void Function(GetObjectRetentionOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class GetObjectRetentionOutputBuilder
         Builder<GetObjectRetentionOutput, GetObjectRetentionOutputBuilder> {
   _$GetObjectRetentionOutput? _$v;
 
-  _i3.ObjectLockRetentionBuilder? _retention;
-  _i3.ObjectLockRetentionBuilder get retention =>
-      _$this._retention ??= new _i3.ObjectLockRetentionBuilder();
-  set retention(_i3.ObjectLockRetentionBuilder? retention) =>
+  ObjectLockRetentionBuilder? _retention;
+  ObjectLockRetentionBuilder get retention =>
+      _$this._retention ??= new ObjectLockRetentionBuilder();
+  set retention(ObjectLockRetentionBuilder? retention) =>
       _$this._retention = retention;
 
   GetObjectRetentionOutputBuilder();

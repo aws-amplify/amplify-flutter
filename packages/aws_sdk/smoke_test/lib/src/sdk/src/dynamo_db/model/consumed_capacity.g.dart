@@ -16,11 +16,11 @@ class _$ConsumedCapacity extends ConsumedCapacity {
   @override
   final double? writeCapacityUnits;
   @override
-  final _i2.Capacity? table;
+  final Capacity? table;
   @override
-  final _i3.BuiltMap<String, _i2.Capacity>? localSecondaryIndexes;
+  final _i2.BuiltMap<String, Capacity>? localSecondaryIndexes;
   @override
-  final _i3.BuiltMap<String, _i2.Capacity>? globalSecondaryIndexes;
+  final _i2.BuiltMap<String, Capacity>? globalSecondaryIndexes;
 
   factory _$ConsumedCapacity(
           [void Function(ConsumedCapacityBuilder)? updates]) =>
@@ -95,24 +95,22 @@ class ConsumedCapacityBuilder
   set writeCapacityUnits(double? writeCapacityUnits) =>
       _$this._writeCapacityUnits = writeCapacityUnits;
 
-  _i2.CapacityBuilder? _table;
-  _i2.CapacityBuilder get table => _$this._table ??= new _i2.CapacityBuilder();
-  set table(_i2.CapacityBuilder? table) => _$this._table = table;
+  CapacityBuilder? _table;
+  CapacityBuilder get table => _$this._table ??= new CapacityBuilder();
+  set table(CapacityBuilder? table) => _$this._table = table;
 
-  _i3.MapBuilder<String, _i2.Capacity>? _localSecondaryIndexes;
-  _i3.MapBuilder<String, _i2.Capacity> get localSecondaryIndexes =>
-      _$this._localSecondaryIndexes ??=
-          new _i3.MapBuilder<String, _i2.Capacity>();
+  _i2.MapBuilder<String, Capacity>? _localSecondaryIndexes;
+  _i2.MapBuilder<String, Capacity> get localSecondaryIndexes =>
+      _$this._localSecondaryIndexes ??= new _i2.MapBuilder<String, Capacity>();
   set localSecondaryIndexes(
-          _i3.MapBuilder<String, _i2.Capacity>? localSecondaryIndexes) =>
+          _i2.MapBuilder<String, Capacity>? localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  _i3.MapBuilder<String, _i2.Capacity>? _globalSecondaryIndexes;
-  _i3.MapBuilder<String, _i2.Capacity> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i3.MapBuilder<String, _i2.Capacity>();
+  _i2.MapBuilder<String, Capacity>? _globalSecondaryIndexes;
+  _i2.MapBuilder<String, Capacity> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??= new _i2.MapBuilder<String, Capacity>();
   set globalSecondaryIndexes(
-          _i3.MapBuilder<String, _i2.Capacity>? globalSecondaryIndexes) =>
+          _i2.MapBuilder<String, Capacity>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   ConsumedCapacityBuilder();

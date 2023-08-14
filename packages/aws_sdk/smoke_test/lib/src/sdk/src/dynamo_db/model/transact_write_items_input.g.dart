@@ -8,11 +8,11 @@ part of 'transact_write_items_input.dart';
 
 class _$TransactWriteItemsInput extends TransactWriteItemsInput {
   @override
-  final _i6.BuiltList<_i3.TransactWriteItem> transactItems;
+  final _i3.BuiltList<TransactWriteItem> transactItems;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
-  final _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
+  final ReturnItemCollectionMetrics? returnItemCollectionMetrics;
   @override
   final String? clientRequestToken;
 
@@ -66,24 +66,23 @@ class TransactWriteItemsInputBuilder
         Builder<TransactWriteItemsInput, TransactWriteItemsInputBuilder> {
   _$TransactWriteItemsInput? _$v;
 
-  _i6.ListBuilder<_i3.TransactWriteItem>? _transactItems;
-  _i6.ListBuilder<_i3.TransactWriteItem> get transactItems =>
-      _$this._transactItems ??= new _i6.ListBuilder<_i3.TransactWriteItem>();
-  set transactItems(_i6.ListBuilder<_i3.TransactWriteItem>? transactItems) =>
+  _i3.ListBuilder<TransactWriteItem>? _transactItems;
+  _i3.ListBuilder<TransactWriteItem> get transactItems =>
+      _$this._transactItems ??= new _i3.ListBuilder<TransactWriteItem>();
+  set transactItems(_i3.ListBuilder<TransactWriteItem>? transactItems) =>
       _$this._transactItems = transactItems;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  _i5.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
-  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
+  ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
       _$this._returnItemCollectionMetrics;
   set returnItemCollectionMetrics(
-          _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
+          ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
       _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
 
   String? _clientRequestToken;

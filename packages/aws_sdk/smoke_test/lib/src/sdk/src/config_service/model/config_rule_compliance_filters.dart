@@ -6,9 +6,8 @@ library smoke_test.config_service.model.config_rule_compliance_filters; // ignor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'config_rule_compliance_filters.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ConfigRuleComplianceFilters
   /// Filters the compliance results based on account ID, region, compliance type, and rule name.
   factory ConfigRuleComplianceFilters({
     String? configRuleName,
-    _i2.ComplianceType? complianceType,
+    ComplianceType? complianceType,
     String? accountId,
     String? awsRegion,
   }) {
@@ -39,7 +38,7 @@ abstract class ConfigRuleComplianceFilters
 
   const ConfigRuleComplianceFilters._();
 
-  static const List<_i3.SmithySerializer<ConfigRuleComplianceFilters>>
+  static const List<_i2.SmithySerializer<ConfigRuleComplianceFilters>>
       serializers = [ConfigRuleComplianceFiltersAwsJson11Serializer()];
 
   /// The name of the Config rule.
@@ -48,7 +47,7 @@ abstract class ConfigRuleComplianceFilters
   /// The rule compliance status.
   ///
   /// For the `ConfigRuleComplianceFilters` data type, Config supports only `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and the `INSUFFICIENT_DATA` values.
-  _i2.ComplianceType? get complianceType;
+  ComplianceType? get complianceType;
 
   /// The 12-digit account ID of the source account.
   String? get accountId;
@@ -86,7 +85,7 @@ abstract class ConfigRuleComplianceFilters
 }
 
 class ConfigRuleComplianceFiltersAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigRuleComplianceFilters> {
+    extends _i2.StructuredSmithySerializer<ConfigRuleComplianceFilters> {
   const ConfigRuleComplianceFiltersAwsJson11Serializer()
       : super('ConfigRuleComplianceFilters');
 
@@ -96,8 +95,8 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
         _$ConfigRuleComplianceFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -126,8 +125,8 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceType),
-          ) as _i2.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'AccountId':
           result.accountId = (serializers.deserialize(
             value,
@@ -170,7 +169,7 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i2.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (accountId != null) {

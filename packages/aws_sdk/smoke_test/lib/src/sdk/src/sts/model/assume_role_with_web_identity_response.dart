@@ -6,9 +6,9 @@ library smoke_test.sts.model.assume_role_with_web_identity_response; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart';
 
 part 'assume_role_with_web_identity_response.g.dart';
 
@@ -21,9 +21,9 @@ abstract class AssumeRoleWithWebIdentityResponse
             AssumeRoleWithWebIdentityResponseBuilder> {
   /// Contains the response to a successful AssumeRoleWithWebIdentity request, including temporary Amazon Web Services credentials that can be used to make Amazon Web Services requests.
   factory AssumeRoleWithWebIdentityResponse({
-    _i2.Credentials? credentials,
+    Credentials? credentials,
     String? subjectFromWebIdentityToken,
-    _i3.AssumedRoleUser? assumedRoleUser,
+    AssumedRoleUser? assumedRoleUser,
     int? packedPolicySize,
     String? provider,
     String? audience,
@@ -54,19 +54,19 @@ abstract class AssumeRoleWithWebIdentityResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<AssumeRoleWithWebIdentityResponse>>
+  static const List<_i2.SmithySerializer<AssumeRoleWithWebIdentityResponse>>
       serializers = [AssumeRoleWithWebIdentityResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security token.
   ///
   /// The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
 
   /// The unique user identifier that is returned by the identity provider. This identifier is associated with the `WebIdentityToken` that was submitted with the `AssumeRoleWithWebIdentity` call. The identifier is typically unique to the user and the application that acquired the `WebIdentityToken` (pairwise identifier). For OpenID Connect ID tokens, this field contains the value returned by the identity provider as the token's `sub` (Subject) claim.
   String? get subjectFromWebIdentityToken;
 
   /// The Amazon Resource Name (ARN) and the assumed role ID, which are identifiers that you can use to refer to the resulting temporary security credentials. For example, you can reference these credentials as a principal in a resource-based policy by using the ARN or assumed role ID. The ARN and ID include the `RoleSessionName` that you specified when you called `AssumeRole`.
-  _i3.AssumedRoleUser? get assumedRoleUser;
+  AssumedRoleUser? get assumedRoleUser;
 
   /// A percentage value that indicates the packed size of the session policies and session tags combined passed in the request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded the allowed space.
   int? get packedPolicySize;
@@ -130,7 +130,7 @@ abstract class AssumeRoleWithWebIdentityResponse
 }
 
 class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<AssumeRoleWithWebIdentityResponse> {
+    extends _i2.StructuredSmithySerializer<AssumeRoleWithWebIdentityResponse> {
   const AssumeRoleWithWebIdentityResponseAwsQuerySerializer()
       : super('AssumeRoleWithWebIdentityResponse');
 
@@ -140,8 +140,8 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         _$AssumeRoleWithWebIdentityResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -165,8 +165,8 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
         case 'SubjectFromWebIdentityToken':
           result.subjectFromWebIdentityToken = (serializers.deserialize(
             value,
@@ -175,8 +175,8 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         case 'AssumedRoleUser':
           result.assumedRoleUser.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AssumedRoleUser),
-          ) as _i3.AssumedRoleUser));
+            specifiedType: const FullType(AssumedRoleUser),
+          ) as AssumedRoleUser));
         case 'PackedPolicySize':
           result.packedPolicySize = (serializers.deserialize(
             value,
@@ -210,9 +210,9 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'AssumeRoleWithWebIdentityResponseResponse',
-        _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
+        _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final AssumeRoleWithWebIdentityResponse(
@@ -226,15 +226,15 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     ) = object;
     if (credentials != null) {
       result$
-        ..add(const _i4.XmlElementName('Credentials'))
+        ..add(const _i2.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     if (subjectFromWebIdentityToken != null) {
       result$
-        ..add(const _i4.XmlElementName('SubjectFromWebIdentityToken'))
+        ..add(const _i2.XmlElementName('SubjectFromWebIdentityToken'))
         ..add(serializers.serialize(
           subjectFromWebIdentityToken,
           specifiedType: const FullType(String),
@@ -242,15 +242,15 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     }
     if (assumedRoleUser != null) {
       result$
-        ..add(const _i4.XmlElementName('AssumedRoleUser'))
+        ..add(const _i2.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
-          specifiedType: const FullType(_i3.AssumedRoleUser),
+          specifiedType: const FullType(AssumedRoleUser),
         ));
     }
     if (packedPolicySize != null) {
       result$
-        ..add(const _i4.XmlElementName('PackedPolicySize'))
+        ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
           specifiedType: const FullType.nullable(int),
@@ -258,7 +258,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     }
     if (provider != null) {
       result$
-        ..add(const _i4.XmlElementName('Provider'))
+        ..add(const _i2.XmlElementName('Provider'))
         ..add(serializers.serialize(
           provider,
           specifiedType: const FullType(String),
@@ -266,7 +266,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     }
     if (audience != null) {
       result$
-        ..add(const _i4.XmlElementName('Audience'))
+        ..add(const _i2.XmlElementName('Audience'))
         ..add(serializers.serialize(
           audience,
           specifiedType: const FullType(String),
@@ -274,7 +274,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     }
     if (sourceIdentity != null) {
       result$
-        ..add(const _i4.XmlElementName('SourceIdentity'))
+        ..add(const _i2.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),

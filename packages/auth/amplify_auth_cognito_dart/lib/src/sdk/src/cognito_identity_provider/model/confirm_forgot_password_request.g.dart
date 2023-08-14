@@ -18,11 +18,11 @@ class _$ConfirmForgotPasswordRequest extends ConfirmForgotPasswordRequest {
   @override
   final String password;
   @override
-  final _i3.AnalyticsMetadataType? analyticsMetadata;
+  final AnalyticsMetadataType? analyticsMetadata;
   @override
-  final _i4.UserContextDataType? userContextData;
+  final UserContextDataType? userContextData;
   @override
-  final _i5.BuiltMap<String, String>? clientMetadata;
+  final _i3.BuiltMap<String, String>? clientMetadata;
 
   factory _$ConfirmForgotPasswordRequest(
           [void Function(ConfirmForgotPasswordRequestBuilder)? updates]) =>
@@ -114,27 +114,25 @@ class ConfirmForgotPasswordRequestBuilder
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
 
-  _i3.AnalyticsMetadataTypeBuilder? _analyticsMetadata;
-  _i3.AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new _i3.AnalyticsMetadataTypeBuilder();
-  set analyticsMetadata(_i3.AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
+  AnalyticsMetadataTypeBuilder? _analyticsMetadata;
+  AnalyticsMetadataTypeBuilder get analyticsMetadata =>
+      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+  set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
-  _i4.UserContextDataTypeBuilder? _userContextData;
-  _i4.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i4.UserContextDataTypeBuilder();
-  set userContextData(_i4.UserContextDataTypeBuilder? userContextData) =>
+  UserContextDataTypeBuilder? _userContextData;
+  UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new UserContextDataTypeBuilder();
+  set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
-  _i5.MapBuilder<String, String>? _clientMetadata;
-  _i5.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
-  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
+  _i3.MapBuilder<String, String>? _clientMetadata;
+  _i3.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+  set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  ConfirmForgotPasswordRequestBuilder() {
-    ConfirmForgotPasswordRequest._init(this);
-  }
+  ConfirmForgotPasswordRequestBuilder();
 
   ConfirmForgotPasswordRequestBuilder get _$this {
     final $v = _$v;

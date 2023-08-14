@@ -10,7 +10,7 @@ class _$GetDocumentationPartsRequest extends GetDocumentationPartsRequest {
   @override
   final String restApiId;
   @override
-  final _i3.DocumentationPartType? type;
+  final DocumentationPartType? type;
   @override
   final String? nameQuery;
   @override
@@ -20,7 +20,7 @@ class _$GetDocumentationPartsRequest extends GetDocumentationPartsRequest {
   @override
   final int? limit;
   @override
-  final _i4.LocationStatusType? locationStatus;
+  final LocationStatusType? locationStatus;
 
   factory _$GetDocumentationPartsRequest(
           [void Function(GetDocumentationPartsRequestBuilder)? updates]) =>
@@ -86,9 +86,9 @@ class GetDocumentationPartsRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.DocumentationPartType? _type;
-  _i3.DocumentationPartType? get type => _$this._type;
-  set type(_i3.DocumentationPartType? type) => _$this._type = type;
+  DocumentationPartType? _type;
+  DocumentationPartType? get type => _$this._type;
+  set type(DocumentationPartType? type) => _$this._type = type;
 
   String? _nameQuery;
   String? get nameQuery => _$this._nameQuery;
@@ -106,9 +106,9 @@ class GetDocumentationPartsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  _i4.LocationStatusType? _locationStatus;
-  _i4.LocationStatusType? get locationStatus => _$this._locationStatus;
-  set locationStatus(_i4.LocationStatusType? locationStatus) =>
+  LocationStatusType? _locationStatus;
+  LocationStatusType? get locationStatus => _$this._locationStatus;
+  set locationStatus(LocationStatusType? locationStatus) =>
       _$this._locationStatus = locationStatus;
 
   GetDocumentationPartsRequestBuilder();

@@ -9,19 +9,19 @@ part of 'get_service_last_accessed_details_with_entities_response.dart';
 class _$GetServiceLastAccessedDetailsWithEntitiesResponse
     extends GetServiceLastAccessedDetailsWithEntitiesResponse {
   @override
-  final _i2.JobStatusType jobStatus;
+  final JobStatusType jobStatus;
   @override
   final DateTime jobCreationDate;
   @override
   final DateTime jobCompletionDate;
   @override
-  final _i5.BuiltList<_i3.EntityDetails> entityDetailsList;
+  final _i2.BuiltList<EntityDetails> entityDetailsList;
   @override
   final bool isTruncated;
   @override
   final String? marker;
   @override
-  final _i4.ErrorDetails? error;
+  final ErrorDetails? error;
 
   factory _$GetServiceLastAccessedDetailsWithEntitiesResponse(
           [void Function(
@@ -104,9 +104,9 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseBuilder
             GetServiceLastAccessedDetailsWithEntitiesResponseBuilder> {
   _$GetServiceLastAccessedDetailsWithEntitiesResponse? _$v;
 
-  _i2.JobStatusType? _jobStatus;
-  _i2.JobStatusType? get jobStatus => _$this._jobStatus;
-  set jobStatus(_i2.JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
+  JobStatusType? _jobStatus;
+  JobStatusType? get jobStatus => _$this._jobStatus;
+  set jobStatus(JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
 
   DateTime? _jobCreationDate;
   DateTime? get jobCreationDate => _$this._jobCreationDate;
@@ -118,11 +118,10 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseBuilder
   set jobCompletionDate(DateTime? jobCompletionDate) =>
       _$this._jobCompletionDate = jobCompletionDate;
 
-  _i5.ListBuilder<_i3.EntityDetails>? _entityDetailsList;
-  _i5.ListBuilder<_i3.EntityDetails> get entityDetailsList =>
-      _$this._entityDetailsList ??= new _i5.ListBuilder<_i3.EntityDetails>();
-  set entityDetailsList(
-          _i5.ListBuilder<_i3.EntityDetails>? entityDetailsList) =>
+  _i2.ListBuilder<EntityDetails>? _entityDetailsList;
+  _i2.ListBuilder<EntityDetails> get entityDetailsList =>
+      _$this._entityDetailsList ??= new _i2.ListBuilder<EntityDetails>();
+  set entityDetailsList(_i2.ListBuilder<EntityDetails>? entityDetailsList) =>
       _$this._entityDetailsList = entityDetailsList;
 
   bool? _isTruncated;
@@ -133,10 +132,9 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  _i4.ErrorDetailsBuilder? _error;
-  _i4.ErrorDetailsBuilder get error =>
-      _$this._error ??= new _i4.ErrorDetailsBuilder();
-  set error(_i4.ErrorDetailsBuilder? error) => _$this._error = error;
+  ErrorDetailsBuilder? _error;
+  ErrorDetailsBuilder get error => _$this._error ??= new ErrorDetailsBuilder();
+  set error(ErrorDetailsBuilder? error) => _$this._error = error;
 
   GetServiceLastAccessedDetailsWithEntitiesResponseBuilder() {
     GetServiceLastAccessedDetailsWithEntitiesResponse._init(this);

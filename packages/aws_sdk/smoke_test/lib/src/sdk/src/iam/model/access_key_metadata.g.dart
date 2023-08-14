@@ -12,7 +12,7 @@ class _$AccessKeyMetadata extends AccessKeyMetadata {
   @override
   final String? accessKeyId;
   @override
-  final _i2.StatusType? status;
+  final StatusType? status;
   @override
   final DateTime? createDate;
 
@@ -66,9 +66,9 @@ class AccessKeyMetadataBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  _i2.StatusType? _status;
-  _i2.StatusType? get status => _$this._status;
-  set status(_i2.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   DateTime? _createDate;
   DateTime? get createDate => _$this._createDate;

@@ -10,16 +10,16 @@ class _$ReplicaAutoScalingDescription extends ReplicaAutoScalingDescription {
   @override
   final String? regionName;
   @override
-  final _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
+  final _i2.BuiltList<ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       globalSecondaryIndexes;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       replicaProvisionedReadCapacityAutoScalingSettings;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       replicaProvisionedWriteCapacityAutoScalingSettings;
   @override
-  final _i4.ReplicaStatus? replicaStatus;
+  final ReplicaStatus? replicaStatus;
 
   factory _$ReplicaAutoScalingDescription(
           [void Function(ReplicaAutoScalingDescriptionBuilder)? updates]) =>
@@ -80,44 +80,43 @@ class ReplicaAutoScalingDescriptionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       _globalSecondaryIndexes;
-  _i5.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>
-      get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??= new _i5
-          .ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>();
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingDescription>
+      get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??= new _i2
+          .ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingDescription>();
   set globalSecondaryIndexes(
-          _i5.ListBuilder<
-                  _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
+          _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingDescription>?
               globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _replicaProvisionedReadCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get replicaProvisionedReadCapacityAutoScalingSettings =>
           _$this._replicaProvisionedReadCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set replicaProvisionedReadCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               replicaProvisionedReadCapacityAutoScalingSettings) =>
       _$this._replicaProvisionedReadCapacityAutoScalingSettings =
           replicaProvisionedReadCapacityAutoScalingSettings;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _replicaProvisionedWriteCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get replicaProvisionedWriteCapacityAutoScalingSettings =>
           _$this._replicaProvisionedWriteCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set replicaProvisionedWriteCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               replicaProvisionedWriteCapacityAutoScalingSettings) =>
       _$this._replicaProvisionedWriteCapacityAutoScalingSettings =
           replicaProvisionedWriteCapacityAutoScalingSettings;
 
-  _i4.ReplicaStatus? _replicaStatus;
-  _i4.ReplicaStatus? get replicaStatus => _$this._replicaStatus;
-  set replicaStatus(_i4.ReplicaStatus? replicaStatus) =>
+  ReplicaStatus? _replicaStatus;
+  ReplicaStatus? get replicaStatus => _$this._replicaStatus;
+  set replicaStatus(ReplicaStatus? replicaStatus) =>
       _$this._replicaStatus = replicaStatus;
 
   ReplicaAutoScalingDescriptionBuilder();

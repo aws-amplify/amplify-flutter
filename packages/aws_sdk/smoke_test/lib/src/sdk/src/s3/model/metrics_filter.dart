@@ -6,9 +6,8 @@ library smoke_test.s3.model.metrics_filter; // ignore_for_file: no_leading_under
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 /// Specifies a metrics configuration filter. The metrics configuration only includes objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator). For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketMetricsConfiguration.html).
 sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
@@ -20,7 +19,7 @@ sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
     required String key,
     required String value,
   }) =>
-      MetricsFilterTag$(_i2.Tag(
+      MetricsFilterTag$(Tag(
         key: key,
         value: value,
       ));
@@ -30,10 +29,10 @@ sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
 
   factory MetricsFilter.and({
     String? prefix,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
     String? accessPointArn,
   }) =>
-      MetricsFilterAnd$(_i3.MetricsAndOperator(
+      MetricsFilterAnd$(MetricsAndOperator(
         prefix: prefix,
         tags: tags,
         accessPointArn: accessPointArn,
@@ -52,13 +51,13 @@ sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   String? get prefix => null;
 
   /// The tag used when evaluating a metrics filter.
-  _i2.Tag? get tag => null;
+  Tag? get tag => null;
 
   /// The access point ARN used when evaluating a metrics filter.
   String? get accessPointArn => null;
 
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
-  _i3.MetricsAndOperator? get and => null;
+  MetricsAndOperator? get and => null;
   @override
   Object get value => (prefix ?? tag ?? accessPointArn ?? and)!;
   @override
@@ -106,7 +105,7 @@ final class MetricsFilterTag$ extends MetricsFilter {
   const MetricsFilterTag$(this.tag) : super._();
 
   @override
-  final _i2.Tag tag;
+  final Tag tag;
 
   @override
   String get name => 'Tag';
@@ -126,7 +125,7 @@ final class MetricsFilterAnd$ extends MetricsFilter {
   const MetricsFilterAnd$(this.and) : super._();
 
   @override
-  final _i3.MetricsAndOperator and;
+  final MetricsAndOperator and;
 
   @override
   String get name => 'And';
@@ -180,8 +179,8 @@ class MetricsFilterRestXmlSerializer
       case 'Tag':
         return MetricsFilterTag$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.Tag),
-        ) as _i2.Tag));
+          specifiedType: const FullType(Tag),
+        ) as Tag));
       case 'AccessPointArn':
         return MetricsFilterAccessPointArn$((serializers.deserialize(
           value,
@@ -190,8 +189,8 @@ class MetricsFilterRestXmlSerializer
       case 'And':
         return MetricsFilterAnd$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.MetricsAndOperator),
-        ) as _i3.MetricsAndOperator));
+          specifiedType: const FullType(MetricsAndOperator),
+        ) as MetricsAndOperator));
     }
     return MetricsFilter.sdkUnknown(
       key,
@@ -214,7 +213,7 @@ class MetricsFilterRestXmlSerializer
           ),
         MetricsFilterTag$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
+            specifiedType: const FullType(Tag),
           ),
         MetricsFilterAccessPointArn$(:final value) => serializers.serialize(
             value,
@@ -222,7 +221,7 @@ class MetricsFilterRestXmlSerializer
           ),
         MetricsFilterAnd$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i3.MetricsAndOperator),
+            specifiedType: const FullType(MetricsAndOperator),
           ),
         MetricsFilterSdkUnknown$(:final value) => value,
       },

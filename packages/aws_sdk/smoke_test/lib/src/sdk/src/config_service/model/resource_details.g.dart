@@ -14,7 +14,7 @@ class _$ResourceDetails extends ResourceDetails {
   @override
   final String resourceConfiguration;
   @override
-  final _i2.ResourceConfigurationSchemaType? resourceConfigurationSchemaType;
+  final ResourceConfigurationSchemaType? resourceConfigurationSchemaType;
 
   factory _$ResourceDetails([void Function(ResourceDetailsBuilder)? updates]) =>
       (new ResourceDetailsBuilder()..update(updates))._build();
@@ -81,12 +81,11 @@ class ResourceDetailsBuilder
   set resourceConfiguration(String? resourceConfiguration) =>
       _$this._resourceConfiguration = resourceConfiguration;
 
-  _i2.ResourceConfigurationSchemaType? _resourceConfigurationSchemaType;
-  _i2.ResourceConfigurationSchemaType? get resourceConfigurationSchemaType =>
+  ResourceConfigurationSchemaType? _resourceConfigurationSchemaType;
+  ResourceConfigurationSchemaType? get resourceConfigurationSchemaType =>
       _$this._resourceConfigurationSchemaType;
   set resourceConfigurationSchemaType(
-          _i2.ResourceConfigurationSchemaType?
-              resourceConfigurationSchemaType) =>
+          ResourceConfigurationSchemaType? resourceConfigurationSchemaType) =>
       _$this._resourceConfigurationSchemaType = resourceConfigurationSchemaType;
 
   ResourceDetailsBuilder();

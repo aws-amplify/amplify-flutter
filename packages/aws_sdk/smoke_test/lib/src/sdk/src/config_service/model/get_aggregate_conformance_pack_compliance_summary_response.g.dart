@@ -9,7 +9,7 @@ part of 'get_aggregate_conformance_pack_compliance_summary_response.dart';
 class _$GetAggregateConformancePackComplianceSummaryResponse
     extends GetAggregateConformancePackComplianceSummaryResponse {
   @override
-  final _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>?
+  final _i2.BuiltList<AggregateConformancePackComplianceSummary>?
       aggregateConformancePackComplianceSummaries;
   @override
   final String? groupByKey;
@@ -69,14 +69,14 @@ class GetAggregateConformancePackComplianceSummaryResponseBuilder
             GetAggregateConformancePackComplianceSummaryResponseBuilder> {
   _$GetAggregateConformancePackComplianceSummaryResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregateConformancePackComplianceSummary>?
+  _i2.ListBuilder<AggregateConformancePackComplianceSummary>?
       _aggregateConformancePackComplianceSummaries;
-  _i3.ListBuilder<_i2.AggregateConformancePackComplianceSummary>
-      get aggregateConformancePackComplianceSummaries => _$this
-              ._aggregateConformancePackComplianceSummaries ??=
-          new _i3.ListBuilder<_i2.AggregateConformancePackComplianceSummary>();
+  _i2.ListBuilder<AggregateConformancePackComplianceSummary>
+      get aggregateConformancePackComplianceSummaries =>
+          _$this._aggregateConformancePackComplianceSummaries ??=
+              new _i2.ListBuilder<AggregateConformancePackComplianceSummary>();
   set aggregateConformancePackComplianceSummaries(
-          _i3.ListBuilder<_i2.AggregateConformancePackComplianceSummary>?
+          _i2.ListBuilder<AggregateConformancePackComplianceSummary>?
               aggregateConformancePackComplianceSummaries) =>
       _$this._aggregateConformancePackComplianceSummaries =
           aggregateConformancePackComplianceSummaries;

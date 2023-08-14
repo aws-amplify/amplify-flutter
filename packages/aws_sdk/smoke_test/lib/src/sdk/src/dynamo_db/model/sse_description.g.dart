@@ -8,9 +8,9 @@ part of 'sse_description.dart';
 
 class _$SseDescription extends SseDescription {
   @override
-  final _i2.SseStatus? status;
+  final SseStatus? status;
   @override
-  final _i3.SseType? sseType;
+  final SseType? sseType;
   @override
   final String? kmsMasterKeyArn;
   @override
@@ -60,13 +60,13 @@ class SseDescriptionBuilder
     implements Builder<SseDescription, SseDescriptionBuilder> {
   _$SseDescription? _$v;
 
-  _i2.SseStatus? _status;
-  _i2.SseStatus? get status => _$this._status;
-  set status(_i2.SseStatus? status) => _$this._status = status;
+  SseStatus? _status;
+  SseStatus? get status => _$this._status;
+  set status(SseStatus? status) => _$this._status = status;
 
-  _i3.SseType? _sseType;
-  _i3.SseType? get sseType => _$this._sseType;
-  set sseType(_i3.SseType? sseType) => _$this._sseType = sseType;
+  SseType? _sseType;
+  SseType? get sseType => _$this._sseType;
+  set sseType(SseType? sseType) => _$this._sseType = sseType;
 
   String? _kmsMasterKeyArn;
   String? get kmsMasterKeyArn => _$this._kmsMasterKeyArn;

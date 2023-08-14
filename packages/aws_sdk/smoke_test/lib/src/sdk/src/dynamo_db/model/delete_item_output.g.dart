@@ -8,11 +8,11 @@ part of 'delete_item_output.dart';
 
 class _$DeleteItemOutput extends DeleteItemOutput {
   @override
-  final _i5.BuiltMap<String, _i2.AttributeValue>? attributes;
+  final _i2.BuiltMap<String, AttributeValue>? attributes;
   @override
-  final _i3.ConsumedCapacity? consumedCapacity;
+  final ConsumedCapacity? consumedCapacity;
   @override
-  final _i4.ItemCollectionMetrics? itemCollectionMetrics;
+  final ItemCollectionMetrics? itemCollectionMetrics;
 
   factory _$DeleteItemOutput(
           [void Function(DeleteItemOutputBuilder)? updates]) =>
@@ -54,23 +54,23 @@ class DeleteItemOutputBuilder
     implements Builder<DeleteItemOutput, DeleteItemOutputBuilder> {
   _$DeleteItemOutput? _$v;
 
-  _i5.MapBuilder<String, _i2.AttributeValue>? _attributes;
-  _i5.MapBuilder<String, _i2.AttributeValue> get attributes =>
-      _$this._attributes ??= new _i5.MapBuilder<String, _i2.AttributeValue>();
-  set attributes(_i5.MapBuilder<String, _i2.AttributeValue>? attributes) =>
+  _i2.MapBuilder<String, AttributeValue>? _attributes;
+  _i2.MapBuilder<String, AttributeValue> get attributes =>
+      _$this._attributes ??= new _i2.MapBuilder<String, AttributeValue>();
+  set attributes(_i2.MapBuilder<String, AttributeValue>? attributes) =>
       _$this._attributes = attributes;
 
-  _i3.ConsumedCapacityBuilder? _consumedCapacity;
-  _i3.ConsumedCapacityBuilder get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i3.ConsumedCapacityBuilder();
-  set consumedCapacity(_i3.ConsumedCapacityBuilder? consumedCapacity) =>
+  ConsumedCapacityBuilder? _consumedCapacity;
+  ConsumedCapacityBuilder get consumedCapacity =>
+      _$this._consumedCapacity ??= new ConsumedCapacityBuilder();
+  set consumedCapacity(ConsumedCapacityBuilder? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  _i4.ItemCollectionMetricsBuilder? _itemCollectionMetrics;
-  _i4.ItemCollectionMetricsBuilder get itemCollectionMetrics =>
-      _$this._itemCollectionMetrics ??= new _i4.ItemCollectionMetricsBuilder();
+  ItemCollectionMetricsBuilder? _itemCollectionMetrics;
+  ItemCollectionMetricsBuilder get itemCollectionMetrics =>
+      _$this._itemCollectionMetrics ??= new ItemCollectionMetricsBuilder();
   set itemCollectionMetrics(
-          _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
+          ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
   DeleteItemOutputBuilder();

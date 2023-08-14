@@ -9,15 +9,14 @@ part of 'update_table_replica_auto_scaling_input.dart';
 class _$UpdateTableReplicaAutoScalingInput
     extends UpdateTableReplicaAutoScalingInput {
   @override
-  final _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
+  final _i3.BuiltList<GlobalSecondaryIndexAutoScalingUpdate>?
       globalSecondaryIndexUpdates;
   @override
   final String tableName;
   @override
-  final _i4.AutoScalingSettingsUpdate?
-      provisionedWriteCapacityAutoScalingUpdate;
+  final AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate;
   @override
-  final _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>? replicaUpdates;
+  final _i3.BuiltList<ReplicaAutoScalingUpdate>? replicaUpdates;
 
   factory _$UpdateTableReplicaAutoScalingInput(
           [void Function(UpdateTableReplicaAutoScalingInputBuilder)?
@@ -73,13 +72,13 @@ class UpdateTableReplicaAutoScalingInputBuilder
             UpdateTableReplicaAutoScalingInputBuilder> {
   _$UpdateTableReplicaAutoScalingInput? _$v;
 
-  _i6.ListBuilder<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
+  _i3.ListBuilder<GlobalSecondaryIndexAutoScalingUpdate>?
       _globalSecondaryIndexUpdates;
-  _i6.ListBuilder<_i3.GlobalSecondaryIndexAutoScalingUpdate>
+  _i3.ListBuilder<GlobalSecondaryIndexAutoScalingUpdate>
       get globalSecondaryIndexUpdates => _$this._globalSecondaryIndexUpdates ??=
-          new _i6.ListBuilder<_i3.GlobalSecondaryIndexAutoScalingUpdate>();
+          new _i3.ListBuilder<GlobalSecondaryIndexAutoScalingUpdate>();
   set globalSecondaryIndexUpdates(
-          _i6.ListBuilder<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
+          _i3.ListBuilder<GlobalSecondaryIndexAutoScalingUpdate>?
               globalSecondaryIndexUpdates) =>
       _$this._globalSecondaryIndexUpdates = globalSecondaryIndexUpdates;
 
@@ -87,24 +86,23 @@ class UpdateTableReplicaAutoScalingInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i4.AutoScalingSettingsUpdateBuilder?
-      _provisionedWriteCapacityAutoScalingUpdate;
-  _i4.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder? _provisionedWriteCapacityAutoScalingUpdate;
+  AutoScalingSettingsUpdateBuilder
       get provisionedWriteCapacityAutoScalingUpdate =>
           _$this._provisionedWriteCapacityAutoScalingUpdate ??=
-              new _i4.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set provisionedWriteCapacityAutoScalingUpdate(
-          _i4.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               provisionedWriteCapacityAutoScalingUpdate) =>
       _$this._provisionedWriteCapacityAutoScalingUpdate =
           provisionedWriteCapacityAutoScalingUpdate;
 
-  _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>? _replicaUpdates;
-  _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate> get replicaUpdates =>
+  _i3.ListBuilder<ReplicaAutoScalingUpdate>? _replicaUpdates;
+  _i3.ListBuilder<ReplicaAutoScalingUpdate> get replicaUpdates =>
       _$this._replicaUpdates ??=
-          new _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>();
+          new _i3.ListBuilder<ReplicaAutoScalingUpdate>();
   set replicaUpdates(
-          _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>? replicaUpdates) =>
+          _i3.ListBuilder<ReplicaAutoScalingUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
   UpdateTableReplicaAutoScalingInputBuilder();

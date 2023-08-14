@@ -22,11 +22,11 @@ class _$BackupSummary extends BackupSummary {
   @override
   final DateTime? backupExpiryDateTime;
   @override
-  final _i2.BackupStatus? backupStatus;
+  final BackupStatus? backupStatus;
   @override
-  final _i3.BackupType? backupType;
+  final BackupType? backupType;
   @override
-  final _i4.Int64? backupSizeBytes;
+  final _i2.Int64? backupSizeBytes;
 
   factory _$BackupSummary([void Function(BackupSummaryBuilder)? updates]) =>
       (new BackupSummaryBuilder()..update(updates))._build();
@@ -119,18 +119,18 @@ class BackupSummaryBuilder
   set backupExpiryDateTime(DateTime? backupExpiryDateTime) =>
       _$this._backupExpiryDateTime = backupExpiryDateTime;
 
-  _i2.BackupStatus? _backupStatus;
-  _i2.BackupStatus? get backupStatus => _$this._backupStatus;
-  set backupStatus(_i2.BackupStatus? backupStatus) =>
+  BackupStatus? _backupStatus;
+  BackupStatus? get backupStatus => _$this._backupStatus;
+  set backupStatus(BackupStatus? backupStatus) =>
       _$this._backupStatus = backupStatus;
 
-  _i3.BackupType? _backupType;
-  _i3.BackupType? get backupType => _$this._backupType;
-  set backupType(_i3.BackupType? backupType) => _$this._backupType = backupType;
+  BackupType? _backupType;
+  BackupType? get backupType => _$this._backupType;
+  set backupType(BackupType? backupType) => _$this._backupType = backupType;
 
-  _i4.Int64? _backupSizeBytes;
-  _i4.Int64? get backupSizeBytes => _$this._backupSizeBytes;
-  set backupSizeBytes(_i4.Int64? backupSizeBytes) =>
+  _i2.Int64? _backupSizeBytes;
+  _i2.Int64? get backupSizeBytes => _$this._backupSizeBytes;
+  set backupSizeBytes(_i2.Int64? backupSizeBytes) =>
       _$this._backupSizeBytes = backupSizeBytes;
 
   BackupSummaryBuilder();

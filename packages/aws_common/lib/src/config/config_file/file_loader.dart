@@ -5,6 +5,7 @@
 library aws_common.config_file.file_loader;
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:aws_common/src/config/aws_profile_file.dart';
 import 'package:aws_common/src/config/config_file/file_loader_stub.dart'
     if (dart.library.io) 'package:aws_common/src/config/config_file/file_loader_io.dart';

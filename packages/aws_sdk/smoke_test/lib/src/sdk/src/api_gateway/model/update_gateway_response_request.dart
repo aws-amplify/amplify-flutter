@@ -4,15 +4,13 @@
 library smoke_test.api_gateway.model.update_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart';
 
 part 'update_gateway_response_request.g.dart';
 
@@ -28,14 +26,14 @@ abstract class UpdateGatewayResponseRequest
   /// Updates a GatewayResponse of a specified response type on the given RestApi.
   factory UpdateGatewayResponseRequest({
     required String restApiId,
-    required _i3.GatewayResponseType responseType,
-    List<_i4.PatchOperation>? patchOperations,
+    required GatewayResponseType responseType,
+    List<PatchOperation>? patchOperations,
   }) {
     return _$UpdateGatewayResponseRequest._(
       restApiId: restApiId,
       responseType: responseType,
       patchOperations:
-          patchOperations == null ? null : _i5.BuiltList(patchOperations),
+          patchOperations == null ? null : _i3.BuiltList(patchOperations),
     );
   }
 
@@ -60,7 +58,7 @@ abstract class UpdateGatewayResponseRequest
         }
         if (labels['responseType'] != null) {
           b.responseType =
-              _i3.GatewayResponseType.values.byValue(labels['responseType']!);
+              GatewayResponseType.values.byValue(labels['responseType']!);
         }
       });
 
@@ -71,10 +69,10 @@ abstract class UpdateGatewayResponseRequest
   String get restApiId;
 
   /// The response type of the associated GatewayResponse.
-  _i3.GatewayResponseType get responseType;
+  GatewayResponseType get responseType;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i5.BuiltList<_i4.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -121,7 +119,7 @@ abstract class UpdateGatewayResponseRequest
   }
 }
 
-@_i6.internal
+@_i4.internal
 abstract class UpdateGatewayResponseRequestPayload
     with
         _i2.AWSEquatable<UpdateGatewayResponseRequestPayload>
@@ -135,7 +133,7 @@ abstract class UpdateGatewayResponseRequestPayload
   const UpdateGatewayResponseRequestPayload._();
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i5.BuiltList<_i4.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
@@ -189,10 +187,10 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
           result.patchOperations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.PatchOperation)],
+              _i3.BuiltList,
+              [FullType(PatchOperation)],
             ),
-          ) as _i5.BuiltList<_i4.PatchOperation>));
+          ) as _i3.BuiltList<PatchOperation>));
       }
     }
 
@@ -213,8 +211,8 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
         ..add(serializers.serialize(
           patchOperations,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.PatchOperation)],
+            _i3.BuiltList,
+            [FullType(PatchOperation)],
           ),
         ));
     }

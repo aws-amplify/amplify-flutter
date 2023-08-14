@@ -3,28 +3,27 @@
 
 library smoke_test.s3.model.put_public_access_block_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/public_access_block_configuration.dart'
-    as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/public_access_block_configuration.dart';
 
 part 'put_public_access_block_request.g.dart';
 
 abstract class PutPublicAccessBlockRequest
     with
-        _i1.HttpInput<_i2.PublicAccessBlockConfiguration>,
-        _i3.AWSEquatable<PutPublicAccessBlockRequest>
+        _i1.HttpInput<PublicAccessBlockConfiguration>,
+        _i2.AWSEquatable<PutPublicAccessBlockRequest>
     implements
         Built<PutPublicAccessBlockRequest, PutPublicAccessBlockRequestBuilder>,
-        _i1.HasPayload<_i2.PublicAccessBlockConfiguration> {
+        _i1.HasPayload<PublicAccessBlockConfiguration> {
   factory PutPublicAccessBlockRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.PublicAccessBlockConfiguration publicAccessBlockConfiguration,
+    ChecksumAlgorithm? checksumAlgorithm,
+    required PublicAccessBlockConfiguration publicAccessBlockConfiguration,
     String? expectedBucketOwner,
   }) {
     return _$PutPublicAccessBlockRequest._(
@@ -43,8 +42,8 @@ abstract class PutPublicAccessBlockRequest
   const PutPublicAccessBlockRequest._();
 
   factory PutPublicAccessBlockRequest.fromRequest(
-    _i2.PublicAccessBlockConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    PublicAccessBlockConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutPublicAccessBlockRequest.build((b) {
@@ -53,7 +52,7 @@ abstract class PutPublicAccessBlockRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -65,7 +64,7 @@ abstract class PutPublicAccessBlockRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.PublicAccessBlockConfiguration>>
+  static const List<_i1.SmithySerializer<PublicAccessBlockConfiguration>>
       serializers = [PutPublicAccessBlockRequestRestXmlSerializer()];
 
   /// The name of the Amazon S3 bucket whose `PublicAccessBlock` configuration you want to set.
@@ -79,10 +78,10 @@ abstract class PutPublicAccessBlockRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The `PublicAccessBlock` configuration that you want to apply to this Amazon S3 bucket. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status) in the _Amazon S3 User Guide_.
-  _i2.PublicAccessBlockConfiguration get publicAccessBlockConfiguration;
+  PublicAccessBlockConfiguration get publicAccessBlockConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -99,8 +98,7 @@ abstract class PutPublicAccessBlockRequest
   }
 
   @override
-  _i2.PublicAccessBlockConfiguration getPayload() =>
-      publicAccessBlockConfiguration;
+  PublicAccessBlockConfiguration getPayload() => publicAccessBlockConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -137,7 +135,7 @@ abstract class PutPublicAccessBlockRequest
 }
 
 class PutPublicAccessBlockRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.PublicAccessBlockConfiguration> {
+    extends _i1.StructuredSmithySerializer<PublicAccessBlockConfiguration> {
   const PutPublicAccessBlockRequestRestXmlSerializer()
       : super('PutPublicAccessBlockRequest');
 
@@ -154,12 +152,12 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.PublicAccessBlockConfiguration deserialize(
+  PublicAccessBlockConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.PublicAccessBlockConfigurationBuilder();
+    final result = PublicAccessBlockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -198,7 +196,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.PublicAccessBlockConfiguration object, {
+    PublicAccessBlockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -207,7 +205,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.PublicAccessBlockConfiguration(
+    final PublicAccessBlockConfiguration(
       :blockPublicAcls,
       :ignorePublicAcls,
       :blockPublicPolicy,

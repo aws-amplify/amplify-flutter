@@ -3,21 +3,17 @@
 
 library smoke_test.iam.operation.delete_account_password_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i4;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i9;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
 
 /// Deletes the password policy for the Amazon Web Services account. There are no parameters.
 class DeleteAccountPasswordPolicyOperation
@@ -27,7 +23,7 @@ class DeleteAccountPasswordPolicyOperation
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -40,13 +36,13 @@ class DeleteAccountPasswordPolicyOperation
   late final List<_i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>>
       protocols = [
     _i3.AwsQueryProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             _i3.WithSigV4(
               region: _region,
-              service: _i5.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
@@ -78,8 +74,8 @@ class DeleteAccountPasswordPolicyOperation
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
-    _i6.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -103,41 +99,40 @@ class DeleteAccountPasswordPolicyOperation
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i5.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i7.LimitExceededException, _i7.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i7.LimitExceededException,
+          LimitExceededException,
           statusCode: 409,
-          builder: _i7.LimitExceededException.fromResponse,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i8.NoSuchEntityException, _i8.NoSuchEntityException>(
+        _i1.SmithyError<NoSuchEntityException, NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i8.NoSuchEntityException,
+          NoSuchEntityException,
           statusCode: 404,
-          builder: _i8.NoSuchEntityException.fromResponse,
+          builder: NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i9.ServiceFailureException,
-            _i9.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i9.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i9.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         ),
       ];
   @override
@@ -151,10 +146,10 @@ class DeleteAccountPasswordPolicyOperation
   @override
   _i1.SmithyOperation<_i1.Unit> run(
     _i1.Unit input, {
-    _i5.AWSHttpClient? client,
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i10.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -162,7 +157,7 @@ class DeleteAccountPasswordPolicyOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

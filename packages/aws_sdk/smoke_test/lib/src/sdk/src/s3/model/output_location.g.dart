@@ -8,7 +8,7 @@ part of 'output_location.dart';
 
 class _$OutputLocation extends OutputLocation {
   @override
-  final _i2.S3Location? s3;
+  final S3Location? s3;
 
   factory _$OutputLocation([void Function(OutputLocationBuilder)? updates]) =>
       (new OutputLocationBuilder()..update(updates))._build();
@@ -42,9 +42,9 @@ class OutputLocationBuilder
     implements Builder<OutputLocation, OutputLocationBuilder> {
   _$OutputLocation? _$v;
 
-  _i2.S3LocationBuilder? _s3;
-  _i2.S3LocationBuilder get s3 => _$this._s3 ??= new _i2.S3LocationBuilder();
-  set s3(_i2.S3LocationBuilder? s3) => _$this._s3 = s3;
+  S3LocationBuilder? _s3;
+  S3LocationBuilder get s3 => _$this._s3 ??= new S3LocationBuilder();
+  set s3(S3LocationBuilder? s3) => _$this._s3 = s3;
 
   OutputLocationBuilder();
 

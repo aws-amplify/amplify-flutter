@@ -117,7 +117,7 @@ void main() {
         safePrint('Got object: $response');
         expect(response.contentType, 'application/json');
         final body = await utf8.decodeStream(
-          response.body ?? const Stream.empty(),
+          response.body,
         );
         expect(jsonDecode(body), equals(data));
       }
@@ -201,7 +201,7 @@ void main() {
           )
           .result;
       var progress = 0;
-      final subscription = response.body!.listen(
+      final subscription = response.body.listen(
         (chunk) => progress += chunk.length,
       );
       await Future<void>.delayed(const Duration(milliseconds: 50));

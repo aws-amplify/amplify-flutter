@@ -12,7 +12,7 @@ class _$Evaluation extends Evaluation {
   @override
   final String complianceResourceId;
   @override
-  final _i2.ComplianceType complianceType;
+  final ComplianceType complianceType;
   @override
   final String? annotation;
   @override
@@ -82,9 +82,9 @@ class EvaluationBuilder implements Builder<Evaluation, EvaluationBuilder> {
   set complianceResourceId(String? complianceResourceId) =>
       _$this._complianceResourceId = complianceResourceId;
 
-  _i2.ComplianceType? _complianceType;
-  _i2.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i2.ComplianceType? complianceType) =>
+  ComplianceType? _complianceType;
+  ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   String? _annotation;

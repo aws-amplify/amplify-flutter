@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.batch_get_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/base_configuration_item.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/base_configuration_item.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart';
 
 part 'batch_get_resource_config_response.g.dart';
 
@@ -22,16 +20,16 @@ abstract class BatchGetResourceConfigResponse
         Built<BatchGetResourceConfigResponse,
             BatchGetResourceConfigResponseBuilder> {
   factory BatchGetResourceConfigResponse({
-    List<_i2.BaseConfigurationItem>? baseConfigurationItems,
-    List<_i3.ResourceKey>? unprocessedResourceKeys,
+    List<BaseConfigurationItem>? baseConfigurationItems,
+    List<ResourceKey>? unprocessedResourceKeys,
   }) {
     return _$BatchGetResourceConfigResponse._(
       baseConfigurationItems: baseConfigurationItems == null
           ? null
-          : _i4.BuiltList(baseConfigurationItems),
+          : _i2.BuiltList(baseConfigurationItems),
       unprocessedResourceKeys: unprocessedResourceKeys == null
           ? null
-          : _i4.BuiltList(unprocessedResourceKeys),
+          : _i2.BuiltList(unprocessedResourceKeys),
     );
   }
 
@@ -48,14 +46,14 @@ abstract class BatchGetResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<BatchGetResourceConfigResponse>>
+  static const List<_i3.SmithySerializer<BatchGetResourceConfigResponse>>
       serializers = [BatchGetResourceConfigResponseAwsJson11Serializer()];
 
   /// A list that contains the current configuration of one or more resources.
-  _i4.BuiltList<_i2.BaseConfigurationItem>? get baseConfigurationItems;
+  _i2.BuiltList<BaseConfigurationItem>? get baseConfigurationItems;
 
   /// A list of resource keys that were not processed with the current response. The unprocessesResourceKeys value is in the same form as ResourceKeys, so the value can be directly provided to a subsequent BatchGetResourceConfig operation. If there are no unprocessed resource keys, the response contains an empty unprocessedResourceKeys list.
-  _i4.BuiltList<_i3.ResourceKey>? get unprocessedResourceKeys;
+  _i2.BuiltList<ResourceKey>? get unprocessedResourceKeys;
   @override
   List<Object?> get props => [
         baseConfigurationItems,
@@ -77,7 +75,7 @@ abstract class BatchGetResourceConfigResponse
 }
 
 class BatchGetResourceConfigResponseAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<BatchGetResourceConfigResponse> {
+    extends _i3.StructuredSmithySerializer<BatchGetResourceConfigResponse> {
   const BatchGetResourceConfigResponseAwsJson11Serializer()
       : super('BatchGetResourceConfigResponse');
 
@@ -87,8 +85,8 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
         _$BatchGetResourceConfigResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,18 +111,18 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
           result.baseConfigurationItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.BaseConfigurationItem)],
+              _i2.BuiltList,
+              [FullType(BaseConfigurationItem)],
             ),
-          ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
+          ) as _i2.BuiltList<BaseConfigurationItem>));
         case 'unprocessedResourceKeys':
           result.unprocessedResourceKeys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ResourceKey)],
+              _i2.BuiltList,
+              [FullType(ResourceKey)],
             ),
-          ) as _i4.BuiltList<_i3.ResourceKey>));
+          ) as _i2.BuiltList<ResourceKey>));
       }
     }
 
@@ -148,8 +146,8 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
         ..add(serializers.serialize(
           baseConfigurationItems,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.BaseConfigurationItem)],
+            _i2.BuiltList,
+            [FullType(BaseConfigurationItem)],
           ),
         ));
     }
@@ -159,8 +157,8 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
         ..add(serializers.serialize(
           unprocessedResourceKeys,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ResourceKey)],
+            _i2.BuiltList,
+            [FullType(ResourceKey)],
           ),
         ));
     }

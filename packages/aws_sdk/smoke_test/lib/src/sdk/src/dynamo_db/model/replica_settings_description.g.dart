@@ -10,24 +10,24 @@ class _$ReplicaSettingsDescription extends ReplicaSettingsDescription {
   @override
   final String regionName;
   @override
-  final _i2.ReplicaStatus? replicaStatus;
+  final ReplicaStatus? replicaStatus;
   @override
-  final _i3.BillingModeSummary? replicaBillingModeSummary;
+  final BillingModeSummary? replicaBillingModeSummary;
   @override
-  final _i4.Int64? replicaProvisionedReadCapacityUnits;
+  final _i2.Int64? replicaProvisionedReadCapacityUnits;
   @override
-  final _i5.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       replicaProvisionedReadCapacityAutoScalingSettings;
   @override
-  final _i4.Int64? replicaProvisionedWriteCapacityUnits;
+  final _i2.Int64? replicaProvisionedWriteCapacityUnits;
   @override
-  final _i5.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       replicaProvisionedWriteCapacityAutoScalingSettings;
   @override
-  final _i8.BuiltList<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>?
+  final _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsDescription>?
       replicaGlobalSecondaryIndexSettings;
   @override
-  final _i7.TableClassSummary? replicaTableClassSummary;
+  final TableClassSummary? replicaTableClassSummary;
 
   factory _$ReplicaSettingsDescription(
           [void Function(ReplicaSettingsDescriptionBuilder)? updates]) =>
@@ -105,75 +105,75 @@ class ReplicaSettingsDescriptionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  _i2.ReplicaStatus? _replicaStatus;
-  _i2.ReplicaStatus? get replicaStatus => _$this._replicaStatus;
-  set replicaStatus(_i2.ReplicaStatus? replicaStatus) =>
+  ReplicaStatus? _replicaStatus;
+  ReplicaStatus? get replicaStatus => _$this._replicaStatus;
+  set replicaStatus(ReplicaStatus? replicaStatus) =>
       _$this._replicaStatus = replicaStatus;
 
-  _i3.BillingModeSummaryBuilder? _replicaBillingModeSummary;
-  _i3.BillingModeSummaryBuilder get replicaBillingModeSummary =>
-      _$this._replicaBillingModeSummary ??= new _i3.BillingModeSummaryBuilder();
+  BillingModeSummaryBuilder? _replicaBillingModeSummary;
+  BillingModeSummaryBuilder get replicaBillingModeSummary =>
+      _$this._replicaBillingModeSummary ??= new BillingModeSummaryBuilder();
   set replicaBillingModeSummary(
-          _i3.BillingModeSummaryBuilder? replicaBillingModeSummary) =>
+          BillingModeSummaryBuilder? replicaBillingModeSummary) =>
       _$this._replicaBillingModeSummary = replicaBillingModeSummary;
 
-  _i4.Int64? _replicaProvisionedReadCapacityUnits;
-  _i4.Int64? get replicaProvisionedReadCapacityUnits =>
+  _i2.Int64? _replicaProvisionedReadCapacityUnits;
+  _i2.Int64? get replicaProvisionedReadCapacityUnits =>
       _$this._replicaProvisionedReadCapacityUnits;
   set replicaProvisionedReadCapacityUnits(
-          _i4.Int64? replicaProvisionedReadCapacityUnits) =>
+          _i2.Int64? replicaProvisionedReadCapacityUnits) =>
       _$this._replicaProvisionedReadCapacityUnits =
           replicaProvisionedReadCapacityUnits;
 
-  _i5.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _replicaProvisionedReadCapacityAutoScalingSettings;
-  _i5.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get replicaProvisionedReadCapacityAutoScalingSettings =>
           _$this._replicaProvisionedReadCapacityAutoScalingSettings ??=
-              new _i5.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set replicaProvisionedReadCapacityAutoScalingSettings(
-          _i5.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               replicaProvisionedReadCapacityAutoScalingSettings) =>
       _$this._replicaProvisionedReadCapacityAutoScalingSettings =
           replicaProvisionedReadCapacityAutoScalingSettings;
 
-  _i4.Int64? _replicaProvisionedWriteCapacityUnits;
-  _i4.Int64? get replicaProvisionedWriteCapacityUnits =>
+  _i2.Int64? _replicaProvisionedWriteCapacityUnits;
+  _i2.Int64? get replicaProvisionedWriteCapacityUnits =>
       _$this._replicaProvisionedWriteCapacityUnits;
   set replicaProvisionedWriteCapacityUnits(
-          _i4.Int64? replicaProvisionedWriteCapacityUnits) =>
+          _i2.Int64? replicaProvisionedWriteCapacityUnits) =>
       _$this._replicaProvisionedWriteCapacityUnits =
           replicaProvisionedWriteCapacityUnits;
 
-  _i5.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _replicaProvisionedWriteCapacityAutoScalingSettings;
-  _i5.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get replicaProvisionedWriteCapacityAutoScalingSettings =>
           _$this._replicaProvisionedWriteCapacityAutoScalingSettings ??=
-              new _i5.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set replicaProvisionedWriteCapacityAutoScalingSettings(
-          _i5.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               replicaProvisionedWriteCapacityAutoScalingSettings) =>
       _$this._replicaProvisionedWriteCapacityAutoScalingSettings =
           replicaProvisionedWriteCapacityAutoScalingSettings;
 
-  _i8.ListBuilder<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>?
+  _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsDescription>?
       _replicaGlobalSecondaryIndexSettings;
-  _i8.ListBuilder<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>
-      get replicaGlobalSecondaryIndexSettings =>
-          _$this._replicaGlobalSecondaryIndexSettings ??= new _i8.ListBuilder<
-              _i6.ReplicaGlobalSecondaryIndexSettingsDescription>();
+  _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsDescription>
+      get replicaGlobalSecondaryIndexSettings => _$this
+              ._replicaGlobalSecondaryIndexSettings ??=
+          new _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsDescription>();
   set replicaGlobalSecondaryIndexSettings(
-          _i8.ListBuilder<_i6.ReplicaGlobalSecondaryIndexSettingsDescription>?
+          _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsDescription>?
               replicaGlobalSecondaryIndexSettings) =>
       _$this._replicaGlobalSecondaryIndexSettings =
           replicaGlobalSecondaryIndexSettings;
 
-  _i7.TableClassSummaryBuilder? _replicaTableClassSummary;
-  _i7.TableClassSummaryBuilder get replicaTableClassSummary =>
-      _$this._replicaTableClassSummary ??= new _i7.TableClassSummaryBuilder();
+  TableClassSummaryBuilder? _replicaTableClassSummary;
+  TableClassSummaryBuilder get replicaTableClassSummary =>
+      _$this._replicaTableClassSummary ??= new TableClassSummaryBuilder();
   set replicaTableClassSummary(
-          _i7.TableClassSummaryBuilder? replicaTableClassSummary) =>
+          TableClassSummaryBuilder? replicaTableClassSummary) =>
       _$this._replicaTableClassSummary = replicaTableClassSummary;
 
   ReplicaSettingsDescriptionBuilder();

@@ -8,7 +8,7 @@ part of 'evaluation_mode_configuration.dart';
 
 class _$EvaluationModeConfiguration extends EvaluationModeConfiguration {
   @override
-  final _i2.EvaluationMode? mode;
+  final EvaluationMode? mode;
 
   factory _$EvaluationModeConfiguration(
           [void Function(EvaluationModeConfigurationBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class EvaluationModeConfigurationBuilder
             EvaluationModeConfigurationBuilder> {
   _$EvaluationModeConfiguration? _$v;
 
-  _i2.EvaluationMode? _mode;
-  _i2.EvaluationMode? get mode => _$this._mode;
-  set mode(_i2.EvaluationMode? mode) => _$this._mode = mode;
+  EvaluationMode? _mode;
+  EvaluationMode? get mode => _$this._mode;
+  set mode(EvaluationMode? mode) => _$this._mode = mode;
 
   EvaluationModeConfigurationBuilder();
 

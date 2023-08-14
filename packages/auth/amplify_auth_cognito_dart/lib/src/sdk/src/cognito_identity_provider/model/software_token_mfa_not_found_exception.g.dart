@@ -60,9 +60,7 @@ class SoftwareTokenMfaNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  SoftwareTokenMfaNotFoundExceptionBuilder() {
-    SoftwareTokenMfaNotFoundException._init(this);
-  }
+  SoftwareTokenMfaNotFoundExceptionBuilder();
 
   SoftwareTokenMfaNotFoundExceptionBuilder get _$this {
     final $v = _$v;

@@ -8,7 +8,7 @@ part of 'create_policy_version_response.dart';
 
 class _$CreatePolicyVersionResponse extends CreatePolicyVersionResponse {
   @override
-  final _i2.PolicyVersion? policyVersion;
+  final PolicyVersion? policyVersion;
 
   factory _$CreatePolicyVersionResponse(
           [void Function(CreatePolicyVersionResponseBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class CreatePolicyVersionResponseBuilder
             CreatePolicyVersionResponseBuilder> {
   _$CreatePolicyVersionResponse? _$v;
 
-  _i2.PolicyVersionBuilder? _policyVersion;
-  _i2.PolicyVersionBuilder get policyVersion =>
-      _$this._policyVersion ??= new _i2.PolicyVersionBuilder();
-  set policyVersion(_i2.PolicyVersionBuilder? policyVersion) =>
+  PolicyVersionBuilder? _policyVersion;
+  PolicyVersionBuilder get policyVersion =>
+      _$this._policyVersion ??= new PolicyVersionBuilder();
+  set policyVersion(PolicyVersionBuilder? policyVersion) =>
       _$this._policyVersion = policyVersion;
 
   CreatePolicyVersionResponseBuilder();

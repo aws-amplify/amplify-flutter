@@ -8,9 +8,9 @@ part of 'routing_rule.dart';
 
 class _$RoutingRule extends RoutingRule {
   @override
-  final _i2.Condition? condition;
+  final Condition? condition;
   @override
-  final _i3.Redirect redirect;
+  final Redirect redirect;
 
   factory _$RoutingRule([void Function(RoutingRuleBuilder)? updates]) =>
       (new RoutingRuleBuilder()..update(updates))._build();
@@ -47,16 +47,14 @@ class _$RoutingRule extends RoutingRule {
 class RoutingRuleBuilder implements Builder<RoutingRule, RoutingRuleBuilder> {
   _$RoutingRule? _$v;
 
-  _i2.ConditionBuilder? _condition;
-  _i2.ConditionBuilder get condition =>
-      _$this._condition ??= new _i2.ConditionBuilder();
-  set condition(_i2.ConditionBuilder? condition) =>
-      _$this._condition = condition;
+  ConditionBuilder? _condition;
+  ConditionBuilder get condition =>
+      _$this._condition ??= new ConditionBuilder();
+  set condition(ConditionBuilder? condition) => _$this._condition = condition;
 
-  _i3.RedirectBuilder? _redirect;
-  _i3.RedirectBuilder get redirect =>
-      _$this._redirect ??= new _i3.RedirectBuilder();
-  set redirect(_i3.RedirectBuilder? redirect) => _$this._redirect = redirect;
+  RedirectBuilder? _redirect;
+  RedirectBuilder get redirect => _$this._redirect ??= new RedirectBuilder();
+  set redirect(RedirectBuilder? redirect) => _$this._redirect = redirect;
 
   RoutingRuleBuilder();
 

@@ -12,7 +12,7 @@ class _$PutBucketPolicyRequest extends PutBucketPolicyRequest {
   @override
   final String? contentMd5;
   @override
-  final _i3.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final bool? confirmRemoveSelfBucketAccess;
   @override
@@ -85,9 +85,9 @@ class PutBucketPolicyRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i3.ChecksumAlgorithm? _checksumAlgorithm;
-  _i3.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i3.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   bool? _confirmRemoveSelfBucketAccess;

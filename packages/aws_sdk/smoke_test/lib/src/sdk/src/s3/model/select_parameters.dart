@@ -6,12 +6,10 @@ library smoke_test.s3.model.select_parameters; // ignore_for_file: no_leading_un
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/input_serialization.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/input_serialization.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart';
 
 part 'select_parameters.g.dart';
 
@@ -21,10 +19,10 @@ abstract class SelectParameters
     implements Built<SelectParameters, SelectParametersBuilder> {
   /// Describes the parameters for Select job types.
   factory SelectParameters({
-    required _i2.InputSerialization inputSerialization,
-    required _i3.ExpressionType expressionType,
+    required InputSerialization inputSerialization,
+    required ExpressionType expressionType,
     required String expression,
-    required _i4.OutputSerialization outputSerialization,
+    required OutputSerialization outputSerialization,
   }) {
     return _$SelectParameters._(
       inputSerialization: inputSerialization,
@@ -40,21 +38,21 @@ abstract class SelectParameters
 
   const SelectParameters._();
 
-  static const List<_i5.SmithySerializer<SelectParameters>> serializers = [
+  static const List<_i2.SmithySerializer<SelectParameters>> serializers = [
     SelectParametersRestXmlSerializer()
   ];
 
   /// Describes the serialization format of the object.
-  _i2.InputSerialization get inputSerialization;
+  InputSerialization get inputSerialization;
 
   /// The type of the provided expression (for example, SQL).
-  _i3.ExpressionType get expressionType;
+  ExpressionType get expressionType;
 
   /// The expression that is used to query the object.
   String get expression;
 
   /// Describes how the results of the Select job are serialized.
-  _i4.OutputSerialization get outputSerialization;
+  OutputSerialization get outputSerialization;
   @override
   List<Object?> get props => [
         inputSerialization,
@@ -86,7 +84,7 @@ abstract class SelectParameters
 }
 
 class SelectParametersRestXmlSerializer
-    extends _i5.StructuredSmithySerializer<SelectParameters> {
+    extends _i2.StructuredSmithySerializer<SelectParameters> {
   const SelectParametersRestXmlSerializer() : super('SelectParameters');
 
   @override
@@ -95,8 +93,8 @@ class SelectParametersRestXmlSerializer
         _$SelectParameters,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -125,18 +123,18 @@ class SelectParametersRestXmlSerializer
         case 'ExpressionType':
           result.expressionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ExpressionType),
-          ) as _i3.ExpressionType);
+            specifiedType: const FullType(ExpressionType),
+          ) as ExpressionType);
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InputSerialization),
-          ) as _i2.InputSerialization));
+            specifiedType: const FullType(InputSerialization),
+          ) as InputSerialization));
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.OutputSerialization),
-          ) as _i4.OutputSerialization));
+            specifiedType: const FullType(OutputSerialization),
+          ) as OutputSerialization));
       }
     }
 
@@ -150,9 +148,9 @@ class SelectParametersRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i2.XmlElementName(
         'SelectParameters',
-        _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final SelectParameters(
@@ -162,28 +160,28 @@ class SelectParametersRestXmlSerializer
       :outputSerialization
     ) = object;
     result$
-      ..add(const _i5.XmlElementName('Expression'))
+      ..add(const _i2.XmlElementName('Expression'))
       ..add(serializers.serialize(
         expression,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i5.XmlElementName('ExpressionType'))
+      ..add(const _i2.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         expressionType,
-        specifiedType: const FullType.nullable(_i3.ExpressionType),
+        specifiedType: const FullType.nullable(ExpressionType),
       ));
     result$
-      ..add(const _i5.XmlElementName('InputSerialization'))
+      ..add(const _i2.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         inputSerialization,
-        specifiedType: const FullType(_i2.InputSerialization),
+        specifiedType: const FullType(InputSerialization),
       ));
     result$
-      ..add(const _i5.XmlElementName('OutputSerialization'))
+      ..add(const _i2.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
         outputSerialization,
-        specifiedType: const FullType(_i4.OutputSerialization),
+        specifiedType: const FullType(OutputSerialization),
       ));
     return result$;
   }

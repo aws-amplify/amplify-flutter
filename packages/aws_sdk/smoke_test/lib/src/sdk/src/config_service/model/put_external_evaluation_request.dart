@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/external_evaluation.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/external_evaluation.dart';
 
 part 'put_external_evaluation_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class PutExternalEvaluationRequest
             PutExternalEvaluationRequestBuilder> {
   factory PutExternalEvaluationRequest({
     required String configRuleName,
-    required _i3.ExternalEvaluation externalEvaluation,
+    required ExternalEvaluation externalEvaluation,
   }) {
     return _$PutExternalEvaluationRequest._(
       configRuleName: configRuleName,
@@ -49,7 +48,7 @@ abstract class PutExternalEvaluationRequest
   String get configRuleName;
 
   /// An `ExternalEvaluation` object that provides details about compliance.
-  _i3.ExternalEvaluation get externalEvaluation;
+  ExternalEvaluation get externalEvaluation;
   @override
   PutExternalEvaluationRequest getPayload() => this;
   @override
@@ -113,8 +112,8 @@ class PutExternalEvaluationRequestAwsJson11Serializer
         case 'ExternalEvaluation':
           result.externalEvaluation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ExternalEvaluation),
-          ) as _i3.ExternalEvaluation));
+            specifiedType: const FullType(ExternalEvaluation),
+          ) as ExternalEvaluation));
       }
     }
 
@@ -139,7 +138,7 @@ class PutExternalEvaluationRequestAwsJson11Serializer
       'ExternalEvaluation',
       serializers.serialize(
         externalEvaluation,
-        specifiedType: const FullType(_i3.ExternalEvaluation),
+        specifiedType: const FullType(ExternalEvaluation),
       ),
     ]);
     return result$;

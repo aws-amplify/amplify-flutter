@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 
 /// The stubbed implementation of [AWSPathProvider].
 ///

@@ -9,7 +9,7 @@ part of 'describe_retention_configurations_response.dart';
 class _$DescribeRetentionConfigurationsResponse
     extends DescribeRetentionConfigurationsResponse {
   @override
-  final _i3.BuiltList<_i2.RetentionConfiguration>? retentionConfigurations;
+  final _i2.BuiltList<RetentionConfiguration>? retentionConfigurations;
   @override
   final String? nextToken;
 
@@ -57,13 +57,12 @@ class DescribeRetentionConfigurationsResponseBuilder
             DescribeRetentionConfigurationsResponseBuilder> {
   _$DescribeRetentionConfigurationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.RetentionConfiguration>? _retentionConfigurations;
-  _i3.ListBuilder<_i2.RetentionConfiguration> get retentionConfigurations =>
+  _i2.ListBuilder<RetentionConfiguration>? _retentionConfigurations;
+  _i2.ListBuilder<RetentionConfiguration> get retentionConfigurations =>
       _$this._retentionConfigurations ??=
-          new _i3.ListBuilder<_i2.RetentionConfiguration>();
+          new _i2.ListBuilder<RetentionConfiguration>();
   set retentionConfigurations(
-          _i3.ListBuilder<_i2.RetentionConfiguration>?
-              retentionConfigurations) =>
+          _i2.ListBuilder<RetentionConfiguration>? retentionConfigurations) =>
       _$this._retentionConfigurations = retentionConfigurations;
 
   String? _nextToken;

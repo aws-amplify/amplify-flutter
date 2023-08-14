@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.stack_summary; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_information_summary.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_information_summary.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_status.dart';
 
 part 'stack_summary.g.dart';
 
@@ -26,11 +24,11 @@ abstract class StackSummary
     required DateTime creationTime,
     DateTime? lastUpdatedTime,
     DateTime? deletionTime,
-    required _i2.StackStatus stackStatus,
+    required StackStatus stackStatus,
     String? stackStatusReason,
     String? parentId,
     String? rootId,
-    _i3.StackDriftInformationSummary? driftInformation,
+    StackDriftInformationSummary? driftInformation,
   }) {
     return _$StackSummary._(
       stackId: stackId,
@@ -53,7 +51,7 @@ abstract class StackSummary
 
   const StackSummary._();
 
-  static const List<_i4.SmithySerializer<StackSummary>> serializers = [
+  static const List<_i2.SmithySerializer<StackSummary>> serializers = [
     StackSummaryAwsQuerySerializer()
   ];
 
@@ -76,23 +74,23 @@ abstract class StackSummary
   DateTime? get deletionTime;
 
   /// The current status of the stack.
-  _i2.StackStatus get stackStatus;
+  StackStatus get stackStatus;
 
   /// Success/Failure message associated with the stack status.
   String? get stackStatusReason;
 
   /// For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack.
   ///
-  /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
+  /// For more information, see [Working with Nested Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get parentId;
 
   /// For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the nested stack ultimately belongs.
   ///
-  /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
+  /// For more information, see [Working with Nested Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get rootId;
 
-  /// Summarizes information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
-  _i3.StackDriftInformationSummary? get driftInformation;
+  /// Summarizes information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  StackDriftInformationSummary? get driftInformation;
   @override
   List<Object?> get props => [
         stackId,
@@ -159,7 +157,7 @@ abstract class StackSummary
 }
 
 class StackSummaryAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<StackSummary> {
+    extends _i2.StructuredSmithySerializer<StackSummary> {
   const StackSummaryAwsQuerySerializer() : super('StackSummary');
 
   @override
@@ -168,8 +166,8 @@ class StackSummaryAwsQuerySerializer
         _$StackSummary,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -223,8 +221,8 @@ class StackSummaryAwsQuerySerializer
         case 'StackStatus':
           result.stackStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackStatus),
-          ) as _i2.StackStatus);
+            specifiedType: const FullType(StackStatus),
+          ) as StackStatus);
         case 'StackStatusReason':
           result.stackStatusReason = (serializers.deserialize(
             value,
@@ -243,8 +241,8 @@ class StackSummaryAwsQuerySerializer
         case 'DriftInformation':
           result.driftInformation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackDriftInformationSummary),
-          ) as _i3.StackDriftInformationSummary));
+            specifiedType: const FullType(StackDriftInformationSummary),
+          ) as StackDriftInformationSummary));
       }
     }
 
@@ -258,9 +256,9 @@ class StackSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'StackSummaryResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSummary(
@@ -278,35 +276,35 @@ class StackSummaryAwsQuerySerializer
     ) = object;
     if (stackId != null) {
       result$
-        ..add(const _i4.XmlElementName('StackId'))
+        ..add(const _i2.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('StackName'))
+      ..add(const _i2.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (templateDescription != null) {
       result$
-        ..add(const _i4.XmlElementName('TemplateDescription'))
+        ..add(const _i2.XmlElementName('TemplateDescription'))
         ..add(serializers.serialize(
           templateDescription,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('CreationTime'))
+      ..add(const _i2.XmlElementName('CreationTime'))
       ..add(serializers.serialize(
         creationTime,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (lastUpdatedTime != null) {
       result$
-        ..add(const _i4.XmlElementName('LastUpdatedTime'))
+        ..add(const _i2.XmlElementName('LastUpdatedTime'))
         ..add(serializers.serialize(
           lastUpdatedTime,
           specifiedType: const FullType.nullable(DateTime),
@@ -314,21 +312,21 @@ class StackSummaryAwsQuerySerializer
     }
     if (deletionTime != null) {
       result$
-        ..add(const _i4.XmlElementName('DeletionTime'))
+        ..add(const _i2.XmlElementName('DeletionTime'))
         ..add(serializers.serialize(
           deletionTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('StackStatus'))
+      ..add(const _i2.XmlElementName('StackStatus'))
       ..add(serializers.serialize(
         stackStatus,
-        specifiedType: const FullType.nullable(_i2.StackStatus),
+        specifiedType: const FullType.nullable(StackStatus),
       ));
     if (stackStatusReason != null) {
       result$
-        ..add(const _i4.XmlElementName('StackStatusReason'))
+        ..add(const _i2.XmlElementName('StackStatusReason'))
         ..add(serializers.serialize(
           stackStatusReason,
           specifiedType: const FullType(String),
@@ -336,7 +334,7 @@ class StackSummaryAwsQuerySerializer
     }
     if (parentId != null) {
       result$
-        ..add(const _i4.XmlElementName('ParentId'))
+        ..add(const _i2.XmlElementName('ParentId'))
         ..add(serializers.serialize(
           parentId,
           specifiedType: const FullType(String),
@@ -344,7 +342,7 @@ class StackSummaryAwsQuerySerializer
     }
     if (rootId != null) {
       result$
-        ..add(const _i4.XmlElementName('RootId'))
+        ..add(const _i2.XmlElementName('RootId'))
         ..add(serializers.serialize(
           rootId,
           specifiedType: const FullType(String),
@@ -352,10 +350,10 @@ class StackSummaryAwsQuerySerializer
     }
     if (driftInformation != null) {
       result$
-        ..add(const _i4.XmlElementName('DriftInformation'))
+        ..add(const _i2.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
           driftInformation,
-          specifiedType: const FullType(_i3.StackDriftInformationSummary),
+          specifiedType: const FullType(StackDriftInformationSummary),
         ));
     }
     return result$;

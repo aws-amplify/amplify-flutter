@@ -16,7 +16,7 @@ class _$Stack extends Stack {
   @override
   final String? description;
   @override
-  final _i9.BuiltList<_i2.Parameter>? parameters;
+  final _i2.BuiltList<Parameter>? parameters;
   @override
   final DateTime creationTime;
   @override
@@ -24,25 +24,25 @@ class _$Stack extends Stack {
   @override
   final DateTime? lastUpdatedTime;
   @override
-  final _i3.RollbackConfiguration? rollbackConfiguration;
+  final RollbackConfiguration? rollbackConfiguration;
   @override
-  final _i4.StackStatus stackStatus;
+  final StackStatus stackStatus;
   @override
   final String? stackStatusReason;
   @override
   final bool? disableRollback;
   @override
-  final _i9.BuiltList<String>? notificationArNs;
+  final _i2.BuiltList<String>? notificationArNs;
   @override
   final int? timeoutInMinutes;
   @override
-  final _i9.BuiltList<_i5.Capability>? capabilities;
+  final _i2.BuiltList<Capability>? capabilities;
   @override
-  final _i9.BuiltList<_i6.Output>? outputs;
+  final _i2.BuiltList<Output>? outputs;
   @override
   final String? roleArn;
   @override
-  final _i9.BuiltList<_i7.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
   final bool? enableTerminationProtection;
   @override
@@ -50,7 +50,9 @@ class _$Stack extends Stack {
   @override
   final String? rootId;
   @override
-  final _i8.StackDriftInformation? driftInformation;
+  final StackDriftInformation? driftInformation;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$Stack([void Function(StackBuilder)? updates]) =>
       (new StackBuilder()..update(updates))._build();
@@ -77,7 +79,8 @@ class _$Stack extends Stack {
       this.enableTerminationProtection,
       this.parentId,
       this.rootId,
-      this.driftInformation})
+      this.driftInformation,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(stackName, r'Stack', 'stackName');
     BuiltValueNullFieldError.checkNotNull(
@@ -117,7 +120,8 @@ class _$Stack extends Stack {
         enableTerminationProtection == other.enableTerminationProtection &&
         parentId == other.parentId &&
         rootId == other.rootId &&
-        driftInformation == other.driftInformation;
+        driftInformation == other.driftInformation &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -145,6 +149,7 @@ class _$Stack extends Stack {
     _$hash = $jc(_$hash, parentId.hashCode);
     _$hash = $jc(_$hash, rootId.hashCode);
     _$hash = $jc(_$hash, driftInformation.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -169,10 +174,10 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i9.ListBuilder<_i2.Parameter>? _parameters;
-  _i9.ListBuilder<_i2.Parameter> get parameters =>
-      _$this._parameters ??= new _i9.ListBuilder<_i2.Parameter>();
-  set parameters(_i9.ListBuilder<_i2.Parameter>? parameters) =>
+  _i2.ListBuilder<Parameter>? _parameters;
+  _i2.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<Parameter>();
+  set parameters(_i2.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
   DateTime? _creationTime;
@@ -190,16 +195,16 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  _i3.RollbackConfigurationBuilder? _rollbackConfiguration;
-  _i3.RollbackConfigurationBuilder get rollbackConfiguration =>
-      _$this._rollbackConfiguration ??= new _i3.RollbackConfigurationBuilder();
+  RollbackConfigurationBuilder? _rollbackConfiguration;
+  RollbackConfigurationBuilder get rollbackConfiguration =>
+      _$this._rollbackConfiguration ??= new RollbackConfigurationBuilder();
   set rollbackConfiguration(
-          _i3.RollbackConfigurationBuilder? rollbackConfiguration) =>
+          RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
-  _i4.StackStatus? _stackStatus;
-  _i4.StackStatus? get stackStatus => _$this._stackStatus;
-  set stackStatus(_i4.StackStatus? stackStatus) =>
+  StackStatus? _stackStatus;
+  StackStatus? get stackStatus => _$this._stackStatus;
+  set stackStatus(StackStatus? stackStatus) =>
       _$this._stackStatus = stackStatus;
 
   String? _stackStatusReason;
@@ -212,10 +217,10 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   set disableRollback(bool? disableRollback) =>
       _$this._disableRollback = disableRollback;
 
-  _i9.ListBuilder<String>? _notificationArNs;
-  _i9.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i9.ListBuilder<String>();
-  set notificationArNs(_i9.ListBuilder<String>? notificationArNs) =>
+  _i2.ListBuilder<String>? _notificationArNs;
+  _i2.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i2.ListBuilder<String>();
+  set notificationArNs(_i2.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
   int? _timeoutInMinutes;
@@ -223,26 +228,24 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   set timeoutInMinutes(int? timeoutInMinutes) =>
       _$this._timeoutInMinutes = timeoutInMinutes;
 
-  _i9.ListBuilder<_i5.Capability>? _capabilities;
-  _i9.ListBuilder<_i5.Capability> get capabilities =>
-      _$this._capabilities ??= new _i9.ListBuilder<_i5.Capability>();
-  set capabilities(_i9.ListBuilder<_i5.Capability>? capabilities) =>
+  _i2.ListBuilder<Capability>? _capabilities;
+  _i2.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i2.ListBuilder<Capability>();
+  set capabilities(_i2.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i9.ListBuilder<_i6.Output>? _outputs;
-  _i9.ListBuilder<_i6.Output> get outputs =>
-      _$this._outputs ??= new _i9.ListBuilder<_i6.Output>();
-  set outputs(_i9.ListBuilder<_i6.Output>? outputs) =>
-      _$this._outputs = outputs;
+  _i2.ListBuilder<Output>? _outputs;
+  _i2.ListBuilder<Output> get outputs =>
+      _$this._outputs ??= new _i2.ListBuilder<Output>();
+  set outputs(_i2.ListBuilder<Output>? outputs) => _$this._outputs = outputs;
 
   String? _roleArn;
   String? get roleArn => _$this._roleArn;
   set roleArn(String? roleArn) => _$this._roleArn = roleArn;
 
-  _i9.ListBuilder<_i7.Tag>? _tags;
-  _i9.ListBuilder<_i7.Tag> get tags =>
-      _$this._tags ??= new _i9.ListBuilder<_i7.Tag>();
-  set tags(_i9.ListBuilder<_i7.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   bool? _enableTerminationProtection;
   bool? get enableTerminationProtection => _$this._enableTerminationProtection;
@@ -257,11 +260,16 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   String? get rootId => _$this._rootId;
   set rootId(String? rootId) => _$this._rootId = rootId;
 
-  _i8.StackDriftInformationBuilder? _driftInformation;
-  _i8.StackDriftInformationBuilder get driftInformation =>
-      _$this._driftInformation ??= new _i8.StackDriftInformationBuilder();
-  set driftInformation(_i8.StackDriftInformationBuilder? driftInformation) =>
+  StackDriftInformationBuilder? _driftInformation;
+  StackDriftInformationBuilder get driftInformation =>
+      _$this._driftInformation ??= new StackDriftInformationBuilder();
+  set driftInformation(StackDriftInformationBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
+
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
 
   StackBuilder();
 
@@ -290,6 +298,7 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
       _parentId = $v.parentId;
       _rootId = $v.rootId;
       _driftInformation = $v.driftInformation?.toBuilder();
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -338,7 +347,8 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
               enableTerminationProtection: enableTerminationProtection,
               parentId: parentId,
               rootId: rootId,
-              driftInformation: _driftInformation?.build());
+              driftInformation: _driftInformation?.build(),
+              retainExceptOnCreate: retainExceptOnCreate);
     } catch (_) {
       late String _$failedField;
       try {

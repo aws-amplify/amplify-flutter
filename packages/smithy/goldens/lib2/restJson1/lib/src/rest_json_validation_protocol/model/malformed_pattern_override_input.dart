@@ -4,11 +4,10 @@
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_pattern_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/pattern_union_override.dart'
-    as _i3;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/pattern_union_override.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'malformed_pattern_override_input.g.dart';
@@ -24,12 +23,12 @@ abstract class MalformedPatternOverrideInput
     String? string,
     List<String>? list,
     Map<String, String>? map,
-    _i3.PatternUnionOverride? union,
+    PatternUnionOverride? union,
   }) {
     return _$MalformedPatternOverrideInput._(
       string: string,
-      list: list == null ? null : _i4.BuiltList(list),
-      map: map == null ? null : _i4.BuiltMap(map),
+      list: list == null ? null : _i3.BuiltList(list),
+      map: map == null ? null : _i3.BuiltMap(map),
       union: union,
     );
   }
@@ -51,9 +50,9 @@ abstract class MalformedPatternOverrideInput
       serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
 
   String? get string;
-  _i4.BuiltList<String>? get list;
-  _i4.BuiltMap<String, String>? get map;
-  _i3.PatternUnionOverride? get union;
+  _i3.BuiltList<String>? get list;
+  _i3.BuiltMap<String, String>? get map;
+  PatternUnionOverride? get union;
   @override
   MalformedPatternOverrideInput getPayload() => this;
   @override
@@ -123,21 +122,21 @@ class MalformedPatternOverrideInputRestJson1Serializer
           result.list.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'map':
           result.map.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'string':
           result.string = (serializers.deserialize(
             value,
@@ -146,8 +145,8 @@ class MalformedPatternOverrideInputRestJson1Serializer
         case 'union':
           result.union = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PatternUnionOverride),
-          ) as _i3.PatternUnionOverride);
+            specifiedType: const FullType(PatternUnionOverride),
+          ) as PatternUnionOverride);
       }
     }
 
@@ -168,7 +167,7 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ..add(serializers.serialize(
           list,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -179,7 +178,7 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ..add(serializers.serialize(
           map,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -200,7 +199,7 @@ class MalformedPatternOverrideInputRestJson1Serializer
         ..add('union')
         ..add(serializers.serialize(
           union,
-          specifiedType: const FullType(_i3.PatternUnionOverride),
+          specifiedType: const FullType(PatternUnionOverride),
         ));
     }
     return result$;

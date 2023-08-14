@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_filters.dart';
 
 part 'list_resource_evaluations_request.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ListResourceEvaluationsRequest
         Built<ListResourceEvaluationsRequest,
             ListResourceEvaluationsRequestBuilder> {
   factory ListResourceEvaluationsRequest({
-    _i3.ResourceEvaluationFilters? filters,
+    ResourceEvaluationFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -54,7 +53,7 @@ abstract class ListResourceEvaluationsRequest
   }
 
   /// Returns a `ResourceEvaluationFilters` object.
-  _i3.ResourceEvaluationFilters? get filters;
+  ResourceEvaluationFilters? get filters;
 
   /// The maximum number of evaluations returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int get limit;
@@ -124,8 +123,8 @@ class ListResourceEvaluationsRequestAwsJson11Serializer
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceEvaluationFilters),
-          ) as _i3.ResourceEvaluationFilters));
+            specifiedType: const FullType(ResourceEvaluationFilters),
+          ) as ResourceEvaluationFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -162,7 +161,7 @@ class ListResourceEvaluationsRequestAwsJson11Serializer
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ResourceEvaluationFilters),
+          specifiedType: const FullType(ResourceEvaluationFilters),
         ));
     }
     if (nextToken != null) {

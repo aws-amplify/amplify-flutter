@@ -8,9 +8,9 @@ part of 'transact_get_items_input.dart';
 
 class _$TransactGetItemsInput extends TransactGetItemsInput {
   @override
-  final _i5.BuiltList<_i3.TransactGetItem> transactItems;
+  final _i3.BuiltList<TransactGetItem> transactItems;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$TransactGetItemsInput(
           [void Function(TransactGetItemsInputBuilder)? updates]) =>
@@ -54,17 +54,16 @@ class TransactGetItemsInputBuilder
     implements Builder<TransactGetItemsInput, TransactGetItemsInputBuilder> {
   _$TransactGetItemsInput? _$v;
 
-  _i5.ListBuilder<_i3.TransactGetItem>? _transactItems;
-  _i5.ListBuilder<_i3.TransactGetItem> get transactItems =>
-      _$this._transactItems ??= new _i5.ListBuilder<_i3.TransactGetItem>();
-  set transactItems(_i5.ListBuilder<_i3.TransactGetItem>? transactItems) =>
+  _i3.ListBuilder<TransactGetItem>? _transactItems;
+  _i3.ListBuilder<TransactGetItem> get transactItems =>
+      _$this._transactItems ??= new _i3.ListBuilder<TransactGetItem>();
+  set transactItems(_i3.ListBuilder<TransactGetItem>? transactItems) =>
       _$this._transactItems = transactItems;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   TransactGetItemsInputBuilder();

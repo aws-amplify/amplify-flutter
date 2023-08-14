@@ -8,7 +8,7 @@ part of 'type_summary.dart';
 
 class _$TypeSummary extends TypeSummary {
   @override
-  final _i2.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
@@ -28,7 +28,7 @@ class _$TypeSummary extends TypeSummary {
   @override
   final String? latestPublicVersion;
   @override
-  final _i3.IdentityProvider? publisherIdentity;
+  final IdentityProvider? publisherIdentity;
   @override
   final String? publisherName;
   @override
@@ -103,9 +103,9 @@ class _$TypeSummary extends TypeSummary {
 class TypeSummaryBuilder implements Builder<TypeSummary, TypeSummaryBuilder> {
   _$TypeSummary? _$v;
 
-  _i2.RegistryType? _type;
-  _i2.RegistryType? get type => _$this._type;
-  set type(_i2.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;
@@ -147,9 +147,9 @@ class TypeSummaryBuilder implements Builder<TypeSummary, TypeSummaryBuilder> {
   set latestPublicVersion(String? latestPublicVersion) =>
       _$this._latestPublicVersion = latestPublicVersion;
 
-  _i3.IdentityProvider? _publisherIdentity;
-  _i3.IdentityProvider? get publisherIdentity => _$this._publisherIdentity;
-  set publisherIdentity(_i3.IdentityProvider? publisherIdentity) =>
+  IdentityProvider? _publisherIdentity;
+  IdentityProvider? get publisherIdentity => _$this._publisherIdentity;
+  set publisherIdentity(IdentityProvider? publisherIdentity) =>
       _$this._publisherIdentity = publisherIdentity;
 
   String? _publisherName;

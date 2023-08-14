@@ -4,20 +4,14 @@
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.greeting_with_errors_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v2/src/query_protocol/model/complex_error.dart'
-    as _i6;
-import 'package:aws_query_v2/src/query_protocol/model/complex_nested_error_data.dart'
-    as _i9;
-import 'package:aws_query_v2/src/query_protocol/model/custom_code_error.dart'
-    as _i7;
-import 'package:aws_query_v2/src/query_protocol/model/greeting_with_errors_output.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/model/invalid_greeting.dart'
-    as _i8;
-import 'package:aws_query_v2/src/query_protocol/operation/greeting_with_errors_operation.dart'
-    as _i3;
+import 'package:aws_query_v2/src/query_protocol/model/complex_error.dart';
+import 'package:aws_query_v2/src/query_protocol/model/complex_nested_error_data.dart';
+import 'package:aws_query_v2/src/query_protocol/model/custom_code_error.dart';
+import 'package:aws_query_v2/src/query_protocol/model/greeting_with_errors_output.dart';
+import 'package:aws_query_v2/src/query_protocol/model/invalid_greeting.dart';
+import 'package:aws_query_v2/src/query_protocol/operation/greeting_with_errors_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -26,7 +20,7 @@ void main() {
     'QueryGreetingWithErrors (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.GreetingWithErrorsOperation(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -34,7 +28,7 @@ void main() {
           id: 'QueryGreetingWithErrors',
           documentation:
               'Ensures that operations with errors successfully know how to deserialize the successful response',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -59,20 +53,16 @@ void main() {
   _i1.test(
     'QueryComplexError (error)',
     () async {
-      await _i2.httpErrorResponseTest<
-          _i4.Unit,
-          _i4.Unit,
-          _i5.GreetingWithErrorsOutput,
-          _i5.GreetingWithErrorsOutput,
-          _i6.ComplexError>(
-        operation: _i3.GreetingWithErrorsOperation(
+      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
+          GreetingWithErrorsOutput, GreetingWithErrorsOutput, ComplexError>(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryComplexError',
           documentation: null,
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -103,20 +93,16 @@ void main() {
   _i1.test(
     'QueryCustomizedError (error)',
     () async {
-      await _i2.httpErrorResponseTest<
-          _i4.Unit,
-          _i4.Unit,
-          _i5.GreetingWithErrorsOutput,
-          _i5.GreetingWithErrorsOutput,
-          _i7.CustomCodeError>(
-        operation: _i3.GreetingWithErrorsOperation(
+      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
+          GreetingWithErrorsOutput, GreetingWithErrorsOutput, CustomCodeError>(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryCustomizedError',
           documentation: 'Parses customized XML errors',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -141,20 +127,16 @@ void main() {
   _i1.test(
     'QueryInvalidGreetingError (error)',
     () async {
-      await _i2.httpErrorResponseTest<
-          _i4.Unit,
-          _i4.Unit,
-          _i5.GreetingWithErrorsOutput,
-          _i5.GreetingWithErrorsOutput,
-          _i8.InvalidGreeting>(
-        operation: _i3.GreetingWithErrorsOperation(
+      await _i2.httpErrorResponseTest<_i3.Unit, _i3.Unit,
+          GreetingWithErrorsOutput, GreetingWithErrorsOutput, InvalidGreeting>(
+        operation: GreetingWithErrorsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryInvalidGreetingError',
           documentation: 'Parses simple XML errors',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -179,26 +161,26 @@ void main() {
 }
 
 class GreetingWithErrorsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.GreetingWithErrorsOutput> {
+    extends _i3.StructuredSmithySerializer<GreetingWithErrorsOutput> {
   const GreetingWithErrorsOutputAwsQuerySerializer()
       : super('GreetingWithErrorsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.GreetingWithErrorsOutput];
+  Iterable<Type> get types => const [GreetingWithErrorsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.GreetingWithErrorsOutput deserialize(
+  GreetingWithErrorsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.GreetingWithErrorsOutputBuilder();
+    final result = GreetingWithErrorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -222,7 +204,7 @@ class GreetingWithErrorsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.GreetingWithErrorsOutput object, {
+    GreetingWithErrorsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -230,25 +212,25 @@ class GreetingWithErrorsOutputAwsQuerySerializer
 }
 
 class ComplexErrorAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i6.ComplexError> {
+    extends _i3.StructuredSmithySerializer<ComplexError> {
   const ComplexErrorAwsQuerySerializer() : super('ComplexError');
 
   @override
-  Iterable<Type> get types => const [_i6.ComplexError];
+  Iterable<Type> get types => const [ComplexError];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i6.ComplexError deserialize(
+  ComplexError deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.ComplexErrorBuilder();
+    final result = ComplexErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -266,8 +248,8 @@ class ComplexErrorAwsQuerySerializer
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.ComplexNestedErrorData),
-          ) as _i9.ComplexNestedErrorData));
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ) as ComplexNestedErrorData));
       }
     }
 
@@ -277,7 +259,7 @@ class ComplexErrorAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.ComplexError object, {
+    ComplexError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -285,26 +267,26 @@ class ComplexErrorAwsQuerySerializer
 }
 
 class ComplexNestedErrorDataAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i9.ComplexNestedErrorData> {
+    extends _i3.StructuredSmithySerializer<ComplexNestedErrorData> {
   const ComplexNestedErrorDataAwsQuerySerializer()
       : super('ComplexNestedErrorData');
 
   @override
-  Iterable<Type> get types => const [_i9.ComplexNestedErrorData];
+  Iterable<Type> get types => const [ComplexNestedErrorData];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i9.ComplexNestedErrorData deserialize(
+  ComplexNestedErrorData deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i9.ComplexNestedErrorDataBuilder();
+    final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -328,7 +310,7 @@ class ComplexNestedErrorDataAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i9.ComplexNestedErrorData object, {
+    ComplexNestedErrorData object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -336,25 +318,25 @@ class ComplexNestedErrorDataAwsQuerySerializer
 }
 
 class CustomCodeErrorAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i7.CustomCodeError> {
+    extends _i3.StructuredSmithySerializer<CustomCodeError> {
   const CustomCodeErrorAwsQuerySerializer() : super('CustomCodeError');
 
   @override
-  Iterable<Type> get types => const [_i7.CustomCodeError];
+  Iterable<Type> get types => const [CustomCodeError];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i7.CustomCodeError deserialize(
+  CustomCodeError deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.CustomCodeErrorBuilder();
+    final result = CustomCodeErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -378,7 +360,7 @@ class CustomCodeErrorAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.CustomCodeError object, {
+    CustomCodeError object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -386,25 +368,25 @@ class CustomCodeErrorAwsQuerySerializer
 }
 
 class InvalidGreetingAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i8.InvalidGreeting> {
+    extends _i3.StructuredSmithySerializer<InvalidGreeting> {
   const InvalidGreetingAwsQuerySerializer() : super('InvalidGreeting');
 
   @override
-  Iterable<Type> get types => const [_i8.InvalidGreeting];
+  Iterable<Type> get types => const [InvalidGreeting];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i8.InvalidGreeting deserialize(
+  InvalidGreeting deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i8.InvalidGreetingBuilder();
+    final result = InvalidGreetingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -428,7 +410,7 @@ class InvalidGreetingAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i8.InvalidGreeting object, {
+    InvalidGreeting object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -9,7 +9,7 @@ part of 'describe_aggregate_compliance_by_conformance_packs_response.dart';
 class _$DescribeAggregateComplianceByConformancePacksResponse
     extends DescribeAggregateComplianceByConformancePacksResponse {
   @override
-  final _i3.BuiltList<_i2.AggregateComplianceByConformancePack>?
+  final _i2.BuiltList<AggregateComplianceByConformancePack>?
       aggregateComplianceByConformancePacks;
   @override
   final String? nextToken;
@@ -63,14 +63,14 @@ class DescribeAggregateComplianceByConformancePacksResponseBuilder
             DescribeAggregateComplianceByConformancePacksResponseBuilder> {
   _$DescribeAggregateComplianceByConformancePacksResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregateComplianceByConformancePack>?
+  _i2.ListBuilder<AggregateComplianceByConformancePack>?
       _aggregateComplianceByConformancePacks;
-  _i3.ListBuilder<_i2.AggregateComplianceByConformancePack>
+  _i2.ListBuilder<AggregateComplianceByConformancePack>
       get aggregateComplianceByConformancePacks =>
           _$this._aggregateComplianceByConformancePacks ??=
-              new _i3.ListBuilder<_i2.AggregateComplianceByConformancePack>();
+              new _i2.ListBuilder<AggregateComplianceByConformancePack>();
   set aggregateComplianceByConformancePacks(
-          _i3.ListBuilder<_i2.AggregateComplianceByConformancePack>?
+          _i2.ListBuilder<AggregateComplianceByConformancePack>?
               aggregateComplianceByConformancePacks) =>
       _$this._aggregateComplianceByConformancePacks =
           aggregateComplianceByConformancePacks;

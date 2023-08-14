@@ -12,7 +12,7 @@ class _$GetTemplateInput extends GetTemplateInput {
   @override
   final String? changeSetName;
   @override
-  final _i3.TemplateStage? templateStage;
+  final TemplateStage? templateStage;
 
   factory _$GetTemplateInput(
           [void Function(GetTemplateInputBuilder)? updates]) =>
@@ -62,9 +62,9 @@ class GetTemplateInputBuilder
   set changeSetName(String? changeSetName) =>
       _$this._changeSetName = changeSetName;
 
-  _i3.TemplateStage? _templateStage;
-  _i3.TemplateStage? get templateStage => _$this._templateStage;
-  set templateStage(_i3.TemplateStage? templateStage) =>
+  TemplateStage? _templateStage;
+  TemplateStage? get templateStage => _$this._templateStage;
+  set templateStage(TemplateStage? templateStage) =>
       _$this._templateStage = templateStage;
 
   GetTemplateInputBuilder();

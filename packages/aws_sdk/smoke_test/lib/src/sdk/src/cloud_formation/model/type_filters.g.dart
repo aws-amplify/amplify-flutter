@@ -8,7 +8,7 @@ part of 'type_filters.dart';
 
 class _$TypeFilters extends TypeFilters {
   @override
-  final _i2.Category? category;
+  final Category? category;
   @override
   final String? publisherId;
   @override
@@ -50,9 +50,9 @@ class _$TypeFilters extends TypeFilters {
 class TypeFiltersBuilder implements Builder<TypeFilters, TypeFiltersBuilder> {
   _$TypeFilters? _$v;
 
-  _i2.Category? _category;
-  _i2.Category? get category => _$this._category;
-  set category(_i2.Category? category) => _$this._category = category;
+  Category? _category;
+  Category? get category => _$this._category;
+  set category(Category? category) => _$this._category = category;
 
   String? _publisherId;
   String? get publisherId => _$this._publisherId;

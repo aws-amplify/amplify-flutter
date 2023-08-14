@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.batch_describe_type_configurations_erro
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_identifier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_identifier.dart';
 
 part 'batch_describe_type_configurations_error.g.dart';
 
@@ -23,7 +22,7 @@ abstract class BatchDescribeTypeConfigurationsError
   factory BatchDescribeTypeConfigurationsError({
     String? errorCode,
     String? errorMessage,
-    _i2.TypeConfigurationIdentifier? typeConfigurationIdentifier,
+    TypeConfigurationIdentifier? typeConfigurationIdentifier,
   }) {
     return _$BatchDescribeTypeConfigurationsError._(
       errorCode: errorCode,
@@ -39,7 +38,7 @@ abstract class BatchDescribeTypeConfigurationsError
 
   const BatchDescribeTypeConfigurationsError._();
 
-  static const List<_i3.SmithySerializer<BatchDescribeTypeConfigurationsError>>
+  static const List<_i2.SmithySerializer<BatchDescribeTypeConfigurationsError>>
       serializers = [BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()];
 
   /// The error code.
@@ -49,7 +48,7 @@ abstract class BatchDescribeTypeConfigurationsError
   String? get errorMessage;
 
   /// Identifying information for the configuration of a CloudFormation extension.
-  _i2.TypeConfigurationIdentifier? get typeConfigurationIdentifier;
+  TypeConfigurationIdentifier? get typeConfigurationIdentifier;
   @override
   List<Object?> get props => [
         errorCode,
@@ -76,7 +75,7 @@ abstract class BatchDescribeTypeConfigurationsError
   }
 }
 
-class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
+class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i2
     .StructuredSmithySerializer<BatchDescribeTypeConfigurationsError> {
   const BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()
       : super('BatchDescribeTypeConfigurationsError');
@@ -87,8 +86,8 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
         _$BatchDescribeTypeConfigurationsError,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -122,8 +121,8 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
         case 'TypeConfigurationIdentifier':
           result.typeConfigurationIdentifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TypeConfigurationIdentifier),
-          ) as _i2.TypeConfigurationIdentifier));
+            specifiedType: const FullType(TypeConfigurationIdentifier),
+          ) as TypeConfigurationIdentifier));
       }
     }
 
@@ -137,9 +136,9 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'BatchDescribeTypeConfigurationsErrorResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final BatchDescribeTypeConfigurationsError(
@@ -149,7 +148,7 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
     ) = object;
     if (errorCode != null) {
       result$
-        ..add(const _i3.XmlElementName('ErrorCode'))
+        ..add(const _i2.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
           errorCode,
           specifiedType: const FullType(String),
@@ -157,7 +156,7 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
     }
     if (errorMessage != null) {
       result$
-        ..add(const _i3.XmlElementName('ErrorMessage'))
+        ..add(const _i2.XmlElementName('ErrorMessage'))
         ..add(serializers.serialize(
           errorMessage,
           specifiedType: const FullType(String),
@@ -165,10 +164,10 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
     }
     if (typeConfigurationIdentifier != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeConfigurationIdentifier'))
+        ..add(const _i2.XmlElementName('TypeConfigurationIdentifier'))
         ..add(serializers.serialize(
           typeConfigurationIdentifier,
-          specifiedType: const FullType(_i2.TypeConfigurationIdentifier),
+          specifiedType: const FullType(TypeConfigurationIdentifier),
         ));
     }
     return result$;

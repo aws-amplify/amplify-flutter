@@ -8,7 +8,7 @@ part of 'bucket_lifecycle_configuration.dart';
 
 class _$BucketLifecycleConfiguration extends BucketLifecycleConfiguration {
   @override
-  final _i3.BuiltList<_i2.LifecycleRule> rules;
+  final _i2.BuiltList<LifecycleRule> rules;
 
   factory _$BucketLifecycleConfiguration(
           [void Function(BucketLifecycleConfigurationBuilder)? updates]) =>
@@ -49,10 +49,10 @@ class BucketLifecycleConfigurationBuilder
             BucketLifecycleConfigurationBuilder> {
   _$BucketLifecycleConfiguration? _$v;
 
-  _i3.ListBuilder<_i2.LifecycleRule>? _rules;
-  _i3.ListBuilder<_i2.LifecycleRule> get rules =>
-      _$this._rules ??= new _i3.ListBuilder<_i2.LifecycleRule>();
-  set rules(_i3.ListBuilder<_i2.LifecycleRule>? rules) => _$this._rules = rules;
+  _i2.ListBuilder<LifecycleRule>? _rules;
+  _i2.ListBuilder<LifecycleRule> get rules =>
+      _$this._rules ??= new _i2.ListBuilder<LifecycleRule>();
+  set rules(_i2.ListBuilder<LifecycleRule>? rules) => _$this._rules = rules;
 
   BucketLifecycleConfigurationBuilder();
 

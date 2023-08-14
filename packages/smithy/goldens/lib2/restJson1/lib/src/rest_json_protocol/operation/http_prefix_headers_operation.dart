@@ -3,29 +3,25 @@
 
 library rest_json1_v2.rest_json_protocol.operation.http_prefix_headers_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i8;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/http_prefix_headers_input.dart'
-    as _i2;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/http_prefix_headers_output.dart'
-    as _i3;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/http_prefix_headers_input.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/http_prefix_headers_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This examples adds headers to the input of a request and response by prefix.///
 /// See also:
 /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
 
 class HttpPrefixHeadersOperation extends _i1.HttpOperation<
-    _i2.HttpPrefixHeadersInputPayload,
-    _i2.HttpPrefixHeadersInput,
-    _i3.HttpPrefixHeadersOutputPayload,
-    _i3.HttpPrefixHeadersOutput> {
+    HttpPrefixHeadersInputPayload,
+    HttpPrefixHeadersInput,
+    HttpPrefixHeadersOutputPayload,
+    HttpPrefixHeadersOutput> {
   /// This examples adds headers to the input of a request and response by prefix.///
   /// See also:
   /// - [httpPrefixHeaders Trait](https://smithy.io/2.0/spec/http-bindings.html#httpprefixheaders-trait)
@@ -43,20 +39,20 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.HttpPrefixHeadersInputPayload,
-          _i2.HttpPrefixHeadersInput,
-          _i3.HttpPrefixHeadersOutputPayload,
-          _i3.HttpPrefixHeadersOutput>> protocols = [
-    _i4.RestJson1Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+          HttpPrefixHeadersInputPayload,
+          HttpPrefixHeadersInput,
+          HttpPrefixHeadersOutputPayload,
+          HttpPrefixHeadersOutput>> protocols = [
+    _i2.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -64,8 +60,8 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
-    _i6.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -78,7 +74,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.HttpPrefixHeadersInput input) =>
+  _i1.HttpRequest buildRequest(HttpPrefixHeadersInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'GET';
         b.path = r'/HttpPrefixHeaders';
@@ -96,13 +92,13 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i3.HttpPrefixHeadersOutput? output]) => 200;
+  int successCode([HttpPrefixHeadersOutput? output]) => 200;
   @override
-  _i3.HttpPrefixHeadersOutput buildOutput(
-    _i3.HttpPrefixHeadersOutputPayload payload,
-    _i7.AWSBaseHttpResponse response,
+  HttpPrefixHeadersOutput buildOutput(
+    HttpPrefixHeadersOutputPayload payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i3.HttpPrefixHeadersOutput.fromResponse(
+      HttpPrefixHeadersOutput.fromResponse(
         payload,
         response,
       );
@@ -111,18 +107,18 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'HttpPrefixHeaders';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.HttpPrefixHeadersOutput> run(
-    _i2.HttpPrefixHeadersInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<HttpPrefixHeadersOutput> run(
+    HttpPrefixHeadersInput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i8.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -130,7 +126,7 @@ class HttpPrefixHeadersOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

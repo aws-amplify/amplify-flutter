@@ -12,7 +12,7 @@ class _$UpdateAuthorizerRequest extends UpdateAuthorizerRequest {
   @override
   final String authorizerId;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateAuthorizerRequest(
           [void Function(UpdateAuthorizerRequestBuilder)? updates]) =>
@@ -71,10 +71,10 @@ class UpdateAuthorizerRequestBuilder
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateAuthorizerRequestBuilder();
@@ -132,7 +132,7 @@ class UpdateAuthorizerRequestBuilder
 
 class _$UpdateAuthorizerRequestPayload extends UpdateAuthorizerRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateAuthorizerRequestPayload(
           [void Function(UpdateAuthorizerRequestPayloadBuilder)? updates]) =>
@@ -171,10 +171,10 @@ class UpdateAuthorizerRequestPayloadBuilder
             UpdateAuthorizerRequestPayloadBuilder> {
   _$UpdateAuthorizerRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateAuthorizerRequestPayloadBuilder();

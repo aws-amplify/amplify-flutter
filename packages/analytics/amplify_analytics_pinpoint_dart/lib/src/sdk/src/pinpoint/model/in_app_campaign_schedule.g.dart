@@ -10,9 +10,9 @@ class _$InAppCampaignSchedule extends InAppCampaignSchedule {
   @override
   final String? endDate;
   @override
-  final _i2.CampaignEventFilter? eventFilter;
+  final CampaignEventFilter? eventFilter;
   @override
-  final _i3.QuietTime? quietTime;
+  final QuietTime? quietTime;
 
   factory _$InAppCampaignSchedule(
           [void Function(InAppCampaignScheduleBuilder)? updates]) =>
@@ -58,17 +58,16 @@ class InAppCampaignScheduleBuilder
   String? get endDate => _$this._endDate;
   set endDate(String? endDate) => _$this._endDate = endDate;
 
-  _i2.CampaignEventFilterBuilder? _eventFilter;
-  _i2.CampaignEventFilterBuilder get eventFilter =>
-      _$this._eventFilter ??= new _i2.CampaignEventFilterBuilder();
-  set eventFilter(_i2.CampaignEventFilterBuilder? eventFilter) =>
+  CampaignEventFilterBuilder? _eventFilter;
+  CampaignEventFilterBuilder get eventFilter =>
+      _$this._eventFilter ??= new CampaignEventFilterBuilder();
+  set eventFilter(CampaignEventFilterBuilder? eventFilter) =>
       _$this._eventFilter = eventFilter;
 
-  _i3.QuietTimeBuilder? _quietTime;
-  _i3.QuietTimeBuilder get quietTime =>
-      _$this._quietTime ??= new _i3.QuietTimeBuilder();
-  set quietTime(_i3.QuietTimeBuilder? quietTime) =>
-      _$this._quietTime = quietTime;
+  QuietTimeBuilder? _quietTime;
+  QuietTimeBuilder get quietTime =>
+      _$this._quietTime ??= new QuietTimeBuilder();
+  set quietTime(QuietTimeBuilder? quietTime) => _$this._quietTime = quietTime;
 
   InAppCampaignScheduleBuilder();
 

@@ -8,9 +8,9 @@ part of 'continuous_backups_description.dart';
 
 class _$ContinuousBackupsDescription extends ContinuousBackupsDescription {
   @override
-  final _i2.ContinuousBackupsStatus continuousBackupsStatus;
+  final ContinuousBackupsStatus continuousBackupsStatus;
   @override
-  final _i3.PointInTimeRecoveryDescription? pointInTimeRecoveryDescription;
+  final PointInTimeRecoveryDescription? pointInTimeRecoveryDescription;
 
   factory _$ContinuousBackupsDescription(
           [void Function(ContinuousBackupsDescriptionBuilder)? updates]) =>
@@ -57,20 +57,19 @@ class ContinuousBackupsDescriptionBuilder
             ContinuousBackupsDescriptionBuilder> {
   _$ContinuousBackupsDescription? _$v;
 
-  _i2.ContinuousBackupsStatus? _continuousBackupsStatus;
-  _i2.ContinuousBackupsStatus? get continuousBackupsStatus =>
+  ContinuousBackupsStatus? _continuousBackupsStatus;
+  ContinuousBackupsStatus? get continuousBackupsStatus =>
       _$this._continuousBackupsStatus;
   set continuousBackupsStatus(
-          _i2.ContinuousBackupsStatus? continuousBackupsStatus) =>
+          ContinuousBackupsStatus? continuousBackupsStatus) =>
       _$this._continuousBackupsStatus = continuousBackupsStatus;
 
-  _i3.PointInTimeRecoveryDescriptionBuilder? _pointInTimeRecoveryDescription;
-  _i3.PointInTimeRecoveryDescriptionBuilder
-      get pointInTimeRecoveryDescription =>
-          _$this._pointInTimeRecoveryDescription ??=
-              new _i3.PointInTimeRecoveryDescriptionBuilder();
+  PointInTimeRecoveryDescriptionBuilder? _pointInTimeRecoveryDescription;
+  PointInTimeRecoveryDescriptionBuilder get pointInTimeRecoveryDescription =>
+      _$this._pointInTimeRecoveryDescription ??=
+          new PointInTimeRecoveryDescriptionBuilder();
   set pointInTimeRecoveryDescription(
-          _i3.PointInTimeRecoveryDescriptionBuilder?
+          PointInTimeRecoveryDescriptionBuilder?
               pointInTimeRecoveryDescription) =>
       _$this._pointInTimeRecoveryDescription = pointInTimeRecoveryDescription;
 

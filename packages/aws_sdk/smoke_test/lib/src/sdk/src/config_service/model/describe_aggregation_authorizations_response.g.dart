@@ -9,7 +9,7 @@ part of 'describe_aggregation_authorizations_response.dart';
 class _$DescribeAggregationAuthorizationsResponse
     extends DescribeAggregationAuthorizationsResponse {
   @override
-  final _i3.BuiltList<_i2.AggregationAuthorization>? aggregationAuthorizations;
+  final _i2.BuiltList<AggregationAuthorization>? aggregationAuthorizations;
   @override
   final String? nextToken;
 
@@ -57,12 +57,12 @@ class DescribeAggregationAuthorizationsResponseBuilder
             DescribeAggregationAuthorizationsResponseBuilder> {
   _$DescribeAggregationAuthorizationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregationAuthorization>? _aggregationAuthorizations;
-  _i3.ListBuilder<_i2.AggregationAuthorization> get aggregationAuthorizations =>
+  _i2.ListBuilder<AggregationAuthorization>? _aggregationAuthorizations;
+  _i2.ListBuilder<AggregationAuthorization> get aggregationAuthorizations =>
       _$this._aggregationAuthorizations ??=
-          new _i3.ListBuilder<_i2.AggregationAuthorization>();
+          new _i2.ListBuilder<AggregationAuthorization>();
   set aggregationAuthorizations(
-          _i3.ListBuilder<_i2.AggregationAuthorization>?
+          _i2.ListBuilder<AggregationAuthorization>?
               aggregationAuthorizations) =>
       _$this._aggregationAuthorizations = aggregationAuthorizations;
 

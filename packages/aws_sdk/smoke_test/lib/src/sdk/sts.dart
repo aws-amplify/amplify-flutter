@@ -35,6 +35,7 @@ export 'package:smoke_test/src/sdk/src/sts/model/invalid_identity_token_exceptio
 export 'package:smoke_test/src/sdk/src/sts/model/malformed_policy_document_exception.dart';
 export 'package:smoke_test/src/sdk/src/sts/model/packed_policy_too_large_exception.dart';
 export 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart';
+export 'package:smoke_test/src/sdk/src/sts/model/provided_context.dart';
 export 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart';
 export 'package:smoke_test/src/sdk/src/sts/model/tag.dart';
 export 'package:smoke_test/src/sdk/src/sts/sts_client.dart';

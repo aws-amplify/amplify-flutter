@@ -8,9 +8,9 @@ part of 'source_selection_criteria.dart';
 
 class _$SourceSelectionCriteria extends SourceSelectionCriteria {
   @override
-  final _i2.SseKmsEncryptedObjects? sseKmsEncryptedObjects;
+  final SseKmsEncryptedObjects? sseKmsEncryptedObjects;
   @override
-  final _i3.ReplicaModifications? replicaModifications;
+  final ReplicaModifications? replicaModifications;
 
   factory _$SourceSelectionCriteria(
           [void Function(SourceSelectionCriteriaBuilder)? updates]) =>
@@ -52,19 +52,17 @@ class SourceSelectionCriteriaBuilder
         Builder<SourceSelectionCriteria, SourceSelectionCriteriaBuilder> {
   _$SourceSelectionCriteria? _$v;
 
-  _i2.SseKmsEncryptedObjectsBuilder? _sseKmsEncryptedObjects;
-  _i2.SseKmsEncryptedObjectsBuilder get sseKmsEncryptedObjects =>
-      _$this._sseKmsEncryptedObjects ??=
-          new _i2.SseKmsEncryptedObjectsBuilder();
+  SseKmsEncryptedObjectsBuilder? _sseKmsEncryptedObjects;
+  SseKmsEncryptedObjectsBuilder get sseKmsEncryptedObjects =>
+      _$this._sseKmsEncryptedObjects ??= new SseKmsEncryptedObjectsBuilder();
   set sseKmsEncryptedObjects(
-          _i2.SseKmsEncryptedObjectsBuilder? sseKmsEncryptedObjects) =>
+          SseKmsEncryptedObjectsBuilder? sseKmsEncryptedObjects) =>
       _$this._sseKmsEncryptedObjects = sseKmsEncryptedObjects;
 
-  _i3.ReplicaModificationsBuilder? _replicaModifications;
-  _i3.ReplicaModificationsBuilder get replicaModifications =>
-      _$this._replicaModifications ??= new _i3.ReplicaModificationsBuilder();
-  set replicaModifications(
-          _i3.ReplicaModificationsBuilder? replicaModifications) =>
+  ReplicaModificationsBuilder? _replicaModifications;
+  ReplicaModificationsBuilder get replicaModifications =>
+      _$this._replicaModifications ??= new ReplicaModificationsBuilder();
+  set replicaModifications(ReplicaModificationsBuilder? replicaModifications) =>
       _$this._replicaModifications = replicaModifications;
 
   SourceSelectionCriteriaBuilder();

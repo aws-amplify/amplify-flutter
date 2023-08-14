@@ -6,9 +6,8 @@ library smoke_test.s3.model.object_lock_retention; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart';
 
 part 'object_lock_retention.g.dart';
 
@@ -18,7 +17,7 @@ abstract class ObjectLockRetention
     implements Built<ObjectLockRetention, ObjectLockRetentionBuilder> {
   /// A Retention configuration for an object.
   factory ObjectLockRetention({
-    _i2.ObjectLockRetentionMode? mode,
+    ObjectLockRetentionMode? mode,
     DateTime? retainUntilDate,
   }) {
     return _$ObjectLockRetention._(
@@ -34,12 +33,12 @@ abstract class ObjectLockRetention
 
   const ObjectLockRetention._();
 
-  static const List<_i3.SmithySerializer<ObjectLockRetention>> serializers = [
+  static const List<_i2.SmithySerializer<ObjectLockRetention>> serializers = [
     ObjectLockRetentionRestXmlSerializer()
   ];
 
   /// Indicates the Retention mode for the specified object.
-  _i2.ObjectLockRetentionMode? get mode;
+  ObjectLockRetentionMode? get mode;
 
   /// The date on which this Object Lock Retention will expire.
   DateTime? get retainUntilDate;
@@ -64,7 +63,7 @@ abstract class ObjectLockRetention
 }
 
 class ObjectLockRetentionRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ObjectLockRetention> {
+    extends _i2.StructuredSmithySerializer<ObjectLockRetention> {
   const ObjectLockRetentionRestXmlSerializer() : super('ObjectLockRetention');
 
   @override
@@ -73,8 +72,8 @@ class ObjectLockRetentionRestXmlSerializer
         _$ObjectLockRetention,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -98,10 +97,10 @@ class ObjectLockRetentionRestXmlSerializer
         case 'Mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectLockRetentionMode),
-          ) as _i2.ObjectLockRetentionMode);
+            specifiedType: const FullType(ObjectLockRetentionMode),
+          ) as ObjectLockRetentionMode);
         case 'RetainUntilDate':
-          result.retainUntilDate = _i3.TimestampSerializer.dateTime.deserialize(
+          result.retainUntilDate = _i2.TimestampSerializer.dateTime.deserialize(
             serializers,
             value,
           );
@@ -118,24 +117,24 @@ class ObjectLockRetentionRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ObjectLockRetention',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ObjectLockRetention(:mode, :retainUntilDate) = object;
     if (mode != null) {
       result$
-        ..add(const _i3.XmlElementName('Mode'))
+        ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
+          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
         ));
     }
     if (retainUntilDate != null) {
       result$
-        ..add(const _i3.XmlElementName('RetainUntilDate'))
-        ..add(_i3.TimestampSerializer.dateTime.serialize(
+        ..add(const _i2.XmlElementName('RetainUntilDate'))
+        ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
           retainUntilDate,
         ));

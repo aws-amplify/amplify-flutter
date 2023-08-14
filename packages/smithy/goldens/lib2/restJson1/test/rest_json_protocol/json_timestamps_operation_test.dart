@@ -5,11 +5,9 @@
 library rest_json1_v2.rest_json_protocol.test.json_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/json_timestamps_input_output.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/json_timestamps_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/json_timestamps_input_output.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/json_timestamps_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,14 +16,14 @@ void main() {
     'RestJsonJsonTimestamps (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonJsonTimestamps',
           documentation: 'Tests how normal timestamps are serialized',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -58,7 +56,7 @@ void main() {
     'RestJsonJsonTimestampsWithDateTimeFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -66,7 +64,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithDateTimeFormat',
           documentation:
               'Ensures that the timestampFormat of date-time works like normal timestamps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -99,7 +97,7 @@ void main() {
     'RestJsonJsonTimestampsWithDateTimeOnTargetFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -107,7 +105,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithDateTimeOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -140,7 +138,7 @@ void main() {
     'RestJsonJsonTimestampsWithEpochSecondsFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -148,7 +146,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithEpochSecondsFormat',
           documentation:
               'Ensures that the timestampFormat of epoch-seconds works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -181,7 +179,7 @@ void main() {
     'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -189,7 +187,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of epoch-seconds on the target shape works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -222,14 +220,14 @@ void main() {
     'RestJsonJsonTimestampsWithHttpDateFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonJsonTimestampsWithHttpDateFormat',
           documentation: 'Ensures that the timestampFormat of http-date works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -262,7 +260,7 @@ void main() {
     'RestJsonJsonTimestampsWithHttpDateOnTargetFormat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -270,7 +268,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithHttpDateOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of http-date on the target shape works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -303,14 +301,14 @@ void main() {
     'RestJsonJsonTimestamps (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonJsonTimestamps',
           documentation: 'Tests how normal timestamps are serialized',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -337,7 +335,7 @@ void main() {
     'RestJsonJsonTimestampsWithDateTimeFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -345,7 +343,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithDateTimeFormat',
           documentation:
               'Ensures that the timestampFormat of date-time works like normal timestamps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -372,7 +370,7 @@ void main() {
     'RestJsonJsonTimestampsWithDateTimeOnTargetFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -380,7 +378,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithDateTimeOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of date-time on the target shape works like normal timestamps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -407,7 +405,7 @@ void main() {
     'RestJsonJsonTimestampsWithEpochSecondsFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -415,7 +413,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithEpochSecondsFormat',
           documentation:
               'Ensures that the timestampFormat of epoch-seconds works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -442,7 +440,7 @@ void main() {
     'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -450,7 +448,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithEpochSecondsOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of epoch-seconds on the target shape works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -477,14 +475,14 @@ void main() {
     'RestJsonJsonTimestampsWithHttpDateFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonJsonTimestampsWithHttpDateFormat',
           documentation: 'Ensures that the timestampFormat of http-date works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -511,7 +509,7 @@ void main() {
     'RestJsonJsonTimestampsWithHttpDateOnTargetFormat (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonTimestampsOperation(
+        operation: JsonTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -519,7 +517,7 @@ void main() {
           id: 'RestJsonJsonTimestampsWithHttpDateOnTargetFormat',
           documentation:
               'Ensures that the timestampFormat of http-date on the target shape works',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -545,26 +543,26 @@ void main() {
 }
 
 class JsonTimestampsInputOutputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.JsonTimestampsInputOutput> {
+    extends _i3.StructuredSmithySerializer<JsonTimestampsInputOutput> {
   const JsonTimestampsInputOutputRestJson1Serializer()
       : super('JsonTimestampsInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.JsonTimestampsInputOutput];
+  Iterable<Type> get types => const [JsonTimestampsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.JsonTimestampsInputOutput deserialize(
+  JsonTimestampsInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.JsonTimestampsInputOutputBuilder();
+    final result = JsonTimestampsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -575,41 +573,41 @@ class JsonTimestampsInputOutputRestJson1Serializer
       }
       switch (key) {
         case 'normal':
-          result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.normal = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'dateTime':
-          result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.dateTime = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'dateTimeOnTarget':
           result.dateTimeOnTarget =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
+              _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'epochSeconds':
           result.epochSeconds =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
+              _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'epochSecondsOnTarget':
           result.epochSecondsOnTarget =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
+              _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'httpDate':
-          result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.httpDate = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'httpDateOnTarget':
           result.httpDateOnTarget =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
+              _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -622,7 +620,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.JsonTimestampsInputOutput object, {
+    JsonTimestampsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

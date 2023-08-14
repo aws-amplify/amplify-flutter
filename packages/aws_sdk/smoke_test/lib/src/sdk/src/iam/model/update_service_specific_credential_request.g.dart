@@ -13,7 +13,7 @@ class _$UpdateServiceSpecificCredentialRequest
   @override
   final String serviceSpecificCredentialId;
   @override
-  final _i3.StatusType status;
+  final StatusType status;
 
   factory _$UpdateServiceSpecificCredentialRequest(
           [void Function(UpdateServiceSpecificCredentialRequestBuilder)?
@@ -80,9 +80,9 @@ class UpdateServiceSpecificCredentialRequestBuilder
   set serviceSpecificCredentialId(String? serviceSpecificCredentialId) =>
       _$this._serviceSpecificCredentialId = serviceSpecificCredentialId;
 
-  _i3.StatusType? _status;
-  _i3.StatusType? get status => _$this._status;
-  set status(_i3.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   UpdateServiceSpecificCredentialRequestBuilder();
 

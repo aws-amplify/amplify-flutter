@@ -4,11 +4,11 @@
 library smoke_test.s3.model.completed_multipart_upload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/completed_part.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/completed_part.dart';
 
 part 'completed_multipart_upload.g.dart';
 
@@ -18,9 +18,9 @@ abstract class CompletedMultipartUpload
     implements
         Built<CompletedMultipartUpload, CompletedMultipartUploadBuilder> {
   /// The container for the completed multipart upload details.
-  factory CompletedMultipartUpload({List<_i2.CompletedPart>? parts}) {
+  factory CompletedMultipartUpload({List<CompletedPart>? parts}) {
     return _$CompletedMultipartUpload._(
-        parts: parts == null ? null : _i3.BuiltList(parts));
+        parts: parts == null ? null : _i2.BuiltList(parts));
   }
 
   /// The container for the completed multipart upload details.
@@ -30,13 +30,13 @@ abstract class CompletedMultipartUpload
 
   const CompletedMultipartUpload._();
 
-  static const List<_i4.SmithySerializer<CompletedMultipartUpload>>
+  static const List<_i3.SmithySerializer<CompletedMultipartUpload>>
       serializers = [CompletedMultipartUploadRestXmlSerializer()];
 
   /// Array of CompletedPart data types.
   ///
   /// If you do not supply a valid `Part` with your request, the service sends back an HTTP 400 response.
-  _i3.BuiltList<_i2.CompletedPart>? get parts;
+  _i2.BuiltList<CompletedPart>? get parts;
   @override
   List<Object?> get props => [parts];
   @override
@@ -51,7 +51,7 @@ abstract class CompletedMultipartUpload
 }
 
 class CompletedMultipartUploadRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<CompletedMultipartUpload> {
+    extends _i3.StructuredSmithySerializer<CompletedMultipartUpload> {
   const CompletedMultipartUploadRestXmlSerializer()
       : super('CompletedMultipartUpload');
 
@@ -61,8 +61,8 @@ class CompletedMultipartUploadRestXmlSerializer
         _$CompletedMultipartUpload,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -86,8 +86,8 @@ class CompletedMultipartUploadRestXmlSerializer
         case 'Part':
           result.parts.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CompletedPart),
-          ) as _i2.CompletedPart));
+            specifiedType: const FullType(CompletedPart),
+          ) as CompletedPart));
       }
     }
 
@@ -101,20 +101,20 @@ class CompletedMultipartUploadRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'CompletedMultipartUpload',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final CompletedMultipartUpload(:parts) = object;
     if (parts != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'Part').serialize(
+          const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.CompletedPart)],
+          _i2.BuiltList,
+          [FullType(CompletedPart)],
         ),
       ));
     }

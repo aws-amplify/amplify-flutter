@@ -6,8 +6,7 @@ library rest_xml_v2.rest_xml_protocol.model.body_with_xml_name_input_output; // 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_name.dart'
-    as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_name.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'body_with_xml_name_input_output.g.dart';
@@ -18,7 +17,7 @@ abstract class BodyWithXmlNameInputOutput
         _i2.AWSEquatable<BodyWithXmlNameInputOutput>
     implements
         Built<BodyWithXmlNameInputOutput, BodyWithXmlNameInputOutputBuilder> {
-  factory BodyWithXmlNameInputOutput({_i3.PayloadWithXmlName? nested}) {
+  factory BodyWithXmlNameInputOutput({PayloadWithXmlName? nested}) {
     return _$BodyWithXmlNameInputOutput._(nested: nested);
   }
 
@@ -45,7 +44,7 @@ abstract class BodyWithXmlNameInputOutput
   static const List<_i1.SmithySerializer<BodyWithXmlNameInputOutput>>
       serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
 
-  _i3.PayloadWithXmlName? get nested;
+  PayloadWithXmlName? get nested;
   @override
   BodyWithXmlNameInputOutput getPayload() => this;
   @override
@@ -97,8 +96,8 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PayloadWithXmlName),
-          ) as _i3.PayloadWithXmlName));
+            specifiedType: const FullType(PayloadWithXmlName),
+          ) as PayloadWithXmlName));
       }
     }
 
@@ -118,7 +117,7 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.PayloadWithXmlName),
+          specifiedType: const FullType(PayloadWithXmlName),
         ));
     }
     return result$;

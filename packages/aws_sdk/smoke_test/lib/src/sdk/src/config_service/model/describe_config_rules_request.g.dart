@@ -8,11 +8,11 @@ part of 'describe_config_rules_request.dart';
 
 class _$DescribeConfigRulesRequest extends DescribeConfigRulesRequest {
   @override
-  final _i4.BuiltList<String>? configRuleNames;
+  final _i3.BuiltList<String>? configRuleNames;
   @override
   final String? nextToken;
   @override
-  final _i3.DescribeConfigRulesFilters? filters;
+  final DescribeConfigRulesFilters? filters;
 
   factory _$DescribeConfigRulesRequest(
           [void Function(DescribeConfigRulesRequestBuilder)? updates]) =>
@@ -56,20 +56,20 @@ class DescribeConfigRulesRequestBuilder
         Builder<DescribeConfigRulesRequest, DescribeConfigRulesRequestBuilder> {
   _$DescribeConfigRulesRequest? _$v;
 
-  _i4.ListBuilder<String>? _configRuleNames;
-  _i4.ListBuilder<String> get configRuleNames =>
-      _$this._configRuleNames ??= new _i4.ListBuilder<String>();
-  set configRuleNames(_i4.ListBuilder<String>? configRuleNames) =>
+  _i3.ListBuilder<String>? _configRuleNames;
+  _i3.ListBuilder<String> get configRuleNames =>
+      _$this._configRuleNames ??= new _i3.ListBuilder<String>();
+  set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i3.DescribeConfigRulesFiltersBuilder? _filters;
-  _i3.DescribeConfigRulesFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.DescribeConfigRulesFiltersBuilder();
-  set filters(_i3.DescribeConfigRulesFiltersBuilder? filters) =>
+  DescribeConfigRulesFiltersBuilder? _filters;
+  DescribeConfigRulesFiltersBuilder get filters =>
+      _$this._filters ??= new DescribeConfigRulesFiltersBuilder();
+  set filters(DescribeConfigRulesFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   DescribeConfigRulesRequestBuilder();

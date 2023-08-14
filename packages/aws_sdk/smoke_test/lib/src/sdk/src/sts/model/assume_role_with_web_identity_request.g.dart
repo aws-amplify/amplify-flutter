@@ -17,7 +17,7 @@ class _$AssumeRoleWithWebIdentityRequest
   @override
   final String? providerId;
   @override
-  final _i4.BuiltList<_i3.PolicyDescriptorType>? policyArns;
+  final _i3.BuiltList<PolicyDescriptorType>? policyArns;
   @override
   final String? policy;
   @override
@@ -105,10 +105,10 @@ class AssumeRoleWithWebIdentityRequestBuilder
   String? get providerId => _$this._providerId;
   set providerId(String? providerId) => _$this._providerId = providerId;
 
-  _i4.ListBuilder<_i3.PolicyDescriptorType>? _policyArns;
-  _i4.ListBuilder<_i3.PolicyDescriptorType> get policyArns =>
-      _$this._policyArns ??= new _i4.ListBuilder<_i3.PolicyDescriptorType>();
-  set policyArns(_i4.ListBuilder<_i3.PolicyDescriptorType>? policyArns) =>
+  _i3.ListBuilder<PolicyDescriptorType>? _policyArns;
+  _i3.ListBuilder<PolicyDescriptorType> get policyArns =>
+      _$this._policyArns ??= new _i3.ListBuilder<PolicyDescriptorType>();
+  set policyArns(_i3.ListBuilder<PolicyDescriptorType>? policyArns) =>
       _$this._policyArns = policyArns;
 
   String? _policy;

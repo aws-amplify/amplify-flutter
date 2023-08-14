@@ -20,23 +20,23 @@ class _$DefaultValuesInput extends DefaultValuesInput {
   @override
   final String? nullifiedDefaultString;
   @override
-  final _i3.DefaultEnum requiredDefaultEnum;
+  final DefaultEnum requiredDefaultEnum;
   @override
-  final _i3.DefaultEnum optionalDefaultEnum;
+  final DefaultEnum optionalDefaultEnum;
   @override
-  final _i3.DefaultEnum? nullifiedDefaultEnum;
+  final DefaultEnum? nullifiedDefaultEnum;
   @override
-  final _i4.BuiltList<String> requiredDefaultList;
+  final _i3.BuiltList<String> requiredDefaultList;
   @override
-  final _i4.BuiltList<String> optionalDefaultList;
+  final _i3.BuiltList<String> optionalDefaultList;
   @override
-  final _i4.BuiltList<String>? nullifiedDefaultList;
+  final _i3.BuiltList<String>? nullifiedDefaultList;
   @override
-  final _i4.BuiltMap<String, String> requiredDefaultMap;
+  final _i3.BuiltMap<String, String> requiredDefaultMap;
   @override
-  final _i4.BuiltMap<String, String> optionalDefaultMap;
+  final _i3.BuiltMap<String, String> optionalDefaultMap;
   @override
-  final _i4.BuiltMap<String, String>? nullifiedDefaultMap;
+  final _i3.BuiltMap<String, String>? nullifiedDefaultMap;
   @override
   final bool requiredDefaultBool;
   @override
@@ -187,56 +187,56 @@ class DefaultValuesInputBuilder
   set nullifiedDefaultString(String? nullifiedDefaultString) =>
       _$this._nullifiedDefaultString = nullifiedDefaultString;
 
-  _i3.DefaultEnum? _requiredDefaultEnum;
-  _i3.DefaultEnum? get requiredDefaultEnum => _$this._requiredDefaultEnum;
-  set requiredDefaultEnum(_i3.DefaultEnum? requiredDefaultEnum) =>
+  DefaultEnum? _requiredDefaultEnum;
+  DefaultEnum? get requiredDefaultEnum => _$this._requiredDefaultEnum;
+  set requiredDefaultEnum(DefaultEnum? requiredDefaultEnum) =>
       _$this._requiredDefaultEnum = requiredDefaultEnum;
 
-  _i3.DefaultEnum? _optionalDefaultEnum;
-  _i3.DefaultEnum? get optionalDefaultEnum => _$this._optionalDefaultEnum;
-  set optionalDefaultEnum(_i3.DefaultEnum? optionalDefaultEnum) =>
+  DefaultEnum? _optionalDefaultEnum;
+  DefaultEnum? get optionalDefaultEnum => _$this._optionalDefaultEnum;
+  set optionalDefaultEnum(DefaultEnum? optionalDefaultEnum) =>
       _$this._optionalDefaultEnum = optionalDefaultEnum;
 
-  _i3.DefaultEnum? _nullifiedDefaultEnum;
-  _i3.DefaultEnum? get nullifiedDefaultEnum => _$this._nullifiedDefaultEnum;
-  set nullifiedDefaultEnum(_i3.DefaultEnum? nullifiedDefaultEnum) =>
+  DefaultEnum? _nullifiedDefaultEnum;
+  DefaultEnum? get nullifiedDefaultEnum => _$this._nullifiedDefaultEnum;
+  set nullifiedDefaultEnum(DefaultEnum? nullifiedDefaultEnum) =>
       _$this._nullifiedDefaultEnum = nullifiedDefaultEnum;
 
-  _i4.ListBuilder<String>? _requiredDefaultList;
-  _i4.ListBuilder<String> get requiredDefaultList =>
-      _$this._requiredDefaultList ??= new _i4.ListBuilder<String>();
-  set requiredDefaultList(_i4.ListBuilder<String>? requiredDefaultList) =>
+  _i3.ListBuilder<String>? _requiredDefaultList;
+  _i3.ListBuilder<String> get requiredDefaultList =>
+      _$this._requiredDefaultList ??= new _i3.ListBuilder<String>();
+  set requiredDefaultList(_i3.ListBuilder<String>? requiredDefaultList) =>
       _$this._requiredDefaultList = requiredDefaultList;
 
-  _i4.ListBuilder<String>? _optionalDefaultList;
-  _i4.ListBuilder<String> get optionalDefaultList =>
-      _$this._optionalDefaultList ??= new _i4.ListBuilder<String>();
-  set optionalDefaultList(_i4.ListBuilder<String>? optionalDefaultList) =>
+  _i3.ListBuilder<String>? _optionalDefaultList;
+  _i3.ListBuilder<String> get optionalDefaultList =>
+      _$this._optionalDefaultList ??= new _i3.ListBuilder<String>();
+  set optionalDefaultList(_i3.ListBuilder<String>? optionalDefaultList) =>
       _$this._optionalDefaultList = optionalDefaultList;
 
-  _i4.ListBuilder<String>? _nullifiedDefaultList;
-  _i4.ListBuilder<String> get nullifiedDefaultList =>
-      _$this._nullifiedDefaultList ??= new _i4.ListBuilder<String>();
-  set nullifiedDefaultList(_i4.ListBuilder<String>? nullifiedDefaultList) =>
+  _i3.ListBuilder<String>? _nullifiedDefaultList;
+  _i3.ListBuilder<String> get nullifiedDefaultList =>
+      _$this._nullifiedDefaultList ??= new _i3.ListBuilder<String>();
+  set nullifiedDefaultList(_i3.ListBuilder<String>? nullifiedDefaultList) =>
       _$this._nullifiedDefaultList = nullifiedDefaultList;
 
-  _i4.MapBuilder<String, String>? _requiredDefaultMap;
-  _i4.MapBuilder<String, String> get requiredDefaultMap =>
-      _$this._requiredDefaultMap ??= new _i4.MapBuilder<String, String>();
-  set requiredDefaultMap(_i4.MapBuilder<String, String>? requiredDefaultMap) =>
+  _i3.MapBuilder<String, String>? _requiredDefaultMap;
+  _i3.MapBuilder<String, String> get requiredDefaultMap =>
+      _$this._requiredDefaultMap ??= new _i3.MapBuilder<String, String>();
+  set requiredDefaultMap(_i3.MapBuilder<String, String>? requiredDefaultMap) =>
       _$this._requiredDefaultMap = requiredDefaultMap;
 
-  _i4.MapBuilder<String, String>? _optionalDefaultMap;
-  _i4.MapBuilder<String, String> get optionalDefaultMap =>
-      _$this._optionalDefaultMap ??= new _i4.MapBuilder<String, String>();
-  set optionalDefaultMap(_i4.MapBuilder<String, String>? optionalDefaultMap) =>
+  _i3.MapBuilder<String, String>? _optionalDefaultMap;
+  _i3.MapBuilder<String, String> get optionalDefaultMap =>
+      _$this._optionalDefaultMap ??= new _i3.MapBuilder<String, String>();
+  set optionalDefaultMap(_i3.MapBuilder<String, String>? optionalDefaultMap) =>
       _$this._optionalDefaultMap = optionalDefaultMap;
 
-  _i4.MapBuilder<String, String>? _nullifiedDefaultMap;
-  _i4.MapBuilder<String, String> get nullifiedDefaultMap =>
-      _$this._nullifiedDefaultMap ??= new _i4.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _nullifiedDefaultMap;
+  _i3.MapBuilder<String, String> get nullifiedDefaultMap =>
+      _$this._nullifiedDefaultMap ??= new _i3.MapBuilder<String, String>();
   set nullifiedDefaultMap(
-          _i4.MapBuilder<String, String>? nullifiedDefaultMap) =>
+          _i3.MapBuilder<String, String>? nullifiedDefaultMap) =>
       _$this._nullifiedDefaultMap = nullifiedDefaultMap;
 
   bool? _requiredDefaultBool;

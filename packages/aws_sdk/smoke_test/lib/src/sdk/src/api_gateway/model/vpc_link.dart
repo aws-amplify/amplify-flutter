@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.vpc_link; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link_status.dart';
 
 part 'vpc_link.g.dart';
 
@@ -23,7 +22,7 @@ abstract class VpcLink
     String? name,
     String? description,
     List<String>? targetArns,
-    _i2.VpcLinkStatus? status,
+    VpcLinkStatus? status,
     String? statusMessage,
     Map<String, String>? tags,
   }) {
@@ -31,10 +30,10 @@ abstract class VpcLink
       id: id,
       name: name,
       description: description,
-      targetArns: targetArns == null ? null : _i3.BuiltList(targetArns),
+      targetArns: targetArns == null ? null : _i2.BuiltList(targetArns),
       status: status,
       statusMessage: statusMessage,
-      tags: tags == null ? null : _i3.BuiltMap(tags),
+      tags: tags == null ? null : _i2.BuiltMap(tags),
     );
   }
 
@@ -50,7 +49,7 @@ abstract class VpcLink
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<VpcLink>> serializers = [
+  static const List<_i3.SmithySerializer<VpcLink>> serializers = [
     VpcLinkRestJson1Serializer()
   ];
 
@@ -64,16 +63,16 @@ abstract class VpcLink
   String? get description;
 
   /// The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned by the same AWS account of the API owner.
-  _i3.BuiltList<String>? get targetArns;
+  _i2.BuiltList<String>? get targetArns;
 
   /// The status of the VPC link. The valid values are `AVAILABLE`, `PENDING`, `DELETING`, or `FAILED`. Deploying an API will wait if the status is `PENDING` and will fail if the status is `DELETING`.
-  _i2.VpcLinkStatus? get status;
+  VpcLinkStatus? get status;
 
   /// A description about the VPC link status.
   String? get statusMessage;
 
   /// The collection of tags. Each tag element is associated with a given resource.
-  _i3.BuiltMap<String, String>? get tags;
+  _i2.BuiltMap<String, String>? get tags;
   @override
   List<Object?> get props => [
         id,
@@ -120,7 +119,7 @@ abstract class VpcLink
 }
 
 class VpcLinkRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<VpcLink> {
+    extends _i3.StructuredSmithySerializer<VpcLink> {
   const VpcLinkRestJson1Serializer() : super('VpcLink');
 
   @override
@@ -129,8 +128,8 @@ class VpcLinkRestJson1Serializer
         _$VpcLink,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -169,8 +168,8 @@ class VpcLinkRestJson1Serializer
         case 'status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.VpcLinkStatus),
-          ) as _i2.VpcLinkStatus);
+            specifiedType: const FullType(VpcLinkStatus),
+          ) as VpcLinkStatus);
         case 'statusMessage':
           result.statusMessage = (serializers.deserialize(
             value,
@@ -180,21 +179,21 @@ class VpcLinkRestJson1Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'targetArns':
           result.targetArns.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -246,7 +245,7 @@ class VpcLinkRestJson1Serializer
         ..add('status')
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType(_i2.VpcLinkStatus),
+          specifiedType: const FullType(VpcLinkStatus),
         ));
     }
     if (statusMessage != null) {
@@ -263,7 +262,7 @@ class VpcLinkRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -277,7 +276,7 @@ class VpcLinkRestJson1Serializer
         ..add(serializers.serialize(
           targetArns,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

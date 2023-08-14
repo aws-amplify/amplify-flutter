@@ -8,7 +8,7 @@ part of 'list_virtual_mfa_devices_request.dart';
 
 class _$ListVirtualMfaDevicesRequest extends ListVirtualMfaDevicesRequest {
   @override
-  final _i3.AssignmentStatusType? assignmentStatus;
+  final AssignmentStatusType? assignmentStatus;
   @override
   final String? marker;
   @override
@@ -57,9 +57,9 @@ class ListVirtualMfaDevicesRequestBuilder
             ListVirtualMfaDevicesRequestBuilder> {
   _$ListVirtualMfaDevicesRequest? _$v;
 
-  _i3.AssignmentStatusType? _assignmentStatus;
-  _i3.AssignmentStatusType? get assignmentStatus => _$this._assignmentStatus;
-  set assignmentStatus(_i3.AssignmentStatusType? assignmentStatus) =>
+  AssignmentStatusType? _assignmentStatus;
+  AssignmentStatusType? get assignmentStatus => _$this._assignmentStatus;
+  set assignmentStatus(AssignmentStatusType? assignmentStatus) =>
       _$this._assignmentStatus = assignmentStatus;
 
   String? _marker;

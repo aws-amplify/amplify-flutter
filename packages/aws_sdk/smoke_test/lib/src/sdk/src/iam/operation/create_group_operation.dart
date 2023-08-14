@@ -3,41 +3,34 @@
 
 library smoke_test.iam.operation.create_group_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i13;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/iam/model/create_group_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/create_group_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i12;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_group_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/entity_already_exists_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
 
 /// Creates a new group.
 ///
 /// For information about the number of groups you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
-    _i2.CreateGroupRequest, _i3.CreateGroupResponse, _i3.CreateGroupResponse> {
+class CreateGroupOperation extends _i1.HttpOperation<CreateGroupRequest,
+    CreateGroupRequest, CreateGroupResponse, CreateGroupResponse> {
   /// Creates a new group.
   ///
   /// For information about the number of groups you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   CreateGroupOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -48,22 +41,22 @@ class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.CreateGroupRequest, _i2.CreateGroupRequest,
-          _i3.CreateGroupResponse, _i3.CreateGroupResponse>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<CreateGroupRequest, CreateGroupRequest,
+          CreateGroupResponse, CreateGroupResponse>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -71,22 +64,22 @@ class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
       action: 'CreateGroup',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'EntityAlreadyExistsException',
           code: 'EntityAlreadyExists',
           httpResponseCode: 409,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'LimitExceededException',
           code: 'LimitExceeded',
           httpResponseCode: 409,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'NoSuchEntityException',
           code: 'NoSuchEntity',
           httpResponseCode: 404,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
@@ -95,8 +88,8 @@ class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -104,90 +97,88 @@ class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.CreateGroupRequest input) =>
+  _i1.HttpRequest buildRequest(CreateGroupRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.CreateGroupResponse? output]) => 200;
+  int successCode([CreateGroupResponse? output]) => 200;
   @override
-  _i3.CreateGroupResponse buildOutput(
-    _i3.CreateGroupResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  CreateGroupResponse buildOutput(
+    CreateGroupResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.CreateGroupResponse.fromResponse(
+      CreateGroupResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.EntityAlreadyExistsException,
-            _i9.EntityAlreadyExistsException>(
+        _i1.SmithyError<EntityAlreadyExistsException,
+            EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
           ),
           _i1.ErrorKind.client,
-          _i9.EntityAlreadyExistsException,
+          EntityAlreadyExistsException,
           statusCode: 409,
-          builder: _i9.EntityAlreadyExistsException.fromResponse,
+          builder: EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError<_i10.LimitExceededException,
-            _i10.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i10.LimitExceededException,
+          LimitExceededException,
           statusCode: 409,
-          builder: _i10.LimitExceededException.fromResponse,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
+        _i1.SmithyError<NoSuchEntityException, NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i11.NoSuchEntityException,
+          NoSuchEntityException,
           statusCode: 404,
-          builder: _i11.NoSuchEntityException.fromResponse,
+          builder: NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ServiceFailureException,
-            _i12.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i12.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i12.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'CreateGroup';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.CreateGroupResponse> run(
-    _i2.CreateGroupRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<CreateGroupResponse> run(
+    CreateGroupRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i13.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -195,7 +186,7 @@ class CreateGroupOperation extends _i1.HttpOperation<_i2.CreateGroupRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

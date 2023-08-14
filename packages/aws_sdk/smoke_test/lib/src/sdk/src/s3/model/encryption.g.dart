@@ -8,7 +8,7 @@ part of 'encryption.dart';
 
 class _$Encryption extends Encryption {
   @override
-  final _i2.ServerSideEncryption encryptionType;
+  final ServerSideEncryption encryptionType;
   @override
   final String? kmsKeyId;
   @override
@@ -53,9 +53,9 @@ class _$Encryption extends Encryption {
 class EncryptionBuilder implements Builder<Encryption, EncryptionBuilder> {
   _$Encryption? _$v;
 
-  _i2.ServerSideEncryption? _encryptionType;
-  _i2.ServerSideEncryption? get encryptionType => _$this._encryptionType;
-  set encryptionType(_i2.ServerSideEncryption? encryptionType) =>
+  ServerSideEncryption? _encryptionType;
+  ServerSideEncryption? get encryptionType => _$this._encryptionType;
+  set encryptionType(ServerSideEncryption? encryptionType) =>
       _$this._encryptionType = encryptionType;
 
   String? _kmsKeyId;

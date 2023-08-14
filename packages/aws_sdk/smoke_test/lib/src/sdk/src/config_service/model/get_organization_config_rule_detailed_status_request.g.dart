@@ -11,7 +11,7 @@ class _$GetOrganizationConfigRuleDetailedStatusRequest
   @override
   final String organizationConfigRuleName;
   @override
-  final _i3.StatusDetailFilters? filters;
+  final StatusDetailFilters? filters;
   @override
   final int limit;
   @override
@@ -82,11 +82,10 @@ class GetOrganizationConfigRuleDetailedStatusRequestBuilder
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  _i3.StatusDetailFiltersBuilder? _filters;
-  _i3.StatusDetailFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.StatusDetailFiltersBuilder();
-  set filters(_i3.StatusDetailFiltersBuilder? filters) =>
-      _$this._filters = filters;
+  StatusDetailFiltersBuilder? _filters;
+  StatusDetailFiltersBuilder get filters =>
+      _$this._filters ??= new StatusDetailFiltersBuilder();
+  set filters(StatusDetailFiltersBuilder? filters) => _$this._filters = filters;
 
   int? _limit;
   int? get limit => _$this._limit;

@@ -8,11 +8,11 @@ part of 'source_detail.dart';
 
 class _$SourceDetail extends SourceDetail {
   @override
-  final _i2.EventSource? eventSource;
+  final EventSource? eventSource;
   @override
-  final _i3.MessageType? messageType;
+  final MessageType? messageType;
   @override
-  final _i4.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final MaximumExecutionFrequency? maximumExecutionFrequency;
 
   factory _$SourceDetail([void Function(SourceDetailBuilder)? updates]) =>
       (new SourceDetailBuilder()..update(updates))._build();
@@ -52,21 +52,21 @@ class SourceDetailBuilder
     implements Builder<SourceDetail, SourceDetailBuilder> {
   _$SourceDetail? _$v;
 
-  _i2.EventSource? _eventSource;
-  _i2.EventSource? get eventSource => _$this._eventSource;
-  set eventSource(_i2.EventSource? eventSource) =>
+  EventSource? _eventSource;
+  EventSource? get eventSource => _$this._eventSource;
+  set eventSource(EventSource? eventSource) =>
       _$this._eventSource = eventSource;
 
-  _i3.MessageType? _messageType;
-  _i3.MessageType? get messageType => _$this._messageType;
-  set messageType(_i3.MessageType? messageType) =>
+  MessageType? _messageType;
+  MessageType? get messageType => _$this._messageType;
+  set messageType(MessageType? messageType) =>
       _$this._messageType = messageType;
 
-  _i4.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  MaximumExecutionFrequency? _maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
   SourceDetailBuilder();

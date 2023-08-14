@@ -4,17 +4,14 @@
 library smoke_test.cloud_formation.model.update_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_configuration.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_configuration.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 
 part 'update_stack_input.g.dart';
 
@@ -30,17 +27,18 @@ abstract class UpdateStackInput
     bool? usePreviousTemplate,
     String? stackPolicyDuringUpdateBody,
     String? stackPolicyDuringUpdateUrl,
-    List<_i3.Parameter>? parameters,
-    List<_i4.Capability>? capabilities,
+    List<Parameter>? parameters,
+    List<Capability>? capabilities,
     List<String>? resourceTypes,
     String? roleArn,
-    _i5.RollbackConfiguration? rollbackConfiguration,
+    RollbackConfiguration? rollbackConfiguration,
     String? stackPolicyBody,
     String? stackPolicyUrl,
     List<String>? notificationArNs,
-    List<_i6.Tag>? tags,
+    List<Tag>? tags,
     bool? disableRollback,
     String? clientRequestToken,
+    bool? retainExceptOnCreate,
   }) {
     return _$UpdateStackInput._(
       stackName: stackName,
@@ -49,19 +47,20 @@ abstract class UpdateStackInput
       usePreviousTemplate: usePreviousTemplate,
       stackPolicyDuringUpdateBody: stackPolicyDuringUpdateBody,
       stackPolicyDuringUpdateUrl: stackPolicyDuringUpdateUrl,
-      parameters: parameters == null ? null : _i7.BuiltList(parameters),
-      capabilities: capabilities == null ? null : _i7.BuiltList(capabilities),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      capabilities: capabilities == null ? null : _i3.BuiltList(capabilities),
       resourceTypes:
-          resourceTypes == null ? null : _i7.BuiltList(resourceTypes),
+          resourceTypes == null ? null : _i3.BuiltList(resourceTypes),
       roleArn: roleArn,
       rollbackConfiguration: rollbackConfiguration,
       stackPolicyBody: stackPolicyBody,
       stackPolicyUrl: stackPolicyUrl,
       notificationArNs:
-          notificationArNs == null ? null : _i7.BuiltList(notificationArNs),
-      tags: tags == null ? null : _i7.BuiltList(tags),
+          notificationArNs == null ? null : _i3.BuiltList(notificationArNs),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       disableRollback: disableRollback,
       clientRequestToken: clientRequestToken,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -111,7 +110,7 @@ abstract class UpdateStackInput
   String? get stackPolicyDuringUpdateUrl;
 
   /// A list of `Parameter` structures that specify input parameters for the stack. For more information, see the [Parameter](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html) data type.
-  _i7.BuiltList<_i3.Parameter>? get parameters;
+  _i3.BuiltList<Parameter>? get parameters;
 
   /// In some cases, you must explicitly acknowledge that your stack template contains certain capabilities in order for CloudFormation to update the stack.
   ///
@@ -145,11 +144,11 @@ abstract class UpdateStackInput
   ///     *   [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
   /// *   `CAPABILITY\_AUTO\_EXPAND`
   ///
-  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually updating the stack. If your stack template contains one or more macros, and you choose to update a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
+  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually updating the stack. If your stack template contains one or more macros, and you choose to update a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
   ///
   ///     If you want to update a stack from a stack template that contains macros _and_ nested stacks, you must update the stack directly from the template using this capability.
   ///
@@ -157,13 +156,13 @@ abstract class UpdateStackInput
   ///
   ///     Each macro relies on an underlying Lambda service function for processing stack templates. Be aware that the Lambda function owner can update the function operation without CloudFormation being notified.
   ///
-  ///     For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
-  _i7.BuiltList<_i4.Capability>? get capabilities;
+  ///     For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  _i3.BuiltList<Capability>? get capabilities;
 
   /// The template resource types that you have permissions to work with for this update stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`, or `Custom::MyCustomInstance`.
   ///
   /// If the list of resource types doesn't include a resource that you're updating, the stack update fails. By default, CloudFormation grants permissions to all resource types. Identity and Access Management (IAM) uses this parameter for CloudFormation-specific condition keys in IAM policies. For more information, see [Controlling Access with Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
-  _i7.BuiltList<String>? get resourceTypes;
+  _i3.BuiltList<String>? get resourceTypes;
 
   /// The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to update the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation always uses this role for all future operations on the stack. Provided that users have permission to operate on the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.
   ///
@@ -171,7 +170,7 @@ abstract class UpdateStackInput
   String? get roleArn;
 
   /// The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
-  _i5.RollbackConfiguration? get rollbackConfiguration;
+  RollbackConfiguration? get rollbackConfiguration;
 
   /// Structure containing a new stack policy body. You can specify either the `StackPolicyBody` or the `StackPolicyURL` parameter, but not both.
   ///
@@ -184,12 +183,12 @@ abstract class UpdateStackInput
   String? get stackPolicyUrl;
 
   /// Amazon Simple Notification Service topic Amazon Resource Names (ARNs) that CloudFormation associates with the stack. Specify an empty list to remove all notification topics.
-  _i7.BuiltList<String>? get notificationArNs;
+  _i3.BuiltList<String>? get notificationArNs;
 
   /// Key-value pairs to associate with this stack. CloudFormation also propagates these tags to supported resources in the stack. You can specify a maximum number of 50 tags.
   ///
   /// If you don't specify this parameter, CloudFormation doesn't modify the stack's tags. If you specify an empty value, CloudFormation removes all associated tags.
-  _i7.BuiltList<_i6.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// Preserve the state of previously provisioned resources when an operation fails.
   ///
@@ -202,6 +201,9 @@ abstract class UpdateStackInput
   ///
   /// In the console, stack operations display the client request token on the Events tab. Stack operations that are initiated from the console use the token format _Console-StackOperation-ID_, which helps you easily identify the stack operation . For example, if you create a stack using the console, each stack event would be assigned the same token in the following format: `Console-CreateStack-7f59c3cf-00d2-40c7-b2ff-e75db0987002`.
   String? get clientRequestToken;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   UpdateStackInput getPayload() => this;
   @override
@@ -223,6 +225,7 @@ abstract class UpdateStackInput
         tags,
         disableRollback,
         clientRequestToken,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -294,6 +297,10 @@ abstract class UpdateStackInput
       ..add(
         'clientRequestToken',
         clientRequestToken,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -368,10 +375,10 @@ class UpdateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i7.BuiltList<_i3.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
         case 'Capabilities':
           result.capabilities.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -379,10 +386,10 @@ class UpdateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i4.Capability)],
+              _i3.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i7.BuiltList<_i4.Capability>));
+          ) as _i3.BuiltList<Capability>));
         case 'ResourceTypes':
           result.resourceTypes.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -390,10 +397,10 @@ class UpdateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'RoleARN':
           result.roleArn = (serializers.deserialize(
             value,
@@ -402,8 +409,8 @@ class UpdateStackInputAwsQuerySerializer
         case 'RollbackConfiguration':
           result.rollbackConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.RollbackConfiguration),
-          ) as _i5.RollbackConfiguration));
+            specifiedType: const FullType(RollbackConfiguration),
+          ) as RollbackConfiguration));
         case 'StackPolicyBody':
           result.stackPolicyBody = (serializers.deserialize(
             value,
@@ -421,10 +428,10 @@ class UpdateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'Tags':
           result.tags.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -432,10 +439,10 @@ class UpdateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i6.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i7.BuiltList<_i6.Tag>));
+          ) as _i3.BuiltList<Tag>));
         case 'DisableRollback':
           result.disableRollback = (serializers.deserialize(
             value,
@@ -446,6 +453,11 @@ class UpdateStackInputAwsQuerySerializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -481,7 +493,8 @@ class UpdateStackInputAwsQuerySerializer
       :notificationArNs,
       :tags,
       :disableRollback,
-      :clientRequestToken
+      :clientRequestToken,
+      :retainExceptOnCreate
     ) = object;
     result$
       ..add(const _i1.XmlElementName('StackName'))
@@ -538,8 +551,8 @@ class UpdateStackInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
@@ -552,8 +565,8 @@ class UpdateStackInputAwsQuerySerializer
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
-            [FullType(_i4.Capability)],
+            _i3.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
@@ -566,7 +579,7 @@ class UpdateStackInputAwsQuerySerializer
           serializers,
           resourceTypes,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -584,7 +597,7 @@ class UpdateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
-          specifiedType: const FullType(_i5.RollbackConfiguration),
+          specifiedType: const FullType(RollbackConfiguration),
         ));
     }
     if (stackPolicyBody != null) {
@@ -612,7 +625,7 @@ class UpdateStackInputAwsQuerySerializer
           serializers,
           notificationArNs,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -626,8 +639,8 @@ class UpdateStackInputAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
-            [FullType(_i6.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }
@@ -645,6 +658,14 @@ class UpdateStackInputAwsQuerySerializer
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
+          specifiedType: const FullType.nullable(bool),
         ));
     }
     return result$;

@@ -9,7 +9,7 @@ part of 'create_service_specific_credential_response.dart';
 class _$CreateServiceSpecificCredentialResponse
     extends CreateServiceSpecificCredentialResponse {
   @override
-  final _i2.ServiceSpecificCredential? serviceSpecificCredential;
+  final ServiceSpecificCredential? serviceSpecificCredential;
 
   factory _$CreateServiceSpecificCredentialResponse(
           [void Function(CreateServiceSpecificCredentialResponseBuilder)?
@@ -52,12 +52,12 @@ class CreateServiceSpecificCredentialResponseBuilder
             CreateServiceSpecificCredentialResponseBuilder> {
   _$CreateServiceSpecificCredentialResponse? _$v;
 
-  _i2.ServiceSpecificCredentialBuilder? _serviceSpecificCredential;
-  _i2.ServiceSpecificCredentialBuilder get serviceSpecificCredential =>
+  ServiceSpecificCredentialBuilder? _serviceSpecificCredential;
+  ServiceSpecificCredentialBuilder get serviceSpecificCredential =>
       _$this._serviceSpecificCredential ??=
-          new _i2.ServiceSpecificCredentialBuilder();
+          new ServiceSpecificCredentialBuilder();
   set serviceSpecificCredential(
-          _i2.ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
+          ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
       _$this._serviceSpecificCredential = serviceSpecificCredential;
 
   CreateServiceSpecificCredentialResponseBuilder();

@@ -4,12 +4,10 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.query_timestamps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/query_timestamps_input.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/query_timestamps_operation.dart'
-    as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/query_timestamps_input.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/query_timestamps_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,14 +16,14 @@ void main() {
     'QueryTimestampsInput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryTimestampsOperation(
+        operation: QueryTimestampsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryTimestampsInput',
           documentation: 'Serializes timestamps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -60,26 +58,26 @@ void main() {
 }
 
 class QueryTimestampsInputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.QueryTimestampsInput> {
+    extends _i3.StructuredSmithySerializer<QueryTimestampsInput> {
   const QueryTimestampsInputAwsQuerySerializer()
       : super('QueryTimestampsInput');
 
   @override
-  Iterable<Type> get types => const [_i5.QueryTimestampsInput];
+  Iterable<Type> get types => const [QueryTimestampsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.QueryTimestampsInput deserialize(
+  QueryTimestampsInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.QueryTimestampsInputBuilder();
+    final result = QueryTimestampsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -91,17 +89,17 @@ class QueryTimestampsInputAwsQuerySerializer
       switch (key) {
         case 'normalFormat':
           result.normalFormat =
-              _i4.TimestampSerializer.epochSeconds.deserialize(
+              _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'epochMember':
-          result.epochMember = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.epochMember = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
         case 'epochTarget':
-          result.epochTarget = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.epochTarget = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -114,7 +112,7 @@ class QueryTimestampsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.QueryTimestampsInput object, {
+    QueryTimestampsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

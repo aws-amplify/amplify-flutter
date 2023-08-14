@@ -10,7 +10,7 @@ class _$UpdateContinuousBackupsInput extends UpdateContinuousBackupsInput {
   @override
   final String tableName;
   @override
-  final _i3.PointInTimeRecoverySpecification pointInTimeRecoverySpecification;
+  final PointInTimeRecoverySpecification pointInTimeRecoverySpecification;
 
   factory _$UpdateContinuousBackupsInput(
           [void Function(UpdateContinuousBackupsInputBuilder)? updates]) =>
@@ -63,14 +63,13 @@ class UpdateContinuousBackupsInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i3.PointInTimeRecoverySpecificationBuilder?
-      _pointInTimeRecoverySpecification;
-  _i3.PointInTimeRecoverySpecificationBuilder
+  PointInTimeRecoverySpecificationBuilder? _pointInTimeRecoverySpecification;
+  PointInTimeRecoverySpecificationBuilder
       get pointInTimeRecoverySpecification =>
           _$this._pointInTimeRecoverySpecification ??=
-              new _i3.PointInTimeRecoverySpecificationBuilder();
+              new PointInTimeRecoverySpecificationBuilder();
   set pointInTimeRecoverySpecification(
-          _i3.PointInTimeRecoverySpecificationBuilder?
+          PointInTimeRecoverySpecificationBuilder?
               pointInTimeRecoverySpecification) =>
       _$this._pointInTimeRecoverySpecification =
           pointInTimeRecoverySpecification;

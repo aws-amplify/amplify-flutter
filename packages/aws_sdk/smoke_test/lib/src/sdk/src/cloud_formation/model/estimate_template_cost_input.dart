@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.estimate_template_cost_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
 
 part 'estimate_template_cost_input.g.dart';
 
@@ -24,12 +23,12 @@ abstract class EstimateTemplateCostInput
   factory EstimateTemplateCostInput({
     String? templateBody,
     String? templateUrl,
-    List<_i3.Parameter>? parameters,
+    List<Parameter>? parameters,
   }) {
     return _$EstimateTemplateCostInput._(
       templateBody: templateBody,
       templateUrl: templateUrl,
-      parameters: parameters == null ? null : _i4.BuiltList(parameters),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
     );
   }
 
@@ -61,7 +60,7 @@ abstract class EstimateTemplateCostInput
   String? get templateUrl;
 
   /// A list of `Parameter` structures that specify input parameters.
-  _i4.BuiltList<_i3.Parameter>? get parameters;
+  _i3.BuiltList<Parameter>? get parameters;
   @override
   EstimateTemplateCostInput getPayload() => this;
   @override
@@ -139,10 +138,10 @@ class EstimateTemplateCostInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i4.BuiltList<_i3.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
       }
     }
 
@@ -188,8 +187,8 @@ class EstimateTemplateCostInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }

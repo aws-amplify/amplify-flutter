@@ -4,15 +4,13 @@
 library smoke_test.dynamo_db_streams.model.stream_record; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart'
-    as _i4;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart';
 
 part 'stream_record.g.dart';
 
@@ -23,18 +21,18 @@ abstract class StreamRecord
   /// A description of a single data modification that was performed on an item in a DynamoDB table.
   factory StreamRecord({
     DateTime? approximateCreationDateTime,
-    Map<String, _i2.AttributeValue>? keys,
-    Map<String, _i2.AttributeValue>? newImage,
-    Map<String, _i2.AttributeValue>? oldImage,
+    Map<String, AttributeValue>? keys,
+    Map<String, AttributeValue>? newImage,
+    Map<String, AttributeValue>? oldImage,
     String? sequenceNumber,
-    _i3.Int64? sizeBytes,
-    _i4.StreamViewType? streamViewType,
+    _i2.Int64? sizeBytes,
+    StreamViewType? streamViewType,
   }) {
     return _$StreamRecord._(
       approximateCreationDateTime: approximateCreationDateTime,
-      keys: keys == null ? null : _i5.BuiltMap(keys),
-      newImage: newImage == null ? null : _i5.BuiltMap(newImage),
-      oldImage: oldImage == null ? null : _i5.BuiltMap(oldImage),
+      keys: keys == null ? null : _i3.BuiltMap(keys),
+      newImage: newImage == null ? null : _i3.BuiltMap(newImage),
+      oldImage: oldImage == null ? null : _i3.BuiltMap(oldImage),
       sequenceNumber: sequenceNumber,
       sizeBytes: sizeBytes,
       streamViewType: streamViewType,
@@ -47,7 +45,7 @@ abstract class StreamRecord
 
   const StreamRecord._();
 
-  static const List<_i6.SmithySerializer<StreamRecord>> serializers = [
+  static const List<_i4.SmithySerializer<StreamRecord>> serializers = [
     StreamRecordAwsJson10Serializer()
   ];
 
@@ -55,19 +53,19 @@ abstract class StreamRecord
   DateTime? get approximateCreationDateTime;
 
   /// The primary key attribute(s) for the DynamoDB item that was modified.
-  _i5.BuiltMap<String, _i2.AttributeValue>? get keys;
+  _i3.BuiltMap<String, AttributeValue>? get keys;
 
   /// The item in the DynamoDB table as it appeared after it was modified.
-  _i5.BuiltMap<String, _i2.AttributeValue>? get newImage;
+  _i3.BuiltMap<String, AttributeValue>? get newImage;
 
   /// The item in the DynamoDB table as it appeared before it was modified.
-  _i5.BuiltMap<String, _i2.AttributeValue>? get oldImage;
+  _i3.BuiltMap<String, AttributeValue>? get oldImage;
 
   /// The sequence number of the stream record.
   String? get sequenceNumber;
 
   /// The size of the stream record, in bytes.
-  _i3.Int64? get sizeBytes;
+  _i2.Int64? get sizeBytes;
 
   /// The type of data from the modified DynamoDB item that was captured in this stream record:
   ///
@@ -78,7 +76,7 @@ abstract class StreamRecord
   /// *   `OLD_IMAGE` \- the entire item, as it appeared before it was modified.
   ///
   /// *   `NEW\_AND\_OLD_IMAGES` \- both the new and the old item images of the item.
-  _i4.StreamViewType? get streamViewType;
+  StreamViewType? get streamViewType;
   @override
   List<Object?> get props => [
         approximateCreationDateTime,
@@ -125,7 +123,7 @@ abstract class StreamRecord
 }
 
 class StreamRecordAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<StreamRecord> {
+    extends _i4.StructuredSmithySerializer<StreamRecord> {
   const StreamRecordAwsJson10Serializer() : super('StreamRecord');
 
   @override
@@ -134,8 +132,8 @@ class StreamRecordAwsJson10Serializer
         _$StreamRecord,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -165,35 +163,35 @@ class StreamRecordAwsJson10Serializer
           result.keys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'NewImage':
           result.newImage.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'OldImage':
           result.oldImage.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'SequenceNumber':
           result.sequenceNumber = (serializers.deserialize(
             value,
@@ -202,13 +200,13 @@ class StreamRecordAwsJson10Serializer
         case 'SizeBytes':
           result.sizeBytes = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'StreamViewType':
           result.streamViewType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.StreamViewType),
-          ) as _i4.StreamViewType);
+            specifiedType: const FullType(StreamViewType),
+          ) as StreamViewType);
       }
     }
 
@@ -245,10 +243,10 @@ class StreamRecordAwsJson10Serializer
         ..add(serializers.serialize(
           keys,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -259,10 +257,10 @@ class StreamRecordAwsJson10Serializer
         ..add(serializers.serialize(
           newImage,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -273,10 +271,10 @@ class StreamRecordAwsJson10Serializer
         ..add(serializers.serialize(
           oldImage,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -294,7 +292,7 @@ class StreamRecordAwsJson10Serializer
         ..add('SizeBytes')
         ..add(serializers.serialize(
           sizeBytes,
-          specifiedType: const FullType(_i3.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (streamViewType != null) {
@@ -302,7 +300,7 @@ class StreamRecordAwsJson10Serializer
         ..add('StreamViewType')
         ..add(serializers.serialize(
           streamViewType,
-          specifiedType: const FullType(_i4.StreamViewType),
+          specifiedType: const FullType(StreamViewType),
         ));
     }
     return result$;

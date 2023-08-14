@@ -10,7 +10,7 @@ class _$IntelligentTieringAndOperator extends IntelligentTieringAndOperator {
   @override
   final String? prefix;
   @override
-  final _i3.BuiltList<_i2.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$IntelligentTieringAndOperator(
           [void Function(IntelligentTieringAndOperatorBuilder)? updates]) =>
@@ -55,10 +55,9 @@ class IntelligentTieringAndOperatorBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   IntelligentTieringAndOperatorBuilder();
 

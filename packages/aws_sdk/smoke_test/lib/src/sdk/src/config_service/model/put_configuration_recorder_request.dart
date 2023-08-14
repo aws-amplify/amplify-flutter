@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder.dart';
 
 part 'put_configuration_recorder_request.g.dart';
 
@@ -22,7 +21,7 @@ abstract class PutConfigurationRecorderRequest
             PutConfigurationRecorderRequestBuilder> {
   /// The input for the PutConfigurationRecorder action.
   factory PutConfigurationRecorderRequest(
-      {required _i3.ConfigurationRecorder configurationRecorder}) {
+      {required ConfigurationRecorder configurationRecorder}) {
     return _$PutConfigurationRecorderRequest._(
         configurationRecorder: configurationRecorder);
   }
@@ -45,7 +44,7 @@ abstract class PutConfigurationRecorderRequest
       serializers = [PutConfigurationRecorderRequestAwsJson11Serializer()];
 
   /// An object for the configuration recorder to record configuration changes for specified resource types.
-  _i3.ConfigurationRecorder get configurationRecorder;
+  ConfigurationRecorder get configurationRecorder;
   @override
   PutConfigurationRecorderRequest getPayload() => this;
   @override
@@ -98,8 +97,8 @@ class PutConfigurationRecorderRequestAwsJson11Serializer
         case 'ConfigurationRecorder':
           result.configurationRecorder.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConfigurationRecorder),
-          ) as _i3.ConfigurationRecorder));
+            specifiedType: const FullType(ConfigurationRecorder),
+          ) as ConfigurationRecorder));
       }
     }
 
@@ -118,7 +117,7 @@ class PutConfigurationRecorderRequestAwsJson11Serializer
       'ConfigurationRecorder',
       serializers.serialize(
         configurationRecorder,
-        specifiedType: const FullType(_i3.ConfigurationRecorder),
+        specifiedType: const FullType(ConfigurationRecorder),
       ),
     ]);
     return result$;

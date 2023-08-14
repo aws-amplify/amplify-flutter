@@ -6,8 +6,8 @@ library smoke_test.s3.model.metrics_configuration; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_filter.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_filter.dart';
 
 part 'metrics_configuration.g.dart';
 
@@ -18,7 +18,7 @@ abstract class MetricsConfiguration
   /// Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration. If you don't include the elements you want to keep, they are erased. For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html).
   factory MetricsConfiguration({
     required String id,
-    _i2.MetricsFilter? filter,
+    MetricsFilter? filter,
   }) {
     return _$MetricsConfiguration._(
       id: id,
@@ -33,7 +33,7 @@ abstract class MetricsConfiguration
 
   const MetricsConfiguration._();
 
-  static const List<_i3.SmithySerializer<MetricsConfiguration>> serializers = [
+  static const List<_i2.SmithySerializer<MetricsConfiguration>> serializers = [
     MetricsConfigurationRestXmlSerializer()
   ];
 
@@ -41,7 +41,7 @@ abstract class MetricsConfiguration
   String get id;
 
   /// Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator).
-  _i2.MetricsFilter? get filter;
+  MetricsFilter? get filter;
   @override
   List<Object?> get props => [
         id,
@@ -63,7 +63,7 @@ abstract class MetricsConfiguration
 }
 
 class MetricsConfigurationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<MetricsConfiguration> {
+    extends _i2.StructuredSmithySerializer<MetricsConfiguration> {
   const MetricsConfigurationRestXmlSerializer() : super('MetricsConfiguration');
 
   @override
@@ -72,8 +72,8 @@ class MetricsConfigurationRestXmlSerializer
         _$MetricsConfiguration,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -97,8 +97,8 @@ class MetricsConfigurationRestXmlSerializer
         case 'Filter':
           result.filter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MetricsFilter),
-          ) as _i2.MetricsFilter);
+            specifiedType: const FullType(MetricsFilter),
+          ) as MetricsFilter);
         case 'Id':
           result.id = (serializers.deserialize(
             value,
@@ -117,22 +117,22 @@ class MetricsConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'MetricsConfiguration',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final MetricsConfiguration(:filter, :id) = object;
     if (filter != null) {
       result$
-        ..add(const _i3.XmlElementName('Filter'))
+        ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i2.MetricsFilter),
+          specifiedType: const FullType(MetricsFilter),
         ));
     }
     result$
-      ..add(const _i3.XmlElementName('Id'))
+      ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),

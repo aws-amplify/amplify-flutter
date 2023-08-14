@@ -4,10 +4,10 @@
 library custom_v2.custom.model.default_values_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/custom/model/default_enum.dart' as _i3;
+import 'package:custom_v2/src/custom/model/default_enum.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'default_values_input.g.dart';
@@ -22,9 +22,9 @@ abstract class DefaultValuesInput
     String? requiredDefaultString,
     String? optionalDefaultString,
     String? nullifiedDefaultString,
-    _i3.DefaultEnum? requiredDefaultEnum,
-    _i3.DefaultEnum? optionalDefaultEnum,
-    _i3.DefaultEnum? nullifiedDefaultEnum,
+    DefaultEnum? requiredDefaultEnum,
+    DefaultEnum? optionalDefaultEnum,
+    DefaultEnum? nullifiedDefaultEnum,
     List<String>? requiredDefaultList,
     List<String>? optionalDefaultList,
     List<String>? nullifiedDefaultList,
@@ -39,8 +39,8 @@ abstract class DefaultValuesInput
     optionalDefaultInt ??= 42;
     requiredDefaultString ??= r'default';
     optionalDefaultString ??= r'default';
-    requiredDefaultEnum ??= _i3.DefaultEnum.a;
-    optionalDefaultEnum ??= _i3.DefaultEnum.a;
+    requiredDefaultEnum ??= DefaultEnum.a;
+    optionalDefaultEnum ??= DefaultEnum.a;
     requiredDefaultList ??= const [];
     optionalDefaultList ??= const [];
     requiredDefaultMap ??= const {};
@@ -57,16 +57,16 @@ abstract class DefaultValuesInput
       requiredDefaultEnum: requiredDefaultEnum,
       optionalDefaultEnum: optionalDefaultEnum,
       nullifiedDefaultEnum: nullifiedDefaultEnum,
-      requiredDefaultList: _i4.BuiltList(requiredDefaultList),
-      optionalDefaultList: _i4.BuiltList(optionalDefaultList),
+      requiredDefaultList: _i3.BuiltList(requiredDefaultList),
+      optionalDefaultList: _i3.BuiltList(optionalDefaultList),
       nullifiedDefaultList: nullifiedDefaultList == null
           ? null
-          : _i4.BuiltList(nullifiedDefaultList),
-      requiredDefaultMap: _i4.BuiltMap(requiredDefaultMap),
-      optionalDefaultMap: _i4.BuiltMap(optionalDefaultMap),
+          : _i3.BuiltList(nullifiedDefaultList),
+      requiredDefaultMap: _i3.BuiltMap(requiredDefaultMap),
+      optionalDefaultMap: _i3.BuiltMap(optionalDefaultMap),
       nullifiedDefaultMap: nullifiedDefaultMap == null
           ? null
-          : _i4.BuiltMap(nullifiedDefaultMap),
+          : _i3.BuiltMap(nullifiedDefaultMap),
       requiredDefaultBool: requiredDefaultBool,
       optionalDefaultBool: optionalDefaultBool,
       nullifiedDefaultBool: nullifiedDefaultBool,
@@ -97,8 +97,8 @@ abstract class DefaultValuesInput
       ..optionalDefaultInt = 42
       ..requiredDefaultString = r'default'
       ..optionalDefaultString = r'default'
-      ..requiredDefaultEnum = _i3.DefaultEnum.a
-      ..optionalDefaultEnum = _i3.DefaultEnum.a
+      ..requiredDefaultEnum = DefaultEnum.a
+      ..optionalDefaultEnum = DefaultEnum.a
       ..requiredDefaultList.addAll(const [])
       ..optionalDefaultList.addAll(const [])
       ..requiredDefaultMap.addAll(const {})
@@ -113,15 +113,15 @@ abstract class DefaultValuesInput
   String get requiredDefaultString;
   String get optionalDefaultString;
   String? get nullifiedDefaultString;
-  _i3.DefaultEnum get requiredDefaultEnum;
-  _i3.DefaultEnum get optionalDefaultEnum;
-  _i3.DefaultEnum? get nullifiedDefaultEnum;
-  _i4.BuiltList<String> get requiredDefaultList;
-  _i4.BuiltList<String> get optionalDefaultList;
-  _i4.BuiltList<String>? get nullifiedDefaultList;
-  _i4.BuiltMap<String, String> get requiredDefaultMap;
-  _i4.BuiltMap<String, String> get optionalDefaultMap;
-  _i4.BuiltMap<String, String>? get nullifiedDefaultMap;
+  DefaultEnum get requiredDefaultEnum;
+  DefaultEnum get optionalDefaultEnum;
+  DefaultEnum? get nullifiedDefaultEnum;
+  _i3.BuiltList<String> get requiredDefaultList;
+  _i3.BuiltList<String> get optionalDefaultList;
+  _i3.BuiltList<String>? get nullifiedDefaultList;
+  _i3.BuiltMap<String, String> get requiredDefaultMap;
+  _i3.BuiltMap<String, String> get optionalDefaultMap;
+  _i3.BuiltMap<String, String>? get nullifiedDefaultMap;
   bool get requiredDefaultBool;
   bool get optionalDefaultBool;
   bool? get nullifiedDefaultBool;
@@ -267,8 +267,8 @@ class DefaultValuesInputRestJson1Serializer
         case 'nullifiedDefaultEnum':
           result.nullifiedDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DefaultEnum),
-          ) as _i3.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'nullifiedDefaultInt':
           result.nullifiedDefaultInt = (serializers.deserialize(
             value,
@@ -278,21 +278,21 @@ class DefaultValuesInputRestJson1Serializer
           result.nullifiedDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'nullifiedDefaultMap':
           result.nullifiedDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'nullifiedDefaultString':
           result.nullifiedDefaultString = (serializers.deserialize(
             value,
@@ -306,8 +306,8 @@ class DefaultValuesInputRestJson1Serializer
         case 'optionalDefaultEnum':
           result.optionalDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DefaultEnum),
-          ) as _i3.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'optionalDefaultInt':
           result.optionalDefaultInt = (serializers.deserialize(
             value,
@@ -317,21 +317,21 @@ class DefaultValuesInputRestJson1Serializer
           result.optionalDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'optionalDefaultMap':
           result.optionalDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'optionalDefaultString':
           result.optionalDefaultString = (serializers.deserialize(
             value,
@@ -345,8 +345,8 @@ class DefaultValuesInputRestJson1Serializer
         case 'requiredDefaultEnum':
           result.requiredDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DefaultEnum),
-          ) as _i3.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'requiredDefaultInt':
           result.requiredDefaultInt = (serializers.deserialize(
             value,
@@ -356,21 +356,21 @@ class DefaultValuesInputRestJson1Serializer
           result.requiredDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'requiredDefaultMap':
           result.requiredDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'requiredDefaultString':
           result.requiredDefaultString = (serializers.deserialize(
             value,
@@ -418,7 +418,7 @@ class DefaultValuesInputRestJson1Serializer
       'optionalDefaultEnum',
       serializers.serialize(
         optionalDefaultEnum,
-        specifiedType: const FullType(_i3.DefaultEnum),
+        specifiedType: const FullType(DefaultEnum),
       ),
       'optionalDefaultInt',
       serializers.serialize(
@@ -429,7 +429,7 @@ class DefaultValuesInputRestJson1Serializer
       serializers.serialize(
         optionalDefaultList,
         specifiedType: const FullType(
-          _i4.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ),
@@ -437,7 +437,7 @@ class DefaultValuesInputRestJson1Serializer
       serializers.serialize(
         optionalDefaultMap,
         specifiedType: const FullType(
-          _i4.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
             FullType(String),
@@ -457,7 +457,7 @@ class DefaultValuesInputRestJson1Serializer
       'requiredDefaultEnum',
       serializers.serialize(
         requiredDefaultEnum,
-        specifiedType: const FullType(_i3.DefaultEnum),
+        specifiedType: const FullType(DefaultEnum),
       ),
       'requiredDefaultInt',
       serializers.serialize(
@@ -468,7 +468,7 @@ class DefaultValuesInputRestJson1Serializer
       serializers.serialize(
         requiredDefaultList,
         specifiedType: const FullType(
-          _i4.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ),
@@ -476,7 +476,7 @@ class DefaultValuesInputRestJson1Serializer
       serializers.serialize(
         requiredDefaultMap,
         specifiedType: const FullType(
-          _i4.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
             FullType(String),
@@ -502,7 +502,7 @@ class DefaultValuesInputRestJson1Serializer
         ..add('nullifiedDefaultEnum')
         ..add(serializers.serialize(
           nullifiedDefaultEnum,
-          specifiedType: const FullType(_i3.DefaultEnum),
+          specifiedType: const FullType(DefaultEnum),
         ));
     }
     if (nullifiedDefaultInt != null) {
@@ -519,7 +519,7 @@ class DefaultValuesInputRestJson1Serializer
         ..add(serializers.serialize(
           nullifiedDefaultList,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -530,7 +530,7 @@ class DefaultValuesInputRestJson1Serializer
         ..add(serializers.serialize(
           nullifiedDefaultMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

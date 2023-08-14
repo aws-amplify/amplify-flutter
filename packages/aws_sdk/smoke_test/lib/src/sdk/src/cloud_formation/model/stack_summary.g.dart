@@ -20,7 +20,7 @@ class _$StackSummary extends StackSummary {
   @override
   final DateTime? deletionTime;
   @override
-  final _i2.StackStatus stackStatus;
+  final StackStatus stackStatus;
   @override
   final String? stackStatusReason;
   @override
@@ -28,7 +28,7 @@ class _$StackSummary extends StackSummary {
   @override
   final String? rootId;
   @override
-  final _i3.StackDriftInformationSummary? driftInformation;
+  final StackDriftInformationSummary? driftInformation;
 
   factory _$StackSummary([void Function(StackSummaryBuilder)? updates]) =>
       (new StackSummaryBuilder()..update(updates))._build();
@@ -129,9 +129,9 @@ class StackSummaryBuilder
   set deletionTime(DateTime? deletionTime) =>
       _$this._deletionTime = deletionTime;
 
-  _i2.StackStatus? _stackStatus;
-  _i2.StackStatus? get stackStatus => _$this._stackStatus;
-  set stackStatus(_i2.StackStatus? stackStatus) =>
+  StackStatus? _stackStatus;
+  StackStatus? get stackStatus => _$this._stackStatus;
+  set stackStatus(StackStatus? stackStatus) =>
       _$this._stackStatus = stackStatus;
 
   String? _stackStatusReason;
@@ -147,12 +147,10 @@ class StackSummaryBuilder
   String? get rootId => _$this._rootId;
   set rootId(String? rootId) => _$this._rootId = rootId;
 
-  _i3.StackDriftInformationSummaryBuilder? _driftInformation;
-  _i3.StackDriftInformationSummaryBuilder get driftInformation =>
-      _$this._driftInformation ??=
-          new _i3.StackDriftInformationSummaryBuilder();
-  set driftInformation(
-          _i3.StackDriftInformationSummaryBuilder? driftInformation) =>
+  StackDriftInformationSummaryBuilder? _driftInformation;
+  StackDriftInformationSummaryBuilder get driftInformation =>
+      _$this._driftInformation ??= new StackDriftInformationSummaryBuilder();
+  set driftInformation(StackDriftInformationSummaryBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
   StackSummaryBuilder();

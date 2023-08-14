@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.put_organization_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart';
 
 part 'put_organization_conformance_pack_request.g.dart';
 
@@ -26,7 +25,7 @@ abstract class PutOrganizationConformancePackRequest
     String? templateBody,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
-    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
+    List<ConformancePackInputParameter>? conformancePackInputParameters,
     List<String>? excludedAccounts,
   }) {
     return _$PutOrganizationConformancePackRequest._(
@@ -37,9 +36,9 @@ abstract class PutOrganizationConformancePackRequest
       deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
-          : _i4.BuiltList(conformancePackInputParameters),
+          : _i3.BuiltList(conformancePackInputParameters),
       excludedAccounts:
-          excludedAccounts == null ? null : _i4.BuiltList(excludedAccounts),
+          excludedAccounts == null ? null : _i3.BuiltList(excludedAccounts),
     );
   }
 
@@ -83,11 +82,11 @@ abstract class PutOrganizationConformancePackRequest
   String? get deliveryS3KeyPrefix;
 
   /// A list of `ConformancePackInputParameter` objects.
-  _i4.BuiltList<_i3.ConformancePackInputParameter>?
+  _i3.BuiltList<ConformancePackInputParameter>?
       get conformancePackInputParameters;
 
   /// A list of Amazon Web Services accounts to be excluded from an organization conformance pack while deploying a conformance pack.
-  _i4.BuiltList<String>? get excludedAccounts;
+  _i3.BuiltList<String>? get excludedAccounts;
   @override
   PutOrganizationConformancePackRequest getPayload() => this;
   @override
@@ -199,18 +198,18 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ConformancePackInputParameter)],
+              _i3.BuiltList,
+              [FullType(ConformancePackInputParameter)],
             ),
-          ) as _i4.BuiltList<_i3.ConformancePackInputParameter>));
+          ) as _i3.BuiltList<ConformancePackInputParameter>));
         case 'ExcludedAccounts':
           result.excludedAccounts.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -278,8 +277,8 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           conformancePackInputParameters,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ConformancePackInputParameter)],
+            _i3.BuiltList,
+            [FullType(ConformancePackInputParameter)],
           ),
         ));
     }
@@ -289,7 +288,7 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           excludedAccounts,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));

@@ -3,48 +3,35 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.operation.put_events_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i18;
+import 'dart:async' as _i5;
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart'
-    as _i8;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/bad_request_exception.dart'
-    as _i11;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_request.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_response.dart'
-    as _i4;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/forbidden_exception.dart'
-    as _i12;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/internal_server_error_exception.dart'
-    as _i13;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/method_not_allowed_exception.dart'
-    as _i14;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/not_found_exception.dart'
-    as _i15;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/payload_too_large_exception.dart'
-    as _i16;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_request.dart'
-    as _i3;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_response.dart'
-    as _i5;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/too_many_requests_exception.dart'
-    as _i17;
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/endpoint_resolver.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/bad_request_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_request.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_response.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/forbidden_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/internal_server_error_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/method_not_allowed_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/not_found_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/payload_too_large_exception.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_request.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/put_events_response.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/too_many_requests_exception.dart';
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Creates a new event to record for endpoints, or creates or updates endpoint data that existing events are associated with.
-class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
-    _i3.PutEventsRequest, _i4.EventsResponse, _i5.PutEventsResponse> {
+class PutEventsOperation extends _i1.HttpOperation<EventsRequest,
+    PutEventsRequest, EventsResponse, PutEventsResponse> {
   /// Creates a new event to record for endpoints, or creates or updates endpoint data that existing events are associated with.
   PutEventsOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -55,22 +42,22 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.EventsRequest, _i3.PutEventsRequest,
-          _i4.EventsResponse, _i5.PutEventsResponse>> protocols = [
-    _i7.RestJson1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+      _i1.HttpProtocol<EventsRequest, PutEventsRequest, EventsResponse,
+          PutEventsResponse>> protocols = [
+    _i3.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i7.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i9.AWSService.pinpoint,
+              service: _i4.AWSService.pinpoint,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -78,8 +65,8 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -87,121 +74,117 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.PutEventsRequest input) =>
-      _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(PutEventsRequest input) => _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/v1/apps/{ApplicationId}/events';
       });
   @override
-  int successCode([_i5.PutEventsResponse? output]) => 202;
+  int successCode([PutEventsResponse? output]) => 202;
   @override
-  _i5.PutEventsResponse buildOutput(
-    _i4.EventsResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  PutEventsResponse buildOutput(
+    EventsResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i5.PutEventsResponse.fromResponse(
+      PutEventsResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.BadRequestException, _i11.BadRequestException>(
+        _i1.SmithyError<BadRequestException, BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'BadRequestException',
           ),
           _i1.ErrorKind.client,
-          _i11.BadRequestException,
+          BadRequestException,
           statusCode: 400,
-          builder: _i11.BadRequestException.fromResponse,
+          builder: BadRequestException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ForbiddenException, _i12.ForbiddenException>(
+        _i1.SmithyError<ForbiddenException, ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'ForbiddenException',
           ),
           _i1.ErrorKind.client,
-          _i12.ForbiddenException,
+          ForbiddenException,
           statusCode: 403,
-          builder: _i12.ForbiddenException.fromResponse,
+          builder: ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.InternalServerErrorException,
-            _i13.InternalServerErrorException>(
+        _i1.SmithyError<InternalServerErrorException,
+            InternalServerErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'InternalServerErrorException',
           ),
           _i1.ErrorKind.server,
-          _i13.InternalServerErrorException,
+          InternalServerErrorException,
           statusCode: 500,
-          builder: _i13.InternalServerErrorException.fromResponse,
+          builder: InternalServerErrorException.fromResponse,
         ),
-        _i1.SmithyError<_i14.MethodNotAllowedException,
-            _i14.MethodNotAllowedException>(
+        _i1.SmithyError<MethodNotAllowedException, MethodNotAllowedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'MethodNotAllowedException',
           ),
           _i1.ErrorKind.client,
-          _i14.MethodNotAllowedException,
+          MethodNotAllowedException,
           statusCode: 405,
-          builder: _i14.MethodNotAllowedException.fromResponse,
+          builder: MethodNotAllowedException.fromResponse,
         ),
-        _i1.SmithyError<_i15.NotFoundException, _i15.NotFoundException>(
+        _i1.SmithyError<NotFoundException, NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'NotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i15.NotFoundException,
+          NotFoundException,
           statusCode: 404,
-          builder: _i15.NotFoundException.fromResponse,
+          builder: NotFoundException.fromResponse,
         ),
-        _i1.SmithyError<_i16.PayloadTooLargeException,
-            _i16.PayloadTooLargeException>(
+        _i1.SmithyError<PayloadTooLargeException, PayloadTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'PayloadTooLargeException',
           ),
           _i1.ErrorKind.client,
-          _i16.PayloadTooLargeException,
+          PayloadTooLargeException,
           statusCode: 413,
-          builder: _i16.PayloadTooLargeException.fromResponse,
+          builder: PayloadTooLargeException.fromResponse,
         ),
-        _i1.SmithyError<_i17.TooManyRequestsException,
-            _i17.TooManyRequestsException>(
+        _i1.SmithyError<TooManyRequestsException, TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.pinpoint',
             shape: 'TooManyRequestsException',
           ),
           _i1.ErrorKind.client,
-          _i17.TooManyRequestsException,
+          TooManyRequestsException,
           statusCode: 429,
-          builder: _i17.TooManyRequestsException.fromResponse,
+          builder: TooManyRequestsException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'PutEvents';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i5.PutEventsResponse> run(
-    _i3.PutEventsRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<PutEventsResponse> run(
+    PutEventsRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i18.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -209,7 +192,7 @@ class PutEventsOperation extends _i1.HttpOperation<_i2.EventsRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

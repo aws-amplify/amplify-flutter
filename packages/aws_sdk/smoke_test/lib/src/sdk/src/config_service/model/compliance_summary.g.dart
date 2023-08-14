@@ -8,9 +8,9 @@ part of 'compliance_summary.dart';
 
 class _$ComplianceSummary extends ComplianceSummary {
   @override
-  final _i2.ComplianceContributorCount? compliantResourceCount;
+  final ComplianceContributorCount? compliantResourceCount;
   @override
-  final _i2.ComplianceContributorCount? nonCompliantResourceCount;
+  final ComplianceContributorCount? nonCompliantResourceCount;
   @override
   final DateTime? complianceSummaryTimestamp;
 
@@ -56,20 +56,20 @@ class ComplianceSummaryBuilder
     implements Builder<ComplianceSummary, ComplianceSummaryBuilder> {
   _$ComplianceSummary? _$v;
 
-  _i2.ComplianceContributorCountBuilder? _compliantResourceCount;
-  _i2.ComplianceContributorCountBuilder get compliantResourceCount =>
+  ComplianceContributorCountBuilder? _compliantResourceCount;
+  ComplianceContributorCountBuilder get compliantResourceCount =>
       _$this._compliantResourceCount ??=
-          new _i2.ComplianceContributorCountBuilder();
+          new ComplianceContributorCountBuilder();
   set compliantResourceCount(
-          _i2.ComplianceContributorCountBuilder? compliantResourceCount) =>
+          ComplianceContributorCountBuilder? compliantResourceCount) =>
       _$this._compliantResourceCount = compliantResourceCount;
 
-  _i2.ComplianceContributorCountBuilder? _nonCompliantResourceCount;
-  _i2.ComplianceContributorCountBuilder get nonCompliantResourceCount =>
+  ComplianceContributorCountBuilder? _nonCompliantResourceCount;
+  ComplianceContributorCountBuilder get nonCompliantResourceCount =>
       _$this._nonCompliantResourceCount ??=
-          new _i2.ComplianceContributorCountBuilder();
+          new ComplianceContributorCountBuilder();
   set nonCompliantResourceCount(
-          _i2.ComplianceContributorCountBuilder? nonCompliantResourceCount) =>
+          ComplianceContributorCountBuilder? nonCompliantResourceCount) =>
       _$this._nonCompliantResourceCount = nonCompliantResourceCount;
 
   DateTime? _complianceSummaryTimestamp;

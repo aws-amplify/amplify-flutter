@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.batch_execute_statement_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_response.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_response.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
 
 part 'batch_execute_statement_output.g.dart';
 
@@ -20,13 +18,13 @@ abstract class BatchExecuteStatementOutput
     implements
         Built<BatchExecuteStatementOutput, BatchExecuteStatementOutputBuilder> {
   factory BatchExecuteStatementOutput({
-    List<_i2.BatchStatementResponse>? responses,
-    List<_i3.ConsumedCapacity>? consumedCapacity,
+    List<BatchStatementResponse>? responses,
+    List<ConsumedCapacity>? consumedCapacity,
   }) {
     return _$BatchExecuteStatementOutput._(
-      responses: responses == null ? null : _i4.BuiltList(responses),
+      responses: responses == null ? null : _i2.BuiltList(responses),
       consumedCapacity:
-          consumedCapacity == null ? null : _i4.BuiltList(consumedCapacity),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
     );
   }
 
@@ -43,14 +41,14 @@ abstract class BatchExecuteStatementOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<BatchExecuteStatementOutput>>
+  static const List<_i3.SmithySerializer<BatchExecuteStatementOutput>>
       serializers = [BatchExecuteStatementOutputAwsJson10Serializer()];
 
-  /// The response to each PartiQL statement in the batch.
-  _i4.BuiltList<_i2.BatchStatementResponse>? get responses;
+  /// The response to each PartiQL statement in the batch. The values of the list are ordered according to the ordering of the request statements.
+  _i2.BuiltList<BatchStatementResponse>? get responses;
 
   /// The capacity units consumed by the entire operation. The values of the list are ordered according to the ordering of the statements.
-  _i4.BuiltList<_i3.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
         responses,
@@ -72,7 +70,7 @@ abstract class BatchExecuteStatementOutput
 }
 
 class BatchExecuteStatementOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BatchExecuteStatementOutput> {
+    extends _i3.StructuredSmithySerializer<BatchExecuteStatementOutput> {
   const BatchExecuteStatementOutputAwsJson10Serializer()
       : super('BatchExecuteStatementOutput');
 
@@ -82,8 +80,8 @@ class BatchExecuteStatementOutputAwsJson10Serializer
         _$BatchExecuteStatementOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,18 +106,18 @@ class BatchExecuteStatementOutputAwsJson10Serializer
           result.responses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.BatchStatementResponse)],
+              _i2.BuiltList,
+              [FullType(BatchStatementResponse)],
             ),
-          ) as _i4.BuiltList<_i2.BatchStatementResponse>));
+          ) as _i2.BuiltList<BatchStatementResponse>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i4.BuiltList<_i3.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
       }
     }
 
@@ -140,8 +138,8 @@ class BatchExecuteStatementOutputAwsJson10Serializer
         ..add(serializers.serialize(
           responses,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.BatchStatementResponse)],
+            _i2.BuiltList,
+            [FullType(BatchStatementResponse)],
           ),
         ));
     }
@@ -151,8 +149,8 @@ class BatchExecuteStatementOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }

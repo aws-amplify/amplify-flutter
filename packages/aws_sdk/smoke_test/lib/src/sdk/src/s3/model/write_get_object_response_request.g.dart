@@ -56,23 +56,23 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final int? missingMeta;
   @override
-  final _i11.BuiltMap<String, String>? metadata;
+  final _i5.BuiltMap<String, String>? metadata;
   @override
-  final _i5.ObjectLockMode? objectLockMode;
+  final ObjectLockMode? objectLockMode;
   @override
-  final _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
   final int? partsCount;
   @override
-  final _i7.ReplicationStatus? replicationStatus;
+  final ReplicationStatus? replicationStatus;
   @override
-  final _i8.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
   final String? restore;
   @override
-  final _i9.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -80,7 +80,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final _i10.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
   final int? tagCount;
   @override
@@ -355,22 +355,22 @@ class WriteGetObjectResponseRequestBuilder
   int? get missingMeta => _$this._missingMeta;
   set missingMeta(int? missingMeta) => _$this._missingMeta = missingMeta;
 
-  _i11.MapBuilder<String, String>? _metadata;
-  _i11.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i11.MapBuilder<String, String>();
-  set metadata(_i11.MapBuilder<String, String>? metadata) =>
+  _i5.MapBuilder<String, String>? _metadata;
+  _i5.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i5.MapBuilder<String, String>();
+  set metadata(_i5.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i5.ObjectLockMode? _objectLockMode;
-  _i5.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i5.ObjectLockMode? objectLockMode) =>
+  ObjectLockMode? _objectLockMode;
+  ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
-  _i6.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i6.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i6.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   DateTime? _objectLockRetainUntilDate;
@@ -382,24 +382,24 @@ class WriteGetObjectResponseRequestBuilder
   int? get partsCount => _$this._partsCount;
   set partsCount(int? partsCount) => _$this._partsCount = partsCount;
 
-  _i7.ReplicationStatus? _replicationStatus;
-  _i7.ReplicationStatus? get replicationStatus => _$this._replicationStatus;
-  set replicationStatus(_i7.ReplicationStatus? replicationStatus) =>
+  ReplicationStatus? _replicationStatus;
+  ReplicationStatus? get replicationStatus => _$this._replicationStatus;
+  set replicationStatus(ReplicationStatus? replicationStatus) =>
       _$this._replicationStatus = replicationStatus;
 
-  _i8.RequestCharged? _requestCharged;
-  _i8.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i8.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   String? _restore;
   String? get restore => _$this._restore;
   set restore(String? restore) => _$this._restore = restore;
 
-  _i9.ServerSideEncryption? _serverSideEncryption;
-  _i9.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i9.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -416,9 +416,9 @@ class WriteGetObjectResponseRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  _i10.StorageClass? _storageClass;
-  _i10.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i10.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   int? _tagCount;

@@ -17,9 +17,9 @@ class _$ListStackSetOperationResultsInput
   @override
   final int? maxResults;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
   @override
-  final _i5.BuiltList<_i4.OperationResultFilter>? filters;
+  final _i3.BuiltList<OperationResultFilter>? filters;
 
   factory _$ListStackSetOperationResultsInput(
           [void Function(ListStackSetOperationResultsInputBuilder)? updates]) =>
@@ -97,14 +97,14 @@ class ListStackSetOperationResultsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
-  _i5.ListBuilder<_i4.OperationResultFilter>? _filters;
-  _i5.ListBuilder<_i4.OperationResultFilter> get filters =>
-      _$this._filters ??= new _i5.ListBuilder<_i4.OperationResultFilter>();
-  set filters(_i5.ListBuilder<_i4.OperationResultFilter>? filters) =>
+  _i3.ListBuilder<OperationResultFilter>? _filters;
+  _i3.ListBuilder<OperationResultFilter> get filters =>
+      _$this._filters ??= new _i3.ListBuilder<OperationResultFilter>();
+  set filters(_i3.ListBuilder<OperationResultFilter>? filters) =>
       _$this._filters = filters;
 
   ListStackSetOperationResultsInputBuilder();

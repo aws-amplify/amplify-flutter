@@ -10,11 +10,11 @@ class _$GlobalSecondaryIndexInfo extends GlobalSecondaryIndexInfo {
   @override
   final String? indexName;
   @override
-  final _i5.BuiltList<_i2.KeySchemaElement>? keySchema;
+  final _i2.BuiltList<KeySchemaElement>? keySchema;
   @override
-  final _i3.Projection? projection;
+  final Projection? projection;
   @override
-  final _i4.ProvisionedThroughput? provisionedThroughput;
+  final ProvisionedThroughput? provisionedThroughput;
 
   factory _$GlobalSecondaryIndexInfo(
           [void Function(GlobalSecondaryIndexInfoBuilder)? updates]) =>
@@ -67,23 +67,23 @@ class GlobalSecondaryIndexInfoBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i5.ListBuilder<_i2.KeySchemaElement>? _keySchema;
-  _i5.ListBuilder<_i2.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i5.ListBuilder<_i2.KeySchemaElement>();
-  set keySchema(_i5.ListBuilder<_i2.KeySchemaElement>? keySchema) =>
+  _i2.ListBuilder<KeySchemaElement>? _keySchema;
+  _i2.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i2.ListBuilder<KeySchemaElement>();
+  set keySchema(_i2.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i3.ProjectionBuilder? _projection;
-  _i3.ProjectionBuilder get projection =>
-      _$this._projection ??= new _i3.ProjectionBuilder();
-  set projection(_i3.ProjectionBuilder? projection) =>
+  ProjectionBuilder? _projection;
+  ProjectionBuilder get projection =>
+      _$this._projection ??= new ProjectionBuilder();
+  set projection(ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  _i4.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i4.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i4.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
   GlobalSecondaryIndexInfoBuilder();

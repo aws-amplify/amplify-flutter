@@ -6,9 +6,8 @@ library smoke_test.config_service.model.config_snapshot_delivery_properties; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart';
 
 part 'config_snapshot_delivery_properties.g.dart';
 
@@ -65,7 +64,7 @@ abstract class ConfigSnapshotDeliveryProperties
   ///
   /// To update the `deliveryFrequency` with which Config delivers your configuration snapshots, use the `PutDeliveryChannel` action.
   factory ConfigSnapshotDeliveryProperties(
-      {_i2.MaximumExecutionFrequency? deliveryFrequency}) {
+      {MaximumExecutionFrequency? deliveryFrequency}) {
     return _$ConfigSnapshotDeliveryProperties._(
         deliveryFrequency: deliveryFrequency);
   }
@@ -99,11 +98,11 @@ abstract class ConfigSnapshotDeliveryProperties
 
   const ConfigSnapshotDeliveryProperties._();
 
-  static const List<_i3.SmithySerializer<ConfigSnapshotDeliveryProperties>>
+  static const List<_i2.SmithySerializer<ConfigSnapshotDeliveryProperties>>
       serializers = [ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()];
 
   /// The frequency with which Config delivers configuration snapshots.
-  _i2.MaximumExecutionFrequency? get deliveryFrequency;
+  MaximumExecutionFrequency? get deliveryFrequency;
   @override
   List<Object?> get props => [deliveryFrequency];
   @override
@@ -119,7 +118,7 @@ abstract class ConfigSnapshotDeliveryProperties
 }
 
 class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigSnapshotDeliveryProperties> {
+    extends _i2.StructuredSmithySerializer<ConfigSnapshotDeliveryProperties> {
   const ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()
       : super('ConfigSnapshotDeliveryProperties');
 
@@ -129,8 +128,8 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
         _$ConfigSnapshotDeliveryProperties,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -154,8 +153,8 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
         case 'deliveryFrequency':
           result.deliveryFrequency = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-          ) as _i2.MaximumExecutionFrequency);
+            specifiedType: const FullType(MaximumExecutionFrequency),
+          ) as MaximumExecutionFrequency);
       }
     }
 
@@ -175,7 +174,7 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
         ..add('deliveryFrequency')
         ..add(serializers.serialize(
           deliveryFrequency,
-          specifiedType: const FullType(_i2.MaximumExecutionFrequency),
+          specifiedType: const FullType(MaximumExecutionFrequency),
         ));
     }
     return result$;

@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.documentation_parts; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part.dart';
 
 part 'documentation_parts.g.dart';
 
@@ -19,11 +18,11 @@ abstract class DocumentationParts
     implements Built<DocumentationParts, DocumentationPartsBuilder> {
   /// The collection of documentation parts of an API.
   factory DocumentationParts({
-    List<_i2.DocumentationPart>? items,
+    List<DocumentationPart>? items,
     String? position,
   }) {
     return _$DocumentationParts._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -42,12 +41,12 @@ abstract class DocumentationParts
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DocumentationParts>> serializers = [
+  static const List<_i3.SmithySerializer<DocumentationParts>> serializers = [
     DocumentationPartsRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.DocumentationPart>? get items;
+  _i2.BuiltList<DocumentationPart>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -72,7 +71,7 @@ abstract class DocumentationParts
 }
 
 class DocumentationPartsRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<DocumentationParts> {
+    extends _i3.StructuredSmithySerializer<DocumentationParts> {
   const DocumentationPartsRestJson1Serializer() : super('DocumentationParts');
 
   @override
@@ -81,8 +80,8 @@ class DocumentationPartsRestJson1Serializer
         _$DocumentationParts,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -107,10 +106,10 @@ class DocumentationPartsRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.DocumentationPart)],
+              _i2.BuiltList,
+              [FullType(DocumentationPart)],
             ),
-          ) as _i3.BuiltList<_i2.DocumentationPart>));
+          ) as _i2.BuiltList<DocumentationPart>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -136,8 +135,8 @@ class DocumentationPartsRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.DocumentationPart)],
+            _i2.BuiltList,
+            [FullType(DocumentationPart)],
           ),
         ));
     }

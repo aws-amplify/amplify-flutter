@@ -8,7 +8,7 @@ part of 'list_exports_output.dart';
 
 class _$ListExportsOutput extends ListExportsOutput {
   @override
-  final _i3.BuiltList<_i2.Export>? exports;
+  final _i2.BuiltList<Export>? exports;
   @override
   final String? nextToken;
 
@@ -48,11 +48,10 @@ class ListExportsOutputBuilder
     implements Builder<ListExportsOutput, ListExportsOutputBuilder> {
   _$ListExportsOutput? _$v;
 
-  _i3.ListBuilder<_i2.Export>? _exports;
-  _i3.ListBuilder<_i2.Export> get exports =>
-      _$this._exports ??= new _i3.ListBuilder<_i2.Export>();
-  set exports(_i3.ListBuilder<_i2.Export>? exports) =>
-      _$this._exports = exports;
+  _i2.ListBuilder<Export>? _exports;
+  _i2.ListBuilder<Export> get exports =>
+      _$this._exports ??= new _i2.ListBuilder<Export>();
+  set exports(_i2.ListBuilder<Export>? exports) => _$this._exports = exports;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;

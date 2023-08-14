@@ -12,7 +12,7 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
   @override
   final String deviceKey;
   @override
-  final _i3.DeviceSecretVerifierConfigType? deviceSecretVerifierConfig;
+  final DeviceSecretVerifierConfigType? deviceSecretVerifierConfig;
   @override
   final String? deviceName;
 
@@ -75,22 +75,19 @@ class ConfirmDeviceRequestBuilder
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
-  _i3.DeviceSecretVerifierConfigTypeBuilder? _deviceSecretVerifierConfig;
-  _i3.DeviceSecretVerifierConfigTypeBuilder get deviceSecretVerifierConfig =>
+  DeviceSecretVerifierConfigTypeBuilder? _deviceSecretVerifierConfig;
+  DeviceSecretVerifierConfigTypeBuilder get deviceSecretVerifierConfig =>
       _$this._deviceSecretVerifierConfig ??=
-          new _i3.DeviceSecretVerifierConfigTypeBuilder();
+          new DeviceSecretVerifierConfigTypeBuilder();
   set deviceSecretVerifierConfig(
-          _i3.DeviceSecretVerifierConfigTypeBuilder?
-              deviceSecretVerifierConfig) =>
+          DeviceSecretVerifierConfigTypeBuilder? deviceSecretVerifierConfig) =>
       _$this._deviceSecretVerifierConfig = deviceSecretVerifierConfig;
 
   String? _deviceName;
   String? get deviceName => _$this._deviceName;
   set deviceName(String? deviceName) => _$this._deviceName = deviceName;
 
-  ConfirmDeviceRequestBuilder() {
-    ConfirmDeviceRequest._init(this);
-  }
+  ConfirmDeviceRequestBuilder();
 
   ConfirmDeviceRequestBuilder get _$this {
     final $v = _$v;

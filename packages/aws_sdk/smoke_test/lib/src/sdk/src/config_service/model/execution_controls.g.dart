@@ -8,7 +8,7 @@ part of 'execution_controls.dart';
 
 class _$ExecutionControls extends ExecutionControls {
   @override
-  final _i2.SsmControls? ssmControls;
+  final SsmControls? ssmControls;
 
   factory _$ExecutionControls(
           [void Function(ExecutionControlsBuilder)? updates]) =>
@@ -43,10 +43,10 @@ class ExecutionControlsBuilder
     implements Builder<ExecutionControls, ExecutionControlsBuilder> {
   _$ExecutionControls? _$v;
 
-  _i2.SsmControlsBuilder? _ssmControls;
-  _i2.SsmControlsBuilder get ssmControls =>
-      _$this._ssmControls ??= new _i2.SsmControlsBuilder();
-  set ssmControls(_i2.SsmControlsBuilder? ssmControls) =>
+  SsmControlsBuilder? _ssmControls;
+  SsmControlsBuilder get ssmControls =>
+      _$this._ssmControls ??= new SsmControlsBuilder();
+  set ssmControls(SsmControlsBuilder? ssmControls) =>
       _$this._ssmControls = ssmControls;
 
   ExecutionControlsBuilder();

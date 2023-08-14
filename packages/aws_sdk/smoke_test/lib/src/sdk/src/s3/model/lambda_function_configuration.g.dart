@@ -12,9 +12,9 @@ class _$LambdaFunctionConfiguration extends LambdaFunctionConfiguration {
   @override
   final String lambdaFunctionArn;
   @override
-  final _i4.BuiltList<_i2.Event> events;
+  final _i2.BuiltList<Event> events;
   @override
-  final _i3.NotificationConfigurationFilter? filter;
+  final NotificationConfigurationFilter? filter;
 
   factory _$LambdaFunctionConfiguration(
           [void Function(LambdaFunctionConfigurationBuilder)? updates]) =>
@@ -78,15 +78,15 @@ class LambdaFunctionConfigurationBuilder
   set lambdaFunctionArn(String? lambdaFunctionArn) =>
       _$this._lambdaFunctionArn = lambdaFunctionArn;
 
-  _i4.ListBuilder<_i2.Event>? _events;
-  _i4.ListBuilder<_i2.Event> get events =>
-      _$this._events ??= new _i4.ListBuilder<_i2.Event>();
-  set events(_i4.ListBuilder<_i2.Event>? events) => _$this._events = events;
+  _i2.ListBuilder<Event>? _events;
+  _i2.ListBuilder<Event> get events =>
+      _$this._events ??= new _i2.ListBuilder<Event>();
+  set events(_i2.ListBuilder<Event>? events) => _$this._events = events;
 
-  _i3.NotificationConfigurationFilterBuilder? _filter;
-  _i3.NotificationConfigurationFilterBuilder get filter =>
-      _$this._filter ??= new _i3.NotificationConfigurationFilterBuilder();
-  set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
+  NotificationConfigurationFilterBuilder? _filter;
+  NotificationConfigurationFilterBuilder get filter =>
+      _$this._filter ??= new NotificationConfigurationFilterBuilder();
+  set filter(NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
   LambdaFunctionConfigurationBuilder();

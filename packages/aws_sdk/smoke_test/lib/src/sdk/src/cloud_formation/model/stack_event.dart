@@ -6,15 +6,11 @@ library smoke_test.cloud_formation.model.stack_event; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_failure_mode.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_invocation_point.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_failure_mode.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_invocation_point.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_status.dart';
 
 part 'stack_event.g.dart';
 
@@ -31,15 +27,15 @@ abstract class StackEvent
     String? physicalResourceId,
     String? resourceType,
     required DateTime timestamp,
-    _i2.ResourceStatus? resourceStatus,
+    ResourceStatus? resourceStatus,
     String? resourceStatusReason,
     String? resourceProperties,
     String? clientRequestToken,
     String? hookType,
-    _i3.HookStatus? hookStatus,
+    HookStatus? hookStatus,
     String? hookStatusReason,
-    _i4.HookInvocationPoint? hookInvocationPoint,
-    _i5.HookFailureMode? hookFailureMode,
+    HookInvocationPoint? hookInvocationPoint,
+    HookFailureMode? hookFailureMode,
   }) {
     return _$StackEvent._(
       stackId: stackId,
@@ -67,7 +63,7 @@ abstract class StackEvent
 
   const StackEvent._();
 
-  static const List<_i6.SmithySerializer<StackEvent>> serializers = [
+  static const List<_i2.SmithySerializer<StackEvent>> serializers = [
     StackEventAwsQuerySerializer()
   ];
 
@@ -93,7 +89,7 @@ abstract class StackEvent
   DateTime get timestamp;
 
   /// Current status of the resource.
-  _i2.ResourceStatus? get resourceStatus;
+  ResourceStatus? get resourceStatus;
 
   /// Success/failure message associated with the resource.
   String? get resourceStatusReason;
@@ -112,20 +108,20 @@ abstract class StackEvent
   String? get hookType;
 
   /// Provides the status of the change set hook.
-  _i3.HookStatus? get hookStatus;
+  HookStatus? get hookStatus;
 
   /// Provides the reason for the hook status.
   String? get hookStatusReason;
 
   /// Invocation points are points in provisioning logic where hooks are initiated.
-  _i4.HookInvocationPoint? get hookInvocationPoint;
+  HookInvocationPoint? get hookInvocationPoint;
 
   /// Specify the hook failure mode for non-compliant resources in the followings ways.
   ///
   /// *   `FAIL` Stops provisioning resources.
   ///
   /// *   `WARN` Allows provisioning to continue with a warning message.
-  _i5.HookFailureMode? get hookFailureMode;
+  HookFailureMode? get hookFailureMode;
   @override
   List<Object?> get props => [
         stackId,
@@ -217,7 +213,7 @@ abstract class StackEvent
 }
 
 class StackEventAwsQuerySerializer
-    extends _i6.StructuredSmithySerializer<StackEvent> {
+    extends _i2.StructuredSmithySerializer<StackEvent> {
   const StackEventAwsQuerySerializer() : super('StackEvent');
 
   @override
@@ -226,8 +222,8 @@ class StackEventAwsQuerySerializer
         _$StackEvent,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -286,8 +282,8 @@ class StackEventAwsQuerySerializer
         case 'ResourceStatus':
           result.resourceStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceStatus),
-          ) as _i2.ResourceStatus);
+            specifiedType: const FullType(ResourceStatus),
+          ) as ResourceStatus);
         case 'ResourceStatusReason':
           result.resourceStatusReason = (serializers.deserialize(
             value,
@@ -311,8 +307,8 @@ class StackEventAwsQuerySerializer
         case 'HookStatus':
           result.hookStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.HookStatus),
-          ) as _i3.HookStatus);
+            specifiedType: const FullType(HookStatus),
+          ) as HookStatus);
         case 'HookStatusReason':
           result.hookStatusReason = (serializers.deserialize(
             value,
@@ -321,13 +317,13 @@ class StackEventAwsQuerySerializer
         case 'HookInvocationPoint':
           result.hookInvocationPoint = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.HookInvocationPoint),
-          ) as _i4.HookInvocationPoint);
+            specifiedType: const FullType(HookInvocationPoint),
+          ) as HookInvocationPoint);
         case 'HookFailureMode':
           result.hookFailureMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.HookFailureMode),
-          ) as _i5.HookFailureMode);
+            specifiedType: const FullType(HookFailureMode),
+          ) as HookFailureMode);
       }
     }
 
@@ -341,9 +337,9 @@ class StackEventAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i2.XmlElementName(
         'StackEventResponse',
-        _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackEvent(
@@ -365,26 +361,26 @@ class StackEventAwsQuerySerializer
       :hookFailureMode
     ) = object;
     result$
-      ..add(const _i6.XmlElementName('StackId'))
+      ..add(const _i2.XmlElementName('StackId'))
       ..add(serializers.serialize(
         stackId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i6.XmlElementName('EventId'))
+      ..add(const _i2.XmlElementName('EventId'))
       ..add(serializers.serialize(
         eventId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i6.XmlElementName('StackName'))
+      ..add(const _i2.XmlElementName('StackName'))
       ..add(serializers.serialize(
         stackName,
         specifiedType: const FullType(String),
       ));
     if (logicalResourceId != null) {
       result$
-        ..add(const _i6.XmlElementName('LogicalResourceId'))
+        ..add(const _i2.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
           logicalResourceId,
           specifiedType: const FullType(String),
@@ -392,7 +388,7 @@ class StackEventAwsQuerySerializer
     }
     if (physicalResourceId != null) {
       result$
-        ..add(const _i6.XmlElementName('PhysicalResourceId'))
+        ..add(const _i2.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
           specifiedType: const FullType(String),
@@ -400,29 +396,29 @@ class StackEventAwsQuerySerializer
     }
     if (resourceType != null) {
       result$
-        ..add(const _i6.XmlElementName('ResourceType'))
+        ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i6.XmlElementName('Timestamp'))
+      ..add(const _i2.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (resourceStatus != null) {
       result$
-        ..add(const _i6.XmlElementName('ResourceStatus'))
+        ..add(const _i2.XmlElementName('ResourceStatus'))
         ..add(serializers.serialize(
           resourceStatus,
-          specifiedType: const FullType.nullable(_i2.ResourceStatus),
+          specifiedType: const FullType.nullable(ResourceStatus),
         ));
     }
     if (resourceStatusReason != null) {
       result$
-        ..add(const _i6.XmlElementName('ResourceStatusReason'))
+        ..add(const _i2.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
           resourceStatusReason,
           specifiedType: const FullType(String),
@@ -430,7 +426,7 @@ class StackEventAwsQuerySerializer
     }
     if (resourceProperties != null) {
       result$
-        ..add(const _i6.XmlElementName('ResourceProperties'))
+        ..add(const _i2.XmlElementName('ResourceProperties'))
         ..add(serializers.serialize(
           resourceProperties,
           specifiedType: const FullType(String),
@@ -438,7 +434,7 @@ class StackEventAwsQuerySerializer
     }
     if (clientRequestToken != null) {
       result$
-        ..add(const _i6.XmlElementName('ClientRequestToken'))
+        ..add(const _i2.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
@@ -446,7 +442,7 @@ class StackEventAwsQuerySerializer
     }
     if (hookType != null) {
       result$
-        ..add(const _i6.XmlElementName('HookType'))
+        ..add(const _i2.XmlElementName('HookType'))
         ..add(serializers.serialize(
           hookType,
           specifiedType: const FullType(String),
@@ -454,15 +450,15 @@ class StackEventAwsQuerySerializer
     }
     if (hookStatus != null) {
       result$
-        ..add(const _i6.XmlElementName('HookStatus'))
+        ..add(const _i2.XmlElementName('HookStatus'))
         ..add(serializers.serialize(
           hookStatus,
-          specifiedType: const FullType.nullable(_i3.HookStatus),
+          specifiedType: const FullType.nullable(HookStatus),
         ));
     }
     if (hookStatusReason != null) {
       result$
-        ..add(const _i6.XmlElementName('HookStatusReason'))
+        ..add(const _i2.XmlElementName('HookStatusReason'))
         ..add(serializers.serialize(
           hookStatusReason,
           specifiedType: const FullType(String),
@@ -470,18 +466,18 @@ class StackEventAwsQuerySerializer
     }
     if (hookInvocationPoint != null) {
       result$
-        ..add(const _i6.XmlElementName('HookInvocationPoint'))
+        ..add(const _i2.XmlElementName('HookInvocationPoint'))
         ..add(serializers.serialize(
           hookInvocationPoint,
-          specifiedType: const FullType.nullable(_i4.HookInvocationPoint),
+          specifiedType: const FullType.nullable(HookInvocationPoint),
         ));
     }
     if (hookFailureMode != null) {
       result$
-        ..add(const _i6.XmlElementName('HookFailureMode'))
+        ..add(const _i2.XmlElementName('HookFailureMode'))
         ..add(serializers.serialize(
           hookFailureMode,
-          specifiedType: const FullType.nullable(_i5.HookFailureMode),
+          specifiedType: const FullType.nullable(HookFailureMode),
         ));
     }
     return result$;

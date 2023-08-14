@@ -10,9 +10,9 @@ class _$LocalSecondaryIndex extends LocalSecondaryIndex {
   @override
   final String indexName;
   @override
-  final _i4.BuiltList<_i2.KeySchemaElement> keySchema;
+  final _i2.BuiltList<KeySchemaElement> keySchema;
   @override
-  final _i3.Projection projection;
+  final Projection projection;
 
   factory _$LocalSecondaryIndex(
           [void Function(LocalSecondaryIndexBuilder)? updates]) =>
@@ -68,16 +68,16 @@ class LocalSecondaryIndexBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i4.ListBuilder<_i2.KeySchemaElement>? _keySchema;
-  _i4.ListBuilder<_i2.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i4.ListBuilder<_i2.KeySchemaElement>();
-  set keySchema(_i4.ListBuilder<_i2.KeySchemaElement>? keySchema) =>
+  _i2.ListBuilder<KeySchemaElement>? _keySchema;
+  _i2.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i2.ListBuilder<KeySchemaElement>();
+  set keySchema(_i2.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i3.ProjectionBuilder? _projection;
-  _i3.ProjectionBuilder get projection =>
-      _$this._projection ??= new _i3.ProjectionBuilder();
-  set projection(_i3.ProjectionBuilder? projection) =>
+  ProjectionBuilder? _projection;
+  ProjectionBuilder get projection =>
+      _$this._projection ??= new ProjectionBuilder();
+  set projection(ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
   LocalSecondaryIndexBuilder();

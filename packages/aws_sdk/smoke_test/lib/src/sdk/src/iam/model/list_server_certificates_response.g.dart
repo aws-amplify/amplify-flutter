@@ -8,8 +8,7 @@ part of 'list_server_certificates_response.dart';
 
 class _$ListServerCertificatesResponse extends ListServerCertificatesResponse {
   @override
-  final _i3.BuiltList<_i2.ServerCertificateMetadata>
-      serverCertificateMetadataList;
+  final _i2.BuiltList<ServerCertificateMetadata> serverCertificateMetadataList;
   @override
   final bool isTruncated;
   @override
@@ -65,14 +64,13 @@ class ListServerCertificatesResponseBuilder
             ListServerCertificatesResponseBuilder> {
   _$ListServerCertificatesResponse? _$v;
 
-  _i3.ListBuilder<_i2.ServerCertificateMetadata>?
-      _serverCertificateMetadataList;
-  _i3.ListBuilder<_i2.ServerCertificateMetadata>
+  _i2.ListBuilder<ServerCertificateMetadata>? _serverCertificateMetadataList;
+  _i2.ListBuilder<ServerCertificateMetadata>
       get serverCertificateMetadataList =>
           _$this._serverCertificateMetadataList ??=
-              new _i3.ListBuilder<_i2.ServerCertificateMetadata>();
+              new _i2.ListBuilder<ServerCertificateMetadata>();
   set serverCertificateMetadataList(
-          _i3.ListBuilder<_i2.ServerCertificateMetadata>?
+          _i2.ListBuilder<ServerCertificateMetadata>?
               serverCertificateMetadataList) =>
       _$this._serverCertificateMetadataList = serverCertificateMetadataList;
 

@@ -7,9 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_filter.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_filter.dart';
 
 part 'get_bucket_metrics_configuration_output.g.dart';
 
@@ -19,9 +18,9 @@ abstract class GetBucketMetricsConfigurationOutput
     implements
         Built<GetBucketMetricsConfigurationOutput,
             GetBucketMetricsConfigurationOutputBuilder>,
-        _i2.HasPayload<_i3.MetricsConfiguration> {
+        _i2.HasPayload<MetricsConfiguration> {
   factory GetBucketMetricsConfigurationOutput(
-      {_i3.MetricsConfiguration? metricsConfiguration}) {
+      {MetricsConfiguration? metricsConfiguration}) {
     return _$GetBucketMetricsConfigurationOutput._(
         metricsConfiguration: metricsConfiguration);
   }
@@ -34,7 +33,7 @@ abstract class GetBucketMetricsConfigurationOutput
 
   /// Constructs a [GetBucketMetricsConfigurationOutput] from a [payload] and [response].
   factory GetBucketMetricsConfigurationOutput.fromResponse(
-    _i3.MetricsConfiguration? payload,
+    MetricsConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketMetricsConfigurationOutput.build((b) {
@@ -43,13 +42,14 @@ abstract class GetBucketMetricsConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.MetricsConfiguration?>>
-      serializers = [GetBucketMetricsConfigurationOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<MetricsConfiguration?>> serializers = [
+    GetBucketMetricsConfigurationOutputRestXmlSerializer()
+  ];
 
   /// Specifies the metrics configuration.
-  _i3.MetricsConfiguration? get metricsConfiguration;
+  MetricsConfiguration? get metricsConfiguration;
   @override
-  _i3.MetricsConfiguration? getPayload() => metricsConfiguration;
+  MetricsConfiguration? getPayload() => metricsConfiguration;
   @override
   List<Object?> get props => [metricsConfiguration];
   @override
@@ -65,7 +65,7 @@ abstract class GetBucketMetricsConfigurationOutput
 }
 
 class GetBucketMetricsConfigurationOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.MetricsConfiguration> {
+    extends _i2.StructuredSmithySerializer<MetricsConfiguration> {
   const GetBucketMetricsConfigurationOutputRestXmlSerializer()
       : super('GetBucketMetricsConfigurationOutput');
 
@@ -82,12 +82,12 @@ class GetBucketMetricsConfigurationOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.MetricsConfiguration deserialize(
+  MetricsConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.MetricsConfigurationBuilder();
+    final result = MetricsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -105,8 +105,8 @@ class GetBucketMetricsConfigurationOutputRestXmlSerializer
         case 'Filter':
           result.filter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.MetricsFilter),
-          ) as _i4.MetricsFilter);
+            specifiedType: const FullType(MetricsFilter),
+          ) as MetricsFilter);
       }
     }
 
@@ -116,7 +116,7 @@ class GetBucketMetricsConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.MetricsConfiguration object, {
+    MetricsConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -125,7 +125,7 @@ class GetBucketMetricsConfigurationOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.MetricsConfiguration(:id, :filter) = object;
+    final MetricsConfiguration(:id, :filter) = object;
     result$
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
@@ -137,7 +137,7 @@ class GetBucketMetricsConfigurationOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i4.MetricsFilter),
+          specifiedType: const FullType(MetricsFilter),
         ));
     }
     return result$;

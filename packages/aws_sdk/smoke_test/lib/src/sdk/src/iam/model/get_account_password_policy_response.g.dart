@@ -9,7 +9,7 @@ part of 'get_account_password_policy_response.dart';
 class _$GetAccountPasswordPolicyResponse
     extends GetAccountPasswordPolicyResponse {
   @override
-  final _i2.PasswordPolicy passwordPolicy;
+  final PasswordPolicy passwordPolicy;
 
   factory _$GetAccountPasswordPolicyResponse(
           [void Function(GetAccountPasswordPolicyResponseBuilder)? updates]) =>
@@ -52,10 +52,10 @@ class GetAccountPasswordPolicyResponseBuilder
             GetAccountPasswordPolicyResponseBuilder> {
   _$GetAccountPasswordPolicyResponse? _$v;
 
-  _i2.PasswordPolicyBuilder? _passwordPolicy;
-  _i2.PasswordPolicyBuilder get passwordPolicy =>
-      _$this._passwordPolicy ??= new _i2.PasswordPolicyBuilder();
-  set passwordPolicy(_i2.PasswordPolicyBuilder? passwordPolicy) =>
+  PasswordPolicyBuilder? _passwordPolicy;
+  PasswordPolicyBuilder get passwordPolicy =>
+      _$this._passwordPolicy ??= new PasswordPolicyBuilder();
+  set passwordPolicy(PasswordPolicyBuilder? passwordPolicy) =>
       _$this._passwordPolicy = passwordPolicy;
 
   GetAccountPasswordPolicyResponseBuilder();

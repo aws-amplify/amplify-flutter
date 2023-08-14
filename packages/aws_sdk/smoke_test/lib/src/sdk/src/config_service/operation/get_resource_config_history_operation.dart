@@ -3,35 +3,24 @@
 
 library smoke_test.config_service.operation.get_resource_config_history_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i17;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_time_range_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_available_configuration_recorder_exception.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_not_discovered_exception.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart'
-    as _i16;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_time_range_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_available_configuration_recorder_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_not_discovered_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart';
 
 /// Returns a list of `ConfigurationItems` for the specified resource. The list contains details about each state of the resource during the specified time interval. If you specified a retention period to retain your `ConfigurationItems` between a minimum of 30 days and a maximum of 7 years (2557 days), Config returns the `ConfigurationItems` for the specified retention period.
 ///
@@ -39,13 +28,13 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 ///
 /// Each call to the API is limited to span a duration of seven days. It is likely that the number of records returned is smaller than the specified `limit`. In such cases, you can make another call, using the `nextToken`.
 class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
-    _i2.GetResourceConfigHistoryRequest,
-    _i2.GetResourceConfigHistoryRequest,
-    _i3.GetResourceConfigHistoryResponse,
-    _i3.GetResourceConfigHistoryResponse,
+    GetResourceConfigHistoryRequest,
+    GetResourceConfigHistoryRequest,
+    GetResourceConfigHistoryResponse,
+    GetResourceConfigHistoryResponse,
     String,
     int,
-    _i4.BuiltList<_i5.ConfigurationItem>> {
+    _i2.BuiltList<ConfigurationItem>> {
   /// Returns a list of `ConfigurationItems` for the specified resource. The list contains details about each state of the resource during the specified time interval. If you specified a retention period to retain your `ConfigurationItems` between a minimum of 30 days and a maximum of 7 years (2557 days), Config returns the `ConfigurationItems` for the specified retention period.
   ///
   /// The response is paginated. By default, Config returns a limit of 10 configuration items per page. You can customize this number with the `limit` parameter. The response includes a `nextToken` string. To get the next page of results, run the request again and specify the string for the `nextToken` parameter.
@@ -54,8 +43,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
   GetResourceConfigHistoryOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -67,13 +56,13 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.GetResourceConfigHistoryRequest,
-          _i2.GetResourceConfigHistoryRequest,
-          _i3.GetResourceConfigHistoryResponse,
-          _i3.GetResourceConfigHistoryResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          GetResourceConfigHistoryRequest,
+          GetResourceConfigHistoryRequest,
+          GetResourceConfigHistoryResponse,
+          GetResourceConfigHistoryResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -81,14 +70,14 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
               'X-Amz-Target',
               'StarlingDoveService.GetResourceConfigHistory',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -96,8 +85,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -105,105 +94,103 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.GetResourceConfigHistoryRequest input) =>
+  _i1.HttpRequest buildRequest(GetResourceConfigHistoryRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.GetResourceConfigHistoryResponse? output]) => 200;
+  int successCode([GetResourceConfigHistoryResponse? output]) => 200;
   @override
-  _i3.GetResourceConfigHistoryResponse buildOutput(
-    _i3.GetResourceConfigHistoryResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  GetResourceConfigHistoryResponse buildOutput(
+    GetResourceConfigHistoryResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.GetResourceConfigHistoryResponse.fromResponse(
+      GetResourceConfigHistoryResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidLimitException,
-          builder: _i11.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidNextTokenException,
-            _i12.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidNextTokenException,
-          builder: _i12.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.InvalidTimeRangeException,
-            _i13.InvalidTimeRangeException>(
+        _i1.SmithyError<InvalidTimeRangeException, InvalidTimeRangeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidTimeRangeException',
           ),
           _i1.ErrorKind.client,
-          _i13.InvalidTimeRangeException,
-          builder: _i13.InvalidTimeRangeException.fromResponse,
+          InvalidTimeRangeException,
+          builder: InvalidTimeRangeException.fromResponse,
         ),
-        _i1.SmithyError<_i14.NoAvailableConfigurationRecorderException,
-            _i14.NoAvailableConfigurationRecorderException>(
+        _i1.SmithyError<NoAvailableConfigurationRecorderException,
+            NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
           ),
           _i1.ErrorKind.client,
-          _i14.NoAvailableConfigurationRecorderException,
-          builder: _i14.NoAvailableConfigurationRecorderException.fromResponse,
+          NoAvailableConfigurationRecorderException,
+          builder: NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError<_i15.ResourceNotDiscoveredException,
-            _i15.ResourceNotDiscoveredException>(
+        _i1.SmithyError<ResourceNotDiscoveredException,
+            ResourceNotDiscoveredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotDiscoveredException',
           ),
           _i1.ErrorKind.client,
-          _i15.ResourceNotDiscoveredException,
-          builder: _i15.ResourceNotDiscoveredException.fromResponse,
+          ResourceNotDiscoveredException,
+          builder: ResourceNotDiscoveredException.fromResponse,
         ),
-        _i1.SmithyError<_i16.ValidationException, _i16.ValidationException>(
+        _i1.SmithyError<ValidationException, ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
           ),
           _i1.ErrorKind.client,
-          _i16.ValidationException,
-          builder: _i16.ValidationException.fromResponse,
+          ValidationException,
+          builder: ValidationException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'GetResourceConfigHistory';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.GetResourceConfigHistoryResponse> run(
-    _i2.GetResourceConfigHistoryRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<GetResourceConfigHistoryResponse> run(
+    GetResourceConfigHistoryRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i17.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -211,21 +198,20 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.GetResourceConfigHistoryResponse output) =>
-      output.nextToken;
+  String? getToken(GetResourceConfigHistoryResponse output) => output.nextToken;
   @override
-  _i4.BuiltList<_i5.ConfigurationItem> getItems(
-          _i3.GetResourceConfigHistoryResponse output) =>
-      output.configurationItems ?? _i4.BuiltList();
+  _i2.BuiltList<ConfigurationItem> getItems(
+          GetResourceConfigHistoryResponse output) =>
+      output.configurationItems ?? _i2.BuiltList();
   @override
-  _i2.GetResourceConfigHistoryRequest rebuildInput(
-    _i2.GetResourceConfigHistoryRequest input,
+  GetResourceConfigHistoryRequest rebuildInput(
+    GetResourceConfigHistoryRequest input,
     String token,
     int? pageSize,
   ) =>

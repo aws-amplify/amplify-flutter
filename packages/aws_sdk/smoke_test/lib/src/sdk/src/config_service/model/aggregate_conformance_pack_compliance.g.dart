@@ -9,7 +9,7 @@ part of 'aggregate_conformance_pack_compliance.dart';
 class _$AggregateConformancePackCompliance
     extends AggregateConformancePackCompliance {
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
+  final ConformancePackComplianceType? complianceType;
   @override
   final int compliantRuleCount;
   @override
@@ -74,10 +74,9 @@ class AggregateConformancePackComplianceBuilder
             AggregateConformancePackComplianceBuilder> {
   _$AggregateConformancePackCompliance? _$v;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   int? _compliantRuleCount;

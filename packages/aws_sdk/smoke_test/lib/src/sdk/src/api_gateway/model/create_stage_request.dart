@@ -4,15 +4,13 @@
 library smoke_test.api_gateway.model.create_stage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/cache_cluster_size.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/canary_settings.dart';
 
 part 'create_stage_request.g.dart';
 
@@ -31,10 +29,10 @@ abstract class CreateStageRequest
     required String deploymentId,
     String? description,
     bool? cacheClusterEnabled,
-    _i3.CacheClusterSize? cacheClusterSize,
+    CacheClusterSize? cacheClusterSize,
     Map<String, String>? variables,
     String? documentationVersion,
-    _i4.CanarySettings? canarySettings,
+    CanarySettings? canarySettings,
     bool? tracingEnabled,
     Map<String, String>? tags,
   }) {
@@ -47,11 +45,11 @@ abstract class CreateStageRequest
       description: description,
       cacheClusterEnabled: cacheClusterEnabled,
       cacheClusterSize: cacheClusterSize,
-      variables: variables == null ? null : _i5.BuiltMap(variables),
+      variables: variables == null ? null : _i3.BuiltMap(variables),
       documentationVersion: documentationVersion,
       canarySettings: canarySettings,
       tracingEnabled: tracingEnabled,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      tags: tags == null ? null : _i3.BuiltMap(tags),
     );
   }
 
@@ -115,22 +113,22 @@ abstract class CreateStageRequest
   bool get cacheClusterEnabled;
 
   /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
-  _i3.CacheClusterSize? get cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize;
 
   /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  _i3.BuiltMap<String, String>? get variables;
 
   /// The version of the associated API documentation.
   String? get documentationVersion;
 
   /// The canary deployment settings of this stage.
-  _i4.CanarySettings? get canarySettings;
+  CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool get tracingEnabled;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i5.BuiltMap<String, String>? get tags;
+  _i3.BuiltMap<String, String>? get tags;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -227,7 +225,7 @@ abstract class CreateStageRequest
   }
 }
 
-@_i6.internal
+@_i4.internal
 abstract class CreateStageRequestPayload
     with _i2.AWSEquatable<CreateStageRequestPayload>
     implements
@@ -249,10 +247,10 @@ abstract class CreateStageRequestPayload
   bool get cacheClusterEnabled;
 
   /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
-  _i3.CacheClusterSize? get cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize;
 
   /// The canary deployment settings of this stage.
-  _i4.CanarySettings? get canarySettings;
+  CanarySettings? get canarySettings;
 
   /// The identifier of the Deployment resource for the Stage resource.
   String get deploymentId;
@@ -267,13 +265,13 @@ abstract class CreateStageRequestPayload
   String get stageName;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i5.BuiltMap<String, String>? get tags;
+  _i3.BuiltMap<String, String>? get tags;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool get tracingEnabled;
 
   /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  _i3.BuiltMap<String, String>? get variables;
   @override
   List<Object?> get props => [
         cacheClusterEnabled,
@@ -376,13 +374,13 @@ class CreateStageRequestRestJson1Serializer
         case 'cacheClusterSize':
           result.cacheClusterSize = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CacheClusterSize),
-          ) as _i3.CacheClusterSize);
+            specifiedType: const FullType(CacheClusterSize),
+          ) as CacheClusterSize);
         case 'canarySettings':
           result.canarySettings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CanarySettings),
-          ) as _i4.CanarySettings));
+            specifiedType: const FullType(CanarySettings),
+          ) as CanarySettings));
         case 'deploymentId':
           result.deploymentId = (serializers.deserialize(
             value,
@@ -407,13 +405,13 @@ class CreateStageRequestRestJson1Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'tracingEnabled':
           result.tracingEnabled = (serializers.deserialize(
             value,
@@ -423,13 +421,13 @@ class CreateStageRequestRestJson1Serializer
           result.variables.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -482,7 +480,7 @@ class CreateStageRequestRestJson1Serializer
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
           cacheClusterSize,
-          specifiedType: const FullType(_i3.CacheClusterSize),
+          specifiedType: const FullType(CacheClusterSize),
         ));
     }
     if (canarySettings != null) {
@@ -490,7 +488,7 @@ class CreateStageRequestRestJson1Serializer
         ..add('canarySettings')
         ..add(serializers.serialize(
           canarySettings,
-          specifiedType: const FullType(_i4.CanarySettings),
+          specifiedType: const FullType(CanarySettings),
         ));
     }
     if (description != null) {
@@ -515,7 +513,7 @@ class CreateStageRequestRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -529,7 +527,7 @@ class CreateStageRequestRestJson1Serializer
         ..add(serializers.serialize(
           variables,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

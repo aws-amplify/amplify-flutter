@@ -10,7 +10,7 @@ class _$DescribeTypeOutput extends DescribeTypeOutput {
   @override
   final String? arn;
   @override
-  final _i2.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
@@ -18,7 +18,7 @@ class _$DescribeTypeOutput extends DescribeTypeOutput {
   @override
   final bool? isDefaultVersion;
   @override
-  final _i3.TypeTestsStatus? typeTestsStatus;
+  final TypeTestsStatus? typeTestsStatus;
   @override
   final String? typeTestsStatusDescription;
   @override
@@ -26,17 +26,17 @@ class _$DescribeTypeOutput extends DescribeTypeOutput {
   @override
   final String? schema;
   @override
-  final _i4.ProvisioningType? provisioningType;
+  final ProvisioningType? provisioningType;
   @override
-  final _i5.DeprecatedStatus? deprecatedStatus;
+  final DeprecatedStatus? deprecatedStatus;
   @override
-  final _i6.LoggingConfig? loggingConfig;
+  final LoggingConfig? loggingConfig;
   @override
-  final _i9.BuiltList<_i7.RequiredActivatedType>? requiredActivatedTypes;
+  final _i2.BuiltList<RequiredActivatedType>? requiredActivatedTypes;
   @override
   final String? executionRoleArn;
   @override
-  final _i8.Visibility? visibility;
+  final Visibility? visibility;
   @override
   final String? sourceUrl;
   @override
@@ -181,9 +181,9 @@ class DescribeTypeOutputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  _i2.RegistryType? _type;
-  _i2.RegistryType? get type => _$this._type;
-  set type(_i2.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;
@@ -199,9 +199,9 @@ class DescribeTypeOutputBuilder
   set isDefaultVersion(bool? isDefaultVersion) =>
       _$this._isDefaultVersion = isDefaultVersion;
 
-  _i3.TypeTestsStatus? _typeTestsStatus;
-  _i3.TypeTestsStatus? get typeTestsStatus => _$this._typeTestsStatus;
-  set typeTestsStatus(_i3.TypeTestsStatus? typeTestsStatus) =>
+  TypeTestsStatus? _typeTestsStatus;
+  TypeTestsStatus? get typeTestsStatus => _$this._typeTestsStatus;
+  set typeTestsStatus(TypeTestsStatus? typeTestsStatus) =>
       _$this._typeTestsStatus = typeTestsStatus;
 
   String? _typeTestsStatusDescription;
@@ -217,28 +217,28 @@ class DescribeTypeOutputBuilder
   String? get schema => _$this._schema;
   set schema(String? schema) => _$this._schema = schema;
 
-  _i4.ProvisioningType? _provisioningType;
-  _i4.ProvisioningType? get provisioningType => _$this._provisioningType;
-  set provisioningType(_i4.ProvisioningType? provisioningType) =>
+  ProvisioningType? _provisioningType;
+  ProvisioningType? get provisioningType => _$this._provisioningType;
+  set provisioningType(ProvisioningType? provisioningType) =>
       _$this._provisioningType = provisioningType;
 
-  _i5.DeprecatedStatus? _deprecatedStatus;
-  _i5.DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
-  set deprecatedStatus(_i5.DeprecatedStatus? deprecatedStatus) =>
+  DeprecatedStatus? _deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus => _$this._deprecatedStatus;
+  set deprecatedStatus(DeprecatedStatus? deprecatedStatus) =>
       _$this._deprecatedStatus = deprecatedStatus;
 
-  _i6.LoggingConfigBuilder? _loggingConfig;
-  _i6.LoggingConfigBuilder get loggingConfig =>
-      _$this._loggingConfig ??= new _i6.LoggingConfigBuilder();
-  set loggingConfig(_i6.LoggingConfigBuilder? loggingConfig) =>
+  LoggingConfigBuilder? _loggingConfig;
+  LoggingConfigBuilder get loggingConfig =>
+      _$this._loggingConfig ??= new LoggingConfigBuilder();
+  set loggingConfig(LoggingConfigBuilder? loggingConfig) =>
       _$this._loggingConfig = loggingConfig;
 
-  _i9.ListBuilder<_i7.RequiredActivatedType>? _requiredActivatedTypes;
-  _i9.ListBuilder<_i7.RequiredActivatedType> get requiredActivatedTypes =>
+  _i2.ListBuilder<RequiredActivatedType>? _requiredActivatedTypes;
+  _i2.ListBuilder<RequiredActivatedType> get requiredActivatedTypes =>
       _$this._requiredActivatedTypes ??=
-          new _i9.ListBuilder<_i7.RequiredActivatedType>();
+          new _i2.ListBuilder<RequiredActivatedType>();
   set requiredActivatedTypes(
-          _i9.ListBuilder<_i7.RequiredActivatedType>? requiredActivatedTypes) =>
+          _i2.ListBuilder<RequiredActivatedType>? requiredActivatedTypes) =>
       _$this._requiredActivatedTypes = requiredActivatedTypes;
 
   String? _executionRoleArn;
@@ -246,9 +246,9 @@ class DescribeTypeOutputBuilder
   set executionRoleArn(String? executionRoleArn) =>
       _$this._executionRoleArn = executionRoleArn;
 
-  _i8.Visibility? _visibility;
-  _i8.Visibility? get visibility => _$this._visibility;
-  set visibility(_i8.Visibility? visibility) => _$this._visibility = visibility;
+  Visibility? _visibility;
+  Visibility? get visibility => _$this._visibility;
+  set visibility(Visibility? visibility) => _$this._visibility = visibility;
 
   String? _sourceUrl;
   String? get sourceUrl => _$this._sourceUrl;

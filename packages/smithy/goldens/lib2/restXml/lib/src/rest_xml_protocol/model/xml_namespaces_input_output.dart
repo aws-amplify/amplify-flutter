@@ -6,8 +6,7 @@ library rest_xml_v2.rest_xml_protocol.model.xml_namespaces_input_output; // igno
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespace_nested.dart'
-    as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespace_nested.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_namespaces_input_output.g.dart';
@@ -18,7 +17,7 @@ abstract class XmlNamespacesInputOutput
         _i2.AWSEquatable<XmlNamespacesInputOutput>
     implements
         Built<XmlNamespacesInputOutput, XmlNamespacesInputOutputBuilder> {
-  factory XmlNamespacesInputOutput({_i3.XmlNamespaceNested? nested}) {
+  factory XmlNamespacesInputOutput({XmlNamespaceNested? nested}) {
     return _$XmlNamespacesInputOutput._(nested: nested);
   }
 
@@ -45,7 +44,7 @@ abstract class XmlNamespacesInputOutput
   static const List<_i1.SmithySerializer<XmlNamespacesInputOutput>>
       serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
 
-  _i3.XmlNamespaceNested? get nested;
+  XmlNamespaceNested? get nested;
   @override
   XmlNamespacesInputOutput getPayload() => this;
   @override
@@ -97,8 +96,8 @@ class XmlNamespacesInputOutputRestXmlSerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.XmlNamespaceNested),
-          ) as _i3.XmlNamespaceNested));
+            specifiedType: const FullType(XmlNamespaceNested),
+          ) as XmlNamespaceNested));
       }
     }
 
@@ -123,7 +122,7 @@ class XmlNamespacesInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.XmlNamespaceNested),
+          specifiedType: const FullType(XmlNamespaceNested),
         ));
     }
     return result$;

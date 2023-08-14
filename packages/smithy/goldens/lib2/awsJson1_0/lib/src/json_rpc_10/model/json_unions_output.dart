@@ -4,17 +4,17 @@
 library aws_json1_0_v2.json_rpc_10.model.json_unions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/my_union.dart' as _i2;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/my_union.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'json_unions_output.g.dart';
 
 abstract class JsonUnionsOutput
     with _i1.AWSEquatable<JsonUnionsOutput>
     implements Built<JsonUnionsOutput, JsonUnionsOutputBuilder> {
-  factory JsonUnionsOutput({_i2.MyUnion? contents}) {
+  factory JsonUnionsOutput({MyUnion? contents}) {
     return _$JsonUnionsOutput._(contents: contents);
   }
 
@@ -30,12 +30,12 @@ abstract class JsonUnionsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<JsonUnionsOutput>> serializers = [
+  static const List<_i2.SmithySerializer<JsonUnionsOutput>> serializers = [
     JsonUnionsOutputAwsJson10Serializer()
   ];
 
   /// A union with a representative set of types for members.
-  _i2.MyUnion? get contents;
+  MyUnion? get contents;
   @override
   List<Object?> get props => [contents];
   @override
@@ -50,7 +50,7 @@ abstract class JsonUnionsOutput
 }
 
 class JsonUnionsOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<JsonUnionsOutput> {
+    extends _i2.StructuredSmithySerializer<JsonUnionsOutput> {
   const JsonUnionsOutputAwsJson10Serializer() : super('JsonUnionsOutput');
 
   @override
@@ -59,8 +59,8 @@ class JsonUnionsOutputAwsJson10Serializer
         _$JsonUnionsOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -84,8 +84,8 @@ class JsonUnionsOutputAwsJson10Serializer
         case 'contents':
           result.contents = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MyUnion),
-          ) as _i2.MyUnion);
+            specifiedType: const FullType(MyUnion),
+          ) as MyUnion);
       }
     }
 
@@ -105,7 +105,7 @@ class JsonUnionsOutputAwsJson10Serializer
         ..add('contents')
         ..add(serializers.serialize(
           contents,
-          specifiedType: const FullType(_i2.MyUnion),
+          specifiedType: const FullType(MyUnion),
         ));
     }
     return result$;

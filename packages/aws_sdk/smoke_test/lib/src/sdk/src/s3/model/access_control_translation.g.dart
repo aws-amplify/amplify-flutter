@@ -8,7 +8,7 @@ part of 'access_control_translation.dart';
 
 class _$AccessControlTranslation extends AccessControlTranslation {
   @override
-  final _i2.OwnerOverride owner;
+  final OwnerOverride owner;
 
   factory _$AccessControlTranslation(
           [void Function(AccessControlTranslationBuilder)? updates]) =>
@@ -48,9 +48,9 @@ class AccessControlTranslationBuilder
         Builder<AccessControlTranslation, AccessControlTranslationBuilder> {
   _$AccessControlTranslation? _$v;
 
-  _i2.OwnerOverride? _owner;
-  _i2.OwnerOverride? get owner => _$this._owner;
-  set owner(_i2.OwnerOverride? owner) => _$this._owner = owner;
+  OwnerOverride? _owner;
+  OwnerOverride? get owner => _$this._owner;
+  set owner(OwnerOverride? owner) => _$this._owner = owner;
 
   AccessControlTranslationBuilder();
 

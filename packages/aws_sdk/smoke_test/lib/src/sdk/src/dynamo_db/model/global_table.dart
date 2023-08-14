@@ -4,11 +4,11 @@
 library smoke_test.dynamo_db.model.global_table; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica.dart';
 
 part 'global_table.g.dart';
 
@@ -19,12 +19,12 @@ abstract class GlobalTable
   /// Represents the properties of a global table.
   factory GlobalTable({
     String? globalTableName,
-    List<_i2.Replica>? replicationGroup,
+    List<Replica>? replicationGroup,
   }) {
     return _$GlobalTable._(
       globalTableName: globalTableName,
       replicationGroup:
-          replicationGroup == null ? null : _i3.BuiltList(replicationGroup),
+          replicationGroup == null ? null : _i2.BuiltList(replicationGroup),
     );
   }
 
@@ -34,7 +34,7 @@ abstract class GlobalTable
 
   const GlobalTable._();
 
-  static const List<_i4.SmithySerializer<GlobalTable>> serializers = [
+  static const List<_i3.SmithySerializer<GlobalTable>> serializers = [
     GlobalTableAwsJson10Serializer()
   ];
 
@@ -42,7 +42,7 @@ abstract class GlobalTable
   String? get globalTableName;
 
   /// The Regions where the global table has replicas.
-  _i3.BuiltList<_i2.Replica>? get replicationGroup;
+  _i2.BuiltList<Replica>? get replicationGroup;
   @override
   List<Object?> get props => [
         globalTableName,
@@ -64,7 +64,7 @@ abstract class GlobalTable
 }
 
 class GlobalTableAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<GlobalTable> {
+    extends _i3.StructuredSmithySerializer<GlobalTable> {
   const GlobalTableAwsJson10Serializer() : super('GlobalTable');
 
   @override
@@ -73,8 +73,8 @@ class GlobalTableAwsJson10Serializer
         _$GlobalTable,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -104,10 +104,10 @@ class GlobalTableAwsJson10Serializer
           result.replicationGroup.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Replica)],
+              _i2.BuiltList,
+              [FullType(Replica)],
             ),
-          ) as _i3.BuiltList<_i2.Replica>));
+          ) as _i2.BuiltList<Replica>));
       }
     }
 
@@ -136,8 +136,8 @@ class GlobalTableAwsJson10Serializer
         ..add(serializers.serialize(
           replicationGroup,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Replica)],
+            _i2.BuiltList,
+            [FullType(Replica)],
           ),
         ));
     }

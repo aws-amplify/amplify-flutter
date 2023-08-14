@@ -25,6 +25,7 @@ export 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_output.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/my_union.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/operation_config.dart';
+export 'package:aws_json1_0_v1/src/json_rpc_10/model/put_with_content_encoding_input.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_config.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_mode.dart';
 export 'package:aws_json1_0_v1/src/json_rpc_10/model/s3_addressing_style.dart';

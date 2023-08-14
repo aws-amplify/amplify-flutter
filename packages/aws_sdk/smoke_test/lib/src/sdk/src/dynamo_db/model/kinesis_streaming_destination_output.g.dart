@@ -13,7 +13,7 @@ class _$KinesisStreamingDestinationOutput
   @override
   final String? streamArn;
   @override
-  final _i2.DestinationStatus? destinationStatus;
+  final DestinationStatus? destinationStatus;
 
   factory _$KinesisStreamingDestinationOutput(
           [void Function(KinesisStreamingDestinationOutputBuilder)? updates]) =>
@@ -67,9 +67,9 @@ class KinesisStreamingDestinationOutputBuilder
   String? get streamArn => _$this._streamArn;
   set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
-  _i2.DestinationStatus? _destinationStatus;
-  _i2.DestinationStatus? get destinationStatus => _$this._destinationStatus;
-  set destinationStatus(_i2.DestinationStatus? destinationStatus) =>
+  DestinationStatus? _destinationStatus;
+  DestinationStatus? get destinationStatus => _$this._destinationStatus;
+  set destinationStatus(DestinationStatus? destinationStatus) =>
       _$this._destinationStatus = destinationStatus;
 
   KinesisStreamingDestinationOutputBuilder();

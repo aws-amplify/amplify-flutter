@@ -12,11 +12,11 @@ class _$InAppMessageCampaign extends InAppMessageCampaign {
   @override
   final int? dailyCap;
   @override
-  final _i2.InAppMessage? inAppMessage;
+  final InAppMessage? inAppMessage;
   @override
   final int? priority;
   @override
-  final _i3.InAppCampaignSchedule? schedule;
+  final InAppCampaignSchedule? schedule;
   @override
   final int? sessionCap;
   @override
@@ -90,20 +90,20 @@ class InAppMessageCampaignBuilder
   int? get dailyCap => _$this._dailyCap;
   set dailyCap(int? dailyCap) => _$this._dailyCap = dailyCap;
 
-  _i2.InAppMessageBuilder? _inAppMessage;
-  _i2.InAppMessageBuilder get inAppMessage =>
-      _$this._inAppMessage ??= new _i2.InAppMessageBuilder();
-  set inAppMessage(_i2.InAppMessageBuilder? inAppMessage) =>
+  InAppMessageBuilder? _inAppMessage;
+  InAppMessageBuilder get inAppMessage =>
+      _$this._inAppMessage ??= new InAppMessageBuilder();
+  set inAppMessage(InAppMessageBuilder? inAppMessage) =>
       _$this._inAppMessage = inAppMessage;
 
   int? _priority;
   int? get priority => _$this._priority;
   set priority(int? priority) => _$this._priority = priority;
 
-  _i3.InAppCampaignScheduleBuilder? _schedule;
-  _i3.InAppCampaignScheduleBuilder get schedule =>
-      _$this._schedule ??= new _i3.InAppCampaignScheduleBuilder();
-  set schedule(_i3.InAppCampaignScheduleBuilder? schedule) =>
+  InAppCampaignScheduleBuilder? _schedule;
+  InAppCampaignScheduleBuilder get schedule =>
+      _$this._schedule ??= new InAppCampaignScheduleBuilder();
+  set schedule(InAppCampaignScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
   int? _sessionCap;

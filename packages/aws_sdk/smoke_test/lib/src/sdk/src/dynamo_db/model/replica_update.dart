@@ -6,11 +6,9 @@ library smoke_test.dynamo_db.model.replica_update; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_replica_action.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_replica_action.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_replica_action.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_replica_action.dart';
 
 part 'replica_update.g.dart';
 
@@ -32,8 +30,8 @@ abstract class ReplicaUpdate
   ///
   /// *   An existing replica to be removed from an existing global table.
   factory ReplicaUpdate({
-    _i2.CreateReplicaAction? create,
-    _i3.DeleteReplicaAction? delete,
+    CreateReplicaAction? create,
+    DeleteReplicaAction? delete,
   }) {
     return _$ReplicaUpdate._(
       create: create,
@@ -53,15 +51,15 @@ abstract class ReplicaUpdate
 
   const ReplicaUpdate._();
 
-  static const List<_i4.SmithySerializer<ReplicaUpdate>> serializers = [
+  static const List<_i2.SmithySerializer<ReplicaUpdate>> serializers = [
     ReplicaUpdateAwsJson10Serializer()
   ];
 
   /// The parameters required for creating a replica on an existing global table.
-  _i2.CreateReplicaAction? get create;
+  CreateReplicaAction? get create;
 
   /// The name of the existing replica to be removed.
-  _i3.DeleteReplicaAction? get delete;
+  DeleteReplicaAction? get delete;
   @override
   List<Object?> get props => [
         create,
@@ -83,7 +81,7 @@ abstract class ReplicaUpdate
 }
 
 class ReplicaUpdateAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ReplicaUpdate> {
+    extends _i2.StructuredSmithySerializer<ReplicaUpdate> {
   const ReplicaUpdateAwsJson10Serializer() : super('ReplicaUpdate');
 
   @override
@@ -92,8 +90,8 @@ class ReplicaUpdateAwsJson10Serializer
         _$ReplicaUpdate,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -117,13 +115,13 @@ class ReplicaUpdateAwsJson10Serializer
         case 'Create':
           result.create.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CreateReplicaAction),
-          ) as _i2.CreateReplicaAction));
+            specifiedType: const FullType(CreateReplicaAction),
+          ) as CreateReplicaAction));
         case 'Delete':
           result.delete.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeleteReplicaAction),
-          ) as _i3.DeleteReplicaAction));
+            specifiedType: const FullType(DeleteReplicaAction),
+          ) as DeleteReplicaAction));
       }
     }
 
@@ -143,7 +141,7 @@ class ReplicaUpdateAwsJson10Serializer
         ..add('Create')
         ..add(serializers.serialize(
           create,
-          specifiedType: const FullType(_i2.CreateReplicaAction),
+          specifiedType: const FullType(CreateReplicaAction),
         ));
     }
     if (delete != null) {
@@ -151,7 +149,7 @@ class ReplicaUpdateAwsJson10Serializer
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
-          specifiedType: const FullType(_i3.DeleteReplicaAction),
+          specifiedType: const FullType(DeleteReplicaAction),
         ));
     }
     return result$;

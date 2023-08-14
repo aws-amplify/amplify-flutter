@@ -6,10 +6,9 @@ library smoke_test.s3.model.target_grant; // ignore_for_file: no_leading_undersc
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_logs_permission.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/grantee.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_logs_permission.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/grantee.dart';
 
 part 'target_grant.g.dart';
 
@@ -23,8 +22,8 @@ abstract class TargetGrant
   ///
   /// Buckets that use the bucket owner enforced setting for Object Ownership don't support target grants. For more information, see [Permissions server access log delivery](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general) in the _Amazon S3 User Guide_.
   factory TargetGrant({
-    _i2.Grantee? grantee,
-    _i3.BucketLogsPermission? permission,
+    Grantee? grantee,
+    BucketLogsPermission? permission,
   }) {
     return _$TargetGrant._(
       grantee: grantee,
@@ -40,15 +39,15 @@ abstract class TargetGrant
 
   const TargetGrant._();
 
-  static const List<_i4.SmithySerializer<TargetGrant>> serializers = [
+  static const List<_i2.SmithySerializer<TargetGrant>> serializers = [
     TargetGrantRestXmlSerializer()
   ];
 
   /// Container for the person being granted permissions.
-  _i2.Grantee? get grantee;
+  Grantee? get grantee;
 
   /// Logging permissions assigned to the grantee for the bucket.
-  _i3.BucketLogsPermission? get permission;
+  BucketLogsPermission? get permission;
   @override
   List<Object?> get props => [
         grantee,
@@ -70,7 +69,7 @@ abstract class TargetGrant
 }
 
 class TargetGrantRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<TargetGrant> {
+    extends _i2.StructuredSmithySerializer<TargetGrant> {
   const TargetGrantRestXmlSerializer() : super('TargetGrant');
 
   @override
@@ -79,8 +78,8 @@ class TargetGrantRestXmlSerializer
         _$TargetGrant,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -104,13 +103,13 @@ class TargetGrantRestXmlSerializer
         case 'Grantee':
           result.grantee.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Grantee),
-          ) as _i2.Grantee));
+            specifiedType: const FullType(Grantee),
+          ) as Grantee));
         case 'Permission':
           result.permission = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BucketLogsPermission),
-          ) as _i3.BucketLogsPermission);
+            specifiedType: const FullType(BucketLogsPermission),
+          ) as BucketLogsPermission);
       }
     }
 
@@ -124,32 +123,32 @@ class TargetGrantRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'TargetGrant',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final TargetGrant(:grantee, :permission) = object;
     if (grantee != null) {
       result$
-        ..add(const _i4.XmlElementName(
+        ..add(const _i2.XmlElementName(
           'Grantee',
-          _i4.XmlNamespace(
+          _i2.XmlNamespace(
             'http://www.w3.org/2001/XMLSchema-instance',
             'xsi',
           ),
         ))
         ..add(serializers.serialize(
           grantee,
-          specifiedType: const FullType(_i2.Grantee),
+          specifiedType: const FullType(Grantee),
         ));
     }
     if (permission != null) {
       result$
-        ..add(const _i4.XmlElementName('Permission'))
+        ..add(const _i2.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
-          specifiedType: const FullType.nullable(_i3.BucketLogsPermission),
+          specifiedType: const FullType.nullable(BucketLogsPermission),
         ));
     }
     return result$;

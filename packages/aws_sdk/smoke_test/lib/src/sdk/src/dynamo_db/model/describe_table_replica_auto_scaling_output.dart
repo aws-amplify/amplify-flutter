@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.describe_table_replica_auto_scaling_output; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_auto_scaling_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_auto_scaling_description.dart';
 
 part 'describe_table_replica_auto_scaling_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DescribeTableReplicaAutoScalingOutput
         Built<DescribeTableReplicaAutoScalingOutput,
             DescribeTableReplicaAutoScalingOutputBuilder> {
   factory DescribeTableReplicaAutoScalingOutput(
-      {_i2.TableAutoScalingDescription? tableAutoScalingDescription}) {
+      {TableAutoScalingDescription? tableAutoScalingDescription}) {
     return _$DescribeTableReplicaAutoScalingOutput._(
         tableAutoScalingDescription: tableAutoScalingDescription);
   }
@@ -37,13 +36,13 @@ abstract class DescribeTableReplicaAutoScalingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeTableReplicaAutoScalingOutput>>
+  static const List<_i2.SmithySerializer<DescribeTableReplicaAutoScalingOutput>>
       serializers = [
     DescribeTableReplicaAutoScalingOutputAwsJson10Serializer()
   ];
 
   /// Represents the auto scaling properties of the table.
-  _i2.TableAutoScalingDescription? get tableAutoScalingDescription;
+  TableAutoScalingDescription? get tableAutoScalingDescription;
   @override
   List<Object?> get props => [tableAutoScalingDescription];
   @override
@@ -58,7 +57,7 @@ abstract class DescribeTableReplicaAutoScalingOutput
   }
 }
 
-class DescribeTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
+class DescribeTableReplicaAutoScalingOutputAwsJson10Serializer extends _i2
     .StructuredSmithySerializer<DescribeTableReplicaAutoScalingOutput> {
   const DescribeTableReplicaAutoScalingOutputAwsJson10Serializer()
       : super('DescribeTableReplicaAutoScalingOutput');
@@ -69,8 +68,8 @@ class DescribeTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
         _$DescribeTableReplicaAutoScalingOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -94,8 +93,8 @@ class DescribeTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
         case 'TableAutoScalingDescription':
           result.tableAutoScalingDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableAutoScalingDescription),
-          ) as _i2.TableAutoScalingDescription));
+            specifiedType: const FullType(TableAutoScalingDescription),
+          ) as TableAutoScalingDescription));
       }
     }
 
@@ -116,7 +115,7 @@ class DescribeTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
         ..add('TableAutoScalingDescription')
         ..add(serializers.serialize(
           tableAutoScalingDescription,
-          specifiedType: const FullType(_i2.TableAutoScalingDescription),
+          specifiedType: const FullType(TableAutoScalingDescription),
         ));
     }
     return result$;

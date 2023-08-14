@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_group_response; // ignore_for_file: no_leadi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/group.dart';
 
 part 'create_group_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class CreateGroupResponse
     with _i1.AWSEquatable<CreateGroupResponse>
     implements Built<CreateGroupResponse, CreateGroupResponseBuilder> {
   /// Contains the response to a successful CreateGroup request.
-  factory CreateGroupResponse({required _i2.Group group}) {
+  factory CreateGroupResponse({required Group group}) {
     return _$CreateGroupResponse._(group: group);
   }
 
@@ -34,12 +34,12 @@ abstract class CreateGroupResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateGroupResponse>> serializers = [
+  static const List<_i2.SmithySerializer<CreateGroupResponse>> serializers = [
     CreateGroupResponseAwsQuerySerializer()
   ];
 
   /// A structure containing details about the new group.
-  _i2.Group get group;
+  Group get group;
   @override
   List<Object?> get props => [group];
   @override
@@ -54,7 +54,7 @@ abstract class CreateGroupResponse
 }
 
 class CreateGroupResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateGroupResponse> {
+    extends _i2.StructuredSmithySerializer<CreateGroupResponse> {
   const CreateGroupResponseAwsQuerySerializer() : super('CreateGroupResponse');
 
   @override
@@ -63,8 +63,8 @@ class CreateGroupResponseAwsQuerySerializer
         _$CreateGroupResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -88,8 +88,8 @@ class CreateGroupResponseAwsQuerySerializer
         case 'Group':
           result.group.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Group),
-          ) as _i2.Group));
+            specifiedType: const FullType(Group),
+          ) as Group));
       }
     }
 
@@ -103,17 +103,17 @@ class CreateGroupResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateGroupResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateGroupResponse(:group) = object;
     result$
-      ..add(const _i3.XmlElementName('Group'))
+      ..add(const _i2.XmlElementName('Group'))
       ..add(serializers.serialize(
         group,
-        specifiedType: const FullType(_i2.Group),
+        specifiedType: const FullType(Group),
       ));
     return result$;
   }

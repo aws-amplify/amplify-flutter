@@ -8,7 +8,7 @@ part of 'upload_part_output.dart';
 
 class _$UploadPartOutput extends UploadPartOutput {
   @override
-  final _i3.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? eTag;
   @override
@@ -28,7 +28,7 @@ class _$UploadPartOutput extends UploadPartOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i4.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$UploadPartOutput(
           [void Function(UploadPartOutputBuilder)? updates]) =>
@@ -96,10 +96,10 @@ class UploadPartOutputBuilder
     implements Builder<UploadPartOutput, UploadPartOutputBuilder> {
   _$UploadPartOutput? _$v;
 
-  _i3.ServerSideEncryption? _serverSideEncryption;
-  _i3.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i3.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _eTag;
@@ -144,9 +144,9 @@ class UploadPartOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i4.RequestCharged? _requestCharged;
-  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i4.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   UploadPartOutputBuilder();

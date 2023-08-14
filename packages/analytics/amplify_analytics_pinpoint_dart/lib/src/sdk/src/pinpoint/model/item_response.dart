@@ -3,15 +3,13 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_item_response.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/event_item_response.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_item_response.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/event_item_response.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'item_response.g.dart';
 
@@ -21,13 +19,13 @@ abstract class ItemResponse
     implements Built<ItemResponse, ItemResponseBuilder> {
   /// Provides information about the results of a request to create or update an endpoint that's associated with an event.
   factory ItemResponse({
-    _i2.EndpointItemResponse? endpointItemResponse,
-    Map<String, _i3.EventItemResponse>? eventsItemResponse,
+    EndpointItemResponse? endpointItemResponse,
+    Map<String, EventItemResponse>? eventsItemResponse,
   }) {
     return _$ItemResponse._(
       endpointItemResponse: endpointItemResponse,
       eventsItemResponse:
-          eventsItemResponse == null ? null : _i4.BuiltMap(eventsItemResponse),
+          eventsItemResponse == null ? null : _i2.BuiltMap(eventsItemResponse),
     );
   }
 
@@ -37,15 +35,15 @@ abstract class ItemResponse
 
   const ItemResponse._();
 
-  static const List<_i5.SmithySerializer<ItemResponse>> serializers = [
+  static const List<_i3.SmithySerializer<ItemResponse>> serializers = [
     ItemResponseRestJson1Serializer()
   ];
 
   /// The response that was received after the endpoint data was accepted.
-  _i2.EndpointItemResponse? get endpointItemResponse;
+  EndpointItemResponse? get endpointItemResponse;
 
   /// A multipart response object that contains a key and a value for each event in the request. In each object, the event ID is the key and an EventItemResponse object is the value.
-  _i4.BuiltMap<String, _i3.EventItemResponse>? get eventsItemResponse;
+  _i2.BuiltMap<String, EventItemResponse>? get eventsItemResponse;
   @override
   List<Object?> get props => [
         endpointItemResponse,
@@ -67,7 +65,7 @@ abstract class ItemResponse
 }
 
 class ItemResponseRestJson1Serializer
-    extends _i5.StructuredSmithySerializer<ItemResponse> {
+    extends _i3.StructuredSmithySerializer<ItemResponse> {
   const ItemResponseRestJson1Serializer() : super('ItemResponse');
 
   @override
@@ -76,8 +74,8 @@ class ItemResponseRestJson1Serializer
         _$ItemResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -101,19 +99,19 @@ class ItemResponseRestJson1Serializer
         case 'EndpointItemResponse':
           result.endpointItemResponse.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EndpointItemResponse),
-          ) as _i2.EndpointItemResponse));
+            specifiedType: const FullType(EndpointItemResponse),
+          ) as EndpointItemResponse));
         case 'EventsItemResponse':
           result.eventsItemResponse.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.EventItemResponse),
+                FullType(EventItemResponse),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.EventItemResponse>));
+          ) as _i2.BuiltMap<String, EventItemResponse>));
       }
     }
 
@@ -133,7 +131,7 @@ class ItemResponseRestJson1Serializer
         ..add('EndpointItemResponse')
         ..add(serializers.serialize(
           endpointItemResponse,
-          specifiedType: const FullType(_i2.EndpointItemResponse),
+          specifiedType: const FullType(EndpointItemResponse),
         ));
     }
     if (eventsItemResponse != null) {
@@ -142,10 +140,10 @@ class ItemResponseRestJson1Serializer
         ..add(serializers.serialize(
           eventsItemResponse,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.EventItemResponse),
+              FullType(EventItemResponse),
             ],
           ),
         ));

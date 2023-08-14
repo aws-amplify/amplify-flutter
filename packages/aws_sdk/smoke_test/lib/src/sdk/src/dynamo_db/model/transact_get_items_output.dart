@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.transact_get_items_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart';
 
 part 'transact_get_items_output.g.dart';
 
@@ -19,13 +17,13 @@ abstract class TransactGetItemsOutput
     with _i1.AWSEquatable<TransactGetItemsOutput>
     implements Built<TransactGetItemsOutput, TransactGetItemsOutputBuilder> {
   factory TransactGetItemsOutput({
-    List<_i2.ConsumedCapacity>? consumedCapacity,
-    List<_i3.ItemResponse>? responses,
+    List<ConsumedCapacity>? consumedCapacity,
+    List<ItemResponse>? responses,
   }) {
     return _$TransactGetItemsOutput._(
       consumedCapacity:
-          consumedCapacity == null ? null : _i4.BuiltList(consumedCapacity),
-      responses: responses == null ? null : _i4.BuiltList(responses),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
+      responses: responses == null ? null : _i2.BuiltList(responses),
     );
   }
 
@@ -42,16 +40,16 @@ abstract class TransactGetItemsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<TransactGetItemsOutput>> serializers =
+  static const List<_i3.SmithySerializer<TransactGetItemsOutput>> serializers =
       [TransactGetItemsOutputAwsJson10Serializer()];
 
   /// If the _ReturnConsumedCapacity_ value was `TOTAL`, this is an array of `ConsumedCapacity` objects, one for each table addressed by `TransactGetItem` objects in the _TransactItems_ parameter. These `ConsumedCapacity` objects report the read-capacity units consumed by the `TransactGetItems` call in that table.
-  _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
 
   /// An ordered array of up to 100 `ItemResponse` objects, each of which corresponds to the `TransactGetItem` object in the same position in the _TransactItems_ array. Each `ItemResponse` object contains a Map of the name-value pairs that are the projected attributes of the requested item.
   ///
   /// If a requested item could not be retrieved, the corresponding `ItemResponse` object is Null, or if the requested item has no projected attributes, the corresponding `ItemResponse` object is an empty Map.
-  _i4.BuiltList<_i3.ItemResponse>? get responses;
+  _i2.BuiltList<ItemResponse>? get responses;
   @override
   List<Object?> get props => [
         consumedCapacity,
@@ -73,7 +71,7 @@ abstract class TransactGetItemsOutput
 }
 
 class TransactGetItemsOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<TransactGetItemsOutput> {
+    extends _i3.StructuredSmithySerializer<TransactGetItemsOutput> {
   const TransactGetItemsOutputAwsJson10Serializer()
       : super('TransactGetItemsOutput');
 
@@ -83,8 +81,8 @@ class TransactGetItemsOutputAwsJson10Serializer
         _$TransactGetItemsOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -109,18 +107,18 @@ class TransactGetItemsOutputAwsJson10Serializer
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i4.BuiltList<_i2.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
         case 'Responses':
           result.responses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ItemResponse)],
+              _i2.BuiltList,
+              [FullType(ItemResponse)],
             ),
-          ) as _i4.BuiltList<_i3.ItemResponse>));
+          ) as _i2.BuiltList<ItemResponse>));
       }
     }
 
@@ -141,8 +139,8 @@ class TransactGetItemsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }
@@ -152,8 +150,8 @@ class TransactGetItemsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           responses,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ItemResponse)],
+            _i2.BuiltList,
+            [FullType(ItemResponse)],
           ),
         ));
     }

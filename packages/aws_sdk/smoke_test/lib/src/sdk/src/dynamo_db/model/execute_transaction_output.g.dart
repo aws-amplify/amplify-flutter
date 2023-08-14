@@ -8,9 +8,9 @@ part of 'execute_transaction_output.dart';
 
 class _$ExecuteTransactionOutput extends ExecuteTransactionOutput {
   @override
-  final _i4.BuiltList<_i2.ItemResponse>? responses;
+  final _i2.BuiltList<ItemResponse>? responses;
   @override
-  final _i4.BuiltList<_i3.ConsumedCapacity>? consumedCapacity;
+  final _i2.BuiltList<ConsumedCapacity>? consumedCapacity;
 
   factory _$ExecuteTransactionOutput(
           [void Function(ExecuteTransactionOutputBuilder)? updates]) =>
@@ -51,17 +51,16 @@ class ExecuteTransactionOutputBuilder
         Builder<ExecuteTransactionOutput, ExecuteTransactionOutputBuilder> {
   _$ExecuteTransactionOutput? _$v;
 
-  _i4.ListBuilder<_i2.ItemResponse>? _responses;
-  _i4.ListBuilder<_i2.ItemResponse> get responses =>
-      _$this._responses ??= new _i4.ListBuilder<_i2.ItemResponse>();
-  set responses(_i4.ListBuilder<_i2.ItemResponse>? responses) =>
+  _i2.ListBuilder<ItemResponse>? _responses;
+  _i2.ListBuilder<ItemResponse> get responses =>
+      _$this._responses ??= new _i2.ListBuilder<ItemResponse>();
+  set responses(_i2.ListBuilder<ItemResponse>? responses) =>
       _$this._responses = responses;
 
-  _i4.ListBuilder<_i3.ConsumedCapacity>? _consumedCapacity;
-  _i4.ListBuilder<_i3.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i4.ListBuilder<_i3.ConsumedCapacity>();
-  set consumedCapacity(
-          _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
+  _i2.ListBuilder<ConsumedCapacity>? _consumedCapacity;
+  _i2.ListBuilder<ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i2.ListBuilder<ConsumedCapacity>();
+  set consumedCapacity(_i2.ListBuilder<ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   ExecuteTransactionOutputBuilder();

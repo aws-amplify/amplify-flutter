@@ -6,9 +6,9 @@ library smoke_test.s3.model.put_object_retention_output; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'put_object_retention_output.g.dart';
 
@@ -18,7 +18,7 @@ abstract class PutObjectRetentionOutput
         Built<PutObjectRetentionOutput, PutObjectRetentionOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<PutObjectRetentionOutputPayload> {
-  factory PutObjectRetentionOutput({_i3.RequestCharged? requestCharged}) {
+  factory PutObjectRetentionOutput({RequestCharged? requestCharged}) {
     return _$PutObjectRetentionOutput._(requestCharged: requestCharged);
   }
 
@@ -35,7 +35,7 @@ abstract class PutObjectRetentionOutput
   ) =>
       PutObjectRetentionOutput.build((b) {
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -44,7 +44,7 @@ abstract class PutObjectRetentionOutput
       serializers = [PutObjectRetentionOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   PutObjectRetentionOutputPayload getPayload() =>
       PutObjectRetentionOutputPayload();
@@ -61,7 +61,7 @@ abstract class PutObjectRetentionOutput
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class PutObjectRetentionOutputPayload
     with
         _i1.AWSEquatable<PutObjectRetentionOutputPayload>

@@ -11,7 +11,7 @@ class _$GenerateServiceLastAccessedDetailsRequest
   @override
   final String arn;
   @override
-  final _i3.AccessAdvisorUsageGranularityType? granularity;
+  final AccessAdvisorUsageGranularityType? granularity;
 
   factory _$GenerateServiceLastAccessedDetailsRequest(
           [void Function(GenerateServiceLastAccessedDetailsRequestBuilder)?
@@ -64,9 +64,9 @@ class GenerateServiceLastAccessedDetailsRequestBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  _i3.AccessAdvisorUsageGranularityType? _granularity;
-  _i3.AccessAdvisorUsageGranularityType? get granularity => _$this._granularity;
-  set granularity(_i3.AccessAdvisorUsageGranularityType? granularity) =>
+  AccessAdvisorUsageGranularityType? _granularity;
+  AccessAdvisorUsageGranularityType? get granularity => _$this._granularity;
+  set granularity(AccessAdvisorUsageGranularityType? granularity) =>
       _$this._granularity = granularity;
 
   GenerateServiceLastAccessedDetailsRequestBuilder();

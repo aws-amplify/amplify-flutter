@@ -8,7 +8,7 @@ part of 'account_gate_result.dart';
 
 class _$AccountGateResult extends AccountGateResult {
   @override
-  final _i2.AccountGateStatus? status;
+  final AccountGateStatus? status;
   @override
   final String? statusReason;
 
@@ -48,9 +48,9 @@ class AccountGateResultBuilder
     implements Builder<AccountGateResult, AccountGateResultBuilder> {
   _$AccountGateResult? _$v;
 
-  _i2.AccountGateStatus? _status;
-  _i2.AccountGateStatus? get status => _$this._status;
-  set status(_i2.AccountGateStatus? status) => _$this._status = status;
+  AccountGateStatus? _status;
+  AccountGateStatus? get status => _$this._status;
+  set status(AccountGateStatus? status) => _$this._status = status;
 
   String? _statusReason;
   String? get statusReason => _$this._statusReason;

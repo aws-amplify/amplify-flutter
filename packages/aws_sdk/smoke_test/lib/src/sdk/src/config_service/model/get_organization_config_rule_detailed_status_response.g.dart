@@ -9,7 +9,7 @@ part of 'get_organization_config_rule_detailed_status_response.dart';
 class _$GetOrganizationConfigRuleDetailedStatusResponse
     extends GetOrganizationConfigRuleDetailedStatusResponse {
   @override
-  final _i3.BuiltList<_i2.MemberAccountStatus>?
+  final _i2.BuiltList<MemberAccountStatus>?
       organizationConfigRuleDetailedStatus;
   @override
   final String? nextToken;
@@ -62,14 +62,13 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
             GetOrganizationConfigRuleDetailedStatusResponseBuilder> {
   _$GetOrganizationConfigRuleDetailedStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.MemberAccountStatus>?
-      _organizationConfigRuleDetailedStatus;
-  _i3.ListBuilder<_i2.MemberAccountStatus>
+  _i2.ListBuilder<MemberAccountStatus>? _organizationConfigRuleDetailedStatus;
+  _i2.ListBuilder<MemberAccountStatus>
       get organizationConfigRuleDetailedStatus =>
           _$this._organizationConfigRuleDetailedStatus ??=
-              new _i3.ListBuilder<_i2.MemberAccountStatus>();
+              new _i2.ListBuilder<MemberAccountStatus>();
   set organizationConfigRuleDetailedStatus(
-          _i3.ListBuilder<_i2.MemberAccountStatus>?
+          _i2.ListBuilder<MemberAccountStatus>?
               organizationConfigRuleDetailedStatus) =>
       _$this._organizationConfigRuleDetailedStatus =
           organizationConfigRuleDetailedStatus;
