@@ -36,6 +36,8 @@ const falsePositiveExamples = [
   'rest_xml_with_namespace_v2',
   'custom_v1',
   'custom_v2',
+  'ec2_query_v1',
+  'ec2_query_v2',
 ];
 
 /// The flavor of a package, e.g. Dart/Flutter.
