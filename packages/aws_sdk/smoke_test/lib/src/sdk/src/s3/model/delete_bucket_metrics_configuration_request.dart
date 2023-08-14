@@ -135,8 +135,8 @@ abstract class DeleteBucketMetricsConfigurationRequestPayload
   }
 }
 
-class DeleteBucketMetricsConfigurationRequestRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<
+class DeleteBucketMetricsConfigurationRequestRestXmlSerializer
+    extends _i1.StructuredSmithySerializer<
         DeleteBucketMetricsConfigurationRequestPayload> {
   const DeleteBucketMetricsConfigurationRequestRestXmlSerializer()
       : super('DeleteBucketMetricsConfigurationRequest');

@@ -686,7 +686,7 @@ class _RestXmlProtocolServer extends _i1.HttpServer<RestXmlProtocolServerBase> {
   );
 
   late final _i1
-      .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
+          .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
       _endpointWithHostLabelOperationProtocol = _i2.RestXmlProtocol(
     serializers: serializers,
     builderFactories: builderFactories,

@@ -25,8 +25,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_
 /// The status is not considered successful until organization Config rule is successfully deployed in all the member accounts with an exception of excluded accounts.
 ///
 /// When you specify the limit and the next token, you receive a paginated response. Limit and next token are not applicable if you specify organization Config rule names. It is only applicable, when you request all the organization Config rules.
-class DescribeOrganizationConfigRuleStatusesOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribeOrganizationConfigRuleStatusesOperation
+    extends _i1.PaginatedHttpOperation<
         DescribeOrganizationConfigRuleStatusesRequest,
         DescribeOrganizationConfigRuleStatusesRequest,
         DescribeOrganizationConfigRuleStatusesResponse,
