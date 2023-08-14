@@ -163,8 +163,8 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
 }
 
 class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
-    extends _i3
-    .StructuredSmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy> {
+    extends _i3.StructuredSmithySerializer<
+        OrganizationCustomPolicyRuleMetadataNoPolicy> {
   const OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
       : super('OrganizationCustomPolicyRuleMetadataNoPolicy');
 

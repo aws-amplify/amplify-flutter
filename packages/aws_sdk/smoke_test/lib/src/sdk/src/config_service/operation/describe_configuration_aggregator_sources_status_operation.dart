@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_va
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_aggregator_exception.dart';
 
 /// Returns status information for sources within an aggregator. The status includes information about the last time Config verified authorization between the source account and an aggregator account. In case of a failure, the status contains the related error code or message.
-class DescribeConfigurationAggregatorSourcesStatusOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribeConfigurationAggregatorSourcesStatusOperation
+    extends _i1.PaginatedHttpOperation<
         DescribeConfigurationAggregatorSourcesStatusRequest,
         DescribeConfigurationAggregatorSourcesStatusRequest,
         DescribeConfigurationAggregatorSourcesStatusResponse,

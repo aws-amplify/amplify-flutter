@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_va
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart';
 
 /// Returns status information for each of your Config managed rules. The status includes information such as the last time Config invoked the rule, the last time Config failed to invoke the rule, and the related error for the last failure.
-class DescribeConfigRuleEvaluationStatusOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribeConfigRuleEvaluationStatusOperation
+    extends _i1.PaginatedHttpOperation<
         DescribeConfigRuleEvaluationStatusRequest,
         DescribeConfigRuleEvaluationStatusRequest,
         DescribeConfigRuleEvaluationStatusResponse,

@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_intelligent_tiering_
 /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
 ///
 /// *   [GetBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketIntelligentTieringConfiguration.html)
-class ListBucketIntelligentTieringConfigurationsOperation extends _i1
-    .HttpOperation<
+class ListBucketIntelligentTieringConfigurationsOperation
+    extends _i1.HttpOperation<
         ListBucketIntelligentTieringConfigurationsRequestPayload,
         ListBucketIntelligentTieringConfigurationsRequest,
         ListBucketIntelligentTieringConfigurationsOutput,

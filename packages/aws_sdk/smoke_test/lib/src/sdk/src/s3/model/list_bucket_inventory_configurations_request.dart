@@ -135,8 +135,8 @@ abstract class ListBucketInventoryConfigurationsRequestPayload
   }
 }
 
-class ListBucketInventoryConfigurationsRequestRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<
+class ListBucketInventoryConfigurationsRequestRestXmlSerializer
+    extends _i1.StructuredSmithySerializer<
         ListBucketInventoryConfigurationsRequestPayload> {
   const ListBucketInventoryConfigurationsRequestRestXmlSerializer()
       : super('ListBucketInventoryConfigurationsRequest');

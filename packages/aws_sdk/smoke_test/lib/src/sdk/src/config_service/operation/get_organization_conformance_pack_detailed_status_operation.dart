@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_detailed_status.dart';
 
 /// Returns detailed status for each member account within an organization for a given organization conformance pack.
-class GetOrganizationConformancePackDetailedStatusOperation extends _i1
-    .PaginatedHttpOperation<
+class GetOrganizationConformancePackDetailedStatusOperation
+    extends _i1.PaginatedHttpOperation<
         GetOrganizationConformancePackDetailedStatusRequest,
         GetOrganizationConformancePackDetailedStatusRequest,
         GetOrganizationConformancePackDetailedStatusResponse,
