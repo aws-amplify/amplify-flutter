@@ -123,6 +123,14 @@ class GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetServiceLastAccessedDetailsWithEntitiesRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
