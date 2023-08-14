@@ -28,6 +28,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         RestJson1Trait _ => DartTypes.smithyAws.restJson1Protocol,
         RestXmlTrait _ => DartTypes.smithyAws.restXmlProtocol,
         AwsQueryTrait _ => DartTypes.smithyAws.awsQueryProtocol,
+        Ec2QueryTrait _ => DartTypes.smithyAws.ec2QueryProtocol,
         _ => throw UnsupportedError(
             'No protocol found for $runtimeType ($shapeId)',
           ),
@@ -38,7 +39,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     StructureShape shape,
     CodegenContext context,
   ) {
-    if (this case RestXmlTrait _ || AwsQueryTrait _) {
+    if (this case RestXmlTrait _ || AwsQueryTrait _ || Ec2QueryTrait _) {
       return StructureXmlSerializerGenerator(
         shape,
         context,
@@ -62,6 +63,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           const SerializerConfig.awsJson(),
         RestJson1Trait _ => const SerializerConfig.restJson1(),
         AwsQueryTrait _ => const SerializerConfig.awsQuery(),
+        Ec2QueryTrait _ => const SerializerConfig.ec2Query(),
         _ => const SerializerConfig(),
       };
 
@@ -140,7 +142,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
             ]),
           ];
         }
-      case RestXmlTrait _ || AwsQueryTrait _:
+      case RestXmlTrait _ || AwsQueryTrait _ || Ec2QueryTrait _:
       default:
     }
 
@@ -259,12 +261,13 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     if (this case final RestXmlTrait trait) {
       parameters['noErrorWrapping'] = literalBool(trait.noErrorWrapping);
     }
-    if (this case AwsQueryTrait _) {
+    if (this case AwsQueryTrait _ || Ec2QueryTrait _) {
       // Values must be included for AWS Query
       // https://smithy.io/2.0/aws/protocols/aws-query-protocol.html#request-serialization
       parameters['action'] = literalString(shape.shapeId.shape);
       parameters['version'] = literalString(context.service!.version!);
-
+    }
+    if (this case AwsQueryTrait _) {
       final awsQueryErrors = <ShapeId, AwsQueryErrorTrait>{};
       for (final error in shape.errors) {
         final errorShape = context.shapeFor(error.target);
@@ -292,7 +295,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           RouteConfiguration.rest,
         AwsJson1_0Trait _ ||
         AwsJson1_1Trait _ ||
-        AwsQueryTrait _ =>
+        AwsQueryTrait _ ||
+        Ec2QueryTrait _ =>
           RouteConfiguration.rpc,
         _ => throw StateError('Unknown type: $runtimeType'),
       };
