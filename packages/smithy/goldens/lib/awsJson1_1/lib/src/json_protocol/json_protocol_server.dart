@@ -165,7 +165,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
   );
 
   late final _i1
-      .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
+          .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
       _endpointWithHostLabelOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
@@ -219,7 +219,7 @@ class _JsonProtocolServer extends _i1.HttpServer<JsonProtocolServerBase> {
   );
 
   late final _i1
-      .HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>
+          .HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>
       _kitchenSinkOperationProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,

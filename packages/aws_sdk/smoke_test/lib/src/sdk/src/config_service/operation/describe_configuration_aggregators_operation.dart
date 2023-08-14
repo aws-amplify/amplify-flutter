@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_va
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_aggregator_exception.dart';
 
 /// Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified, this action returns the details for all the configuration aggregators associated with the account.
-class DescribeConfigurationAggregatorsOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribeConfigurationAggregatorsOperation
+    extends _i1.PaginatedHttpOperation<
         DescribeConfigurationAggregatorsRequest,
         DescribeConfigurationAggregatorsRequest,
         DescribeConfigurationAggregatorsResponse,

@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_conform
 /// _For accounts within an organzation_
 ///
 /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
-class DescribeOrganizationConformancePacksOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribeOrganizationConformancePacksOperation
+    extends _i1.PaginatedHttpOperation<
         DescribeOrganizationConformancePacksRequest,
         DescribeOrganizationConformancePacksRequest,
         DescribeOrganizationConformancePacksResponse,

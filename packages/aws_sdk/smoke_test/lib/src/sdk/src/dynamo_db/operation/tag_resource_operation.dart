@@ -41,9 +41,8 @@ class TagResourceOperation extends _i1
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<TagResourceInput, TagResourceInput, _i1.Unit, _i1.Unit>>
-      protocols = [
+      _i1.HttpProtocol<TagResourceInput, TagResourceInput, _i1.Unit,
+          _i1.Unit>> protocols = [
     _i3.AwsJson1_0Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

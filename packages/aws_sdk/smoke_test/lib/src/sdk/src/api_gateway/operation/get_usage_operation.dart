@@ -45,9 +45,8 @@ class GetUsageOperation extends _i1.PaginatedHttpOperation<
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<GetUsageRequestPayload, GetUsageRequest, Usage, Usage>>
-      protocols = [
+      _i1.HttpProtocol<GetUsageRequestPayload, GetUsageRequest, Usage,
+          Usage>> protocols = [
     _i5.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
