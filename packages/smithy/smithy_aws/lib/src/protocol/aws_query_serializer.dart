@@ -4,14 +4,6 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
 import 'package:xml/xml.dart';
 
-class AwsQueryPlugin extends SmithyXmlPlugin {
-  const AwsQueryPlugin();
-
-  @override
-  XmlElement responseRootElement(XmlDocument document) =>
-      document.rootElement.firstElementChild!;
-}
-
 class AwsQuerySerializer implements FullSerializer<List<int>> {
   AwsQuerySerializer(
     this._serializers, {

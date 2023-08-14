@@ -615,8 +615,15 @@ extension OperationShapeUtil on OperationShape {
     // See:
     // - https://awslabs.github.io/smithy/1.0/spec/aws/aws-json-1_0-protocol.html
     // - https://awslabs.github.io/smithy/1.0/spec/aws/aws-json-1_1-protocol.html
-    if ([AwsJson1_0Trait.id, AwsJson1_1Trait.id, AwsQueryTrait.id]
-        .contains(protocol.singleOrNull?.shapeId)) {
+    //
+    // awsQuery and ec2Query send all requests as "POST" to the root path.
+    const rpcProtocols = [
+      AwsJson1_0Trait.id,
+      AwsJson1_1Trait.id,
+      AwsQueryTrait.id,
+      Ec2QueryTrait.id
+    ];
+    if (rpcProtocols.contains(protocol.singleOrNull?.shapeId)) {
       return const HttpTrait(method: 'POST', uri: '/');
     }
     return null;

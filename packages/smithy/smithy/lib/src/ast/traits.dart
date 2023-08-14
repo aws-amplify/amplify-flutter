@@ -19,6 +19,7 @@ export 'traits/aws/protocols/aws_json_1_0_trait.dart';
 export 'traits/aws/protocols/aws_json_1_1_trait.dart';
 export 'traits/aws/protocols/aws_protocol_trait.dart';
 export 'traits/aws/protocols/aws_query_trait.dart';
+export 'traits/aws/protocols/ec2_query_trait.dart';
 export 'traits/aws/protocols/rest_json_1_trait.dart';
 export 'traits/aws/protocols/rest_xml_trait.dart';
 export 'traits/aws/service_trait.dart';

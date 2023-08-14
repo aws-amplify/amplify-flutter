@@ -46,7 +46,7 @@ class AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>
         );
 
   static final _coreSerializers = (Serializers().toBuilder()
-        ..addPlugin(const AwsQueryPlugin())
+        ..addPlugin(const SmithyXmlPlugin())
         ..addAll(const [
           QueryBoolSerializer(),
           QueryIntSerializer(),
