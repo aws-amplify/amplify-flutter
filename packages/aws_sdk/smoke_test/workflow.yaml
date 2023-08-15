@@ -33,7 +33,7 @@ jobs:
         run: git submodule update --init
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@cdb51fff2b088939ef86fe041b18e82cb4733522 # main
+        uses: dart-lang/setup-dart@deafe40ee7284c48e67c783c88eed8c8b52b19ca # main
         with:
           sdk: stable
 
