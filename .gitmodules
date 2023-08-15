@@ -10,3 +10,6 @@
 [submodule "packages/aft/external/libgit2dart"]
 	path = packages/aft/external/libgit2dart
 	url = https://github.com/SkinnyMind/libgit2dart.git
+[submodule "packages/aft/external/git"]
+	path = packages/aft/external/git
+	url = https://github.com/dnys1/git

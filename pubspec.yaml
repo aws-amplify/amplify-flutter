@@ -60,6 +60,7 @@ aft:
   ignore:
     - synthetic_package
     - libgit2dart
+    - git
 
   # Strongly connected components which should have version bumps happen
   # in unison, i.e. a version bump to one package cascades to all.
