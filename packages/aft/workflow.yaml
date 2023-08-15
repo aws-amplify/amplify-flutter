@@ -40,12 +40,7 @@ jobs:
 
       - name: Get Packages
         working-directory: packages/aft
-        run: |
-          # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
-          ( cd external/libgit2dart; git apply ../libgit2dart.patch )
-          dart pub upgrade
-          mkdir linux
-          cp external/libgit2dart/linux/*.so linux
+        run: dart pub upgrade
 
       - name: Save Repo State
         working-directory: packages/aft
