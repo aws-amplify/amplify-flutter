@@ -291,6 +291,21 @@ class PackageInfo
     return found;
   }
 
+  /// The type of dependency [package] is in `this`, or `null` if [package]
+  /// is not listed in this package's pubspec.
+  DependencyType? dependencyType(PackageInfo package) {
+    if (pubspecInfo.pubspec.dependencies.containsKey(package.name)) {
+      return DependencyType.dependency;
+    }
+    if (pubspecInfo.pubspec.devDependencies.containsKey(package.name)) {
+      return DependencyType.devDependency;
+    }
+    if (pubspecInfo.pubspec.dependencyOverrides.containsKey(package.name)) {
+      return DependencyType.dependencyOverride;
+    }
+    return null;
+  }
+
   /// The parsed `CHANGELOG.md`.
   Changelog get changelog {
     final changelogMd = File(p.join(path, 'CHANGELOG.md')).readAsStringSync();

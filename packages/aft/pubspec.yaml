@@ -17,10 +17,7 @@ dependencies:
   code_builder: 4.5.0
   collection: ^1.16.0
   file: ">=6.0.0 <8.0.0"
-  git:
-    git:
-      url: https://github.com/dnys1/git
-      ref: feat/existing-worktree
+  git: any # override
   glob: ^2.1.0
   graphs: ^2.1.0
   json_annotation: ">=4.8.1 <4.9.0"
@@ -52,6 +49,12 @@ dependency_overrides:
     path: ../aws_common
   aws_signature_v4:
     path: ../aws_signature_v4
+  git:
+    git:
+      url: https://github.com/dnys1/git
+      ref: feat/existing-worktree
+  pub_server:
+    path: ../test/pub_server
   smithy:
     path: ../smithy/smithy
   smithy_aws:
