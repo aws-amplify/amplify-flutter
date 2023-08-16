@@ -114,7 +114,7 @@ class AmplifyPushNotificationsFlutterApi
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
-    final notification = PushNotificationMessage.fromJson(payload);
+    final notification = PushNotificationMessage.fromJson(payload.cast());
 
     // Queue when service client is not available without blocking invocation of external callback
     if (_serviceProviderClient != null) {

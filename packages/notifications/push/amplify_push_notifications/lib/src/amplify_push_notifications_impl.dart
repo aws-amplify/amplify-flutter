@@ -104,11 +104,13 @@ abstract class AmplifyPushNotifications
     _onForegroundNotificationReceived = foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
+        .map((map) => map.cast<String, Object?>())
         .map(PushNotificationMessage.fromJson);
 
     _onNotificationOpened = notificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
+        .map((map) => map.cast<String, Object?>())
         .map(PushNotificationMessage.fromJson);
   }
 
@@ -243,7 +245,7 @@ abstract class AmplifyPushNotifications
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
       final launchNotification =
-          PushNotificationMessage.fromJson(rawLaunchNotification);
+          PushNotificationMessage.fromJson(rawLaunchNotification.cast());
       _launchNotification = launchNotification;
       _flutterApi.onNullifyLaunchNotificationCallback = () {
         _launchNotification = null;
