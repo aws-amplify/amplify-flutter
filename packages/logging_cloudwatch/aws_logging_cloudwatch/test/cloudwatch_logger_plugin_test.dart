@@ -25,6 +25,7 @@ void main() {
     localLoggingConstraint: loggingConstraint,
     enable: false,
   );
+
   final errorLog = LogEntry(
     level: LogLevel.error,
     message: 'error message',
@@ -57,7 +58,7 @@ void main() {
       id: 4,
       value: 'forth log message',
       timestamp: DateTime.timestamp().toIso8601String(),
-    ),
+    )
   ];
 
   group('enable/disable: ', () {
