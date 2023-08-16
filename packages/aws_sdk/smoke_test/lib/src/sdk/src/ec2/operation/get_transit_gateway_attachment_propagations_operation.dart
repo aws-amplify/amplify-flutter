@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_attachment_
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_attachment_propagation.dart';
 
 /// Lists the route tables to which the specified resource attachment propagates routes.
-class GetTransitGatewayAttachmentPropagationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayAttachmentPropagationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayAttachmentPropagationsRequest,
         GetTransitGatewayAttachmentPropagationsRequest,
         GetTransitGatewayAttachmentPropagationsResult,

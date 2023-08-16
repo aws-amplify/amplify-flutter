@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_conformance_pack_exception.dart';
 
 /// Returns compliance details of a conformance pack for all Amazon Web Services resources that are monitered by conformance pack.
-class GetConformancePackComplianceDetailsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetConformancePackComplianceDetailsOperation extends _i1
+    .PaginatedHttpOperation<
         GetConformancePackComplianceDetailsRequest,
         GetConformancePackComplianceDetailsRequest,
         GetConformancePackComplianceDetailsResponse,

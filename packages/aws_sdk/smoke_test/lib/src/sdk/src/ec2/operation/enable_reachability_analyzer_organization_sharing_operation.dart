@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/enable_reachability_analyzer_or
 /// Establishes a trust relationship between Reachability Analyzer and Organizations. This operation must be performed by the management account for the organization.
 ///
 /// After you establish a trust relationship, a user in the management account or a delegated administrator account can run a cross-account analysis using resources from the member accounts.
-class EnableReachabilityAnalyzerOrganizationSharingOperation
-    extends _i1.HttpOperation<
+class EnableReachabilityAnalyzerOrganizationSharingOperation extends _i1
+    .HttpOperation<
         EnableReachabilityAnalyzerOrganizationSharingRequest,
         EnableReachabilityAnalyzerOrganizationSharingRequest,
         EnableReachabilityAnalyzerOrganizationSharingResult,

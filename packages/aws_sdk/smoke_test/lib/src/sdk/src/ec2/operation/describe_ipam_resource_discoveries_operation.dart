@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_ipam_resource_discover
 import 'package:smoke_test/src/sdk/src/ec2/model/ipam_resource_discovery.dart';
 
 /// Describes IPAM resource discoveries. A resource discovery is an IPAM component that enables IPAM to manage and monitor resources that belong to the owning account.
-class DescribeIpamResourceDiscoveriesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeIpamResourceDiscoveriesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeIpamResourceDiscoveriesRequest,
         DescribeIpamResourceDiscoveriesRequest,
         DescribeIpamResourceDiscoveriesResult,

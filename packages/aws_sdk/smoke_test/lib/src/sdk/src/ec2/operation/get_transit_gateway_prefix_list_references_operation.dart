@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_prefix_list
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_prefix_list_reference.dart';
 
 /// Gets information about the prefix list references in a specified transit gateway route table.
-class GetTransitGatewayPrefixListReferencesOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayPrefixListReferencesOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayPrefixListReferencesRequest,
         GetTransitGatewayPrefixListReferencesRequest,
         GetTransitGatewayPrefixListReferencesResult,

@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/disable_transit_gateway_route_t
 import 'package:smoke_test/src/sdk/src/ec2/model/disable_transit_gateway_route_table_propagation_result.dart';
 
 /// Disables the specified resource attachment from propagating routes to the specified propagation route table.
-class DisableTransitGatewayRouteTablePropagationOperation
-    extends _i1.HttpOperation<
+class DisableTransitGatewayRouteTablePropagationOperation extends _i1
+    .HttpOperation<
         DisableTransitGatewayRouteTablePropagationRequest,
         DisableTransitGatewayRouteTablePropagationRequest,
         DisableTransitGatewayRouteTablePropagationResult,

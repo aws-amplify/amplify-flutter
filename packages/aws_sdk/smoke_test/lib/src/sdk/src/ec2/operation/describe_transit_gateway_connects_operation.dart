@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_connec
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_connect.dart';
 
 /// Describes one or more Connect attachments.
-class DescribeTransitGatewayConnectsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayConnectsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayConnectsRequest,
         DescribeTransitGatewayConnectsRequest,
         DescribeTransitGatewayConnectsResult,

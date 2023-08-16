@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_multic
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_multicast_domain.dart';
 
 /// Describes one or more transit gateway multicast domains.
-class DescribeTransitGatewayMulticastDomainsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayMulticastDomainsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayMulticastDomainsRequest,
         DescribeTransitGatewayMulticastDomainsRequest,
         DescribeTransitGatewayMulticastDomainsResult,

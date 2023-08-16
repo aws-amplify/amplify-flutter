@@ -82,8 +82,8 @@ abstract class DeleteVpcEndpointServiceConfigurationsRequest
 }
 
 class DeleteVpcEndpointServiceConfigurationsRequestEc2QuerySerializer
-    extends _i1.StructuredSmithySerializer<
-        DeleteVpcEndpointServiceConfigurationsRequest> {
+    extends _i1
+    .StructuredSmithySerializer<DeleteVpcEndpointServiceConfigurationsRequest> {
   const DeleteVpcEndpointServiceConfigurationsRequestEc2QuerySerializer()
       : super('DeleteVpcEndpointServiceConfigurationsRequest');
 

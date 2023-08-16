@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_replace_root_volume_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/replace_root_volume_task.dart';
 
 /// Describes a root volume replacement task. For more information, see [Replace a root volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/replace-root.html) in the _Amazon Elastic Compute Cloud User Guide_.
-class DescribeReplaceRootVolumeTasksOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeReplaceRootVolumeTasksOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeReplaceRootVolumeTasksRequest,
         DescribeReplaceRootVolumeTasksRequest,
         DescribeReplaceRootVolumeTasksResult,

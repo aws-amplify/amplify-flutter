@@ -49,8 +49,9 @@ abstract class CreateLocalGatewayRouteTableVpcAssociationRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          CreateLocalGatewayRouteTableVpcAssociationRequest>> serializers = [
+          _i1
+          .SmithySerializer<CreateLocalGatewayRouteTableVpcAssociationRequest>>
+      serializers = [
     CreateLocalGatewayRouteTableVpcAssociationRequestEc2QuerySerializer()
   ];
 

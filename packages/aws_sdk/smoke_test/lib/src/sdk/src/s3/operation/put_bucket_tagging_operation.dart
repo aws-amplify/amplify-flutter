@@ -97,8 +97,9 @@ class PutBucketTaggingOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<Tagging, PutBucketTaggingRequest, _i1.Unit,
-          _i1.Unit>> protocols = [
+          _i1
+          .HttpProtocol<Tagging, PutBucketTaggingRequest, _i1.Unit, _i1.Unit>>
+      protocols = [
     _i2.RestXmlProtocol(
       serializers: serializers,
       builderFactories: builderFactories,

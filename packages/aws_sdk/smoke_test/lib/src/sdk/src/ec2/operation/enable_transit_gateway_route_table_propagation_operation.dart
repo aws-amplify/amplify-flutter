@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/enable_transit_gateway_route_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/enable_transit_gateway_route_table_propagation_result.dart';
 
 /// Enables the specified attachment to propagate routes to the specified propagation route table.
-class EnableTransitGatewayRouteTablePropagationOperation
-    extends _i1.HttpOperation<
+class EnableTransitGatewayRouteTablePropagationOperation extends _i1
+    .HttpOperation<
         EnableTransitGatewayRouteTablePropagationRequest,
         EnableTransitGatewayRouteTablePropagationRequest,
         EnableTransitGatewayRouteTablePropagationResult,

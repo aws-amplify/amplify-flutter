@@ -39,8 +39,9 @@ class GetStageOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<GetStageRequestPayload, GetStageRequest, Stage,
-          Stage>> protocols = [
+          _i1
+          .HttpProtocol<GetStageRequestPayload, GetStageRequest, Stage, Stage>>
+      protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

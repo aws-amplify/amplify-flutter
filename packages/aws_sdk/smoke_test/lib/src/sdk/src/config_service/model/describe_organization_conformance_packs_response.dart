@@ -76,8 +76,8 @@ abstract class DescribeOrganizationConformancePacksResponse
 }
 
 class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<
-        DescribeOrganizationConformancePacksResponse> {
+    extends _i3
+    .StructuredSmithySerializer<DescribeOrganizationConformancePacksResponse> {
   const DescribeOrganizationConformancePacksResponseAwsJson11Serializer()
       : super('DescribeOrganizationConformancePacksResponse');
 

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_policy
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_policy_table.dart';
 
 /// Describes one or more transit gateway route policy tables.
-class DescribeTransitGatewayPolicyTablesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayPolicyTablesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayPolicyTablesRequest,
         DescribeTransitGatewayPolicyTablesRequest,
         DescribeTransitGatewayPolicyTablesResult,

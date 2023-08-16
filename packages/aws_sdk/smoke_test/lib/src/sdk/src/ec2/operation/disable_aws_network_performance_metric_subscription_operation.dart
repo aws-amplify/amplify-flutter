@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/disable_aws_network_performance
 import 'package:smoke_test/src/sdk/src/ec2/model/disable_aws_network_performance_metric_subscription_result.dart';
 
 /// Disables Infrastructure Performance metric subscriptions.
-class DisableAwsNetworkPerformanceMetricSubscriptionOperation
-    extends _i1.HttpOperation<
+class DisableAwsNetworkPerformanceMetricSubscriptionOperation extends _i1
+    .HttpOperation<
         DisableAwsNetworkPerformanceMetricSubscriptionRequest,
         DisableAwsNetworkPerformanceMetricSubscriptionRequest,
         DisableAwsNetworkPerformanceMetricSubscriptionResult,

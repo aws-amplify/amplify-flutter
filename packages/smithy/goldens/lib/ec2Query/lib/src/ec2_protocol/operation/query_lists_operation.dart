@@ -28,8 +28,9 @@ class QueryListsOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<QueryListsInput, QueryListsInput, _i1.Unit,
-          _i1.Unit>> protocols = [
+          _i1
+          .HttpProtocol<QueryListsInput, QueryListsInput, _i1.Unit, _i1.Unit>>
+      protocols = [
     _i2.Ec2QueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,

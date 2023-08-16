@@ -19,8 +19,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/register_transit_gateway_multic
 /// A multicast source is a network interface attached to a supported instance that sends multicast traffic. For information about supported instances, see [Multicast Considerations](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits) in _Amazon VPC Transit Gateways_.
 ///
 /// After you add the source, use [SearchTransitGatewayMulticastGroups](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html) to verify that the source was added to the multicast group.
-class RegisterTransitGatewayMulticastGroupSourcesOperation
-    extends _i1.HttpOperation<
+class RegisterTransitGatewayMulticastGroupSourcesOperation extends _i1
+    .HttpOperation<
         RegisterTransitGatewayMulticastGroupSourcesRequest,
         RegisterTransitGatewayMulticastGroupSourcesRequest,
         RegisterTransitGatewayMulticastGroupSourcesResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_iam_instance_profile_a
 import 'package:smoke_test/src/sdk/src/ec2/model/iam_instance_profile_association.dart';
 
 /// Describes your IAM instance profile associations.
-class DescribeIamInstanceProfileAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeIamInstanceProfileAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeIamInstanceProfileAssociationsRequest,
         DescribeIamInstanceProfileAssociationsRequest,
         DescribeIamInstanceProfileAssociationsResult,

@@ -59,8 +59,8 @@ abstract class CreateTransitGatewayPrefixListReferenceResult
 }
 
 class CreateTransitGatewayPrefixListReferenceResultEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        CreateTransitGatewayPrefixListReferenceResult> {
+    extends _i2
+    .StructuredSmithySerializer<CreateTransitGatewayPrefixListReferenceResult> {
   const CreateTransitGatewayPrefixListReferenceResultEc2QuerySerializer()
       : super('CreateTransitGatewayPrefixListReferenceResult');
 

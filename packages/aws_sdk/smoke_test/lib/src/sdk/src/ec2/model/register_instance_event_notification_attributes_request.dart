@@ -43,8 +43,9 @@ abstract class RegisterInstanceEventNotificationAttributesRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          RegisterInstanceEventNotificationAttributesRequest>> serializers = [
+          _i1
+          .SmithySerializer<RegisterInstanceEventNotificationAttributesRequest>>
+      serializers = [
     RegisterInstanceEventNotificationAttributesRequestEc2QuerySerializer()
   ];
 

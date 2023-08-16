@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/create_vpc_endpoint_connection_
 /// Creates a connection notification for a specified VPC endpoint or VPC endpoint service. A connection notification notifies you of specific endpoint events. You must create an SNS topic to receive notifications. For more information, see [Create a Topic](https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html) in the _Amazon Simple Notification Service Developer Guide_.
 ///
 /// You can create a connection notification for interface endpoints only.
-class CreateVpcEndpointConnectionNotificationOperation
-    extends _i1.HttpOperation<
+class CreateVpcEndpointConnectionNotificationOperation extends _i1
+    .HttpOperation<
         CreateVpcEndpointConnectionNotificationRequest,
         CreateVpcEndpointConnectionNotificationRequest,
         CreateVpcEndpointConnectionNotificationResult,

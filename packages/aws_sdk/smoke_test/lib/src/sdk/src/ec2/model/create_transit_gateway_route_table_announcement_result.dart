@@ -39,8 +39,9 @@ abstract class CreateTransitGatewayRouteTableAnnouncementResult
       payload;
 
   static const List<
-      _i2.SmithySerializer<
-          CreateTransitGatewayRouteTableAnnouncementResult>> serializers = [
+          _i2
+          .SmithySerializer<CreateTransitGatewayRouteTableAnnouncementResult>>
+      serializers = [
     CreateTransitGatewayRouteTableAnnouncementResultEc2QuerySerializer()
   ];
 

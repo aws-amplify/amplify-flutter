@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/reserved_instances_offering.dar
 /// If you have listed your own Reserved Instances for sale in the Reserved Instance Marketplace, they will be excluded from these results. This is to ensure that you do not purchase your own Reserved Instances.
 ///
 /// For more information, see [Reserved Instance Marketplace](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html) in the _Amazon EC2 User Guide_.
-class DescribeReservedInstancesOfferingsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeReservedInstancesOfferingsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeReservedInstancesOfferingsRequest,
         DescribeReservedInstancesOfferingsRequest,
         DescribeReservedInstancesOfferingsResult,

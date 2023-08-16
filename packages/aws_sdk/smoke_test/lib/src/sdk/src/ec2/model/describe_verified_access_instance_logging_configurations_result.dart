@@ -14,8 +14,8 @@ part 'describe_verified_access_instance_logging_configurations_result.g.dart';
 
 abstract class DescribeVerifiedAccessInstanceLoggingConfigurationsResult
     with
-        _i1.AWSEquatable<
-            DescribeVerifiedAccessInstanceLoggingConfigurationsResult>
+        _i1
+        .AWSEquatable<DescribeVerifiedAccessInstanceLoggingConfigurationsResult>
     implements
         Built<DescribeVerifiedAccessInstanceLoggingConfigurationsResult,
             DescribeVerifiedAccessInstanceLoggingConfigurationsResultBuilder> {

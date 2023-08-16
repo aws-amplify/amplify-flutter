@@ -60,8 +60,8 @@ abstract class StartNetworkInsightsAccessScopeAnalysisResult
 }
 
 class StartNetworkInsightsAccessScopeAnalysisResultEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        StartNetworkInsightsAccessScopeAnalysisResult> {
+    extends _i2
+    .StructuredSmithySerializer<StartNetworkInsightsAccessScopeAnalysisResult> {
   const StartNetworkInsightsAccessScopeAnalysisResultEc2QuerySerializer()
       : super('StartNetworkInsightsAccessScopeAnalysisResult');
 

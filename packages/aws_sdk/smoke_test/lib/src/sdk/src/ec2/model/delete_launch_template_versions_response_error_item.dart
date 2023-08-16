@@ -96,8 +96,8 @@ abstract class DeleteLaunchTemplateVersionsResponseErrorItem
 }
 
 class DeleteLaunchTemplateVersionsResponseErrorItemEc2QuerySerializer
-    extends _i3.StructuredSmithySerializer<
-        DeleteLaunchTemplateVersionsResponseErrorItem> {
+    extends _i3
+    .StructuredSmithySerializer<DeleteLaunchTemplateVersionsResponseErrorItem> {
   const DeleteLaunchTemplateVersionsResponseErrorItemEc2QuerySerializer()
       : super('DeleteLaunchTemplateVersionsResponseErrorItem');
 

@@ -61,8 +61,8 @@ abstract class GetAssociatedEnclaveCertificateIamRolesResult
 }
 
 class GetAssociatedEnclaveCertificateIamRolesResultEc2QuerySerializer
-    extends _i3.StructuredSmithySerializer<
-        GetAssociatedEnclaveCertificateIamRolesResult> {
+    extends _i3
+    .StructuredSmithySerializer<GetAssociatedEnclaveCertificateIamRolesResult> {
   const GetAssociatedEnclaveCertificateIamRolesResultEc2QuerySerializer()
       : super('GetAssociatedEnclaveCertificateIamRolesResult');
 

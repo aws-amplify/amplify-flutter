@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/modify_vpc_endpoint_service_pay
 import 'package:smoke_test/src/sdk/src/ec2/model/modify_vpc_endpoint_service_payer_responsibility_result.dart';
 
 /// Modifies the payer responsibility for your VPC endpoint service.
-class ModifyVpcEndpointServicePayerResponsibilityOperation
-    extends _i1.HttpOperation<
+class ModifyVpcEndpointServicePayerResponsibilityOperation extends _i1
+    .HttpOperation<
         ModifyVpcEndpointServicePayerResponsibilityRequest,
         ModifyVpcEndpointServicePayerResponsibilityRequest,
         ModifyVpcEndpointServicePayerResponsibilityResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_service_c
 import 'package:smoke_test/src/sdk/src/ec2/model/service_configuration.dart';
 
 /// Describes the VPC endpoint service configurations in your account (your services).
-class DescribeVpcEndpointServiceConfigurationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVpcEndpointServiceConfigurationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVpcEndpointServiceConfigurationsRequest,
         DescribeVpcEndpointServiceConfigurationsRequest,
         DescribeVpcEndpointServiceConfigurationsResult,

@@ -15,8 +15,8 @@ part 'describe_aws_network_performance_metric_subscriptions_request.g.dart';
 abstract class DescribeAwsNetworkPerformanceMetricSubscriptionsRequest
     with
         _i1.HttpInput<DescribeAwsNetworkPerformanceMetricSubscriptionsRequest>,
-        _i2.AWSEquatable<
-            DescribeAwsNetworkPerformanceMetricSubscriptionsRequest>
+        _i2
+        .AWSEquatable<DescribeAwsNetworkPerformanceMetricSubscriptionsRequest>
     implements
         Built<DescribeAwsNetworkPerformanceMetricSubscriptionsRequest,
             DescribeAwsNetworkPerformanceMetricSubscriptionsRequestBuilder> {

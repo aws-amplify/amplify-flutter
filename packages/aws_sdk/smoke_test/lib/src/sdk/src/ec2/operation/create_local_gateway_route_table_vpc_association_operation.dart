@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/create_local_gateway_route_tabl
 import 'package:smoke_test/src/sdk/src/ec2/model/create_local_gateway_route_table_vpc_association_result.dart';
 
 /// Associates the specified VPC with the specified local gateway route table.
-class CreateLocalGatewayRouteTableVpcAssociationOperation
-    extends _i1.HttpOperation<
+class CreateLocalGatewayRouteTableVpcAssociationOperation extends _i1
+    .HttpOperation<
         CreateLocalGatewayRouteTableVpcAssociationRequest,
         CreateLocalGatewayRouteTableVpcAssociationRequest,
         CreateLocalGatewayRouteTableVpcAssociationResult,

@@ -220,8 +220,8 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
   }
 }
 
-class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<
+class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer extends _i1
+    .StructuredSmithySerializer<
         HttpRequestWithLabelsAndTimestampFormatInputPayload> {
   const HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer()
       : super('HttpRequestWithLabelsAndTimestampFormatInput');

@@ -23,8 +23,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 /// Returns a list of the conformance packs and their associated compliance status with the count of compliant and noncompliant Config rules within each conformance pack. Also returns the total rule count which includes compliant rules, noncompliant rules, and rules that cannot be evaluated due to insufficient data.
 ///
 /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
-class DescribeAggregateComplianceByConformancePacksOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeAggregateComplianceByConformancePacksOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeAggregateComplianceByConformancePacksRequest,
         DescribeAggregateComplianceByConformancePacksRequest,
         DescribeAggregateComplianceByConformancePacksResponse,
