@@ -268,8 +268,9 @@ class Security {
   }
 
   late final _SecItemDeletePtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(coreFoundation.CFDictionaryRef)>>('SecItemDelete');
+          ffi
+          .NativeFunction<OSStatus Function(coreFoundation.CFDictionaryRef)>>(
+      'SecItemDelete');
   late final _SecItemDelete = _SecItemDeletePtr.asFunction<
       int Function(coreFoundation.CFDictionaryRef)>();
 }

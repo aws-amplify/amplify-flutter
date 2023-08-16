@@ -37,8 +37,9 @@ abstract class LaunchTemplateElasticInferenceAcceleratorResponse
   const LaunchTemplateElasticInferenceAcceleratorResponse._();
 
   static const List<
-      _i2.SmithySerializer<
-          LaunchTemplateElasticInferenceAcceleratorResponse>> serializers = [
+          _i2
+          .SmithySerializer<LaunchTemplateElasticInferenceAcceleratorResponse>>
+      serializers = [
     LaunchTemplateElasticInferenceAcceleratorResponseEc2QuerySerializer()
   ];
 

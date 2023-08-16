@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_verified_access_endpoi
 import 'package:smoke_test/src/sdk/src/ec2/model/verified_access_endpoint.dart';
 
 /// Describes the specified Amazon Web Services Verified Access endpoints.
-class DescribeVerifiedAccessEndpointsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVerifiedAccessEndpointsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVerifiedAccessEndpointsRequest,
         DescribeVerifiedAccessEndpointsRequest,
         DescribeVerifiedAccessEndpointsResult,

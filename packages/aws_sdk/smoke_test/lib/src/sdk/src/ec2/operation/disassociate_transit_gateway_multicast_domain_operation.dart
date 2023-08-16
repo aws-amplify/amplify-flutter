@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/disassociate_transit_gateway_mu
 import 'package:smoke_test/src/sdk/src/ec2/model/disassociate_transit_gateway_multicast_domain_result.dart';
 
 /// Disassociates the specified subnets from the transit gateway multicast domain.
-class DisassociateTransitGatewayMulticastDomainOperation
-    extends _i1.HttpOperation<
+class DisassociateTransitGatewayMulticastDomainOperation extends _i1
+    .HttpOperation<
         DisassociateTransitGatewayMulticastDomainRequest,
         DisassociateTransitGatewayMulticastDomainRequest,
         DisassociateTransitGatewayMulticastDomainResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_aws_network_performanc
 import 'package:smoke_test/src/sdk/src/ec2/model/subscription.dart';
 
 /// Describes the current Infrastructure Performance metric subscriptions.
-class DescribeAwsNetworkPerformanceMetricSubscriptionsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeAwsNetworkPerformanceMetricSubscriptionsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeAwsNetworkPerformanceMetricSubscriptionsRequest,
         DescribeAwsNetworkPerformanceMetricSubscriptionsRequest,
         DescribeAwsNetworkPerformanceMetricSubscriptionsResult,

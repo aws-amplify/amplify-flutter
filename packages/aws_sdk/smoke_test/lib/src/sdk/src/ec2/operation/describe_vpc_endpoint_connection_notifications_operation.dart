@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_connectio
 import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_connection_notifications_result.dart';
 
 /// Describes the connection notifications for VPC endpoints and VPC endpoint services.
-class DescribeVpcEndpointConnectionNotificationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVpcEndpointConnectionNotificationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVpcEndpointConnectionNotificationsRequest,
         DescribeVpcEndpointConnectionNotificationsRequest,
         DescribeVpcEndpointConnectionNotificationsResult,

@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/instance_type_info_from_instanc
 /// When you specify multiple parameters, you get instance types that satisfy all of the specified parameters. If you specify multiple values for a parameter, you get instance types that satisfy any of the specified values.
 ///
 /// For more information, see [Preview instance types with specified attributes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html#spotfleet-get-instance-types-from-instance-requirements), [Attribute-based instance type selection for EC2 Fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html), [Attribute-based instance type selection for Spot Fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html), and [Spot placement score](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html) in the _Amazon EC2 User Guide_, and [Creating an Auto Scaling group using attribute-based instance type selection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-asg-instance-type-requirements.html) in the _Amazon EC2 Auto Scaling User Guide_.
-class GetInstanceTypesFromInstanceRequirementsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetInstanceTypesFromInstanceRequirementsOperation extends _i1
+    .PaginatedHttpOperation<
         GetInstanceTypesFromInstanceRequirementsRequest,
         GetInstanceTypesFromInstanceRequirementsRequest,
         GetInstanceTypesFromInstanceRequirementsResult,

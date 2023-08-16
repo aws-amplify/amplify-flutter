@@ -45,8 +45,9 @@ abstract class ModifyVpcEndpointServicePayerResponsibilityRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          ModifyVpcEndpointServicePayerResponsibilityRequest>> serializers = [
+          _i1
+          .SmithySerializer<ModifyVpcEndpointServicePayerResponsibilityRequest>>
+      serializers = [
     ModifyVpcEndpointServicePayerResponsibilityRequestEc2QuerySerializer()
   ];
 

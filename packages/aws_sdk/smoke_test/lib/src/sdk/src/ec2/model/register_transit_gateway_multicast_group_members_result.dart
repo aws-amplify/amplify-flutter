@@ -38,8 +38,9 @@ abstract class RegisterTransitGatewayMulticastGroupMembersResult
       payload;
 
   static const List<
-      _i2.SmithySerializer<
-          RegisterTransitGatewayMulticastGroupMembersResult>> serializers = [
+          _i2
+          .SmithySerializer<RegisterTransitGatewayMulticastGroupMembersResult>>
+      serializers = [
     RegisterTransitGatewayMulticastGroupMembersResultEc2QuerySerializer()
   ];
 

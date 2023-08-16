@@ -47,8 +47,9 @@ abstract class EnableTransitGatewayRouteTablePropagationRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          EnableTransitGatewayRouteTablePropagationRequest>> serializers = [
+          _i1
+          .SmithySerializer<EnableTransitGatewayRouteTablePropagationRequest>>
+      serializers = [
     EnableTransitGatewayRouteTablePropagationRequestEc2QuerySerializer()
   ];
 

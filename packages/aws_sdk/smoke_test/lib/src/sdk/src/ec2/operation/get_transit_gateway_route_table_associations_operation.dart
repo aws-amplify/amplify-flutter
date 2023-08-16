@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_route_table
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_route_table_association.dart';
 
 /// Gets information about the associations for the specified transit gateway route table.
-class GetTransitGatewayRouteTableAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayRouteTableAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayRouteTableAssociationsRequest,
         GetTransitGatewayRouteTableAssociationsRequest,
         GetTransitGatewayRouteTableAssociationsResult,

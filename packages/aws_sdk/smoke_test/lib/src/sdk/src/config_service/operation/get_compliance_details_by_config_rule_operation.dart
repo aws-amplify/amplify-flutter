@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_va
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart';
 
 /// Returns the evaluation results for the specified Config rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
-class GetComplianceDetailsByConfigRuleOperation
-    extends _i1.PaginatedHttpOperation<
+class GetComplianceDetailsByConfigRuleOperation extends _i1
+    .PaginatedHttpOperation<
         GetComplianceDetailsByConfigRuleRequest,
         GetComplianceDetailsByConfigRuleRequest,
         GetComplianceDetailsByConfigRuleResponse,

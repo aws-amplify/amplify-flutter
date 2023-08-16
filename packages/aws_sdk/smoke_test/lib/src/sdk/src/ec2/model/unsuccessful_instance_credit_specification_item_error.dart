@@ -37,8 +37,9 @@ abstract class UnsuccessfulInstanceCreditSpecificationItemError
   const UnsuccessfulInstanceCreditSpecificationItemError._();
 
   static const List<
-      _i2.SmithySerializer<
-          UnsuccessfulInstanceCreditSpecificationItemError>> serializers = [
+          _i2
+          .SmithySerializer<UnsuccessfulInstanceCreditSpecificationItemError>>
+      serializers = [
     UnsuccessfulInstanceCreditSpecificationItemErrorEc2QuerySerializer()
   ];
 

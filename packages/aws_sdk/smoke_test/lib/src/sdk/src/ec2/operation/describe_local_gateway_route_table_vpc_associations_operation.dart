@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_local_gateway_route_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/local_gateway_route_table_vpc_association.dart';
 
 /// Describes the specified associations between VPCs and local gateway route tables.
-class DescribeLocalGatewayRouteTableVpcAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeLocalGatewayRouteTableVpcAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeLocalGatewayRouteTableVpcAssociationsRequest,
         DescribeLocalGatewayRouteTableVpcAssociationsRequest,
         DescribeLocalGatewayRouteTableVpcAssociationsResult,

@@ -37,8 +37,9 @@ abstract class FailedCapacityReservationFleetCancellationResult
   const FailedCapacityReservationFleetCancellationResult._();
 
   static const List<
-      _i2.SmithySerializer<
-          FailedCapacityReservationFleetCancellationResult>> serializers = [
+          _i2
+          .SmithySerializer<FailedCapacityReservationFleetCancellationResult>>
+      serializers = [
     FailedCapacityReservationFleetCancellationResultEc2QuerySerializer()
   ];
 

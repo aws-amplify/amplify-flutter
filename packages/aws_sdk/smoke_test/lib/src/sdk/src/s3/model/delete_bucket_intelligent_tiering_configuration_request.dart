@@ -13,15 +13,15 @@ part 'delete_bucket_intelligent_tiering_configuration_request.g.dart';
 
 abstract class DeleteBucketIntelligentTieringConfigurationRequest
     with
-        _i1.HttpInput<
-            DeleteBucketIntelligentTieringConfigurationRequestPayload>,
+        _i1
+        .HttpInput<DeleteBucketIntelligentTieringConfigurationRequestPayload>,
         _i2.AWSEquatable<DeleteBucketIntelligentTieringConfigurationRequest>
     implements
         Built<DeleteBucketIntelligentTieringConfigurationRequest,
             DeleteBucketIntelligentTieringConfigurationRequestBuilder>,
         _i1.EmptyPayload,
-        _i1.HasPayload<
-            DeleteBucketIntelligentTieringConfigurationRequestPayload> {
+        _i1
+        .HasPayload<DeleteBucketIntelligentTieringConfigurationRequestPayload> {
   factory DeleteBucketIntelligentTieringConfigurationRequest({
     required String bucket,
     required String id,
@@ -103,8 +103,8 @@ abstract class DeleteBucketIntelligentTieringConfigurationRequest
 @_i3.internal
 abstract class DeleteBucketIntelligentTieringConfigurationRequestPayload
     with
-        _i2.AWSEquatable<
-            DeleteBucketIntelligentTieringConfigurationRequestPayload>
+        _i2
+        .AWSEquatable<DeleteBucketIntelligentTieringConfigurationRequestPayload>
     implements
         Built<DeleteBucketIntelligentTieringConfigurationRequestPayload,
             DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder>,

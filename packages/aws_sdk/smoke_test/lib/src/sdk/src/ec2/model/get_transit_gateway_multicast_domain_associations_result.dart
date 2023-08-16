@@ -44,8 +44,9 @@ abstract class GetTransitGatewayMulticastDomainAssociationsResult
       payload;
 
   static const List<
-      _i3.SmithySerializer<
-          GetTransitGatewayMulticastDomainAssociationsResult>> serializers = [
+          _i3
+          .SmithySerializer<GetTransitGatewayMulticastDomainAssociationsResult>>
+      serializers = [
     GetTransitGatewayMulticastDomainAssociationsResultEc2QuerySerializer()
   ];
 

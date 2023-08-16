@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_groups_for_capacity_reserva
 import 'package:smoke_test/src/sdk/src/ec2/model/get_groups_for_capacity_reservation_result.dart';
 
 /// Lists the resource groups to which a Capacity Reservation has been added.
-class GetGroupsForCapacityReservationOperation
-    extends _i1.PaginatedHttpOperation<
+class GetGroupsForCapacityReservationOperation extends _i1
+    .PaginatedHttpOperation<
         GetGroupsForCapacityReservationRequest,
         GetGroupsForCapacityReservationRequest,
         GetGroupsForCapacityReservationResult,

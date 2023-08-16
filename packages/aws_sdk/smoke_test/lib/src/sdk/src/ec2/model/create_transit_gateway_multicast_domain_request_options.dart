@@ -41,8 +41,9 @@ abstract class CreateTransitGatewayMulticastDomainRequestOptions
   const CreateTransitGatewayMulticastDomainRequestOptions._();
 
   static const List<
-      _i2.SmithySerializer<
-          CreateTransitGatewayMulticastDomainRequestOptions>> serializers = [
+          _i2
+          .SmithySerializer<CreateTransitGatewayMulticastDomainRequestOptions>>
+      serializers = [
     CreateTransitGatewayMulticastDomainRequestOptionsEc2QuerySerializer()
   ];
 

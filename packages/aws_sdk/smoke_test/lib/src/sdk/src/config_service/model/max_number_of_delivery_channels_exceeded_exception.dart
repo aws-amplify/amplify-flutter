@@ -79,8 +79,8 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
 }
 
 class MaxNumberOfDeliveryChannelsExceededExceptionAwsJson11Serializer
-    extends _i2.StructuredSmithySerializer<
-        MaxNumberOfDeliveryChannelsExceededException> {
+    extends _i2
+    .StructuredSmithySerializer<MaxNumberOfDeliveryChannelsExceededException> {
   const MaxNumberOfDeliveryChannelsExceededExceptionAwsJson11Serializer()
       : super('MaxNumberOfDeliveryChannelsExceededException');
 

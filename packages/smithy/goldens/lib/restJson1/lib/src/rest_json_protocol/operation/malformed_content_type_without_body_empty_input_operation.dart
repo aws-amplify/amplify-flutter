@@ -12,12 +12,9 @@ import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_typ
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-class MalformedContentTypeWithoutBodyEmptyInputOperation
-    extends _i1.HttpOperation<
-        MalformedContentTypeWithoutBodyEmptyInputInputPayload,
-        MalformedContentTypeWithoutBodyEmptyInputInput,
-        _i1.Unit,
-        _i1.Unit> {
+class MalformedContentTypeWithoutBodyEmptyInputOperation extends _i1
+    .HttpOperation<MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+        MalformedContentTypeWithoutBodyEmptyInputInput, _i1.Unit, _i1.Unit> {
   MalformedContentTypeWithoutBodyEmptyInputOperation({
     required String region,
     Uri? baseUri,

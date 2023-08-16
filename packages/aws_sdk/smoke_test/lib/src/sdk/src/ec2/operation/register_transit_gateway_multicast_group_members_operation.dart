@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/register_transit_gateway_multic
 /// Registers members (network interfaces) with the transit gateway multicast group. A member is a network interface associated with a supported EC2 instance that receives multicast traffic. For information about supported instances, see [Multicast Consideration](https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits) in _Amazon VPC Transit Gateways_.
 ///
 /// After you add the members, use [SearchTransitGatewayMulticastGroups](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html) to verify that the members were added to the transit gateway multicast group.
-class RegisterTransitGatewayMulticastGroupMembersOperation
-    extends _i1.HttpOperation<
+class RegisterTransitGatewayMulticastGroupMembersOperation extends _i1
+    .HttpOperation<
         RegisterTransitGatewayMulticastGroupMembersRequest,
         RegisterTransitGatewayMulticastGroupMembersRequest,
         RegisterTransitGatewayMulticastGroupMembersResult,

@@ -1222,8 +1222,9 @@ class CloudFormationClient {
   ///
   /// For deleted stacks, ListStackResources returns resource information for up to 90 days after the stack has been deleted.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<StackResourceSummary>, void,
-          String>> listStackResources(
+          _i3
+          .PaginatedResult<_i4.BuiltList<StackResourceSummary>, void, String>>
+      listStackResources(
     ListStackResourcesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

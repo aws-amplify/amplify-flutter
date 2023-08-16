@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/enable_aws_network_performance_
 import 'package:smoke_test/src/sdk/src/ec2/model/enable_aws_network_performance_metric_subscription_result.dart';
 
 /// Enables Infrastructure Performance subscriptions.
-class EnableAwsNetworkPerformanceMetricSubscriptionOperation
-    extends _i1.HttpOperation<
+class EnableAwsNetworkPerformanceMetricSubscriptionOperation extends _i1
+    .HttpOperation<
         EnableAwsNetworkPerformanceMetricSubscriptionRequest,
         EnableAwsNetworkPerformanceMetricSubscriptionRequest,
         EnableAwsNetworkPerformanceMetricSubscriptionResult,

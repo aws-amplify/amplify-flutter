@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_organization
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_denied_exception.dart';
 
 /// Returns detailed status for each member account within an organization for a given organization Config rule.
-class GetOrganizationConfigRuleDetailedStatusOperation
-    extends _i1.PaginatedHttpOperation<
+class GetOrganizationConfigRuleDetailedStatusOperation extends _i1
+    .PaginatedHttpOperation<
         GetOrganizationConfigRuleDetailedStatusRequest,
         GetOrganizationConfigRuleDetailedStatusRequest,
         GetOrganizationConfigRuleDetailedStatusResponse,

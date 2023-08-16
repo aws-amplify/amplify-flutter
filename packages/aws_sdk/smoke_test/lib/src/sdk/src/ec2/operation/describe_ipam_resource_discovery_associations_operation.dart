@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_ipam_resource_discover
 import 'package:smoke_test/src/sdk/src/ec2/model/ipam_resource_discovery_association.dart';
 
 /// Describes resource discovery association with an Amazon VPC IPAM. An associated resource discovery is a resource discovery that has been associated with an IPAM..
-class DescribeIpamResourceDiscoveryAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeIpamResourceDiscoveryAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeIpamResourceDiscoveryAssociationsRequest,
         DescribeIpamResourceDiscoveryAssociationsRequest,
         DescribeIpamResourceDiscoveryAssociationsResult,

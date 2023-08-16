@@ -79,8 +79,8 @@ abstract class GetTransitGatewayAttachmentPropagationsResult
 }
 
 class GetTransitGatewayAttachmentPropagationsResultEc2QuerySerializer
-    extends _i3.StructuredSmithySerializer<
-        GetTransitGatewayAttachmentPropagationsResult> {
+    extends _i3
+    .StructuredSmithySerializer<GetTransitGatewayAttachmentPropagationsResult> {
   const GetTransitGatewayAttachmentPropagationsResultEc2QuerySerializer()
       : super('GetTransitGatewayAttachmentPropagationsResult');
 

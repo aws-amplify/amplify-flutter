@@ -1051,7 +1051,7 @@ class _RestJsonProtocolServer
   );
 
   late final _i1
-          .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
+      .HttpProtocol<HostLabelInput, HostLabelInput, _i1.Unit, _i1.Unit>
       _endpointWithHostLabelOperationProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
@@ -1087,8 +1087,9 @@ class _RestJsonProtocolServer
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<StringEnum, EnumPayloadInput, StringEnum,
-      EnumPayloadInput> _httpEnumPayloadProtocol = _i2.RestJson1Protocol(
+  late final _i1
+      .HttpProtocol<StringEnum, EnumPayloadInput, StringEnum, EnumPayloadInput>
+      _httpEnumPayloadProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -1192,7 +1193,7 @@ class _RestJsonProtocolServer
   );
 
   late final _i1
-          .HttpProtocol<String, StringPayloadInput, String, StringPayloadInput>
+      .HttpProtocol<String, StringPayloadInput, String, StringPayloadInput>
       _httpStringPayloadProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
@@ -1280,7 +1281,7 @@ class _RestJsonProtocolServer
   );
 
   late final _i1
-          .HttpProtocol<_i1.Unit, _i1.Unit, GreetingStruct, GreetingStruct>
+      .HttpProtocol<_i1.Unit, _i1.Unit, GreetingStruct, GreetingStruct>
       _malformedAcceptWithBodyProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
@@ -1300,8 +1301,9 @@ class _RestJsonProtocolServer
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<MalformedBlobInput, MalformedBlobInput, _i1.Unit,
-      _i1.Unit> _malformedBlobProtocol = _i2.RestJson1Protocol(
+  late final _i1
+      .HttpProtocol<MalformedBlobInput, MalformedBlobInput, _i1.Unit, _i1.Unit>
+      _malformedBlobProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -1322,7 +1324,7 @@ class _RestJsonProtocolServer
   );
 
   late final _i1
-          .HttpProtocol<GreetingStruct, GreetingStruct, _i1.Unit, _i1.Unit>
+      .HttpProtocol<GreetingStruct, GreetingStruct, _i1.Unit, _i1.Unit>
       _malformedContentTypeWithBodyProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
@@ -1380,8 +1382,9 @@ class _RestJsonProtocolServer
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<MalformedListInput, MalformedListInput, _i1.Unit,
-      _i1.Unit> _malformedListProtocol = _i2.RestJson1Protocol(
+  late final _i1
+      .HttpProtocol<MalformedListInput, MalformedListInput, _i1.Unit, _i1.Unit>
+      _malformedListProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );
@@ -1392,8 +1395,9 @@ class _RestJsonProtocolServer
     builderFactories: builderFactories,
   );
 
-  late final _i1.HttpProtocol<MalformedMapInput, MalformedMapInput, _i1.Unit,
-      _i1.Unit> _malformedMapProtocol = _i2.RestJson1Protocol(
+  late final _i1
+      .HttpProtocol<MalformedMapInput, MalformedMapInput, _i1.Unit, _i1.Unit>
+      _malformedMapProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );

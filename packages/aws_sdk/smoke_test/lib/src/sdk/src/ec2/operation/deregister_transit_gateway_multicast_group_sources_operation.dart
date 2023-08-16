@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/deregister_transit_gateway_mult
 import 'package:smoke_test/src/sdk/src/ec2/model/deregister_transit_gateway_multicast_group_sources_result.dart';
 
 /// Deregisters the specified sources (network interfaces) from the transit gateway multicast group.
-class DeregisterTransitGatewayMulticastGroupSourcesOperation
-    extends _i1.HttpOperation<
+class DeregisterTransitGatewayMulticastGroupSourcesOperation extends _i1
+    .HttpOperation<
         DeregisterTransitGatewayMulticastGroupSourcesRequest,
         DeregisterTransitGatewayMulticastGroupSourcesRequest,
         DeregisterTransitGatewayMulticastGroupSourcesResult,

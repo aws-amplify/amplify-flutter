@@ -43,8 +43,9 @@ abstract class DeleteLocalGatewayRouteTableVpcAssociationRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          DeleteLocalGatewayRouteTableVpcAssociationRequest>> serializers = [
+          _i1
+          .SmithySerializer<DeleteLocalGatewayRouteTableVpcAssociationRequest>>
+      serializers = [
     DeleteLocalGatewayRouteTableVpcAssociationRequestEc2QuerySerializer()
   ];
 

@@ -48,8 +48,9 @@ abstract class ApplySecurityGroupsToClientVpnTargetNetworkRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          ApplySecurityGroupsToClientVpnTargetNetworkRequest>> serializers = [
+          _i1
+          .SmithySerializer<ApplySecurityGroupsToClientVpnTargetNetworkRequest>>
+      serializers = [
     ApplySecurityGroupsToClientVpnTargetNetworkRequestEc2QuerySerializer()
   ];
 

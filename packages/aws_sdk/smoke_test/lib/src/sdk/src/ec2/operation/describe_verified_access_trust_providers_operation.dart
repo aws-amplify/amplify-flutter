@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_verified_access_trust_
 import 'package:smoke_test/src/sdk/src/ec2/model/verified_access_trust_provider.dart';
 
 /// Describes the specified Amazon Web Services Verified Access trust providers.
-class DescribeVerifiedAccessTrustProvidersOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVerifiedAccessTrustProvidersOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVerifiedAccessTrustProvidersRequest,
         DescribeVerifiedAccessTrustProvidersRequest,
         DescribeVerifiedAccessTrustProvidersResult,

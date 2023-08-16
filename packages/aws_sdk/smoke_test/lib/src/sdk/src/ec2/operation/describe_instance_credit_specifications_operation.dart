@@ -27,8 +27,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/instance_credit_specification.d
 /// If an Availability Zone is experiencing a service disruption and you specify instance IDs in the affected zone, or do not specify any instance IDs at all, the call fails. If you specify only instance IDs in an unaffected zone, the call works normally.
 ///
 /// For more information, see [Burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html) in the _Amazon EC2 User Guide_.
-class DescribeInstanceCreditSpecificationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeInstanceCreditSpecificationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeInstanceCreditSpecificationsRequest,
         DescribeInstanceCreditSpecificationsRequest,
         DescribeInstanceCreditSpecificationsResult,

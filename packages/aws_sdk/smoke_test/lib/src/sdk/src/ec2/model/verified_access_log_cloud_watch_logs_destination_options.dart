@@ -37,8 +37,9 @@ abstract class VerifiedAccessLogCloudWatchLogsDestinationOptions
   const VerifiedAccessLogCloudWatchLogsDestinationOptions._();
 
   static const List<
-      _i2.SmithySerializer<
-          VerifiedAccessLogCloudWatchLogsDestinationOptions>> serializers = [
+          _i2
+          .SmithySerializer<VerifiedAccessLogCloudWatchLogsDestinationOptions>>
+      serializers = [
     VerifiedAccessLogCloudWatchLogsDestinationOptionsEc2QuerySerializer()
   ];
 

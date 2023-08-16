@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_attach
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_attachment.dart';
 
 /// Describes one or more attachments between resources and transit gateways. By default, all attachments are described. Alternatively, you can filter the results by attachment ID, attachment state, resource ID, or resource owner.
-class DescribeTransitGatewayAttachmentsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayAttachmentsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayAttachmentsRequest,
         DescribeTransitGatewayAttachmentsRequest,
         DescribeTransitGatewayAttachmentsResult,

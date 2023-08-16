@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_vpc_endpoint_connection_
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_vpc_endpoint_connection_notifications_result.dart';
 
 /// Deletes the specified VPC endpoint connection notifications.
-class DeleteVpcEndpointConnectionNotificationsOperation
-    extends _i1.HttpOperation<
+class DeleteVpcEndpointConnectionNotificationsOperation extends _i1
+    .HttpOperation<
         DeleteVpcEndpointConnectionNotificationsRequest,
         DeleteVpcEndpointConnectionNotificationsRequest,
         DeleteVpcEndpointConnectionNotificationsResult,
