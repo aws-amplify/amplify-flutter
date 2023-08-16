@@ -621,7 +621,7 @@ extension OperationShapeUtil on OperationShape {
       AwsJson1_0Trait.id,
       AwsJson1_1Trait.id,
       AwsQueryTrait.id,
-      Ec2QueryTrait.id
+      Ec2QueryTrait.id,
     ];
     if (rpcProtocols.contains(protocol.singleOrNull?.shapeId)) {
       return const HttpTrait(method: 'POST', uri: '/');
