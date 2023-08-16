@@ -14,7 +14,7 @@ import 'package:win32/win32.dart'
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
-  final encodedValue = utf8.encode(value) as Uint8List;
+  final encodedValue = const Utf8Encoder().convert(value);
   return encrypt(encodedValue);
 }
 
