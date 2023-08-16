@@ -46,8 +46,9 @@ abstract class DescribeNetworkInsightsAccessScopeAnalysesResult
       payload;
 
   static const List<
-      _i3.SmithySerializer<
-          DescribeNetworkInsightsAccessScopeAnalysesResult>> serializers = [
+          _i3
+          .SmithySerializer<DescribeNetworkInsightsAccessScopeAnalysesResult>>
+      serializers = [
     DescribeNetworkInsightsAccessScopeAnalysesResultEc2QuerySerializer()
   ];
 

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_network_interface_perm
 import 'package:smoke_test/src/sdk/src/ec2/model/network_interface_permission.dart';
 
 /// Describes the permissions for your network interfaces.
-class DescribeNetworkInterfacePermissionsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeNetworkInterfacePermissionsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeNetworkInterfacePermissionsRequest,
         DescribeNetworkInterfacePermissionsRequest,
         DescribeNetworkInterfacePermissionsResult,

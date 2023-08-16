@@ -37,8 +37,9 @@ abstract class ModifyVpcEndpointServicePayerResponsibilityResult
       payload;
 
   static const List<
-      _i2.SmithySerializer<
-          ModifyVpcEndpointServicePayerResponsibilityResult>> serializers = [
+          _i2
+          .SmithySerializer<ModifyVpcEndpointServicePayerResponsibilityResult>>
+      serializers = [
     ModifyVpcEndpointServicePayerResponsibilityResultEc2QuerySerializer()
   ];
 

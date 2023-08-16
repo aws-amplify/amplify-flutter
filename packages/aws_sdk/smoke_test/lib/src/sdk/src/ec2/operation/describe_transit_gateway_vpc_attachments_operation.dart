@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_vpc_at
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_vpc_attachment.dart';
 
 /// Describes one or more VPC attachments. By default, all VPC attachments are described. Alternatively, you can filter the results.
-class DescribeTransitGatewayVpcAttachmentsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayVpcAttachmentsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayVpcAttachmentsRequest,
         DescribeTransitGatewayVpcAttachmentsRequest,
         DescribeTransitGatewayVpcAttachmentsResult,

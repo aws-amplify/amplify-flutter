@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_verified_access_instan
 import 'package:smoke_test/src/sdk/src/ec2/model/verified_access_instance_logging_configuration.dart';
 
 /// Describes the specified Amazon Web Services Verified Access instances.
-class DescribeVerifiedAccessInstanceLoggingConfigurationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVerifiedAccessInstanceLoggingConfigurationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVerifiedAccessInstanceLoggingConfigurationsRequest,
         DescribeVerifiedAccessInstanceLoggingConfigurationsRequest,
         DescribeVerifiedAccessInstanceLoggingConfigurationsResult,

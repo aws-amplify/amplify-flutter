@@ -738,8 +738,9 @@ class ConfigClient {
   ///
   /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ComplianceByConfigRule>, void,
-          String>> describeComplianceByConfigRule(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ComplianceByConfigRule>, void, String>>
+      describeComplianceByConfigRule(
     DescribeComplianceByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -828,8 +829,9 @@ class ConfigClient {
 
   /// Returns status information for sources within an aggregator. The status includes information about the last time Config verified authorization between the source account and an aggregator account. In case of a failure, the status contains the related error code or message.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<AggregatedSourceStatus>, int,
-          String>> describeConfigurationAggregatorSourcesStatus(
+          _i3
+          .PaginatedResult<_i4.BuiltList<AggregatedSourceStatus>, int, String>>
+      describeConfigurationAggregatorSourcesStatus(
     DescribeConfigurationAggregatorSourcesStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -848,8 +850,9 @@ class ConfigClient {
 
   /// Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified, this action returns the details for all the configuration aggregators associated with the account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ConfigurationAggregator>, int,
-          String>> describeConfigurationAggregators(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ConfigurationAggregator>, int, String>>
+      describeConfigurationAggregators(
     DescribeConfigurationAggregatorsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -954,8 +957,9 @@ class ConfigClient {
 
   /// Returns a list of one or more conformance packs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ConformancePackDetail>, int,
-          String>> describeConformancePacks(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ConformancePackDetail>, int, String>>
+      describeConformancePacks(
     DescribeConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -1048,8 +1052,9 @@ class ConfigClient {
   ///
   /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<OrganizationConfigRule>, int,
-          String>> describeOrganizationConfigRules(
+          _i3
+          .PaginatedResult<_i4.BuiltList<OrganizationConfigRule>, int, String>>
+      describeOrganizationConfigRules(
     DescribeOrganizationConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -1165,8 +1170,9 @@ class ConfigClient {
   ///
   /// Limit and next token are not applicable if you request resources in batch. It is only applicable, when you request all resources.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<DescribeRemediationExceptionsResponse, int,
-          String>> describeRemediationExceptions(
+          _i3
+          .PaginatedResult<DescribeRemediationExceptionsResponse, int, String>>
+      describeRemediationExceptions(
     DescribeRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -1207,8 +1213,9 @@ class ConfigClient {
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<RetentionConfiguration>, void,
-          String>> describeRetentionConfigurations(
+          _i3
+          .PaginatedResult<_i4.BuiltList<RetentionConfiguration>, void, String>>
+      describeRetentionConfigurations(
     DescribeRetentionConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

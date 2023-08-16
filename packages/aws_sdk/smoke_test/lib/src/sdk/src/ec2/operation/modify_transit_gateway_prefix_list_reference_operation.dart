@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/modify_transit_gateway_prefix_l
 import 'package:smoke_test/src/sdk/src/ec2/model/modify_transit_gateway_prefix_list_reference_result.dart';
 
 /// Modifies a reference (route) to a prefix list in a specified transit gateway route table.
-class ModifyTransitGatewayPrefixListReferenceOperation
-    extends _i1.HttpOperation<
+class ModifyTransitGatewayPrefixListReferenceOperation extends _i1
+    .HttpOperation<
         ModifyTransitGatewayPrefixListReferenceRequest,
         ModifyTransitGatewayPrefixListReferenceRequest,
         ModifyTransitGatewayPrefixListReferenceResult,

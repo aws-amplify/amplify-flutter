@@ -102,8 +102,8 @@ abstract class AssociateTransitGatewayMulticastDomainRequest
 }
 
 class AssociateTransitGatewayMulticastDomainRequestEc2QuerySerializer
-    extends _i1.StructuredSmithySerializer<
-        AssociateTransitGatewayMulticastDomainRequest> {
+    extends _i1
+    .StructuredSmithySerializer<AssociateTransitGatewayMulticastDomainRequest> {
   const AssociateTransitGatewayMulticastDomainRequestEc2QuerySerializer()
       : super('AssociateTransitGatewayMulticastDomainRequest');
 

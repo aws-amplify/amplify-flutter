@@ -40,8 +40,9 @@ class ImportRestApiOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Uint8List, ImportRestApiRequest, RestApi,
-          RestApi>> protocols = [
+          _i1
+          .HttpProtocol<_i2.Uint8List, ImportRestApiRequest, RestApi, RestApi>>
+      protocols = [
     _i4.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

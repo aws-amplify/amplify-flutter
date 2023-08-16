@@ -108,8 +108,8 @@ abstract class DescribeIamInstanceProfileAssociationsRequest
 }
 
 class DescribeIamInstanceProfileAssociationsRequestEc2QuerySerializer
-    extends _i1.StructuredSmithySerializer<
-        DescribeIamInstanceProfileAssociationsRequest> {
+    extends _i1
+    .StructuredSmithySerializer<DescribeIamInstanceProfileAssociationsRequest> {
   const DescribeIamInstanceProfileAssociationsRequestEc2QuerySerializer()
       : super('DescribeIamInstanceProfileAssociationsRequest');
 

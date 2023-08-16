@@ -55,8 +55,9 @@ class UnsuccessfulInstanceCreditSpecificationErrorCode
   ];
 
   static const List<
-      _i1.SmithySerializer<
-          UnsuccessfulInstanceCreditSpecificationErrorCode>> serializers = [
+          _i1
+          .SmithySerializer<UnsuccessfulInstanceCreditSpecificationErrorCode>>
+      serializers = [
     _i1.SmithyEnumSerializer(
       'UnsuccessfulInstanceCreditSpecificationErrorCode',
       values: values,

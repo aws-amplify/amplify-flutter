@@ -54,8 +54,9 @@ abstract class DescribeLocalGatewayVirtualInterfaceGroupsRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          DescribeLocalGatewayVirtualInterfaceGroupsRequest>> serializers = [
+          _i1
+          .SmithySerializer<DescribeLocalGatewayVirtualInterfaceGroupsRequest>>
+      serializers = [
     DescribeLocalGatewayVirtualInterfaceGroupsRequestEc2QuerySerializer()
   ];
 

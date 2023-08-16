@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/reject_transit_gateway_multicas
 import 'package:smoke_test/src/sdk/src/ec2/model/reject_transit_gateway_multicast_domain_associations_result.dart';
 
 /// Rejects a request to associate cross-account subnets with a transit gateway multicast domain.
-class RejectTransitGatewayMulticastDomainAssociationsOperation
-    extends _i1.HttpOperation<
+class RejectTransitGatewayMulticastDomainAssociationsOperation extends _i1
+    .HttpOperation<
         RejectTransitGatewayMulticastDomainAssociationsRequest,
         RejectTransitGatewayMulticastDomainAssociationsRequest,
         RejectTransitGatewayMulticastDomainAssociationsResult,

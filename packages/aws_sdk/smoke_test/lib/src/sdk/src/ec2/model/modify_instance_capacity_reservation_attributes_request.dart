@@ -45,8 +45,9 @@ abstract class ModifyInstanceCapacityReservationAttributesRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          ModifyInstanceCapacityReservationAttributesRequest>> serializers = [
+          _i1
+          .SmithySerializer<ModifyInstanceCapacityReservationAttributesRequest>>
+      serializers = [
     ModifyInstanceCapacityReservationAttributesRequestEc2QuerySerializer()
   ];
 

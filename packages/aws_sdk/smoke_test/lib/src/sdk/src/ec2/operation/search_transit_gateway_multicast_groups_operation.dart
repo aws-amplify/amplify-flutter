@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/search_transit_gateway_multicas
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_multicast_group.dart';
 
 /// Searches one or more transit gateway multicast groups and returns the group membership information.
-class SearchTransitGatewayMulticastGroupsOperation
-    extends _i1.PaginatedHttpOperation<
+class SearchTransitGatewayMulticastGroupsOperation extends _i1
+    .PaginatedHttpOperation<
         SearchTransitGatewayMulticastGroupsRequest,
         SearchTransitGatewayMulticastGroupsRequest,
         SearchTransitGatewayMulticastGroupsResult,

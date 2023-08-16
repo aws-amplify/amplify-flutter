@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_client_vpn_authorizati
 import 'package:smoke_test/src/sdk/src/ec2/model/describe_client_vpn_authorization_rules_result.dart';
 
 /// Describes the authorization rules for a specified Client VPN endpoint.
-class DescribeClientVpnAuthorizationRulesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeClientVpnAuthorizationRulesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeClientVpnAuthorizationRulesRequest,
         DescribeClientVpnAuthorizationRulesRequest,
         DescribeClientVpnAuthorizationRulesResult,

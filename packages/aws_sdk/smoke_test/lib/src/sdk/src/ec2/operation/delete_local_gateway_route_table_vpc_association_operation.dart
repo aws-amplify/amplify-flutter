@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_local_gateway_route_tabl
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_local_gateway_route_table_vpc_association_result.dart';
 
 /// Deletes the specified association between a VPC and local gateway route table.
-class DeleteLocalGatewayRouteTableVpcAssociationOperation
-    extends _i1.HttpOperation<
+class DeleteLocalGatewayRouteTableVpcAssociationOperation extends _i1
+    .HttpOperation<
         DeleteLocalGatewayRouteTableVpcAssociationRequest,
         DeleteLocalGatewayRouteTableVpcAssociationRequest,
         DeleteLocalGatewayRouteTableVpcAssociationResult,

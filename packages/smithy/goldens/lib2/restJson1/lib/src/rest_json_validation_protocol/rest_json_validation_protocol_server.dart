@@ -156,8 +156,9 @@ class _RestJsonValidationProtocolServer
   @override
   final RestJsonValidationProtocolServerBase service;
 
-  late final _i1.HttpProtocol<MalformedEnumInput, MalformedEnumInput, _i1.Unit,
-      _i1.Unit> _malformedEnumProtocol = _i2.RestJson1Protocol(
+  late final _i1
+      .HttpProtocol<MalformedEnumInput, MalformedEnumInput, _i1.Unit, _i1.Unit>
+      _malformedEnumProtocol = _i2.RestJson1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );

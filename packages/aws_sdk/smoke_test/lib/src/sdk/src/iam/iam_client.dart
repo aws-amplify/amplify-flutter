@@ -1636,8 +1636,9 @@ class IamClient {
   ///
   /// You can optionally filter the results using the `Filter` parameter. You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<GetAccountAuthorizationDetailsResponse, int,
-          String>> getAccountAuthorizationDetails(
+          _i3
+          .PaginatedResult<GetAccountAuthorizationDetailsResponse, int, String>>
+      getAccountAuthorizationDetails(
     GetAccountAuthorizationDetailsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

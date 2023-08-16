@@ -103,8 +103,8 @@ abstract class GetAggregateDiscoveredResourceCountsResponse
 }
 
 class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
-        GetAggregateDiscoveredResourceCountsResponse> {
+    extends _i4
+    .StructuredSmithySerializer<GetAggregateDiscoveredResourceCountsResponse> {
   const GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer()
       : super('GetAggregateDiscoveredResourceCountsResponse');
 

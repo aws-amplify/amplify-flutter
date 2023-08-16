@@ -37,8 +37,9 @@ class GetAccountOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<GetAccountRequest, GetAccountRequest, Account,
-          Account>> protocols = [
+          _i1
+          .HttpProtocol<GetAccountRequest, GetAccountRequest, Account, Account>>
+      protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

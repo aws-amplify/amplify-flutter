@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_policy_tabl
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_policy_table_association.dart';
 
 /// Gets a list of the transit gateway policy table associations.
-class GetTransitGatewayPolicyTableAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayPolicyTableAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayPolicyTableAssociationsRequest,
         GetTransitGatewayPolicyTableAssociationsRequest,
         GetTransitGatewayPolicyTableAssociationsResult,

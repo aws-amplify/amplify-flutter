@@ -22,8 +22,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/retention_configurat
 /// Returns the details of one or more retention configurations. If the retention configuration name is not specified, this action returns the details for all the retention configurations for that account.
 ///
 /// Currently, Config supports only one retention configuration per region in your account.
-class DescribeRetentionConfigurationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeRetentionConfigurationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeRetentionConfigurationsRequest,
         DescribeRetentionConfigurationsRequest,
         DescribeRetentionConfigurationsResponse,

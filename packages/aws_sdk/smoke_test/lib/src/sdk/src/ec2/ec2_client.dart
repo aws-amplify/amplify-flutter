@@ -7450,8 +7450,9 @@ class Ec2Client {
 
   /// Describes IPAM resource discoveries. A resource discovery is an IPAM component that enables IPAM to manage and monitor resources that belong to the owning account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<IpamResourceDiscovery>, int,
-          String>> describeIpamResourceDiscoveries(
+          _i3
+          .PaginatedResult<_i4.BuiltList<IpamResourceDiscovery>, int, String>>
+      describeIpamResourceDiscoveries(
     DescribeIpamResourceDiscoveriesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -7570,8 +7571,9 @@ class Ec2Client {
 
   /// Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions. You can also describe all the latest versions or all the default versions of all the launch templates in your account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<LaunchTemplateVersion>, int,
-          String>> describeLaunchTemplateVersions(
+          _i3
+          .PaginatedResult<_i4.BuiltList<LaunchTemplateVersion>, int, String>>
+      describeLaunchTemplateVersions(
     DescribeLaunchTemplateVersionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -7609,11 +7611,14 @@ class Ec2Client {
   }
 
   /// Describes the associations between virtual interface groups and local gateway route tables.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i4.BuiltList<LocalGatewayRouteTableVirtualInterfaceGroupAssociation>,
-          int,
-          String>> describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations(
+  _i3
+      .SmithyOperation<
+          _i3.PaginatedResult<
+              _i4.BuiltList<
+                  LocalGatewayRouteTableVirtualInterfaceGroupAssociation>,
+              int,
+              String>>
+      describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations(
     DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest
         input, {
     _i1.AWSHttpClient? client,
@@ -7653,8 +7658,9 @@ class Ec2Client {
 
   /// Describes one or more local gateway route tables. By default, all local gateway route tables are described. Alternatively, you can filter the results.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<LocalGatewayRouteTable>, int,
-          String>> describeLocalGatewayRouteTables(
+          _i3
+          .PaginatedResult<_i4.BuiltList<LocalGatewayRouteTable>, int, String>>
+      describeLocalGatewayRouteTables(
     DescribeLocalGatewayRouteTablesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -7859,8 +7865,9 @@ class Ec2Client {
 
   /// Describes one or more of your network insights analyses.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<NetworkInsightsAnalysis>, int,
-          String>> describeNetworkInsightsAnalyses(
+          _i3
+          .PaginatedResult<_i4.BuiltList<NetworkInsightsAnalysis>, int, String>>
+      describeNetworkInsightsAnalyses(
     DescribeNetworkInsightsAnalysesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -8064,8 +8071,9 @@ class Ec2Client {
 
   /// Describes a root volume replacement task. For more information, see [Replace a root volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/replace-root.html) in the _Amazon Elastic Compute Cloud User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ReplaceRootVolumeTask>, int,
-          String>> describeReplaceRootVolumeTasks(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ReplaceRootVolumeTask>, int, String>>
+      describeReplaceRootVolumeTasks(
     DescribeReplaceRootVolumeTasksRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -8453,8 +8461,9 @@ class Ec2Client {
   ///
   /// Spot Fleet requests are deleted 48 hours after they are canceled and their instances are terminated.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<SpotFleetRequestConfig>, int,
-          String>> describeSpotFleetRequests(
+          _i3
+          .PaginatedResult<_i4.BuiltList<SpotFleetRequestConfig>, int, String>>
+      describeSpotFleetRequests(
     DescribeSpotFleetRequestsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -8712,8 +8721,9 @@ class Ec2Client {
 
   /// Describes one or more Connect attachments.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<TransitGatewayConnect>, int,
-          String>> describeTransitGatewayConnects(
+          _i3
+          .PaginatedResult<_i4.BuiltList<TransitGatewayConnect>, int, String>>
+      describeTransitGatewayConnects(
     DescribeTransitGatewayConnectsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -8894,8 +8904,9 @@ class Ec2Client {
 
   /// Describes the specified Amazon Web Services Verified Access endpoints.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<VerifiedAccessEndpoint>, int,
-          String>> describeVerifiedAccessEndpoints(
+          _i3
+          .PaginatedResult<_i4.BuiltList<VerifiedAccessEndpoint>, int, String>>
+      describeVerifiedAccessEndpoints(
     DescribeVerifiedAccessEndpointsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -8956,8 +8967,9 @@ class Ec2Client {
 
   /// Describes the specified Amazon Web Services Verified Access instances.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<VerifiedAccessInstance>, int,
-          String>> describeVerifiedAccessInstances(
+          _i3
+          .PaginatedResult<_i4.BuiltList<VerifiedAccessInstance>, int, String>>
+      describeVerifiedAccessInstances(
     DescribeVerifiedAccessInstancesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -9133,8 +9145,9 @@ class Ec2Client {
   ///
   /// Describes the ClassicLink DNS support status of one or more VPCs. If enabled, the DNS hostname of a linked EC2-Classic instance resolves to its private IP address when addressed from an instance in the VPC to which it's linked. Similarly, the DNS hostname of an instance in a VPC resolves to its private IP address when addressed from a linked EC2-Classic instance.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ClassicLinkDnsSupport>, int,
-          String>> describeVpcClassicLinkDnsSupport(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ClassicLinkDnsSupport>, int, String>>
+      describeVpcClassicLinkDnsSupport(
     DescribeVpcClassicLinkDnsSupportRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -9153,8 +9166,9 @@ class Ec2Client {
 
   /// Describes the connection notifications for VPC endpoints and VPC endpoint services.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<ConnectionNotification>, int,
-          String>> describeVpcEndpointConnectionNotifications(
+          _i3
+          .PaginatedResult<_i4.BuiltList<ConnectionNotification>, int, String>>
+      describeVpcEndpointConnectionNotifications(
     DescribeVpcEndpointConnectionNotificationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -9173,8 +9187,9 @@ class Ec2Client {
 
   /// Describes the VPC endpoint connections to your VPC endpoint services, including any endpoints that are pending your acceptance.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<VpcEndpointConnection>, int,
-          String>> describeVpcEndpointConnections(
+          _i3
+          .PaginatedResult<_i4.BuiltList<VpcEndpointConnection>, int, String>>
+      describeVpcEndpointConnections(
     DescribeVpcEndpointConnectionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -10698,8 +10713,9 @@ class Ec2Client {
 
   /// Gets IPAM discovered accounts. A discovered account is an Amazon Web Services account that is monitored under a resource discovery. If you have integrated IPAM with Amazon Web Services Organizations, all accounts in the organization are discovered accounts. Only the IPAM account can get all discovered accounts in the organization.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<IpamDiscoveredAccount>, int,
-          String>> getIpamDiscoveredAccounts(
+          _i3
+          .PaginatedResult<_i4.BuiltList<IpamDiscoveredAccount>, int, String>>
+      getIpamDiscoveredAccounts(
     GetIpamDiscoveredAccountsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -10820,8 +10836,9 @@ class Ec2Client {
 
   /// Gets information about the resources that are associated with the specified managed prefix list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<PrefixListAssociation>, int,
-          String>> getManagedPrefixListAssociations(
+          _i3
+          .PaginatedResult<_i4.BuiltList<PrefixListAssociation>, int, String>>
+      getManagedPrefixListAssociations(
     GetManagedPrefixListAssociationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -11204,8 +11221,9 @@ class Ec2Client {
 
   /// Obtain a list of customer gateway devices for which sample configuration files can be provided. The request has no additional parameters. You can also see the list of device types with sample configuration files available under [Your customer gateway device](https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html) in the _Amazon Web Services Site-to-Site VPN User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<VpnConnectionDeviceType>, int,
-          String>> getVpnConnectionDeviceTypes(
+          _i3
+          .PaginatedResult<_i4.BuiltList<VpnConnectionDeviceType>, int, String>>
+      getVpnConnectionDeviceTypes(
     GetVpnConnectionDeviceTypesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -11398,8 +11416,9 @@ class Ec2Client {
 
   /// Lists one or more snapshots that are currently in the Recycle Bin.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i4.BuiltList<SnapshotRecycleBinInfo>, int,
-          String>> listSnapshotsInRecycleBin(
+          _i3
+          .PaginatedResult<_i4.BuiltList<SnapshotRecycleBinInfo>, int, String>>
+      listSnapshotsInRecycleBin(
     ListSnapshotsInRecycleBinRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

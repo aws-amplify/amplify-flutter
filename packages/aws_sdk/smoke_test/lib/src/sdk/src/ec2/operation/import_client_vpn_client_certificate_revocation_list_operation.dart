@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/import_client_vpn_client_certif
 /// Uploads a client certificate revocation list to the specified Client VPN endpoint. Uploading a client certificate revocation list overwrites the existing client certificate revocation list.
 ///
 /// Uploading a client certificate revocation list resets existing client connections.
-class ImportClientVpnClientCertificateRevocationListOperation
-    extends _i1.HttpOperation<
+class ImportClientVpnClientCertificateRevocationListOperation extends _i1
+    .HttpOperation<
         ImportClientVpnClientCertificateRevocationListRequest,
         ImportClientVpnClientCertificateRevocationListRequest,
         ImportClientVpnClientCertificateRevocationListResult,

@@ -19,8 +19,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/start_vpc_endpoint_service_priv
 /// The service provider must successfully perform the verification before the consumer can use the name to access the service.
 ///
 /// Before the service provider runs this command, they must add a record to the DNS server.
-class StartVpcEndpointServicePrivateDnsVerificationOperation
-    extends _i1.HttpOperation<
+class StartVpcEndpointServicePrivateDnsVerificationOperation extends _i1
+    .HttpOperation<
         StartVpcEndpointServicePrivateDnsVerificationRequest,
         StartVpcEndpointServicePrivateDnsVerificationRequest,
         StartVpcEndpointServicePrivateDnsVerificationResult,

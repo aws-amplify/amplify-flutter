@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_ipam_discovered_resource_ci
 import 'package:smoke_test/src/sdk/src/ec2/model/ipam_discovered_resource_cidr.dart';
 
 /// Returns the resource CIDRs that are monitored as part of a resource discovery. A discovered resource is a resource CIDR monitored under a resource discovery. The following resources can be discovered: VPCs, Public IPv4 pools, VPC subnets, and Elastic IP addresses.
-class GetIpamDiscoveredResourceCidrsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetIpamDiscoveredResourceCidrsOperation extends _i1
+    .PaginatedHttpOperation<
         GetIpamDiscoveredResourceCidrsRequest,
         GetIpamDiscoveredResourceCidrsRequest,
         GetIpamDiscoveredResourceCidrsResult,

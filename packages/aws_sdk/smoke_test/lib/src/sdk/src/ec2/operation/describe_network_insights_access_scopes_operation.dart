@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_network_insights_acces
 import 'package:smoke_test/src/sdk/src/ec2/model/network_insights_access_scope.dart';
 
 /// Describes the specified Network Access Scopes.
-class DescribeNetworkInsightsAccessScopesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeNetworkInsightsAccessScopesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeNetworkInsightsAccessScopesRequest,
         DescribeNetworkInsightsAccessScopesRequest,
         DescribeNetworkInsightsAccessScopesResult,

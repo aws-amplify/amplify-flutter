@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/create_transit_gateway_route_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/create_transit_gateway_route_table_announcement_result.dart';
 
 /// Advertises a new transit gateway route table.
-class CreateTransitGatewayRouteTableAnnouncementOperation
-    extends _i1.HttpOperation<
+class CreateTransitGatewayRouteTableAnnouncementOperation extends _i1
+    .HttpOperation<
         CreateTransitGatewayRouteTableAnnouncementRequest,
         CreateTransitGatewayRouteTableAnnouncementRequest,
         CreateTransitGatewayRouteTableAnnouncementResult,

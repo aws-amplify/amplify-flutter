@@ -45,8 +45,9 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          GetServiceLastAccessedDetailsWithEntitiesRequest>> serializers = [
+          _i1
+          .SmithySerializer<GetServiceLastAccessedDetailsWithEntitiesRequest>>
+      serializers = [
     GetServiceLastAccessedDetailsWithEntitiesRequestAwsQuerySerializer()
   ];
 

@@ -44,8 +44,9 @@ abstract class DescribeVpcEndpointConnectionNotificationsResult
       payload;
 
   static const List<
-      _i3.SmithySerializer<
-          DescribeVpcEndpointConnectionNotificationsResult>> serializers = [
+          _i3
+          .SmithySerializer<DescribeVpcEndpointConnectionNotificationsResult>>
+      serializers = [
     DescribeVpcEndpointConnectionNotificationsResultEc2QuerySerializer()
   ];
 

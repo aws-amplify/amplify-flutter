@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_network_insights_access_
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_network_insights_access_scope_analysis_result.dart';
 
 /// Deletes the specified Network Access Scope analysis.
-class DeleteNetworkInsightsAccessScopeAnalysisOperation
-    extends _i1.HttpOperation<
+class DeleteNetworkInsightsAccessScopeAnalysisOperation extends _i1
+    .HttpOperation<
         DeleteNetworkInsightsAccessScopeAnalysisRequest,
         DeleteNetworkInsightsAccessScopeAnalysisRequest,
         DeleteNetworkInsightsAccessScopeAnalysisResult,

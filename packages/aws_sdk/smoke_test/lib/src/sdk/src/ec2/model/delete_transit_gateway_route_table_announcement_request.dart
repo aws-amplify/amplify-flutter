@@ -43,8 +43,9 @@ abstract class DeleteTransitGatewayRouteTableAnnouncementRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          DeleteTransitGatewayRouteTableAnnouncementRequest>> serializers = [
+          _i1
+          .SmithySerializer<DeleteTransitGatewayRouteTableAnnouncementRequest>>
+      serializers = [
     DeleteTransitGatewayRouteTableAnnouncementRequestEc2QuerySerializer()
   ];
 

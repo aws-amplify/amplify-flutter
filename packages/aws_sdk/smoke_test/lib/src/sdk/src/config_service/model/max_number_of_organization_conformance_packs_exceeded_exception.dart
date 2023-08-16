@@ -13,8 +13,8 @@ part 'max_number_of_organization_conformance_packs_exceeded_exception.g.dart';
 /// You have reached the limit of the number of organization conformance packs you can create in an account. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
 abstract class MaxNumberOfOrganizationConformancePacksExceededException
     with
-        _i1.AWSEquatable<
-            MaxNumberOfOrganizationConformancePacksExceededException>
+        _i1
+        .AWSEquatable<MaxNumberOfOrganizationConformancePacksExceededException>
     implements
         Built<MaxNumberOfOrganizationConformancePacksExceededException,
             MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder>,

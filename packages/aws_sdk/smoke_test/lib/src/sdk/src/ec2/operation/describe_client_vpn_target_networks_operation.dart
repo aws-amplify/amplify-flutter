@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_client_vpn_target_netw
 import 'package:smoke_test/src/sdk/src/ec2/model/target_network.dart';
 
 /// Describes the target networks associated with the specified Client VPN endpoint.
-class DescribeClientVpnTargetNetworksOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeClientVpnTargetNetworksOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeClientVpnTargetNetworksRequest,
         DescribeClientVpnTargetNetworksRequest,
         DescribeClientVpnTargetNetworksResult,

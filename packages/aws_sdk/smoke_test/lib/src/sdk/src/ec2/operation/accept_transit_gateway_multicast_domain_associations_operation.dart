@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/accept_transit_gateway_multicas
 import 'package:smoke_test/src/sdk/src/ec2/model/accept_transit_gateway_multicast_domain_associations_result.dart';
 
 /// Accepts a request to associate subnets with a transit gateway multicast domain.
-class AcceptTransitGatewayMulticastDomainAssociationsOperation
-    extends _i1.HttpOperation<
+class AcceptTransitGatewayMulticastDomainAssociationsOperation extends _i1
+    .HttpOperation<
         AcceptTransitGatewayMulticastDomainAssociationsRequest,
         AcceptTransitGatewayMulticastDomainAssociationsRequest,
         AcceptTransitGatewayMulticastDomainAssociationsResult,

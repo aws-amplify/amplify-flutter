@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/apply_security_groups_to_client
 import 'package:smoke_test/src/sdk/src/ec2/model/apply_security_groups_to_client_vpn_target_network_result.dart';
 
 /// Applies a security group to the association between the target network and the Client VPN endpoint. This action replaces the existing security groups with the specified security groups.
-class ApplySecurityGroupsToClientVpnTargetNetworkOperation
-    extends _i1.HttpOperation<
+class ApplySecurityGroupsToClientVpnTargetNetworkOperation extends _i1
+    .HttpOperation<
         ApplySecurityGroupsToClientVpnTargetNetworkRequest,
         ApplySecurityGroupsToClientVpnTargetNetworkRequest,
         ApplySecurityGroupsToClientVpnTargetNetworkResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_connec
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_connect_peer.dart';
 
 /// Describes one or more Connect peers.
-class DescribeTransitGatewayConnectPeersOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayConnectPeersOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayConnectPeersRequest,
         DescribeTransitGatewayConnectPeersRequest,
         DescribeTransitGatewayConnectPeersResult,

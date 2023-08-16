@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_service_p
 import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_service_permissions_result.dart';
 
 /// Describes the principals (service consumers) that are permitted to discover your VPC endpoint service.
-class DescribeVpcEndpointServicePermissionsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVpcEndpointServicePermissionsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVpcEndpointServicePermissionsRequest,
         DescribeVpcEndpointServicePermissionsRequest,
         DescribeVpcEndpointServicePermissionsResult,

@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/deregister_instance_event_notif
 import 'package:smoke_test/src/sdk/src/ec2/model/deregister_instance_event_notification_attributes_result.dart';
 
 /// Deregisters tag keys to prevent tags that have the specified tag keys from being included in scheduled event notifications for resources in the Region.
-class DeregisterInstanceEventNotificationAttributesOperation
-    extends _i1.HttpOperation<
+class DeregisterInstanceEventNotificationAttributesOperation extends _i1
+    .HttpOperation<
         DeregisterInstanceEventNotificationAttributesRequest,
         DeregisterInstanceEventNotificationAttributesRequest,
         DeregisterInstanceEventNotificationAttributesResult,

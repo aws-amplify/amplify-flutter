@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_network_insights_analy
 import 'package:smoke_test/src/sdk/src/ec2/model/network_insights_analysis.dart';
 
 /// Describes one or more of your network insights analyses.
-class DescribeNetworkInsightsAnalysesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeNetworkInsightsAnalysesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeNetworkInsightsAnalysesRequest,
         DescribeNetworkInsightsAnalysesRequest,
         DescribeNetworkInsightsAnalysesResult,

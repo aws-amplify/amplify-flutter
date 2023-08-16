@@ -135,8 +135,8 @@ abstract class ListBucketAnalyticsConfigurationsRequestPayload
   }
 }
 
-class ListBucketAnalyticsConfigurationsRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<
+class ListBucketAnalyticsConfigurationsRequestRestXmlSerializer extends _i1
+    .StructuredSmithySerializer<
         ListBucketAnalyticsConfigurationsRequestPayload> {
   const ListBucketAnalyticsConfigurationsRequestRestXmlSerializer()
       : super('ListBucketAnalyticsConfigurationsRequest');

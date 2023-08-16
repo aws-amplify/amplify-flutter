@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/create_transit_gateway_prefix_l
 import 'package:smoke_test/src/sdk/src/ec2/model/create_transit_gateway_prefix_list_reference_result.dart';
 
 /// Creates a reference (route) to a prefix list in a specified transit gateway route table.
-class CreateTransitGatewayPrefixListReferenceOperation
-    extends _i1.HttpOperation<
+class CreateTransitGatewayPrefixListReferenceOperation extends _i1
+    .HttpOperation<
         CreateTransitGatewayPrefixListReferenceRequest,
         CreateTransitGatewayPrefixListReferenceRequest,
         CreateTransitGatewayPrefixListReferenceResult,
