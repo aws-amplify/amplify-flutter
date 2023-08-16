@@ -1,0 +1,62 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: aws_logging_cloudwatch
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/aws_logging_cloudwatch.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/test/**/*'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      package-name: aws_logging_cloudwatch
+      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      package-name: aws_logging_cloudwatch
+      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
+  ddc_test:
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    with:
+      package-name: aws_logging_cloudwatch
+      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    with:
+      package-name: aws_logging_cloudwatch
+      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
