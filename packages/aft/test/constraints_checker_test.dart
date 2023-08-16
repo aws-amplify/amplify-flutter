@@ -4,12 +4,97 @@
 import 'package:aft/aft.dart';
 import 'package:aft/src/constraints_checker.dart';
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:test/test.dart';
-import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
+import 'common.dart';
+
 void main() {
+  group('GlobalConstraintsChecker', () {
+    for (final action in ConstraintsAction.values) {
+      test(
+        'handles SDK constraints for preview Dart versions (${action.name})',
+        () {
+          final preReleaseConstraint = VersionConstraint.compatibleWith(
+            Version(3, 2, 0, pre: '0'),
+          );
+          final actions = dummyPackage(
+            'actions',
+            publishable: false,
+            sdkConstraint: preReleaseConstraint,
+          );
+          final amplifyFlutter = dummyPackage(
+            'amplify_flutter',
+            sdkConstraint: preReleaseConstraint,
+          );
+          final checker = GlobalConstraintChecker(
+            action,
+            const {},
+            Environment(
+              sdk: VersionConstraint.compatibleWith(Version(3, 0, 0)),
+            ),
+          );
+
+          {
+            expect(
+              checker.checkConstraints(actions.key),
+              isTrue,
+              reason:
+                  'Package is not publishable and can take a prerelease constraint '
+                  'to leverage new Dart features',
+            );
+            expect(checker.mismatchedDependencies, isEmpty);
+            expect(actions.key.pubspecInfo.pubspecYamlEditor.edits, isEmpty);
+          }
+
+          {
+            switch (action) {
+              case ConstraintsAction.apply || ConstraintsAction.update:
+                expect(
+                  checker.checkConstraints(amplifyFlutter.key),
+                  isTrue,
+                );
+                expect(
+                  amplifyFlutter.key.pubspecInfo.pubspecYamlEditor.edits.single,
+                  isA<SourceEdit>().having(
+                    (edit) => edit.replacement.trim(),
+                    'replacement',
+                    '^3.0.0',
+                  ),
+                );
+                expect(checker.mismatchedDependencies, isEmpty);
+              case ConstraintsAction.check:
+                expect(
+                  checker.checkConstraints(amplifyFlutter.key),
+                  isFalse,
+                  reason:
+                      'Package is publishable and must match the global SDK constraint',
+                );
+                expect(
+                  checker.mismatchedDependencies.single,
+                  isA<MismatchedDependency>()
+                      .having(
+                        (err) => err.package.name,
+                        'packageName',
+                        'amplify_flutter',
+                      )
+                      .having(
+                        (err) => err.dependencyName,
+                        'dependencyName',
+                        'sdk',
+                      ),
+                );
+                expect(
+                  amplifyFlutter.key.pubspecInfo.pubspecYamlEditor.edits,
+                  isEmpty,
+                );
+            }
+          }
+        },
+      );
+    }
+  });
+
   group('PublishConstraintsChecker', () {
     for (final action in ConstraintsAction.values) {
       final result = switch (action) {
@@ -118,63 +203,4 @@ void main() {
       );
     }
   });
-}
-
-MapEntry<PackageInfo, List<PackageInfo>> dummyPackage(
-  String name, {
-  Version? version,
-  bool publishable = true,
-  Map<PackageInfo, VersionConstraint> deps = const {},
-  Map<PackageInfo, VersionConstraint> devDeps = const {},
-}) {
-  final path = 'packages/$name';
-
-  final pubspecEditor = YamlEditor('''
-name: $name
-
-environment:
-  sdk: ^3.0.0
-
-dependencies: {}
-
-dev_dependencies: {}
-''');
-
-  if (version != null) {
-    pubspecEditor.update(['version'], version.toString());
-  }
-
-  void addConstraints(
-    Map<PackageInfo, VersionConstraint> constraints,
-    DependencyType type,
-  ) {
-    for (final MapEntry(key: dep, value: constraint) in constraints.entries) {
-      final path = <String>[type.key, dep.name];
-      pubspecEditor.update(path, constraint.toString());
-    }
-  }
-
-  addConstraints(deps, DependencyType.dependency);
-  addConstraints(devDeps, DependencyType.devDependency);
-
-  if (!publishable) {
-    pubspecEditor.update(['publish_to'], 'none');
-  }
-
-  final pubspecYaml = pubspecEditor.toString();
-  final pubspec = Pubspec.parse(pubspecYaml);
-  final pubspecMap = loadYamlNode(pubspecYaml) as YamlMap;
-
-  final package = PackageInfo(
-    name: name,
-    path: path,
-    pubspecInfo: PubspecInfo(
-      pubspec: pubspec,
-      pubspecYaml: pubspecYaml,
-      pubspecMap: pubspecMap,
-      uri: Uri.base.resolve(path),
-    ),
-    flavor: PackageFlavor.dart,
-  );
-  return MapEntry(package, [...deps.keys, ...devDeps.keys]);
 }

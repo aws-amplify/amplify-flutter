@@ -317,9 +317,6 @@ class PackageInfo
       pubspecInfo.pubspec.version ??
       (throw StateError('No version for package: $name'));
 
-  @override
-  String get runtimeTypeName => 'PackageInfo';
-
   /// Skip package checks for Flutter packages when running in CI without
   /// Flutter, which may happen when testing Dart-only packages or specific
   /// Dart versions.
@@ -330,8 +327,20 @@ class PackageInfo
         flavor == PackageFlavor.flutter;
   }
 
+  /// Whether this package is compatible with the active Dart SDK
+  /// in the current environment.
+  bool get compatibleWithActiveSdk =>
+      dartSdkConstraint.allows(activeDartSdkVersion);
+
+  /// The Dart SDK constraint set by the package.
+  VersionConstraint get dartSdkConstraint =>
+      pubspecInfo.pubspec.environment!['sdk']!;
+
   @override
   List<Object?> get props => [name];
+
+  @override
+  String get runtimeTypeName => 'PackageInfo';
 
   @override
   int compareTo(PackageInfo other) {
@@ -403,3 +412,30 @@ extension DirectoryX on Directory {
     }
   }
 }
+
+/// The version of the current environment's Dart SDK.
+///
+/// This parses the version from calling `dart --version`.
+final Version activeDartSdkVersion = () {
+  final ProcessResult(
+    :exitCode,
+    :stdout,
+    :stderr,
+  ) = Process.runSync('dart', ['--version']);
+  if (exitCode != 0) {
+    throw Exception(
+      'Error running `dart --version` ($exitCode): $stderr',
+    );
+  }
+  // Example output:
+  // Dart SDK version: 3.1.0 (stable) (Tue Aug 15 21:33:36 2023 +0000) on "macos_arm64"
+  final activeSdkVersionRaw = _versionRegex.firstMatch(stdout as String);
+  if (activeSdkVersionRaw == null) {
+    throw Exception(
+      'Running `dart --version` produced unexpected output: $stdout',
+    );
+  }
+  return Version.parse(activeSdkVersionRaw.group(0)!);
+}();
+
+final _versionRegex = RegExp(r'\d+\.\d+\.\d+(-[a-zA-Z\d]+)?');
