@@ -64,8 +64,8 @@ void main() {
 }
 
 class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<
-        HttpRequestWithLabelsAndTimestampFormatInput> {
+    extends _i3
+    .StructuredSmithySerializer<HttpRequestWithLabelsAndTimestampFormatInput> {
   const HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer()
       : super('HttpRequestWithLabelsAndTimestampFormatInput');
 

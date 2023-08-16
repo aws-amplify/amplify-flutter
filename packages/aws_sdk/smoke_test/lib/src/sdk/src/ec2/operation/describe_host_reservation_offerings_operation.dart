@@ -19,8 +19,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/host_offering.dart';
 /// Describes the Dedicated Host reservations that are available to purchase.
 ///
 /// The results describe all of the Dedicated Host reservation offerings, including offerings that might not match the instance family and Region of your Dedicated Hosts. When purchasing an offering, ensure that the instance family and Region of the offering matches that of the Dedicated Hosts with which it is to be associated. For more information about supported instance types, see [Dedicated Hosts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html) in the _Amazon EC2 User Guide_.
-class DescribeHostReservationOfferingsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeHostReservationOfferingsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeHostReservationOfferingsRequest,
         DescribeHostReservationOfferingsRequest,
         DescribeHostReservationOfferingsResult,

@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_e
 import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
 
 /// Returns a list of authorizations granted to various aggregator accounts and regions.
-class DescribeAggregationAuthorizationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeAggregationAuthorizationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeAggregationAuthorizationsRequest,
         DescribeAggregationAuthorizationsRequest,
         DescribeAggregationAuthorizationsResponse,

@@ -21,8 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 /// Returns a list of compliant and noncompliant rules with the number of resources for compliant and noncompliant rules. Does not display rules that do not have compliance results.
 ///
 /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
-class DescribeAggregateComplianceByConfigRulesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeAggregateComplianceByConfigRulesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeAggregateComplianceByConfigRulesRequest,
         DescribeAggregateComplianceByConfigRulesRequest,
         DescribeAggregateComplianceByConfigRulesResponse,

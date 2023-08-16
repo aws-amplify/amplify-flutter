@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_peerin
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_peering_attachment.dart';
 
 /// Describes your transit gateway peering attachments.
-class DescribeTransitGatewayPeeringAttachmentsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayPeeringAttachmentsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayPeeringAttachmentsRequest,
         DescribeTransitGatewayPeeringAttachmentsRequest,
         DescribeTransitGatewayPeeringAttachmentsResult,

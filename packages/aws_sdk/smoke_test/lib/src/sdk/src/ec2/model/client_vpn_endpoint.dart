@@ -38,8 +38,9 @@ abstract class ClientVpnEndpoint
     VpnProtocol? vpnProtocol,
     TransportProtocol? transportProtocol,
     int? vpnPort,
-    @Deprecated('This property is deprecated. To view the target networks associated with a Client VPN endpoint, call DescribeClientVpnTargetNetworks and inspect the clientVpnTargetNetworks response element.')
-        List<AssociatedTargetNetwork>? associatedTargetNetworks,
+    @Deprecated(
+        'This property is deprecated. To view the target networks associated with a Client VPN endpoint, call DescribeClientVpnTargetNetworks and inspect the clientVpnTargetNetworks response element.')
+    List<AssociatedTargetNetwork>? associatedTargetNetworks,
     String? serverCertificateArn,
     List<ClientVpnAuthentication>? authenticationOptions,
     ConnectionLogResponseOptions? connectionLogOptions,

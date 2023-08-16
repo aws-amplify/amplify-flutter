@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/export_client_vpn_client_certif
 import 'package:smoke_test/src/sdk/src/ec2/model/export_client_vpn_client_certificate_revocation_list_result.dart';
 
 /// Downloads the client certificate revocation list for the specified Client VPN endpoint.
-class ExportClientVpnClientCertificateRevocationListOperation
-    extends _i1.HttpOperation<
+class ExportClientVpnClientCertificateRevocationListOperation extends _i1
+    .HttpOperation<
         ExportClientVpnClientCertificateRevocationListRequest,
         ExportClientVpnClientCertificateRevocationListRequest,
         ExportClientVpnClientCertificateRevocationListResult,

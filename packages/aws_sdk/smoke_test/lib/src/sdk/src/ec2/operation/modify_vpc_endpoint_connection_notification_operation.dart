@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/modify_vpc_endpoint_connection_
 import 'package:smoke_test/src/sdk/src/ec2/model/modify_vpc_endpoint_connection_notification_result.dart';
 
 /// Modifies a connection notification for VPC endpoint or VPC endpoint service. You can change the SNS topic for the notification, or the events for which to be notified.
-class ModifyVpcEndpointConnectionNotificationOperation
-    extends _i1.HttpOperation<
+class ModifyVpcEndpointConnectionNotificationOperation extends _i1
+    .HttpOperation<
         ModifyVpcEndpointConnectionNotificationRequest,
         ModifyVpcEndpointConnectionNotificationRequest,
         ModifyVpcEndpointConnectionNotificationResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_local_gateway_route_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/local_gateway_route_table.dart';
 
 /// Describes one or more local gateway route tables. By default, all local gateway route tables are described. Alternatively, you can filter the results.
-class DescribeLocalGatewayRouteTablesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeLocalGatewayRouteTablesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeLocalGatewayRouteTablesRequest,
         DescribeLocalGatewayRouteTablesRequest,
         DescribeLocalGatewayRouteTablesResult,

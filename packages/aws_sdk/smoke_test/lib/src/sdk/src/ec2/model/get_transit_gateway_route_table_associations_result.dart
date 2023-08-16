@@ -74,8 +74,8 @@ abstract class GetTransitGatewayRouteTableAssociationsResult
 }
 
 class GetTransitGatewayRouteTableAssociationsResultEc2QuerySerializer
-    extends _i3.StructuredSmithySerializer<
-        GetTransitGatewayRouteTableAssociationsResult> {
+    extends _i3
+    .StructuredSmithySerializer<GetTransitGatewayRouteTableAssociationsResult> {
   const GetTransitGatewayRouteTableAssociationsResultEc2QuerySerializer()
       : super('GetTransitGatewayRouteTableAssociationsResult');
 

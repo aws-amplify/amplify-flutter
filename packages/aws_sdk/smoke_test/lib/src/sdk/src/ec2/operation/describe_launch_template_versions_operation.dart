@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_launch_template_versio
 import 'package:smoke_test/src/sdk/src/ec2/model/launch_template_version.dart';
 
 /// Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions. You can also describe all the latest versions or all the default versions of all the launch templates in your account.
-class DescribeLaunchTemplateVersionsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeLaunchTemplateVersionsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeLaunchTemplateVersionsRequest,
         DescribeLaunchTemplateVersionsRequest,
         DescribeLaunchTemplateVersionsResult,

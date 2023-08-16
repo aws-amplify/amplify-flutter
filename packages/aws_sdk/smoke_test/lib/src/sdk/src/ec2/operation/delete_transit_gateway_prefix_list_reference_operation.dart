@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_transit_gateway_prefix_l
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_transit_gateway_prefix_list_reference_result.dart';
 
 /// Deletes a reference (route) to a prefix list in a specified transit gateway route table.
-class DeleteTransitGatewayPrefixListReferenceOperation
-    extends _i1.HttpOperation<
+class DeleteTransitGatewayPrefixListReferenceOperation extends _i1
+    .HttpOperation<
         DeleteTransitGatewayPrefixListReferenceRequest,
         DeleteTransitGatewayPrefixListReferenceRequest,
         DeleteTransitGatewayPrefixListReferenceResult,

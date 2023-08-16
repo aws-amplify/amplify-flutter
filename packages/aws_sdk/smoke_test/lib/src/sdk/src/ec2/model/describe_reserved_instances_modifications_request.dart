@@ -116,8 +116,8 @@ abstract class DescribeReservedInstancesModificationsRequest
 }
 
 class DescribeReservedInstancesModificationsRequestEc2QuerySerializer
-    extends _i1.StructuredSmithySerializer<
-        DescribeReservedInstancesModificationsRequest> {
+    extends _i1
+    .StructuredSmithySerializer<DescribeReservedInstancesModificationsRequest> {
   const DescribeReservedInstancesModificationsRequestEc2QuerySerializer()
       : super('DescribeReservedInstancesModificationsRequest');
 

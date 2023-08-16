@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/start_network_insights_access_s
 import 'package:smoke_test/src/sdk/src/ec2/model/start_network_insights_access_scope_analysis_result.dart';
 
 /// Starts analyzing the specified Network Access Scope.
-class StartNetworkInsightsAccessScopeAnalysisOperation
-    extends _i1.HttpOperation<
+class StartNetworkInsightsAccessScopeAnalysisOperation extends _i1
+    .HttpOperation<
         StartNetworkInsightsAccessScopeAnalysisRequest,
         StartNetworkInsightsAccessScopeAnalysisRequest,
         StartNetworkInsightsAccessScopeAnalysisResult,

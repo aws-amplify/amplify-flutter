@@ -81,8 +81,8 @@ abstract class TransitGatewayMulticastRegisteredGroupMembers
 }
 
 class TransitGatewayMulticastRegisteredGroupMembersEc2QuerySerializer
-    extends _i3.StructuredSmithySerializer<
-        TransitGatewayMulticastRegisteredGroupMembers> {
+    extends _i3
+    .StructuredSmithySerializer<TransitGatewayMulticastRegisteredGroupMembers> {
   const TransitGatewayMulticastRegisteredGroupMembersEc2QuerySerializer()
       : super('TransitGatewayMulticastRegisteredGroupMembers');
 

@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_remediation_
 import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart';
 
 /// Provides a detailed view of a Remediation Execution for a set of resources including state, timestamps for when steps for the remediation execution occur, and any error messages for steps that have failed. When you specify the limit and the next token, you receive a paginated response.
-class DescribeRemediationExecutionStatusOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeRemediationExecutionStatusOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeRemediationExecutionStatusRequest,
         DescribeRemediationExecutionStatusRequest,
         DescribeRemediationExecutionStatusResponse,

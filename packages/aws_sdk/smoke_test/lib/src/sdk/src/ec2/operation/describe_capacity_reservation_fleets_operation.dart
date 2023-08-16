@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_capacity_reservation_f
 import 'package:smoke_test/src/sdk/src/ec2/model/describe_capacity_reservation_fleets_result.dart';
 
 /// Describes one or more Capacity Reservation Fleets.
-class DescribeCapacityReservationFleetsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeCapacityReservationFleetsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeCapacityReservationFleetsRequest,
         DescribeCapacityReservationFleetsRequest,
         DescribeCapacityReservationFleetsResult,

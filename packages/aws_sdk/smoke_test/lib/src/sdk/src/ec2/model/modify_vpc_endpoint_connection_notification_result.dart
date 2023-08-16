@@ -63,8 +63,8 @@ abstract class ModifyVpcEndpointConnectionNotificationResult
 }
 
 class ModifyVpcEndpointConnectionNotificationResultEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        ModifyVpcEndpointConnectionNotificationResult> {
+    extends _i2
+    .StructuredSmithySerializer<ModifyVpcEndpointConnectionNotificationResult> {
   const ModifyVpcEndpointConnectionNotificationResultEc2QuerySerializer()
       : super('ModifyVpcEndpointConnectionNotificationResult');
 

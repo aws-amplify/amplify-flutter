@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/modify_instance_capacity_reserv
 import 'package:smoke_test/src/sdk/src/ec2/model/modify_instance_capacity_reservation_attributes_result.dart';
 
 /// Modifies the Capacity Reservation settings for a stopped instance. Use this action to configure an instance to target a specific Capacity Reservation, run in any `open` Capacity Reservation with matching attributes, or run On-Demand Instance capacity.
-class ModifyInstanceCapacityReservationAttributesOperation
-    extends _i1.HttpOperation<
+class ModifyInstanceCapacityReservationAttributesOperation extends _i1
+    .HttpOperation<
         ModifyInstanceCapacityReservationAttributesRequest,
         ModifyInstanceCapacityReservationAttributesRequest,
         ModifyInstanceCapacityReservationAttributesResult,

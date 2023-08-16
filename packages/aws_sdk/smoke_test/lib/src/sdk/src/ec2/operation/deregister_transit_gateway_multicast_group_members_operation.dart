@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/deregister_transit_gateway_mult
 import 'package:smoke_test/src/sdk/src/ec2/model/deregister_transit_gateway_multicast_group_members_result.dart';
 
 /// Deregisters the specified members (network interfaces) from the transit gateway multicast group.
-class DeregisterTransitGatewayMulticastGroupMembersOperation
-    extends _i1.HttpOperation<
+class DeregisterTransitGatewayMulticastGroupMembersOperation extends _i1
+    .HttpOperation<
         DeregisterTransitGatewayMulticastGroupMembersRequest,
         DeregisterTransitGatewayMulticastGroupMembersRequest,
         DeregisterTransitGatewayMulticastGroupMembersResult,

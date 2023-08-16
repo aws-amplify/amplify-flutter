@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_e
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_conformance_pack_exception.dart';
 
 /// Returns compliance details for the conformance pack based on the cumulative compliance results of all the rules in that conformance pack.
-class GetConformancePackComplianceSummaryOperation
-    extends _i1.PaginatedHttpOperation<
+class GetConformancePackComplianceSummaryOperation extends _i1
+    .PaginatedHttpOperation<
         GetConformancePackComplianceSummaryRequest,
         GetConformancePackComplianceSummaryRequest,
         GetConformancePackComplianceSummaryResponse,

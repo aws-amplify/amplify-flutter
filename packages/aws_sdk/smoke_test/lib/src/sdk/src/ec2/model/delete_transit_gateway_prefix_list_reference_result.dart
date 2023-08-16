@@ -59,8 +59,8 @@ abstract class DeleteTransitGatewayPrefixListReferenceResult
 }
 
 class DeleteTransitGatewayPrefixListReferenceResultEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        DeleteTransitGatewayPrefixListReferenceResult> {
+    extends _i2
+    .StructuredSmithySerializer<DeleteTransitGatewayPrefixListReferenceResult> {
   const DeleteTransitGatewayPrefixListReferenceResultEc2QuerySerializer()
       : super('DeleteTransitGatewayPrefixListReferenceResult');
 

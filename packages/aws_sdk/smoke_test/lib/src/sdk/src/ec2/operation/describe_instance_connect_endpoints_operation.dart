@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_instance_connect_endpo
 import 'package:smoke_test/src/sdk/src/ec2/model/ec2_instance_connect_endpoint.dart';
 
 /// Describes the specified EC2 Instance Connect Endpoints or all EC2 Instance Connect Endpoints.
-class DescribeInstanceConnectEndpointsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeInstanceConnectEndpointsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeInstanceConnectEndpointsRequest,
         DescribeInstanceConnectEndpointsRequest,
         DescribeInstanceConnectEndpointsResult,

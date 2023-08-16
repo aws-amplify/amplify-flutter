@@ -19,8 +19,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/reserved_instances_modification
 /// Describes the modifications made to your Reserved Instances. If no parameter is specified, information about all your Reserved Instances modification requests is returned. If a modification ID is specified, only information about the specific modification is returned.
 ///
 /// For more information, see [Modifying Reserved Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html) in the _Amazon EC2 User Guide_.
-class DescribeReservedInstancesModificationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeReservedInstancesModificationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeReservedInstancesModificationsRequest,
         DescribeReservedInstancesModificationsRequest,
         DescribeReservedInstancesModificationsResult,

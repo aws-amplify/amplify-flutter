@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_egress_only_internet_g
 import 'package:smoke_test/src/sdk/src/ec2/model/egress_only_internet_gateway.dart';
 
 /// Describes one or more of your egress-only internet gateways.
-class DescribeEgressOnlyInternetGatewaysOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeEgressOnlyInternetGatewaysOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeEgressOnlyInternetGatewaysRequest,
         DescribeEgressOnlyInternetGatewaysRequest,
         DescribeEgressOnlyInternetGatewaysResult,

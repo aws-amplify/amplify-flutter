@@ -54,8 +54,9 @@ abstract class DescribeIpamResourceDiscoveryAssociationsRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          DescribeIpamResourceDiscoveryAssociationsRequest>> serializers = [
+          _i1
+          .SmithySerializer<DescribeIpamResourceDiscoveryAssociationsRequest>>
+      serializers = [
     DescribeIpamResourceDiscoveryAssociationsRequestEc2QuerySerializer()
   ];
 

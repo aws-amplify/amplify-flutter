@@ -47,8 +47,9 @@ abstract class DisassociateTransitGatewayMulticastDomainRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          DisassociateTransitGatewayMulticastDomainRequest>> serializers = [
+          _i1
+          .SmithySerializer<DisassociateTransitGatewayMulticastDomainRequest>>
+      serializers = [
     DisassociateTransitGatewayMulticastDomainRequestEc2QuerySerializer()
   ];
 

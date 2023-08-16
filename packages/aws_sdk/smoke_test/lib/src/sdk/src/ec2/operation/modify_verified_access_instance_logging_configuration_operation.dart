@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/modify_verified_access_instance
 import 'package:smoke_test/src/sdk/src/ec2/model/modify_verified_access_instance_logging_configuration_result.dart';
 
 /// Modifies the logging configuration for the specified Amazon Web Services Verified Access instance.
-class ModifyVerifiedAccessInstanceLoggingConfigurationOperation
-    extends _i1.HttpOperation<
+class ModifyVerifiedAccessInstanceLoggingConfigurationOperation extends _i1
+    .HttpOperation<
         ModifyVerifiedAccessInstanceLoggingConfigurationRequest,
         ModifyVerifiedAccessInstanceLoggingConfigurationRequest,
         ModifyVerifiedAccessInstanceLoggingConfigurationResult,

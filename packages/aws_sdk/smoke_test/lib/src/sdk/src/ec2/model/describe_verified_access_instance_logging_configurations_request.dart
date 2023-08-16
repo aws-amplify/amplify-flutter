@@ -14,8 +14,8 @@ part 'describe_verified_access_instance_logging_configurations_request.g.dart';
 
 abstract class DescribeVerifiedAccessInstanceLoggingConfigurationsRequest
     with
-        _i1.HttpInput<
-            DescribeVerifiedAccessInstanceLoggingConfigurationsRequest>,
+        _i1
+        .HttpInput<DescribeVerifiedAccessInstanceLoggingConfigurationsRequest>,
         _i2.AWSEquatable<
             DescribeVerifiedAccessInstanceLoggingConfigurationsRequest>
     implements

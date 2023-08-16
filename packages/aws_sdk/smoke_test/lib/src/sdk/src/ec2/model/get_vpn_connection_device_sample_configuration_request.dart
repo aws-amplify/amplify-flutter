@@ -46,8 +46,9 @@ abstract class GetVpnConnectionDeviceSampleConfigurationRequest
       payload;
 
   static const List<
-      _i1.SmithySerializer<
-          GetVpnConnectionDeviceSampleConfigurationRequest>> serializers = [
+          _i1
+          .SmithySerializer<GetVpnConnectionDeviceSampleConfigurationRequest>>
+      serializers = [
     GetVpnConnectionDeviceSampleConfigurationRequestEc2QuerySerializer()
   ];
 

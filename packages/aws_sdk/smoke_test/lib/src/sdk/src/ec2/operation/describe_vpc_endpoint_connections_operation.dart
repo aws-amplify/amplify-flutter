@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_vpc_endpoint_connectio
 import 'package:smoke_test/src/sdk/src/ec2/model/vpc_endpoint_connection.dart';
 
 /// Describes the VPC endpoint connections to your VPC endpoint services, including any endpoints that are pending your acceptance.
-class DescribeVpcEndpointConnectionsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeVpcEndpointConnectionsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeVpcEndpointConnectionsRequest,
         DescribeVpcEndpointConnectionsRequest,
         DescribeVpcEndpointConnectionsResult,

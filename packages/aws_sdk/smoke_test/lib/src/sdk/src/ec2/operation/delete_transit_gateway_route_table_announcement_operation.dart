@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_transit_gateway_route_ta
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_transit_gateway_route_table_announcement_result.dart';
 
 /// Advertises to the transit gateway that a transit gateway route table is deleted.
-class DeleteTransitGatewayRouteTableAnnouncementOperation
-    extends _i1.HttpOperation<
+class DeleteTransitGatewayRouteTableAnnouncementOperation extends _i1
+    .HttpOperation<
         DeleteTransitGatewayRouteTableAnnouncementRequest,
         DeleteTransitGatewayRouteTableAnnouncementRequest,
         DeleteTransitGatewayRouteTableAnnouncementResult,

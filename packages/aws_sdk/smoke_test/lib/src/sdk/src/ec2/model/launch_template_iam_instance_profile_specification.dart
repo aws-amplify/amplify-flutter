@@ -68,8 +68,8 @@ abstract class LaunchTemplateIamInstanceProfileSpecification
 }
 
 class LaunchTemplateIamInstanceProfileSpecificationEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        LaunchTemplateIamInstanceProfileSpecification> {
+    extends _i2
+    .StructuredSmithySerializer<LaunchTemplateIamInstanceProfileSpecification> {
   const LaunchTemplateIamInstanceProfileSpecificationEc2QuerySerializer()
       : super('LaunchTemplateIamInstanceProfileSpecification');
 

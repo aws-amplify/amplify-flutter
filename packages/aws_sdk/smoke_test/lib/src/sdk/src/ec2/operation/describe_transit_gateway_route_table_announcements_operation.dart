@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_route_
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_route_table_announcement.dart';
 
 /// Describes one or more transit gateway route table advertisements.
-class DescribeTransitGatewayRouteTableAnnouncementsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayRouteTableAnnouncementsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayRouteTableAnnouncementsRequest,
         DescribeTransitGatewayRouteTableAnnouncementsRequest,
         DescribeTransitGatewayRouteTableAnnouncementsResult,

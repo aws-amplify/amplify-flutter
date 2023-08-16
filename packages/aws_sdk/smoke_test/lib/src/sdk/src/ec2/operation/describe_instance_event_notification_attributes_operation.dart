@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_instance_event_notific
 import 'package:smoke_test/src/sdk/src/ec2/model/describe_instance_event_notification_attributes_result.dart';
 
 /// Describes the tag keys that are registered to appear in scheduled event notifications for resources in the current Region.
-class DescribeInstanceEventNotificationAttributesOperation
-    extends _i1.HttpOperation<
+class DescribeInstanceEventNotificationAttributesOperation extends _i1
+    .HttpOperation<
         DescribeInstanceEventNotificationAttributesRequest,
         DescribeInstanceEventNotificationAttributesRequest,
         DescribeInstanceEventNotificationAttributesResult,

@@ -36,8 +36,9 @@ abstract class UpdateSecurityGroupRuleDescriptionsIngressResult
       payload;
 
   static const List<
-      _i2.SmithySerializer<
-          UpdateSecurityGroupRuleDescriptionsIngressResult>> serializers = [
+          _i2
+          .SmithySerializer<UpdateSecurityGroupRuleDescriptionsIngressResult>>
+      serializers = [
     UpdateSecurityGroupRuleDescriptionsIngressResultEc2QuerySerializer()
   ];
 

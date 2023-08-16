@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_vpn_connection_device_sampl
 import 'package:smoke_test/src/sdk/src/ec2/model/get_vpn_connection_device_sample_configuration_result.dart';
 
 /// Download an Amazon Web Services-provided sample configuration file to be used with the customer gateway device specified for your Site-to-Site VPN connection.
-class GetVpnConnectionDeviceSampleConfigurationOperation
-    extends _i1.HttpOperation<
+class GetVpnConnectionDeviceSampleConfigurationOperation extends _i1
+    .HttpOperation<
         GetVpnConnectionDeviceSampleConfigurationRequest,
         GetVpnConnectionDeviceSampleConfigurationRequest,
         GetVpnConnectionDeviceSampleConfigurationResult,

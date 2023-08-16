@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/register_instance_event_notific
 /// Registers a set of tag keys to include in scheduled event notifications for your resources.
 ///
 /// To remove tags, use [DeregisterInstanceEventNotificationAttributes](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeregisterInstanceEventNotificationAttributes.html).
-class RegisterInstanceEventNotificationAttributesOperation
-    extends _i1.HttpOperation<
+class RegisterInstanceEventNotificationAttributesOperation extends _i1
+    .HttpOperation<
         RegisterInstanceEventNotificationAttributesRequest,
         RegisterInstanceEventNotificationAttributesRequest,
         RegisterInstanceEventNotificationAttributesResult,

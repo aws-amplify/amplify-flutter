@@ -78,8 +78,8 @@ abstract class FastLaunchLaunchTemplateSpecificationResponse
 }
 
 class FastLaunchLaunchTemplateSpecificationResponseEc2QuerySerializer
-    extends _i2.StructuredSmithySerializer<
-        FastLaunchLaunchTemplateSpecificationResponse> {
+    extends _i2
+    .StructuredSmithySerializer<FastLaunchLaunchTemplateSpecificationResponse> {
   const FastLaunchLaunchTemplateSpecificationResponseEc2QuerySerializer()
       : super('FastLaunchLaunchTemplateSpecificationResponse');
 

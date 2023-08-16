@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_transit_gateway_route_
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_route_table.dart';
 
 /// Describes one or more transit gateway route tables. By default, all transit gateway route tables are described. Alternatively, you can filter the results.
-class DescribeTransitGatewayRouteTablesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTransitGatewayRouteTablesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTransitGatewayRouteTablesRequest,
         DescribeTransitGatewayRouteTablesRequest,
         DescribeTransitGatewayRouteTablesResult,

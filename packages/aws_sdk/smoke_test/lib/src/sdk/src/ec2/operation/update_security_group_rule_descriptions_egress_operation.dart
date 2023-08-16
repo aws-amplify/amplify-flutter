@@ -15,8 +15,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/update_security_group_rule_desc
 import 'package:smoke_test/src/sdk/src/ec2/model/update_security_group_rule_descriptions_egress_result.dart';
 
 /// Updates the description of an egress (outbound) security group rule. You can replace an existing description, or add a description to a rule that did not have one previously. You can remove a description for a security group rule by omitting the description parameter in the request.
-class UpdateSecurityGroupRuleDescriptionsEgressOperation
-    extends _i1.HttpOperation<
+class UpdateSecurityGroupRuleDescriptionsEgressOperation extends _i1
+    .HttpOperation<
         UpdateSecurityGroupRuleDescriptionsEgressRequest,
         UpdateSecurityGroupRuleDescriptionsEgressRequest,
         UpdateSecurityGroupRuleDescriptionsEgressResult,

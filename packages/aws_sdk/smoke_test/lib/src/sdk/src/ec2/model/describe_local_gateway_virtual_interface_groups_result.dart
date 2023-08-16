@@ -45,8 +45,9 @@ abstract class DescribeLocalGatewayVirtualInterfaceGroupsResult
       payload;
 
   static const List<
-      _i3.SmithySerializer<
-          DescribeLocalGatewayVirtualInterfaceGroupsResult>> serializers = [
+          _i3
+          .SmithySerializer<DescribeLocalGatewayVirtualInterfaceGroupsResult>>
+      serializers = [
     DescribeLocalGatewayVirtualInterfaceGroupsResultEc2QuerySerializer()
   ];
 

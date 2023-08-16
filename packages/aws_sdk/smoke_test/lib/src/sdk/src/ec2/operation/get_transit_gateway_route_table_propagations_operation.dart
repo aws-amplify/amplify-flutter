@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_route_table
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_route_table_propagation.dart';
 
 /// Gets information about the route table propagations for the specified transit gateway route table.
-class GetTransitGatewayRouteTablePropagationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayRouteTablePropagationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayRouteTablePropagationsRequest,
         GetTransitGatewayRouteTablePropagationsRequest,
         GetTransitGatewayRouteTablePropagationsResult,

@@ -19,8 +19,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/trunk_interface_association.dar
 /// This API action is currently in **limited preview only**. If you are interested in using this feature, contact your account manager.
 ///
 /// Describes one or more network interface trunk associations.
-class DescribeTrunkInterfaceAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeTrunkInterfaceAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeTrunkInterfaceAssociationsRequest,
         DescribeTrunkInterfaceAssociationsRequest,
         DescribeTrunkInterfaceAssociationsResult,

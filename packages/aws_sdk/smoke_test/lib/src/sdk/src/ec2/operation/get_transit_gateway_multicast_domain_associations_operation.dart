@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_transit_gateway_multicast_d
 import 'package:smoke_test/src/sdk/src/ec2/model/transit_gateway_multicast_domain_association.dart';
 
 /// Gets information about the associations for the transit gateway multicast domain.
-class GetTransitGatewayMulticastDomainAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetTransitGatewayMulticastDomainAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetTransitGatewayMulticastDomainAssociationsRequest,
         GetTransitGatewayMulticastDomainAssociationsRequest,
         GetTransitGatewayMulticastDomainAssociationsResult,

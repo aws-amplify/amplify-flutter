@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/describe_local_gateway_virtual_
 import 'package:smoke_test/src/sdk/src/ec2/model/local_gateway_virtual_interface.dart';
 
 /// Describes the specified local gateway virtual interfaces.
-class DescribeLocalGatewayVirtualInterfacesOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeLocalGatewayVirtualInterfacesOperation extends _i1
+    .PaginatedHttpOperation<
         DescribeLocalGatewayVirtualInterfacesRequest,
         DescribeLocalGatewayVirtualInterfacesRequest,
         DescribeLocalGatewayVirtualInterfacesResult,

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_network_insights_access_sco
 import 'package:smoke_test/src/sdk/src/ec2/model/get_network_insights_access_scope_analysis_findings_result.dart';
 
 /// Gets the findings for the specified Network Access Scope analysis.
-class GetNetworkInsightsAccessScopeAnalysisFindingsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetNetworkInsightsAccessScopeAnalysisFindingsOperation extends _i1
+    .PaginatedHttpOperation<
         GetNetworkInsightsAccessScopeAnalysisFindingsRequest,
         GetNetworkInsightsAccessScopeAnalysisFindingsRequest,
         GetNetworkInsightsAccessScopeAnalysisFindingsResult,

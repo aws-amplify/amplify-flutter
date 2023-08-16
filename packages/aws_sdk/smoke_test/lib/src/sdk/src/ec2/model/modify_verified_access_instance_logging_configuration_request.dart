@@ -14,8 +14,8 @@ part 'modify_verified_access_instance_logging_configuration_request.g.dart';
 abstract class ModifyVerifiedAccessInstanceLoggingConfigurationRequest
     with
         _i1.HttpInput<ModifyVerifiedAccessInstanceLoggingConfigurationRequest>,
-        _i2.AWSEquatable<
-            ModifyVerifiedAccessInstanceLoggingConfigurationRequest>
+        _i2
+        .AWSEquatable<ModifyVerifiedAccessInstanceLoggingConfigurationRequest>
     implements
         Built<ModifyVerifiedAccessInstanceLoggingConfigurationRequest,
             ModifyVerifiedAccessInstanceLoggingConfigurationRequestBuilder> {

@@ -17,8 +17,8 @@ import 'package:smoke_test/src/sdk/src/ec2/model/get_managed_prefix_list_associa
 import 'package:smoke_test/src/sdk/src/ec2/model/prefix_list_association.dart';
 
 /// Gets information about the resources that are associated with the specified managed prefix list.
-class GetManagedPrefixListAssociationsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetManagedPrefixListAssociationsOperation extends _i1
+    .PaginatedHttpOperation<
         GetManagedPrefixListAssociationsRequest,
         GetManagedPrefixListAssociationsRequest,
         GetManagedPrefixListAssociationsResult,
