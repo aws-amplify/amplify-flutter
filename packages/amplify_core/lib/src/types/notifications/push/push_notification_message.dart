@@ -20,13 +20,15 @@ class PushNotificationMessage
     this.data = const {},
   });
 
-  factory PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    final data = (json['data'] as Map<String, Object?>?) ?? const {};
+  factory PushNotificationMessage.fromJson(Map<String, Object?> json) {
+    final data =
+        (json['data'] as Map<Object?, Object?>?)?.cast<String, Object?>() ??
+            const {};
     switch (json) {
       // `aps` dictionary references:
       // - https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification
       // - https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html
-      case {'aps': final Map<String, Object?> aps}:
+      case {'aps': final Map<Object?, Object?> aps}:
         final title = switch (aps) {
           {'alert': final String alert} => alert,
           {'alert': {'title': final String title}} => title,
