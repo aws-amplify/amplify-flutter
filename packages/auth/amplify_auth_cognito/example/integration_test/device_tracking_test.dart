@@ -68,13 +68,9 @@ void main() {
           autoConfirm: true,
           verifyAttributes: true,
           enableMfa: enableMfa,
-          attributes: [
-            if (emailAlias)
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.email,
-                value: username!,
-              ),
-          ],
+          attributes: {
+            if (emailAlias) AuthUserAttributeKey.email: username!,
+          },
         );
         if (emailAlias) {
           expect(
@@ -84,7 +80,7 @@ void main() {
                 'as the username',
           );
         }
-        addTearDown(() async {
+        addTearDown(() {
           username = null;
           password = null;
         });

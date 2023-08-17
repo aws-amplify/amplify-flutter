@@ -34,12 +34,9 @@ void main() {
         phoneNumber.toE164(),
         password,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: phoneNumber.toE164(),
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
+        },
       );
     });
 

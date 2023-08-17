@@ -38,6 +38,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   io: ^1.0.0
+  otp: ^3.1.4
   stack_trace: ^1.10.0
   test: ^1.22.1
   webdriver: ^3.0.0
