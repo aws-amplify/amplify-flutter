@@ -147,7 +147,7 @@ class CpkHasOneUnidirectionalChild extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
+      .QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasOneUnidirectionalChildModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

@@ -186,7 +186,7 @@ class MultiRelatedRegistration extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
+      .QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           MultiRelatedRegistrationModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

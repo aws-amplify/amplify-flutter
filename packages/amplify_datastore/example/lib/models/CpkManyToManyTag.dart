@@ -171,8 +171,7 @@ class CpkManyToManyTag extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkManyToManyTagModelIdentifier>
-      MODEL_IDENTIFIER =
+      .QueryModelIdentifier<CpkManyToManyTagModelIdentifier> MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkManyToManyTagModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final LABEL = amplify_core.QueryField(fieldName: "label");

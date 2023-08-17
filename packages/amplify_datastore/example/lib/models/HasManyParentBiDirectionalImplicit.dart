@@ -176,9 +176,9 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          HasManyParentBiDirectionalImplicitModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<
+  static final amplify_core
+      .QueryModelIdentifier<HasManyParentBiDirectionalImplicitModelIdentifier>
+      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           HasManyParentBiDirectionalImplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");

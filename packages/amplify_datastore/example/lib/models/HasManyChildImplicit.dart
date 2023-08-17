@@ -164,7 +164,7 @@ class HasManyChildImplicit extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<HasManyChildImplicitModelIdentifier>
+      .QueryModelIdentifier<HasManyChildImplicitModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasManyChildImplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
