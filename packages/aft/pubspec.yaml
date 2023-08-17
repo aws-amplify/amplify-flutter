@@ -31,6 +31,8 @@ dependencies:
   path: any
   pub_api_client: ^2.4.0
   pub_semver: ^2.1.1
+  pub_server:
+    path: ../test/pub_server
   pubspec_parse: ^1.2.0
   shelf: ^1.4.0
   shelf_static: ^1.1.1
