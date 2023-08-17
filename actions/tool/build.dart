@@ -37,7 +37,8 @@ Future<void> main() async {
 
   for (final (:entrypoint, :yaml) in actions) {
     final actionName = p.basenameWithoutExtension(entrypoint.path);
-    final outputDir = Directory(p.join(actionsDir.path, actionName));
+    final outputDir = Directory(p.join(actionsDir.path, actionName))
+      ..createSync();
 
     // Copy YAML as `action.yaml`
     yaml.copySync(p.join(outputDir.path, 'action.yaml'));
