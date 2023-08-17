@@ -170,6 +170,15 @@ class AuthenticatorState extends ChangeNotifier {
     return null;
   }
 
+  Uri expectTotpUri() {
+    final totpUri = totpSetupUri;
+    assert(
+      totpUri != null,
+      'Expected TOTP setup uri in state for current screen, instead got null',
+    );
+    return totpUri!;
+  }
+
   /// The publicChallengeParameters received from the CreateAuthChallenge lambda during custom auth
   ///
   /// This value will be used during the custom auth challenge flow

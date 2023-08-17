@@ -10,15 +10,7 @@ mixin TotpQrCode<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   /// Retrieves the TOTP setup uri from the state
-  Uri get totpUri {
-    final totpUri = state.totpSetupUri;
-
-    assert(
-      totpUri != null,
-      'Expected TOTP setup uri in state for current screen, instead got $totpUri',
-    );
-    return totpUri!;
-  }
+  Uri get totpUri => state.expectTotpUri();
 
   @override
   Widget buildFormField(BuildContext context) {
@@ -37,7 +29,7 @@ mixin TotpQrCode<FieldType extends Enum,
         const SizedBox(height: 20),
         Center(
           child: QrImageView(
-            size: 150,
+            size: 200,
             padding: EdgeInsets.zero,
             eyeStyle:
                 QrEyeStyle(color: isDarkMode ? Colors.white : Colors.black),

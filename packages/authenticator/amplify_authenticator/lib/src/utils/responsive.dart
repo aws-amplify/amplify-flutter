@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 bool isMobileOrWebMobile(BuildContext context) {
   final mobile = isMobile(context);
   final isWebMobile = kIsWeb && mobile;
-  return mobile || isWebMobile;
+  return isWebMobile || mobile;
 }
 
 /// Returns true if the current platform is mobile/tablets.
