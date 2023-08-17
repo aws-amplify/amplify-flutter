@@ -1,0 +1,5 @@
+name: Set up ChromeDriver
+description: Installs ChromeDriver for the current Chrome version and platform
+runs:
+  using: "node16"
+  main: "dist/index.mjs"
