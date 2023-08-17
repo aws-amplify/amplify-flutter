@@ -119,17 +119,11 @@ class ContinueSignInTotpSetup extends UnauthenticatedState {
     TotpSetupDetails totpSetupDetails,
     TotpOptions? totpOptions,
   ) async {
-    Uri setupUri;
-
-    if (totpOptions?.issuer != null) {
-      setupUri = totpSetupDetails.getSetupUri(appName: totpOptions!.issuer!);
-    } else {
-      // TODO(equartey): Remove this once we have our own method of getting the app name
-      final packageInfo = await PackageInfo.fromPlatform();
-      setupUri = totpSetupDetails.getSetupUri(
-        appName: packageInfo.appName,
-      );
-    }
+    final setupUri = totpSetupDetails.getSetupUri(
+      appName: totpOptions?.issuer ??
+          // TODO(equartey): Update this once we have our own method of getting the app name
+          (await PackageInfo.fromPlatform()).appName,
+    );
 
     return ContinueSignInTotpSetup(
       totpSetupDetails,

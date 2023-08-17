@@ -11,17 +11,6 @@ import 'package:flutter/services.dart';
 mixin TotpCopyKey<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
-  /// Retrieves the TOTP setup uri from the state
-  Uri get totpUri {
-    final totpUri = state.totpSetupUri;
-
-    assert(
-      totpUri != null,
-      'Expected TOTP setup uri in state for current screen, instead got $totpUri',
-    );
-    return totpUri!;
-  }
-
   /// Copies the TOTP key to the clipboard
   Future<void> _copyKey() async {
     try {
@@ -77,11 +66,18 @@ mixin TotpCopyKey<FieldType extends Enum,
           onPressed: _copyKey,
           icon: const Icon(Icons.copy),
           label: Center(
-            child: Text(
-              stringResolver.buttons.resolve(
-                context,
-                ButtonResolverKey.totpCopyKey,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  stringResolver.buttons.resolve(
+                    context,
+                    ButtonResolverKey.totpCopyKey,
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ],
             ),
           ),
         ),
