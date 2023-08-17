@@ -251,6 +251,81 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       {
         associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-sms",
+        mfaConfiguration: {
+          SMSMfaSettings: {
+            Enabled: true
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-sms",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SMSMfaSettings: {
+            Enabled: true
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-totp",
+        mfaConfiguration: {
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-totp",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-sms-totp",
+        mfaConfiguration: {
+          SMSMfaSettings: {
+            Enabled: true,
+          },
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-sms-totp",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SMSMfaSettings: {
+            Enabled: true,
+          },
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },
