@@ -31,7 +31,8 @@ Future<void> run(List<String> args) async {
     ..addCommand(CreateCommand())
     ..addCommand(SaveRepoStateCommand())
     ..addCommand(RunCommand())
-    ..addCommand(DocsCommand());
+    ..addCommand(DocsCommand())
+    ..addCommand(ServeCommand());
 
   try {
     final argResults = runner.argParser.parse(args);

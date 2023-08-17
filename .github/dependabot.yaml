@@ -74,6 +74,7 @@ updates:
           - "version-update:semver-patch"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
+      - dependency-name: "pub_server"
       - dependency-name: "smithy"
       - dependency-name: "smithy_codegen"
       - dependency-name: "aws_signature_v4"
@@ -1414,6 +1415,17 @@ updates:
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
+  - package-ecosystem: "pub"
+    directory: "packages/test/pub_server"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
     directory: "packages/worker_bee/e2e"
     schedule:

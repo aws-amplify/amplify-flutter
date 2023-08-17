@@ -8,9 +8,10 @@
 # Use `-check` option to verify header presence.
 #
 
-set -eo pipefail
+set -o pipefail
 
-if ! command -v addlicense &>/dev/null ; then
+ADDLICENSE=$(command -v addlicense)
+if [[ $? -ne 0 ]] ; then
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         OS=Linux
     elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -20,7 +21,10 @@ if ! command -v addlicense &>/dev/null ; then
         exit 1
     fi
 
-    VERSION=1.1.0
+    TMP_DIR=$(mktemp -d)
+    pushd $TMP_DIR
+
+    VERSION=1.1.1
     FILENAME=addlicense_${VERSION}_${OS}_x86_64.tar.gz
     CHECKSUMS=checksums.txt
     curl -L -o ${FILENAME} https://github.com/google/addlicense/releases/download/v${VERSION}/${FILENAME}
@@ -29,10 +33,12 @@ if ! command -v addlicense &>/dev/null ; then
 
     tar -xzf ${FILENAME}
     chmod +x addlicense
-    mv addlicense /usr/local/bin
+    ADDLICENSE=$TMP_DIR/addlicense
+
+    popd
 fi
 
-addlicense -l apache \
+$ADDLICENSE -l apache \
     -c "Amazon.com, Inc. or its affiliates. All Rights Reserved." \
     -s=only \
     -y="" \
