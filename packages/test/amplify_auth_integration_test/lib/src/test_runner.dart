@@ -19,15 +19,21 @@ final AWSLogger _logger = AWSLogger().createChild('AuthTestRunner');
 const List<String> userPoolEnvironments = [
   'main',
   'user-pool-only',
-  'with-client-secret'
+  'with-client-secret',
 ];
 
 /// Environments with a user pool and opt-in device tracking.
 const List<String> deviceOptInEnvironments = [
   'device-tracking-opt-in',
   'user-pool-only',
-  'with-client-secret'
+  'with-client-secret',
 ];
+
+/// A test environment descriptor.
+abstract interface class TestEnvironment {
+  /// The name of the environment in the backend.
+  String get environmentName;
+}
 
 /// {@template amplify_auth_integration_test.auth_test_runner}
 /// A test-runner for Auth integration tests.
@@ -124,11 +130,25 @@ class AuthTestRunner {
     }
     return 'No config found for "$environmentName"';
   }
+
+  /// Runs [body] in a [group] which configures [environment].
+  void withEnvironment(TestEnvironment environment, void Function() body) {
+    group(environment.environmentName, () {
+      setUp(() async {
+        await configure(environmentName: environment.environmentName);
+      });
+
+      body();
+    });
+  }
 }
 
 /// Signs out a user if one is signed in.
-Future<void> signOutUser() async {
+Future<void> signOutUser({bool assertComplete = false}) async {
   final result = await Amplify.Auth.signOut() as CognitoSignOutResult;
+  if (assertComplete) {
+    expect(result, isA<CognitoCompleteSignOut>());
+  }
   switch (result) {
     case CognitoCompleteSignOut _:
       _logger.debug('Successfully signed out user');

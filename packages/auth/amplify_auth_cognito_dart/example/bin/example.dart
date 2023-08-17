@@ -6,16 +6,34 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:args/args.dart';
 import 'package:cognito_example/common.dart';
+import 'package:cognito_example/qr_code.dart';
+import 'package:qr/qr.dart';
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   AWSLogger().logLevel = LogLevel.debug;
+
+  final argParser = ArgParser()
+    ..addOption(
+      'environment',
+      abbr: 'e',
+      help: 'The Amplify environment to configure',
+      defaultsTo: 'main',
+    );
+
+  final argResults = argParser.parse(args);
+  final environmentName = argResults['environment'] as String;
+
   try {
-    await configure();
+    await configure(environmentName: environmentName);
   } on Exception catch (e) {
     stderr.writeln('Could not configure: $e');
     exit(1);
   }
+
+  await signOut(globalSignOut: false);
+
   final username = prompt(
     'Enter your username (or type "hosted" to login with Hosted UI): ',
   );
@@ -110,10 +128,43 @@ Future<SignInResult> _processSignInResult(
   required String username,
   required String password,
 }) async {
-  final nextStep = result.nextStep.signInStep;
+  final nextStep = result.nextStep;
+  final signInStep = nextStep.signInStep;
   final missingAttributes =
-      result.nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
-  switch (nextStep) {
+      nextStep.missingAttributes.cast<CognitoUserAttributeKey>();
+  switch (signInStep) {
+    case AuthSignInStep.continueSignInWithMfaSelection:
+      while (true) {
+        final smsOrTotp =
+            prompt('Which MFA method would you prefer (SMS/TOTP)? ');
+        if (MfaType.values
+            .map((t) => t.name)
+            .contains(smsOrTotp.toLowerCase())) {
+          return confirmSignIn(smsOrTotp);
+        }
+      }
+    case AuthSignInStep.continueSignInWithTotpSetup:
+      final setupUri =
+          nextStep.totpSetupDetails!.getSetupUri(appName: 'AuthExample');
+      final qrCode = QrCode.fromData(
+        data: setupUri.toString(),
+        errorCorrectLevel: QrErrorCorrectLevel.L,
+      );
+      final qrImage = QrImage(qrCode);
+      stdout
+        ..writeln('Scan the QR code with an authenticator app:')
+        ..writeln(qrImage.renderConsoleText())
+        ..writeln();
+      final mfaCode = prompt('Enter an MFA code to confirm registration: ');
+      return confirmSignIn(mfaCode);
+    case AuthSignInStep.confirmSignInWithTotpMfaCode:
+      final mfaCode = prompt(
+        switch (nextStep.codeDeliveryDetails?.destination) {
+          final deviceName? => 'Enter an MFA code (sent to "$deviceName"): ',
+          _ => 'Enter an MFA code (sent to registered authenticator app): ',
+        },
+      );
+      return confirmSignIn(mfaCode);
     case AuthSignInStep.confirmSignInWithSmsMfaCode:
     case AuthSignInStep.confirmSignInWithCustomChallenge:
       final confirmationCode = prompt('Enter your confirmation code: ');
@@ -145,8 +196,8 @@ Future<SignInResult> _processSignInResult(
       );
       stdout.writeln(confirmResult);
       return signIn(username: username, password: password);
-    default:
-      throw StateError('Unhandled case: $nextStep');
+    case final unhandledStep:
+      throw StateError('Unhandled step: $unhandledStep');
   }
 }
 
