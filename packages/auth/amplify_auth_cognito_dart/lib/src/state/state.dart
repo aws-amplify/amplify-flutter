@@ -18,4 +18,5 @@ export 'machines/hosted_ui_state_machine.dart';
 export 'machines/sign_in_state_machine.dart';
 export 'machines/sign_out_state_machine.dart';
 export 'machines/sign_up_state_machine.dart';
+export 'machines/totp_setup_state_machine.dart';
 export 'state/auth_state.dart';

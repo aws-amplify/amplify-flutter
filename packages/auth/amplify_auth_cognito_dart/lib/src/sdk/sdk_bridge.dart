@@ -6,11 +6,13 @@
 library amplify_auth_cognito.sdk.sdk_bridge;
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
+    hide InvalidParameterException;
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    hide InvalidParameterException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_core/amplify_core.dart'
-    show AmplifyHttpClient, AuthenticationFlowType, DependencyManager;
+    show AmplifyHttpClient, AuthenticationFlowType, DependencyManager, MfaType;
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
@@ -24,13 +26,16 @@ extension ChallengeNameTypeBridge on ChallengeNameType {
         ChallengeNameType.newPasswordRequired =>
           AuthSignInStep.confirmSignInWithNewPassword,
         ChallengeNameType.smsMfa => AuthSignInStep.confirmSignInWithSmsMfaCode,
+        ChallengeNameType.selectMfaType =>
+          AuthSignInStep.continueSignInWithMfaSelection,
+        ChallengeNameType.mfaSetup =>
+          AuthSignInStep.continueSignInWithTotpSetup,
+        ChallengeNameType.softwareTokenMfa =>
+          AuthSignInStep.confirmSignInWithTotpMfaCode,
         ChallengeNameType.adminNoSrpAuth ||
-        ChallengeNameType.selectMfaType ||
         ChallengeNameType.passwordVerifier ||
         ChallengeNameType.devicePasswordVerifier ||
         ChallengeNameType.deviceSrpAuth ||
-        ChallengeNameType.mfaSetup ||
-        ChallengeNameType.softwareTokenMfa ||
         _ =>
           throw InvalidStateException('Unrecognized challenge type: $this'),
       };
@@ -726,4 +731,153 @@ class WrappedCognitoIdentityProviderClient
       responseProgress: operation.responseProgress,
     );
   }
+
+  @override
+  SmithyOperation<SetUserMfaPreferenceResponse> setUserMfaPreference(
+    SetUserMfaPreferenceRequest input, {
+    AWSHttpClient? client,
+    AWSCredentialsProvider? credentialsProvider,
+  }) {
+    final operation = _base.setUserMfaPreference(
+      input,
+      client: client ?? _dependencyManager.getOrCreate<AmplifyHttpClient>(),
+      credentialsProvider: credentialsProvider,
+    );
+    return SmithyOperation(
+      operation.operation.then(
+        (res) => res,
+        onError: (e, st) {
+          Error.throwWithStackTrace(transformSdkException(e), st);
+        },
+      ),
+      operationName: operation.runtimeTypeName,
+      requestProgress: operation.requestProgress,
+      responseProgress: operation.responseProgress,
+    );
+  }
+}
+
+/// Get/set helpers for MFA settings.
+extension MfaSettings on CognitoIdentityProviderClient {
+  Future<UserMfaPreference> _getRawUserSettings({
+    required String accessToken,
+  }) async {
+    final user = await getUser(
+      GetUserRequest(accessToken: accessToken),
+    ).result;
+    final enabled = <MfaType>{
+      ...?user.userMfaSettingList?.map((setting) => setting.mfaType),
+    };
+    return UserMfaPreference(
+      enabled: enabled,
+      preferred: user.preferredMfaSetting?.mfaType,
+    );
+  }
+
+  /// Returns the current MFA settings of the user.
+  Future<UserMfaPreference> getMfaSettings({
+    required String accessToken,
+  }) async {
+    final UserMfaPreference(:enabled, :preferred) = await _getRawUserSettings(
+      accessToken: accessToken,
+    );
+    return UserMfaPreference(
+      enabled: enabled,
+      // The user preference or the only option.
+      //
+      // When only one MFA type is enabled, it is logically the preferred option
+      // since we take the preferred option to be the one which will be automatically
+      // selected on login.
+      preferred: preferred ?? enabled.singleOrNull,
+    );
+  }
+
+  /// Sets the MFA settings for the user.
+  Future<void> setMfaSettings({
+    required String accessToken,
+    MfaPreference? sms,
+    MfaPreference? totp,
+  }) async {
+    final UserMfaPreference(
+      enabled: currentEnabled,
+      preferred: currentPreference
+    ) = await _getRawUserSettings(
+      accessToken: accessToken,
+    );
+    const enabledValues = [
+      MfaPreference.enabled,
+      MfaPreference.notPreferred,
+      MfaPreference.preferred,
+    ];
+    bool isEnabled(MfaType mfaType) {
+      final explicitlyDisabled = switch (mfaType) {
+        MfaType.sms => sms == MfaPreference.disabled,
+        MfaType.totp => totp == MfaPreference.disabled,
+      };
+      if (explicitlyDisabled) {
+        return false;
+      }
+      final currentlyEnabled = currentEnabled.contains(mfaType);
+      final requestingEnabled = switch (mfaType) {
+        MfaType.sms => enabledValues.contains(sms),
+        MfaType.totp => enabledValues.contains(totp),
+      };
+      return currentlyEnabled || requestingEnabled;
+    }
+
+    final preferred = switch ((currentPreference, sms: sms, totp: totp)) {
+      // Prevent an invalid choice.
+      (_, sms: MfaPreference.preferred, totp: MfaPreference.preferred) =>
+        throw const InvalidParameterException(
+          'Cannot assign both SMS and TOTP as preferred',
+        ),
+
+      // Setting one or the other as preferred overrides previous value.
+      (_, sms: MfaPreference.preferred, totp: != MfaPreference.preferred) =>
+        MfaType.sms,
+      (_, sms: != MfaPreference.preferred, totp: MfaPreference.preferred) =>
+        MfaType.totp,
+
+      // Setting one or the other as disabled or not preferred removes current
+      // preference if it matches.
+      (
+        MfaType.sms,
+        sms: MfaPreference.notPreferred || MfaPreference.disabled,
+        totp: _,
+      ) ||
+      (
+        MfaType.totp,
+        sms: _,
+        totp: MfaPreference.notPreferred || MfaPreference.disabled,
+      ) =>
+        null,
+
+      // Ignore preference changes which do not affect the current preference.
+      (final currentPreference, sms: _, totp: _) => currentPreference,
+    };
+    final smsMfaSettings = SmsMfaSettingsType(
+      enabled: isEnabled(MfaType.sms),
+      preferredMfa: preferred == MfaType.sms,
+    );
+    final softwareTokenSettings = SoftwareTokenMfaSettingsType(
+      enabled: isEnabled(MfaType.totp),
+      preferredMfa: preferred == MfaType.totp,
+    );
+    await setUserMfaPreference(
+      SetUserMfaPreferenceRequest(
+        accessToken: accessToken,
+        smsMfaSettings: smsMfaSettings,
+        softwareTokenMfaSettings: softwareTokenSettings,
+      ),
+    ).result;
+  }
+}
+
+extension on String {
+  /// The [MfaType] representing `this`.
+  MfaType get mfaType => switch (this) {
+        'SOFTWARE_TOKEN_MFA' => MfaType.totp,
+        'SMS_MFA' => MfaType.sms,
+        final invalidType => throw StateError('Invalid MFA type: $invalidType'),
+      };
 }
