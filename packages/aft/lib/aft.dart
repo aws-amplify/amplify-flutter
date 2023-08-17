@@ -15,6 +15,7 @@ export 'src/commands/link_command.dart';
 export 'src/commands/list_packages_command.dart';
 export 'src/commands/publish_command.dart';
 export 'src/commands/run_command.dart';
+export 'src/commands/serve_command.dart';
 export 'src/commands/version_bump_command.dart';
 export 'src/models.dart';
 export 'src/pub/pub_runner.dart';
