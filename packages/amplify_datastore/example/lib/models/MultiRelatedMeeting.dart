@@ -174,7 +174,7 @@ class MultiRelatedMeeting extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>
+      .QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<MultiRelatedMeetingModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
