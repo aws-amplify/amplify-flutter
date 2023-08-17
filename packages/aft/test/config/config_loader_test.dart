@@ -29,6 +29,7 @@ dependencies:
       final rootDirectory = p.normalize(d.path('repo'));
       final workingDirectory = rootDirectory;
       final configLoader = AftConfigLoader(
+        rootPackageName: 'my_repo',
         workingDirectory: Directory(workingDirectory),
       );
       check(configLoader.load).returnsNormally()
@@ -87,8 +88,8 @@ aft:
         d.dir('packages', [
           d.dir('my_pkg', [
             d.file('pubspec.yaml', packagePubspec),
-          ])
-        ])
+          ]),
+        ]),
       ]).create();
 
       final rootDirectory = p.normalize(d.path('repo'));
@@ -96,6 +97,7 @@ aft:
         d.path('repo/packages/my_pkg'),
       );
       final configLoader = AftConfigLoader(
+        rootPackageName: 'my_repo',
         workingDirectory: Directory(workingDirectory),
       );
       check(configLoader.load).returnsNormally()

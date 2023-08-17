@@ -78,8 +78,21 @@ abstract class AmplifyCommand extends Command<void>
     return Directory(directory);
   }();
 
+  /// The override for the Amplify Flutter root directory.
+  ///
+  /// Useful for running commands `aft link` from outside the repo.
+  ///
+  /// **NOTE**: Not all commands support this.
+  late final _rootDirectoryOverride = () {
+    if (argParser.findByNameOrAlias('root') != null) {
+      return argResults?['root'] as String?;
+    }
+    return null;
+  }();
+
   late final AftConfigLoader aftConfigLoader = AftConfigLoader(
     workingDirectory: workingDirectory,
+    rootDirectoryOverride: _rootDirectoryOverride,
   );
 
   /// The processed `aft` configuration for the repo with packages and

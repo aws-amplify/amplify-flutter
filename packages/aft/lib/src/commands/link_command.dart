@@ -13,6 +13,16 @@ import 'package:yaml_edit/yaml_edit.dart';
 /// Command to link all Dart/Flutter packages in the repo together using
 /// `pubspec_overrides.yaml`.
 class LinkCommand extends AmplifyCommand {
+  LinkCommand() {
+    argParser.addOption(
+      'root',
+      abbr: 'r',
+      help:
+          'The root of the Amplify Flutter repo. Defaults to automatic determination '
+          'but must be set when linking outside the repo.',
+    );
+  }
+
   @override
   String get description => 'Links all packages in the Amplify Flutter repo';
 
@@ -115,7 +125,12 @@ extension LinkPackages on AmplifyCommand {
   /// Links [commandPackages] together using `pubspec_overrides.yaml`.
   Future<void> linkPackages() async {
     final futureGroup = FutureGroup<void>();
-    for (final package in repoPackages.values) {
+    final packagesToLink = [
+      ...repoPackages.values,
+      if (!path.isWithin(rootDir.path, workingDirectory.path))
+        PackageInfo.fromDirectory(workingDirectory)!,
+    ];
+    for (final package in packagesToLink) {
       final dependencyPaths = _collectDependencies(package, repoPackages);
       futureGroup.add(
         _createPubspecOverride(
