@@ -147,12 +147,9 @@ void main() {
           password,
           autoConfirm: false,
           autoFillAttributes: false,
-          attributes: [
-            AuthUserAttribute(
-              userAttributeKey: AuthUserAttributeKey.phoneNumber,
-              value: phoneNumber,
-            ),
-          ],
+          attributes: {
+            AuthUserAttributeKey.phoneNumber: phoneNumber,
+          },
         );
 
         final signInRes = await Amplify.Auth.signIn(

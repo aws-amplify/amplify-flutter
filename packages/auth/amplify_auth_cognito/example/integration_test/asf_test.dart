@@ -85,16 +85,10 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
-            value: email,
-          ),
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-            value: phoneNumber,
-          ),
-        ],
+        attributes: {
+          CognitoUserAttributeKey.email: email,
+          CognitoUserAttributeKey.phoneNumber: phoneNumber,
+        },
       );
 
       final signInResult = await Amplify.Auth.signIn(
@@ -114,16 +108,10 @@ void main() {
         autoConfirm: true,
         verifyAttributes: true,
         enableMfa: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
-            value: email,
-          ),
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-            value: phoneNumber,
-          ),
-        ],
+        attributes: {
+          CognitoUserAttributeKey.email: email,
+          CognitoUserAttributeKey.phoneNumber: phoneNumber,
+        },
       );
 
       final signInCode = await getOtpCode(
@@ -156,16 +144,10 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
-            value: email,
-          ),
-          AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-            value: phoneNumber,
-          ),
-        ],
+        attributes: {
+          CognitoUserAttributeKey.email: email,
+          CognitoUserAttributeKey.phoneNumber: phoneNumber,
+        },
       );
 
       final signInResult = await Amplify.Auth.signIn(

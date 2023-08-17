@@ -86,12 +86,9 @@ void main() {
             autoConfirm: true,
             verifyAttributes: true,
             enableMfa: true,
-            attributes: [
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.phoneNumber,
-                value: username,
-              ),
-            ],
+            attributes: {
+              AuthUserAttributeKey.phoneNumber: username,
+            },
           );
 
           final code = await getOtpCode(
