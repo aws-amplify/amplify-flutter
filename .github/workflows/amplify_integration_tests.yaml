@@ -163,7 +163,7 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - uses: nanasess/setup-chromedriver@69cc01d772a1595b8aee87d52f53e71b3904d9d0 # 2.1.2
+      - uses: ./.github/composite_actions/setup_chromedriver
 
       - name: Run integration tests
         timeout-minutes: 60

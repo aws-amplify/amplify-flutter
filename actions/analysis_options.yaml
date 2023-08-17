@@ -5,3 +5,5 @@ analyzer:
     public_member_api_docs: ignore
   enable-experiment:
     - inline-class
+  exclude:
+    - "**/*.g.dart"
