@@ -1,3 +1,8 @@
+## 1.3.3
+
+### Fixes
+- fix(auth): Pass `deviceKey` in custom auth challenge
+
 ## 1.3.2
 
 - Minor bug fixes and improvements

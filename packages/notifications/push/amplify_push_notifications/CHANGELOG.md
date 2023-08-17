@@ -1,3 +1,8 @@
+## 1.3.3
+
+### Fixes
+- fix(push): Deserialization from platform maps ([#3557](https://github.com/aws-amplify/amplify-flutter/pull/3557))
+
 ## 1.3.2
 
 ### Fixes
