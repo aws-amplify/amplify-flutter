@@ -10,6 +10,15 @@ environment:
 
 dependencies:
   amplify_core: ">=1.2.0 <1.3.0"
+  amplify_db_common_dart: ">=0.3.0+1 <0.4.0"
+  aws_common: ">=0.5.0+2 <0.6.0"
+  # fix this
+  aws_logging_cloudwatch:
+    path: ../aws_logging_cloudwatch
+  collection: ^1.15.0
+  # was supposed to be 2.11
+  drift: ">=2.9.0 <2.12.0"
+  meta: ^1.7.0
 
 dev_dependencies:
   amplify_lints: ^2.0.0
