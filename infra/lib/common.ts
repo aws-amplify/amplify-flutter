@@ -23,6 +23,10 @@ export interface IntegrationTestStackEnvironmentProps
   environmentName: string;
 }
 
+export type Mutable<T> = {
+  -readonly [P in keyof T]: T[P]
+};
+
 export abstract class IntegrationTestStack<
   EnvironmentProps extends IntegrationTestStackEnvironmentProps,
   Environment extends IntegrationTestStackEnvironment<EnvironmentProps>
