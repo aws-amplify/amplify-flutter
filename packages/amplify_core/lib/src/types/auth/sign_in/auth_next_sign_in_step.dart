@@ -14,6 +14,8 @@ class AuthNextSignInStep extends AuthNextStep
     super.codeDeliveryDetails,
     required this.signInStep,
     this.missingAttributes = const [],
+    this.allowedMfaTypes,
+    this.totpSetupDetails,
   });
 
   factory AuthNextSignInStep.fromJson(Map<String, Object?> json) =>
@@ -28,10 +30,24 @@ class AuthNextSignInStep extends AuthNextStep
   /// `Amplify.Auth.confirmSignIn` call.
   final List<AuthUserAttributeKey> missingAttributes;
 
+  /// The allowed MFA types.
+  ///
+  /// This is non-null when the sign-in step requires an MFA method
+  /// to be selected ([AuthSignInStep.continueSignInWithMfaSelection]).
+  final Set<MfaType>? allowedMfaTypes;
+
+  /// {@macro amplify_core.auth.totp_secret_code}
+  ///
+  /// This is non-null when the sign-in step requires association of a TOTP
+  /// authenticator ([AuthSignInStep.continueSignInWithTotpSetup]).
+  final TotpSetupDetails? totpSetupDetails;
+
   @override
   List<Object?> get props => [
         signInStep,
         missingAttributes,
+        allowedMfaTypes,
+        totpSetupDetails,
       ];
 
   @override
