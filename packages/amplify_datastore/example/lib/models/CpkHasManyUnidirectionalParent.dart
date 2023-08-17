@@ -224,7 +224,7 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkHasManyUnidirectionalParentModelIdentifier>
+      .QueryModelIdentifier<CpkHasManyUnidirectionalParentModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasManyUnidirectionalParentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

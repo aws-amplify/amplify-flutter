@@ -799,7 +799,7 @@ class ModelWithAppsyncScalarTypes extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>
+      .QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           ModelWithAppsyncScalarTypesModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

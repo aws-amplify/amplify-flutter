@@ -343,7 +343,7 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkOneToOneBidirectionalParentCDModelIdentifier>
+      .QueryModelIdentifier<CpkOneToOneBidirectionalParentCDModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkOneToOneBidirectionalParentCDModelIdentifier>();
   static final CUSTOMID = amplify_core.QueryField(fieldName: "customId");

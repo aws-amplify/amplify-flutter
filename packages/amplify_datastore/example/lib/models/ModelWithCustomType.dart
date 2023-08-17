@@ -189,7 +189,7 @@ class ModelWithCustomType extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
+      .QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
