@@ -17,6 +17,9 @@ enum DeliveryMedium {
   /// The item was delivered to a registered phone number via SMS.
   sms,
 
+  /// The item was delivered to a registered OTP authenticator.
+  totp,
+
   /// The item was delivered to an unknown destination.
   unknown,
 }
