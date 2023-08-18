@@ -35,8 +35,8 @@ final class SignUpStateMachine
     return cognitoIdp;
   }
 
-  AWSAuthUserPoolConfig get _userPoolConfig {
-    final userPoolConfig = get<AWSAuthUserPoolConfig>();
+  AuthUserPoolConfig get _userPoolConfig {
+    final userPoolConfig = get<AuthUserPoolConfig>();
     if (userPoolConfig == null) {
       throw const InvalidAccountTypeException.noUserPool();
     }

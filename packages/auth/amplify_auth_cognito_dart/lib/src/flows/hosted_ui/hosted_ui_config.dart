@@ -4,8 +4,8 @@
 import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 
-/// Configuration helpers for [AWSAuthUserPoolConfig].
-extension HostedUiJwks on AWSAuthUserPoolConfig {
+/// Configuration helpers for [AuthUserPoolConfig].
+extension HostedUiJwks on AuthUserPoolConfig {
   /// The JSON Web Key (JWK) URI.
   ///
   /// References:
@@ -18,7 +18,7 @@ extension HostedUiJwks on AWSAuthUserPoolConfig {
 /// Configuration helpers for [CognitoOAuthConfig].
 ///
 /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
-extension HostedUiConfig on AWSAuthHostedUiConfig {
+extension HostedUiConfig on AuthHostedUiConfig {
   /// The parsed [domainName] URI.
   ///
   /// If [domainName] specifies a scheme, it is honored in requests in the same

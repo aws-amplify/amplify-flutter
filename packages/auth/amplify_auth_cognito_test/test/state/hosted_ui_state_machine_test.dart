@@ -94,7 +94,7 @@ void main() {
         ..addInstance<Dispatcher<AuthEvent, AuthState>>(
           const MockDispatcher(),
         )
-        ..addInstance<AWSAuthHostedUiConfig>(hostedUiConfig);
+        ..addInstance<AuthHostedUiConfig>(hostedUiConfig);
 
       final platform = stateMachine.create<HostedUiPlatform>();
       final authorizationUri = await platform.getSignInUri();

@@ -55,7 +55,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   /// The [S3PluginConfig] of the [AmplifyStorageS3Dart] plugin.
   @protected
-  late final AWSStorageS3Bucket s3pluginConfig;
+  late final StorageS3Bucket s3pluginConfig;
 
   S3PrefixResolver? _prefixResolver;
 
@@ -78,7 +78,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     if (s3PluginConfig == null) {
       throw ConfigurationError('No Storage S3 plugin config detected.');
     }
-    final singleBucket = s3PluginConfig.buckets.values.singleOrNull;
+    final singleBucket = s3PluginConfig.buckets.singleOrNull;
     if (singleBucket == null) {
       throw ConfigurationError('Multiple buckets are not supported');
     }

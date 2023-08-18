@@ -13,7 +13,7 @@ import 'package:meta/meta.dart';
 @internal
 Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
-  required AWSApiEndpointConfig endpointConfig,
+  required ApiEndpointConfig endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
   APIAuthorizationType? authorizationMode,
 }) async {

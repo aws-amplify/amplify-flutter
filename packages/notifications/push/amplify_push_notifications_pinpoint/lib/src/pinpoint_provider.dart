@@ -55,13 +55,13 @@ class PinpointProvider implements ServiceProviderClient {
 
   @override
   Future<void> init({
-    required AWSPushNotificationsConfig config,
+    required PushNotificationsConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
     @visibleForTesting AnalyticsClient? analyticsClient,
   }) async {
     try {
       final pinpointConfig = switch (config) {
-        AWSPushNotificationsConfigPinpoint$(:final pinpoint) => pinpoint,
+        PushNotificationsConfigPinpoint$(:final pinpoint) => pinpoint,
         _ => throw ArgumentError(
             'Invalid Pinpoint notifications config: $config',
           ),

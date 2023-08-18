@@ -14,7 +14,7 @@ import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' hide AuthConfig;
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
@@ -36,8 +36,8 @@ void main() {
 
     test('can change flow at runtime', () async {
       final config = AWSAmplifyConfig(
-        auth: AWSAuthConfig.cognito(
-          userPool: AWSAuthUserPoolConfig(
+        auth: AuthConfig.cognito(
+          userPool: AuthUserPoolConfig(
             poolId: testUserPoolId,
             clientId: testAppClientId,
             region: testRegion,

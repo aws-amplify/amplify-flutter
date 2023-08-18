@@ -63,7 +63,7 @@ class LegacyCognitoUserKeys extends LegacyIOSCognitoKeys<LegacyCognitoKey> {
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final AWSAuthUserPoolConfig config;
+  final AuthUserPoolConfig config;
 
   @override
   List<LegacyCognitoKey> get _values => LegacyCognitoKey.values;
@@ -100,7 +100,7 @@ class LegacyCognitoUserPoolKeys
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final AWSAuthUserPoolConfig config;
+  final AuthUserPoolConfig config;
 
   /// The current user ID, used to determine the key prefixes.
   final String currentUserId;

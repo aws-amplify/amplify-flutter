@@ -38,7 +38,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// The Hosted UI configuration.
   @protected
-  AWSAuthHostedUiConfig get config => dependencyManager.expect();
+  AuthHostedUiConfig get config => dependencyManager.expect();
 
   /// The Hosted UI storage keys.
   late final HostedUiKeys _keys = HostedUiKeys(config);
@@ -153,7 +153,7 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant createGrant(
-    AWSAuthHostedUiConfig config, {
+    AuthHostedUiConfig config, {
     AuthProvider? provider,
     String? codeVerifier,
     http.Client? httpClient,
@@ -178,7 +178,7 @@ abstract class HostedUiPlatform implements Closeable {
   @visibleForTesting
   @nonVirtual
   oauth2.AuthorizationCodeGrant restoreGrant(
-    AWSAuthHostedUiConfig config, {
+    AuthHostedUiConfig config, {
     required String state,
     required String codeVerifier,
     http.Client? httpClient,

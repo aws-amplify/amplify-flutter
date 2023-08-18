@@ -29,9 +29,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     CognitoUserPoolTokens? userPoolTokens;
     if (userPoolConfig != null) {
@@ -123,9 +123,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     if (userPoolConfig != null) {
       final userPoolStorage = await _getUserPoolStorage();

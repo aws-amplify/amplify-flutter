@@ -26,42 +26,42 @@ class _$AWSAmplifyConfigSerializer
       result
         ..add('analytics')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSAnalyticsConfig)));
+            specifiedType: const FullType(AnalyticsConfig)));
     }
     value = object.api;
     if (value != null) {
       result
         ..add('api')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSApiConfig)));
+            specifiedType: const FullType(ApiConfig)));
     }
     value = object.auth;
     if (value != null) {
       result
         ..add('auth')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSAuthConfig)));
+            specifiedType: const FullType(AuthConfig)));
     }
     value = object.logging;
     if (value != null) {
       result
         ..add('logging')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSLoggingConfig)));
+            specifiedType: const FullType(LoggingConfig)));
     }
     value = object.notifications;
     if (value != null) {
       result
         ..add('notifications')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSNotificationsConfig)));
+            specifiedType: const FullType(NotificationsConfig)));
     }
     value = object.storage;
     if (value != null) {
       result
         ..add('storage')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AWSStorageConfig)));
+            specifiedType: const FullType(StorageConfig)));
     }
     return result;
   }
@@ -80,31 +80,29 @@ class _$AWSAmplifyConfigSerializer
       switch (key) {
         case 'analytics':
           result.analytics = serializers.deserialize(value,
-                  specifiedType: const FullType(AWSAnalyticsConfig))
-              as AWSAnalyticsConfig?;
+                  specifiedType: const FullType(AnalyticsConfig))
+              as AnalyticsConfig?;
           break;
         case 'api':
           result.api.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AWSApiConfig))! as AWSApiConfig);
+              specifiedType: const FullType(ApiConfig))! as ApiConfig);
           break;
         case 'auth':
           result.auth = serializers.deserialize(value,
-              specifiedType: const FullType(AWSAuthConfig)) as AWSAuthConfig?;
+              specifiedType: const FullType(AuthConfig)) as AuthConfig?;
           break;
         case 'logging':
           result.logging = serializers.deserialize(value,
-                  specifiedType: const FullType(AWSLoggingConfig))
-              as AWSLoggingConfig?;
+              specifiedType: const FullType(LoggingConfig)) as LoggingConfig?;
           break;
         case 'notifications':
           result.notifications.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(AWSNotificationsConfig))!
-              as AWSNotificationsConfig);
+                  specifiedType: const FullType(NotificationsConfig))!
+              as NotificationsConfig);
           break;
         case 'storage':
           result.storage = serializers.deserialize(value,
-                  specifiedType: const FullType(AWSStorageConfig))
-              as AWSStorageConfig?;
+              specifiedType: const FullType(StorageConfig)) as StorageConfig?;
           break;
       }
     }
@@ -115,17 +113,17 @@ class _$AWSAmplifyConfigSerializer
 
 class _$AWSAmplifyConfig extends AWSAmplifyConfig {
   @override
-  final AWSAnalyticsConfig? analytics;
+  final AnalyticsConfig? analytics;
   @override
-  final AWSApiConfig? api;
+  final ApiConfig? api;
   @override
-  final AWSAuthConfig? auth;
+  final AuthConfig? auth;
   @override
-  final AWSLoggingConfig? logging;
+  final LoggingConfig? logging;
   @override
-  final AWSNotificationsConfig? notifications;
+  final NotificationsConfig? notifications;
   @override
-  final AWSStorageConfig? storage;
+  final StorageConfig? storage;
 
   factory _$AWSAmplifyConfig(
           [void Function(AWSAmplifyConfigBuilder)? updates]) =>
@@ -178,31 +176,31 @@ class AWSAmplifyConfigBuilder
     implements Builder<AWSAmplifyConfig, AWSAmplifyConfigBuilder> {
   _$AWSAmplifyConfig? _$v;
 
-  AWSAnalyticsConfig? _analytics;
-  AWSAnalyticsConfig? get analytics => _$this._analytics;
-  set analytics(AWSAnalyticsConfig? analytics) => _$this._analytics = analytics;
+  AnalyticsConfig? _analytics;
+  AnalyticsConfig? get analytics => _$this._analytics;
+  set analytics(AnalyticsConfig? analytics) => _$this._analytics = analytics;
 
-  AWSApiConfigBuilder? _api;
-  AWSApiConfigBuilder get api => _$this._api ??= new AWSApiConfigBuilder();
-  set api(AWSApiConfigBuilder? api) => _$this._api = api;
+  ApiConfigBuilder? _api;
+  ApiConfigBuilder get api => _$this._api ??= new ApiConfigBuilder();
+  set api(ApiConfigBuilder? api) => _$this._api = api;
 
-  AWSAuthConfig? _auth;
-  AWSAuthConfig? get auth => _$this._auth;
-  set auth(AWSAuthConfig? auth) => _$this._auth = auth;
+  AuthConfig? _auth;
+  AuthConfig? get auth => _$this._auth;
+  set auth(AuthConfig? auth) => _$this._auth = auth;
 
-  AWSLoggingConfig? _logging;
-  AWSLoggingConfig? get logging => _$this._logging;
-  set logging(AWSLoggingConfig? logging) => _$this._logging = logging;
+  LoggingConfig? _logging;
+  LoggingConfig? get logging => _$this._logging;
+  set logging(LoggingConfig? logging) => _$this._logging = logging;
 
-  AWSNotificationsConfigBuilder? _notifications;
-  AWSNotificationsConfigBuilder get notifications =>
-      _$this._notifications ??= new AWSNotificationsConfigBuilder();
-  set notifications(AWSNotificationsConfigBuilder? notifications) =>
+  NotificationsConfigBuilder? _notifications;
+  NotificationsConfigBuilder get notifications =>
+      _$this._notifications ??= new NotificationsConfigBuilder();
+  set notifications(NotificationsConfigBuilder? notifications) =>
       _$this._notifications = notifications;
 
-  AWSStorageConfig? _storage;
-  AWSStorageConfig? get storage => _$this._storage;
-  set storage(AWSStorageConfig? storage) => _$this._storage = storage;
+  StorageConfig? _storage;
+  StorageConfig? get storage => _$this._storage;
+  set storage(StorageConfig? storage) => _$this._storage = storage;
 
   AWSAmplifyConfigBuilder();
 

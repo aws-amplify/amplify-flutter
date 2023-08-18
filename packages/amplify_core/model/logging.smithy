@@ -2,13 +2,13 @@ $version: "2"
 
 namespace com.amazonaws.amplify.core
 
-union AWSLoggingConfig {
-    cloudWatch: AWSLoggingCloudWatchConfig
+union LoggingConfig {
+    cloudWatch: LoggingCloudWatchConfig
 }
 
-enum AWSLogLevel { VERBOSE DEBUG INFO WARN ERROR NONE }
+enum LogLevel { VERBOSE DEBUG INFO WARN ERROR NONE }
 
-enum AWSAmplifyCategory {
+enum AmplifyCategory {
     ANALYTICS
     API
     AUTH
@@ -21,12 +21,12 @@ enum AWSAmplifyCategory {
     GEO
 }
 
-enum AWSAmplifySubCategory {
+enum AmplifySubCategory {
     PUSH_NOTIFICATIONS
     INAPP_MESSAGING
 }
 
-structure AWSLoggingCloudWatchConfig {
+structure LoggingCloudWatchConfig {
     @required
     logGroupName: String
 
@@ -41,11 +41,11 @@ structure AWSLoggingCloudWatchConfig {
 
     @required
     flushInterval: Seconds = 60
-    defaultRemoteConfiguration: AWSLoggingRemoteConfig
-    loggingConstraints: AWSAmplifyLoggingConstraints
+    defaultRemoteConfiguration: LoggingRemoteConfig
+    loggingConstraints: AmplifyLoggingConstraints
 }
 
-structure AWSLoggingRemoteConfig {
+structure LoggingRemoteConfig {
     @required
     endpoint: Uri
 
@@ -53,25 +53,25 @@ structure AWSLoggingRemoteConfig {
     refreshInterval: Seconds = 1200
 }
 
-structure AWSAmplifyLoggingConstraints {
+structure AmplifyLoggingConstraints {
     @required
-    defaultLogLevel: AWSLogLevel = "ERROR"
-    categoryLogLevel: AWSAmplifyCategoryLogLevels = {}
-    userLogLevel: AWSUserLogLevels = {}
+    defaultLogLevel: LogLevel = "ERROR"
+    categoryLogLevel: AmplifyCategoryLogLevels = {}
+    userLogLevel: UserLogLevels = {}
 }
 
-map AWSAmplifyCategoryLogLevels {
-    key: AWSAmplifyCategory
-    value: AWSLogLevel
+map AmplifyCategoryLogLevels {
+    key: AmplifyCategory
+    value: LogLevel
 }
 
-map AWSUserLogLevels {
+map UserLogLevels {
     key: String
-    value: AWSUserLogLevel
+    value: UserLogLevel
 }
 
-structure AWSUserLogLevel {
+structure UserLogLevel {
     @required
-    defaultLogLevel: AWSLogLevel = "ERROR"
-    categoryLogLevel: AWSAmplifyCategoryLogLevels = {}
+    defaultLogLevel: LogLevel = "ERROR"
+    categoryLogLevel: AmplifyCategoryLogLevels = {}
 }

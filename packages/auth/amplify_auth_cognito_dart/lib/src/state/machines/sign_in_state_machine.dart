@@ -55,7 +55,7 @@ final class SignInStateMachine
   /// The default flow used to sign in.
   late final AuthFlowType defaultAuthFlowType = () {
     // Get the flow from the plugin config
-    final pluginFlowType = expect<AWSAuthUserPoolConfig>().authFlowType ??
+    final pluginFlowType = expect<AuthUserPoolConfig>().authFlowType ??
         AuthenticationFlowType.userSrpAuth;
     return pluginFlowType.sdkValue;
   }();
@@ -64,10 +64,10 @@ final class SignInStateMachine
   late SignInParameters parameters;
 
   /// The configured user pool.
-  late final AWSAuthUserPoolConfig config = expect();
+  late final AuthUserPoolConfig config = expect();
 
   /// The configured identity pool.
-  AWSAuthIdentityPoolConfig? get identityPoolConfig => get();
+  AuthIdentityPoolConfig? get identityPoolConfig => get();
 
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();

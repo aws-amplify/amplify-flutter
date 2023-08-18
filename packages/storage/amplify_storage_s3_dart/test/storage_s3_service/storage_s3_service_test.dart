@@ -38,7 +38,7 @@ void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
     const testRegion = 'west-2';
-    final s3PluginConfig = AWSStorageS3Bucket(
+    final s3PluginConfig = StorageS3Bucket(
       bucketName: testBucket,
       region: testRegion,
     );
@@ -68,7 +68,7 @@ void main() {
 
     test('log a warning when should use path style URLs', () {
       StorageS3Service(
-        s3PluginConfig: AWSStorageS3Bucket(
+        s3PluginConfig: StorageS3Bucket(
           bucketName: 'bucket.name.has.dots.com',
           region: 'us-west-2',
         ),
@@ -855,7 +855,7 @@ void main() {
         late StorageS3Service pathStyleStorageS3Service;
         const pathStyleBucket = 'bucket.name.has.dots.com';
         const pathStyleRegion = 'west-2';
-        final pathStyleS3PluginConfig = AWSStorageS3Bucket(
+        final pathStyleS3PluginConfig = StorageS3Bucket(
           bucketName: pathStyleBucket,
           region: pathStyleRegion,
         );

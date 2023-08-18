@@ -95,7 +95,7 @@ final class CredentialStoreStateMachine
 
   /// Loads the credential store from storage and returns the data.
   Future<CredentialStoreData> _loadCredentialStore() async {
-    final authConfig = expect<AWSAuthCognitoConfig>();
+    final authConfig = expect<AuthCognitoConfig>();
 
     CognitoSignInDetails? signInDetails;
     CognitoUserPoolTokens? userPoolTokens;
@@ -228,7 +228,7 @@ final class CredentialStoreStateMachine
     final identityId = data.identityId;
     final awsCredentials = data.awsCredentials;
     final signInDetails = data.signInDetails;
-    final authConfig = expect<AWSAuthCognitoConfig>();
+    final authConfig = expect<AuthCognitoConfig>();
 
     final items = <String, String>{};
     final deletions = <String>[];
@@ -319,7 +319,7 @@ final class CredentialStoreStateMachine
     emit(const CredentialStoreState.migratingLegacyStore());
     final legacyCredentialProvider = get<LegacyCredentialProvider>();
     if (legacyCredentialProvider != null) {
-      final authConfig = expect<AWSAuthCognitoConfig>();
+      final authConfig = expect<AuthCognitoConfig>();
       try {
         final legacyData =
             await legacyCredentialProvider.fetchLegacyCredentials(
@@ -370,7 +370,7 @@ final class CredentialStoreStateMachine
   Future<void> onClearCredentials(
     CredentialStoreClearCredentials event,
   ) async {
-    final authConfig = expect<AWSAuthCognitoConfig>();
+    final authConfig = expect<AuthCognitoConfig>();
 
     final clearKeys = event.keys;
     final deletions = <String>[];

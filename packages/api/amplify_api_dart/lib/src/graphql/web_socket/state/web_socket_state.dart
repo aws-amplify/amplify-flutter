@@ -24,7 +24,7 @@ abstract class WebSocketState {
   );
 
   /// AWS Config
-  final AWSAppSyncEndpointConfig config;
+  final AppSyncEndpointConfig config;
 
   /// Amplify Auth Provider
   final AmplifyAuthProviderRepository authProviderRepo;

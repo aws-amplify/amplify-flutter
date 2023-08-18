@@ -122,7 +122,7 @@ final class CognitoIdentityPoolKeys
 
   /// The Cognito identity pool configuration, used to determine the key
   /// prefixes.
-  final AWSAuthIdentityPoolConfig config;
+  final AuthIdentityPoolConfig config;
 
   @override
   List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
@@ -140,7 +140,7 @@ final class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   const CognitoUserPoolKeys(this.config);
 
   /// The Cognito user pool configuration, used to determine the key prefixes.
-  final AWSAuthUserPoolConfig config;
+  final AuthUserPoolConfig config;
 
   @override
   List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
@@ -158,7 +158,7 @@ final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   const CognitoDeviceKeys(this.config, this.username);
 
   /// The Cognito user pool configuration, used to determine the key prefixes.
-  final AWSAuthUserPoolConfig config;
+  final AuthUserPoolConfig config;
 
   /// Device keys are tracked by username.
   final String username;
@@ -179,7 +179,7 @@ final class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   const HostedUiKeys(this.config);
 
   /// The Cognito OAuth configuration, used to determine the key prefixes.
-  final AWSAuthHostedUiConfig config;
+  final AuthHostedUiConfig config;
 
   @override
   List<HostedUiKey> get _values => HostedUiKey.values;

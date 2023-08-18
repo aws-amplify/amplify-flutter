@@ -54,10 +54,11 @@ void main() {
 
   group('authorizeHttpRequest', () {
     test('no-op for auth mode NONE', () async {
-      final endpointConfig = AWSApiEndpointConfig.apiGateway(
+      final endpointConfig = ApiEndpointConfig.apiGateway(
+        name: '',
         endpoint: _restEndpoint,
         region: _region,
-        authMode: const AWSApiAuthorizationMode.none(),
+        authMode: const ApiAuthorizationMode.none(),
       );
       final inputRequest = _generateTestRequest(endpointConfig.endpoint);
 
@@ -74,8 +75,9 @@ void main() {
     });
 
     test('no-op for request with Authorization header already set', () async {
-      final endpointConfig = AWSApiEndpointConfig.apiGateway(
-        authMode: const AWSApiAuthorizationMode.userPools(),
+      final endpointConfig = ApiEndpointConfig.apiGateway(
+        name: '',
+        authMode: const ApiAuthorizationMode.userPools(),
         endpoint: _restEndpoint,
         region: _region,
       );
@@ -97,8 +99,9 @@ void main() {
     });
 
     test('authorizes request with IAM auth provider', () async {
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.iam(),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.iam(),
         endpoint: _gqlEndpoint,
         region: _region,
       );
@@ -112,8 +115,9 @@ void main() {
     });
 
     test('does not sign body of POST request with IAM REST API', () async {
-      final endpointConfig = AWSApiEndpointConfig.apiGateway(
-        authMode: const AWSApiAuthorizationMode.iam(),
+      final endpointConfig = ApiEndpointConfig.apiGateway(
+        name: '',
+        authMode: const ApiAuthorizationMode.iam(),
         endpoint: _restEndpoint,
         region: _region,
       );
@@ -137,8 +141,9 @@ void main() {
 
     test('authorizes request with API key', () async {
       const testApiKey = 'abc-123-fake-key';
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.apiKey(testApiKey),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.apiKey(testApiKey),
         endpoint: _gqlEndpoint,
         region: _region,
       );
@@ -155,8 +160,9 @@ void main() {
     });
 
     test('authorizes with Cognito User Pools auth mode', () async {
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.userPools(),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.userPools(),
         endpoint: _gqlEndpoint,
         region: _region,
       );
@@ -173,8 +179,9 @@ void main() {
     });
 
     test('authorizes with OIDC auth mode', () async {
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.oidc(),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.oidc(),
         endpoint: _gqlEndpoint,
         region: _region,
       );
@@ -191,8 +198,9 @@ void main() {
     });
 
     test('authorizes with lambda (function) auth mode', () async {
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.function(),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.function(),
         endpoint: _gqlEndpoint,
         region: _region,
       );
@@ -210,8 +218,9 @@ void main() {
 
     test('throws when no auth provider found', () async {
       final emptyAuthRepo = AmplifyAuthProviderRepository();
-      final endpointConfig = AWSApiEndpointConfig.appSync(
-        authMode: const AWSApiAuthorizationMode.apiKey('abc-123-fake-key'),
+      final endpointConfig = ApiEndpointConfig.appSync(
+        name: '',
+        authMode: const ApiAuthorizationMode.apiKey('abc-123-fake-key'),
         endpoint: _gqlEndpoint,
         region: _region,
       );

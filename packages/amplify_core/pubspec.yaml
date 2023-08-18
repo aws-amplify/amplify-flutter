@@ -38,8 +38,14 @@ dev_dependencies:
     git:
       url: https://github.com/dart-lang/site-shared
       path: packages/code_excerpt_updater
-  jni: ^0.5.0
-  jnigen: ^0.5.0
+  jni:
+    git:
+      url: https://github.com/dart-lang/jnigen
+      path: jni
+  jnigen:
+    git:
+      url: https://github.com/dart-lang/jnigen
+      path: jnigen
   json_serializable: 6.7.1
   path: any
   smithy_codegen: any

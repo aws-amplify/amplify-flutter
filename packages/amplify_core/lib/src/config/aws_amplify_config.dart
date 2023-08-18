@@ -4,12 +4,13 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig, UserLogLevel;
 import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/common/serializers.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' hide Serializer;
 
@@ -107,7 +108,7 @@ part 'aws_amplify_config.g.dart';
 ///   return AWSAmplifyConfig(
 ///     api: AWSApiConfig(
 ///       apis: {
-///         '<API_NAME>': AWSApiEndpointConfig.appSync(
+///         '<API_NAME>': ApiEndpointConfig.appSync(
 ///           endpoint: Uri.parse(
 ///             'https://xxxxxx.appsync-api.us-east-1.amazonaws.com/graphql',
 ///           ),
@@ -121,8 +122,8 @@ part 'aws_amplify_config.g.dart';
 ///         ),
 ///       },
 ///     ),
-///     auth: AWSAuthConfig.cognito(
-///       userPool: AWSAuthUserPoolConfig(
+///     auth: AuthConfig.cognito(
+///       userPool: AuthUserPoolConfig(
 ///         poolId: '<USER_POOL_ID>',
 ///         region: '<USER_POOL_REGION>',
 ///         clientId: '<USER_POOL_CLIENT_ID>',
@@ -143,12 +144,12 @@ abstract class AWSAmplifyConfig
   /// {@macro amplify_core.aws_amplify_config}
   @experimental
   factory AWSAmplifyConfig({
-    AWSAnalyticsConfig? analytics,
-    AWSApiConfig? api,
-    AWSAuthConfig? auth,
-    AWSLoggingConfig? logging,
-    AWSNotificationsConfig? notifications,
-    AWSStorageConfig? storage,
+    AnalyticsConfig? analytics,
+    ApiConfig? api,
+    AuthConfig? auth,
+    LoggingConfig? logging,
+    NotificationsConfig? notifications,
+    StorageConfig? storage,
   }) {
     return _$AWSAmplifyConfig._(
       analytics: analytics,
@@ -168,10 +169,10 @@ abstract class AWSAmplifyConfig
 
   /// Creates an [AWSAmplifyConfig] from an [core.AmplifyConfig].
   @experimental
-  factory AWSAmplifyConfig.from(AmplifyConfig config) {
+  factory AWSAmplifyConfig.from(core.AmplifyConfig config) {
     return AWSAmplifyConfig.build((b) {
       if (config.analytics?.awsPlugin case final analyticsConfig?) {
-        b.analytics = AWSAnalyticsConfig.pinpoint(
+        b.analytics = AnalyticsConfig.pinpoint(
           appId: analyticsConfig.pinpointAnalytics.appId,
           region: analyticsConfig.pinpointAnalytics.region,
           autoFlushEventsInterval: analyticsConfig.autoFlushEventsInterval,
@@ -186,30 +187,34 @@ abstract class AWSAmplifyConfig
           final endpoint = Uri.parse(cliEndpoint.endpoint);
           final config =
               switch ((cliEndpoint.endpointType, cliEndpoint.region)) {
-            (EndpointType.graphQL, final region?) =>
-              AWSApiEndpointConfig.appSync(
+            (core.EndpointType.graphQL, final region?) =>
+              ApiEndpointConfig.appSync(
+                name: apiName,
                 endpoint: endpoint,
                 region: region,
                 authMode: defaultAuthMode,
               ),
-            (EndpointType.rest, final region?) =>
-              AWSApiEndpointConfig.apiGateway(
+            (core.EndpointType.rest, final region?) =>
+              ApiEndpointConfig.apiGateway(
+                name: apiName,
                 endpoint: endpoint,
                 region: region,
                 authMode: defaultAuthMode,
               ),
-            (EndpointType.rest, null) =>
-              AWSApiEndpointConfig.rest(endpoint: endpoint),
+            (core.EndpointType.rest, null) => ApiEndpointConfig.rest(
+                name: apiName,
+                endpoint: endpoint,
+              ),
             _ => throw ArgumentError(
                 'Invalid endpoint configuration: $cliEndpoint',
               ),
           };
-          b.api.endpoints[apiName] = config;
+          b.api.endpoints.add(config);
         }
       }
       if (config.auth?.awsPlugin case final authConfig?) {
-        b.auth = AWSAuthConfigCognito$(
-          AWSAuthCognitoConfig.build((b) {
+        b.auth = AuthConfigCognito$(
+          AuthCognitoConfig.build((b) {
             if (authConfig.cognitoUserPool?.default$
                 case final userPoolConfig?) {
               b.userPool
@@ -227,31 +232,43 @@ abstract class AWSAmplifyConfig
                     cliAuthConfig.mfaTypes
                   )) {
                     (final mfaConfig?, final mfaTypes?) =>
-                      AWSAuthMfaConfigurationBuilder()
-                        ..enabledTypes.addAll(mfaTypes)
-                        ..status = mfaConfig,
+                      AuthMfaConfigurationBuilder()
+                        ..enforcementLevel = mfaConfig
+                        ..sms = mfaTypes.contains(MfaType.sms)
+                        ..totp = mfaTypes.contains(MfaType.totp),
                     _ => null,
                   }
-                  ..passwordProtectionSettings =
+                  ..passwordPolicy =
                       cliAuthConfig.passwordProtectionSettings?.let(
-                    (passwordSettings) =>
-                        AWSAuthPasswordProtectionSettingsBuilder()
-                          ..passwordPolicyMinLength =
-                              passwordSettings.passwordPolicyMinLength
-                          ..passwordPolicyCharacters.addAll(
-                            passwordSettings.passwordPolicyCharacters,
-                          ),
+                    (passwordSettings) => AuthPasswordPolicyBuilder()
+                      ..minLength = passwordSettings.passwordPolicyMinLength
+                      ..requiresLowercase =
+                          passwordSettings.passwordPolicyCharacters.contains(
+                        core.PasswordPolicyCharacters.requiresLowercase,
+                      )
+                      ..requiresUppercase =
+                          passwordSettings.passwordPolicyCharacters.contains(
+                        core.PasswordPolicyCharacters.requiresUppercase,
+                      )
+                      ..requiresNumbers =
+                          passwordSettings.passwordPolicyCharacters.contains(
+                        core.PasswordPolicyCharacters.requiresNumbers,
+                      )
+                      ..requiresSymbols =
+                          passwordSettings.passwordPolicyCharacters.contains(
+                        core.PasswordPolicyCharacters.requiresSymbols,
+                      ),
                   );
 
                 cliAuthConfig.socialProviders?.let((socialProviders) {
                   b.userPool.socialProviders.addAll([
                     for (final socialProvider in socialProviders)
                       switch (socialProvider) {
-                        SocialProvider.amazon => AuthProvider.amazon,
-                        SocialProvider.apple => AuthProvider.apple,
-                        SocialProvider.facebook => AuthProvider.facebook,
-                        SocialProvider.google => AuthProvider.google,
-                      }
+                        core.SocialProvider.amazon => AuthProvider.amazon,
+                        core.SocialProvider.apple => AuthProvider.apple,
+                        core.SocialProvider.facebook => AuthProvider.facebook,
+                        core.SocialProvider.google => AuthProvider.google,
+                      },
                   ]);
                 });
 
@@ -260,13 +277,13 @@ abstract class AWSAmplifyConfig
                     for (final usernameAttribute in usernameAttributes)
                       switch (usernameAttribute) {
                         CognitoUserAttributeKey.email =>
-                          AWSAuthUsernameAttribute.email,
+                          AuthUsernameAttribute.email,
                         CognitoUserAttributeKey.phoneNumber =>
-                          AWSAuthUsernameAttribute.phoneNumber,
+                          AuthUsernameAttribute.phoneNumber,
                         _ => throw ArgumentError(
                             'Invalid username attribute: $usernameAttribute',
                           ),
-                      }
+                      },
                   ]);
                 });
 
@@ -320,7 +337,7 @@ abstract class AWSAmplifyConfig
         );
       }
       if (config.logging?.awsPlugin case final loggingConfig?) {
-        b.logging = AWSLoggingConfig.cloudWatch(
+        b.logging = LoggingConfig.cloudWatch(
           enable: loggingConfig.enable,
           logGroupName: loggingConfig.logGroupName,
           region: loggingConfig.region,
@@ -332,7 +349,7 @@ abstract class AWSAmplifyConfig
           ),
           defaultRemoteConfiguration:
               loggingConfig.defaultRemoteConfiguration?.let(
-            (remoteConfig) => AWSLoggingRemoteConfig(
+            (remoteConfig) => LoggingRemoteConfig(
               endpoint: Uri.parse(remoteConfig.endpoint),
               refreshInterval: Duration(
                 seconds: remoteConfig.refreshIntervalInSeconds,
@@ -340,7 +357,7 @@ abstract class AWSAmplifyConfig
             ),
           ),
           loggingConstraints: loggingConfig.loggingConstraints?.let(
-            (constraints) => AWSAmplifyLoggingConstraints(
+            (constraints) => AmplifyLoggingConstraints(
               defaultLogLevel: LogLevel.parse(constraints.defaultLogLevel),
               categoryLogLevel: constraints.categoryLogLevel.map(
                 (category, logLevel) => MapEntry(
@@ -351,7 +368,7 @@ abstract class AWSAmplifyConfig
               userLogLevel: constraints.userLogLevel.map(
                 (userId, userLogLevel) => MapEntry(
                   userId,
-                  AWSUserLogLevel(
+                  UserLogLevel(
                     defaultLogLevel:
                         LogLevel.parse(userLogLevel.defaultLogLevel),
                     categoryLogLevel: userLogLevel.categoryLogLevel.map(
@@ -368,20 +385,20 @@ abstract class AWSAmplifyConfig
         );
       }
       if (config.notifications?.awsPlugin case final notificationsConfig?) {
-        b.notifications.push = AWSPushNotificationsConfig.pinpoint(
+        b.notifications.push = PushNotificationsConfig.pinpoint(
           appId: notificationsConfig.appId,
           region: notificationsConfig.region,
         );
       }
       if (config.storage?.awsPlugin case final storageConfig?) {
-        b.storage = AWSStorageConfig.s3(
-          buckets: {
-            storageConfig.bucket: AWSStorageS3Bucket(
+        b.storage = StorageConfig.s3(
+          buckets: [
+            StorageS3Bucket(
               bucketName: storageConfig.bucket,
               region: storageConfig.region,
               defaultAccessLevel: storageConfig.defaultAccessLevel,
             ),
-          },
+          ],
         );
       }
     });
@@ -391,7 +408,7 @@ abstract class AWSAmplifyConfig
   /// file.
   @experimental
   factory AWSAmplifyConfig.parse(String amplifyconfig) {
-    final config = AmplifyConfig.fromJson(
+    final config = core.AmplifyConfig.fromJson(
       jsonDecode(amplifyconfig) as Map<String, dynamic>,
     );
     return AWSAmplifyConfig.from(config);
@@ -402,12 +419,12 @@ abstract class AWSAmplifyConfig
   static Serializer<AWSAmplifyConfig> get serializer =>
       _$aWSAmplifyConfigSerializer;
 
-  AWSAnalyticsConfig? get analytics;
-  AWSApiConfig? get api;
-  AWSAuthConfig? get auth;
-  AWSLoggingConfig? get logging;
-  AWSNotificationsConfig? get notifications;
-  AWSStorageConfig? get storage;
+  AnalyticsConfig? get analytics;
+  ApiConfig? get api;
+  AuthConfig? get auth;
+  LoggingConfig? get logging;
+  NotificationsConfig? get notifications;
+  StorageConfig? get storage;
 
   /// Adds a user pool to the configuration or replaces the existing one.
   @useResult
@@ -419,16 +436,16 @@ abstract class AWSAmplifyConfig
     Uri? endpoint,
     AuthenticationFlowType? authFlowType,
     List<AuthProvider>? socialProviders,
-    List<AWSAuthUsernameAttribute>? usernameAttributes,
+    List<AuthUsernameAttribute>? usernameAttributes,
     List<CognitoUserAttributeKey>? signUpAttributes,
-    AWSAnalyticsPinpointConfig? pinpointConfig,
-    AWSAuthPasswordProtectionSettings? passwordProtectionSettings,
-    AWSAuthMfaConfiguration? mfaConfiguration,
+    AnalyticsPinpointConfig? pinpointConfig,
+    AuthPasswordPolicy? passwordPolicy,
+    AuthMfaConfiguration? mfaConfiguration,
     List<CognitoUserAttributeKey>? verificationMechanisms,
-    AWSAuthHostedUiConfig? hostedUi,
+    AuthHostedUiConfig? hostedUi,
   }) =>
       rebuild((b) {
-        final userPoolConfig = AWSAuthUserPoolConfig(
+        final userPoolConfig = AuthUserPoolConfig(
           poolId: poolId,
           region: region,
           clientId: clientId,
@@ -439,19 +456,19 @@ abstract class AWSAmplifyConfig
           usernameAttributes: usernameAttributes,
           signUpAttributes: signUpAttributes,
           pinpointConfig: pinpointConfig,
-          passwordProtectionSettings: passwordProtectionSettings,
+          passwordPolicy: passwordPolicy,
           mfaConfiguration: mfaConfiguration,
           verificationMechanisms: verificationMechanisms,
           hostedUi: hostedUi,
         );
         switch (b.auth?.value) {
-          case AWSAuthCognitoConfig(:final identityPool):
-            b.auth = AWSAuthConfig.cognito(
+          case AuthCognitoConfig(:final identityPool):
+            b.auth = AuthConfig.cognito(
               userPool: userPoolConfig,
               identityPool: identityPool,
             );
           case null:
-            b.auth = AWSAuthConfig.cognito(
+            b.auth = AuthConfig.cognito(
               userPool: userPoolConfig,
             );
           case final existing:
@@ -464,19 +481,19 @@ abstract class AWSAmplifyConfig
   /// Adds a user pool to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateUserPool(
-    void Function(AWSAuthUserPoolConfigBuilder userPool) builder,
+    void Function(AuthUserPoolConfigBuilder userPool) builder,
   ) =>
       rebuild((b) {
         switch (b.auth?.value) {
-          case AWSAuthCognitoConfig(:final userPool, :final identityPool):
-            b.auth = AWSAuthConfig.cognito(
+          case AuthCognitoConfig(:final userPool, :final identityPool):
+            b.auth = AuthConfig.cognito(
               userPool: userPool?.rebuild(builder) ??
-                  AWSAuthUserPoolConfig.build(builder),
+                  AuthUserPoolConfig.build(builder),
               identityPool: identityPool,
             );
           case null:
-            b.auth = AWSAuthConfig.cognito(
-              userPool: AWSAuthUserPoolConfig.build(builder),
+            b.auth = AuthConfig.cognito(
+              userPool: AuthUserPoolConfig.build(builder),
             );
           case final existing:
             throw ArgumentError(
@@ -492,18 +509,18 @@ abstract class AWSAmplifyConfig
     required String region,
   }) =>
       rebuild((b) {
-        final identityPoolConfig = AWSAuthIdentityPoolConfig(
+        final identityPoolConfig = AuthIdentityPoolConfig(
           poolId: poolId,
           region: region,
         );
         switch (b.auth?.value) {
-          case AWSAuthCognitoConfig(:final userPool):
-            b.auth = AWSAuthConfig.cognito(
+          case AuthCognitoConfig(:final userPool):
+            b.auth = AuthConfig.cognito(
               userPool: userPool,
               identityPool: identityPoolConfig,
             );
           case null:
-            b.auth = AWSAuthConfig.cognito(
+            b.auth = AuthConfig.cognito(
               identityPool: identityPoolConfig,
             );
           case final existing:
@@ -516,19 +533,19 @@ abstract class AWSAmplifyConfig
   /// Adds an identity pool to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateIdentityPool(
-    void Function(AWSAuthIdentityPoolConfigBuilder identityPool) builder,
+    void Function(AuthIdentityPoolConfigBuilder identityPool) builder,
   ) =>
       rebuild((b) {
         switch (b.auth?.value) {
-          case AWSAuthCognitoConfig(:final userPool, :final identityPool):
-            b.auth = AWSAuthConfig.cognito(
+          case AuthCognitoConfig(:final userPool, :final identityPool):
+            b.auth = AuthConfig.cognito(
               userPool: userPool,
               identityPool: identityPool?.rebuild(builder) ??
-                  AWSAuthIdentityPoolConfig.build(builder),
+                  AuthIdentityPoolConfig.build(builder),
             );
           case null:
-            b.auth = AWSAuthConfig.cognito(
-              identityPool: AWSAuthIdentityPoolConfig.build(builder),
+            b.auth = AuthConfig.cognito(
+              identityPool: AuthIdentityPoolConfig.build(builder),
             );
           case final existing:
             throw ArgumentError(
@@ -543,44 +560,68 @@ abstract class AWSAmplifyConfig
     String apiName, {
     required Uri endpoint,
     required String region,
-    required AWSApiAuthorizationMode authMode,
-    List<AWSApiAuthorizationMode> additionalAuthModes = const [],
+    required ApiAuthorizationMode authMode,
+    List<ApiAuthorizationMode> additionalAuthModes = const [],
   }) =>
       rebuild((b) {
-        final endpointConfig = AWSApiEndpointConfig.appSync(
+        final endpointConfig = ApiEndpointConfig.appSync(
+          name: apiName,
           endpoint: endpoint,
           region: region,
           authMode: authMode,
           additionalAuthModes: additionalAuthModes,
         );
-        b.api.endpoints[apiName] = endpointConfig;
+        final existingApi = b.api.endpoints.build().firstWhereOrNull(
+              (api) =>
+                  apiName ==
+                  switch (api.value) {
+                    ApiGatewayEndpointConfig(:final name) ||
+                    AppSyncEndpointConfig(:final name) ||
+                    RestEndpointConfig(:final name) =>
+                      name,
+                    _ => null,
+                  },
+            );
+        b.api.endpoints
+          ..remove(existingApi)
+          ..add(endpointConfig);
       });
 
   /// Adds a GraphQL API to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateGraphQlApi(
     String apiName,
-    void Function(AWSAppSyncEndpointConfigBuilder api) builder,
+    void Function(AppSyncEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.endpoints.updateValue(
-          apiName,
-          (endpoint) {
-            switch (endpoint.value) {
-              case final AWSAppSyncEndpointConfig appSync:
-                return AWSApiEndpointConfigAppSync$(
-                  appSync.rebuild(builder),
-                );
-              case final nonAppSyncEndpoint:
-                throw ArgumentError(
-                  'A non-AppSync endpoint is already registered for $apiName: $nonAppSyncEndpoint',
-                );
-            }
-          },
-          ifAbsent: () => AWSApiEndpointConfigAppSync$(
-            AWSAppSyncEndpointConfig.build(builder),
-          ),
-        );
+        final existingApi = b.api.endpoints.build().firstWhereOrNull(
+              (api) =>
+                  apiName ==
+                  switch (api.value) {
+                    ApiGatewayEndpointConfig(:final name) ||
+                    AppSyncEndpointConfig(:final name) ||
+                    RestEndpointConfig(:final name) =>
+                      name,
+                    _ => null,
+                  },
+            );
+        final newApi = switch (existingApi?.value) {
+          null => ApiEndpointConfigAppSync$(
+              AppSyncEndpointConfig.build((b) {
+                b.name = apiName;
+                builder(b);
+              }),
+            ),
+          final AppSyncEndpointConfig appSync => ApiEndpointConfigAppSync$(
+              appSync.rebuild(builder),
+            ),
+          final nonAppSyncEndpoint => throw ArgumentError(
+              'A non-AppSync endpoint is already registered for $apiName: $nonAppSyncEndpoint',
+            ),
+        };
+        b.api.endpoints
+          ..remove(existingApi)
+          ..add(newApi);
       });
 
   /// Adds a REST API to the configuration or replaces the existing one.
@@ -589,42 +630,67 @@ abstract class AWSAmplifyConfig
     String apiName, {
     required Uri endpoint,
     required String region,
-    required AWSApiAuthorizationMode authMode,
+    required ApiAuthorizationMode authMode,
   }) =>
       rebuild((b) {
-        final endpointConfig = AWSApiEndpointConfig.apiGateway(
+        final endpointConfig = ApiEndpointConfig.apiGateway(
+          name: apiName,
           endpoint: endpoint,
           region: region,
           authMode: authMode,
         );
-        b.api.endpoints[apiName] = endpointConfig;
+        final existingApi = b.api.endpoints.build().firstWhereOrNull(
+              (api) =>
+                  apiName ==
+                  switch (api.value) {
+                    ApiGatewayEndpointConfig(:final name) ||
+                    AppSyncEndpointConfig(:final name) ||
+                    RestEndpointConfig(:final name) =>
+                      name,
+                    _ => null,
+                  },
+            );
+        b.api.endpoints
+          ..remove(existingApi)
+          ..add(endpointConfig);
       });
 
   /// Adds a REST API to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateRestApi(
     String apiName,
-    void Function(AWSApiGatewayEndpointConfigBuilder api) builder,
+    void Function(ApiGatewayEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.endpoints.updateValue(
-          apiName,
-          (endpoint) {
-            switch (endpoint.value) {
-              case final AWSApiGatewayEndpointConfig apiGateway:
-                return AWSApiEndpointConfigApiGateway$(
-                  apiGateway.rebuild(builder),
-                );
-              case final nonApiGatewayEndpoint:
-                throw ArgumentError(
-                  'A non-API Gateway endpoint is already registered for $apiName: $nonApiGatewayEndpoint',
-                );
-            }
-          },
-          ifAbsent: () => AWSApiEndpointConfigApiGateway$(
-            AWSApiGatewayEndpointConfig.build(builder),
-          ),
-        );
+        final existingApi = b.api.endpoints.build().firstWhereOrNull(
+              (api) =>
+                  apiName ==
+                  switch (api.value) {
+                    ApiGatewayEndpointConfig(:final name) ||
+                    AppSyncEndpointConfig(:final name) ||
+                    RestEndpointConfig(:final name) =>
+                      name,
+                    _ => null,
+                  },
+            );
+        final newApi = switch (existingApi?.value) {
+          null => ApiEndpointConfigApiGateway$(
+              ApiGatewayEndpointConfig.build((b) {
+                b.name = apiName;
+                builder(b);
+              }),
+            ),
+          final ApiGatewayEndpointConfig apiGateway =>
+            ApiEndpointConfigApiGateway$(
+              apiGateway.rebuild(builder),
+            ),
+          final nonApiGatewayEndpoint => throw ArgumentError(
+              'A non-API Gateway endpoint is already registered for $apiName: $nonApiGatewayEndpoint',
+            ),
+        };
+        b.api.endpoints
+          ..remove(existingApi)
+          ..add(newApi);
       });
 
   /// Adds a Pinpoint Analytics project to the configuration or replaces the existing one.
@@ -635,7 +701,7 @@ abstract class AWSAmplifyConfig
     Duration autoFlushEventsInterval = const Duration(seconds: 30),
   }) =>
       rebuild((b) {
-        b.analytics = AWSAnalyticsConfig.pinpoint(
+        b.analytics = AnalyticsConfig.pinpoint(
           appId: appId,
           region: region,
           autoFlushEventsInterval: autoFlushEventsInterval,
@@ -645,17 +711,17 @@ abstract class AWSAmplifyConfig
   /// Adds a Pinpoint Analytics project to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateAnalytics(
-    void Function(AWSAnalyticsPinpointConfigBuilder pinpoint) builder,
+    void Function(AnalyticsPinpointConfigBuilder pinpoint) builder,
   ) =>
       rebuild((b) {
         switch (b.analytics) {
-          case AWSAnalyticsConfigPinpoint$(:final pinpoint):
-            return b.analytics = AWSAnalyticsConfigPinpoint$(
+          case AnalyticsConfigPinpoint$(:final pinpoint):
+            return b.analytics = AnalyticsConfigPinpoint$(
               pinpoint.rebuild(builder),
             );
           case null:
-            return b.analytics = AWSAnalyticsConfigPinpoint$(
-              AWSAnalyticsPinpointConfig.build(builder),
+            return b.analytics = AnalyticsConfigPinpoint$(
+              AnalyticsPinpointConfig.build(builder),
             );
           case final nonPinpointResource:
             throw ArgumentError(
@@ -672,11 +738,11 @@ abstract class AWSAmplifyConfig
     bool enable = true,
     LocalStorageSize localStoreMaxSize = const LocalStorageSize.MB(5),
     Duration flushInterval = const Duration(seconds: 60),
-    AWSLoggingRemoteConfig? defaultRemoteConfiguration,
-    AWSAmplifyLoggingConstraints? loggingConstraints,
+    LoggingRemoteConfig? defaultRemoteConfiguration,
+    AmplifyLoggingConstraints? loggingConstraints,
   }) =>
       rebuild((b) {
-        b.logging = AWSLoggingConfig.cloudWatch(
+        b.logging = LoggingConfig.cloudWatch(
           logGroupName: logGroupName,
           region: region,
           enable: enable,
@@ -690,17 +756,17 @@ abstract class AWSAmplifyConfig
   /// Adds a CloudWatch log group to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updateLogging(
-    void Function(AWSLoggingCloudWatchConfigBuilder cloudWatch) builder,
+    void Function(LoggingCloudWatchConfigBuilder cloudWatch) builder,
   ) =>
       rebuild((b) {
         switch (b.logging) {
-          case AWSLoggingConfigCloudWatch$(:final cloudWatch):
-            return b.logging = AWSLoggingConfigCloudWatch$(
+          case LoggingConfigCloudWatch$(:final cloudWatch):
+            return b.logging = LoggingConfigCloudWatch$(
               cloudWatch.rebuild(builder),
             );
           case null:
-            return b.logging = AWSLoggingConfigCloudWatch$(
-              AWSLoggingCloudWatchConfig.build(builder),
+            return b.logging = LoggingConfigCloudWatch$(
+              LoggingCloudWatchConfig.build(builder),
             );
           case final nonCloudWatchConfig:
             throw ArgumentError(
@@ -716,26 +782,26 @@ abstract class AWSAmplifyConfig
     required String region,
   }) =>
       rebuild((b) {
-        b.notifications.push = AWSPushNotificationsConfig.pinpoint(
+        b.notifications.push = PushNotificationsConfig.pinpoint(
           appId: appId,
           region: region,
         );
       });
 
-  /// Adds a Pinpoint Analytics project to the configuration or updates the existing one.
+  /// Adds a Pinpoint Push Notifications project to the configuration or updates the existing one.
   @useResult
   AWSAmplifyConfig updatePushNotifications(
-    void Function(AWSPushNotificationsPinpointConfigBuilder push) builder,
+    void Function(PushNotificationsPinpointConfigBuilder push) builder,
   ) =>
       rebuild((b) {
         switch (b.notifications.push) {
-          case AWSPushNotificationsConfigPinpoint$(:final pinpoint):
-            b.notifications.push = AWSPushNotificationsConfigPinpoint$(
+          case PushNotificationsConfigPinpoint$(:final pinpoint):
+            b.notifications.push = PushNotificationsConfigPinpoint$(
               pinpoint.rebuild(builder),
             );
           case null:
-            b.notifications.push = AWSPushNotificationsConfigPinpoint$(
-              AWSPushNotificationsPinpointConfig.build(builder),
+            b.notifications.push = PushNotificationsConfigPinpoint$(
+              PushNotificationsPinpointConfig.build(builder),
             );
           case final nonPinpointResource:
             throw ArgumentError(
@@ -752,21 +818,23 @@ abstract class AWSAmplifyConfig
     StorageAccessLevel defaultAccessLevel = StorageAccessLevel.guest,
   }) =>
       rebuild((b) {
-        final bucketConfig = AWSStorageS3Bucket(
+        final bucketConfig = StorageS3Bucket(
           bucketName: bucketName,
           region: region,
           defaultAccessLevel: defaultAccessLevel,
         );
         switch (b.storage) {
-          case AWSStorageConfigS3$(:final s3):
-            return b.storage = AWSStorageConfigS3$(
+          case StorageConfigS3$(:final s3):
+            return b.storage = StorageConfigS3$(
               s3.rebuild((s3) {
-                s3.buckets[bucketName] = bucketConfig;
+                s3.buckets
+                  ..removeWhere((bucket) => bucket.bucketName == bucketName)
+                  ..add(bucketConfig);
               }),
             );
           case null:
-            return b.storage = AWSStorageConfig.s3(
-              buckets: {bucketName: bucketConfig},
+            return b.storage = StorageConfig.s3(
+              buckets: [bucketConfig],
             );
           case final nonS3Config:
             throw ArgumentError(
@@ -779,23 +847,26 @@ abstract class AWSAmplifyConfig
   @useResult
   AWSAmplifyConfig updateStorageBucket(
     String bucketName,
-    void Function(AWSStorageS3BucketBuilder bucket) builder,
+    void Function(StorageS3BucketBuilder bucket) builder,
   ) =>
       rebuild((b) {
         switch (b.storage) {
-          case AWSStorageConfigS3$(:final s3):
-            return b.storage = AWSStorageConfigS3$(
+          case StorageConfigS3$(:final s3):
+            return b.storage = StorageConfigS3$(
               s3.rebuild((s3) {
-                s3.buckets.updateValue(
-                  bucketName,
-                  (bucket) => bucket.rebuild(builder),
-                  ifAbsent: () => AWSStorageS3Bucket.build(builder),
-                );
+                final existingBucket = s3.buckets.build().firstWhereOrNull(
+                      (bucket) => bucket.bucketName == bucketName,
+                    );
+                final newBucket = existingBucket?.rebuild(builder) ??
+                    StorageS3Bucket.build(builder);
+                s3.buckets
+                  ..remove(existingBucket)
+                  ..add(newBucket);
               }),
             );
           case null:
-            return b.storage = AWSStorageConfig.s3(
-              buckets: {bucketName: AWSStorageS3Bucket.build(builder)},
+            return b.storage = StorageConfig.s3(
+              buckets: [StorageS3Bucket.build(builder)],
             );
           case final nonS3Config:
             throw ArgumentError(
@@ -806,55 +877,64 @@ abstract class AWSAmplifyConfig
 
   /// Converts this to a CLI-compatible representation.
   @useResult
-  AmplifyConfig toCli() {
-    AnalyticsConfig? analytics;
+  core.AmplifyConfig toCli() {
+    core.AnalyticsConfig? analytics;
     if (this.analytics?.pinpoint
-        case AWSAnalyticsPinpointConfig(
+        case AnalyticsPinpointConfig(
           :final appId,
           :final region,
           :final autoFlushEventsInterval
         )) {
-      analytics = AnalyticsConfig(
+      analytics = core.AnalyticsConfig(
         plugins: {
-          PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-            pinpointAnalytics: PinpointAnalytics(appId: appId, region: region),
-            pinpointTargeting: PinpointTargeting(region: region),
+          core.PinpointPluginConfig.pluginKey: core.PinpointPluginConfig(
+            pinpointAnalytics:
+                core.PinpointAnalytics(appId: appId, region: region),
+            pinpointTargeting: core.PinpointTargeting(region: region),
             autoFlushEventsInterval: autoFlushEventsInterval,
           ),
         },
       );
     }
 
-    ApiConfig? api;
+    core.ApiConfig? api;
     if (this.api?.endpoints case final apis?) {
       final endpoints = <String, core.AWSApiConfig>{};
-      void addEndpoint(String name, AWSApiEndpointConfig endpointConfig) {
-        final endpoint = switch (endpointConfig) {
-          AWSApiEndpointConfigAppSync$(:final appSync) => core.AWSApiConfig(
-              endpointType: EndpointType.graphQL,
-              endpoint: appSync.endpoint.toString(),
-              region: appSync.region,
-              authorizationType: appSync.authMode.authorizationType,
-              apiKey: switch (appSync.authMode) {
-                AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
-                _ => null,
-              },
+      void addEndpoint(ApiEndpointConfig endpointConfig) {
+        final (name, endpoint) = switch (endpointConfig) {
+          ApiEndpointConfigAppSync$(:final appSync) => (
+              appSync.name,
+              core.AWSApiConfig(
+                endpointType: core.EndpointType.graphQL,
+                endpoint: appSync.endpoint.toString(),
+                region: appSync.region,
+                authorizationType: appSync.authMode.authorizationType,
+                apiKey: switch (appSync.authMode) {
+                  ApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
+                  _ => null,
+                },
+              ),
             ),
-          AWSApiEndpointConfigApiGateway$(:final apiGateway) =>
-            core.AWSApiConfig(
-              endpointType: EndpointType.rest,
-              endpoint: apiGateway.endpoint.toString(),
-              region: apiGateway.region,
-              authorizationType: apiGateway.authMode.authorizationType,
-              apiKey: switch (apiGateway.authMode) {
-                AWSApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
-                _ => null,
-              },
+          ApiEndpointConfigApiGateway$(:final apiGateway) => (
+              apiGateway.name,
+              core.AWSApiConfig(
+                endpointType: core.EndpointType.rest,
+                endpoint: apiGateway.endpoint.toString(),
+                region: apiGateway.region,
+                authorizationType: apiGateway.authMode.authorizationType,
+                apiKey: switch (apiGateway.authMode) {
+                  ApiAuthorizationModeApiKey$(:final apiKey) => apiKey,
+                  _ => null,
+                },
+              ),
             ),
-          AWSApiEndpointConfigRest$(:final rest) => core.AWSApiConfig(
-              endpointType: EndpointType.rest,
-              endpoint: rest.endpoint.toString(),
-              authorizationType: APIAuthorizationType.none,
+          ApiEndpointConfigRest$(:final rest) => (
+              rest.name,
+              core.AWSApiConfig(
+                endpointType: core.EndpointType.rest,
+                endpoint: rest.endpoint.toString(),
+                authorizationType: core.APIAuthorizationType.none,
+              ),
             ),
           _ => throw ArgumentError(
               'Unsupported CLI endpoint type: $endpointConfig',
@@ -863,21 +943,21 @@ abstract class AWSAmplifyConfig
         endpoints[name] = endpoint;
       }
 
-      for (final MapEntry(key: name, value: endpointConfig) in apis.entries) {
-        addEndpoint(name, endpointConfig);
+      for (final endpointConfig in apis) {
+        addEndpoint(endpointConfig);
       }
-      api = ApiConfig(
+      api = core.ApiConfig(
         plugins: {
-          AWSApiPluginConfig.pluginKey: AWSApiPluginConfig(endpoints),
+          core.AWSApiPluginConfig.pluginKey: core.AWSApiPluginConfig(endpoints),
         },
       );
     }
 
-    AuthConfig? auth;
+    core.AuthConfig? auth;
     if (this.auth?.cognito
-        case AWSAuthCognitoConfig(:final userPool, :final identityPool)) {
+        case AuthCognitoConfig(:final userPool, :final identityPool)) {
       final oAuthConfig = userPool?.hostedUi?.let(
-        (hostedUi) => CognitoOAuthConfig(
+        (hostedUi) => core.CognitoOAuthConfig(
           appClientId: hostedUi.clientId ?? userPool.clientId,
           appClientSecret: hostedUi.clientSecret ?? userPool.clientSecret,
           webDomain: hostedUi.domainName,
@@ -894,11 +974,11 @@ abstract class AWSAmplifyConfig
           tokenUriQueryParameters: hostedUi.tokenUri?.queryParameters,
         ),
       );
-      auth = AuthConfig(
+      auth = core.AuthConfig(
         plugins: {
-          CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-            auth: AWSConfigMap.withDefault(
-              CognitoAuthConfig(
+          core.CognitoPluginConfig.pluginKey: core.CognitoPluginConfig(
+            auth: core.AWSConfigMap.withDefault(
+              core.CognitoAuthConfig(
                 oAuth: oAuthConfig,
                 authenticationFlowType: userPool?.authFlowType?.let(
                   (flow) => AuthenticationFlowType.values
@@ -907,10 +987,10 @@ abstract class AWSAmplifyConfig
                 socialProviders: userPool?.socialProviders
                     ?.map(
                       (p) => switch (p) {
-                        AuthProvider.amazon => SocialProvider.amazon,
-                        AuthProvider.apple => SocialProvider.apple,
-                        AuthProvider.facebook => SocialProvider.facebook,
-                        AuthProvider.google => SocialProvider.google,
+                        AuthProvider.amazon => core.SocialProvider.amazon,
+                        AuthProvider.apple => core.SocialProvider.apple,
+                        AuthProvider.facebook => core.SocialProvider.facebook,
+                        AuthProvider.google => core.SocialProvider.google,
                         _ => throw ArgumentError.value(
                             p,
                             'socialProvider',
@@ -926,25 +1006,39 @@ abstract class AWSAmplifyConfig
                     )
                     .toList(),
                 signupAttributes: userPool?.signUpAttributes?.toList(),
-                passwordProtectionSettings:
-                    userPool?.passwordProtectionSettings?.let(
-                  (passwordSettings) => PasswordProtectionSettings(
-                    passwordPolicyMinLength:
-                        passwordSettings.passwordPolicyMinLength,
-                    passwordPolicyCharacters:
-                        passwordSettings.passwordPolicyCharacters?.toList() ??
-                            const [],
+                passwordProtectionSettings: userPool?.passwordPolicy?.let(
+                  (passwordPolicy) => core.PasswordProtectionSettings(
+                    passwordPolicyMinLength: passwordPolicy.minLength,
+                    passwordPolicyCharacters: [
+                      if (passwordPolicy.requiresLowercase)
+                        core.PasswordPolicyCharacters.requiresLowercase,
+                      if (passwordPolicy.requiresUppercase)
+                        core.PasswordPolicyCharacters.requiresUppercase,
+                      if (passwordPolicy.requiresNumbers)
+                        core.PasswordPolicyCharacters.requiresNumbers,
+                      if (passwordPolicy.requiresSymbols)
+                        core.PasswordPolicyCharacters.requiresSymbols,
+                    ],
                   ),
                 ),
-                mfaConfiguration: userPool?.mfaConfiguration?.status,
-                mfaTypes: userPool?.mfaConfiguration?.enabledTypes.toList(),
+                mfaConfiguration: userPool?.mfaConfiguration?.enforcementLevel,
+                mfaTypes: switch ((
+                  userPool?.mfaConfiguration?.sms,
+                  userPool?.mfaConfiguration?.totp
+                )) {
+                  (null, null) => null,
+                  (final sms, final totp) => [
+                      if (sms ?? false) MfaType.sms,
+                      if (totp ?? false) MfaType.totp,
+                    ],
+                },
                 verificationMechanisms:
                     userPool?.verificationMechanisms?.toList(),
               ),
             ),
             cognitoUserPool: userPool?.let(
-              (userPoolConfig) => AWSConfigMap.withDefault(
-                CognitoUserPoolConfig(
+              (userPoolConfig) => core.AWSConfigMap.withDefault(
+                core.CognitoUserPoolConfig(
                   appClientId: userPoolConfig.clientId,
                   appClientSecret: userPoolConfig.clientSecret,
                   poolId: userPoolConfig.poolId,
@@ -955,11 +1049,11 @@ abstract class AWSAmplifyConfig
               ),
             ),
             credentialsProvider: identityPool?.let(
-              (identityPoolConfig) => CredentialsProviders(
-                AWSConfigMap({
-                  CognitoIdentityCredentialsProvider.configKey:
-                      AWSConfigMap.withDefault(
-                    CognitoIdentityCredentialsProvider(
+              (identityPoolConfig) => core.CredentialsProviders(
+                core.AWSConfigMap({
+                  core.CognitoIdentityCredentialsProvider.configKey:
+                      core.AWSConfigMap.withDefault(
+                    core.CognitoIdentityCredentialsProvider(
                       poolId: identityPoolConfig.poolId,
                       region: identityPool.region,
                     ),
@@ -968,16 +1062,16 @@ abstract class AWSAmplifyConfig
               ),
             ),
             pinpointAnalytics: userPool?.pinpointConfig?.let(
-              (pinpointConfig) => AWSConfigMap.withDefault(
-                CognitoPinpointAnalyticsConfig(
+              (pinpointConfig) => core.AWSConfigMap.withDefault(
+                core.CognitoPinpointAnalyticsConfig(
                   appId: pinpointConfig.appId,
                   region: pinpointConfig.region,
                 ),
               ),
             ),
             pinpointTargeting: userPool?.pinpointConfig?.let(
-              (pinpointConfig) => AWSConfigMap.withDefault(
-                CognitoPinpointTargetingConfig(
+              (pinpointConfig) => core.AWSConfigMap.withDefault(
+                core.CognitoPinpointTargetingConfig(
                   region: pinpointConfig.region,
                 ),
               ),
@@ -987,11 +1081,11 @@ abstract class AWSAmplifyConfig
       );
     }
 
-    LoggingConfig? logging;
+    core.LoggingConfig? logging;
     if (this.logging?.cloudWatch case final loggingConfig?) {
-      logging = LoggingConfig(
+      logging = core.LoggingConfig(
         plugins: {
-          CloudWatchPluginConfig.pluginKey: CloudWatchPluginConfig(
+          core.CloudWatchPluginConfig.pluginKey: core.CloudWatchPluginConfig(
             enable: loggingConfig.enable,
             logGroupName: loggingConfig.logGroupName,
             region: loggingConfig.region,
@@ -999,13 +1093,13 @@ abstract class AWSAmplifyConfig
             localStoreMaxSizeInMB: loggingConfig.localStoreMaxSize,
             defaultRemoteConfiguration:
                 loggingConfig.defaultRemoteConfiguration?.let(
-              (remoteConfig) => DefaultRemoteConfiguration(
+              (remoteConfig) => core.DefaultRemoteConfiguration(
                 endpoint: remoteConfig.endpoint.toString(),
                 refreshIntervalInSeconds: remoteConfig.refreshInterval,
               ),
             ),
             loggingConstraints: loggingConfig.loggingConstraints?.let(
-              (constraints) => LoggingConstraints(
+              (constraints) => core.LoggingConstraints(
                 defaultLogLevel: constraints.defaultLogLevel.name.screamingCase,
                 categoryLogLevel: {
                   for (final MapEntry(key: category, value: logLevel)
@@ -1024,7 +1118,7 @@ abstract class AWSAmplifyConfig
                           category.name.screamingCase:
                               logLevel.name.screamingCase,
                       },
-                    )
+                    ),
                 },
               ),
             ),
@@ -1033,13 +1127,13 @@ abstract class AWSAmplifyConfig
       );
     }
 
-    NotificationsConfig? notifications;
+    core.NotificationsConfig? notifications;
     if (this.notifications?.push?.pinpoint
-        case AWSPushNotificationsPinpointConfig(:final appId, :final region)) {
-      notifications = NotificationsConfig(
+        case PushNotificationsPinpointConfig(:final appId, :final region)) {
+      notifications = core.NotificationsConfig(
         plugins: {
-          NotificationsPinpointPluginConfig.pluginKey:
-              NotificationsPinpointPluginConfig(
+          core.NotificationsPinpointPluginConfig.pluginKey:
+              core.NotificationsPinpointPluginConfig(
             appId: appId,
             region: region,
           ),
@@ -1047,19 +1141,19 @@ abstract class AWSAmplifyConfig
       );
     }
 
-    StorageConfig? storage;
+    core.StorageConfig? storage;
     if (this.storage?.s3?.buckets case final buckets?) {
-      final AWSStorageS3Bucket(:bucketName, :region, :defaultAccessLevel) =
-          buckets.values.first;
+      final StorageS3Bucket(:bucketName, :region, :defaultAccessLevel) =
+          buckets.first;
       if (buckets.length > 1) {
         logger.warn(
           'The CLI config does not currently support multiple buckets. '
           'Including "$bucketName".',
         );
       }
-      storage = StorageConfig(
+      storage = core.StorageConfig(
         plugins: {
-          S3PluginConfig.pluginKey: S3PluginConfig(
+          core.S3PluginConfig.pluginKey: core.S3PluginConfig(
             bucket: bucketName,
             region: region,
             defaultAccessLevel: defaultAccessLevel,
@@ -1068,7 +1162,7 @@ abstract class AWSAmplifyConfig
       );
     }
 
-    return AmplifyConfig(
+    return core.AmplifyConfig(
       analytics: analytics,
       api: api,
       auth: auth,
@@ -1088,19 +1182,22 @@ abstract class AWSAmplifyConfig
 
         // We need a built_value serializer for each overridden type
         _StandardEnumSerializer<LogLevel>('LogLevel', LogLevel.values),
-        _StandardEnumSerializer<Category>('Category', Category.values),
+        _StandardEnumSerializer<core.Category>(
+          'Category',
+          core.Category.values,
+        ),
         _StandardEnumSerializer<AuthenticationFlowType>(
           'AuthenticationFlowType',
           AuthenticationFlowType.values,
         ),
-        _StandardEnumSerializer<MfaType>('MfaType', MfaType.values),
-        _StandardEnumSerializer<MfaConfiguration>(
+        _StandardEnumSerializer<core.MfaType>('MfaType', core.MfaType.values),
+        _StandardEnumSerializer<core.MfaConfiguration>(
           'MfaConfiguration',
-          MfaConfiguration.values,
+          core.MfaConfiguration.values,
         ),
-        _StandardEnumSerializer<PasswordPolicyCharacters>(
+        _StandardEnumSerializer<core.PasswordPolicyCharacters>(
           'PasswordPolicyCharacters',
-          PasswordPolicyCharacters.values,
+          core.PasswordPolicyCharacters.values,
         ),
         _StandardEnumSerializer<StorageAccessLevel>(
           'StorageAccessLevel',
@@ -1138,39 +1235,39 @@ extension<T extends Object> on T {
   R? let<R>(R Function(T) fn) => fn(this);
 }
 
-/// Helpers for working with [AWSApiEndpointConfig].
-extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
+/// Helpers for working with [ApiEndpointConfig].
+extension ApiEndpointConfigHelpers on ApiEndpointConfig {
   /// The endpoint type of this.
-  EndpointType get endpointType => switch (this) {
-        AWSApiEndpointConfigAppSync$ _ => EndpointType.graphQL,
-        AWSApiEndpointConfigApiGateway$ _ ||
-        AWSApiEndpointConfigRest$ _ =>
-          EndpointType.rest,
+  core.EndpointType get endpointType => switch (this) {
+        ApiEndpointConfigAppSync$ _ => core.EndpointType.graphQL,
+        ApiEndpointConfigApiGateway$ _ ||
+        ApiEndpointConfigRest$ _ =>
+          core.EndpointType.rest,
         _ => throw ArgumentError('Invalid API: $this'),
       };
 
   /// The default API authorization mode.
-  AWSApiAuthorizationMode get defaultAuthorizationMode => switch (this) {
-        AWSApiEndpointConfigRest$ _ => const AWSApiAuthorizationMode.none(),
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final authMode)
+  ApiAuthorizationMode get defaultAuthorizationMode => switch (this) {
+        ApiEndpointConfigRest$ _ => const ApiAuthorizationMode.none(),
+        ApiEndpointConfigApiGateway$(
+          apiGateway: ApiGatewayEndpointConfig(:final authMode)
         ) =>
           authMode,
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final authMode)
+        ApiEndpointConfigAppSync$(
+          appSync: AppSyncEndpointConfig(:final authMode)
         ) =>
           authMode,
         _ => throw ArgumentError('Invalid endpoint config: $this'),
       };
 
   /// The default API authorization type.
-  APIAuthorizationType get defaultAuthorizationType =>
+  core.APIAuthorizationType get defaultAuthorizationType =>
       defaultAuthorizationMode.authorizationType;
 
   /// All the auth modes for the API.
-  Iterable<AWSApiAuthorizationMode> get allAuthModes sync* {
+  Iterable<ApiAuthorizationMode> get allAuthModes sync* {
     yield defaultAuthorizationMode;
-    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes)) {
+    if (appSync case AppSyncEndpointConfig(:final additionalAuthModes)) {
       yield* additionalAuthModes;
     }
   }
@@ -1178,7 +1275,7 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
   /// The API key for the endpoint.
   String? get apiKey {
     for (final authMode in allAuthModes) {
-      if (authMode case AWSApiAuthorizationModeApiKey$(:final apiKey)) {
+      if (authMode case ApiAuthorizationModeApiKey$(:final apiKey)) {
         return apiKey;
       }
     }
@@ -1187,29 +1284,27 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
 
   /// The endpoint of the API.
   Uri get endpoint => switch (this) {
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final endpoint)
+        ApiEndpointConfigAppSync$(
+          appSync: AppSyncEndpointConfig(:final endpoint)
         ) =>
           endpoint,
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final endpoint)
+        ApiEndpointConfigApiGateway$(
+          apiGateway: ApiGatewayEndpointConfig(:final endpoint)
         ) =>
           endpoint,
-        AWSApiEndpointConfigRest$(
-          rest: AWSRestEndpointConfig(:final endpoint)
-        ) =>
+        ApiEndpointConfigRest$(rest: RestEndpointConfig(:final endpoint)) =>
           endpoint,
         _ => throw ArgumentError('Invalid endpoint config: $this'),
       };
 
   /// The AWS region of the [endpoint].
   String? get awsRegion => switch (this) {
-        AWSApiEndpointConfigApiGateway$(
-          apiGateway: AWSApiGatewayEndpointConfig(:final region)
+        ApiEndpointConfigApiGateway$(
+          apiGateway: ApiGatewayEndpointConfig(:final region)
         ) =>
           region,
-        AWSApiEndpointConfigAppSync$(
-          appSync: AWSAppSyncEndpointConfig(:final region)
+        ApiEndpointConfigAppSync$(
+          appSync: AppSyncEndpointConfig(:final region)
         ) =>
           region,
         _ => null,
@@ -1217,28 +1312,29 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
 }
 
 extension on core.AWSApiConfig {
-  AWSApiAuthorizationMode get defaultAuthMode => switch (authorizationType) {
-        APIAuthorizationType.apiKey => AWSApiAuthorizationMode.apiKey(apiKey!),
-        APIAuthorizationType.iam => const AWSApiAuthorizationMode.iam(),
-        APIAuthorizationType.userPools =>
-          const AWSApiAuthorizationMode.userPools(),
-        APIAuthorizationType.oidc => const AWSApiAuthorizationMode.oidc(),
-        APIAuthorizationType.function =>
-          const AWSApiAuthorizationMode.function(),
-        APIAuthorizationType.none => const AWSApiAuthorizationMode.none(),
+  ApiAuthorizationMode get defaultAuthMode => switch (authorizationType) {
+        core.APIAuthorizationType.apiKey =>
+          ApiAuthorizationMode.apiKey(apiKey!),
+        core.APIAuthorizationType.iam => const ApiAuthorizationMode.iam(),
+        core.APIAuthorizationType.userPools =>
+          const ApiAuthorizationMode.userPools(),
+        core.APIAuthorizationType.oidc => const ApiAuthorizationMode.oidc(),
+        core.APIAuthorizationType.function =>
+          const ApiAuthorizationMode.function(),
+        core.APIAuthorizationType.none => const ApiAuthorizationMode.none(),
       };
 }
 
-/// Helpers for working with [AWSApiAuthorizationMode].
-extension AWSApiAuthorizationModeHelpers on AWSApiAuthorizationMode {
-  /// The CLI [APIAuthorizationType] of this.
-  APIAuthorizationType get authorizationType => switch (this) {
-        AWSApiAuthorizationModeApiKey$ _ => APIAuthorizationType.apiKey,
-        AWSApiAuthorizationModeIam$ _ => APIAuthorizationType.iam,
-        AWSApiAuthorizationModeUserPools$ _ => APIAuthorizationType.userPools,
-        AWSApiAuthorizationModeOidc$ _ => APIAuthorizationType.oidc,
-        AWSApiAuthorizationModeFunction$ _ => APIAuthorizationType.function,
-        AWSApiAuthorizationModeNone$ _ => APIAuthorizationType.none,
+/// Helpers for working with [ApiAuthorizationMode].
+extension AWSApiAuthorizationModeHelpers on ApiAuthorizationMode {
+  /// The CLI [core.APIAuthorizationType] of this.
+  core.APIAuthorizationType get authorizationType => switch (this) {
+        ApiAuthorizationModeApiKey$ _ => core.APIAuthorizationType.apiKey,
+        ApiAuthorizationModeIam$ _ => core.APIAuthorizationType.iam,
+        ApiAuthorizationModeUserPools$ _ => core.APIAuthorizationType.userPools,
+        ApiAuthorizationModeOidc$ _ => core.APIAuthorizationType.oidc,
+        ApiAuthorizationModeFunction$ _ => core.APIAuthorizationType.function,
+        ApiAuthorizationModeNone$ _ => core.APIAuthorizationType.none,
         _ => throw ArgumentError('Invalid authorization mode: $this'),
       };
 }

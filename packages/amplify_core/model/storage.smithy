@@ -3,18 +3,18 @@ $version: "2"
 namespace com.amazonaws.amplify.core
 
 @documentation("The Amplify Storage category configuration.")
-union AWSStorageConfig {
-    s3: AWSStorageS3Config
+union StorageConfig {
+    s3: StorageS3Config
 }
 
 @documentation("The Amplify Storage S3 plugin configuration.")
-structure AWSStorageS3Config {
+structure StorageS3Config {
     @required
-    buckets: AWSStorageS3Buckets
+    buckets: StorageS3Buckets
 }
 
 @documentation("The configuration for an AWS S3 bucket.")
-structure AWSStorageS3Bucket {
+structure StorageS3Bucket {
     @required
     bucketName: BucketName
 
@@ -22,17 +22,16 @@ structure AWSStorageS3Bucket {
     region: AWSRegion
 
     @required
-    defaultAccessLevel: AWSStorageAccessLevel = "guest"
+    defaultAccessLevel: StorageAccessLevel = "guest"
 }
 
-map AWSStorageS3Buckets {
-    key: BucketName
-    value: AWSStorageS3Bucket
+list StorageS3Buckets {
+    member: StorageS3Bucket
 }
 
 string BucketName
 
-enum AWSStorageAccessLevel {
+enum StorageAccessLevel {
     GUEST = "guest"
     PROTECTED = "protected"
     PRIVATE = "private"

@@ -33,7 +33,7 @@ void main() {
 
       setUp(() async {
         dependencyManager = DependencyManager()
-          ..addInstance<AWSAuthHostedUiConfig>(hostedUiConfig)
+          ..addInstance<AuthHostedUiConfig>(hostedUiConfig)
           ..addInstance<SecureStorageInterface>(MockSecureStorage())
           ..addInstance<http.Client>(
             MockClient((request) {

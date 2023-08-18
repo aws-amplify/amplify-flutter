@@ -22,9 +22,9 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     final bridge = _stateMachine.expect<NativeAuthBridge>();
     final legacyCredentials = await bridge.getLegacyCredentials(
@@ -36,9 +36,9 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) {
     final bridge = _stateMachine.expect<NativeAuthBridge>();
     return bridge.clearLegacyCredentials();

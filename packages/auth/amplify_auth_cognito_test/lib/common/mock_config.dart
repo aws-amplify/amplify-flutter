@@ -5,7 +5,7 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' hide AuthConfig;
 
 const testUserPoolId = 'us-east-1_userPoolId';
 const testAppClientId = 'appClientId';
@@ -21,7 +21,7 @@ const webDomain = 'example.com';
 
 const testPinpointAppId = 'pinpointAppId';
 
-final hostedUiConfig = AWSAuthHostedUiConfig(
+final hostedUiConfig = AuthHostedUiConfig(
   clientId: testAppClientId,
   scopes: scopes,
   signInRedirectUris: redirectUris,
@@ -30,8 +30,8 @@ final hostedUiConfig = AWSAuthHostedUiConfig(
 );
 
 final userPoolOnlyConfig = AWSAmplifyConfig(
-  auth: AWSAuthConfig.cognito(
-    userPool: AWSAuthUserPoolConfig(
+  auth: AuthConfig.cognito(
+    userPool: AuthUserPoolConfig(
       poolId: testUserPoolId,
       clientId: testAppClientId,
       region: testRegion,
@@ -39,14 +39,14 @@ final userPoolOnlyConfig = AWSAmplifyConfig(
   ),
 );
 final mockConfig = AWSAmplifyConfig(
-  auth: AWSAuthConfig.cognito(
-    userPool: AWSAuthUserPoolConfig(
+  auth: AuthConfig.cognito(
+    userPool: AuthUserPoolConfig(
       poolId: testUserPoolId,
       clientId: testAppClientId,
       region: testRegion,
       hostedUi: hostedUiConfig,
     ),
-    identityPool: AWSAuthIdentityPoolConfig(
+    identityPool: AuthIdentityPoolConfig(
       poolId: testIdentityPoolId,
       region: testRegion,
     ),
@@ -54,12 +54,12 @@ final mockConfig = AWSAmplifyConfig(
 );
 
 final mockConfigWithPinpoint = AWSAmplifyConfig(
-  auth: AWSAuthConfig.cognito(
-    userPool: AWSAuthUserPoolConfig(
+  auth: AuthConfig.cognito(
+    userPool: AuthUserPoolConfig(
       poolId: testUserPoolId,
       clientId: testAppClientId,
       region: testRegion,
-      pinpointConfig: AWSAnalyticsPinpointConfig(
+      pinpointConfig: AnalyticsPinpointConfig(
         appId: testPinpointAppId,
         region: testRegion,
       ),

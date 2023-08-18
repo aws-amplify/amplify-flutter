@@ -5,7 +5,8 @@
 
 import 'package:amplify_core/amplify_config.dart';
 // #docregion imports
-import 'package:amplify_flutter/amplify_flutter.dart' hide AWSApiConfig;
+import 'package:amplify_flutter/amplify_flutter.dart'
+    hide AuthConfig, ApiConfig;
 
 // #enddocregion imports
 
@@ -49,24 +50,25 @@ AWSAmplifyConfig addUserPool() {
 // Creates an AWSAmplifyConfig with a user pool and a GraphQL API.
 AWSAmplifyConfig buildConfig() {
   return AWSAmplifyConfig(
-    api: AWSApiConfig(
-      endpoints: {
-        '<API_NAME>': AWSApiEndpointConfig.appSync(
+    api: ApiConfig(
+      endpoints: [
+        ApiEndpointConfig.appSync(
+          name: '<API_NAME>',
           endpoint: Uri.parse(
             'https://xxxxxx.appsync-api.us-east-1.amazonaws.com/graphql',
           ),
           region: 'us-east-1',
-          authMode: const AWSApiAuthorizationMode.apiKey(
+          authMode: const ApiAuthorizationMode.apiKey(
             'da2-xxxxxxxxxxxxxxxxxxxxxxxxxx',
           ),
           additionalAuthModes: [
-            const AWSApiAuthorizationMode.userPools(),
+            const ApiAuthorizationMode.userPools(),
           ],
         ),
-      },
+      ],
     ),
-    auth: AWSAuthConfig.cognito(
-      userPool: AWSAuthUserPoolConfig(
+    auth: AuthConfig.cognito(
+      userPool: AuthUserPoolConfig(
         poolId: '<USER_POOL_ID>',
         region: '<USER_POOL_REGION>',
         clientId: '<USER_POOL_CLIENT_ID>',

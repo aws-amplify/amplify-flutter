@@ -27,7 +27,7 @@ class DeviceMetadataRepository {
         dependencies.getOrCreate(),
       );
 
-  final AWSAuthUserPoolConfig _userPoolConfig;
+  final AuthUserPoolConfig _userPoolConfig;
   final SecureStorageInterface _secureStorage;
 
   /// Retrieves the device secrets for [username].

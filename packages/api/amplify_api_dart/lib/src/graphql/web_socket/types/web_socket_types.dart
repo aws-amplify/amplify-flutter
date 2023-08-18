@@ -100,7 +100,7 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
     required this.authorizationHeaders,
   });
   final GraphQLRequest<dynamic> request;
-  final AWSAppSyncEndpointConfig config;
+  final AppSyncEndpointConfig config;
   final Map<String, String> authorizationHeaders;
 
   @override

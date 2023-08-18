@@ -27,7 +27,7 @@ part '../types/web_socket_event.dart';
 class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro api.web_socket_bloc}
   WebSocketBloc({
-    required AWSAppSyncEndpointConfig config,
+    required AppSyncEndpointConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
     required WebSocketService wsService,
     required GraphQLSubscriptionOptions subscriptionOptions,

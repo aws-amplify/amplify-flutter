@@ -2,20 +2,19 @@ $version: "2"
 
 namespace com.amazonaws.amplify.core
 
-structure AWSApiConfig {
+structure ApiConfig {
     @required
-    endpoints: AWSApiEndpointMap
+    endpoints: ApiEndpointList
 }
 
-map AWSApiEndpointMap {
-    key: String
-    value: AWSApiEndpointConfig
+list ApiEndpointList {
+    member: ApiEndpointConfig
 }
 
-union AWSApiEndpointConfig {
-    appSync: AWSAppSyncEndpointConfig
-    apiGateway: AWSApiGatewayEndpointConfig
-    rest: AWSRestEndpointConfig
+union ApiEndpointConfig {
+    appSync: AppSyncEndpointConfig
+    apiGateway: ApiGatewayEndpointConfig
+    rest: RestEndpointConfig
 }
 
 // TODO: JS allows setting both `service` and `custom_header` fields on top of `endpoint`
@@ -27,7 +26,11 @@ union AWSApiEndpointConfig {
     Automatic authorization is not supported for these endpoints. To configure authorization, use
     a custom HTTP client which can add the required headers to each request.
 """)
-structure AWSRestEndpointConfig {
+structure RestEndpointConfig {
+    @required
+    @documentation("A name which can be used to identify this API")
+    name: String
+
     @required
     endpoint: Uri
 
@@ -38,7 +41,11 @@ structure AWSRestEndpointConfig {
 
 @mixin
 @documentation("Common configuration for AWS API endpoints.")
-structure AWSBaseEndpointConfig {
+structure BaseEndpointConfig {
+    @required
+    @documentation("A name which can be used to identify this API")
+    name: String
+
     @required
     endpoint: Uri
 
@@ -47,34 +54,34 @@ structure AWSBaseEndpointConfig {
     region: AWSRegion
 
     @required
-    authMode: AWSApiAuthorizationMode
+    authMode: ApiAuthorizationMode
 }
 
 @documentation("Configuration for an AWS AppSync endpoint.")
-structure AWSAppSyncEndpointConfig with [AWSBaseEndpointConfig] {
+structure AppSyncEndpointConfig with [BaseEndpointConfig] {
     @documentation("Additional authorization modes supported by the API. Used by the API/DataStore categories for multi-auth decisions.")
-    additionalAuthModes: AWSApiAuthorizationModes = []
+    additionalAuthModes: ApiAuthorizationModes = []
 }
 
 @documentation("Configuration for an AWS API Gateway endpoint.")
-structure AWSApiGatewayEndpointConfig with [AWSBaseEndpointConfig] {}
+structure ApiGatewayEndpointConfig with [BaseEndpointConfig] {}
 
 @documentation("""
     An authorization mode of an AWS API.
 
     APIs may accept multiple authorization modes which must be configured independently.  
 """)
-union AWSApiAuthorizationMode {
+union ApiAuthorizationMode {
     none: Unit
-    apiKey: AWSApiKey
+    apiKey: ApiKey
     iam: Unit
     oidc: Unit
     userPools: Unit
     function: Unit
 }
 
-string AWSApiKey
+string ApiKey
 
-list AWSApiAuthorizationModes {
-    member: AWSApiAuthorizationMode
+list ApiAuthorizationModes {
+    member: ApiAuthorizationMode
 }

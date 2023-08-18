@@ -32,7 +32,7 @@ const _emptyBody = <String, dynamic>{};
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
 Future<Uri> generateConnectionUri(
-  AWSAppSyncEndpointConfig config,
+  AppSyncEndpointConfig config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
   // First, generate auth query parameters.
@@ -79,7 +79,7 @@ Future<Uri> generateConnectionUri(
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
 Future<WebSocketSubscriptionRegistrationMessage>
     generateSubscriptionRegistrationMessage<T>(
-  AWSAppSyncEndpointConfig config, {
+  AppSyncEndpointConfig config, {
   required String id,
   required AmplifyAuthProviderRepository authRepo,
   required GraphQLRequest<T> request,
@@ -114,7 +114,7 @@ Future<WebSocketSubscriptionRegistrationMessage>
 /// the HTTP request are reformatted and returned. This logic applies for all auth
 /// modes as determined by [authRepo] parameter.
 Future<Map<String, String>> _generateAuthorizationHeaders(
-  AWSAppSyncEndpointConfig config, {
+  AppSyncEndpointConfig config, {
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
@@ -137,7 +137,7 @@ Future<Map<String, String>> _generateAuthorizationHeaders(
   );
   final authorizedHttpRequest = await authorizeHttpRequest(
     canonicalHttpRequest,
-    endpointConfig: AWSApiEndpointConfigAppSync$(config),
+    endpointConfig: ApiEndpointConfigAppSync$(config),
     authProviderRepo: authRepo,
     authorizationMode: authorizationMode,
   );

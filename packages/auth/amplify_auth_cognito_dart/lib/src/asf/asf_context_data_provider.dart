@@ -24,7 +24,7 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
   ASFDeviceInfoCollector get _platform => _dependencyManager.getOrCreate();
 
   /// The Cognito user pool configuration.
-  AWSAuthUserPoolConfig? get _userPoolConfig => _dependencyManager.get();
+  AuthUserPoolConfig? get _userPoolConfig => _dependencyManager.get();
 
   SecureStorageInterface get _secureStorage => _dependencyManager.expect();
 

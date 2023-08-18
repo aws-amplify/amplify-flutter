@@ -13,15 +13,15 @@ abstract interface class LegacyCredentialProvider {
 
   /// Fetches legacy credentials if they are present.
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   });
 
   /// Deletes legacy credentials if they are present.
   Future<void> deleteLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   });
 }

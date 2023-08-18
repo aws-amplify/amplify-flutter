@@ -3,17 +3,17 @@ $version: "2"
 namespace com.amazonaws.amplify.core
 
 @documentation("The Amplify Notifications category configuration.")
-structure AWSNotificationsConfig {
-    push: AWSPushNotificationsConfig
+structure NotificationsConfig {
+    push: PushNotificationsConfig
 }
 
 @documentation("The Amplify Push Notifications subcategory configuration.")
-union AWSPushNotificationsConfig {
-    pinpoint: AWSPushNotificationsPinpointConfig
+union PushNotificationsConfig {
+    pinpoint: PushNotificationsPinpointConfig
 }
 
 @documentation("The Amplify Push Notifications Pinpoint plugin configuration.")
-structure AWSPushNotificationsPinpointConfig {
+structure PushNotificationsPinpointConfig {
     @required
     appId: String
 

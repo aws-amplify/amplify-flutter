@@ -12,7 +12,7 @@ import 'package:amplify_core/amplify_core.dart';
 abstract class ServiceProviderClient {
   /// Initialize this client, used by the plugin during configuration.
   Future<void> init({
-    required AWSPushNotificationsConfig config,
+    required PushNotificationsConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
   });
 

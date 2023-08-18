@@ -34,7 +34,7 @@ sealed class ConfigurationState extends AuthState<ConfigurationStateType> {
   const factory ConfigurationState.configuring() = Configuring;
 
   /// {@macro amplify_auth_cognito.configuration_state.configured}
-  const factory ConfigurationState.configured(AWSAuthCognitoConfig config) =
+  const factory ConfigurationState.configured(AuthCognitoConfig config) =
       Configured;
 
   /// {@macro amplify_auth_cognito.configuration_state.configure_failure}
@@ -83,7 +83,7 @@ final class Configured extends ConfigurationState with SuccessState {
   const Configured(this.config);
 
   /// The configured plugin config.
-  final AWSAuthCognitoConfig config;
+  final AuthCognitoConfig config;
 
   @override
   ConfigurationStateType get type => ConfigurationStateType.configured;

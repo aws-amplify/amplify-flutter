@@ -6,7 +6,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_core.dart' hide AnalyticsConfig;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -91,7 +91,7 @@ void main() {
       await expectLater(
         plugin.configure(
           config: AWSAmplifyConfig(
-            analytics: AWSAnalyticsConfig.pinpoint(
+            analytics: AnalyticsConfig.pinpoint(
               appId: appId,
               region: region,
               autoFlushEventsInterval: autoFlushInterval,
@@ -117,7 +117,7 @@ void main() {
 
       await plugin.configure(
         config: AWSAmplifyConfig(
-          analytics: AWSAnalyticsConfig.pinpoint(
+          analytics: AnalyticsConfig.pinpoint(
             appId: appId,
             region: region,
             autoFlushEventsInterval: autoFlushInterval,
@@ -143,7 +143,7 @@ void main() {
 
       await plugin.configure(
         config: AWSAmplifyConfig(
-          analytics: AWSAnalyticsConfig.pinpoint(
+          analytics: AnalyticsConfig.pinpoint(
             appId: appId,
             region: region,
             autoFlushEventsInterval: autoFlushInterval,

@@ -3,10 +3,10 @@ $version: "2"
 namespace com.amazonaws.amplify.core
 
 structure AWSAmplifyConfig {
-    analytics: AWSAnalyticsConfig
-    api: AWSApiConfig
-    auth: AWSAuthConfig
-    logging: AWSLoggingConfig
-    notifications: AWSNotificationsConfig
-    storage: AWSStorageConfig
+    analytics: AnalyticsConfig
+    api: ApiConfig
+    auth: AuthConfig
+    logging: LoggingConfig
+    notifications: NotificationsConfig
+    storage: StorageConfig
 }

@@ -13,18 +13,18 @@ class MockLegacyCredentialProvider implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     data = null;
   }
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     return data;
   }

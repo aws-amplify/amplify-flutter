@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
 import 'package:checks/checks.dart';
 import 'package:test/test.dart';
 
-import 'amplify_config_test.dart';
+import 'testdata/expected_aws_configs.dart';
+import 'testdata/expected_cli_configs.dart';
 import 'testdata/test_values.dart';
 
 void main() {
@@ -17,7 +17,7 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          analytics: AWSAnalyticsConfig.pinpoint(
+          analytics: AnalyticsConfig.pinpoint(
             appId: ANALYTICS_APP_ID,
             region: REGION,
             autoFlushEventsInterval:
@@ -51,7 +51,7 @@ void main() {
         );
         expect(
           config.analytics?.pinpoint,
-          predicate<AWSAnalyticsPinpointConfig>((p) {
+          predicate<AnalyticsPinpointConfig>((p) {
             return p.appId == newAppId &&
                 p.region == newRegion &&
                 p.autoFlushEventsInterval == newFlushInterval;
@@ -66,24 +66,27 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          api: AWSApiConfig(
-            endpoints: {
-              'myApi_API_KEY': AWSApiEndpointConfig.appSync(
+          api: ApiConfig(
+            endpoints: [
+              ApiEndpointConfig.appSync(
+                name: 'myApi_API_KEY',
                 endpoint: Uri.parse(GRAPHQL_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.apiKey(API_KEY),
+                authMode: const ApiAuthorizationMode.apiKey(API_KEY),
               ),
-              'myApi_AWS_IAM': AWSApiEndpointConfig.appSync(
+              ApiEndpointConfig.appSync(
+                name: 'myApi_AWS_IAM',
                 endpoint: Uri.parse(GRAPHQL_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.iam(),
+                authMode: const ApiAuthorizationMode.iam(),
               ),
-              'REST': AWSApiEndpointConfig.apiGateway(
+              ApiEndpointConfig.apiGateway(
+                name: 'REST',
                 endpoint: Uri.parse(REST_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.userPools(),
+                authMode: const ApiAuthorizationMode.userPools(),
               ),
-            },
+            ],
           ),
         );
         expect(config, expectedAws);
@@ -96,20 +99,20 @@ void main() {
               'myApi_API_KEY',
               endpoint: Uri.parse(GRAPHQL_ENDPOINT),
               region: REGION,
-              authMode: const AWSApiAuthorizationMode.apiKey(API_KEY),
+              authMode: const ApiAuthorizationMode.apiKey(API_KEY),
             )
             .updateGraphQlApi(
               'myApi_AWS_IAM',
               (api) => api
                 ..endpoint = Uri.parse(GRAPHQL_ENDPOINT)
                 ..region = REGION
-                ..authMode = const AWSApiAuthorizationMode.iam(),
+                ..authMode = const ApiAuthorizationMode.iam(),
             )
             .withRestApi(
               'REST',
               endpoint: Uri.parse(REST_ENDPOINT),
               region: REGION,
-              authMode: const AWSApiAuthorizationMode.userPools(),
+              authMode: const ApiAuthorizationMode.userPools(),
             );
         expect(config, expectedAws);
         expect(config.toCli(), expectedCli);
@@ -119,35 +122,38 @@ void main() {
         final config = AWSAmplifyConfig.from(expectedCli)
             .updateGraphQlApi(
               'myApi_API_KEY',
-              (api) => api.authMode = const AWSApiAuthorizationMode.oidc(),
+              (api) => api.authMode = const ApiAuthorizationMode.oidc(),
             )
             .updateGraphQlApi(
               'myApi_AWS_IAM',
-              (api) => api.authMode = const AWSApiAuthorizationMode.oidc(),
+              (api) => api.authMode = const ApiAuthorizationMode.oidc(),
             )
             .updateRestApi(
               'REST',
-              (api) => api.authMode = const AWSApiAuthorizationMode.oidc(),
+              (api) => api.authMode = const ApiAuthorizationMode.oidc(),
             );
         final expectedConfig = AWSAmplifyConfig(
-          api: AWSApiConfig(
-            endpoints: {
-              'myApi_API_KEY': AWSApiEndpointConfig.appSync(
+          api: ApiConfig(
+            endpoints: [
+              ApiEndpointConfig.appSync(
+                name: 'myApi_API_KEY',
                 endpoint: Uri.parse(GRAPHQL_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.oidc(),
+                authMode: const ApiAuthorizationMode.oidc(),
               ),
-              'myApi_AWS_IAM': AWSApiEndpointConfig.appSync(
+              ApiEndpointConfig.appSync(
+                name: 'myApi_AWS_IAM',
                 endpoint: Uri.parse(GRAPHQL_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.oidc(),
+                authMode: const ApiAuthorizationMode.oidc(),
               ),
-              'REST': AWSApiEndpointConfig.apiGateway(
+              ApiEndpointConfig.apiGateway(
+                name: 'REST',
                 endpoint: Uri.parse(REST_ENDPOINT),
                 region: REGION,
-                authMode: const AWSApiAuthorizationMode.oidc(),
+                authMode: const ApiAuthorizationMode.oidc(),
               ),
-            },
+            ],
           ),
         );
         expect(config, expectedConfig);
@@ -160,24 +166,23 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          auth: AWSAuthConfig.cognito(
-            userPool: AWSAuthUserPoolConfig(
+          auth: AuthConfig.cognito(
+            userPool: AuthUserPoolConfig(
               poolId: USERPOOL_ID,
               region: REGION,
               clientId: APPCLIENT_ID,
               clientSecret: APPCLIENT_SECERT,
               authFlowType: AuthenticationFlowType.userSrpAuth,
-              mfaConfiguration: AWSAuthMfaConfiguration(
-                status: MfaConfiguration.optional,
-                enabledTypes: [MfaType.sms, MfaType.totp],
+              mfaConfiguration: AuthMfaConfiguration(
+                enforcementLevel: MfaStatus.optional,
+                sms: true,
+                totp: true,
               ),
-              passwordProtectionSettings: AWSAuthPasswordProtectionSettings(
-                passwordPolicyCharacters: [
-                  PasswordPolicyCharacters.requiresLowercase,
-                ],
+              passwordPolicy: AuthPasswordPolicy(
+                requiresLowercase: true,
               ),
               socialProviders: [AuthProvider.google],
-              usernameAttributes: [AWSAuthUsernameAttribute.email],
+              usernameAttributes: [AuthUsernameAttribute.email],
               signUpAttributes: [
                 CognitoUserAttributeKey.email,
                 CognitoUserAttributeKey.phoneNumber,
@@ -186,7 +191,7 @@ void main() {
                 CognitoUserAttributeKey.email,
                 CognitoUserAttributeKey.phoneNumber,
               ],
-              hostedUi: AWSAuthHostedUiConfig(
+              hostedUi: AuthHostedUiConfig(
                 clientId: APPCLIENT_ID,
                 clientSecret: APPCLIENT_SECERT,
                 scopes: [
@@ -200,12 +205,12 @@ void main() {
                 signOutRedirectUris: [Uri.parse(OAUTH_SIGNOUT)],
                 domainName: OAUTH_DOMAIN,
               ),
-              pinpointConfig: AWSAnalyticsPinpointConfig(
+              pinpointConfig: AnalyticsPinpointConfig(
                 appId: ANALYTICS_APP_ID,
                 region: REGION,
               ),
             ),
-            identityPool: AWSAuthIdentityPoolConfig(
+            identityPool: AuthIdentityPoolConfig(
               poolId: IDPOOL_ID,
               region: REGION,
             ),
@@ -223,17 +228,16 @@ void main() {
               clientId: APPCLIENT_ID,
               clientSecret: APPCLIENT_SECERT,
               authFlowType: AuthenticationFlowType.userSrpAuth,
-              mfaConfiguration: AWSAuthMfaConfiguration(
-                status: MfaStatus.optional,
-                enabledTypes: [MfaType.sms, MfaType.totp],
+              mfaConfiguration: AuthMfaConfiguration(
+                enforcementLevel: MfaStatus.optional,
+                sms: true,
+                totp: true,
               ),
-              passwordProtectionSettings: AWSAuthPasswordProtectionSettings(
-                passwordPolicyCharacters: [
-                  PasswordPolicyCharacters.requiresLowercase,
-                ],
+              passwordPolicy: AuthPasswordPolicy(
+                requiresLowercase: true,
               ),
               socialProviders: [AuthProvider.google],
-              usernameAttributes: [AWSAuthUsernameAttribute.email],
+              usernameAttributes: [AuthUsernameAttribute.email],
               signUpAttributes: [
                 CognitoUserAttributeKey.email,
                 CognitoUserAttributeKey.phoneNumber,
@@ -242,7 +246,7 @@ void main() {
                 CognitoUserAttributeKey.email,
                 CognitoUserAttributeKey.phoneNumber,
               ],
-              hostedUi: AWSAuthHostedUiConfig(
+              hostedUi: AuthHostedUiConfig(
                 clientId: APPCLIENT_ID,
                 clientSecret: APPCLIENT_SECERT,
                 scopes: [
@@ -256,7 +260,7 @@ void main() {
                 signOutRedirectUris: [Uri.parse(OAUTH_SIGNOUT)],
                 domainName: OAUTH_DOMAIN,
               ),
-              pinpointConfig: AWSAnalyticsPinpointConfig(
+              pinpointConfig: AnalyticsPinpointConfig(
                 appId: ANALYTICS_APP_ID,
                 region: REGION,
               ),
@@ -282,7 +286,7 @@ void main() {
               (identityPool) => identityPool.poolId = newIdentityPoolId,
             );
         check(config.auth?.cognito?.userPool?.hostedUi)
-            .isA<AWSAuthHostedUiConfig>()
+            .isA<AuthHostedUiConfig>()
           ..has((cfg) => cfg.signInRedirectUris, 'signInRedirectUris')
               .deepEquals([newRedirectUri])
           ..has((cfg) => cfg.signInUri, 'signInUri').equals(newRedirectUri);
@@ -297,23 +301,23 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          logging: AWSLoggingConfig.cloudWatch(
+          logging: LoggingConfig.cloudWatch(
             enable: false,
             logGroupName: LOG_GROUP_NAME,
             region: REGION,
-            defaultRemoteConfiguration: AWSLoggingRemoteConfig(
+            defaultRemoteConfiguration: LoggingRemoteConfig(
               endpoint: Uri.parse(LOG_REMOTE_ENDPOINT),
               refreshInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
             ),
             flushInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
             localStoreMaxSize: const LocalStorageSize.MB(LOG_STORE_MB),
-            loggingConstraints: AWSAmplifyLoggingConstraints(
+            loggingConstraints: AmplifyLoggingConstraints(
               defaultLogLevel: LogLevel.parse(LOG_DEFAULT_LEVEL),
               categoryLogLevel: {
                 Category.parse(LOG_CATEGORY): LogLevel.parse(LOG_DEFAULT_LEVEL),
               },
               userLogLevel: {
-                LOG_USER_ID: AWSUserLogLevel(
+                LOG_USER_ID: UserLogLevel(
                   categoryLogLevel: {
                     Category.parse(LOG_CATEGORY):
                         LogLevel.parse(LOG_DEFAULT_LEVEL),
@@ -333,19 +337,19 @@ void main() {
           enable: false,
           logGroupName: LOG_GROUP_NAME,
           region: REGION,
-          defaultRemoteConfiguration: AWSLoggingRemoteConfig(
+          defaultRemoteConfiguration: LoggingRemoteConfig(
             endpoint: Uri.parse(LOG_REMOTE_ENDPOINT),
             refreshInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
           ),
           flushInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
           localStoreMaxSize: const LocalStorageSize.MB(LOG_STORE_MB),
-          loggingConstraints: AWSAmplifyLoggingConstraints(
+          loggingConstraints: AmplifyLoggingConstraints(
             defaultLogLevel: LogLevel.verbose,
             categoryLogLevel: {
               Category.auth: LogLevel.verbose,
             },
             userLogLevel: {
-              LOG_USER_ID: AWSUserLogLevel(
+              LOG_USER_ID: UserLogLevel(
                 categoryLogLevel: {
                   Category.auth: LogLevel.verbose,
                 },
@@ -364,36 +368,36 @@ void main() {
           (cloudWatch) => cloudWatch
             ..enable = true
             ..localStoreMaxSize = newStorageSize.inMegabytes
-            ..loggingConstraints.userLogLevel['NEW_USER'] = AWSUserLogLevel(
+            ..loggingConstraints.userLogLevel['NEW_USER'] = UserLogLevel(
               defaultLogLevel: LogLevel.error,
             ),
         );
         final expectedConfig = AWSAmplifyConfig(
-          logging: AWSLoggingConfig.cloudWatch(
+          logging: LoggingConfig.cloudWatch(
             enable: true,
             logGroupName: LOG_GROUP_NAME,
             region: REGION,
-            defaultRemoteConfiguration: AWSLoggingRemoteConfig(
+            defaultRemoteConfiguration: LoggingRemoteConfig(
               endpoint: Uri.parse(LOG_REMOTE_ENDPOINT),
               refreshInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
             ),
             flushInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
             localStoreMaxSize: newStorageSize,
-            loggingConstraints: AWSAmplifyLoggingConstraints(
+            loggingConstraints: AmplifyLoggingConstraints(
               defaultLogLevel: LogLevel.verbose,
               categoryLogLevel: {
                 Category.auth: LogLevel.verbose,
               },
               userLogLevel: {
-                LOG_USER_ID: AWSUserLogLevel(
+                LOG_USER_ID: UserLogLevel(
                   categoryLogLevel: {
                     Category.auth: LogLevel.verbose,
                   },
                   defaultLogLevel: LogLevel.verbose,
                 ),
-                'NEW_USER': AWSUserLogLevel(
+                'NEW_USER': UserLogLevel(
                   defaultLogLevel: LogLevel.error,
-                )
+                ),
               },
             ),
           ),
@@ -408,8 +412,8 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          notifications: AWSNotificationsConfig(
-            push: AWSPushNotificationsConfig.pinpoint(
+          notifications: NotificationsConfig(
+            push: PushNotificationsConfig.pinpoint(
               appId: ANALYTICS_APP_ID,
               region: REGION,
             ),
@@ -439,7 +443,7 @@ void main() {
         );
         expect(
           config.notifications?.push?.pinpoint,
-          predicate<AWSPushNotificationsPinpointConfig>((p) {
+          predicate<PushNotificationsPinpointConfig>((p) {
             return p.appId == newAppId && p.region == newRegion;
           }),
         );
@@ -452,13 +456,13 @@ void main() {
 
       test('can create new resource', () {
         final config = AWSAmplifyConfig(
-          storage: AWSStorageConfig.s3(
-            buckets: {
-              BUCKET: AWSStorageS3Bucket(
+          storage: StorageConfig.s3(
+            buckets: [
+              StorageS3Bucket(
                 bucketName: BUCKET,
                 region: REGION,
               ),
-            },
+            ],
           ),
         );
         expect(config, expectedAws);
@@ -490,17 +494,17 @@ void main() {
                 ..region = newRegion,
             );
         final expectedConfig = AWSAmplifyConfig(
-          storage: AWSStorageConfig.s3(
-            buckets: {
-              BUCKET: AWSStorageS3Bucket(
+          storage: StorageConfig.s3(
+            buckets: [
+              StorageS3Bucket(
                 bucketName: BUCKET,
                 region: newRegion,
               ),
-              newBucket: AWSStorageS3Bucket(
+              StorageS3Bucket(
                 bucketName: newBucket,
                 region: newRegion,
               ),
-            },
+            ],
           ),
         );
         expect(config, expectedConfig);

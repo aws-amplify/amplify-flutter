@@ -31,7 +31,7 @@ const testDateTimeNowOverride = #_testDateTimeNowOverride;
 class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   factory StorageS3Service({
-    required AWSStorageS3Bucket s3PluginConfig,
+    required StorageS3Bucket s3PluginConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
@@ -65,7 +65,7 @@ class StorageS3Service {
   }
 
   StorageS3Service._({
-    required AWSStorageS3Bucket s3PluginConfig,
+    required StorageS3Bucket s3PluginConfig,
     required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
@@ -97,7 +97,7 @@ class StorageS3Service {
   static final _defaultS3SignerConfiguration =
       sigv4.S3ServiceConfiguration(signPayload: false);
 
-  final AWSStorageS3Bucket _s3PluginConfig;
+  final StorageS3Bucket _s3PluginConfig;
   final String _delimiter;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;

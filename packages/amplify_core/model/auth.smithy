@@ -2,16 +2,16 @@ $version: "2"
 
 namespace com.amazonaws.amplify.core
 
-union AWSAuthConfig {
-    cognito: AWSAuthCognitoConfig
+union AuthConfig {
+    cognito: AuthCognitoConfig
 }
 
-structure AWSAuthCognitoConfig {
-    userPool: AWSAuthUserPoolConfig
-    identityPool: AWSAuthIdentityPoolConfig
+structure AuthCognitoConfig {
+    userPool: AuthUserPoolConfig
+    identityPool: AuthIdentityPoolConfig
 }
 
-structure AWSAuthUserPoolConfig {
+structure AuthUserPoolConfig {
     @required
     poolId: String
 
@@ -22,18 +22,18 @@ structure AWSAuthUserPoolConfig {
     clientId: String
     clientSecret: String
     endpoint: Uri
-    authFlowType: AWSAuthFlowType
-    socialProviders: AWSAuthProviders
-    usernameAttributes: AWSAuthUsernameAttributes
-    signUpAttributes: AWSAuthUserAttributeKeys
-    verificationMechanisms: AWSAuthUserAttributeKeys
-    pinpointConfig: AWSAnalyticsPinpointConfig
-    passwordProtectionSettings: AWSAuthPasswordProtectionSettings
-    mfaConfiguration: AWSAuthMfaConfiguration
-    hostedUi: AWSAuthHostedUiConfig
+    authFlowType: AuthFlowType
+    socialProviders: AuthProviders
+    usernameAttributes: AuthUsernameAttributes
+    signUpAttributes: AuthUserAttributeKeys
+    verificationMechanisms: AuthUserAttributeKeys
+    pinpointConfig: AnalyticsPinpointConfig
+    passwordPolicy: AuthPasswordPolicy
+    mfaConfiguration: AuthMfaConfiguration
+    hostedUi: AuthHostedUiConfig
 }
 
-enum AWSAuthFlowType {
+enum AuthFlowType {
     USER_SRP_AUTH
     USER_PASSWORD_AUTH
     CUSTOM_AUTH_WITH_SRP
@@ -43,18 +43,18 @@ enum AWSAuthFlowType {
     CUSTOM_AUTH
 }
 
-union AWSAuthProvider {
+union AuthProvider {
     cognito: Unit
     google: Unit
     facebook: Unit
     amazon: Unit
     apple: Unit
-    oidc: AWSAuthProviderOIDC
-    saml: AWSAuthProviderSAML
-    custom: AWSAuthProviderCustom
+    oidc: AuthProviderOIDC
+    saml: AuthProviderSAML
+    custom: AuthProviderCustom
 }
 
-structure AWSAuthProviderOIDC {
+structure AuthProviderOIDC {
     @required
     name: String
 
@@ -62,22 +62,22 @@ structure AWSAuthProviderOIDC {
     issuer: String
 }
 
-structure AWSAuthProviderSAML {
+structure AuthProviderSAML {
     @required
     name: String
     providerArn: String
 }
 
-structure AWSAuthProviderCustom {
+structure AuthProviderCustom {
     @required
     developerProvidedName: String
 }
 
-list AWSAuthProviders {
-    member: AWSAuthProvider
+list AuthProviders {
+    member: AuthProvider
 }
 
-union AWSAuthUserAttributeKey {
+union AuthUserAttributeKey {
     address: Unit
     birthdate: Unit
     email: Unit
@@ -101,49 +101,43 @@ union AWSAuthUserAttributeKey {
     custom: String
 }
 
-list AWSAuthUserAttributeKeys {
-    member: AWSAuthUserAttributeKey
+list AuthUserAttributeKeys {
+    member: AuthUserAttributeKey
 }
 
-enum AWSAuthUsernameAttribute {
+enum AuthUsernameAttribute {
     EMAIL = "email"
     PHONE_NUMBER = "phone_number"
 }
 
-list AWSAuthUsernameAttributes {
-    member: AWSAuthUsernameAttribute
+list AuthUsernameAttributes {
+    member: AuthUsernameAttribute
 }
 
-structure AWSAuthMfaConfiguration {
+structure AuthMfaConfiguration {
     @required
-    status: AWSAuthMfaStatus
+    enforcementLevel: AuthMfaEnforcementLevel
 
     @required
-    enabledTypes: AWSAuthMfaTypes
+    sms: Boolean = false
+
+    @required
+    totp: Boolean = false
 }
 
-enum AWSAuthMfaStatus {
+enum AuthMfaEnforcementLevel {
     OPTIONAL
     ON
     OFF
 }
 
-enum AWSAuthMfaType {
-    SMS
-    TOTP
-}
-
-list AWSAuthMfaTypes {
-    member: AWSAuthMfaType
-}
-
-structure AWSAuthHostedUiConfig {
-    // Defaults to the value in AWSAuthUserPoolConfig
+structure AuthHostedUiConfig {
+    // Defaults to the value in AuthUserPoolConfig
     @required
     @clientOptional
     clientId: String
 
-    // Defaults to the value in AWSAuthUserPoolConfig
+    // Defaults to the value in AuthUserPoolConfig
     @required
     @clientOptional
     clientSecret: String
@@ -165,23 +159,24 @@ structure AWSAuthHostedUiConfig {
     tokenUri: Uri
 }
 
-structure AWSAuthPasswordProtectionSettings {
-    passwordPolicyMinLength: Integer
-    passwordPolicyCharacters: AWSAuthPasswordPolicyCharactersList
+structure AuthPasswordPolicy {
+    minLength: Integer
+    
+    // TODO(dnys1): Why does no `required` cause the default to not appear?
+    @required
+    requiresLowercase: Boolean = false
+    
+    @required
+    requiresUppercase: Boolean = false
+    
+    @required
+    requiresNumbers: Boolean = false
+    
+    @required
+    requiresSymbols: Boolean = false
 }
 
-enum AWSAuthPasswordPolicyCharacters {
-    REQUIRES_LOWERCASE
-    REQUIRES_UPPERCASE
-    REQUIRES_NUMBERS
-    REQUIRES_SYMBOLS
-}
-
-list AWSAuthPasswordPolicyCharactersList {
-    member: AWSAuthPasswordPolicyCharacters
-}
-
-structure AWSAuthIdentityPoolConfig {
+structure AuthIdentityPoolConfig {
     @required
     poolId: String
 

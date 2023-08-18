@@ -1,3 +1,4 @@
+#!/usr/bin/env dart
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -122,49 +123,41 @@ Future<void> _generateFor({
     shapeOverrides: {
       ShapeId.parse('com.amazonaws.amplify.core#Uri'):
           ShapeOverrides(DartTypes.core.uri),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSLogLevel'):
+      ShapeId.parse('com.amazonaws.amplify.core#LogLevel'):
           const ShapeOverrides(
         Reference('LogLevel', 'package:amplify_core/amplify_core.dart'),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAmplifyCategory'):
+      ShapeId.parse('com.amazonaws.amplify.core#AmplifyCategory'):
           const ShapeOverrides(
         Reference('Category', 'package:amplify_core/amplify_core.dart'),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthFlowType'):
+      ShapeId.parse('com.amazonaws.amplify.core#AuthFlowType'):
           const ShapeOverrides(
         Reference(
           'AuthenticationFlowType',
           'package:amplify_core/amplify_core.dart',
         ),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaType'):
+      ShapeId.parse('com.amazonaws.amplify.core#AuthMfaType'):
           const ShapeOverrides(
         Reference('MfaType', 'package:amplify_core/amplify_core.dart'),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaStatus'):
+      ShapeId.parse('com.amazonaws.amplify.core#AuthMfaEnforcementLevel'):
           const ShapeOverrides(
         Reference('MfaStatus', 'package:amplify_core/amplify_config.dart'),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthProvider'):
+      ShapeId.parse('com.amazonaws.amplify.core#AuthProvider'):
           const ShapeOverrides(
         Reference('AuthProvider', 'package:amplify_core/amplify_core.dart'),
       ),
-      ShapeId.parse(
-        'com.amazonaws.amplify.core#AWSAuthPasswordPolicyCharacters',
-      ): const ShapeOverrides(
-        Reference(
-          'PasswordPolicyCharacters',
-          'package:amplify_core/amplify_core.dart',
-        ),
-      ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthUserAttributeKey'):
+      ShapeId.parse('com.amazonaws.amplify.core#AuthUserAttributeKey'):
           const ShapeOverrides(
         Reference(
           'CognitoUserAttributeKey',
           'package:amplify_core/amplify_core.dart',
         ),
       ),
-      ShapeId.parse('com.amazonaws.amplify.core#AWSStorageAccessLevel'):
+      ShapeId.parse('com.amazonaws.amplify.core#StorageAccessLevel'):
           const ShapeOverrides(
         Reference(
           'StorageAccessLevel',

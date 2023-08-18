@@ -69,16 +69,18 @@ void validateSignedRequest(AWSBaseHttpRequest request) {
   );
 }
 
-final testApiKeyConfig = AWSAppSyncEndpointConfig(
+final testApiKeyConfig = AppSyncEndpointConfig(
+  name: '',
   endpoint:
       Uri.parse('https://abc123.appsync-api.us-east-1.amazonaws.com/graphql'),
   region: 'us-east-1',
-  authMode: const AWSApiAuthorizationMode.apiKey('abc-123'),
+  authMode: const ApiAuthorizationMode.apiKey('abc-123'),
 );
-final testApiKeyConfigCustomDomain = AWSAppSyncEndpointConfig(
+final testApiKeyConfigCustomDomain = AppSyncEndpointConfig(
+  name: '',
   endpoint: Uri.parse('https://foo.bar.aws.dev/graphql'),
   region: 'us-east-1',
-  authMode: const AWSApiAuthorizationMode.apiKey('abc-123'),
+  authMode: const ApiAuthorizationMode.apiKey('abc-123'),
 );
 
 const expectedApiKeyWebSocketConnectionUrl =

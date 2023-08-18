@@ -27,7 +27,7 @@ sealed class ConfigurationEvent
 
   /// {@macro amplify_auth_cognito.configuration_event.configure_succeeded}
   const factory ConfigurationEvent.configureSucceeded(
-    AWSAuthCognitoConfig config,
+    AuthCognitoConfig config,
   ) = ConfigureSucceeded;
 
   @override
@@ -80,7 +80,7 @@ final class ConfigureSucceeded extends ConfigurationEvent {
   const ConfigureSucceeded(this.config) : super._();
 
   /// The Cognito plugin configuration.
-  final AWSAuthCognitoConfig config;
+  final AuthCognitoConfig config;
 
   @override
   ConfigurationEventType get type => ConfigurationEventType.configureSucceeded;

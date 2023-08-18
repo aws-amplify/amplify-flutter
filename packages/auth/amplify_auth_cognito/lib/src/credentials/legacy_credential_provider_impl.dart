@@ -37,9 +37,9 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   @override
   Future<CredentialStoreData?> fetchLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return null;
     return _instance!.fetchLegacyCredentials(
@@ -51,9 +51,9 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyCredentials({
-    AWSAuthUserPoolConfig? userPoolConfig,
-    AWSAuthIdentityPoolConfig? identityPoolConfig,
-    AWSAuthHostedUiConfig? hostedUiConfig,
+    AuthUserPoolConfig? userPoolConfig,
+    AuthIdentityPoolConfig? identityPoolConfig,
+    AuthHostedUiConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return;
     return _instance!.deleteLegacyCredentials(

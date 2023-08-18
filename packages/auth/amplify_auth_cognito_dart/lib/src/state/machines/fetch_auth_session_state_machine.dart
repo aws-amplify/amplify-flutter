@@ -53,10 +53,10 @@ final class FetchAuthSessionStateMachine
   CognitoIdentityClient get _cognitoIdentityClient => expect();
 
   /// The registered user pool config.
-  AWSAuthUserPoolConfig? get _userPoolConfig => get();
+  AuthUserPoolConfig? get _userPoolConfig => get();
 
   /// The registered identity pool config
-  AWSAuthIdentityPoolConfig? get _identityPoolConfig => get();
+  AuthIdentityPoolConfig? get _identityPoolConfig => get();
 
   /// Invalidates the current session, forcing a refresh on the next retrieval
   /// of credentials.
@@ -129,7 +129,7 @@ final class FetchAuthSessionStateMachine
 
   /// Gets the identity ID from the authorization state machine.
   Future<String> _getIdentityId({
-    required AWSAuthIdentityPoolConfig config,
+    required AuthIdentityPoolConfig config,
     _FederatedIdentity? federatedIdentity,
   }) async {
     final resp = await _withZoneOverrides(

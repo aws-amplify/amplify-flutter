@@ -144,7 +144,7 @@ class MockAmplifyAPI extends AmplifyAPIDart {
   });
 
   @override
-  WebSocketBloc createWebSocketBloc(AWSAppSyncEndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(AppSyncEndpointConfig endpoint) {
     return mockWebSocketBloc!;
   }
 }

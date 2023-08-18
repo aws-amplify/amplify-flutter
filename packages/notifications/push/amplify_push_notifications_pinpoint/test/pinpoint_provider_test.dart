@@ -29,7 +29,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final pinpointProvider = PinpointProvider();
   final mockAmplifyAuthProviderRepository = MockAmplifyAuthProviderRepository();
-  final notificationsPinpointConfig = AWSPushNotificationsConfig.pinpoint(
+  final notificationsPinpointConfig = PushNotificationsConfig.pinpoint(
     appId: 'APP_ID',
     region: 'REGION',
   );

@@ -112,7 +112,7 @@ final class ConfigurationStateMachine
   }
 
   Future<void> _waitForConfiguration(
-    AWSAuthCognitoConfig config,
+    AuthCognitoConfig config,
     List<Future<void>> futures,
   ) async {
     await Future.wait<void>(futures, eagerError: true);
@@ -122,7 +122,7 @@ final class ConfigurationStateMachine
   /// State machine callback for the [ConfigureSucceeded] event.
   Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
 
-  Future<void> _registerAnalyticsMetadata(AWSAuthCognitoConfig config) async {
+  Future<void> _registerAnalyticsMetadata(AuthCognitoConfig config) async {
     final analyticsConfig = config.userPool?.pinpointConfig;
     if (analyticsConfig == null) {
       return;

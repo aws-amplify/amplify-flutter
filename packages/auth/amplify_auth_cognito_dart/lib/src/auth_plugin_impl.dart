@@ -123,8 +123,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   /// The Cognito user pool configuration.
-  AWSAuthUserPoolConfig get _userPoolConfig {
-    final userPoolConfig = _stateMachine.get<AWSAuthUserPoolConfig>();
+  AuthUserPoolConfig get _userPoolConfig {
+    final userPoolConfig = _stateMachine.get<AuthUserPoolConfig>();
     if (userPoolConfig == null) {
       throw const InvalidAccountTypeException.noUserPool();
     }
@@ -132,7 +132,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   /// The Cognito identity pool configuration.
-  AWSAuthIdentityPoolConfig? get _identityPoolConfig => _stateMachine.get();
+  AuthIdentityPoolConfig? get _identityPoolConfig => _stateMachine.get();
 
   /// The device metadata repository, used for handling device operations.
   DeviceMetadataRepository get _deviceRepo => _stateMachine.getOrCreate();

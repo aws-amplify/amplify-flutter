@@ -15,10 +15,11 @@ void main() {
     const apiKey = 'abc-123';
 
     setUpAll(() async {
-      final config = AWSApiEndpointConfig.appSync(
+      final config = ApiEndpointConfig.appSync(
+        name: 'GraphQL',
         endpoint: endpoint,
         region: region,
-        authMode: const AWSApiAuthorizationMode.apiKey(apiKey),
+        authMode: const ApiAuthorizationMode.apiKey(apiKey),
       );
 
       endpointConfig = EndpointConfig('GraphQL', config);
@@ -38,10 +39,11 @@ void main() {
     const region = 'us-east-1';
 
     setUpAll(() async {
-      final config = AWSApiEndpointConfig.apiGateway(
+      final config = ApiEndpointConfig.apiGateway(
+        name: 'REST',
         endpoint: endpoint,
         region: region,
-        authMode: const AWSApiAuthorizationMode.iam(),
+        authMode: const ApiAuthorizationMode.iam(),
       );
 
       endpointConfig = EndpointConfig('REST', config);

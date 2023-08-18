@@ -47,7 +47,7 @@ final class SignOutStateMachine
   CognitoIdentityProviderClient get _cognitoIdp => expect();
 
   /// The Cognito user pool configuration.
-  AWSAuthUserPoolConfig get _userPoolConfig => expect();
+  AuthUserPoolConfig get _userPoolConfig => expect();
 
   Future<void> _onInitiate(SignOutInitiate event) async {
     final options = event.options;

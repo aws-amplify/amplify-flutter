@@ -32,7 +32,7 @@ final class HostedUiStateMachine
   @override
   String get runtimeTypeName => 'HostedUiStateMachine';
 
-  AWSAuthHostedUiConfig get _config => expect();
+  AuthHostedUiConfig get _config => expect();
   HostedUiKeys get _keys => HostedUiKeys(_config);
   SecureStorageInterface get _secureStorage => getOrCreate();
 
@@ -40,7 +40,7 @@ final class HostedUiStateMachine
   late final HostedUiPlatform _platform = getOrCreate();
 
   /// The configured identity pool.
-  AWSAuthIdentityPoolConfig? get _identityPoolConfig => get();
+  AuthIdentityPoolConfig? get _identityPoolConfig => get();
 
   @override
   Future<void> resolve(HostedUiEvent event) async {

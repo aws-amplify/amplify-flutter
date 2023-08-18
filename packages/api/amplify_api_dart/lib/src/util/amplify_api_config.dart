@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
+import 'package:amplify_core/amplify_core.dart' hide ApiConfig;
 import 'package:meta/meta.dart';
 
 const _slash = '/';
@@ -17,7 +17,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   final String name;
 
   /// The value in the Amplify configuration file which as config details.
-  final AWSApiEndpointConfig config;
+  final ApiEndpointConfig config;
 
   @override
   List<Object?> get props => [name, config];
@@ -46,24 +46,31 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
 
 /// Allows getting desired endpoint more easily.
 @internal
-extension AWSApiPluginConfigHelpers on AWSApiConfig {
+extension AWSApiPluginConfigHelpers on ApiConfig {
   /// Finds the first endpoint matching the type and apiName.
   EndpointConfig getEndpoint({
     required EndpointType type,
     String? apiName,
   }) {
     if (apiName != null) {
-      final config = endpoints[apiName];
-      if (config == null || config.endpointType != type) {
-        throw ConfigurationError(
+      final config = endpoints.firstWhere(
+        (api) =>
+            apiName ==
+            switch (api.value) {
+              ApiGatewayEndpointConfig(:final name) ||
+              AppSyncEndpointConfig(:final name) ||
+              RestEndpointConfig(:final name) =>
+                name,
+              _ => null,
+            },
+        orElse: () => throw ConfigurationError(
           'No API endpoint found matching apiName $apiName.',
-        );
-      }
+        ),
+      );
       return EndpointConfig(apiName, config);
     }
 
-    final typeConfigs =
-        endpoints.entries.where((entry) => entry.value.endpointType == type);
+    final typeConfigs = endpoints.where((api) => api.endpointType == type);
     final onlyConfig = typeConfigs.singleOrNull;
     if (onlyConfig == null) {
       throw ConfigurationError(
@@ -71,6 +78,6 @@ extension AWSApiPluginConfigHelpers on AWSApiConfig {
         'which one to use.',
       );
     }
-    return EndpointConfig(onlyConfig.key, onlyConfig.value);
+    return EndpointConfig(onlyConfig.name, onlyConfig);
   }
 }

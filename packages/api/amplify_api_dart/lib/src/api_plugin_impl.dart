@@ -13,7 +13,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platf
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_api_dart/src/util/amplify_authorization_rest_client.dart';
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
+import 'package:amplify_core/amplify_core.dart' hide ApiConfig;
 import 'package:meta/meta.dart';
 
 /// {@template amplify_api_dart.amplify_api_dart}
@@ -32,7 +32,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     authProviders.forEach(registerAuthProvider);
   }
 
-  late final AWSApiConfig _apiConfig;
+  late final ApiConfig _apiConfig;
   final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
@@ -80,8 +80,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
       );
     }
-    for (final MapEntry(key: apiName, value: endpointConfig)
-        in apiConfig.endpoints.entries) {
+    for (final endpointConfig in apiConfig.endpoints) {
+      final apiName = switch (endpointConfig.value) {
+        ApiGatewayEndpointConfig(:final name) ||
+        AppSyncEndpointConfig(:final name) ||
+        RestEndpointConfig(:final name) =>
+          name,
+        _ => null,
+      };
       if (endpointConfig.endpoint.scheme != 'https') {
         throw ConfigurationError(
           'Non-HTTPS endpoint found for "$apiName" which is not supported.',
@@ -103,14 +109,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   ///
   /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
-    _apiConfig.endpoints.forEach((apiName, endpointConfig) {
+    for (final endpointConfig in _apiConfig.endpoints) {
       if (endpointConfig.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
           APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
         );
       }
-    });
+    }
 
     // Register OIDC/Lambda auth providers.
     for (final authProvider in authProviders.values) {
@@ -185,7 +191,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   ///
   /// Use [endpoint] if there are multiple endpoints.
   @visibleForTesting
-  WebSocketBloc createWebSocketBloc(AWSAppSyncEndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(AppSyncEndpointConfig endpoint) {
     return WebSocketBloc(
       config: endpoint,
       authProviderRepo: _authProviderRepo,
