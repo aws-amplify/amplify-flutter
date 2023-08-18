@@ -31,6 +31,7 @@ enum ConfirmSignInField {
   totpSetup,
   totpQrCode,
   totpCopyKey,
+  totpCodeInstruction,
 }
 
 extension ConfirmSignInFieldX on ConfirmSignInField {

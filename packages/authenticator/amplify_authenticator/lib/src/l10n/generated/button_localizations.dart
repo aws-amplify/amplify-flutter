@@ -189,42 +189,6 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Copy Key'**
   String get totpCopyKey;
 
-  /// The instruction that is displayed at the top of the default TOTP setup screen
-  ///
-  /// In en, this message translates to:
-  /// **'You need to have an authenticator app downloaded.'**
-  String get totpInstruction;
-
-  /// The instruction that is displayed for the TOTP QR Code field
-  ///
-  /// In en, this message translates to:
-  /// **'Scan the QR code below to setup TOTP in your authenticator app.'**
-  String get totpQrCodeInstruction;
-
-  /// The instruction that is displayed for the TOTP copy key field
-  ///
-  /// In en, this message translates to:
-  /// **'Copy the key and open your authenticator app.'**
-  String get totpCopyKeyInstruction;
-
-  /// The instruction that is displayed before submitting a TOTP code on the default TOTP setup screen
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the six digit code from your authenticator app.'**
-  String get totpSubmitKeyInstruction;
-
-  /// The divider text that is displayed between options on the default TOTP setup screen
-  ///
-  /// In en, this message translates to:
-  /// **'OR'**
-  String get totpDividerOr;
-
-  /// The divider text that is displayed between steps on the default TOTP setup screen
-  ///
-  /// In en, this message translates to:
-  /// **'THEN'**
-  String get totpDividerThen;
-
   /// Label of button to sign out the user
   ///
   /// In en, this message translates to:

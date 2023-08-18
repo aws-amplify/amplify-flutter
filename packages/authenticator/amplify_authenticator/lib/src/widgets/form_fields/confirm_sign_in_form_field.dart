@@ -82,8 +82,6 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   /// Creates a mfa preference selection  component.
   static ConfirmSignInFormField<MfaType> mfaSelection({
     Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
   }) =>
       _MfaSelectionRadioField(
         key: key ?? keyMfaSelectionTotpSignInFormField,
@@ -93,8 +91,6 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   /// Creates a TOTP QR code component.
   static ConfirmSignInFormField<String> totpQrCode({
     Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTotpQrCodeField(
         key: key ?? keyTotpQrCodeSignInFormField,
@@ -104,8 +100,6 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   /// Creates a TOTP QR code component.
   static ConfirmSignInFormField<String> totpCopyKey({
     Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTotpCopyKeyField(
         key: key ?? keyTotpCopyKeySignInFormField,
@@ -115,12 +109,20 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   /// Creates a TOTP setup component.
   static ConfirmSignInFormField<String> totpSetup({
     Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTotpSetupField(
         key: key ?? keyTotpSetupSignInFormField,
         field: ConfirmSignInField.totpSetup,
+      );
+
+  /// Creates a instruction field for totp code verification.
+  static ConfirmSignInFormField<String> totpCodeInstruction({
+    Key? key,
+    String? text,
+  }) =>
+      _ConfirmSignInInstructionField(
+        key: key ?? keyTotpSetupSignInFormField,
+        field: ConfirmSignInField.totpCodeInstruction,
       );
 
   /// Creates a verification code component.
@@ -373,6 +375,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.phoneNumber:
       case ConfirmSignInField.preferredUsername:
       case ConfirmSignInField.custom:
+      case ConfirmSignInField.totpCodeInstruction:
       case ConfirmSignInField.totpCopyKey:
       case ConfirmSignInField.totpQrCode:
         return 1;
@@ -400,6 +403,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.nickname:
       case ConfirmSignInField.phoneNumber:
       case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.totpCodeInstruction:
       case ConfirmSignInField.totpCopyKey:
       case ConfirmSignInField.totpQrCode:
       case ConfirmSignInField.custom:
@@ -524,6 +528,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.totpCodeInstruction:
       case ConfirmSignInField.totpCopyKey:
       case ConfirmSignInField.totpQrCode:
       case ConfirmSignInField.totpSetup:
@@ -843,6 +848,30 @@ class _ConfirmSignInTotpSetupField extends ConfirmSignInFormField<String> {
 
 class _ConfirmSignInTotpSetupFieldState
     extends _ConfirmSignInFormFieldState<String> with TotpSetupFields {}
+
+class _ConfirmSignInInstructionField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInInstructionField({
+    super.key,
+    required super.field,
+  }) : super._();
+
+  @override
+  _ConfirmSignInInstructionFieldState createState() =>
+      _ConfirmSignInInstructionFieldState();
+}
+
+class _ConfirmSignInInstructionFieldState
+    extends _ConfirmSignInFormFieldState<String> with InstructionField {
+  @override
+  String get text => switch (widget.field) {
+        ConfirmSignInField.totpCodeInstruction =>
+          stringResolver.instruction.resolve(
+            context,
+            InstructionResolverKey.totpPassCodeInstruction,
+          ),
+        _ => super.text
+      };
+}
 
 class _ConfirmSignInTotpCopyKeyField extends ConfirmSignInFormField<String> {
   const _ConfirmSignInTotpCopyKeyField({

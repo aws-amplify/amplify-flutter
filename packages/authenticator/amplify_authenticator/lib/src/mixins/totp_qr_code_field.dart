@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/src/l10n/button_resolver.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -13,6 +12,9 @@ mixin TotpQrCode<FieldType extends Enum,
   Uri get totpUri => state.expectTotpUri();
 
   @override
+  double? get marginBottom => 0;
+
+  @override
   Widget buildFormField(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
@@ -20,13 +22,6 @@ mixin TotpQrCode<FieldType extends Enum,
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          stringResolver.buttons.resolve(
-            context,
-            ButtonResolverKey.totpQrCodeInstruction,
-          ),
-        ),
-        const SizedBox(height: 20),
         Center(
           child: QrImageView(
             size: 200,
