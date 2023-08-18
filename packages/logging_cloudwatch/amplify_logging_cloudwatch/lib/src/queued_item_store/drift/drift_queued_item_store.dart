@@ -42,6 +42,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   // Reminder: Bump this number whenever you change or add a table definition.
   @override
   int get schemaVersion => 2;
+  int _currentTotalByteSize = 0;
 
   @override
   MigrationStrategy get migration {
@@ -58,6 +59,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> addItem(String value, String timestamp) async {
+    _currentTotalByteSize += utf8.encode(value).length;
     await into(driftQueuedItems).insert(
       DriftQueuedItemsCompanion(
         value: Value(value),
@@ -96,20 +98,15 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<bool> isFull(int maxSizeInMB) async {
-    final retrievedItems = await select(driftQueuedItems).get();
-
-    var totalByteSize = 0;
-    for (final item in retrievedItems) {
-      totalByteSize += utf8.encode(item.value).length;
-    }
-
     final maxBytes = maxSizeInMB * 1024 * 1024;
-
-    return totalByteSize >= maxBytes;
+    return _currentTotalByteSize >= maxBytes;
   }
 
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
+    for (final item in items) {
+      _currentTotalByteSize -= utf8.encode(item.value).length;
+    }
     final idsToDelete = items.map((item) => item.id);
     final statement = delete(driftQueuedItems)
       ..where((t) => t.id.isIn(idsToDelete));
@@ -118,6 +115,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> clear() {
+    _currentTotalByteSize = 0;
     return delete(driftQueuedItems).go();
   }
 }

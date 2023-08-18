@@ -15,11 +15,13 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   /// The next ID that should be used when adding an item in the DB.
   int _nextId = 0;
+  int _currentTotalByteSize = 0;
   final LinkedHashMap<int, QueuedItem> _database =
       LinkedHashMap<int, QueuedItem>();
 
   @override
   void addItem(String string, String timestamp) {
+    _currentTotalByteSize += utf8.encode(string).length;
     _database[_nextId] = QueuedItem(
       id: _nextId,
       value: string,
@@ -36,12 +38,14 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   @override
   void deleteItems(Iterable<QueuedItem> items) {
     for (final item in items) {
+      _currentTotalByteSize -= utf8.encode(item.value).length;
       _database.remove(item.id);
     }
   }
 
   @override
   void clear() {
+    _currentTotalByteSize = 0;
     _database.clear();
   }
 
@@ -55,15 +59,7 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   bool isFull(int maxSizeInMB) {
-    var totalSizeInBytes = 0;
-
-    for (final item in _database.values) {
-      totalSizeInBytes += utf8.encode(item.value).length;
-      totalSizeInBytes += utf8.encode(item.timestamp).length;
-    }
-
-    final maxSizeInBytes = maxSizeInMB * 1024 * 1024;
-
-    return totalSizeInBytes >= maxSizeInBytes;
+    final maxBytes = maxSizeInMB * 1024 * 1024;
+    return _currentTotalByteSize >= maxBytes;
   }
 }
