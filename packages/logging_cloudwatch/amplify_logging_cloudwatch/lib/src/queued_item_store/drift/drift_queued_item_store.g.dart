@@ -23,8 +23,14 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
   late final GeneratedColumn<String> value = GeneratedColumn<String>(
       'value', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _timestampMeta =
+      const VerificationMeta('timestamp');
   @override
-  List<GeneratedColumn> get $columns => [id, value];
+  late final GeneratedColumn<String> timestamp = GeneratedColumn<String>(
+      'timestamp', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, value, timestamp];
   @override
   String get aliasedName => _alias ?? 'drift_queued_items';
   @override
@@ -43,6 +49,12 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
+    if (data.containsKey('timestamp')) {
+      context.handle(_timestampMeta,
+          timestamp.isAcceptableOrUnknown(data['timestamp']!, _timestampMeta));
+    } else if (isInserting) {
+      context.missing(_timestampMeta);
+    }
     return context;
   }
 
@@ -56,6 +68,8 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       value: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}value'])!,
+      timestamp: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}timestamp'])!,
     );
   }
 
@@ -71,12 +85,17 @@ class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
 
   /// The string value stored for this object.
   final String value;
-  const DriftQueuedItem({required this.id, required this.value});
+
+  /// The timestamp of the item.
+  final String timestamp;
+  const DriftQueuedItem(
+      {required this.id, required this.value, required this.timestamp});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['value'] = Variable<String>(value);
+    map['timestamp'] = Variable<String>(timestamp);
     return map;
   }
 
@@ -84,6 +103,7 @@ class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
     return DriftQueuedItemsCompanion(
       id: Value(id),
       value: Value(value),
+      timestamp: Value(timestamp),
     );
   }
 
@@ -93,6 +113,7 @@ class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
     return DriftQueuedItem(
       id: serializer.fromJson<int>(json['id']),
       value: serializer.fromJson<String>(json['value']),
+      timestamp: serializer.fromJson<String>(json['timestamp']),
     );
   }
   @override
@@ -101,57 +122,70 @@ class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'value': serializer.toJson<String>(value),
+      'timestamp': serializer.toJson<String>(timestamp),
     };
   }
 
-  DriftQueuedItem copyWith({int? id, String? value}) => DriftQueuedItem(
+  DriftQueuedItem copyWith({int? id, String? value, String? timestamp}) =>
+      DriftQueuedItem(
         id: id ?? this.id,
         value: value ?? this.value,
+        timestamp: timestamp ?? this.timestamp,
       );
   @override
   String toString() {
     return (StringBuffer('DriftQueuedItem(')
           ..write('id: $id, ')
-          ..write('value: $value')
+          ..write('value: $value, ')
+          ..write('timestamp: $timestamp')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, value);
+  int get hashCode => Object.hash(id, value, timestamp);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DriftQueuedItem &&
           other.id == this.id &&
-          other.value == this.value);
+          other.value == this.value &&
+          other.timestamp == this.timestamp);
 }
 
 class DriftQueuedItemsCompanion extends UpdateCompanion<DriftQueuedItem> {
   final Value<int> id;
   final Value<String> value;
+  final Value<String> timestamp;
   const DriftQueuedItemsCompanion({
     this.id = const Value.absent(),
     this.value = const Value.absent(),
+    this.timestamp = const Value.absent(),
   });
   DriftQueuedItemsCompanion.insert({
     this.id = const Value.absent(),
     required String value,
-  }) : value = Value(value);
+    required String timestamp,
+  })  : value = Value(value),
+        timestamp = Value(timestamp);
   static Insertable<DriftQueuedItem> custom({
     Expression<int>? id,
     Expression<String>? value,
+    Expression<String>? timestamp,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (value != null) 'value': value,
+      if (timestamp != null) 'timestamp': timestamp,
     });
   }
 
-  DriftQueuedItemsCompanion copyWith({Value<int>? id, Value<String>? value}) {
+  DriftQueuedItemsCompanion copyWith(
+      {Value<int>? id, Value<String>? value, Value<String>? timestamp}) {
     return DriftQueuedItemsCompanion(
       id: id ?? this.id,
       value: value ?? this.value,
+      timestamp: timestamp ?? this.timestamp,
     );
   }
 
@@ -164,6 +198,9 @@ class DriftQueuedItemsCompanion extends UpdateCompanion<DriftQueuedItem> {
     if (value.present) {
       map['value'] = Variable<String>(value.value);
     }
+    if (timestamp.present) {
+      map['timestamp'] = Variable<String>(timestamp.value);
+    }
     return map;
   }
 
@@ -171,7 +208,8 @@ class DriftQueuedItemsCompanion extends UpdateCompanion<DriftQueuedItem> {
   String toString() {
     return (StringBuffer('DriftQueuedItemsCompanion(')
           ..write('id: $id, ')
-          ..write('value: $value')
+          ..write('value: $value, ')
+          ..write('timestamp: $timestamp')
           ..write(')'))
         .toString();
   }

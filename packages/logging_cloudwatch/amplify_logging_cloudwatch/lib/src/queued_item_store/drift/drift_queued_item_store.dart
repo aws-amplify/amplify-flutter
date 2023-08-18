@@ -73,7 +73,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
       (item) => QueuedItem(
         id: item.id,
         value: item.value,
-        timestamp: item.timestamp as String,
+        timestamp: item.timestamp,
       ),
     );
   }
