@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/instruction_resolver.dart';
 import 'package:flutter/material.dart';
 
 export 'button_resolver.dart';
@@ -27,11 +28,13 @@ class AuthStringResolver {
     InputResolver? inputs,
     MessageResolver? messages,
     TitleResolver? titles,
+    InstructionResolver? instruction,
   })  : buttons = buttons ?? const ButtonResolver(),
         dialCodes = dialCodes ?? countries ?? const DialCodeResolver(),
         inputs = inputs ?? const InputResolver(),
         titles = titles ?? const TitleResolver(),
-        messages = messages ?? const MessageResolver();
+        messages = messages ?? const MessageResolver(),
+        instruction = instruction ?? const InstructionResolver();
 
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
@@ -49,8 +52,11 @@ class AuthStringResolver {
   /// The resolver class for titles
   final TitleResolver titles;
 
-  /// The resolver class for titles
+  /// The resolver class for messages
   final MessageResolver messages;
+
+  /// The resolver class for instruction
+  final InstructionResolver instruction;
 
   @override
   bool operator ==(Object other) =>

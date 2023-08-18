@@ -50,38 +50,16 @@ mixin TotpCopyKey<FieldType extends Enum,
 
   @override
   Widget buildFormField(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
+    return Center(
+      child: OutlinedButton(
+        onPressed: _copyKey,
+        child: Text(
           stringResolver.buttons.resolve(
             context,
-            ButtonResolverKey.totpCopyKeyInstruction,
+            ButtonResolverKey.totpCopyKey,
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        OutlinedButton.icon(
-          onPressed: _copyKey,
-          icon: const Icon(Icons.copy),
-          label: Center(
-            child: Row(
-              children: [
-                Text(
-                  stringResolver.buttons.resolve(
-                    context,
-                    ButtonResolverKey.totpCopyKey,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

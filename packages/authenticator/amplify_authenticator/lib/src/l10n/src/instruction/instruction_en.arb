@@ -1,0 +1,30 @@
+{
+    "totpStep1": "Step 1: Download an Authenticator app",
+    "@totpStep1": {
+        "description": "The header for the first step of TOTP setup"
+    },
+    "totpStep2": "Step 2: Enter the QR code",
+    "@totpStep2": {
+        "description": "The header for the second step of TOTP setup"
+    },
+    "totpStep3": "Step 3: Verify your code",
+    "@totpStep3": {
+        "description": "The header for the third step of TOTP setup"
+    },
+    "totpStep1Instruction": "Authenticator apps generate one-time codes that can be used to verify your identity",
+    "@totpStep1Instruction": {
+        "description": "The instructional text for step one of TOTP setup"
+    },
+    "totpStep2Instruction": "Open then Authenticator app and scan the QR code or enter the key to get your verification code",
+    "@totpStep2Instruction": {
+        "description": "The instructional text for step two of TOTP setup"
+    },
+    "totpStep3Instruction": "Enter the 6 digit code from your Authenticator app",
+    "@totpStep3Instruction": {
+        "description":  "The instructional text for step three of TOTP setup"
+    },
+    "totpPassCodeInstruction": "Please enter the code from your registered Authenticator app",
+    "@totpPassCodeInstruction": {
+        "description":  "The instructional text for submitting a TOTP pass code"
+    }
+}

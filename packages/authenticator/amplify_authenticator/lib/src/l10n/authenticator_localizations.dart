@@ -7,6 +7,8 @@ import 'package:amplify_authenticator/src/l10n/generated/country_localizations.d
 import 'package:amplify_authenticator/src/l10n/generated/country_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/instruction_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/instruction_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
@@ -34,6 +36,7 @@ abstract class AuthenticatorLocalizations {
   static final _titlesFallback = AuthenticatorTitleLocalizationsEn();
   static final _messagesFallback = AuthenticatorMessageLocalizationsEn();
   static final _countriesFallback = AuthenticatorCountryLocalizationsEn();
+  static final _instructionFallback = AuthenticatorInstructionLocalizationsEn();
 
   /// Retrieves the [AuthenticatorButtonLocalizations] instance, falling back
   /// to English if unavailable for this locale.
@@ -63,5 +66,14 @@ abstract class AuthenticatorLocalizations {
   /// to English if unavailable for this locale.
   static AuthenticatorCountryLocalizations countriesOf(BuildContext context) {
     return AuthenticatorCountryLocalizations.of(context) ?? _countriesFallback;
+  }
+
+  /// Retrieves the [AuthenticatorInstructionLocalizations] instance, falling back
+  /// to English if unavailable for this locale.
+  static AuthenticatorInstructionLocalizations instructionOf(
+    BuildContext context,
+  ) {
+    return AuthenticatorInstructionLocalizations.of(context) ??
+        _instructionFallback;
   }
 }

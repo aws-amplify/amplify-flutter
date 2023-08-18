@@ -55,28 +55,6 @@ class AuthenticatorButtonLocalizationsEn
   String get totpCopyKey => 'Copy Key';
 
   @override
-  String get totpInstruction =>
-      'You need to have an authenticator app downloaded.';
-
-  @override
-  String get totpQrCodeInstruction =>
-      'Scan the QR code below to setup TOTP in your authenticator app.';
-
-  @override
-  String get totpCopyKeyInstruction =>
-      'Copy the key and open your authenticator app.';
-
-  @override
-  String get totpSubmitKeyInstruction =>
-      'Enter the six digit code from your authenticator app.';
-
-  @override
-  String get totpDividerOr => 'OR';
-
-  @override
-  String get totpDividerThen => 'THEN';
-
-  @override
   String get signOut => 'Sign Out';
 
   @override
