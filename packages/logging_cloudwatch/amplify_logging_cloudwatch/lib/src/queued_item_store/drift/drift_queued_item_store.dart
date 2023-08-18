@@ -58,8 +58,12 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> addItem(String value, String timestamp) async {
-    await into(driftQueuedItems)
-        .insert(DriftQueuedItemsCompanion(value: Value(value)));
+    await into(driftQueuedItems).insert(
+      DriftQueuedItemsCompanion(
+        value: Value(value),
+        timestamp: Value(timestamp),
+      ),
+    );
   }
 
   @override
@@ -85,7 +89,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
       (item) => QueuedItem(
         id: item.id,
         value: item.value,
-        timestamp: DateTime.now().toIso8601String(),
+        timestamp: item.timestamp,
       ),
     );
   }

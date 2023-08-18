@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 
@@ -54,6 +55,15 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
 
   @override
   bool isFull(int maxSizeInMB) {
-    throw UnimplementedError();
+    var totalSizeInBytes = 0;
+
+    for (final item in _database.values) {
+      totalSizeInBytes += utf8.encode(item.value).length;
+      totalSizeInBytes += utf8.encode(item.timestamp).length;
+    }
+
+    final maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+    return totalSizeInBytes >= maxSizeInBytes;
   }
 }
