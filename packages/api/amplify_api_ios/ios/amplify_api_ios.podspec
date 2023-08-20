@@ -17,6 +17,7 @@ The API module for Amplify Flutter.
   s.dependency 'Flutter'
   s.dependency 'Amplify', '1.30.4'
   s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.30.4'
+  s.dependency 'Starscream', '4.0.4'
   s.dependency 'amplify_core'
   s.platform = :ios, '11.0'
 
