@@ -18,6 +18,7 @@ The DataStore module for Amplify Flutter.
   s.dependency 'Amplify', '1.30.4'
   s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.30.4'
   s.dependency 'AmplifyPlugins/AWSDataStorePlugin', '1.30.4'
+  s.dependency 'Starscream', '4.0.4'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
