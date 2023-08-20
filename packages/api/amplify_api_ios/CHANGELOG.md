@@ -1,3 +1,7 @@
+## 0.6.14+1
+
+- fix: Pin `Starscream`
+
 ## 0.6.14
 
 - chore: Amplify Swift version bump to 1.30.4 (#3328)
