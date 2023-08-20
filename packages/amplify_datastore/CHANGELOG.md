@@ -1,3 +1,8 @@
+## 1.3.4
+
+### Fixes
+- fix(datastore): Pin `Starscream`
+
 ## 1.3.3
 
 - Minor bug fixes and improvements
