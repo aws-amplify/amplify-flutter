@@ -215,11 +215,15 @@ Future<void> confirmMfaUser(String mfaCode) async {
 }
 // #enddocregion confirm-signin
 
-// #docregion handle-mfa-selection
+// #docregion prompt-user-preference
 Future<MfaType> _promptUserPreference(Set<MfaType> allowedTypes) async {
+  // #enddocregion prompt-user-preference
   throw UnimplementedError();
+  // #docregion prompt-user-preference
 }
+// #enddocregion prompt-user-preference
 
+// #docregion handle-mfa-selection
 Future<void> _handleMfaSelection(MfaType selection) async {
   try {
     final result = await Amplify.Auth.confirmSignIn(
