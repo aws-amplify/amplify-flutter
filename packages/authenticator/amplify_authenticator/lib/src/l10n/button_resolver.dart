@@ -127,7 +127,7 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   /// Label of button to sign in with a social provider
   String signInWith(BuildContext context, AuthProvider provider) {
     return AuthenticatorLocalizations.buttonsOf(context)
-        .signInWith(provider.name);
+        .signInWith(provider.displayName ?? provider.name);
   }
 
   /// Hint text for the 'Go to Sign Up' button

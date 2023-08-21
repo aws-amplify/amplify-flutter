@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_dial_code_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
@@ -82,7 +81,7 @@ class _MyAppState extends State<MyApp> {
     // this demo simple, we only specify a custom button resolver, which
     // automatically configures the default for the others.
     const stringResolver = AuthStringResolver(
-      buttons: LocalizedButtonResolver(),
+      // buttons: LocalizedButtonResolver(),
       dialCodes: LocalizedDialResolver(),
       titles: LocalizedTitleResolver(),
       inputs: LocalizedInputResolver(),
@@ -95,37 +94,49 @@ class _MyAppState extends State<MyApp> {
     return Authenticator(
       authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
         switch (state.currentStep) {
-          // case AuthenticatorStep.signIn:
-          //   return CustomScaffold(
-          //     state: state,
-          //     // A prebuilt Sign In form from amplify_authenticator
-          //     body: SignInForm(),
-          //     // A custom footer with a button to take the user to sign up
-          //     footer: Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         const Text('Don\'t have an account?'),
-          //         TextButton(
-          //           onPressed: () => state.changeStep(
-          //             AuthenticatorStep.signUp,
-          //           ),
-          //           child: const Text('Sign Up'),
-          //         ),
-          //       ],
-          //     ),
-          //   );
-          case AuthenticatorStep.signUp:
+          case AuthenticatorStep.signIn:
             return CustomScaffold(
               state: state,
-              body: Column(
+              // A prebuilt Sign In form from amplify_authenticator
+              body: SignInForm(),
+              // A custom footer with a button to take the user to sign up
+              footer: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SignUpForm(),
-                  const SizedBox(height: 24),
-                  const Divider(
-                    height: 1,
+                  const Text('Don\'t have an account?'),
+                  TextButton(
+                    onPressed: () => state.changeStep(
+                      AuthenticatorStep.signUp,
+                    ),
+                    child: const Text('Sign Up'),
                   ),
-                  const SizedBox(height: 24),
-                  const SocialSignInButtons(),
+                ],
+              ),
+            );
+          case AuthenticatorStep.signUp:
+            // fictional custom social provider
+            const myAuthProvider = AuthProvider.custom(
+              'heartr',
+              displayName: 'Heartr (fictional)',
+            );
+            const heartIcon = Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24,
+            );
+            return CustomScaffold(
+              state: state,
+              body: const Column(
+                children: [
+                  SizedBox(height: 24),
+                  Text('SocialSignInButtons (with single provider)'),
+                  SocialSignInButtons(),
+                  SizedBox(height: 24),
+                  Text('single SocialSignInButton (with custom provider)'),
+                  SocialSignInButton(
+                    provider: myAuthProvider,
+                    customIcon: heartIcon,
+                  ),
                 ],
               ),
             );

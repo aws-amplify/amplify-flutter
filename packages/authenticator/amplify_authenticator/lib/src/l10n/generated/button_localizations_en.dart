@@ -86,7 +86,7 @@ class AuthenticatorButtonLocalizationsEn
         'facebook': 'Facebook',
         'amazon': 'Amazon',
         'apple': 'Apple',
-        'other': 'ERROR',
+        'other': provider,
       },
     );
     return 'Sign In with $temp0';

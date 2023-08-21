@@ -22,7 +22,8 @@ class AuthProvider
   /// configuring the provider, while [issuer] must match the `iss` value of
   /// the provider's ID token.
   const AuthProvider.oidc(this.name, String issuer)
-      : _identityPoolProvider = issuer;
+      : _identityPoolProvider = issuer,
+        displayName = null;
 
   /// Auth provider that uses Security Assertion Markup Language (SAML).
   ///
@@ -36,7 +37,7 @@ class AuthProvider
   /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-saml-idp.html).
   /// For a guide on how to configure a SAML provider in your identity pool,
   /// see [here](https://docs.aws.amazon.com/cognito/latest/developerguide/saml-identity-provider.html).
-  const AuthProvider.saml(this.name, [String? providerArn])
+  const AuthProvider.saml(this.name, [String? providerArn, this.displayName])
       : _identityPoolProvider = providerArn;
 
   /// Custom auth provider that is not in this list, the associated string
@@ -44,13 +45,15 @@ class AuthProvider
   ///
   /// The [developerProvidedName] should match whatever has been configured in
   /// your user pool and/or identity pool.
-  const AuthProvider.custom(String developerProvidedName)
+  const AuthProvider.custom(String developerProvidedName, {this.displayName})
       : name = developerProvidedName,
         _identityPoolProvider = null;
 
-  const AuthProvider._(this.name, [this._identityPoolProvider]);
+  const AuthProvider._(this.name, [this._identityPoolProvider])
+      : displayName = null;
 
   final String name;
+  final String? displayName;
   final String? _identityPoolProvider;
 
   static const google = AuthProvider._('google');
