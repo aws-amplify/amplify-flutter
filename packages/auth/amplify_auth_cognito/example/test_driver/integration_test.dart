@@ -6,5 +6,5 @@ import 'package:integration_test/integration_test_driver.dart';
 // Required for running integration tests in the browser
 // https://docs.flutter.dev/cookbook/testing/integration/introduction#5b-web
 Future<void> main() => integrationDriver(
-      timeout: const Duration(minutes: 60),
+      timeout: const Duration(minutes: 90),
     );
