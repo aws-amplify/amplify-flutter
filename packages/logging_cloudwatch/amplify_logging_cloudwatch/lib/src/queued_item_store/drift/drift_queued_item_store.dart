@@ -41,7 +41,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   // Reminder: Bump this number whenever you change or add a table definition.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
   int _currentTotalByteSize = 0;
 
   @override
