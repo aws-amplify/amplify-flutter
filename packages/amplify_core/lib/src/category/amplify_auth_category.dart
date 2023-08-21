@@ -385,16 +385,19 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// If both SMS MFA and TOTP MFA are enabled and configured for the user, they will be
   /// given the choice of which mechanism they'd like to use to continue signing in.
   ///
-  /// <?code-excerpt "doc/lib/auth.dart" region="handle-mfa-selection"?>
+  /// <?code-excerpt "doc/lib/auth.dart" region="prompt-user-preference"?>
   /// ```dart
   /// Future<MfaType> _promptUserPreference(Set<MfaType> allowedTypes) async {
-  ///   throw UnimplementedError();
+  ///   // ···
   /// }
+  /// ```
   ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="handle-mfa-selection"?>
+  /// ```dart
   /// Future<void> _handleMfaSelection(MfaType selection) async {
   ///   try {
   ///     final result = await Amplify.Auth.confirmSignIn(
-  ///       confirmationValue: selection.name,
+  ///       confirmationValue: selection.confirmationValue,
   ///     );
   ///     return _handleSignInResult(result);
   ///   } on AuthException catch (e) {
@@ -1296,11 +1299,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// Initiates setup of a time-based one-time passcode (TOTP) MFA method for the
   /// current user.
   ///
-  /// Your backend must be set up with TOTP MFA enabled prior to calling this method.
+  /// **NOTE**: Your backend must be set up with TOTP MFA enabled prior to calling this method.
+  ///
   /// The [TotpSetupDetails] returned contains a [TotpSetupDetails.getSetupUri]
-  /// method which can be used to display a QR code or render a button to open
-  /// the user's installed authenticator app. After setup is complete on the user's
-  /// end, call [verifyTotpSetup] with a one-time code to complete registration.
+  /// method for retrieving the setup URI. This can be used to build a QR code or
+  /// a button which opens the user's installed authenticator app. After setup is
+  /// complete on the user's end, call [verifyTotpSetup] with a one-time code to
+  /// complete registration.
   /// {@endtemplate}
   Future<TotpSetupDetails> setUpTotp({
     TotpSetupOptions? options,
