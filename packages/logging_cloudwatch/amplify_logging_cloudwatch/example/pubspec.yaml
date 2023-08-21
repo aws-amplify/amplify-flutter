@@ -6,8 +6,6 @@ environment:
   sdk: "^3.0.0"
 
 dependencies:
-  amplify_logging_cloudwatch:
-    path: ../
 
 dev_dependencies:
   amplify_lints: ^2.0.0
