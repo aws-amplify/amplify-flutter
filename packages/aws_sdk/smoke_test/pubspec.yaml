@@ -14,7 +14,7 @@ dependencies:
   meta: ^1.8.0
   smithy: ">=0.5.0 <0.6.0"
   smithy_aws: ">=0.5.0 <0.6.0"
-  xml: 6.3.0
+  xml: 6.4.0
 
 dev_dependencies:
   build_runner: ^2.4.0
