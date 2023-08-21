@@ -27,7 +27,7 @@ class IndexedDbAdapter implements QueuedItemStore {
   /// The name of the object store.
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#object-store-name
-  final storeName = 'analytics_cached_events';
+  final storeName = 'logging_cached_logs';
 
   late final Future<void> _databaseOpenEvent = _openDatabase();
 
