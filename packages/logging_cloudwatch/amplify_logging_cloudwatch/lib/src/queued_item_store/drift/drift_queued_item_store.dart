@@ -31,7 +31,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   /// {@macro amplify_analytics_pinpoint_dart.drift_queued_item_store}
   factory DriftQueuedItemStore(String storagePath) {
     final driftQueryExecutor = connect(
-      name: 'analytics_cached_events',
+      name: 'logging_cached_logs',
       path: storagePath,
     );
     return DriftQueuedItemStore._(driftQueryExecutor);
