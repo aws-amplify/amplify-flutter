@@ -8,7 +8,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:meta/meta.dart';
 
-/// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
+/// {@macro amplify_logging_cloudwatch_dart.dart_queued_item_store}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
   factory DartQueuedItemStore(String? storagePath) {

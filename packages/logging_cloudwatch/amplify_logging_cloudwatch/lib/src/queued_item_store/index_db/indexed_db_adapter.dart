@@ -12,7 +12,7 @@ import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:collection/collection.dart';
 
 // TODO(kylechen): Consider merging/refactoring with existing 'amplify_secure_storage_web - _IndexedDBStorage' class
-/// {@template amplify_analytics_pinpoint_dart.indexed_db_adapter}
+/// {@template amplify_logging_cloudwatch_dart.indexed_db_adapter}
 /// Provide indexDB methods for storing/retrieving Strings.
 /// {@endtemplate}
 class IndexedDbAdapter implements QueuedItemStore {
