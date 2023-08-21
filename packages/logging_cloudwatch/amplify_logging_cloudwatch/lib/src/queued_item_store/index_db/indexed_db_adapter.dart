@@ -151,9 +151,9 @@ class IndexedDbAdapter implements QueuedItemStore {
   /// Clear the database.
   @override
   Future<void> clear() async {
-    _currentTotalByteSize = 0;
     await _databaseOpenEvent;
     await _getObjectStore().clear().future;
+    _currentTotalByteSize = 0;
   }
 
   @override
