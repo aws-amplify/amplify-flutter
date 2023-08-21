@@ -3,7 +3,6 @@
 
 import 'dart:async';
 
-// import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:meta/meta.dart';
