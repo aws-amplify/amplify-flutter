@@ -22,7 +22,7 @@ class IndexedDbAdapter implements QueuedItemStore {
   /// The name of the database.
   ///
   /// Reference: https://www.w3.org/TR/IndexedDB/#name
-  String get databaseName => 'amplify_analytics_pinpoint';
+  String get databaseName => 'amplify_logging_cloudwatch';
 
   /// The name of the object store.
   ///
