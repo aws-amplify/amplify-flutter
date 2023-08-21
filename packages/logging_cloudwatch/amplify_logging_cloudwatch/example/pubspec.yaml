@@ -1,9 +1,9 @@
-name: amplify_logging_cloudwatch_example
+name: amplify_logging_cloudwatch
 description: An example app showcasing the amplify_logging_cloudwatch package.
 version: 1.0.0
 
 environment:
-  sdk: '^3.0.0'
+  sdk: "^3.0.0"
 
 dependencies:
   amplify_logging_cloudwatch:

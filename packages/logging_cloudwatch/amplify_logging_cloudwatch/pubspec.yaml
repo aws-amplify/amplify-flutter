@@ -1,5 +1,5 @@
 name: amplify_logging_cloudwatch
-description: A starting point for Amplify Dart packages.
+description: Implementation of Amplify logger plugin with CloudWatch Logs.
 version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/amplify_logging_cloudwatch
