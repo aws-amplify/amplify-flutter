@@ -33,6 +33,8 @@ class IndexedDbAdapter implements QueuedItemStore {
 
   late final IDBDatabase _database;
 
+  int _currentTotalByteSize = 0;
+
   /// Checks for IDB availability and attempts to open the database.
   Future<void> _openDatabase() async {
     final db = indexedDB;
@@ -67,6 +69,9 @@ class IndexedDbAdapter implements QueuedItemStore {
 
   @override
   Future<void> addItem(String string, String timestamp) async {
+    _currentTotalByteSize += utf8.encode(string).length;
+    _currentTotalByteSize += utf8.encode(timestamp).length;
+    _currentTotalByteSize += 8; // 8 bytes for the id
     await _databaseOpenEvent;
     await _getObjectStore().add(string, timestamp).future;
   }
@@ -96,6 +101,10 @@ class IndexedDbAdapter implements QueuedItemStore {
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
     if (items.isEmpty) return;
+
+    _currentTotalByteSize -= utf8.encode(items.first.value).length;
+    _currentTotalByteSize -= utf8.encode(items.first.timestamp).length;
+    _currentTotalByteSize -= 8; // 8 bytes for the id
 
     final idsToDelete = items.map((item) => item.id);
 
@@ -135,22 +144,14 @@ class IndexedDbAdapter implements QueuedItemStore {
 
   @override
   Future<bool> isFull(int maxSizeInMB) async {
-    await _databaseOpenEvent;
-    final allItems = await getAll();
-    var totalSizeBytes = 0;
-
-    for (final item in allItems) {
-      totalSizeBytes += utf8.encode(item.value).length;
-      totalSizeBytes += utf8.encode(item.timestamp).length;
-    }
-
-    final totalSizeMB = totalSizeBytes ~/ (1024 * 1024);
-    return totalSizeMB >= maxSizeInMB;
+    final maxBytes = maxSizeInMB * 1024 * 1024;
+    return _currentTotalByteSize >= maxBytes;
   }
 
   /// Clear the database.
   @override
   Future<void> clear() async {
+    _currentTotalByteSize = 0;
     await _databaseOpenEvent;
     await _getObjectStore().clear().future;
   }
