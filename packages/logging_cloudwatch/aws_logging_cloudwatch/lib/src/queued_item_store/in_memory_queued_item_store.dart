@@ -22,6 +22,8 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   @override
   void addItem(String string, String timestamp) {
     _currentTotalByteSize += utf8.encode(string).length;
+    _currentTotalByteSize += utf8.encode(timestamp).length;
+    _currentTotalByteSize += 8; // 8 bytes for the id
     _database[_nextId] = QueuedItem(
       id: _nextId,
       value: string,
@@ -39,6 +41,8 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   void deleteItems(Iterable<QueuedItem> items) {
     for (final item in items) {
       _currentTotalByteSize -= utf8.encode(item.value).length;
+      _currentTotalByteSize -= utf8.encode(item.timestamp).length;
+      _currentTotalByteSize -= 8; // 8 bytes for the id
       _database.remove(item.id);
     }
   }
