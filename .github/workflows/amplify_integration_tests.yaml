@@ -75,7 +75,7 @@ jobs:
       - name: Launch Android emulator
         uses: ./.github/composite_actions/launch_android_emulator
         # Make the timeout a little longer and add retry due to delay from starting emulator.
-        timeout-minutes: 60
+        timeout-minutes: 90
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
