@@ -207,21 +207,26 @@ void main() {
       expect(readItems, isEmpty);
     });
 
-    test('checks if storage is full', () async {
-      const capacityLimit = 1;
+    test(
+      'checks if storage is full',
+      () async {
+        const capacityLimit = 1;
 
-      for (var i = 0; i < 100; i++) {
-        await db.addItem('0', DateTime.now().toIso8601String());
-      }
+        for (var i = 0; i < 100; i++) {
+          await db.addItem('0', DateTime.now().toIso8601String());
+        }
 
-      expect(db.isFull(capacityLimit), isFalse);
+        var result = await db.isFull(capacityLimit);
+        expect(result, isFalse);
 
-      // add enough items to exceed capacity limit of 1mb
-      for (var i = 0; i < 1200000; i++) {
-        await db.addItem('0', DateTime.now().toIso8601String());
-      }
+        // add enough items to exceed capacity limit of 1mb
+        for (var i = 0; i < 50000; i++) {
+          await db.addItem('0', DateTime.now().toIso8601String());
+        }
 
-      expect(db.isFull(capacityLimit), isTrue);
-    });
+        result = await db.isFull(capacityLimit);
+        expect(result, isTrue);
+      },
+    );
   });
 }

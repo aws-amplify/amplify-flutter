@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:collection';
-import 'dart:convert';
 
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 
@@ -19,11 +18,17 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   final LinkedHashMap<int, QueuedItem> _database =
       LinkedHashMap<int, QueuedItem>();
 
+  int sizeOfQueuedItem(String value) {
+    var size = 0;
+    size += value.length;
+    size += 23; // 23 bytes for the timestamp
+    size += 8; // 8 bytes for the id
+    return size;
+  }
+
   @override
   void addItem(String string, String timestamp) {
-    _currentTotalByteSize += utf8.encode(string).length;
-    _currentTotalByteSize += utf8.encode(timestamp).length;
-    _currentTotalByteSize += 8; // 8 bytes for the id
+    _currentTotalByteSize += sizeOfQueuedItem(string);
     _database[_nextId] = QueuedItem(
       id: _nextId,
       value: string,
@@ -40,17 +45,15 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   @override
   void deleteItems(Iterable<QueuedItem> items) {
     for (final item in items) {
-      _currentTotalByteSize -= utf8.encode(item.value).length;
-      _currentTotalByteSize -= utf8.encode(item.timestamp).length;
-      _currentTotalByteSize -= 8; // 8 bytes for the id
+      _currentTotalByteSize -= sizeOfQueuedItem(item.value);
       _database.remove(item.id);
     }
   }
 
   @override
   void clear() {
-    _currentTotalByteSize = 0;
     _database.clear();
+    _currentTotalByteSize = 0;
   }
 
   @override

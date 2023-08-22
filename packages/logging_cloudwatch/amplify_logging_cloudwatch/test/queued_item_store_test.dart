@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
+import 'package:amplify_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:test/test.dart';
 
 void main() {
-  late QueuedItemStore db;
+  late DartQueuedItemStore db;
 
   group('InMemoryQueuedItemStore ', () {
     setUpAll(() {
-      db = InMemoryQueuedItemStore();
+      db = DartQueuedItemStore('/tmp');
     });
 
     tearDownAll(() async {
@@ -207,21 +207,26 @@ void main() {
       expect(readItems, isEmpty);
     });
 
-    test('checks if storage is full', () async {
-      const capacityLimit = 1;
+    test(
+      'checks if storage is full',
+      () async {
+        const capacityLimit = 1;
 
-      for (var i = 0; i < 100; i++) {
-        await db.addItem('0', DateTime.now().toIso8601String());
-      }
+        for (var i = 0; i < 100; i++) {
+          await db.addItem('0', DateTime.now().toIso8601String());
+        }
 
-      expect(db.isFull(capacityLimit), isFalse);
+        var result = await db.isFull(capacityLimit);
+        expect(result, isFalse);
 
-      // add enough items to exceed capacity limit of 1mb
-      for (var i = 0; i < 1200000; i++) {
-        await db.addItem('0', DateTime.now().toIso8601String());
-      }
+        // add enough items to exceed capacity limit of 1mb
+        for (var i = 0; i < 50000; i++) {
+          await db.addItem('0', DateTime.now().toIso8601String());
+        }
 
-      expect(db.isFull(capacityLimit), isTrue);
-    });
+        result = await db.isFull(capacityLimit);
+        expect(result, isTrue);
+      },
+    );
   });
 }
