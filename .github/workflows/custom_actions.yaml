@@ -32,7 +32,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@cdb51fff2b088939ef86fe041b18e82cb4733522 # main
         with:
-          sdk: 3.1.0-348.0.dev
+          sdk: 3.2.0-74.0.dev
 
       - name: Setup pnpm
         uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # 2.4.0
