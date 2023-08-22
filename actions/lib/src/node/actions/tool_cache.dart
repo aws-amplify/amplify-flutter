@@ -8,11 +8,7 @@ external ToolCache get toolCache;
 
 // https://www.npmjs.com/package/@actions/tool-cache
 @JS()
-inline class ToolCache {
-  ToolCache(this.obj);
-
-  final JSObject obj;
-
+extension type ToolCache(JSObject it) {
   /// Finds the path to a tool version in the local installed tool cache.
   ///
   /// @param toolName      name of the tool
