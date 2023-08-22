@@ -3,24 +3,24 @@
 
 import 'dart:math';
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/utils/get_social_auth_providers.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
   const SocialSignInButtons({
     super.key,
-    required this.providers,
+    this.providers,
   });
 
-  final List<AuthProvider> providers;
+  final List<AuthProvider>? providers;
 
   @override
   Widget builder(
@@ -34,7 +34,9 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
         // width, so that we can size all button labels to that width and align
         // the logos in the column.
         var maxWidth = 0.0;
-        for (final provider in providers) {
+        final authProviders = providers ?? getSocialAuthProviders(context);
+
+        for (final provider in authProviders) {
           final text = stringResolver.buttons.resolve(
             context,
             ButtonResolverKey.signInWith(provider),
@@ -58,7 +60,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
 
         return Column(
           children: <Widget>[
-            for (final provider in providers)
+            for (final provider in authProviders)
               SocialSignInButton(provider: provider, maxWidth: maxWidth),
           ].spacedBy(const SizedBox(height: 12)),
         );

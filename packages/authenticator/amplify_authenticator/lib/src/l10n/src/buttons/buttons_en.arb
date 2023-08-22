@@ -67,7 +67,7 @@
             }
         }
     },
-    "signInWith": "Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{ERROR}}",
+    "signInWith": "Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{{provider}}}",
     "@signInWith": {
         "description": "Label of button to sign in with a social provider",
         "placeholders": {

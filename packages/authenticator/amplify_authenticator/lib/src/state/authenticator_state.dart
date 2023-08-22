@@ -389,7 +389,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(false);
   }
 
-  /// Perform sicial sign in with the given provider
+  /// Perform social sign in with the given provider
   Future<void> signInWithProvider(AuthProvider provider) async {
     final signInData = AuthSocialSignInData(provider: provider);
     _authBloc.add(AuthSignIn(signInData));
