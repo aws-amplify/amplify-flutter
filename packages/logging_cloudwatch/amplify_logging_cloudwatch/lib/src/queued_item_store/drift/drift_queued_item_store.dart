@@ -56,7 +56,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
     );
   }
 
-  /// Calculates the size of a queued item by adding the length of the UTF-8 encoded [value],
+  /// Calculates the size of a queued item by adding the length of the string using the String.length method [value],
   /// 23 bytes for the timestamp, and 8 bytes for the ID.
   ///
   /// Returns the total size of the queued item in bytes.
