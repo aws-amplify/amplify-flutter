@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 void main() {
   late DartQueuedItemStore db;
 
-  group('InMemoryQueuedItemStore ', () {
+  group('DartQueuedItemStore ', () {
     setUpAll(() {
       db = DartQueuedItemStore('/tmp');
     });
