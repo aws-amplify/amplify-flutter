@@ -21,13 +21,13 @@ class DriftQueuedItems extends Table {
   TextColumn get timestamp => text()();
 }
 
-/// {@template amplify_logging_cloudwatch_dart.drift_queued_item_store}
+/// {@template amplify_logging_cloudwatch.drift_queued_item_store}
 /// Drift class for managing stored [DriftQueuedItems].
 /// {@endtemplate}
 @DriftDatabase(tables: [DriftQueuedItems])
 class DriftQueuedItemStore extends _$DriftQueuedItemStore
     implements QueuedItemStore {
-  /// {@macro amplify_logging_cloudwatch_dart.drift_queued_item_store}
+  /// {@macro amplify_logging_cloudwatch.drift_queued_item_store}
   factory DriftQueuedItemStore(String storagePath) {
     final driftQueryExecutor = connect(
       name: 'logging_cached_logs',

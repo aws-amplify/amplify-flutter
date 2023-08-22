@@ -6,11 +6,11 @@ import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:meta/meta.dart';
 
-/// {@macro amplify_logging_cloudwatch_dart.dart_queued_item_store}
+/// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
 class DartQueuedItemStore
     with AWSDebuggable, AWSLoggerMixin
     implements QueuedItemStore, Closeable {
-  /// {@macro amplify_logging_cloudwatch_dart.index_db_queued_item_store}
+  /// {@macro amplify_logging_cloudwatch.index_db_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
   DartQueuedItemStore(String? storagePath);
 
