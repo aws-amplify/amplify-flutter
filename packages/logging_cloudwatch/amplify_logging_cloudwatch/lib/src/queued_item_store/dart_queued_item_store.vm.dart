@@ -10,7 +10,7 @@ import 'package:meta/meta.dart';
 
 /// {@macro amplify_logging_cloudwatch_dart.dart_queued_item_store}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
-  /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
+  /// {@macro amplify_logging_cloudwatch_dart.dart_queued_item_store}
   factory DartQueuedItemStore(String? storagePath) {
     assert(
       storagePath != null,

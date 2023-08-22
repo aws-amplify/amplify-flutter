@@ -11,7 +11,7 @@ import 'package:meta/meta.dart';
 /// Stores strings using IndexedDB for web and Drift for all other platforms.
 /// {@endtemplate}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
-  /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
+  /// {@macro amplify_logging_cloudwatch_dart.dart_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
   DartQueuedItemStore(String? storagePath) {
     throw UnimplementedError('constructor has not been implemented.');

@@ -16,7 +16,7 @@ import 'package:collection/collection.dart';
 /// Provide indexDB methods for storing/retrieving Strings.
 /// {@endtemplate}
 class IndexedDbAdapter implements QueuedItemStore {
-  /// {@macro amplify_analytics_pinpoint_dart.indexed_db_adapter}
+  /// {@macro amplify_logging_cloudwatch_dart.indexed_db_adapter}
   IndexedDbAdapter();
 
   /// The name of the database.
