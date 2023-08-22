@@ -57,20 +57,20 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   }
 
   /// Calculates the size of a queued item by adding the length of the string using the String.length method [value],
-  /// 23 bytes for the timestamp, and 8 bytes for the ID.
+  /// String.length for the timestamp, and 8 bytes for the ID.
   ///
   /// Returns the total size of the queued item in bytes.
-  int sizeOfQueuedItem(String value) {
+  int sizeOfQueuedItem(String value, String timestamp) {
     var size = 0;
     size += value.length;
-    size += 23; // 23 bytes for the timestamp
+    size += timestamp.length;
     size += 8; // 8 bytes for the id
     return size;
   }
 
   @override
   Future<void> addItem(String value, String timestamp) async {
-    _currentTotalByteSize += sizeOfQueuedItem(value);
+    _currentTotalByteSize += sizeOfQueuedItem(value, timestamp);
     await into(driftQueuedItems).insert(
       DriftQueuedItemsCompanion(
         value: Value(value),
@@ -116,7 +116,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
     for (final item in items) {
-      _currentTotalByteSize -= sizeOfQueuedItem(item.value);
+      _currentTotalByteSize -= sizeOfQueuedItem(item.value, item.timestamp);
     }
     final idsToDelete = items.map((item) => item.id);
     final statement = delete(driftQueuedItems)
