@@ -67,11 +67,17 @@ class IndexedDbAdapter implements QueuedItemStore {
     return store;
   }
 
+  int sizeOfQueuedItem(String value) {
+    var size = 0;
+    size += utf8.encode(value).length;
+    size += 23; // 23 bytes for the timestamp
+    size += 8; // 8 bytes for the id
+    return size;
+  }
+
   @override
   Future<void> addItem(String string, String timestamp) async {
-    _currentTotalByteSize += utf8.encode(string).length;
-    _currentTotalByteSize += utf8.encode(timestamp).length;
-    _currentTotalByteSize += 8; // 8 bytes for the id
+    _currentTotalByteSize += sizeOfQueuedItem(string);
     await _databaseOpenEvent;
     await _getObjectStore().add(string, timestamp).future;
   }
@@ -102,9 +108,9 @@ class IndexedDbAdapter implements QueuedItemStore {
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
     if (items.isEmpty) return;
 
-    _currentTotalByteSize -= utf8.encode(items.first.value).length;
-    _currentTotalByteSize -= utf8.encode(items.first.timestamp).length;
-    _currentTotalByteSize -= 8; // 8 bytes for the id
+    for (final item in items) {
+      _currentTotalByteSize -= sizeOfQueuedItem(item.value);
+    }
 
     final idsToDelete = items.map((item) => item.id);
 
