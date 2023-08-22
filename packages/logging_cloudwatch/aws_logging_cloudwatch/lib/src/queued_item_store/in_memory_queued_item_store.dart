@@ -18,6 +18,10 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
   final LinkedHashMap<int, QueuedItem> _database =
       LinkedHashMap<int, QueuedItem>();
 
+  /// Calculates the size of a queued item by adding the length of the UTF-8 encoded [value],
+  /// 23 bytes for the timestamp, and 8 bytes for the ID.
+  ///
+  /// Returns the total size of the queued item in bytes.
   int sizeOfQueuedItem(String value) {
     var size = 0;
     size += value.length;
