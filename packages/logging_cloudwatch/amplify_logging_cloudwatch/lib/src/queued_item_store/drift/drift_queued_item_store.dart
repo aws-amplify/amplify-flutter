@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
@@ -63,7 +62,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   /// Returns the total size of the queued item in bytes.
   int sizeOfQueuedItem(String value) {
     var size = 0;
-    size += utf8.encode(value).length;
+    size += value.length;
     size += 23; // 23 bytes for the timestamp
     size += 8; // 8 bytes for the id
     return size;

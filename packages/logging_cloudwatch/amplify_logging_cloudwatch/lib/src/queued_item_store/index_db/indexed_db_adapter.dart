@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:js_util';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -67,9 +66,13 @@ class IndexedDbAdapter implements QueuedItemStore {
     return store;
   }
 
+  /// Calculates the size of a queued item by adding the length of the UTF-8 encoded [value],
+  /// 23 bytes for the timestamp, and 8 bytes for the ID.
+  ///
+  /// Returns the total size of the queued item in bytes.
   int sizeOfQueuedItem(String value) {
     var size = 0;
-    size += utf8.encode(value).length;
+    size += value.length;
     size += 23; // 23 bytes for the timestamp
     size += 8; // 8 bytes for the id
     return size;
