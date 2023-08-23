@@ -6,64 +6,62 @@ import 'dart:convert';
 import 'package:actions/actions.dart';
 import 'package:collection/collection.dart';
 
-Future<void> main(List<String> args) async {
+Future<void> main(List<String> args) => wrapMain(launch);
+
+Future<void> launch() async {
   final iosVersion = core.getInput('ios-version');
   core.info('Launching simulator for iOS $iosVersion');
 
-  try {
-    // Use xcodes (https://github.com/XcodesOrg/xcodes) to list runtimes for all Xcode versions
-    final xcodesRes = await core.withGroup(
-      'Install xcodes',
-      () => exec.exec('brew', ['install', 'xcodesorg/made/xcodes']),
-    );
-    if (xcodesRes.exitCode != 0) {
-      throw Exception('Could not install xcodes');
-    }
+  // Use xcodes (https://github.com/XcodesOrg/xcodes) to list runtimes for all Xcode versions
+  final xcodesRes = await core.withGroup(
+    'Install xcodes',
+    () => exec.exec('brew', ['install', 'xcodesorg/made/xcodes']),
+  );
+  if (xcodesRes.exitCode != 0) {
+    throw Exception('Could not install xcodes');
+  }
 
-    var runtimeIdentifier = await core.withGroup(
-      'Check for existing runtime',
-      () => getRuntimeId(iosVersion),
-    );
-    if (runtimeIdentifier == null) {
-      core.info('No runtime found for iOS $iosVersion');
-      await core.withGroup('Clear cache', clearCache);
-      await core.withGroup('Install runtime', () => installRuntime(iosVersion));
-    }
-    runtimeIdentifier = await core.withGroup(
-      'Get runtime ID',
-      () => getRuntimeId(iosVersion),
-    );
-    if (runtimeIdentifier == null) {
-      throw Exception('Runtime not found after install');
-    }
-    final createRes = await core.withGroup(
-      'Create simulator',
-      () => exec.exec(
-        'xcrun',
-        [
-          'simctl',
-          'create',
-          'test',
-          'iPhone 11',
-          runtimeIdentifier!,
-        ],
-      ),
-    );
-    if (createRes.exitCode != 0) {
-      throw Exception('Could not create simulator');
-    }
-    final bootRes = await core.withGroup(
-      'Boot simulator',
-      () => exec.exec(
-        'xcrun',
-        ['simctl', 'boot', 'test'],
-      ),
-    );
-    if (bootRes.exitCode != 0) {
-      throw Exception('Could not boot simulator');
-    }
-  } on Object catch (e) {
-    return core.setFailed(e.toString());
+  var runtimeIdentifier = await core.withGroup(
+    'Check for existing runtime',
+    () => getRuntimeId(iosVersion),
+  );
+  if (runtimeIdentifier == null) {
+    core.info('No runtime found for iOS $iosVersion');
+    await core.withGroup('Clear cache', clearCache);
+    await core.withGroup('Install runtime', () => installRuntime(iosVersion));
+  }
+  runtimeIdentifier = await core.withGroup(
+    'Get runtime ID',
+    () => getRuntimeId(iosVersion),
+  );
+  if (runtimeIdentifier == null) {
+    throw Exception('Runtime not found after install');
+  }
+  final createRes = await core.withGroup(
+    'Create simulator',
+    () => exec.exec(
+      'xcrun',
+      [
+        'simctl',
+        'create',
+        'test',
+        'iPhone 11',
+        runtimeIdentifier!,
+      ],
+    ),
+  );
+  if (createRes.exitCode != 0) {
+    throw Exception('Could not create simulator');
+  }
+  final bootRes = await core.withGroup(
+    'Boot simulator',
+    () => exec.exec(
+      'xcrun',
+      ['simctl', 'boot', 'test'],
+    ),
+  );
+  if (bootRes.exitCode != 0) {
+    throw Exception('Could not boot simulator');
   }
 }
 
