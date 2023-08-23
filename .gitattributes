@@ -89,5 +89,4 @@ yarn.lock                                   linguist-generated
 ## GitHub Actions bundles
 **/dist/*.mjs                               linguist-generated
 **/dist/*.cjs                               linguist-generated
-**/dist/*.cjs.deps                          linguist-generated
 **/dist/*.cjs.map                           linguist-generated

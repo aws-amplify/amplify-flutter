@@ -9,11 +9,7 @@ import 'dart:js_util';
 external Exec get exec;
 
 @JS()
-inline class Exec {
-  Exec(this.obj);
-  
-  final JSObject obj;
-
+extension type Exec(JSObject it) {
   @JS('exec')
   external JSPromise _exec(String commandLine, [JSArray? args, _ExecOptions? options]);
 
