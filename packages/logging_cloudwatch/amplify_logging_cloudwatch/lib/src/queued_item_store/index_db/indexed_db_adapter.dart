@@ -66,23 +66,17 @@ class IndexedDbAdapter implements QueuedItemStore {
     return store;
   }
 
-  /// Calculates the size of a queued item by adding the length of the string using the String.length method [value],
-  /// String.length for the timestamp, and 8 bytes for the ID.
-  ///
-  /// Returns the total size of the queued item in bytes.
-  int sizeOfQueuedItem(String value, String timestamp) {
-    var size = 0;
-    size += value.length;
-    size += timestamp.length;
-    size += 8; // 8 bytes for the id
-    return size;
-  }
-
   @override
   Future<void> addItem(String string, String timestamp) async {
-    _currentTotalByteSize += sizeOfQueuedItem(string, timestamp);
     await _databaseOpenEvent;
     await _getObjectStore().add(string, timestamp).future;
+
+    final queuedItem = QueuedItem(
+      id: 0, // temporary value used to calculate byte size
+      value: string,
+      timestamp: timestamp,
+    );
+    _currentTotalByteSize += queuedItem.byteSize;
   }
 
   @override
@@ -111,10 +105,6 @@ class IndexedDbAdapter implements QueuedItemStore {
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
     if (items.isEmpty) return;
 
-    for (final item in items) {
-      _currentTotalByteSize -= sizeOfQueuedItem(item.value, item.timestamp);
-    }
-
     final idsToDelete = items.map((item) => item.id);
 
     await _databaseOpenEvent;
@@ -126,6 +116,10 @@ class IndexedDbAdapter implements QueuedItemStore {
     await Future.wait<void>(
       ranges.map((range) => store.deleteByKeyRange(range).future),
     );
+
+    for (final item in items) {
+      _currentTotalByteSize -= item.byteSize;
+    }
   }
 
   @override

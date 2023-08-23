@@ -38,6 +38,9 @@ class QueuedItem {
     required this.timestamp,
   });
 
+  /// Getter for byte size of the item.
+  int get byteSize => value.length + timestamp.length + 8; // 8 bytes for id
+
   /// The ID in the item.
   final int id;
 
