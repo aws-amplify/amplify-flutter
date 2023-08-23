@@ -82,6 +82,23 @@ jobs:
           arch: ${{ matrix.arch }}
           script: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.scope }}, ${{ matrix.api-level}}, ${{ matrix.target }}
+          testType: integration
+          category: ${{ matrix.scope }}
+          workflowName: ${{ matrix.scope }}/amplify_integration_tests
+          framework: flutter
+          flutterDartChannel: stable 
+          platform: android
+          platformVersion: ${{ matrix.api-level }} ${{ matrix.arch }}     
+
   ios:
     runs-on: macos-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -124,7 +141,23 @@ jobs:
 
       - name: Run integration tests
         timeout-minutes: 60
-        run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
+        run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test    
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.scope }}
+          testType: integration
+          category: ${{ matrix.scope }}
+          workflowName: ${{ matrix.scope }}/amplify_integration_tests
+          framework: flutter
+          flutterDartChannel: stable 
+          platform: ios     
 
   web:
     runs-on: ubuntu-latest
@@ -170,6 +203,23 @@ jobs:
         run: |
           chromedriver --port=4444 &
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.scope }}
+          testType: integration
+          category: ${{ matrix.scope }}
+          workflowName: ${{ matrix.scope }}/amplify_integration_tests
+          framework: flutter          
+          flutterDartChannel: stable 
+          platform: web      
+          platformVersion: chrome
 
   # TODO(dnys1): Re-enable with self-hosted runners
   # macos:
@@ -257,6 +307,22 @@ jobs:
           flutter config --enable-linux-desktop
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
 
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.scope }}
+          testType: integration
+          category: ${{ matrix.scope }}
+          workflowName: ${{ matrix.scope }}/amplify_integration_tests
+          framework: flutter          
+          flutterDartChannel: stable 
+          platform: linux     
+
   windows:
     runs-on: windows-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -301,3 +367,19 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           dart pub global run aft exec --include=${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.scope }}
+          testType: integration
+          category: ${{ matrix.scope }}
+          workflowName: ${{ matrix.scope }}/amplify_integration_tests
+          framework: flutter          
+          flutterDartChannel: stable 
+          platform: windows    

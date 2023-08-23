@@ -59,3 +59,19 @@ jobs:
               -scheme Runner \
               -destination "$XCODEBUILD_DESTINATION" | xcpretty
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.channel }}
+          testType: unit test
+          category: ${{ inputs.working-directory }}
+          workflowName: ${{ inputs.package-name }}/flutter_ios
+          framework: flutter
+          flutterDartChannel: ${{ matrix.channel }}
+          platform: ios

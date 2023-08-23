@@ -84,3 +84,22 @@ jobs:
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.sdk }}, ${{ matrix.browser }}
+          testType: unit test
+          category: ${{ inputs.working-directory }}
+          workflowName: ${{ inputs.package-name }}/dart_ddc
+          framework: dart
+          flutterDartChannel: ${{ matrix.sdk }}
+          dartCompiler: dart2js
+          platform: web
+          # 'chrome/firefox'
+          platformVersion: $${{ matrix.browser }}
