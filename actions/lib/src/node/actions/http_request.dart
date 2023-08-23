@@ -4,14 +4,12 @@
 import 'dart:js_interop';
 
 @JS()
-inline class HttpClient {
+extension type HttpClient._(JSObject it) {
   external HttpClient([
     String? userAgent,
     JSArray? handlers,
     JSObject? requestOptions,
   ]);
-
-  final JSObject obj;
 
   @JS('getJson')
   external JSPromise _getJson(String requestUrl);
@@ -27,13 +25,11 @@ inline class HttpClient {
 }
 
 @JS()
-inline class TypedResponse<T extends JSAny>{
+extension type TypedResponse<T extends JSAny>._(JSObject it){
   external TypedResponse({
     int statusCode,
     T result,
   });
-
-  final JSObject obj;
 
   external JSNumber get statusCode;
   external T? get result;
