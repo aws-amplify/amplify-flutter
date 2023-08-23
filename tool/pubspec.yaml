@@ -1,0 +1,9 @@
+name: send_metric_data
+description: A Dart helper script to send metric data
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  args: ^2.0.0
+  http: ">=0.13.0 <2.0.0"

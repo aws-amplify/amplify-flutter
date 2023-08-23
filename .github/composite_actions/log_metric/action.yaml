@@ -1,5 +1,5 @@
 name: Log Metric
-description: Log data point to a metric with the provided value. If the metric is not there, it will create one
+description: Log data point to a metric with the provided value. If the metric is not there, it will create one.
 # To avoid 'Credentials could not be loaded' calling workflows must include:
 # permissions:
 #  id-token: write
@@ -7,24 +7,70 @@ description: Log data point to a metric with the provided value. If the metric i
 inputs:
   aws-region:
     required: true
-    description: The AWS region
+    description: The AWS region.
   role-to-assume:
     required: true
-    description: The role to assume in the STS session
-  metric-name:
-    description: Name of the metric to track in Cloudwatch.
+    description: The role to assume in the STS session.
+  github-token:
     required: true
-  value:
-    # Why we publish value 0 on success: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#publishingZero
-    description: Value of the metric to track in Cloudwatch.
+    description: Github token for requesting failing steps.
+  job-status:
+    description: Used to determine if we track success or failure.
     required: true
-  dimensions:
-    description: Dimensions of metric to track in Cloudwatch, in format dimensionName1=value,dimensionName2=value,...
+  job-identifier:
+    description: For differentiating jobs of a run.
+    required: true
+
+
+  # Global Metric Dimensions
+  testType:
+    description: canary, integration, unit testType.
+    required: true
+  category:
+    description: analytics, api, authenticator, etc.
+    required: true
+  workflowName:
+    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
+    required: true
+
+  # FlutterDart Workflows Metric Dimensions
+  framework:
+    description: flutter, dart.
     required: false
+  flutterDartChannel:
+    description: beta, stable.
+    required: false
+  dartVersion:
+    description: 3, 2.19, 2.18, etc.
+    required: false
+  flutterVersion:
+    description: 3.10.6, 3.10.5, etc.
+    required: false
+  dartCompiler:
+    description: dart2js, ddc, dart, dart2wasm.
+    required: false
+
+  # Platform Workflows Metric Dimensions
+  platform:
+    description: android, ios, web, linux, windows.
+    required: false
+  platformVersion:
+    description: ios-14.5, ios-16, android-25-x86, etc.
+    required: false
+
 runs:
   using: "composite"
   steps:
+    #- name: Exit if not scheduled
+    #  shell: bash
+    #  run: |
+    #    if [ "${{ github.event_name }}" != "schedule" ]; then
+    #      echo "This was not triggered by a schedule, skipping."
+    #      echo "SKIP=true" >> $GITHUB_ENV
+    #    fi
+
     - name: Configure AWS credentials
+      if: env.SKIP != 'true'
       uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
       with:
         unset-current-credentials: true
@@ -32,7 +78,50 @@ runs:
         aws-region: ${{ inputs.aws-region }}
         role-duration-seconds: 900
 
+    - name: Change to Dart script directory
+      if: env.SKIP != 'true'
+      run: cd ./tool
+      shell: bash
+
+    - name: Install Dart dependencies (args)
+      if: env.SKIP != 'true'
+      run: dart pub get
+      shell: bash
+
+    - name: Get Failing Step
+      if: env.SKIP != 'true' && (${{ inputs.job-status }} == 'failure')
+      run: |
+        failing_step=$( \
+          dart ./tool/get_failing_step.dart \
+            --job-status "${{ inputs.job-status }}" \
+            --substring "${{ inputs.job-identifier }}" \
+            --github-token "${{ inputs.github-token }}" \
+            --repo "${{ github.repository }}" \
+            --run-id "${{ github.run_id }}" 2>&1) \
+        echo FAILING_STEP=$failing_step >> $GITHUB_ENV
+        echo Failing Step was $failing_step
+        echo Failing Step was ${{ env.FAILING_STEP }}
+        echo Job Status was ${{ inputs.job-status }}
+        echo Job Status check was ${{ inputs.job-status == 'failure' }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+
     - name: Run Dart script
-      # Run a Dart script to put metric data.
-      run: dart ./tool/send_metric_data.dart ${{ inputs.metric-name }} ${{ inputs.value }} ${{ inputs.dimensions }}
+      if: env.SKIP != 'true'
+      run: |
+        dart ./tool/send_metric_data.dart \
+          --metric-name="github_metric_1.0" \
+          --is-failed="${{ inputs.job-status == 'failure' }}" \
+          --test-type="${{ inputs.testType }}" \
+          --category="${{ inputs.category }}" \
+          --workflow-name="${{ inputs.workflowName }}" \
+          --framework="${{ inputs.framework }}" \
+          --flutter-dart-channel="${{ inputs.flutterDartChannel }}" \
+          --dart-version="${{ inputs.dartVersion }}" \
+          --flutter-version="${{ inputs.flutterVersion }}" \
+          --dart-compiler="${{ inputs.dartCompiler }}" \
+          --platform="${{ inputs.platform }}" \
+          --platform-version="${{ inputs.platformVersion }}" \
+          --failing-step="${{ env.FAILING_STEP }}"
       shell: bash

@@ -58,3 +58,19 @@ jobs:
         if: inputs.has-native-tests
         run: ./gradlew :"${{ inputs.package-name }}":testDebugUnitTest --stacktrace
         working-directory: ${{ inputs.example-directory }}/android
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.channel }}
+          testType: unit test
+          category: ${{ inputs.working-directory }}
+          workflowName: ${{ inputs.package-name }}/flutter_android.test
+          framework: flutter
+          flutterDartChannel: ${{ matrix.channel }}
+          platform: android
