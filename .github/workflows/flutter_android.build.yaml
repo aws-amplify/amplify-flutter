@@ -54,7 +54,7 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}     
-          github-token: ${{ secrets.GH_TOKEN }}    
+          github-token: ${{ secrets.GITHUB_TOKEN }}    
           job-status: ${{ job.status }}
           job-identifier: ${{ matrix.channel }}
           testType: unit test
