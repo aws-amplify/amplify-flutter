@@ -435,13 +435,12 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       return const [];
     }
 
-    final socialProviders = getSocialAuthProviders(context);
-    if (socialProviders.isEmpty) {
+    if (getSocialAuthProviders(context).isEmpty) {
       return const [];
     }
 
     return [
-      SocialSignInButtons(providers: socialProviders),
+      const SocialSignInButtons(),
     ];
   }
 }

@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                   Text('single SocialSignInButton (with custom provider)'),
                   SocialSignInButton(
                     provider: myAuthProvider,
-                    customIcon: heartIcon,
+                    icon: heartIcon,
                   ),
                 ],
               ),

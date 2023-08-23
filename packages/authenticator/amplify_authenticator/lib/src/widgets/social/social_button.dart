@@ -17,10 +17,12 @@ import 'package:flutter/material.dart';
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
   const SocialSignInButtons({
     super.key,
-    this.providers,
+    this.buttons,
   });
 
-  final List<AuthProvider>? providers;
+  /// [SocialSignInButton]s to render in a column with space between. If omitted,
+  /// will render buttons based on social providers from Amplify config.
+  final List<SocialSignInButton>? buttons;
 
   @override
   Widget builder(
@@ -34,44 +36,45 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
         // width, so that we can size all button labels to that width and align
         // the logos in the column.
         var maxWidth = 0.0;
-        final authProviders = providers ?? getSocialAuthProviders(context);
-
-        for (final provider in authProviders) {
-          final text = stringResolver.buttons.resolve(
-            context,
-            ButtonResolverKey.signInWith(provider),
-          );
-          final style = Theme.of(context)
-                  .outlinedButtonTheme
-                  .style
-                  ?.textStyle
-                  ?.resolve({}) ??
-              Theme.of(context).textTheme.labelLarge;
-          final tp = TextPainter(
-            text: TextSpan(
-              text: text,
-              style: style,
-            ),
-            maxLines: 1,
-            textDirection: TextDirection.ltr,
-          )..layout(maxWidth: constraints.maxWidth);
-          maxWidth = max(maxWidth, tp.width);
+        List<Widget>? providerButtons = buttons;
+        if (providerButtons == null) {
+          final socialProviders = getSocialAuthProviders(context);
+          for (final provider in socialProviders) {
+            final text = stringResolver.buttons.resolve(
+              context,
+              ButtonResolverKey.signInWith(provider),
+            );
+            final style = Theme.of(context)
+                    .outlinedButtonTheme
+                    .style
+                    ?.textStyle
+                    ?.resolve({}) ??
+                Theme.of(context).textTheme.labelLarge;
+            final tp = TextPainter(
+              text: TextSpan(
+                text: text,
+                style: style,
+              ),
+              maxLines: 1,
+              textDirection: TextDirection.ltr,
+            )..layout(maxWidth: constraints.maxWidth);
+            maxWidth = max(maxWidth, tp.width);
+          }
+          providerButtons = socialProviders
+              .map(
+                (provider) => SocialSignInButton._(
+                  provider: provider,
+                  maxWidth: maxWidth,
+                ),
+              )
+              .toList();
         }
 
         return Column(
-          children: <Widget>[
-            for (final provider in authProviders)
-              SocialSignInButton._(provider: provider, maxWidth: maxWidth),
-          ].spacedBy(const SizedBox(height: 12)),
+          children: (providerButtons).spacedBy(const SizedBox(height: 12)),
         );
       },
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IterableProperty<AuthProvider>('providers', providers));
   }
 }
 
@@ -83,7 +86,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   const SocialSignInButton({
     super.key,
     required this.provider,
-    required Widget this.customIcon,
+    this.icon,
     this.maxWidth = double.infinity,
   });
 
@@ -107,10 +110,13 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
     super.key,
     required this.provider,
     this.maxWidth = double.infinity,
-    this.customIcon,
+    this.icon,
   });
 
-  final Widget? customIcon;
+  /// Icon for the social provider. If omitted, default social providers (Amazon,
+  /// Apple, Facebook or Google) will render appropriate icons automatically. Custom
+  /// providers with no defined icon will not render an icon.
+  final Widget? icon;
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
@@ -131,7 +137,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
   @override
   AuthenticatorButtonState<SocialSignInButton> createState() =>
-      _SocialSignInButtonState(customIcon);
+      _SocialSignInButtonState();
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -144,14 +150,11 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
 class _SocialSignInButtonState
     extends AuthenticatorButtonState<SocialSignInButton> {
-  _SocialSignInButtonState(this.customIcon);
-
   static const _spacing = 5.0;
-  final Widget? customIcon;
 
   Widget get icon {
-    if (customIcon != null) {
-      return customIcon!;
+    if (widget.icon case final customIcon?) {
+      return customIcon;
     }
     final isDark = Theme.of(context).brightness == Brightness.dark;
     if (widget.provider == AuthProvider.google) {
