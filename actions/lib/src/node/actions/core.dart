@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:actions/src/node/process.dart';
@@ -10,21 +11,56 @@ external Core get core;
 
 @JS()
 extension type Core(JSObject it) {
-  external String getInput(String name);
+  @JS('getInput')
+  external String _getInput(String name);
+
+  String getInput(String name, {String defaultValue = ''}) {
+    final inputValue = _getInput(name);
+    return inputValue.isEmpty ? defaultValue : inputValue;
+  }
+
+  String getRequiredInput(String name) {
+    final inputValue = _getInput(name);
+    return inputValue.isEmpty ? (throw StateError('Input "$name" was required but no value was passed')) : inputValue;
+  }
+
+  T getTypedInput<T>(
+    String name, {
+    required T Function(String value) parse,
+    T? defaultValue,
+    T Function()? orElse,
+  }) {
+    final value = getInput(name);
+    if (value.isEmpty) {
+      if (defaultValue != null) {
+        return defaultValue;
+      }
+      return orElse?.call() ??
+          (throw ArgumentError(
+            'Got value "$value" for input "$name" which is not a valid $T.',
+          ));
+    }
+    return parse(value);
+  }
 
   external void setOutput(String name, String value);
 
   external void startGroup(String name);
-  external void endGroup(String name);
+  external void endGroup();
 
-  Future<R> withGroup<R>(String name, Future<R> Function() action) async {
+  Future<R> withGroup<R>(
+    String name, 
+    Future<R> Function() action,
+  ) async {
     startGroup(name);
     try {
       return await action();
     } finally {
-      endGroup(name);
+      endGroup();
     }
   }
+
+  external bool isDebug();
 
   external void debug(String name);
   external void info(String name);
@@ -34,6 +70,9 @@ extension type Core(JSObject it) {
   external void addPath(String element);
 
   external void exportVariable(String name, String value);
+
+  external void saveState(String name, String value);
+  external String getState(String name);
 
   @JS('setFailed')
   external void _setFailed(String error);

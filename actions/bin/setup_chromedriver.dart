@@ -2,11 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/node/process_manager.dart';
 
 const _binaryName = 'chromedriver';
 
 /// Downloads ChromeDriver and installs it in the tool cache.
-Future<void> main() async {
+Future<void> main() => wrapMain(_installChromedriver);
+
+Future<void> _installChromedriver() async {
   final chromeVersion = await core.withGroup(
     'Getting Chrome version',
     () async {
@@ -14,31 +17,29 @@ Future<void> main() async {
         OS.macOS =>
           '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         OS.linux => 'google-chrome',
-        final unsupported =>
-          throw UnsupportedError('Unsupported OS: $unsupported'),
       };
 
-      final versionResult = await exec.exec(chromeExecutable, ['--version']);
-      if (versionResult.exitCode != 0) {
-        throw Exception(versionResult.stderr);
+      final versionResult = await processManager.run(
+        <String>[chromeExecutable, '--version'],
+        echoOutput: true,
+      );
+      final ProcessResult(
+        :exitCode,
+        :stdout as String,
+        :stderr as String,
+      ) = versionResult;
+      if (exitCode != 0) {
+        throw Exception(stderr);
       }
 
-      final version = versionResult.stdout.trim().split(' ').last;
+      final version = stdout.trim().split(' ').last;
       core.info('Found local Chrome version: $version');
 
       return version;
     },
   );
 
-  final cachedPath = await core.withGroup('Check cache', () async {
-    try {
-      final location = toolCache.find(_binaryName, chromeVersion).trim();
-      return location.isNotEmpty ? location : null;
-    } on Object {
-      return null;
-    }
-  });
-
+  final cachedPath = toolCache.find(_binaryName, chromeVersion);
   if (cachedPath != null) {
     core.info('Found cached install: $cachedPath');
     return core.addPath(cachedPath);
