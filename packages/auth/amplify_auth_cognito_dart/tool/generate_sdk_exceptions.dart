@@ -159,11 +159,11 @@ typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
   )..addAll(errorShapes);
   final sdkExceptions = <String>{};
   for (final shape in uniqueErrorShapes) {
-    final shapeName = shape.shapeId.shape.pascalCase;
+    final shapeName = shape.shapeId.shape;
     sdkExceptions.add(shapeName);
 
     final hasCoreType = authExceptions.keys.contains(shapeName);
-    final className = authExceptions[shapeName] ?? shapeName;
+    final className = authExceptions[shapeName] ?? shapeName.pascalCase;
     final templateName =
         'amplify_auth_cognito_dart.sdk_exception.${shapeName.snakeCase}';
     final docs = shape.formattedDocs(context);
@@ -194,25 +194,23 @@ Object transformSdkException(Object e) {
   if (e is! SmithyException) {
     return e is Exception ? core.AuthException.fromException(e) : e;
   }
-  final message = e.message ?? e.toString();
-  final shapeId = e.shapeId;
-  if (shapeId == null) {
-    return UnknownServiceException(message, underlyingException: e);
-  }
+  final message = e.message ?? 'An unknown error occurred';
+  final shapeName = e.shapeId?.shape;
+
   // Some exceptions are returned as non-Lambda exceptions even though they
   // orginated in user-defined lambdas.
   if (LambdaException.isLambdaException(message) ||
-      shapeId.shape == 'InvalidLambdaResponseException' ||
-      shapeId.shape == 'UnexpectedLambdaException' ||
-      shapeId.shape == 'UserLambdaValidationException') {
+      shapeName == 'InvalidLambdaResponseException' ||
+      shapeName == 'UnexpectedLambdaException' ||
+      shapeName == 'UserLambdaValidationException') {
     return LambdaException(message, underlyingException: e);
   }
 
-  return switch (shapeId.shape) {
+  return switch (shapeName) {
 ''');
 
   for (final exception in sdkExceptions) {
-    final exceptionClass = authExceptions[exception] ?? exception;
+    final exceptionClass = authExceptions[exception] ?? exception.pascalCase;
     exceptions.write('''
     '$exception' => $exceptionClass(message, underlyingException: e,),
 ''');

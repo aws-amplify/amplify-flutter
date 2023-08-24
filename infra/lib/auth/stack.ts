@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as kms from "aws-cdk-lib/aws-kms";
 import * as lambda from "aws-cdk-lib/aws-lambda";
@@ -20,8 +20,10 @@ import {
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
   IntegrationTestStackEnvironmentProps,
+  Mutable,
   UserPoolConfig
 } from "../common";
+import { UserMfaPreference } from "./common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
 
@@ -45,6 +47,15 @@ export interface AuthBaseEnvironmentProps
    * The type of environment to build.
    */
   type: AuthIntegrationEnvironmentType;
+}
+
+export interface MfaConfiguration extends UserMfaPreference {
+  /**
+   * The MFA requirement at sign-in.
+   * 
+   * @default cognito.Mfa.OPTIONAL
+   */
+  signIn?: cognito.Mfa;
 }
 
 export interface AuthFullEnvironmentProps {
@@ -122,6 +133,11 @@ export interface AuthFullEnvironmentProps {
    * @default "OFF"
    */
   advancedSecurityMode?: cognito.AdvancedSecurityMode;
+
+  /**
+   * MFA settings for the user pool.
+   */
+  mfaConfiguration?: MfaConfiguration;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -190,6 +206,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     const {
       associateWithWaf,
+      autoConfirm = false,
       enableHostedUI = false,
       signInAliases,
       standardAttributes = {
@@ -202,12 +219,14 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
           required: true,
         },
       },
+      deviceTracking,
       customAuth,
       includeUserPool = true,
       includeIdentityPool = true,
       allowUnauthenticatedIdentities = true,
       withClientSecret = false,
       advancedSecurityMode = cognito.AdvancedSecurityMode.OFF,
+      mfaConfiguration,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -240,23 +259,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       alias: this.name,
     });
 
-    const customSmsSender = new lambda_nodejs.NodejsFunction(
-      this,
-      "custom-sms-sender",
-      {
-        runtime: lambda.Runtime.NODEJS_18_X,
-        bundling: {
-          nodeModules: ["@aws-crypto/client-node"],
-        },
-        environment: {
-          GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
-          GRAPHQL_API_KEY: graphQLApi.apiKey!,
-          KMS_KEY_ARN: customSenderKmsKey.keyArn,
-        },
-      }
-    );
-    graphQLApi.grantMutation(customSmsSender);
-    customSenderKmsKey.grantDecrypt(customSmsSender);
+    const lambdaTriggers: Mutable<cognito.UserPoolTriggers> = {};
 
     const customEmailSender = new lambda_nodejs.NodejsFunction(
       this,
@@ -273,15 +276,32 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         },
       }
     );
+    lambdaTriggers.customEmailSender = customEmailSender;
     graphQLApi.grantMutation(customEmailSender);
     customSenderKmsKey.grantDecrypt(customEmailSender);
 
-    const additionalTriggers: Omit<
-      cognito.UserPoolTriggers,
-      "customSmsSender" | "customEmailSender"
-    > = {};
-    if (props.autoConfirm) {
-      additionalTriggers.preSignUp = new lambda_nodejs.NodejsFunction(
+    const customSmsSender = new lambda_nodejs.NodejsFunction(
+      this,
+      "custom-sms-sender",
+      {
+        runtime: lambda.Runtime.NODEJS_18_X,
+        bundling: {
+          nodeModules: ["@aws-crypto/client-node"],
+        },
+        environment: {
+          GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
+          GRAPHQL_API_KEY: graphQLApi.apiKey!,
+          KMS_KEY_ARN: customSenderKmsKey.keyArn,
+        },
+      }
+    );
+    lambdaTriggers.customSmsSender = customSmsSender;
+    graphQLApi.grantMutation(customSmsSender);
+    customSenderKmsKey.grantDecrypt(customSmsSender);
+
+
+    if (autoConfirm) {
+      lambdaTriggers.preSignUp = new lambda_nodejs.NodejsFunction(
         this,
         "pre-sign-up",
         {
@@ -292,7 +312,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     // Create the Custom Auth handlers
     if (customAuth == "WITH_SRP") {
-      additionalTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
+      lambdaTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
         this,
         "create-auth-challenge",
         {
@@ -301,7 +321,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         }
       );
 
-      additionalTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
+      lambdaTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
         this,
         "define-auth-challenge",
         {
@@ -310,13 +330,13 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         }
       );
 
-      additionalTriggers.verifyAuthChallengeResponse =
+      lambdaTriggers.verifyAuthChallengeResponse =
         new lambda_nodejs.NodejsFunction(this, "verify-auth-challenge", {
           entry: "lib/auth/custom-auth-with-srp/verify-auth-challenge.ts",
           runtime: lambda.Runtime.NODEJS_18_X,
         });
     } else if (customAuth == "WITHOUT_SRP") {
-      additionalTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
+      lambdaTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
         this,
         "create-auth-challenge",
         {
@@ -325,7 +345,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         }
       );
 
-      additionalTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
+      lambdaTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
         this,
         "define-auth-challenge",
         {
@@ -334,7 +354,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         }
       );
 
-      additionalTriggers.verifyAuthChallengeResponse =
+      lambdaTriggers.verifyAuthChallengeResponse =
         new lambda_nodejs.NodejsFunction(this, "verify-auth-challenge", {
           entry: "lib/auth/custom-auth-without-srp/verify-auth-challenge.ts",
           runtime: lambda.Runtime.NODEJS_18_X,
@@ -343,9 +363,6 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     // Create the Cognito User Pool
 
-    const mfa = standardAttributes.phoneNumber?.required
-      ? cognito.Mfa.OPTIONAL
-      : cognito.Mfa.OFF;
     const accountRecovery = standardAttributes.phoneNumber?.required
       ? cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA
       : cognito.AccountRecovery.EMAIL_ONLY;
@@ -353,25 +370,52 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     if (standardAttributes.phoneNumber?.required) {
       verificationMechanisms.push("PHONE_NUMBER");
     }
+
+    let mfa: cognito.Mfa;
+    let mfaSecondFactor: cognito.MfaSecondFactor | undefined;
+    if (mfaConfiguration) {
+      mfa = mfaConfiguration.signIn ?? cognito.Mfa.OPTIONAL;
+      const { SoftwareTokenMfaSettings: totp, SMSMfaSettings: sms } = mfaConfiguration;
+      if (totp?.Enabled && sms?.Enabled) {
+        mfaSecondFactor = { sms: true, otp: true };
+      } else if (totp?.Enabled) {
+        mfaSecondFactor = { sms: false, otp: true };
+      } else if (sms?.Enabled) {
+        mfaSecondFactor = { sms: true, otp: false };
+      } else {
+        throw new Error(`Either SMS or TOTP must be enabled. Got ${mfaConfiguration}`);
+      }
+    } else {
+      mfa = standardAttributes.phoneNumber?.required
+        ? cognito.Mfa.OPTIONAL
+        : cognito.Mfa.OFF;
+    }
+
+    const autoVerify: Mutable<cognito.AutoVerifiedAttrs> = {
+      email: true,
+      phone: true,
+    };
+    if (
+      mfaConfiguration &&
+      !mfaConfiguration.SMSMfaSettings?.Enabled &&
+      mfaConfiguration.SoftwareTokenMfaSettings?.Enabled
+    ) {
+      // When just TOTP is enabled, cannot configure phone number verification.
+      autoVerify.phone = false;
+    }
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery,
-      autoVerify: {
-        email: true,
-        phone: true,
-      },
+      autoVerify,
       mfa,
       signInAliases,
       standardAttributes,
-      lambdaTriggers: {
-        customSmsSender,
-        customEmailSender,
-        ...additionalTriggers,
-      },
+      lambdaTriggers,
       customSenderKmsKey,
-      deviceTracking: props.deviceTracking,
+      deviceTracking,
+      mfaSecondFactor,
       advancedSecurityMode,
     });
     this.createUserCleanupJob(userPool);
@@ -481,6 +525,21 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       "cognito-idp:AdminUpdateUserAttributes"
     );
 
+    const enableSmsMfaLambda = new lambda_nodejs.NodejsFunction(
+      this,
+      "enable-sms-mfa",
+      {
+        runtime: lambda.Runtime.NODEJS_18_X,
+        environment: {
+          USER_POOL_ID: userPool.userPoolId,
+        },
+      }
+    );
+    userPool.grant(
+      enableSmsMfaLambda,
+      "cognito-idp:AdminSetUserMFAPreference",
+    );
+
     const deleteUserLambda = new lambda_nodejs.NodejsFunction(
       this,
       "delete-user",
@@ -566,6 +625,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     createUserSource.createResolver("MutationCreateUserResolver", {
       typeName: "Mutation",
       fieldName: "createUser",
+      requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
+      responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
+    });
+
+    // Mutation.enableSmsMfa
+    const enableSmsMfaSource = graphQLApi.addLambdaDataSource(
+      "GraphQLApiEnableSmsMfaLambda",
+      enableSmsMfaLambda
+    );
+    enableSmsMfaSource.createResolver("MutationEnableSmsMfaResolver", {
+      typeName: "Mutation",
+      fieldName: "enableSmsMfa",
       requestMappingTemplate: appsync.MappingTemplate.lambdaRequest(),
       responseMappingTemplate: appsync.MappingTemplate.lambdaResult(),
     });

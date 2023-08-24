@@ -42,12 +42,9 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -95,12 +92,9 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -159,12 +153,9 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -239,16 +230,10 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: phoneNumber.toE164(),
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
+        },
       );
 
       // When I type my "email" with status "UNVERIFIED"
@@ -308,12 +293,9 @@ void main() {
         username,
         password,
         autoConfirm: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       // When I sign in with username and password.

@@ -118,12 +118,9 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: phoneNumber.toE164(),
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
+        },
       );
 
       await loadAuthenticator(tester: tester);
@@ -168,12 +165,9 @@ void main() {
       await adminCreateUser(
         phoneNumber.toE164(),
         password,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: phoneNumber.toE164(),
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.phoneNumber: phoneNumber.toE164(),
+        },
       );
 
       await loadAuthenticator(tester: tester);

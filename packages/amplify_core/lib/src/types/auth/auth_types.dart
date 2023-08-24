@@ -38,6 +38,13 @@ export 'auth_next_step.dart';
 /// Hub
 export 'hub/auth_hub_event.dart';
 
+/// MFA
+export 'mfa/mfa_preference.dart';
+export 'mfa/totp_setup_details.dart';
+export 'mfa/totp_setup_options.dart';
+export 'mfa/user_mfa_preference.dart';
+export 'mfa/verify_totp_setup_options.dart';
+
 /// Password
 export 'password/auth_reset_password_step.dart';
 export 'password/confirm_reset_password_options.dart';

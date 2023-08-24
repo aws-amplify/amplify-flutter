@@ -164,6 +164,21 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     );
   }
 
+  /// {@macro amplify_core.amplify_auth_category.set_up_totp}
+  Future<TotpSetupDetails> setUpTotp({
+    TotpSetupOptions? options,
+  }) {
+    throw UnimplementedError('setUpTotp() has not been implemented.');
+  }
+
+  /// {@macro amplify_core.amplify_auth_category.verify_totp_setup}
+  Future<void> verifyTotpSetup(
+    String totpCode, {
+    VerifyTotpSetupOptions? options,
+  }) {
+    throw UnimplementedError('verifyTotpSetup() has not been implemented.');
+  }
+
   /// {@macro amplify_core.amplify_auth_category.remember_device}
   Future<void> rememberDevice() {
     throw UnimplementedError('rememberDevice() has not been implemented.');

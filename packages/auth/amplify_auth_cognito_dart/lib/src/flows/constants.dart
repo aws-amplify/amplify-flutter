@@ -60,6 +60,24 @@ abstract class CognitoConstants {
   /// The `SOFTWARE_TOKEN_MFA_CODE` parameter.
   static const challengeParamSoftwareTokenMfaCode = 'SOFTWARE_TOKEN_MFA_CODE';
 
+  /// The `FRIENDLY_DEVICE_NAME` parameter.
+  static const challengeParamFriendlyDeviceName = 'FRIENDLY_DEVICE_NAME';
+
+  /// The `MFAS_CAN_SETUP` parameter.
+  ///
+  /// Lists the MFA types which are allowed to be set up.
+  static const challengeParamMfasCanSetup = 'MFAS_CAN_SETUP';
+
+  /// The `MFAS_CAN_CHOOSE` parameter.
+  ///
+  /// Lists the MFA types which can be chosen for set up.
+  static const challengeParamMfasCanChoose = 'MFAS_CAN_CHOOSE';
+
+  /// The `Session` parameter.
+  ///
+  /// Used in the `SOFTWARE_TOKEN_MFA` flow.
+  static const challengeParamSession = 'Session';
+
   /// The `userAttributes` parameter.
   static const challengeParamUserAttributes = 'userAttributes';
 

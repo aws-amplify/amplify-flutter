@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   createUser(input: CreateUserInput!): CreateUserResponse @aws_api_key
+  enableSmsMfa(username: String!): EnableSmsMfaResponse @aws_api_key
   deleteUser(username: String!): DeleteUserResponse @aws_api_key
   deleteDevice(input: DeleteDeviceInput!): DeleteDeviceResponse @aws_api_key
   createMFACode(input: CreateMFACodeInput!): MFACode @aws_api_key
@@ -17,7 +18,7 @@ type Subscription {
 
 input CreateUserInput {
   username: String!
-  password: String
+  password: String!
   autoConfirm: Boolean
   enableMFA: Boolean
   verifyAttributes: Boolean
@@ -30,6 +31,11 @@ input CreateUserInput {
 type CreateUserResponse {
   success: Boolean!
   cognitoUsername: String
+  error: String
+}
+
+type EnableSmsMfaResponse {
+  success: Boolean!
   error: String
 }
 

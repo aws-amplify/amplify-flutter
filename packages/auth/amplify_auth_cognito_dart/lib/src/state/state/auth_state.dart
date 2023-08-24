@@ -18,6 +18,7 @@ part 'hosted_ui_state.dart';
 part 'sign_in_state.dart';
 part 'sign_out_state.dart';
 part 'sign_up_state.dart';
+part 'totp_setup_state.dart';
 
 /// {@template amplify_auth_cognito_dart.auth_state}
 /// Base class for states of the [CognitoAuthStateMachine].
