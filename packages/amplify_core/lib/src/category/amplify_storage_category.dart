@@ -18,6 +18,8 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   @nonVirtual
   Category get category => Category.storage;
 
+  // TEST COMMENT TO TRIGGER WORKFLOWS
+
   @override
   @nonVirtual
   Set<Category> get categoryDependencies => const {Category.auth};
