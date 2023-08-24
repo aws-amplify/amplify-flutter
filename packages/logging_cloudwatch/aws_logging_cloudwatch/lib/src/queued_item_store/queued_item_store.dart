@@ -32,11 +32,6 @@ abstract interface class QueuedItemStore {
 /// {@endtemplate}
 class QueuedItem {
   /// {@macro aws_logging_cloudwatch.string_database_element}
-  const QueuedItem({
-    required this.id,
-    required this.value,
-    required this.timestamp,
-  });
 
   /// The size of the item, in bytes, when stored in the database.
   const QueuedItem({
@@ -45,6 +40,8 @@ class QueuedItem {
     required this.timestamp,
   }) : _byteSize = value.length + timestamp.length + 8;
   final int _byteSize;
+
+  /// The size of the item, in bytes, when stored in the database.
   int get byteSize => _byteSize;
 
   /// The ID in the item.
