@@ -31,7 +31,9 @@ class TransferDatabase extends _$TransferDatabase
                 .getOrCreate<AppPathProvider>()
                 .getApplicationSupportPath(),
           ),
-        );
+        ) {
+    driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  }
 
   // Bump the version number when any alteration is made into tables.dart
   @override
