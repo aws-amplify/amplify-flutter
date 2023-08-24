@@ -1,5 +1,6 @@
 name: Amplify Canaries
 on:
+# TEMP ENSURE PR TRIGGER 
   pull_request:
     paths:
       - ".github/workflows/amplify_canaries.yaml"
