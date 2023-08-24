@@ -39,7 +39,13 @@ class QueuedItem {
   });
 
   /// The size of the item, in bytes, when stored in the database.
-  int get byteSize => value.length + timestamp.length + 8; // 8 bytes for id
+  const QueuedItem({
+    required this.id,
+    required this.value,
+    required this.timestamp,
+  }) : _byteSize = value.length + timestamp.length + 8;
+  final int _byteSize;
+  int get byteSize => _byteSize;
 
   /// The ID in the item.
   final int id;
