@@ -9,16 +9,15 @@ import 'dart:js_interop';
 external FileSystem get fs;
 
 @JS()
-inline class FileSystem {
-  FileSystem(this.fileSystem);
-
-  final JSObject fileSystem;
-
+extension type FileSystem(JSObject it) {
   /// Whether the [path] exists, false otherwise.
   external bool existsSync(String path);
 
+  @JS('readFileSync')
+  external String _readFileSync(String path, [String encoding]);
+
   /// Read the contents of the [path].
-  external String readFileSync(String path, [String encoding]);
+  String readFileSync(String path) => _readFileSync(path, 'utf8');
 
   @JS('rmdirSync')
   external void _rmdirSync(String path, [_RmdirOptions? options]);

@@ -11,11 +11,7 @@ import 'package:actions/src/os.dart';
 external Process get process;
 
 @JS()
-inline class Process {
-  Process(this.process);
-
-  final JSObject process;
-
+extension type Process(JSObject it) {
   /// A string identifying the operating system platform for which the Node.js binary was compiled.
   /// 
   /// See: https://nodejs.org/api/process.html#processplatform
@@ -40,4 +36,6 @@ inline class Process {
     'x64' => Arch.x64,
     final unknown => throw StateError('Unknown architecture: $unknown'),
   };
+
+  external Never exit(int exitCode);
 }

@@ -3,15 +3,13 @@
 
 import 'dart:js_interop';
 
+import 'package:actions/src/node/process.dart';
+
 @JS()
 external Core get core;
 
 @JS()
-inline class Core {
-  Core(this.obj);
-
-  final JSObject obj;
-
+extension type Core(JSObject it) {
   external String getInput(String name);
 
   external void setOutput(String name, String value);
@@ -37,7 +35,13 @@ inline class Core {
 
   external void exportVariable(String name, String value);
 
-  external void setFailed(String name);
+  @JS('setFailed')
+  external void _setFailed(String error);
+
+  Never setFailed(String error) {
+    _setFailed(error);
+    process.exit(1);
+  }
 
   // JSPromise<String>
   external JSPromise getIDToken(String audience);

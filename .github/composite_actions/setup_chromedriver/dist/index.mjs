@@ -520,8 +520,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OidcClient = void 0;
-const http_client_1 = __nccwpck_require__(7794);
-const auth_1 = __nccwpck_require__(4610);
+const http_client_1 = __nccwpck_require__(4284);
+const auth_1 = __nccwpck_require__(5479);
 const core_1 = __nccwpck_require__(7733);
 class OidcClient {
     static createHttpClient(allowRetry = true, maxRetry = 10) {
@@ -1720,7 +1720,7 @@ class ExecState extends events.EventEmitter {
 
 /***/ }),
 
-/***/ 4610:
+/***/ 5479:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -1807,7 +1807,7 @@ exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHand
 
 /***/ }),
 
-/***/ 7794:
+/***/ 4284:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 
@@ -1844,7 +1844,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HttpClient = exports.isHttps = exports.HttpClientResponse = exports.HttpClientError = exports.getProxyUrl = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
 const http = __importStar(__nccwpck_require__(3685));
 const https = __importStar(__nccwpck_require__(5687));
-const pm = __importStar(__nccwpck_require__(1116));
+const pm = __importStar(__nccwpck_require__(2923));
 const tunnel = __importStar(__nccwpck_require__(4249));
 var HttpCodes;
 (function (HttpCodes) {
@@ -1931,6 +1931,19 @@ class HttpClientResponse {
                 });
                 this.message.on('end', () => {
                     resolve(output.toString());
+                });
+            }));
+        });
+    }
+    readBodyBuffer() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+                const chunks = [];
+                this.message.on('data', (chunk) => {
+                    chunks.push(chunk);
+                });
+                this.message.on('end', () => {
+                    resolve(Buffer.concat(chunks));
                 });
             }));
         });
@@ -2418,7 +2431,7 @@ const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCa
 
 /***/ }),
 
-/***/ 1116:
+/***/ 2923:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2438,7 +2451,13 @@ function getProxyUrl(reqUrl) {
         }
     })();
     if (proxyVar) {
-        return new URL(proxyVar);
+        try {
+            return new URL(proxyVar);
+        }
+        catch (_a) {
+            if (!proxyVar.startsWith('http://') && !proxyVar.startsWith('https://'))
+                return new URL(`http://${proxyVar}`);
+        }
     }
     else {
         return undefined;
@@ -3260,7 +3279,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const mm = __importStar(__nccwpck_require__(2842));
 const os = __importStar(__nccwpck_require__(2037));
 const path = __importStar(__nccwpck_require__(1017));
-const httpm = __importStar(__nccwpck_require__(7794));
+const httpm = __importStar(__nccwpck_require__(4284));
 const semver = __importStar(__nccwpck_require__(1729));
 const stream = __importStar(__nccwpck_require__(2781));
 const util = __importStar(__nccwpck_require__(3837));
@@ -6581,17 +6600,59 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("https");
 
 /***/ }),
 
-/***/ 8188:
-/***/ ((module) => {
-
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("module");
-
-/***/ }),
-
 /***/ 1808:
 /***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("net");
+
+/***/ }),
+
+/***/ 7718:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:child_process");
+
+/***/ }),
+
+/***/ 7561:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:fs");
+
+/***/ }),
+
+/***/ 5425:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:module");
+
+/***/ }),
+
+/***/ 612:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:os");
+
+/***/ }),
+
+/***/ 9411:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:path");
+
+/***/ }),
+
+/***/ 7742:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:process");
+
+/***/ }),
+
+/***/ 1041:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:url");
 
 /***/ }),
 
@@ -6606,13 +6667,6 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("os");
 /***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("path");
-
-/***/ }),
-
-/***/ 7282:
-/***/ ((module) => {
-
-module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("process");
 
 /***/ }),
 
@@ -6657,18 +6711,22 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("util");
 var _actions_core__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
 var _actions_exec__WEBPACK_IMPORTED_MODULE_1___namespace_cache;
 var _actions_tool_cache__WEBPACK_IMPORTED_MODULE_3___namespace_cache;
-var fs__WEBPACK_IMPORTED_MODULE_4___namespace_cache;
-var os__WEBPACK_IMPORTED_MODULE_6___namespace_cache;
-var process__WEBPACK_IMPORTED_MODULE_7___namespace_cache;
+var node_fs__WEBPACK_IMPORTED_MODULE_5___namespace_cache;
+var node_os__WEBPACK_IMPORTED_MODULE_7___namespace_cache;
+var node_process__WEBPACK_IMPORTED_MODULE_8___namespace_cache;
+var node_child_process__WEBPACK_IMPORTED_MODULE_4___namespace_cache;
 __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7733);
 /* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1757);
-/* harmony import */ var _actions_http_client__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(7794);
+/* harmony import */ var _actions_http_client__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(4284);
 /* harmony import */ var _actions_tool_cache__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(514);
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(7147);
-/* harmony import */ var module__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(8188);
-/* harmony import */ var os__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(2037);
-/* harmony import */ var process__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(7282);
+/* harmony import */ var node_child_process__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(7718);
+/* harmony import */ var node_fs__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(7561);
+/* harmony import */ var node_module__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5425);
+/* harmony import */ var node_os__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(612);
+/* harmony import */ var node_process__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(7742);
+/* harmony import */ var node_path__WEBPACK_IMPORTED_MODULE_9__ = __nccwpck_require__(9411);
+/* harmony import */ var node_url__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(1041);
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -6681,7 +6739,10 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 
 
 
-const require = module__WEBPACK_IMPORTED_MODULE_5__.createRequire(import.meta.url);
+
+
+
+const require = node_module__WEBPACK_IMPORTED_MODULE_6__.createRequire(import.meta.url);
 
 // Setup properties for JS interop in Dart.
 
@@ -6690,13 +6751,17 @@ globalThis.core = /*#__PURE__*/ (_actions_core__WEBPACK_IMPORTED_MODULE_0___name
 globalThis.exec = /*#__PURE__*/ (_actions_exec__WEBPACK_IMPORTED_MODULE_1___namespace_cache || (_actions_exec__WEBPACK_IMPORTED_MODULE_1___namespace_cache = __nccwpck_require__.t(_actions_exec__WEBPACK_IMPORTED_MODULE_1__, 2)));
 globalThis.HttpClient = _actions_http_client__WEBPACK_IMPORTED_MODULE_2__.HttpClient;
 globalThis.toolCache = /*#__PURE__*/ (_actions_tool_cache__WEBPACK_IMPORTED_MODULE_3___namespace_cache || (_actions_tool_cache__WEBPACK_IMPORTED_MODULE_3___namespace_cache = __nccwpck_require__.t(_actions_tool_cache__WEBPACK_IMPORTED_MODULE_3__, 2)));
-globalThis.fs = /*#__PURE__*/ (fs__WEBPACK_IMPORTED_MODULE_4___namespace_cache || (fs__WEBPACK_IMPORTED_MODULE_4___namespace_cache = __nccwpck_require__.t(fs__WEBPACK_IMPORTED_MODULE_4__, 2)));
-globalThis.os = /*#__PURE__*/ (os__WEBPACK_IMPORTED_MODULE_6___namespace_cache || (os__WEBPACK_IMPORTED_MODULE_6___namespace_cache = __nccwpck_require__.t(os__WEBPACK_IMPORTED_MODULE_6__, 2)));
-globalThis.process = /*#__PURE__*/ (process__WEBPACK_IMPORTED_MODULE_7___namespace_cache || (process__WEBPACK_IMPORTED_MODULE_7___namespace_cache = __nccwpck_require__.t(process__WEBPACK_IMPORTED_MODULE_7__, 2)));
-globalThis.location = { href: `file://${process__WEBPACK_IMPORTED_MODULE_7__.cwd()}/` }
+globalThis.fs = /*#__PURE__*/ (node_fs__WEBPACK_IMPORTED_MODULE_5___namespace_cache || (node_fs__WEBPACK_IMPORTED_MODULE_5___namespace_cache = __nccwpck_require__.t(node_fs__WEBPACK_IMPORTED_MODULE_5__, 2)));
+globalThis.os = /*#__PURE__*/ (node_os__WEBPACK_IMPORTED_MODULE_7___namespace_cache || (node_os__WEBPACK_IMPORTED_MODULE_7___namespace_cache = __nccwpck_require__.t(node_os__WEBPACK_IMPORTED_MODULE_7__, 2)));
+globalThis.process = /*#__PURE__*/ (node_process__WEBPACK_IMPORTED_MODULE_8___namespace_cache || (node_process__WEBPACK_IMPORTED_MODULE_8___namespace_cache = __nccwpck_require__.t(node_process__WEBPACK_IMPORTED_MODULE_8__, 2)));
+globalThis.location = { href: `file://${node_process__WEBPACK_IMPORTED_MODULE_8__.cwd()}/` };
+globalThis.__filename = (0,node_url__WEBPACK_IMPORTED_MODULE_10__.fileURLToPath)(import.meta.url);
+globalThis.__dirname = node_path__WEBPACK_IMPORTED_MODULE_9__.dirname(globalThis.__filename);
+globalThis.require = require;
+globalThis.childProcess = /*#__PURE__*/ (node_child_process__WEBPACK_IMPORTED_MODULE_4___namespace_cache || (node_child_process__WEBPACK_IMPORTED_MODULE_4___namespace_cache = __nccwpck_require__.t(node_child_process__WEBPACK_IMPORTED_MODULE_4__, 2)));
 
 globalThis.dartMainRunner = async function (main, args) {
-    const dir = process__WEBPACK_IMPORTED_MODULE_7__.argv[2];
+    const dir = node_process__WEBPACK_IMPORTED_MODULE_8__.argv[2];
     await main(dir);
 }
 
