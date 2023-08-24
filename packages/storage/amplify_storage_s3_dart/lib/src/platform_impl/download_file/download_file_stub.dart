@@ -10,7 +10,6 @@ S3DownloadFileOperation downloadFile({
   required String key,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,

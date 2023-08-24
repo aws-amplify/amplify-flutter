@@ -12,7 +12,8 @@ import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.d
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_api_dart/src/util/amplify_authorization_rest_client.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
+import 'package:amplify_core/amplify_core.dart' hide ApiConfig;
 import 'package:meta/meta.dart';
 
 /// {@template amplify_api_dart.amplify_api_dart}
@@ -31,7 +32,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     authProviders.forEach(registerAuthProvider);
   }
 
-  late final AWSApiPluginConfig _apiConfig;
+  late final ApiConfig _apiConfig;
   final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
@@ -68,10 +69,10 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final apiConfig = config?.api?.awsPlugin;
+    final apiConfig = config?.api;
     if (apiConfig == null) {
       throw ConfigurationError(
         'No AWS API config found',
@@ -79,12 +80,19 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
             'https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/flutter/#configure-api',
       );
     }
-    for (final entry in apiConfig.endpoints.entries) {
-      if (!entry.value.endpoint.startsWith('https')) {
+    for (final endpointConfig in apiConfig.endpoints) {
+      final apiName = switch (endpointConfig.value) {
+        ApiGatewayEndpointConfig(:final name) ||
+        AppSyncEndpointConfig(:final name) ||
+        RestEndpointConfig(:final name) =>
+          name,
+        _ => null,
+      };
+      if (endpointConfig.endpoint.scheme != 'https') {
         throw ConfigurationError(
-          'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
+          'Non-HTTPS endpoint found for "$apiName" which is not supported.',
           recoverySuggestion:
-              'Ensure the configured endpoint for ${entry.key} utilizes https.',
+              'Ensure the configured endpoint for "$apiName" utilizes https.',
         );
       }
     }
@@ -101,16 +109,14 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   ///
   /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
-    _apiConfig.endpoints.forEach((key, value) {
-      // Check the presence of apiKey (not auth type) because other modes might
-      // have a key if not the primary auth mode.
-      if (value.apiKey != null) {
+    for (final endpointConfig in _apiConfig.endpoints) {
+      if (endpointConfig.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
           APIAuthorizationType.apiKey.authProviderToken,
           AppSyncApiKeyAuthProvider(),
         );
       }
-    });
+    }
 
     // Register OIDC/Lambda auth providers.
     for (final authProvider in authProviders.values) {
@@ -150,7 +156,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       apiName: apiName,
     );
     final authModeForClientKey =
-        authorizationMode ?? endpoint.config.authorizationType;
+        authorizationMode ?? endpoint.config.defaultAuthorizationType;
     final clientPoolKey = '${endpoint.name}.${authModeForClientKey.name}';
     return _clientPool[clientPoolKey] ??= AmplifyHttpClient(
       dependencies,
@@ -164,27 +170,30 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }
 
   WebSocketBloc _webSocketBloc({String? apiName}) {
-    final endpoint = _apiConfig.getEndpoint(
-      type: EndpointType.graphQL,
-      apiName: apiName,
-    );
+    final endpoint = _apiConfig
+        .getEndpoint(
+          type: EndpointType.graphQL,
+          apiName: apiName,
+        )
+        .config;
 
-    return _webSocketBlocPool[endpoint.name] ??= createWebSocketBloc(endpoint)
-      ..stream.listen((event) {
-        _emitHubEvent(event);
-        if (event is PendingDisconnect) {
-          _webSocketBlocPool.remove(endpoint.name);
-        }
-      });
+    return _webSocketBlocPool[endpoint.name] ??=
+        createWebSocketBloc(endpoint.appSync!)
+          ..stream.listen((event) {
+            _emitHubEvent(event);
+            if (event is PendingDisconnect) {
+              _webSocketBlocPool.remove(endpoint.name);
+            }
+          });
   }
 
   /// Returns the websocket bloc to use for a given endpoint.
   ///
   /// Use [endpoint] if there are multiple endpoints.
   @visibleForTesting
-  WebSocketBloc createWebSocketBloc(EndpointConfig endpoint) {
+  WebSocketBloc createWebSocketBloc(AppSyncEndpointConfig endpoint) {
     return WebSocketBloc(
-      config: endpoint.config,
+      config: endpoint,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
       subscriptionOptions:

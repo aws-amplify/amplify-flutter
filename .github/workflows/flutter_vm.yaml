@@ -27,7 +27,7 @@ jobs:
           - "any" # latest
         include:
           - channel: "stable"
-            flutter-version: "3.10.1"
+            flutter-version: "3.10.6"
     steps:
       - name: Git Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3

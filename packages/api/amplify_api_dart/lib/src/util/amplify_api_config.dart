@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
+import 'package:amplify_core/amplify_config.dart';
+import 'package:amplify_core/amplify_core.dart' hide ApiConfig;
 import 'package:meta/meta.dart';
 
 const _slash = '/';
@@ -17,7 +17,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   final String name;
 
   /// The value in the Amplify configuration file which as config details.
-  final AWSApiConfig config;
+  final ApiEndpointConfig config;
 
   @override
   List<Object?> get props => [name, config];
@@ -26,7 +26,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
     path = path ?? '';
-    final parsed = Uri.parse(config.endpoint);
+    final endpoint = config.endpoint;
     // Remove leading slashes which are suggested in public documentation.
     // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
     if (path.startsWith(_slash)) {
@@ -34,9 +34,9 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
     }
     // Avoid URI-encoding slashes in path from caller.
     final pathSegmentsFromPath = path.split(_slash);
-    return parsed.replace(
+    return endpoint.replace(
       pathSegments: [
-        ...parsed.pathSegments,
+        ...endpoint.pathSegments,
         ...pathSegmentsFromPath,
       ],
       queryParameters: queryParameters,
@@ -46,23 +46,31 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
 
 /// Allows getting desired endpoint more easily.
 @internal
-extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
+extension AWSApiPluginConfigHelpers on ApiConfig {
   /// Finds the first endpoint matching the type and apiName.
   EndpointConfig getEndpoint({
     required EndpointType type,
     String? apiName,
   }) {
-    final typeConfigs =
-        entries.where((config) => config.value.endpointType == type);
     if (apiName != null) {
-      final config = typeConfigs.firstWhere(
-        (config) => config.key == apiName,
+      final config = endpoints.firstWhere(
+        (api) =>
+            apiName ==
+            switch (api.value) {
+              ApiGatewayEndpointConfig(:final name) ||
+              AppSyncEndpointConfig(:final name) ||
+              RestEndpointConfig(:final name) =>
+                name,
+              _ => null,
+            },
         orElse: () => throw ConfigurationError(
           'No API endpoint found matching apiName $apiName.',
         ),
       );
-      return EndpointConfig(config.key, config.value);
+      return EndpointConfig(apiName, config);
     }
+
+    final typeConfigs = endpoints.where((api) => api.endpointType == type);
     final onlyConfig = typeConfigs.singleOrNull;
     if (onlyConfig == null) {
       throw ConfigurationError(
@@ -70,6 +78,6 @@ extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
         'which one to use.',
       );
     }
-    return EndpointConfig(onlyConfig.key, onlyConfig.value);
+    return EndpointConfig(onlyConfig.name, onlyConfig);
   }
 }

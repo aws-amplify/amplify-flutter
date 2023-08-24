@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart';
 import 'package:amplify_core/src/version.dart';
@@ -111,22 +111,22 @@ abstract class AmplifyClass {
       );
     }
 
-    late AmplifyConfig amplifyConfig;
+    late AWSAmplifyConfig amplifyConfig;
     try {
       try {
-        final json = jsonDecode(configuration) as Map;
-        amplifyConfig = AmplifyConfig.fromJson(json.cast());
-      } on Object {
+        amplifyConfig = AWSAmplifyConfig.parse(configuration);
+      } on Object catch (e) {
         throw ConfigurationError(
           'The provided configuration is not a valid json. '
           'Check underlyingException.',
           recoverySuggestion:
               'Inspect your amplifyconfiguration.dart and ensure that '
               'the string is proper json',
+          underlyingException: e,
         );
       }
       await _configurePlugins(amplifyConfig);
-      _configCompleter.complete(amplifyConfig);
+      _configCompleter.complete(amplifyConfig.toCli());
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
       // that 1) `configure` can be called again and 2) listeners registered
@@ -144,14 +144,14 @@ abstract class AmplifyClass {
       // handled by the developer, but since they are unrelated to
       // configuration, listeners to `Amplify.asyncConfig` should be allowed to
       // proceed with the validated configuration.
-      _configCompleter.complete(amplifyConfig);
+      _configCompleter.complete(amplifyConfig.toCli());
       _configCompleter = Completer();
       rethrow;
     }
   }
 
   /// Configures all plugins in topologically-sorted order.
-  Future<void> _configurePlugins(AmplifyConfig config) async {
+  Future<void> _configurePlugins(AWSAmplifyConfig config) async {
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
     final categories = <Category, AmplifyCategory>{

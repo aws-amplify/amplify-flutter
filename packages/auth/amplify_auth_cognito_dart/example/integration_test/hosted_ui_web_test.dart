@@ -375,7 +375,7 @@ callback(JSON.stringify(items));
     final data =
         (jsonDecode(json) as Map<String, Object?>).cast<String, String?>();
     final keys = HostedUiKeys(
-      config.auth!.awsPlugin!.auth!.default$!.oAuth!,
+      config.auth!.cognito!.userPool!.hostedUi!,
     );
     CognitoUserPoolTokens? userPoolTokens;
     final accessToken = data[keys[HostedUiKey.accessToken]];
@@ -390,7 +390,7 @@ callback(JSON.stringify(items));
     }
 
     final awsKeys = CognitoIdentityPoolKeys(
-      config.auth!.awsPlugin!.credentialsProvider!.default$!,
+      config.auth!.cognito!.identityPool!,
     );
     AWSCredentials? awsCredentials;
     final identityId = data[awsKeys[CognitoIdentityPoolKey.identityId]];

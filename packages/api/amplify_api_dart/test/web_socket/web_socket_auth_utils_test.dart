@@ -83,7 +83,7 @@ void main() {
       assertBasicSubscriptionPayloadHeaders(payload);
       expect(
         payload.authorizationHeaders[xApiKey],
-        testApiKeyConfig.apiKey,
+        testApiKeyConfig.authMode.apiKey,
       );
     });
 

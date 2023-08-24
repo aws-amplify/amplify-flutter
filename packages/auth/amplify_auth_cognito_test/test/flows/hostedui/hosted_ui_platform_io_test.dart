@@ -147,9 +147,8 @@ void main() {
           ..addInstance<Dispatcher<AuthEvent, AuthState>>(dispatcher);
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
-        final redirect = Uri.parse(
-          redirectUri.split(',').firstWhere((uri) => uri.contains('localhost')),
-        );
+        final redirect =
+            redirectUris.firstWhere((uri) => uri.host == 'localhost');
         expect(hostedUiPlatform.signInRedirectUri, redirect);
         expect(hostedUiPlatform.signOutRedirectUri, redirect);
 

@@ -4,7 +4,7 @@ homepage: https://github.com/aws-amplify/amplify-flutter
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.0.6
 
 dependencies:
   amplify_core: any

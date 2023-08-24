@@ -22,7 +22,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.0.1"
+          - "3.0.6"
           - stable
           - beta
     steps:

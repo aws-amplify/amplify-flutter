@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_test/common/jwt.dart';
 import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -20,7 +21,7 @@ void main() {
   group('FetchAuthSessionStateMachine', () {
     late CognitoAuthStateMachine stateMachine;
     late SecureStorageInterface secureStorage;
-    late AmplifyConfig config;
+    late AWSAmplifyConfig config;
     late CognitoAuthSession session;
 
     final newAccessToken = createJwt(
@@ -46,7 +47,7 @@ void main() {
     const newAccessKeyId = 'newAccessKeyId';
     const newSecretAccessKey = 'newSecretAccessKey';
 
-    Future<void> configureAmplify(AmplifyConfig config) async {
+    Future<void> configureAmplify(AWSAmplifyConfig config) async {
       stateMachine.dispatch(ConfigurationEvent.configure(config)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
     }
@@ -120,8 +121,7 @@ void main() {
       secureStorage = MockSecureStorage();
       stateMachine = CognitoAuthStateMachine()
         ..addInstance(secureStorage)
-        ..addInstance(mockConfig)
-        ..addInstance(authConfig);
+        ..addInstance(mockConfig);
     });
 
     group('User Pool + Identity Pool', () {

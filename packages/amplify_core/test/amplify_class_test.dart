@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -72,7 +73,7 @@ void main() {
 class ConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw ConfigurationError('Could not configure');
@@ -82,7 +83,7 @@ class ConfigErrorPlugin extends AnalyticsPluginInterface {
 class NonConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw const UnknownException('Could not configure');
@@ -92,7 +93,7 @@ class NonConfigErrorPlugin extends AnalyticsPluginInterface {
 class SuccessPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     return;
@@ -107,7 +108,7 @@ class AsyncAddPlugin extends AnalyticsPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _configureCompleter.complete();

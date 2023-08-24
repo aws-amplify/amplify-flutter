@@ -1,0 +1,5 @@
+{
+  "mavenDependencies": [
+    "software.amazon.smithy:smithy-model:1.34.0"
+  ]
+}

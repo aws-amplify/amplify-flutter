@@ -1,34 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
-import 'dart:convert';
-
 import 'package:amplify_core/amplify_core.dart';
-import 'package:test/test.dart';
 
-import 'testdata/cli_generated.dart';
-import 'testdata/test_values.dart';
+import 'test_values.dart';
 
-void main() {
-  group('Config', () {
-    for (final testSuite in allTests) {
-      group('Generated v${testSuite.version}', () {
-        for (final testData in testSuite.tests) {
-          final name = testData.name;
-          test(name, () {
-            final json = jsonDecode(testData.config) as Map<String, Object?>;
-            final parsed = AmplifyConfig.fromJson(json.cast());
-            final expectedConfig = expected[name]!;
-            expect(parsed, equals(expectedConfig));
-            expect(expectedConfig.toJson(), equals(json));
-          });
-        }
-      });
-    }
-  });
-}
-
-const expected = {
+const expectedCliConfigs = {
   'Empty': AmplifyConfig(),
   'Analytics': AmplifyConfig(
     analytics: AnalyticsConfig(
@@ -48,14 +22,14 @@ const expected = {
     api: ApiConfig(
       plugins: {
         AWSApiPluginConfig.pluginKey: AWSApiPluginConfig({
-          'API_KEY': AWSApiConfig(
+          'myApi_API_KEY': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
             authorizationType: APIAuthorizationType.apiKey,
             apiKey: API_KEY,
           ),
-          'AWS_IAM': AWSApiConfig(
+          'myApi_AWS_IAM': AWSApiConfig(
             endpointType: EndpointType.graphQL,
             endpoint: GRAPHQL_ENDPOINT,
             region: REGION,
@@ -75,15 +49,11 @@ const expected = {
     auth: AuthConfig(
       plugins: {
         CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-          userAgent: 'aws-amplify/cli',
-          version: '0.1.0',
-          identityManager: AWSConfigMap({
-            'Default': CognitoIdentityManager(),
-          }),
           auth: AWSConfigMap({
             'Default': CognitoAuthConfig(
               oAuth: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
+                appClientSecret: APPCLIENT_SECERT,
                 scopes: [
                   'phone',
                   'email',
@@ -96,20 +66,26 @@ const expected = {
                 webDomain: OAUTH_DOMAIN,
               ),
               authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-            ),
-            'DefaultCustomAuth': CognitoAuthConfig(
-              // ignore: deprecated_member_use_from_same_package
-              authenticationFlowType: AuthenticationFlowType.customAuth,
+              mfaConfiguration: MfaConfiguration.optional,
+              mfaTypes: [MfaType.sms, MfaType.totp],
+              passwordProtectionSettings: PasswordProtectionSettings(
+                passwordPolicyCharacters: [
+                  PasswordPolicyCharacters.requiresLowercase,
+                ],
+              ),
+              socialProviders: [SocialProvider.google],
+              usernameAttributes: [CognitoUserAttributeKey.email],
+              signupAttributes: [
+                CognitoUserAttributeKey.email,
+                CognitoUserAttributeKey.phoneNumber,
+              ],
+              verificationMechanisms: [
+                CognitoUserAttributeKey.email,
+                CognitoUserAttributeKey.phoneNumber,
+              ],
             ),
           }),
           cognitoUserPool: AWSConfigMap({
-            'CustomEndpoint': CognitoUserPoolConfig(
-              poolId: USERPOOL_ID,
-              appClientId: APPCLIENT_ID,
-              appClientSecret: APPCLIENT_SECERT,
-              endpoint: OAUTH_DOMAIN,
-              region: REGION,
-            ),
             'Default': CognitoUserPoolConfig(
               poolId: USERPOOL_ID,
               appClientId: APPCLIENT_ID,
@@ -118,17 +94,17 @@ const expected = {
               hostedUI: CognitoOAuthConfig(
                 appClientId: APPCLIENT_ID,
                 appClientSecret: APPCLIENT_SECERT,
-                scopes: ['openid', 'email'],
+                scopes: [
+                  'phone',
+                  'email',
+                  'openid',
+                  'profile',
+                  'aws.cognito.signin.user.admin',
+                ],
                 signInRedirectUri: OAUTH_SIGNIN,
                 signOutRedirectUri: OAUTH_SIGNOUT,
                 webDomain: OAUTH_DOMAIN,
               ),
-            ),
-            'DefaultCustomAuth': CognitoUserPoolConfig(
-              poolId: USERPOOL_ID,
-              appClientId: APPCLIENT_ID,
-              appClientSecret: APPCLIENT_SECERT,
-              region: REGION,
             ),
           }),
           credentialsProvider: CredentialsProviders({
@@ -138,14 +114,6 @@ const expected = {
                 region: REGION,
               ),
             }),
-          }),
-          appSync: AWSConfigMap({
-            'Default': CognitoAppSyncConfig(
-              apiUrl: GRAPHQL_ENDPOINT,
-              region: REGION,
-              authMode: APIAuthorizationType.userPools,
-              clientDatabasePrefix: DATABASE_PREFIX,
-            ),
           }),
           pinpointAnalytics: AWSConfigMap({
             'Default': CognitoPinpointAnalyticsConfig(
@@ -158,12 +126,48 @@ const expected = {
               region: REGION,
             ),
           }),
-          s3TransferUtility: AWSConfigMap({
-            'Default': S3TransferUtility(
-              bucket: BUCKET,
-              region: REGION,
-            ),
-          }),
+        ),
+      },
+    ),
+  ),
+  'Logging': AmplifyConfig(
+    logging: LoggingConfig(
+      plugins: {
+        CloudWatchPluginConfig.pluginKey: CloudWatchPluginConfig(
+          enable: false,
+          logGroupName: LOG_GROUP_NAME,
+          region: REGION,
+          flushIntervalInSeconds: LOG_FLUSH_INTERVAL,
+          localStoreMaxSizeInMB: LOG_STORE_MB,
+          defaultRemoteConfiguration: DefaultRemoteConfiguration(
+            endpoint: LOG_REMOTE_ENDPOINT,
+            refreshIntervalInSeconds: LOG_FLUSH_INTERVAL,
+          ),
+          loggingConstraints: LoggingConstraints(
+            defaultLogLevel: LOG_DEFAULT_LEVEL,
+            categoryLogLevel: {
+              LOG_CATEGORY: LOG_DEFAULT_LEVEL,
+            },
+            userLogLevel: {
+              LOG_USER_ID: UserLogLevel(
+                defaultLogLevel: LOG_DEFAULT_LEVEL,
+                categoryLogLevel: {
+                  LOG_CATEGORY: LOG_DEFAULT_LEVEL,
+                },
+              ),
+            },
+          ),
+        ),
+      },
+    ),
+  ),
+  'Push': AmplifyConfig(
+    notifications: NotificationsConfig(
+      plugins: {
+        NotificationsPinpointPluginConfig.pluginKey:
+            NotificationsPinpointPluginConfig(
+          appId: ANALYTICS_APP_ID,
+          region: REGION,
         ),
       },
     ),

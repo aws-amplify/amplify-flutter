@@ -23,6 +23,7 @@ import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.d
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
@@ -77,7 +78,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     // Dependencies for AnalyticsMetadataType

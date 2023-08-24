@@ -10,8 +10,8 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
   const AWSApiConfig({
     required this.endpointType,
     required this.endpoint,
-    required this.region,
-    required this.authorizationType,
+    this.region,
+    this.authorizationType = APIAuthorizationType.none,
     this.apiKey,
   });
 
@@ -19,7 +19,7 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
       _$AWSApiConfigFromJson(json);
   final EndpointType endpointType;
   final String endpoint;
-  final String region;
+  final String? region;
   final APIAuthorizationType authorizationType;
   final String? apiKey;
 

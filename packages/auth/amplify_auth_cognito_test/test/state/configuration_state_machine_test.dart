@@ -8,12 +8,13 @@ import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-const badConfig = AmplifyConfig();
+final badConfig = AWSAmplifyConfig();
 
 void main() {
   late CognitoAuthStateMachine stateMachine;
@@ -50,7 +51,7 @@ void main() {
 
       expect(
         stateMachine
-            .dispatch(const ConfigurationEvent.configure(badConfig))
+            .dispatch(ConfigurationEvent.configure(badConfig))
             .completed,
         throwsA(isA<ConfigurationError>()),
       );

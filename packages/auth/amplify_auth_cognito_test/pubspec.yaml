@@ -3,7 +3,7 @@ description: Tests for the amplify_auth_cognito_dart package.
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.0.6
 
 dependencies:
   amplify_analytics_pinpoint_dart: any

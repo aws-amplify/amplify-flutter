@@ -14,7 +14,6 @@ const child_process = require('child_process');
 const REGION = '$REGION';
 const API_KEY = '$API_KEY';
 const ANALYTICS_APP_ID = '$ANALYTICS_APP_ID';
-const ANALYTICS_FLUSH_INTERVAL = '$ANALYTICS_FLUSH_INTERVAL';
 const GRAPHQL_ENDPOINT = '$GRAPHQL_ENDPOINT';
 const REST_ENDPOINT = '$REST_ENDPOINT';
 const BUCKET = '$BUCKET';
@@ -31,7 +30,7 @@ const defaultMetadata = {
     }
 };
 
-const authConfigJSON = fs.readFileSync('./aws_cognito_configuration.json');
+const authConfigJSON = fs.readFileSync('./aws_cognito_configuration.json', 'utf8');
 const authConfig = JSON.parse(authConfigJSON);
 
 const makeAppSyncConfig = (authType) => {
@@ -78,7 +77,7 @@ const testVectors = [
                     }
                 }
             },
-        }
+        },
     },
     {
         name: 'Auth',
@@ -93,10 +92,10 @@ const testVectors = [
         metadata: {
             ...defaultMetadata,
             api: {
-                API_KEY: {
+                myApi_API_KEY: {
                     ...makeAppSyncConfig(API_KEY_AUTH_TYPE)
                 },
-                AWS_IAM: {
+                myApi_AWS_IAM: {
                     ...makeAppSyncConfig(IAM_AUTH_TYPE)
                 },
                 REST: {
@@ -157,7 +156,9 @@ for (const entry of Object.entries(versions)) {
                 }
             }
         };
-        const config = generateConfig(context, null, vector.awsConfig);
+        const config = version == 'latest' ?
+            generateConfig(context, vector.awsConfig) :
+            generateConfig(context, null, vector.awsConfig);
         const configJSON = JSON.stringify(config, null, '  ');
         out += `const _v${version}${vector.name.toLowerCase()} = '''\n${configJSON}\n'''; \n\n`;
     }

@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -11,7 +12,7 @@ import 'package:meta/meta.dart';
 /// Amplify.
 @internal
 class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
-  /// Provide an [AWSApiConfig] which will determine how requests from this
+  /// Provide an [ApiEndpointConfig] which will determine how requests from this
   /// client are authorized.
   AmplifyAuthorizationRestClient({
     required this.endpointConfig,
@@ -24,7 +25,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   final AmplifyAuthProviderRepository authProviderRepo;
 
   /// Determines how requests with this client are authorized.
-  final AWSApiConfig endpointConfig;
+  final ApiEndpointConfig endpointConfig;
 
   /// The authorization mode to use for requests with this client.
   ///

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 part of 'update_user_attribute_result.dart';
 
 // **************************************************************************

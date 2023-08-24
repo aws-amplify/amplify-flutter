@@ -77,7 +77,6 @@ void main() {
         key: testKey,
         localFile: AWSFile.fromPath(testDestinationPath),
         options: options,
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
         onProgress: (progress) {
@@ -165,7 +164,6 @@ void main() {
           accessLevel: testS3pluginConfig.defaultAccessLevel,
           pluginOptions: const S3DownloadFilePluginOptions(),
         ),
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
         onProgress: (progress) {
@@ -211,7 +209,6 @@ void main() {
             testTargetIdentity,
           ),
         ),
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
         onProgress: (progress) {
@@ -271,7 +268,6 @@ void main() {
             accessLevel: testS3pluginConfig.defaultAccessLevel,
             pluginOptions: const S3DownloadFilePluginOptions(),
           ),
-          s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
           appPathProvider: appPathProvider,
           onProgress: (progress) {
@@ -304,7 +300,6 @@ void main() {
             accessLevel: testS3pluginConfig.defaultAccessLevel,
             pluginOptions: const S3DownloadFilePluginOptions(),
           ),
-          s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
           appPathProvider: appPathProvider,
           onProgress: (progress) {
@@ -343,7 +338,6 @@ void main() {
           accessLevel: testS3pluginConfig.defaultAccessLevel,
           pluginOptions: const S3DownloadFilePluginOptions(),
         ),
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
         onProgress: (progress) {

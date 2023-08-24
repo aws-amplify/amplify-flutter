@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -28,13 +29,19 @@ const tests = [
 ];
 
 void main() {
-  group('Config', () {
-    for (final e2eTest in tests) {
-      test('v${e2eTest.version}', () {
+  for (final e2eTest in tests) {
+    group('v${e2eTest.version}', () {
+      test('AmplifyConfig', () {
         final json = jsonDecode(e2eTest.config) as Map<String, Object?>;
         final parsed = AmplifyConfig.fromJson(json.cast());
         expect(parsed.toJson(), equals(json));
       });
-    }
-  });
+
+      test('AWSAmplifyConfig', () {
+        final json = jsonDecode(e2eTest.config) as Map<String, Object?>;
+        final parsed = AWSAmplifyConfig.parse(e2eTest.config);
+        expect(parsed.toCli().toJson(), equals(json));
+      });
+    });
+  }
 }

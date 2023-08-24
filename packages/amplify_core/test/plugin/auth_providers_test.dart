@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/fake.dart';
 import 'package:test/test.dart';
@@ -42,7 +43,7 @@ class AuthPlugin extends Fake implements AuthPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _authProvider = authProviderRepo.getAuthProvider(
@@ -72,7 +73,7 @@ class ApiPlugin extends Fake implements APIPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AWSAmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _authProvider = authProviderRepo.getAuthProvider(

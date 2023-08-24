@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -12,11 +13,11 @@ import 'package:meta/meta.dart';
 @internal
 Future<AWSBaseHttpRequest> authorizeHttpRequest(
   AWSBaseHttpRequest request, {
-  required AWSApiConfig endpointConfig,
+  required ApiEndpointConfig endpointConfig,
   required AmplifyAuthProviderRepository authProviderRepo,
   APIAuthorizationType? authorizationMode,
 }) async {
-  final authType = authorizationMode ?? endpointConfig.authorizationType;
+  final authType = authorizationMode ?? endpointConfig.defaultAuthorizationType;
   if (request.headers.containsKey(AWSHeaders.authorization) ||
       (request.headers.containsKey(xApiKey) &&
           authType == APIAuthorizationType.apiKey)) {
@@ -60,7 +61,10 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       final authorizedRequest = await authProvider.authorizeRequest(
         request,
         options: IamAuthProviderOptions(
-          region: endpointConfig.region,
+          region: endpointConfig.awsRegion ??
+              (throw ArgumentError(
+                'IAM authorization is not supported for this endpoint',
+              )),
           service: service,
           serviceConfiguration: serviceConfiguration,
         ),

@@ -5,7 +5,8 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
+import 'package:amplify_core/amplify_core.dart' hide AnalyticsConfig;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -80,7 +81,7 @@ void main() {
     });
 
     test('throws ConfigurationError when negative', () async {
-      const autoFlushInterval = -1;
+      const autoFlushInterval = Duration(seconds: -1);
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -89,20 +90,11 @@ void main() {
 
       await expectLater(
         plugin.configure(
-          config: const AmplifyConfig(
-            analytics: AnalyticsConfig(
-              plugins: {
-                PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                  pinpointAnalytics: PinpointAnalytics(
-                    appId: appId,
-                    region: region,
-                  ),
-                  pinpointTargeting: PinpointTargeting(
-                    region: region,
-                  ),
-                  autoFlushEventsInterval: autoFlushInterval,
-                ),
-              },
+          config: AWSAmplifyConfig(
+            analytics: AnalyticsConfig.pinpoint(
+              appId: appId,
+              region: region,
+              autoFlushEventsInterval: autoFlushInterval,
             ),
           ),
           authProviderRepo: AmplifyAuthProviderRepository()
@@ -116,7 +108,7 @@ void main() {
     });
 
     test('disables autoFlush when 0', () async {
-      const autoFlushInterval = 0;
+      const autoFlushInterval = Duration.zero;
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -124,20 +116,11 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
+        config: AWSAmplifyConfig(
+          analytics: AnalyticsConfig.pinpoint(
+            appId: appId,
+            region: region,
+            autoFlushEventsInterval: autoFlushInterval,
           ),
         ),
         authProviderRepo: AmplifyAuthProviderRepository()
@@ -151,7 +134,7 @@ void main() {
     });
 
     test('sets proper autoFlush value', () async {
-      const autoFlushInterval = 120;
+      const autoFlushInterval = Duration(seconds: 120);
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -159,20 +142,11 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-                autoFlushEventsInterval: autoFlushInterval,
-              ),
-            },
+        config: AWSAmplifyConfig(
+          analytics: AnalyticsConfig.pinpoint(
+            appId: appId,
+            region: region,
+            autoFlushEventsInterval: autoFlushInterval,
           ),
         ),
         authProviderRepo: AmplifyAuthProviderRepository()
@@ -184,7 +158,7 @@ void main() {
 
       expect(
         plugin.autoEventSubmitter?.duration,
-        const Duration(seconds: autoFlushInterval),
+        autoFlushInterval,
       );
     });
   });

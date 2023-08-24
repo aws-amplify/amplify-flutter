@@ -2,30 +2,27 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/amplify_config.dart';
 import 'package:test/test.dart';
 
 void main() {
   late EndpointConfig endpointConfig;
 
   group('GraphQL Config', () {
-    const endpointType = EndpointType.graphQL;
-    const endpoint =
-        'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql';
+    final endpoint =
+        Uri.parse('https://abc123.appsync-api.us-east-1.amazonaws.com/graphql');
     const region = 'us-east-1';
-    const authorizationType = APIAuthorizationType.apiKey;
     const apiKey = 'abc-123';
 
     setUpAll(() async {
-      const config = AWSApiConfig(
-        endpointType: endpointType,
+      final config = ApiEndpointConfig.appSync(
+        name: 'GraphQL',
         endpoint: endpoint,
         region: region,
-        authorizationType: authorizationType,
-        apiKey: apiKey,
+        authMode: const ApiAuthorizationMode.apiKey(apiKey),
       );
 
-      endpointConfig = const EndpointConfig('GraphQL', config);
+      endpointConfig = EndpointConfig('GraphQL', config);
     });
 
     test('should return valid URI with null params', () async {
@@ -37,20 +34,19 @@ void main() {
   });
 
   group('REST Config', () {
-    const endpointType = EndpointType.rest;
-    const endpoint = 'https://abc123.appsync-api.us-east-1.amazonaws.com/test';
+    final endpoint =
+        Uri.parse('https://abc123.appsync-api.us-east-1.amazonaws.com/test');
     const region = 'us-east-1';
-    const authorizationType = APIAuthorizationType.iam;
 
     setUpAll(() async {
-      const config = AWSApiConfig(
-        endpointType: endpointType,
+      final config = ApiEndpointConfig.apiGateway(
+        name: 'REST',
         endpoint: endpoint,
         region: region,
-        authorizationType: authorizationType,
+        authMode: const ApiAuthorizationMode.iam(),
       );
 
-      endpointConfig = const EndpointConfig('REST', config);
+      endpointConfig = EndpointConfig('REST', config);
     });
 
     test('should return valid URI with params', () async {

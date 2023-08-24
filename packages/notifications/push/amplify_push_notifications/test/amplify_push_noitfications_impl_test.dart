@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:amplify_core/amplify_config.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/amplify_push_notifications.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
@@ -55,9 +55,7 @@ void main() {
     ..addInstance<PushNotificationsHostApi>(mockPushNotificationsHostApi)
     ..addInstance<AmplifySecureStorage>(mockAmplifySecureStorage);
 
-  final config = AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfig) as Map<String, Object?>,
-  );
+  final config = AWSAmplifyConfig.parse(amplifyconfig);
 
   setUp(() {
     plugin = TestAmplifyPushNotifications(
@@ -203,9 +201,7 @@ void main() {
   group('Config failure cases', () {
     test('should throw exception when configuring if there is no appId present',
         () async {
-      final config = AmplifyConfig.fromJson(
-        jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
-      );
+      final config = AWSAmplifyConfig.parse(noPushAppIdAmplifyConfig);
       expect(
         () async => plugin.configure(
           authProviderRepo: authProviderRepo,

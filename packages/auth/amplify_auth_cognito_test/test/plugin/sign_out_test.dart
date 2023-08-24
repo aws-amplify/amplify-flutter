@@ -25,7 +25,7 @@ final throwsSignedOutException = throwsA(isA<SignedOutException>());
 void main() {
   final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
   final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
-  const hostedUiKeys = HostedUiKeys(hostedUiConfig);
+  final hostedUiKeys = HostedUiKeys(hostedUiConfig);
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;

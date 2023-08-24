@@ -3,14 +3,22 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+part 'mfa.g.dart';
+
+@JsonEnum(alwaysCreate: true)
 enum MfaType {
   @JsonValue('SMS')
   sms,
 
   @JsonValue('TOTP')
-  totp,
+  totp;
+
+  static MfaType fromJson(String json) => _$MfaTypeEnumMap.entries
+      .firstWhere((el) => json == el.value || json == el.key.name)
+      .key;
 }
 
+@JsonEnum(alwaysCreate: true)
 enum MfaConfiguration {
   @JsonValue('OPTIONAL')
   optional,
@@ -19,5 +27,10 @@ enum MfaConfiguration {
   on,
 
   @JsonValue('OFF')
-  off,
+  off;
+
+  static MfaConfiguration fromJson(String json) =>
+      _$MfaConfigurationEnumMap.entries
+          .firstWhere((el) => json == el.value || json == el.key.name)
+          .key;
 }

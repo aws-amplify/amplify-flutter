@@ -21,7 +21,7 @@ void main() {
   late SecureStorageInterface secureStorage;
   late HostedUiPlatform platform;
   late DependencyManager dependencyManager;
-  const keys = HostedUiKeys(hostedUiConfig);
+  final keys = HostedUiKeys(hostedUiConfig);
 
   group('HostedUiPlatform', () {
     setUp(() {
@@ -62,7 +62,7 @@ void main() {
       test('missing state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(redirectUri),
+            redirectUri: redirectUris.first,
           ),
         );
 
@@ -79,7 +79,7 @@ void main() {
       test('mismatched state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(redirectUri),
+            redirectUri: redirectUris.first,
           ),
         );
 
@@ -98,7 +98,7 @@ void main() {
       test('succeeds', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(redirectUri),
+            redirectUri: redirectUris.first,
           ),
         );
 

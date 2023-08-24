@@ -234,7 +234,7 @@ void main() {
                     ),
                   );
                   final scope = AWSCredentialScope(
-                    region: restApi.region,
+                    region: restApi.region!,
                     service: AWSService.apiGatewayManagementApi,
                   );
                   final signedRequest = await signer.sign(

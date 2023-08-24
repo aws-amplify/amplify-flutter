@@ -125,7 +125,7 @@ extension MemberShapeUtils on MemberShape {
   /// types when constructing instances.
   Reference get friendlySymbol {
     final ref = context.symbolFor(target);
-    final overriddenCommonSymbol = context.overridesFor(this)?.friendlySymbol;
+    final overriddenCommonSymbol = context.overridesFor(target)?.friendlySymbol;
     return overriddenCommonSymbol ?? ref.coreFriendlySymbol;
   }
 
@@ -134,7 +134,7 @@ extension MemberShapeUtils on MemberShape {
   Expression transformFromFriendly({required String name, bool? isNullable}) {
     final typeRef = context.symbolFor(target).typeRef;
     isNullable ??= typeRef.isNullable!;
-    if (context.symbolOverrideFor(this)
+    if (context.overridesFor(target)
         case ShapeOverrides(:final transformFromFriendly)) {
       return transformFromFriendly(refer(name), isNullable: isNullable);
     }

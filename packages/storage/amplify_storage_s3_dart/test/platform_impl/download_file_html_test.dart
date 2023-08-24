@@ -97,7 +97,6 @@ void main() {
           pluginOptions:
               const S3DownloadFilePluginOptions.forIdentity(testTargetIdentity),
         ),
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       );
@@ -168,7 +167,6 @@ void main() {
         key: testKey,
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,
-        s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       ).result;

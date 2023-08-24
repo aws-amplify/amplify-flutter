@@ -35,6 +35,8 @@ on:
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee/pubspec.yaml'
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
