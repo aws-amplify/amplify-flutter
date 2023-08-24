@@ -23,6 +23,13 @@ AuthNextSignInStep _$AuthNextSignInStepFromJson(Map<String, dynamic> json) =>
                   const AuthUserAttributeKeyConverter().fromJson(e as String))
               .toList() ??
           const [],
+      allowedMfaTypes: (json['allowedMfaTypes'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
+          .toSet(),
+      totpSetupDetails: json['totpSetupDetails'] == null
+          ? null
+          : TotpSetupDetails.fromJson(
+              json['totpSetupDetails'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
@@ -41,15 +48,27 @@ Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
   val['missingAttributes'] = instance.missingAttributes
       .map(const AuthUserAttributeKeyConverter().toJson)
       .toList();
+  writeNotNull('allowedMfaTypes',
+      instance.allowedMfaTypes?.map((e) => _$MfaTypeEnumMap[e]!).toList());
+  writeNotNull('totpSetupDetails', instance.totpSetupDetails?.toJson());
   return val;
 }
 
 const _$AuthSignInStepEnumMap = {
+  AuthSignInStep.continueSignInWithMfaSelection:
+      'continueSignInWithMfaSelection',
+  AuthSignInStep.continueSignInWithTotpSetup: 'continueSignInWithTotpSetup',
   AuthSignInStep.confirmSignInWithSmsMfaCode: 'confirmSignInWithSmsMfaCode',
+  AuthSignInStep.confirmSignInWithTotpMfaCode: 'confirmSignInWithTotpMfaCode',
   AuthSignInStep.confirmSignInWithNewPassword: 'confirmSignInWithNewPassword',
   AuthSignInStep.confirmSignInWithCustomChallenge:
       'confirmSignInWithCustomChallenge',
   AuthSignInStep.resetPassword: 'resetPassword',
   AuthSignInStep.confirmSignUp: 'confirmSignUp',
   AuthSignInStep.done: 'done',
+};
+
+const _$MfaTypeEnumMap = {
+  MfaType.sms: 'SMS',
+  MfaType.totp: 'TOTP',
 };

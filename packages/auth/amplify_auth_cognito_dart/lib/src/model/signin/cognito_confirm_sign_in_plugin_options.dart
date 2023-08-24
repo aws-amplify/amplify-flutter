@@ -14,6 +14,7 @@ class CognitoConfirmSignInPluginOptions extends ConfirmSignInPluginOptions {
   const CognitoConfirmSignInPluginOptions({
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
+    this.friendlyDeviceName,
   })  : clientMetadata = clientMetadata ?? const {},
         userAttributes = userAttributes ?? const {};
 
@@ -31,8 +32,15 @@ class CognitoConfirmSignInPluginOptions extends ConfirmSignInPluginOptions {
   /// provided.
   final Map<CognitoUserAttributeKey, String> userAttributes;
 
+  /// A unique name to help identify the registered TOTP device.
+  final String? friendlyDeviceName;
+
   @override
-  List<Object?> get props => [clientMetadata, userAttributes];
+  List<Object?> get props => [
+        clientMetadata,
+        userAttributes,
+        friendlyDeviceName,
+      ];
 
   @override
   String get runtimeTypeName => 'CognitoConfirmSignInPluginOptions';

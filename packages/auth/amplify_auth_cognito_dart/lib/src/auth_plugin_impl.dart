@@ -8,7 +8,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
-import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
@@ -244,28 +243,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     await _init();
     await _stateMachine.acceptAndComplete<Configured>(
       ConfigurationEvent.configure(config),
-    );
-  }
-
-  /// Retrieves the code delivery details from the challenge parameters.
-  AuthCodeDeliveryDetails? _getChallengeDeliveryDetails(
-    Map<String, String> challengeParameters,
-  ) {
-    final destination =
-        challengeParameters[CognitoConstants.challengeParamDeliveryDest];
-    if (destination == null) {
-      return null;
-    }
-    final deliveryMediumStr =
-        challengeParameters[CognitoConstants.challengeParamDeliveryMedium];
-    final deliveryMedium = switch (deliveryMediumStr) {
-      'SMS' => DeliveryMedium.sms,
-      'EMAIL' => DeliveryMedium.email,
-      _ => DeliveryMedium.unknown,
-    };
-    return AuthCodeDeliveryDetails(
-      destination: destination,
-      deliveryMedium: deliveryMedium,
     );
   }
 
@@ -516,17 +493,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       SignInChallenge(
         :final challengeName,
         :final challengeParameters,
+        :final codeDeliveryDetails,
         :final requiredAttributes,
+        :final allowedMfaTypes,
+        :final totpSetupResult,
       ) =>
         CognitoSignInResult(
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
             signInStep: challengeName.signInStep,
-            codeDeliveryDetails: _getChallengeDeliveryDetails(
-              challengeParameters,
-            ),
+            codeDeliveryDetails: codeDeliveryDetails,
             additionalInfo: challengeParameters,
             missingAttributes: requiredAttributes,
+            allowedMfaTypes: allowedMfaTypes,
+            totpSetupDetails: totpSetupResult,
           ),
         ),
       SignInSuccess _ => const CognitoSignInResult(
@@ -597,6 +577,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         answer: confirmationValue,
         clientMetadata: pluginOptions.clientMetadata,
         userAttributes: pluginOptions.userAttributes,
+        friendlyDeviceName: pluginOptions.friendlyDeviceName,
       ),
     );
 
@@ -884,6 +865,66 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       userId: userId,
       username: username,
       signInDetails: signInDetails,
+    );
+  }
+
+  /// {@template amplify_core.amplify_auth_category.fetch_mfa_preference}
+  /// Fetches the MFA preference for the current user.
+  /// {@endtemplate}
+  Future<UserMfaPreference> fetchMfaPreference() async {
+    final tokens = await _stateMachine.getUserPoolTokens();
+    return _cognitoIdp.getMfaSettings(
+      accessToken: tokens.accessToken.raw,
+    );
+  }
+
+  /// {@template amplify_core.amplify_auth_category.update_mfa_preference}
+  /// Updates the MFA preference for the current user.
+  ///
+  /// If [sms] or [totp] is `null`, the preference for that MFA type is left
+  /// unchanged. Setting either [sms] or [totp] to [MfaPreference.preferred]
+  /// will mark the other as not preferred.
+  /// {@endtemplate}
+  Future<void> updateMfaPreference({
+    MfaPreference? sms,
+    MfaPreference? totp,
+  }) async {
+    final tokens = await _stateMachine.getUserPoolTokens();
+    final accessToken = tokens.accessToken.raw;
+    return _cognitoIdp.setMfaSettings(
+      accessToken: accessToken,
+      sms: sms,
+      totp: totp,
+    );
+  }
+
+  @override
+  Future<TotpSetupDetails> setUpTotp({
+    TotpSetupOptions? options,
+  }) async {
+    final machine = _stateMachine.getOrCreate(TotpSetupStateMachine.type);
+    final state =
+        await machine.dispatchAndComplete<TotpSetupRequiresVerification>(
+      const TotpSetupEvent.initiate(),
+    );
+    return state.result;
+  }
+
+  @override
+  Future<void> verifyTotpSetup(
+    String totpCode, {
+    VerifyTotpSetupOptions? options,
+  }) async {
+    final pluginOptions = reifyPluginOptions(
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const CognitoVerifyTotpSetupPluginOptions(),
+    );
+    final machine = _stateMachine.getOrCreate(TotpSetupStateMachine.type);
+    await machine.dispatchAndComplete<TotpSetupSuccess>(
+      TotpSetupEvent.verify(
+        code: totpCode,
+        friendlyDeviceName: pluginOptions.friendlyDeviceName,
+      ),
     );
   }
 
