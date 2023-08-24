@@ -6,6 +6,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: ".github/composite_actions"
+    schedule:
+      interval: "weekly"
   - package-ecosystem: "pub"
     directory: "actions"
     schedule:
