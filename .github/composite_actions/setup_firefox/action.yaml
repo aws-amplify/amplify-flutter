@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: browser-actions/setup-firefox@c990ef23a9bedbbe657b163aaf0f3b7c608ea9f0 # master
+    - uses: browser-actions/setup-firefox@2904820ff2e2cfeadf033d26ce136d65509ce7fc # 1.1.0
     - shell: bash
       run: firefox --version
     - shell: bash
@@ -23,7 +23,7 @@ runs:
         sudo mv geckodriver /usr/local/bin
     - shell: bash
       run: geckodriver --version
-    - name: Virtual X Display 
+    - name: Virtual X Display
       shell: bash
       if: ${{ runner.os == 'Linux' }}
       run: |
