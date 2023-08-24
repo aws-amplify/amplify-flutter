@@ -61,15 +61,16 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Exit if not scheduled
-      shell: bash
-      run: |
-        if [ "${{ github.event_name }}" != "schedule" ]; then
-          echo "This was not triggered by a schedule, exiting."
-          exit 0
-        fi
+    #- name: Exit if not scheduled
+    #  shell: bash
+    #  run: |
+    #    if [ "${{ github.event_name }}" != "schedule" ]; then
+    #      echo "This was not triggered by a schedule, exiting."
+    #      echo "SKIP=true" >> $GITHUB_ENV
+    #    fi
 
     - name: Configure AWS credentials
+      if: env.SKIP != 'true'
       uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
       with:
         role-to-assume: ${{ inputs.role-to-assume }}
@@ -77,12 +78,13 @@ runs:
         role-duration-seconds: 900
 
     - name: Get Job ID
+      if: env.SKIP != 'true'
       run: |
         substring="${{ inputs.job-identifier }}"
 
         jobs_json=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/fjnoyp/amplify-flutter/actions/runs/${{ github.run_id }}/jobs")
+          "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs")
 
         job_id=$(echo "$jobs_json" | jq --arg substring "$substring" '.jobs[] | select(.name | contains($substring)) | .id')
 
@@ -91,29 +93,32 @@ runs:
         echo "github run id is ${{ github.run_id}}"
 
         echo "Job ID for job containing $substring is $job_id"
-        echo "job_id=$job_id" >> $GITHUB_ENV
+        echo "JOB_ID=$job_id" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Get Failing Step
-      if: ${{ job.status == 'failure' }}
+      if: env.SKIP != 'true' && ${{ job.status == 'failure' }}
       shell: bash
       run: |
         response=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/fjnoyp/amplify-flutter/actions/jobs/${{ env.job_id }}")
+          "${{ github.server_url }}/${{ github.repository }}/actions/jobs/${{ env.JOB_ID }}")
         failing_step_name=$(echo "$response" | jq -r '.steps[] | select(.conclusion == "failure") | .name')
 
-        echo "FAILING_STEP=$failing_step_name" >> $GITHUB_ENV
+        echo "FAILING_STEP=$failing_step_name" >> $GITHUB_OUTPUT
 
     - name: Change to Dart script directory
+      if: env.SKIP != 'true'
       run: cd ./tool
       shell: bash
 
     - name: Install Dart dependencies (args)
+      if: env.SKIP != 'true'
       run: dart pub get
       shell: bash
 
     - name: Run Dart script
+      if: env.SKIP != 'true'
       run: |
         dart ./tool/send_metric_data.dart \
           --metric-name="github_metric_1.0" \
