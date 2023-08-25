@@ -133,7 +133,8 @@ class EndpointClient {
           .addMetrics(userProfile.customProperties!.metrics);
     }
 
-    if (userProfile is AWSPinpointUserProfile) {
+    if (userProfile is AWSPinpointUserProfile &&
+        userProfile.userAttributes != null) {
       newUserBuilder.userAttributes =
           ListMultimapBuilder(userProfile.userAttributes);
     }
