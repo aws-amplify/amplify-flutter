@@ -10,7 +10,7 @@ mixin TotpSetupFields<FieldType extends Enum,
     on AuthenticatorFormFieldState<FieldType, String, T> {
   final _spacingBox = const SizedBox(height: 10);
 
-  String getInstruction(InstructionResolverKey type) =>
+  String instruction(InstructionResolverKey type) =>
       stringResolver.instruction.resolve(
         context,
         type,
@@ -22,28 +22,28 @@ mixin TotpSetupFields<FieldType extends Enum,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          getInstruction(InstructionResolverKey.totpStep1),
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          instruction(InstructionResolverKey.totpStep1),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          getInstruction(InstructionResolverKey.totpStep1Instruction),
+          instruction(InstructionResolverKey.totpStep1Instruction),
         ),
         _spacingBox,
         Text(
-          getInstruction(InstructionResolverKey.totpStep2),
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          instruction(InstructionResolverKey.totpStep2),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          getInstruction(InstructionResolverKey.totpStep2Instruction),
+          instruction(InstructionResolverKey.totpStep2Instruction),
         ),
         ConfirmSignInFormField.totpQrCode(),
         ConfirmSignInFormField.totpCopyKey(),
         Text(
-          getInstruction(InstructionResolverKey.totpStep3),
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          instruction(InstructionResolverKey.totpStep3),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          getInstruction(InstructionResolverKey.totpStep3Instruction),
+          instruction(InstructionResolverKey.totpStep3Instruction),
         ),
         ConfirmSignInFormField.verificationCode(),
       ],

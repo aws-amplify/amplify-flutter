@@ -9,8 +9,6 @@ mixin InstructionField<FieldType extends Enum,
     on AuthenticatorFormFieldState<FieldType, String, T> {
   String get text => '';
 
-  TextStyle get textStyle => const TextStyle();
-
   @override
   double? get marginBottom => 10;
 
@@ -18,7 +16,6 @@ mixin InstructionField<FieldType extends Enum,
   Widget buildFormField(BuildContext context) {
     return Text(
       text,
-      style: textStyle,
     );
   }
 }

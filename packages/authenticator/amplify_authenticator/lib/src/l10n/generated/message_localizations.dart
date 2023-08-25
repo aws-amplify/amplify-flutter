@@ -111,17 +111,17 @@ abstract class AuthenticatorMessageLocalizations {
   /// **'A confirmation code has been sent.'**
   String get codeSentUnknown;
 
-  /// The message that is displayed after a TOTP Key was copied to the clipboard
+  /// The message that is displayed after a value was copied to the clipboard
   ///
   /// In en, this message translates to:
   /// **'Copied to clipboard!'**
-  String get totpKeyCopied;
+  String get copySucceeded;
 
-  /// The message that is displayed after a TOTP Key failed to copy to the clipboard
+  /// The message that is displayed after a value failed to copy to the clipboard
   ///
   /// In en, this message translates to:
   /// **'Copy to clipboard failed.'**
-  String get totpKeyCopiedFailed;
+  String get copyFailed;
 }
 
 class _AuthenticatorMessageLocalizationsDelegate

@@ -25,20 +25,20 @@ mixin TotpCopyKey<FieldType extends Enum,
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           content: Text(
-            stringResolver.messages.totpKeyCopied(
+            stringResolver.messages.copySucceeded(
               context,
             ),
             textAlign: TextAlign.center,
           ),
         ),
       );
-    } on PlatformException {
+    } on Exception {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.onError,
           content: Text(
-            stringResolver.messages.totpKeyCopiedFailed(
+            stringResolver.messages.copyFailed(
               context,
             ),
             textAlign: TextAlign.center,

@@ -262,6 +262,9 @@ class StateMachineBloc
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));
     }
+
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmResetPassword(
