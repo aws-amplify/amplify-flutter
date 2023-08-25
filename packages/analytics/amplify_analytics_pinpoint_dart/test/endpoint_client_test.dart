@@ -7,7 +7,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';
-
 import 'package:test/test.dart';
 
 import 'common/mock_device_context_info.dart';
@@ -259,6 +258,66 @@ void main() {
       expect(endpoint.user!.userId, userId);
 
       // userAttributes cannot be set using category API (must use Pinpoint specific)
+      expect(endpoint.user!.userAttributes, isNull);
+    });
+
+    test(
+        'setUser handles null user attributes when provided a AWSPinpointUserProfile',
+        () async {
+      endpointClient
+        ..channelType = channelType
+        ..address = address
+        ..optOut = optOut;
+
+      await endpointClient.setUser(
+        userId,
+        pinpointUserProfileNullUserAttribute,
+      );
+
+      final endpoint = endpointClient.getPublicEndpoint();
+
+      expect(endpoint.address, address);
+      expect(endpoint.channelType, channelType);
+      expect(endpoint.optOut, optOut);
+
+      // Attributes
+      expect(endpoint.attributes, isNotNull);
+      final attributes = endpoint.attributes!;
+
+      expect(attributes['name'], [userProfile.name]);
+      expect(attributes['email'], [userProfile.email]);
+      expect(attributes['plan'], [userProfile.plan]);
+
+      // Demographic
+      expect(endpoint.demographic, isNotNull);
+      final demographic = endpoint.demographic!;
+
+      expect(demographic.appVersion, mockDeviceContextInfo.appVersion);
+      expect(demographic.locale, mockDeviceContextInfo.locale);
+      expect(demographic.make, mockDeviceContextInfo.make);
+      expect(demographic.model, mockDeviceContextInfo.model);
+      expect(demographic.modelVersion, mockDeviceContextInfo.modelVersion);
+      expect(demographic.platform, mockDeviceContextInfo.platform!.name);
+      expect(
+        demographic.platformVersion,
+        mockDeviceContextInfo.platformVersion,
+      );
+
+      // Location
+      expect(endpoint.location, isNotNull);
+      final location = endpoint.location!;
+
+      expect(location.city, userLocation.city);
+      expect(location.country, userLocation.country);
+      expect(location.latitude, userLocation.latitude);
+      expect(location.longitude, userLocation.longitude);
+      expect(location.postalCode, userLocation.postalCode);
+      expect(location.region, userLocation.region);
+
+      // User
+      expect(endpoint.user, isNotNull);
+      expect(endpoint.user!.userId, userId);
+
       expect(endpoint.user!.userAttributes, isNull);
     });
 
