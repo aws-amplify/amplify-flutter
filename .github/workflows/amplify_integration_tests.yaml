@@ -259,7 +259,8 @@ jobs:
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
 
   windows:
-    runs-on: windows-latest
+    runs-on:
+      labels: amplify-flutter_windows-latest_8-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
