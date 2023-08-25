@@ -79,7 +79,6 @@ $ cd amplify-flutter
 Next setup Amplify Flutter Repo Tool (aft). This can be installed using the following:
 
 ```sh
-$ brew install libgit2
 $ dart pub global activate -spath packages/aft
 ```
 

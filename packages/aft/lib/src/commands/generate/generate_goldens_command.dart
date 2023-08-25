@@ -6,16 +6,15 @@ import 'dart:io';
 
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:collection/collection.dart';
 import 'package:file/local.dart';
 import 'package:git/git.dart';
 import 'package:glob/glob.dart';
-import 'package:libgit2dart/libgit2dart.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 const skipProtocols = [
   'shared',
@@ -103,17 +102,18 @@ class GenerateGoldensCommand extends AmplifyCommand {
       exit(1);
     }
 
-    final gitRepo = Repository.open(tmpDir.path);
-    final versions = gitRepo.tags
+    final versions = await repo.git
+        .tags()
         .map((tag) {
           try {
-            return Version.parse(tag);
+            return Version.parse(tag.tag);
           } on Object {
             return null;
           }
         })
-        .nonNulls
-        .sorted((a, b) => a.compareTo(b));
+        .whereNotNull()
+        .toList();
+    versions.sort();
     final latestVersion = versions.last.toString();
     logger.info('Updating models to Smithy $latestVersion');
 
