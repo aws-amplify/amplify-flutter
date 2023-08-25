@@ -56,19 +56,7 @@ abstract class InstructionFormField<FieldValue extends Object>
 
 abstract class _InstructionFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<InstructionField, FieldValue,
-        InstructionFormField<FieldValue>> {
-  @override
-  Iterable<String>? get autofillHints {
-    if (widget.autofillHints != null) return widget.autofillHints;
-    switch (widget.field) {
-      case InstructionField.totpCodeInstruction:
-      case InstructionField.totpCopyKey:
-      case InstructionField.totpQrCode:
-      case InstructionField.totpSetup:
-        return null;
-    }
-  }
-}
+        InstructionFormField<FieldValue>> {}
 
 class _InstructionTotpSetupField extends InstructionFormField<String> {
   const _InstructionTotpSetupField({
