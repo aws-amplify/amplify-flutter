@@ -236,14 +236,13 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 let element = flutterEvent["element"] as! [String: Any]
                 let model = element["model"] as! [String: Any]
                 let syncMetaData = element["syncMetadata"] as! [String: Any]
-                let serializedData = model["serializedData"] as! [String: Any]
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationEnqueued")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
                 XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, nil)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(serializedData["title"] as! String, "Title 1")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
         }
@@ -279,23 +278,22 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             override func sendEvent(flutterEvent: [String: Any]) {
                 let element = flutterEvent["element"] as! [String: Any]
                 let model = element["model"] as! [String: Any]
-                let serializedData = model["serializedData"] as! [String: Any]
                 let syncMetaData = element["syncMetadata"] as! [String: Any]
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationProcessed")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
                 XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, 123)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, 1)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(model["modelName"] as! String, "Post")
-                XCTAssertEqual(serializedData["title"] as! String, "Title 1")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["__modelName"] as! String, "Post")
+                XCTAssertEqual(model["title"] as! String, "Title 1")
                 innerExpect?.fulfill()
             }
         }
 
         let uuid = UUID().uuidString
         let modelMap = [
-            "modelName": "Post",
+            "__modelName": "Post",
             "id": uuid,
             "title": "Title 1"
         ]

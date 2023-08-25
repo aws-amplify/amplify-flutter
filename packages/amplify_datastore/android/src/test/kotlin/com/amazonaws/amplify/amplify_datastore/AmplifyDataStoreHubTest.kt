@@ -81,12 +81,11 @@ class AmplifyDataStoreHubTest {
         val element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
         var metadataMap: HashMap<String, Any>
         val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
-        val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
         val modelMetadata = ModelMetadata(modelMap["id"] as String, null, null, null)
         val modelData = mapOf(
-            "id" to serializedData["id"] as String,
-            "title" to serializedData["title"] as String,
-            "created" to Temporal.DateTime(serializedData["created"] as String)
+            "id" to modelMap["id"] as String,
+            "title" to modelMap["title"] as String,
+            "created" to Temporal.DateTime(modelMap["created"] as String)
         )
         val instance = SerializedModel.builder()
             .modelSchema(modelSchema)
@@ -130,7 +129,6 @@ class AmplifyDataStoreHubTest {
         val element: HashMap<String, Any> = eventData["element"] as HashMap<String, Any>
         val metadataMap: HashMap<String, Any> = element["syncMetadata"] as HashMap<String, Any>
         val modelMap: HashMap<String, Any> = element["model"] as HashMap<String, Any>
-        val serializedData: HashMap<String, Any> = modelMap["serializedData"] as HashMap<String, Any>
         val modelMetadata = ModelMetadata(
             metadataMap["id"] as String,
             metadataMap["_deleted"] as Boolean,
@@ -138,9 +136,9 @@ class AmplifyDataStoreHubTest {
             time,
         )
         val modelData = mapOf(
-            "id" to serializedData["id"] as String,
-            "title" to serializedData["title"] as String,
-            "created" to Temporal.DateTime(serializedData["created"] as String)
+            "id" to modelMap["id"] as String,
+            "title" to modelMap["title"] as String,
+            "created" to Temporal.DateTime(modelMap["created"] as String)
         )
         val instance = SerializedModel.builder()
             .modelSchema(modelSchema)

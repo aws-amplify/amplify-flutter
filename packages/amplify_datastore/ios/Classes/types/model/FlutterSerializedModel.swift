@@ -230,30 +230,31 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                         continue
                     }
 
-                    result[key] = [
-                        "modelName": nextModelName,
-                        "serializedData": try generateSerializedData(
+                    let dataMap = try generateSerializedData(
                             values: deserializedValue,
                             modelSchemaRegistry: modelSchemaRegistry,
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: nextModelName
                         )
-                    ]
+                    let modelNameMap = ["__modelName": nextModelName]
+
+                    result[key] = dataMap.merging(modelNameMap) { (current, _) in current }
                 }
                 // if a field has a single CustomType value presented as JSONValue.object
                 else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
                         case .some(.object(let deserializedValue)) = values[key]
                 {
                     let customTypeName = customTypeSchema.name
-                    result[key] = [
-                        "customTypeName": customTypeName,
-                        "serializedData": try FlutterSerializedModel.generateSerializedData(
+                    let dataMap = try FlutterSerializedModel.generateSerializedData(
                             values: deserializedValue,
                             modelSchemaRegistry: modelSchemaRegistry,
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: customTypeName
                         )
-                    ]
+                    let modelNameMap = ["customTypeName": customTypeName]
+
+                    result[key] = dataMap.merging(modelNameMap) { (current, _) in current }
+
                 }
             } else if case .collection = field?.type{
                 continue
@@ -266,15 +267,14 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                        case .embeddedCollection(_, .some(let customTypeSchema)) = field?.type
                     {
                         let customTypeName = customTypeSchema.name
-                        deserializedArray.append([
-                            "customTypeName": customTypeName,
-                            "serializedData": try FlutterSerializedModel.generateSerializedData(
+                        let dataMap = try FlutterSerializedModel.generateSerializedData(
                                 values: deserializedItem,
                                 modelSchemaRegistry: modelSchemaRegistry,
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                                 modelName: customTypeName
                             )
-                        ])
+                        let modelNameMap = ["customTypeName": customTypeName]
+                        deserializedArray.append(dataMap.merging(modelNameMap) { (current, _) in current })
                     } else {
                         deserializedArray.append(deserializeValue(value: item, fieldType: fieldType))
                     }
@@ -320,15 +320,14 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
         customTypeSchemaRegistry: FlutterSchemaRegistry,
         modelName: String
     ) throws -> [String: Any] {
-        return [
-            "modelName": modelName,
-            "serializedData": try FlutterSerializedModel.generateSerializedData(
+       let dataMap = try FlutterSerializedModel.generateSerializedData(
                 values: values,
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                 modelName: modelName
             )
-        ]
+        let modelNameMap = ["__modelName": modelName]
+        return dataMap.merging(modelNameMap) { (current, _) in current }
     }
 }
 

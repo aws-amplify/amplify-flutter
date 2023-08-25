@@ -21,9 +21,9 @@
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the CpkHasOneUnidirectionalChild type in your schema. */
+/// This is an auto generated class representing the CpkHasOneUnidirectionalChild type in your schema.
 class CpkHasOneUnidirectionalChild extends amplify_core.Model {
-  static const classType = const _CpkHasOneUnidirectionalChildModelType();
+  static const classType = _CpkHasOneUnidirectionalChildModelType();
   final String id;
   final String? _name;
   final amplify_core.TemporalDateTime? _createdAt;
@@ -202,10 +202,8 @@ class _CpkHasOneUnidirectionalChildModelType
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [CpkHasOneUnidirectionalChild] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [CpkHasOneUnidirectionalChild] in your schema.
 class CpkHasOneUnidirectionalChildModelIdentifier
     implements amplify_core.ModelIdentifier<CpkHasOneUnidirectionalChild> {
   final String id;

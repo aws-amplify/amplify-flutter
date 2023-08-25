@@ -17,14 +17,15 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
-import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the PostTags type in your schema. */
+/// This is an auto generated class representing the PostTags type in your schema.
 class PostTags extends amplify_core.Model {
-  static const classType = const _PostTagsModelType();
+  static const classType = _PostTagsModelType();
   final String id;
   final Post? _post;
   final Tag? _tag;
@@ -140,13 +141,11 @@ class PostTags extends amplify_core.Model {
 
   PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+        _post = json['post'] != null
+            ? Post.fromJson(Map<String, dynamic>.from(json['post']))
             : null,
-        _tag = json['tag']?['serializedData'] != null
-            ? Tag.fromJson(
-                new Map<String, dynamic>.from(json['tag']['serializedData']))
+        _tag = json['tag'] != null
+            ? Tag.fromJson(Map<String, dynamic>.from(json['tag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
@@ -241,10 +240,8 @@ class _PostTagsModelType extends amplify_core.ModelType<PostTags> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [PostTags] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [PostTags] in your schema.
 class PostTagsModelIdentifier
     implements amplify_core.ModelIdentifier<PostTags> {
   final String id;
