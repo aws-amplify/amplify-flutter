@@ -71,12 +71,7 @@ class IndexedDbAdapter implements QueuedItemStore {
     await _databaseOpenEvent;
     await _getObjectStore().add(string, timestamp).future;
 
-    final queuedItem = QueuedItem(
-      id: 0, // temporary value used to calculate byte size
-      value: string,
-      timestamp: timestamp,
-    );
-    _currentTotalByteSize += queuedItem.byteSize;
+    _currentTotalByteSize += QueuedItem.getByteSize(string, timestamp);
   }
 
   @override

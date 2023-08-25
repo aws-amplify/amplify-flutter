@@ -58,18 +58,13 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
 
   @override
   Future<void> addItem(String value, String timestamp) async {
-    final queuedItem = QueuedItem(
-      id: 0, // temporary value used to calculate byte size
-      value: value,
-      timestamp: timestamp,
-    );
     await into(driftQueuedItems).insert(
       DriftQueuedItemsCompanion(
         value: Value(value),
         timestamp: Value(timestamp),
       ),
     );
-    _currentTotalByteSize += queuedItem.byteSize;
+    _currentTotalByteSize += QueuedItem.getByteSize(value, timestamp);
   }
 
   @override
