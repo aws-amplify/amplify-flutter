@@ -125,7 +125,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(EnumProperty<AuthProvider>('provider', provider))
+      ..add(DiagnosticsProperty<AuthProvider>('provider', provider))
       ..add(DoubleProperty('maxWidth', maxWidth));
   }
 }

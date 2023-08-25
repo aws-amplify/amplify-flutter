@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:aft/src/models.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
+
+import 'common.dart';
 
 void main() {
   group('AmplifyVersion', () {
@@ -108,6 +112,29 @@ void main() {
       final breaking = version.nextAmplifyVersion(VersionBumpType.breaking);
       expect(breaking, Version(2, 0, 0));
       expect(proagation.propagateToComponent(version, breaking), true);
+    });
+  });
+
+  group('PackageInfo', () {
+    test('compatibleWithActiveSdk', () {
+      final currentDartVersion = Version.parse(
+        Platform.version.split(RegExp(r'\s+')).first,
+      );
+      final stablePackage = dummyPackage('stable_pkg');
+      final previewPackage = dummyPackage(
+        'preview_pkg',
+        sdkConstraint: VersionConstraint.compatibleWith(
+          Version(3, 2, 0, pre: '0'),
+        ),
+      );
+      expect(
+        stablePackage.key.compatibleWithActiveSdk,
+        isTrue,
+      );
+      expect(
+        previewPackage.key.compatibleWithActiveSdk,
+        currentDartVersion.isPreRelease,
+      );
     });
   });
 }

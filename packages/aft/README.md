@@ -28,26 +28,12 @@ A full list of available commands and options can be found by running `aft --hel
 
 ## Development
 
-When developing `aft`, some commands will require the `libgit2` library for interacting with the repo's commit history. This library can be installed with the following commands:
-
-```sh
-# macOS
-$ brew install libgit2
-```
-
-```sh
-# Linux
-$ sudo apt-get install libgit2-dev
-```
-
 To activate and run the local `aft` package:
 
 ```sh
 $ dart pub global activate -spath packages/aft
 $ aft --help
 ```
-
-> Note: If you encounter a dependency error for libgit2dart, run `git submodule update --init`.
 
 Make sure the Dart pub cache is in your PATH to run `aft` as a global executable after activating. See [here](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) for more information.
 
