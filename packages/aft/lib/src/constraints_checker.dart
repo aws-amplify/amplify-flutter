@@ -48,14 +48,15 @@ sealed class ConstraintsChecker {
             message: errorMessage,
           ),
         );
+        return false;
       case ConstraintsAction.apply:
       case ConstraintsAction.update:
         package.pubspecInfo.pubspecYamlEditor.update(
           dependencyPath,
           expectedConstraint.toString(),
         );
+        return true;
     }
-    return false;
   }
 }
 
@@ -111,7 +112,16 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
     // Check Dart SDK contraint
     final globalSdkConstraint = globalEnvironment.sdk;
     final localSdkConstraint = environment['sdk'];
-    final satisfiesSdkConstraint = globalSdkConstraint == localSdkConstraint;
+    final satisfiesSdkConstraint = switch (localSdkConstraint) {
+      // In the special case where we've set a constraint like `^3.2.0-0`
+      // (i.e. a pre-release constraint), the package is allowed to differ
+      // from all other packages iff it's not a publishable package.
+      VersionRange(:final min?) when min.isPreRelease => !package.isPublishable,
+
+      // Otherwise, in all other cases, the package's listed SDK constraint
+      // must exactly match all other packages.
+      _ => globalSdkConstraint == localSdkConstraint,
+    };
     if (!satisfiesSdkConstraint) {
       _processConstraint(
         package: package,
@@ -140,7 +150,11 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
       }
     }
 
-    return satisfiesSdkConstraint && satisfiesFlutterConstraint;
+    return switch (action) {
+      ConstraintsAction.check =>
+        satisfiesSdkConstraint && satisfiesFlutterConstraint,
+      _ => true,
+    };
   }
 
   /// Runs [action] for each dependency in [package].
