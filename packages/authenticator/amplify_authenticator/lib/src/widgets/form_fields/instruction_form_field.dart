@@ -3,13 +3,6 @@
 
 part of authenticator.form_field;
 
-enum InstructionField {
-  totpSetup,
-  totpQrCode,
-  totpCopyKey,
-  totpCodeInstruction,
-}
-
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.instruction_form_field}
 /// Prebuilt form field widgets for instructional use.
@@ -25,7 +18,7 @@ abstract class InstructionFormField<FieldValue extends Object>
   }) : super._();
 
   /// Creates a TOTP QR code component.
-  static InstructionFormField<String> totpQrCode({
+  static InstructionFormField totpQrCode({
     Key? key,
   }) =>
       _InstructionTotpQrCodeField(
@@ -34,7 +27,7 @@ abstract class InstructionFormField<FieldValue extends Object>
       );
 
   /// Creates a TOTP QR code component.
-  static InstructionFormField<String> totpCopyKey({
+  static InstructionFormField totpCopyKey({
     Key? key,
   }) =>
       _InstructionTotpCopyKeyField(
@@ -43,7 +36,7 @@ abstract class InstructionFormField<FieldValue extends Object>
       );
 
   /// Creates a TOTP setup component.
-  static InstructionFormField<String> totpSetup({
+  static InstructionFormField totpSetup({
     Key? key,
   }) =>
       _InstructionTotpSetupField(
@@ -52,7 +45,7 @@ abstract class InstructionFormField<FieldValue extends Object>
       );
 
   /// Creates a instruction field for totp code verification.
-  static InstructionFormField<String> totpCodeInstruction({
+  static InstructionFormField totpCodeInstruction({
     Key? key,
   }) =>
       _InstructionInstructionField(
