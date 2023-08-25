@@ -25,7 +25,7 @@ enum ButtonResolverKeyType {
   confirmResetPassword,
   backTo,
   skip,
-  totpCopyKey,
+  copyKey,
 }
 
 class ButtonResolverKey {
@@ -64,8 +64,7 @@ class ButtonResolverKey {
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
-  static const totpCopyKey =
-      ButtonResolverKey._(ButtonResolverKeyType.totpCopyKey);
+  static const copyKey = ButtonResolverKey._(ButtonResolverKeyType.copyKey);
 
   @override
   String toString() => describeEnum(type);
@@ -162,9 +161,9 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
 
-  /// Label of button to toggle the TOTP key during TOTP setup.
-  String totpCopyKey(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpCopyKey;
+  /// Label of button to copy a value.
+  String copyKey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).copyKey;
   }
 
   @override
@@ -204,8 +203,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return backTo(context, key.previousStep!);
       case ButtonResolverKeyType.skip:
         return skip(context);
-      case ButtonResolverKeyType.totpCopyKey:
-        return totpCopyKey(context);
+      case ButtonResolverKeyType.copyKey:
+        return copyKey(context);
     }
   }
 }

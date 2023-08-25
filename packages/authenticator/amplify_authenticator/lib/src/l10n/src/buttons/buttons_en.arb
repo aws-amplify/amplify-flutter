@@ -57,9 +57,9 @@
     "@skip": {
         "description": "Label of button to skip the current step or action."
     },
-    "totpCopyKey": "Copy Key",
-    "@totpCopyKey": {
-        "description": "Label of button to copy the TOTP key during TOTP setup."
+    "copyKey": "Copy Key",
+    "@copyKey": {
+        "description": "Label of button to copy a value."
     },
     "signOut": "Sign Out",
     "@signOut": {

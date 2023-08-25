@@ -183,11 +183,11 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Skip'**
   String get skip;
 
-  /// Label of button to copy the TOTP key during TOTP setup.
+  /// Label of button to copy a value.
   ///
   /// In en, this message translates to:
   /// **'Copy Key'**
-  String get totpCopyKey;
+  String get copyKey;
 
   /// Label of button to sign out the user
   ///

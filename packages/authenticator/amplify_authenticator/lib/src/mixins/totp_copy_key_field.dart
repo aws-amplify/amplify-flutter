@@ -56,7 +56,7 @@ mixin TotpCopyKey<FieldType extends Enum,
         child: Text(
           stringResolver.buttons.resolve(
             context,
-            ButtonResolverKey.totpCopyKey,
+            ButtonResolverKey.copyKey,
           ),
         ),
       ),

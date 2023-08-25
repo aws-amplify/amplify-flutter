@@ -52,7 +52,7 @@ class AuthenticatorButtonLocalizationsEn
   String get skip => 'Skip';
 
   @override
-  String get totpCopyKey => 'Copy Key';
+  String get copyKey => 'Copy Key';
 
   @override
   String get signOut => 'Sign Out';
