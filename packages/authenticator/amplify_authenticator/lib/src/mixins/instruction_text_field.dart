@@ -4,7 +4,7 @@
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-mixin InstructionField<FieldType extends Enum,
+mixin InstructionTextField<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   String get text => '';

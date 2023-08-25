@@ -53,9 +53,10 @@ const keyCustomChallengeConfirmSignInFormField =
 const keyMfaSelectionTotpSignInFormField =
     Key('mfaSelectionTotpSignInFormField');
 const keyMfaSelectionSmsSignInFormField = Key('mfaSelectionSmsSignInFormField');
-const keyTotpQrCodeSignInFormField = Key('totpQrCodeSignInFormField');
-const keyTotpCopyKeySignInFormField = Key('totpCopyKeySignInFormField');
-const keyTotpSetupSignInFormField = Key('totpSetupSignInFormField');
+const keyTotpQrCodeInstructionFormField = Key('totpQrCodeInstructionFormField');
+const keyTotpCopyKeyInstructionFormField =
+    Key('totpCopyKeyInstructionFormField');
+const keyTotpSetupInstructionFormField = Key('totpSetupInstructionFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =

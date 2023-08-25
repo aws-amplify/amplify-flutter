@@ -28,10 +28,6 @@ enum ConfirmSignInField {
   custom,
   customChallenge,
   selectMfaMethod,
-  totpSetup,
-  totpQrCode,
-  totpCopyKey,
-  totpCodeInstruction,
 }
 
 extension ConfirmSignInFieldX on ConfirmSignInField {

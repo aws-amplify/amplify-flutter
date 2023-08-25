@@ -36,8 +36,8 @@ mixin TotpSetupFields<FieldType extends Enum,
         Text(
           instruction(InstructionResolverKey.totpStep2Instruction),
         ),
-        ConfirmSignInFormField.totpQrCode(),
-        ConfirmSignInFormField.totpCopyKey(),
+        InstructionFormField.totpQrCode(),
+        InstructionFormField.totpCopyKey(),
         Text(
           instruction(InstructionResolverKey.totpStep3),
           style: Theme.of(context).textTheme.titleSmall,

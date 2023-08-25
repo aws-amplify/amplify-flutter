@@ -634,7 +634,7 @@ class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
     super.key,
   }) : super._(
           fields: [
-            ConfirmSignInFormField.totpSetup(),
+            InstructionFormField.totpSetup(),
           ],
           actions: const [
             ConfirmSignInMFAButton(),
@@ -667,7 +667,7 @@ class ConfirmSignInWithTotpMfaCodeForm extends AuthenticatorForm {
   ConfirmSignInWithTotpMfaCodeForm({super.key})
       : super._(
           fields: [
-            ConfirmSignInFormField.totpCodeInstruction(),
+            InstructionFormField.totpCodeInstruction(),
             ConfirmSignInFormField.verificationCode(),
           ],
           actions: const [

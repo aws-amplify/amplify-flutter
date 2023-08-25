@@ -13,8 +13,10 @@ import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart'
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/mixins/instruction_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/totp_copy_key_field.dart';
 import 'package:amplify_authenticator/src/mixins/totp_qr_code_field.dart';
+import 'package:amplify_authenticator/src/mixins/totp_setup_fields.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
@@ -23,14 +25,13 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_authenticator/src/widgets/form_fields/instruction_field.dart';
-import 'package:amplify_authenticator/src/widgets/form_fields/totp_setup_fields.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
+part 'form_fields/instruction_form_field.dart';
 part 'form_fields/mfa_selection_form_field.dart';
 part 'form_fields/phone_number_field.dart';
 part 'form_fields/reset_password_form_field.dart';
@@ -46,6 +47,7 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [SignUpFormField]
 /// - [ConfirmSignInFormField]
 /// - [ConfirmSignUpFormField]
+/// - [InstructionFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
 abstract class AuthenticatorFormField<FieldType extends Enum,
