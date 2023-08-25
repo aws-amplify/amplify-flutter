@@ -190,7 +190,9 @@ abstract class AmplifyCommand extends Command<void>
     if (globalResults?['verbose'] as bool? ?? false) {
       AWSLogger().logLevel = LogLevel.verbose;
     }
-    logger.verbose('Got configuration: $aftConfig');
+    logger
+      ..info('Found Dart SDK: $activeDartSdkVersion')
+      ..verbose('Got configuration: $aftConfig');
     repo = await Repo.open(aftConfig, logger: logger);
   }
 
