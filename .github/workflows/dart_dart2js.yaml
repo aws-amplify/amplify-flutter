@@ -14,7 +14,9 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    # These tests heavily leverage build_runner which benefits from faster runners
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails

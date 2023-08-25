@@ -1,0 +1,35 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_db_common Android
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/common/amplify_db_common/**/*.yaml'
+      - 'packages/common/amplify_db_common/android/**/*'
+      - 'packages/common/amplify_db_common/example/android/**/*'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_db_common_android.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    uses: ./.github/workflows/flutter_android.yaml
+    with:
+      example-directory: packages/common/amplify_db_common/example
+      package-name: amplify_db_common
+      has-native-tests: false
