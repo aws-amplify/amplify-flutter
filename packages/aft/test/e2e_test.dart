@@ -166,7 +166,7 @@ Initial version.
           amplifyCore,
           awsCommon,
         ];
-        repo = Repo(
+        repo = await Repo.open(
           AftConfig(
             rootDirectory: repoDir.uri,
             workingDirectory: Directory.current.uri,
@@ -255,7 +255,7 @@ Initial version.
         packageBumps['amplify_auth_cognito_ios'] = flutterBump;
       });
 
-      GitChanges changesForPackage(
+      Future<GitChanges> changesForPackage(
         String package, {
         required String baseRef,
       }) {
@@ -272,14 +272,15 @@ Initial version.
             'amplify_auth_cognito_ios': 3,
           };
           for (final entry in packages.entries) {
-            test(entry.key, () {
+            test(entry.key, () async {
               final numCommits = entry.value;
               final package = repo.allPackages[entry.key]!;
+              final changes = await changesForPackage(
+                package.name,
+                baseRef: baseRef,
+              );
               expect(
-                changesForPackage(
-                  package.name,
-                  baseRef: baseRef,
-                ).commitsByPackage[package],
+                changes.commitsByPackage[package],
                 hasLength(numCommits),
               );
             });
@@ -295,17 +296,18 @@ Initial version.
             'amplify_auth_cognito_ios': 0,
           };
           for (final entry in packages.entries) {
-            test(entry.key, () {
+            test(entry.key, () async {
               final package = repo.allPackages[entry.key]!;
-              final lastBump = repo.latestBumpRef(package);
+              final lastBump = await repo.latestBumpRef(package);
               expect(lastBump, packageBumps[package.name]);
 
               final numCommits = entry.value;
+              final changes = await changesForPackage(
+                package.name,
+                baseRef: lastBump ?? baseRef,
+              );
               expect(
-                changesForPackage(
-                  package.name,
-                  baseRef: lastBump ?? baseRef,
-                ).commitsByPackage[package],
+                changes.commitsByPackage[package],
                 hasLength(numCommits),
               );
             });
@@ -358,9 +360,12 @@ Initial version.
         for (final check in numCommits.entries) {
           final packageName = check.key;
 
-          test(packageName, () {
+          test(packageName, () async {
             final package = repo.allPackages[packageName]!;
-            final changes = changesForPackage(package.name, baseRef: baseRef);
+            final changes = await changesForPackage(
+              package.name,
+              baseRef: baseRef,
+            );
             final commits = changes.commitsByPackage[package]!;
             expect(commits, hasLength(check.value));
 
@@ -470,7 +475,7 @@ environment:
         };
 
         setUp(() async {
-          repo.bumpAllVersions(
+          await repo.bumpAllVersions(
             repo.allPackages,
             changesForPackage: (pkg) => changesForPackage(
               pkg.name,
