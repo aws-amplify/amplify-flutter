@@ -5,13 +5,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/constraints_checker.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
 
-enum _ConstraintsAction {
+enum ConstraintsAction {
   check(
     'Checks whether all constraints in the repo match the global config',
     'All constraints matched!',
@@ -26,7 +26,7 @@ enum _ConstraintsAction {
     'Constraints successfully applied!',
   );
 
-  const _ConstraintsAction(this.description, this.successMessage);
+  const ConstraintsAction(this.description, this.successMessage);
 
   final String description;
   final String successMessage;
@@ -35,8 +35,8 @@ enum _ConstraintsAction {
 /// Command to manage dependencies across all Dart/Flutter packages in the repo.
 class ConstraintsCommand extends AmplifyCommand {
   ConstraintsCommand() {
-    addSubcommand(_ConstraintsSubcommand(_ConstraintsAction.check));
-    addSubcommand(_ConstraintsSubcommand(_ConstraintsAction.apply));
+    addSubcommand(_ConstraintsSubcommand(ConstraintsAction.check));
+    addSubcommand(_ConstraintsSubcommand(ConstraintsAction.apply));
     addSubcommand(_ConstraintsUpdateCommand());
     addSubcommand(_ConstraintsPubVerifyCommand());
   }
@@ -52,7 +52,7 @@ class ConstraintsCommand extends AmplifyCommand {
 class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
   _ConstraintsSubcommand(this.action);
 
-  final _ConstraintsAction action;
+  final ConstraintsAction action;
 
   @override
   String get description => action.description;
@@ -60,121 +60,21 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
   @override
   String get name => action.name;
 
-  final _mismatchedDependencies = <String>[];
-
-  /// Checks the [local] constraint against the [global] and returns whether
-  /// an update is required.
-  void _checkConstraint(
-    PackageInfo package,
-    List<String> dependencyPath,
-    VersionConstraint global,
-    VersionConstraint local,
-  ) {
-    // Packages are not allowed to diverge from `aft.yaml`, even to specify
-    // more precise constraints.
-    final satisfiesGlobalConstraint = global == local;
-    if (satisfiesGlobalConstraint) {
-      return;
-    }
-    switch (action) {
-      case _ConstraintsAction.check:
-        final dependencyName = dependencyPath.last;
-        _mismatchedDependencies.add(
-          '${package.path}\n'
-          'Mismatched `$dependencyName`:\n'
-          'Expected $global\n'
-          'Found $local\n',
-        );
-        return;
-      case _ConstraintsAction.apply:
-      case _ConstraintsAction.update:
-        package.pubspecInfo.pubspecYamlEditor.update(
-          dependencyPath,
-          global.toString(),
-        );
-    }
-  }
-
-  /// Checks the package's environment constraints against the global config.
-  void _checkEnvironment(
-    PackageInfo package,
-    Map<String, VersionConstraint?> environment,
-    Environment globalEnvironment,
-  ) {
-    // Check Dart SDK contraint
-    final globalSdkConstraint = globalEnvironment.sdk;
-    final localSdkConstraint = environment['sdk'] ?? VersionConstraint.any;
-    _checkConstraint(
-      package,
-      ['environment', 'sdk'],
-      globalSdkConstraint,
-      localSdkConstraint,
-    );
-
-    // Check Flutter SDK constraint
-    if (package.flavor == PackageFlavor.flutter) {
-      final globalFlutterConstraint = globalEnvironment.flutter;
-      final localFlutterConstraint =
-          environment['flutter'] ?? VersionConstraint.any;
-      _checkConstraint(
-        package,
-        ['environment', 'flutter'],
-        globalFlutterConstraint,
-        localFlutterConstraint,
-      );
-    }
-  }
-
-  /// Checks the package's dependency constraints against the global config.
-  void _checkDependency(
-    PackageInfo package,
-    Map<String, Dependency> dependencies,
-    DependencyType dependencyType,
-    MapEntry<String, VersionConstraint> globalDep,
-  ) {
-    final dependencyName = globalDep.key;
-    final globalDepConstraint = globalDep.value;
-    final localDep = dependencies[dependencyName];
-    if (localDep is! HostedDependency) {
-      return;
-    }
-    final localDepConstraint = localDep.version;
-    _checkConstraint(
-      package,
-      [dependencyType.key, dependencyName],
-      globalDepConstraint,
-      localDepConstraint,
-    );
-  }
-
-  Future<void> _run(_ConstraintsAction action) async {
-    final globalDependencyConfig = aftConfig.dependencies;
-    final globalEnvironmentConfig = aftConfig.environment;
+  Future<void> _run(ConstraintsAction action) async {
+    final constraintsCheckers = [
+      GlobalConstraintChecker(
+        action,
+        repo.aftConfig.dependencies.asMap(),
+        repo.aftConfig.environment,
+      ),
+      PublishConstraintsChecker(
+        action,
+        repo.getPackageGraph(includeDevDependencies: true),
+      ),
+    ];
     for (final package in commandPackages.values) {
-      _checkEnvironment(
-        package,
-        package.pubspecInfo.pubspec.environment ?? const {},
-        globalEnvironmentConfig,
-      );
-      for (final globalDep in globalDependencyConfig.entries) {
-        _checkDependency(
-          package,
-          package.pubspecInfo.pubspec.dependencies,
-          DependencyType.dependency,
-          globalDep,
-        );
-        _checkDependency(
-          package,
-          package.pubspecInfo.pubspec.dependencyOverrides,
-          DependencyType.dependencyOverride,
-          globalDep,
-        );
-        _checkDependency(
-          package,
-          package.pubspecInfo.pubspec.devDependencies,
-          DependencyType.devDependency,
-          globalDep,
-        );
+      for (final constraintsChecker in constraintsCheckers) {
+        constraintsChecker.checkConstraints(package);
       }
 
       if (package.pubspecInfo.pubspecYamlEditor.edits.isNotEmpty) {
@@ -183,9 +83,17 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
         );
       }
     }
-    if (_mismatchedDependencies.isNotEmpty) {
-      for (final mismatched in _mismatchedDependencies) {
-        logger.error(mismatched);
+    final mismatchedDependencies = constraintsCheckers.expand(
+      (checker) => checker.mismatchedDependencies,
+    );
+    if (mismatchedDependencies.isNotEmpty) {
+      for (final mismatched in mismatchedDependencies) {
+        final (:package, :dependencyName, :message) = mismatched;
+        logger.error(
+          '${package.path}\n'
+          'Mismatched `$dependencyName`:\n'
+          '$message\n',
+        );
       }
       exit(1);
     }
@@ -200,7 +108,7 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
 }
 
 class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
-  _ConstraintsUpdateCommand() : super(_ConstraintsAction.update);
+  _ConstraintsUpdateCommand() : super(ConstraintsAction.update);
 
   @override
   Future<void> run() async {
@@ -336,7 +244,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
     }
 
     if (hasUpdates) {
-      await _run(_ConstraintsAction.apply);
+      await _run(ConstraintsAction.apply);
     }
   }
 }
