@@ -68,8 +68,8 @@ class VersionBumpCommand extends AmplifyCommand
     return null;
   }();
 
-  GitChanges _changesForPackage(PackageInfo package) {
-    final baseRef = this.baseRef ?? repo.latestBumpRef(package);
+  Future<GitChanges> _changesForPackage(PackageInfo package) async {
+    final baseRef = this.baseRef ?? await repo.latestBumpRef(package);
     if (baseRef == null) {
       exitError(
         'No previous version bumps for package (${package.name}). '
@@ -80,7 +80,7 @@ class VersionBumpCommand extends AmplifyCommand
   }
 
   Future<List<PackageInfo>> _updateVersions() async {
-    repo.bumpAllVersions(
+    await repo.bumpAllVersions(
       commandPackages,
       changesForPackage: _changesForPackage,
       forcedBumpType: forcedBumpType,

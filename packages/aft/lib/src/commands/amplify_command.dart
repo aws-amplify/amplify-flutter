@@ -120,10 +120,7 @@ abstract class AmplifyCommand extends Command<void>
     return null;
   }();
 
-  late final Repo repo = Repo(
-    aftConfig,
-    logger: logger,
-  );
+  late final Repo repo;
 
   /// Runs `git` with the given [args] from the repo's root directory.
   Future<void> runGit(
@@ -194,6 +191,7 @@ abstract class AmplifyCommand extends Command<void>
       AWSLogger().logLevel = LogLevel.verbose;
     }
     logger.verbose('Got configuration: $aftConfig');
+    repo = await Repo.open(aftConfig, logger: logger);
   }
 
   @override

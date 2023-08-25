@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/git.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 
@@ -141,6 +142,26 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
       dateTime: dateTime,
     );
   }
+
+  factory CommitMessage.fromCommitRef(CommitRef commitRef) {
+    final (sha, commit) = commitRef;
+    final [summary, ...body] = LineSplitter.split(commit.message).toList();
+    final commitTime = commit.committer
+        .split(_whitespace)
+        .firstWhereOrNull(_commitTimeRegex.hasMatch);
+    return CommitMessage.parse(
+      sha,
+      summary,
+      body: body.skip(1).join('\n'),
+      commitTimeSecs: switch (commitTime) {
+        final commitTime? => int.parse(commitTime),
+        _ => null,
+      },
+    );
+  }
+
+  static final _commitTimeRegex = RegExp(r'\d{10}');
+  static final _whitespace = RegExp(r'\s+');
 
   /// The commit's OID SHA.
   final String sha;
