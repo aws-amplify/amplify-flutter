@@ -44,7 +44,7 @@ class QueuedItem {
   /// The size of the item, in bytes, when stored in the database.
   int get byteSize => _byteSize;
 
-  /// Gets the size of the item, in bytes, without creating the item.
+  /// Returns the size of an item, in bytes.
   static int getByteSize(String value, String timestamp) {
     return value.length + timestamp.length + 8;
   }
