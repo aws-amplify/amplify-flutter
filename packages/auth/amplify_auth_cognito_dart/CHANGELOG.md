@@ -1,3 +1,11 @@
+## 0.10.3
+
+### Fixes
+- fix(auth): SDK exception mapping
+
+### Features
+- feat(auth): TOTP MFA
+
 ## 0.10.2+3
 
 ### Fixes

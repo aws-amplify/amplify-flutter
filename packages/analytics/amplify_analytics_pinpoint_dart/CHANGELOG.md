@@ -1,3 +1,8 @@
+## 0.3.0+7
+
+### Fixes
+- fix(analytics): AWSPinpointUserProfile Added null check for user attributes ([#3598](https://github.com/aws-amplify/amplify-flutter/pull/3598))
+
 ## 0.3.0+6
 
 - Minor bug fixes and improvements
