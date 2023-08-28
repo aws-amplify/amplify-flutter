@@ -396,6 +396,12 @@ class PubspecInfo with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// The package's pubspec as a YAML map.
   final YamlMap pubspecMap;
 
+  /// Package-specific configuration.
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  late final RawPubspecConfig config = RawPubspecConfig.fromJson(
+    pubspecMap.cast(),
+  );
+
   /// The pubspec as a YAML editor, used to alter dependencies or other info.
   @JsonKey(includeFromJson: false, includeToJson: false)
   late final YamlEditor pubspecYamlEditor = YamlEditor(pubspecYaml);
