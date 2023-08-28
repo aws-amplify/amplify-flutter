@@ -31,7 +31,10 @@ enum InputField {
   // updatedAt,
   // website,
   rememberDevice,
-  usernameType
+  selectSms,
+  selectTotp,
+  totpCodePrompt,
+  usernameType,
 }
 
 enum InputResolverKeyType {
@@ -156,6 +159,21 @@ class InputResolverKey {
   static const customAuthChallengeHint = InputResolverKey._(
     InputResolverKeyType.hint,
     field: InputField.customAuthChallenge,
+  );
+
+  static const selectTotp = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.selectTotp,
+  );
+
+  static const selectSms = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.selectSms,
+  );
+
+  static const totpCodePrompt = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.totpCodePrompt,
   );
 
   static const verificationCodeTitle = InputResolverKey._(
@@ -434,6 +452,12 @@ class InputResolver extends Resolver<InputResolverKey> {
       //   break;
       case InputField.rememberDevice:
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
+      case InputField.selectSms:
+        return AuthenticatorLocalizations.inputsOf(context).selectSms;
+      case InputField.selectTotp:
+        return AuthenticatorLocalizations.inputsOf(context).selectTotp;
+      case InputField.totpCodePrompt:
+        return AuthenticatorLocalizations.inputsOf(context).totpCodePrompt;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
     }

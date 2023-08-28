@@ -2,8 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/src/enums/authenticator_step.dart';
+import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 abstract class AuthState {
   const AuthState();
@@ -41,6 +43,9 @@ class UnauthenticatedState extends AuthState
       UnauthenticatedState(step: AuthenticatorStep.confirmSignInMfa);
   static const confirmSignInNewPassword =
       UnauthenticatedState(step: AuthenticatorStep.confirmSignInNewPassword);
+  static const confirmSignInWithTotpMfaCode = UnauthenticatedState(
+    step: AuthenticatorStep.confirmSignInWithTotpMfaCode,
+  );
   static const resetPassword =
       UnauthenticatedState(step: AuthenticatorStep.resetPassword);
   static const confirmResetPassword =
@@ -89,4 +94,49 @@ class ConfirmSignInCustom extends UnauthenticatedState {
 
   @override
   String get runtimeTypeName => 'ConfirmSignInCustom';
+}
+
+class ContinueSignInWithMfaSelection extends UnauthenticatedState {
+  const ContinueSignInWithMfaSelection({
+    Set<MfaType>? allowedMfaTypes,
+  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
+        super(step: AuthenticatorStep.continueSignInWithMfaSelection);
+
+  final Set<MfaType> allowedMfaTypes;
+
+  @override
+  List<Object?> get props => [step, allowedMfaTypes];
+
+  @override
+  String get runtimeTypeName => 'ContinueSignInWithMfaSelection';
+}
+
+class ContinueSignInTotpSetup extends UnauthenticatedState {
+  const ContinueSignInTotpSetup(this.totpSetupDetails, this.totpSetupUri)
+      : super(step: AuthenticatorStep.continueSignInWithTotpSetup);
+
+  static Future<ContinueSignInTotpSetup> setupURI(
+    TotpSetupDetails totpSetupDetails,
+    TotpOptions? totpOptions,
+  ) async {
+    final setupUri = totpSetupDetails.getSetupUri(
+      appName: totpOptions?.issuer ??
+          // TODO(equartey): Update this once we have our own method of getting the app name
+          (await PackageInfo.fromPlatform()).appName,
+    );
+
+    return ContinueSignInTotpSetup(
+      totpSetupDetails,
+      setupUri,
+    );
+  }
+
+  final TotpSetupDetails totpSetupDetails;
+  final Uri totpSetupUri;
+
+  @override
+  List<Object?> get props => [step, totpSetupDetails];
+
+  @override
+  String get runtimeTypeName => 'ContinueSignInTotpSetup';
 }

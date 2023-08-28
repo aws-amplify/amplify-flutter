@@ -9,4 +9,5 @@ export 'reset_password_field.dart';
 export 'signin_types.dart';
 export 'signup_types.dart';
 export 'status_type.dart';
+export 'totp_setup_types.dart';
 export 'verify_attribute_field_types.dart';

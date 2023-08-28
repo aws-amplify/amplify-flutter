@@ -204,5 +204,17 @@
     "@customChallenge": {
         "description": "The answer to the custom auth challenge",
         "example": "123456"
+    },
+    "selectSms": "Text Message (SMS)",
+    "@selectSms": {
+        "description": "Label for the radio button to select SMS as the user's chosen MFA method.."
+    },
+    "selectTotp": "Authenticator App (TOTP)",
+    "@selectTotp": {
+        "description": "Label for the radio button to select TOTP as the user's chosen MFA method."
+    },
+    "totpCodePrompt": "Please enter the code from your registered Authenticator app",
+    "@totpCodePrompt": {
+        "description":  "The instructional text for submitting a TOTP pass code"
     }
 }

@@ -11,6 +11,7 @@ enum ButtonResolverKeyType {
   signIn,
   signUp,
   confirm,
+  continueLabel,
   submit,
   changePassword,
   sendCode,
@@ -24,6 +25,7 @@ enum ButtonResolverKeyType {
   confirmResetPassword,
   backTo,
   skip,
+  copyKey,
 }
 
 class ButtonResolverKey {
@@ -44,6 +46,8 @@ class ButtonResolverKey {
   static const signIn = ButtonResolverKey._(ButtonResolverKeyType.signIn);
   static const signUp = ButtonResolverKey._(ButtonResolverKeyType.signUp);
   static const confirm = ButtonResolverKey._(ButtonResolverKeyType.confirm);
+  static const continueLabel =
+      ButtonResolverKey._(ButtonResolverKeyType.continueLabel);
   static const submit = ButtonResolverKey._(ButtonResolverKeyType.submit);
   static const changePassword =
       ButtonResolverKey._(ButtonResolverKeyType.changePassword);
@@ -60,6 +64,7 @@ class ButtonResolverKey {
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
+  static const copyKey = ButtonResolverKey._(ButtonResolverKeyType.copyKey);
 
   @override
   String toString() => describeEnum(type);
@@ -82,6 +87,11 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   /// Label of confirm forms' button
   String confirm(BuildContext context) {
     return AuthenticatorLocalizations.buttonsOf(context).confirm;
+  }
+
+  /// Label of confirm forms' button
+  String continueLabel(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).continueLabel;
   }
 
   /// Label of submit button
@@ -151,6 +161,11 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
 
+  /// Label of button to copy a value.
+  String copyKey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).copyKey;
+  }
+
   @override
   String resolve(BuildContext context, ButtonResolverKey key) {
     switch (key.type) {
@@ -160,6 +175,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return signUp(context);
       case ButtonResolverKeyType.confirm:
         return confirm(context);
+      case ButtonResolverKeyType.continueLabel:
+        return continueLabel(context);
       case ButtonResolverKeyType.submit:
         return submit(context);
       case ButtonResolverKeyType.changePassword:
@@ -186,6 +203,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return backTo(context, key.previousStep!);
       case ButtonResolverKeyType.skip:
         return skip(context);
+      case ButtonResolverKeyType.copyKey:
+        return copyKey(context);
     }
   }
 }
