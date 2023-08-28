@@ -240,7 +240,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   }
 
   /// Whether a [logEntry] should be logged by this plugin.
-  Future<bool> _isLoggable(LogEntry logEntry) async {
+  bool _isLoggable(LogEntry logEntry) {
     if (!_enabled) {
       return false;
     }
@@ -250,7 +250,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   @override
   Future<void> handleLogEntry(LogEntry logEntry) async {
-    if (!(await _isLoggable(logEntry))) {
+    if (!(_isLoggable(logEntry))) {
       return;
     }
     final item = logEntry.toQueuedItem();
