@@ -1,3 +1,17 @@
+## 1.3.4
+
+### Fixes
+- fix(datastore): Pin `Starscream`
+
+## 1.3.3
+
+- Minor bug fixes and improvements
+
+## 1.3.2
+
+### Fixes
+- fix(datastore): Custom list serde ([#3544](https://github.com/aws-amplify/amplify-flutter/pull/3544))
+
 ## 1.3.1
 
 ### Fixes
