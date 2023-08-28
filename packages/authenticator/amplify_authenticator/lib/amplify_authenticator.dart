@@ -78,7 +78,6 @@ export 'src/widgets/form.dart'
         ConfirmSignInNewPasswordForm,
         ContinueSignInWithMfaSelectionForm,
         ContinueSignInWithTotpSetupForm,
-        ConfirmSignInWithTotpMfaCodeForm,
         ConfirmSignUpForm,
         ResetPasswordForm,
         ConfirmResetPasswordForm,
