@@ -55,6 +55,24 @@ enum AuthenticatorStep {
   /// the sign in process.
   confirmSignInNewPassword,
 
+  /// The user is on the Continue Sign In with MFA Selection step.
+  ///
+  /// The sign-in is not complete and the user must select and set up
+  /// an MFA method.
+  continueSignInWithMfaSelection,
+
+  /// The user is on the Continue Sign In with TOTP setup step.
+  ///
+  /// The sign-in is not complete and a TOTP authenticator app must be
+  /// registered before continuing.
+  continueSignInWithTotpSetup,
+
+  /// The user is on the Confirm Sign In with TOTP MFA step.
+  ///
+  /// The sign-in is not complete and must be confirmed with a TOTP code
+  /// from a registered authenticator app.
+  confirmSignInWithTotpMfaCode,
+
   /// The user is on the Reset Password step.
   resetPassword,
 

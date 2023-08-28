@@ -9,3 +9,4 @@ export 'src/async_test.dart';
 export 'src/mfa_environments.dart';
 export 'src/test_auth_plugin.dart';
 export 'src/test_runner.dart';
+export 'src/totp_utils.dart';

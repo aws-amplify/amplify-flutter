@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 enum MessageResolverKeyType {
   codeSent,
+  copySucceeded,
+  copyFailed,
 }
 
 class MessageResolverKey {
@@ -37,6 +39,16 @@ class MessageResolver extends Resolver<MessageResolverKey> {
     return AuthenticatorLocalizations.messagesOf(context).codeSentUnknown;
   }
 
+  /// The message that is displayed after a TOTP Key was copied to the clipboard
+  String copySucceeded(BuildContext context) {
+    return AuthenticatorLocalizations.messagesOf(context).copySucceeded;
+  }
+
+  /// The message that is displayed after a TOTP Key failed to copy to the clipboard
+  String copyFailed(BuildContext context) {
+    return AuthenticatorLocalizations.messagesOf(context).copyFailed;
+  }
+
   @override
   String resolve(BuildContext context, MessageResolverKey key) {
     switch (key.type) {
@@ -46,6 +58,10 @@ class MessageResolver extends Resolver<MessageResolverKey> {
           return codeSent(context, destination);
         }
         return codeSentUnknown(context);
+      case MessageResolverKeyType.copySucceeded:
+        return copySucceeded(context);
+      case MessageResolverKeyType.copyFailed:
+        return copyFailed(context);
     }
   }
 }

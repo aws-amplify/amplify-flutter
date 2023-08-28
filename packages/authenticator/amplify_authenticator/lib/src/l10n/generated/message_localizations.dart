@@ -95,7 +95,9 @@ abstract class AuthenticatorMessageLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// The message that is displayed after a new confirmation code is sent via Email/SMS.
   ///
@@ -108,6 +110,18 @@ abstract class AuthenticatorMessageLocalizations {
   /// In en, this message translates to:
   /// **'A confirmation code has been sent.'**
   String get codeSentUnknown;
+
+  /// The message that is displayed after a value was copied to the clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard!'**
+  String get copySucceeded;
+
+  /// The message that is displayed after a value failed to copy to the clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to clipboard failed.'**
+  String get copyFailed;
 }
 
 class _AuthenticatorMessageLocalizationsDelegate

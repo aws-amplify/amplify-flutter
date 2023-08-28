@@ -15,5 +15,13 @@
     "codeSentUnknown": "A confirmation code has been sent.",
     "@codeSentUnknown": {
         "description": "The message that is displayed after a new confirmation code is sent via an unknown delivery medium"
+    },
+    "copySucceeded": "Copied to clipboard!",
+    "@copySucceeded": {
+        "description": "The message that is displayed after a value was copied to the clipboard"
+    },
+    "copyFailed": "Copy to clipboard failed.",
+    "@copyFailed": {
+        "description": "The message that is displayed after a value failed to copy to the clipboard"
     }
-}
+} 

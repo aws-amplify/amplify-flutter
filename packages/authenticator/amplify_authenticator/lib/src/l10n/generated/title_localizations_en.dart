@@ -21,6 +21,16 @@ class AuthenticatorTitleLocalizationsEn
   String get confirmSignInNewPassword => 'Change your password to sign in';
 
   @override
+  String get continueSignInWithMfaSelection =>
+      'Select your preferred Two-Factor Auth method';
+
+  @override
+  String get continueSignInWithTotpSetup => 'Enable Two-Factor Auth';
+
+  @override
+  String get confirmSignInWithTotpMfaCode => 'Enter your one-time passcode';
+
+  @override
   String get resetPassword => 'Send Code';
 
   @override

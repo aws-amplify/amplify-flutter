@@ -13,6 +13,10 @@
     "@confirm": {
         "description": "Label of button to confirm an action"
     },
+    "continueLabel": "Continue",
+    "@continueLabel": {
+        "description": "Label of button to continue to the next action"
+    },
     "submit": "Submit",
     "@submit": {
         "description": "Label of button to submit a form"
@@ -52,6 +56,10 @@
     "skip": "Skip",
     "@skip": {
         "description": "Label of button to skip the current step or action."
+    },
+    "copyKey": "Copy Key",
+    "@copyKey": {
+        "description": "Label of button to copy a value."
     },
     "signOut": "Sign Out",
     "@signOut": {
