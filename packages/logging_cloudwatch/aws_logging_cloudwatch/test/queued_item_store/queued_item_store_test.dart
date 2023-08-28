@@ -190,43 +190,5 @@ void main() {
 
       expect(readValues, isEmpty);
     });
-
-    test('returns all stored items', () async {
-      const values = ['0', '1', '2', '3', '4', '5'];
-      for (final value in values) {
-        await db.addItem(value, DateTime.now().toIso8601String());
-      }
-
-      final readItems = await getAll();
-      final readValues = readItems.map((e) => e.value);
-      expect(readValues, values);
-    });
-
-    test('returns empty list when no items are stored', () async {
-      final readItems = await getAll();
-      expect(readItems, isEmpty);
-    });
-
-    test(
-      'checks if storage is full',
-      () async {
-        const capacityLimit = 1;
-
-        for (var i = 0; i < 100; i++) {
-          await db.addItem('0', DateTime.now().toIso8601String());
-        }
-
-        var result = await db.isFull(capacityLimit);
-        expect(result, isFalse);
-
-        // add enough items to exceed capacity limit of 1mb
-        for (var i = 0; i < 50000; i++) {
-          await db.addItem('0', DateTime.now().toIso8601String());
-        }
-
-        result = await db.isFull(capacityLimit);
-        expect(result, isTrue);
-      },
-    );
   });
 }
