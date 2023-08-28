@@ -8,8 +8,7 @@ environment:
 
 dependencies:
   test: ^1.22.1
-  amplify_secure_storage_dart:
-    path: ../amplify_secure_storage_dart
+  amplify_secure_storage_dart: any
 
 dependency_overrides:
   aws_common:
