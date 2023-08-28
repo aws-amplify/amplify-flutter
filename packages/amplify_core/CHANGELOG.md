@@ -1,3 +1,12 @@
+## 1.4.0
+
+### Features
+- feat(auth): TOTP MFA
+
+### Fixes
+- fix(analytics): AWSPinpointUserProfile Added null check for user attributes ([#3598](https://github.com/aws-amplify/amplify-flutter/pull/3598))
+- fix(auth): SDK exception mapping
+
 ## 1.3.3
 
 ### Fixes

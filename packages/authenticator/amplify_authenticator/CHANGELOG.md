@@ -1,3 +1,11 @@
+## 1.4.0
+
+### Fixes
+- fix(authenticator): Social button debug Property Type ([#3608](https://github.com/aws-amplify/amplify-flutter/pull/3608))
+
+### Features
+- feat(authenticator): TOTP MFA ([#3609](https://github.com/aws-amplify/amplify-flutter/pull/3609))
+
 ## 1.3.2
 
 - Minor bug fixes and improvements

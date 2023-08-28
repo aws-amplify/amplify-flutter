@@ -1,3 +1,9 @@
+## 1.4.0
+
+### Features
+- feat(auth): TOTP MFA
+- feat(authenticator): TOTP MFA ([#3609](https://github.com/aws-amplify/amplify-flutter/pull/3609))
+
 ## 1.3.3
 
 ### Fixes

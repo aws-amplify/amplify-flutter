@@ -1,3 +1,8 @@
+## 1.4.0
+
+### Fixes
+- fix(datastore): Use platform thread ([#3607](https://github.com/aws-amplify/amplify-flutter/pull/3607))
+
 ## 1.3.4
 
 ### Fixes
