@@ -3,11 +3,11 @@
 
 library authenticator.form_field;
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
+import 'package:amplify_authenticator/src/l10n/instructions_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
@@ -24,13 +24,17 @@ import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 part 'form_fields/confirm_sign_in_form_field.dart';
 part 'form_fields/confirm_sign_up_form_field.dart';
+part 'form_fields/mfa_selection_form_field.dart';
 part 'form_fields/phone_number_field.dart';
 part 'form_fields/reset_password_form_field.dart';
 part 'form_fields/sign_in_form_field.dart';
 part 'form_fields/sign_up_form_field.dart';
+part 'form_fields/totp_setup_form_field.dart';
 part 'form_fields/verify_user_form_field.dart';
 
 /// {@template amplify_authenticator.authenticator_form_field}
@@ -41,6 +45,7 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [SignUpFormField]
 /// - [ConfirmSignInFormField]
 /// - [ConfirmSignUpFormField]
+/// - [TotpSetupFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
 abstract class AuthenticatorFormField<FieldType extends Enum,
@@ -227,6 +232,9 @@ abstract class AuthenticatorFormFieldState<
         state.confirmSignInMFA();
       case AuthenticatorStep.confirmSignInNewPassword:
         state.confirmSignInNewPassword();
+      case AuthenticatorStep.confirmSignInWithTotpMfaCode:
+      case AuthenticatorStep.continueSignInWithTotpSetup:
+        state.confirmTotp();
       case AuthenticatorStep.resetPassword:
         state.resetPassword();
       case AuthenticatorStep.confirmResetPassword:

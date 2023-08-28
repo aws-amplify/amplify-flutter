@@ -3,25 +3,25 @@
 
 import 'dart:async';
 
-import 'package:amplify_authenticator/src/l10n/generated/title_localizations_en.dart'
-    deferred as title_localizations_en;
+import 'package:amplify_authenticator/src/l10n/generated/instructions_localizations_en.dart'
+    deferred as instructions_localizations_en;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorTitleLocalizations
-/// returned by `AuthenticatorTitleLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorInstructionsLocalizations
+/// returned by `AuthenticatorInstructionsLocalizations.of(context)`.
 ///
-/// Applications need to include `AuthenticatorTitleLocalizations.delegate()` in their app's
+/// Applications need to include `AuthenticatorInstructionsLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'generated/title_localizations.dart';
+/// import 'generated/instructions_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: AuthenticatorTitleLocalizations.localizationsDelegates,
-///   supportedLocales: AuthenticatorTitleLocalizations.supportedLocales,
+///   localizationsDelegates: AuthenticatorInstructionsLocalizations.localizationsDelegates,
+///   supportedLocales: AuthenticatorInstructionsLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -58,23 +58,23 @@ import 'package:intl/intl.dart' as intl;
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the AuthenticatorTitleLocalizations.supportedLocales
+/// be consistent with the languages listed in the AuthenticatorInstructionsLocalizations.supportedLocales
 /// property.
-abstract class AuthenticatorTitleLocalizations {
-  AuthenticatorTitleLocalizations(String locale)
+abstract class AuthenticatorInstructionsLocalizations {
+  AuthenticatorInstructionsLocalizations(String locale)
       : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
-  static AuthenticatorTitleLocalizations? of(BuildContext context) {
-    return Localizations.of<AuthenticatorTitleLocalizations>(
+  static AuthenticatorInstructionsLocalizations? of(BuildContext context) {
+    return Localizations.of<AuthenticatorInstructionsLocalizations>(
       context,
-      AuthenticatorTitleLocalizations,
+      AuthenticatorInstructionsLocalizations,
     );
   }
 
-  static const LocalizationsDelegate<AuthenticatorTitleLocalizations> delegate =
-      _AuthenticatorTitleLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorInstructionsLocalizations>
+      delegate = _AuthenticatorInstructionsLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -99,74 +99,50 @@ abstract class AuthenticatorTitleLocalizations {
     Locale('en'),
   ];
 
-  /// Title of the Confirm Sign Up step and form
+  /// The header for the first step of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Enter your confirmation code'**
-  String get confirmSignUp;
+  /// **'Step 1: Download an Authenticator app'**
+  String get totpStep1Title;
 
-  /// Title of the Confirm Sign In with MFA step and form
+  /// The header for the second step of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Enter your sign in code'**
-  String get confirmSignInMfa;
+  /// **'Step 2: Enter the QR code'**
+  String get totpStep2Title;
 
-  /// Title of the Confirm Sign In with Custom Auth step and form
+  /// The header for the third step of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Enter your sign in code'**
-  String get confirmSignInCustomAuth;
+  /// **'Step 3: Verify your code'**
+  String get totpStep3Title;
 
-  /// Title of the Confirm Sign In with New Password step and form
+  /// The instructional text for step one of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Change your password to sign in'**
-  String get confirmSignInNewPassword;
+  /// **'Authenticator apps generate one-time codes that can be used to verify your identity'**
+  String get totpStep1Body;
 
-  /// Title of the SignIn with MFA selection step and form
+  /// The instructional text for step two of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Select your preferred Two-Factor Auth method'**
-  String get continueSignInWithMfaSelection;
+  /// **'Open then Authenticator app and scan the QR code or enter the key to get your verification code'**
+  String get totpStep2Body;
 
-  /// Title of the SignIn with TOTP setup step and form
+  /// The instructional text for step three of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Enable Two-Factor Auth'**
-  String get continueSignInWithTotpSetup;
-
-  /// Title of the Confirm Sign In with Totp MFA Code step and form
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your one-time passcode'**
-  String get confirmSignInWithTotpMfaCode;
-
-  /// Title of the Reset Password step and form
-  ///
-  /// In en, this message translates to:
-  /// **'Send Code'**
-  String get resetPassword;
-
-  /// Title of the Confirm Reset Password step and form
-  ///
-  /// In en, this message translates to:
-  /// **'Reset your password'**
-  String get confirmResetPassword;
-
-  /// Title of the Verify and Confirm Verify User s and forms
-  ///
-  /// In en, this message translates to:
-  /// **'Account recovery requires verified contact information'**
-  String get verifyUser;
+  /// **'Enter the 6 digit code from your Authenticator app'**
+  String get totpStep3Body;
 }
 
-class _AuthenticatorTitleLocalizationsDelegate
-    extends LocalizationsDelegate<AuthenticatorTitleLocalizations> {
-  const _AuthenticatorTitleLocalizationsDelegate();
+class _AuthenticatorInstructionsLocalizationsDelegate
+    extends LocalizationsDelegate<AuthenticatorInstructionsLocalizations> {
+  const _AuthenticatorInstructionsLocalizationsDelegate();
 
   @override
-  Future<AuthenticatorTitleLocalizations> load(Locale locale) {
-    return lookupAuthenticatorTitleLocalizations(locale);
+  Future<AuthenticatorInstructionsLocalizations> load(Locale locale) {
+    return lookupAuthenticatorInstructionsLocalizations(locale);
   }
 
   @override
@@ -174,23 +150,23 @@ class _AuthenticatorTitleLocalizationsDelegate
       <String>['en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_AuthenticatorTitleLocalizationsDelegate old) => false;
+  bool shouldReload(_AuthenticatorInstructionsLocalizationsDelegate old) =>
+      false;
 }
 
-Future<AuthenticatorTitleLocalizations> lookupAuthenticatorTitleLocalizations(
-  Locale locale,
-) {
+Future<AuthenticatorInstructionsLocalizations>
+    lookupAuthenticatorInstructionsLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return title_localizations_en.loadLibrary().then(
-            (dynamic _) =>
-                title_localizations_en.AuthenticatorTitleLocalizationsEn(),
+      return instructions_localizations_en.loadLibrary().then(
+            (dynamic _) => instructions_localizations_en
+                .AuthenticatorInstructionsLocalizationsEn(),
           );
   }
 
   throw FlutterError(
-      'AuthenticatorTitleLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'AuthenticatorInstructionsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
       'an issue with the localizations generation tool. Please file an issue '
       'on GitHub with a reproducible sample app and the gen-l10n configuration '
       'that was used.');

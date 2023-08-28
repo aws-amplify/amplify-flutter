@@ -95,7 +95,9 @@ abstract class AuthenticatorInputLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// User's chosen username.
   ///
@@ -282,6 +284,24 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Confirmation Code'**
   String get customChallenge;
+
+  /// Label for the radio button to select SMS as the user's chosen MFA method..
+  ///
+  /// In en, this message translates to:
+  /// **'Text Message (SMS)'**
+  String get selectSms;
+
+  /// Label for the radio button to select TOTP as the user's chosen MFA method.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticator App (TOTP)'**
+  String get selectTotp;
+
+  /// The instructional text for submitting a TOTP pass code
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the code from your registered Authenticator app'**
+  String get totpCodePrompt;
 }
 
 class _AuthenticatorInputLocalizationsDelegate

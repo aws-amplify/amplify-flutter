@@ -8,7 +8,6 @@ import 'package:checks/checks.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
-import 'utils/totp_utils.dart';
 
 void main() {
   testRunner.setupTests();
