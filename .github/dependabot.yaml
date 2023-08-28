@@ -786,6 +786,33 @@ updates:
       - dependency-name: "example_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
+    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+  - package-ecosystem: "pub"
+    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      - dependency-name: "amplify_lints"
+  - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch"
     schedule:
       interval: "daily"
