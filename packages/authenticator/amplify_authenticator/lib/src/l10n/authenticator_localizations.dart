@@ -7,8 +7,8 @@ import 'package:amplify_authenticator/src/l10n/generated/country_localizations.d
 import 'package:amplify_authenticator/src/l10n/generated/country_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart';
-import 'package:amplify_authenticator/src/l10n/generated/instruction_localizations.dart';
-import 'package:amplify_authenticator/src/l10n/generated/instruction_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/instructions_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/instructions_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
@@ -36,7 +36,8 @@ abstract class AuthenticatorLocalizations {
   static final _titlesFallback = AuthenticatorTitleLocalizationsEn();
   static final _messagesFallback = AuthenticatorMessageLocalizationsEn();
   static final _countriesFallback = AuthenticatorCountryLocalizationsEn();
-  static final _instructionFallback = AuthenticatorInstructionLocalizationsEn();
+  static final _instructionsFallback =
+      AuthenticatorInstructionsLocalizationsEn();
 
   /// Retrieves the [AuthenticatorButtonLocalizations] instance, falling back
   /// to English if unavailable for this locale.
@@ -68,12 +69,12 @@ abstract class AuthenticatorLocalizations {
     return AuthenticatorCountryLocalizations.of(context) ?? _countriesFallback;
   }
 
-  /// Retrieves the [AuthenticatorInstructionLocalizations] instance, falling back
+  /// Retrieves the [AuthenticatorInstructionsLocalizations] instance, falling back
   /// to English if unavailable for this locale.
-  static AuthenticatorInstructionLocalizations instructionOf(
+  static AuthenticatorInstructionsLocalizations instructionsOf(
     BuildContext context,
   ) {
-    return AuthenticatorInstructionLocalizations.of(context) ??
-        _instructionFallback;
+    return AuthenticatorInstructionsLocalizations.of(context) ??
+        _instructionsFallback;
   }
 }

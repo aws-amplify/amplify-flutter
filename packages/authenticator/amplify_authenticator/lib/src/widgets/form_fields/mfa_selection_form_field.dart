@@ -8,8 +8,8 @@ part of authenticator.form_field;
 /// A prebuilt form widget for use on the MFA selection step.
 /// {@endtemplate}
 
-class _MfaSelectionRadioField extends ConfirmSignInFormField<MfaType> {
-  const _MfaSelectionRadioField({
+class _MfaMethodRadioField extends ConfirmSignInFormField<MfaType> {
+  const _MfaMethodRadioField({
     super.key,
     required super.field,
   }) : super._();
@@ -33,12 +33,12 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
   List<InputSelection<InputResolverKey, MfaType>> get selections => [
         if (_allowedMfaTypes.contains(MfaType.totp))
           const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.mfaTotpMethodTitle,
+            label: InputResolverKey.selectTotp,
             value: MfaType.totp,
           ),
         if (_allowedMfaTypes.contains(MfaType.sms))
           const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.mfaSmsMethodTitle,
+            label: InputResolverKey.selectSms,
             value: MfaType.sms,
           ),
       ];

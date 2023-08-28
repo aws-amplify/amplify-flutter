@@ -634,19 +634,8 @@ class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
     super.key,
   }) : super._(
           fields: [
-            InstructionFormField.totpSetup(),
+            TotpSetupFormField.totpSetup(),
           ],
-          actions: const [
-            ConfirmSignInMFAButton(),
-            BackToSignInButton(),
-          ],
-        );
-
-  /// A custom Confirm Sign In with Totp Setup form.
-  const ContinueSignInWithTotpSetupForm.custom({
-    super.key,
-    required super.fields,
-  }) : super._(
           actions: const [
             ConfirmSignInMFAButton(),
             BackToSignInButton(),
@@ -667,8 +656,9 @@ class ConfirmSignInWithTotpMfaCodeForm extends AuthenticatorForm {
   ConfirmSignInWithTotpMfaCodeForm({super.key})
       : super._(
           fields: [
-            InstructionFormField.totpCodeInstruction(),
-            ConfirmSignInFormField.verificationCode(),
+            ConfirmSignInFormField.verificationCode(
+              promptKey: InputResolverKey.totpCodePrompt,
+            ),
           ],
           actions: const [
             ConfirmSignInMFAButton(),

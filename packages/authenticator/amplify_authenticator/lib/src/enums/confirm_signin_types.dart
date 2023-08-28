@@ -27,7 +27,7 @@ enum ConfirmSignInField {
   // website,
   custom,
   customChallenge,
-  selectMfaMethod,
+  mfaMethod,
 }
 
 extension ConfirmSignInFieldX on ConfirmSignInField {
@@ -36,6 +36,7 @@ extension ConfirmSignInFieldX on ConfirmSignInField {
       case ConfirmSignInField.code:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.custom:
+      case ConfirmSignInField.mfaMethod:
         throw StateError('Can only be called on attribute types');
       default:
         final key =

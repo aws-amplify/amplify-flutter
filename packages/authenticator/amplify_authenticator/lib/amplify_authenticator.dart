@@ -91,6 +91,7 @@ export 'src/widgets/form_field.dart'
         ResetPasswordFormField,
         SignInFormField,
         SignUpFormField,
+        TotpSetupFormField,
         VerifyUserFormField;
 
 /// {@template amplify_authenticator.authenticator}
@@ -357,7 +358,7 @@ class Authenticator extends StatefulWidget {
   // Padding around each authenticator view
   final EdgeInsets padding;
 
-  /// The totp options for authenticator
+  /// {@macro amplify_authenticator.totp_options}
   final TotpOptions? totpOptions;
 
   /// A method to build a custom UI for the authenticator

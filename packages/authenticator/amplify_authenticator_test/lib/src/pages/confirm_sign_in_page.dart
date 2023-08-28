@@ -25,7 +25,8 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Finder get confirmSignInButton => find.byKey(keyConfirmSignInButton);
   Finder get confirmSignInMfaSelectionButton =>
       find.byKey(keyConfirmSignInMfaSelectionButton);
-  Finder get mfaSelection => find.byKey(keyMfaSelectionTotpSignInFormField);
+  Finder get selectMfaRadio =>
+      find.byKey(keyMfaMethodRadioConfirmSignInFormField);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
 
   /// Then I see "Confirm Sign In - New Password"
@@ -120,10 +121,10 @@ class ConfirmSignInPage extends AuthenticatorPage {
   Future<void> selectMfaMethod({
     required MfaType mfaMethod,
   }) async {
-    expect(mfaSelection, findsOneWidget);
+    expect(selectMfaRadio, findsOneWidget);
 
     final mfaMethodWidget = find.descendant(
-      of: mfaSelection,
+      of: selectMfaRadio,
       matching: find.textContaining('(${mfaMethod.name.toUpperCase()})'),
     );
 

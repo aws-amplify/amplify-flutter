@@ -21,8 +21,6 @@ enum InputField {
   givenName,
   // locale,
   middleName,
-  mfaSmsMethod,
-  mfaTotpMethod,
   name,
   nickname,
   phoneNumber,
@@ -33,7 +31,10 @@ enum InputField {
   // updatedAt,
   // website,
   rememberDevice,
-  usernameType
+  selectSms,
+  selectTotp,
+  totpCodePrompt,
+  usernameType,
 }
 
 enum InputResolverKeyType {
@@ -160,13 +161,19 @@ class InputResolverKey {
     field: InputField.customAuthChallenge,
   );
 
-  static const mfaTotpMethodTitle = InputResolverKey._(
+  static const selectTotp = InputResolverKey._(
     InputResolverKeyType.title,
-    field: InputField.mfaTotpMethod,
+    field: InputField.selectTotp,
   );
-  static const mfaSmsMethodTitle = InputResolverKey._(
+
+  static const selectSms = InputResolverKey._(
     InputResolverKeyType.title,
-    field: InputField.mfaSmsMethod,
+    field: InputField.selectSms,
+  );
+
+  static const totpCodePrompt = InputResolverKey._(
+    InputResolverKeyType.title,
+    field: InputField.totpCodePrompt,
   );
 
   static const verificationCodeTitle = InputResolverKey._(
@@ -443,12 +450,14 @@ class InputResolver extends Resolver<InputResolverKey> {
       //   break;
       // case InputField.website:
       //   break;
-      case InputField.mfaSmsMethod:
-        return AuthenticatorLocalizations.inputsOf(context).smsSelection;
-      case InputField.mfaTotpMethod:
-        return AuthenticatorLocalizations.inputsOf(context).totpSelection;
       case InputField.rememberDevice:
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
+      case InputField.selectSms:
+        return AuthenticatorLocalizations.inputsOf(context).selectSms;
+      case InputField.selectTotp:
+        return AuthenticatorLocalizations.inputsOf(context).selectTotp;
+      case InputField.totpCodePrompt:
+        return AuthenticatorLocalizations.inputsOf(context).totpCodePrompt;
       case InputField.usernameType:
         return AuthenticatorLocalizations.inputsOf(context).usernameType;
     }

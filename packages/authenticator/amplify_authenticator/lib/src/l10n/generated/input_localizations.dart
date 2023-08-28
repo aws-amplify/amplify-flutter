@@ -255,18 +255,6 @@ abstract class AuthenticatorInputLocalizations {
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
 
-  /// Label for the radio button to select SMS as the user's chosen MFA method..
-  ///
-  /// In en, this message translates to:
-  /// **'Text Message (SMS)'**
-  String get smsSelection;
-
-  /// Label for the radio button to select TOTP as the user's chosen MFA method.
-  ///
-  /// In en, this message translates to:
-  /// **'Authenticator App (TOTP)'**
-  String get totpSelection;
-
   /// Message for conflicting password and confirm password fields.
   ///
   /// In en, this message translates to:
@@ -296,6 +284,24 @@ abstract class AuthenticatorInputLocalizations {
   /// In en, this message translates to:
   /// **'Confirmation Code'**
   String get customChallenge;
+
+  /// Label for the radio button to select SMS as the user's chosen MFA method..
+  ///
+  /// In en, this message translates to:
+  /// **'Text Message (SMS)'**
+  String get selectSms;
+
+  /// Label for the radio button to select TOTP as the user's chosen MFA method.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticator App (TOTP)'**
+  String get selectTotp;
+
+  /// The instructional text for submitting a TOTP pass code
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the code from your registered Authenticator app'**
+  String get totpCodePrompt;
 }
 
 class _AuthenticatorInputLocalizationsDelegate

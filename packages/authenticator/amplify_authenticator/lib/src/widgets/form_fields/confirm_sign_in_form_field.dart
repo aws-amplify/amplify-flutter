@@ -23,7 +23,9 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     CognitoUserAttributeKey? customAttributeKey,
     bool? required,
     super.autofillHints,
+    InputResolverKey? promptKey,
   })  : _customAttributeKey = customAttributeKey,
+        _promptKey = promptKey,
         super._(
           requiredOverride: required,
         );
@@ -83,9 +85,9 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   static ConfirmSignInFormField<MfaType> mfaSelection({
     Key? key,
   }) =>
-      _MfaSelectionRadioField(
-        key: key ?? keyMfaSelectionTotpSignInFormField,
-        field: ConfirmSignInField.selectMfaMethod,
+      _MfaMethodRadioField(
+        key: key ?? keyMfaMethodRadioConfirmSignInFormField,
+        field: ConfirmSignInField.mfaMethod,
       );
 
   /// Creates a verification code component.
@@ -93,6 +95,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
+    InputResolverKey? promptKey,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyCodeConfirmSignInFormField,
@@ -101,6 +104,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         field: ConfirmSignInField.code,
         validator: validator,
         autofillHints: autofillHints,
+        promptKey: promptKey,
       );
 
   /// Creates an address component.
@@ -314,6 +318,9 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   /// Custom Cognito attribute key.
   final CognitoUserAttributeKey? _customAttributeKey;
 
+  /// The key for the prompt to display above the field using the surlabel override.
+  final InputResolverKey? _promptKey;
+
   @override
   int get displayPriority {
     switch (field) {
@@ -323,7 +330,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         return 99;
       case ConfirmSignInField.code:
       case ConfirmSignInField.customChallenge:
-      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.mfaMethod:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -348,7 +355,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
-      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.mfaMethod:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -370,6 +377,16 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
 abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<ConfirmSignInField, FieldValue,
         ConfirmSignInFormField<FieldValue>> {
+  @override
+  Widget? get surlabel {
+    if (widget.field == ConfirmSignInField.code && widget._promptKey != null) {
+      return Text(
+        stringResolver.inputs.resolve(context, widget._promptKey!),
+      );
+    }
+    return null;
+  }
+
   @override
   bool get obscureText {
     switch (widget.field) {
@@ -482,7 +499,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         ];
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
-      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.mfaMethod:
         return null;
     }
   }
@@ -564,6 +581,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     super.validator,
     super.required,
     super.autofillHints,
+    super.promptKey,
   }) : super._(
           customAttributeKey: attributeKey,
         );

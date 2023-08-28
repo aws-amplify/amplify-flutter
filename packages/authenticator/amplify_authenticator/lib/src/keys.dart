@@ -50,13 +50,8 @@ const keyCodeConfirmSignUpFormField = Key('codeConfirmSignUpFormField');
 const keyCodeConfirmSignInFormField = Key('codeConfirmSignInFormField');
 const keyCustomChallengeConfirmSignInFormField =
     Key('customChallengeConfirmSignInFormField');
-const keyMfaSelectionTotpSignInFormField =
-    Key('mfaSelectionTotpSignInFormField');
-const keyMfaSelectionSmsSignInFormField = Key('mfaSelectionSmsSignInFormField');
-const keyTotpQrCodeInstructionFormField = Key('totpQrCodeInstructionFormField');
-const keyTotpCopyKeyInstructionFormField =
-    Key('totpCopyKeyInstructionFormField');
-const keyTotpSetupInstructionFormField = Key('totpSetupInstructionFormField');
+const keyMfaMethodRadioConfirmSignInFormField =
+    Key('mfaMethodRadioConfirmSignInFormField');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -140,3 +135,8 @@ const keyInheritedAuthBloc = Key('inheritedAuthBloc');
 // Banner Keys
 
 const keyAuthenticatorBanner = Key('authenticatorBanner');
+
+// Totp setup form keys
+const keyQrCodeTotpSetupFormField = Key('qrCodeTotpSetupFormField');
+const keyCopyKeyTotpSetupFormField = Key('copyKeyTotpSetupFormField');
+const keyTotpSetupFormField = Key('totpSetupFormField');

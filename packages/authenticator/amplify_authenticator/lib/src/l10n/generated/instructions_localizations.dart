@@ -3,25 +3,25 @@
 
 import 'dart:async';
 
-import 'package:amplify_authenticator/src/l10n/generated/instruction_localizations_en.dart'
-    deferred as instruction_localizations_en;
+import 'package:amplify_authenticator/src/l10n/generated/instructions_localizations_en.dart'
+    deferred as instructions_localizations_en;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-/// Callers can lookup localized strings with an instance of AuthenticatorInstructionLocalizations
-/// returned by `AuthenticatorInstructionLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AuthenticatorInstructionsLocalizations
+/// returned by `AuthenticatorInstructionsLocalizations.of(context)`.
 ///
-/// Applications need to include `AuthenticatorInstructionLocalizations.delegate()` in their app's
+/// Applications need to include `AuthenticatorInstructionsLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'generated/instruction_localizations.dart';
+/// import 'generated/instructions_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: AuthenticatorInstructionLocalizations.localizationsDelegates,
-///   supportedLocales: AuthenticatorInstructionLocalizations.supportedLocales,
+///   localizationsDelegates: AuthenticatorInstructionsLocalizations.localizationsDelegates,
+///   supportedLocales: AuthenticatorInstructionsLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -58,23 +58,23 @@ import 'package:intl/intl.dart' as intl;
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the AuthenticatorInstructionLocalizations.supportedLocales
+/// be consistent with the languages listed in the AuthenticatorInstructionsLocalizations.supportedLocales
 /// property.
-abstract class AuthenticatorInstructionLocalizations {
-  AuthenticatorInstructionLocalizations(String locale)
+abstract class AuthenticatorInstructionsLocalizations {
+  AuthenticatorInstructionsLocalizations(String locale)
       : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
-  static AuthenticatorInstructionLocalizations? of(BuildContext context) {
-    return Localizations.of<AuthenticatorInstructionLocalizations>(
+  static AuthenticatorInstructionsLocalizations? of(BuildContext context) {
+    return Localizations.of<AuthenticatorInstructionsLocalizations>(
       context,
-      AuthenticatorInstructionLocalizations,
+      AuthenticatorInstructionsLocalizations,
     );
   }
 
-  static const LocalizationsDelegate<AuthenticatorInstructionLocalizations>
-      delegate = _AuthenticatorInstructionLocalizationsDelegate();
+  static const LocalizationsDelegate<AuthenticatorInstructionsLocalizations>
+      delegate = _AuthenticatorInstructionsLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -103,52 +103,46 @@ abstract class AuthenticatorInstructionLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Step 1: Download an Authenticator app'**
-  String get totpStep1;
+  String get totpStep1Title;
 
   /// The header for the second step of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Step 2: Enter the QR code'**
-  String get totpStep2;
+  String get totpStep2Title;
 
   /// The header for the third step of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Step 3: Verify your code'**
-  String get totpStep3;
+  String get totpStep3Title;
 
   /// The instructional text for step one of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Authenticator apps generate one-time codes that can be used to verify your identity'**
-  String get totpStep1Instruction;
+  String get totpStep1Body;
 
   /// The instructional text for step two of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Open then Authenticator app and scan the QR code or enter the key to get your verification code'**
-  String get totpStep2Instruction;
+  String get totpStep2Body;
 
   /// The instructional text for step three of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Enter the 6 digit code from your Authenticator app'**
-  String get totpStep3Instruction;
-
-  /// The instructional text for submitting a TOTP pass code
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter the code from your registered Authenticator app'**
-  String get totpPassCodeInstruction;
+  String get totpStep3Body;
 }
 
-class _AuthenticatorInstructionLocalizationsDelegate
-    extends LocalizationsDelegate<AuthenticatorInstructionLocalizations> {
-  const _AuthenticatorInstructionLocalizationsDelegate();
+class _AuthenticatorInstructionsLocalizationsDelegate
+    extends LocalizationsDelegate<AuthenticatorInstructionsLocalizations> {
+  const _AuthenticatorInstructionsLocalizationsDelegate();
 
   @override
-  Future<AuthenticatorInstructionLocalizations> load(Locale locale) {
-    return lookupAuthenticatorInstructionLocalizations(locale);
+  Future<AuthenticatorInstructionsLocalizations> load(Locale locale) {
+    return lookupAuthenticatorInstructionsLocalizations(locale);
   }
 
   @override
@@ -156,23 +150,23 @@ class _AuthenticatorInstructionLocalizationsDelegate
       <String>['en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_AuthenticatorInstructionLocalizationsDelegate old) =>
+  bool shouldReload(_AuthenticatorInstructionsLocalizationsDelegate old) =>
       false;
 }
 
-Future<AuthenticatorInstructionLocalizations>
-    lookupAuthenticatorInstructionLocalizations(Locale locale) {
+Future<AuthenticatorInstructionsLocalizations>
+    lookupAuthenticatorInstructionsLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return instruction_localizations_en.loadLibrary().then(
-            (dynamic _) => instruction_localizations_en
-                .AuthenticatorInstructionLocalizationsEn(),
+      return instructions_localizations_en.loadLibrary().then(
+            (dynamic _) => instructions_localizations_en
+                .AuthenticatorInstructionsLocalizationsEn(),
           );
   }
 
   throw FlutterError(
-      'AuthenticatorInstructionLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'AuthenticatorInstructionsLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
       'an issue with the localizations generation tool. Please file an issue '
       'on GitHub with a reproducible sample app and the gen-l10n configuration '
       'that was used.');

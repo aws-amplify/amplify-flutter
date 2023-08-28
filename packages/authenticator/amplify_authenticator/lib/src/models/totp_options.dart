@@ -3,6 +3,23 @@
 
 /// {@template amplify_authenticator.totp_options}
 /// Options for configuring the TOTP MFA Experience
+///
+/// ```dart
+/// @override
+/// Widget build(BuildContext context) {
+///   return Authenticator(
+///     totpOptions: const TotpOptions(issuer: 'My App'),
+///     child: MaterialApp(
+///       builder: Authenticator.builder(),
+///       home: Scaffold(
+///         body: Center(
+///           child: Text('You are logged in!'),
+///         ),
+///       ),
+///     ),
+///   ),
+/// }
+/// ```
 /// {@endtemplate}
 class TotpOptions {
   /// {@macro amplify_authenticator.totp_options}
