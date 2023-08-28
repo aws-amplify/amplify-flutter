@@ -5,5 +5,4 @@ enum TotpSetupField {
   totpSetup,
   totpQrCode,
   totpCopyKey,
-  totpCodeInstruction,
 }

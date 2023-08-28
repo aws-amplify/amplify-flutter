@@ -701,8 +701,7 @@ class _AuthenticatorState extends State<Authenticator> {
                     ContinueSignInWithMfaSelectionForm(),
                 continueSignInWithTotpSetupForm:
                     ContinueSignInWithTotpSetupForm(),
-                confirmSignInWithTotpMfaCodeForm:
-                    ConfirmSignInWithTotpMfaCodeForm(),
+                confirmSignInWithTotpMfaCodeForm: ConfirmSignInMFAForm(),
                 verifyUserForm: VerifyUserForm(),
                 confirmVerifyUserForm: ConfirmVerifyUserForm(),
                 child: widget.child,

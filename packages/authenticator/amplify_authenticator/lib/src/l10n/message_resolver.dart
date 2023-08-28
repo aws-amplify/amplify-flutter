@@ -12,10 +12,10 @@ enum MessageResolverKeyType {
 }
 
 class MessageResolverKey {
-  const MessageResolverKey(this.type, this.destination);
+  const MessageResolverKey._(this.type, this.destination);
 
   const MessageResolverKey.codeSent(String? destination)
-      : this(
+      : this._(
           MessageResolverKeyType.codeSent,
           destination,
         );

@@ -68,7 +68,7 @@ class _InstructionTotpSetupFieldState
     extends _InstructionFormFieldState<String> {
   static const _spacingBox = SizedBox(height: 10);
 
-  String instructionResolver(InstructionsKeyType type) =>
+  String resolveInstruction(InstructionsKeyType type) =>
       stringResolver.instruction.resolve(
         context,
         type,
@@ -80,28 +80,28 @@ class _InstructionTotpSetupFieldState
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          instructionResolver(InstructionsKeyType.totpStep1Title),
+          resolveInstruction(InstructionsKeyType.totpStep1Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          instructionResolver(InstructionsKeyType.totpStep1Body),
+          resolveInstruction(InstructionsKeyType.totpStep1Body),
         ),
         _spacingBox,
         Text(
-          instructionResolver(InstructionsKeyType.totpStep2Title),
+          resolveInstruction(InstructionsKeyType.totpStep2Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          instructionResolver(InstructionsKeyType.totpStep2Body),
+          resolveInstruction(InstructionsKeyType.totpStep2Body),
         ),
         TotpSetupFormField.totpQrCode(),
         TotpSetupFormField.totpCopyKey(),
         Text(
-          instructionResolver(InstructionsKeyType.totpStep3Title),
+          resolveInstruction(InstructionsKeyType.totpStep3Title),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          instructionResolver(InstructionsKeyType.totpStep3Body),
+          resolveInstruction(InstructionsKeyType.totpStep3Body),
         ),
         ConfirmSignInFormField.verificationCode(),
       ],
