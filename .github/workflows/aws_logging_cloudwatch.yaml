@@ -11,8 +11,7 @@ on:
       - '.github/workflows/aws_logging_cloudwatch.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/dart_ddc.yaml'
-      - '.github/workflows/dart_native.yaml'
-      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/flutter_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -38,25 +37,7 @@ permissions: read-all
 
 jobs:
   test:
-    uses: ./.github/workflows/dart_vm.yaml
-    with:
-      package-name: aws_logging_cloudwatch
-      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
-  native_test:
-    needs: test
-    uses: ./.github/workflows/dart_native.yaml
-    with:
-      package-name: aws_logging_cloudwatch
-      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
-  ddc_test:
-    needs: test
-    uses: ./.github/workflows/dart_ddc.yaml
-    with:
-      package-name: aws_logging_cloudwatch
-      working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
-  dart2js_test:
-    needs: test
-    uses: ./.github/workflows/dart_dart2js.yaml
+    uses: ./.github/workflows/flutter_vm.yaml
     with:
       package-name: aws_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
