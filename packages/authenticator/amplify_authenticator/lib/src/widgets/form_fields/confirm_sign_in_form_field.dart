@@ -379,12 +379,13 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         ConfirmSignInFormField<FieldValue>> {
   @override
   Widget? get surlabel {
-    if (widget.field == ConfirmSignInField.code && widget._promptKey != null) {
-      return Text(
-        stringResolver.inputs.resolve(context, widget._promptKey!),
-      );
+    final promptKey = widget._promptKey;
+    switch (widget.field) {
+      case ConfirmSignInField.code when promptKey != null:
+        return Text(promptKey.resolve(context, stringResolver.inputs));
+      default:
+        return null;
     }
-    return null;
   }
 
   @override
