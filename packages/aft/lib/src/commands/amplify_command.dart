@@ -14,8 +14,6 @@ import 'package:git/git.dart' as git;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:yaml/yaml.dart';
-import 'package:yaml_edit/yaml_edit.dart';
 
 /// Base class for all commands in this package providing common functionality.
 abstract class AmplifyCommand extends Command<void>
@@ -200,25 +198,5 @@ abstract class AmplifyCommand extends Command<void>
   @mustCallSuper
   void close() {
     httpClient.close();
-  }
-}
-
-extension on YamlEditor {
-  /// Merges [node] into `this` at the given [path].
-  ///
-  /// This differs from [update] in that it recurses into the tree to only add
-  /// or override leaf nodes (i.e. [YamlScalar] values) for maps.
-  ///
-  /// Lists cannot be safely merged, so they are overridden as with [update].
-  void merge(YamlNode node, [List<Object?> path = const []]) {
-    if (node is YamlMap) {
-      for (final key in node.keys) {
-        merge(node.nodes[key]!, [...path, key]);
-      }
-      return;
-    } else if (node is YamlList) {
-      safePrint('WARNING: Cannot merge YAML list values');
-    }
-    update(path, node);
   }
 }

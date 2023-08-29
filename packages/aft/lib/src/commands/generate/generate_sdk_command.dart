@@ -312,7 +312,7 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
                 (p) => p
                   ..toThis = true
                   ..name = 'service',
-              )
+              ),
             ]),
         ),
       )
@@ -323,7 +323,7 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
             ..docs.add('/// The SigV4 service name, used in signing.')
             ..name = 'service'
             ..type = refer('String'),
-        )
+        ),
       ]);
 
     final modelsDir = await _modelsDirForRef('master');

@@ -176,8 +176,8 @@ class GenerateGoldensCommand extends AmplifyCommand {
           'software.amazon.smithy:smithy-aws-traits:$latestVersion',
           'software.amazon.smithy:smithy-mqtt-traits:$latestVersion',
           'software.amazon.smithy:smithy-protocol-test-traits:$latestVersion',
-          'software.amazon.smithy:smithy-validation-model:$latestVersion'
-        ]
+          'software.amazon.smithy:smithy-validation-model:$latestVersion',
+        ],
       }),
     );
     final smithyVersion = File(p.join(goldensRoot, 'smithy-version'));
