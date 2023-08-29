@@ -212,16 +212,17 @@ void main() {
       () async {
         const capacityLimit = 1;
 
-        for (var i = 0; i < 100; i++) {
-          await db.addItem('0', DateTime.now().toIso8601String());
+        final largeItem = '0' * 10240; // 10KB for example
+
+        for (var i = 0; i < 5; i++) {
+          await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
         var result = await db.isFull(capacityLimit);
         expect(result, isFalse);
 
-        // add enough items to exceed capacity limit of 1mb
-        for (var i = 0; i < 50000; i++) {
-          await db.addItem('0', DateTime.now().toIso8601String());
+        for (var i = 0; i < 100; i++) {
+          await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
         result = await db.isFull(capacityLimit);
