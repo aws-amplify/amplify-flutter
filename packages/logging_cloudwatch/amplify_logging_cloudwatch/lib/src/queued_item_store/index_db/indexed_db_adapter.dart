@@ -69,7 +69,8 @@ class IndexedDbAdapter implements QueuedItemStore {
   @override
   Future<void> addItem(String string, String timestamp) async {
     await _databaseOpenEvent;
-    await _getObjectStore().add(string, timestamp).future;
+    await _getObjectStore()
+        .push({'value': string, 'timestamp': timestamp}).future;
 
     _currentTotalByteSize += QueuedItem.getByteSize(string, timestamp);
   }
