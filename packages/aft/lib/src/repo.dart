@@ -51,6 +51,8 @@ class Repo {
 
   final GitDir git;
 
+  PackageInfo operator [](String packageName) => allPackages[packageName]!;
+
   /// All packages which can be published to `pub.dev`.
   List<PackageInfo> publishablePackages([
     Map<String, PackageInfo>? allPackages,
@@ -250,6 +252,35 @@ class Repo {
         }
       }
     }
+  }
+
+  /// Writes all changes made by, for example, [bumpAllVersions], to disk.
+  ///
+  /// If [packages] is passed, only changes for those packages are written.
+  /// Otherwise, all repo packages are affected.
+  ///
+  /// Returns the list of packages which both had changes and were written.
+  Future<List<PackageInfo>> writeChanges({
+    List<PackageInfo>? packages,
+  }) async {
+    final affectedPackages = <PackageInfo>[];
+    for (final package in packages ?? allPackages.values.toList()) {
+      final edits = package.pubspecInfo.pubspecYamlEditor.edits;
+      // Don't write changelog updates for packages with no corresponding
+      // pubspec update.
+      if (edits.isEmpty) {
+        continue;
+      }
+      affectedPackages.add(package);
+      await File(p.join(package.path, 'pubspec.yaml'))
+          .writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
+      final changelogUpdate = changelogUpdates[package];
+      if (changelogUpdate != null && changelogUpdate.hasUpdate) {
+        await File(p.join(package.path, 'CHANGELOG.md'))
+            .writeAsString(changelogUpdate.toString());
+      }
+    }
+    return affectedPackages;
   }
 
   /// Bumps the version and changelog in [package] and its component packages
