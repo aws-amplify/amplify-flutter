@@ -3,30 +3,39 @@
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/constraints_checker.dart';
+import 'package:aft/src/repo.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
-import 'common.dart';
+import 'helpers/descriptors.dart' as d;
+
+extension on Repo {
+  PackageInfo get amplifyCore => this['amplify_core'];
+  PackageInfo get amplifyFlutter => this['amplify_flutter'];
+  PackageInfo get amplifyTest => this['amplify_test'];
+}
 
 void main() {
   group('GlobalConstraintsChecker', () {
     for (final action in ConstraintsAction.values) {
       test(
         'handles SDK constraints for preview Dart versions (${action.name})',
-        () {
-          final preReleaseConstraint = VersionConstraint.compatibleWith(
-            Version(3, 2, 0, pre: '0'),
-          );
-          final actions = dummyPackage(
-            'actions',
-            publishable: false,
-            sdkConstraint: preReleaseConstraint,
-          );
-          final amplifyFlutter = dummyPackage(
-            'amplify_flutter',
-            sdkConstraint: preReleaseConstraint,
-          );
+        () async {
+          const preReleaseConstraint = '^3.2.0-0';
+          final actions = await d
+              .package(
+                'actions',
+                publishable: false,
+                sdkConstraint: preReleaseConstraint,
+              )
+              .create();
+          final amplifyFlutter = await d
+              .package(
+                'amplify_flutter',
+                sdkConstraint: preReleaseConstraint,
+              )
+              .create();
           final checker = GlobalConstraintChecker(
             action,
             const {},
@@ -37,25 +46,25 @@ void main() {
 
           {
             expect(
-              checker.checkConstraints(actions.key),
+              checker.checkConstraints(actions),
               isTrue,
               reason:
                   'Package is not publishable and can take a prerelease constraint '
                   'to leverage new Dart features',
             );
             expect(checker.mismatchedDependencies, isEmpty);
-            expect(actions.key.pubspecInfo.pubspecYamlEditor.edits, isEmpty);
+            expect(actions.pubspecInfo.pubspecYamlEditor.edits, isEmpty);
           }
 
           {
             switch (action) {
               case ConstraintsAction.apply || ConstraintsAction.update:
                 expect(
-                  checker.checkConstraints(amplifyFlutter.key),
+                  checker.checkConstraints(amplifyFlutter),
                   isTrue,
                 );
                 expect(
-                  amplifyFlutter.key.pubspecInfo.pubspecYamlEditor.edits.single,
+                  amplifyFlutter.pubspecInfo.pubspecYamlEditor.edits.single,
                   isA<SourceEdit>().having(
                     (edit) => edit.replacement.trim(),
                     'replacement',
@@ -65,7 +74,7 @@ void main() {
                 expect(checker.mismatchedDependencies, isEmpty);
               case ConstraintsAction.check:
                 expect(
-                  checker.checkConstraints(amplifyFlutter.key),
+                  checker.checkConstraints(amplifyFlutter),
                   isFalse,
                   reason:
                       'Package is publishable and must match the global SDK constraint',
@@ -85,7 +94,7 @@ void main() {
                       ),
                 );
                 expect(
-                  amplifyFlutter.key.pubspecInfo.pubspecYamlEditor.edits,
+                  amplifyFlutter.pubspecInfo.pubspecYamlEditor.edits,
                   isEmpty,
                 );
             }
@@ -105,49 +114,43 @@ void main() {
       test(
         '$result when a direct dep and transitive dev dep conflict '
         'for a published package',
-        () {
-          final amplifyCore = dummyPackage(
-            'amplify_core',
-            version: Version(1, 0, 0),
-          );
-          final amplifyTest = dummyPackage(
-            'amplify_test',
-            publishable: false,
-            deps: {
-              // An outdated constraint
-              amplifyCore.key: VersionConstraint.parse('<1.0.0'),
-            },
-          );
-          final amplifyFlutter = dummyPackage(
-            'amplify_flutter',
-            version: Version(1, 0, 0),
-            deps: {
-              amplifyCore.key: VersionConstraint.parse('>=1.0.0 <1.1.0'),
-            },
-            devDeps: {
-              amplifyTest.key: VersionConstraint.any,
-            },
-          );
-          final repoGraph = Map.fromEntries([
-            amplifyCore,
-            amplifyFlutter,
-            amplifyTest,
-          ]);
+        () async {
+          final repo = await d.repo([
+            d.package('amplify_core', version: '1.0.0'),
+            d.package(
+              'amplify_test',
+              publishable: false,
+              dependencies: {
+                // An outdated constraint
+                'amplify_core': '<1.0.0',
+              },
+            ),
+            d.package(
+              'amplify_flutter',
+              version: '1.0.0',
+              dependencies: {
+                'amplify_core': '>=1.0.0 <1.1.0',
+              },
+              devDependencies: {
+                'amplify_test': 'any',
+              },
+            ),
+          ]).create();
           final constraintsChecker = PublishConstraintsChecker(
             action,
-            repoGraph,
+            repo.getPackageGraph(includeDevDependencies: true),
           );
 
           {
             expect(
-              constraintsChecker.checkConstraints(amplifyCore.key),
+              constraintsChecker.checkConstraints(repo.amplifyCore),
               isTrue,
             );
           }
 
           {
             expect(
-              constraintsChecker.checkConstraints(amplifyTest.key),
+              constraintsChecker.checkConstraints(repo.amplifyTest),
               isTrue,
               reason:
                   "amplify_test's constraint on amplify_core is fine by itself",
@@ -158,11 +161,11 @@ void main() {
             switch (action) {
               case ConstraintsAction.apply || ConstraintsAction.update:
                 expect(
-                  constraintsChecker.checkConstraints(amplifyFlutter.key),
+                  constraintsChecker.checkConstraints(repo.amplifyFlutter),
                   isTrue,
                 );
                 expect(
-                  amplifyTest.key.pubspecInfo.pubspecYamlEditor.edits.single,
+                  repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits.single,
                   isA<SourceEdit>().having(
                     (edit) => edit.replacement,
                     'replacement',
@@ -172,7 +175,7 @@ void main() {
                 expect(constraintsChecker.mismatchedDependencies, isEmpty);
               case ConstraintsAction.check:
                 expect(
-                  constraintsChecker.checkConstraints(amplifyFlutter.key),
+                  constraintsChecker.checkConstraints(repo.amplifyFlutter),
                   isFalse,
                   reason:
                       'The constraint amplify_test has on amplify_core would '
@@ -194,7 +197,7 @@ void main() {
                       ),
                 );
                 expect(
-                  amplifyTest.key.pubspecInfo.pubspecYamlEditor.edits,
+                  repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits,
                   isEmpty,
                 );
             }

@@ -10,19 +10,12 @@ import 'package:aft/src/changelog/printer.dart';
 import 'package:aft/src/options/git_ref_options.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aft/src/repo.dart';
-import 'package:path/path.dart' as p;
 
 /// Command for bumping package versions across the repo.
 class VersionBumpCommand extends AmplifyCommand
     with GitRefOptions, GlobOptions {
   VersionBumpCommand() {
     argParser
-      ..addFlag(
-        'preview',
-        help: 'Preview version changes without applying',
-        defaultsTo: false,
-        negatable: false,
-      )
       ..addFlag(
         'yes',
         abbr: 'y',
@@ -56,8 +49,6 @@ class VersionBumpCommand extends AmplifyCommand
 
   late final bool yes = argResults!['yes'] as bool;
 
-  late final bool preview = argResults!['preview'] as bool;
-
   late final VersionBumpType? forcedBumpType = () {
     final forceBreaking = argResults!['force-breaking'] as bool;
     if (forceBreaking) return VersionBumpType.breaking;
@@ -85,39 +76,9 @@ class VersionBumpCommand extends AmplifyCommand
       changesForPackage: _changesForPackage,
       forcedBumpType: forcedBumpType,
     );
-    final changelogUpdates = repo.changelogUpdates;
-
-    final bumpedPackages = <PackageInfo>[];
-    for (final package in repo.publishablePackages()) {
-      final edits = package.pubspecInfo.pubspecYamlEditor.edits;
-      if (edits.isNotEmpty) {
-        bumpedPackages.add(package);
-        if (preview) {
-          logger.info('pubspec.yaml');
-          for (final edit in edits) {
-            final originalText = package.pubspecInfo.pubspecYaml
-                .substring(edit.offset, edit.offset + edit.length);
-            logger.info('$originalText --> ${edit.replacement}');
-          }
-        } else {
-          await File(p.join(package.path, 'pubspec.yaml'))
-              .writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
-        }
-      }
-      final changelogUpdate = changelogUpdates[package];
-      if (changelogUpdate != null && changelogUpdate.hasUpdate) {
-        if (preview) {
-          logger
-            ..info('CHANGELOG.md')
-            ..info(changelogUpdate.newText!);
-        } else {
-          await File(p.join(package.path, 'CHANGELOG.md'))
-              .writeAsString(changelogUpdate.toString());
-        }
-      }
-    }
-
-    return bumpedPackages;
+    return repo.writeChanges(
+      packages: repo.publishablePackages(),
+    );
   }
 
   @override
@@ -129,21 +90,18 @@ class VersionBumpCommand extends AmplifyCommand
 
     final bumpedPackages = await _updateVersions();
 
-    if (!preview) {
-      for (final package in bumpedPackages) {
-        // Run build_runner for packages which generate their version number.
-        final needsBuildRunner = package.pubspecInfo.pubspec.devDependencies
-            .containsKey('build_version');
-        if (!needsBuildRunner) {
-          continue;
-        }
-        await runPub(package.flavor, ['get'], package);
-        await runBuildRunner(
-          package,
-          logger: logger,
-          verbose: verbose,
-        );
+    for (final package in bumpedPackages) {
+      // Run build_runner for packages which generate their version number.
+      final needsBuildRunner = package.pubspecInfo.pubspec.devDependencies
+          .containsKey('build_version');
+      if (!needsBuildRunner) {
+        continue;
       }
+      await runBuildRunner(
+        package,
+        logger: logger,
+        verbose: verbose,
+      );
     }
 
     logger.info('Version successfully bumped');
