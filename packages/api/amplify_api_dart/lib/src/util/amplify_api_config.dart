@@ -37,8 +37,8 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
     return parsed.replace(
       pathSegments: [
         ...parsed.pathSegments,
-        if (pathSegmentsFromPath.isNotEmpty && pathSegmentsFromPath.first.isNotEmpty) ...pathSegmentsFromPath,
-      ],
+        ...pathSegmentsFromPath,
+      ].where((segment) => segment.isNotEmpty),
       queryParameters: queryParameters,
     );
   }
