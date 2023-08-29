@@ -1,3 +1,12 @@
+## 0.10.2+3
+
+### Fixes
+- fix(auth): Pass `deviceKey` in custom auth challenge
+
+## 0.10.2+2
+
+- Minor bug fixes and improvements
+
 ## 0.10.2+1
 
 ### Fixes

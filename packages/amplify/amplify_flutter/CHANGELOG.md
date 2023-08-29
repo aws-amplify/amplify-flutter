@@ -1,3 +1,15 @@
+## 1.3.3
+
+### Fixes
+- fix(auth): Pass `deviceKey` in custom auth challenge
+- fix(push): Deserialization from platform maps ([#3557](https://github.com/aws-amplify/amplify-flutter/pull/3557))
+
+## 1.3.2
+
+### Fixes
+- fix(core): Cross-zone completion
+- fix(datastore): Custom list serde ([#3544](https://github.com/aws-amplify/amplify-flutter/pull/3544))
+
 ## 1.3.1
 
 ### Fixes

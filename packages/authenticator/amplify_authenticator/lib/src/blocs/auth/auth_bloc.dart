@@ -24,6 +24,7 @@ class StateMachineBloc
     required AuthService authService,
     required this.preferPrivateSession,
     this.initialStep = AuthenticatorStep.signIn,
+    this.totpOptions,
   }) : _authService = authService {
     _hubSubscription = _authService.hubEvents.listen(_mapHubEvent);
     final blocStream = _authEventStream.asyncExpand((event) async* {
@@ -39,6 +40,7 @@ class StateMachineBloc
   final AuthService _authService;
   final bool preferPrivateSession;
   final AuthenticatorStep initialStep;
+  final TotpOptions? totpOptions;
 
   @override
   String get runtimeTypeName => 'StateMachineBloc';
@@ -212,6 +214,21 @@ class StateMachineBloc
           );
         case AuthSignInStep.confirmSignInWithNewPassword:
           yield UnauthenticatedState.confirmSignInNewPassword;
+        case AuthSignInStep.confirmSignInWithTotpMfaCode:
+          yield UnauthenticatedState.confirmSignInWithTotpMfaCode;
+        case AuthSignInStep.continueSignInWithMfaSelection:
+          yield ContinueSignInWithMfaSelection(
+            allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          );
+        case AuthSignInStep.continueSignInWithTotpSetup:
+          assert(
+            result.nextStep.totpSetupDetails != null,
+            'Sign In Result should have totpSetupDetails',
+          );
+          yield await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+            totpOptions,
+          );
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
         case AuthSignInStep.confirmSignUp:
@@ -245,6 +262,9 @@ class StateMachineBloc
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));
     }
+
+    // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
+    yield* const Stream.empty();
   }
 
   Stream<AuthState> _confirmResetPassword(
@@ -296,6 +316,25 @@ class StateMachineBloc
         );
       case AuthSignInStep.confirmSignInWithNewPassword:
         _emit(UnauthenticatedState.confirmSignInNewPassword);
+      case AuthSignInStep.continueSignInWithMfaSelection:
+        _emit(
+          ContinueSignInWithMfaSelection(
+            allowedMfaTypes: result.nextStep.allowedMfaTypes,
+          ),
+        );
+      case AuthSignInStep.continueSignInWithTotpSetup:
+        assert(
+          result.nextStep.totpSetupDetails != null,
+          'Sign In Result should have totpSetupDetails',
+        );
+        _emit(
+          await ContinueSignInTotpSetup.setupURI(
+            result.nextStep.totpSetupDetails!,
+            totpOptions,
+          ),
+        );
+      case AuthSignInStep.confirmSignInWithTotpMfaCode:
+        _emit(UnauthenticatedState.confirmSignInWithTotpMfaCode);
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
       case AuthSignInStep.confirmSignUp:

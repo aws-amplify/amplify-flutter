@@ -79,6 +79,15 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         autofillHints: autofillHints,
       );
 
+  /// Creates a mfa preference selection  component.
+  static ConfirmSignInFormField<MfaType> mfaSelection({
+    Key? key,
+  }) =>
+      _MfaMethodRadioField(
+        key: key ?? keyMfaMethodRadioConfirmSignInFormField,
+        field: ConfirmSignInField.mfaMethod,
+      );
+
   /// Creates a verification code component.
   static ConfirmSignInFormField<String> verificationCode({
     Key? key,
@@ -314,6 +323,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         return 99;
       case ConfirmSignInField.code:
       case ConfirmSignInField.customChallenge:
+      case ConfirmSignInField.mfaMethod:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -338,6 +348,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
+      case ConfirmSignInField.mfaMethod:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -359,6 +370,23 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
 abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<ConfirmSignInField, FieldValue,
         ConfirmSignInFormField<FieldValue>> {
+  @override
+  Widget? get surlabel {
+    switch (widget.field) {
+      case ConfirmSignInField.code
+          when state.currentStep ==
+              AuthenticatorStep.confirmSignInWithTotpMfaCode:
+        return Text(
+          InputResolverKey.totpCodePrompt.resolve(
+            context,
+            stringResolver.inputs,
+          ),
+        );
+      default:
+        return null;
+    }
+  }
+
   @override
   bool get obscureText {
     switch (widget.field) {
@@ -471,6 +499,7 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         ];
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
+      case ConfirmSignInField.mfaMethod:
         return null;
     }
   }
