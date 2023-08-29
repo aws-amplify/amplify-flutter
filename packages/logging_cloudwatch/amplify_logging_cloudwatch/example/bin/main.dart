@@ -1,2 +1,3 @@
-// TODO(amplify_logging_cloudwatch): Write example
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 void main() {}
