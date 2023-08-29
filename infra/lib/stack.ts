@@ -235,6 +235,13 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       {
         associateWithWaf,
         type: "FULL",
+        environmentName: "custom-auth-device-srp",
+        customAuth: "WITH_SRP",
+        deviceTracking: deviceTrackingAlways,
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
         environmentName: "with-client-secret",
         withClientSecret: true,
         deviceTracking: deviceTrackingOptIn,
@@ -244,6 +251,81 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         type: "FULL",
         environmentName: "asf-audit",
         advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-sms",
+        mfaConfiguration: {
+          SMSMfaSettings: {
+            Enabled: true
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-sms",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SMSMfaSettings: {
+            Enabled: true
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-totp",
+        mfaConfiguration: {
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-totp",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-optional-sms-totp",
+        mfaConfiguration: {
+          SMSMfaSettings: {
+            Enabled: true,
+          },
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "mfa-required-sms-totp",
+        mfaConfiguration: {
+          signIn: cognito.Mfa.REQUIRED,
+          SMSMfaSettings: {
+            Enabled: true,
+          },
+          SoftwareTokenMfaSettings: {
+            Enabled: true,
+          }
+        },
+        standardAttributes: {},
       },
       {
         associateWithWaf,

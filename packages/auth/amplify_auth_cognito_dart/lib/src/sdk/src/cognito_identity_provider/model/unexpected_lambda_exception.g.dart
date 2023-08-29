@@ -55,9 +55,7 @@ class UnexpectedLambdaExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnexpectedLambdaExceptionBuilder() {
-    UnexpectedLambdaException._init(this);
-  }
+  UnexpectedLambdaExceptionBuilder();
 
   UnexpectedLambdaExceptionBuilder get _$this {
     final $v = _$v;

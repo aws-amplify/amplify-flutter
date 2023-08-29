@@ -12,7 +12,7 @@ class _$QuotaSettings extends QuotaSettings {
   @override
   final int offset;
   @override
-  final _i2.QuotaPeriodType? period;
+  final QuotaPeriodType? period;
 
   factory _$QuotaSettings([void Function(QuotaSettingsBuilder)? updates]) =>
       (new QuotaSettingsBuilder()..update(updates))._build();
@@ -62,9 +62,9 @@ class QuotaSettingsBuilder
   int? get offset => _$this._offset;
   set offset(int? offset) => _$this._offset = offset;
 
-  _i2.QuotaPeriodType? _period;
-  _i2.QuotaPeriodType? get period => _$this._period;
-  set period(_i2.QuotaPeriodType? period) => _$this._period = period;
+  QuotaPeriodType? _period;
+  QuotaPeriodType? get period => _$this._period;
+  set period(QuotaPeriodType? period) => _$this._period = period;
 
   QuotaSettingsBuilder() {
     QuotaSettings._init(this);

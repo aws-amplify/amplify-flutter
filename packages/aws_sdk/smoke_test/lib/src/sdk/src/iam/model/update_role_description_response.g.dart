@@ -8,7 +8,7 @@ part of 'update_role_description_response.dart';
 
 class _$UpdateRoleDescriptionResponse extends UpdateRoleDescriptionResponse {
   @override
-  final _i2.Role? role;
+  final Role? role;
 
   factory _$UpdateRoleDescriptionResponse(
           [void Function(UpdateRoleDescriptionResponseBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class UpdateRoleDescriptionResponseBuilder
             UpdateRoleDescriptionResponseBuilder> {
   _$UpdateRoleDescriptionResponse? _$v;
 
-  _i2.RoleBuilder? _role;
-  _i2.RoleBuilder get role => _$this._role ??= new _i2.RoleBuilder();
-  set role(_i2.RoleBuilder? role) => _$this._role = role;
+  RoleBuilder? _role;
+  RoleBuilder get role => _$this._role ??= new RoleBuilder();
+  set role(RoleBuilder? role) => _$this._role = role;
 
   UpdateRoleDescriptionResponseBuilder();
 

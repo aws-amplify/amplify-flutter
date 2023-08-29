@@ -4,11 +4,11 @@
 library smoke_test.iam.model.policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'policy.g.dart';
 
@@ -37,7 +37,7 @@ abstract class Policy
     String? description,
     DateTime? createDate,
     DateTime? updateDate,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) {
     isAttachable ??= false;
     return _$Policy._(
@@ -52,7 +52,7 @@ abstract class Policy
       description: description,
       createDate: createDate,
       updateDate: updateDate,
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -65,7 +65,7 @@ abstract class Policy
 
   const Policy._();
 
-  static const List<_i4.SmithySerializer<Policy>> serializers = [
+  static const List<_i3.SmithySerializer<Policy>> serializers = [
     PolicyAwsQuerySerializer()
   ];
 
@@ -120,7 +120,7 @@ abstract class Policy
   DateTime? get updateDate;
 
   /// A list of tags that are attached to the instance profile. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         policyName,
@@ -191,7 +191,7 @@ abstract class Policy
   }
 }
 
-class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
+class PolicyAwsQuerySerializer extends _i3.StructuredSmithySerializer<Policy> {
   const PolicyAwsQuerySerializer() : super('Policy');
 
   @override
@@ -200,8 +200,8 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
         _$Policy,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -213,6 +213,14 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = PolicyBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -278,16 +286,16 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'Tags':
-          result.tags.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -301,9 +309,9 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'PolicyResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final Policy(
@@ -322,7 +330,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     ) = object;
     if (policyName != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyName'))
+        ..add(const _i3.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
           policyName,
           specifiedType: const FullType(String),
@@ -330,7 +338,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (policyId != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyId'))
+        ..add(const _i3.XmlElementName('PolicyId'))
         ..add(serializers.serialize(
           policyId,
           specifiedType: const FullType(String),
@@ -338,7 +346,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (arn != null) {
       result$
-        ..add(const _i4.XmlElementName('Arn'))
+        ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -346,7 +354,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (path != null) {
       result$
-        ..add(const _i4.XmlElementName('Path'))
+        ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
@@ -354,7 +362,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (defaultVersionId != null) {
       result$
-        ..add(const _i4.XmlElementName('DefaultVersionId'))
+        ..add(const _i3.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
           specifiedType: const FullType(String),
@@ -362,7 +370,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (attachmentCount != null) {
       result$
-        ..add(const _i4.XmlElementName('AttachmentCount'))
+        ..add(const _i3.XmlElementName('AttachmentCount'))
         ..add(serializers.serialize(
           attachmentCount,
           specifiedType: const FullType.nullable(int),
@@ -370,21 +378,21 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (permissionsBoundaryUsageCount != null) {
       result$
-        ..add(const _i4.XmlElementName('PermissionsBoundaryUsageCount'))
+        ..add(const _i3.XmlElementName('PermissionsBoundaryUsageCount'))
         ..add(serializers.serialize(
           permissionsBoundaryUsageCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('IsAttachable'))
+      ..add(const _i3.XmlElementName('IsAttachable'))
       ..add(serializers.serialize(
         isAttachable,
         specifiedType: const FullType(bool),
       ));
     if (description != null) {
       result$
-        ..add(const _i4.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -392,7 +400,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (createDate != null) {
       result$
-        ..add(const _i4.XmlElementName('CreateDate'))
+        ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -400,7 +408,7 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (updateDate != null) {
       result$
-        ..add(const _i4.XmlElementName('UpdateDate'))
+        ..add(const _i3.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -408,15 +416,15 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
     }
     if (tags != null) {
       result$
-        ..add(const _i4.XmlElementName('Tags'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

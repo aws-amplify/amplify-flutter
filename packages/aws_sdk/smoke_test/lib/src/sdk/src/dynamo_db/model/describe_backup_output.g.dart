@@ -8,7 +8,7 @@ part of 'describe_backup_output.dart';
 
 class _$DescribeBackupOutput extends DescribeBackupOutput {
   @override
-  final _i2.BackupDescription? backupDescription;
+  final BackupDescription? backupDescription;
 
   factory _$DescribeBackupOutput(
           [void Function(DescribeBackupOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class DescribeBackupOutputBuilder
     implements Builder<DescribeBackupOutput, DescribeBackupOutputBuilder> {
   _$DescribeBackupOutput? _$v;
 
-  _i2.BackupDescriptionBuilder? _backupDescription;
-  _i2.BackupDescriptionBuilder get backupDescription =>
-      _$this._backupDescription ??= new _i2.BackupDescriptionBuilder();
-  set backupDescription(_i2.BackupDescriptionBuilder? backupDescription) =>
+  BackupDescriptionBuilder? _backupDescription;
+  BackupDescriptionBuilder get backupDescription =>
+      _$this._backupDescription ??= new BackupDescriptionBuilder();
+  set backupDescription(BackupDescriptionBuilder? backupDescription) =>
       _$this._backupDescription = backupDescription;
 
   DescribeBackupOutputBuilder();

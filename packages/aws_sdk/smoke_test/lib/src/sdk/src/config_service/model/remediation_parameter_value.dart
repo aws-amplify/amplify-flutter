@@ -6,11 +6,9 @@ library smoke_test.config_service.model.remediation_parameter_value; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/static_value.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_value.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/static_value.dart';
 
 part 'remediation_parameter_value.g.dart';
 
@@ -21,8 +19,8 @@ abstract class RemediationParameterValue
         Built<RemediationParameterValue, RemediationParameterValueBuilder> {
   /// The value is either a dynamic (resource) value or a static value. You must select either a dynamic value or a static value.
   factory RemediationParameterValue({
-    _i2.ResourceValue? resourceValue,
-    _i3.StaticValue? staticValue,
+    ResourceValue? resourceValue,
+    StaticValue? staticValue,
   }) {
     return _$RemediationParameterValue._(
       resourceValue: resourceValue,
@@ -37,14 +35,14 @@ abstract class RemediationParameterValue
 
   const RemediationParameterValue._();
 
-  static const List<_i4.SmithySerializer<RemediationParameterValue>>
+  static const List<_i2.SmithySerializer<RemediationParameterValue>>
       serializers = [RemediationParameterValueAwsJson11Serializer()];
 
   /// The value is dynamic and changes at run-time.
-  _i2.ResourceValue? get resourceValue;
+  ResourceValue? get resourceValue;
 
   /// The value is static and does not change at run-time.
-  _i3.StaticValue? get staticValue;
+  StaticValue? get staticValue;
   @override
   List<Object?> get props => [
         resourceValue,
@@ -66,7 +64,7 @@ abstract class RemediationParameterValue
 }
 
 class RemediationParameterValueAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<RemediationParameterValue> {
+    extends _i2.StructuredSmithySerializer<RemediationParameterValue> {
   const RemediationParameterValueAwsJson11Serializer()
       : super('RemediationParameterValue');
 
@@ -76,8 +74,8 @@ class RemediationParameterValueAwsJson11Serializer
         _$RemediationParameterValue,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -101,13 +99,13 @@ class RemediationParameterValueAwsJson11Serializer
         case 'ResourceValue':
           result.resourceValue.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceValue),
-          ) as _i2.ResourceValue));
+            specifiedType: const FullType(ResourceValue),
+          ) as ResourceValue));
         case 'StaticValue':
           result.staticValue.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StaticValue),
-          ) as _i3.StaticValue));
+            specifiedType: const FullType(StaticValue),
+          ) as StaticValue));
       }
     }
 
@@ -127,7 +125,7 @@ class RemediationParameterValueAwsJson11Serializer
         ..add('ResourceValue')
         ..add(serializers.serialize(
           resourceValue,
-          specifiedType: const FullType(_i2.ResourceValue),
+          specifiedType: const FullType(ResourceValue),
         ));
     }
     if (staticValue != null) {
@@ -135,7 +133,7 @@ class RemediationParameterValueAwsJson11Serializer
         ..add('StaticValue')
         ..add(serializers.serialize(
           staticValue,
-          specifiedType: const FullType(_i3.StaticValue),
+          specifiedType: const FullType(StaticValue),
         ));
     }
     return result$;

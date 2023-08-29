@@ -3,47 +3,40 @@
 
 library smoke_test.config_service.operation.list_conformance_pack_compliance_scores_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i12;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart';
 
 /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
 ///
 /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
-class ListConformancePackComplianceScoresOperation
-    extends _i1.PaginatedHttpOperation<
-        _i2.ListConformancePackComplianceScoresRequest,
-        _i2.ListConformancePackComplianceScoresRequest,
-        _i3.ListConformancePackComplianceScoresResponse,
-        _i3.ListConformancePackComplianceScoresResponse,
+class ListConformancePackComplianceScoresOperation extends _i1
+    .PaginatedHttpOperation<
+        ListConformancePackComplianceScoresRequest,
+        ListConformancePackComplianceScoresRequest,
+        ListConformancePackComplianceScoresResponse,
+        ListConformancePackComplianceScoresResponse,
         String,
         int,
-        _i3.ListConformancePackComplianceScoresResponse> {
+        ListConformancePackComplianceScoresResponse> {
   /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   ListConformancePackComplianceScoresOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -55,13 +48,13 @@ class ListConformancePackComplianceScoresOperation
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.ListConformancePackComplianceScoresRequest,
-          _i2.ListConformancePackComplianceScoresRequest,
-          _i3.ListConformancePackComplianceScoresResponse,
-          _i3.ListConformancePackComplianceScoresResponse>> protocols = [
-    _i5.AwsJson1_1Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          ListConformancePackComplianceScoresRequest,
+          ListConformancePackComplianceScoresRequest,
+          ListConformancePackComplianceScoresResponse,
+          ListConformancePackComplianceScoresResponse>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -69,14 +62,14 @@ class ListConformancePackComplianceScoresOperation
               'X-Amz-Target',
               'StarlingDoveService.ListConformancePackComplianceScores',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.configService,
+              service: _i4.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -84,8 +77,8 @@ class ListConformancePackComplianceScoresOperation
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -93,7 +86,7 @@ class ListConformancePackComplianceScoresOperation
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -101,70 +94,68 @@ class ListConformancePackComplianceScoresOperation
 
   @override
   _i1.HttpRequest buildRequest(
-          _i2.ListConformancePackComplianceScoresRequest input) =>
+          ListConformancePackComplianceScoresRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.ListConformancePackComplianceScoresResponse? output]) =>
-      200;
+  int successCode([ListConformancePackComplianceScoresResponse? output]) => 200;
   @override
-  _i3.ListConformancePackComplianceScoresResponse buildOutput(
-    _i3.ListConformancePackComplianceScoresResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  ListConformancePackComplianceScoresResponse buildOutput(
+    ListConformancePackComplianceScoresResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.ListConformancePackComplianceScoresResponse.fromResponse(
+      ListConformancePackComplianceScoresResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidLimitException,
-          builder: _i9.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidNextTokenException,
-            _i10.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidNextTokenException,
-          builder: _i10.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i11.InvalidParameterValueException,
-            _i11.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidParameterValueException,
-          builder: _i11.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'ListConformancePackComplianceScores';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.ListConformancePackComplianceScoresResponse> run(
-    _i2.ListConformancePackComplianceScoresRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<ListConformancePackComplianceScoresResponse> run(
+    ListConformancePackComplianceScoresRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i12.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -172,21 +163,21 @@ class ListConformancePackComplianceScoresOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.ListConformancePackComplianceScoresResponse output) =>
+  String? getToken(ListConformancePackComplianceScoresResponse output) =>
       output.nextToken;
   @override
-  _i3.ListConformancePackComplianceScoresResponse getItems(
-          _i3.ListConformancePackComplianceScoresResponse output) =>
+  ListConformancePackComplianceScoresResponse getItems(
+          ListConformancePackComplianceScoresResponse output) =>
       output;
   @override
-  _i2.ListConformancePackComplianceScoresRequest rebuildInput(
-    _i2.ListConformancePackComplianceScoresRequest input,
+  ListConformancePackComplianceScoresRequest rebuildInput(
+    ListConformancePackComplianceScoresRequest input,
     String token,
     int? pageSize,
   ) =>

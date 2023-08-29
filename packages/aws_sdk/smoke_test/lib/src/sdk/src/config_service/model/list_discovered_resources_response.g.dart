@@ -9,7 +9,7 @@ part of 'list_discovered_resources_response.dart';
 class _$ListDiscoveredResourcesResponse
     extends ListDiscoveredResourcesResponse {
   @override
-  final _i3.BuiltList<_i2.ResourceIdentifier>? resourceIdentifiers;
+  final _i2.BuiltList<ResourceIdentifier>? resourceIdentifiers;
   @override
   final String? nextToken;
 
@@ -54,12 +54,11 @@ class ListDiscoveredResourcesResponseBuilder
             ListDiscoveredResourcesResponseBuilder> {
   _$ListDiscoveredResourcesResponse? _$v;
 
-  _i3.ListBuilder<_i2.ResourceIdentifier>? _resourceIdentifiers;
-  _i3.ListBuilder<_i2.ResourceIdentifier> get resourceIdentifiers =>
-      _$this._resourceIdentifiers ??=
-          new _i3.ListBuilder<_i2.ResourceIdentifier>();
+  _i2.ListBuilder<ResourceIdentifier>? _resourceIdentifiers;
+  _i2.ListBuilder<ResourceIdentifier> get resourceIdentifiers =>
+      _$this._resourceIdentifiers ??= new _i2.ListBuilder<ResourceIdentifier>();
   set resourceIdentifiers(
-          _i3.ListBuilder<_i2.ResourceIdentifier>? resourceIdentifiers) =>
+          _i2.ListBuilder<ResourceIdentifier>? resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
   String? _nextToken;

@@ -8,9 +8,9 @@ part of 'projection.dart';
 
 class _$Projection extends Projection {
   @override
-  final _i2.ProjectionType? projectionType;
+  final ProjectionType? projectionType;
   @override
-  final _i3.BuiltList<String>? nonKeyAttributes;
+  final _i2.BuiltList<String>? nonKeyAttributes;
 
   factory _$Projection([void Function(ProjectionBuilder)? updates]) =>
       (new ProjectionBuilder()..update(updates))._build();
@@ -45,15 +45,15 @@ class _$Projection extends Projection {
 class ProjectionBuilder implements Builder<Projection, ProjectionBuilder> {
   _$Projection? _$v;
 
-  _i2.ProjectionType? _projectionType;
-  _i2.ProjectionType? get projectionType => _$this._projectionType;
-  set projectionType(_i2.ProjectionType? projectionType) =>
+  ProjectionType? _projectionType;
+  ProjectionType? get projectionType => _$this._projectionType;
+  set projectionType(ProjectionType? projectionType) =>
       _$this._projectionType = projectionType;
 
-  _i3.ListBuilder<String>? _nonKeyAttributes;
-  _i3.ListBuilder<String> get nonKeyAttributes =>
-      _$this._nonKeyAttributes ??= new _i3.ListBuilder<String>();
-  set nonKeyAttributes(_i3.ListBuilder<String>? nonKeyAttributes) =>
+  _i2.ListBuilder<String>? _nonKeyAttributes;
+  _i2.ListBuilder<String> get nonKeyAttributes =>
+      _$this._nonKeyAttributes ??= new _i2.ListBuilder<String>();
+  set nonKeyAttributes(_i2.ListBuilder<String>? nonKeyAttributes) =>
       _$this._nonKeyAttributes = nonKeyAttributes;
 
   ProjectionBuilder();

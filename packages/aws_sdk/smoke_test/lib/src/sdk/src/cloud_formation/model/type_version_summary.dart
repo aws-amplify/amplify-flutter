@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.type_version_summary; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'type_version_summary.g.dart';
 
@@ -18,7 +17,7 @@ abstract class TypeVersionSummary
     implements Built<TypeVersionSummary, TypeVersionSummaryBuilder> {
   /// Contains summary information about a specific version of a CloudFormation extension.
   factory TypeVersionSummary({
-    _i2.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? versionId,
     bool? isDefaultVersion,
@@ -46,12 +45,12 @@ abstract class TypeVersionSummary
 
   const TypeVersionSummary._();
 
-  static const List<_i3.SmithySerializer<TypeVersionSummary>> serializers = [
+  static const List<_i2.SmithySerializer<TypeVersionSummary>> serializers = [
     TypeVersionSummaryAwsQuerySerializer()
   ];
 
   /// The kind of extension.
-  _i2.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension.
   String? get typeName;
@@ -128,7 +127,7 @@ abstract class TypeVersionSummary
 }
 
 class TypeVersionSummaryAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<TypeVersionSummary> {
+    extends _i2.StructuredSmithySerializer<TypeVersionSummary> {
   const TypeVersionSummaryAwsQuerySerializer() : super('TypeVersionSummary');
 
   @override
@@ -137,8 +136,8 @@ class TypeVersionSummaryAwsQuerySerializer
         _$TypeVersionSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -150,6 +149,14 @@ class TypeVersionSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = TypeVersionSummaryBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -162,8 +169,8 @@ class TypeVersionSummaryAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RegistryType),
-          ) as _i2.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -212,9 +219,9 @@ class TypeVersionSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'TypeVersionSummaryResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final TypeVersionSummary(
@@ -229,15 +236,15 @@ class TypeVersionSummaryAwsQuerySerializer
     ) = object;
     if (type != null) {
       result$
-        ..add(const _i3.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeName'))
+        ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),
@@ -245,7 +252,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (versionId != null) {
       result$
-        ..add(const _i3.XmlElementName('VersionId'))
+        ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
           versionId,
           specifiedType: const FullType(String),
@@ -253,7 +260,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (isDefaultVersion != null) {
       result$
-        ..add(const _i3.XmlElementName('IsDefaultVersion'))
+        ..add(const _i2.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
           specifiedType: const FullType.nullable(bool),
@@ -261,7 +268,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (arn != null) {
       result$
-        ..add(const _i3.XmlElementName('Arn'))
+        ..add(const _i2.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -269,7 +276,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (timeCreated != null) {
       result$
-        ..add(const _i3.XmlElementName('TimeCreated'))
+        ..add(const _i2.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
           specifiedType: const FullType.nullable(DateTime),
@@ -277,7 +284,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i3.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -285,7 +292,7 @@ class TypeVersionSummaryAwsQuerySerializer
     }
     if (publicVersionNumber != null) {
       result$
-        ..add(const _i3.XmlElementName('PublicVersionNumber'))
+        ..add(const _i2.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),

@@ -10,7 +10,7 @@ class _$DocumentationPart extends DocumentationPart {
   @override
   final String? id;
   @override
-  final _i2.DocumentationPartLocation? location;
+  final DocumentationPartLocation? location;
   @override
   final String? properties;
 
@@ -56,10 +56,10 @@ class DocumentationPartBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.DocumentationPartLocationBuilder? _location;
-  _i2.DocumentationPartLocationBuilder get location =>
-      _$this._location ??= new _i2.DocumentationPartLocationBuilder();
-  set location(_i2.DocumentationPartLocationBuilder? location) =>
+  DocumentationPartLocationBuilder? _location;
+  DocumentationPartLocationBuilder get location =>
+      _$this._location ??= new DocumentationPartLocationBuilder();
+  set location(DocumentationPartLocationBuilder? location) =>
       _$this._location = location;
 
   String? _properties;

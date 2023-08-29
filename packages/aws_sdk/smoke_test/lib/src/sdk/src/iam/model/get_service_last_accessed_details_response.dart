@@ -4,16 +4,14 @@
 library smoke_test.iam.model.get_service_last_accessed_details_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/iam/model/access_advisor_usage_granularity_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/service_last_accessed.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/access_advisor_usage_granularity_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_last_accessed.dart';
 
 part 'get_service_last_accessed_details_response.g.dart';
 
@@ -24,21 +22,21 @@ abstract class GetServiceLastAccessedDetailsResponse
         Built<GetServiceLastAccessedDetailsResponse,
             GetServiceLastAccessedDetailsResponseBuilder> {
   factory GetServiceLastAccessedDetailsResponse({
-    required _i2.JobStatusType jobStatus,
-    _i3.AccessAdvisorUsageGranularityType? jobType,
+    required JobStatusType jobStatus,
+    AccessAdvisorUsageGranularityType? jobType,
     required DateTime jobCreationDate,
-    required List<_i4.ServiceLastAccessed> servicesLastAccessed,
+    required List<ServiceLastAccessed> servicesLastAccessed,
     required DateTime jobCompletionDate,
     bool? isTruncated,
     String? marker,
-    _i5.ErrorDetails? error,
+    ErrorDetails? error,
   }) {
     isTruncated ??= false;
     return _$GetServiceLastAccessedDetailsResponse._(
       jobStatus: jobStatus,
       jobType: jobType,
       jobCreationDate: jobCreationDate,
-      servicesLastAccessed: _i6.BuiltList(servicesLastAccessed),
+      servicesLastAccessed: _i2.BuiltList(servicesLastAccessed),
       jobCompletionDate: jobCompletionDate,
       isTruncated: isTruncated,
       marker: marker,
@@ -59,7 +57,7 @@ abstract class GetServiceLastAccessedDetailsResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer<GetServiceLastAccessedDetailsResponse>>
+  static const List<_i3.SmithySerializer<GetServiceLastAccessedDetailsResponse>>
       serializers = [GetServiceLastAccessedDetailsResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -68,16 +66,16 @@ abstract class GetServiceLastAccessedDetailsResponse
   }
 
   /// The status of the job.
-  _i2.JobStatusType get jobStatus;
+  JobStatusType get jobStatus;
 
   /// The type of job. Service jobs return information about when each service was last accessed. Action jobs also include information about when tracked actions within the service were last accessed.
-  _i3.AccessAdvisorUsageGranularityType? get jobType;
+  AccessAdvisorUsageGranularityType? get jobType;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the report job was created.
   DateTime get jobCreationDate;
 
   /// A `ServiceLastAccessed` object that contains details about the most recent attempt to access the service.
-  _i6.BuiltList<_i4.ServiceLastAccessed> get servicesLastAccessed;
+  _i2.BuiltList<ServiceLastAccessed> get servicesLastAccessed;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the generated report job was completed or failed.
   ///
@@ -91,7 +89,7 @@ abstract class GetServiceLastAccessedDetailsResponse
   String? get marker;
 
   /// An object that contains details about the reason the operation failed.
-  _i5.ErrorDetails? get error;
+  ErrorDetails? get error;
   @override
   List<Object?> get props => [
         jobStatus,
@@ -143,7 +141,7 @@ abstract class GetServiceLastAccessedDetailsResponse
   }
 }
 
-class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
+class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<GetServiceLastAccessedDetailsResponse> {
   const GetServiceLastAccessedDetailsResponseAwsQuerySerializer()
       : super('GetServiceLastAccessedDetailsResponse');
@@ -154,8 +152,8 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         _$GetServiceLastAccessedDetailsResponse,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -167,6 +165,14 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetServiceLastAccessedDetailsResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -179,30 +185,29 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         case 'JobStatus':
           result.jobStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.JobStatusType),
-          ) as _i2.JobStatusType);
+            specifiedType: const FullType(JobStatusType),
+          ) as JobStatusType);
         case 'JobType':
           result.jobType = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.AccessAdvisorUsageGranularityType),
-          ) as _i3.AccessAdvisorUsageGranularityType);
+            specifiedType: const FullType(AccessAdvisorUsageGranularityType),
+          ) as AccessAdvisorUsageGranularityType);
         case 'JobCreationDate':
           result.jobCreationDate = (serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'ServicesLastAccessed':
-          result.servicesLastAccessed.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.servicesLastAccessed.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.ServiceLastAccessed)],
+              _i2.BuiltList,
+              [FullType(ServiceLastAccessed)],
             ),
-          ) as _i6.BuiltList<_i4.ServiceLastAccessed>));
+          ) as _i2.BuiltList<ServiceLastAccessed>));
         case 'JobCompletionDate':
           result.jobCompletionDate = (serializers.deserialize(
             value,
@@ -221,8 +226,8 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         case 'Error':
           result.error.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ErrorDetails),
-          ) as _i5.ErrorDetails));
+            specifiedType: const FullType(ErrorDetails),
+          ) as ErrorDetails));
       }
     }
 
@@ -236,9 +241,9 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i3.XmlElementName(
         'GetServiceLastAccessedDetailsResponseResponse',
-        _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetServiceLastAccessedDetailsResponse(
@@ -252,53 +257,53 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
       :error
     ) = object;
     result$
-      ..add(const _i7.XmlElementName('JobStatus'))
+      ..add(const _i3.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
-        specifiedType: const FullType.nullable(_i2.JobStatusType),
+        specifiedType: const FullType.nullable(JobStatusType),
       ));
     if (jobType != null) {
       result$
-        ..add(const _i7.XmlElementName('JobType'))
+        ..add(const _i3.XmlElementName('JobType'))
         ..add(serializers.serialize(
           jobType,
           specifiedType:
-              const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
+              const FullType.nullable(AccessAdvisorUsageGranularityType),
         ));
     }
     result$
-      ..add(const _i7.XmlElementName('JobCreationDate'))
+      ..add(const _i3.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result$
-      ..add(const _i7.XmlElementName('ServicesLastAccessed'))
+      ..add(const _i3.XmlElementName('ServicesLastAccessed'))
       ..add(
-          const _i7.XmlBuiltListSerializer(indexer: _i7.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         servicesLastAccessed,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i4.ServiceLastAccessed)],
+          _i2.BuiltList,
+          [FullType(ServiceLastAccessed)],
         ),
       ));
     result$
-      ..add(const _i7.XmlElementName('JobCompletionDate'))
+      ..add(const _i3.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
         jobCompletionDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result$
-      ..add(const _i7.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i7.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
@@ -306,10 +311,10 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     }
     if (error != null) {
       result$
-        ..add(const _i7.XmlElementName('Error'))
+        ..add(const _i3.XmlElementName('Error'))
         ..add(serializers.serialize(
           error,
-          specifiedType: const FullType(_i5.ErrorDetails),
+          specifiedType: const FullType(ErrorDetails),
         ));
     }
     return result$;

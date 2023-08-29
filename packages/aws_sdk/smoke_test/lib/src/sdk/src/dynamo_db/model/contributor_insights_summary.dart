@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.contributor_insights_summary; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart';
 
 part 'contributor_insights_summary.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ContributorInsightsSummary
   factory ContributorInsightsSummary({
     String? tableName,
     String? indexName,
-    _i2.ContributorInsightsStatus? contributorInsightsStatus,
+    ContributorInsightsStatus? contributorInsightsStatus,
   }) {
     return _$ContributorInsightsSummary._(
       tableName: tableName,
@@ -37,7 +36,7 @@ abstract class ContributorInsightsSummary
 
   const ContributorInsightsSummary._();
 
-  static const List<_i3.SmithySerializer<ContributorInsightsSummary>>
+  static const List<_i2.SmithySerializer<ContributorInsightsSummary>>
       serializers = [ContributorInsightsSummaryAwsJson10Serializer()];
 
   /// Name of the table associated with the summary.
@@ -47,7 +46,7 @@ abstract class ContributorInsightsSummary
   String? get indexName;
 
   /// Describes the current status for contributor insights for the given table and index, if applicable.
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+  ContributorInsightsStatus? get contributorInsightsStatus;
   @override
   List<Object?> get props => [
         tableName,
@@ -74,7 +73,7 @@ abstract class ContributorInsightsSummary
 }
 
 class ContributorInsightsSummaryAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<ContributorInsightsSummary> {
+    extends _i2.StructuredSmithySerializer<ContributorInsightsSummary> {
   const ContributorInsightsSummaryAwsJson10Serializer()
       : super('ContributorInsightsSummary');
 
@@ -84,8 +83,8 @@ class ContributorInsightsSummaryAwsJson10Serializer
         _$ContributorInsightsSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -119,8 +118,8 @@ class ContributorInsightsSummaryAwsJson10Serializer
         case 'ContributorInsightsStatus':
           result.contributorInsightsStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContributorInsightsStatus),
-          ) as _i2.ContributorInsightsStatus);
+            specifiedType: const FullType(ContributorInsightsStatus),
+          ) as ContributorInsightsStatus);
       }
     }
 
@@ -160,7 +159,7 @@ class ContributorInsightsSummaryAwsJson10Serializer
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
           contributorInsightsStatus,
-          specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          specifiedType: const FullType(ContributorInsightsStatus),
         ));
     }
     return result$;

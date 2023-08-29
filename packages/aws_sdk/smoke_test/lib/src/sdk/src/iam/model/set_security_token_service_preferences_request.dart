@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/global_endpoint_token_version.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/global_endpoint_token_version.dart';
 
 part 'set_security_token_service_preferences_request.g.dart';
 
@@ -20,7 +19,7 @@ abstract class SetSecurityTokenServicePreferencesRequest
         Built<SetSecurityTokenServicePreferencesRequest,
             SetSecurityTokenServicePreferencesRequestBuilder> {
   factory SetSecurityTokenServicePreferencesRequest(
-      {required _i3.GlobalEndpointTokenVersion globalEndpointTokenVersion}) {
+      {required GlobalEndpointTokenVersion globalEndpointTokenVersion}) {
     return _$SetSecurityTokenServicePreferencesRequest._(
         globalEndpointTokenVersion: globalEndpointTokenVersion);
   }
@@ -47,7 +46,7 @@ abstract class SetSecurityTokenServicePreferencesRequest
   /// The version of the global endpoint token. Version 1 tokens are valid only in Amazon Web Services Regions that are available by default. These tokens do not work in manually enabled Regions, such as Asia Pacific (Hong Kong). Version 2 tokens are valid in all Regions. However, version 2 tokens are longer and might affect systems where you temporarily store tokens.
   ///
   /// For information, see [Activating and deactivating STS in an Amazon Web Services Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html) in the _IAM User Guide_.
-  _i3.GlobalEndpointTokenVersion get globalEndpointTokenVersion;
+  GlobalEndpointTokenVersion get globalEndpointTokenVersion;
   @override
   SetSecurityTokenServicePreferencesRequest getPayload() => this;
   @override
@@ -88,6 +87,14 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = SetSecurityTokenServicePreferencesRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -100,8 +107,8 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
         case 'GlobalEndpointTokenVersion':
           result.globalEndpointTokenVersion = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.GlobalEndpointTokenVersion),
-          ) as _i3.GlobalEndpointTokenVersion);
+            specifiedType: const FullType(GlobalEndpointTokenVersion),
+          ) as GlobalEndpointTokenVersion);
       }
     }
 
@@ -127,7 +134,7 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
       ..add(const _i1.XmlElementName('GlobalEndpointTokenVersion'))
       ..add(serializers.serialize(
         globalEndpointTokenVersion,
-        specifiedType: const FullType.nullable(_i3.GlobalEndpointTokenVersion),
+        specifiedType: const FullType.nullable(GlobalEndpointTokenVersion),
       ));
     return result$;
   }

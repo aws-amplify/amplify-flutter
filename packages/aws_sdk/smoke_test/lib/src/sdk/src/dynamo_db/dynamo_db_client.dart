@@ -5,314 +5,161 @@ library smoke_test.dynamo_db.dynamo_db_client; // ignore_for_file: no_leading_un
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i104;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i113;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_execute_statement_input.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_execute_statement_output.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_get_item_input.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_get_item_output.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_input.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_output.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_input.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_output.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_global_table_input.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_global_table_output.dart'
-    as _i16;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_table_input.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_table_output.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_backup_input.dart'
-    as _i23;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_backup_output.dart'
-    as _i22;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_item_input.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_item_output.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_table_input.dart'
-    as _i29;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_table_output.dart'
-    as _i28;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_backup_input.dart'
-    as _i32;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_backup_output.dart'
-    as _i31;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_continuous_backups_input.dart'
-    as _i35;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_continuous_backups_output.dart'
-    as _i34;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_contributor_insights_input.dart'
-    as _i38;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_contributor_insights_output.dart'
-    as _i37;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_request.dart'
-    as _i41;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_response.dart'
-    as _i40;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_export_input.dart'
-    as _i44;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_export_output.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_input.dart'
-    as _i47;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_output.dart'
-    as _i46;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_settings_input.dart'
-    as _i50;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_settings_output.dart'
-    as _i49;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_import_input.dart'
-    as _i53;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_import_output.dart'
-    as _i52;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_kinesis_streaming_destination_input.dart'
-    as _i56;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_kinesis_streaming_destination_output.dart'
-    as _i55;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_limits_input.dart'
-    as _i59;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_limits_output.dart'
-    as _i58;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_input.dart'
-    as _i62;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_output.dart'
-    as _i61;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_replica_auto_scaling_input.dart'
-    as _i65;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_replica_auto_scaling_output.dart'
-    as _i64;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_time_to_live_input.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_time_to_live_output.dart'
-    as _i67;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_statement_input.dart'
-    as _i75;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_statement_output.dart'
-    as _i74;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_transaction_input.dart'
-    as _i78;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_transaction_output.dart'
-    as _i77;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_input.dart'
-    as _i81;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_output.dart'
-    as _i80;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/get_item_input.dart'
-    as _i84;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/get_item_output.dart'
-    as _i83;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_input.dart'
-    as _i87;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_output.dart'
-    as _i86;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_streaming_destination_input.dart'
-    as _i71;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_streaming_destination_output.dart'
-    as _i70;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_backups_input.dart'
-    as _i90;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_backups_output.dart'
-    as _i89;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_contributor_insights_input.dart'
-    as _i93;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_contributor_insights_output.dart'
-    as _i92;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_exports_input.dart'
-    as _i96;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_exports_output.dart'
-    as _i95;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_global_tables_input.dart'
-    as _i99;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_global_tables_output.dart'
-    as _i98;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_imports_input.dart'
-    as _i102;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_imports_output.dart'
-    as _i101;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tables_input.dart'
-    as _i105;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tags_of_resource_input.dart'
-    as _i108;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tags_of_resource_output.dart'
-    as _i107;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_item_input.dart'
-    as _i111;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_item_output.dart'
-    as _i110;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_input.dart'
-    as _i114;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_from_backup_input.dart'
-    as _i117;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_from_backup_output.dart'
-    as _i116;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_to_point_in_time_input.dart'
-    as _i120;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_to_point_in_time_output.dart'
-    as _i119;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/scan_input.dart'
-    as _i122;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag_resource_input.dart'
-    as _i124;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_input.dart'
-    as _i127;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_output.dart'
-    as _i126;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_items_input.dart'
-    as _i130;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_items_output.dart'
-    as _i129;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/untag_resource_input.dart'
-    as _i132;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_continuous_backups_input.dart'
-    as _i135;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_continuous_backups_output.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_contributor_insights_input.dart'
-    as _i138;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_contributor_insights_output.dart'
-    as _i137;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_input.dart'
-    as _i141;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_output.dart'
-    as _i140;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_settings_input.dart'
-    as _i144;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_settings_output.dart'
-    as _i143;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_item_input.dart'
-    as _i147;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_item_output.dart'
-    as _i146;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_input.dart'
-    as _i150;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart'
-    as _i149;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_replica_auto_scaling_input.dart'
-    as _i153;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_replica_auto_scaling_output.dart'
-    as _i152;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_time_to_live_input.dart'
-    as _i156;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_time_to_live_output.dart'
-    as _i155;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_execute_statement_operation.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_get_item_operation.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_write_item_operation.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_backup_operation.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_global_table_operation.dart'
-    as _i18;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_table_operation.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_backup_operation.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_item_operation.dart'
-    as _i27;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_table_operation.dart'
-    as _i30;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_backup_operation.dart'
-    as _i33;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_continuous_backups_operation.dart'
-    as _i36;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_contributor_insights_operation.dart'
-    as _i39;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_endpoints_operation.dart'
-    as _i42;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_export_operation.dart'
-    as _i45;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_global_table_operation.dart'
-    as _i48;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_global_table_settings_operation.dart'
-    as _i51;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_import_operation.dart'
-    as _i54;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_kinesis_streaming_destination_operation.dart'
-    as _i57;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_limits_operation.dart'
-    as _i60;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_table_operation.dart'
-    as _i63;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_table_replica_auto_scaling_operation.dart'
-    as _i66;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_time_to_live_operation.dart'
-    as _i69;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/disable_kinesis_streaming_destination_operation.dart'
-    as _i72;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/enable_kinesis_streaming_destination_operation.dart'
-    as _i73;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/execute_statement_operation.dart'
-    as _i76;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/execute_transaction_operation.dart'
-    as _i79;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/export_table_to_point_in_time_operation.dart'
-    as _i82;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/get_item_operation.dart'
-    as _i85;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/import_table_operation.dart'
-    as _i88;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_backups_operation.dart'
-    as _i91;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_contributor_insights_operation.dart'
-    as _i94;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_exports_operation.dart'
-    as _i97;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_global_tables_operation.dart'
-    as _i100;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_imports_operation.dart'
-    as _i103;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_tables_operation.dart'
-    as _i106;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_tags_of_resource_operation.dart'
-    as _i109;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/put_item_operation.dart'
-    as _i112;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/query_operation.dart'
-    as _i115;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/restore_table_from_backup_operation.dart'
-    as _i118;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/restore_table_to_point_in_time_operation.dart'
-    as _i121;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/scan_operation.dart'
-    as _i123;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/tag_resource_operation.dart'
-    as _i125;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/transact_get_items_operation.dart'
-    as _i128;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/transact_write_items_operation.dart'
-    as _i131;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/untag_resource_operation.dart'
-    as _i133;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_continuous_backups_operation.dart'
-    as _i136;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_contributor_insights_operation.dart'
-    as _i139;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_global_table_operation.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_global_table_settings_operation.dart'
-    as _i145;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_item_operation.dart'
-    as _i148;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_table_operation.dart'
-    as _i151;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_table_replica_auto_scaling_operation.dart'
-    as _i154;
-import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_time_to_live_operation.dart'
-    as _i157;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_execute_statement_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_execute_statement_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_get_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_get_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_global_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_global_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_backup_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_backup_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_backup_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_backup_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_continuous_backups_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_continuous_backups_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_contributor_insights_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_contributor_insights_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_request.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_response.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_export_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_export_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_settings_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_global_table_settings_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_import_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_import_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_kinesis_streaming_destination_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_kinesis_streaming_destination_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_limits_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_limits_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_replica_auto_scaling_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_table_replica_auto_scaling_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_time_to_live_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_time_to_live_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_statement_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_statement_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_transaction_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/execute_transaction_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/get_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/get_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_streaming_destination_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_streaming_destination_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_backups_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_backups_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_contributor_insights_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_contributor_insights_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_exports_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_exports_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_global_tables_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_global_tables_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_imports_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_imports_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tables_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tags_of_resource_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/list_tags_of_resource_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_from_backup_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_from_backup_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_to_point_in_time_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_table_to_point_in_time_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/scan_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/tag_resource_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_items_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_items_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/untag_resource_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_continuous_backups_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_continuous_backups_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_contributor_insights_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_contributor_insights_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_settings_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_settings_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_replica_auto_scaling_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_replica_auto_scaling_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_time_to_live_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_time_to_live_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_execute_statement_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_get_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/batch_write_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_backup_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_global_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/create_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_backup_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/delete_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_backup_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_continuous_backups_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_contributor_insights_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_endpoints_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_export_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_global_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_global_table_settings_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_import_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_kinesis_streaming_destination_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_limits_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_table_replica_auto_scaling_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/describe_time_to_live_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/disable_kinesis_streaming_destination_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/enable_kinesis_streaming_destination_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/execute_statement_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/execute_transaction_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/export_table_to_point_in_time_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/get_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/import_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_backups_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_contributor_insights_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_exports_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_global_tables_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_imports_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_tables_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/list_tags_of_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/put_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/query_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/restore_table_from_backup_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/restore_table_to_point_in_time_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/scan_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/tag_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/transact_get_items_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/transact_write_items_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/untag_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_continuous_backups_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_contributor_insights_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_global_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_global_table_settings_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_item_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_table_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_table_replica_auto_scaling_operation.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/operation/update_time_to_live_operation.dart';
 
 /// ## Amazon DynamoDB
 ///
@@ -334,7 +181,7 @@ class DynamoDbClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
@@ -361,12 +208,12 @@ class DynamoDbClient {
   /// The entire batch must consist of either read statements or write statements, you cannot mix both in one batch.
   ///
   /// A HTTP 200 response does not mean that all statements in the BatchExecuteStatement succeeded. Error details for individual statements can be found under the [Error](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchStatementResponse.html#DDB-Type-BatchStatementResponse-Error) field of the `BatchStatementResponse` for each statement.
-  _i3.SmithyOperation<_i4.BatchExecuteStatementOutput> batchExecuteStatement(
-    _i5.BatchExecuteStatementInput input, {
+  _i3.SmithyOperation<BatchExecuteStatementOutput> batchExecuteStatement(
+    BatchExecuteStatementInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i6.BatchExecuteStatementOperation(
+    return BatchExecuteStatementOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -399,12 +246,12 @@ class DynamoDbClient {
   /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
   ///
   /// If a requested item does not exist, it is not returned in the result. Requests for nonexistent items consume the minimum read capacity units according to the type of read. For more information, see [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations) in the _Amazon DynamoDB Developer Guide_.
-  _i3.SmithyOperation<_i7.BatchGetItemOutput> batchGetItem(
-    _i8.BatchGetItemInput input, {
+  _i3.SmithyOperation<BatchGetItemOutput> batchGetItem(
+    BatchGetItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i9.BatchGetItemOperation(
+    return BatchGetItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -449,12 +296,12 @@ class DynamoDbClient {
   /// *   Any individual item in a batch exceeds 400 KB.
   ///
   /// *   The total request size exceeds 16 MB.
-  _i3.SmithyOperation<_i10.BatchWriteItemOutput> batchWriteItem(
-    _i11.BatchWriteItemInput input, {
+  _i3.SmithyOperation<BatchWriteItemOutput> batchWriteItem(
+    BatchWriteItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i12.BatchWriteItemOperation(
+    return BatchWriteItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -487,12 +334,12 @@ class DynamoDbClient {
   /// *   Streams
   ///
   /// *   Provisioned read and write capacity
-  _i3.SmithyOperation<_i13.CreateBackupOutput> createBackup(
-    _i14.CreateBackupInput input, {
+  _i3.SmithyOperation<CreateBackupOutput> createBackup(
+    CreateBackupInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i15.CreateBackupOperation(
+    return CreateBackupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -536,12 +383,12 @@ class DynamoDbClient {
   /// Write capacity settings should be set consistently across your replica tables and secondary indexes. DynamoDB strongly recommends enabling auto scaling to manage the write capacity settings for all of your global tables replicas and indexes.
   ///
   /// If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity units to your replica tables. You should also provision equal replicated write capacity units to matching secondary indexes across your global table.
-  _i3.SmithyOperation<_i16.CreateGlobalTableOutput> createGlobalTable(
-    _i17.CreateGlobalTableInput input, {
+  _i3.SmithyOperation<CreateGlobalTableOutput> createGlobalTable(
+    CreateGlobalTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i18.CreateGlobalTableOperation(
+    return CreateGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -560,12 +407,12 @@ class DynamoDbClient {
   /// You can optionally define secondary indexes on the new table, as part of the `CreateTable` operation. If you want to create multiple tables with secondary indexes on them, you must create the tables sequentially. Only one table with secondary indexes can be in the `CREATING` state at any given time.
   ///
   /// You can use the `DescribeTable` action to check the table status.
-  _i3.SmithyOperation<_i19.CreateTableOutput> createTable(
-    _i20.CreateTableInput input, {
+  _i3.SmithyOperation<CreateTableOutput> createTable(
+    CreateTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i21.CreateTableOperation(
+    return CreateTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -580,12 +427,12 @@ class DynamoDbClient {
   /// Deletes an existing backup of a table.
   ///
   /// You can call `DeleteBackup` at a maximum rate of 10 times per second.
-  _i3.SmithyOperation<_i22.DeleteBackupOutput> deleteBackup(
-    _i23.DeleteBackupInput input, {
+  _i3.SmithyOperation<DeleteBackupOutput> deleteBackup(
+    DeleteBackupInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i24.DeleteBackupOperation(
+    return DeleteBackupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -604,12 +451,12 @@ class DynamoDbClient {
   /// Unless you specify conditions, the `DeleteItem` is an idempotent operation; running it multiple times on the same item or attribute does _not_ result in an error response.
   ///
   /// Conditional deletes are useful for deleting items only if specific conditions are met. If those conditions are met, DynamoDB performs the delete. Otherwise, the item is not deleted.
-  _i3.SmithyOperation<_i25.DeleteItemOutput> deleteItem(
-    _i26.DeleteItemInput input, {
+  _i3.SmithyOperation<DeleteItemOutput> deleteItem(
+    DeleteItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i27.DeleteItemOperation(
+    return DeleteItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -632,12 +479,12 @@ class DynamoDbClient {
   /// If you have DynamoDB Streams enabled on the table, then the corresponding stream on that table goes into the `DISABLED` state, and the stream is automatically deleted after 24 hours.
   ///
   /// Use the `DescribeTable` action to check the status of the table.
-  _i3.SmithyOperation<_i28.DeleteTableOutput> deleteTable(
-    _i29.DeleteTableInput input, {
+  _i3.SmithyOperation<DeleteTableOutput> deleteTable(
+    DeleteTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i30.DeleteTableOperation(
+    return DeleteTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -652,12 +499,12 @@ class DynamoDbClient {
   /// Describes an existing backup of a table.
   ///
   /// You can call `DescribeBackup` at a maximum rate of 10 times per second.
-  _i3.SmithyOperation<_i31.DescribeBackupOutput> describeBackup(
-    _i32.DescribeBackupInput input, {
+  _i3.SmithyOperation<DescribeBackupOutput> describeBackup(
+    DescribeBackupInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i33.DescribeBackupOperation(
+    return DescribeBackupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -676,13 +523,13 @@ class DynamoDbClient {
   /// `LatestRestorableDateTime` is typically 5 minutes before the current time. You can restore your table to any point in time during the last 35 days.
   ///
   /// You can call `DescribeContinuousBackups` at a maximum rate of 10 times per second.
-  _i3.SmithyOperation<_i34.DescribeContinuousBackupsOutput>
+  _i3.SmithyOperation<DescribeContinuousBackupsOutput>
       describeContinuousBackups(
-    _i35.DescribeContinuousBackupsInput input, {
+    DescribeContinuousBackupsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i36.DescribeContinuousBackupsOperation(
+    return DescribeContinuousBackupsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -695,13 +542,13 @@ class DynamoDbClient {
   }
 
   /// Returns information about contributor insights for a given table or global secondary index.
-  _i3.SmithyOperation<_i37.DescribeContributorInsightsOutput>
+  _i3.SmithyOperation<DescribeContributorInsightsOutput>
       describeContributorInsights(
-    _i38.DescribeContributorInsightsInput input, {
+    DescribeContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i39.DescribeContributorInsightsOperation(
+    return DescribeContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -714,12 +561,12 @@ class DynamoDbClient {
   }
 
   /// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
-  _i3.SmithyOperation<_i40.DescribeEndpointsResponse> describeEndpoints(
-    _i41.DescribeEndpointsRequest input, {
+  _i3.SmithyOperation<DescribeEndpointsResponse> describeEndpoints(
+    DescribeEndpointsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i42.DescribeEndpointsOperation(
+    return DescribeEndpointsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -732,12 +579,12 @@ class DynamoDbClient {
   }
 
   /// Describes an existing table export.
-  _i3.SmithyOperation<_i43.DescribeExportOutput> describeExport(
-    _i44.DescribeExportInput input, {
+  _i3.SmithyOperation<DescribeExportOutput> describeExport(
+    DescribeExportInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i45.DescribeExportOperation(
+    return DescribeExportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -752,12 +599,12 @@ class DynamoDbClient {
   /// Returns information about the specified global table.
   ///
   /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
-  _i3.SmithyOperation<_i46.DescribeGlobalTableOutput> describeGlobalTable(
-    _i47.DescribeGlobalTableInput input, {
+  _i3.SmithyOperation<DescribeGlobalTableOutput> describeGlobalTable(
+    DescribeGlobalTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i48.DescribeGlobalTableOperation(
+    return DescribeGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -772,13 +619,13 @@ class DynamoDbClient {
   /// Describes Region-specific settings for a global table.
   ///
   /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
-  _i3.SmithyOperation<_i49.DescribeGlobalTableSettingsOutput>
+  _i3.SmithyOperation<DescribeGlobalTableSettingsOutput>
       describeGlobalTableSettings(
-    _i50.DescribeGlobalTableSettingsInput input, {
+    DescribeGlobalTableSettingsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i51.DescribeGlobalTableSettingsOperation(
+    return DescribeGlobalTableSettingsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -791,12 +638,12 @@ class DynamoDbClient {
   }
 
   /// Represents the properties of the import.
-  _i3.SmithyOperation<_i52.DescribeImportOutput> describeImport(
-    _i53.DescribeImportInput input, {
+  _i3.SmithyOperation<DescribeImportOutput> describeImport(
+    DescribeImportInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i54.DescribeImportOperation(
+    return DescribeImportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -809,13 +656,13 @@ class DynamoDbClient {
   }
 
   /// Returns information about the status of Kinesis streaming.
-  _i3.SmithyOperation<_i55.DescribeKinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<DescribeKinesisStreamingDestinationOutput>
       describeKinesisStreamingDestination(
-    _i56.DescribeKinesisStreamingDestinationInput input, {
+    DescribeKinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i57.DescribeKinesisStreamingDestinationOperation(
+    return DescribeKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -861,12 +708,12 @@ class DynamoDbClient {
   /// `DescribeLimits` should only be called periodically. You can expect throttling errors if you call it more than once in a minute.
   ///
   /// The `DescribeLimits` Request element has no content.
-  _i3.SmithyOperation<_i58.DescribeLimitsOutput> describeLimits(
-    _i59.DescribeLimitsInput input, {
+  _i3.SmithyOperation<DescribeLimitsOutput> describeLimits(
+    DescribeLimitsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i60.DescribeLimitsOperation(
+    return DescribeLimitsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -883,12 +730,12 @@ class DynamoDbClient {
   /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   ///
   /// If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable` request again.
-  _i3.SmithyOperation<_i61.DescribeTableOutput> describeTable(
-    _i62.DescribeTableInput input, {
+  _i3.SmithyOperation<DescribeTableOutput> describeTable(
+    DescribeTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i63.DescribeTableOperation(
+    return DescribeTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -903,13 +750,13 @@ class DynamoDbClient {
   /// Describes auto scaling settings across replicas of the global table at once.
   ///
   /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-  _i3.SmithyOperation<_i64.DescribeTableReplicaAutoScalingOutput>
+  _i3.SmithyOperation<DescribeTableReplicaAutoScalingOutput>
       describeTableReplicaAutoScaling(
-    _i65.DescribeTableReplicaAutoScalingInput input, {
+    DescribeTableReplicaAutoScalingInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i66.DescribeTableReplicaAutoScalingOperation(
+    return DescribeTableReplicaAutoScalingOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -922,12 +769,12 @@ class DynamoDbClient {
   }
 
   /// Gives a description of the Time to Live (TTL) status on the specified table.
-  _i3.SmithyOperation<_i67.DescribeTimeToLiveOutput> describeTimeToLive(
-    _i68.DescribeTimeToLiveInput input, {
+  _i3.SmithyOperation<DescribeTimeToLiveOutput> describeTimeToLive(
+    DescribeTimeToLiveInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i69.DescribeTimeToLiveOperation(
+    return DescribeTimeToLiveOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -940,13 +787,13 @@ class DynamoDbClient {
   }
 
   /// Stops replication from the DynamoDB table to the Kinesis data stream. This is done without deleting either of the resources.
-  _i3.SmithyOperation<_i70.KinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<KinesisStreamingDestinationOutput>
       disableKinesisStreamingDestination(
-    _i71.KinesisStreamingDestinationInput input, {
+    KinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i72.DisableKinesisStreamingDestinationOperation(
+    return DisableKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -959,13 +806,13 @@ class DynamoDbClient {
   }
 
   /// Starts table data replication to the specified Kinesis data stream at a timestamp chosen during the enable workflow. If this operation doesn't return results immediately, use DescribeKinesisStreamingDestination to check if streaming to the Kinesis data stream is ACTIVE.
-  _i3.SmithyOperation<_i70.KinesisStreamingDestinationOutput>
+  _i3.SmithyOperation<KinesisStreamingDestinationOutput>
       enableKinesisStreamingDestination(
-    _i71.KinesisStreamingDestinationInput input, {
+    KinesisStreamingDestinationInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i73.EnableKinesisStreamingDestinationOperation(
+    return EnableKinesisStreamingDestinationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -982,12 +829,12 @@ class DynamoDbClient {
   /// For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty result set.
   ///
   /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set. If `NextToken` is present, you need to paginate the result set and include `NextToken`.
-  _i3.SmithyOperation<_i74.ExecuteStatementOutput> executeStatement(
-    _i75.ExecuteStatementInput input, {
+  _i3.SmithyOperation<ExecuteStatementOutput> executeStatement(
+    ExecuteStatementInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i76.ExecuteStatementOperation(
+    return ExecuteStatementOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1002,12 +849,12 @@ class DynamoDbClient {
   /// This operation allows you to perform transactional reads or writes on data stored in DynamoDB, using PartiQL.
   ///
   /// The entire transaction must consist of either read statements or write statements, you cannot mix both in one transaction. The EXISTS function is an exception and can be used to check the condition of specific attributes of the item in a similar manner to `ConditionCheck` in the [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems) API.
-  _i3.SmithyOperation<_i77.ExecuteTransactionOutput> executeTransaction(
-    _i78.ExecuteTransactionInput input, {
+  _i3.SmithyOperation<ExecuteTransactionOutput> executeTransaction(
+    ExecuteTransactionInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i79.ExecuteTransactionOperation(
+    return ExecuteTransactionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1020,13 +867,12 @@ class DynamoDbClient {
   }
 
   /// Exports table data to an S3 bucket. The table must have point in time recovery enabled, and you can export data from any time within the point in time recovery window.
-  _i3.SmithyOperation<_i80.ExportTableToPointInTimeOutput>
-      exportTableToPointInTime(
-    _i81.ExportTableToPointInTimeInput input, {
+  _i3.SmithyOperation<ExportTableToPointInTimeOutput> exportTableToPointInTime(
+    ExportTableToPointInTimeInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i82.ExportTableToPointInTimeOperation(
+    return ExportTableToPointInTimeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1041,12 +887,12 @@ class DynamoDbClient {
   /// The `GetItem` operation returns a set of attributes for the item with the given primary key. If there is no matching item, `GetItem` does not return any data and there will be no `Item` element in the response.
   ///
   /// `GetItem` provides an eventually consistent read by default. If your application requires a strongly consistent read, set `ConsistentRead` to `true`. Although a strongly consistent read might take more time than an eventually consistent read, it always returns the last updated value.
-  _i3.SmithyOperation<_i83.GetItemOutput> getItem(
-    _i84.GetItemInput input, {
+  _i3.SmithyOperation<GetItemOutput> getItem(
+    GetItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i85.GetItemOperation(
+    return GetItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1059,12 +905,12 @@ class DynamoDbClient {
   }
 
   /// Imports table data from an S3 bucket.
-  _i3.SmithyOperation<_i86.ImportTableOutput> importTable(
-    _i87.ImportTableInput input, {
+  _i3.SmithyOperation<ImportTableOutput> importTable(
+    ImportTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i88.ImportTableOperation(
+    return ImportTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1081,12 +927,12 @@ class DynamoDbClient {
   /// In the request, start time is inclusive, but end time is exclusive. Note that these boundaries are for the time at which the original backup was requested.
   ///
   /// You can call `ListBackups` a maximum of five times per second.
-  _i3.SmithyOperation<_i89.ListBackupsOutput> listBackups(
-    _i90.ListBackupsInput input, {
+  _i3.SmithyOperation<ListBackupsOutput> listBackups(
+    ListBackupsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i91.ListBackupsOperation(
+    return ListBackupsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1100,13 +946,13 @@ class DynamoDbClient {
 
   /// Returns a list of ContributorInsightsSummary for a table and all its global secondary indexes.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i92.ListContributorInsightsOutput, int, String>>
+          _i3.PaginatedResult<ListContributorInsightsOutput, int, String>>
       listContributorInsights(
-    _i93.ListContributorInsightsInput input, {
+    ListContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i94.ListContributorInsightsOperation(
+    return ListContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1119,13 +965,13 @@ class DynamoDbClient {
   }
 
   /// Lists completed exports within the past 90 days.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i95.ListExportsOutput, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<ListExportsOutput, int, String>>
       listExports(
-    _i96.ListExportsInput input, {
+    ListExportsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i97.ListExportsOperation(
+    return ListExportsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1140,12 +986,12 @@ class DynamoDbClient {
   /// Lists all global tables that have a replica in the specified Region.
   ///
   /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
-  _i3.SmithyOperation<_i98.ListGlobalTablesOutput> listGlobalTables(
-    _i99.ListGlobalTablesInput input, {
+  _i3.SmithyOperation<ListGlobalTablesOutput> listGlobalTables(
+    ListGlobalTablesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i100.ListGlobalTablesOperation(
+    return ListGlobalTablesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1158,13 +1004,13 @@ class DynamoDbClient {
   }
 
   /// Lists completed imports within the past 90 days.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i101.ListImportsOutput, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<ListImportsOutput, int, String>>
       listImports(
-    _i102.ListImportsInput input, {
+    ListImportsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i103.ListImportsOperation(
+    return ListImportsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1177,13 +1023,13 @@ class DynamoDbClient {
   }
 
   /// Returns an array of table names associated with the current account and endpoint. The output from `ListTables` is paginated, with each page returning a maximum of 100 table names.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i104.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       listTables(
-    _i105.ListTablesInput input, {
+    ListTablesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i106.ListTablesOperation(
+    return ListTablesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1198,12 +1044,12 @@ class DynamoDbClient {
   /// List all tags on an Amazon DynamoDB resource. You can call ListTagsOfResource up to 10 times per second, per account.
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.SmithyOperation<_i107.ListTagsOfResourceOutput> listTagsOfResource(
-    _i108.ListTagsOfResourceInput input, {
+  _i3.SmithyOperation<ListTagsOfResourceOutput> listTagsOfResource(
+    ListTagsOfResourceInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i109.ListTagsOfResourceOperation(
+    return ListTagsOfResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1226,12 +1072,12 @@ class DynamoDbClient {
   /// To prevent a new item from replacing an existing item, use a conditional expression that contains the `attribute\_not\_exists` function with the name of the attribute being used as the partition key for the table. Since every record must contain that attribute, the `attribute\_not\_exists` function will only succeed if no matching item exists.
   ///
   /// For more information about `PutItem`, see [Working with Items](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.SmithyOperation<_i110.PutItemOutput> putItem(
-    _i111.PutItemInput input, {
+  _i3.SmithyOperation<PutItemOutput> putItem(
+    PutItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i112.PutItemOperation(
+    return PutItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1261,15 +1107,13 @@ class DynamoDbClient {
   ///
   /// You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local secondary index, you can set the `ConsistentRead` parameter to `true` and obtain a strongly consistent result. Global secondary indexes support eventually consistent reads only, so do not specify `ConsistentRead` when querying a global secondary index.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i104.BuiltList<_i104.BuiltMap<String, _i113.AttributeValue>>,
-          int,
-          _i104.BuiltMap<String, _i113.AttributeValue>>> query(
-    _i114.QueryInput input, {
+      _i3.PaginatedResult<_i4.BuiltList<_i4.BuiltMap<String, AttributeValue>>,
+          int, _i4.BuiltMap<String, AttributeValue>>> query(
+    QueryInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i115.QueryOperation(
+    return QueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1298,13 +1142,12 @@ class DynamoDbClient {
   /// *   Stream settings
   ///
   /// *   Time to Live (TTL) settings
-  _i3.SmithyOperation<_i116.RestoreTableFromBackupOutput>
-      restoreTableFromBackup(
-    _i117.RestoreTableFromBackupInput input, {
+  _i3.SmithyOperation<RestoreTableFromBackupOutput> restoreTableFromBackup(
+    RestoreTableFromBackupInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i118.RestoreTableFromBackupOperation(
+    return RestoreTableFromBackupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1348,13 +1191,13 @@ class DynamoDbClient {
   /// *   Time to Live (TTL) settings
   ///
   /// *   Point in time recovery settings
-  _i3.SmithyOperation<_i119.RestoreTableToPointInTimeOutput>
+  _i3.SmithyOperation<RestoreTableToPointInTimeOutput>
       restoreTableToPointInTime(
-    _i120.RestoreTableToPointInTimeInput input, {
+    RestoreTableToPointInTimeInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i121.RestoreTableToPointInTimeOperation(
+    return RestoreTableToPointInTimeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1368,23 +1211,25 @@ class DynamoDbClient {
 
   /// The `Scan` operation returns one or more items and item attributes by accessing every item in a table or a secondary index. To have DynamoDB return fewer items, you can provide a `FilterExpression` operation.
   ///
-  /// If the total number of scanned items exceeds the maximum dataset size limit of 1 MB, the scan stops and results are returned to the user as a `LastEvaluatedKey` value to continue the scan in a subsequent operation. The results also include the number of items exceeding the limit. A scan can result in no table data meeting the filter criteria.
+  /// If the total size of scanned items exceeds the maximum dataset size limit of 1 MB, the scan completes and results are returned to the user. The `LastEvaluatedKey` value is also returned and the requestor can use the `LastEvaluatedKey` to continue the scan in a subsequent operation. Each scan response also includes number of items that were scanned (ScannedCount) as part of the request. If using a `FilterExpression`, a scan result can result in no items meeting the criteria and the `Count` will result in zero. If you did not use a `FilterExpression` in the scan request, then `Count` is the same as `ScannedCount`.
   ///
-  /// A single `Scan` operation reads up to the maximum number of items set (if using the `Limit` parameter) or a maximum of 1 MB of data and then apply any filtering to the results using `FilterExpression`. If `LastEvaluatedKey` is present in the response, you need to paginate the result set. For more information, see [Paginating the Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination) in the _Amazon DynamoDB Developer Guide_.
+  /// `Count` and `ScannedCount` only return the count of items specific to a single scan request and, unless the table is less than 1MB, do not represent the total number of items in the table.
+  ///
+  /// A single `Scan` operation first reads up to the maximum number of items set (if using the `Limit` parameter) or a maximum of 1 MB of data and then applies any filtering to the results if a `FilterExpression` is provided. If `LastEvaluatedKey` is present in the response, pagination is required to complete the full table scan. For more information, see [Paginating the Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// `Scan` operations proceed sequentially; however, for faster performance on a large table or secondary index, applications can request a parallel `Scan` operation by providing the `Segment` and `TotalSegments` parameters. For more information, see [Parallel Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan) in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// `Scan` uses eventually consistent reads when accessing the data in a table; therefore, the result set might not include the changes to data in the table immediately before the operation began. If you need a consistent copy of the data, as of the time that the `Scan` begins, you can set the `ConsistentRead` parameter to `true`.
+  /// By default, a `Scan` uses eventually consistent reads when accessing the items in a table. Therefore, the results from an eventually consistent `Scan` may not include the latest item changes at the time the scan iterates through each item in the table. If you require a strongly consistent read of each item as the scan iterates through the items in the table, you can set the `ConsistentRead` parameter to true. Strong consistency only relates to the consistency of the read at the item level.
+  ///
+  /// DynamoDB does not provide snapshot isolation for a scan operation when the `ConsistentRead` parameter is set to true. Thus, a DynamoDB scan operation does not guarantee that all reads in a scan see a consistent snapshot of the table when the scan operation was requested.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i104.BuiltList<_i104.BuiltMap<String, _i113.AttributeValue>>,
-          int,
-          _i104.BuiltMap<String, _i113.AttributeValue>>> scan(
-    _i122.ScanInput input, {
+      _i3.PaginatedResult<_i4.BuiltList<_i4.BuiltMap<String, AttributeValue>>,
+          int, _i4.BuiltMap<String, AttributeValue>>> scan(
+    ScanInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i123.ScanOperation(
+    return ScanOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1400,11 +1245,11 @@ class DynamoDbClient {
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.SmithyOperation<void> tagResource(
-    _i124.TagResourceInput input, {
+    TagResourceInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i125.TagResourceOperation(
+    return TagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1427,12 +1272,12 @@ class DynamoDbClient {
   /// *   There is a user error, such as an invalid data format.
   ///
   /// *   The aggregate size of the items in the transaction exceeded 4 MB.
-  _i3.SmithyOperation<_i126.TransactGetItemsOutput> transactGetItems(
-    _i127.TransactGetItemsInput input, {
+  _i3.SmithyOperation<TransactGetItemsOutput> transactGetItems(
+    TransactGetItemsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i128.TransactGetItemsOperation(
+    return TransactGetItemsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1470,12 +1315,12 @@ class DynamoDbClient {
   /// *   The aggregate size of the items in the transaction exceeds 4 MB.
   ///
   /// *   There is a user error, such as an invalid data format.
-  _i3.SmithyOperation<_i129.TransactWriteItemsOutput> transactWriteItems(
-    _i130.TransactWriteItemsInput input, {
+  _i3.SmithyOperation<TransactWriteItemsOutput> transactWriteItems(
+    TransactWriteItemsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i131.TransactWriteItemsOperation(
+    return TransactWriteItemsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1491,11 +1336,11 @@ class DynamoDbClient {
   ///
   /// For an overview on tagging DynamoDB resources, see [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.SmithyOperation<void> untagResource(
-    _i132.UntagResourceInput input, {
+    UntagResourceInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i133.UntagResourceOperation(
+    return UntagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1512,13 +1357,12 @@ class DynamoDbClient {
   /// Once continuous backups and point in time recovery are enabled, you can restore to any point in time within `EarliestRestorableDateTime` and `LatestRestorableDateTime`.
   ///
   /// `LatestRestorableDateTime` is typically 5 minutes before the current time. You can restore your table to any point in time during the last 35 days.
-  _i3.SmithyOperation<_i134.UpdateContinuousBackupsOutput>
-      updateContinuousBackups(
-    _i135.UpdateContinuousBackupsInput input, {
+  _i3.SmithyOperation<UpdateContinuousBackupsOutput> updateContinuousBackups(
+    UpdateContinuousBackupsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i136.UpdateContinuousBackupsOperation(
+    return UpdateContinuousBackupsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1531,13 +1375,13 @@ class DynamoDbClient {
   }
 
   /// Updates the status for contributor insights for a specific table or index. CloudWatch Contributor Insights for DynamoDB graphs display the partition key and (if applicable) sort key of frequently accessed items and frequently throttled items in plaintext. If you require the use of Amazon Web Services Key Management Service (KMS) to encrypt this table’s partition key and sort key data with an Amazon Web Services managed key or customer managed key, you should not enable CloudWatch Contributor Insights for DynamoDB for this table.
-  _i3.SmithyOperation<_i137.UpdateContributorInsightsOutput>
+  _i3.SmithyOperation<UpdateContributorInsightsOutput>
       updateContributorInsights(
-    _i138.UpdateContributorInsightsInput input, {
+    UpdateContributorInsightsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i139.UpdateContributorInsightsOperation(
+    return UpdateContributorInsightsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1564,12 +1408,12 @@ class DynamoDbClient {
   /// *   The global secondary indexes must have the same hash key and sort key (if present).
   ///
   /// *   The global secondary indexes must have the same provisioned and maximum write capacity units.
-  _i3.SmithyOperation<_i140.UpdateGlobalTableOutput> updateGlobalTable(
-    _i141.UpdateGlobalTableInput input, {
+  _i3.SmithyOperation<UpdateGlobalTableOutput> updateGlobalTable(
+    UpdateGlobalTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i142.UpdateGlobalTableOperation(
+    return UpdateGlobalTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1584,13 +1428,13 @@ class DynamoDbClient {
   /// Updates settings for a global table.
   ///
   /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
-  _i3.SmithyOperation<_i143.UpdateGlobalTableSettingsOutput>
+  _i3.SmithyOperation<UpdateGlobalTableSettingsOutput>
       updateGlobalTableSettings(
-    _i144.UpdateGlobalTableSettingsInput input, {
+    UpdateGlobalTableSettingsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i145.UpdateGlobalTableSettingsOperation(
+    return UpdateGlobalTableSettingsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1605,12 +1449,12 @@ class DynamoDbClient {
   /// Edits an existing item's attributes, or adds a new item to the table if it does not already exist. You can put, delete, or add attribute values. You can also perform a conditional update on an existing item (insert a new attribute name-value pair if it doesn't exist, or replace an existing name-value pair if it has certain expected attribute values).
   ///
   /// You can also return the item's attribute values in the same `UpdateItem` operation using the `ReturnValues` parameter.
-  _i3.SmithyOperation<_i146.UpdateItemOutput> updateItem(
-    _i147.UpdateItemInput input, {
+  _i3.SmithyOperation<UpdateItemOutput> updateItem(
+    UpdateItemInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i148.UpdateItemOperation(
+    return UpdateItemOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1636,12 +1480,12 @@ class DynamoDbClient {
   ///
   ///
   /// `UpdateTable` is an asynchronous operation; while it is executing, the table status changes from `ACTIVE` to `UPDATING`. While it is `UPDATING`, you cannot issue another `UpdateTable` request. When the table returns to the `ACTIVE` state, the `UpdateTable` operation is complete.
-  _i3.SmithyOperation<_i149.UpdateTableOutput> updateTable(
-    _i150.UpdateTableInput input, {
+  _i3.SmithyOperation<UpdateTableOutput> updateTable(
+    UpdateTableInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i151.UpdateTableOperation(
+    return UpdateTableOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1656,13 +1500,13 @@ class DynamoDbClient {
   /// Updates auto scaling settings on your global tables at once.
   ///
   /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-  _i3.SmithyOperation<_i152.UpdateTableReplicaAutoScalingOutput>
+  _i3.SmithyOperation<UpdateTableReplicaAutoScalingOutput>
       updateTableReplicaAutoScaling(
-    _i153.UpdateTableReplicaAutoScalingInput input, {
+    UpdateTableReplicaAutoScalingInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i154.UpdateTableReplicaAutoScalingOperation(
+    return UpdateTableReplicaAutoScalingOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1687,12 +1531,12 @@ class DynamoDbClient {
   /// As items are deleted, they are removed from any local secondary index and global secondary index immediately in the same eventually consistent way as a standard delete operation.
   ///
   /// For more information, see [Time To Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) in the Amazon DynamoDB Developer Guide.
-  _i3.SmithyOperation<_i155.UpdateTimeToLiveOutput> updateTimeToLive(
-    _i156.UpdateTimeToLiveInput input, {
+  _i3.SmithyOperation<UpdateTimeToLiveOutput> updateTimeToLive(
+    UpdateTimeToLiveInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i157.UpdateTimeToLiveOperation(
+    return UpdateTimeToLiveOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

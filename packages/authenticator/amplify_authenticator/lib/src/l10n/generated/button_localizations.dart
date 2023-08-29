@@ -95,7 +95,9 @@ abstract class AuthenticatorButtonLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+  ];
 
   /// Label of the button to sign in the user.
   ///
@@ -114,6 +116,12 @@ abstract class AuthenticatorButtonLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// Label of button to continue to the next action
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
 
   /// Label of button to submit a form
   ///
@@ -174,6 +182,12 @@ abstract class AuthenticatorButtonLocalizations {
   /// In en, this message translates to:
   /// **'Skip'**
   String get skip;
+
+  /// Label of button to copy a value.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Key'**
+  String get copyKey;
 
   /// Label of button to sign out the user
   ///

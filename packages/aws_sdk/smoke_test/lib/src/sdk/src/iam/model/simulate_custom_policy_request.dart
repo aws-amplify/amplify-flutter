@@ -4,11 +4,11 @@
 library smoke_test.iam.model.simulate_custom_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/context_entry.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/context_entry.dart';
 
 part 'simulate_custom_policy_request.g.dart';
 
@@ -26,24 +26,24 @@ abstract class SimulateCustomPolicyRequest
     String? resourcePolicy,
     String? resourceOwner,
     String? callerArn,
-    List<_i3.ContextEntry>? contextEntries,
+    List<ContextEntry>? contextEntries,
     String? resourceHandlingOption,
     int? maxItems,
     String? marker,
   }) {
     return _$SimulateCustomPolicyRequest._(
-      policyInputList: _i4.BuiltList(policyInputList),
+      policyInputList: _i3.BuiltList(policyInputList),
       permissionsBoundaryPolicyInputList:
           permissionsBoundaryPolicyInputList == null
               ? null
-              : _i4.BuiltList(permissionsBoundaryPolicyInputList),
-      actionNames: _i4.BuiltList(actionNames),
-      resourceArns: resourceArns == null ? null : _i4.BuiltList(resourceArns),
+              : _i3.BuiltList(permissionsBoundaryPolicyInputList),
+      actionNames: _i3.BuiltList(actionNames),
+      resourceArns: resourceArns == null ? null : _i3.BuiltList(resourceArns),
       resourcePolicy: resourcePolicy,
       resourceOwner: resourceOwner,
       callerArn: callerArn,
       contextEntries:
-          contextEntries == null ? null : _i4.BuiltList(contextEntries),
+          contextEntries == null ? null : _i3.BuiltList(contextEntries),
       resourceHandlingOption: resourceHandlingOption,
       maxItems: maxItems,
       marker: marker,
@@ -77,7 +77,7 @@ abstract class SimulateCustomPolicyRequest
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement character set (through `\\u00FF`)
   ///
   /// *   The special characters tab (`\\u0009`), line feed (`\\u000A`), and carriage return (`\\u000D`)
-  _i4.BuiltList<String> get policyInputList;
+  _i3.BuiltList<String> get policyInputList;
 
   /// The IAM permissions boundary policy to simulate. The permissions boundary sets the maximum permissions that an IAM entity can have. You can input only one permissions boundary when you pass a policy to this operation. For more information about permissions boundaries, see [Permissions boundaries for IAM entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_. The policy input is specified as a string that contains the complete, valid JSON text of a permissions boundary policy.
   ///
@@ -90,10 +90,10 @@ abstract class SimulateCustomPolicyRequest
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement character set (through `\\u00FF`)
   ///
   /// *   The special characters tab (`\\u0009`), line feed (`\\u000A`), and carriage return (`\\u000D`)
-  _i4.BuiltList<String>? get permissionsBoundaryPolicyInputList;
+  _i3.BuiltList<String>? get permissionsBoundaryPolicyInputList;
 
   /// A list of names of API operations to evaluate in the simulation. Each operation is evaluated against each resource. Each operation must include the service identifier, such as `iam:CreateUser`. This operation does not support using wildcards (*) in an action name.
-  _i4.BuiltList<String> get actionNames;
+  _i3.BuiltList<String> get actionNames;
 
   /// A list of ARNs of Amazon Web Services resources to include in the simulation. If this parameter is not provided, then the value defaults to `*` (all resources). Each API in the `ActionNames` parameter is evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each combination and reports it in the response. You can simulate resources that don't exist in your account.
   ///
@@ -104,7 +104,7 @@ abstract class SimulateCustomPolicyRequest
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.
   ///
   /// Simulation of resource-based policies isn't supported for IAM roles.
-  _i4.BuiltList<String>? get resourceArns;
+  _i3.BuiltList<String>? get resourceArns;
 
   /// A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
   ///
@@ -133,7 +133,7 @@ abstract class SimulateCustomPolicyRequest
   String? get callerArn;
 
   /// A list of context keys and corresponding values for the simulation to use. Whenever a context key is evaluated in one of the simulated IAM permissions policies, the corresponding value is supplied.
-  _i4.BuiltList<_i3.ContextEntry>? get contextEntries;
+  _i3.BuiltList<ContextEntry>? get contextEntries;
 
   /// Specifies the type of simulation to run. Different API operations that support resource-based policies require different combinations of resources. By specifying the type of simulation to run, you enable the policy simulator to enforce the presence of the required resources to ensure reliable simulation results. If your simulation does not match one of the following scenarios, then you can omit this parameter. The following list shows each of the supported scenario values and the resources that you must define to run the simulation.
   ///
@@ -254,6 +254,14 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = SimulateCustomPolicyRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -270,10 +278,10 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'PermissionsBoundaryPolicyInputList':
           result.permissionsBoundaryPolicyInputList.replace(
               (const _i1.XmlBuiltListSerializer(
@@ -282,10 +290,10 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ActionNames':
           result.actionNames.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -293,10 +301,10 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ResourceArns':
           result.resourceArns.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -304,10 +312,10 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ResourcePolicy':
           result.resourcePolicy = (serializers.deserialize(
             value,
@@ -330,10 +338,10 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ContextEntry)],
+              _i3.BuiltList,
+              [FullType(ContextEntry)],
             ),
-          ) as _i4.BuiltList<_i3.ContextEntry>));
+          ) as _i3.BuiltList<ContextEntry>));
         case 'ResourceHandlingOption':
           result.resourceHandlingOption = (serializers.deserialize(
             value,
@@ -388,7 +396,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
         serializers,
         policyInputList,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -401,7 +409,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
           serializers,
           permissionsBoundaryPolicyInputList,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -414,7 +422,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
         serializers,
         actionNames,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -427,7 +435,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
           serializers,
           resourceArns,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -465,8 +473,8 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
           serializers,
           contextEntries,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.ContextEntry)],
+            _i3.BuiltList,
+            [FullType(ContextEntry)],
           ),
         ));
     }

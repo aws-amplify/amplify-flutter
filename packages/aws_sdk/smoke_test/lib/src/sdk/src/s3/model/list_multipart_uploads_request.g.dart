@@ -12,7 +12,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   @override
   final String? delimiter;
   @override
-  final _i3.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final String? keyMarker;
   @override
@@ -24,7 +24,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   @override
   final String? expectedBucketOwner;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
 
   factory _$ListMultipartUploadsRequest(
           [void Function(ListMultipartUploadsRequestBuilder)? updates]) =>
@@ -100,9 +100,9 @@ class ListMultipartUploadsRequestBuilder
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i3.EncodingType? _encodingType;
-  _i3.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i3.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   String? _keyMarker;
@@ -127,9 +127,9 @@ class ListMultipartUploadsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   ListMultipartUploadsRequestBuilder();

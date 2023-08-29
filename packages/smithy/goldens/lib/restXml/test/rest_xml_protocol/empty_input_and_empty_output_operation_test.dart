@@ -5,13 +5,10 @@
 library rest_xml_v1.rest_xml_protocol.test.empty_input_and_empty_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_input.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_output.dart'
-    as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/empty_input_and_empty_output_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_input.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_output.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/empty_input_and_empty_output_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +17,14 @@ void main() {
     'EmptyInputAndEmptyOutput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.EmptyInputAndEmptyOutputOperation(
+        operation: EmptyInputAndEmptyOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'EmptyInputAndEmptyOutput',
           documentation: 'Empty input serializes no payload',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -60,14 +57,14 @@ void main() {
     'EmptyInputAndEmptyOutput (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.EmptyInputAndEmptyOutputOperation(
+        operation: EmptyInputAndEmptyOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'EmptyInputAndEmptyOutput',
           documentation: 'Empty output serializes no payload',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -93,32 +90,32 @@ void main() {
 }
 
 class EmptyInputAndEmptyOutputInputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.EmptyInputAndEmptyOutputInput> {
+    extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputInput> {
   const EmptyInputAndEmptyOutputInputRestXmlSerializer()
       : super('EmptyInputAndEmptyOutputInput');
 
   @override
-  Iterable<Type> get types => const [_i5.EmptyInputAndEmptyOutputInput];
+  Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.EmptyInputAndEmptyOutputInput deserialize(
+  EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i5.EmptyInputAndEmptyOutputInputBuilder().build();
+    return EmptyInputAndEmptyOutputInputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.EmptyInputAndEmptyOutputInput object, {
+    EmptyInputAndEmptyOutputInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -126,32 +123,32 @@ class EmptyInputAndEmptyOutputInputRestXmlSerializer
 }
 
 class EmptyInputAndEmptyOutputOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i6.EmptyInputAndEmptyOutputOutput> {
+    extends _i3.StructuredSmithySerializer<EmptyInputAndEmptyOutputOutput> {
   const EmptyInputAndEmptyOutputOutputRestXmlSerializer()
       : super('EmptyInputAndEmptyOutputOutput');
 
   @override
-  Iterable<Type> get types => const [_i6.EmptyInputAndEmptyOutputOutput];
+  Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i6.EmptyInputAndEmptyOutputOutput deserialize(
+  EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i6.EmptyInputAndEmptyOutputOutputBuilder().build();
+    return EmptyInputAndEmptyOutputOutputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.EmptyInputAndEmptyOutputOutput object, {
+    EmptyInputAndEmptyOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

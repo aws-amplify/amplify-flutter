@@ -9,13 +9,13 @@ part of 'get_service_last_accessed_details_response.dart';
 class _$GetServiceLastAccessedDetailsResponse
     extends GetServiceLastAccessedDetailsResponse {
   @override
-  final _i2.JobStatusType jobStatus;
+  final JobStatusType jobStatus;
   @override
-  final _i3.AccessAdvisorUsageGranularityType? jobType;
+  final AccessAdvisorUsageGranularityType? jobType;
   @override
   final DateTime jobCreationDate;
   @override
-  final _i6.BuiltList<_i4.ServiceLastAccessed> servicesLastAccessed;
+  final _i2.BuiltList<ServiceLastAccessed> servicesLastAccessed;
   @override
   final DateTime jobCompletionDate;
   @override
@@ -23,7 +23,7 @@ class _$GetServiceLastAccessedDetailsResponse
   @override
   final String? marker;
   @override
-  final _i5.ErrorDetails? error;
+  final ErrorDetails? error;
 
   factory _$GetServiceLastAccessedDetailsResponse(
           [void Function(GetServiceLastAccessedDetailsResponseBuilder)?
@@ -99,13 +99,13 @@ class GetServiceLastAccessedDetailsResponseBuilder
             GetServiceLastAccessedDetailsResponseBuilder> {
   _$GetServiceLastAccessedDetailsResponse? _$v;
 
-  _i2.JobStatusType? _jobStatus;
-  _i2.JobStatusType? get jobStatus => _$this._jobStatus;
-  set jobStatus(_i2.JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
+  JobStatusType? _jobStatus;
+  JobStatusType? get jobStatus => _$this._jobStatus;
+  set jobStatus(JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
 
-  _i3.AccessAdvisorUsageGranularityType? _jobType;
-  _i3.AccessAdvisorUsageGranularityType? get jobType => _$this._jobType;
-  set jobType(_i3.AccessAdvisorUsageGranularityType? jobType) =>
+  AccessAdvisorUsageGranularityType? _jobType;
+  AccessAdvisorUsageGranularityType? get jobType => _$this._jobType;
+  set jobType(AccessAdvisorUsageGranularityType? jobType) =>
       _$this._jobType = jobType;
 
   DateTime? _jobCreationDate;
@@ -113,12 +113,12 @@ class GetServiceLastAccessedDetailsResponseBuilder
   set jobCreationDate(DateTime? jobCreationDate) =>
       _$this._jobCreationDate = jobCreationDate;
 
-  _i6.ListBuilder<_i4.ServiceLastAccessed>? _servicesLastAccessed;
-  _i6.ListBuilder<_i4.ServiceLastAccessed> get servicesLastAccessed =>
+  _i2.ListBuilder<ServiceLastAccessed>? _servicesLastAccessed;
+  _i2.ListBuilder<ServiceLastAccessed> get servicesLastAccessed =>
       _$this._servicesLastAccessed ??=
-          new _i6.ListBuilder<_i4.ServiceLastAccessed>();
+          new _i2.ListBuilder<ServiceLastAccessed>();
   set servicesLastAccessed(
-          _i6.ListBuilder<_i4.ServiceLastAccessed>? servicesLastAccessed) =>
+          _i2.ListBuilder<ServiceLastAccessed>? servicesLastAccessed) =>
       _$this._servicesLastAccessed = servicesLastAccessed;
 
   DateTime? _jobCompletionDate;
@@ -134,10 +134,9 @@ class GetServiceLastAccessedDetailsResponseBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  _i5.ErrorDetailsBuilder? _error;
-  _i5.ErrorDetailsBuilder get error =>
-      _$this._error ??= new _i5.ErrorDetailsBuilder();
-  set error(_i5.ErrorDetailsBuilder? error) => _$this._error = error;
+  ErrorDetailsBuilder? _error;
+  ErrorDetailsBuilder get error => _$this._error ??= new ErrorDetailsBuilder();
+  set error(ErrorDetailsBuilder? error) => _$this._error = error;
 
   GetServiceLastAccessedDetailsResponseBuilder() {
     GetServiceLastAccessedDetailsResponse._init(this);

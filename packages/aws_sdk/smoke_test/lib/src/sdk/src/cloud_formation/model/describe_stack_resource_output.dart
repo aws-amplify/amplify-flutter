@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.describe_stack_resource_output; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_detail.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_detail.dart';
 
 part 'describe_stack_resource_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DescribeStackResourceOutput
         Built<DescribeStackResourceOutput, DescribeStackResourceOutputBuilder> {
   /// The output for a DescribeStackResource action.
   factory DescribeStackResourceOutput(
-      {_i2.StackResourceDetail? stackResourceDetail}) {
+      {StackResourceDetail? stackResourceDetail}) {
     return _$DescribeStackResourceOutput._(
         stackResourceDetail: stackResourceDetail);
   }
@@ -38,11 +37,11 @@ abstract class DescribeStackResourceOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeStackResourceOutput>>
+  static const List<_i2.SmithySerializer<DescribeStackResourceOutput>>
       serializers = [DescribeStackResourceOutputAwsQuerySerializer()];
 
   /// A `StackResourceDetail` structure containing the description of the specified resource in the specified stack.
-  _i2.StackResourceDetail? get stackResourceDetail;
+  StackResourceDetail? get stackResourceDetail;
   @override
   List<Object?> get props => [stackResourceDetail];
   @override
@@ -57,7 +56,7 @@ abstract class DescribeStackResourceOutput
 }
 
 class DescribeStackResourceOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeStackResourceOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeStackResourceOutput> {
   const DescribeStackResourceOutputAwsQuerySerializer()
       : super('DescribeStackResourceOutput');
 
@@ -67,8 +66,8 @@ class DescribeStackResourceOutputAwsQuerySerializer
         _$DescribeStackResourceOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -80,6 +79,14 @@ class DescribeStackResourceOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackResourceOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -92,8 +99,8 @@ class DescribeStackResourceOutputAwsQuerySerializer
         case 'StackResourceDetail':
           result.stackResourceDetail.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackResourceDetail),
-          ) as _i2.StackResourceDetail));
+            specifiedType: const FullType(StackResourceDetail),
+          ) as StackResourceDetail));
       }
     }
 
@@ -107,18 +114,18 @@ class DescribeStackResourceOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeStackResourceOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackResourceOutput(:stackResourceDetail) = object;
     if (stackResourceDetail != null) {
       result$
-        ..add(const _i3.XmlElementName('StackResourceDetail'))
+        ..add(const _i2.XmlElementName('StackResourceDetail'))
         ..add(serializers.serialize(
           stackResourceDetail,
-          specifiedType: const FullType(_i2.StackResourceDetail),
+          specifiedType: const FullType(StackResourceDetail),
         ));
     }
     return result$;

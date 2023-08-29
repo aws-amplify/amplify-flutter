@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.deployment_targets; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_filter_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_filter_type.dart';
 
 part 'deployment_targets.g.dart';
 
@@ -26,14 +25,14 @@ abstract class DeploymentTargets
     List<String>? accounts,
     String? accountsUrl,
     List<String>? organizationalUnitIds,
-    _i2.AccountFilterType? accountFilterType,
+    AccountFilterType? accountFilterType,
   }) {
     return _$DeploymentTargets._(
-      accounts: accounts == null ? null : _i3.BuiltList(accounts),
+      accounts: accounts == null ? null : _i2.BuiltList(accounts),
       accountsUrl: accountsUrl,
       organizationalUnitIds: organizationalUnitIds == null
           ? null
-          : _i3.BuiltList(organizationalUnitIds),
+          : _i2.BuiltList(organizationalUnitIds),
       accountFilterType: accountFilterType,
     );
   }
@@ -46,18 +45,18 @@ abstract class DeploymentTargets
 
   const DeploymentTargets._();
 
-  static const List<_i4.SmithySerializer<DeploymentTargets>> serializers = [
+  static const List<_i3.SmithySerializer<DeploymentTargets>> serializers = [
     DeploymentTargetsAwsQuerySerializer()
   ];
 
   /// The names of one or more Amazon Web Services accounts for which you want to deploy stack set updates.
-  _i3.BuiltList<String>? get accounts;
+  _i2.BuiltList<String>? get accounts;
 
   /// Returns the value of the `AccountsUrl` property.
   String? get accountsUrl;
 
   /// The organization root ID or organizational unit (OU) IDs to which StackSets deploys.
-  _i3.BuiltList<String>? get organizationalUnitIds;
+  _i2.BuiltList<String>? get organizationalUnitIds;
 
   /// Limit deployment targets to individual accounts or include additional accounts with provided OUs.
   ///
@@ -72,7 +71,7 @@ abstract class DeploymentTargets
   ///     This is the default value if `AccountFilterType` is not provided. This enables user to update an entire OU and individual accounts from a different OU in one request, which used to be two separate requests.
   ///
   /// *   `NONE`: Deploys to all the accounts in specified organizational units (OU).
-  _i2.AccountFilterType? get accountFilterType;
+  AccountFilterType? get accountFilterType;
   @override
   List<Object?> get props => [
         accounts,
@@ -104,7 +103,7 @@ abstract class DeploymentTargets
 }
 
 class DeploymentTargetsAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DeploymentTargets> {
+    extends _i3.StructuredSmithySerializer<DeploymentTargets> {
   const DeploymentTargetsAwsQuerySerializer() : super('DeploymentTargets');
 
   @override
@@ -113,8 +112,8 @@ class DeploymentTargetsAwsQuerySerializer
         _$DeploymentTargets,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -126,6 +125,14 @@ class DeploymentTargetsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DeploymentTargetsBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -136,16 +143,16 @@ class DeploymentTargetsAwsQuerySerializer
       }
       switch (key) {
         case 'Accounts':
-          result.accounts.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.accounts.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'AccountsUrl':
           result.accountsUrl = (serializers.deserialize(
             value,
@@ -153,21 +160,21 @@ class DeploymentTargetsAwsQuerySerializer
           ) as String);
         case 'OrganizationalUnitIds':
           result.organizationalUnitIds.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'AccountFilterType':
           result.accountFilterType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AccountFilterType),
-          ) as _i2.AccountFilterType);
+            specifiedType: const FullType(AccountFilterType),
+          ) as AccountFilterType);
       }
     }
 
@@ -181,9 +188,9 @@ class DeploymentTargetsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DeploymentTargetsResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DeploymentTargets(
@@ -194,21 +201,21 @@ class DeploymentTargetsAwsQuerySerializer
     ) = object;
     if (accounts != null) {
       result$
-        ..add(const _i4.XmlElementName('Accounts'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Accounts'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           accounts,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (accountsUrl != null) {
       result$
-        ..add(const _i4.XmlElementName('AccountsUrl'))
+        ..add(const _i3.XmlElementName('AccountsUrl'))
         ..add(serializers.serialize(
           accountsUrl,
           specifiedType: const FullType(String),
@@ -216,24 +223,24 @@ class DeploymentTargetsAwsQuerySerializer
     }
     if (organizationalUnitIds != null) {
       result$
-        ..add(const _i4.XmlElementName('OrganizationalUnitIds'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('OrganizationalUnitIds'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           organizationalUnitIds,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (accountFilterType != null) {
       result$
-        ..add(const _i4.XmlElementName('AccountFilterType'))
+        ..add(const _i3.XmlElementName('AccountFilterType'))
         ..add(serializers.serialize(
           accountFilterType,
-          specifiedType: const FullType.nullable(_i2.AccountFilterType),
+          specifiedType: const FullType.nullable(AccountFilterType),
         ));
     }
     return result$;

@@ -10,7 +10,7 @@ class _$DeviceType extends DeviceType {
   @override
   final String? deviceKey;
   @override
-  final _i3.BuiltList<_i2.AttributeType>? deviceAttributes;
+  final _i2.BuiltList<AttributeType>? deviceAttributes;
   @override
   final DateTime? deviceCreateDate;
   @override
@@ -67,10 +67,10 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
-  _i3.ListBuilder<_i2.AttributeType>? _deviceAttributes;
-  _i3.ListBuilder<_i2.AttributeType> get deviceAttributes =>
-      _$this._deviceAttributes ??= new _i3.ListBuilder<_i2.AttributeType>();
-  set deviceAttributes(_i3.ListBuilder<_i2.AttributeType>? deviceAttributes) =>
+  _i2.ListBuilder<AttributeType>? _deviceAttributes;
+  _i2.ListBuilder<AttributeType> get deviceAttributes =>
+      _$this._deviceAttributes ??= new _i2.ListBuilder<AttributeType>();
+  set deviceAttributes(_i2.ListBuilder<AttributeType>? deviceAttributes) =>
       _$this._deviceAttributes = deviceAttributes;
 
   DateTime? _deviceCreateDate;
@@ -89,9 +89,7 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   set deviceLastAuthenticatedDate(DateTime? deviceLastAuthenticatedDate) =>
       _$this._deviceLastAuthenticatedDate = deviceLastAuthenticatedDate;
 
-  DeviceTypeBuilder() {
-    DeviceType._init(this);
-  }
+  DeviceTypeBuilder();
 
   DeviceTypeBuilder get _$this {
     final $v = _$v;

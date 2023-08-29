@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_open_id_connect_providers_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/open_id_connect_provider_list_entry.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/open_id_connect_provider_list_entry.dart';
 
 part 'list_open_id_connect_providers_response.g.dart';
 
@@ -22,11 +21,11 @@ abstract class ListOpenIdConnectProvidersResponse
             ListOpenIdConnectProvidersResponseBuilder> {
   /// Contains the response to a successful ListOpenIDConnectProviders request.
   factory ListOpenIdConnectProvidersResponse(
-      {List<_i2.OpenIdConnectProviderListEntry>? openIdConnectProviderList}) {
+      {List<OpenIdConnectProviderListEntry>? openIdConnectProviderList}) {
     return _$ListOpenIdConnectProvidersResponse._(
         openIdConnectProviderList: openIdConnectProviderList == null
             ? null
-            : _i3.BuiltList(openIdConnectProviderList));
+            : _i2.BuiltList(openIdConnectProviderList));
   }
 
   /// Contains the response to a successful ListOpenIDConnectProviders request.
@@ -43,12 +42,11 @@ abstract class ListOpenIdConnectProvidersResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListOpenIdConnectProvidersResponse>>
+  static const List<_i3.SmithySerializer<ListOpenIdConnectProvidersResponse>>
       serializers = [ListOpenIdConnectProvidersResponseAwsQuerySerializer()];
 
   /// The list of IAM OIDC provider resource objects defined in the Amazon Web Services account.
-  _i3.BuiltList<_i2.OpenIdConnectProviderListEntry>?
-      get openIdConnectProviderList;
+  _i2.BuiltList<OpenIdConnectProviderListEntry>? get openIdConnectProviderList;
   @override
   List<Object?> get props => [openIdConnectProviderList];
   @override
@@ -64,7 +62,7 @@ abstract class ListOpenIdConnectProvidersResponse
 }
 
 class ListOpenIdConnectProvidersResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListOpenIdConnectProvidersResponse> {
+    extends _i3.StructuredSmithySerializer<ListOpenIdConnectProvidersResponse> {
   const ListOpenIdConnectProvidersResponseAwsQuerySerializer()
       : super('ListOpenIdConnectProvidersResponse');
 
@@ -74,8 +72,8 @@ class ListOpenIdConnectProvidersResponseAwsQuerySerializer
         _$ListOpenIdConnectProvidersResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -87,6 +85,14 @@ class ListOpenIdConnectProvidersResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListOpenIdConnectProvidersResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -98,16 +104,16 @@ class ListOpenIdConnectProvidersResponseAwsQuerySerializer
       switch (key) {
         case 'OpenIDConnectProviderList':
           result.openIdConnectProviderList.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.OpenIdConnectProviderListEntry)],
+              _i2.BuiltList,
+              [FullType(OpenIdConnectProviderListEntry)],
             ),
-          ) as _i3.BuiltList<_i2.OpenIdConnectProviderListEntry>));
+          ) as _i2.BuiltList<OpenIdConnectProviderListEntry>));
       }
     }
 
@@ -121,24 +127,24 @@ class ListOpenIdConnectProvidersResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListOpenIdConnectProvidersResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListOpenIdConnectProvidersResponse(:openIdConnectProviderList) =
         object;
     if (openIdConnectProviderList != null) {
       result$
-        ..add(const _i4.XmlElementName('OpenIDConnectProviderList'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('OpenIDConnectProviderList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           openIdConnectProviderList,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.OpenIdConnectProviderListEntry)],
+            _i2.BuiltList,
+            [FullType(OpenIdConnectProviderListEntry)],
           ),
         ));
     }

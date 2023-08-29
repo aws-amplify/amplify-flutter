@@ -8,7 +8,7 @@ part of 'inventory_destination.dart';
 
 class _$InventoryDestination extends InventoryDestination {
   @override
-  final _i2.InventoryS3BucketDestination s3BucketDestination;
+  final InventoryS3BucketDestination s3BucketDestination;
 
   factory _$InventoryDestination(
           [void Function(InventoryDestinationBuilder)? updates]) =>
@@ -48,12 +48,11 @@ class InventoryDestinationBuilder
     implements Builder<InventoryDestination, InventoryDestinationBuilder> {
   _$InventoryDestination? _$v;
 
-  _i2.InventoryS3BucketDestinationBuilder? _s3BucketDestination;
-  _i2.InventoryS3BucketDestinationBuilder get s3BucketDestination =>
-      _$this._s3BucketDestination ??=
-          new _i2.InventoryS3BucketDestinationBuilder();
+  InventoryS3BucketDestinationBuilder? _s3BucketDestination;
+  InventoryS3BucketDestinationBuilder get s3BucketDestination =>
+      _$this._s3BucketDestination ??= new InventoryS3BucketDestinationBuilder();
   set s3BucketDestination(
-          _i2.InventoryS3BucketDestinationBuilder? s3BucketDestination) =>
+          InventoryS3BucketDestinationBuilder? s3BucketDestination) =>
       _$this._s3BucketDestination = s3BucketDestination;
 
   InventoryDestinationBuilder();

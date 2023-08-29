@@ -3,14 +3,12 @@
 
 library amplify_integration_test.cognito_identity_provider.model.event_risk_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/risk_decision_type.dart'
-    as _i2;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/risk_level_type.dart'
-    as _i3;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/risk_decision_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/risk_level_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'event_risk_type.g.dart';
 
@@ -20,8 +18,8 @@ abstract class EventRiskType
     implements Built<EventRiskType, EventRiskTypeBuilder> {
   /// The event risk type.
   factory EventRiskType({
-    _i2.RiskDecisionType? riskDecision,
-    _i3.RiskLevelType? riskLevel,
+    RiskDecisionType? riskDecision,
+    RiskLevelType? riskLevel,
     bool? compromisedCredentialsDetected,
   }) {
     return _$EventRiskType._(
@@ -37,15 +35,15 @@ abstract class EventRiskType
 
   const EventRiskType._();
 
-  static const List<_i4.SmithySerializer<EventRiskType>> serializers = [
+  static const List<_i2.SmithySerializer<EventRiskType>> serializers = [
     EventRiskTypeAwsJson11Serializer()
   ];
 
   /// The risk decision.
-  _i2.RiskDecisionType? get riskDecision;
+  RiskDecisionType? get riskDecision;
 
   /// The risk level.
-  _i3.RiskLevelType? get riskLevel;
+  RiskLevelType? get riskLevel;
 
   /// Indicates whether compromised credentials were detected during an authentication event.
   bool? get compromisedCredentialsDetected;
@@ -75,7 +73,7 @@ abstract class EventRiskType
 }
 
 class EventRiskTypeAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<EventRiskType> {
+    extends _i2.StructuredSmithySerializer<EventRiskType> {
   const EventRiskTypeAwsJson11Serializer() : super('EventRiskType');
 
   @override
@@ -84,8 +82,8 @@ class EventRiskTypeAwsJson11Serializer
         _$EventRiskType,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -109,13 +107,13 @@ class EventRiskTypeAwsJson11Serializer
         case 'RiskDecision':
           result.riskDecision = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RiskDecisionType),
-          ) as _i2.RiskDecisionType);
+            specifiedType: const FullType(RiskDecisionType),
+          ) as RiskDecisionType);
         case 'RiskLevel':
           result.riskLevel = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RiskLevelType),
-          ) as _i3.RiskLevelType);
+            specifiedType: const FullType(RiskLevelType),
+          ) as RiskLevelType);
         case 'CompromisedCredentialsDetected':
           result.compromisedCredentialsDetected = (serializers.deserialize(
             value,
@@ -144,7 +142,7 @@ class EventRiskTypeAwsJson11Serializer
         ..add('RiskDecision')
         ..add(serializers.serialize(
           riskDecision,
-          specifiedType: const FullType(_i2.RiskDecisionType),
+          specifiedType: const FullType(RiskDecisionType),
         ));
     }
     if (riskLevel != null) {
@@ -152,7 +150,7 @@ class EventRiskTypeAwsJson11Serializer
         ..add('RiskLevel')
         ..add(serializers.serialize(
           riskLevel,
-          specifiedType: const FullType(_i3.RiskLevelType),
+          specifiedType: const FullType(RiskLevelType),
         ));
     }
     if (compromisedCredentialsDetected != null) {

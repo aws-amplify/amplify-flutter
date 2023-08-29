@@ -12,14 +12,14 @@ class _$OrganizationCustomRuleMetadata extends OrganizationCustomRuleMetadata {
   @override
   final String lambdaFunctionArn;
   @override
-  final _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>
+  final _i2.BuiltList<OrganizationConfigRuleTriggerType>
       organizationConfigRuleTriggerTypes;
   @override
   final String? inputParameters;
   @override
-  final _i3.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final _i4.BuiltList<String>? resourceTypesScope;
+  final _i2.BuiltList<String>? resourceTypesScope;
   @override
   final String? resourceIdScope;
   @override
@@ -107,14 +107,14 @@ class OrganizationCustomRuleMetadataBuilder
   set lambdaFunctionArn(String? lambdaFunctionArn) =>
       _$this._lambdaFunctionArn = lambdaFunctionArn;
 
-  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>?
+  _i2.ListBuilder<OrganizationConfigRuleTriggerType>?
       _organizationConfigRuleTriggerTypes;
-  _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>
+  _i2.ListBuilder<OrganizationConfigRuleTriggerType>
       get organizationConfigRuleTriggerTypes =>
           _$this._organizationConfigRuleTriggerTypes ??=
-              new _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>();
+              new _i2.ListBuilder<OrganizationConfigRuleTriggerType>();
   set organizationConfigRuleTriggerTypes(
-          _i4.ListBuilder<_i2.OrganizationConfigRuleTriggerType>?
+          _i2.ListBuilder<OrganizationConfigRuleTriggerType>?
               organizationConfigRuleTriggerTypes) =>
       _$this._organizationConfigRuleTriggerTypes =
           organizationConfigRuleTriggerTypes;
@@ -124,17 +124,17 @@ class OrganizationCustomRuleMetadataBuilder
   set inputParameters(String? inputParameters) =>
       _$this._inputParameters = inputParameters;
 
-  _i3.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  MaximumExecutionFrequency? _maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i3.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  _i4.ListBuilder<String>? _resourceTypesScope;
-  _i4.ListBuilder<String> get resourceTypesScope =>
-      _$this._resourceTypesScope ??= new _i4.ListBuilder<String>();
-  set resourceTypesScope(_i4.ListBuilder<String>? resourceTypesScope) =>
+  _i2.ListBuilder<String>? _resourceTypesScope;
+  _i2.ListBuilder<String> get resourceTypesScope =>
+      _$this._resourceTypesScope ??= new _i2.ListBuilder<String>();
+  set resourceTypesScope(_i2.ListBuilder<String>? resourceTypesScope) =>
       _$this._resourceTypesScope = resourceTypesScope;
 
   String? _resourceIdScope;

@@ -329,7 +329,7 @@ class CpkOneToOneBidirectionalParentID extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkOneToOneBidirectionalParentIDModelIdentifier>
+      .QueryModelIdentifier<CpkOneToOneBidirectionalParentIDModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkOneToOneBidirectionalParentIDModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

@@ -4,11 +4,11 @@
 library rest_json1_v1.api_gateway.model.endpoint_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/api_gateway/model/endpoint_type.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/api_gateway/model/endpoint_type.dart';
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'endpoint_configuration.g.dart';
 
@@ -16,13 +16,13 @@ abstract class EndpointConfiguration
     with _i1.AWSEquatable<EndpointConfiguration>
     implements Built<EndpointConfiguration, EndpointConfigurationBuilder> {
   factory EndpointConfiguration({
-    List<_i2.EndpointType>? types,
+    List<EndpointType>? types,
     List<String>? vpcEndpointIds,
   }) {
     return _$EndpointConfiguration._(
-      types: types == null ? null : _i3.BuiltList(types),
+      types: types == null ? null : _i2.BuiltList(types),
       vpcEndpointIds:
-          vpcEndpointIds == null ? null : _i3.BuiltList(vpcEndpointIds),
+          vpcEndpointIds == null ? null : _i2.BuiltList(vpcEndpointIds),
     );
   }
 
@@ -32,12 +32,12 @@ abstract class EndpointConfiguration
 
   const EndpointConfiguration._();
 
-  static const List<_i4.SmithySerializer<EndpointConfiguration>> serializers = [
+  static const List<_i3.SmithySerializer<EndpointConfiguration>> serializers = [
     EndpointConfigurationRestJson1Serializer()
   ];
 
-  _i3.BuiltList<_i2.EndpointType>? get types;
-  _i3.BuiltList<String>? get vpcEndpointIds;
+  _i2.BuiltList<EndpointType>? get types;
+  _i2.BuiltList<String>? get vpcEndpointIds;
   @override
   List<Object?> get props => [
         types,
@@ -59,7 +59,7 @@ abstract class EndpointConfiguration
 }
 
 class EndpointConfigurationRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<EndpointConfiguration> {
+    extends _i3.StructuredSmithySerializer<EndpointConfiguration> {
   const EndpointConfigurationRestJson1Serializer()
       : super('EndpointConfiguration');
 
@@ -69,8 +69,8 @@ class EndpointConfigurationRestJson1Serializer
         _$EndpointConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -95,18 +95,18 @@ class EndpointConfigurationRestJson1Serializer
           result.types.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.EndpointType)],
+              _i2.BuiltList,
+              [FullType(EndpointType)],
             ),
-          ) as _i3.BuiltList<_i2.EndpointType>));
+          ) as _i2.BuiltList<EndpointType>));
         case 'vpcEndpointIds':
           result.vpcEndpointIds.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -127,8 +127,8 @@ class EndpointConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           types,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.EndpointType)],
+            _i2.BuiltList,
+            [FullType(EndpointType)],
           ),
         ));
     }
@@ -138,7 +138,7 @@ class EndpointConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           vpcEndpointIds,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

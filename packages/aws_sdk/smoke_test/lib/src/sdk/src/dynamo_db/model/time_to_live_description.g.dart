@@ -8,7 +8,7 @@ part of 'time_to_live_description.dart';
 
 class _$TimeToLiveDescription extends TimeToLiveDescription {
   @override
-  final _i2.TimeToLiveStatus? timeToLiveStatus;
+  final TimeToLiveStatus? timeToLiveStatus;
   @override
   final String? attributeName;
 
@@ -50,9 +50,9 @@ class TimeToLiveDescriptionBuilder
     implements Builder<TimeToLiveDescription, TimeToLiveDescriptionBuilder> {
   _$TimeToLiveDescription? _$v;
 
-  _i2.TimeToLiveStatus? _timeToLiveStatus;
-  _i2.TimeToLiveStatus? get timeToLiveStatus => _$this._timeToLiveStatus;
-  set timeToLiveStatus(_i2.TimeToLiveStatus? timeToLiveStatus) =>
+  TimeToLiveStatus? _timeToLiveStatus;
+  TimeToLiveStatus? get timeToLiveStatus => _$this._timeToLiveStatus;
+  set timeToLiveStatus(TimeToLiveStatus? timeToLiveStatus) =>
       _$this._timeToLiveStatus = timeToLiveStatus;
 
   String? _attributeName;

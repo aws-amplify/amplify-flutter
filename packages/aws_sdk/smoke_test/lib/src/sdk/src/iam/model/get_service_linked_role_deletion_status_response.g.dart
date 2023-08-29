@@ -9,9 +9,9 @@ part of 'get_service_linked_role_deletion_status_response.dart';
 class _$GetServiceLinkedRoleDeletionStatusResponse
     extends GetServiceLinkedRoleDeletionStatusResponse {
   @override
-  final _i2.DeletionTaskStatusType status;
+  final DeletionTaskStatusType status;
   @override
-  final _i3.DeletionTaskFailureReasonType? reason;
+  final DeletionTaskFailureReasonType? reason;
 
   factory _$GetServiceLinkedRoleDeletionStatusResponse(
           [void Function(GetServiceLinkedRoleDeletionStatusResponseBuilder)?
@@ -60,14 +60,14 @@ class GetServiceLinkedRoleDeletionStatusResponseBuilder
             GetServiceLinkedRoleDeletionStatusResponseBuilder> {
   _$GetServiceLinkedRoleDeletionStatusResponse? _$v;
 
-  _i2.DeletionTaskStatusType? _status;
-  _i2.DeletionTaskStatusType? get status => _$this._status;
-  set status(_i2.DeletionTaskStatusType? status) => _$this._status = status;
+  DeletionTaskStatusType? _status;
+  DeletionTaskStatusType? get status => _$this._status;
+  set status(DeletionTaskStatusType? status) => _$this._status = status;
 
-  _i3.DeletionTaskFailureReasonTypeBuilder? _reason;
-  _i3.DeletionTaskFailureReasonTypeBuilder get reason =>
-      _$this._reason ??= new _i3.DeletionTaskFailureReasonTypeBuilder();
-  set reason(_i3.DeletionTaskFailureReasonTypeBuilder? reason) =>
+  DeletionTaskFailureReasonTypeBuilder? _reason;
+  DeletionTaskFailureReasonTypeBuilder get reason =>
+      _$this._reason ??= new DeletionTaskFailureReasonTypeBuilder();
+  set reason(DeletionTaskFailureReasonTypeBuilder? reason) =>
       _$this._reason = reason;
 
   GetServiceLinkedRoleDeletionStatusResponseBuilder();

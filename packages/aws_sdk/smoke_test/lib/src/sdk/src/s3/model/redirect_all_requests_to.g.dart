@@ -10,7 +10,7 @@ class _$RedirectAllRequestsTo extends RedirectAllRequestsTo {
   @override
   final String hostName;
   @override
-  final _i2.Protocol? protocol;
+  final Protocol? protocol;
 
   factory _$RedirectAllRequestsTo(
           [void Function(RedirectAllRequestsToBuilder)? updates]) =>
@@ -57,9 +57,9 @@ class RedirectAllRequestsToBuilder
   String? get hostName => _$this._hostName;
   set hostName(String? hostName) => _$this._hostName = hostName;
 
-  _i2.Protocol? _protocol;
-  _i2.Protocol? get protocol => _$this._protocol;
-  set protocol(_i2.Protocol? protocol) => _$this._protocol = protocol;
+  Protocol? _protocol;
+  Protocol? get protocol => _$this._protocol;
+  set protocol(Protocol? protocol) => _$this._protocol = protocol;
 
   RedirectAllRequestsToBuilder();
 

@@ -4,17 +4,14 @@
 library smoke_test.dynamo_db.model.source_table_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
 
 part 'source_table_details.g.dart';
 
@@ -28,18 +25,18 @@ abstract class SourceTableDetails
     required String tableId,
     String? tableArn,
     _i2.Int64? tableSizeBytes,
-    required List<_i3.KeySchemaElement> keySchema,
+    required List<KeySchemaElement> keySchema,
     required DateTime tableCreationDateTime,
-    required _i4.ProvisionedThroughput provisionedThroughput,
+    required ProvisionedThroughput provisionedThroughput,
     _i2.Int64? itemCount,
-    _i5.BillingMode? billingMode,
+    BillingMode? billingMode,
   }) {
     return _$SourceTableDetails._(
       tableName: tableName,
       tableId: tableId,
       tableArn: tableArn,
       tableSizeBytes: tableSizeBytes,
-      keySchema: _i6.BuiltList(keySchema),
+      keySchema: _i3.BuiltList(keySchema),
       tableCreationDateTime: tableCreationDateTime,
       provisionedThroughput: provisionedThroughput,
       itemCount: itemCount,
@@ -54,7 +51,7 @@ abstract class SourceTableDetails
 
   const SourceTableDetails._();
 
-  static const List<_i7.SmithySerializer<SourceTableDetails>> serializers = [
+  static const List<_i4.SmithySerializer<SourceTableDetails>> serializers = [
     SourceTableDetailsAwsJson10Serializer()
   ];
 
@@ -71,13 +68,13 @@ abstract class SourceTableDetails
   _i2.Int64? get tableSizeBytes;
 
   /// Schema of the table.
-  _i6.BuiltList<_i3.KeySchemaElement> get keySchema;
+  _i3.BuiltList<KeySchemaElement> get keySchema;
 
   /// Time when the source table was created.
   DateTime get tableCreationDateTime;
 
   /// Read IOPs and Write IOPS on the table when the backup was created.
-  _i4.ProvisionedThroughput get provisionedThroughput;
+  ProvisionedThroughput get provisionedThroughput;
 
   /// Number of items in the table. Note that this is an approximate value.
   _i2.Int64? get itemCount;
@@ -87,7 +84,7 @@ abstract class SourceTableDetails
   /// *   `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`. We recommend using `PROVISIONED` for predictable workloads.
   ///
   /// *   `PAY\_PER\_REQUEST` \- Sets the read/write capacity mode to `PAY\_PER\_REQUEST`. We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads.
-  _i5.BillingMode? get billingMode;
+  BillingMode? get billingMode;
   @override
   List<Object?> get props => [
         tableName,
@@ -144,7 +141,7 @@ abstract class SourceTableDetails
 }
 
 class SourceTableDetailsAwsJson10Serializer
-    extends _i7.StructuredSmithySerializer<SourceTableDetails> {
+    extends _i4.StructuredSmithySerializer<SourceTableDetails> {
   const SourceTableDetailsAwsJson10Serializer() : super('SourceTableDetails');
 
   @override
@@ -153,8 +150,8 @@ class SourceTableDetailsAwsJson10Serializer
         _$SourceTableDetails,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -199,10 +196,10 @@ class SourceTableDetailsAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.KeySchemaElement)],
+              _i3.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i6.BuiltList<_i3.KeySchemaElement>));
+          ) as _i3.BuiltList<KeySchemaElement>));
         case 'TableCreationDateTime':
           result.tableCreationDateTime = (serializers.deserialize(
             value,
@@ -211,8 +208,8 @@ class SourceTableDetailsAwsJson10Serializer
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ProvisionedThroughput),
-          ) as _i4.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
         case 'ItemCount':
           result.itemCount = (serializers.deserialize(
             value,
@@ -221,8 +218,8 @@ class SourceTableDetailsAwsJson10Serializer
         case 'BillingMode':
           result.billingMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.BillingMode),
-          ) as _i5.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
       }
     }
 
@@ -262,8 +259,8 @@ class SourceTableDetailsAwsJson10Serializer
       serializers.serialize(
         keySchema,
         specifiedType: const FullType(
-          _i6.BuiltList,
-          [FullType(_i3.KeySchemaElement)],
+          _i3.BuiltList,
+          [FullType(KeySchemaElement)],
         ),
       ),
       'TableCreationDateTime',
@@ -274,7 +271,7 @@ class SourceTableDetailsAwsJson10Serializer
       'ProvisionedThroughput',
       serializers.serialize(
         provisionedThroughput,
-        specifiedType: const FullType(_i4.ProvisionedThroughput),
+        specifiedType: const FullType(ProvisionedThroughput),
       ),
     ]);
     if (tableArn != null) {
@@ -306,7 +303,7 @@ class SourceTableDetailsAwsJson10Serializer
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
-          specifiedType: const FullType(_i5.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     return result$;

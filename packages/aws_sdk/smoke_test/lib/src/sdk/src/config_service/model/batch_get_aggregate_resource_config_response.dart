@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.batch_get_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/base_configuration_item.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/base_configuration_item.dart';
 
 part 'batch_get_aggregate_resource_config_response.g.dart';
 
@@ -22,16 +20,16 @@ abstract class BatchGetAggregateResourceConfigResponse
         Built<BatchGetAggregateResourceConfigResponse,
             BatchGetAggregateResourceConfigResponseBuilder> {
   factory BatchGetAggregateResourceConfigResponse({
-    List<_i2.BaseConfigurationItem>? baseConfigurationItems,
-    List<_i3.AggregateResourceIdentifier>? unprocessedResourceIdentifiers,
+    List<BaseConfigurationItem>? baseConfigurationItems,
+    List<AggregateResourceIdentifier>? unprocessedResourceIdentifiers,
   }) {
     return _$BatchGetAggregateResourceConfigResponse._(
       baseConfigurationItems: baseConfigurationItems == null
           ? null
-          : _i4.BuiltList(baseConfigurationItems),
+          : _i2.BuiltList(baseConfigurationItems),
       unprocessedResourceIdentifiers: unprocessedResourceIdentifiers == null
           ? null
-          : _i4.BuiltList(unprocessedResourceIdentifiers),
+          : _i2.BuiltList(unprocessedResourceIdentifiers),
     );
   }
 
@@ -49,16 +47,16 @@ abstract class BatchGetAggregateResourceConfigResponse
       payload;
 
   static const List<
-          _i5.SmithySerializer<BatchGetAggregateResourceConfigResponse>>
+          _i3.SmithySerializer<BatchGetAggregateResourceConfigResponse>>
       serializers = [
     BatchGetAggregateResourceConfigResponseAwsJson11Serializer()
   ];
 
   /// A list that contains the current configuration of one or more resources.
-  _i4.BuiltList<_i2.BaseConfigurationItem>? get baseConfigurationItems;
+  _i2.BuiltList<BaseConfigurationItem>? get baseConfigurationItems;
 
   /// A list of resource identifiers that were not processed with current scope. The list is empty if all the resources are processed.
-  _i4.BuiltList<_i3.AggregateResourceIdentifier>?
+  _i2.BuiltList<AggregateResourceIdentifier>?
       get unprocessedResourceIdentifiers;
   @override
   List<Object?> get props => [
@@ -81,7 +79,7 @@ abstract class BatchGetAggregateResourceConfigResponse
   }
 }
 
-class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
+class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<BatchGetAggregateResourceConfigResponse> {
   const BatchGetAggregateResourceConfigResponseAwsJson11Serializer()
       : super('BatchGetAggregateResourceConfigResponse');
@@ -92,8 +90,8 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
         _$BatchGetAggregateResourceConfigResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -118,19 +116,19 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
           result.baseConfigurationItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.BaseConfigurationItem)],
+              _i2.BuiltList,
+              [FullType(BaseConfigurationItem)],
             ),
-          ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
+          ) as _i2.BuiltList<BaseConfigurationItem>));
         case 'UnprocessedResourceIdentifiers':
           result.unprocessedResourceIdentifiers
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AggregateResourceIdentifier)],
+              _i2.BuiltList,
+              [FullType(AggregateResourceIdentifier)],
             ),
-          ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
+          ) as _i2.BuiltList<AggregateResourceIdentifier>));
       }
     }
 
@@ -154,8 +152,8 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
         ..add(serializers.serialize(
           baseConfigurationItems,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.BaseConfigurationItem)],
+            _i2.BuiltList,
+            [FullType(BaseConfigurationItem)],
           ),
         ));
     }
@@ -165,8 +163,8 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
         ..add(serializers.serialize(
           unprocessedResourceIdentifiers,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.AggregateResourceIdentifier)],
+            _i2.BuiltList,
+            [FullType(AggregateResourceIdentifier)],
           ),
         ));
     }

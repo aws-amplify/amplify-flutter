@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_virtual_mfa_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart';
 
 part 'list_virtual_mfa_devices_response.g.dart';
 
@@ -22,13 +21,13 @@ abstract class ListVirtualMfaDevicesResponse
             ListVirtualMfaDevicesResponseBuilder> {
   /// Contains the response to a successful ListVirtualMFADevices request.
   factory ListVirtualMfaDevicesResponse({
-    required List<_i2.VirtualMfaDevice> virtualMfaDevices,
+    required List<VirtualMfaDevice> virtualMfaDevices,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListVirtualMfaDevicesResponse._(
-      virtualMfaDevices: _i3.BuiltList(virtualMfaDevices),
+      virtualMfaDevices: _i2.BuiltList(virtualMfaDevices),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -48,7 +47,7 @@ abstract class ListVirtualMfaDevicesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListVirtualMfaDevicesResponse>>
+  static const List<_i3.SmithySerializer<ListVirtualMfaDevicesResponse>>
       serializers = [ListVirtualMfaDevicesResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -57,7 +56,7 @@ abstract class ListVirtualMfaDevicesResponse
   }
 
   /// The list of virtual MFA devices in the current account that match the `AssignmentStatus` value that was passed in the request.
-  _i3.BuiltList<_i2.VirtualMfaDevice> get virtualMfaDevices;
+  _i2.BuiltList<VirtualMfaDevice> get virtualMfaDevices;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -90,7 +89,7 @@ abstract class ListVirtualMfaDevicesResponse
 }
 
 class ListVirtualMfaDevicesResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListVirtualMfaDevicesResponse> {
+    extends _i3.StructuredSmithySerializer<ListVirtualMfaDevicesResponse> {
   const ListVirtualMfaDevicesResponseAwsQuerySerializer()
       : super('ListVirtualMfaDevicesResponse');
 
@@ -100,8 +99,8 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
         _$ListVirtualMfaDevicesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -113,6 +112,14 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListVirtualMfaDevicesResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -123,16 +130,16 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
       }
       switch (key) {
         case 'VirtualMFADevices':
-          result.virtualMfaDevices.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.virtualMfaDevices.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.VirtualMfaDevice)],
+              _i2.BuiltList,
+              [FullType(VirtualMfaDevice)],
             ),
-          ) as _i3.BuiltList<_i2.VirtualMfaDevice>));
+          ) as _i2.BuiltList<VirtualMfaDevice>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -156,9 +163,9 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListVirtualMfaDevicesResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListVirtualMfaDevicesResponse(
@@ -167,26 +174,26 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
       :marker
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('VirtualMFADevices'))
+      ..add(const _i3.XmlElementName('VirtualMFADevices'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         virtualMfaDevices,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.VirtualMfaDevice)],
+          _i2.BuiltList,
+          [FullType(VirtualMfaDevice)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

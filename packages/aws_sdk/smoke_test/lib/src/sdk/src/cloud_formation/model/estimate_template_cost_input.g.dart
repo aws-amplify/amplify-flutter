@@ -12,7 +12,7 @@ class _$EstimateTemplateCostInput extends EstimateTemplateCostInput {
   @override
   final String? templateUrl;
   @override
-  final _i4.BuiltList<_i3.Parameter>? parameters;
+  final _i3.BuiltList<Parameter>? parameters;
 
   factory _$EstimateTemplateCostInput(
           [void Function(EstimateTemplateCostInputBuilder)? updates]) =>
@@ -64,10 +64,10 @@ class EstimateTemplateCostInputBuilder
   String? get templateUrl => _$this._templateUrl;
   set templateUrl(String? templateUrl) => _$this._templateUrl = templateUrl;
 
-  _i4.ListBuilder<_i3.Parameter>? _parameters;
-  _i4.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i4.ListBuilder<_i3.Parameter>();
-  set parameters(_i4.ListBuilder<_i3.Parameter>? parameters) =>
+  _i3.ListBuilder<Parameter>? _parameters;
+  _i3.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<Parameter>();
+  set parameters(_i3.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
   EstimateTemplateCostInputBuilder();

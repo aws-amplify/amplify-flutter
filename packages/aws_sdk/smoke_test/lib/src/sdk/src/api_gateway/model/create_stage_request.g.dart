@@ -18,17 +18,17 @@ class _$CreateStageRequest extends CreateStageRequest {
   @override
   final bool cacheClusterEnabled;
   @override
-  final _i3.CacheClusterSize? cacheClusterSize;
+  final CacheClusterSize? cacheClusterSize;
   @override
-  final _i5.BuiltMap<String, String>? variables;
+  final _i3.BuiltMap<String, String>? variables;
   @override
   final String? documentationVersion;
   @override
-  final _i4.CanarySettings? canarySettings;
+  final CanarySettings? canarySettings;
   @override
   final bool tracingEnabled;
   @override
-  final _i5.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
 
   factory _$CreateStageRequest(
           [void Function(CreateStageRequestBuilder)? updates]) =>
@@ -129,15 +129,15 @@ class CreateStageRequestBuilder
   set cacheClusterEnabled(bool? cacheClusterEnabled) =>
       _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  _i3.CacheClusterSize? _cacheClusterSize;
-  _i3.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i3.CacheClusterSize? cacheClusterSize) =>
+  CacheClusterSize? _cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(CacheClusterSize? cacheClusterSize) =>
       _$this._cacheClusterSize = cacheClusterSize;
 
-  _i5.MapBuilder<String, String>? _variables;
-  _i5.MapBuilder<String, String> get variables =>
-      _$this._variables ??= new _i5.MapBuilder<String, String>();
-  set variables(_i5.MapBuilder<String, String>? variables) =>
+  _i3.MapBuilder<String, String>? _variables;
+  _i3.MapBuilder<String, String> get variables =>
+      _$this._variables ??= new _i3.MapBuilder<String, String>();
+  set variables(_i3.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
   String? _documentationVersion;
@@ -145,10 +145,10 @@ class CreateStageRequestBuilder
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  _i4.CanarySettingsBuilder? _canarySettings;
-  _i4.CanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i4.CanarySettingsBuilder();
-  set canarySettings(_i4.CanarySettingsBuilder? canarySettings) =>
+  CanarySettingsBuilder? _canarySettings;
+  CanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new CanarySettingsBuilder();
+  set canarySettings(CanarySettingsBuilder? canarySettings) =>
       _$this._canarySettings = canarySettings;
 
   bool? _tracingEnabled;
@@ -156,10 +156,10 @@ class CreateStageRequestBuilder
   set tracingEnabled(bool? tracingEnabled) =>
       _$this._tracingEnabled = tracingEnabled;
 
-  _i5.MapBuilder<String, String>? _tags;
-  _i5.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i5.MapBuilder<String, String>();
-  set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   CreateStageRequestBuilder() {
     CreateStageRequest._init(this);
@@ -247,9 +247,9 @@ class _$CreateStageRequestPayload extends CreateStageRequestPayload {
   @override
   final bool cacheClusterEnabled;
   @override
-  final _i3.CacheClusterSize? cacheClusterSize;
+  final CacheClusterSize? cacheClusterSize;
   @override
-  final _i4.CanarySettings? canarySettings;
+  final CanarySettings? canarySettings;
   @override
   final String deploymentId;
   @override
@@ -259,11 +259,11 @@ class _$CreateStageRequestPayload extends CreateStageRequestPayload {
   @override
   final String stageName;
   @override
-  final _i5.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
   @override
   final bool tracingEnabled;
   @override
-  final _i5.BuiltMap<String, String>? variables;
+  final _i3.BuiltMap<String, String>? variables;
 
   factory _$CreateStageRequestPayload(
           [void Function(CreateStageRequestPayloadBuilder)? updates]) =>
@@ -344,15 +344,15 @@ class CreateStageRequestPayloadBuilder
   set cacheClusterEnabled(bool? cacheClusterEnabled) =>
       _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  _i3.CacheClusterSize? _cacheClusterSize;
-  _i3.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i3.CacheClusterSize? cacheClusterSize) =>
+  CacheClusterSize? _cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(CacheClusterSize? cacheClusterSize) =>
       _$this._cacheClusterSize = cacheClusterSize;
 
-  _i4.CanarySettingsBuilder? _canarySettings;
-  _i4.CanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i4.CanarySettingsBuilder();
-  set canarySettings(_i4.CanarySettingsBuilder? canarySettings) =>
+  CanarySettingsBuilder? _canarySettings;
+  CanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new CanarySettingsBuilder();
+  set canarySettings(CanarySettingsBuilder? canarySettings) =>
       _$this._canarySettings = canarySettings;
 
   String? _deploymentId;
@@ -372,20 +372,20 @@ class CreateStageRequestPayloadBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  _i5.MapBuilder<String, String>? _tags;
-  _i5.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i5.MapBuilder<String, String>();
-  set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   bool? _tracingEnabled;
   bool? get tracingEnabled => _$this._tracingEnabled;
   set tracingEnabled(bool? tracingEnabled) =>
       _$this._tracingEnabled = tracingEnabled;
 
-  _i5.MapBuilder<String, String>? _variables;
-  _i5.MapBuilder<String, String> get variables =>
-      _$this._variables ??= new _i5.MapBuilder<String, String>();
-  set variables(_i5.MapBuilder<String, String>? variables) =>
+  _i3.MapBuilder<String, String>? _variables;
+  _i3.MapBuilder<String, String> get variables =>
+      _$this._variables ??= new _i3.MapBuilder<String, String>();
+  set variables(_i3.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
   CreateStageRequestPayloadBuilder() {

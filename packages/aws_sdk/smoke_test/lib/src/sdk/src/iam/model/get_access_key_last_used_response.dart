@@ -6,9 +6,8 @@ library smoke_test.iam.model.get_access_key_last_used_response; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/access_key_last_used.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/access_key_last_used.dart';
 
 part 'get_access_key_last_used_response.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GetAccessKeyLastUsedResponse
   /// Contains the response to a successful GetAccessKeyLastUsed request. It is also returned as a member of the AccessKeyMetaData structure returned by the ListAccessKeys action.
   factory GetAccessKeyLastUsedResponse({
     String? userName,
-    _i2.AccessKeyLastUsed? accessKeyLastUsed,
+    AccessKeyLastUsed? accessKeyLastUsed,
   }) {
     return _$GetAccessKeyLastUsedResponse._(
       userName: userName,
@@ -44,14 +43,14 @@ abstract class GetAccessKeyLastUsedResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetAccessKeyLastUsedResponse>>
+  static const List<_i2.SmithySerializer<GetAccessKeyLastUsedResponse>>
       serializers = [GetAccessKeyLastUsedResponseAwsQuerySerializer()];
 
   /// The name of the IAM user that owns this access key.
   String? get userName;
 
   /// Contains information about the last time the access key was used.
-  _i2.AccessKeyLastUsed? get accessKeyLastUsed;
+  AccessKeyLastUsed? get accessKeyLastUsed;
   @override
   List<Object?> get props => [
         userName,
@@ -73,7 +72,7 @@ abstract class GetAccessKeyLastUsedResponse
 }
 
 class GetAccessKeyLastUsedResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GetAccessKeyLastUsedResponse> {
+    extends _i2.StructuredSmithySerializer<GetAccessKeyLastUsedResponse> {
   const GetAccessKeyLastUsedResponseAwsQuerySerializer()
       : super('GetAccessKeyLastUsedResponse');
 
@@ -83,8 +82,8 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
         _$GetAccessKeyLastUsedResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -96,6 +95,14 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetAccessKeyLastUsedResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -113,8 +120,8 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
         case 'AccessKeyLastUsed':
           result.accessKeyLastUsed.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AccessKeyLastUsed),
-          ) as _i2.AccessKeyLastUsed));
+            specifiedType: const FullType(AccessKeyLastUsed),
+          ) as AccessKeyLastUsed));
       }
     }
 
@@ -128,15 +135,15 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GetAccessKeyLastUsedResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetAccessKeyLastUsedResponse(:userName, :accessKeyLastUsed) = object;
     if (userName != null) {
       result$
-        ..add(const _i3.XmlElementName('UserName'))
+        ..add(const _i2.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
           specifiedType: const FullType(String),
@@ -144,10 +151,10 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
     }
     if (accessKeyLastUsed != null) {
       result$
-        ..add(const _i3.XmlElementName('AccessKeyLastUsed'))
+        ..add(const _i2.XmlElementName('AccessKeyLastUsed'))
         ..add(serializers.serialize(
           accessKeyLastUsed,
-          specifiedType: const FullType(_i2.AccessKeyLastUsed),
+          specifiedType: const FullType(AccessKeyLastUsed),
         ));
     }
     return result$;

@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.stack_drift_information_summary; // ign
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart';
 
 part 'stack_drift_information_summary.g.dart';
 
@@ -21,7 +20,7 @@ abstract class StackDriftInformationSummary
             StackDriftInformationSummaryBuilder> {
   /// Contains information about whether the stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. A stack is considered to have drifted if one or more of its resources have drifted.
   factory StackDriftInformationSummary({
-    required _i2.StackDriftStatus stackDriftStatus,
+    required StackDriftStatus stackDriftStatus,
     DateTime? lastCheckTimestamp,
   }) {
     return _$StackDriftInformationSummary._(
@@ -37,7 +36,7 @@ abstract class StackDriftInformationSummary
 
   const StackDriftInformationSummary._();
 
-  static const List<_i3.SmithySerializer<StackDriftInformationSummary>>
+  static const List<_i2.SmithySerializer<StackDriftInformationSummary>>
       serializers = [StackDriftInformationSummaryAwsQuerySerializer()];
 
   /// Status of the stack's actual configuration compared to its expected template configuration.
@@ -49,7 +48,7 @@ abstract class StackDriftInformationSummary
   /// *   `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
   ///
   /// *   `UNKNOWN`: This value is reserved for future use.
-  _i2.StackDriftStatus get stackDriftStatus;
+  StackDriftStatus get stackDriftStatus;
 
   /// Most recent time when a drift detection operation was initiated on the stack, or any of its individual resources that support drift detection.
   DateTime? get lastCheckTimestamp;
@@ -74,7 +73,7 @@ abstract class StackDriftInformationSummary
 }
 
 class StackDriftInformationSummaryAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<StackDriftInformationSummary> {
+    extends _i2.StructuredSmithySerializer<StackDriftInformationSummary> {
   const StackDriftInformationSummaryAwsQuerySerializer()
       : super('StackDriftInformationSummary');
 
@@ -84,8 +83,8 @@ class StackDriftInformationSummaryAwsQuerySerializer
         _$StackDriftInformationSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -97,6 +96,14 @@ class StackDriftInformationSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackDriftInformationSummaryBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -109,8 +116,8 @@ class StackDriftInformationSummaryAwsQuerySerializer
         case 'StackDriftStatus':
           result.stackDriftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackDriftStatus),
-          ) as _i2.StackDriftStatus);
+            specifiedType: const FullType(StackDriftStatus),
+          ) as StackDriftStatus);
         case 'LastCheckTimestamp':
           result.lastCheckTimestamp = (serializers.deserialize(
             value,
@@ -129,22 +136,22 @@ class StackDriftInformationSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'StackDriftInformationSummaryResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackDriftInformationSummary(:stackDriftStatus, :lastCheckTimestamp) =
         object;
     result$
-      ..add(const _i3.XmlElementName('StackDriftStatus'))
+      ..add(const _i2.XmlElementName('StackDriftStatus'))
       ..add(serializers.serialize(
         stackDriftStatus,
-        specifiedType: const FullType.nullable(_i2.StackDriftStatus),
+        specifiedType: const FullType.nullable(StackDriftStatus),
       ));
     if (lastCheckTimestamp != null) {
       result$
-        ..add(const _i3.XmlElementName('LastCheckTimestamp'))
+        ..add(const _i2.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
           lastCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),

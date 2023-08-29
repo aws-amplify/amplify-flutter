@@ -6,9 +6,9 @@ library smoke_test.sts.model.assume_role_with_saml_response; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart';
 
 part 'assume_role_with_saml_response.g.dart';
 
@@ -19,8 +19,8 @@ abstract class AssumeRoleWithSamlResponse
         Built<AssumeRoleWithSamlResponse, AssumeRoleWithSamlResponseBuilder> {
   /// Contains the response to a successful AssumeRoleWithSAML request, including temporary Amazon Web Services credentials that can be used to make Amazon Web Services requests.
   factory AssumeRoleWithSamlResponse({
-    _i2.Credentials? credentials,
-    _i3.AssumedRoleUser? assumedRoleUser,
+    Credentials? credentials,
+    AssumedRoleUser? assumedRoleUser,
     int? packedPolicySize,
     String? subject,
     String? subjectType,
@@ -56,16 +56,16 @@ abstract class AssumeRoleWithSamlResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<AssumeRoleWithSamlResponse>>
+  static const List<_i2.SmithySerializer<AssumeRoleWithSamlResponse>>
       serializers = [AssumeRoleWithSamlResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
   /// The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
 
   /// The identifiers for the temporary security credentials that the operation returns.
-  _i3.AssumedRoleUser? get assumedRoleUser;
+  AssumedRoleUser? get assumedRoleUser;
 
   /// A percentage value that indicates the packed size of the session policies and session tags combined passed in the request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded the allowed space.
   int? get packedPolicySize;
@@ -162,7 +162,7 @@ abstract class AssumeRoleWithSamlResponse
 }
 
 class AssumeRoleWithSamlResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<AssumeRoleWithSamlResponse> {
+    extends _i2.StructuredSmithySerializer<AssumeRoleWithSamlResponse> {
   const AssumeRoleWithSamlResponseAwsQuerySerializer()
       : super('AssumeRoleWithSamlResponse');
 
@@ -172,8 +172,8 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         _$AssumeRoleWithSamlResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -185,6 +185,14 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = AssumeRoleWithSamlResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -197,13 +205,13 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
         case 'AssumedRoleUser':
           result.assumedRoleUser.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AssumedRoleUser),
-          ) as _i3.AssumedRoleUser));
+            specifiedType: const FullType(AssumedRoleUser),
+          ) as AssumedRoleUser));
         case 'PackedPolicySize':
           result.packedPolicySize = (serializers.deserialize(
             value,
@@ -252,9 +260,9 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'AssumeRoleWithSamlResponseResponse',
-        _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
+        _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final AssumeRoleWithSamlResponse(
@@ -270,23 +278,23 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     ) = object;
     if (credentials != null) {
       result$
-        ..add(const _i4.XmlElementName('Credentials'))
+        ..add(const _i2.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     if (assumedRoleUser != null) {
       result$
-        ..add(const _i4.XmlElementName('AssumedRoleUser'))
+        ..add(const _i2.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
-          specifiedType: const FullType(_i3.AssumedRoleUser),
+          specifiedType: const FullType(AssumedRoleUser),
         ));
     }
     if (packedPolicySize != null) {
       result$
-        ..add(const _i4.XmlElementName('PackedPolicySize'))
+        ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
           specifiedType: const FullType.nullable(int),
@@ -294,7 +302,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (subject != null) {
       result$
-        ..add(const _i4.XmlElementName('Subject'))
+        ..add(const _i2.XmlElementName('Subject'))
         ..add(serializers.serialize(
           subject,
           specifiedType: const FullType(String),
@@ -302,7 +310,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (subjectType != null) {
       result$
-        ..add(const _i4.XmlElementName('SubjectType'))
+        ..add(const _i2.XmlElementName('SubjectType'))
         ..add(serializers.serialize(
           subjectType,
           specifiedType: const FullType(String),
@@ -310,7 +318,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (issuer != null) {
       result$
-        ..add(const _i4.XmlElementName('Issuer'))
+        ..add(const _i2.XmlElementName('Issuer'))
         ..add(serializers.serialize(
           issuer,
           specifiedType: const FullType(String),
@@ -318,7 +326,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (audience != null) {
       result$
-        ..add(const _i4.XmlElementName('Audience'))
+        ..add(const _i2.XmlElementName('Audience'))
         ..add(serializers.serialize(
           audience,
           specifiedType: const FullType(String),
@@ -326,7 +334,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (nameQualifier != null) {
       result$
-        ..add(const _i4.XmlElementName('NameQualifier'))
+        ..add(const _i2.XmlElementName('NameQualifier'))
         ..add(serializers.serialize(
           nameQualifier,
           specifiedType: const FullType(String),
@@ -334,7 +342,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     }
     if (sourceIdentity != null) {
       result$
-        ..add(const _i4.XmlElementName('SourceIdentity'))
+        ..add(const _i2.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),

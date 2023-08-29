@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.stack_instance_comprehensive_status; //
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_detailed_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_detailed_status.dart';
 
 part 'stack_instance_comprehensive_status.g.dart';
 
@@ -21,7 +20,7 @@ abstract class StackInstanceComprehensiveStatus
             StackInstanceComprehensiveStatusBuilder> {
   /// The detailed status of the stack instance.
   factory StackInstanceComprehensiveStatus(
-      {_i2.StackInstanceDetailedStatus? detailedStatus}) {
+      {StackInstanceDetailedStatus? detailedStatus}) {
     return _$StackInstanceComprehensiveStatus._(detailedStatus: detailedStatus);
   }
 
@@ -32,7 +31,7 @@ abstract class StackInstanceComprehensiveStatus
 
   const StackInstanceComprehensiveStatus._();
 
-  static const List<_i3.SmithySerializer<StackInstanceComprehensiveStatus>>
+  static const List<_i2.SmithySerializer<StackInstanceComprehensiveStatus>>
       serializers = [StackInstanceComprehensiveStatusAwsQuerySerializer()];
 
   /// *   `CANCELLED`: The operation in the specified account and Region has been canceled. This is either because a user has stopped the stack set operation, or because the failure tolerance of the stack set operation has been exceeded.
@@ -48,7 +47,7 @@ abstract class StackInstanceComprehensiveStatus
   /// *   `SKIPPED\_SUSPENDED\_ACCOUNT`: The operation in the specified account and Region has been skipped because the account was suspended at the time of the operation.
   ///
   /// *   `SUCCEEDED`: The operation in the specified account and Region completed successfully.
-  _i2.StackInstanceDetailedStatus? get detailedStatus;
+  StackInstanceDetailedStatus? get detailedStatus;
   @override
   List<Object?> get props => [detailedStatus];
   @override
@@ -64,7 +63,7 @@ abstract class StackInstanceComprehensiveStatus
 }
 
 class StackInstanceComprehensiveStatusAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<StackInstanceComprehensiveStatus> {
+    extends _i2.StructuredSmithySerializer<StackInstanceComprehensiveStatus> {
   const StackInstanceComprehensiveStatusAwsQuerySerializer()
       : super('StackInstanceComprehensiveStatus');
 
@@ -74,8 +73,8 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
         _$StackInstanceComprehensiveStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -87,6 +86,14 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackInstanceComprehensiveStatusBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -99,8 +106,8 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
         case 'DetailedStatus':
           result.detailedStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackInstanceDetailedStatus),
-          ) as _i2.StackInstanceDetailedStatus);
+            specifiedType: const FullType(StackInstanceDetailedStatus),
+          ) as StackInstanceDetailedStatus);
       }
     }
 
@@ -114,19 +121,18 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'StackInstanceComprehensiveStatusResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackInstanceComprehensiveStatus(:detailedStatus) = object;
     if (detailedStatus != null) {
       result$
-        ..add(const _i3.XmlElementName('DetailedStatus'))
+        ..add(const _i2.XmlElementName('DetailedStatus'))
         ..add(serializers.serialize(
           detailedStatus,
-          specifiedType:
-              const FullType.nullable(_i2.StackInstanceDetailedStatus),
+          specifiedType: const FullType.nullable(StackInstanceDetailedStatus),
         ));
     }
     return result$;

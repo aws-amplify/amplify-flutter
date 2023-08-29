@@ -6,10 +6,9 @@ library smoke_test.iam.model.policy_granting_service_access; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_owner_entity_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_owner_entity_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_type.dart';
 
 part 'policy_granting_service_access.g.dart';
 
@@ -25,9 +24,9 @@ abstract class PolicyGrantingServiceAccess
   /// This data type is an element of the ListPoliciesGrantingServiceAccessEntry object.
   factory PolicyGrantingServiceAccess({
     required String policyName,
-    required _i2.PolicyType policyType,
+    required PolicyType policyType,
     String? policyArn,
-    _i3.PolicyOwnerEntityType? entityType,
+    PolicyOwnerEntityType? entityType,
     String? entityName,
   }) {
     return _$PolicyGrantingServiceAccess._(
@@ -48,14 +47,14 @@ abstract class PolicyGrantingServiceAccess
 
   const PolicyGrantingServiceAccess._();
 
-  static const List<_i4.SmithySerializer<PolicyGrantingServiceAccess>>
+  static const List<_i2.SmithySerializer<PolicyGrantingServiceAccess>>
       serializers = [PolicyGrantingServiceAccessAwsQuerySerializer()];
 
   /// The policy name.
   String get policyName;
 
   /// The policy type. For more information about these policy types, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) in the _IAM User Guide_.
-  _i2.PolicyType get policyType;
+  PolicyType get policyType;
 
   /// The Amazon Resource Name (ARN). ARNs are unique identifiers for Amazon Web Services resources.
   ///
@@ -65,7 +64,7 @@ abstract class PolicyGrantingServiceAccess
   /// The type of entity (user or role) that used the policy to access the service to which the inline policy is attached.
   ///
   /// This field is null for managed policies. For more information about these policy types, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) in the _IAM User Guide_.
-  _i3.PolicyOwnerEntityType? get entityType;
+  PolicyOwnerEntityType? get entityType;
 
   /// The name of the entity (user or role) to which the inline policy is attached.
   ///
@@ -107,7 +106,7 @@ abstract class PolicyGrantingServiceAccess
 }
 
 class PolicyGrantingServiceAccessAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<PolicyGrantingServiceAccess> {
+    extends _i2.StructuredSmithySerializer<PolicyGrantingServiceAccess> {
   const PolicyGrantingServiceAccessAwsQuerySerializer()
       : super('PolicyGrantingServiceAccess');
 
@@ -117,8 +116,8 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         _$PolicyGrantingServiceAccess,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -130,6 +129,14 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = PolicyGrantingServiceAccessBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -147,8 +154,8 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         case 'PolicyType':
           result.policyType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PolicyType),
-          ) as _i2.PolicyType);
+            specifiedType: const FullType(PolicyType),
+          ) as PolicyType);
         case 'PolicyArn':
           result.policyArn = (serializers.deserialize(
             value,
@@ -157,8 +164,8 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         case 'EntityType':
           result.entityType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PolicyOwnerEntityType),
-          ) as _i3.PolicyOwnerEntityType);
+            specifiedType: const FullType(PolicyOwnerEntityType),
+          ) as PolicyOwnerEntityType);
         case 'EntityName':
           result.entityName = (serializers.deserialize(
             value,
@@ -177,9 +184,9 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'PolicyGrantingServiceAccessResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final PolicyGrantingServiceAccess(
@@ -190,20 +197,20 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
       :entityName
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('PolicyName'))
+      ..add(const _i2.XmlElementName('PolicyName'))
       ..add(serializers.serialize(
         policyName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i4.XmlElementName('PolicyType'))
+      ..add(const _i2.XmlElementName('PolicyType'))
       ..add(serializers.serialize(
         policyType,
-        specifiedType: const FullType.nullable(_i2.PolicyType),
+        specifiedType: const FullType.nullable(PolicyType),
       ));
     if (policyArn != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyArn'))
+        ..add(const _i2.XmlElementName('PolicyArn'))
         ..add(serializers.serialize(
           policyArn,
           specifiedType: const FullType(String),
@@ -211,15 +218,15 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
     }
     if (entityType != null) {
       result$
-        ..add(const _i4.XmlElementName('EntityType'))
+        ..add(const _i2.XmlElementName('EntityType'))
         ..add(serializers.serialize(
           entityType,
-          specifiedType: const FullType.nullable(_i3.PolicyOwnerEntityType),
+          specifiedType: const FullType.nullable(PolicyOwnerEntityType),
         ));
     }
     if (entityName != null) {
       result$
-        ..add(const _i4.XmlElementName('EntityName'))
+        ..add(const _i2.XmlElementName('EntityName'))
         ..add(serializers.serialize(
           entityName,
           specifiedType: const FullType(String),

@@ -6,9 +6,8 @@ library smoke_test.api_gateway.model.documentation_part_location; // ignore_for_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart';
 
 part 'documentation_part_location.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DocumentationPartLocation
         Built<DocumentationPartLocation, DocumentationPartLocationBuilder> {
   /// Specifies the target API entity to which the documentation applies.
   factory DocumentationPartLocation({
-    required _i2.DocumentationPartType type,
+    required DocumentationPartType type,
     String? path,
     String? method,
     String? statusCode,
@@ -41,11 +40,11 @@ abstract class DocumentationPartLocation
 
   const DocumentationPartLocation._();
 
-  static const List<_i3.SmithySerializer<DocumentationPartLocation>>
+  static const List<_i2.SmithySerializer<DocumentationPartLocation>>
       serializers = [DocumentationPartLocationRestJson1Serializer()];
 
   /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
-  _i2.DocumentationPartType get type;
+  DocumentationPartType get type;
 
   /// The URL path of the target. It is a valid field for the API entity types of `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `/` for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other `location` attributes, the child entity's `path` attribute must match that of the parent entity as a prefix.
   String? get path;
@@ -94,7 +93,7 @@ abstract class DocumentationPartLocation
 }
 
 class DocumentationPartLocationRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<DocumentationPartLocation> {
+    extends _i2.StructuredSmithySerializer<DocumentationPartLocation> {
   const DocumentationPartLocationRestJson1Serializer()
       : super('DocumentationPartLocation');
 
@@ -104,8 +103,8 @@ class DocumentationPartLocationRestJson1Serializer
         _$DocumentationPartLocation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -149,8 +148,8 @@ class DocumentationPartLocationRestJson1Serializer
         case 'type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DocumentationPartType),
-          ) as _i2.DocumentationPartType);
+            specifiedType: const FullType(DocumentationPartType),
+          ) as DocumentationPartType);
       }
     }
 
@@ -170,7 +169,7 @@ class DocumentationPartLocationRestJson1Serializer
       'type',
       serializers.serialize(
         type,
-        specifiedType: const FullType(_i2.DocumentationPartType),
+        specifiedType: const FullType(DocumentationPartType),
       ),
     ]);
     if (method != null) {

@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.usage_plan_keys; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plan_key.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/usage_plan_key.dart';
 
 part 'usage_plan_keys.g.dart';
 
@@ -19,11 +18,11 @@ abstract class UsagePlanKeys
     implements Built<UsagePlanKeys, UsagePlanKeysBuilder> {
   /// Represents the collection of usage plan keys added to usage plans for the associated API keys and, possibly, other types of keys.
   factory UsagePlanKeys({
-    List<_i2.UsagePlanKey>? items,
+    List<UsagePlanKey>? items,
     String? position,
   }) {
     return _$UsagePlanKeys._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class UsagePlanKeys
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<UsagePlanKeys>> serializers = [
+  static const List<_i3.SmithySerializer<UsagePlanKeys>> serializers = [
     UsagePlanKeysRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.UsagePlanKey>? get items;
+  _i2.BuiltList<UsagePlanKey>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -71,7 +70,7 @@ abstract class UsagePlanKeys
 }
 
 class UsagePlanKeysRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<UsagePlanKeys> {
+    extends _i3.StructuredSmithySerializer<UsagePlanKeys> {
   const UsagePlanKeysRestJson1Serializer() : super('UsagePlanKeys');
 
   @override
@@ -80,8 +79,8 @@ class UsagePlanKeysRestJson1Serializer
         _$UsagePlanKeys,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class UsagePlanKeysRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.UsagePlanKey)],
+              _i2.BuiltList,
+              [FullType(UsagePlanKey)],
             ),
-          ) as _i3.BuiltList<_i2.UsagePlanKey>));
+          ) as _i2.BuiltList<UsagePlanKey>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class UsagePlanKeysRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.UsagePlanKey)],
+            _i2.BuiltList,
+            [FullType(UsagePlanKey)],
           ),
         ));
     }

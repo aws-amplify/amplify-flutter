@@ -160,7 +160,7 @@ class BelongsToChildExplicit extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
+      .QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           BelongsToChildExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

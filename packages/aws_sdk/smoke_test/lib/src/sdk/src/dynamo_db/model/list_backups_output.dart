@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.list_backups_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_summary.dart';
 
 part 'list_backups_output.g.dart';
 
@@ -17,12 +16,12 @@ abstract class ListBackupsOutput
     with _i1.AWSEquatable<ListBackupsOutput>
     implements Built<ListBackupsOutput, ListBackupsOutputBuilder> {
   factory ListBackupsOutput({
-    List<_i2.BackupSummary>? backupSummaries,
+    List<BackupSummary>? backupSummaries,
     String? lastEvaluatedBackupArn,
   }) {
     return _$ListBackupsOutput._(
       backupSummaries:
-          backupSummaries == null ? null : _i3.BuiltList(backupSummaries),
+          backupSummaries == null ? null : _i2.BuiltList(backupSummaries),
       lastEvaluatedBackupArn: lastEvaluatedBackupArn,
     );
   }
@@ -39,12 +38,12 @@ abstract class ListBackupsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListBackupsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListBackupsOutput>> serializers = [
     ListBackupsOutputAwsJson10Serializer()
   ];
 
   /// List of `BackupSummary` objects.
-  _i3.BuiltList<_i2.BackupSummary>? get backupSummaries;
+  _i2.BuiltList<BackupSummary>? get backupSummaries;
 
   /// The ARN of the backup last evaluated when the current page of results was returned, inclusive of the current page of results. This value may be specified as the `ExclusiveStartBackupArn` of a new `ListBackups` operation in order to fetch the next page of results.
   ///
@@ -73,7 +72,7 @@ abstract class ListBackupsOutput
 }
 
 class ListBackupsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListBackupsOutput> {
+    extends _i3.StructuredSmithySerializer<ListBackupsOutput> {
   const ListBackupsOutputAwsJson10Serializer() : super('ListBackupsOutput');
 
   @override
@@ -82,8 +81,8 @@ class ListBackupsOutputAwsJson10Serializer
         _$ListBackupsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,10 +107,10 @@ class ListBackupsOutputAwsJson10Serializer
           result.backupSummaries.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.BackupSummary)],
+              _i2.BuiltList,
+              [FullType(BackupSummary)],
             ),
-          ) as _i3.BuiltList<_i2.BackupSummary>));
+          ) as _i2.BuiltList<BackupSummary>));
         case 'LastEvaluatedBackupArn':
           result.lastEvaluatedBackupArn = (serializers.deserialize(
             value,
@@ -137,8 +136,8 @@ class ListBackupsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           backupSummaries,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.BackupSummary)],
+            _i2.BuiltList,
+            [FullType(BackupSummary)],
           ),
         ));
     }

@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.resource_target_definition; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/requires_recreation.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_attribute.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/requires_recreation.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_attribute.dart';
 
 part 'resource_target_definition.g.dart';
 
@@ -21,9 +19,9 @@ abstract class ResourceTargetDefinition
         Built<ResourceTargetDefinition, ResourceTargetDefinitionBuilder> {
   /// The field that CloudFormation will change, such as the name of a resource's property, and whether the resource will be recreated.
   factory ResourceTargetDefinition({
-    _i2.ResourceAttribute? attribute,
+    ResourceAttribute? attribute,
     String? name,
-    _i3.RequiresRecreation? requiresRecreation,
+    RequiresRecreation? requiresRecreation,
   }) {
     return _$ResourceTargetDefinition._(
       attribute: attribute,
@@ -39,17 +37,17 @@ abstract class ResourceTargetDefinition
 
   const ResourceTargetDefinition._();
 
-  static const List<_i4.SmithySerializer<ResourceTargetDefinition>>
+  static const List<_i2.SmithySerializer<ResourceTargetDefinition>>
       serializers = [ResourceTargetDefinitionAwsQuerySerializer()];
 
   /// Indicates which resource attribute is triggering this update, such as a change in the resource attribute's `Metadata`, `Properties`, or `Tags`.
-  _i2.ResourceAttribute? get attribute;
+  ResourceAttribute? get attribute;
 
   /// If the `Attribute` value is `Properties`, the name of the property. For all other attributes, the value is null.
   String? get name;
 
   /// If the `Attribute` value is `Properties`, indicates whether a change to this property causes the resource to be recreated. The value can be `Never`, `Always`, or `Conditionally`. To determine the conditions for a `Conditionally` recreation, see the update behavior for that [property](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) in the CloudFormation User Guide.
-  _i3.RequiresRecreation? get requiresRecreation;
+  RequiresRecreation? get requiresRecreation;
   @override
   List<Object?> get props => [
         attribute,
@@ -76,7 +74,7 @@ abstract class ResourceTargetDefinition
 }
 
 class ResourceTargetDefinitionAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ResourceTargetDefinition> {
+    extends _i2.StructuredSmithySerializer<ResourceTargetDefinition> {
   const ResourceTargetDefinitionAwsQuerySerializer()
       : super('ResourceTargetDefinition');
 
@@ -86,8 +84,8 @@ class ResourceTargetDefinitionAwsQuerySerializer
         _$ResourceTargetDefinition,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -99,6 +97,14 @@ class ResourceTargetDefinitionAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ResourceTargetDefinitionBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -111,8 +117,8 @@ class ResourceTargetDefinitionAwsQuerySerializer
         case 'Attribute':
           result.attribute = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceAttribute),
-          ) as _i2.ResourceAttribute);
+            specifiedType: const FullType(ResourceAttribute),
+          ) as ResourceAttribute);
         case 'Name':
           result.name = (serializers.deserialize(
             value,
@@ -121,8 +127,8 @@ class ResourceTargetDefinitionAwsQuerySerializer
         case 'RequiresRecreation':
           result.requiresRecreation = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RequiresRecreation),
-          ) as _i3.RequiresRecreation);
+            specifiedType: const FullType(RequiresRecreation),
+          ) as RequiresRecreation);
       }
     }
 
@@ -136,24 +142,24 @@ class ResourceTargetDefinitionAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ResourceTargetDefinitionResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ResourceTargetDefinition(:attribute, :name, :requiresRecreation) =
         object;
     if (attribute != null) {
       result$
-        ..add(const _i4.XmlElementName('Attribute'))
+        ..add(const _i2.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(_i2.ResourceAttribute),
+          specifiedType: const FullType.nullable(ResourceAttribute),
         ));
     }
     if (name != null) {
       result$
-        ..add(const _i4.XmlElementName('Name'))
+        ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
@@ -161,10 +167,10 @@ class ResourceTargetDefinitionAwsQuerySerializer
     }
     if (requiresRecreation != null) {
       result$
-        ..add(const _i4.XmlElementName('RequiresRecreation'))
+        ..add(const _i2.XmlElementName('RequiresRecreation'))
         ..add(serializers.serialize(
           requiresRecreation,
-          specifiedType: const FullType.nullable(_i3.RequiresRecreation),
+          specifiedType: const FullType.nullable(RequiresRecreation),
         ));
     }
     return result$;

@@ -45,20 +45,11 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
-            attributes: [
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.name,
-                value: name,
-              ),
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.email,
-                value: email,
-              ),
-              AuthUserAttribute(
-                userAttributeKey: AuthUserAttributeKey.phoneNumber,
-                value: phoneNumber,
-              ),
-            ],
+            attributes: {
+              AuthUserAttributeKey.name: name,
+              AuthUserAttributeKey.email: email,
+              AuthUserAttributeKey.phoneNumber: phoneNumber,
+            },
           );
 
           final res = await Amplify.Auth.signIn(

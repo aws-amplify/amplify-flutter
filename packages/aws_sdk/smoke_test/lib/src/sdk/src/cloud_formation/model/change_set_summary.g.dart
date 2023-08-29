@@ -16,9 +16,9 @@ class _$ChangeSetSummary extends ChangeSetSummary {
   @override
   final String? changeSetName;
   @override
-  final _i2.ExecutionStatus? executionStatus;
+  final ExecutionStatus? executionStatus;
   @override
-  final _i3.ChangeSetStatus? status;
+  final ChangeSetStatus? status;
   @override
   final String? statusReason;
   @override
@@ -118,14 +118,14 @@ class ChangeSetSummaryBuilder
   set changeSetName(String? changeSetName) =>
       _$this._changeSetName = changeSetName;
 
-  _i2.ExecutionStatus? _executionStatus;
-  _i2.ExecutionStatus? get executionStatus => _$this._executionStatus;
-  set executionStatus(_i2.ExecutionStatus? executionStatus) =>
+  ExecutionStatus? _executionStatus;
+  ExecutionStatus? get executionStatus => _$this._executionStatus;
+  set executionStatus(ExecutionStatus? executionStatus) =>
       _$this._executionStatus = executionStatus;
 
-  _i3.ChangeSetStatus? _status;
-  _i3.ChangeSetStatus? get status => _$this._status;
-  set status(_i3.ChangeSetStatus? status) => _$this._status = status;
+  ChangeSetStatus? _status;
+  ChangeSetStatus? get status => _$this._status;
+  set status(ChangeSetStatus? status) => _$this._status = status;
 
   String? _statusReason;
   String? get statusReason => _$this._statusReason;

@@ -6,9 +6,8 @@ library rest_json1_v1.rest_json_protocol.model.recursive_shapes_input_output_nes
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/recursive_shapes_input_output_nested1.dart'
-    as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/recursive_shapes_input_output_nested1.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'recursive_shapes_input_output_nested2.g.dart';
 
@@ -20,7 +19,7 @@ abstract class RecursiveShapesInputOutputNested2
             RecursiveShapesInputOutputNested2Builder> {
   factory RecursiveShapesInputOutputNested2({
     String? bar,
-    _i2.RecursiveShapesInputOutputNested1? recursiveMember,
+    RecursiveShapesInputOutputNested1? recursiveMember,
   }) {
     return _$RecursiveShapesInputOutputNested2._(
       bar: bar,
@@ -34,11 +33,11 @@ abstract class RecursiveShapesInputOutputNested2
 
   const RecursiveShapesInputOutputNested2._();
 
-  static const List<_i3.SmithySerializer<RecursiveShapesInputOutputNested2>>
+  static const List<_i2.SmithySerializer<RecursiveShapesInputOutputNested2>>
       serializers = [RecursiveShapesInputOutputNested2RestJson1Serializer()];
 
   String? get bar;
-  _i2.RecursiveShapesInputOutputNested1? get recursiveMember;
+  RecursiveShapesInputOutputNested1? get recursiveMember;
   @override
   List<Object?> get props => [
         bar,
@@ -61,7 +60,7 @@ abstract class RecursiveShapesInputOutputNested2
 }
 
 class RecursiveShapesInputOutputNested2RestJson1Serializer
-    extends _i3.StructuredSmithySerializer<RecursiveShapesInputOutputNested2> {
+    extends _i2.StructuredSmithySerializer<RecursiveShapesInputOutputNested2> {
   const RecursiveShapesInputOutputNested2RestJson1Serializer()
       : super('RecursiveShapesInputOutputNested2');
 
@@ -71,8 +70,8 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
         _$RecursiveShapesInputOutputNested2,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -101,9 +100,8 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
         case 'recursiveMember':
           result.recursiveMember.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.RecursiveShapesInputOutputNested1),
-          ) as _i2.RecursiveShapesInputOutputNested1));
+            specifiedType: const FullType(RecursiveShapesInputOutputNested1),
+          ) as RecursiveShapesInputOutputNested1));
       }
     }
 
@@ -131,7 +129,7 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
         ..add('recursiveMember')
         ..add(serializers.serialize(
           recursiveMember,
-          specifiedType: const FullType(_i2.RecursiveShapesInputOutputNested1),
+          specifiedType: const FullType(RecursiveShapesInputOutputNested1),
         ));
     }
     return result$;

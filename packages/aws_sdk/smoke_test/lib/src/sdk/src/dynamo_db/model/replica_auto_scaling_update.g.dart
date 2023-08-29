@@ -10,10 +10,10 @@ class _$ReplicaAutoScalingUpdate extends ReplicaAutoScalingUpdate {
   @override
   final String regionName;
   @override
-  final _i4.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
+  final _i2.BuiltList<ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
       replicaGlobalSecondaryIndexUpdates;
   @override
-  final _i3.AutoScalingSettingsUpdate?
+  final AutoScalingSettingsUpdate?
       replicaProvisionedReadCapacityAutoScalingUpdate;
 
   factory _$ReplicaAutoScalingUpdate(
@@ -70,26 +70,26 @@ class ReplicaAutoScalingUpdateBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  _i4.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
       _replicaGlobalSecondaryIndexUpdates;
-  _i4.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>
-      get replicaGlobalSecondaryIndexUpdates =>
-          _$this._replicaGlobalSecondaryIndexUpdates ??= new _i4
-              .ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>();
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingUpdate>
+      get replicaGlobalSecondaryIndexUpdates => _$this
+              ._replicaGlobalSecondaryIndexUpdates ??=
+          new _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingUpdate>();
   set replicaGlobalSecondaryIndexUpdates(
-          _i4.ListBuilder<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
+          _i2.ListBuilder<ReplicaGlobalSecondaryIndexAutoScalingUpdate>?
               replicaGlobalSecondaryIndexUpdates) =>
       _$this._replicaGlobalSecondaryIndexUpdates =
           replicaGlobalSecondaryIndexUpdates;
 
-  _i3.AutoScalingSettingsUpdateBuilder?
+  AutoScalingSettingsUpdateBuilder?
       _replicaProvisionedReadCapacityAutoScalingUpdate;
-  _i3.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder
       get replicaProvisionedReadCapacityAutoScalingUpdate =>
           _$this._replicaProvisionedReadCapacityAutoScalingUpdate ??=
-              new _i3.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set replicaProvisionedReadCapacityAutoScalingUpdate(
-          _i3.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               replicaProvisionedReadCapacityAutoScalingUpdate) =>
       _$this._replicaProvisionedReadCapacityAutoScalingUpdate =
           replicaProvisionedReadCapacityAutoScalingUpdate;

@@ -8,9 +8,9 @@ part of 'attribute_value_update.dart';
 
 class _$AttributeValueUpdate extends AttributeValueUpdate {
   @override
-  final _i2.AttributeValue? value;
+  final AttributeValue? value;
   @override
-  final _i3.AttributeAction? action;
+  final AttributeAction? action;
 
   factory _$AttributeValueUpdate(
           [void Function(AttributeValueUpdateBuilder)? updates]) =>
@@ -49,13 +49,13 @@ class AttributeValueUpdateBuilder
     implements Builder<AttributeValueUpdate, AttributeValueUpdateBuilder> {
   _$AttributeValueUpdate? _$v;
 
-  _i2.AttributeValue? _value;
-  _i2.AttributeValue? get value => _$this._value;
-  set value(_i2.AttributeValue? value) => _$this._value = value;
+  AttributeValue? _value;
+  AttributeValue? get value => _$this._value;
+  set value(AttributeValue? value) => _$this._value = value;
 
-  _i3.AttributeAction? _action;
-  _i3.AttributeAction? get action => _$this._action;
-  set action(_i3.AttributeAction? action) => _$this._action = action;
+  AttributeAction? _action;
+  AttributeAction? get action => _$this._action;
+  set action(AttributeAction? action) => _$this._action = action;
 
   AttributeValueUpdateBuilder();
 

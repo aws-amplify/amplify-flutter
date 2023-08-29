@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.list_aggregate_discovered_resources_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart';
 
 part 'list_aggregate_discovered_resources_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class ListAggregateDiscoveredResourcesResponse
         Built<ListAggregateDiscoveredResourcesResponse,
             ListAggregateDiscoveredResourcesResponseBuilder> {
   factory ListAggregateDiscoveredResourcesResponse({
-    List<_i2.AggregateResourceIdentifier>? resourceIdentifiers,
+    List<AggregateResourceIdentifier>? resourceIdentifiers,
     String? nextToken,
   }) {
     return _$ListAggregateDiscoveredResourcesResponse._(
       resourceIdentifiers: resourceIdentifiers == null
           ? null
-          : _i3.BuiltList(resourceIdentifiers),
+          : _i2.BuiltList(resourceIdentifiers),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class ListAggregateDiscoveredResourcesResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListAggregateDiscoveredResourcesResponse>>
+          _i3.SmithySerializer<ListAggregateDiscoveredResourcesResponse>>
       serializers = [
     ListAggregateDiscoveredResourcesResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of `ResourceIdentifiers` objects.
-  _i3.BuiltList<_i2.AggregateResourceIdentifier>? get resourceIdentifiers;
+  _i2.BuiltList<AggregateResourceIdentifier>? get resourceIdentifiers;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class ListAggregateDiscoveredResourcesResponse
   }
 }
 
-class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
+class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<ListAggregateDiscoveredResourcesResponse> {
   const ListAggregateDiscoveredResourcesResponseAwsJson11Serializer()
       : super('ListAggregateDiscoveredResourcesResponse');
@@ -87,8 +86,8 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
         _$ListAggregateDiscoveredResourcesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
           result.resourceIdentifiers.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregateResourceIdentifier)],
+              _i2.BuiltList,
+              [FullType(AggregateResourceIdentifier)],
             ),
-          ) as _i3.BuiltList<_i2.AggregateResourceIdentifier>));
+          ) as _i2.BuiltList<AggregateResourceIdentifier>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           resourceIdentifiers,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregateResourceIdentifier)],
+            _i2.BuiltList,
+            [FullType(AggregateResourceIdentifier)],
           ),
         ));
     }

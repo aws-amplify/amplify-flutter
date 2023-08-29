@@ -8,7 +8,7 @@ part of 'xml_namespaces_input_output.dart';
 
 class _$XmlNamespacesInputOutput extends XmlNamespacesInputOutput {
   @override
-  final _i3.XmlNamespaceNested? nested;
+  final XmlNamespaceNested? nested;
 
   factory _$XmlNamespacesInputOutput(
           [void Function(XmlNamespacesInputOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class XmlNamespacesInputOutputBuilder
         Builder<XmlNamespacesInputOutput, XmlNamespacesInputOutputBuilder> {
   _$XmlNamespacesInputOutput? _$v;
 
-  _i3.XmlNamespaceNestedBuilder? _nested;
-  _i3.XmlNamespaceNestedBuilder get nested =>
-      _$this._nested ??= new _i3.XmlNamespaceNestedBuilder();
-  set nested(_i3.XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
+  XmlNamespaceNestedBuilder? _nested;
+  XmlNamespaceNestedBuilder get nested =>
+      _$this._nested ??= new XmlNamespaceNestedBuilder();
+  set nested(XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
 
   XmlNamespacesInputOutputBuilder();
 

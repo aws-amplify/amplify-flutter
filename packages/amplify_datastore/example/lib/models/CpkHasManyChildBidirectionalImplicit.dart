@@ -179,8 +179,8 @@ class CpkHasManyChildBidirectionalImplicit extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          CpkHasManyChildBidirectionalImplicitModelIdentifier>
+  static final amplify_core
+      .QueryModelIdentifier<CpkHasManyChildBidirectionalImplicitModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasManyChildBidirectionalImplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");

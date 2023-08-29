@@ -6,9 +6,8 @@ library smoke_test.config_service.model.put_aggregation_authorization_response; 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart';
 
 part 'put_aggregation_authorization_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class PutAggregationAuthorizationResponse
         Built<PutAggregationAuthorizationResponse,
             PutAggregationAuthorizationResponseBuilder> {
   factory PutAggregationAuthorizationResponse(
-      {_i2.AggregationAuthorization? aggregationAuthorization}) {
+      {AggregationAuthorization? aggregationAuthorization}) {
     return _$PutAggregationAuthorizationResponse._(
         aggregationAuthorization: aggregationAuthorization);
   }
@@ -37,11 +36,11 @@ abstract class PutAggregationAuthorizationResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PutAggregationAuthorizationResponse>>
+  static const List<_i2.SmithySerializer<PutAggregationAuthorizationResponse>>
       serializers = [PutAggregationAuthorizationResponseAwsJson11Serializer()];
 
   /// Returns an AggregationAuthorization object.
-  _i2.AggregationAuthorization? get aggregationAuthorization;
+  AggregationAuthorization? get aggregationAuthorization;
   @override
   List<Object?> get props => [aggregationAuthorization];
   @override
@@ -56,7 +55,7 @@ abstract class PutAggregationAuthorizationResponse
   }
 }
 
-class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
+class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<PutAggregationAuthorizationResponse> {
   const PutAggregationAuthorizationResponseAwsJson11Serializer()
       : super('PutAggregationAuthorizationResponse');
@@ -67,8 +66,8 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
         _$PutAggregationAuthorizationResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -92,8 +91,8 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
         case 'AggregationAuthorization':
           result.aggregationAuthorization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AggregationAuthorization),
-          ) as _i2.AggregationAuthorization));
+            specifiedType: const FullType(AggregationAuthorization),
+          ) as AggregationAuthorization));
       }
     }
 
@@ -114,7 +113,7 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
         ..add('AggregationAuthorization')
         ..add(serializers.serialize(
           aggregationAuthorization,
-          specifiedType: const FullType(_i2.AggregationAuthorization),
+          specifiedType: const FullType(AggregationAuthorization),
         ));
     }
     return result$;

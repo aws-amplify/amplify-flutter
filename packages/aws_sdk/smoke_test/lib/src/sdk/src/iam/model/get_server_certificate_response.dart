@@ -6,9 +6,8 @@ library smoke_test.iam.model.get_server_certificate_response; // ignore_for_file
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/server_certificate.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/server_certificate.dart';
 
 part 'get_server_certificate_response.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GetServerCertificateResponse
             GetServerCertificateResponseBuilder> {
   /// Contains the response to a successful GetServerCertificate request.
   factory GetServerCertificateResponse(
-      {required _i2.ServerCertificate serverCertificate}) {
+      {required ServerCertificate serverCertificate}) {
     return _$GetServerCertificateResponse._(
         serverCertificate: serverCertificate);
   }
@@ -40,11 +39,11 @@ abstract class GetServerCertificateResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetServerCertificateResponse>>
+  static const List<_i2.SmithySerializer<GetServerCertificateResponse>>
       serializers = [GetServerCertificateResponseAwsQuerySerializer()];
 
   /// A structure containing details about the server certificate.
-  _i2.ServerCertificate get serverCertificate;
+  ServerCertificate get serverCertificate;
   @override
   List<Object?> get props => [serverCertificate];
   @override
@@ -59,7 +58,7 @@ abstract class GetServerCertificateResponse
 }
 
 class GetServerCertificateResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GetServerCertificateResponse> {
+    extends _i2.StructuredSmithySerializer<GetServerCertificateResponse> {
   const GetServerCertificateResponseAwsQuerySerializer()
       : super('GetServerCertificateResponse');
 
@@ -69,8 +68,8 @@ class GetServerCertificateResponseAwsQuerySerializer
         _$GetServerCertificateResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -82,6 +81,14 @@ class GetServerCertificateResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetServerCertificateResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -94,8 +101,8 @@ class GetServerCertificateResponseAwsQuerySerializer
         case 'ServerCertificate':
           result.serverCertificate.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServerCertificate),
-          ) as _i2.ServerCertificate));
+            specifiedType: const FullType(ServerCertificate),
+          ) as ServerCertificate));
       }
     }
 
@@ -109,17 +116,17 @@ class GetServerCertificateResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GetServerCertificateResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetServerCertificateResponse(:serverCertificate) = object;
     result$
-      ..add(const _i3.XmlElementName('ServerCertificate'))
+      ..add(const _i2.XmlElementName('ServerCertificate'))
       ..add(serializers.serialize(
         serverCertificate,
-        specifiedType: const FullType(_i2.ServerCertificate),
+        specifiedType: const FullType(ServerCertificate),
       ));
     return result$;
   }

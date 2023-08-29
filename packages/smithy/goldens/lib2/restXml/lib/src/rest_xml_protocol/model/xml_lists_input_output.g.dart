@@ -8,35 +8,35 @@ part of 'xml_lists_input_output.dart';
 
 class _$XmlListsInputOutput extends XmlListsInputOutput {
   @override
-  final _i6.BuiltList<String>? stringList;
+  final _i3.BuiltList<String>? stringList;
   @override
-  final _i6.BuiltSet<String>? stringSet;
+  final _i3.BuiltSet<String>? stringSet;
   @override
-  final _i6.BuiltList<int>? integerList;
+  final _i3.BuiltList<int>? integerList;
   @override
-  final _i6.BuiltList<bool>? booleanList;
+  final _i3.BuiltList<bool>? booleanList;
   @override
-  final _i6.BuiltList<DateTime>? timestampList;
+  final _i3.BuiltList<DateTime>? timestampList;
   @override
-  final _i6.BuiltList<_i3.FooEnum>? enumList;
+  final _i3.BuiltList<FooEnum>? enumList;
   @override
-  final _i6.BuiltList<_i4.IntegerEnum>? intEnumList;
+  final _i3.BuiltList<IntegerEnum>? intEnumList;
   @override
-  final _i6.BuiltList<_i6.BuiltList<String>>? nestedStringList;
+  final _i3.BuiltList<_i3.BuiltList<String>>? nestedStringList;
   @override
-  final _i6.BuiltList<String>? renamedListMembers;
+  final _i3.BuiltList<String>? renamedListMembers;
   @override
-  final _i6.BuiltList<String>? flattenedList;
+  final _i3.BuiltList<String>? flattenedList;
   @override
-  final _i6.BuiltList<String>? flattenedList2;
+  final _i3.BuiltList<String>? flattenedList2;
   @override
-  final _i6.BuiltList<String>? flattenedListWithMemberNamespace;
+  final _i3.BuiltList<String>? flattenedListWithMemberNamespace;
   @override
-  final _i6.BuiltList<String>? flattenedListWithNamespace;
+  final _i3.BuiltList<String>? flattenedListWithNamespace;
   @override
-  final _i6.BuiltList<_i5.StructureListMember>? structureList;
+  final _i3.BuiltList<StructureListMember>? structureList;
   @override
-  final _i6.BuiltList<_i5.StructureListMember>? flattenedStructureList;
+  final _i3.BuiltList<StructureListMember>? flattenedStructureList;
 
   factory _$XmlListsInputOutput(
           [void Function(XmlListsInputOutputBuilder)? updates]) =>
@@ -118,101 +118,101 @@ class XmlListsInputOutputBuilder
     implements Builder<XmlListsInputOutput, XmlListsInputOutputBuilder> {
   _$XmlListsInputOutput? _$v;
 
-  _i6.ListBuilder<String>? _stringList;
-  _i6.ListBuilder<String> get stringList =>
-      _$this._stringList ??= new _i6.ListBuilder<String>();
-  set stringList(_i6.ListBuilder<String>? stringList) =>
+  _i3.ListBuilder<String>? _stringList;
+  _i3.ListBuilder<String> get stringList =>
+      _$this._stringList ??= new _i3.ListBuilder<String>();
+  set stringList(_i3.ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  _i6.SetBuilder<String>? _stringSet;
-  _i6.SetBuilder<String> get stringSet =>
-      _$this._stringSet ??= new _i6.SetBuilder<String>();
-  set stringSet(_i6.SetBuilder<String>? stringSet) =>
+  _i3.SetBuilder<String>? _stringSet;
+  _i3.SetBuilder<String> get stringSet =>
+      _$this._stringSet ??= new _i3.SetBuilder<String>();
+  set stringSet(_i3.SetBuilder<String>? stringSet) =>
       _$this._stringSet = stringSet;
 
-  _i6.ListBuilder<int>? _integerList;
-  _i6.ListBuilder<int> get integerList =>
-      _$this._integerList ??= new _i6.ListBuilder<int>();
-  set integerList(_i6.ListBuilder<int>? integerList) =>
+  _i3.ListBuilder<int>? _integerList;
+  _i3.ListBuilder<int> get integerList =>
+      _$this._integerList ??= new _i3.ListBuilder<int>();
+  set integerList(_i3.ListBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
-  _i6.ListBuilder<bool>? _booleanList;
-  _i6.ListBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i6.ListBuilder<bool>();
-  set booleanList(_i6.ListBuilder<bool>? booleanList) =>
+  _i3.ListBuilder<bool>? _booleanList;
+  _i3.ListBuilder<bool> get booleanList =>
+      _$this._booleanList ??= new _i3.ListBuilder<bool>();
+  set booleanList(_i3.ListBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
-  _i6.ListBuilder<DateTime>? _timestampList;
-  _i6.ListBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i6.ListBuilder<DateTime>();
-  set timestampList(_i6.ListBuilder<DateTime>? timestampList) =>
+  _i3.ListBuilder<DateTime>? _timestampList;
+  _i3.ListBuilder<DateTime> get timestampList =>
+      _$this._timestampList ??= new _i3.ListBuilder<DateTime>();
+  set timestampList(_i3.ListBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
-  _i6.ListBuilder<_i3.FooEnum>? _enumList;
-  _i6.ListBuilder<_i3.FooEnum> get enumList =>
-      _$this._enumList ??= new _i6.ListBuilder<_i3.FooEnum>();
-  set enumList(_i6.ListBuilder<_i3.FooEnum>? enumList) =>
+  _i3.ListBuilder<FooEnum>? _enumList;
+  _i3.ListBuilder<FooEnum> get enumList =>
+      _$this._enumList ??= new _i3.ListBuilder<FooEnum>();
+  set enumList(_i3.ListBuilder<FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
-  _i6.ListBuilder<_i4.IntegerEnum>? _intEnumList;
-  _i6.ListBuilder<_i4.IntegerEnum> get intEnumList =>
-      _$this._intEnumList ??= new _i6.ListBuilder<_i4.IntegerEnum>();
-  set intEnumList(_i6.ListBuilder<_i4.IntegerEnum>? intEnumList) =>
+  _i3.ListBuilder<IntegerEnum>? _intEnumList;
+  _i3.ListBuilder<IntegerEnum> get intEnumList =>
+      _$this._intEnumList ??= new _i3.ListBuilder<IntegerEnum>();
+  set intEnumList(_i3.ListBuilder<IntegerEnum>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
-  _i6.ListBuilder<_i6.BuiltList<String>>? _nestedStringList;
-  _i6.ListBuilder<_i6.BuiltList<String>> get nestedStringList =>
-      _$this._nestedStringList ??= new _i6.ListBuilder<_i6.BuiltList<String>>();
+  _i3.ListBuilder<_i3.BuiltList<String>>? _nestedStringList;
+  _i3.ListBuilder<_i3.BuiltList<String>> get nestedStringList =>
+      _$this._nestedStringList ??= new _i3.ListBuilder<_i3.BuiltList<String>>();
   set nestedStringList(
-          _i6.ListBuilder<_i6.BuiltList<String>>? nestedStringList) =>
+          _i3.ListBuilder<_i3.BuiltList<String>>? nestedStringList) =>
       _$this._nestedStringList = nestedStringList;
 
-  _i6.ListBuilder<String>? _renamedListMembers;
-  _i6.ListBuilder<String> get renamedListMembers =>
-      _$this._renamedListMembers ??= new _i6.ListBuilder<String>();
-  set renamedListMembers(_i6.ListBuilder<String>? renamedListMembers) =>
+  _i3.ListBuilder<String>? _renamedListMembers;
+  _i3.ListBuilder<String> get renamedListMembers =>
+      _$this._renamedListMembers ??= new _i3.ListBuilder<String>();
+  set renamedListMembers(_i3.ListBuilder<String>? renamedListMembers) =>
       _$this._renamedListMembers = renamedListMembers;
 
-  _i6.ListBuilder<String>? _flattenedList;
-  _i6.ListBuilder<String> get flattenedList =>
-      _$this._flattenedList ??= new _i6.ListBuilder<String>();
-  set flattenedList(_i6.ListBuilder<String>? flattenedList) =>
+  _i3.ListBuilder<String>? _flattenedList;
+  _i3.ListBuilder<String> get flattenedList =>
+      _$this._flattenedList ??= new _i3.ListBuilder<String>();
+  set flattenedList(_i3.ListBuilder<String>? flattenedList) =>
       _$this._flattenedList = flattenedList;
 
-  _i6.ListBuilder<String>? _flattenedList2;
-  _i6.ListBuilder<String> get flattenedList2 =>
-      _$this._flattenedList2 ??= new _i6.ListBuilder<String>();
-  set flattenedList2(_i6.ListBuilder<String>? flattenedList2) =>
+  _i3.ListBuilder<String>? _flattenedList2;
+  _i3.ListBuilder<String> get flattenedList2 =>
+      _$this._flattenedList2 ??= new _i3.ListBuilder<String>();
+  set flattenedList2(_i3.ListBuilder<String>? flattenedList2) =>
       _$this._flattenedList2 = flattenedList2;
 
-  _i6.ListBuilder<String>? _flattenedListWithMemberNamespace;
-  _i6.ListBuilder<String> get flattenedListWithMemberNamespace =>
+  _i3.ListBuilder<String>? _flattenedListWithMemberNamespace;
+  _i3.ListBuilder<String> get flattenedListWithMemberNamespace =>
       _$this._flattenedListWithMemberNamespace ??=
-          new _i6.ListBuilder<String>();
+          new _i3.ListBuilder<String>();
   set flattenedListWithMemberNamespace(
-          _i6.ListBuilder<String>? flattenedListWithMemberNamespace) =>
+          _i3.ListBuilder<String>? flattenedListWithMemberNamespace) =>
       _$this._flattenedListWithMemberNamespace =
           flattenedListWithMemberNamespace;
 
-  _i6.ListBuilder<String>? _flattenedListWithNamespace;
-  _i6.ListBuilder<String> get flattenedListWithNamespace =>
-      _$this._flattenedListWithNamespace ??= new _i6.ListBuilder<String>();
+  _i3.ListBuilder<String>? _flattenedListWithNamespace;
+  _i3.ListBuilder<String> get flattenedListWithNamespace =>
+      _$this._flattenedListWithNamespace ??= new _i3.ListBuilder<String>();
   set flattenedListWithNamespace(
-          _i6.ListBuilder<String>? flattenedListWithNamespace) =>
+          _i3.ListBuilder<String>? flattenedListWithNamespace) =>
       _$this._flattenedListWithNamespace = flattenedListWithNamespace;
 
-  _i6.ListBuilder<_i5.StructureListMember>? _structureList;
-  _i6.ListBuilder<_i5.StructureListMember> get structureList =>
-      _$this._structureList ??= new _i6.ListBuilder<_i5.StructureListMember>();
-  set structureList(_i6.ListBuilder<_i5.StructureListMember>? structureList) =>
+  _i3.ListBuilder<StructureListMember>? _structureList;
+  _i3.ListBuilder<StructureListMember> get structureList =>
+      _$this._structureList ??= new _i3.ListBuilder<StructureListMember>();
+  set structureList(_i3.ListBuilder<StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  _i6.ListBuilder<_i5.StructureListMember>? _flattenedStructureList;
-  _i6.ListBuilder<_i5.StructureListMember> get flattenedStructureList =>
+  _i3.ListBuilder<StructureListMember>? _flattenedStructureList;
+  _i3.ListBuilder<StructureListMember> get flattenedStructureList =>
       _$this._flattenedStructureList ??=
-          new _i6.ListBuilder<_i5.StructureListMember>();
+          new _i3.ListBuilder<StructureListMember>();
   set flattenedStructureList(
-          _i6.ListBuilder<_i5.StructureListMember>? flattenedStructureList) =>
+          _i3.ListBuilder<StructureListMember>? flattenedStructureList) =>
       _$this._flattenedStructureList = flattenedStructureList;
 
   XmlListsInputOutputBuilder();

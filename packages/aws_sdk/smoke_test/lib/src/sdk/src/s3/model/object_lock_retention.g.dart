@@ -8,7 +8,7 @@ part of 'object_lock_retention.dart';
 
 class _$ObjectLockRetention extends ObjectLockRetention {
   @override
-  final _i2.ObjectLockRetentionMode? mode;
+  final ObjectLockRetentionMode? mode;
   @override
   final DateTime? retainUntilDate;
 
@@ -49,9 +49,9 @@ class ObjectLockRetentionBuilder
     implements Builder<ObjectLockRetention, ObjectLockRetentionBuilder> {
   _$ObjectLockRetention? _$v;
 
-  _i2.ObjectLockRetentionMode? _mode;
-  _i2.ObjectLockRetentionMode? get mode => _$this._mode;
-  set mode(_i2.ObjectLockRetentionMode? mode) => _$this._mode = mode;
+  ObjectLockRetentionMode? _mode;
+  ObjectLockRetentionMode? get mode => _$this._mode;
+  set mode(ObjectLockRetentionMode? mode) => _$this._mode = mode;
 
   DateTime? _retainUntilDate;
   DateTime? get retainUntilDate => _$this._retainUntilDate;

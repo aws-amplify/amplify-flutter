@@ -4,17 +4,17 @@
 library smoke_test.s3.model.list_parts_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i10;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/model/initiator.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/part.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/initiator.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/part.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart';
 
 part 'list_parts_output.g.dart';
 
@@ -33,12 +33,12 @@ abstract class ListPartsOutput
     String? nextPartNumberMarker,
     int? maxParts,
     bool? isTruncated,
-    List<_i3.Part>? parts,
-    _i4.Initiator? initiator,
-    _i5.Owner? owner,
-    _i6.StorageClass? storageClass,
-    _i7.RequestCharged? requestCharged,
-    _i8.ChecksumAlgorithm? checksumAlgorithm,
+    List<Part>? parts,
+    Initiator? initiator,
+    Owner? owner,
+    StorageClass? storageClass,
+    RequestCharged? requestCharged,
+    ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$ListPartsOutput._(
       abortDate: abortDate,
@@ -50,7 +50,7 @@ abstract class ListPartsOutput
       nextPartNumberMarker: nextPartNumberMarker,
       maxParts: maxParts,
       isTruncated: isTruncated,
-      parts: parts == null ? null : _i9.BuiltList(parts),
+      parts: parts == null ? null : _i3.BuiltList(parts),
       initiator: initiator,
       owner: owner,
       storageClass: storageClass,
@@ -98,7 +98,7 @@ abstract class ListPartsOutput
           b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i7.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -136,22 +136,22 @@ abstract class ListPartsOutput
   bool? get isTruncated;
 
   /// Container for elements related to a particular part. A response can contain zero or more `Part` elements.
-  _i9.BuiltList<_i3.Part>? get parts;
+  _i3.BuiltList<Part>? get parts;
 
   /// Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services account, this element provides the same information as the `Owner` element. If the initiator is an IAM User, this element provides the user ARN and display name.
-  _i4.Initiator? get initiator;
+  Initiator? get initiator;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
-  _i5.Owner? get owner;
+  Owner? get owner;
 
   /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
-  _i6.StorageClass? get storageClass;
+  StorageClass? get storageClass;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i7.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i8.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   @override
   ListPartsOutputPayload getPayload() => ListPartsOutputPayload((b) {
         b.bucket = bucket;
@@ -258,7 +258,7 @@ abstract class ListPartsOutput
   }
 }
 
-@_i10.internal
+@_i4.internal
 abstract class ListPartsOutputPayload
     with _i1.AWSEquatable<ListPartsOutputPayload>
     implements Built<ListPartsOutputPayload, ListPartsOutputPayloadBuilder> {
@@ -272,10 +272,10 @@ abstract class ListPartsOutputPayload
   String? get bucket;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i8.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container element that identifies who initiated the multipart upload. If the initiator is an Amazon Web Services account, this element provides the same information as the `Owner` element. If the initiator is an IAM User, this element provides the user ARN and display name.
-  _i4.Initiator? get initiator;
+  Initiator? get initiator;
 
   /// Indicates whether the returned list of parts is truncated. A true value indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the MaxParts element.
   bool? get isTruncated;
@@ -290,16 +290,16 @@ abstract class ListPartsOutputPayload
   String? get nextPartNumberMarker;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
-  _i5.Owner? get owner;
+  Owner? get owner;
 
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
   String? get partNumberMarker;
 
   /// Container for elements related to a particular part. A response can contain zero or more `Part` elements.
-  _i9.BuiltList<_i3.Part>? get parts;
+  _i3.BuiltList<Part>? get parts;
 
   /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
-  _i6.StorageClass? get storageClass;
+  StorageClass? get storageClass;
 
   /// Upload ID identifying the multipart upload whose parts are being listed.
   String? get uploadId;
@@ -415,13 +415,13 @@ class ListPartsOutputRestXmlSerializer
         case 'ChecksumAlgorithm':
           result.checksumAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.ChecksumAlgorithm),
-          ) as _i8.ChecksumAlgorithm);
+            specifiedType: const FullType(ChecksumAlgorithm),
+          ) as ChecksumAlgorithm);
         case 'Initiator':
           result.initiator.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Initiator),
-          ) as _i4.Initiator));
+            specifiedType: const FullType(Initiator),
+          ) as Initiator));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -445,8 +445,8 @@ class ListPartsOutputRestXmlSerializer
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Owner),
-          ) as _i5.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
         case 'PartNumberMarker':
           result.partNumberMarker = (serializers.deserialize(
             value,
@@ -455,13 +455,13 @@ class ListPartsOutputRestXmlSerializer
         case 'Part':
           result.parts.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Part),
-          ) as _i3.Part));
+            specifiedType: const FullType(Part),
+          ) as Part));
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.StorageClass),
-          ) as _i6.StorageClass);
+            specifiedType: const FullType(StorageClass),
+          ) as StorageClass);
         case 'UploadId':
           result.uploadId = (serializers.deserialize(
             value,
@@ -512,7 +512,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           checksumAlgorithm,
-          specifiedType: const FullType.nullable(_i8.ChecksumAlgorithm),
+          specifiedType: const FullType.nullable(ChecksumAlgorithm),
         ));
     }
     if (initiator != null) {
@@ -520,7 +520,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Initiator'))
         ..add(serializers.serialize(
           initiator,
-          specifiedType: const FullType(_i4.Initiator),
+          specifiedType: const FullType(Initiator),
         ));
     }
     if (isTruncated != null) {
@@ -560,7 +560,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i5.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     if (partNumberMarker != null) {
@@ -577,8 +577,8 @@ class ListPartsOutputRestXmlSerializer
         serializers,
         parts,
         specifiedType: const FullType.nullable(
-          _i9.BuiltList,
-          [FullType(_i3.Part)],
+          _i3.BuiltList,
+          [FullType(Part)],
         ),
       ));
     }
@@ -587,7 +587,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i6.StorageClass),
+          specifiedType: const FullType.nullable(StorageClass),
         ));
     }
     if (uploadId != null) {

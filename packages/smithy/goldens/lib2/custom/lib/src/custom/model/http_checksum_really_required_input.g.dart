@@ -9,7 +9,7 @@ part of 'http_checksum_really_required_input.dart';
 class _$HttpChecksumReallyRequiredInput
     extends HttpChecksumReallyRequiredInput {
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final _i2.Uint8List? content;
 
@@ -53,9 +53,9 @@ class HttpChecksumReallyRequiredInputBuilder
             HttpChecksumReallyRequiredInputBuilder> {
   _$HttpChecksumReallyRequiredInput? _$v;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i2.Uint8List? _content;

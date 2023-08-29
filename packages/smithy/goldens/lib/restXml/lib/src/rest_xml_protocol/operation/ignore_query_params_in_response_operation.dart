@@ -3,24 +3,21 @@
 
 library rest_xml_v1.rest_xml_protocol.operation.ignore_query_params_in_response_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/ignore_query_params_in_response_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/common/endpoint_resolver.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/common/serializers.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/ignore_query_params_in_response_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This example ensures that query string bound request parameters are serialized in the body of responses if the structure is used in both the request and response.
 class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
     _i1.Unit,
     _i1.Unit,
-    _i2.IgnoreQueryParamsInResponseOutput,
-    _i2.IgnoreQueryParamsInResponseOutput> {
+    IgnoreQueryParamsInResponseOutput,
+    IgnoreQueryParamsInResponseOutput> {
   /// This example ensures that query string bound request parameters are serialized in the body of responses if the structure is used in both the request and response.
   IgnoreQueryParamsInResponseOperation({
     required String region,
@@ -34,19 +31,16 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i1.Unit,
-          _i1.Unit,
-          _i2.IgnoreQueryParamsInResponseOutput,
-          _i2.IgnoreQueryParamsInResponseOutput>> protocols = [
-    _i3.RestXmlProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, IgnoreQueryParamsInResponseOutput,
+          IgnoreQueryParamsInResponseOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -55,8 +49,8 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -74,13 +68,13 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
         b.path = r'/IgnoreQueryParamsInResponse';
       });
   @override
-  int successCode([_i2.IgnoreQueryParamsInResponseOutput? output]) => 200;
+  int successCode([IgnoreQueryParamsInResponseOutput? output]) => 200;
   @override
-  _i2.IgnoreQueryParamsInResponseOutput buildOutput(
-    _i2.IgnoreQueryParamsInResponseOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  IgnoreQueryParamsInResponseOutput buildOutput(
+    IgnoreQueryParamsInResponseOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.IgnoreQueryParamsInResponseOutput.fromResponse(
+      IgnoreQueryParamsInResponseOutput.fromResponse(
         payload,
         response,
       );
@@ -89,18 +83,18 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'IgnoreQueryParamsInResponse';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.IgnoreQueryParamsInResponseOutput> run(
+  _i1.SmithyOperation<IgnoreQueryParamsInResponseOutput> run(
     _i1.Unit input, {
-    _i6.AWSHttpClient? client,
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -108,7 +102,7 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

@@ -17,11 +17,13 @@ abstract class RollbackStackInput
     required String stackName,
     String? roleArn,
     String? clientRequestToken,
+    bool? retainExceptOnCreate,
   }) {
     return _$RollbackStackInput._(
       stackName: stackName,
       roleArn: roleArn,
       clientRequestToken: clientRequestToken,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -50,6 +52,9 @@ abstract class RollbackStackInput
 
   /// A unique identifier for this `RollbackStack` request.
   String? get clientRequestToken;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   RollbackStackInput getPayload() => this;
   @override
@@ -57,6 +62,7 @@ abstract class RollbackStackInput
         stackName,
         roleArn,
         clientRequestToken,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -72,6 +78,10 @@ abstract class RollbackStackInput
       ..add(
         'clientRequestToken',
         clientRequestToken,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -100,6 +110,14 @@ class RollbackStackInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = RollbackStackInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -124,6 +142,11 @@ class RollbackStackInputAwsQuerySerializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -142,8 +165,12 @@ class RollbackStackInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    final RollbackStackInput(:stackName, :roleArn, :clientRequestToken) =
-        object;
+    final RollbackStackInput(
+      :stackName,
+      :roleArn,
+      :clientRequestToken,
+      :retainExceptOnCreate
+    ) = object;
     result$
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
@@ -164,6 +191,14 @@ class RollbackStackInputAwsQuerySerializer
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
+          specifiedType: const FullType.nullable(bool),
         ));
     }
     return result$;

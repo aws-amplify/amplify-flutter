@@ -131,6 +131,8 @@ export 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_in
 export 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_output.dart';
 export 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_input.dart';
 export 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_output.dart';
+export 'package:rest_json1_v1/src/rest_json_protocol/model/put_with_content_encoding_input.dart'
+    hide PutWithContentEncodingInputPayload;
 export 'package:rest_json1_v1/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
     hide QueryIdempotencyTokenAutoFillInputPayload;
 export 'package:rest_json1_v1/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'

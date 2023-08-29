@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/assignment_status_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/assignment_status_type.dart';
 
 part 'list_virtual_mfa_devices_request.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ListVirtualMfaDevicesRequest
         Built<ListVirtualMfaDevicesRequest,
             ListVirtualMfaDevicesRequestBuilder> {
   factory ListVirtualMfaDevicesRequest({
-    _i3.AssignmentStatusType? assignmentStatus,
+    AssignmentStatusType? assignmentStatus,
     String? marker,
     int? maxItems,
   }) {
@@ -48,7 +47,7 @@ abstract class ListVirtualMfaDevicesRequest
       serializers = [ListVirtualMfaDevicesRequestAwsQuerySerializer()];
 
   /// The status (`Unassigned` or `Assigned`) of the devices to list. If you do not specify an `AssignmentStatus`, the operation defaults to `Any`, which lists both assigned and unassigned virtual MFA devices.,
-  _i3.AssignmentStatusType? get assignmentStatus;
+  AssignmentStatusType? get assignmentStatus;
 
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
@@ -108,6 +107,14 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListVirtualMfaDevicesRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -120,8 +127,8 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         case 'AssignmentStatus':
           result.assignmentStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AssignmentStatusType),
-          ) as _i3.AssignmentStatusType);
+            specifiedType: const FullType(AssignmentStatusType),
+          ) as AssignmentStatusType);
         case 'Marker':
           result.marker = (serializers.deserialize(
             value,
@@ -157,7 +164,7 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('AssignmentStatus'))
         ..add(serializers.serialize(
           assignmentStatus,
-          specifiedType: const FullType.nullable(_i3.AssignmentStatusType),
+          specifiedType: const FullType.nullable(AssignmentStatusType),
         ));
     }
     if (marker != null) {

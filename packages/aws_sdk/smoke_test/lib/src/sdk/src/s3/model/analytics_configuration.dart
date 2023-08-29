@@ -6,10 +6,9 @@ library smoke_test.s3.model.analytics_configuration; // ignore_for_file: no_lead
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/analytics_filter.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class_analysis.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/analytics_filter.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class_analysis.dart';
 
 part 'analytics_configuration.g.dart';
 
@@ -20,8 +19,8 @@ abstract class AnalyticsConfiguration
   /// Specifies the configuration and any analyses for the analytics filter of an Amazon S3 bucket.
   factory AnalyticsConfiguration({
     required String id,
-    _i2.AnalyticsFilter? filter,
-    required _i3.StorageClassAnalysis storageClassAnalysis,
+    AnalyticsFilter? filter,
+    required StorageClassAnalysis storageClassAnalysis,
   }) {
     return _$AnalyticsConfiguration._(
       id: id,
@@ -37,17 +36,17 @@ abstract class AnalyticsConfiguration
 
   const AnalyticsConfiguration._();
 
-  static const List<_i4.SmithySerializer<AnalyticsConfiguration>> serializers =
+  static const List<_i2.SmithySerializer<AnalyticsConfiguration>> serializers =
       [AnalyticsConfigurationRestXmlSerializer()];
 
   /// The ID that identifies the analytics configuration.
   String get id;
 
   /// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
-  _i2.AnalyticsFilter? get filter;
+  AnalyticsFilter? get filter;
 
   /// Contains data related to access patterns to be collected and made available to analyze the tradeoffs between different storage classes.
-  _i3.StorageClassAnalysis get storageClassAnalysis;
+  StorageClassAnalysis get storageClassAnalysis;
   @override
   List<Object?> get props => [
         id,
@@ -74,7 +73,7 @@ abstract class AnalyticsConfiguration
 }
 
 class AnalyticsConfigurationRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<AnalyticsConfiguration> {
+    extends _i2.StructuredSmithySerializer<AnalyticsConfiguration> {
   const AnalyticsConfigurationRestXmlSerializer()
       : super('AnalyticsConfiguration');
 
@@ -84,8 +83,8 @@ class AnalyticsConfigurationRestXmlSerializer
         _$AnalyticsConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -109,8 +108,8 @@ class AnalyticsConfigurationRestXmlSerializer
         case 'Filter':
           result.filter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AnalyticsFilter),
-          ) as _i2.AnalyticsFilter);
+            specifiedType: const FullType(AnalyticsFilter),
+          ) as AnalyticsFilter);
         case 'Id':
           result.id = (serializers.deserialize(
             value,
@@ -119,8 +118,8 @@ class AnalyticsConfigurationRestXmlSerializer
         case 'StorageClassAnalysis':
           result.storageClassAnalysis.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StorageClassAnalysis),
-          ) as _i3.StorageClassAnalysis));
+            specifiedType: const FullType(StorageClassAnalysis),
+          ) as StorageClassAnalysis));
       }
     }
 
@@ -134,31 +133,31 @@ class AnalyticsConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'AnalyticsConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AnalyticsConfiguration(:filter, :id, :storageClassAnalysis) = object;
     if (filter != null) {
       result$
-        ..add(const _i4.XmlElementName('Filter'))
+        ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i2.AnalyticsFilter),
+          specifiedType: const FullType(AnalyticsFilter),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('Id'))
+      ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i4.XmlElementName('StorageClassAnalysis'))
+      ..add(const _i2.XmlElementName('StorageClassAnalysis'))
       ..add(serializers.serialize(
         storageClassAnalysis,
-        specifiedType: const FullType(_i3.StorageClassAnalysis),
+        specifiedType: const FullType(StorageClassAnalysis),
       ));
     return result$;
   }

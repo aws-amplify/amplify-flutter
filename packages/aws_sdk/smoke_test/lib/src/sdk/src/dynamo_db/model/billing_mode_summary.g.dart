@@ -8,7 +8,7 @@ part of 'billing_mode_summary.dart';
 
 class _$BillingModeSummary extends BillingModeSummary {
   @override
-  final _i2.BillingMode? billingMode;
+  final BillingMode? billingMode;
   @override
   final DateTime? lastUpdateToPayPerRequestDateTime;
 
@@ -52,9 +52,9 @@ class BillingModeSummaryBuilder
     implements Builder<BillingModeSummary, BillingModeSummaryBuilder> {
   _$BillingModeSummary? _$v;
 
-  _i2.BillingMode? _billingMode;
-  _i2.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i2.BillingMode? billingMode) =>
+  BillingMode? _billingMode;
+  BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
   DateTime? _lastUpdateToPayPerRequestDateTime;

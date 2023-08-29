@@ -4,11 +4,11 @@
 library smoke_test.s3.model.metrics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'metrics_and_operator.g.dart';
 
@@ -19,12 +19,12 @@ abstract class MetricsAndOperator
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
   factory MetricsAndOperator({
     String? prefix,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
     String? accessPointArn,
   }) {
     return _$MetricsAndOperator._(
       prefix: prefix,
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
       accessPointArn: accessPointArn,
     );
   }
@@ -36,7 +36,7 @@ abstract class MetricsAndOperator
 
   const MetricsAndOperator._();
 
-  static const List<_i4.SmithySerializer<MetricsAndOperator>> serializers = [
+  static const List<_i3.SmithySerializer<MetricsAndOperator>> serializers = [
     MetricsAndOperatorRestXmlSerializer()
   ];
 
@@ -44,7 +44,7 @@ abstract class MetricsAndOperator
   String? get prefix;
 
   /// The list of tags used when evaluating an AND predicate.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
 
   /// The access point ARN used when evaluating an `AND` predicate.
   String? get accessPointArn;
@@ -74,7 +74,7 @@ abstract class MetricsAndOperator
 }
 
 class MetricsAndOperatorRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<MetricsAndOperator> {
+    extends _i3.StructuredSmithySerializer<MetricsAndOperator> {
   const MetricsAndOperatorRestXmlSerializer() : super('MetricsAndOperator');
 
   @override
@@ -83,8 +83,8 @@ class MetricsAndOperatorRestXmlSerializer
         _$MetricsAndOperator,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -118,8 +118,8 @@ class MetricsAndOperatorRestXmlSerializer
         case 'Tag':
           result.tags.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
-          ) as _i2.Tag));
+            specifiedType: const FullType(Tag),
+          ) as Tag));
       }
     }
 
@@ -133,15 +133,15 @@ class MetricsAndOperatorRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'MetricsAndOperator',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final MetricsAndOperator(:accessPointArn, :prefix, :tags) = object;
     if (accessPointArn != null) {
       result$
-        ..add(const _i4.XmlElementName('AccessPointArn'))
+        ..add(const _i3.XmlElementName('AccessPointArn'))
         ..add(serializers.serialize(
           accessPointArn,
           specifiedType: const FullType(String),
@@ -149,7 +149,7 @@ class MetricsAndOperatorRestXmlSerializer
     }
     if (prefix != null) {
       result$
-        ..add(const _i4.XmlElementName('Prefix'))
+        ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
@@ -157,12 +157,12 @@ class MetricsAndOperatorRestXmlSerializer
     }
     if (tags != null) {
       result$
-          .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
+          .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Tag)],
+          _i2.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     }

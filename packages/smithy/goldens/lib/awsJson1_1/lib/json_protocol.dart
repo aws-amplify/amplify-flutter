@@ -32,6 +32,7 @@ export 'package:aws_json1_1_v1/src/json_protocol/model/operation_config.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_input.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_output.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart';
+export 'package:aws_json1_1_v1/src/json_protocol/model/put_with_content_encoding_input.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/retry_config.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/retry_mode.dart';
 export 'package:aws_json1_1_v1/src/json_protocol/model/s3_addressing_style.dart';

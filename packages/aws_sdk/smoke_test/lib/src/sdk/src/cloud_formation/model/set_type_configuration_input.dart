@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart';
 
 part 'set_type_configuration_input.g.dart';
 
@@ -23,7 +22,7 @@ abstract class SetTypeConfigurationInput
     required String configuration,
     String? configurationAlias,
     String? typeName,
-    _i3.ThirdPartyType? type,
+    ThirdPartyType? type,
   }) {
     return _$SetTypeConfigurationInput._(
       typeArn: typeArn,
@@ -75,7 +74,7 @@ abstract class SetTypeConfigurationInput
   /// The type of extension.
   ///
   /// Conditional: You must specify `ConfigurationArn`, or `Type` and `TypeName`.
-  _i3.ThirdPartyType? get type;
+  ThirdPartyType? get type;
   @override
   SetTypeConfigurationInput getPayload() => this;
   @override
@@ -137,6 +136,14 @@ class SetTypeConfigurationInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = SetTypeConfigurationInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -169,8 +176,8 @@ class SetTypeConfigurationInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ThirdPartyType),
-          ) as _i3.ThirdPartyType);
+            specifiedType: const FullType(ThirdPartyType),
+          ) as ThirdPartyType);
       }
     }
 
@@ -231,7 +238,7 @@ class SetTypeConfigurationInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.ThirdPartyType),
+          specifiedType: const FullType.nullable(ThirdPartyType),
         ));
     }
     return result$;

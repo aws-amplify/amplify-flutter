@@ -4,14 +4,12 @@
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.nested_xml_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i7;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/nested_xml_maps_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/nested_xml_maps_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/nested_xml_maps_input_output.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/nested_xml_maps_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +18,14 @@ void main() {
     'NestedXmlMapRequest (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NestedXmlMapsOperation(
+        operation: NestedXmlMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'NestedXmlMapRequest',
           documentation: 'Tests requests with nested maps.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -63,7 +61,7 @@ void main() {
     'FlatNestedXmlMapRequest (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NestedXmlMapsOperation(
+        operation: NestedXmlMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -71,7 +69,7 @@ void main() {
           id: 'FlatNestedXmlMapRequest',
           documentation:
               'Tests requests with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -107,14 +105,14 @@ void main() {
     'NestedXmlMapResponse (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NestedXmlMapsOperation(
+        operation: NestedXmlMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'NestedXmlMapResponse',
           documentation: 'Tests responses with nested maps.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -144,7 +142,7 @@ void main() {
     'FlatNestedXmlMapResponse (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NestedXmlMapsOperation(
+        operation: NestedXmlMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -152,7 +150,7 @@ void main() {
           id: 'FlatNestedXmlMapResponse',
           documentation:
               'Tests responses with nested flat maps. Since maps can only be\nflattened when they\'re structure members, only the outer map is flat.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -181,26 +179,26 @@ void main() {
 }
 
 class NestedXmlMapsInputOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.NestedXmlMapsInputOutput> {
+    extends _i3.StructuredSmithySerializer<NestedXmlMapsInputOutput> {
   const NestedXmlMapsInputOutputRestXmlSerializer()
       : super('NestedXmlMapsInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.NestedXmlMapsInputOutput];
+  Iterable<Type> get types => const [NestedXmlMapsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.NestedXmlMapsInputOutput deserialize(
+  NestedXmlMapsInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.NestedXmlMapsInputOutputBuilder();
+    final result = NestedXmlMapsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -214,36 +212,36 @@ class NestedXmlMapsInputOutputRestXmlSerializer
           result.nestedMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(
-                  _i6.BuiltMap,
+                  _i4.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i7.FooEnum),
+                    FullType(FooEnum),
                   ],
                 ),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
+          ) as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>));
         case 'flatNestedMap':
           result.flatNestedMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(
-                  _i6.BuiltMap,
+                  _i4.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i7.FooEnum),
+                    FullType(FooEnum),
                   ],
                 ),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
+          ) as _i4.BuiltMap<String, _i4.BuiltMap<String, FooEnum>>));
       }
     }
 
@@ -253,7 +251,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.NestedXmlMapsInputOutput object, {
+    NestedXmlMapsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

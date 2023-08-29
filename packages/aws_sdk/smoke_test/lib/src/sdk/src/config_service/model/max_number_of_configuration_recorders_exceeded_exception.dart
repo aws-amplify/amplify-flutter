@@ -43,8 +43,9 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
       });
 
   static const List<
-      _i2.SmithySerializer<
-          MaxNumberOfConfigurationRecordersExceededException>> serializers = [
+          _i2
+          .SmithySerializer<MaxNumberOfConfigurationRecordersExceededException>>
+      serializers = [
     MaxNumberOfConfigurationRecordersExceededExceptionAwsJson11Serializer()
   ];
 

@@ -3,35 +3,33 @@
 
 library smoke_test.s3.model.put_object_retention_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'put_object_retention_request.g.dart';
 
 abstract class PutObjectRetentionRequest
     with
-        _i1.HttpInput<_i2.ObjectLockRetention>,
-        _i3.AWSEquatable<PutObjectRetentionRequest>
+        _i1.HttpInput<ObjectLockRetention>,
+        _i2.AWSEquatable<PutObjectRetentionRequest>
     implements
         Built<PutObjectRetentionRequest, PutObjectRetentionRequestBuilder>,
-        _i1.HasPayload<_i2.ObjectLockRetention> {
+        _i1.HasPayload<ObjectLockRetention> {
   factory PutObjectRetentionRequest({
     required String bucket,
     required String key,
-    _i2.ObjectLockRetention? retention,
-    _i4.RequestPayer? requestPayer,
+    ObjectLockRetention? retention,
+    RequestPayer? requestPayer,
     String? versionId,
     bool? bypassGovernanceRetention,
     String? contentMd5,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutObjectRetentionRequest._(
@@ -54,8 +52,8 @@ abstract class PutObjectRetentionRequest
   const PutObjectRetentionRequest._();
 
   factory PutObjectRetentionRequest.fromRequest(
-    _i2.ObjectLockRetention? payload,
-    _i3.AWSBaseHttpRequest request, {
+    ObjectLockRetention? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutObjectRetentionRequest.build((b) {
@@ -63,7 +61,7 @@ abstract class PutObjectRetentionRequest
           b.retention.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-bypass-governance-retention'] != null) {
@@ -74,7 +72,7 @@ abstract class PutObjectRetentionRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -92,8 +90,9 @@ abstract class PutObjectRetentionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.ObjectLockRetention?>>
-      serializers = [PutObjectRetentionRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<ObjectLockRetention?>> serializers = [
+    PutObjectRetentionRequestRestXmlSerializer()
+  ];
 
   /// The bucket name that contains the object you want to apply this Object Retention configuration to.
   ///
@@ -104,10 +103,10 @@ abstract class PutObjectRetentionRequest
   String get key;
 
   /// The container element for the Object Retention configuration.
-  _i2.ObjectLockRetention? get retention;
+  ObjectLockRetention? get retention;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The version ID for the object that you want to apply this Object Retention configuration to.
   String? get versionId;
@@ -123,7 +122,7 @@ abstract class PutObjectRetentionRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -142,8 +141,7 @@ abstract class PutObjectRetentionRequest
   }
 
   @override
-  _i2.ObjectLockRetention? getPayload() =>
-      retention ?? _i2.ObjectLockRetention();
+  ObjectLockRetention? getPayload() => retention ?? ObjectLockRetention();
   @override
   List<Object?> get props => [
         bucket,
@@ -200,7 +198,7 @@ abstract class PutObjectRetentionRequest
 }
 
 class PutObjectRetentionRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.ObjectLockRetention> {
+    extends _i1.StructuredSmithySerializer<ObjectLockRetention> {
   const PutObjectRetentionRequestRestXmlSerializer()
       : super('PutObjectRetentionRequest');
 
@@ -217,12 +215,12 @@ class PutObjectRetentionRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.ObjectLockRetention deserialize(
+  ObjectLockRetention deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.ObjectLockRetentionBuilder();
+    final result = ObjectLockRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -235,8 +233,8 @@ class PutObjectRetentionRequestRestXmlSerializer
         case 'Mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ObjectLockRetentionMode),
-          ) as _i6.ObjectLockRetentionMode);
+            specifiedType: const FullType(ObjectLockRetentionMode),
+          ) as ObjectLockRetentionMode);
         case 'RetainUntilDate':
           result.retainUntilDate = _i1.TimestampSerializer.dateTime.deserialize(
             serializers,
@@ -251,7 +249,7 @@ class PutObjectRetentionRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.ObjectLockRetention object, {
+    ObjectLockRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -260,13 +258,13 @@ class PutObjectRetentionRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.ObjectLockRetention(:mode, :retainUntilDate) = object;
+    final ObjectLockRetention(:mode, :retainUntilDate) = object;
     if (mode != null) {
       result$
         ..add(const _i1.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i6.ObjectLockRetentionMode),
+          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
         ));
     }
     if (retainUntilDate != null) {

@@ -3,25 +3,24 @@
 
 library rest_xml_v1.rest_xml_protocol.model.http_payload_with_xml_namespace_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/payload_with_xml_namespace.dart'
-    as _i2;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/payload_with_xml_namespace.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'http_payload_with_xml_namespace_input_output.g.dart';
 
 abstract class HttpPayloadWithXmlNamespaceInputOutput
     with
-        _i1.HttpInput<_i2.PayloadWithXmlNamespace>,
-        _i3.AWSEquatable<HttpPayloadWithXmlNamespaceInputOutput>
+        _i1.HttpInput<PayloadWithXmlNamespace>,
+        _i2.AWSEquatable<HttpPayloadWithXmlNamespaceInputOutput>
     implements
         Built<HttpPayloadWithXmlNamespaceInputOutput,
             HttpPayloadWithXmlNamespaceInputOutputBuilder>,
-        _i1.HasPayload<_i2.PayloadWithXmlNamespace> {
+        _i1.HasPayload<PayloadWithXmlNamespace> {
   factory HttpPayloadWithXmlNamespaceInputOutput(
-      {_i2.PayloadWithXmlNamespace? nested}) {
+      {PayloadWithXmlNamespace? nested}) {
     return _$HttpPayloadWithXmlNamespaceInputOutput._(nested: nested);
   }
 
@@ -32,8 +31,8 @@ abstract class HttpPayloadWithXmlNamespaceInputOutput
   const HttpPayloadWithXmlNamespaceInputOutput._();
 
   factory HttpPayloadWithXmlNamespaceInputOutput.fromRequest(
-    _i2.PayloadWithXmlNamespace? payload,
-    _i3.AWSBaseHttpRequest request, {
+    PayloadWithXmlNamespace? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       HttpPayloadWithXmlNamespaceInputOutput.build((b) {
@@ -44,8 +43,8 @@ abstract class HttpPayloadWithXmlNamespaceInputOutput
 
   /// Constructs a [HttpPayloadWithXmlNamespaceInputOutput] from a [payload] and [response].
   factory HttpPayloadWithXmlNamespaceInputOutput.fromResponse(
-    _i2.PayloadWithXmlNamespace? payload,
-    _i3.AWSBaseHttpResponse response,
+    PayloadWithXmlNamespace? payload,
+    _i2.AWSBaseHttpResponse response,
   ) =>
       HttpPayloadWithXmlNamespaceInputOutput.build((b) {
         if (payload != null) {
@@ -53,13 +52,12 @@ abstract class HttpPayloadWithXmlNamespaceInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.PayloadWithXmlNamespace?>>
+  static const List<_i1.SmithySerializer<PayloadWithXmlNamespace?>>
       serializers = [HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer()];
 
-  _i2.PayloadWithXmlNamespace? get nested;
+  PayloadWithXmlNamespace? get nested;
   @override
-  _i2.PayloadWithXmlNamespace? getPayload() =>
-      nested ?? _i2.PayloadWithXmlNamespace();
+  PayloadWithXmlNamespace? getPayload() => nested ?? PayloadWithXmlNamespace();
   @override
   List<Object?> get props => [nested];
   @override
@@ -75,7 +73,7 @@ abstract class HttpPayloadWithXmlNamespaceInputOutput
 }
 
 class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.PayloadWithXmlNamespace> {
+    extends _i1.StructuredSmithySerializer<PayloadWithXmlNamespace> {
   const HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer()
       : super('HttpPayloadWithXmlNamespaceInputOutput');
 
@@ -92,12 +90,12 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
         )
       ];
   @override
-  _i2.PayloadWithXmlNamespace deserialize(
+  PayloadWithXmlNamespace deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.PayloadWithXmlNamespaceBuilder();
+    final result = PayloadWithXmlNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -121,7 +119,7 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.PayloadWithXmlNamespace object, {
+    PayloadWithXmlNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -130,7 +128,7 @@ class HttpPayloadWithXmlNamespaceInputOutputRestXmlSerializer
         _i1.XmlNamespace('http://foo.com'),
       )
     ];
-    final _i2.PayloadWithXmlNamespace(:name) = object;
+    final PayloadWithXmlNamespace(:name) = object;
     if (name != null) {
       result$
         ..add(const _i1.XmlElementName('name'))

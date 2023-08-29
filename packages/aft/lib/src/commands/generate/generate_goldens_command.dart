@@ -7,11 +7,14 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:file/local.dart';
+import 'package:git/git.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 const skipProtocols = [
   'shared',
@@ -20,6 +23,7 @@ const awsProtocols = [
   'awsJson1_0',
   'awsJson1_1',
   'awsQuery',
+  'ec2Query',
   'restJson1',
   'restXml',
   'restXmlWithNamespace',
@@ -36,6 +40,7 @@ class GenerateGoldensCommand extends AmplifyCommand {
       'update',
       help: 'Whether to update test models from git',
       defaultsTo: false,
+      negatable: false,
     );
   }
 
@@ -81,28 +86,44 @@ class GenerateGoldensCommand extends AmplifyCommand {
   /// v1 models are no longer committed to git and are fixed at the last commit
   /// in which they were updated.
   Future<void> updateModels() async {
-    final smithyVersion = File(
-      p.join(goldensRoot, 'smithy-version'),
-    ).readAsStringSync().trim();
     const url = 'https://github.com/awslabs/smithy';
     final tmpDir = Directory.systemTemp.createTempSync('smithy');
     final process = await Process.start(
       'git',
       [
         'clone',
-        '--depth=1',
-        '--branch',
-        smithyVersion,
         url,
         tmpDir.path,
       ],
       mode: ProcessStartMode.inheritStdio,
-      workingDirectory: goldensRoot,
     );
     if (await process.exitCode != 0) {
       stderr.writeln('Could not clone $url');
       exit(1);
     }
+
+    final versions = await repo.git
+        .tags()
+        .map((tag) {
+          try {
+            return Version.parse(tag.tag);
+          } on Object {
+            return null;
+          }
+        })
+        .whereNotNull()
+        .toList();
+    versions.sort();
+    final latestVersion = versions.last.toString();
+    logger.info('Updating models to Smithy $latestVersion');
+
+    final gitDir = await GitDir.fromExisting(tmpDir.path);
+    await gitDir.runCommand(
+      ['checkout', latestVersion],
+      echoOutput: false,
+      throwOnError: true,
+    );
+
     for (final protocol in awsProtocols) {
       final src = p.join(
         tmpDir.path,
@@ -142,6 +163,25 @@ class GenerateGoldensCommand extends AmplifyCommand {
       final content = file.readAsStringSync();
       file.writeAsStringSync(content.replaceAll('coral', 'example'));
     }
+
+    // Update smithy-build.json and smithy-version
+    final smithyBuildJson = File(p.join(goldensRoot, 'smithy-build.json'));
+    await smithyBuildJson.writeAsString(
+      prettyPrintJson({
+        'mavenDependencies': [
+          'software.amazon.smithy:smithy-model:$latestVersion',
+          'software.amazon.smithy:smithy-aws-apigateway-traits:$latestVersion',
+          'software.amazon.smithy:smithy-aws-cloudformation-traits:$latestVersion',
+          'software.amazon.smithy:smithy-aws-iam-traits:$latestVersion',
+          'software.amazon.smithy:smithy-aws-traits:$latestVersion',
+          'software.amazon.smithy:smithy-mqtt-traits:$latestVersion',
+          'software.amazon.smithy:smithy-protocol-test-traits:$latestVersion',
+          'software.amazon.smithy:smithy-validation-model:$latestVersion'
+        ]
+      }),
+    );
+    final smithyVersion = File(p.join(goldensRoot, 'smithy-version'));
+    await smithyVersion.writeAsString(latestVersion);
   }
 
   Future<SmithyAst> _transform(

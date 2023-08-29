@@ -4,7 +4,7 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/models/script_template.dart';
+import 'package:aft/src/config/script_template.dart';
 import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:collection/collection.dart';

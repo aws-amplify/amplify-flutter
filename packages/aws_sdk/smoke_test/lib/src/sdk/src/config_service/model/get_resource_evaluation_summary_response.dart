@@ -6,17 +6,12 @@ library smoke_test.config_service.model.get_resource_evaluation_summary_response
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_context.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_details.dart'
-    as _i6;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_context.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_details.dart';
 
 part 'get_resource_evaluation_summary_response.g.dart';
 
@@ -28,12 +23,12 @@ abstract class GetResourceEvaluationSummaryResponse
             GetResourceEvaluationSummaryResponseBuilder> {
   factory GetResourceEvaluationSummaryResponse({
     String? resourceEvaluationId,
-    _i2.EvaluationMode? evaluationMode,
-    _i3.EvaluationStatus? evaluationStatus,
+    EvaluationMode? evaluationMode,
+    EvaluationStatus? evaluationStatus,
     DateTime? evaluationStartTimestamp,
-    _i4.ComplianceType? compliance,
-    _i5.EvaluationContext? evaluationContext,
-    _i6.ResourceDetails? resourceDetails,
+    ComplianceType? compliance,
+    EvaluationContext? evaluationContext,
+    ResourceDetails? resourceDetails,
   }) {
     return _$GetResourceEvaluationSummaryResponse._(
       resourceEvaluationId: resourceEvaluationId,
@@ -59,29 +54,29 @@ abstract class GetResourceEvaluationSummaryResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer<GetResourceEvaluationSummaryResponse>>
+  static const List<_i2.SmithySerializer<GetResourceEvaluationSummaryResponse>>
       serializers = [GetResourceEvaluationSummaryResponseAwsJson11Serializer()];
 
   /// The unique `ResourceEvaluationId` of Amazon Web Services resource execution for which you want to retrieve the evaluation summary.
   String? get resourceEvaluationId;
 
   /// Lists results of the mode that you requested to retrieve the resource evaluation summary. The valid values are Detective or Proactive.
-  _i2.EvaluationMode? get evaluationMode;
+  EvaluationMode? get evaluationMode;
 
   /// Returns an `EvaluationStatus` object.
-  _i3.EvaluationStatus? get evaluationStatus;
+  EvaluationStatus? get evaluationStatus;
 
   /// The start timestamp when Config rule starts evaluating compliance for the provided resource details.
   DateTime? get evaluationStartTimestamp;
 
   /// The compliance status of the resource evaluation summary.
-  _i4.ComplianceType? get compliance;
+  ComplianceType? get compliance;
 
   /// Returns an `EvaluationContext` object.
-  _i5.EvaluationContext? get evaluationContext;
+  EvaluationContext? get evaluationContext;
 
   /// Returns a `ResourceDetails` object.
-  _i6.ResourceDetails? get resourceDetails;
+  ResourceDetails? get resourceDetails;
   @override
   List<Object?> get props => [
         resourceEvaluationId,
@@ -128,7 +123,7 @@ abstract class GetResourceEvaluationSummaryResponse
   }
 }
 
-class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
+class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<GetResourceEvaluationSummaryResponse> {
   const GetResourceEvaluationSummaryResponseAwsJson11Serializer()
       : super('GetResourceEvaluationSummaryResponse');
@@ -139,8 +134,8 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         _$GetResourceEvaluationSummaryResponse,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -169,13 +164,13 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationMode),
-          ) as _i2.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
         case 'EvaluationStatus':
           result.evaluationStatus.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EvaluationStatus),
-          ) as _i3.EvaluationStatus));
+            specifiedType: const FullType(EvaluationStatus),
+          ) as EvaluationStatus));
         case 'EvaluationStartTimestamp':
           result.evaluationStartTimestamp = (serializers.deserialize(
             value,
@@ -184,18 +179,18 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         case 'Compliance':
           result.compliance = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ComplianceType),
-          ) as _i4.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'EvaluationContext':
           result.evaluationContext.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.EvaluationContext),
-          ) as _i5.EvaluationContext));
+            specifiedType: const FullType(EvaluationContext),
+          ) as EvaluationContext));
         case 'ResourceDetails':
           result.resourceDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ResourceDetails),
-          ) as _i6.ResourceDetails));
+            specifiedType: const FullType(ResourceDetails),
+          ) as ResourceDetails));
       }
     }
 
@@ -231,7 +226,7 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         ..add('EvaluationMode')
         ..add(serializers.serialize(
           evaluationMode,
-          specifiedType: const FullType(_i2.EvaluationMode),
+          specifiedType: const FullType(EvaluationMode),
         ));
     }
     if (evaluationStatus != null) {
@@ -239,7 +234,7 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         ..add('EvaluationStatus')
         ..add(serializers.serialize(
           evaluationStatus,
-          specifiedType: const FullType(_i3.EvaluationStatus),
+          specifiedType: const FullType(EvaluationStatus),
         ));
     }
     if (evaluationStartTimestamp != null) {
@@ -255,7 +250,7 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
-          specifiedType: const FullType(_i4.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (evaluationContext != null) {
@@ -263,7 +258,7 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         ..add('EvaluationContext')
         ..add(serializers.serialize(
           evaluationContext,
-          specifiedType: const FullType(_i5.EvaluationContext),
+          specifiedType: const FullType(EvaluationContext),
         ));
     }
     if (resourceDetails != null) {
@@ -271,7 +266,7 @@ class GetResourceEvaluationSummaryResponseAwsJson11Serializer extends _i7
         ..add('ResourceDetails')
         ..add(serializers.serialize(
           resourceDetails,
-          specifiedType: const FullType(_i6.ResourceDetails),
+          specifiedType: const FullType(ResourceDetails),
         ));
     }
     return result$;

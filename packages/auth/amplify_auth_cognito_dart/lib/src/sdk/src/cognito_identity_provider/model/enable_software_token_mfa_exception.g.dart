@@ -57,9 +57,7 @@ class EnableSoftwareTokenMfaExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  EnableSoftwareTokenMfaExceptionBuilder() {
-    EnableSoftwareTokenMfaException._init(this);
-  }
+  EnableSoftwareTokenMfaExceptionBuilder();
 
   EnableSoftwareTokenMfaExceptionBuilder get _$this {
     final $v = _$v;

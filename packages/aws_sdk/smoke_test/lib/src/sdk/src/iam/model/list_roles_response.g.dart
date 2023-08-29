@@ -8,7 +8,7 @@ part of 'list_roles_response.dart';
 
 class _$ListRolesResponse extends ListRolesResponse {
   @override
-  final _i3.BuiltList<_i2.Role> roles;
+  final _i2.BuiltList<Role> roles;
   @override
   final bool isTruncated;
   @override
@@ -58,10 +58,10 @@ class ListRolesResponseBuilder
     implements Builder<ListRolesResponse, ListRolesResponseBuilder> {
   _$ListRolesResponse? _$v;
 
-  _i3.ListBuilder<_i2.Role>? _roles;
-  _i3.ListBuilder<_i2.Role> get roles =>
-      _$this._roles ??= new _i3.ListBuilder<_i2.Role>();
-  set roles(_i3.ListBuilder<_i2.Role>? roles) => _$this._roles = roles;
+  _i2.ListBuilder<Role>? _roles;
+  _i2.ListBuilder<Role> get roles =>
+      _$this._roles ??= new _i2.ListBuilder<Role>();
+  set roles(_i2.ListBuilder<Role>? roles) => _$this._roles = roles;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;

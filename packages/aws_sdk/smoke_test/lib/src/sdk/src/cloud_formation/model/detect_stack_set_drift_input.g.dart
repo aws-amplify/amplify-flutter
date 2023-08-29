@@ -10,11 +10,11 @@ class _$DetectStackSetDriftInput extends DetectStackSetDriftInput {
   @override
   final String stackSetName;
   @override
-  final _i3.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
   @override
   final String? operationId;
   @override
-  final _i4.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$DetectStackSetDriftInput(
           [void Function(DetectStackSetDriftInputBuilder)? updates]) =>
@@ -70,21 +70,21 @@ class DetectStackSetDriftInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i3.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i3.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i3.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i3.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   String? _operationId;
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i4.CallAs? _callAs;
-  _i4.CallAs? get callAs => _$this._callAs;
-  set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   DetectStackSetDriftInputBuilder() {
     DetectStackSetDriftInput._init(this);

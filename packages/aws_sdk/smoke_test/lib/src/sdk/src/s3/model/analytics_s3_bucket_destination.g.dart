@@ -8,7 +8,7 @@ part of 'analytics_s3_bucket_destination.dart';
 
 class _$AnalyticsS3BucketDestination extends AnalyticsS3BucketDestination {
   @override
-  final _i2.AnalyticsS3ExportFileFormat format;
+  final AnalyticsS3ExportFileFormat format;
   @override
   final String? bucketAccountId;
   @override
@@ -69,10 +69,9 @@ class AnalyticsS3BucketDestinationBuilder
             AnalyticsS3BucketDestinationBuilder> {
   _$AnalyticsS3BucketDestination? _$v;
 
-  _i2.AnalyticsS3ExportFileFormat? _format;
-  _i2.AnalyticsS3ExportFileFormat? get format => _$this._format;
-  set format(_i2.AnalyticsS3ExportFileFormat? format) =>
-      _$this._format = format;
+  AnalyticsS3ExportFileFormat? _format;
+  AnalyticsS3ExportFileFormat? get format => _$this._format;
+  set format(AnalyticsS3ExportFileFormat? format) => _$this._format = format;
 
   String? _bucketAccountId;
   String? get bucketAccountId => _$this._bucketAccountId;

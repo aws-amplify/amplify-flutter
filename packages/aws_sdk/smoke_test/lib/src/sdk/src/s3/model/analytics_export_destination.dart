@@ -6,9 +6,8 @@ library smoke_test.s3.model.analytics_export_destination; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/analytics_s3_bucket_destination.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/analytics_s3_bucket_destination.dart';
 
 part 'analytics_export_destination.g.dart';
 
@@ -19,7 +18,7 @@ abstract class AnalyticsExportDestination
         Built<AnalyticsExportDestination, AnalyticsExportDestinationBuilder> {
   /// Where to publish the analytics results.
   factory AnalyticsExportDestination(
-      {required _i2.AnalyticsS3BucketDestination s3BucketDestination}) {
+      {required AnalyticsS3BucketDestination s3BucketDestination}) {
     return _$AnalyticsExportDestination._(
         s3BucketDestination: s3BucketDestination);
   }
@@ -31,11 +30,11 @@ abstract class AnalyticsExportDestination
 
   const AnalyticsExportDestination._();
 
-  static const List<_i3.SmithySerializer<AnalyticsExportDestination>>
+  static const List<_i2.SmithySerializer<AnalyticsExportDestination>>
       serializers = [AnalyticsExportDestinationRestXmlSerializer()];
 
   /// A destination signifying output to an S3 bucket.
-  _i2.AnalyticsS3BucketDestination get s3BucketDestination;
+  AnalyticsS3BucketDestination get s3BucketDestination;
   @override
   List<Object?> get props => [s3BucketDestination];
   @override
@@ -50,7 +49,7 @@ abstract class AnalyticsExportDestination
 }
 
 class AnalyticsExportDestinationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<AnalyticsExportDestination> {
+    extends _i2.StructuredSmithySerializer<AnalyticsExportDestination> {
   const AnalyticsExportDestinationRestXmlSerializer()
       : super('AnalyticsExportDestination');
 
@@ -60,8 +59,8 @@ class AnalyticsExportDestinationRestXmlSerializer
         _$AnalyticsExportDestination,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -85,8 +84,8 @@ class AnalyticsExportDestinationRestXmlSerializer
         case 'S3BucketDestination':
           result.s3BucketDestination.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AnalyticsS3BucketDestination),
-          ) as _i2.AnalyticsS3BucketDestination));
+            specifiedType: const FullType(AnalyticsS3BucketDestination),
+          ) as AnalyticsS3BucketDestination));
       }
     }
 
@@ -100,17 +99,17 @@ class AnalyticsExportDestinationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AnalyticsExportDestination',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AnalyticsExportDestination(:s3BucketDestination) = object;
     result$
-      ..add(const _i3.XmlElementName('S3BucketDestination'))
+      ..add(const _i2.XmlElementName('S3BucketDestination'))
       ..add(serializers.serialize(
         s3BucketDestination,
-        specifiedType: const FullType(_i2.AnalyticsS3BucketDestination),
+        specifiedType: const FullType(AnalyticsS3BucketDestination),
       ));
     return result$;
   }

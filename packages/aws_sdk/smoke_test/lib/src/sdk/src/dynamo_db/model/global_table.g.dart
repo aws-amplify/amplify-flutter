@@ -10,7 +10,7 @@ class _$GlobalTable extends GlobalTable {
   @override
   final String? globalTableName;
   @override
-  final _i3.BuiltList<_i2.Replica>? replicationGroup;
+  final _i2.BuiltList<Replica>? replicationGroup;
 
   factory _$GlobalTable([void Function(GlobalTableBuilder)? updates]) =>
       (new GlobalTableBuilder()..update(updates))._build();
@@ -50,10 +50,10 @@ class GlobalTableBuilder implements Builder<GlobalTable, GlobalTableBuilder> {
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  _i3.ListBuilder<_i2.Replica>? _replicationGroup;
-  _i3.ListBuilder<_i2.Replica> get replicationGroup =>
-      _$this._replicationGroup ??= new _i3.ListBuilder<_i2.Replica>();
-  set replicationGroup(_i3.ListBuilder<_i2.Replica>? replicationGroup) =>
+  _i2.ListBuilder<Replica>? _replicationGroup;
+  _i2.ListBuilder<Replica> get replicationGroup =>
+      _$this._replicationGroup ??= new _i2.ListBuilder<Replica>();
+  set replicationGroup(_i2.ListBuilder<Replica>? replicationGroup) =>
       _$this._replicationGroup = replicationGroup;
 
   GlobalTableBuilder();

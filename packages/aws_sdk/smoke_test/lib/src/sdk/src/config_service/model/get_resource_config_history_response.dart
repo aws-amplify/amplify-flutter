@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_resource_config_history_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart';
 
 part 'get_resource_config_history_response.g.dart';
 
@@ -22,12 +21,12 @@ abstract class GetResourceConfigHistoryResponse
             GetResourceConfigHistoryResponseBuilder> {
   /// The output for the GetResourceConfigHistory action.
   factory GetResourceConfigHistoryResponse({
-    List<_i2.ConfigurationItem>? configurationItems,
+    List<ConfigurationItem>? configurationItems,
     String? nextToken,
   }) {
     return _$GetResourceConfigHistoryResponse._(
       configurationItems:
-          configurationItems == null ? null : _i3.BuiltList(configurationItems),
+          configurationItems == null ? null : _i2.BuiltList(configurationItems),
       nextToken: nextToken,
     );
   }
@@ -46,11 +45,11 @@ abstract class GetResourceConfigHistoryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetResourceConfigHistoryResponse>>
+  static const List<_i3.SmithySerializer<GetResourceConfigHistoryResponse>>
       serializers = [GetResourceConfigHistoryResponseAwsJson11Serializer()];
 
   /// A list that contains the configuration history of one or more resources.
-  _i3.BuiltList<_i2.ConfigurationItem>? get configurationItems;
+  _i2.BuiltList<ConfigurationItem>? get configurationItems;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class GetResourceConfigHistoryResponse
 }
 
 class GetResourceConfigHistoryResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<GetResourceConfigHistoryResponse> {
+    extends _i3.StructuredSmithySerializer<GetResourceConfigHistoryResponse> {
   const GetResourceConfigHistoryResponseAwsJson11Serializer()
       : super('GetResourceConfigHistoryResponse');
 
@@ -86,8 +85,8 @@ class GetResourceConfigHistoryResponseAwsJson11Serializer
         _$GetResourceConfigHistoryResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -112,10 +111,10 @@ class GetResourceConfigHistoryResponseAwsJson11Serializer
           result.configurationItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigurationItem)],
+              _i2.BuiltList,
+              [FullType(ConfigurationItem)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigurationItem>));
+          ) as _i2.BuiltList<ConfigurationItem>));
         case 'nextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -142,8 +141,8 @@ class GetResourceConfigHistoryResponseAwsJson11Serializer
         ..add(serializers.serialize(
           configurationItems,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigurationItem)],
+            _i2.BuiltList,
+            [FullType(ConfigurationItem)],
           ),
         ));
     }

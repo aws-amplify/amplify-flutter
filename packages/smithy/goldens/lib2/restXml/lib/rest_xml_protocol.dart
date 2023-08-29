@@ -67,6 +67,8 @@ export 'package:rest_xml_v2/src/rest_xml_protocol/model/operation_config.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_name.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace.dart';
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart';
+export 'package:rest_xml_v2/src/rest_xml_protocol/model/put_with_content_encoding_input.dart'
+    hide PutWithContentEncodingInputPayload;
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
     hide QueryIdempotencyTokenAutoFillInputPayload;
 export 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'

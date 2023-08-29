@@ -4,12 +4,11 @@
 library smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_configuration.dart';
 
 part 'list_bucket_intelligent_tiering_configurations_output.g.dart';
 
@@ -23,8 +22,7 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
     bool? isTruncated,
     String? continuationToken,
     String? nextContinuationToken,
-    List<_i2.IntelligentTieringConfiguration>?
-        intelligentTieringConfigurationList,
+    List<IntelligentTieringConfiguration>? intelligentTieringConfigurationList,
   }) {
     return _$ListBucketIntelligentTieringConfigurationsOutput._(
       isTruncated: isTruncated,
@@ -33,7 +31,7 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
       intelligentTieringConfigurationList:
           intelligentTieringConfigurationList == null
               ? null
-              : _i3.BuiltList(intelligentTieringConfigurationList),
+              : _i2.BuiltList(intelligentTieringConfigurationList),
     );
   }
 
@@ -51,8 +49,9 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
       payload;
 
   static const List<
-      _i4.SmithySerializer<
-          ListBucketIntelligentTieringConfigurationsOutput>> serializers = [
+          _i3
+          .SmithySerializer<ListBucketIntelligentTieringConfigurationsOutput>>
+      serializers = [
     ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
   ];
 
@@ -66,7 +65,7 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   String? get nextContinuationToken;
 
   /// The list of S3 Intelligent-Tiering configurations for a bucket.
-  _i3.BuiltList<_i2.IntelligentTieringConfiguration>?
+  _i2.BuiltList<IntelligentTieringConfiguration>?
       get intelligentTieringConfigurationList;
   @override
   List<Object?> get props => [
@@ -100,7 +99,7 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
 }
 
 class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         ListBucketIntelligentTieringConfigurationsOutput> {
   const ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
       : super('ListBucketIntelligentTieringConfigurationsOutput');
@@ -111,8 +110,8 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
         _$ListBucketIntelligentTieringConfigurationsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -142,8 +141,8 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
           result.intelligentTieringConfigurationList
               .add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.IntelligentTieringConfiguration),
-          ) as _i2.IntelligentTieringConfiguration));
+            specifiedType: const FullType(IntelligentTieringConfiguration),
+          ) as IntelligentTieringConfiguration));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -167,9 +166,9 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListBucketIntelligentTieringConfigurationsOutput',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ListBucketIntelligentTieringConfigurationsOutput(
@@ -180,27 +179,27 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
     ) = object;
     if (continuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('ContinuationToken'))
+        ..add(const _i3.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
           continuationToken,
           specifiedType: const FullType(String),
         ));
     }
     if (intelligentTieringConfigurationList != null) {
-      result$.addAll(const _i4.XmlBuiltListSerializer(
+      result$.addAll(const _i3.XmlBuiltListSerializer(
               memberName: 'IntelligentTieringConfiguration')
           .serialize(
         serializers,
         intelligentTieringConfigurationList,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.IntelligentTieringConfiguration)],
+          _i2.BuiltList,
+          [FullType(IntelligentTieringConfiguration)],
         ),
       ));
     }
     if (isTruncated != null) {
       result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
           specifiedType: const FullType.nullable(bool),
@@ -208,7 +207,7 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
     }
     if (nextContinuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextContinuationToken'))
+        ..add(const _i3.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
           nextContinuationToken,
           specifiedType: const FullType(String),

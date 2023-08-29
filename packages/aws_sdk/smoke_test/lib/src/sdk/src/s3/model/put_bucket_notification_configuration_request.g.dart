@@ -11,7 +11,7 @@ class _$PutBucketNotificationConfigurationRequest
   @override
   final String bucket;
   @override
-  final _i2.NotificationConfiguration notificationConfiguration;
+  final NotificationConfiguration notificationConfiguration;
   @override
   final String? expectedBucketOwner;
   @override
@@ -79,12 +79,12 @@ class PutBucketNotificationConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.NotificationConfigurationBuilder? _notificationConfiguration;
-  _i2.NotificationConfigurationBuilder get notificationConfiguration =>
+  NotificationConfigurationBuilder? _notificationConfiguration;
+  NotificationConfigurationBuilder get notificationConfiguration =>
       _$this._notificationConfiguration ??=
-          new _i2.NotificationConfigurationBuilder();
+          new NotificationConfigurationBuilder();
   set notificationConfiguration(
-          _i2.NotificationConfigurationBuilder? notificationConfiguration) =>
+          NotificationConfigurationBuilder? notificationConfiguration) =>
       _$this._notificationConfiguration = notificationConfiguration;
 
   String? _expectedBucketOwner;

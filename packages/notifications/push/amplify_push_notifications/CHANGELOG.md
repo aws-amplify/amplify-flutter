@@ -1,3 +1,26 @@
+## 1.3.3
+
+### Fixes
+- fix(push): Deserialization from platform maps ([#3557](https://github.com/aws-amplify/amplify-flutter/pull/3557))
+
+## 1.3.2
+
+### Fixes
+- fix(datastore): Custom list serde ([#3544](https://github.com/aws-amplify/amplify-flutter/pull/3544))
+
+## 1.3.1
+
+### Fixes
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+
+## 1.3.0
+
+- Minor bug fixes and improvements
+
+## 1.2.1
+
+- Minor bug fixes and improvements
+
 ## 1.2.0
 
 - Minor bug fixes and improvements

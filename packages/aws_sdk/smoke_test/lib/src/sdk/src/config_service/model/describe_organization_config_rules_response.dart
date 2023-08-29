@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_organization_config_rules_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart';
 
 part 'describe_organization_config_rules_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeOrganizationConfigRulesResponse
         Built<DescribeOrganizationConfigRulesResponse,
             DescribeOrganizationConfigRulesResponseBuilder> {
   factory DescribeOrganizationConfigRulesResponse({
-    List<_i2.OrganizationConfigRule>? organizationConfigRules,
+    List<OrganizationConfigRule>? organizationConfigRules,
     String? nextToken,
   }) {
     return _$DescribeOrganizationConfigRulesResponse._(
       organizationConfigRules: organizationConfigRules == null
           ? null
-          : _i3.BuiltList(organizationConfigRules),
+          : _i2.BuiltList(organizationConfigRules),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeOrganizationConfigRulesResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeOrganizationConfigRulesResponse>>
+          _i3.SmithySerializer<DescribeOrganizationConfigRulesResponse>>
       serializers = [
     DescribeOrganizationConfigRulesResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of `OrganizationConfigRule` objects.
-  _i3.BuiltList<_i2.OrganizationConfigRule>? get organizationConfigRules;
+  _i2.BuiltList<OrganizationConfigRule>? get organizationConfigRules;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribeOrganizationConfigRulesResponse
   }
 }
 
-class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
+class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeOrganizationConfigRulesResponse> {
   const DescribeOrganizationConfigRulesResponseAwsJson11Serializer()
       : super('DescribeOrganizationConfigRulesResponse');
@@ -87,8 +86,8 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
         _$DescribeOrganizationConfigRulesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
           result.organizationConfigRules.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.OrganizationConfigRule)],
+              _i2.BuiltList,
+              [FullType(OrganizationConfigRule)],
             ),
-          ) as _i3.BuiltList<_i2.OrganizationConfigRule>));
+          ) as _i2.BuiltList<OrganizationConfigRule>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           organizationConfigRules,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.OrganizationConfigRule)],
+            _i2.BuiltList,
+            [FullType(OrganizationConfigRule)],
           ),
         ));
     }

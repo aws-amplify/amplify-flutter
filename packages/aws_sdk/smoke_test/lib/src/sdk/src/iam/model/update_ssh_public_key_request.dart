@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'update_ssh_public_key_request.g.dart';
 
@@ -20,7 +20,7 @@ abstract class UpdateSshPublicKeyRequest
   factory UpdateSshPublicKeyRequest({
     required String userName,
     required String sshPublicKeyId,
-    required _i3.StatusType status,
+    required StatusType status,
   }) {
     return _$UpdateSshPublicKeyRequest._(
       userName: userName,
@@ -56,7 +56,7 @@ abstract class UpdateSshPublicKeyRequest
   String get sshPublicKeyId;
 
   /// The status to assign to the SSH public key. `Active` means that the key can be used for authentication with an CodeCommit repository. `Inactive` means that the key cannot be used.
-  _i3.StatusType get status;
+  StatusType get status;
   @override
   UpdateSshPublicKeyRequest getPayload() => this;
   @override
@@ -108,6 +108,14 @@ class UpdateSshPublicKeyRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = UpdateSshPublicKeyRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -130,8 +138,8 @@ class UpdateSshPublicKeyRequestAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StatusType),
-          ) as _i3.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
       }
     }
 
@@ -168,7 +176,7 @@ class UpdateSshPublicKeyRequestAwsQuerySerializer
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i3.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     return result$;
   }

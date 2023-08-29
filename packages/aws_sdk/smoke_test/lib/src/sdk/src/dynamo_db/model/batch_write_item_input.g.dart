@@ -8,11 +8,11 @@ part of 'batch_write_item_input.dart';
 
 class _$BatchWriteItemInput extends BatchWriteItemInput {
   @override
-  final _i6.BuiltListMultimap<String, _i3.WriteRequest> requestItems;
+  final _i3.BuiltListMultimap<String, WriteRequest> requestItems;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
-  final _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
+  final ReturnItemCollectionMetrics? returnItemCollectionMetrics;
 
   factory _$BatchWriteItemInput(
           [void Function(BatchWriteItemInputBuilder)? updates]) =>
@@ -60,26 +60,25 @@ class BatchWriteItemInputBuilder
     implements Builder<BatchWriteItemInput, BatchWriteItemInputBuilder> {
   _$BatchWriteItemInput? _$v;
 
-  _i6.ListMultimapBuilder<String, _i3.WriteRequest>? _requestItems;
-  _i6.ListMultimapBuilder<String, _i3.WriteRequest> get requestItems =>
+  _i3.ListMultimapBuilder<String, WriteRequest>? _requestItems;
+  _i3.ListMultimapBuilder<String, WriteRequest> get requestItems =>
       _$this._requestItems ??=
-          new _i6.ListMultimapBuilder<String, _i3.WriteRequest>();
+          new _i3.ListMultimapBuilder<String, WriteRequest>();
   set requestItems(
-          _i6.ListMultimapBuilder<String, _i3.WriteRequest>? requestItems) =>
+          _i3.ListMultimapBuilder<String, WriteRequest>? requestItems) =>
       _$this._requestItems = requestItems;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  _i5.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
-  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
+  ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
       _$this._returnItemCollectionMetrics;
   set returnItemCollectionMetrics(
-          _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
+          ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
       _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
 
   BatchWriteItemInputBuilder();

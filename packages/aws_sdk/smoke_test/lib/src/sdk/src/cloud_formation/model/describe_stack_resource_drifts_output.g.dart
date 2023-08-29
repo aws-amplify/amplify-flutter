@@ -9,7 +9,7 @@ part of 'describe_stack_resource_drifts_output.dart';
 class _$DescribeStackResourceDriftsOutput
     extends DescribeStackResourceDriftsOutput {
   @override
-  final _i3.BuiltList<_i2.StackResourceDrift> stackResourceDrifts;
+  final _i2.BuiltList<StackResourceDrift> stackResourceDrifts;
   @override
   final String? nextToken;
 
@@ -58,12 +58,11 @@ class DescribeStackResourceDriftsOutputBuilder
             DescribeStackResourceDriftsOutputBuilder> {
   _$DescribeStackResourceDriftsOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackResourceDrift>? _stackResourceDrifts;
-  _i3.ListBuilder<_i2.StackResourceDrift> get stackResourceDrifts =>
-      _$this._stackResourceDrifts ??=
-          new _i3.ListBuilder<_i2.StackResourceDrift>();
+  _i2.ListBuilder<StackResourceDrift>? _stackResourceDrifts;
+  _i2.ListBuilder<StackResourceDrift> get stackResourceDrifts =>
+      _$this._stackResourceDrifts ??= new _i2.ListBuilder<StackResourceDrift>();
   set stackResourceDrifts(
-          _i3.ListBuilder<_i2.StackResourceDrift>? stackResourceDrifts) =>
+          _i2.ListBuilder<StackResourceDrift>? stackResourceDrifts) =>
       _$this._stackResourceDrifts = stackResourceDrifts;
 
   String? _nextToken;

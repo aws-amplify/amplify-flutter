@@ -79,6 +79,24 @@ const amplifyEnvironments = <String, String>{};
           // command is significantly newer/older than the embedded one.
           (pkg) => pkg.name != 'aft',
         )
+        .where(
+          // Skip bootstrapping packages which set incompatible Dart SDK constraints,
+          // e.g. packages which are leveraging preview features.
+          //
+          // The problem of packages setting incorrect constraints, for example setting
+          // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
+          // `aft` with `3.0.1` is a different issue handled by the constraints commands.
+          (pkg) {
+            final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
+            if (!compatibleWithActiveSdk) {
+              logger.info(
+                'Skipping package ${pkg.name} since it sets an incompatible Dart SDK constraint: '
+                '${pkg.dartSdkConstraint}',
+              );
+            }
+            return compatibleWithActiveSdk;
+          },
+        )
         .expand((pkg) => [pkg, pkg.example, pkg.docs])
         .nonNulls;
     for (final package in bootstrapPackages) {

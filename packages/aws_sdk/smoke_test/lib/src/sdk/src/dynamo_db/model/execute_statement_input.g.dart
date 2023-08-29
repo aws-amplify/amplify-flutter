@@ -10,17 +10,17 @@ class _$ExecuteStatementInput extends ExecuteStatementInput {
   @override
   final String statement;
   @override
-  final _i6.BuiltList<_i3.AttributeValue>? parameters;
+  final _i3.BuiltList<AttributeValue>? parameters;
   @override
   final bool? consistentRead;
   @override
   final String? nextToken;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
   final int? limit;
   @override
-  final _i5.ReturnValuesOnConditionCheckFailure?
+  final ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
 
   factory _$ExecuteStatementInput(
@@ -86,10 +86,10 @@ class ExecuteStatementInputBuilder
   String? get statement => _$this._statement;
   set statement(String? statement) => _$this._statement = statement;
 
-  _i6.ListBuilder<_i3.AttributeValue>? _parameters;
-  _i6.ListBuilder<_i3.AttributeValue> get parameters =>
-      _$this._parameters ??= new _i6.ListBuilder<_i3.AttributeValue>();
-  set parameters(_i6.ListBuilder<_i3.AttributeValue>? parameters) =>
+  _i3.ListBuilder<AttributeValue>? _parameters;
+  _i3.ListBuilder<AttributeValue> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<AttributeValue>();
+  set parameters(_i3.ListBuilder<AttributeValue>? parameters) =>
       _$this._parameters = parameters;
 
   bool? _consistentRead;
@@ -101,23 +101,22 @@ class ExecuteStatementInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  _i5.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
-  _i5.ReturnValuesOnConditionCheckFailure?
+  ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
           _$this._returnValuesOnConditionCheckFailure;
   set returnValuesOnConditionCheckFailure(
-          _i5.ReturnValuesOnConditionCheckFailure?
+          ReturnValuesOnConditionCheckFailure?
               returnValuesOnConditionCheckFailure) =>
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;

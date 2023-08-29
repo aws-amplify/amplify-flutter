@@ -1,0 +1,21 @@
+{
+  "name": "actions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dart wrapper for the GitHub Actions Node.js modules.",
+  "type": "module",
+  "main": "main.mjs",
+  "scripts": {
+    "build": "ncc build main.mjs"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/http-client": "^2.1.1",
+    "@actions/tool-cache": "^2.0.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1"
+  }
+}

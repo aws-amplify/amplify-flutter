@@ -8,7 +8,7 @@ part of 'forgot_password_response.dart';
 
 class _$ForgotPasswordResponse extends ForgotPasswordResponse {
   @override
-  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
+  final CodeDeliveryDetailsType? codeDeliveryDetails;
 
   factory _$ForgotPasswordResponse(
           [void Function(ForgotPasswordResponseBuilder)? updates]) =>
@@ -45,16 +45,14 @@ class ForgotPasswordResponseBuilder
     implements Builder<ForgotPasswordResponse, ForgotPasswordResponseBuilder> {
   _$ForgotPasswordResponse? _$v;
 
-  _i2.CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
-  _i2.CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new _i2.CodeDeliveryDetailsTypeBuilder();
+  CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
+  CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
+      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
+          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
-  ForgotPasswordResponseBuilder() {
-    ForgotPasswordResponse._init(this);
-  }
+  ForgotPasswordResponseBuilder();
 
   ForgotPasswordResponseBuilder get _$this {
     final $v = _$v;

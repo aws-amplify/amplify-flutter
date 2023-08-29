@@ -10,7 +10,7 @@ class _$ImportTableDescription extends ImportTableDescription {
   @override
   final String? importArn;
   @override
-  final _i2.ImportStatus? importStatus;
+  final ImportStatus? importStatus;
   @override
   final String? tableArn;
   @override
@@ -18,29 +18,29 @@ class _$ImportTableDescription extends ImportTableDescription {
   @override
   final String? clientToken;
   @override
-  final _i3.S3BucketSource? s3BucketSource;
+  final S3BucketSource? s3BucketSource;
   @override
-  final _i4.Int64 errorCount;
+  final _i2.Int64 errorCount;
   @override
   final String? cloudWatchLogGroupArn;
   @override
-  final _i5.InputFormat? inputFormat;
+  final InputFormat? inputFormat;
   @override
-  final _i6.InputFormatOptions? inputFormatOptions;
+  final InputFormatOptions? inputFormatOptions;
   @override
-  final _i7.InputCompressionType? inputCompressionType;
+  final InputCompressionType? inputCompressionType;
   @override
-  final _i8.TableCreationParameters? tableCreationParameters;
+  final TableCreationParameters? tableCreationParameters;
   @override
   final DateTime? startTime;
   @override
   final DateTime? endTime;
   @override
-  final _i4.Int64? processedSizeBytes;
+  final _i2.Int64? processedSizeBytes;
   @override
-  final _i4.Int64 processedItemCount;
+  final _i2.Int64 processedItemCount;
   @override
-  final _i4.Int64 importedItemCount;
+  final _i2.Int64 importedItemCount;
   @override
   final String? failureCode;
   @override
@@ -148,9 +148,9 @@ class ImportTableDescriptionBuilder
   String? get importArn => _$this._importArn;
   set importArn(String? importArn) => _$this._importArn = importArn;
 
-  _i2.ImportStatus? _importStatus;
-  _i2.ImportStatus? get importStatus => _$this._importStatus;
-  set importStatus(_i2.ImportStatus? importStatus) =>
+  ImportStatus? _importStatus;
+  ImportStatus? get importStatus => _$this._importStatus;
+  set importStatus(ImportStatus? importStatus) =>
       _$this._importStatus = importStatus;
 
   String? _tableArn;
@@ -165,44 +165,43 @@ class ImportTableDescriptionBuilder
   String? get clientToken => _$this._clientToken;
   set clientToken(String? clientToken) => _$this._clientToken = clientToken;
 
-  _i3.S3BucketSourceBuilder? _s3BucketSource;
-  _i3.S3BucketSourceBuilder get s3BucketSource =>
-      _$this._s3BucketSource ??= new _i3.S3BucketSourceBuilder();
-  set s3BucketSource(_i3.S3BucketSourceBuilder? s3BucketSource) =>
+  S3BucketSourceBuilder? _s3BucketSource;
+  S3BucketSourceBuilder get s3BucketSource =>
+      _$this._s3BucketSource ??= new S3BucketSourceBuilder();
+  set s3BucketSource(S3BucketSourceBuilder? s3BucketSource) =>
       _$this._s3BucketSource = s3BucketSource;
 
-  _i4.Int64? _errorCount;
-  _i4.Int64? get errorCount => _$this._errorCount;
-  set errorCount(_i4.Int64? errorCount) => _$this._errorCount = errorCount;
+  _i2.Int64? _errorCount;
+  _i2.Int64? get errorCount => _$this._errorCount;
+  set errorCount(_i2.Int64? errorCount) => _$this._errorCount = errorCount;
 
   String? _cloudWatchLogGroupArn;
   String? get cloudWatchLogGroupArn => _$this._cloudWatchLogGroupArn;
   set cloudWatchLogGroupArn(String? cloudWatchLogGroupArn) =>
       _$this._cloudWatchLogGroupArn = cloudWatchLogGroupArn;
 
-  _i5.InputFormat? _inputFormat;
-  _i5.InputFormat? get inputFormat => _$this._inputFormat;
-  set inputFormat(_i5.InputFormat? inputFormat) =>
+  InputFormat? _inputFormat;
+  InputFormat? get inputFormat => _$this._inputFormat;
+  set inputFormat(InputFormat? inputFormat) =>
       _$this._inputFormat = inputFormat;
 
-  _i6.InputFormatOptionsBuilder? _inputFormatOptions;
-  _i6.InputFormatOptionsBuilder get inputFormatOptions =>
-      _$this._inputFormatOptions ??= new _i6.InputFormatOptionsBuilder();
-  set inputFormatOptions(_i6.InputFormatOptionsBuilder? inputFormatOptions) =>
+  InputFormatOptionsBuilder? _inputFormatOptions;
+  InputFormatOptionsBuilder get inputFormatOptions =>
+      _$this._inputFormatOptions ??= new InputFormatOptionsBuilder();
+  set inputFormatOptions(InputFormatOptionsBuilder? inputFormatOptions) =>
       _$this._inputFormatOptions = inputFormatOptions;
 
-  _i7.InputCompressionType? _inputCompressionType;
-  _i7.InputCompressionType? get inputCompressionType =>
+  InputCompressionType? _inputCompressionType;
+  InputCompressionType? get inputCompressionType =>
       _$this._inputCompressionType;
-  set inputCompressionType(_i7.InputCompressionType? inputCompressionType) =>
+  set inputCompressionType(InputCompressionType? inputCompressionType) =>
       _$this._inputCompressionType = inputCompressionType;
 
-  _i8.TableCreationParametersBuilder? _tableCreationParameters;
-  _i8.TableCreationParametersBuilder get tableCreationParameters =>
-      _$this._tableCreationParameters ??=
-          new _i8.TableCreationParametersBuilder();
+  TableCreationParametersBuilder? _tableCreationParameters;
+  TableCreationParametersBuilder get tableCreationParameters =>
+      _$this._tableCreationParameters ??= new TableCreationParametersBuilder();
   set tableCreationParameters(
-          _i8.TableCreationParametersBuilder? tableCreationParameters) =>
+          TableCreationParametersBuilder? tableCreationParameters) =>
       _$this._tableCreationParameters = tableCreationParameters;
 
   DateTime? _startTime;
@@ -213,19 +212,19 @@ class ImportTableDescriptionBuilder
   DateTime? get endTime => _$this._endTime;
   set endTime(DateTime? endTime) => _$this._endTime = endTime;
 
-  _i4.Int64? _processedSizeBytes;
-  _i4.Int64? get processedSizeBytes => _$this._processedSizeBytes;
-  set processedSizeBytes(_i4.Int64? processedSizeBytes) =>
+  _i2.Int64? _processedSizeBytes;
+  _i2.Int64? get processedSizeBytes => _$this._processedSizeBytes;
+  set processedSizeBytes(_i2.Int64? processedSizeBytes) =>
       _$this._processedSizeBytes = processedSizeBytes;
 
-  _i4.Int64? _processedItemCount;
-  _i4.Int64? get processedItemCount => _$this._processedItemCount;
-  set processedItemCount(_i4.Int64? processedItemCount) =>
+  _i2.Int64? _processedItemCount;
+  _i2.Int64? get processedItemCount => _$this._processedItemCount;
+  set processedItemCount(_i2.Int64? processedItemCount) =>
       _$this._processedItemCount = processedItemCount;
 
-  _i4.Int64? _importedItemCount;
-  _i4.Int64? get importedItemCount => _$this._importedItemCount;
-  set importedItemCount(_i4.Int64? importedItemCount) =>
+  _i2.Int64? _importedItemCount;
+  _i2.Int64? get importedItemCount => _$this._importedItemCount;
+  set importedItemCount(_i2.Int64? importedItemCount) =>
       _$this._importedItemCount = importedItemCount;
 
   String? _failureCode;

@@ -13,7 +13,7 @@ class _$UpdateDocumentationVersionRequest
   @override
   final String documentationVersion;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateDocumentationVersionRequest(
           [void Function(UpdateDocumentationVersionRequestBuilder)? updates]) =>
@@ -75,10 +75,10 @@ class UpdateDocumentationVersionRequestBuilder
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateDocumentationVersionRequestBuilder();
@@ -140,7 +140,7 @@ class UpdateDocumentationVersionRequestBuilder
 class _$UpdateDocumentationVersionRequestPayload
     extends UpdateDocumentationVersionRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateDocumentationVersionRequestPayload(
           [void Function(UpdateDocumentationVersionRequestPayloadBuilder)?
@@ -183,10 +183,10 @@ class UpdateDocumentationVersionRequestPayloadBuilder
             UpdateDocumentationVersionRequestPayloadBuilder> {
   _$UpdateDocumentationVersionRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateDocumentationVersionRequestPayloadBuilder();

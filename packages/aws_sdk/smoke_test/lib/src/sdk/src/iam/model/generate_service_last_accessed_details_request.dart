@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/access_advisor_usage_granularity_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/access_advisor_usage_granularity_type.dart';
 
 part 'generate_service_last_accessed_details_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GenerateServiceLastAccessedDetailsRequest
             GenerateServiceLastAccessedDetailsRequestBuilder> {
   factory GenerateServiceLastAccessedDetailsRequest({
     required String arn,
-    _i3.AccessAdvisorUsageGranularityType? granularity,
+    AccessAdvisorUsageGranularityType? granularity,
   }) {
     return _$GenerateServiceLastAccessedDetailsRequest._(
       arn: arn,
@@ -52,7 +51,7 @@ abstract class GenerateServiceLastAccessedDetailsRequest
   String get arn;
 
   /// The level of detail that you want to generate. You can specify whether you want to generate information about the last attempt to access services or actions. If you specify service-level granularity, this operation generates only service data. If you specify action-level granularity, it generates service and action data. If you don't include this optional parameter, the operation generates service data.
-  _i3.AccessAdvisorUsageGranularityType? get granularity;
+  AccessAdvisorUsageGranularityType? get granularity;
   @override
   GenerateServiceLastAccessedDetailsRequest getPayload() => this;
   @override
@@ -100,6 +99,14 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GenerateServiceLastAccessedDetailsRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -117,9 +124,8 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
         case 'Granularity':
           result.granularity = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.AccessAdvisorUsageGranularityType),
-          ) as _i3.AccessAdvisorUsageGranularityType);
+            specifiedType: const FullType(AccessAdvisorUsageGranularityType),
+          ) as AccessAdvisorUsageGranularityType);
       }
     }
 
@@ -152,7 +158,7 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
         ..add(serializers.serialize(
           granularity,
           specifiedType:
-              const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
+              const FullType.nullable(AccessAdvisorUsageGranularityType),
         ));
     }
     return result$;

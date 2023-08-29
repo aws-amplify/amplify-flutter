@@ -6,11 +6,9 @@ library smoke_test.config_service.model.compliance; // ignore_for_file: no_leadi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_contributor_count.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_contributor_count.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'compliance.g.dart';
 
@@ -20,8 +18,8 @@ abstract class Compliance
     implements Built<Compliance, ComplianceBuilder> {
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant and provides the number of contributors that affect the compliance.
   factory Compliance({
-    _i2.ComplianceType? complianceType,
-    _i3.ComplianceContributorCount? complianceContributorCount,
+    ComplianceType? complianceType,
+    ComplianceContributorCount? complianceContributorCount,
   }) {
     return _$Compliance._(
       complianceType: complianceType,
@@ -35,7 +33,7 @@ abstract class Compliance
 
   const Compliance._();
 
-  static const List<_i4.SmithySerializer<Compliance>> serializers = [
+  static const List<_i2.SmithySerializer<Compliance>> serializers = [
     ComplianceAwsJson11Serializer()
   ];
 
@@ -48,10 +46,10 @@ abstract class Compliance
   /// Config returns the `INSUFFICIENT_DATA` value when no evaluation results are available for the Amazon Web Services resource or Config rule.
   ///
   /// For the `Compliance` data type, Config supports only `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA` values. Config does not support the `NOT_APPLICABLE` value for the `Compliance` data type.
-  _i2.ComplianceType? get complianceType;
+  ComplianceType? get complianceType;
 
   /// The number of Amazon Web Services resources or Config rules that cause a result of `NON_COMPLIANT`, up to a maximum number.
-  _i3.ComplianceContributorCount? get complianceContributorCount;
+  ComplianceContributorCount? get complianceContributorCount;
   @override
   List<Object?> get props => [
         complianceType,
@@ -73,7 +71,7 @@ abstract class Compliance
 }
 
 class ComplianceAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<Compliance> {
+    extends _i2.StructuredSmithySerializer<Compliance> {
   const ComplianceAwsJson11Serializer() : super('Compliance');
 
   @override
@@ -82,8 +80,8 @@ class ComplianceAwsJson11Serializer
         _$Compliance,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,13 +105,13 @@ class ComplianceAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceType),
-          ) as _i2.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'ComplianceContributorCount':
           result.complianceContributorCount.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplianceContributorCount),
-          ) as _i3.ComplianceContributorCount));
+            specifiedType: const FullType(ComplianceContributorCount),
+          ) as ComplianceContributorCount));
       }
     }
 
@@ -133,7 +131,7 @@ class ComplianceAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i2.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (complianceContributorCount != null) {
@@ -141,7 +139,7 @@ class ComplianceAwsJson11Serializer
         ..add('ComplianceContributorCount')
         ..add(serializers.serialize(
           complianceContributorCount,
-          specifiedType: const FullType(_i3.ComplianceContributorCount),
+          specifiedType: const FullType(ComplianceContributorCount),
         ));
     }
     return result$;

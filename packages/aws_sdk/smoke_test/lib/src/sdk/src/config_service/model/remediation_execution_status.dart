@@ -4,16 +4,13 @@
 library smoke_test.config_service.model.remediation_execution_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_state.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_step.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_state.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_step.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart';
 
 part 'remediation_execution_status.g.dart';
 
@@ -24,16 +21,16 @@ abstract class RemediationExecutionStatus
         Built<RemediationExecutionStatus, RemediationExecutionStatusBuilder> {
   /// Provides details of the current status of the invoked remediation action for that resource.
   factory RemediationExecutionStatus({
-    _i2.ResourceKey? resourceKey,
-    _i3.RemediationExecutionState? state,
-    List<_i4.RemediationExecutionStep>? stepDetails,
+    ResourceKey? resourceKey,
+    RemediationExecutionState? state,
+    List<RemediationExecutionStep>? stepDetails,
     DateTime? invocationTime,
     DateTime? lastUpdatedTime,
   }) {
     return _$RemediationExecutionStatus._(
       resourceKey: resourceKey,
       state: state,
-      stepDetails: stepDetails == null ? null : _i5.BuiltList(stepDetails),
+      stepDetails: stepDetails == null ? null : _i2.BuiltList(stepDetails),
       invocationTime: invocationTime,
       lastUpdatedTime: lastUpdatedTime,
     );
@@ -46,17 +43,17 @@ abstract class RemediationExecutionStatus
 
   const RemediationExecutionStatus._();
 
-  static const List<_i6.SmithySerializer<RemediationExecutionStatus>>
+  static const List<_i3.SmithySerializer<RemediationExecutionStatus>>
       serializers = [RemediationExecutionStatusAwsJson11Serializer()];
 
   /// The details that identify a resource within Config, including the resource type and resource ID.
-  _i2.ResourceKey? get resourceKey;
+  ResourceKey? get resourceKey;
 
   /// ENUM of the values.
-  _i3.RemediationExecutionState? get state;
+  RemediationExecutionState? get state;
 
   /// Details of every step.
-  _i5.BuiltList<_i4.RemediationExecutionStep>? get stepDetails;
+  _i2.BuiltList<RemediationExecutionStep>? get stepDetails;
 
   /// Start time when the remediation was executed.
   DateTime? get invocationTime;
@@ -99,7 +96,7 @@ abstract class RemediationExecutionStatus
 }
 
 class RemediationExecutionStatusAwsJson11Serializer
-    extends _i6.StructuredSmithySerializer<RemediationExecutionStatus> {
+    extends _i3.StructuredSmithySerializer<RemediationExecutionStatus> {
   const RemediationExecutionStatusAwsJson11Serializer()
       : super('RemediationExecutionStatus');
 
@@ -109,8 +106,8 @@ class RemediationExecutionStatusAwsJson11Serializer
         _$RemediationExecutionStatus,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -134,21 +131,21 @@ class RemediationExecutionStatusAwsJson11Serializer
         case 'ResourceKey':
           result.resourceKey.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceKey),
-          ) as _i2.ResourceKey));
+            specifiedType: const FullType(ResourceKey),
+          ) as ResourceKey));
         case 'State':
           result.state = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RemediationExecutionState),
-          ) as _i3.RemediationExecutionState);
+            specifiedType: const FullType(RemediationExecutionState),
+          ) as RemediationExecutionState);
         case 'StepDetails':
           result.stepDetails.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.RemediationExecutionStep)],
+              _i2.BuiltList,
+              [FullType(RemediationExecutionStep)],
             ),
-          ) as _i5.BuiltList<_i4.RemediationExecutionStep>));
+          ) as _i2.BuiltList<RemediationExecutionStep>));
         case 'InvocationTime':
           result.invocationTime = (serializers.deserialize(
             value,
@@ -184,7 +181,7 @@ class RemediationExecutionStatusAwsJson11Serializer
         ..add('ResourceKey')
         ..add(serializers.serialize(
           resourceKey,
-          specifiedType: const FullType(_i2.ResourceKey),
+          specifiedType: const FullType(ResourceKey),
         ));
     }
     if (state != null) {
@@ -192,7 +189,7 @@ class RemediationExecutionStatusAwsJson11Serializer
         ..add('State')
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType(_i3.RemediationExecutionState),
+          specifiedType: const FullType(RemediationExecutionState),
         ));
     }
     if (stepDetails != null) {
@@ -201,8 +198,8 @@ class RemediationExecutionStatusAwsJson11Serializer
         ..add(serializers.serialize(
           stepDetails,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.RemediationExecutionStep)],
+            _i2.BuiltList,
+            [FullType(RemediationExecutionStep)],
           ),
         ));
     }

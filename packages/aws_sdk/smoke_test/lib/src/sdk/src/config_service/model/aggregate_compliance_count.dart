@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_compliance_count; // ignore_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart';
 
 part 'aggregate_compliance_count.g.dart';
 
@@ -20,7 +19,7 @@ abstract class AggregateComplianceCount
   /// Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
   factory AggregateComplianceCount({
     String? groupName,
-    _i2.ComplianceSummary? complianceSummary,
+    ComplianceSummary? complianceSummary,
   }) {
     return _$AggregateComplianceCount._(
       groupName: groupName,
@@ -35,14 +34,14 @@ abstract class AggregateComplianceCount
 
   const AggregateComplianceCount._();
 
-  static const List<_i3.SmithySerializer<AggregateComplianceCount>>
+  static const List<_i2.SmithySerializer<AggregateComplianceCount>>
       serializers = [AggregateComplianceCountAwsJson11Serializer()];
 
   /// The 12-digit account ID or region based on the GroupByKey value.
   String? get groupName;
 
   /// The number of compliant and noncompliant Config rules.
-  _i2.ComplianceSummary? get complianceSummary;
+  ComplianceSummary? get complianceSummary;
   @override
   List<Object?> get props => [
         groupName,
@@ -64,7 +63,7 @@ abstract class AggregateComplianceCount
 }
 
 class AggregateComplianceCountAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AggregateComplianceCount> {
+    extends _i2.StructuredSmithySerializer<AggregateComplianceCount> {
   const AggregateComplianceCountAwsJson11Serializer()
       : super('AggregateComplianceCount');
 
@@ -74,8 +73,8 @@ class AggregateComplianceCountAwsJson11Serializer
         _$AggregateComplianceCount,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -104,8 +103,8 @@ class AggregateComplianceCountAwsJson11Serializer
         case 'ComplianceSummary':
           result.complianceSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceSummary),
-          ) as _i2.ComplianceSummary));
+            specifiedType: const FullType(ComplianceSummary),
+          ) as ComplianceSummary));
       }
     }
 
@@ -133,7 +132,7 @@ class AggregateComplianceCountAwsJson11Serializer
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
           complianceSummary,
-          specifiedType: const FullType(_i2.ComplianceSummary),
+          specifiedType: const FullType(ComplianceSummary),
         ));
     }
     return result$;

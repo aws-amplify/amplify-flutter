@@ -8,13 +8,13 @@ part of 'input_serialization.dart';
 
 class _$InputSerialization extends InputSerialization {
   @override
-  final _i2.CsvInput? csv;
+  final CsvInput? csv;
   @override
-  final _i3.CompressionType? compressionType;
+  final CompressionType? compressionType;
   @override
-  final _i4.JsonInput? json;
+  final JsonInput? json;
   @override
-  final _i5.ParquetInput? parquet;
+  final ParquetInput? parquet;
 
   factory _$InputSerialization(
           [void Function(InputSerializationBuilder)? updates]) =>
@@ -59,23 +59,23 @@ class InputSerializationBuilder
     implements Builder<InputSerialization, InputSerializationBuilder> {
   _$InputSerialization? _$v;
 
-  _i2.CsvInputBuilder? _csv;
-  _i2.CsvInputBuilder get csv => _$this._csv ??= new _i2.CsvInputBuilder();
-  set csv(_i2.CsvInputBuilder? csv) => _$this._csv = csv;
+  CsvInputBuilder? _csv;
+  CsvInputBuilder get csv => _$this._csv ??= new CsvInputBuilder();
+  set csv(CsvInputBuilder? csv) => _$this._csv = csv;
 
-  _i3.CompressionType? _compressionType;
-  _i3.CompressionType? get compressionType => _$this._compressionType;
-  set compressionType(_i3.CompressionType? compressionType) =>
+  CompressionType? _compressionType;
+  CompressionType? get compressionType => _$this._compressionType;
+  set compressionType(CompressionType? compressionType) =>
       _$this._compressionType = compressionType;
 
-  _i4.JsonInputBuilder? _json;
-  _i4.JsonInputBuilder get json => _$this._json ??= new _i4.JsonInputBuilder();
-  set json(_i4.JsonInputBuilder? json) => _$this._json = json;
+  JsonInputBuilder? _json;
+  JsonInputBuilder get json => _$this._json ??= new JsonInputBuilder();
+  set json(JsonInputBuilder? json) => _$this._json = json;
 
-  _i5.ParquetInputBuilder? _parquet;
-  _i5.ParquetInputBuilder get parquet =>
-      _$this._parquet ??= new _i5.ParquetInputBuilder();
-  set parquet(_i5.ParquetInputBuilder? parquet) => _$this._parquet = parquet;
+  ParquetInputBuilder? _parquet;
+  ParquetInputBuilder get parquet =>
+      _$this._parquet ??= new ParquetInputBuilder();
+  set parquet(ParquetInputBuilder? parquet) => _$this._parquet = parquet;
 
   InputSerializationBuilder();
 

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
 
 part 'stop_stack_set_operation_input.g.dart';
 
@@ -21,7 +20,7 @@ abstract class StopStackSetOperationInput
   factory StopStackSetOperationInput({
     required String stackSetName,
     required String operationId,
-    _i3.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$StopStackSetOperationInput._(
       stackSetName: stackSetName,
@@ -61,7 +60,7 @@ abstract class StopStackSetOperationInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i3.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   StopStackSetOperationInput getPayload() => this;
   @override
@@ -113,6 +112,14 @@ class StopStackSetOperationInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StopStackSetOperationInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -135,8 +142,8 @@ class StopStackSetOperationInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CallAs),
-          ) as _i3.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -174,7 +181,7 @@ class StopStackSetOperationInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i3.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

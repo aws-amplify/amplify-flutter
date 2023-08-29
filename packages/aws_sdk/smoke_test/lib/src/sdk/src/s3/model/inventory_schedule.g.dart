@@ -8,7 +8,7 @@ part of 'inventory_schedule.dart';
 
 class _$InventorySchedule extends InventorySchedule {
   @override
-  final _i2.InventoryFrequency frequency;
+  final InventoryFrequency frequency;
 
   factory _$InventorySchedule(
           [void Function(InventoryScheduleBuilder)? updates]) =>
@@ -46,10 +46,9 @@ class InventoryScheduleBuilder
     implements Builder<InventorySchedule, InventoryScheduleBuilder> {
   _$InventorySchedule? _$v;
 
-  _i2.InventoryFrequency? _frequency;
-  _i2.InventoryFrequency? get frequency => _$this._frequency;
-  set frequency(_i2.InventoryFrequency? frequency) =>
-      _$this._frequency = frequency;
+  InventoryFrequency? _frequency;
+  InventoryFrequency? get frequency => _$this._frequency;
+  set frequency(InventoryFrequency? frequency) => _$this._frequency = frequency;
 
   InventoryScheduleBuilder();
 

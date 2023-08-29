@@ -3,42 +3,36 @@
 
 library smoke_test.config_service.operation.get_compliance_details_by_resource_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i12;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i11;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
 
 /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
-class GetComplianceDetailsByResourceOperation
-    extends _i1.PaginatedHttpOperation<
-        _i2.GetComplianceDetailsByResourceRequest,
-        _i2.GetComplianceDetailsByResourceRequest,
-        _i3.GetComplianceDetailsByResourceResponse,
-        _i3.GetComplianceDetailsByResourceResponse,
+class GetComplianceDetailsByResourceOperation extends _i1
+    .PaginatedHttpOperation<
+        GetComplianceDetailsByResourceRequest,
+        GetComplianceDetailsByResourceRequest,
+        GetComplianceDetailsByResourceResponse,
+        GetComplianceDetailsByResourceResponse,
         String,
         void,
-        _i4.BuiltList<_i5.EvaluationResult>> {
+        _i2.BuiltList<EvaluationResult>> {
   /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
   GetComplianceDetailsByResourceOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -50,13 +44,13 @@ class GetComplianceDetailsByResourceOperation
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.GetComplianceDetailsByResourceRequest,
-          _i2.GetComplianceDetailsByResourceRequest,
-          _i3.GetComplianceDetailsByResourceResponse,
-          _i3.GetComplianceDetailsByResourceResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          GetComplianceDetailsByResourceRequest,
+          GetComplianceDetailsByResourceRequest,
+          GetComplianceDetailsByResourceResponse,
+          GetComplianceDetailsByResourceResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -64,14 +58,14 @@ class GetComplianceDetailsByResourceOperation
               'X-Amz-Target',
               'StarlingDoveService.GetComplianceDetailsByResource',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -79,8 +73,8 @@ class GetComplianceDetailsByResourceOperation
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -88,58 +82,57 @@ class GetComplianceDetailsByResourceOperation
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-          _i2.GetComplianceDetailsByResourceRequest input) =>
+  _i1.HttpRequest buildRequest(GetComplianceDetailsByResourceRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.GetComplianceDetailsByResourceResponse? output]) => 200;
+  int successCode([GetComplianceDetailsByResourceResponse? output]) => 200;
   @override
-  _i3.GetComplianceDetailsByResourceResponse buildOutput(
-    _i3.GetComplianceDetailsByResourceResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  GetComplianceDetailsByResourceResponse buildOutput(
+    GetComplianceDetailsByResourceResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.GetComplianceDetailsByResourceResponse.fromResponse(
+      GetComplianceDetailsByResourceResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidParameterValueException,
-            _i11.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidParameterValueException,
-          builder: _i11.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         )
       ];
   @override
   String get runtimeTypeName => 'GetComplianceDetailsByResource';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.GetComplianceDetailsByResourceResponse> run(
-    _i2.GetComplianceDetailsByResourceRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<GetComplianceDetailsByResourceResponse> run(
+    GetComplianceDetailsByResourceRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i12.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -147,21 +140,21 @@ class GetComplianceDetailsByResourceOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.GetComplianceDetailsByResourceResponse output) =>
+  String? getToken(GetComplianceDetailsByResourceResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.EvaluationResult> getItems(
-          _i3.GetComplianceDetailsByResourceResponse output) =>
-      output.evaluationResults ?? _i4.BuiltList();
+  _i2.BuiltList<EvaluationResult> getItems(
+          GetComplianceDetailsByResourceResponse output) =>
+      output.evaluationResults ?? _i2.BuiltList();
   @override
-  _i2.GetComplianceDetailsByResourceRequest rebuildInput(
-    _i2.GetComplianceDetailsByResourceRequest input,
+  GetComplianceDetailsByResourceRequest rebuildInput(
+    GetComplianceDetailsByResourceRequest input,
     String token,
     void pageSize,
   ) =>

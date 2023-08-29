@@ -62,9 +62,11 @@ public class CognitoPlugin: AuthCategoryPlugin {
             request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
             resultListener: listener
         )
-        nativeAuthPlugin.fetchAuthSession { session in
-            let result = NativeAWSAuthCognitoSession(from: session)
-            operation.dispatch(result: .success(result))
+        DispatchQueue.main.async {
+            self.nativeAuthPlugin.fetchAuthSession { session in
+                let result = NativeAWSAuthCognitoSession(from: session)
+                operation.dispatch(result: .success(result))
+            }
         }
         return operation
     }

@@ -3,29 +3,25 @@
 
 library aws_json1_0_v1.json_rpc_10.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_json1_0_v1/src/json_rpc_10/common/endpoint_resolver.dart'
-    as _i6;
-import 'package:aws_json1_0_v1/src/json_rpc_10/common/serializers.dart' as _i5;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_error.dart' as _i8;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_error.dart' as _i9;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_input.dart'
-    as _i2;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_output.dart'
-    as _i3;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/invalid_greeting.dart'
-    as _i10;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/endpoint_resolver.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/common/serializers.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_error.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_error.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/invalid_greeting.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
 class GreetingWithErrorsOperation extends _i1.HttpOperation<
-    _i2.GreetingWithErrorsInput,
-    _i2.GreetingWithErrorsInput,
-    _i3.GreetingWithErrorsOutput,
-    _i3.GreetingWithErrorsOutput> {
+    GreetingWithErrorsInput,
+    GreetingWithErrorsInput,
+    GreetingWithErrorsOutput,
+    GreetingWithErrorsOutput> {
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A ComplexError error. Implementations must be able to successfully take a response and properly deserialize successful and error responses.
   GreetingWithErrorsOperation({
     required String region,
@@ -39,14 +35,11 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.GreetingWithErrorsInput,
-          _i2.GreetingWithErrorsInput,
-          _i3.GreetingWithErrorsOutput,
-          _i3.GreetingWithErrorsOutput>> protocols = [
-    _i4.AwsJson1_0Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+      _i1.HttpProtocol<GreetingWithErrorsInput, GreetingWithErrorsInput,
+          GreetingWithErrorsOutput, GreetingWithErrorsOutput>> protocols = [
+    _i2.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -55,8 +48,8 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
               'JsonRpc10.GreetingWithErrors',
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -64,8 +57,8 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
-    _i6.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -78,67 +71,67 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.GreetingWithErrorsInput input) =>
+  _i1.HttpRequest buildRequest(GreetingWithErrorsInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.GreetingWithErrorsOutput? output]) => 200;
+  int successCode([GreetingWithErrorsOutput? output]) => 200;
   @override
-  _i3.GreetingWithErrorsOutput buildOutput(
-    _i3.GreetingWithErrorsOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  GreetingWithErrorsOutput buildOutput(
+    GreetingWithErrorsOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i3.GreetingWithErrorsOutput.fromResponse(
+      GreetingWithErrorsOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.ComplexError, _i8.ComplexError>(
+        _i1.SmithyError<ComplexError, ComplexError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'ComplexError',
           ),
           _i1.ErrorKind.client,
-          _i8.ComplexError,
-          builder: _i8.ComplexError.fromResponse,
+          ComplexError,
+          builder: ComplexError.fromResponse,
         ),
-        _i1.SmithyError<_i9.FooError, _i9.FooError>(
+        _i1.SmithyError<FooError, FooError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'FooError',
           ),
           _i1.ErrorKind.server,
-          _i9.FooError,
-          builder: _i9.FooError.fromResponse,
+          FooError,
+          builder: FooError.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidGreeting, _i10.InvalidGreeting>(
+        _i1.SmithyError<InvalidGreeting, InvalidGreeting>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'InvalidGreeting',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidGreeting,
-          builder: _i10.InvalidGreeting.fromResponse,
+          InvalidGreeting,
+          builder: InvalidGreeting.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'GreetingWithErrors';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.GreetingWithErrorsOutput> run(
-    _i2.GreetingWithErrorsInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<GreetingWithErrorsOutput> run(
+    GreetingWithErrorsInput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -146,7 +139,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

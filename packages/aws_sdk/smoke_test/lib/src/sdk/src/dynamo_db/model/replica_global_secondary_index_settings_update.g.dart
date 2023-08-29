@@ -13,7 +13,7 @@ class _$ReplicaGlobalSecondaryIndexSettingsUpdate
   @override
   final _i2.Int64? provisionedReadCapacityUnits;
   @override
-  final _i3.AutoScalingSettingsUpdate?
+  final AutoScalingSettingsUpdate?
       provisionedReadCapacityAutoScalingSettingsUpdate;
 
   factory _$ReplicaGlobalSecondaryIndexSettingsUpdate(
@@ -79,14 +79,14 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateBuilder
   set provisionedReadCapacityUnits(_i2.Int64? provisionedReadCapacityUnits) =>
       _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
 
-  _i3.AutoScalingSettingsUpdateBuilder?
+  AutoScalingSettingsUpdateBuilder?
       _provisionedReadCapacityAutoScalingSettingsUpdate;
-  _i3.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder
       get provisionedReadCapacityAutoScalingSettingsUpdate =>
           _$this._provisionedReadCapacityAutoScalingSettingsUpdate ??=
-              new _i3.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set provisionedReadCapacityAutoScalingSettingsUpdate(
-          _i3.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               provisionedReadCapacityAutoScalingSettingsUpdate) =>
       _$this._provisionedReadCapacityAutoScalingSettingsUpdate =
           provisionedReadCapacityAutoScalingSettingsUpdate;

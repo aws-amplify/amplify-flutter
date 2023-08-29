@@ -4,8 +4,7 @@
 library aws_json1_0_v1.json_rpc_10.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_nested_error_data.dart'
-    as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_nested_error_data.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
@@ -21,7 +20,7 @@ abstract class ComplexError
   /// This error is thrown when a request is invalid.
   factory ComplexError({
     String? topLevel,
-    _i3.ComplexNestedErrorData? nested,
+    ComplexNestedErrorData? nested,
   }) {
     return _$ComplexError._(
       topLevel: topLevel,
@@ -50,7 +49,7 @@ abstract class ComplexError
   ];
 
   String? get topLevel;
-  _i3.ComplexNestedErrorData? get nested;
+  ComplexNestedErrorData? get nested;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'aws.protocoltests.json10',
@@ -128,8 +127,8 @@ class ComplexErrorAwsJson10Serializer
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplexNestedErrorData),
-          ) as _i3.ComplexNestedErrorData));
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ) as ComplexNestedErrorData));
       }
     }
 
@@ -157,7 +156,7 @@ class ComplexErrorAwsJson10Serializer
         ..add('Nested')
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          specifiedType: const FullType(ComplexNestedErrorData),
         ));
     }
     return result$;

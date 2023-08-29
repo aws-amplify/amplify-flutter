@@ -5,18 +5,14 @@ library amplify_storage_s3_dart.s3.operation.upload_part_operation; // ignore_fo
 
 import 'dart:async' as _i2;
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
-    as _i9;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart'
-    as _i7;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/upload_part_output.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/upload_part_request.dart'
-    as _i3;
-import 'package:aws_common/aws_common.dart' as _i8;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/upload_part_output.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/upload_part_request.dart';
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Uploads a part in a multipart upload.
 ///
@@ -74,7 +70,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 ///
 /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
 class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
-    _i3.UploadPartRequest, _i4.UploadPartOutputPayload, _i4.UploadPartOutput> {
+    UploadPartRequest, UploadPartOutputPayload, UploadPartOutput> {
   /// Uploads a part in a multipart upload.
   ///
   /// In this operation, you provide part data in your request. However, you have an option to specify your existing Amazon S3 object as a data source for the part you are uploading. To upload a part from an existing object, you use the [UploadPartCopy](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html) operation.
@@ -133,9 +129,9 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   UploadPartOperation({
     required String region,
     Uri? baseUri,
-    _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.S3ClientConfig s3ClientConfig = const _i3.S3ClientConfig(),
+    _i4.AWSCredentialsProvider credentialsProvider =
+        const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -147,23 +143,23 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Stream<List<int>>, _i3.UploadPartRequest,
-          _i4.UploadPartOutputPayload, _i4.UploadPartOutput>> protocols = [
-    _i5.RestXmlProtocol(
-      serializers: _i7.serializers,
-      builderFactories: _i7.builderFactories,
+      _i1.HttpProtocol<_i2.Stream<List<int>>, UploadPartRequest,
+          UploadPartOutputPayload, UploadPartOutput>> protocols = [
+    _i3.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i8.AWSService.s3,
+              service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i6.S3ServiceConfiguration(),
+                  _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -172,8 +168,8 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i9.endpointResolver.resolve(
-    _i9.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -181,17 +177,16 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
 
   final Uri? _baseUri;
 
-  final _i5.S3ClientConfig _s3ClientConfig;
+  final _i3.S3ClientConfig _s3ClientConfig;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i4.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.UploadPartRequest input) =>
-      _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(UploadPartRequest input) => _i1.HttpRequest((b) {
         b.method = 'PUT';
         b.path = _s3ClientConfig.usePathStyle
             ? r'/{Bucket}/{Key+}?x-id=UploadPart'
@@ -268,17 +263,17 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
         );
         if (input.checksumAlgorithm != null) {
           b.requestInterceptors
-              .add(_i5.WithChecksum(input.checksumAlgorithm!.value));
+              .add(_i3.WithChecksum(input.checksumAlgorithm!.value));
         }
       });
   @override
-  int successCode([_i4.UploadPartOutput? output]) => 200;
+  int successCode([UploadPartOutput? output]) => 200;
   @override
-  _i4.UploadPartOutput buildOutput(
-    _i4.UploadPartOutputPayload payload,
-    _i8.AWSBaseHttpResponse response,
+  UploadPartOutput buildOutput(
+    UploadPartOutputPayload payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i4.UploadPartOutput.fromResponse(
+      UploadPartOutput.fromResponse(
         payload,
         response,
       );
@@ -287,7 +282,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   @override
   String get runtimeTypeName => 'UploadPart';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -309,9 +304,9 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i4.UploadPartOutput> run(
-    _i3.UploadPartRequest input, {
-    _i8.AWSHttpClient? client,
+  _i1.SmithyOperation<UploadPartOutput> run(
+    UploadPartRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
@@ -322,7 +317,7 @@ class UploadPartOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }

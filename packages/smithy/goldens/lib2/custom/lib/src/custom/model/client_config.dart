@@ -6,9 +6,9 @@ library custom_v2.custom.model.client_config; // ignore_for_file: no_leading_und
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/custom/model/retry_config.dart' as _i3;
-import 'package:custom_v2/src/custom/model/s3_config.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:custom_v2/src/custom/model/retry_config.dart';
+import 'package:custom_v2/src/custom/model/s3_config.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'client_config.g.dart';
 
@@ -22,8 +22,8 @@ abstract class ClientConfig
     String? awsSecretAccessKey,
     String? awsSessionToken,
     String? region,
-    _i2.S3Config? s3,
-    _i3.RetryConfig? retryConfig,
+    S3Config? s3,
+    RetryConfig? retryConfig,
     String? awsProfile,
   }) {
     return _$ClientConfig._(
@@ -43,7 +43,7 @@ abstract class ClientConfig
 
   const ClientConfig._();
 
-  static const List<_i4.SmithySerializer<ClientConfig>> serializers = [
+  static const List<_i2.SmithySerializer<ClientConfig>> serializers = [
     ClientConfigRestJson1Serializer()
   ];
 
@@ -53,10 +53,10 @@ abstract class ClientConfig
   String? get region;
 
   /// Configuration specific to S3.
-  _i2.S3Config? get s3;
+  S3Config? get s3;
 
   /// Configuration specific to retries.
-  _i3.RetryConfig? get retryConfig;
+  RetryConfig? get retryConfig;
   String? get awsProfile;
   @override
   List<Object?> get props => [
@@ -104,7 +104,7 @@ abstract class ClientConfig
 }
 
 class ClientConfigRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<ClientConfig> {
+    extends _i2.StructuredSmithySerializer<ClientConfig> {
   const ClientConfigRestJson1Serializer() : super('ClientConfig');
 
   @override
@@ -113,8 +113,8 @@ class ClientConfigRestJson1Serializer
         _$ClientConfig,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -163,13 +163,13 @@ class ClientConfigRestJson1Serializer
         case 'retry_config':
           result.retryConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RetryConfig),
-          ) as _i3.RetryConfig));
+            specifiedType: const FullType(RetryConfig),
+          ) as RetryConfig));
         case 's3':
           result.s3.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Config),
-          ) as _i2.S3Config));
+            specifiedType: const FullType(S3Config),
+          ) as S3Config));
       }
     }
 
@@ -237,7 +237,7 @@ class ClientConfigRestJson1Serializer
         ..add('retry_config')
         ..add(serializers.serialize(
           retryConfig,
-          specifiedType: const FullType(_i3.RetryConfig),
+          specifiedType: const FullType(RetryConfig),
         ));
     }
     if (s3 != null) {
@@ -245,7 +245,7 @@ class ClientConfigRestJson1Serializer
         ..add('s3')
         ..add(serializers.serialize(
           s3,
-          specifiedType: const FullType(_i2.S3Config),
+          specifiedType: const FullType(S3Config),
         ));
     }
     return result$;

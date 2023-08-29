@@ -6,11 +6,9 @@ library smoke_test.dynamo_db.model.replica_global_secondary_index_auto_scaling_d
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/index_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/index_status.dart';
 
 part 'replica_global_secondary_index_auto_scaling_description.g.dart';
 
@@ -24,11 +22,9 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
   /// Represents the auto scaling configuration for a replica global secondary index.
   factory ReplicaGlobalSecondaryIndexAutoScalingDescription({
     String? indexName,
-    _i2.IndexStatus? indexStatus,
-    _i3.AutoScalingSettingsDescription?
-        provisionedReadCapacityAutoScalingSettings,
-    _i3.AutoScalingSettingsDescription?
-        provisionedWriteCapacityAutoScalingSettings,
+    IndexStatus? indexStatus,
+    AutoScalingSettingsDescription? provisionedReadCapacityAutoScalingSettings,
+    AutoScalingSettingsDescription? provisionedWriteCapacityAutoScalingSettings,
   }) {
     return _$ReplicaGlobalSecondaryIndexAutoScalingDescription._(
       indexName: indexName,
@@ -48,8 +44,9 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
   const ReplicaGlobalSecondaryIndexAutoScalingDescription._();
 
   static const List<
-      _i4.SmithySerializer<
-          ReplicaGlobalSecondaryIndexAutoScalingDescription>> serializers = [
+          _i2
+          .SmithySerializer<ReplicaGlobalSecondaryIndexAutoScalingDescription>>
+      serializers = [
     ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer()
   ];
 
@@ -65,14 +62,14 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
   /// *   `DELETING` \- The index is being deleted.
   ///
   /// *   `ACTIVE` \- The index is ready for use.
-  _i2.IndexStatus? get indexStatus;
+  IndexStatus? get indexStatus;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
-  _i3.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get provisionedReadCapacityAutoScalingSettings;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
-  _i3.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get provisionedWriteCapacityAutoScalingSettings;
   @override
   List<Object?> get props => [
@@ -106,7 +103,7 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
 }
 
 class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i2.StructuredSmithySerializer<
         ReplicaGlobalSecondaryIndexAutoScalingDescription> {
   const ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer()
       : super('ReplicaGlobalSecondaryIndexAutoScalingDescription');
@@ -117,8 +114,8 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         _$ReplicaGlobalSecondaryIndexAutoScalingDescription,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -147,20 +144,20 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         case 'IndexStatus':
           result.indexStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.IndexStatus),
-          ) as _i2.IndexStatus);
+            specifiedType: const FullType(IndexStatus),
+          ) as IndexStatus);
         case 'ProvisionedReadCapacityAutoScalingSettings':
           result.provisionedReadCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-          ) as _i3.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
         case 'ProvisionedWriteCapacityAutoScalingSettings':
           result.provisionedWriteCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-          ) as _i3.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
       }
     }
 
@@ -193,7 +190,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ..add('IndexStatus')
         ..add(serializers.serialize(
           indexStatus,
-          specifiedType: const FullType(_i2.IndexStatus),
+          specifiedType: const FullType(IndexStatus),
         ));
     }
     if (provisionedReadCapacityAutoScalingSettings != null) {
@@ -201,7 +198,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ..add('ProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     if (provisionedWriteCapacityAutoScalingSettings != null) {
@@ -209,7 +206,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer
         ..add('ProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     return result$;

@@ -4,18 +4,14 @@
 library smoke_test.api_gateway.model.domain_name; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name_status.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart';
 
 part 'domain_name.g.dart';
 
@@ -35,12 +31,12 @@ abstract class DomainName
     String? regionalCertificateArn,
     String? distributionDomainName,
     String? distributionHostedZoneId,
-    _i2.EndpointConfiguration? endpointConfiguration,
-    _i3.DomainNameStatus? domainNameStatus,
+    EndpointConfiguration? endpointConfiguration,
+    DomainNameStatus? domainNameStatus,
     String? domainNameStatusMessage,
-    _i4.SecurityPolicy? securityPolicy,
+    SecurityPolicy? securityPolicy,
     Map<String, String>? tags,
-    _i5.MutualTlsAuthentication? mutualTlsAuthentication,
+    MutualTlsAuthentication? mutualTlsAuthentication,
     String? ownershipVerificationCertificateArn,
   }) {
     return _$DomainName._(
@@ -58,7 +54,7 @@ abstract class DomainName
       domainNameStatus: domainNameStatus,
       domainNameStatusMessage: domainNameStatusMessage,
       securityPolicy: securityPolicy,
-      tags: tags == null ? null : _i6.BuiltMap(tags),
+      tags: tags == null ? null : _i2.BuiltMap(tags),
       mutualTlsAuthentication: mutualTlsAuthentication,
       ownershipVerificationCertificateArn: ownershipVerificationCertificateArn,
     );
@@ -77,7 +73,7 @@ abstract class DomainName
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer<DomainName>> serializers = [
+  static const List<_i3.SmithySerializer<DomainName>> serializers = [
     DomainNameRestJson1Serializer()
   ];
 
@@ -112,22 +108,22 @@ abstract class DomainName
   String? get distributionHostedZoneId;
 
   /// The endpoint configuration of this DomainName showing the endpoint types of the domain name.
-  _i2.EndpointConfiguration? get endpointConfiguration;
+  EndpointConfiguration? get endpointConfiguration;
 
   /// The status of the DomainName migration. The valid values are `AVAILABLE` and `UPDATING`. If the status is `UPDATING`, the domain cannot be modified further until the existing operation is complete. If it is `AVAILABLE`, the domain can be updated.
-  _i3.DomainNameStatus? get domainNameStatus;
+  DomainNameStatus? get domainNameStatus;
 
   /// An optional text message containing detailed information about status of the DomainName migration.
   String? get domainNameStatusMessage;
 
   /// The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are `TLS\_1\_0` and `TLS\_1\_2`.
-  _i4.SecurityPolicy? get securityPolicy;
+  SecurityPolicy? get securityPolicy;
 
   /// The collection of tags. Each tag element is associated with a given resource.
-  _i6.BuiltMap<String, String>? get tags;
+  _i2.BuiltMap<String, String>? get tags;
 
   /// The mutual TLS authentication configuration for a custom domain name. If specified, API Gateway performs two-way authentication between the client and the server. Clients must present a trusted certificate to access your API.
-  _i5.MutualTlsAuthentication? get mutualTlsAuthentication;
+  MutualTlsAuthentication? get mutualTlsAuthentication;
 
   /// The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
   String? get ownershipVerificationCertificateArn;
@@ -227,7 +223,7 @@ abstract class DomainName
 }
 
 class DomainNameRestJson1Serializer
-    extends _i7.StructuredSmithySerializer<DomainName> {
+    extends _i3.StructuredSmithySerializer<DomainName> {
   const DomainNameRestJson1Serializer() : super('DomainName');
 
   @override
@@ -236,8 +232,8 @@ class DomainNameRestJson1Serializer
         _$DomainName,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -291,8 +287,8 @@ class DomainNameRestJson1Serializer
         case 'domainNameStatus':
           result.domainNameStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DomainNameStatus),
-          ) as _i3.DomainNameStatus);
+            specifiedType: const FullType(DomainNameStatus),
+          ) as DomainNameStatus);
         case 'domainNameStatusMessage':
           result.domainNameStatusMessage = (serializers.deserialize(
             value,
@@ -301,13 +297,13 @@ class DomainNameRestJson1Serializer
         case 'endpointConfiguration':
           result.endpointConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EndpointConfiguration),
-          ) as _i2.EndpointConfiguration));
+            specifiedType: const FullType(EndpointConfiguration),
+          ) as EndpointConfiguration));
         case 'mutualTlsAuthentication':
           result.mutualTlsAuthentication.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.MutualTlsAuthentication),
-          ) as _i5.MutualTlsAuthentication));
+            specifiedType: const FullType(MutualTlsAuthentication),
+          ) as MutualTlsAuthentication));
         case 'ownershipVerificationCertificateArn':
           result.ownershipVerificationCertificateArn = (serializers.deserialize(
             value,
@@ -336,19 +332,19 @@ class DomainNameRestJson1Serializer
         case 'securityPolicy':
           result.securityPolicy = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.SecurityPolicy),
-          ) as _i4.SecurityPolicy);
+            specifiedType: const FullType(SecurityPolicy),
+          ) as SecurityPolicy);
         case 'tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -434,7 +430,7 @@ class DomainNameRestJson1Serializer
         ..add('domainNameStatus')
         ..add(serializers.serialize(
           domainNameStatus,
-          specifiedType: const FullType(_i3.DomainNameStatus),
+          specifiedType: const FullType(DomainNameStatus),
         ));
     }
     if (domainNameStatusMessage != null) {
@@ -450,7 +446,7 @@ class DomainNameRestJson1Serializer
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
-          specifiedType: const FullType(_i2.EndpointConfiguration),
+          specifiedType: const FullType(EndpointConfiguration),
         ));
     }
     if (mutualTlsAuthentication != null) {
@@ -458,7 +454,7 @@ class DomainNameRestJson1Serializer
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
           mutualTlsAuthentication,
-          specifiedType: const FullType(_i5.MutualTlsAuthentication),
+          specifiedType: const FullType(MutualTlsAuthentication),
         ));
     }
     if (ownershipVerificationCertificateArn != null) {
@@ -506,7 +502,7 @@ class DomainNameRestJson1Serializer
         ..add('securityPolicy')
         ..add(serializers.serialize(
           securityPolicy,
-          specifiedType: const FullType(_i4.SecurityPolicy),
+          specifiedType: const FullType(SecurityPolicy),
         ));
     }
     if (tags != null) {
@@ -515,7 +511,7 @@ class DomainNameRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

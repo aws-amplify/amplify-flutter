@@ -8,7 +8,7 @@ part of 'default_retention.dart';
 
 class _$DefaultRetention extends DefaultRetention {
   @override
-  final _i2.ObjectLockRetentionMode? mode;
+  final ObjectLockRetentionMode? mode;
   @override
   final int? days;
   @override
@@ -52,9 +52,9 @@ class DefaultRetentionBuilder
     implements Builder<DefaultRetention, DefaultRetentionBuilder> {
   _$DefaultRetention? _$v;
 
-  _i2.ObjectLockRetentionMode? _mode;
-  _i2.ObjectLockRetentionMode? get mode => _$this._mode;
-  set mode(_i2.ObjectLockRetentionMode? mode) => _$this._mode = mode;
+  ObjectLockRetentionMode? _mode;
+  ObjectLockRetentionMode? get mode => _$this._mode;
+  set mode(ObjectLockRetentionMode? mode) => _$this._mode = mode;
 
   int? _days;
   int? get days => _$this._days;

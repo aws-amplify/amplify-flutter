@@ -3,35 +3,26 @@
 
 library smoke_test.dynamo_db_streams.operation.describe_stream_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/describe_stream_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/describe_stream_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/internal_server_error.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/resource_not_found_exception.dart'
-    as _i10;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/describe_stream_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/describe_stream_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/resource_not_found_exception.dart';
 
 /// Returns information about a stream, including the current status of the stream, its Amazon Resource Name (ARN), the composition of its shards, and its corresponding DynamoDB table.
 ///
 /// You can call `DescribeStream` at a maximum rate of 10 times per second.
 ///
 /// Each shard in the stream has a `SequenceNumberRange` associated with it. If the `SequenceNumberRange` has a `StartingSequenceNumber` but no `EndingSequenceNumber`, then the shard is still open (able to receive more stream records). If both `StartingSequenceNumber` and `EndingSequenceNumber` are present, then that shard is closed and can no longer receive more data.
-class DescribeStreamOperation extends _i1.HttpOperation<
-    _i2.DescribeStreamInput,
-    _i2.DescribeStreamInput,
-    _i3.DescribeStreamOutput,
-    _i3.DescribeStreamOutput> {
+class DescribeStreamOperation extends _i1.HttpOperation<DescribeStreamInput,
+    DescribeStreamInput, DescribeStreamOutput, DescribeStreamOutput> {
   /// Returns information about a stream, including the current status of the stream, its Amazon Resource Name (ARN), the composition of its shards, and its corresponding DynamoDB table.
   ///
   /// You can call `DescribeStream` at a maximum rate of 10 times per second.
@@ -40,8 +31,8 @@ class DescribeStreamOperation extends _i1.HttpOperation<
   DescribeStreamOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -52,11 +43,11 @@ class DescribeStreamOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.DescribeStreamInput, _i2.DescribeStreamInput,
-          _i3.DescribeStreamOutput, _i3.DescribeStreamOutput>> protocols = [
-    _i5.AwsJson1_0Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<DescribeStreamInput, DescribeStreamInput,
+          DescribeStreamOutput, DescribeStreamOutput>> protocols = [
+    _i3.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -64,14 +55,14 @@ class DescribeStreamOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'DynamoDBStreams_20120810.DescribeStream',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.dynamoDbStreams,
+              service: _i4.AWSService.dynamoDbStreams,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -79,8 +70,8 @@ class DescribeStreamOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -88,66 +79,65 @@ class DescribeStreamOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.DescribeStreamInput input) =>
+  _i1.HttpRequest buildRequest(DescribeStreamInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DescribeStreamOutput? output]) => 200;
+  int successCode([DescribeStreamOutput? output]) => 200;
   @override
-  _i3.DescribeStreamOutput buildOutput(
-    _i3.DescribeStreamOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  DescribeStreamOutput buildOutput(
+    DescribeStreamOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribeStreamOutput.fromResponse(
+      DescribeStreamOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodbstreams',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i9.InternalServerError,
-          builder: _i9.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i10.ResourceNotFoundException,
-            _i10.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodbstreams',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i10.ResourceNotFoundException,
-          builder: _i10.ResourceNotFoundException.fromResponse,
+          ResourceNotFoundException,
+          builder: ResourceNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribeStream';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribeStreamOutput> run(
-    _i2.DescribeStreamInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<DescribeStreamOutput> run(
+    DescribeStreamInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -155,7 +145,7 @@ class DescribeStreamOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

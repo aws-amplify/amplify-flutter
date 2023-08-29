@@ -4,22 +4,16 @@
 library smoke_test.dynamo_db.model.table_creation_parameters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart'
-    as _i6;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart';
 
 part 'table_creation_parameters.g.dart';
 
@@ -30,23 +24,23 @@ abstract class TableCreationParameters
   /// The parameters for the table created as part of the import operation.
   factory TableCreationParameters({
     required String tableName,
-    required List<_i2.AttributeDefinition> attributeDefinitions,
-    required List<_i3.KeySchemaElement> keySchema,
-    _i4.BillingMode? billingMode,
-    _i5.ProvisionedThroughput? provisionedThroughput,
-    _i6.SseSpecification? sseSpecification,
-    List<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes,
+    required List<AttributeDefinition> attributeDefinitions,
+    required List<KeySchemaElement> keySchema,
+    BillingMode? billingMode,
+    ProvisionedThroughput? provisionedThroughput,
+    SseSpecification? sseSpecification,
+    List<GlobalSecondaryIndex>? globalSecondaryIndexes,
   }) {
     return _$TableCreationParameters._(
       tableName: tableName,
-      attributeDefinitions: _i8.BuiltList(attributeDefinitions),
-      keySchema: _i8.BuiltList(keySchema),
+      attributeDefinitions: _i2.BuiltList(attributeDefinitions),
+      keySchema: _i2.BuiltList(keySchema),
       billingMode: billingMode,
       provisionedThroughput: provisionedThroughput,
       sseSpecification: sseSpecification,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i8.BuiltList(globalSecondaryIndexes),
+          : _i2.BuiltList(globalSecondaryIndexes),
     );
   }
 
@@ -57,31 +51,31 @@ abstract class TableCreationParameters
 
   const TableCreationParameters._();
 
-  static const List<_i9.SmithySerializer<TableCreationParameters>> serializers =
+  static const List<_i3.SmithySerializer<TableCreationParameters>> serializers =
       [TableCreationParametersAwsJson10Serializer()];
 
   /// The name of the table created as part of the import operation.
   String get tableName;
 
   /// The attributes of the table created as part of the import operation.
-  _i8.BuiltList<_i2.AttributeDefinition> get attributeDefinitions;
+  _i2.BuiltList<AttributeDefinition> get attributeDefinitions;
 
   /// The primary key and option sort key of the table created as part of the import operation.
-  _i8.BuiltList<_i3.KeySchemaElement> get keySchema;
+  _i2.BuiltList<KeySchemaElement> get keySchema;
 
   /// The billing mode for provisioning the table created as part of the import operation.
-  _i4.BillingMode? get billingMode;
+  BillingMode? get billingMode;
 
   /// Represents the provisioned throughput settings for a specified table or index. The settings can be modified using the `UpdateTable` operation.
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
-  _i5.ProvisionedThroughput? get provisionedThroughput;
+  ProvisionedThroughput? get provisionedThroughput;
 
   /// Represents the settings used to enable server-side encryption.
-  _i6.SseSpecification? get sseSpecification;
+  SseSpecification? get sseSpecification;
 
   /// The Global Secondary Indexes (GSI) of the table to be created as part of the import operation.
-  _i8.BuiltList<_i7.GlobalSecondaryIndex>? get globalSecondaryIndexes;
+  _i2.BuiltList<GlobalSecondaryIndex>? get globalSecondaryIndexes;
   @override
   List<Object?> get props => [
         tableName,
@@ -128,7 +122,7 @@ abstract class TableCreationParameters
 }
 
 class TableCreationParametersAwsJson10Serializer
-    extends _i9.StructuredSmithySerializer<TableCreationParameters> {
+    extends _i3.StructuredSmithySerializer<TableCreationParameters> {
   const TableCreationParametersAwsJson10Serializer()
       : super('TableCreationParameters');
 
@@ -138,8 +132,8 @@ class TableCreationParametersAwsJson10Serializer
         _$TableCreationParameters,
       ];
   @override
-  Iterable<_i9.ShapeId> get supportedProtocols => const [
-        _i9.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -169,41 +163,41 @@ class TableCreationParametersAwsJson10Serializer
           result.attributeDefinitions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i2.AttributeDefinition)],
+              _i2.BuiltList,
+              [FullType(AttributeDefinition)],
             ),
-          ) as _i8.BuiltList<_i2.AttributeDefinition>));
+          ) as _i2.BuiltList<AttributeDefinition>));
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i3.KeySchemaElement)],
+              _i2.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i8.BuiltList<_i3.KeySchemaElement>));
+          ) as _i2.BuiltList<KeySchemaElement>));
         case 'BillingMode':
           result.billingMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.BillingMode),
-          ) as _i4.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ProvisionedThroughput),
-          ) as _i5.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
         case 'SSESpecification':
           result.sseSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.SseSpecification),
-          ) as _i6.SseSpecification));
+            specifiedType: const FullType(SseSpecification),
+          ) as SseSpecification));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i7.GlobalSecondaryIndex)],
+              _i2.BuiltList,
+              [FullType(GlobalSecondaryIndex)],
             ),
-          ) as _i8.BuiltList<_i7.GlobalSecondaryIndex>));
+          ) as _i2.BuiltList<GlobalSecondaryIndex>));
       }
     }
 
@@ -236,16 +230,16 @@ class TableCreationParametersAwsJson10Serializer
       serializers.serialize(
         attributeDefinitions,
         specifiedType: const FullType(
-          _i8.BuiltList,
-          [FullType(_i2.AttributeDefinition)],
+          _i2.BuiltList,
+          [FullType(AttributeDefinition)],
         ),
       ),
       'KeySchema',
       serializers.serialize(
         keySchema,
         specifiedType: const FullType(
-          _i8.BuiltList,
-          [FullType(_i3.KeySchemaElement)],
+          _i2.BuiltList,
+          [FullType(KeySchemaElement)],
         ),
       ),
     ]);
@@ -254,7 +248,7 @@ class TableCreationParametersAwsJson10Serializer
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
-          specifiedType: const FullType(_i4.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     if (provisionedThroughput != null) {
@@ -262,7 +256,7 @@ class TableCreationParametersAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i5.ProvisionedThroughput),
+          specifiedType: const FullType(ProvisionedThroughput),
         ));
     }
     if (sseSpecification != null) {
@@ -270,7 +264,7 @@ class TableCreationParametersAwsJson10Serializer
         ..add('SSESpecification')
         ..add(serializers.serialize(
           sseSpecification,
-          specifiedType: const FullType(_i6.SseSpecification),
+          specifiedType: const FullType(SseSpecification),
         ));
     }
     if (globalSecondaryIndexes != null) {
@@ -279,8 +273,8 @@ class TableCreationParametersAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i7.GlobalSecondaryIndex)],
+            _i2.BuiltList,
+            [FullType(GlobalSecondaryIndex)],
           ),
         ));
     }

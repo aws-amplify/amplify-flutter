@@ -10,11 +10,11 @@ class _$PutBucketCorsRequest extends PutBucketCorsRequest {
   @override
   final String bucket;
   @override
-  final _i2.CorsConfiguration corsConfiguration;
+  final CorsConfiguration corsConfiguration;
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -76,19 +76,19 @@ class PutBucketCorsRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.CorsConfigurationBuilder? _corsConfiguration;
-  _i2.CorsConfigurationBuilder get corsConfiguration =>
-      _$this._corsConfiguration ??= new _i2.CorsConfigurationBuilder();
-  set corsConfiguration(_i2.CorsConfigurationBuilder? corsConfiguration) =>
+  CorsConfigurationBuilder? _corsConfiguration;
+  CorsConfigurationBuilder get corsConfiguration =>
+      _$this._corsConfiguration ??= new CorsConfigurationBuilder();
+  set corsConfiguration(CorsConfigurationBuilder? corsConfiguration) =>
       _$this._corsConfiguration = corsConfiguration;
 
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _expectedBucketOwner;

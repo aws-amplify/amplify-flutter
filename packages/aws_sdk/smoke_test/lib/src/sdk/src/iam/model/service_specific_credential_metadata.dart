@@ -6,8 +6,8 @@ library smoke_test.iam.model.service_specific_credential_metadata; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'service_specific_credential_metadata.g.dart';
 
@@ -21,7 +21,7 @@ abstract class ServiceSpecificCredentialMetadata
   /// Contains additional details about a service-specific credential.
   factory ServiceSpecificCredentialMetadata({
     required String userName,
-    required _i2.StatusType status,
+    required StatusType status,
     required String serviceUserName,
     required DateTime createDate,
     required String serviceSpecificCredentialId,
@@ -44,14 +44,14 @@ abstract class ServiceSpecificCredentialMetadata
 
   const ServiceSpecificCredentialMetadata._();
 
-  static const List<_i3.SmithySerializer<ServiceSpecificCredentialMetadata>>
+  static const List<_i2.SmithySerializer<ServiceSpecificCredentialMetadata>>
       serializers = [ServiceSpecificCredentialMetadataAwsQuerySerializer()];
 
   /// The name of the IAM user associated with the service-specific credential.
   String get userName;
 
   /// The status of the service-specific credential. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
-  _i2.StatusType get status;
+  StatusType get status;
 
   /// The generated user name for the service-specific credential.
   String get serviceUserName;
@@ -106,7 +106,7 @@ abstract class ServiceSpecificCredentialMetadata
 }
 
 class ServiceSpecificCredentialMetadataAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<ServiceSpecificCredentialMetadata> {
+    extends _i2.StructuredSmithySerializer<ServiceSpecificCredentialMetadata> {
   const ServiceSpecificCredentialMetadataAwsQuerySerializer()
       : super('ServiceSpecificCredentialMetadata');
 
@@ -116,8 +116,8 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
         _$ServiceSpecificCredentialMetadata,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -129,6 +129,14 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ServiceSpecificCredentialMetadataBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -146,8 +154,8 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StatusType),
-          ) as _i2.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
         case 'ServiceUserName':
           result.serviceUserName = (serializers.deserialize(
             value,
@@ -181,9 +189,9 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ServiceSpecificCredentialMetadataResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ServiceSpecificCredentialMetadata(
@@ -195,37 +203,37 @@ class ServiceSpecificCredentialMetadataAwsQuerySerializer
       :serviceName
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('UserName'))
+      ..add(const _i2.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     result$
-      ..add(const _i3.XmlElementName('ServiceUserName'))
+      ..add(const _i2.XmlElementName('ServiceUserName'))
       ..add(serializers.serialize(
         serviceUserName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('CreateDate'))
+      ..add(const _i2.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result$
-      ..add(const _i3.XmlElementName('ServiceSpecificCredentialId'))
+      ..add(const _i2.XmlElementName('ServiceSpecificCredentialId'))
       ..add(serializers.serialize(
         serviceSpecificCredentialId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('ServiceName'))
+      ..add(const _i2.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),

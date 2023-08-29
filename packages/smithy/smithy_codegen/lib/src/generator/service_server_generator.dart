@@ -48,9 +48,11 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
   @override
   Library generate() {
-    final isAwsQuery =
-        context.serviceProtocols.whereType<AwsQueryTrait>().isNotEmpty;
-    if (_httpOperations.isNotEmpty && !isAwsQuery) {
+    final isQueryProtocol = [
+      ...context.serviceProtocols.whereType<AwsQueryTrait>(),
+      ...context.serviceProtocols.whereType<Ec2QueryTrait>(),
+    ].isNotEmpty;
+    if (_httpOperations.isNotEmpty && !isQueryProtocol) {
       builder
         ..name = context.serviceClientLibrary.libraryName
         ..body.addAll([
@@ -127,12 +129,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     yield const Code('try {');
 
     final awsRequest = refer('awsRequest');
-    final inputTraits = operation.inputShape(context).httpInputTraits(context);
-    final outputTraits =
-        operation.inputShape(context).httpOutputTraits(context);
+    final inputTraits = operation.inputShape(context).httpInputTraits();
+    final outputTraits = operation.inputShape(context).httpOutputTraits();
 
-    final payloadSymbol =
-        operation.inputShape(context).httpPayload(context).symbol;
+    final payloadSymbol = operation.inputShape(context).httpPayload.symbol;
     final payload = refer(operation.protocolField)
         .property('wireSerializer')
         .property('deserialize')
@@ -209,7 +209,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
             refer('output'),
           ], {
             'specifiedType': operation.outputSymbol(context).fullType([
-              operation.outputShape(context).httpPayload(context).symbol,
+              operation.outputShape(context).httpPayload.symbol,
             ]),
           }).awaited,
         )
@@ -235,8 +235,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     for (final error in operation.errors) {
       final errorShape = context.shapeFor(error.target) as StructureShape;
       final errorTrait = errorShape.httpErrorTraits(
-        context,
-        errorShape.httpPayload(context).symbol,
+        errorShape.httpPayload.symbol,
       );
       if (errorTrait == null) continue;
 
@@ -260,7 +259,7 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
               refer('e'),
             ], {
               'specifiedType': errorSymbol.fullType([
-                errorShape.httpPayload(context).symbol,
+                errorShape.httpPayload.symbol,
               ]),
             }),
           )
@@ -315,10 +314,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     for (final shape in _httpOperations) {
       final inputShape = shape.inputShape(context);
       final inputSymbol = shape.inputSymbol(context);
-      final inputPayload = inputShape.httpPayload(context);
+      final inputPayload = inputShape.httpPayload;
       final outputShape = shape.outputShape(context);
       final outputSymbol = shape.outputSymbol(context);
-      final outputPayload = outputShape.httpPayload(context);
+      final outputPayload = outputShape.httpPayload;
 
       /// The `protocol` override
       yield Field(
@@ -480,7 +479,7 @@ extension on OperationShape {
   String get protocolField => '_${methodName}Protocol';
 
   BuiltSet<MemberShape> inputLabels(CodegenContext context) =>
-      inputShape(context).httpInputTraits(context)?.httpLabels ?? BuiltSet();
+      inputShape(context).httpInputTraits()?.httpLabels ?? BuiltSet();
 
   _ShelfParameters shelfParameters(CodegenContext context) {
     final httpTrait = this.httpTrait(context)!;

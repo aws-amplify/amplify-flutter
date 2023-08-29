@@ -3,31 +3,31 @@
 
 library smoke_test.s3.model.delete_objects_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/delete.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_identifier.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_identifier.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'delete_objects_request.g.dart';
 
 abstract class DeleteObjectsRequest
-    with _i1.HttpInput<_i2.Delete>, _i3.AWSEquatable<DeleteObjectsRequest>
+    with _i1.HttpInput<Delete>, _i2.AWSEquatable<DeleteObjectsRequest>
     implements
         Built<DeleteObjectsRequest, DeleteObjectsRequestBuilder>,
-        _i1.HasPayload<_i2.Delete> {
+        _i1.HasPayload<Delete> {
   factory DeleteObjectsRequest({
     required String bucket,
-    required _i2.Delete delete,
+    required Delete delete,
     String? mfa,
-    _i4.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     bool? bypassGovernanceRetention,
     String? expectedBucketOwner,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$DeleteObjectsRequest._(
       bucket: bucket,
@@ -47,8 +47,8 @@ abstract class DeleteObjectsRequest
   const DeleteObjectsRequest._();
 
   factory DeleteObjectsRequest.fromRequest(
-    _i2.Delete payload,
-    _i3.AWSBaseHttpRequest request, {
+    Delete payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       DeleteObjectsRequest.build((b) {
@@ -57,7 +57,7 @@ abstract class DeleteObjectsRequest
           b.mfa = request.headers['x-amz-mfa']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-bypass-governance-retention'] != null) {
@@ -69,7 +69,7 @@ abstract class DeleteObjectsRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (labels['bucket'] != null) {
@@ -77,7 +77,7 @@ abstract class DeleteObjectsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Delete>> serializers = [
+  static const List<_i1.SmithySerializer<Delete>> serializers = [
     DeleteObjectsRequestRestXmlSerializer()
   ];
 
@@ -89,13 +89,13 @@ abstract class DeleteObjectsRequest
   String get bucket;
 
   /// Container for the request.
-  _i2.Delete get delete;
+  Delete get delete;
 
   /// The concatenation of the authentication device's serial number, a space, and the value that is displayed on your authentication device. Required to permanently delete a versioned object if versioning is configured with MFA delete enabled.
   String? get mfa;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
   bool? get bypassGovernanceRetention;
@@ -108,7 +108,7 @@ abstract class DeleteObjectsRequest
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
   ///
   /// This checksum algorithm must be the same for all parts and it match the checksum value supplied in the `CreateMultipartUpload` request.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -122,7 +122,7 @@ abstract class DeleteObjectsRequest
   }
 
   @override
-  _i2.Delete getPayload() => delete;
+  Delete getPayload() => delete;
   @override
   List<Object?> get props => [
         bucket,
@@ -169,7 +169,7 @@ abstract class DeleteObjectsRequest
 }
 
 class DeleteObjectsRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.Delete> {
+    extends _i1.StructuredSmithySerializer<Delete> {
   const DeleteObjectsRequestRestXmlSerializer() : super('DeleteObjectsRequest');
 
   @override
@@ -185,12 +185,12 @@ class DeleteObjectsRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.Delete deserialize(
+  Delete deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.DeleteBuilder();
+    final result = DeleteBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -203,8 +203,8 @@ class DeleteObjectsRequestRestXmlSerializer
         case 'Object':
           result.objects.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ObjectIdentifier),
-          ) as _i6.ObjectIdentifier));
+            specifiedType: const FullType(ObjectIdentifier),
+          ) as ObjectIdentifier));
         case 'Quiet':
           result.quiet = (serializers.deserialize(
             value,
@@ -219,7 +219,7 @@ class DeleteObjectsRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.Delete object, {
+    Delete object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -228,14 +228,14 @@ class DeleteObjectsRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.Delete(:objects, :quiet) = object;
+    final Delete(:objects, :quiet) = object;
     result$.addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
       objects,
       specifiedType: const FullType.nullable(
-        _i7.BuiltList,
-        [FullType(_i6.ObjectIdentifier)],
+        _i3.BuiltList,
+        [FullType(ObjectIdentifier)],
       ),
     ));
     if (quiet != null) {

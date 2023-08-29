@@ -4,14 +4,12 @@
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.json_blobs_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:typed_data' as _i6;
+import 'dart:typed_data' as _i4;
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_blobs_input_output.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/json_blobs_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_blobs_input_output.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/json_blobs_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +18,14 @@ void main() {
     'RestJsonJsonBlobs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.JsonBlobsOperation(
+        operation: JsonBlobsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonJsonBlobs',
           documentation: 'Blobs are base64 encoded',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -58,14 +56,14 @@ void main() {
     'RestJsonJsonBlobs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.JsonBlobsOperation(
+        operation: JsonBlobsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonJsonBlobs',
           documentation: 'Blobs are base64 encoded',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -89,26 +87,26 @@ void main() {
 }
 
 class JsonBlobsInputOutputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.JsonBlobsInputOutput> {
+    extends _i3.StructuredSmithySerializer<JsonBlobsInputOutput> {
   const JsonBlobsInputOutputRestJson1Serializer()
       : super('JsonBlobsInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.JsonBlobsInputOutput];
+  Iterable<Type> get types => const [JsonBlobsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.JsonBlobsInputOutput deserialize(
+  JsonBlobsInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.JsonBlobsInputOutputBuilder();
+    final result = JsonBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -121,8 +119,8 @@ class JsonBlobsInputOutputRestJson1Serializer
         case 'data':
           result.data = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Uint8List),
-          ) as _i6.Uint8List);
+            specifiedType: const FullType(_i4.Uint8List),
+          ) as _i4.Uint8List);
       }
     }
 
@@ -132,7 +130,7 @@ class JsonBlobsInputOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.JsonBlobsInputOutput object, {
+    JsonBlobsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

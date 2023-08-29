@@ -8,7 +8,7 @@ part of 'analytics_export_destination.dart';
 
 class _$AnalyticsExportDestination extends AnalyticsExportDestination {
   @override
-  final _i2.AnalyticsS3BucketDestination s3BucketDestination;
+  final AnalyticsS3BucketDestination s3BucketDestination;
 
   factory _$AnalyticsExportDestination(
           [void Function(AnalyticsExportDestinationBuilder)? updates]) =>
@@ -50,12 +50,11 @@ class AnalyticsExportDestinationBuilder
         Builder<AnalyticsExportDestination, AnalyticsExportDestinationBuilder> {
   _$AnalyticsExportDestination? _$v;
 
-  _i2.AnalyticsS3BucketDestinationBuilder? _s3BucketDestination;
-  _i2.AnalyticsS3BucketDestinationBuilder get s3BucketDestination =>
-      _$this._s3BucketDestination ??=
-          new _i2.AnalyticsS3BucketDestinationBuilder();
+  AnalyticsS3BucketDestinationBuilder? _s3BucketDestination;
+  AnalyticsS3BucketDestinationBuilder get s3BucketDestination =>
+      _$this._s3BucketDestination ??= new AnalyticsS3BucketDestinationBuilder();
   set s3BucketDestination(
-          _i2.AnalyticsS3BucketDestinationBuilder? s3BucketDestination) =>
+          AnalyticsS3BucketDestinationBuilder? s3BucketDestination) =>
       _$this._s3BucketDestination = s3BucketDestination;
 
   AnalyticsExportDestinationBuilder();

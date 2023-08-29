@@ -24,6 +24,7 @@ final stateMachineBuilders = <StateMachineToken,
   SignInStateMachine.type: SignInStateMachine.new,
   SignOutStateMachine.type: SignOutStateMachine.new,
   SignUpStateMachine.type: SignUpStateMachine.new,
+  TotpSetupStateMachine.type: TotpSetupStateMachine.new,
 };
 
 /// Default defaultDependencies for [CognitoAuthStateMachine].
@@ -66,6 +67,7 @@ class CognitoAuthStateMachine
       SignInEvent _ => SignInStateMachine.type,
       SignOutEvent _ => SignOutStateMachine.type,
       SignUpEvent _ => SignUpStateMachine.type,
+      TotpSetupEvent _ => TotpSetupStateMachine.type,
     } as StateMachineToken;
   }
 
@@ -125,4 +127,7 @@ class CognitoAuthStateMachine
     final authSession = await loadSession();
     return authSession.userPoolTokensResult.value;
   }
+
+  @override
+  String get runtimeTypeName => 'CognitoAuthStateMachine';
 }

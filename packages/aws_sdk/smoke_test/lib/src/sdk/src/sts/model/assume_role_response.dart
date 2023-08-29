@@ -6,9 +6,9 @@ library smoke_test.sts.model.assume_role_response; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/sts/model/assumed_role_user.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart';
 
 part 'assume_role_response.g.dart';
 
@@ -18,8 +18,8 @@ abstract class AssumeRoleResponse
     implements Built<AssumeRoleResponse, AssumeRoleResponseBuilder> {
   /// Contains the response to a successful AssumeRole request, including temporary Amazon Web Services credentials that can be used to make Amazon Web Services requests.
   factory AssumeRoleResponse({
-    _i2.Credentials? credentials,
-    _i3.AssumedRoleUser? assumedRoleUser,
+    Credentials? credentials,
+    AssumedRoleUser? assumedRoleUser,
     int? packedPolicySize,
     String? sourceIdentity,
   }) {
@@ -45,17 +45,17 @@ abstract class AssumeRoleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<AssumeRoleResponse>> serializers = [
+  static const List<_i2.SmithySerializer<AssumeRoleResponse>> serializers = [
     AssumeRoleResponseAwsQuerySerializer()
   ];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
   /// The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
 
   /// The Amazon Resource Name (ARN) and the assumed role ID, which are identifiers that you can use to refer to the resulting temporary security credentials. For example, you can reference these credentials as a principal in a resource-based policy by using the ARN or assumed role ID. The ARN and ID include the `RoleSessionName` that you specified when you called `AssumeRole`.
-  _i3.AssumedRoleUser? get assumedRoleUser;
+  AssumedRoleUser? get assumedRoleUser;
 
   /// A percentage value that indicates the packed size of the session policies and session tags combined passed in the request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded the allowed space.
   int? get packedPolicySize;
@@ -97,7 +97,7 @@ abstract class AssumeRoleResponse
 }
 
 class AssumeRoleResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<AssumeRoleResponse> {
+    extends _i2.StructuredSmithySerializer<AssumeRoleResponse> {
   const AssumeRoleResponseAwsQuerySerializer() : super('AssumeRoleResponse');
 
   @override
@@ -106,8 +106,8 @@ class AssumeRoleResponseAwsQuerySerializer
         _$AssumeRoleResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -119,6 +119,14 @@ class AssumeRoleResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = AssumeRoleResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -131,13 +139,13 @@ class AssumeRoleResponseAwsQuerySerializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
         case 'AssumedRoleUser':
           result.assumedRoleUser.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AssumedRoleUser),
-          ) as _i3.AssumedRoleUser));
+            specifiedType: const FullType(AssumedRoleUser),
+          ) as AssumedRoleUser));
         case 'PackedPolicySize':
           result.packedPolicySize = (serializers.deserialize(
             value,
@@ -161,9 +169,9 @@ class AssumeRoleResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'AssumeRoleResponseResponse',
-        _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
+        _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final AssumeRoleResponse(
@@ -174,23 +182,23 @@ class AssumeRoleResponseAwsQuerySerializer
     ) = object;
     if (credentials != null) {
       result$
-        ..add(const _i4.XmlElementName('Credentials'))
+        ..add(const _i2.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     if (assumedRoleUser != null) {
       result$
-        ..add(const _i4.XmlElementName('AssumedRoleUser'))
+        ..add(const _i2.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
           assumedRoleUser,
-          specifiedType: const FullType(_i3.AssumedRoleUser),
+          specifiedType: const FullType(AssumedRoleUser),
         ));
     }
     if (packedPolicySize != null) {
       result$
-        ..add(const _i4.XmlElementName('PackedPolicySize'))
+        ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
           specifiedType: const FullType.nullable(int),
@@ -198,7 +206,7 @@ class AssumeRoleResponseAwsQuerySerializer
     }
     if (sourceIdentity != null) {
       result$
-        ..add(const _i4.XmlElementName('SourceIdentity'))
+        ..add(const _i2.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),

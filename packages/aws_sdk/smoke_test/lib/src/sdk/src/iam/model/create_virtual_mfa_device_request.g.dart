@@ -12,7 +12,7 @@ class _$CreateVirtualMfaDeviceRequest extends CreateVirtualMfaDeviceRequest {
   @override
   final String virtualMfaDeviceName;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$CreateVirtualMfaDeviceRequest(
           [void Function(CreateVirtualMfaDeviceRequestBuilder)? updates]) =>
@@ -69,10 +69,9 @@ class CreateVirtualMfaDeviceRequestBuilder
   set virtualMfaDeviceName(String? virtualMfaDeviceName) =>
       _$this._virtualMfaDeviceName = virtualMfaDeviceName;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   CreateVirtualMfaDeviceRequestBuilder();
 

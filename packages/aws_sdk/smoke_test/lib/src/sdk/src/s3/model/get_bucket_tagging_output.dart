@@ -4,19 +4,19 @@
 library smoke_test.s3.model.get_bucket_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'get_bucket_tagging_output.g.dart';
 
 abstract class GetBucketTaggingOutput
     with _i1.AWSEquatable<GetBucketTaggingOutput>
     implements Built<GetBucketTaggingOutput, GetBucketTaggingOutputBuilder> {
-  factory GetBucketTaggingOutput({required List<_i2.Tag> tagSet}) {
-    return _$GetBucketTaggingOutput._(tagSet: _i3.BuiltList(tagSet));
+  factory GetBucketTaggingOutput({required List<Tag> tagSet}) {
+    return _$GetBucketTaggingOutput._(tagSet: _i2.BuiltList(tagSet));
   }
 
   factory GetBucketTaggingOutput.build(
@@ -32,11 +32,11 @@ abstract class GetBucketTaggingOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetBucketTaggingOutput>> serializers =
+  static const List<_i3.SmithySerializer<GetBucketTaggingOutput>> serializers =
       [GetBucketTaggingOutputRestXmlSerializer()];
 
   /// Contains the tag set.
-  _i3.BuiltList<_i2.Tag> get tagSet;
+  _i2.BuiltList<Tag> get tagSet;
   @override
   List<Object?> get props => [tagSet];
   @override
@@ -51,7 +51,7 @@ abstract class GetBucketTaggingOutput
 }
 
 class GetBucketTaggingOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<GetBucketTaggingOutput> {
+    extends _i3.StructuredSmithySerializer<GetBucketTaggingOutput> {
   const GetBucketTaggingOutputRestXmlSerializer()
       : super('GetBucketTaggingOutput');
 
@@ -61,8 +61,8 @@ class GetBucketTaggingOutputRestXmlSerializer
         _$GetBucketTaggingOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -85,14 +85,14 @@ class GetBucketTaggingOutputRestXmlSerializer
       switch (key) {
         case 'TagSet':
           result.tagSet.replace(
-              (const _i4.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
+              (const _i3.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -106,20 +106,20 @@ class GetBucketTaggingOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'Tagging',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketTaggingOutput(:tagSet) = object;
     result$
-      ..add(const _i4.XmlElementName('TagSet'))
-      ..add(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
+      ..add(const _i3.XmlElementName('TagSet'))
+      ..add(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Tag)],
+          _i2.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

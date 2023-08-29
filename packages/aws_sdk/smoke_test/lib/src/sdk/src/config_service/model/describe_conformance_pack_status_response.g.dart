@@ -9,7 +9,7 @@ part of 'describe_conformance_pack_status_response.dart';
 class _$DescribeConformancePackStatusResponse
     extends DescribeConformancePackStatusResponse {
   @override
-  final _i3.BuiltList<_i2.ConformancePackStatusDetail>?
+  final _i2.BuiltList<ConformancePackStatusDetail>?
       conformancePackStatusDetails;
   @override
   final String? nextToken;
@@ -58,14 +58,13 @@ class DescribeConformancePackStatusResponseBuilder
             DescribeConformancePackStatusResponseBuilder> {
   _$DescribeConformancePackStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConformancePackStatusDetail>?
-      _conformancePackStatusDetails;
-  _i3.ListBuilder<_i2.ConformancePackStatusDetail>
+  _i2.ListBuilder<ConformancePackStatusDetail>? _conformancePackStatusDetails;
+  _i2.ListBuilder<ConformancePackStatusDetail>
       get conformancePackStatusDetails =>
           _$this._conformancePackStatusDetails ??=
-              new _i3.ListBuilder<_i2.ConformancePackStatusDetail>();
+              new _i2.ListBuilder<ConformancePackStatusDetail>();
   set conformancePackStatusDetails(
-          _i3.ListBuilder<_i2.ConformancePackStatusDetail>?
+          _i2.ListBuilder<ConformancePackStatusDetail>?
               conformancePackStatusDetails) =>
       _$this._conformancePackStatusDetails = conformancePackStatusDetails;
 

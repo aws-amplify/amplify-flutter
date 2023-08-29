@@ -10,7 +10,7 @@ class _$TestBodyStructureInputOutput extends TestBodyStructureInputOutput {
   @override
   final String? testId;
   @override
-  final _i3.TestConfig? testConfig;
+  final TestConfig? testConfig;
 
   factory _$TestBodyStructureInputOutput(
           [void Function(TestBodyStructureInputOutputBuilder)? updates]) =>
@@ -55,10 +55,10 @@ class TestBodyStructureInputOutputBuilder
   String? get testId => _$this._testId;
   set testId(String? testId) => _$this._testId = testId;
 
-  _i3.TestConfigBuilder? _testConfig;
-  _i3.TestConfigBuilder get testConfig =>
-      _$this._testConfig ??= new _i3.TestConfigBuilder();
-  set testConfig(_i3.TestConfigBuilder? testConfig) =>
+  TestConfigBuilder? _testConfig;
+  TestConfigBuilder get testConfig =>
+      _$this._testConfig ??= new TestConfigBuilder();
+  set testConfig(TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
   TestBodyStructureInputOutputBuilder();
@@ -112,7 +112,7 @@ class TestBodyStructureInputOutputBuilder
 class _$TestBodyStructureInputOutputPayload
     extends TestBodyStructureInputOutputPayload {
   @override
-  final _i3.TestConfig? testConfig;
+  final TestConfig? testConfig;
 
   factory _$TestBodyStructureInputOutputPayload(
           [void Function(TestBodyStructureInputOutputPayloadBuilder)?
@@ -153,10 +153,10 @@ class TestBodyStructureInputOutputPayloadBuilder
             TestBodyStructureInputOutputPayloadBuilder> {
   _$TestBodyStructureInputOutputPayload? _$v;
 
-  _i3.TestConfigBuilder? _testConfig;
-  _i3.TestConfigBuilder get testConfig =>
-      _$this._testConfig ??= new _i3.TestConfigBuilder();
-  set testConfig(_i3.TestConfigBuilder? testConfig) =>
+  TestConfigBuilder? _testConfig;
+  TestConfigBuilder get testConfig =>
+      _$this._testConfig ??= new TestConfigBuilder();
+  set testConfig(TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
   TestBodyStructureInputOutputPayloadBuilder();

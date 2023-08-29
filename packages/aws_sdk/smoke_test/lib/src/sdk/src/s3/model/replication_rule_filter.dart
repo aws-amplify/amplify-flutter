@@ -6,9 +6,8 @@ library smoke_test.s3.model.replication_rule_filter; // ignore_for_file: no_lead
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_and_operator.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_and_operator.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 /// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
 sealed class ReplicationRuleFilter
@@ -22,16 +21,16 @@ sealed class ReplicationRuleFilter
     required String key,
     required String value,
   }) =>
-      ReplicationRuleFilterTag$(_i2.Tag(
+      ReplicationRuleFilterTag$(Tag(
         key: key,
         value: value,
       ));
 
   factory ReplicationRuleFilter.and({
     String? prefix,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) =>
-      ReplicationRuleFilterAnd$(_i3.ReplicationRuleAndOperator(
+      ReplicationRuleFilterAnd$(ReplicationRuleAndOperator(
         prefix: prefix,
         tags: tags,
       ));
@@ -53,14 +52,14 @@ sealed class ReplicationRuleFilter
   /// A container for specifying a tag key and value.
   ///
   /// The rule applies only to objects that have the tag in their tag set.
-  _i2.Tag? get tag => null;
+  Tag? get tag => null;
 
   /// A container for specifying rule filters. The filters determine the subset of objects to which the rule applies. This element is required only if you specify more than one filter. For example:
   ///
   /// *   If you specify both a `Prefix` and a `Tag` filter, wrap these filters in an `And` tag.
   ///
   /// *   If you specify a filter based on multiple tags, wrap the `Tag` elements in an `And` tag.
-  _i3.ReplicationRuleAndOperator? get and => null;
+  ReplicationRuleAndOperator? get and => null;
   @override
   Object get value => (prefix ?? tag ?? and)!;
   @override
@@ -102,7 +101,7 @@ final class ReplicationRuleFilterTag$ extends ReplicationRuleFilter {
   const ReplicationRuleFilterTag$(this.tag) : super._();
 
   @override
-  final _i2.Tag tag;
+  final Tag tag;
 
   @override
   String get name => 'Tag';
@@ -112,7 +111,7 @@ final class ReplicationRuleFilterAnd$ extends ReplicationRuleFilter {
   const ReplicationRuleFilterAnd$(this.and) : super._();
 
   @override
-  final _i3.ReplicationRuleAndOperator and;
+  final ReplicationRuleAndOperator and;
 
   @override
   String get name => 'And';
@@ -166,13 +165,13 @@ class ReplicationRuleFilterRestXmlSerializer
       case 'Tag':
         return ReplicationRuleFilterTag$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.Tag),
-        ) as _i2.Tag));
+          specifiedType: const FullType(Tag),
+        ) as Tag));
       case 'And':
         return ReplicationRuleFilterAnd$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.ReplicationRuleAndOperator),
-        ) as _i3.ReplicationRuleAndOperator));
+          specifiedType: const FullType(ReplicationRuleAndOperator),
+        ) as ReplicationRuleAndOperator));
     }
     return ReplicationRuleFilter.sdkUnknown(
       key,
@@ -195,11 +194,11 @@ class ReplicationRuleFilterRestXmlSerializer
           ),
         ReplicationRuleFilterTag$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
+            specifiedType: const FullType(Tag),
           ),
         ReplicationRuleFilterAnd$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i3.ReplicationRuleAndOperator),
+            specifiedType: const FullType(ReplicationRuleAndOperator),
           ),
         ReplicationRuleFilterSdkUnknown$(:final value) => value,
       },

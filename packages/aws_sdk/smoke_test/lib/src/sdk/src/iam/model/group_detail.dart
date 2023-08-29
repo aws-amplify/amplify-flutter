@@ -4,12 +4,12 @@
 library smoke_test.iam.model.group_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_detail.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_detail.dart';
 
 part 'group_detail.g.dart';
 
@@ -28,8 +28,8 @@ abstract class GroupDetail
     String? groupId,
     String? arn,
     DateTime? createDate,
-    List<_i2.PolicyDetail>? groupPolicyList,
-    List<_i3.AttachedPolicy>? attachedManagedPolicies,
+    List<PolicyDetail>? groupPolicyList,
+    List<AttachedPolicy>? attachedManagedPolicies,
   }) {
     return _$GroupDetail._(
       path: path,
@@ -38,10 +38,10 @@ abstract class GroupDetail
       arn: arn,
       createDate: createDate,
       groupPolicyList:
-          groupPolicyList == null ? null : _i4.BuiltList(groupPolicyList),
+          groupPolicyList == null ? null : _i2.BuiltList(groupPolicyList),
       attachedManagedPolicies: attachedManagedPolicies == null
           ? null
-          : _i4.BuiltList(attachedManagedPolicies),
+          : _i2.BuiltList(attachedManagedPolicies),
     );
   }
 
@@ -53,7 +53,7 @@ abstract class GroupDetail
 
   const GroupDetail._();
 
-  static const List<_i5.SmithySerializer<GroupDetail>> serializers = [
+  static const List<_i3.SmithySerializer<GroupDetail>> serializers = [
     GroupDetailAwsQuerySerializer()
   ];
 
@@ -75,10 +75,10 @@ abstract class GroupDetail
   DateTime? get createDate;
 
   /// A list of the inline policies embedded in the group.
-  _i4.BuiltList<_i2.PolicyDetail>? get groupPolicyList;
+  _i2.BuiltList<PolicyDetail>? get groupPolicyList;
 
   /// A list of the managed policies attached to the group.
-  _i4.BuiltList<_i3.AttachedPolicy>? get attachedManagedPolicies;
+  _i2.BuiltList<AttachedPolicy>? get attachedManagedPolicies;
   @override
   List<Object?> get props => [
         path,
@@ -125,7 +125,7 @@ abstract class GroupDetail
 }
 
 class GroupDetailAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<GroupDetail> {
+    extends _i3.StructuredSmithySerializer<GroupDetail> {
   const GroupDetailAwsQuerySerializer() : super('GroupDetail');
 
   @override
@@ -134,8 +134,8 @@ class GroupDetailAwsQuerySerializer
         _$GroupDetail,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -147,6 +147,14 @@ class GroupDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GroupDetailBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -182,28 +190,28 @@ class GroupDetailAwsQuerySerializer
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'GroupPolicyList':
-          result.groupPolicyList.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.groupPolicyList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.PolicyDetail)],
+              _i2.BuiltList,
+              [FullType(PolicyDetail)],
             ),
-          ) as _i4.BuiltList<_i2.PolicyDetail>));
+          ) as _i2.BuiltList<PolicyDetail>));
         case 'AttachedManagedPolicies':
           result.attachedManagedPolicies.replace(
-              (const _i5.XmlBuiltListSerializer(
-                      indexer: _i5.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.AttachedPolicy)],
+              _i2.BuiltList,
+              [FullType(AttachedPolicy)],
             ),
-          ) as _i4.BuiltList<_i3.AttachedPolicy>));
+          ) as _i2.BuiltList<AttachedPolicy>));
       }
     }
 
@@ -217,9 +225,9 @@ class GroupDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'GroupDetailResponse',
-        _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GroupDetail(
@@ -233,7 +241,7 @@ class GroupDetailAwsQuerySerializer
     ) = object;
     if (path != null) {
       result$
-        ..add(const _i5.XmlElementName('Path'))
+        ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
@@ -241,7 +249,7 @@ class GroupDetailAwsQuerySerializer
     }
     if (groupName != null) {
       result$
-        ..add(const _i5.XmlElementName('GroupName'))
+        ..add(const _i3.XmlElementName('GroupName'))
         ..add(serializers.serialize(
           groupName,
           specifiedType: const FullType(String),
@@ -249,7 +257,7 @@ class GroupDetailAwsQuerySerializer
     }
     if (groupId != null) {
       result$
-        ..add(const _i5.XmlElementName('GroupId'))
+        ..add(const _i3.XmlElementName('GroupId'))
         ..add(serializers.serialize(
           groupId,
           specifiedType: const FullType(String),
@@ -257,7 +265,7 @@ class GroupDetailAwsQuerySerializer
     }
     if (arn != null) {
       result$
-        ..add(const _i5.XmlElementName('Arn'))
+        ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -265,7 +273,7 @@ class GroupDetailAwsQuerySerializer
     }
     if (createDate != null) {
       result$
-        ..add(const _i5.XmlElementName('CreateDate'))
+        ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -273,29 +281,29 @@ class GroupDetailAwsQuerySerializer
     }
     if (groupPolicyList != null) {
       result$
-        ..add(const _i5.XmlElementName('GroupPolicyList'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('GroupPolicyList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           groupPolicyList,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i2.PolicyDetail)],
+            _i2.BuiltList,
+            [FullType(PolicyDetail)],
           ),
         ));
     }
     if (attachedManagedPolicies != null) {
       result$
-        ..add(const _i5.XmlElementName('AttachedManagedPolicies'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('AttachedManagedPolicies'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           attachedManagedPolicies,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.AttachedPolicy)],
+            _i2.BuiltList,
+            [FullType(AttachedPolicy)],
           ),
         ));
     }

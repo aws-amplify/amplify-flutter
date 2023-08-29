@@ -6,13 +6,10 @@ library smoke_test.cloud_formation.model.stack_resource_detail; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/module_info.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_information.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/module_info.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_information.dart';
 
 part 'stack_resource_detail.g.dart';
 
@@ -28,12 +25,12 @@ abstract class StackResourceDetail
     String? physicalResourceId,
     required String resourceType,
     required DateTime lastUpdatedTimestamp,
-    required _i2.ResourceStatus resourceStatus,
+    required ResourceStatus resourceStatus,
     String? resourceStatusReason,
     String? description,
     String? metadata,
-    _i3.StackResourceDriftInformation? driftInformation,
-    _i4.ModuleInfo? moduleInfo,
+    StackResourceDriftInformation? driftInformation,
+    ModuleInfo? moduleInfo,
   }) {
     return _$StackResourceDetail._(
       stackName: stackName,
@@ -58,7 +55,7 @@ abstract class StackResourceDetail
 
   const StackResourceDetail._();
 
-  static const List<_i5.SmithySerializer<StackResourceDetail>> serializers = [
+  static const List<_i2.SmithySerializer<StackResourceDetail>> serializers = [
     StackResourceDetailAwsQuerySerializer()
   ];
 
@@ -81,7 +78,7 @@ abstract class StackResourceDetail
   DateTime get lastUpdatedTimestamp;
 
   /// Current status of the resource.
-  _i2.ResourceStatus get resourceStatus;
+  ResourceStatus get resourceStatus;
 
   /// Success/failure message associated with the resource.
   String? get resourceStatusReason;
@@ -92,11 +89,11 @@ abstract class StackResourceDetail
   /// The content of the `Metadata` attribute declared for the resource. For more information, see [Metadata Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html) in the CloudFormation User Guide.
   String? get metadata;
 
-  /// Information about whether the resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
-  _i3.StackResourceDriftInformation? get driftInformation;
+  /// Information about whether the resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  StackResourceDriftInformation? get driftInformation;
 
   /// Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.
-  _i4.ModuleInfo? get moduleInfo;
+  ModuleInfo? get moduleInfo;
   @override
   List<Object?> get props => [
         stackName,
@@ -168,7 +165,7 @@ abstract class StackResourceDetail
 }
 
 class StackResourceDetailAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<StackResourceDetail> {
+    extends _i2.StructuredSmithySerializer<StackResourceDetail> {
   const StackResourceDetailAwsQuerySerializer() : super('StackResourceDetail');
 
   @override
@@ -177,8 +174,8 @@ class StackResourceDetailAwsQuerySerializer
         _$StackResourceDetail,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -190,6 +187,14 @@ class StackResourceDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackResourceDetailBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -232,8 +237,8 @@ class StackResourceDetailAwsQuerySerializer
         case 'ResourceStatus':
           result.resourceStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceStatus),
-          ) as _i2.ResourceStatus);
+            specifiedType: const FullType(ResourceStatus),
+          ) as ResourceStatus);
         case 'ResourceStatusReason':
           result.resourceStatusReason = (serializers.deserialize(
             value,
@@ -252,13 +257,13 @@ class StackResourceDetailAwsQuerySerializer
         case 'DriftInformation':
           result.driftInformation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackResourceDriftInformation),
-          ) as _i3.StackResourceDriftInformation));
+            specifiedType: const FullType(StackResourceDriftInformation),
+          ) as StackResourceDriftInformation));
         case 'ModuleInfo':
           result.moduleInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ModuleInfo),
-          ) as _i4.ModuleInfo));
+            specifiedType: const FullType(ModuleInfo),
+          ) as ModuleInfo));
       }
     }
 
@@ -272,9 +277,9 @@ class StackResourceDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i2.XmlElementName(
         'StackResourceDetailResponse',
-        _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackResourceDetail(
@@ -293,7 +298,7 @@ class StackResourceDetailAwsQuerySerializer
     ) = object;
     if (stackName != null) {
       result$
-        ..add(const _i5.XmlElementName('StackName'))
+        ..add(const _i2.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
           specifiedType: const FullType(String),
@@ -301,47 +306,47 @@ class StackResourceDetailAwsQuerySerializer
     }
     if (stackId != null) {
       result$
-        ..add(const _i5.XmlElementName('StackId'))
+        ..add(const _i2.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i5.XmlElementName('LogicalResourceId'))
+      ..add(const _i2.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
         logicalResourceId,
         specifiedType: const FullType(String),
       ));
     if (physicalResourceId != null) {
       result$
-        ..add(const _i5.XmlElementName('PhysicalResourceId'))
+        ..add(const _i2.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
           physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i5.XmlElementName('ResourceType'))
+      ..add(const _i2.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
         resourceType,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i5.XmlElementName('LastUpdatedTimestamp'))
+      ..add(const _i2.XmlElementName('LastUpdatedTimestamp'))
       ..add(serializers.serialize(
         lastUpdatedTimestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result$
-      ..add(const _i5.XmlElementName('ResourceStatus'))
+      ..add(const _i2.XmlElementName('ResourceStatus'))
       ..add(serializers.serialize(
         resourceStatus,
-        specifiedType: const FullType.nullable(_i2.ResourceStatus),
+        specifiedType: const FullType.nullable(ResourceStatus),
       ));
     if (resourceStatusReason != null) {
       result$
-        ..add(const _i5.XmlElementName('ResourceStatusReason'))
+        ..add(const _i2.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
           resourceStatusReason,
           specifiedType: const FullType(String),
@@ -349,7 +354,7 @@ class StackResourceDetailAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i5.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -357,7 +362,7 @@ class StackResourceDetailAwsQuerySerializer
     }
     if (metadata != null) {
       result$
-        ..add(const _i5.XmlElementName('Metadata'))
+        ..add(const _i2.XmlElementName('Metadata'))
         ..add(serializers.serialize(
           metadata,
           specifiedType: const FullType(String),
@@ -365,18 +370,18 @@ class StackResourceDetailAwsQuerySerializer
     }
     if (driftInformation != null) {
       result$
-        ..add(const _i5.XmlElementName('DriftInformation'))
+        ..add(const _i2.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
           driftInformation,
-          specifiedType: const FullType(_i3.StackResourceDriftInformation),
+          specifiedType: const FullType(StackResourceDriftInformation),
         ));
     }
     if (moduleInfo != null) {
       result$
-        ..add(const _i5.XmlElementName('ModuleInfo'))
+        ..add(const _i2.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
           moduleInfo,
-          specifiedType: const FullType(_i4.ModuleInfo),
+          specifiedType: const FullType(ModuleInfo),
         ));
     }
     return result$;

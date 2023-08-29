@@ -8,7 +8,7 @@ part of 'describe_stack_instance_output.dart';
 
 class _$DescribeStackInstanceOutput extends DescribeStackInstanceOutput {
   @override
-  final _i2.StackInstance? stackInstance;
+  final StackInstance? stackInstance;
 
   factory _$DescribeStackInstanceOutput(
           [void Function(DescribeStackInstanceOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class DescribeStackInstanceOutputBuilder
             DescribeStackInstanceOutputBuilder> {
   _$DescribeStackInstanceOutput? _$v;
 
-  _i2.StackInstanceBuilder? _stackInstance;
-  _i2.StackInstanceBuilder get stackInstance =>
-      _$this._stackInstance ??= new _i2.StackInstanceBuilder();
-  set stackInstance(_i2.StackInstanceBuilder? stackInstance) =>
+  StackInstanceBuilder? _stackInstance;
+  StackInstanceBuilder get stackInstance =>
+      _$this._stackInstance ??= new StackInstanceBuilder();
+  set stackInstance(StackInstanceBuilder? stackInstance) =>
       _$this._stackInstance = stackInstance;
 
   DescribeStackInstanceOutputBuilder();

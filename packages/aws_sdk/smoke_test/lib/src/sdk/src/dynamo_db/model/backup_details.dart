@@ -7,10 +7,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart';
 
 part 'backup_details.g.dart';
 
@@ -23,8 +22,8 @@ abstract class BackupDetails
     required String backupArn,
     required String backupName,
     _i2.Int64? backupSizeBytes,
-    required _i3.BackupStatus backupStatus,
-    required _i4.BackupType backupType,
+    required BackupStatus backupStatus,
+    required BackupType backupType,
     required DateTime backupCreationDateTime,
     DateTime? backupExpiryDateTime,
   }) {
@@ -45,7 +44,7 @@ abstract class BackupDetails
 
   const BackupDetails._();
 
-  static const List<_i5.SmithySerializer<BackupDetails>> serializers = [
+  static const List<_i3.SmithySerializer<BackupDetails>> serializers = [
     BackupDetailsAwsJson10Serializer()
   ];
 
@@ -59,7 +58,7 @@ abstract class BackupDetails
   _i2.Int64? get backupSizeBytes;
 
   /// Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
-  _i3.BackupStatus get backupStatus;
+  BackupStatus get backupStatus;
 
   /// BackupType:
   ///
@@ -68,7 +67,7 @@ abstract class BackupDetails
   /// *   `SYSTEM` \- If you delete a table with point-in-time recovery enabled, a `SYSTEM` backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.
   ///
   /// *   `AWS_BACKUP` \- On-demand backup created by you from Backup service.
-  _i4.BackupType get backupType;
+  BackupType get backupType;
 
   /// Time at which the backup was created. This is the request time of the backup.
   DateTime get backupCreationDateTime;
@@ -121,7 +120,7 @@ abstract class BackupDetails
 }
 
 class BackupDetailsAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BackupDetails> {
+    extends _i3.StructuredSmithySerializer<BackupDetails> {
   const BackupDetailsAwsJson10Serializer() : super('BackupDetails');
 
   @override
@@ -130,8 +129,8 @@ class BackupDetailsAwsJson10Serializer
         _$BackupDetails,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -170,13 +169,13 @@ class BackupDetailsAwsJson10Serializer
         case 'BackupStatus':
           result.backupStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BackupStatus),
-          ) as _i3.BackupStatus);
+            specifiedType: const FullType(BackupStatus),
+          ) as BackupStatus);
         case 'BackupType':
           result.backupType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.BackupType),
-          ) as _i4.BackupType);
+            specifiedType: const FullType(BackupType),
+          ) as BackupType);
         case 'BackupCreationDateTime':
           result.backupCreationDateTime = (serializers.deserialize(
             value,
@@ -223,12 +222,12 @@ class BackupDetailsAwsJson10Serializer
       'BackupStatus',
       serializers.serialize(
         backupStatus,
-        specifiedType: const FullType(_i3.BackupStatus),
+        specifiedType: const FullType(BackupStatus),
       ),
       'BackupType',
       serializers.serialize(
         backupType,
-        specifiedType: const FullType(_i4.BackupType),
+        specifiedType: const FullType(BackupType),
       ),
       'BackupCreationDateTime',
       serializers.serialize(

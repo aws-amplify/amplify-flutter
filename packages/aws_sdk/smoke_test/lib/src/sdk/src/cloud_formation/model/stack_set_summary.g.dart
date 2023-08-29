@@ -14,17 +14,17 @@ class _$StackSetSummary extends StackSetSummary {
   @override
   final String? description;
   @override
-  final _i2.StackSetStatus? status;
+  final StackSetStatus? status;
   @override
-  final _i3.AutoDeployment? autoDeployment;
+  final AutoDeployment? autoDeployment;
   @override
-  final _i4.PermissionModels? permissionModel;
+  final PermissionModels? permissionModel;
   @override
-  final _i5.StackDriftStatus? driftStatus;
+  final StackDriftStatus? driftStatus;
   @override
   final DateTime? lastDriftCheckTimestamp;
   @override
-  final _i6.ManagedExecution? managedExecution;
+  final ManagedExecution? managedExecution;
 
   factory _$StackSetSummary([void Function(StackSetSummaryBuilder)? updates]) =>
       (new StackSetSummaryBuilder()..update(updates))._build();
@@ -97,24 +97,24 @@ class StackSetSummaryBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i2.StackSetStatus? _status;
-  _i2.StackSetStatus? get status => _$this._status;
-  set status(_i2.StackSetStatus? status) => _$this._status = status;
+  StackSetStatus? _status;
+  StackSetStatus? get status => _$this._status;
+  set status(StackSetStatus? status) => _$this._status = status;
 
-  _i3.AutoDeploymentBuilder? _autoDeployment;
-  _i3.AutoDeploymentBuilder get autoDeployment =>
-      _$this._autoDeployment ??= new _i3.AutoDeploymentBuilder();
-  set autoDeployment(_i3.AutoDeploymentBuilder? autoDeployment) =>
+  AutoDeploymentBuilder? _autoDeployment;
+  AutoDeploymentBuilder get autoDeployment =>
+      _$this._autoDeployment ??= new AutoDeploymentBuilder();
+  set autoDeployment(AutoDeploymentBuilder? autoDeployment) =>
       _$this._autoDeployment = autoDeployment;
 
-  _i4.PermissionModels? _permissionModel;
-  _i4.PermissionModels? get permissionModel => _$this._permissionModel;
-  set permissionModel(_i4.PermissionModels? permissionModel) =>
+  PermissionModels? _permissionModel;
+  PermissionModels? get permissionModel => _$this._permissionModel;
+  set permissionModel(PermissionModels? permissionModel) =>
       _$this._permissionModel = permissionModel;
 
-  _i5.StackDriftStatus? _driftStatus;
-  _i5.StackDriftStatus? get driftStatus => _$this._driftStatus;
-  set driftStatus(_i5.StackDriftStatus? driftStatus) =>
+  StackDriftStatus? _driftStatus;
+  StackDriftStatus? get driftStatus => _$this._driftStatus;
+  set driftStatus(StackDriftStatus? driftStatus) =>
       _$this._driftStatus = driftStatus;
 
   DateTime? _lastDriftCheckTimestamp;
@@ -122,10 +122,10 @@ class StackSetSummaryBuilder
   set lastDriftCheckTimestamp(DateTime? lastDriftCheckTimestamp) =>
       _$this._lastDriftCheckTimestamp = lastDriftCheckTimestamp;
 
-  _i6.ManagedExecutionBuilder? _managedExecution;
-  _i6.ManagedExecutionBuilder get managedExecution =>
-      _$this._managedExecution ??= new _i6.ManagedExecutionBuilder();
-  set managedExecution(_i6.ManagedExecutionBuilder? managedExecution) =>
+  ManagedExecutionBuilder? _managedExecution;
+  ManagedExecutionBuilder get managedExecution =>
+      _$this._managedExecution ??= new ManagedExecutionBuilder();
+  set managedExecution(ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
   StackSetSummaryBuilder();

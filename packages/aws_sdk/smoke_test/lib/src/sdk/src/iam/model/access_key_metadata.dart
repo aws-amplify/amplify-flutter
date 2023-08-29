@@ -6,8 +6,8 @@ library smoke_test.iam.model.access_key_metadata; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'access_key_metadata.g.dart';
 
@@ -23,7 +23,7 @@ abstract class AccessKeyMetadata
   factory AccessKeyMetadata({
     String? userName,
     String? accessKeyId,
-    _i2.StatusType? status,
+    StatusType? status,
     DateTime? createDate,
   }) {
     return _$AccessKeyMetadata._(
@@ -42,7 +42,7 @@ abstract class AccessKeyMetadata
 
   const AccessKeyMetadata._();
 
-  static const List<_i3.SmithySerializer<AccessKeyMetadata>> serializers = [
+  static const List<_i2.SmithySerializer<AccessKeyMetadata>> serializers = [
     AccessKeyMetadataAwsQuerySerializer()
   ];
 
@@ -53,7 +53,7 @@ abstract class AccessKeyMetadata
   String? get accessKeyId;
 
   /// The status of the access key. `Active` means that the key is valid for API calls; `Inactive` means it is not.
-  _i2.StatusType? get status;
+  StatusType? get status;
 
   /// The date when the access key was created.
   DateTime? get createDate;
@@ -88,7 +88,7 @@ abstract class AccessKeyMetadata
 }
 
 class AccessKeyMetadataAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<AccessKeyMetadata> {
+    extends _i2.StructuredSmithySerializer<AccessKeyMetadata> {
   const AccessKeyMetadataAwsQuerySerializer() : super('AccessKeyMetadata');
 
   @override
@@ -97,8 +97,8 @@ class AccessKeyMetadataAwsQuerySerializer
         _$AccessKeyMetadata,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -110,6 +110,14 @@ class AccessKeyMetadataAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = AccessKeyMetadataBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -132,8 +140,8 @@ class AccessKeyMetadataAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StatusType),
-          ) as _i2.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
             value,
@@ -152,16 +160,16 @@ class AccessKeyMetadataAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AccessKeyMetadataResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final AccessKeyMetadata(:userName, :accessKeyId, :status, :createDate) =
         object;
     if (userName != null) {
       result$
-        ..add(const _i3.XmlElementName('UserName'))
+        ..add(const _i2.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
           specifiedType: const FullType(String),
@@ -169,7 +177,7 @@ class AccessKeyMetadataAwsQuerySerializer
     }
     if (accessKeyId != null) {
       result$
-        ..add(const _i3.XmlElementName('AccessKeyId'))
+        ..add(const _i2.XmlElementName('AccessKeyId'))
         ..add(serializers.serialize(
           accessKeyId,
           specifiedType: const FullType(String),
@@ -177,15 +185,15 @@ class AccessKeyMetadataAwsQuerySerializer
     }
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.StatusType),
+          specifiedType: const FullType.nullable(StatusType),
         ));
     }
     if (createDate != null) {
       result$
-        ..add(const _i3.XmlElementName('CreateDate'))
+        ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),

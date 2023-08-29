@@ -7,8 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_usage_type.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/iam/model/entity_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_usage_type.dart';
 
 part 'list_entities_for_policy_request.g.dart';
 
@@ -21,9 +21,9 @@ abstract class ListEntitiesForPolicyRequest
             ListEntitiesForPolicyRequestBuilder> {
   factory ListEntitiesForPolicyRequest({
     required String policyArn,
-    _i3.EntityType? entityFilter,
+    EntityType? entityFilter,
     String? pathPrefix,
-    _i4.PolicyUsageType? policyUsageFilter,
+    PolicyUsageType? policyUsageFilter,
     String? marker,
     int? maxItems,
   }) {
@@ -61,7 +61,7 @@ abstract class ListEntitiesForPolicyRequest
   /// The entity type to use for filtering the results.
   ///
   /// For example, when `EntityFilter` is `Role`, only the roles that are attached to the specified policy are returned. This parameter is optional. If it is not included, all attached entities (users, groups, and roles) are returned. The argument for this parameter must be one of the valid values listed below.
-  _i3.EntityType? get entityFilter;
+  EntityType? get entityFilter;
 
   /// The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all entities.
   ///
@@ -73,7 +73,7 @@ abstract class ListEntitiesForPolicyRequest
   /// To list only permissions policies, set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies used to set permissions boundaries, set the value to `PermissionsBoundary`.
   ///
   /// This parameter is optional. If it is not included, all policies are returned.
-  _i4.PolicyUsageType? get policyUsageFilter;
+  PolicyUsageType? get policyUsageFilter;
 
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
@@ -148,6 +148,14 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListEntitiesForPolicyRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -165,8 +173,8 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         case 'EntityFilter':
           result.entityFilter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EntityType),
-          ) as _i3.EntityType);
+            specifiedType: const FullType(EntityType),
+          ) as EntityType);
         case 'PathPrefix':
           result.pathPrefix = (serializers.deserialize(
             value,
@@ -175,8 +183,8 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         case 'PolicyUsageFilter':
           result.policyUsageFilter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.PolicyUsageType),
-          ) as _i4.PolicyUsageType);
+            specifiedType: const FullType(PolicyUsageType),
+          ) as PolicyUsageType);
         case 'Marker':
           result.marker = (serializers.deserialize(
             value,
@@ -224,7 +232,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('EntityFilter'))
         ..add(serializers.serialize(
           entityFilter,
-          specifiedType: const FullType.nullable(_i3.EntityType),
+          specifiedType: const FullType.nullable(EntityType),
         ));
     }
     if (pathPrefix != null) {
@@ -240,7 +248,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
           policyUsageFilter,
-          specifiedType: const FullType.nullable(_i4.PolicyUsageType),
+          specifiedType: const FullType.nullable(PolicyUsageType),
         ));
     }
     if (marker != null) {

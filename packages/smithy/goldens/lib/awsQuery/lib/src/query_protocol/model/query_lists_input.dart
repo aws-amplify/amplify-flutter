@@ -4,11 +4,9 @@
 library aws_query_v1.query_protocol.model.query_lists_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart'
-    as _i3;
-import 'package:aws_query_v1/src/query_protocol/model/nested_struct_with_list.dart'
-    as _i4;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart';
+import 'package:aws_query_v1/src/query_protocol/model/nested_struct_with_list.dart';
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -20,24 +18,24 @@ abstract class QueryListsInput
     implements Built<QueryListsInput, QueryListsInputBuilder> {
   factory QueryListsInput({
     List<String>? listArg,
-    List<_i3.GreetingStruct>? complexListArg,
+    List<GreetingStruct>? complexListArg,
     List<String>? flattenedListArg,
     List<String>? listArgWithXmlNameMember,
     List<String>? flattenedListArgWithXmlName,
-    _i4.NestedStructWithList? nestedWithList,
+    NestedStructWithList? nestedWithList,
   }) {
     return _$QueryListsInput._(
-      listArg: listArg == null ? null : _i5.BuiltList(listArg),
+      listArg: listArg == null ? null : _i3.BuiltList(listArg),
       complexListArg:
-          complexListArg == null ? null : _i5.BuiltList(complexListArg),
+          complexListArg == null ? null : _i3.BuiltList(complexListArg),
       flattenedListArg:
-          flattenedListArg == null ? null : _i5.BuiltList(flattenedListArg),
+          flattenedListArg == null ? null : _i3.BuiltList(flattenedListArg),
       listArgWithXmlNameMember: listArgWithXmlNameMember == null
           ? null
-          : _i5.BuiltList(listArgWithXmlNameMember),
+          : _i3.BuiltList(listArgWithXmlNameMember),
       flattenedListArgWithXmlName: flattenedListArgWithXmlName == null
           ? null
-          : _i5.BuiltList(flattenedListArgWithXmlName),
+          : _i3.BuiltList(flattenedListArgWithXmlName),
       nestedWithList: nestedWithList,
     );
   }
@@ -58,12 +56,12 @@ abstract class QueryListsInput
     QueryListsInputAwsQuerySerializer()
   ];
 
-  _i5.BuiltList<String>? get listArg;
-  _i5.BuiltList<_i3.GreetingStruct>? get complexListArg;
-  _i5.BuiltList<String>? get flattenedListArg;
-  _i5.BuiltList<String>? get listArgWithXmlNameMember;
-  _i5.BuiltList<String>? get flattenedListArgWithXmlName;
-  _i4.NestedStructWithList? get nestedWithList;
+  _i3.BuiltList<String>? get listArg;
+  _i3.BuiltList<GreetingStruct>? get complexListArg;
+  _i3.BuiltList<String>? get flattenedListArg;
+  _i3.BuiltList<String>? get listArgWithXmlNameMember;
+  _i3.BuiltList<String>? get flattenedListArgWithXmlName;
+  NestedStructWithList? get nestedWithList;
   @override
   QueryListsInput getPayload() => this;
   @override
@@ -129,6 +127,14 @@ class QueryListsInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = QueryListsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -145,10 +151,10 @@ class QueryListsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ComplexListArg':
           result.complexListArg.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -156,10 +162,10 @@ class QueryListsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.GreetingStruct)],
+              _i3.BuiltList,
+              [FullType(GreetingStruct)],
             ),
-          ) as _i5.BuiltList<_i3.GreetingStruct>));
+          ) as _i3.BuiltList<GreetingStruct>));
         case 'FlattenedListArg':
           result.flattenedListArg.add((serializers.deserialize(
             value,
@@ -174,10 +180,10 @@ class QueryListsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'Hi':
           result.flattenedListArgWithXmlName.add((serializers.deserialize(
             value,
@@ -186,8 +192,8 @@ class QueryListsInputAwsQuerySerializer
         case 'NestedWithList':
           result.nestedWithList.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.NestedStructWithList),
-          ) as _i4.NestedStructWithList));
+            specifiedType: const FullType(NestedStructWithList),
+          ) as NestedStructWithList));
       }
     }
 
@@ -223,7 +229,7 @@ class QueryListsInputAwsQuerySerializer
           serializers,
           listArg,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -237,8 +243,8 @@ class QueryListsInputAwsQuerySerializer
           serializers,
           complexListArg,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i3.GreetingStruct)],
+            _i3.BuiltList,
+            [FullType(GreetingStruct)],
           ),
         ));
     }
@@ -250,7 +256,7 @@ class QueryListsInputAwsQuerySerializer
         serializers,
         flattenedListArg,
         specifiedType: const FullType.nullable(
-          _i5.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -265,7 +271,7 @@ class QueryListsInputAwsQuerySerializer
           serializers,
           listArgWithXmlNameMember,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -278,7 +284,7 @@ class QueryListsInputAwsQuerySerializer
         serializers,
         flattenedListArgWithXmlName,
         specifiedType: const FullType.nullable(
-          _i5.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -288,7 +294,7 @@ class QueryListsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('NestedWithList'))
         ..add(serializers.serialize(
           nestedWithList,
-          specifiedType: const FullType(_i4.NestedStructWithList),
+          specifiedType: const FullType(NestedStructWithList),
         ));
     }
     return result$;

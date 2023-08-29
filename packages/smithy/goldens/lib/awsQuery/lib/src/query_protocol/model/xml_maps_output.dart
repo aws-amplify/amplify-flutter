@@ -4,20 +4,19 @@
 library aws_query_v1.query_protocol.model.xml_maps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart'
-    as _i2;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart';
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'xml_maps_output.g.dart';
 
 abstract class XmlMapsOutput
     with _i1.AWSEquatable<XmlMapsOutput>
     implements Built<XmlMapsOutput, XmlMapsOutputBuilder> {
-  factory XmlMapsOutput({Map<String, _i2.GreetingStruct>? myMap}) {
-    return _$XmlMapsOutput._(myMap: myMap == null ? null : _i3.BuiltMap(myMap));
+  factory XmlMapsOutput({Map<String, GreetingStruct>? myMap}) {
+    return _$XmlMapsOutput._(myMap: myMap == null ? null : _i2.BuiltMap(myMap));
   }
 
   factory XmlMapsOutput.build([void Function(XmlMapsOutputBuilder) updates]) =
@@ -32,11 +31,11 @@ abstract class XmlMapsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<XmlMapsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<XmlMapsOutput>> serializers = [
     XmlMapsOutputAwsQuerySerializer()
   ];
 
-  _i3.BuiltMap<String, _i2.GreetingStruct>? get myMap;
+  _i2.BuiltMap<String, GreetingStruct>? get myMap;
   @override
   List<Object?> get props => [myMap];
   @override
@@ -51,7 +50,7 @@ abstract class XmlMapsOutput
 }
 
 class XmlMapsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<XmlMapsOutput> {
+    extends _i3.StructuredSmithySerializer<XmlMapsOutput> {
   const XmlMapsOutputAwsQuerySerializer() : super('XmlMapsOutput');
 
   @override
@@ -60,8 +59,8 @@ class XmlMapsOutputAwsQuerySerializer
         _$XmlMapsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -73,6 +72,14 @@ class XmlMapsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = XmlMapsOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -83,16 +90,16 @@ class XmlMapsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.replace(const _i4.XmlBuiltMapSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryMap)
+          result.myMap.replace(const _i3.XmlBuiltMapSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryMap)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
           ));
@@ -109,25 +116,25 @@ class XmlMapsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'XmlMapsOutputResponse',
-        _i4.XmlNamespace('https://example.com/'),
+        _i3.XmlNamespace('https://example.com/'),
       )
     ];
     final XmlMapsOutput(:myMap) = object;
     if (myMap != null) {
       result$
-        ..add(const _i4.XmlElementName('myMap'))
+        ..add(const _i3.XmlElementName('myMap'))
         ..add(
-            const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
+            const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
           myMap,
           specifiedType: const FullType.nullable(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.GreetingStruct),
+              FullType(GreetingStruct),
             ],
           ),
         ));

@@ -8,7 +8,7 @@ part of 'stats_event.dart';
 
 class _$StatsEvent extends StatsEvent {
   @override
-  final _i2.Stats? details;
+  final Stats? details;
 
   factory _$StatsEvent([void Function(StatsEventBuilder)? updates]) =>
       (new StatsEventBuilder()..update(updates))._build();
@@ -40,9 +40,9 @@ class _$StatsEvent extends StatsEvent {
 class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
   _$StatsEvent? _$v;
 
-  _i2.StatsBuilder? _details;
-  _i2.StatsBuilder get details => _$this._details ??= new _i2.StatsBuilder();
-  set details(_i2.StatsBuilder? details) => _$this._details = details;
+  StatsBuilder? _details;
+  StatsBuilder get details => _$this._details ??= new StatsBuilder();
+  set details(StatsBuilder? details) => _$this._details = details;
 
   StatsEventBuilder();
 

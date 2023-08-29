@@ -4,10 +4,10 @@
 library aws_query_v1.query_protocol.model.retry_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/retry_mode.dart' as _i2;
+import 'package:aws_query_v1/src/query_protocol/model/retry_mode.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'retry_config.g.dart';
 
@@ -17,7 +17,7 @@ abstract class RetryConfig
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
   factory RetryConfig({
-    _i2.RetryMode? mode,
+    RetryMode? mode,
     int? maxAttempts,
   }) {
     return _$RetryConfig._(
@@ -32,12 +32,12 @@ abstract class RetryConfig
 
   const RetryConfig._();
 
-  static const List<_i3.SmithySerializer<RetryConfig>> serializers = [
+  static const List<_i2.SmithySerializer<RetryConfig>> serializers = [
     RetryConfigAwsQuerySerializer()
   ];
 
   /// Controls the strategy used for retries.
-  _i2.RetryMode? get mode;
+  RetryMode? get mode;
   int? get maxAttempts;
   @override
   List<Object?> get props => [
@@ -60,7 +60,7 @@ abstract class RetryConfig
 }
 
 class RetryConfigAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<RetryConfig> {
+    extends _i2.StructuredSmithySerializer<RetryConfig> {
   const RetryConfigAwsQuerySerializer() : super('RetryConfig');
 
   @override
@@ -69,8 +69,8 @@ class RetryConfigAwsQuerySerializer
         _$RetryConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -82,6 +82,14 @@ class RetryConfigAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = RetryConfigBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -94,8 +102,8 @@ class RetryConfigAwsQuerySerializer
         case 'mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RetryMode),
-          ) as _i2.RetryMode);
+            specifiedType: const FullType(RetryMode),
+          ) as RetryMode);
         case 'max_attempts':
           result.maxAttempts = (serializers.deserialize(
             value,
@@ -114,23 +122,23 @@ class RetryConfigAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RetryConfigResponse',
-        _i3.XmlNamespace('https://example.com/'),
+        _i2.XmlNamespace('https://example.com/'),
       )
     ];
     final RetryConfig(:mode, :maxAttempts) = object;
     if (mode != null) {
       result$
-        ..add(const _i3.XmlElementName('mode'))
+        ..add(const _i2.XmlElementName('mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i2.RetryMode),
+          specifiedType: const FullType.nullable(RetryMode),
         ));
     }
     if (maxAttempts != null) {
       result$
-        ..add(const _i3.XmlElementName('max_attempts'))
+        ..add(const _i2.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType.nullable(int),

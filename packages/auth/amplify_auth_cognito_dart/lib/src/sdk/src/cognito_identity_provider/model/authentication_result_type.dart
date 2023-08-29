@@ -1,14 +1,13 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.authentication_result_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/new_device_metadata_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/new_device_metadata_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'authentication_result_type.g.dart';
 
@@ -24,7 +23,7 @@ abstract class AuthenticationResultType
     String? tokenType,
     String? refreshToken,
     String? idToken,
-    _i2.NewDeviceMetadataType? newDeviceMetadata,
+    NewDeviceMetadataType? newDeviceMetadata,
   }) {
     expiresIn ??= 0;
     return _$AuthenticationResultType._(
@@ -44,7 +43,7 @@ abstract class AuthenticationResultType
 
   const AuthenticationResultType._();
 
-  static const List<_i3.SmithySerializer<AuthenticationResultType>>
+  static const List<_i2.SmithySerializer<AuthenticationResultType>>
       serializers = [AuthenticationResultTypeAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -68,7 +67,7 @@ abstract class AuthenticationResultType
   String? get idToken;
 
   /// The new device metadata from an authentication result.
-  _i2.NewDeviceMetadataType? get newDeviceMetadata;
+  NewDeviceMetadataType? get newDeviceMetadata;
   @override
   List<Object?> get props => [
         accessToken,
@@ -110,7 +109,7 @@ abstract class AuthenticationResultType
 }
 
 class AuthenticationResultTypeAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AuthenticationResultType> {
+    extends _i2.StructuredSmithySerializer<AuthenticationResultType> {
   const AuthenticationResultTypeAwsJson11Serializer()
       : super('AuthenticationResultType');
 
@@ -120,8 +119,8 @@ class AuthenticationResultTypeAwsJson11Serializer
         _$AuthenticationResultType,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -170,8 +169,8 @@ class AuthenticationResultTypeAwsJson11Serializer
         case 'NewDeviceMetadata':
           result.newDeviceMetadata.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.NewDeviceMetadataType),
-          ) as _i2.NewDeviceMetadataType));
+            specifiedType: const FullType(NewDeviceMetadataType),
+          ) as NewDeviceMetadataType));
       }
     }
 
@@ -237,7 +236,7 @@ class AuthenticationResultTypeAwsJson11Serializer
         ..add('NewDeviceMetadata')
         ..add(serializers.serialize(
           newDeviceMetadata,
-          specifiedType: const FullType(_i2.NewDeviceMetadataType),
+          specifiedType: const FullType(NewDeviceMetadataType),
         ));
     }
     return result$;

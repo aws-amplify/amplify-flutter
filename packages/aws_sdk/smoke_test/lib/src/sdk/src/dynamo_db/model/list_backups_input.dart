@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type_filter.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type_filter.dart';
 
 part 'list_backups_input.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ListBackupsInput
     DateTime? timeRangeLowerBound,
     DateTime? timeRangeUpperBound,
     String? exclusiveStartBackupArn,
-    _i3.BackupTypeFilter? backupType,
+    BackupTypeFilter? backupType,
   }) {
     return _$ListBackupsInput._(
       tableName: tableName,
@@ -73,7 +72,7 @@ abstract class ListBackupsInput
   /// *   `SYSTEM` \- On-demand backup automatically created by DynamoDB.
   ///
   /// *   `ALL` \- All types of on-demand backups (USER and SYSTEM).
-  _i3.BackupTypeFilter? get backupType;
+  BackupTypeFilter? get backupType;
   @override
   ListBackupsInput getPayload() => this;
   @override
@@ -176,8 +175,8 @@ class ListBackupsInputAwsJson10Serializer
         case 'BackupType':
           result.backupType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BackupTypeFilter),
-          ) as _i3.BackupTypeFilter);
+            specifiedType: const FullType(BackupTypeFilter),
+          ) as BackupTypeFilter);
       }
     }
 
@@ -244,7 +243,7 @@ class ListBackupsInputAwsJson10Serializer
         ..add('BackupType')
         ..add(serializers.serialize(
           backupType,
-          specifiedType: const FullType(_i3.BackupTypeFilter),
+          specifiedType: const FullType(BackupTypeFilter),
         ));
     }
     return result$;

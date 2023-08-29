@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.describe_account_limits_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_limit.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_limit.dart';
 
 part 'describe_account_limits_output.g.dart';
 
@@ -20,12 +19,12 @@ abstract class DescribeAccountLimitsOutput
         Built<DescribeAccountLimitsOutput, DescribeAccountLimitsOutputBuilder> {
   /// The output for the DescribeAccountLimits action.
   factory DescribeAccountLimitsOutput({
-    List<_i2.AccountLimit>? accountLimits,
+    List<AccountLimit>? accountLimits,
     String? nextToken,
   }) {
     return _$DescribeAccountLimitsOutput._(
       accountLimits:
-          accountLimits == null ? null : _i3.BuiltList(accountLimits),
+          accountLimits == null ? null : _i2.BuiltList(accountLimits),
       nextToken: nextToken,
     );
   }
@@ -44,11 +43,11 @@ abstract class DescribeAccountLimitsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeAccountLimitsOutput>>
+  static const List<_i3.SmithySerializer<DescribeAccountLimitsOutput>>
       serializers = [DescribeAccountLimitsOutputAwsQuerySerializer()];
 
   /// An account limit structure that contain a list of CloudFormation account limits and their values.
-  _i3.BuiltList<_i2.AccountLimit>? get accountLimits;
+  _i2.BuiltList<AccountLimit>? get accountLimits;
 
   /// If the output exceeds 1 MB in size, a string that identifies the next page of limits. If no additional page exists, this value is null.
   String? get nextToken;
@@ -73,7 +72,7 @@ abstract class DescribeAccountLimitsOutput
 }
 
 class DescribeAccountLimitsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribeAccountLimitsOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeAccountLimitsOutput> {
   const DescribeAccountLimitsOutputAwsQuerySerializer()
       : super('DescribeAccountLimitsOutput');
 
@@ -83,8 +82,8 @@ class DescribeAccountLimitsOutputAwsQuerySerializer
         _$DescribeAccountLimitsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -96,6 +95,14 @@ class DescribeAccountLimitsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeAccountLimitsOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -106,16 +113,16 @@ class DescribeAccountLimitsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'AccountLimits':
-          result.accountLimits.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.accountLimits.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AccountLimit)],
+              _i2.BuiltList,
+              [FullType(AccountLimit)],
             ),
-          ) as _i3.BuiltList<_i2.AccountLimit>));
+          ) as _i2.BuiltList<AccountLimit>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -134,29 +141,29 @@ class DescribeAccountLimitsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeAccountLimitsOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeAccountLimitsOutput(:accountLimits, :nextToken) = object;
     if (accountLimits != null) {
       result$
-        ..add(const _i4.XmlElementName('AccountLimits'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('AccountLimits'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           accountLimits,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.AccountLimit)],
+            _i2.BuiltList,
+            [FullType(AccountLimit)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

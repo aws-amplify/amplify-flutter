@@ -4,12 +4,11 @@
 library smoke_test.sts.model.assume_role_with_web_identity_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart';
 
 part 'assume_role_with_web_identity_request.g.dart';
 
@@ -25,7 +24,7 @@ abstract class AssumeRoleWithWebIdentityRequest
     required String roleSessionName,
     required String webIdentityToken,
     String? providerId,
-    List<_i3.PolicyDescriptorType>? policyArns,
+    List<PolicyDescriptorType>? policyArns,
     String? policy,
     int? durationSeconds,
   }) {
@@ -34,7 +33,7 @@ abstract class AssumeRoleWithWebIdentityRequest
       roleSessionName: roleSessionName,
       webIdentityToken: webIdentityToken,
       providerId: providerId,
-      policyArns: policyArns == null ? null : _i4.BuiltList(policyArns),
+      policyArns: policyArns == null ? null : _i3.BuiltList(policyArns),
       policy: policy,
       durationSeconds: durationSeconds,
     );
@@ -64,7 +63,7 @@ abstract class AssumeRoleWithWebIdentityRequest
   /// The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric characters with no spaces. You can also include underscores or any of the following characters: =,.@-
   String get roleSessionName;
 
-  /// The OAuth 2.0 access token or OpenID Connect ID token that is provided by the identity provider. Your application must get this token by authenticating the user who is using your application with a web identity provider before the application makes an `AssumeRoleWithWebIdentity` call.
+  /// The OAuth 2.0 access token or OpenID Connect ID token that is provided by the identity provider. Your application must get this token by authenticating the user who is using your application with a web identity provider before the application makes an `AssumeRoleWithWebIdentity` call. Only tokens with RSA algorithms (RS256) are supported.
   String get webIdentityToken;
 
   /// The fully qualified host component of the domain name of the OAuth 2.0 identity provider. Do not specify this value for an OpenID Connect identity provider.
@@ -81,7 +80,7 @@ abstract class AssumeRoleWithWebIdentityRequest
   /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
-  _i4.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
+  _i3.BuiltList<PolicyDescriptorType>? get policyArns;
 
   /// An IAM policy in JSON format that you want to use as an inline session policy.
   ///
@@ -170,6 +169,14 @@ class AssumeRoleWithWebIdentityRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = AssumeRoleWithWebIdentityRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -206,10 +213,10 @@ class AssumeRoleWithWebIdentityRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.PolicyDescriptorType)],
+              _i3.BuiltList,
+              [FullType(PolicyDescriptorType)],
             ),
-          ) as _i4.BuiltList<_i3.PolicyDescriptorType>));
+          ) as _i3.BuiltList<PolicyDescriptorType>));
         case 'Policy':
           result.policy = (serializers.deserialize(
             value,
@@ -282,8 +289,8 @@ class AssumeRoleWithWebIdentityRequestAwsQuerySerializer
           serializers,
           policyArns,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.PolicyDescriptorType)],
+            _i3.BuiltList,
+            [FullType(PolicyDescriptorType)],
           ),
         ));
     }

@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.batch_describe_type_configurations_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_identifier.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_identifier.dart';
 
 part 'batch_describe_type_configurations_input.g.dart';
 
@@ -21,11 +20,11 @@ abstract class BatchDescribeTypeConfigurationsInput
         Built<BatchDescribeTypeConfigurationsInput,
             BatchDescribeTypeConfigurationsInputBuilder> {
   factory BatchDescribeTypeConfigurationsInput(
-      {required List<_i3.TypeConfigurationIdentifier>
+      {required List<TypeConfigurationIdentifier>
           typeConfigurationIdentifiers}) {
     return _$BatchDescribeTypeConfigurationsInput._(
         typeConfigurationIdentifiers:
-            _i4.BuiltList(typeConfigurationIdentifiers));
+            _i3.BuiltList(typeConfigurationIdentifiers));
   }
 
   factory BatchDescribeTypeConfigurationsInput.build(
@@ -45,8 +44,7 @@ abstract class BatchDescribeTypeConfigurationsInput
       serializers = [BatchDescribeTypeConfigurationsInputAwsQuerySerializer()];
 
   /// The list of identifiers for the desired extension configurations.
-  _i4.BuiltList<_i3.TypeConfigurationIdentifier>
-      get typeConfigurationIdentifiers;
+  _i3.BuiltList<TypeConfigurationIdentifier> get typeConfigurationIdentifiers;
   @override
   BatchDescribeTypeConfigurationsInput getPayload() => this;
   @override
@@ -87,6 +85,14 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = BatchDescribeTypeConfigurationsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -104,10 +110,10 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.TypeConfigurationIdentifier)],
+              _i3.BuiltList,
+              [FullType(TypeConfigurationIdentifier)],
             ),
-          ) as _i4.BuiltList<_i3.TypeConfigurationIdentifier>));
+          ) as _i3.BuiltList<TypeConfigurationIdentifier>));
       }
     }
 
@@ -136,8 +142,8 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
         serializers,
         typeConfigurationIdentifiers,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i3.TypeConfigurationIdentifier)],
+          _i3.BuiltList,
+          [FullType(TypeConfigurationIdentifier)],
         ),
       ));
     return result$;

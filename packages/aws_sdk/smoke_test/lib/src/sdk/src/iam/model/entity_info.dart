@@ -6,9 +6,8 @@ library smoke_test.iam.model.entity_info; // ignore_for_file: no_leading_undersc
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_owner_entity_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_owner_entity_type.dart';
 
 part 'entity_info.g.dart';
 
@@ -24,7 +23,7 @@ abstract class EntityInfo
   factory EntityInfo({
     required String arn,
     required String name,
-    required _i2.PolicyOwnerEntityType type,
+    required PolicyOwnerEntityType type,
     required String id,
     String? path,
   }) {
@@ -45,7 +44,7 @@ abstract class EntityInfo
 
   const EntityInfo._();
 
-  static const List<_i3.SmithySerializer<EntityInfo>> serializers = [
+  static const List<_i2.SmithySerializer<EntityInfo>> serializers = [
     EntityInfoAwsQuerySerializer()
   ];
 
@@ -58,7 +57,7 @@ abstract class EntityInfo
   String get name;
 
   /// The type of entity (user or role).
-  _i2.PolicyOwnerEntityType get type;
+  PolicyOwnerEntityType get type;
 
   /// The identifier of the entity (user or role).
   String get id;
@@ -101,7 +100,7 @@ abstract class EntityInfo
 }
 
 class EntityInfoAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<EntityInfo> {
+    extends _i2.StructuredSmithySerializer<EntityInfo> {
   const EntityInfoAwsQuerySerializer() : super('EntityInfo');
 
   @override
@@ -110,8 +109,8 @@ class EntityInfoAwsQuerySerializer
         _$EntityInfo,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -123,6 +122,14 @@ class EntityInfoAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = EntityInfoBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -145,8 +152,8 @@ class EntityInfoAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PolicyOwnerEntityType),
-          ) as _i2.PolicyOwnerEntityType);
+            specifiedType: const FullType(PolicyOwnerEntityType),
+          ) as PolicyOwnerEntityType);
         case 'Id':
           result.id = (serializers.deserialize(
             value,
@@ -170,39 +177,39 @@ class EntityInfoAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'EntityInfoResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final EntityInfo(:arn, :name, :type, :id, :path) = object;
     result$
-      ..add(const _i3.XmlElementName('Arn'))
+      ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
         arn,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Name'))
+      ..add(const _i2.XmlElementName('Name'))
       ..add(serializers.serialize(
         name,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Type'))
+      ..add(const _i2.XmlElementName('Type'))
       ..add(serializers.serialize(
         type,
-        specifiedType: const FullType.nullable(_i2.PolicyOwnerEntityType),
+        specifiedType: const FullType.nullable(PolicyOwnerEntityType),
       ));
     result$
-      ..add(const _i3.XmlElementName('Id'))
+      ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
         id,
         specifiedType: const FullType(String),
       ));
     if (path != null) {
       result$
-        ..add(const _i3.XmlElementName('Path'))
+        ..add(const _i2.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),

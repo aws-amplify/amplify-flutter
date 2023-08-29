@@ -165,8 +165,7 @@ class CpkManyToManyPost extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkManyToManyPostModelIdentifier>
-      MODEL_IDENTIFIER =
+      .QueryModelIdentifier<CpkManyToManyPostModelIdentifier> MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkManyToManyPostModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");

@@ -51,7 +51,7 @@ jobs:
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
       - name: Check Formatting
-        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && matrix.channel == 'stable' && matrix.flutter-version == 'any'"
         run: dart format --set-exit-if-changed .
         working-directory: ${{ inputs.working-directory }}
 

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_compliance_by_resource_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_resource.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_resource.dart';
 
 part 'describe_compliance_by_resource_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeComplianceByResourceResponse
         Built<DescribeComplianceByResourceResponse,
             DescribeComplianceByResourceResponseBuilder> {
   factory DescribeComplianceByResourceResponse({
-    List<_i2.ComplianceByResource>? complianceByResources,
+    List<ComplianceByResource>? complianceByResources,
     String? nextToken,
   }) {
     return _$DescribeComplianceByResourceResponse._(
       complianceByResources: complianceByResources == null
           ? null
-          : _i3.BuiltList(complianceByResources),
+          : _i2.BuiltList(complianceByResources),
       nextToken: nextToken,
     );
   }
@@ -44,11 +43,11 @@ abstract class DescribeComplianceByResourceResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeComplianceByResourceResponse>>
+  static const List<_i3.SmithySerializer<DescribeComplianceByResourceResponse>>
       serializers = [DescribeComplianceByResourceResponseAwsJson11Serializer()];
 
   /// Indicates whether the specified Amazon Web Services resource complies with all of the Config rules that evaluate it.
-  _i3.BuiltList<_i2.ComplianceByResource>? get complianceByResources;
+  _i2.BuiltList<ComplianceByResource>? get complianceByResources;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -73,7 +72,7 @@ abstract class DescribeComplianceByResourceResponse
   }
 }
 
-class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
+class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeComplianceByResourceResponse> {
   const DescribeComplianceByResourceResponseAwsJson11Serializer()
       : super('DescribeComplianceByResourceResponse');
@@ -84,8 +83,8 @@ class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
         _$DescribeComplianceByResourceResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -110,10 +109,10 @@ class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
           result.complianceByResources.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ComplianceByResource)],
+              _i2.BuiltList,
+              [FullType(ComplianceByResource)],
             ),
-          ) as _i3.BuiltList<_i2.ComplianceByResource>));
+          ) as _i2.BuiltList<ComplianceByResource>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -142,8 +141,8 @@ class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           complianceByResources,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ComplianceByResource)],
+            _i2.BuiltList,
+            [FullType(ComplianceByResource)],
           ),
         ));
     }

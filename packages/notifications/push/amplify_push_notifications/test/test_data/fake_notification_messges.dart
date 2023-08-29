@@ -1,7 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-const standardAndroidPushMessage = {
+/// Erase types on maps to mimic how maps come back from the platform.
+Map<Object?, Object?> _eraseTypes(Map<Object?, Object?> map) => {
+      for (final MapEntry(:key, :value) in map.entries)
+        key: switch (value) {
+          final Map<Object?, Object?> map => _eraseTypes(map),
+          _ => value,
+        },
+    };
+
+final standardAndroidPushMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
@@ -16,9 +25,9 @@ const standardAndroidPushMessage = {
     'pinpoint.campaign.campaign_id': '_DIRECT',
     'pinpoint.notification.silentPush': 0,
   },
-};
+});
 
-const urlsAndroidMessage = {
+final urlsAndroidMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': null,
@@ -33,9 +42,9 @@ const urlsAndroidMessage = {
     'pinpoint.campaign.campaign_id': '_DIRECT',
     'pinpoint.notification.silentPush': 0,
   },
-};
+});
 
-const imageUrlAndroidPushMessage = {
+final imageUrlAndroidPushMessage = _eraseTypes({
   'title': 'TITTLE',
   'body': 'BODY',
   'imageUrl': 'TEST_URL',
@@ -50,23 +59,23 @@ const imageUrlAndroidPushMessage = {
     'pinpoint.campaign.campaign_id': '_DIRECT',
     'pinpoint.notification.silentPush': 0,
   },
-};
+});
 
-const standardiOSMessage = {
+final standardiOSMessage = _eraseTypes({
   'aps': {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
     'content-available': 1,
   },
-};
+});
 
-const simpleAlertiOSMessage = {
+final simpleAlertiOSMessage = _eraseTypes({
   'aps': {
     'alert': 'Hello, world',
   },
-};
+});
 
-const imageUrliOSMessage = {
+final imageUrliOSMessage = _eraseTypes({
   'data': {
     'media-url': 'TEST_URL',
   },
@@ -75,9 +84,9 @@ const imageUrliOSMessage = {
     'mutable-content': 0,
     'content-available': 1,
   },
-};
+});
 
-const urlsiOSMessage = {
+final urlsiOSMessage = _eraseTypes({
   'data': {
     'pinpoint': {'deeplink': 'URL'},
   },
@@ -86,4 +95,4 @@ const urlsiOSMessage = {
     'mutable-content': 0,
     'content-available': 1,
   },
-};
+});

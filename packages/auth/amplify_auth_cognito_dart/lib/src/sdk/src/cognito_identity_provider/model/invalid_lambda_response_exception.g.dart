@@ -56,9 +56,7 @@ class InvalidLambdaResponseExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidLambdaResponseExceptionBuilder() {
-    InvalidLambdaResponseException._init(this);
-  }
+  InvalidLambdaResponseExceptionBuilder();
 
   InvalidLambdaResponseExceptionBuilder get _$this {
     final $v = _$v;

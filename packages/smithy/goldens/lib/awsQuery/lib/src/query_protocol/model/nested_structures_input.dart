@@ -4,7 +4,7 @@
 library aws_query_v1.query_protocol.model.nested_structures_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_query_v1/src/query_protocol/model/struct_arg.dart' as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/struct_arg.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -16,7 +16,7 @@ abstract class NestedStructuresInput
         _i1.HttpInput<NestedStructuresInput>,
         _i2.AWSEquatable<NestedStructuresInput>
     implements Built<NestedStructuresInput, NestedStructuresInputBuilder> {
-  factory NestedStructuresInput({_i3.StructArg? nested}) {
+  factory NestedStructuresInput({StructArg? nested}) {
     return _$NestedStructuresInput._(nested: nested);
   }
 
@@ -37,7 +37,7 @@ abstract class NestedStructuresInput
     NestedStructuresInputAwsQuerySerializer()
   ];
 
-  _i3.StructArg? get nested;
+  StructArg? get nested;
   @override
   NestedStructuresInput getPayload() => this;
   @override
@@ -77,6 +77,14 @@ class NestedStructuresInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = NestedStructuresInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -89,8 +97,8 @@ class NestedStructuresInputAwsQuerySerializer
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StructArg),
-          ) as _i3.StructArg));
+            specifiedType: const FullType(StructArg),
+          ) as StructArg));
       }
     }
 
@@ -115,7 +123,7 @@ class NestedStructuresInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.StructArg),
+          specifiedType: const FullType(StructArg),
         ));
     }
     return result$;

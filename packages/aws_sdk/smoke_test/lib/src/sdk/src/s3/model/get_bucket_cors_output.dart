@@ -4,20 +4,20 @@
 library smoke_test.s3.model.get_bucket_cors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/cors_rule.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/cors_rule.dart';
 
 part 'get_bucket_cors_output.g.dart';
 
 abstract class GetBucketCorsOutput
     with _i1.AWSEquatable<GetBucketCorsOutput>
     implements Built<GetBucketCorsOutput, GetBucketCorsOutputBuilder> {
-  factory GetBucketCorsOutput({List<_i2.CorsRule>? corsRules}) {
+  factory GetBucketCorsOutput({List<CorsRule>? corsRules}) {
     return _$GetBucketCorsOutput._(
-        corsRules: corsRules == null ? null : _i3.BuiltList(corsRules));
+        corsRules: corsRules == null ? null : _i2.BuiltList(corsRules));
   }
 
   factory GetBucketCorsOutput.build(
@@ -33,12 +33,12 @@ abstract class GetBucketCorsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetBucketCorsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<GetBucketCorsOutput>> serializers = [
     GetBucketCorsOutputRestXmlSerializer()
   ];
 
   /// A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
-  _i3.BuiltList<_i2.CorsRule>? get corsRules;
+  _i2.BuiltList<CorsRule>? get corsRules;
   @override
   List<Object?> get props => [corsRules];
   @override
@@ -53,7 +53,7 @@ abstract class GetBucketCorsOutput
 }
 
 class GetBucketCorsOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<GetBucketCorsOutput> {
+    extends _i3.StructuredSmithySerializer<GetBucketCorsOutput> {
   const GetBucketCorsOutputRestXmlSerializer() : super('GetBucketCorsOutput');
 
   @override
@@ -62,8 +62,8 @@ class GetBucketCorsOutputRestXmlSerializer
         _$GetBucketCorsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -87,8 +87,8 @@ class GetBucketCorsOutputRestXmlSerializer
         case 'CORSRule':
           result.corsRules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CorsRule),
-          ) as _i2.CorsRule));
+            specifiedType: const FullType(CorsRule),
+          ) as CorsRule));
       }
     }
 
@@ -102,20 +102,20 @@ class GetBucketCorsOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'CORSConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketCorsOutput(:corsRules) = object;
     if (corsRules != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
+          const _i3.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
         serializers,
         corsRules,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.CorsRule)],
+          _i2.BuiltList,
+          [FullType(CorsRule)],
         ),
       ));
     }

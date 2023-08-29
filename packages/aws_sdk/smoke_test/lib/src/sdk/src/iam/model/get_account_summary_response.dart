@@ -4,11 +4,11 @@
 library smoke_test.iam.model.get_account_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/summary_key_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/summary_key_type.dart';
 
 part 'get_account_summary_response.g.dart';
 
@@ -18,10 +18,9 @@ abstract class GetAccountSummaryResponse
     implements
         Built<GetAccountSummaryResponse, GetAccountSummaryResponseBuilder> {
   /// Contains the response to a successful GetAccountSummary request.
-  factory GetAccountSummaryResponse(
-      {Map<_i2.SummaryKeyType, int>? summaryMap}) {
+  factory GetAccountSummaryResponse({Map<SummaryKeyType, int>? summaryMap}) {
     return _$GetAccountSummaryResponse._(
-        summaryMap: summaryMap == null ? null : _i3.BuiltMap(summaryMap));
+        summaryMap: summaryMap == null ? null : _i2.BuiltMap(summaryMap));
   }
 
   /// Contains the response to a successful GetAccountSummary request.
@@ -38,11 +37,11 @@ abstract class GetAccountSummaryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetAccountSummaryResponse>>
+  static const List<_i3.SmithySerializer<GetAccountSummaryResponse>>
       serializers = [GetAccountSummaryResponseAwsQuerySerializer()];
 
   /// A set of key–value pairs containing information about IAM entity usage and IAM quotas.
-  _i3.BuiltMap<_i2.SummaryKeyType, int>? get summaryMap;
+  _i2.BuiltMap<SummaryKeyType, int>? get summaryMap;
   @override
   List<Object?> get props => [summaryMap];
   @override
@@ -57,7 +56,7 @@ abstract class GetAccountSummaryResponse
 }
 
 class GetAccountSummaryResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<GetAccountSummaryResponse> {
+    extends _i3.StructuredSmithySerializer<GetAccountSummaryResponse> {
   const GetAccountSummaryResponseAwsQuerySerializer()
       : super('GetAccountSummaryResponse');
 
@@ -67,8 +66,8 @@ class GetAccountSummaryResponseAwsQuerySerializer
         _$GetAccountSummaryResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -80,6 +79,14 @@ class GetAccountSummaryResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetAccountSummaryResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -90,15 +97,15 @@ class GetAccountSummaryResponseAwsQuerySerializer
       }
       switch (key) {
         case 'SummaryMap':
-          result.summaryMap.replace(const _i4.XmlBuiltMapSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryMap)
+          result.summaryMap.replace(const _i3.XmlBuiltMapSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryMap)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
-                FullType(_i2.SummaryKeyType),
+                FullType(SummaryKeyType),
                 FullType(int),
               ],
             ),
@@ -116,24 +123,24 @@ class GetAccountSummaryResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'GetAccountSummaryResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetAccountSummaryResponse(:summaryMap) = object;
     if (summaryMap != null) {
       result$
-        ..add(const _i4.XmlElementName('SummaryMap'))
+        ..add(const _i3.XmlElementName('SummaryMap'))
         ..add(
-            const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
+            const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
           summaryMap,
           specifiedType: const FullType.nullable(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
-              FullType(_i2.SummaryKeyType),
+              FullType(SummaryKeyType),
               FullType(int),
             ],
           ),

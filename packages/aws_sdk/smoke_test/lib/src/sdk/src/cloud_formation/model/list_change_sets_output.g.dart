@@ -8,7 +8,7 @@ part of 'list_change_sets_output.dart';
 
 class _$ListChangeSetsOutput extends ListChangeSetsOutput {
   @override
-  final _i3.BuiltList<_i2.ChangeSetSummary>? summaries;
+  final _i2.BuiltList<ChangeSetSummary>? summaries;
   @override
   final String? nextToken;
 
@@ -49,10 +49,10 @@ class ListChangeSetsOutputBuilder
     implements Builder<ListChangeSetsOutput, ListChangeSetsOutputBuilder> {
   _$ListChangeSetsOutput? _$v;
 
-  _i3.ListBuilder<_i2.ChangeSetSummary>? _summaries;
-  _i3.ListBuilder<_i2.ChangeSetSummary> get summaries =>
-      _$this._summaries ??= new _i3.ListBuilder<_i2.ChangeSetSummary>();
-  set summaries(_i3.ListBuilder<_i2.ChangeSetSummary>? summaries) =>
+  _i2.ListBuilder<ChangeSetSummary>? _summaries;
+  _i2.ListBuilder<ChangeSetSummary> get summaries =>
+      _$this._summaries ??= new _i2.ListBuilder<ChangeSetSummary>();
+  set summaries(_i2.ListBuilder<ChangeSetSummary>? summaries) =>
       _$this._summaries = summaries;
 
   String? _nextToken;

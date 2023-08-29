@@ -6,9 +6,9 @@ library smoke_test.sts.model.get_federation_token_response; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/sts/model/federated_user.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/federated_user.dart';
 
 part 'get_federation_token_response.g.dart';
 
@@ -19,8 +19,8 @@ abstract class GetFederationTokenResponse
         Built<GetFederationTokenResponse, GetFederationTokenResponseBuilder> {
   /// Contains the response to a successful GetFederationToken request, including temporary Amazon Web Services credentials that can be used to make Amazon Web Services requests.
   factory GetFederationTokenResponse({
-    _i2.Credentials? credentials,
-    _i3.FederatedUser? federatedUser,
+    Credentials? credentials,
+    FederatedUser? federatedUser,
     int? packedPolicySize,
   }) {
     return _$GetFederationTokenResponse._(
@@ -44,16 +44,16 @@ abstract class GetFederationTokenResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetFederationTokenResponse>>
+  static const List<_i2.SmithySerializer<GetFederationTokenResponse>>
       serializers = [GetFederationTokenResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
   /// The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
 
   /// Identifiers for the federated user associated with the credentials (such as `arn:aws:sts::123456789012:federated-user/Bob` or `123456789012:Bob`). You can use the federated user's ARN in your resource-based policies, such as an Amazon S3 bucket policy.
-  _i3.FederatedUser? get federatedUser;
+  FederatedUser? get federatedUser;
 
   /// A percentage value that indicates the packed size of the session policies and session tags combined passed in the request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded the allowed space.
   int? get packedPolicySize;
@@ -83,7 +83,7 @@ abstract class GetFederationTokenResponse
 }
 
 class GetFederationTokenResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<GetFederationTokenResponse> {
+    extends _i2.StructuredSmithySerializer<GetFederationTokenResponse> {
   const GetFederationTokenResponseAwsQuerySerializer()
       : super('GetFederationTokenResponse');
 
@@ -93,8 +93,8 @@ class GetFederationTokenResponseAwsQuerySerializer
         _$GetFederationTokenResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -106,6 +106,14 @@ class GetFederationTokenResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetFederationTokenResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -118,13 +126,13 @@ class GetFederationTokenResponseAwsQuerySerializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
         case 'FederatedUser':
           result.federatedUser.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.FederatedUser),
-          ) as _i3.FederatedUser));
+            specifiedType: const FullType(FederatedUser),
+          ) as FederatedUser));
         case 'PackedPolicySize':
           result.packedPolicySize = (serializers.deserialize(
             value,
@@ -143,9 +151,9 @@ class GetFederationTokenResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'GetFederationTokenResponseResponse',
-        _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
+        _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final GetFederationTokenResponse(
@@ -155,23 +163,23 @@ class GetFederationTokenResponseAwsQuerySerializer
     ) = object;
     if (credentials != null) {
       result$
-        ..add(const _i4.XmlElementName('Credentials'))
+        ..add(const _i2.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     if (federatedUser != null) {
       result$
-        ..add(const _i4.XmlElementName('FederatedUser'))
+        ..add(const _i2.XmlElementName('FederatedUser'))
         ..add(serializers.serialize(
           federatedUser,
-          specifiedType: const FullType(_i3.FederatedUser),
+          specifiedType: const FullType(FederatedUser),
         ));
     }
     if (packedPolicySize != null) {
       result$
-        ..add(const _i4.XmlElementName('PackedPolicySize'))
+        ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
           specifiedType: const FullType.nullable(int),

@@ -6,9 +6,8 @@ library smoke_test.config_service.model.get_compliance_summary_by_config_rule_re
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart';
 
 part 'get_compliance_summary_by_config_rule_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class GetComplianceSummaryByConfigRuleResponse
         Built<GetComplianceSummaryByConfigRuleResponse,
             GetComplianceSummaryByConfigRuleResponseBuilder> {
   factory GetComplianceSummaryByConfigRuleResponse(
-      {_i2.ComplianceSummary? complianceSummary}) {
+      {ComplianceSummary? complianceSummary}) {
     return _$GetComplianceSummaryByConfigRuleResponse._(
         complianceSummary: complianceSummary);
   }
@@ -38,13 +37,13 @@ abstract class GetComplianceSummaryByConfigRuleResponse
       payload;
 
   static const List<
-          _i3.SmithySerializer<GetComplianceSummaryByConfigRuleResponse>>
+          _i2.SmithySerializer<GetComplianceSummaryByConfigRuleResponse>>
       serializers = [
     GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer()
   ];
 
   /// The number of Config rules that are compliant and the number that are noncompliant, up to a maximum of 25 for each.
-  _i2.ComplianceSummary? get complianceSummary;
+  ComplianceSummary? get complianceSummary;
   @override
   List<Object?> get props => [complianceSummary];
   @override
@@ -59,7 +58,7 @@ abstract class GetComplianceSummaryByConfigRuleResponse
   }
 }
 
-class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
+class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<GetComplianceSummaryByConfigRuleResponse> {
   const GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer()
       : super('GetComplianceSummaryByConfigRuleResponse');
@@ -70,8 +69,8 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
         _$GetComplianceSummaryByConfigRuleResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -95,8 +94,8 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
         case 'ComplianceSummary':
           result.complianceSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceSummary),
-          ) as _i2.ComplianceSummary));
+            specifiedType: const FullType(ComplianceSummary),
+          ) as ComplianceSummary));
       }
     }
 
@@ -116,7 +115,7 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
           complianceSummary,
-          specifiedType: const FullType(_i2.ComplianceSummary),
+          specifiedType: const FullType(ComplianceSummary),
         ));
     }
     return result$;

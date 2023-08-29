@@ -3,46 +3,38 @@
 
 library smoke_test.config_service.operation.describe_aggregation_authorizations_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i13;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
 
 /// Returns a list of authorizations granted to various aggregator accounts and regions.
-class DescribeAggregationAuthorizationsOperation
-    extends _i1.PaginatedHttpOperation<
-        _i2.DescribeAggregationAuthorizationsRequest,
-        _i2.DescribeAggregationAuthorizationsRequest,
-        _i3.DescribeAggregationAuthorizationsResponse,
-        _i3.DescribeAggregationAuthorizationsResponse,
+class DescribeAggregationAuthorizationsOperation extends _i1
+    .PaginatedHttpOperation<
+        DescribeAggregationAuthorizationsRequest,
+        DescribeAggregationAuthorizationsRequest,
+        DescribeAggregationAuthorizationsResponse,
+        DescribeAggregationAuthorizationsResponse,
         String,
         int,
-        _i4.BuiltList<_i5.AggregationAuthorization>> {
+        _i2.BuiltList<AggregationAuthorization>> {
   /// Returns a list of authorizations granted to various aggregator accounts and regions.
   DescribeAggregationAuthorizationsOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -54,13 +46,13 @@ class DescribeAggregationAuthorizationsOperation
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.DescribeAggregationAuthorizationsRequest,
-          _i2.DescribeAggregationAuthorizationsRequest,
-          _i3.DescribeAggregationAuthorizationsResponse,
-          _i3.DescribeAggregationAuthorizationsResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          DescribeAggregationAuthorizationsRequest,
+          DescribeAggregationAuthorizationsRequest,
+          DescribeAggregationAuthorizationsResponse,
+          DescribeAggregationAuthorizationsResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -68,14 +60,14 @@ class DescribeAggregationAuthorizationsOperation
               'X-Amz-Target',
               'StarlingDoveService.DescribeAggregationAuthorizations',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -83,8 +75,8 @@ class DescribeAggregationAuthorizationsOperation
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -92,7 +84,7 @@ class DescribeAggregationAuthorizationsOperation
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -100,70 +92,68 @@ class DescribeAggregationAuthorizationsOperation
 
   @override
   _i1.HttpRequest buildRequest(
-          _i2.DescribeAggregationAuthorizationsRequest input) =>
+          DescribeAggregationAuthorizationsRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DescribeAggregationAuthorizationsResponse? output]) =>
-      200;
+  int successCode([DescribeAggregationAuthorizationsResponse? output]) => 200;
   @override
-  _i3.DescribeAggregationAuthorizationsResponse buildOutput(
-    _i3.DescribeAggregationAuthorizationsResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  DescribeAggregationAuthorizationsResponse buildOutput(
+    DescribeAggregationAuthorizationsResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribeAggregationAuthorizationsResponse.fromResponse(
+      DescribeAggregationAuthorizationsResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidLimitException,
-          builder: _i11.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidNextTokenException,
-            _i12.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidNextTokenException,
-          builder: _i12.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.InvalidParameterValueException,
-            _i13.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i13.InvalidParameterValueException,
-          builder: _i13.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribeAggregationAuthorizations';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribeAggregationAuthorizationsResponse> run(
-    _i2.DescribeAggregationAuthorizationsRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<DescribeAggregationAuthorizationsResponse> run(
+    DescribeAggregationAuthorizationsRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -171,21 +161,21 @@ class DescribeAggregationAuthorizationsOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.DescribeAggregationAuthorizationsResponse output) =>
+  String? getToken(DescribeAggregationAuthorizationsResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.AggregationAuthorization> getItems(
-          _i3.DescribeAggregationAuthorizationsResponse output) =>
-      output.aggregationAuthorizations ?? _i4.BuiltList();
+  _i2.BuiltList<AggregationAuthorization> getItems(
+          DescribeAggregationAuthorizationsResponse output) =>
+      output.aggregationAuthorizations ?? _i2.BuiltList();
   @override
-  _i2.DescribeAggregationAuthorizationsRequest rebuildInput(
-    _i2.DescribeAggregationAuthorizationsRequest input,
+  DescribeAggregationAuthorizationsRequest rebuildInput(
+    DescribeAggregationAuthorizationsRequest input,
     String token,
     int? pageSize,
   ) =>

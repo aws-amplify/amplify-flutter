@@ -36,7 +36,12 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
         'bool.fromEnvironment is not working in tests for some reason',
     'QueryProtocolIdempotencyTokenAutoFill':
         'bool.fromEnvironment is not working in tests for some reason',
+    'Ec2ProtocolIdempotencyTokenAutoFill':
+        'bool.fromEnvironment is not working in tests for some reason',
+    'Ec2ProtocolIdempotencyTokenAutoFillIsSet':
+        'bool.fromEnvironment is not working in tests for some reason',
     'EmptyQueryLists': 'Unclear how to reconcile with QueryEmptyQueryMaps',
+    'Ec2EmptyQueryLists': 'Unclear how to reconcile with QueryEmptyQueryMaps',
     'RestJsonSerializesSparseSetMap':
         'Cannot handle this at the moment (empty vs. null).',
     'RestJsonSerializesDenseSetMap':
@@ -48,6 +53,28 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
     'GlacierMultipartChecksums': 'Glacier is not supported yet',
     'GlacierAccountId': 'Glacier is not supported yet',
     'MachinelearningPredictEndpoint': 'ML Predict is not supported yet',
+
+    // Compression tests: Not yet supported
+    'SDKAppliedContentEncoding_awsJson1_0':
+        'Request compression not supported yet',
+    'SDKAppendsGzipAndIgnoresHttpProvidedEncoding_awsJson1_0':
+        'Request compression not supported yet',
+    'SDKAppliedContentEncoding_awsJson1_1':
+        'Request compression not supported yet',
+    'SDKAppendsGzipAndIgnoresHttpProvidedEncoding_awsJson1_1':
+        'Request compression not supported yet',
+    'SDKAppliedContentEncoding_awsQuery':
+        'Request compression not supported yet',
+    'SDKAppendsGzipAndIgnoresHttpProvidedEncoding_awsQuery':
+        'Request compression not supported yet',
+    'SDKAppliedContentEncoding_restJson1':
+        'Request compression not supported yet',
+    'SDKAppendedGzipAfterProvidedEncoding_restJson1':
+        'Request compression not supported yet',
+    'SDKAppliedContentEncoding_restXml':
+        'Request compression not supported yet',
+    'SDKAppendedGzipAfterProvidedEncoding_restXml':
+        'Request compression not supported yet',
   };
 
   /// Test values for required operation inputs.

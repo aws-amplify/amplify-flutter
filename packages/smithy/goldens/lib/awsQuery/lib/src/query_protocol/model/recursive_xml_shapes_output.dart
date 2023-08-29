@@ -4,11 +4,10 @@
 library aws_query_v1.query_protocol.model.recursive_xml_shapes_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested1.dart'
-    as _i2;
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested1.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'recursive_xml_shapes_output.g.dart';
 
@@ -16,8 +15,7 @@ abstract class RecursiveXmlShapesOutput
     with _i1.AWSEquatable<RecursiveXmlShapesOutput>
     implements
         Built<RecursiveXmlShapesOutput, RecursiveXmlShapesOutputBuilder> {
-  factory RecursiveXmlShapesOutput(
-      {_i2.RecursiveXmlShapesOutputNested1? nested}) {
+  factory RecursiveXmlShapesOutput({RecursiveXmlShapesOutputNested1? nested}) {
     return _$RecursiveXmlShapesOutput._(nested: nested);
   }
 
@@ -34,10 +32,10 @@ abstract class RecursiveXmlShapesOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<RecursiveXmlShapesOutput>>
+  static const List<_i2.SmithySerializer<RecursiveXmlShapesOutput>>
       serializers = [RecursiveXmlShapesOutputAwsQuerySerializer()];
 
-  _i2.RecursiveXmlShapesOutputNested1? get nested;
+  RecursiveXmlShapesOutputNested1? get nested;
   @override
   List<Object?> get props => [nested];
   @override
@@ -52,7 +50,7 @@ abstract class RecursiveXmlShapesOutput
 }
 
 class RecursiveXmlShapesOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<RecursiveXmlShapesOutput> {
+    extends _i2.StructuredSmithySerializer<RecursiveXmlShapesOutput> {
   const RecursiveXmlShapesOutputAwsQuerySerializer()
       : super('RecursiveXmlShapesOutput');
 
@@ -62,8 +60,8 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
         _$RecursiveXmlShapesOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -75,6 +73,14 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = RecursiveXmlShapesOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -87,8 +93,8 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RecursiveXmlShapesOutputNested1),
-          ) as _i2.RecursiveXmlShapesOutputNested1));
+            specifiedType: const FullType(RecursiveXmlShapesOutputNested1),
+          ) as RecursiveXmlShapesOutputNested1));
       }
     }
 
@@ -102,18 +108,18 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RecursiveXmlShapesOutputResponse',
-        _i3.XmlNamespace('https://example.com/'),
+        _i2.XmlNamespace('https://example.com/'),
       )
     ];
     final RecursiveXmlShapesOutput(:nested) = object;
     if (nested != null) {
       result$
-        ..add(const _i3.XmlElementName('nested'))
+        ..add(const _i2.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i2.RecursiveXmlShapesOutputNested1),
+          specifiedType: const FullType(RecursiveXmlShapesOutputNested1),
         ));
     }
     return result$;

@@ -147,7 +147,7 @@ jobs:
           dimensions: channel=${{ matrix.channel }},platform=android
 
   e2e-ios:
-    runs-on: macos-13
+    runs-on: macos-latest-xl
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -191,20 +191,9 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      # Launching the iOS simulator is flaky. Try twice and fail if both
-      # attempts timeout.
-      - name: Launch iOS simulator (attempt 1)
-        id: launch
+      - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 15
-        continue-on-error: true
-        with:
-          ios-version: ${{ matrix.ios-version }}
-
-      - name: Launch iOS simulator (attempt 2)
-        if: steps.launch.outcome == 'failure'
-        uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 15
+        timeout-minutes: 20
         with:
           ios-version: ${{ matrix.ios-version }}
 

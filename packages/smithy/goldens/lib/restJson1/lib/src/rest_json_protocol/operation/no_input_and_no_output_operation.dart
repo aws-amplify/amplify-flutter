@@ -3,13 +3,11 @@
 
 library rest_json1_v1.rest_json_protocol.operation.no_input_and_no_output_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i6;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i4;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
-    as _i3;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
@@ -31,8 +29,8 @@ class NoInputAndNoOutputOperation
   late final List<_i1.HttpProtocol<_i1.Unit, _i1.Unit, _i1.Unit, _i1.Unit>>
       protocols = [
     _i2.RestJson1Protocol(
-      serializers: _i3.serializers,
-      builderFactories: _i3.builderFactories,
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
@@ -47,8 +45,8 @@ class NoInputAndNoOutputOperation
     )
   ];
 
-  late final _i2.AWSEndpoint _awsEndpoint = _i4.endpointResolver.resolve(
-    _i4.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -70,7 +68,7 @@ class NoInputAndNoOutputOperation
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i5.AWSBaseHttpResponse response,
+    _i3.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -86,10 +84,10 @@ class NoInputAndNoOutputOperation
   @override
   _i1.SmithyOperation<_i1.Unit> run(
     _i1.Unit input, {
-    _i5.AWSHttpClient? client,
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i6.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -97,7 +95,7 @@ class NoInputAndNoOutputOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

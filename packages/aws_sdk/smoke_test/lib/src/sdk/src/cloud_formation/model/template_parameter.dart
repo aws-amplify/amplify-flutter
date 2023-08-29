@@ -103,6 +103,14 @@ class TemplateParameterAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = TemplateParameterBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;

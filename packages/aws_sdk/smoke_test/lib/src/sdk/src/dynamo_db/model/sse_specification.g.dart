@@ -10,7 +10,7 @@ class _$SseSpecification extends SseSpecification {
   @override
   final bool? enabled;
   @override
-  final _i2.SseType? sseType;
+  final SseType? sseType;
   @override
   final String? kmsMasterKeyId;
 
@@ -57,9 +57,9 @@ class SseSpecificationBuilder
   bool? get enabled => _$this._enabled;
   set enabled(bool? enabled) => _$this._enabled = enabled;
 
-  _i2.SseType? _sseType;
-  _i2.SseType? get sseType => _$this._sseType;
-  set sseType(_i2.SseType? sseType) => _$this._sseType = sseType;
+  SseType? _sseType;
+  SseType? get sseType => _$this._sseType;
+  set sseType(SseType? sseType) => _$this._sseType = sseType;
 
   String? _kmsMasterKeyId;
   String? get kmsMasterKeyId => _$this._kmsMasterKeyId;

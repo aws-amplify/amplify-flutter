@@ -3,34 +3,32 @@
 
 library smoke_test.s3.model.put_object_legal_hold_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'put_object_legal_hold_request.g.dart';
 
 abstract class PutObjectLegalHoldRequest
     with
-        _i1.HttpInput<_i2.ObjectLockLegalHold>,
-        _i3.AWSEquatable<PutObjectLegalHoldRequest>
+        _i1.HttpInput<ObjectLockLegalHold>,
+        _i2.AWSEquatable<PutObjectLegalHoldRequest>
     implements
         Built<PutObjectLegalHoldRequest, PutObjectLegalHoldRequestBuilder>,
-        _i1.HasPayload<_i2.ObjectLockLegalHold> {
+        _i1.HasPayload<ObjectLockLegalHold> {
   factory PutObjectLegalHoldRequest({
     required String bucket,
     required String key,
-    _i2.ObjectLockLegalHold? legalHold,
-    _i4.RequestPayer? requestPayer,
+    ObjectLockLegalHold? legalHold,
+    RequestPayer? requestPayer,
     String? versionId,
     String? contentMd5,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutObjectLegalHoldRequest._(
@@ -52,8 +50,8 @@ abstract class PutObjectLegalHoldRequest
   const PutObjectLegalHoldRequest._();
 
   factory PutObjectLegalHoldRequest.fromRequest(
-    _i2.ObjectLockLegalHold? payload,
-    _i3.AWSBaseHttpRequest request, {
+    ObjectLockLegalHold? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutObjectLegalHoldRequest.build((b) {
@@ -61,14 +59,14 @@ abstract class PutObjectLegalHoldRequest
           b.legalHold.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['Content-MD5'] != null) {
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -86,8 +84,9 @@ abstract class PutObjectLegalHoldRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.ObjectLockLegalHold?>>
-      serializers = [PutObjectLegalHoldRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<ObjectLockLegalHold?>> serializers = [
+    PutObjectLegalHoldRequestRestXmlSerializer()
+  ];
 
   /// The bucket name containing the object that you want to place a legal hold on.
   ///
@@ -98,10 +97,10 @@ abstract class PutObjectLegalHoldRequest
   String get key;
 
   /// Container element for the legal hold configuration you want to apply to the specified object.
-  _i2.ObjectLockLegalHold? get legalHold;
+  ObjectLockLegalHold? get legalHold;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The version ID of the object that you want to place a legal hold on.
   String? get versionId;
@@ -114,7 +113,7 @@ abstract class PutObjectLegalHoldRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -133,8 +132,7 @@ abstract class PutObjectLegalHoldRequest
   }
 
   @override
-  _i2.ObjectLockLegalHold? getPayload() =>
-      legalHold ?? _i2.ObjectLockLegalHold();
+  ObjectLockLegalHold? getPayload() => legalHold ?? ObjectLockLegalHold();
   @override
   List<Object?> get props => [
         bucket,
@@ -186,7 +184,7 @@ abstract class PutObjectLegalHoldRequest
 }
 
 class PutObjectLegalHoldRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.ObjectLockLegalHold> {
+    extends _i1.StructuredSmithySerializer<ObjectLockLegalHold> {
   const PutObjectLegalHoldRequestRestXmlSerializer()
       : super('PutObjectLegalHoldRequest');
 
@@ -203,12 +201,12 @@ class PutObjectLegalHoldRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.ObjectLockLegalHold deserialize(
+  ObjectLockLegalHold deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.ObjectLockLegalHoldBuilder();
+    final result = ObjectLockLegalHoldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -221,8 +219,8 @@ class PutObjectLegalHoldRequestRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ObjectLockLegalHoldStatus),
-          ) as _i6.ObjectLockLegalHoldStatus);
+            specifiedType: const FullType(ObjectLockLegalHoldStatus),
+          ) as ObjectLockLegalHoldStatus);
       }
     }
 
@@ -232,7 +230,7 @@ class PutObjectLegalHoldRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.ObjectLockLegalHold object, {
+    ObjectLockLegalHold object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -241,13 +239,13 @@ class PutObjectLegalHoldRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.ObjectLockLegalHold(:status) = object;
+    final ObjectLockLegalHold(:status) = object;
     if (status != null) {
       result$
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i6.ObjectLockLegalHoldStatus),
+          specifiedType: const FullType.nullable(ObjectLockLegalHoldStatus),
         ));
     }
     return result$;

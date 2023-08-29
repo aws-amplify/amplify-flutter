@@ -9,13 +9,13 @@ environment:
 
 dependencies:
   async: ^2.10.0
-  aws_common: ">=0.4.0 <0.5.0"
-  aws_signature_v4: ">=0.3.1+2 <0.4.0"
+  aws_common: any
+  aws_signature_v4: any
   built_value: ">=8.6.0 <8.7.0"
   collection: ^1.15.0
   fixnum: ^1.0.0
   path: ^1.8.0
-  smithy: ">=0.4.0+1 <0.5.0"
+  smithy: any
   test: ^1.22.1
   tuple: ^2.0.0
   xml: 6.3.0

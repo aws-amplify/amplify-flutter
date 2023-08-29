@@ -8,7 +8,7 @@ part of 'publish_type_input.dart';
 
 class _$PublishTypeInput extends PublishTypeInput {
   @override
-  final _i3.ThirdPartyType? type;
+  final ThirdPartyType? type;
   @override
   final String? arn;
   @override
@@ -58,9 +58,9 @@ class PublishTypeInputBuilder
     implements Builder<PublishTypeInput, PublishTypeInputBuilder> {
   _$PublishTypeInput? _$v;
 
-  _i3.ThirdPartyType? _type;
-  _i3.ThirdPartyType? get type => _$this._type;
-  set type(_i3.ThirdPartyType? type) => _$this._type = type;
+  ThirdPartyType? _type;
+  ThirdPartyType? get type => _$this._type;
+  set type(ThirdPartyType? type) => _$this._type = type;
 
   String? _arn;
   String? get arn => _$this._arn;

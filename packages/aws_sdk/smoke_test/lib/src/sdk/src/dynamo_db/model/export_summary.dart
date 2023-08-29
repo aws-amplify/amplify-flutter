@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.export_summary; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart';
 
 part 'export_summary.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ExportSummary
   /// Summary information about an export task.
   factory ExportSummary({
     String? exportArn,
-    _i2.ExportStatus? exportStatus,
+    ExportStatus? exportStatus,
   }) {
     return _$ExportSummary._(
       exportArn: exportArn,
@@ -33,7 +32,7 @@ abstract class ExportSummary
 
   const ExportSummary._();
 
-  static const List<_i3.SmithySerializer<ExportSummary>> serializers = [
+  static const List<_i2.SmithySerializer<ExportSummary>> serializers = [
     ExportSummaryAwsJson10Serializer()
   ];
 
@@ -41,7 +40,7 @@ abstract class ExportSummary
   String? get exportArn;
 
   /// Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
-  _i2.ExportStatus? get exportStatus;
+  ExportStatus? get exportStatus;
   @override
   List<Object?> get props => [
         exportArn,
@@ -63,7 +62,7 @@ abstract class ExportSummary
 }
 
 class ExportSummaryAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<ExportSummary> {
+    extends _i2.StructuredSmithySerializer<ExportSummary> {
   const ExportSummaryAwsJson10Serializer() : super('ExportSummary');
 
   @override
@@ -72,8 +71,8 @@ class ExportSummaryAwsJson10Serializer
         _$ExportSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -102,8 +101,8 @@ class ExportSummaryAwsJson10Serializer
         case 'ExportStatus':
           result.exportStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ExportStatus),
-          ) as _i2.ExportStatus);
+            specifiedType: const FullType(ExportStatus),
+          ) as ExportStatus);
       }
     }
 
@@ -131,7 +130,7 @@ class ExportSummaryAwsJson10Serializer
         ..add('ExportStatus')
         ..add(serializers.serialize(
           exportStatus,
-          specifiedType: const FullType(_i2.ExportStatus),
+          specifiedType: const FullType(ExportStatus),
         ));
     }
     return result$;

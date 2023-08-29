@@ -10,7 +10,7 @@ class _$CodeDeliveryDetailsType extends CodeDeliveryDetailsType {
   @override
   final String? destination;
   @override
-  final _i2.DeliveryMediumType? deliveryMedium;
+  final DeliveryMediumType? deliveryMedium;
   @override
   final String? attributeName;
 
@@ -60,9 +60,9 @@ class CodeDeliveryDetailsTypeBuilder
   String? get destination => _$this._destination;
   set destination(String? destination) => _$this._destination = destination;
 
-  _i2.DeliveryMediumType? _deliveryMedium;
-  _i2.DeliveryMediumType? get deliveryMedium => _$this._deliveryMedium;
-  set deliveryMedium(_i2.DeliveryMediumType? deliveryMedium) =>
+  DeliveryMediumType? _deliveryMedium;
+  DeliveryMediumType? get deliveryMedium => _$this._deliveryMedium;
+  set deliveryMedium(DeliveryMediumType? deliveryMedium) =>
       _$this._deliveryMedium = deliveryMedium;
 
   String? _attributeName;
@@ -70,9 +70,7 @@ class CodeDeliveryDetailsTypeBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  CodeDeliveryDetailsTypeBuilder() {
-    CodeDeliveryDetailsType._init(this);
-  }
+  CodeDeliveryDetailsTypeBuilder();
 
   CodeDeliveryDetailsTypeBuilder get _$this {
     final $v = _$v;

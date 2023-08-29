@@ -4,11 +4,11 @@
 library smoke_test.iam.model.list_groups_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/group.dart';
 
 part 'list_groups_response.g.dart';
 
@@ -18,13 +18,13 @@ abstract class ListGroupsResponse
     implements Built<ListGroupsResponse, ListGroupsResponseBuilder> {
   /// Contains the response to a successful ListGroups request.
   factory ListGroupsResponse({
-    required List<_i2.Group> groups,
+    required List<Group> groups,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListGroupsResponse._(
-      groups: _i3.BuiltList(groups),
+      groups: _i2.BuiltList(groups),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -44,7 +44,7 @@ abstract class ListGroupsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListGroupsResponse>> serializers = [
+  static const List<_i3.SmithySerializer<ListGroupsResponse>> serializers = [
     ListGroupsResponseAwsQuerySerializer()
   ];
 
@@ -54,7 +54,7 @@ abstract class ListGroupsResponse
   }
 
   /// A list of groups.
-  _i3.BuiltList<_i2.Group> get groups;
+  _i2.BuiltList<Group> get groups;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -87,7 +87,7 @@ abstract class ListGroupsResponse
 }
 
 class ListGroupsResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListGroupsResponse> {
+    extends _i3.StructuredSmithySerializer<ListGroupsResponse> {
   const ListGroupsResponseAwsQuerySerializer() : super('ListGroupsResponse');
 
   @override
@@ -96,8 +96,8 @@ class ListGroupsResponseAwsQuerySerializer
         _$ListGroupsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -109,6 +109,14 @@ class ListGroupsResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListGroupsResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -119,16 +127,16 @@ class ListGroupsResponseAwsQuerySerializer
       }
       switch (key) {
         case 'Groups':
-          result.groups.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.groups.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Group)],
+              _i2.BuiltList,
+              [FullType(Group)],
             ),
-          ) as _i3.BuiltList<_i2.Group>));
+          ) as _i2.BuiltList<Group>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -152,33 +160,33 @@ class ListGroupsResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListGroupsResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListGroupsResponse(:groups, :isTruncated, :marker) = object;
     result$
-      ..add(const _i4.XmlElementName('Groups'))
+      ..add(const _i3.XmlElementName('Groups'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         groups,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Group)],
+          _i2.BuiltList,
+          [FullType(Group)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

@@ -6,8 +6,7 @@ library rest_json1_v1.rest_json_protocol.model.post_player_action_input; // igno
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/player_action.dart'
-    as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/player_action.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'post_player_action_input.g.dart';
@@ -17,7 +16,7 @@ abstract class PostPlayerActionInput
         _i1.HttpInput<PostPlayerActionInput>,
         _i2.AWSEquatable<PostPlayerActionInput>
     implements Built<PostPlayerActionInput, PostPlayerActionInputBuilder> {
-  factory PostPlayerActionInput({_i3.PlayerAction? action}) {
+  factory PostPlayerActionInput({PlayerAction? action}) {
     return _$PostPlayerActionInput._(action: action);
   }
 
@@ -38,7 +37,7 @@ abstract class PostPlayerActionInput
     PostPlayerActionInputRestJson1Serializer()
   ];
 
-  _i3.PlayerAction? get action;
+  PlayerAction? get action;
   @override
   PostPlayerActionInput getPayload() => this;
   @override
@@ -90,8 +89,8 @@ class PostPlayerActionInputRestJson1Serializer
         case 'action':
           result.action = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PlayerAction),
-          ) as _i3.PlayerAction);
+            specifiedType: const FullType(PlayerAction),
+          ) as PlayerAction);
       }
     }
 
@@ -111,7 +110,7 @@ class PostPlayerActionInputRestJson1Serializer
         ..add('action')
         ..add(serializers.serialize(
           action,
-          specifiedType: const FullType(_i3.PlayerAction),
+          specifiedType: const FullType(PlayerAction),
         ));
     }
     return result$;

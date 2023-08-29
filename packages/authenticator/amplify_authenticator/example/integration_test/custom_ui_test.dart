@@ -68,12 +68,9 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       await loadAuthenticator(tester: tester, authenticator: authenticator);

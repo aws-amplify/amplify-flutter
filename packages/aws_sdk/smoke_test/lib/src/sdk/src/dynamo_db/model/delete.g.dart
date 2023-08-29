@@ -8,17 +8,17 @@ part of 'delete.dart';
 
 class _$Delete extends Delete {
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue> key;
+  final _i2.BuiltMap<String, AttributeValue> key;
   @override
   final String tableName;
   @override
   final String? conditionExpression;
   @override
-  final _i4.BuiltMap<String, String>? expressionAttributeNames;
+  final _i2.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue>? expressionAttributeValues;
+  final _i2.BuiltMap<String, AttributeValue>? expressionAttributeValues;
   @override
-  final _i3.ReturnValuesOnConditionCheckFailure?
+  final ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
 
   factory _$Delete([void Function(DeleteBuilder)? updates]) =>
@@ -73,10 +73,10 @@ class _$Delete extends Delete {
 class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   _$Delete? _$v;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _key;
-  _i4.MapBuilder<String, _i2.AttributeValue> get key =>
-      _$this._key ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
-  set key(_i4.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
+  _i2.MapBuilder<String, AttributeValue>? _key;
+  _i2.MapBuilder<String, AttributeValue> get key =>
+      _$this._key ??= new _i2.MapBuilder<String, AttributeValue>();
+  set key(_i2.MapBuilder<String, AttributeValue>? key) => _$this._key = key;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
@@ -87,28 +87,27 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   set conditionExpression(String? conditionExpression) =>
       _$this._conditionExpression = conditionExpression;
 
-  _i4.MapBuilder<String, String>? _expressionAttributeNames;
-  _i4.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i4.MapBuilder<String, String>();
+  _i2.MapBuilder<String, String>? _expressionAttributeNames;
+  _i2.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i2.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i4.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i2.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _expressionAttributeValues;
-  _i4.MapBuilder<String, _i2.AttributeValue> get expressionAttributeValues =>
+  _i2.MapBuilder<String, AttributeValue>? _expressionAttributeValues;
+  _i2.MapBuilder<String, AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i4.MapBuilder<String, _i2.AttributeValue>();
+          new _i2.MapBuilder<String, AttributeValue>();
   set expressionAttributeValues(
-          _i4.MapBuilder<String, _i2.AttributeValue>?
-              expressionAttributeValues) =>
+          _i2.MapBuilder<String, AttributeValue>? expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
-  _i3.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
-  _i3.ReturnValuesOnConditionCheckFailure?
+  ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
           _$this._returnValuesOnConditionCheckFailure;
   set returnValuesOnConditionCheckFailure(
-          _i3.ReturnValuesOnConditionCheckFailure?
+          ReturnValuesOnConditionCheckFailure?
               returnValuesOnConditionCheckFailure) =>
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;

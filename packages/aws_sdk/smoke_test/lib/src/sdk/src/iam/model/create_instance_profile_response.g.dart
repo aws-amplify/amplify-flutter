@@ -8,7 +8,7 @@ part of 'create_instance_profile_response.dart';
 
 class _$CreateInstanceProfileResponse extends CreateInstanceProfileResponse {
   @override
-  final _i2.InstanceProfile instanceProfile;
+  final InstanceProfile instanceProfile;
 
   factory _$CreateInstanceProfileResponse(
           [void Function(CreateInstanceProfileResponseBuilder)? updates]) =>
@@ -51,10 +51,10 @@ class CreateInstanceProfileResponseBuilder
             CreateInstanceProfileResponseBuilder> {
   _$CreateInstanceProfileResponse? _$v;
 
-  _i2.InstanceProfileBuilder? _instanceProfile;
-  _i2.InstanceProfileBuilder get instanceProfile =>
-      _$this._instanceProfile ??= new _i2.InstanceProfileBuilder();
-  set instanceProfile(_i2.InstanceProfileBuilder? instanceProfile) =>
+  InstanceProfileBuilder? _instanceProfile;
+  InstanceProfileBuilder get instanceProfile =>
+      _$this._instanceProfile ??= new InstanceProfileBuilder();
+  set instanceProfile(InstanceProfileBuilder? instanceProfile) =>
       _$this._instanceProfile = instanceProfile;
 
   CreateInstanceProfileResponseBuilder();

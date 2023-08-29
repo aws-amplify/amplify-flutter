@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.describe_contributor_insights_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/failure_exception.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/failure_exception.dart';
 
 part 'describe_contributor_insights_output.g.dart';
 
@@ -25,16 +23,16 @@ abstract class DescribeContributorInsightsOutput
     String? tableName,
     String? indexName,
     List<String>? contributorInsightsRuleList,
-    _i2.ContributorInsightsStatus? contributorInsightsStatus,
+    ContributorInsightsStatus? contributorInsightsStatus,
     DateTime? lastUpdateDateTime,
-    _i3.FailureException? failureException,
+    FailureException? failureException,
   }) {
     return _$DescribeContributorInsightsOutput._(
       tableName: tableName,
       indexName: indexName,
       contributorInsightsRuleList: contributorInsightsRuleList == null
           ? null
-          : _i4.BuiltList(contributorInsightsRuleList),
+          : _i2.BuiltList(contributorInsightsRuleList),
       contributorInsightsStatus: contributorInsightsStatus,
       lastUpdateDateTime: lastUpdateDateTime,
       failureException: failureException,
@@ -54,7 +52,7 @@ abstract class DescribeContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<DescribeContributorInsightsOutput>>
+  static const List<_i3.SmithySerializer<DescribeContributorInsightsOutput>>
       serializers = [DescribeContributorInsightsOutputAwsJson10Serializer()];
 
   /// The name of the table being described.
@@ -64,10 +62,10 @@ abstract class DescribeContributorInsightsOutput
   String? get indexName;
 
   /// List of names of the associated contributor insights rules.
-  _i4.BuiltList<String>? get contributorInsightsRuleList;
+  _i2.BuiltList<String>? get contributorInsightsRuleList;
 
   /// Current status of contributor insights.
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+  ContributorInsightsStatus? get contributorInsightsStatus;
 
   /// Timestamp of the last time the status was changed.
   DateTime? get lastUpdateDateTime;
@@ -83,7 +81,7 @@ abstract class DescribeContributorInsightsOutput
   /// *   AccessDeniedException - Failed to create service-linked role for Contributor Insights due to insufficient permissions.
   ///
   /// *   InternalServerError - Failed to create Amazon CloudWatch Contributor Insights rules. Please retry request.
-  _i3.FailureException? get failureException;
+  FailureException? get failureException;
   @override
   List<Object?> get props => [
         tableName,
@@ -126,7 +124,7 @@ abstract class DescribeContributorInsightsOutput
 }
 
 class DescribeContributorInsightsOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<DescribeContributorInsightsOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeContributorInsightsOutput> {
   const DescribeContributorInsightsOutputAwsJson10Serializer()
       : super('DescribeContributorInsightsOutput');
 
@@ -136,8 +134,8 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         _$DescribeContributorInsightsOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -172,15 +170,15 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
           result.contributorInsightsRuleList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ContributorInsightsStatus':
           result.contributorInsightsStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContributorInsightsStatus),
-          ) as _i2.ContributorInsightsStatus);
+            specifiedType: const FullType(ContributorInsightsStatus),
+          ) as ContributorInsightsStatus);
         case 'LastUpdateDateTime':
           result.lastUpdateDateTime = (serializers.deserialize(
             value,
@@ -189,8 +187,8 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         case 'FailureException':
           result.failureException.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.FailureException),
-          ) as _i3.FailureException));
+            specifiedType: const FullType(FailureException),
+          ) as FailureException));
       }
     }
 
@@ -234,7 +232,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           contributorInsightsRuleList,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -244,7 +242,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
           contributorInsightsStatus,
-          specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          specifiedType: const FullType(ContributorInsightsStatus),
         ));
     }
     if (lastUpdateDateTime != null) {
@@ -260,7 +258,7 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
         ..add('FailureException')
         ..add(serializers.serialize(
           failureException,
-          specifiedType: const FullType(_i3.FailureException),
+          specifiedType: const FullType(FailureException),
         ));
     }
     return result$;

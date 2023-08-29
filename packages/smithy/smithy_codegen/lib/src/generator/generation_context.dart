@@ -60,7 +60,7 @@ mixin StructureGenerationContext<U> on ShapeGenerator<StructureShape, U>
   /// The symbol for the HTTP payload.
   late final Reference payloadSymbol = () {
     if (hasPayload) {
-      return shape.httpPayload(context).symbol;
+      return shape.httpPayload.symbol;
     } else if (payloadMember != null) {
       return context.symbolFor(payloadMember!.target, shape);
     }
@@ -100,28 +100,26 @@ mixin StructureGenerationContext<U> on ShapeGenerator<StructureShape, U>
       hasBuiltPayload ? '${className}Payload' : null;
 
   /// The resolved HTTP input traits.
-  late final HttpInputTraits? httpInputTraits = shape.httpInputTraits(context);
+  late final HttpInputTraits? httpInputTraits = shape.httpInputTraits();
 
   /// The resolved HTTP output traits.
-  late final HttpOutputTraits? httpOutputTraits =
-      shape.httpOutputTraits(context);
+  late final HttpOutputTraits? httpOutputTraits = shape.httpOutputTraits();
 
   /// The resolved HTTP error traits.
   late final HttpErrorTraits? httpErrorTraits = shape.httpErrorTraits(
-    context,
-    shape.httpPayload(context).symbol,
+    shape.httpPayload.symbol,
   );
 
   /// The member shape to serialize when [HttpPayloadTrait] is used.
-  late final MemberShape? payloadMember = shape.httpPayload(context).member;
+  late final MemberShape? payloadMember = shape.httpPayload.member;
 
   /// The list of all members which convey some information about the request,
   /// and for most protocols are not included in the body of the request.
-  late final List<MemberShape> metadataMembers = shape.metadataMembers(context);
+  late final List<MemberShape> metadataMembers = shape.metadataMembers;
 
   /// The list of all members which should always be included in the body of
   /// the request.
-  late final List<MemberShape> payloadMembers = shape.payloadMembers(context);
+  late final List<MemberShape> payloadMembers = shape.payloadMembers;
 
   /// Whether the structure has an HTTP payload.
   late final bool hasPayload = shape.hasPayload(context);
@@ -140,26 +138,24 @@ mixin StructureGenerationContext<U> on ShapeGenerator<StructureShape, U>
 mixin OperationGenerationContext<U> on ShapeGenerator<OperationShape, U> {
   late final StructureShape inputShape = shape.inputShape(context);
   late final Reference inputSymbol = shape.inputSymbol(context);
-  late final HttpPayload inputPayload = inputShape.httpPayload(context);
+  late final HttpPayload inputPayload = inputShape.httpPayload;
   late final StructureShape outputShape = shape.outputShape(context);
   late final Reference outputSymbol = shape.outputSymbol(context);
-  late final HttpPayload outputPayload = outputShape.httpPayload(context);
+  late final HttpPayload outputPayload = outputShape.httpPayload;
 
   late final List<HttpErrorTraits> errorSymbols = [
     ...?context.service?.errors,
     ...shape.errors,
   ].whereType<ShapeRef>().map((error) {
     final shape = context.shapeFor(error.target) as StructureShape;
-    return shape.httpErrorTraits(context, shape.httpPayload(context).symbol)!;
+    return shape.httpErrorTraits(shape.httpPayload.symbol)!;
   }).toList();
 
   late final HttpTrait? httpTrait = shape.httpTrait(context);
   late final HttpInputTraits httpInputTraits = inputShape.httpInputTraits(
-    context,
     overrideTrait: true,
   )!;
   late final HttpOutputTraits httpOutputTraits = outputShape.httpOutputTraits(
-    context,
     overrideTrait: true,
   )!;
   late final PaginatedTraits? paginatedTraits = shape.paginatedTraits(context);

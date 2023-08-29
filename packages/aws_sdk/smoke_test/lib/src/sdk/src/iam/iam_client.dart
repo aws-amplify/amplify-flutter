@@ -5,762 +5,389 @@ library smoke_test.iam.iam_client; // ignore_for_file: no_leading_underscores_fo
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i140;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/access_key_metadata.dart'
-    as _i198;
-import 'package:smoke_test/src/sdk/src/iam/model/add_client_id_to_open_id_connect_provider_request.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/add_role_to_instance_profile_request.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/iam/model/add_user_to_group_request.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/attach_group_policy_request.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/iam/model/attach_role_policy_request.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/iam/model/attach_user_policy_request.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart' as _i203;
-import 'package:smoke_test/src/sdk/src/iam/model/change_password_request.dart'
-    as _i16;
-import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_request.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_response.dart'
-    as _i18;
-import 'package:smoke_test/src/sdk/src/iam/model/create_account_alias_request.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/iam/model/create_group_request.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/iam/model/create_group_response.dart'
-    as _i23;
-import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_request.dart'
-    as _i27;
-import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_response.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_request.dart'
-    as _i30;
-import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_response.dart'
-    as _i29;
-import 'package:smoke_test/src/sdk/src/iam/model/create_open_id_connect_provider_request.dart'
-    as _i33;
-import 'package:smoke_test/src/sdk/src/iam/model/create_open_id_connect_provider_response.dart'
-    as _i32;
-import 'package:smoke_test/src/sdk/src/iam/model/create_policy_request.dart'
-    as _i36;
-import 'package:smoke_test/src/sdk/src/iam/model/create_policy_response.dart'
-    as _i35;
-import 'package:smoke_test/src/sdk/src/iam/model/create_policy_version_request.dart'
-    as _i39;
-import 'package:smoke_test/src/sdk/src/iam/model/create_policy_version_response.dart'
-    as _i38;
-import 'package:smoke_test/src/sdk/src/iam/model/create_role_request.dart'
-    as _i42;
-import 'package:smoke_test/src/sdk/src/iam/model/create_role_response.dart'
-    as _i41;
-import 'package:smoke_test/src/sdk/src/iam/model/create_saml_provider_request.dart'
-    as _i45;
-import 'package:smoke_test/src/sdk/src/iam/model/create_saml_provider_response.dart'
-    as _i44;
-import 'package:smoke_test/src/sdk/src/iam/model/create_service_linked_role_request.dart'
-    as _i48;
-import 'package:smoke_test/src/sdk/src/iam/model/create_service_linked_role_response.dart'
-    as _i47;
-import 'package:smoke_test/src/sdk/src/iam/model/create_service_specific_credential_request.dart'
-    as _i51;
-import 'package:smoke_test/src/sdk/src/iam/model/create_service_specific_credential_response.dart'
-    as _i50;
-import 'package:smoke_test/src/sdk/src/iam/model/create_user_request.dart'
-    as _i54;
-import 'package:smoke_test/src/sdk/src/iam/model/create_user_response.dart'
-    as _i53;
-import 'package:smoke_test/src/sdk/src/iam/model/create_virtual_mfa_device_request.dart'
-    as _i57;
-import 'package:smoke_test/src/sdk/src/iam/model/create_virtual_mfa_device_response.dart'
-    as _i56;
-import 'package:smoke_test/src/sdk/src/iam/model/deactivate_mfa_device_request.dart'
-    as _i59;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_access_key_request.dart'
-    as _i61;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_account_alias_request.dart'
-    as _i63;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_group_policy_request.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_group_request.dart'
-    as _i66;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_instance_profile_request.dart'
-    as _i70;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_login_profile_request.dart'
-    as _i72;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_open_id_connect_provider_request.dart'
-    as _i74;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_policy_request.dart'
-    as _i76;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_policy_version_request.dart'
-    as _i78;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_role_permissions_boundary_request.dart'
-    as _i82;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_role_policy_request.dart'
-    as _i84;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_role_request.dart'
-    as _i80;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_saml_provider_request.dart'
-    as _i86;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_server_certificate_request.dart'
-    as _i90;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_service_linked_role_request.dart'
-    as _i93;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_service_linked_role_response.dart'
-    as _i92;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_service_specific_credential_request.dart'
-    as _i95;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_signing_certificate_request.dart'
-    as _i97;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_ssh_public_key_request.dart'
-    as _i88;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_user_permissions_boundary_request.dart'
-    as _i101;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_user_policy_request.dart'
-    as _i103;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_user_request.dart'
-    as _i99;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_virtual_mfa_device_request.dart'
-    as _i105;
-import 'package:smoke_test/src/sdk/src/iam/model/detach_group_policy_request.dart'
-    as _i107;
-import 'package:smoke_test/src/sdk/src/iam/model/detach_role_policy_request.dart'
-    as _i109;
-import 'package:smoke_test/src/sdk/src/iam/model/detach_user_policy_request.dart'
-    as _i111;
-import 'package:smoke_test/src/sdk/src/iam/model/enable_mfa_device_request.dart'
-    as _i113;
-import 'package:smoke_test/src/sdk/src/iam/model/evaluation_result.dart'
-    as _i309;
-import 'package:smoke_test/src/sdk/src/iam/model/generate_credential_report_response.dart'
-    as _i115;
-import 'package:smoke_test/src/sdk/src/iam/model/generate_organizations_access_report_request.dart'
-    as _i118;
-import 'package:smoke_test/src/sdk/src/iam/model/generate_organizations_access_report_response.dart'
-    as _i117;
-import 'package:smoke_test/src/sdk/src/iam/model/generate_service_last_accessed_details_request.dart'
-    as _i121;
-import 'package:smoke_test/src/sdk/src/iam/model/generate_service_last_accessed_details_response.dart'
-    as _i120;
-import 'package:smoke_test/src/sdk/src/iam/model/get_access_key_last_used_request.dart'
-    as _i124;
-import 'package:smoke_test/src/sdk/src/iam/model/get_access_key_last_used_response.dart'
-    as _i123;
-import 'package:smoke_test/src/sdk/src/iam/model/get_account_authorization_details_request.dart'
-    as _i127;
-import 'package:smoke_test/src/sdk/src/iam/model/get_account_authorization_details_response.dart'
-    as _i126;
-import 'package:smoke_test/src/sdk/src/iam/model/get_account_password_policy_response.dart'
-    as _i129;
-import 'package:smoke_test/src/sdk/src/iam/model/get_account_summary_response.dart'
-    as _i131;
-import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_custom_policy_request.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_policy_response.dart'
-    as _i133;
-import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_principal_policy_request.dart'
-    as _i136;
-import 'package:smoke_test/src/sdk/src/iam/model/get_credential_report_response.dart'
-    as _i138;
-import 'package:smoke_test/src/sdk/src/iam/model/get_group_policy_request.dart'
-    as _i145;
-import 'package:smoke_test/src/sdk/src/iam/model/get_group_policy_response.dart'
-    as _i144;
-import 'package:smoke_test/src/sdk/src/iam/model/get_group_request.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_request.dart'
-    as _i148;
-import 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_response.dart'
-    as _i147;
-import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_request.dart'
-    as _i151;
-import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_response.dart'
-    as _i150;
-import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_request.dart'
-    as _i154;
-import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_response.dart'
-    as _i153;
-import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_request.dart'
-    as _i157;
-import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_response.dart'
-    as _i156;
-import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_request.dart'
-    as _i160;
-import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_response.dart'
-    as _i159;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_request.dart'
-    as _i163;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_response.dart'
-    as _i162;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_request.dart'
-    as _i166;
-import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_response.dart'
-    as _i165;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_request.dart'
-    as _i172;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_response.dart'
-    as _i171;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_request.dart'
-    as _i169;
-import 'package:smoke_test/src/sdk/src/iam/model/get_role_response.dart'
-    as _i168;
-import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_request.dart'
-    as _i175;
-import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_response.dart'
-    as _i174;
-import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_request.dart'
-    as _i181;
-import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_response.dart'
-    as _i180;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_request.dart'
-    as _i184;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_response.dart'
-    as _i183;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_request.dart'
-    as _i187;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_response.dart'
-    as _i186;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_request.dart'
-    as _i190;
-import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_response.dart'
-    as _i189;
-import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_request.dart'
-    as _i178;
-import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_response.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_request.dart'
-    as _i196;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_response.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_request.dart'
-    as _i193;
-import 'package:smoke_test/src/sdk/src/iam/model/get_user_response.dart'
-    as _i192;
-import 'package:smoke_test/src/sdk/src/iam/model/group.dart' as _i215;
-import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart'
-    as _i223;
-import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_request.dart'
-    as _i199;
-import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_request.dart'
-    as _i201;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_request.dart'
-    as _i204;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_request.dart'
-    as _i206;
-import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_request.dart'
-    as _i208;
-import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_request.dart'
-    as _i211;
-import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_response.dart'
-    as _i210;
-import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_request.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_request.dart'
-    as _i218;
-import 'package:smoke_test/src/sdk/src/iam/model/list_groups_request.dart'
-    as _i216;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_request.dart'
-    as _i221;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_request.dart'
-    as _i226;
-import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_request.dart'
-    as _i224;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_request.dart'
-    as _i228;
-import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_request.dart'
-    as _i231;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_request.dart'
-    as _i233;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_request.dart'
-    as _i236;
-import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_response.dart'
-    as _i235;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_request.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_response.dart'
-    as _i241;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_request.dart'
-    as _i239;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_request.dart'
-    as _i244;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_request.dart'
-    as _i247;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_request.dart'
-    as _i249;
-import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_request.dart'
-    as _i251;
-import 'package:smoke_test/src/sdk/src/iam/model/list_roles_request.dart'
-    as _i254;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_request.dart'
-    as _i256;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_request.dart'
-    as _i259;
-import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_response.dart'
-    as _i258;
-import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificate_tags_request.dart'
-    as _i264;
-import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_request.dart'
-    as _i267;
-import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_request.dart'
-    as _i270;
-import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_response.dart'
-    as _i269;
-import 'package:smoke_test/src/sdk/src/iam/model/list_signing_certificates_request.dart'
-    as _i273;
-import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_request.dart'
-    as _i262;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_request.dart'
-    as _i275;
-import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_request.dart'
-    as _i277;
-import 'package:smoke_test/src/sdk/src/iam/model/list_users_request.dart'
-    as _i279;
-import 'package:smoke_test/src/sdk/src/iam/model/list_virtual_mfa_devices_request.dart'
-    as _i282;
-import 'package:smoke_test/src/sdk/src/iam/model/mfa_device.dart' as _i230;
-import 'package:smoke_test/src/sdk/src/iam/model/policy.dart' as _i238;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart' as _i246;
-import 'package:smoke_test/src/sdk/src/iam/model/put_group_policy_request.dart'
-    as _i284;
-import 'package:smoke_test/src/sdk/src/iam/model/put_role_permissions_boundary_request.dart'
-    as _i286;
-import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart'
-    as _i288;
-import 'package:smoke_test/src/sdk/src/iam/model/put_user_permissions_boundary_request.dart'
-    as _i290;
-import 'package:smoke_test/src/sdk/src/iam/model/put_user_policy_request.dart'
-    as _i292;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_client_id_from_open_id_connect_provider_request.dart'
-    as _i294;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_role_from_instance_profile_request.dart'
-    as _i296;
-import 'package:smoke_test/src/sdk/src/iam/model/remove_user_from_group_request.dart'
-    as _i298;
-import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_request.dart'
-    as _i301;
-import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_response.dart'
-    as _i300;
-import 'package:smoke_test/src/sdk/src/iam/model/resync_mfa_device_request.dart'
-    as _i303;
-import 'package:smoke_test/src/sdk/src/iam/model/role.dart' as _i253;
-import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart'
-    as _i266;
-import 'package:smoke_test/src/sdk/src/iam/model/set_default_policy_version_request.dart'
-    as _i305;
-import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart'
-    as _i307;
-import 'package:smoke_test/src/sdk/src/iam/model/signing_certificate.dart'
-    as _i272;
-import 'package:smoke_test/src/sdk/src/iam/model/simulate_custom_policy_request.dart'
-    as _i310;
-import 'package:smoke_test/src/sdk/src/iam/model/simulate_principal_policy_request.dart'
-    as _i312;
-import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key_metadata.dart'
-    as _i261;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i220;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_instance_profile_request.dart'
-    as _i314;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_mfa_device_request.dart'
-    as _i316;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_open_id_connect_provider_request.dart'
-    as _i318;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_policy_request.dart'
-    as _i320;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_role_request.dart'
-    as _i322;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_saml_provider_request.dart'
-    as _i324;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_server_certificate_request.dart'
-    as _i326;
-import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart'
-    as _i328;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_instance_profile_request.dart'
-    as _i330;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_mfa_device_request.dart'
-    as _i332;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_open_id_connect_provider_request.dart'
-    as _i334;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_policy_request.dart'
-    as _i336;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_role_request.dart'
-    as _i338;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_saml_provider_request.dart'
-    as _i340;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_server_certificate_request.dart'
-    as _i342;
-import 'package:smoke_test/src/sdk/src/iam/model/untag_user_request.dart'
-    as _i344;
-import 'package:smoke_test/src/sdk/src/iam/model/update_access_key_request.dart'
-    as _i346;
-import 'package:smoke_test/src/sdk/src/iam/model/update_account_password_policy_request.dart'
-    as _i348;
-import 'package:smoke_test/src/sdk/src/iam/model/update_assume_role_policy_request.dart'
-    as _i350;
-import 'package:smoke_test/src/sdk/src/iam/model/update_group_request.dart'
-    as _i352;
-import 'package:smoke_test/src/sdk/src/iam/model/update_login_profile_request.dart'
-    as _i354;
-import 'package:smoke_test/src/sdk/src/iam/model/update_open_id_connect_provider_thumbprint_request.dart'
-    as _i356;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_request.dart'
-    as _i362;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_response.dart'
-    as _i361;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_request.dart'
-    as _i359;
-import 'package:smoke_test/src/sdk/src/iam/model/update_role_response.dart'
-    as _i358;
-import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_request.dart'
-    as _i365;
-import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_response.dart'
-    as _i364;
-import 'package:smoke_test/src/sdk/src/iam/model/update_server_certificate_request.dart'
-    as _i369;
-import 'package:smoke_test/src/sdk/src/iam/model/update_service_specific_credential_request.dart'
-    as _i371;
-import 'package:smoke_test/src/sdk/src/iam/model/update_signing_certificate_request.dart'
-    as _i373;
-import 'package:smoke_test/src/sdk/src/iam/model/update_ssh_public_key_request.dart'
-    as _i367;
-import 'package:smoke_test/src/sdk/src/iam/model/update_user_request.dart'
-    as _i375;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_request.dart'
-    as _i381;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_response.dart'
-    as _i380;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_request.dart'
-    as _i384;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_response.dart'
-    as _i383;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_request.dart'
-    as _i378;
-import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.dart'
-    as _i377;
-import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i141;
-import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
-    as _i281;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider_operation.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile_operation.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group_operation.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy_operation.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy_operation.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy_operation.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/iam/operation/change_password_operation.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key_operation.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias_operation.dart'
-    as _i22;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_group_operation.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile_operation.dart'
-    as _i28;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile_operation.dart'
-    as _i31;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider_operation.dart'
-    as _i34;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_operation.dart'
-    as _i37;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version_operation.dart'
-    as _i40;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_role_operation.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider_operation.dart'
-    as _i46;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role_operation.dart'
-    as _i49;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential_operation.dart'
-    as _i52;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_user_operation.dart'
-    as _i55;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device_operation.dart'
-    as _i58;
-import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device_operation.dart'
-    as _i60;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key_operation.dart'
-    as _i62;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias_operation.dart'
-    as _i64;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy_operation.dart'
-    as _i65;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_operation.dart'
-    as _i67;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy_operation.dart'
-    as _i69;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile_operation.dart'
-    as _i71;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile_operation.dart'
-    as _i73;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider_operation.dart'
-    as _i75;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_operation.dart'
-    as _i77;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version_operation.dart'
-    as _i79;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_operation.dart'
-    as _i81;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary_operation.dart'
-    as _i83;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy_operation.dart'
-    as _i85;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider_operation.dart'
-    as _i87;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate_operation.dart'
-    as _i91;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role_operation.dart'
-    as _i94;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential_operation.dart'
-    as _i96;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate_operation.dart'
-    as _i98;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key_operation.dart'
-    as _i89;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_operation.dart'
-    as _i100;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary_operation.dart'
-    as _i102;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy_operation.dart'
-    as _i104;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device_operation.dart'
-    as _i106;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy_operation.dart'
-    as _i108;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy_operation.dart'
-    as _i110;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy_operation.dart'
-    as _i112;
-import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device_operation.dart'
-    as _i114;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report_operation.dart'
-    as _i116;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report_operation.dart'
-    as _i119;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details_operation.dart'
-    as _i122;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used_operation.dart'
-    as _i125;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details_operation.dart'
-    as _i128;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy_operation.dart'
-    as _i130;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary_operation.dart'
-    as _i132;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy_operation.dart'
-    as _i135;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy_operation.dart'
-    as _i137;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report_operation.dart'
-    as _i139;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group_operation.dart'
-    as _i143;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy_operation.dart'
-    as _i146;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile_operation.dart'
-    as _i149;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile_operation.dart'
-    as _i152;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_mfa_device_operation.dart'
-    as _i155;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider_operation.dart'
-    as _i158;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report_operation.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_operation.dart'
-    as _i164;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version_operation.dart'
-    as _i167;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role_operation.dart'
-    as _i170;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy_operation.dart'
-    as _i173;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider_operation.dart'
-    as _i176;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate_operation.dart'
-    as _i182;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_operation.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities_operation.dart'
-    as _i188;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status_operation.dart'
-    as _i191;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key_operation.dart'
-    as _i179;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user_operation.dart'
-    as _i194;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy_operation.dart'
-    as _i197;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys_operation.dart'
-    as _i200;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases_operation.dart'
-    as _i202;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies_operation.dart'
-    as _i205;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies_operation.dart'
-    as _i207;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies_operation.dart'
-    as _i209;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy_operation.dart'
-    as _i212;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies_operation.dart'
-    as _i214;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user_operation.dart'
-    as _i219;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_operation.dart'
-    as _i217;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags_operation.dart'
-    as _i222;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role_operation.dart'
-    as _i227;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_operation.dart'
-    as _i225;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags_operation.dart'
-    as _i229;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices_operation.dart'
-    as _i232;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags_operation.dart'
-    as _i234;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers_operation.dart'
-    as _i237;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access_operation.dart'
-    as _i243;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_operation.dart'
-    as _i240;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags_operation.dart'
-    as _i245;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions_operation.dart'
-    as _i248;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies_operation.dart'
-    as _i250;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags_operation.dart'
-    as _i252;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_roles_operation.dart'
-    as _i255;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags_operation.dart'
-    as _i257;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers_operation.dart'
-    as _i260;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags_operation.dart'
-    as _i265;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates_operation.dart'
-    as _i268;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials_operation.dart'
-    as _i271;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates_operation.dart'
-    as _i274;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys_operation.dart'
-    as _i263;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies_operation.dart'
-    as _i276;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags_operation.dart'
-    as _i278;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_users_operation.dart'
-    as _i280;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices_operation.dart'
-    as _i283;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy_operation.dart'
-    as _i285;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary_operation.dart'
-    as _i287;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy_operation.dart'
-    as _i289;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary_operation.dart'
-    as _i291;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy_operation.dart'
-    as _i293;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider_operation.dart'
-    as _i295;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile_operation.dart'
-    as _i297;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group_operation.dart'
-    as _i299;
-import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential_operation.dart'
-    as _i302;
-import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device_operation.dart'
-    as _i304;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version_operation.dart'
-    as _i306;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences_operation.dart'
-    as _i308;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy_operation.dart'
-    as _i311;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy_operation.dart'
-    as _i313;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile_operation.dart'
-    as _i315;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device_operation.dart'
-    as _i317;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider_operation.dart'
-    as _i319;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy_operation.dart'
-    as _i321;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_role_operation.dart'
-    as _i323;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider_operation.dart'
-    as _i325;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate_operation.dart'
-    as _i327;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_user_operation.dart'
-    as _i329;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile_operation.dart'
-    as _i331;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device_operation.dart'
-    as _i333;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider_operation.dart'
-    as _i335;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy_operation.dart'
-    as _i337;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_role_operation.dart'
-    as _i339;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider_operation.dart'
-    as _i341;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate_operation.dart'
-    as _i343;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_user_operation.dart'
-    as _i345;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key_operation.dart'
-    as _i347;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy_operation.dart'
-    as _i349;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy_operation.dart'
-    as _i351;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_group_operation.dart'
-    as _i353;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile_operation.dart'
-    as _i355;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint_operation.dart'
-    as _i357;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description_operation.dart'
-    as _i363;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role_operation.dart'
-    as _i360;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider_operation.dart'
-    as _i366;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate_operation.dart'
-    as _i370;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential_operation.dart'
-    as _i372;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate_operation.dart'
-    as _i374;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key_operation.dart'
-    as _i368;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_user_operation.dart'
-    as _i376;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate_operation.dart'
-    as _i382;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate_operation.dart'
-    as _i385;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key_operation.dart'
-    as _i379;
+import 'package:smoke_test/src/sdk/src/iam/model/access_key_metadata.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/add_client_id_to_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/add_role_to_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/add_user_to_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/attach_group_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/attach_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/attach_user_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/change_password_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_access_key_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_account_alias_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_group_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_instance_profile_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_login_profile_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_open_id_connect_provider_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_policy_version_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_policy_version_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_role_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_saml_provider_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_service_linked_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_service_linked_role_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_service_specific_credential_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_service_specific_credential_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_user_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_virtual_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/create_virtual_mfa_device_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/deactivate_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_access_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_account_alias_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_group_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_login_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_policy_version_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_role_permissions_boundary_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_service_linked_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_service_linked_role_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_service_specific_credential_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_signing_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_ssh_public_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_user_permissions_boundary_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_user_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_virtual_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/detach_group_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/detach_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/detach_user_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/enable_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/evaluation_result.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/generate_credential_report_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/generate_organizations_access_report_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/generate_organizations_access_report_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/generate_service_last_accessed_details_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/generate_service_last_accessed_details_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_access_key_last_used_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_access_key_last_used_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_account_authorization_details_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_account_authorization_details_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_account_password_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_account_summary_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_custom_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_context_keys_for_principal_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_credential_report_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_group_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_group_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_instance_profile_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_login_profile_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_mfa_device_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_open_id_connect_provider_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_organizations_access_report_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_policy_version_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_role_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_saml_provider_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_server_certificate_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_last_accessed_details_with_entities_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_service_linked_role_deletion_status_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_ssh_public_key_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/get_user_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/group.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_group_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_role_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_attached_user_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_entities_for_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_group_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_for_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_groups_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profile_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_for_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_instance_profiles_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_device_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_mfa_devices_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_provider_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_open_id_connect_providers_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_policy_versions_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_role_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_roles_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_provider_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_saml_providers_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificate_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_server_certificates_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_service_specific_credentials_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_signing_certificates_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_ssh_public_keys_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_policies_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_user_tags_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_users_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_virtual_mfa_devices_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/mfa_device.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_group_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_role_permissions_boundary_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_user_permissions_boundary_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_user_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/remove_client_id_from_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/remove_role_from_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/remove_user_from_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/reset_service_specific_credential_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/resync_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/role.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/set_default_policy_version_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/signing_certificate.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/simulate_custom_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/simulate_principal_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key_metadata.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_instance_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_mfa_device_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_open_id_connect_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/untag_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_access_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_account_password_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_assume_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_group_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_login_profile_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_open_id_connect_provider_thumbprint_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_description_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_role_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_saml_provider_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_service_specific_credential_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_signing_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_ssh_public_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/update_user_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_server_certificate_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_signing_certificate_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/user.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/change_password_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_roles_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_users_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_group_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/update_user_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate_operation.dart';
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key_operation.dart';
 
 /// ## Identity and Access Management
 ///
@@ -774,7 +401,7 @@ class IamClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
@@ -800,11 +427,11 @@ class IamClient {
   ///
   /// This operation is idempotent; it does not fail or return an error if you add an existing client ID to the provider.
   _i3.SmithyOperation<void> addClientIdToOpenIdConnectProvider(
-    _i4.AddClientIdToOpenIdConnectProviderRequest input, {
+    AddClientIdToOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i5.AddClientIdToOpenIdConnectProviderOperation(
+    return AddClientIdToOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -822,11 +449,11 @@ class IamClient {
   ///
   /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> addRoleToInstanceProfile(
-    _i6.AddRoleToInstanceProfileRequest input, {
+    AddRoleToInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i7.AddRoleToInstanceProfileOperation(
+    return AddRoleToInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -840,11 +467,11 @@ class IamClient {
 
   /// Adds the specified user to the specified group.
   _i3.SmithyOperation<void> addUserToGroup(
-    _i8.AddUserToGroupRequest input, {
+    AddUserToGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i9.AddUserToGroupOperation(
+    return AddUserToGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -864,11 +491,11 @@ class IamClient {
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> attachGroupPolicy(
-    _i10.AttachGroupPolicyRequest input, {
+    AttachGroupPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i11.AttachGroupPolicyOperation(
+    return AttachGroupPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -888,11 +515,11 @@ class IamClient {
   ///
   /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> attachRolePolicy(
-    _i12.AttachRolePolicyRequest input, {
+    AttachRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i13.AttachRolePolicyOperation(
+    return AttachRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -912,11 +539,11 @@ class IamClient {
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> attachUserPolicy(
-    _i14.AttachUserPolicyRequest input, {
+    AttachUserPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i15.AttachUserPolicyOperation(
+    return AttachUserPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -932,11 +559,11 @@ class IamClient {
   ///
   /// Use UpdateLoginProfile to use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to change the password for any IAM user. For more information about modifying passwords, see [Managing passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> changePassword(
-    _i16.ChangePasswordRequest input, {
+    ChangePasswordRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i17.ChangePasswordOperation(
+    return ChangePasswordOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -955,12 +582,12 @@ class IamClient {
   /// For information about quotas on the number of keys you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   ///
   /// To ensure the security of your Amazon Web Services account, the secret access key is accessible only during key and user creation. You must save the key (for example, in a text file) if you want to be able to access it again. If a secret key is lost, you can delete the access keys for the associated user and then create new keys.
-  _i3.SmithyOperation<_i18.CreateAccessKeyResponse> createAccessKey(
-    _i19.CreateAccessKeyRequest input, {
+  _i3.SmithyOperation<CreateAccessKeyResponse> createAccessKey(
+    CreateAccessKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i20.CreateAccessKeyOperation(
+    return CreateAccessKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -974,11 +601,11 @@ class IamClient {
 
   /// Creates an alias for your Amazon Web Services account. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   _i3.SmithyOperation<void> createAccountAlias(
-    _i21.CreateAccountAliasRequest input, {
+    CreateAccountAliasRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i22.CreateAccountAliasOperation(
+    return CreateAccountAliasOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -993,12 +620,12 @@ class IamClient {
   /// Creates a new group.
   ///
   /// For information about the number of groups you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i23.CreateGroupResponse> createGroup(
-    _i24.CreateGroupRequest input, {
+  _i3.SmithyOperation<CreateGroupResponse> createGroup(
+    CreateGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i25.CreateGroupOperation(
+    return CreateGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1013,12 +640,12 @@ class IamClient {
   /// Creates a new instance profile. For information about instance profiles, see [Using roles for applications on Amazon EC2](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html) in the _IAM User Guide_, and [Instance profiles](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#ec2-instance-profile) in the _Amazon EC2 User Guide_.
   ///
   /// For information about the number of instance profiles you can create, see [IAM object quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i26.CreateInstanceProfileResponse> createInstanceProfile(
-    _i27.CreateInstanceProfileRequest input, {
+  _i3.SmithyOperation<CreateInstanceProfileResponse> createInstanceProfile(
+    CreateInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i28.CreateInstanceProfileOperation(
+    return CreateInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1035,12 +662,12 @@ class IamClient {
   /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to create a password for any IAM user. Use ChangePassword to update your own existing password in the **My Security Credentials** page in the Amazon Web Services Management Console.
   ///
   /// For more information about managing passwords, see [Managing passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i29.CreateLoginProfileResponse> createLoginProfile(
-    _i30.CreateLoginProfileRequest input, {
+  _i3.SmithyOperation<CreateLoginProfileResponse> createLoginProfile(
+    CreateLoginProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i31.CreateLoginProfileOperation(
+    return CreateLoginProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1074,13 +701,13 @@ class IamClient {
   /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted root certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Auth0, GitHub, Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
-  _i3.SmithyOperation<_i32.CreateOpenIdConnectProviderResponse>
+  _i3.SmithyOperation<CreateOpenIdConnectProviderResponse>
       createOpenIdConnectProvider(
-    _i33.CreateOpenIdConnectProviderRequest input, {
+    CreateOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i34.CreateOpenIdConnectProviderOperation(
+    return CreateOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1099,12 +726,12 @@ class IamClient {
   /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
   ///
   /// For more information about managed policies in general, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i35.CreatePolicyResponse> createPolicy(
-    _i36.CreatePolicyRequest input, {
+  _i3.SmithyOperation<CreatePolicyResponse> createPolicy(
+    CreatePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i37.CreatePolicyOperation(
+    return CreatePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1121,12 +748,12 @@ class IamClient {
   /// Optionally, you can set the new version as the policy's default version. The default version is the version that is in effect for the IAM users, groups, and roles to which the policy is attached.
   ///
   /// For more information about managed policy versions, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i38.CreatePolicyVersionResponse> createPolicyVersion(
-    _i39.CreatePolicyVersionRequest input, {
+  _i3.SmithyOperation<CreatePolicyVersionResponse> createPolicyVersion(
+    CreatePolicyVersionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i40.CreatePolicyVersionOperation(
+    return CreatePolicyVersionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1141,12 +768,12 @@ class IamClient {
   /// Creates a new role for your Amazon Web Services account.
   ///
   /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i41.CreateRoleResponse> createRole(
-    _i42.CreateRoleRequest input, {
+  _i3.SmithyOperation<CreateRoleResponse> createRole(
+    CreateRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i43.CreateRoleOperation(
+    return CreateRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1167,12 +794,12 @@ class IamClient {
   /// This operation requires [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// For more information, see [Enabling SAML 2.0 federated users to access the Amazon Web Services Management Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html) and [About SAML 2.0-based federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i44.CreateSamlProviderResponse> createSamlProvider(
-    _i45.CreateSamlProviderRequest input, {
+  _i3.SmithyOperation<CreateSamlProviderResponse> createSamlProvider(
+    CreateSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i46.CreateSamlProviderOperation(
+    return CreateSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1187,13 +814,12 @@ class IamClient {
   /// Creates an IAM role that is linked to a specific Amazon Web Services service. The service controls the attached policies and when the role can be deleted. This helps ensure that the service is not broken by an unexpectedly changed or deleted role, which could put your Amazon Web Services resources into an unknown state. Allowing the service to control the role helps improve service stability and proper cleanup when a service and its role are no longer needed. For more information, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the _IAM User Guide_.
   ///
   /// To attach a policy to this service-linked role, you must make the request using the Amazon Web Services service that depends on this role.
-  _i3.SmithyOperation<_i47.CreateServiceLinkedRoleResponse>
-      createServiceLinkedRole(
-    _i48.CreateServiceLinkedRoleRequest input, {
+  _i3.SmithyOperation<CreateServiceLinkedRoleResponse> createServiceLinkedRole(
+    CreateServiceLinkedRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i49.CreateServiceLinkedRoleOperation(
+    return CreateServiceLinkedRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1214,13 +840,13 @@ class IamClient {
   /// You can reset the password to a new service-generated value by calling ResetServiceSpecificCredential.
   ///
   /// For more information about service-specific credentials, see [Using IAM with CodeCommit: Git credentials, SSH keys, and Amazon Web Services access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i50.CreateServiceSpecificCredentialResponse>
+  _i3.SmithyOperation<CreateServiceSpecificCredentialResponse>
       createServiceSpecificCredential(
-    _i51.CreateServiceSpecificCredentialRequest input, {
+    CreateServiceSpecificCredentialRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i52.CreateServiceSpecificCredentialOperation(
+    return CreateServiceSpecificCredentialOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1235,12 +861,12 @@ class IamClient {
   /// Creates a new IAM user for your Amazon Web Services account.
   ///
   /// For information about quotas for the number of IAM users you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i53.CreateUserResponse> createUser(
-    _i54.CreateUserRequest input, {
+  _i3.SmithyOperation<CreateUserResponse> createUser(
+    CreateUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i55.CreateUserOperation(
+    return CreateUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1257,13 +883,12 @@ class IamClient {
   /// For information about the maximum number of MFA devices you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   ///
   /// The seed information contained in the QR code and the Base32 string should be treated like any other secret access information. In other words, protect the seed information as you would your Amazon Web Services access keys or your passwords. After you provision your virtual device, you should ensure that the information is destroyed following secure procedures.
-  _i3.SmithyOperation<_i56.CreateVirtualMfaDeviceResponse>
-      createVirtualMfaDevice(
-    _i57.CreateVirtualMfaDeviceRequest input, {
+  _i3.SmithyOperation<CreateVirtualMfaDeviceResponse> createVirtualMfaDevice(
+    CreateVirtualMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i58.CreateVirtualMfaDeviceOperation(
+    return CreateVirtualMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1279,11 +904,11 @@ class IamClient {
   ///
   /// For more information about creating and working with virtual MFA devices, see [Enabling a virtual multi-factor authentication (MFA) device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deactivateMfaDevice(
-    _i59.DeactivateMfaDeviceRequest input, {
+    DeactivateMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i60.DeactivateMfaDeviceOperation(
+    return DeactivateMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1299,11 +924,11 @@ class IamClient {
   ///
   /// If you do not specify a user name, IAM determines the user name implicitly based on the Amazon Web Services access key ID signing the request. This operation works for access keys under the Amazon Web Services account. Consequently, you can use this operation to manage Amazon Web Services account root user credentials even if the Amazon Web Services account has no associated users.
   _i3.SmithyOperation<void> deleteAccessKey(
-    _i61.DeleteAccessKeyRequest input, {
+    DeleteAccessKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i62.DeleteAccessKeyOperation(
+    return DeleteAccessKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1317,11 +942,11 @@ class IamClient {
 
   /// Deletes the specified Amazon Web Services account alias. For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   _i3.SmithyOperation<void> deleteAccountAlias(
-    _i63.DeleteAccountAliasRequest input, {
+    DeleteAccountAliasRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i64.DeleteAccountAliasOperation(
+    return DeleteAccountAliasOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1338,7 +963,7 @@ class IamClient {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i65.DeleteAccountPasswordPolicyOperation(
+    return DeleteAccountPasswordPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1352,11 +977,11 @@ class IamClient {
 
   /// Deletes the specified IAM group. The group must not contain any users or have any attached policies.
   _i3.SmithyOperation<void> deleteGroup(
-    _i66.DeleteGroupRequest input, {
+    DeleteGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i67.DeleteGroupOperation(
+    return DeleteGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1372,11 +997,11 @@ class IamClient {
   ///
   /// A group can also have managed policies attached to it. To detach a managed policy from a group, use DetachGroupPolicy. For more information about policies, refer to [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deleteGroupPolicy(
-    _i68.DeleteGroupPolicyRequest input, {
+    DeleteGroupPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i69.DeleteGroupPolicyOperation(
+    return DeleteGroupPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1394,11 +1019,11 @@ class IamClient {
   ///
   /// For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deleteInstanceProfile(
-    _i70.DeleteInstanceProfileRequest input, {
+    DeleteInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i71.DeleteInstanceProfileOperation(
+    return DeleteInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1416,11 +1041,11 @@ class IamClient {
   ///
   /// Deleting a user's password does not prevent a user from accessing Amazon Web Services through the command line interface or the API. To prevent all user access, you must also either make any access keys inactive or delete them. For more information about making keys inactive or deleting them, see UpdateAccessKey and DeleteAccessKey.
   _i3.SmithyOperation<void> deleteLoginProfile(
-    _i72.DeleteLoginProfileRequest input, {
+    DeleteLoginProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i73.DeleteLoginProfileOperation(
+    return DeleteLoginProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1438,11 +1063,11 @@ class IamClient {
   ///
   /// This operation is idempotent; it does not fail or return an error if you call the operation for a provider that does not exist.
   _i3.SmithyOperation<void> deleteOpenIdConnectProvider(
-    _i74.DeleteOpenIdConnectProviderRequest input, {
+    DeleteOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i75.DeleteOpenIdConnectProviderOperation(
+    return DeleteOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1467,11 +1092,11 @@ class IamClient {
   ///
   /// For information about managed policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deletePolicy(
-    _i76.DeletePolicyRequest input, {
+    DeletePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i77.DeletePolicyOperation(
+    return DeletePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1489,11 +1114,11 @@ class IamClient {
   ///
   /// For information about versions for managed policies, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deletePolicyVersion(
-    _i78.DeletePolicyVersionRequest input, {
+    DeletePolicyVersionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i79.DeletePolicyVersionOperation(
+    return DeletePolicyVersionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1518,11 +1143,11 @@ class IamClient {
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the role you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
   _i3.SmithyOperation<void> deleteRole(
-    _i80.DeleteRoleRequest input, {
+    DeleteRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i81.DeleteRoleOperation(
+    return DeleteRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1540,11 +1165,11 @@ class IamClient {
   ///
   /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
   _i3.SmithyOperation<void> deleteRolePermissionsBoundary(
-    _i82.DeleteRolePermissionsBoundaryRequest input, {
+    DeleteRolePermissionsBoundaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i83.DeleteRolePermissionsBoundaryOperation(
+    return DeleteRolePermissionsBoundaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1560,11 +1185,11 @@ class IamClient {
   ///
   /// A role can also have managed policies attached to it. To detach a managed policy from a role, use DetachRolePolicy. For more information about policies, refer to [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deleteRolePolicy(
-    _i84.DeleteRolePolicyRequest input, {
+    DeleteRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i85.DeleteRolePolicyOperation(
+    return DeleteRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1582,11 +1207,11 @@ class IamClient {
   ///
   /// This operation requires [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   _i3.SmithyOperation<void> deleteSamlProvider(
-    _i86.DeleteSamlProviderRequest input, {
+    DeleteSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i87.DeleteSamlProviderOperation(
+    return DeleteSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1602,11 +1227,11 @@ class IamClient {
   ///
   /// The SSH public key deleted by this operation is used only for authenticating the associated IAM user to an CodeCommit repository. For more information about using SSH keys to authenticate to an CodeCommit repository, see [Set up CodeCommit for SSH connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html) in the _CodeCommit User Guide_.
   _i3.SmithyOperation<void> deleteSshPublicKey(
-    _i88.DeleteSshPublicKeyRequest input, {
+    DeleteSshPublicKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i89.DeleteSshPublicKeyOperation(
+    return DeleteSshPublicKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1624,11 +1249,11 @@ class IamClient {
   ///
   /// If you are using a server certificate with Elastic Load Balancing, deleting the certificate could have implications for your application. If Elastic Load Balancing doesn't detect the deletion of bound certificates, it may continue to use the certificates. This could cause Elastic Load Balancing to stop accepting traffic. We recommend that you remove the reference to the certificate from Elastic Load Balancing before using this command to delete the certificate. For more information, see [DeleteLoadBalancerListeners](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/APIReference/API_DeleteLoadBalancerListeners.html) in the _Elastic Load Balancing API Reference_.
   _i3.SmithyOperation<void> deleteServerCertificate(
-    _i90.DeleteServerCertificateRequest input, {
+    DeleteServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i91.DeleteServerCertificateOperation(
+    return DeleteServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1645,13 +1270,12 @@ class IamClient {
   /// If you submit a deletion request for a service-linked role whose linked service is still accessing a resource, then the deletion task fails. If it fails, the GetServiceLinkedRoleDeletionStatus operation returns the reason for the failure, usually including the resources that must be deleted. To delete the service-linked role, you must first remove those resources from the linked service and then submit the deletion request again. Resources are specific to the service that is linked to the role. For more information about removing resources from a service, see the [Amazon Web Services documentation](http://docs.aws.amazon.com/) for your service.
   ///
   /// For more information about service-linked roles, see [Roles terms and concepts: Amazon Web Services service-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i92.DeleteServiceLinkedRoleResponse>
-      deleteServiceLinkedRole(
-    _i93.DeleteServiceLinkedRoleRequest input, {
+  _i3.SmithyOperation<DeleteServiceLinkedRoleResponse> deleteServiceLinkedRole(
+    DeleteServiceLinkedRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i94.DeleteServiceLinkedRoleOperation(
+    return DeleteServiceLinkedRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1665,11 +1289,11 @@ class IamClient {
 
   /// Deletes the specified service-specific credential.
   _i3.SmithyOperation<void> deleteServiceSpecificCredential(
-    _i95.DeleteServiceSpecificCredentialRequest input, {
+    DeleteServiceSpecificCredentialRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i96.DeleteServiceSpecificCredentialOperation(
+    return DeleteServiceSpecificCredentialOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1685,11 +1309,11 @@ class IamClient {
   ///
   /// If you do not specify a user name, IAM determines the user name implicitly based on the Amazon Web Services access key ID signing the request. This operation works for access keys under the Amazon Web Services account. Consequently, you can use this operation to manage Amazon Web Services account root user credentials even if the Amazon Web Services account has no associated IAM users.
   _i3.SmithyOperation<void> deleteSigningCertificate(
-    _i97.DeleteSigningCertificateRequest input, {
+    DeleteSigningCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i98.DeleteSigningCertificateOperation(
+    return DeleteSigningCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1721,11 +1345,11 @@ class IamClient {
   ///
   /// *   Group memberships (RemoveUserFromGroup)
   _i3.SmithyOperation<void> deleteUser(
-    _i99.DeleteUserRequest input, {
+    DeleteUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i100.DeleteUserOperation(
+    return DeleteUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1741,11 +1365,11 @@ class IamClient {
   ///
   /// Deleting the permissions boundary for a user might increase its permissions by allowing the user to perform all the actions granted in its permissions policies.
   _i3.SmithyOperation<void> deleteUserPermissionsBoundary(
-    _i101.DeleteUserPermissionsBoundaryRequest input, {
+    DeleteUserPermissionsBoundaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i102.DeleteUserPermissionsBoundaryOperation(
+    return DeleteUserPermissionsBoundaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1761,11 +1385,11 @@ class IamClient {
   ///
   /// A user can also have managed policies attached to it. To detach a managed policy from a user, use DetachUserPolicy. For more information about policies, refer to [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> deleteUserPolicy(
-    _i103.DeleteUserPolicyRequest input, {
+    DeleteUserPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i104.DeleteUserPolicyOperation(
+    return DeleteUserPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1781,11 +1405,11 @@ class IamClient {
   ///
   /// You must deactivate a user's virtual MFA device before you can delete it. For information about deactivating MFA devices, see DeactivateMFADevice.
   _i3.SmithyOperation<void> deleteVirtualMfaDevice(
-    _i105.DeleteVirtualMfaDeviceRequest input, {
+    DeleteVirtualMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i106.DeleteVirtualMfaDeviceOperation(
+    return DeleteVirtualMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1801,11 +1425,11 @@ class IamClient {
   ///
   /// A group can also have inline policies embedded with it. To delete an inline policy, use DeleteGroupPolicy. For information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> detachGroupPolicy(
-    _i107.DetachGroupPolicyRequest input, {
+    DetachGroupPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i108.DetachGroupPolicyOperation(
+    return DetachGroupPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1821,11 +1445,11 @@ class IamClient {
   ///
   /// A role can also have inline policies embedded with it. To delete an inline policy, use DeleteRolePolicy. For information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> detachRolePolicy(
-    _i109.DetachRolePolicyRequest input, {
+    DetachRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i110.DetachRolePolicyOperation(
+    return DetachRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1841,11 +1465,11 @@ class IamClient {
   ///
   /// A user can also have inline policies embedded with it. To delete an inline policy, use DeleteUserPolicy. For information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> detachUserPolicy(
-    _i111.DetachUserPolicyRequest input, {
+    DetachUserPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i112.DetachUserPolicyOperation(
+    return DetachUserPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1859,11 +1483,11 @@ class IamClient {
 
   /// Enables the specified MFA device and associates it with the specified IAM user. When enabled, the MFA device is required for every subsequent login by the IAM user associated with the device.
   _i3.SmithyOperation<void> enableMfaDevice(
-    _i113.EnableMfaDeviceRequest input, {
+    EnableMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i114.EnableMfaDeviceOperation(
+    return EnableMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1876,12 +1500,12 @@ class IamClient {
   }
 
   /// Generates a credential report for the Amazon Web Services account. For more information about the credential report, see [Getting credential reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i115.GenerateCredentialReportResponse>
+  _i3.SmithyOperation<GenerateCredentialReportResponse>
       generateCredentialReport({
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i116.GenerateCredentialReportOperation(
+    return GenerateCredentialReportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1932,13 +1556,13 @@ class IamClient {
   /// Service last accessed data does not use other policy types when determining whether a principal could access a service. These other policy types include identity-based policies, resource-based policies, access control lists, IAM permissions boundaries, and STS assume role policies. It only applies SCP logic. For more about the evaluation of policy types, see [Evaluating policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics) in the _IAM User Guide_.
   ///
   /// For more information about service last accessed data, see [Reducing policy scope by viewing user activity](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i117.GenerateOrganizationsAccessReportResponse>
+  _i3.SmithyOperation<GenerateOrganizationsAccessReportResponse>
       generateOrganizationsAccessReport(
-    _i118.GenerateOrganizationsAccessReportRequest input, {
+    GenerateOrganizationsAccessReportRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i119.GenerateOrganizationsAccessReportOperation(
+    return GenerateOrganizationsAccessReportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1970,13 +1594,13 @@ class IamClient {
   /// Service last accessed data does not use other policy types when determining whether a resource could access a service. These other policy types include resource-based policies, access control lists, Organizations policies, IAM permissions boundaries, and STS assume role policies. It only applies permissions policy logic. For more about the evaluation of policy types, see [Evaluating policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics) in the _IAM User Guide_.
   ///
   /// For more information about service and action last accessed data, see [Reducing permissions using service last accessed data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i120.GenerateServiceLastAccessedDetailsResponse>
+  _i3.SmithyOperation<GenerateServiceLastAccessedDetailsResponse>
       generateServiceLastAccessedDetails(
-    _i121.GenerateServiceLastAccessedDetailsRequest input, {
+    GenerateServiceLastAccessedDetailsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i122.GenerateServiceLastAccessedDetailsOperation(
+    return GenerateServiceLastAccessedDetailsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1989,12 +1613,12 @@ class IamClient {
   }
 
   /// Retrieves information about when the specified access key was last used. The information includes the date and time of last use, along with the Amazon Web Services service and Region that were specified in the last request made with that key.
-  _i3.SmithyOperation<_i123.GetAccessKeyLastUsedResponse> getAccessKeyLastUsed(
-    _i124.GetAccessKeyLastUsedRequest input, {
+  _i3.SmithyOperation<GetAccessKeyLastUsedResponse> getAccessKeyLastUsed(
+    GetAccessKeyLastUsedRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i125.GetAccessKeyLastUsedOperation(
+    return GetAccessKeyLastUsedOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2012,13 +1636,14 @@ class IamClient {
   ///
   /// You can optionally filter the results using the `Filter` parameter. You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i126.GetAccountAuthorizationDetailsResponse, int,
-          String>> getAccountAuthorizationDetails(
-    _i127.GetAccountAuthorizationDetailsRequest input, {
+          _i3
+          .PaginatedResult<GetAccountAuthorizationDetailsResponse, int, String>>
+      getAccountAuthorizationDetails(
+    GetAccountAuthorizationDetailsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i128.GetAccountAuthorizationDetailsOperation(
+    return GetAccountAuthorizationDetailsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2031,12 +1656,12 @@ class IamClient {
   }
 
   /// Retrieves the password policy for the Amazon Web Services account. This tells you the complexity requirements and mandatory rotation periods for the IAM user passwords in your account. For more information about using a password policy, see [Managing an IAM password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html).
-  _i3.SmithyOperation<_i129.GetAccountPasswordPolicyResponse>
+  _i3.SmithyOperation<GetAccountPasswordPolicyResponse>
       getAccountPasswordPolicy({
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i130.GetAccountPasswordPolicyOperation(
+    return GetAccountPasswordPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2051,11 +1676,11 @@ class IamClient {
   /// Retrieves information about IAM entity usage and IAM quotas in the Amazon Web Services account.
   ///
   /// For information about IAM quotas, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i131.GetAccountSummaryResponse> getAccountSummary({
+  _i3.SmithyOperation<GetAccountSummaryResponse> getAccountSummary({
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i132.GetAccountSummaryOperation(
+    return GetAccountSummaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2070,13 +1695,13 @@ class IamClient {
   /// Gets a list of all of the context keys referenced in the input policies. The policies are supplied as a list of one or more strings. To get the context keys from policies associated with an IAM user, group, or role, use GetContextKeysForPrincipalPolicy.
   ///
   /// Context keys are variables maintained by Amazon Web Services and its services that provide details about the context of an API query request. Context keys can be evaluated by testing against a value specified in an IAM policy. Use `GetContextKeysForCustomPolicy` to understand what key names and values you must supply when you call SimulateCustomPolicy. Note that all parameters are shown in unencoded form here for clarity but must be URL encoded to be included as a part of a real HTML request.
-  _i3.SmithyOperation<_i133.GetContextKeysForPolicyResponse>
+  _i3.SmithyOperation<GetContextKeysForPolicyResponse>
       getContextKeysForCustomPolicy(
-    _i134.GetContextKeysForCustomPolicyRequest input, {
+    GetContextKeysForCustomPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i135.GetContextKeysForCustomPolicyOperation(
+    return GetContextKeysForCustomPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2095,13 +1720,13 @@ class IamClient {
   /// **Note:** This operation discloses information about the permissions granted to other users. If you do not want users to see other user's permissions, then consider allowing them to use GetContextKeysForCustomPolicy instead.
   ///
   /// Context keys are variables maintained by Amazon Web Services and its services that provide details about the context of an API query request. Context keys can be evaluated by testing against a value in an IAM policy. Use GetContextKeysForPrincipalPolicy to understand what key names and values you must supply when you call SimulatePrincipalPolicy.
-  _i3.SmithyOperation<_i133.GetContextKeysForPolicyResponse>
+  _i3.SmithyOperation<GetContextKeysForPolicyResponse>
       getContextKeysForPrincipalPolicy(
-    _i136.GetContextKeysForPrincipalPolicyRequest input, {
+    GetContextKeysForPrincipalPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i137.GetContextKeysForPrincipalPolicyOperation(
+    return GetContextKeysForPrincipalPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2114,11 +1739,11 @@ class IamClient {
   }
 
   /// Retrieves a credential report for the Amazon Web Services account. For more information about the credential report, see [Getting credential reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i138.GetCredentialReportResponse> getCredentialReport({
+  _i3.SmithyOperation<GetCredentialReportResponse> getCredentialReport({
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i139.GetCredentialReportOperation(
+    return GetCredentialReportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2131,13 +1756,13 @@ class IamClient {
   }
 
   /// Returns a list of IAM users that are in the specified IAM group. You can paginate the results using the `MaxItems` and `Marker` parameters.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i141.User>, int, String>> getGroup(
-    _i142.GetGroupRequest input, {
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<User>, int, String>>
+      getGroup(
+    GetGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i143.GetGroupOperation(
+    return GetGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2156,12 +1781,12 @@ class IamClient {
   /// An IAM group can also have managed policies attached to it. To retrieve a managed policy document that is attached to a group, use GetPolicy to determine the policy's default version, then use GetPolicyVersion to retrieve the policy document.
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i144.GetGroupPolicyResponse> getGroupPolicy(
-    _i145.GetGroupPolicyRequest input, {
+  _i3.SmithyOperation<GetGroupPolicyResponse> getGroupPolicy(
+    GetGroupPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i146.GetGroupPolicyOperation(
+    return GetGroupPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2174,12 +1799,12 @@ class IamClient {
   }
 
   /// Retrieves information about the specified instance profile, including the instance profile's path, GUID, ARN, and role. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i147.GetInstanceProfileResponse> getInstanceProfile(
-    _i148.GetInstanceProfileRequest input, {
+  _i3.SmithyOperation<GetInstanceProfileResponse> getInstanceProfile(
+    GetInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i149.GetInstanceProfileOperation(
+    return GetInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2196,12 +1821,12 @@ class IamClient {
   /// If you create an IAM user with access to the console, the `CreateDate` reflects the date you created the initial password for the user.
   ///
   /// If you create an IAM user with programmatic access, and then later add a password for the user to access the Amazon Web Services Management Console, the `CreateDate` reflects the initial password creation date. A user with programmatic access does not have a login profile unless you create a password for the user to access the Amazon Web Services Management Console.
-  _i3.SmithyOperation<_i150.GetLoginProfileResponse> getLoginProfile(
-    _i151.GetLoginProfileRequest input, {
+  _i3.SmithyOperation<GetLoginProfileResponse> getLoginProfile(
+    GetLoginProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i152.GetLoginProfileOperation(
+    return GetLoginProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2214,12 +1839,12 @@ class IamClient {
   }
 
   /// Retrieves information about an MFA device for a specified user.
-  _i3.SmithyOperation<_i153.GetMfaDeviceResponse> getMfaDevice(
-    _i154.GetMfaDeviceRequest input, {
+  _i3.SmithyOperation<GetMfaDeviceResponse> getMfaDevice(
+    GetMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i155.GetMfaDeviceOperation(
+    return GetMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2232,13 +1857,13 @@ class IamClient {
   }
 
   /// Returns information about the specified OpenID Connect (OIDC) provider resource object in IAM.
-  _i3.SmithyOperation<_i156.GetOpenIdConnectProviderResponse>
+  _i3.SmithyOperation<GetOpenIdConnectProviderResponse>
       getOpenIdConnectProvider(
-    _i157.GetOpenIdConnectProviderRequest input, {
+    GetOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i158.GetOpenIdConnectProviderOperation(
+    return GetOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2259,13 +1884,13 @@ class IamClient {
   /// For each service that principals in an account (root user, IAM users, or IAM roles) could access using SCPs, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, it returns the reason that it failed.
   ///
   /// By default, the list is sorted by service namespace.
-  _i3.SmithyOperation<_i159.GetOrganizationsAccessReportResponse>
+  _i3.SmithyOperation<GetOrganizationsAccessReportResponse>
       getOrganizationsAccessReport(
-    _i160.GetOrganizationsAccessReportRequest input, {
+    GetOrganizationsAccessReportRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i161.GetOrganizationsAccessReportOperation(
+    return GetOrganizationsAccessReportOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2282,12 +1907,12 @@ class IamClient {
   /// This operation retrieves information about managed policies. To retrieve information about an inline policy that is embedded with an IAM user, group, or role, use GetUserPolicy, GetGroupPolicy, or GetRolePolicy.
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i162.GetPolicyResponse> getPolicy(
-    _i163.GetPolicyRequest input, {
+  _i3.SmithyOperation<GetPolicyResponse> getPolicy(
+    GetPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i164.GetPolicyOperation(
+    return GetPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2310,12 +1935,12 @@ class IamClient {
   /// For more information about the types of policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// For more information about managed policy versions, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i165.GetPolicyVersionResponse> getPolicyVersion(
-    _i166.GetPolicyVersionRequest input, {
+  _i3.SmithyOperation<GetPolicyVersionResponse> getPolicyVersion(
+    GetPolicyVersionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i167.GetPolicyVersionOperation(
+    return GetPolicyVersionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2330,12 +1955,12 @@ class IamClient {
   /// Retrieves information about the specified role, including the role's path, GUID, ARN, and the role's trust policy that grants permission to assume the role. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
   ///
   /// Policies returned by this operation are URL-encoded compliant with [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding method to convert the policy back to plain JSON text. For example, if you use Java, you can use the `decode` method of the `java.net.URLDecoder` utility class in the Java SDK. Other languages and SDKs provide similar functionality.
-  _i3.SmithyOperation<_i168.GetRoleResponse> getRole(
-    _i169.GetRoleRequest input, {
+  _i3.SmithyOperation<GetRoleResponse> getRole(
+    GetRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i170.GetRoleOperation(
+    return GetRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2356,12 +1981,12 @@ class IamClient {
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i171.GetRolePolicyResponse> getRolePolicy(
-    _i172.GetRolePolicyRequest input, {
+  _i3.SmithyOperation<GetRolePolicyResponse> getRolePolicy(
+    GetRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i173.GetRolePolicyOperation(
+    return GetRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2376,12 +2001,12 @@ class IamClient {
   /// Returns the SAML provider metadocument that was uploaded when the IAM SAML provider resource object was created or updated.
   ///
   /// This operation requires [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
-  _i3.SmithyOperation<_i174.GetSamlProviderResponse> getSamlProvider(
-    _i175.GetSamlProviderRequest input, {
+  _i3.SmithyOperation<GetSamlProviderResponse> getSamlProvider(
+    GetSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i176.GetSamlProviderOperation(
+    return GetSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2396,12 +2021,12 @@ class IamClient {
   /// Retrieves the specified SSH public key, including metadata about the key.
   ///
   /// The SSH public key retrieved by this operation is used only for authenticating the associated IAM user to an CodeCommit repository. For more information about using SSH keys to authenticate to an CodeCommit repository, see [Set up CodeCommit for SSH connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html) in the _CodeCommit User Guide_.
-  _i3.SmithyOperation<_i177.GetSshPublicKeyResponse> getSshPublicKey(
-    _i178.GetSshPublicKeyRequest input, {
+  _i3.SmithyOperation<GetSshPublicKeyResponse> getSshPublicKey(
+    GetSshPublicKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i179.GetSshPublicKeyOperation(
+    return GetSshPublicKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2416,12 +2041,12 @@ class IamClient {
   /// Retrieves information about the specified server certificate stored in IAM.
   ///
   /// For more information about working with server certificates, see [Working with server certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html) in the _IAM User Guide_. This topic includes a list of Amazon Web Services services that can use the server certificates that you manage with IAM.
-  _i3.SmithyOperation<_i180.GetServerCertificateResponse> getServerCertificate(
-    _i181.GetServerCertificateRequest input, {
+  _i3.SmithyOperation<GetServerCertificateResponse> getServerCertificate(
+    GetServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i182.GetServerCertificateOperation(
+    return GetServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2455,13 +2080,13 @@ class IamClient {
   /// If you specified `ACTION_LEVEL` granularity when you generated the report, this operation returns service and action last accessed data. This includes the most recent access attempt for each tracked action within a service. Otherwise, this operation returns only service data.
   ///
   /// For more information about service and action last accessed data, see [Reducing permissions using service last accessed data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i183.GetServiceLastAccessedDetailsResponse>
+  _i3.SmithyOperation<GetServiceLastAccessedDetailsResponse>
       getServiceLastAccessedDetails(
-    _i184.GetServiceLastAccessedDetailsRequest input, {
+    GetServiceLastAccessedDetailsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i185.GetServiceLastAccessedDetailsOperation(
+    return GetServiceLastAccessedDetailsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2485,13 +2110,13 @@ class IamClient {
   /// If the operation fails, the `GetServiceLastAccessedDetailsWithEntities` operation returns the reason that it failed.
   ///
   /// By default, the list of associated entities is sorted by date, with the most recent access listed first.
-  _i3.SmithyOperation<_i186.GetServiceLastAccessedDetailsWithEntitiesResponse>
+  _i3.SmithyOperation<GetServiceLastAccessedDetailsWithEntitiesResponse>
       getServiceLastAccessedDetailsWithEntities(
-    _i187.GetServiceLastAccessedDetailsWithEntitiesRequest input, {
+    GetServiceLastAccessedDetailsWithEntitiesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i188.GetServiceLastAccessedDetailsWithEntitiesOperation(
+    return GetServiceLastAccessedDetailsWithEntitiesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2504,13 +2129,13 @@ class IamClient {
   }
 
   /// Retrieves the status of your service-linked role deletion. After you use DeleteServiceLinkedRole to submit a service-linked role for deletion, you can use the `DeletionTaskId` parameter in `GetServiceLinkedRoleDeletionStatus` to check the status of the deletion. If the deletion fails, this operation returns the reason that it failed, if that information is returned by the service.
-  _i3.SmithyOperation<_i189.GetServiceLinkedRoleDeletionStatusResponse>
+  _i3.SmithyOperation<GetServiceLinkedRoleDeletionStatusResponse>
       getServiceLinkedRoleDeletionStatus(
-    _i190.GetServiceLinkedRoleDeletionStatusRequest input, {
+    GetServiceLinkedRoleDeletionStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i191.GetServiceLinkedRoleDeletionStatusOperation(
+    return GetServiceLinkedRoleDeletionStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2525,12 +2150,12 @@ class IamClient {
   /// Retrieves information about the specified IAM user, including the user's creation date, path, unique ID, and ARN.
   ///
   /// If you do not specify a user name, IAM determines the user name implicitly based on the Amazon Web Services access key ID used to sign the request to this operation.
-  _i3.SmithyOperation<_i192.GetUserResponse> getUser(
-    _i193.GetUserRequest input, {
+  _i3.SmithyOperation<GetUserResponse> getUser(
+    GetUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i194.GetUserOperation(
+    return GetUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2549,12 +2174,12 @@ class IamClient {
   /// An IAM user can also have managed policies attached to it. To retrieve a managed policy document that is attached to a user, use GetPolicy to determine the policy's default version. Then use GetPolicyVersion to retrieve the policy document.
   ///
   /// For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i195.GetUserPolicyResponse> getUserPolicy(
-    _i196.GetUserPolicyRequest input, {
+  _i3.SmithyOperation<GetUserPolicyResponse> getUserPolicy(
+    GetUserPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i197.GetUserPolicyOperation(
+    return GetUserPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2574,13 +2199,13 @@ class IamClient {
   ///
   /// To ensure the security of your Amazon Web Services account, the secret access key is accessible only during key and user creation.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i198.AccessKeyMetadata>, int,
-          String>> listAccessKeys(
-    _i199.ListAccessKeysRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<AccessKeyMetadata>, int, String>>
+      listAccessKeys(
+    ListAccessKeysRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i200.ListAccessKeysOperation(
+    return ListAccessKeysOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2593,13 +2218,13 @@ class IamClient {
   }
 
   /// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i140.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       listAccountAliases(
-    _i201.ListAccountAliasesRequest input, {
+    ListAccountAliasesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i202.ListAccountAliasesOperation(
+    return ListAccountAliasesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2617,13 +2242,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified group (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedGroupPolicies(
-    _i204.ListAttachedGroupPoliciesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<AttachedPolicy>, int, String>>
+      listAttachedGroupPolicies(
+    ListAttachedGroupPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i205.ListAttachedGroupPoliciesOperation(
+    return ListAttachedGroupPoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2641,13 +2266,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified role (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedRolePolicies(
-    _i206.ListAttachedRolePoliciesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<AttachedPolicy>, int, String>>
+      listAttachedRolePolicies(
+    ListAttachedRolePoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i207.ListAttachedRolePoliciesOperation(
+    return ListAttachedRolePoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2665,13 +2290,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified group (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedUserPolicies(
-    _i208.ListAttachedUserPoliciesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<AttachedPolicy>, int, String>>
+      listAttachedUserPolicies(
+    ListAttachedUserPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i209.ListAttachedUserPoliciesOperation(
+    return ListAttachedUserPoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2689,13 +2314,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i210.ListEntitiesForPolicyResponse, int, String>>
+          _i3.PaginatedResult<ListEntitiesForPolicyResponse, int, String>>
       listEntitiesForPolicy(
-    _i211.ListEntitiesForPolicyRequest input, {
+    ListEntitiesForPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i212.ListEntitiesForPolicyOperation(
+    return ListEntitiesForPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2712,13 +2337,13 @@ class IamClient {
   /// An IAM group can also have managed policies attached to it. To list the managed policies that are attached to a group, use ListAttachedGroupPolicies. For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. If there are no inline policies embedded with the specified group, the operation returns an empty list.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i140.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       listGroupPolicies(
-    _i213.ListGroupPoliciesRequest input, {
+    ListGroupPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i214.ListGroupPoliciesOperation(
+    return ListGroupPoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2733,14 +2358,13 @@ class IamClient {
   /// Lists the IAM groups that have the specified path prefix.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i215.Group>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Group>, int, String>>
       listGroups(
-    _i216.ListGroupsRequest input, {
+    ListGroupsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i217.ListGroupsOperation(
+    return ListGroupsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2755,14 +2379,13 @@ class IamClient {
   /// Lists the IAM groups that the specified IAM user belongs to.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i215.Group>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Group>, int, String>>
       listGroupsForUser(
-    _i218.ListGroupsForUserRequest input, {
+    ListGroupsForUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i219.ListGroupsForUserOperation(
+    return ListGroupsForUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2775,14 +2398,13 @@ class IamClient {
   }
 
   /// Lists the tags that are attached to the specified IAM instance profile. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listInstanceProfileTags(
-    _i221.ListInstanceProfileTagsRequest input, {
+    ListInstanceProfileTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i222.ListInstanceProfileTagsOperation(
+    return ListInstanceProfileTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2800,13 +2422,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int,
-          String>> listInstanceProfiles(
-    _i224.ListInstanceProfilesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<InstanceProfile>, int, String>>
+      listInstanceProfiles(
+    ListInstanceProfilesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i225.ListInstanceProfilesOperation(
+    return ListInstanceProfilesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2822,13 +2444,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int,
-          String>> listInstanceProfilesForRole(
-    _i226.ListInstanceProfilesForRoleRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<InstanceProfile>, int, String>>
+      listInstanceProfilesForRole(
+    ListInstanceProfilesForRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i227.ListInstanceProfilesForRoleOperation(
+    return ListInstanceProfilesForRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2841,14 +2463,13 @@ class IamClient {
   }
 
   /// Lists the tags that are attached to the specified IAM virtual multi-factor authentication (MFA) device. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listMfaDeviceTags(
-    _i228.ListMfaDeviceTagsRequest input, {
+    ListMfaDeviceTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i229.ListMfaDeviceTagsOperation(
+    return ListMfaDeviceTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2864,13 +2485,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i230.MfaDevice>, int, String>>
+          _i3.PaginatedResult<_i4.BuiltList<MfaDevice>, int, String>>
       listMfaDevices(
-    _i231.ListMfaDevicesRequest input, {
+    ListMfaDevicesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i232.ListMfaDevicesOperation(
+    return ListMfaDevicesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2885,14 +2506,13 @@ class IamClient {
   /// Lists the tags that are attached to the specified OpenID Connect (OIDC)-compatible identity provider. The returned list of tags is sorted by tag key. For more information, see [About web identity federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html).
   ///
   /// For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listOpenIdConnectProviderTags(
-    _i233.ListOpenIdConnectProviderTagsRequest input, {
+    ListOpenIdConnectProviderTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i234.ListOpenIdConnectProviderTagsOperation(
+    return ListOpenIdConnectProviderTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2907,13 +2527,13 @@ class IamClient {
   /// Lists information about the IAM OpenID Connect (OIDC) provider resource objects defined in the Amazon Web Services account.
   ///
   /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for an OIDC provider, see GetOpenIDConnectProvider.
-  _i3.SmithyOperation<_i235.ListOpenIdConnectProvidersResponse>
+  _i3.SmithyOperation<ListOpenIdConnectProvidersResponse>
       listOpenIdConnectProviders(
-    _i236.ListOpenIdConnectProvidersRequest input, {
+    ListOpenIdConnectProvidersRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i237.ListOpenIdConnectProvidersOperation(
+    return ListOpenIdConnectProvidersOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2934,14 +2554,13 @@ class IamClient {
   /// For more information about managed policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a customer manged policy, see GetPolicy.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i238.Policy>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Policy>, int, String>>
       listPolicies(
-    _i239.ListPoliciesRequest input, {
+    ListPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i240.ListPoliciesOperation(
+    return ListPoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2969,13 +2588,13 @@ class IamClient {
   /// For each managed policy, this operation returns the ARN and policy name. For each inline policy, it returns the policy name and the entity to which it is attached. Inline policies do not have an ARN. For more information about these policy types, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// Policies that are attached to users and roles as permissions boundaries are not returned. To view which managed policy is currently used to set the permissions boundary for a user or role, use the GetUser or GetRole operations.
-  _i3.SmithyOperation<_i241.ListPoliciesGrantingServiceAccessResponse>
+  _i3.SmithyOperation<ListPoliciesGrantingServiceAccessResponse>
       listPoliciesGrantingServiceAccess(
-    _i242.ListPoliciesGrantingServiceAccessRequest input, {
+    ListPoliciesGrantingServiceAccessRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i243.ListPoliciesGrantingServiceAccessOperation(
+    return ListPoliciesGrantingServiceAccessOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2988,14 +2607,13 @@ class IamClient {
   }
 
   /// Lists the tags that are attached to the specified IAM customer managed policy. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listPolicyTags(
-    _i244.ListPolicyTagsRequest input, {
+    ListPolicyTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i245.ListPolicyTagsOperation(
+    return ListPolicyTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3011,13 +2629,13 @@ class IamClient {
   ///
   /// For more information about managed policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i246.PolicyVersion>, int,
-          String>> listPolicyVersions(
-    _i247.ListPolicyVersionsRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<PolicyVersion>, int, String>>
+      listPolicyVersions(
+    ListPolicyVersionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i248.ListPolicyVersionsOperation(
+    return ListPolicyVersionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3034,13 +2652,13 @@ class IamClient {
   /// An IAM role can also have managed policies attached to it. To list the managed policies that are attached to a role, use ListAttachedRolePolicies. For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. If there are no inline policies embedded with the specified role, the operation returns an empty list.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i140.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       listRolePolicies(
-    _i249.ListRolePoliciesRequest input, {
+    ListRolePoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i250.ListRolePoliciesOperation(
+    return ListRolePoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3053,14 +2671,13 @@ class IamClient {
   }
 
   /// Lists the tags that are attached to the specified role. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listRoleTags(
-    _i251.ListRoleTagsRequest input, {
+    ListRoleTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i252.ListRoleTagsOperation(
+    return ListRoleTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3086,13 +2703,13 @@ class IamClient {
   /// To view all of the information for a role, see GetRole.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i253.Role>, int, String>> listRoles(
-    _i254.ListRolesRequest input, {
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Role>, int, String>>
+      listRoles(
+    ListRolesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i255.ListRolesOperation(
+    return ListRolesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3107,14 +2724,13 @@ class IamClient {
   /// Lists the tags that are attached to the specified Security Assertion Markup Language (SAML) identity provider. The returned list of tags is sorted by tag key. For more information, see [About SAML 2.0-based federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html).
   ///
   /// For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listSamlProviderTags(
-    _i256.ListSamlProviderTagsRequest input, {
+    ListSamlProviderTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i257.ListSamlProviderTagsOperation(
+    return ListSamlProviderTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3129,12 +2745,12 @@ class IamClient {
   /// Lists the SAML provider resource objects defined in IAM in the account. IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a SAML provider, see GetSAMLProvider.
   ///
   /// This operation requires [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
-  _i3.SmithyOperation<_i258.ListSamlProvidersResponse> listSamlProviders(
-    _i259.ListSamlProvidersRequest input, {
+  _i3.SmithyOperation<ListSamlProvidersResponse> listSamlProviders(
+    ListSamlProvidersRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i260.ListSamlProvidersOperation(
+    return ListSamlProvidersOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3152,13 +2768,13 @@ class IamClient {
   ///
   /// Although each user is limited to a small number of keys, you can still paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i261.SshPublicKeyMetadata>, int,
-          String>> listSshPublicKeys(
-    _i262.ListSshPublicKeysRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<SshPublicKeyMetadata>, int, String>>
+      listSshPublicKeys(
+    ListSshPublicKeysRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i263.ListSshPublicKeysOperation(
+    return ListSshPublicKeysOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3173,14 +2789,13 @@ class IamClient {
   /// Lists the tags that are attached to the specified IAM server certificate. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   ///
   /// For certificates in a Region supported by Certificate Manager (ACM), we recommend that you don't use IAM server certificates. Instead, use ACM to provision, manage, and deploy your server certificates. For more information about IAM server certificates, [Working with server certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listServerCertificateTags(
-    _i264.ListServerCertificateTagsRequest input, {
+    ListServerCertificateTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i265.ListServerCertificateTagsOperation(
+    return ListServerCertificateTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3200,13 +2815,13 @@ class IamClient {
   ///
   /// IAM resource-listing operations return a subset of the available attributes for the resource. For example, this operation does not return tags, even though they are an attribute of the returned object. To view all of the information for a servercertificate, see GetServerCertificate.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i266.ServerCertificateMetadata>, int,
+      _i3.PaginatedResult<_i4.BuiltList<ServerCertificateMetadata>, int,
           String>> listServerCertificates(
-    _i267.ListServerCertificatesRequest input, {
+    ListServerCertificatesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i268.ListServerCertificatesOperation(
+    return ListServerCertificatesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3219,13 +2834,13 @@ class IamClient {
   }
 
   /// Returns information about the service-specific credentials associated with the specified IAM user. If none exists, the operation returns an empty list. The service-specific credentials returned by this operation are used only for authenticating the IAM user to a specific service. For more information about using service-specific credentials to authenticate to an Amazon Web Services service, see [Set up service-specific credentials](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html) in the CodeCommit User Guide.
-  _i3.SmithyOperation<_i269.ListServiceSpecificCredentialsResponse>
+  _i3.SmithyOperation<ListServiceSpecificCredentialsResponse>
       listServiceSpecificCredentials(
-    _i270.ListServiceSpecificCredentialsRequest input, {
+    ListServiceSpecificCredentialsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i271.ListServiceSpecificCredentialsOperation(
+    return ListServiceSpecificCredentialsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3243,13 +2858,13 @@ class IamClient {
   ///
   /// If the `UserName` field is not specified, the user name is determined implicitly based on the Amazon Web Services access key ID used to sign the request for this operation. This operation works for access keys under the Amazon Web Services account. Consequently, you can use this operation to manage Amazon Web Services account root user credentials even if the Amazon Web Services account has no associated users.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i272.SigningCertificate>, int,
-          String>> listSigningCertificates(
-    _i273.ListSigningCertificatesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<SigningCertificate>, int, String>>
+      listSigningCertificates(
+    ListSigningCertificatesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i274.ListSigningCertificatesOperation(
+    return ListSigningCertificatesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3266,13 +2881,13 @@ class IamClient {
   /// An IAM user can also have managed policies attached to it. To list the managed policies that are attached to a user, use ListAttachedUserPolicies. For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. If there are no inline policies embedded with the specified user, the operation returns an empty list.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i140.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       listUserPolicies(
-    _i275.ListUserPoliciesRequest input, {
+    ListUserPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i276.ListUserPoliciesOperation(
+    return ListUserPoliciesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3285,14 +2900,13 @@ class IamClient {
   }
 
   /// Lists the tags that are attached to the specified IAM user. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i140.BuiltList<_i220.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listUserTags(
-    _i277.ListUserTagsRequest input, {
+    ListUserTagsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i278.ListUserTagsOperation(
+    return ListUserTagsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3316,13 +2930,13 @@ class IamClient {
   /// To view all of the information for a user, see GetUser.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i141.User>, int, String>> listUsers(
-    _i279.ListUsersRequest input, {
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<User>, int, String>>
+      listUsers(
+    ListUsersRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i280.ListUsersOperation(
+    return ListUsersOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3340,13 +2954,13 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i281.VirtualMfaDevice>, int,
-          String>> listVirtualMfaDevices(
-    _i282.ListVirtualMfaDevicesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<VirtualMfaDevice>, int, String>>
+      listVirtualMfaDevices(
+    ListVirtualMfaDevicesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i283.ListVirtualMfaDevicesOperation(
+    return ListVirtualMfaDevicesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3366,11 +2980,11 @@ class IamClient {
   ///
   /// Because policy documents can be large, you should use POST rather than GET when calling `PutGroupPolicy`. For general information about using the Query API with IAM, see [Making query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> putGroupPolicy(
-    _i284.PutGroupPolicyRequest input, {
+    PutGroupPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i285.PutGroupPolicyOperation(
+    return PutGroupPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3388,11 +3002,11 @@ class IamClient {
   ///
   /// Policies used as permissions boundaries do not provide permissions. You must also attach a permissions policy to the role. To learn how the effective permissions for a role are evaluated, see [IAM JSON policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) in the IAM User Guide.
   _i3.SmithyOperation<void> putRolePermissionsBoundary(
-    _i286.PutRolePermissionsBoundaryRequest input, {
+    PutRolePermissionsBoundaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i287.PutRolePermissionsBoundaryOperation(
+    return PutRolePermissionsBoundaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3414,11 +3028,11 @@ class IamClient {
   ///
   /// Because policy documents can be large, you should use POST rather than GET when calling `PutRolePolicy`. For general information about using the Query API with IAM, see [Making query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> putRolePolicy(
-    _i288.PutRolePolicyRequest input, {
+    PutRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i289.PutRolePolicyOperation(
+    return PutRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3434,11 +3048,11 @@ class IamClient {
   ///
   /// Policies that are used as permissions boundaries do not provide permissions. You must also attach a permissions policy to the user. To learn how the effective permissions for a user are evaluated, see [IAM JSON policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) in the IAM User Guide.
   _i3.SmithyOperation<void> putUserPermissionsBoundary(
-    _i290.PutUserPermissionsBoundaryRequest input, {
+    PutUserPermissionsBoundaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i291.PutUserPermissionsBoundaryOperation(
+    return PutUserPermissionsBoundaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3458,11 +3072,11 @@ class IamClient {
   ///
   /// Because policy documents can be large, you should use POST rather than GET when calling `PutUserPolicy`. For general information about using the Query API with IAM, see [Making query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> putUserPolicy(
-    _i292.PutUserPolicyRequest input, {
+    PutUserPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i293.PutUserPolicyOperation(
+    return PutUserPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3478,11 +3092,11 @@ class IamClient {
   ///
   /// This operation is idempotent; it does not fail or return an error if you try to remove a client ID that does not exist.
   _i3.SmithyOperation<void> removeClientIdFromOpenIdConnectProvider(
-    _i294.RemoveClientIdFromOpenIdConnectProviderRequest input, {
+    RemoveClientIdFromOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i295.RemoveClientIdFromOpenIdConnectProviderOperation(
+    return RemoveClientIdFromOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3500,11 +3114,11 @@ class IamClient {
   ///
   /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> removeRoleFromInstanceProfile(
-    _i296.RemoveRoleFromInstanceProfileRequest input, {
+    RemoveRoleFromInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i297.RemoveRoleFromInstanceProfileOperation(
+    return RemoveRoleFromInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3518,11 +3132,11 @@ class IamClient {
 
   /// Removes the specified user from the specified group.
   _i3.SmithyOperation<void> removeUserFromGroup(
-    _i298.RemoveUserFromGroupRequest input, {
+    RemoveUserFromGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i299.RemoveUserFromGroupOperation(
+    return RemoveUserFromGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3535,13 +3149,13 @@ class IamClient {
   }
 
   /// Resets the password for a service-specific credential. The new password is Amazon Web Services generated and cryptographically strong. It cannot be configured by the user. Resetting the password immediately invalidates the previous password associated with this user.
-  _i3.SmithyOperation<_i300.ResetServiceSpecificCredentialResponse>
+  _i3.SmithyOperation<ResetServiceSpecificCredentialResponse>
       resetServiceSpecificCredential(
-    _i301.ResetServiceSpecificCredentialRequest input, {
+    ResetServiceSpecificCredentialRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i302.ResetServiceSpecificCredentialOperation(
+    return ResetServiceSpecificCredentialOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3557,11 +3171,11 @@ class IamClient {
   ///
   /// For more information about creating and working with virtual MFA devices, see [Using a virtual MFA device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> resyncMfaDevice(
-    _i303.ResyncMfaDeviceRequest input, {
+    ResyncMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i304.ResyncMfaDeviceOperation(
+    return ResyncMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3579,11 +3193,11 @@ class IamClient {
   ///
   /// For information about managed policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> setDefaultPolicyVersion(
-    _i305.SetDefaultPolicyVersionRequest input, {
+    SetDefaultPolicyVersionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i306.SetDefaultPolicyVersionOperation(
+    return SetDefaultPolicyVersionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3603,11 +3217,11 @@ class IamClient {
   ///
   /// To view the current session token version, see the `GlobalEndpointTokenVersion` entry in the response of the GetAccountSummary operation.
   _i3.SmithyOperation<void> setSecurityTokenServicePreferences(
-    _i307.SetSecurityTokenServicePreferencesRequest input, {
+    SetSecurityTokenServicePreferencesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i308.SetSecurityTokenServicePreferencesOperation(
+    return SetSecurityTokenServicePreferencesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3631,13 +3245,13 @@ class IamClient {
   ///
   /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i309.EvaluationResult>, int,
-          String>> simulateCustomPolicy(
-    _i310.SimulateCustomPolicyRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<EvaluationResult>, int, String>>
+      simulateCustomPolicy(
+    SimulateCustomPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i311.SimulateCustomPolicyOperation(
+    return SimulateCustomPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3665,13 +3279,13 @@ class IamClient {
   ///
   /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i309.EvaluationResult>, int,
-          String>> simulatePrincipalPolicy(
-    _i312.SimulatePrincipalPolicyRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<EvaluationResult>, int, String>>
+      simulatePrincipalPolicy(
+    SimulatePrincipalPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i313.SimulatePrincipalPolicyOperation(
+    return SimulatePrincipalPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3696,11 +3310,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagInstanceProfile(
-    _i314.TagInstanceProfileRequest input, {
+    TagInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i315.TagInstanceProfileOperation(
+    return TagInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3725,11 +3339,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagMfaDevice(
-    _i316.TagMfaDeviceRequest input, {
+    TagMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i317.TagMfaDeviceOperation(
+    return TagMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3754,11 +3368,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagOpenIdConnectProvider(
-    _i318.TagOpenIdConnectProviderRequest input, {
+    TagOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i319.TagOpenIdConnectProviderOperation(
+    return TagOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3783,11 +3397,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagPolicy(
-    _i320.TagPolicyRequest input, {
+    TagPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i321.TagPolicyOperation(
+    return TagPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3817,11 +3431,11 @@ class IamClient {
   ///
   /// For more information about tagging, see [Tagging IAM identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> tagRole(
-    _i322.TagRoleRequest input, {
+    TagRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i323.TagRoleOperation(
+    return TagRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3846,11 +3460,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagSamlProvider(
-    _i324.TagSamlProviderRequest input, {
+    TagSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i325.TagSamlProviderOperation(
+    return TagSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3879,11 +3493,11 @@ class IamClient {
   ///
   /// *   Amazon Web Services always interprets the tag `Value` as a single string. If you need to store an array, you can store comma-separated values in the string. However, you must interpret the value in your code.
   _i3.SmithyOperation<void> tagServerCertificate(
-    _i326.TagServerCertificateRequest input, {
+    TagServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i327.TagServerCertificateOperation(
+    return TagServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3913,11 +3527,11 @@ class IamClient {
   ///
   /// For more information about tagging, see [Tagging IAM identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> tagUser(
-    _i328.TagUserRequest input, {
+    TagUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i329.TagUserOperation(
+    return TagUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3931,11 +3545,11 @@ class IamClient {
 
   /// Removes the specified tags from the IAM instance profile. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagInstanceProfile(
-    _i330.UntagInstanceProfileRequest input, {
+    UntagInstanceProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i331.UntagInstanceProfileOperation(
+    return UntagInstanceProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3949,11 +3563,11 @@ class IamClient {
 
   /// Removes the specified tags from the IAM virtual multi-factor authentication (MFA) device. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagMfaDevice(
-    _i332.UntagMfaDeviceRequest input, {
+    UntagMfaDeviceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i333.UntagMfaDeviceOperation(
+    return UntagMfaDeviceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3967,11 +3581,11 @@ class IamClient {
 
   /// Removes the specified tags from the specified OpenID Connect (OIDC)-compatible identity provider in IAM. For more information about OIDC providers, see [About web identity federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html). For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagOpenIdConnectProvider(
-    _i334.UntagOpenIdConnectProviderRequest input, {
+    UntagOpenIdConnectProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i335.UntagOpenIdConnectProviderOperation(
+    return UntagOpenIdConnectProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -3985,11 +3599,11 @@ class IamClient {
 
   /// Removes the specified tags from the customer managed policy. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagPolicy(
-    _i336.UntagPolicyRequest input, {
+    UntagPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i337.UntagPolicyOperation(
+    return UntagPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4003,11 +3617,11 @@ class IamClient {
 
   /// Removes the specified tags from the role. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagRole(
-    _i338.UntagRoleRequest input, {
+    UntagRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i339.UntagRoleOperation(
+    return UntagRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4021,11 +3635,11 @@ class IamClient {
 
   /// Removes the specified tags from the specified Security Assertion Markup Language (SAML) identity provider in IAM. For more information about these providers, see [About web identity federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html). For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagSamlProvider(
-    _i340.UntagSamlProviderRequest input, {
+    UntagSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i341.UntagSamlProviderOperation(
+    return UntagSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4041,11 +3655,11 @@ class IamClient {
   ///
   /// For certificates in a Region supported by Certificate Manager (ACM), we recommend that you don't use IAM server certificates. Instead, use ACM to provision, manage, and deploy your server certificates. For more information about IAM server certificates, [Working with server certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagServerCertificate(
-    _i342.UntagServerCertificateRequest input, {
+    UntagServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i343.UntagServerCertificateOperation(
+    return UntagServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4059,11 +3673,11 @@ class IamClient {
 
   /// Removes the specified tags from the user. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> untagUser(
-    _i344.UntagUserRequest input, {
+    UntagUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i345.UntagUserOperation(
+    return UntagUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4081,11 +3695,11 @@ class IamClient {
   ///
   /// For information about rotating keys, see [Managing keys and certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> updateAccessKey(
-    _i346.UpdateAccessKeyRequest input, {
+    UpdateAccessKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i347.UpdateAccessKeyOperation(
+    return UpdateAccessKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4103,11 +3717,11 @@ class IamClient {
   ///
   /// For more information about using a password policy, see [Managing an IAM password policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> updateAccountPasswordPolicy(
-    _i348.UpdateAccountPasswordPolicyRequest input, {
+    UpdateAccountPasswordPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i349.UpdateAccountPasswordPolicyOperation(
+    return UpdateAccountPasswordPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4121,11 +3735,11 @@ class IamClient {
 
   /// Updates the policy that grants an IAM entity permission to assume a role. This is typically referred to as the "role trust policy". For more information about roles, see [Using roles to delegate permissions and federate identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
   _i3.SmithyOperation<void> updateAssumeRolePolicy(
-    _i350.UpdateAssumeRolePolicyRequest input, {
+    UpdateAssumeRolePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i351.UpdateAssumeRolePolicyOperation(
+    return UpdateAssumeRolePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4143,11 +3757,11 @@ class IamClient {
   ///
   /// The person making the request (the principal), must have permission to change the role group with the old name and the new name. For example, to change the group named `Managers` to `MGRs`, the principal must have a policy that allows them to update both groups. If the principal has permission to update the `Managers` group, but not the `MGRs` group, then the update fails. For more information about permissions, see [Access management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
   _i3.SmithyOperation<void> updateGroup(
-    _i352.UpdateGroupRequest input, {
+    UpdateGroupRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i353.UpdateGroupOperation(
+    return UpdateGroupOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4163,11 +3777,11 @@ class IamClient {
   ///
   /// For more information about modifying passwords, see [Managing passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> updateLoginProfile(
-    _i354.UpdateLoginProfileRequest input, {
+    UpdateLoginProfileRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i355.UpdateLoginProfileOperation(
+    return UpdateLoginProfileOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4189,11 +3803,11 @@ class IamClient {
   ///
   /// Trust for the OIDC provider is derived from the provider certificate and is validated by the thumbprint. Therefore, it is best to limit access to the `UpdateOpenIDConnectProviderThumbprint` operation to highly privileged users.
   _i3.SmithyOperation<void> updateOpenIdConnectProviderThumbprint(
-    _i356.UpdateOpenIdConnectProviderThumbprintRequest input, {
+    UpdateOpenIdConnectProviderThumbprintRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i357.UpdateOpenIdConnectProviderThumbprintOperation(
+    return UpdateOpenIdConnectProviderThumbprintOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4206,12 +3820,12 @@ class IamClient {
   }
 
   /// Updates the description or maximum session duration setting of a role.
-  _i3.SmithyOperation<_i358.UpdateRoleResponse> updateRole(
-    _i359.UpdateRoleRequest input, {
+  _i3.SmithyOperation<UpdateRoleResponse> updateRole(
+    UpdateRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i360.UpdateRoleOperation(
+    return UpdateRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4226,13 +3840,12 @@ class IamClient {
   /// Use UpdateRole instead.
   ///
   /// Modifies only the description of a role. This operation performs the same function as the `Description` parameter in the `UpdateRole` operation.
-  _i3.SmithyOperation<_i361.UpdateRoleDescriptionResponse>
-      updateRoleDescription(
-    _i362.UpdateRoleDescriptionRequest input, {
+  _i3.SmithyOperation<UpdateRoleDescriptionResponse> updateRoleDescription(
+    UpdateRoleDescriptionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i363.UpdateRoleDescriptionOperation(
+    return UpdateRoleDescriptionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4247,12 +3860,12 @@ class IamClient {
   /// Updates the metadata document for an existing SAML provider resource object.
   ///
   /// This operation requires [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
-  _i3.SmithyOperation<_i364.UpdateSamlProviderResponse> updateSamlProvider(
-    _i365.UpdateSamlProviderRequest input, {
+  _i3.SmithyOperation<UpdateSamlProviderResponse> updateSamlProvider(
+    UpdateSamlProviderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i366.UpdateSamlProviderOperation(
+    return UpdateSamlProviderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4268,11 +3881,11 @@ class IamClient {
   ///
   /// The SSH public key affected by this operation is used only for authenticating the associated IAM user to an CodeCommit repository. For more information about using SSH keys to authenticate to an CodeCommit repository, see [Set up CodeCommit for SSH connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html) in the _CodeCommit User Guide_.
   _i3.SmithyOperation<void> updateSshPublicKey(
-    _i367.UpdateSshPublicKeyRequest input, {
+    UpdateSshPublicKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i368.UpdateSshPublicKeyOperation(
+    return UpdateSshPublicKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4292,11 +3905,11 @@ class IamClient {
   ///
   /// The person making the request (the principal), must have permission to change the server certificate with the old name and the new name. For example, to change the certificate named `ProductionCert` to `ProdCert`, the principal must have a policy that allows them to update both certificates. If the principal has permission to update the `ProductionCert` group, but not the `ProdCert` certificate, then the update fails. For more information about permissions, see [Access management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html) in the _IAM User Guide_.
   _i3.SmithyOperation<void> updateServerCertificate(
-    _i369.UpdateServerCertificateRequest input, {
+    UpdateServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i370.UpdateServerCertificateOperation(
+    return UpdateServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4310,11 +3923,11 @@ class IamClient {
 
   /// Sets the status of a service-specific credential to `Active` or `Inactive`. Service-specific credentials that are inactive cannot be used for authentication to the service. This operation can be used to disable a user's service-specific credential as part of a credential rotation work flow.
   _i3.SmithyOperation<void> updateServiceSpecificCredential(
-    _i371.UpdateServiceSpecificCredentialRequest input, {
+    UpdateServiceSpecificCredentialRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i372.UpdateServiceSpecificCredentialOperation(
+    return UpdateServiceSpecificCredentialOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4330,11 +3943,11 @@ class IamClient {
   ///
   /// If the `UserName` field is not specified, the user name is determined implicitly based on the Amazon Web Services access key ID used to sign the request. This operation works for access keys under the Amazon Web Services account. Consequently, you can use this operation to manage Amazon Web Services account root user credentials even if the Amazon Web Services account has no associated users.
   _i3.SmithyOperation<void> updateSigningCertificate(
-    _i373.UpdateSigningCertificateRequest input, {
+    UpdateSigningCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i374.UpdateSigningCertificateOperation(
+    return UpdateSigningCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4352,11 +3965,11 @@ class IamClient {
   ///
   /// To change a user name, the requester must have appropriate permissions on both the source object and the target object. For example, to change Bob to Robert, the entity making the request must have permission on Bob and Robert, or must have permission on all (*). For more information about permissions, see [Permissions and policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html).
   _i3.SmithyOperation<void> updateUser(
-    _i375.UpdateUserRequest input, {
+    UpdateUserRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i376.UpdateUserOperation(
+    return UpdateUserOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4371,12 +3984,12 @@ class IamClient {
   /// Uploads an SSH public key and associates it with the specified IAM user.
   ///
   /// The SSH public key uploaded by this operation can be used only for authenticating the associated IAM user to an CodeCommit repository. For more information about using SSH keys to authenticate to an CodeCommit repository, see [Set up CodeCommit for SSH connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html) in the _CodeCommit User Guide_.
-  _i3.SmithyOperation<_i377.UploadSshPublicKeyResponse> uploadSshPublicKey(
-    _i378.UploadSshPublicKeyRequest input, {
+  _i3.SmithyOperation<UploadSshPublicKeyResponse> uploadSshPublicKey(
+    UploadSshPublicKeyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i379.UploadSshPublicKeyOperation(
+    return UploadSshPublicKeyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4397,13 +4010,12 @@ class IamClient {
   /// For information about the number of server certificates you can upload, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   ///
   /// Because the body of the public key certificate, private key, and the certificate chain can be large, you should use POST rather than GET when calling `UploadServerCertificate`. For information about setting up signatures and authorization through the API, see [Signing Amazon Web Services API requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) in the _Amazon Web Services General Reference_. For general information about using the Query API with IAM, see [Calling the API by making HTTP query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i380.UploadServerCertificateResponse>
-      uploadServerCertificate(
-    _i381.UploadServerCertificateRequest input, {
+  _i3.SmithyOperation<UploadServerCertificateResponse> uploadServerCertificate(
+    UploadServerCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i382.UploadServerCertificateOperation(
+    return UploadServerCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -4422,13 +4034,13 @@ class IamClient {
   /// If the `UserName` is not specified, the IAM user name is determined implicitly based on the Amazon Web Services access key ID used to sign the request. This operation works for access keys under the Amazon Web Services account. Consequently, you can use this operation to manage Amazon Web Services account root user credentials even if the Amazon Web Services account has no associated users.
   ///
   /// Because the body of an X.509 certificate can be large, you should use POST rather than GET when calling `UploadSigningCertificate`. For information about setting up signatures and authorization through the API, see [Signing Amazon Web Services API requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) in the _Amazon Web Services General Reference_. For general information about using the Query API with IAM, see [Making query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i383.UploadSigningCertificateResponse>
+  _i3.SmithyOperation<UploadSigningCertificateResponse>
       uploadSigningCertificate(
-    _i384.UploadSigningCertificateRequest input, {
+    UploadSigningCertificateRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i385.UploadSigningCertificateOperation(
+    return UploadSigningCertificateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

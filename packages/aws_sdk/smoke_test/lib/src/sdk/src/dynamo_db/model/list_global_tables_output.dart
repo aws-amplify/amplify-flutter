@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.list_global_tables_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table.dart';
 
 part 'list_global_tables_output.g.dart';
 
@@ -17,11 +16,11 @@ abstract class ListGlobalTablesOutput
     with _i1.AWSEquatable<ListGlobalTablesOutput>
     implements Built<ListGlobalTablesOutput, ListGlobalTablesOutputBuilder> {
   factory ListGlobalTablesOutput({
-    List<_i2.GlobalTable>? globalTables,
+    List<GlobalTable>? globalTables,
     String? lastEvaluatedGlobalTableName,
   }) {
     return _$ListGlobalTablesOutput._(
-      globalTables: globalTables == null ? null : _i3.BuiltList(globalTables),
+      globalTables: globalTables == null ? null : _i2.BuiltList(globalTables),
       lastEvaluatedGlobalTableName: lastEvaluatedGlobalTableName,
     );
   }
@@ -39,11 +38,11 @@ abstract class ListGlobalTablesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListGlobalTablesOutput>> serializers =
+  static const List<_i3.SmithySerializer<ListGlobalTablesOutput>> serializers =
       [ListGlobalTablesOutputAwsJson10Serializer()];
 
   /// List of global table names.
-  _i3.BuiltList<_i2.GlobalTable>? get globalTables;
+  _i2.BuiltList<GlobalTable>? get globalTables;
 
   /// Last evaluated global table name.
   String? get lastEvaluatedGlobalTableName;
@@ -68,7 +67,7 @@ abstract class ListGlobalTablesOutput
 }
 
 class ListGlobalTablesOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListGlobalTablesOutput> {
+    extends _i3.StructuredSmithySerializer<ListGlobalTablesOutput> {
   const ListGlobalTablesOutputAwsJson10Serializer()
       : super('ListGlobalTablesOutput');
 
@@ -78,8 +77,8 @@ class ListGlobalTablesOutputAwsJson10Serializer
         _$ListGlobalTablesOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -104,10 +103,10 @@ class ListGlobalTablesOutputAwsJson10Serializer
           result.globalTables.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.GlobalTable)],
+              _i2.BuiltList,
+              [FullType(GlobalTable)],
             ),
-          ) as _i3.BuiltList<_i2.GlobalTable>));
+          ) as _i2.BuiltList<GlobalTable>));
         case 'LastEvaluatedGlobalTableName':
           result.lastEvaluatedGlobalTableName = (serializers.deserialize(
             value,
@@ -134,8 +133,8 @@ class ListGlobalTablesOutputAwsJson10Serializer
         ..add(serializers.serialize(
           globalTables,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.GlobalTable)],
+            _i2.BuiltList,
+            [FullType(GlobalTable)],
           ),
         ));
     }

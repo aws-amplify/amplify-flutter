@@ -6,13 +6,10 @@ library smoke_test.cloud_formation.model.stack_instance_summary; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_comprehensive_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_comprehensive_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_status.dart';
 
 part 'stack_instance_summary.g.dart';
 
@@ -26,11 +23,11 @@ abstract class StackInstanceSummary
     String? region,
     String? account,
     String? stackId,
-    _i2.StackInstanceStatus? status,
+    StackInstanceStatus? status,
     String? statusReason,
-    _i3.StackInstanceComprehensiveStatus? stackInstanceStatus,
+    StackInstanceComprehensiveStatus? stackInstanceStatus,
     String? organizationalUnitId,
-    _i4.StackDriftStatus? driftStatus,
+    StackDriftStatus? driftStatus,
     DateTime? lastDriftCheckTimestamp,
     String? lastOperationId,
   }) {
@@ -56,7 +53,7 @@ abstract class StackInstanceSummary
 
   const StackInstanceSummary._();
 
-  static const List<_i5.SmithySerializer<StackInstanceSummary>> serializers = [
+  static const List<_i2.SmithySerializer<StackInstanceSummary>> serializers = [
     StackInstanceSummaryAwsQuerySerializer()
   ];
 
@@ -83,13 +80,13 @@ abstract class StackInstanceSummary
   ///     *   The stack was part of a `CreateStackSet` or `UpdateStackSet` operation that failed or was stopped before the stack was created or updated.
   ///
   /// *   `CURRENT`: The stack is currently up to date with the stack set.
-  _i2.StackInstanceStatus? get status;
+  StackInstanceStatus? get status;
 
   /// The explanation for the specific status code assigned to this stack instance.
   String? get statusReason;
 
   /// The detailed status of the stack instance.
-  _i3.StackInstanceComprehensiveStatus? get stackInstanceStatus;
+  StackInstanceComprehensiveStatus? get stackInstanceStatus;
 
   /// \[Service-managed permissions\] The organization root ID or organizational unit (OU) IDs that you specified for [DeploymentTargets](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html).
   String? get organizationalUnitId;
@@ -103,7 +100,7 @@ abstract class StackInstanceSummary
   /// *   `IN_SYNC`: The stack instance's actual configuration matches its expected stack set configuration.
   ///
   /// *   `UNKNOWN`: This value is reserved for future use.
-  _i4.StackDriftStatus? get driftStatus;
+  StackDriftStatus? get driftStatus;
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will be `NULL` for any stack instance on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
@@ -176,7 +173,7 @@ abstract class StackInstanceSummary
 }
 
 class StackInstanceSummaryAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<StackInstanceSummary> {
+    extends _i2.StructuredSmithySerializer<StackInstanceSummary> {
   const StackInstanceSummaryAwsQuerySerializer()
       : super('StackInstanceSummary');
 
@@ -186,8 +183,8 @@ class StackInstanceSummaryAwsQuerySerializer
         _$StackInstanceSummary,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -199,6 +196,14 @@ class StackInstanceSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackInstanceSummaryBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -231,8 +236,8 @@ class StackInstanceSummaryAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackInstanceStatus),
-          ) as _i2.StackInstanceStatus);
+            specifiedType: const FullType(StackInstanceStatus),
+          ) as StackInstanceStatus);
         case 'StatusReason':
           result.statusReason = (serializers.deserialize(
             value,
@@ -241,8 +246,8 @@ class StackInstanceSummaryAwsQuerySerializer
         case 'StackInstanceStatus':
           result.stackInstanceStatus.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackInstanceComprehensiveStatus),
-          ) as _i3.StackInstanceComprehensiveStatus));
+            specifiedType: const FullType(StackInstanceComprehensiveStatus),
+          ) as StackInstanceComprehensiveStatus));
         case 'OrganizationalUnitId':
           result.organizationalUnitId = (serializers.deserialize(
             value,
@@ -251,8 +256,8 @@ class StackInstanceSummaryAwsQuerySerializer
         case 'DriftStatus':
           result.driftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.StackDriftStatus),
-          ) as _i4.StackDriftStatus);
+            specifiedType: const FullType(StackDriftStatus),
+          ) as StackDriftStatus);
         case 'LastDriftCheckTimestamp':
           result.lastDriftCheckTimestamp = (serializers.deserialize(
             value,
@@ -276,9 +281,9 @@ class StackInstanceSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i2.XmlElementName(
         'StackInstanceSummaryResponse',
-        _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackInstanceSummary(
@@ -296,7 +301,7 @@ class StackInstanceSummaryAwsQuerySerializer
     ) = object;
     if (stackSetId != null) {
       result$
-        ..add(const _i5.XmlElementName('StackSetId'))
+        ..add(const _i2.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
           specifiedType: const FullType(String),
@@ -304,7 +309,7 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (region != null) {
       result$
-        ..add(const _i5.XmlElementName('Region'))
+        ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
@@ -312,7 +317,7 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (account != null) {
       result$
-        ..add(const _i5.XmlElementName('Account'))
+        ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
           specifiedType: const FullType(String),
@@ -320,7 +325,7 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (stackId != null) {
       result$
-        ..add(const _i5.XmlElementName('StackId'))
+        ..add(const _i2.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
@@ -328,15 +333,15 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (status != null) {
       result$
-        ..add(const _i5.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.StackInstanceStatus),
+          specifiedType: const FullType.nullable(StackInstanceStatus),
         ));
     }
     if (statusReason != null) {
       result$
-        ..add(const _i5.XmlElementName('StatusReason'))
+        ..add(const _i2.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
           specifiedType: const FullType(String),
@@ -344,15 +349,15 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (stackInstanceStatus != null) {
       result$
-        ..add(const _i5.XmlElementName('StackInstanceStatus'))
+        ..add(const _i2.XmlElementName('StackInstanceStatus'))
         ..add(serializers.serialize(
           stackInstanceStatus,
-          specifiedType: const FullType(_i3.StackInstanceComprehensiveStatus),
+          specifiedType: const FullType(StackInstanceComprehensiveStatus),
         ));
     }
     if (organizationalUnitId != null) {
       result$
-        ..add(const _i5.XmlElementName('OrganizationalUnitId'))
+        ..add(const _i2.XmlElementName('OrganizationalUnitId'))
         ..add(serializers.serialize(
           organizationalUnitId,
           specifiedType: const FullType(String),
@@ -360,15 +365,15 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (driftStatus != null) {
       result$
-        ..add(const _i5.XmlElementName('DriftStatus'))
+        ..add(const _i2.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
-          specifiedType: const FullType.nullable(_i4.StackDriftStatus),
+          specifiedType: const FullType.nullable(StackDriftStatus),
         ));
     }
     if (lastDriftCheckTimestamp != null) {
       result$
-        ..add(const _i5.XmlElementName('LastDriftCheckTimestamp'))
+        ..add(const _i2.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
@@ -376,7 +381,7 @@ class StackInstanceSummaryAwsQuerySerializer
     }
     if (lastOperationId != null) {
       result$
-        ..add(const _i5.XmlElementName('LastOperationId'))
+        ..add(const _i2.XmlElementName('LastOperationId'))
         ..add(serializers.serialize(
           lastOperationId,
           specifiedType: const FullType(String),

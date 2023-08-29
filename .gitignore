@@ -31,7 +31,6 @@ doc/api/
 # amplify resources from example apps
 **/example/amplify/
 
-dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
@@ -42,3 +41,6 @@ amplifytools.xcconfig
 
 # Smithy
 .smithy.lsp.log
+
+# Custom Actions output
+**/*.cjs.deps

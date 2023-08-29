@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_policies_granting_service_access_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_entry.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/list_policies_granting_service_access_entry.dart';
 
 part 'list_policies_granting_service_access_response.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
         Built<ListPoliciesGrantingServiceAccessResponse,
             ListPoliciesGrantingServiceAccessResponseBuilder> {
   factory ListPoliciesGrantingServiceAccessResponse({
-    required List<_i2.ListPoliciesGrantingServiceAccessEntry>
+    required List<ListPoliciesGrantingServiceAccessEntry>
         policiesGrantingServiceAccess,
     bool? isTruncated,
     String? marker,
@@ -28,7 +27,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
     isTruncated ??= false;
     return _$ListPoliciesGrantingServiceAccessResponse._(
       policiesGrantingServiceAccess:
-          _i3.BuiltList(policiesGrantingServiceAccess),
+          _i2.BuiltList(policiesGrantingServiceAccess),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -48,7 +47,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListPoliciesGrantingServiceAccessResponse>>
+          _i3.SmithySerializer<ListPoliciesGrantingServiceAccessResponse>>
       serializers = [
     ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer()
   ];
@@ -59,7 +58,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
   }
 
   /// A `ListPoliciesGrantingServiceAccess` object that contains details about the permissions policies attached to the specified identity (user, group, or role).
-  _i3.BuiltList<_i2.ListPoliciesGrantingServiceAccessEntry>
+  _i2.BuiltList<ListPoliciesGrantingServiceAccessEntry>
       get policiesGrantingServiceAccess;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
@@ -93,7 +92,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
   }
 }
 
-class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
+class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<ListPoliciesGrantingServiceAccessResponse> {
   const ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer()
       : super('ListPoliciesGrantingServiceAccessResponse');
@@ -104,8 +103,8 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
         _$ListPoliciesGrantingServiceAccessResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -117,6 +116,14 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListPoliciesGrantingServiceAccessResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -128,16 +135,16 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
       switch (key) {
         case 'PoliciesGrantingServiceAccess':
           result.policiesGrantingServiceAccess.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ListPoliciesGrantingServiceAccessEntry)],
+              _i2.BuiltList,
+              [FullType(ListPoliciesGrantingServiceAccessEntry)],
             ),
-          ) as _i3.BuiltList<_i2.ListPoliciesGrantingServiceAccessEntry>));
+          ) as _i2.BuiltList<ListPoliciesGrantingServiceAccessEntry>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -161,9 +168,9 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListPoliciesGrantingServiceAccessResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListPoliciesGrantingServiceAccessResponse(
@@ -172,26 +179,26 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
       :marker
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('PoliciesGrantingServiceAccess'))
+      ..add(const _i3.XmlElementName('PoliciesGrantingServiceAccess'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         policiesGrantingServiceAccess,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.ListPoliciesGrantingServiceAccessEntry)],
+          _i2.BuiltList,
+          [FullType(ListPoliciesGrantingServiceAccessEntry)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

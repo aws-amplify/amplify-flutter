@@ -5,12 +5,10 @@
 library rest_json1_v2.rest_json_protocol.test.http_request_with_labels_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/http_request_with_labels_input.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/http_request_with_labels_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/http_request_with_labels_input.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/http_request_with_labels_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'RestJsonInputWithHeadersAndAllParams (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpRequestWithLabelsOperation(
+        operation: HttpRequestWithLabelsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputWithHeadersAndAllParams',
           documentation: 'Sends a GET request that uses URI label bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -69,14 +67,14 @@ void main() {
     'RestJsonHttpRequestLabelEscaping (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpRequestWithLabelsOperation(
+        operation: HttpRequestWithLabelsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonHttpRequestLabelEscaping',
           documentation: 'Sends a GET request that uses URI label bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -84,7 +82,7 @@ void main() {
           body: '',
           bodyMediaType: null,
           params: {
-            'string': '%:/?#[]@!\$&\'()*+,;=😹',
+            'string': ' %:/?#[]@!\$&\'()*+,;=😹',
             'short': 1,
             'integer': 2,
             'long': 3,
@@ -102,7 +100,7 @@ void main() {
           appliesTo: null,
           method: 'GET',
           uri:
-              '/HttpRequestWithLabels/%25%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D%F0%9F%98%B9/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
+              '/HttpRequestWithLabels/%20%25%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D%F0%9F%98%B9/1/2/3/4.1/5.1/true/2019-12-16T23%3A48%3A18Z',
           host: null,
           resolvedHost: null,
           queryParams: [],
@@ -118,26 +116,26 @@ void main() {
 }
 
 class HttpRequestWithLabelsInputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.HttpRequestWithLabelsInput> {
+    extends _i3.StructuredSmithySerializer<HttpRequestWithLabelsInput> {
   const HttpRequestWithLabelsInputRestJson1Serializer()
       : super('HttpRequestWithLabelsInput');
 
   @override
-  Iterable<Type> get types => const [_i5.HttpRequestWithLabelsInput];
+  Iterable<Type> get types => const [HttpRequestWithLabelsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.HttpRequestWithLabelsInput deserialize(
+  HttpRequestWithLabelsInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpRequestWithLabelsInputBuilder();
+    final result = HttpRequestWithLabelsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -165,8 +163,8 @@ class HttpRequestWithLabelsInputRestJson1Serializer
         case 'long':
           result.long = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'float':
           result.float = (serializers.deserialize(
             value,
@@ -183,7 +181,7 @@ class HttpRequestWithLabelsInputRestJson1Serializer
             specifiedType: const FullType(bool),
           ) as bool);
         case 'timestamp':
-          result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.timestamp = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -196,7 +194,7 @@ class HttpRequestWithLabelsInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpRequestWithLabelsInput object, {
+    HttpRequestWithLabelsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

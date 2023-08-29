@@ -13,7 +13,7 @@ class _$PutBucketInventoryConfigurationRequest
   @override
   final String id;
   @override
-  final _i2.InventoryConfiguration inventoryConfiguration;
+  final InventoryConfiguration inventoryConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -83,12 +83,11 @@ class PutBucketInventoryConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.InventoryConfigurationBuilder? _inventoryConfiguration;
-  _i2.InventoryConfigurationBuilder get inventoryConfiguration =>
-      _$this._inventoryConfiguration ??=
-          new _i2.InventoryConfigurationBuilder();
+  InventoryConfigurationBuilder? _inventoryConfiguration;
+  InventoryConfigurationBuilder get inventoryConfiguration =>
+      _$this._inventoryConfiguration ??= new InventoryConfigurationBuilder();
   set inventoryConfiguration(
-          _i2.InventoryConfigurationBuilder? inventoryConfiguration) =>
+          InventoryConfigurationBuilder? inventoryConfiguration) =>
       _$this._inventoryConfiguration = inventoryConfiguration;
 
   String? _expectedBucketOwner;

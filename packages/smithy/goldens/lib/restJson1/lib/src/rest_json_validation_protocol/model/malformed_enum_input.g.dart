@@ -8,19 +8,22 @@ part of 'malformed_enum_input.dart';
 
 class _$MalformedEnumInput extends MalformedEnumInput {
   @override
-  final _i3.EnumString? string;
+  final EnumString? string;
   @override
-  final _i5.BuiltList<_i3.EnumString>? list;
+  final EnumTraitString? stringWithEnumTrait;
   @override
-  final _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? map;
+  final _i3.BuiltList<EnumString>? list;
   @override
-  final _i4.EnumUnion? union;
+  final _i3.BuiltMap<EnumString, EnumString>? map;
+  @override
+  final EnumUnion? union;
 
   factory _$MalformedEnumInput(
           [void Function(MalformedEnumInputBuilder)? updates]) =>
       (new MalformedEnumInputBuilder()..update(updates))._build();
 
-  _$MalformedEnumInput._({this.string, this.list, this.map, this.union})
+  _$MalformedEnumInput._(
+      {this.string, this.stringWithEnumTrait, this.list, this.map, this.union})
       : super._();
 
   @override
@@ -37,6 +40,7 @@ class _$MalformedEnumInput extends MalformedEnumInput {
     if (identical(other, this)) return true;
     return other is MalformedEnumInput &&
         string == other.string &&
+        stringWithEnumTrait == other.stringWithEnumTrait &&
         list == other.list &&
         map == other.map &&
         union == other.union;
@@ -46,6 +50,7 @@ class _$MalformedEnumInput extends MalformedEnumInput {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, string.hashCode);
+    _$hash = $jc(_$hash, stringWithEnumTrait.hashCode);
     _$hash = $jc(_$hash, list.hashCode);
     _$hash = $jc(_$hash, map.hashCode);
     _$hash = $jc(_$hash, union.hashCode);
@@ -58,24 +63,28 @@ class MalformedEnumInputBuilder
     implements Builder<MalformedEnumInput, MalformedEnumInputBuilder> {
   _$MalformedEnumInput? _$v;
 
-  _i3.EnumString? _string;
-  _i3.EnumString? get string => _$this._string;
-  set string(_i3.EnumString? string) => _$this._string = string;
+  EnumString? _string;
+  EnumString? get string => _$this._string;
+  set string(EnumString? string) => _$this._string = string;
 
-  _i5.ListBuilder<_i3.EnumString>? _list;
-  _i5.ListBuilder<_i3.EnumString> get list =>
-      _$this._list ??= new _i5.ListBuilder<_i3.EnumString>();
-  set list(_i5.ListBuilder<_i3.EnumString>? list) => _$this._list = list;
+  EnumTraitString? _stringWithEnumTrait;
+  EnumTraitString? get stringWithEnumTrait => _$this._stringWithEnumTrait;
+  set stringWithEnumTrait(EnumTraitString? stringWithEnumTrait) =>
+      _$this._stringWithEnumTrait = stringWithEnumTrait;
 
-  _i5.MapBuilder<_i3.EnumString, _i3.EnumString>? _map;
-  _i5.MapBuilder<_i3.EnumString, _i3.EnumString> get map =>
-      _$this._map ??= new _i5.MapBuilder<_i3.EnumString, _i3.EnumString>();
-  set map(_i5.MapBuilder<_i3.EnumString, _i3.EnumString>? map) =>
-      _$this._map = map;
+  _i3.ListBuilder<EnumString>? _list;
+  _i3.ListBuilder<EnumString> get list =>
+      _$this._list ??= new _i3.ListBuilder<EnumString>();
+  set list(_i3.ListBuilder<EnumString>? list) => _$this._list = list;
 
-  _i4.EnumUnion? _union;
-  _i4.EnumUnion? get union => _$this._union;
-  set union(_i4.EnumUnion? union) => _$this._union = union;
+  _i3.MapBuilder<EnumString, EnumString>? _map;
+  _i3.MapBuilder<EnumString, EnumString> get map =>
+      _$this._map ??= new _i3.MapBuilder<EnumString, EnumString>();
+  set map(_i3.MapBuilder<EnumString, EnumString>? map) => _$this._map = map;
+
+  EnumUnion? _union;
+  EnumUnion? get union => _$this._union;
+  set union(EnumUnion? union) => _$this._union = union;
 
   MalformedEnumInputBuilder();
 
@@ -83,6 +92,7 @@ class MalformedEnumInputBuilder
     final $v = _$v;
     if ($v != null) {
       _string = $v.string;
+      _stringWithEnumTrait = $v.stringWithEnumTrait;
       _list = $v.list?.toBuilder();
       _map = $v.map?.toBuilder();
       _union = $v.union;
@@ -111,6 +121,7 @@ class MalformedEnumInputBuilder
       _$result = _$v ??
           new _$MalformedEnumInput._(
               string: string,
+              stringWithEnumTrait: stringWithEnumTrait,
               list: _list?.build(),
               map: _map?.build(),
               union: union);

@@ -8,7 +8,7 @@ part of 'describe_account_limits_output.dart';
 
 class _$DescribeAccountLimitsOutput extends DescribeAccountLimitsOutput {
   @override
-  final _i3.BuiltList<_i2.AccountLimit>? accountLimits;
+  final _i2.BuiltList<AccountLimit>? accountLimits;
   @override
   final String? nextToken;
 
@@ -52,10 +52,10 @@ class DescribeAccountLimitsOutputBuilder
             DescribeAccountLimitsOutputBuilder> {
   _$DescribeAccountLimitsOutput? _$v;
 
-  _i3.ListBuilder<_i2.AccountLimit>? _accountLimits;
-  _i3.ListBuilder<_i2.AccountLimit> get accountLimits =>
-      _$this._accountLimits ??= new _i3.ListBuilder<_i2.AccountLimit>();
-  set accountLimits(_i3.ListBuilder<_i2.AccountLimit>? accountLimits) =>
+  _i2.ListBuilder<AccountLimit>? _accountLimits;
+  _i2.ListBuilder<AccountLimit> get accountLimits =>
+      _$this._accountLimits ??= new _i2.ListBuilder<AccountLimit>();
+  set accountLimits(_i2.ListBuilder<AccountLimit>? accountLimits) =>
       _$this._accountLimits = accountLimits;
 
   String? _nextToken;

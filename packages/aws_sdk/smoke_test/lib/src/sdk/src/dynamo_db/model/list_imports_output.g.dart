@@ -8,7 +8,7 @@ part of 'list_imports_output.dart';
 
 class _$ListImportsOutput extends ListImportsOutput {
   @override
-  final _i3.BuiltList<_i2.ImportSummary>? importSummaryList;
+  final _i2.BuiltList<ImportSummary>? importSummaryList;
   @override
   final String? nextToken;
 
@@ -48,11 +48,10 @@ class ListImportsOutputBuilder
     implements Builder<ListImportsOutput, ListImportsOutputBuilder> {
   _$ListImportsOutput? _$v;
 
-  _i3.ListBuilder<_i2.ImportSummary>? _importSummaryList;
-  _i3.ListBuilder<_i2.ImportSummary> get importSummaryList =>
-      _$this._importSummaryList ??= new _i3.ListBuilder<_i2.ImportSummary>();
-  set importSummaryList(
-          _i3.ListBuilder<_i2.ImportSummary>? importSummaryList) =>
+  _i2.ListBuilder<ImportSummary>? _importSummaryList;
+  _i2.ListBuilder<ImportSummary> get importSummaryList =>
+      _$this._importSummaryList ??= new _i2.ListBuilder<ImportSummary>();
+  set importSummaryList(_i2.ListBuilder<ImportSummary>? importSummaryList) =>
       _$this._importSummaryList = importSummaryList;
 
   String? _nextToken;

@@ -11,11 +11,11 @@ class _$PutConfigurationAggregatorRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i6.BuiltList<_i3.AccountAggregationSource>? accountAggregationSources;
+  final _i3.BuiltList<AccountAggregationSource>? accountAggregationSources;
   @override
-  final _i4.OrganizationAggregationSource? organizationAggregationSource;
+  final OrganizationAggregationSource? organizationAggregationSource;
   @override
-  final _i6.BuiltList<_i5.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$PutConfigurationAggregatorRequest(
           [void Function(PutConfigurationAggregatorRequestBuilder)? updates]) =>
@@ -75,28 +75,27 @@ class PutConfigurationAggregatorRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i6.ListBuilder<_i3.AccountAggregationSource>? _accountAggregationSources;
-  _i6.ListBuilder<_i3.AccountAggregationSource> get accountAggregationSources =>
+  _i3.ListBuilder<AccountAggregationSource>? _accountAggregationSources;
+  _i3.ListBuilder<AccountAggregationSource> get accountAggregationSources =>
       _$this._accountAggregationSources ??=
-          new _i6.ListBuilder<_i3.AccountAggregationSource>();
+          new _i3.ListBuilder<AccountAggregationSource>();
   set accountAggregationSources(
-          _i6.ListBuilder<_i3.AccountAggregationSource>?
+          _i3.ListBuilder<AccountAggregationSource>?
               accountAggregationSources) =>
       _$this._accountAggregationSources = accountAggregationSources;
 
-  _i4.OrganizationAggregationSourceBuilder? _organizationAggregationSource;
-  _i4.OrganizationAggregationSourceBuilder get organizationAggregationSource =>
+  OrganizationAggregationSourceBuilder? _organizationAggregationSource;
+  OrganizationAggregationSourceBuilder get organizationAggregationSource =>
       _$this._organizationAggregationSource ??=
-          new _i4.OrganizationAggregationSourceBuilder();
+          new OrganizationAggregationSourceBuilder();
   set organizationAggregationSource(
-          _i4.OrganizationAggregationSourceBuilder?
+          OrganizationAggregationSourceBuilder?
               organizationAggregationSource) =>
       _$this._organizationAggregationSource = organizationAggregationSource;
 
-  _i6.ListBuilder<_i5.Tag>? _tags;
-  _i6.ListBuilder<_i5.Tag> get tags =>
-      _$this._tags ??= new _i6.ListBuilder<_i5.Tag>();
-  set tags(_i6.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   PutConfigurationAggregatorRequestBuilder();
 

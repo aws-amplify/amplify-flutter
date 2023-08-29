@@ -4,11 +4,11 @@
 library smoke_test.cloud_formation.model.describe_stacks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack.dart';
 
 part 'describe_stacks_output.g.dart';
 
@@ -18,11 +18,11 @@ abstract class DescribeStacksOutput
     implements Built<DescribeStacksOutput, DescribeStacksOutputBuilder> {
   /// The output for a DescribeStacks action.
   factory DescribeStacksOutput({
-    List<_i2.Stack>? stacks,
+    List<Stack>? stacks,
     String? nextToken,
   }) {
     return _$DescribeStacksOutput._(
-      stacks: stacks == null ? null : _i3.BuiltList(stacks),
+      stacks: stacks == null ? null : _i2.BuiltList(stacks),
       nextToken: nextToken,
     );
   }
@@ -41,12 +41,12 @@ abstract class DescribeStacksOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeStacksOutput>> serializers = [
+  static const List<_i3.SmithySerializer<DescribeStacksOutput>> serializers = [
     DescribeStacksOutputAwsQuerySerializer()
   ];
 
   /// A list of stack structures.
-  _i3.BuiltList<_i2.Stack>? get stacks;
+  _i2.BuiltList<Stack>? get stacks;
 
   /// If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists, this value is null.
   String? get nextToken;
@@ -71,7 +71,7 @@ abstract class DescribeStacksOutput
 }
 
 class DescribeStacksOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribeStacksOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeStacksOutput> {
   const DescribeStacksOutputAwsQuerySerializer()
       : super('DescribeStacksOutput');
 
@@ -81,8 +81,8 @@ class DescribeStacksOutputAwsQuerySerializer
         _$DescribeStacksOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -94,6 +94,14 @@ class DescribeStacksOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStacksOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -104,16 +112,16 @@ class DescribeStacksOutputAwsQuerySerializer
       }
       switch (key) {
         case 'Stacks':
-          result.stacks.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stacks.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Stack)],
+              _i2.BuiltList,
+              [FullType(Stack)],
             ),
-          ) as _i3.BuiltList<_i2.Stack>));
+          ) as _i2.BuiltList<Stack>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -132,29 +140,29 @@ class DescribeStacksOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeStacksOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStacksOutput(:stacks, :nextToken) = object;
     if (stacks != null) {
       result$
-        ..add(const _i4.XmlElementName('Stacks'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Stacks'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           stacks,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Stack)],
+            _i2.BuiltList,
+            [FullType(Stack)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

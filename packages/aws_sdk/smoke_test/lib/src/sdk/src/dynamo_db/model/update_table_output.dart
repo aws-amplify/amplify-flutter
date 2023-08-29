@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.update_table_output; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart';
 
 part 'update_table_output.g.dart';
 
@@ -17,7 +16,7 @@ abstract class UpdateTableOutput
     with _i1.AWSEquatable<UpdateTableOutput>
     implements Built<UpdateTableOutput, UpdateTableOutputBuilder> {
   /// Represents the output of an `UpdateTable` operation.
-  factory UpdateTableOutput({_i2.TableDescription? tableDescription}) {
+  factory UpdateTableOutput({TableDescription? tableDescription}) {
     return _$UpdateTableOutput._(tableDescription: tableDescription);
   }
 
@@ -34,12 +33,12 @@ abstract class UpdateTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<UpdateTableOutput>> serializers = [
+  static const List<_i2.SmithySerializer<UpdateTableOutput>> serializers = [
     UpdateTableOutputAwsJson10Serializer()
   ];
 
   /// Represents the properties of the table.
-  _i2.TableDescription? get tableDescription;
+  TableDescription? get tableDescription;
   @override
   List<Object?> get props => [tableDescription];
   @override
@@ -54,7 +53,7 @@ abstract class UpdateTableOutput
 }
 
 class UpdateTableOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<UpdateTableOutput> {
+    extends _i2.StructuredSmithySerializer<UpdateTableOutput> {
   const UpdateTableOutputAwsJson10Serializer() : super('UpdateTableOutput');
 
   @override
@@ -63,8 +62,8 @@ class UpdateTableOutputAwsJson10Serializer
         _$UpdateTableOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -88,8 +87,8 @@ class UpdateTableOutputAwsJson10Serializer
         case 'TableDescription':
           result.tableDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableDescription),
-          ) as _i2.TableDescription));
+            specifiedType: const FullType(TableDescription),
+          ) as TableDescription));
       }
     }
 
@@ -109,7 +108,7 @@ class UpdateTableOutputAwsJson10Serializer
         ..add('TableDescription')
         ..add(serializers.serialize(
           tableDescription,
-          specifiedType: const FullType(_i2.TableDescription),
+          specifiedType: const FullType(TableDescription),
         ));
     }
     return result$;

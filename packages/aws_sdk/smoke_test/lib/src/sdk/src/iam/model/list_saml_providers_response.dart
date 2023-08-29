@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_saml_providers_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/saml_provider_list_entry.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/saml_provider_list_entry.dart';
 
 part 'list_saml_providers_response.g.dart';
 
@@ -20,10 +19,10 @@ abstract class ListSamlProvidersResponse
         Built<ListSamlProvidersResponse, ListSamlProvidersResponseBuilder> {
   /// Contains the response to a successful ListSAMLProviders request.
   factory ListSamlProvidersResponse(
-      {List<_i2.SamlProviderListEntry>? samlProviderList}) {
+      {List<SamlProviderListEntry>? samlProviderList}) {
     return _$ListSamlProvidersResponse._(
         samlProviderList:
-            samlProviderList == null ? null : _i3.BuiltList(samlProviderList));
+            samlProviderList == null ? null : _i2.BuiltList(samlProviderList));
   }
 
   /// Contains the response to a successful ListSAMLProviders request.
@@ -40,11 +39,11 @@ abstract class ListSamlProvidersResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListSamlProvidersResponse>>
+  static const List<_i3.SmithySerializer<ListSamlProvidersResponse>>
       serializers = [ListSamlProvidersResponseAwsQuerySerializer()];
 
   /// The list of SAML provider resource objects defined in IAM for this Amazon Web Services account.
-  _i3.BuiltList<_i2.SamlProviderListEntry>? get samlProviderList;
+  _i2.BuiltList<SamlProviderListEntry>? get samlProviderList;
   @override
   List<Object?> get props => [samlProviderList];
   @override
@@ -59,7 +58,7 @@ abstract class ListSamlProvidersResponse
 }
 
 class ListSamlProvidersResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListSamlProvidersResponse> {
+    extends _i3.StructuredSmithySerializer<ListSamlProvidersResponse> {
   const ListSamlProvidersResponseAwsQuerySerializer()
       : super('ListSamlProvidersResponse');
 
@@ -69,8 +68,8 @@ class ListSamlProvidersResponseAwsQuerySerializer
         _$ListSamlProvidersResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -82,6 +81,14 @@ class ListSamlProvidersResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListSamlProvidersResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -92,16 +99,16 @@ class ListSamlProvidersResponseAwsQuerySerializer
       }
       switch (key) {
         case 'SAMLProviderList':
-          result.samlProviderList.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.samlProviderList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.SamlProviderListEntry)],
+              _i2.BuiltList,
+              [FullType(SamlProviderListEntry)],
             ),
-          ) as _i3.BuiltList<_i2.SamlProviderListEntry>));
+          ) as _i2.BuiltList<SamlProviderListEntry>));
       }
     }
 
@@ -115,23 +122,23 @@ class ListSamlProvidersResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListSamlProvidersResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListSamlProvidersResponse(:samlProviderList) = object;
     if (samlProviderList != null) {
       result$
-        ..add(const _i4.XmlElementName('SAMLProviderList'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('SAMLProviderList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           samlProviderList,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.SamlProviderListEntry)],
+            _i2.BuiltList,
+            [FullType(SamlProviderListEntry)],
           ),
         ));
     }

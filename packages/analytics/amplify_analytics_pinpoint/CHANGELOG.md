@@ -1,3 +1,20 @@
+## 1.3.2
+
+- Minor bug fixes and improvements
+
+## 1.3.1
+
+- Minor bug fixes and improvements
+
+## 1.3.0
+
+- Minor bug fixes and improvements
+
+## 1.2.1
+
+### Fixes
+- fix(analytics): Disallowed unauth access
+
 ## 1.2.0
 
 - Minor bug fixes and improvements

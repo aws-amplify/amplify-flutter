@@ -9,7 +9,7 @@ part of 'get_bucket_analytics_configuration_output.dart';
 class _$GetBucketAnalyticsConfigurationOutput
     extends GetBucketAnalyticsConfigurationOutput {
   @override
-  final _i3.AnalyticsConfiguration? analyticsConfiguration;
+  final AnalyticsConfiguration? analyticsConfiguration;
 
   factory _$GetBucketAnalyticsConfigurationOutput(
           [void Function(GetBucketAnalyticsConfigurationOutputBuilder)?
@@ -52,12 +52,11 @@ class GetBucketAnalyticsConfigurationOutputBuilder
             GetBucketAnalyticsConfigurationOutputBuilder> {
   _$GetBucketAnalyticsConfigurationOutput? _$v;
 
-  _i3.AnalyticsConfigurationBuilder? _analyticsConfiguration;
-  _i3.AnalyticsConfigurationBuilder get analyticsConfiguration =>
-      _$this._analyticsConfiguration ??=
-          new _i3.AnalyticsConfigurationBuilder();
+  AnalyticsConfigurationBuilder? _analyticsConfiguration;
+  AnalyticsConfigurationBuilder get analyticsConfiguration =>
+      _$this._analyticsConfiguration ??= new AnalyticsConfigurationBuilder();
   set analyticsConfiguration(
-          _i3.AnalyticsConfigurationBuilder? analyticsConfiguration) =>
+          AnalyticsConfigurationBuilder? analyticsConfiguration) =>
       _$this._analyticsConfiguration = analyticsConfiguration;
 
   GetBucketAnalyticsConfigurationOutputBuilder();

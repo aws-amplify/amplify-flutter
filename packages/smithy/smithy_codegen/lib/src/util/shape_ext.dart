@@ -16,6 +16,7 @@ import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/generator/visitors/symbol_visitor.dart';
 import 'package:smithy_codegen/src/util/config_parameter.dart';
 import 'package:smithy_codegen/src/util/docs.dart';
+import 'package:smithy_codegen/src/util/protocol_ext.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 extension SimpleShapeUtil on SimpleShape {
@@ -614,8 +615,15 @@ extension OperationShapeUtil on OperationShape {
     // See:
     // - https://awslabs.github.io/smithy/1.0/spec/aws/aws-json-1_0-protocol.html
     // - https://awslabs.github.io/smithy/1.0/spec/aws/aws-json-1_1-protocol.html
-    if ([AwsJson1_0Trait.id, AwsJson1_1Trait.id, AwsQueryTrait.id]
-        .contains(protocol.singleOrNull?.shapeId)) {
+    //
+    // awsQuery and ec2Query send all requests as "POST" to the root path.
+    const rpcProtocols = [
+      AwsJson1_0Trait.id,
+      AwsJson1_1Trait.id,
+      AwsQueryTrait.id,
+      Ec2QueryTrait.id,
+    ];
+    if (rpcProtocols.contains(protocol.singleOrNull?.shapeId)) {
       return const HttpTrait(method: 'POST', uri: '/');
     }
     return null;
@@ -693,7 +701,7 @@ extension OperationShapeUtil on OperationShape {
               ParameterLocation.clientMethod
           ..required = true
           ..defaultTo = DartTypes.awsSigV4.awsCredentialsProvider
-              .constInstanceNamed('environment', []).code,
+              .constInstanceNamed('defaultChain', []).code,
       );
     }
 
@@ -778,7 +786,7 @@ extension StructureShapeUtil on StructureShape {
   }
 
   /// The symbol for the HTTP payload, or `this` if not supported.
-  HttpPayload httpPayload(CodegenContext context) {
+  HttpPayload get httpPayload {
     MemberShape? payloadMember;
     if (isS3UnwrappedOutput(context)) {
       payloadMember = members.values.single;
@@ -801,8 +809,7 @@ extension StructureShapeUtil on StructureShape {
   }
 
   /// HTTP metadata on operation output structures.
-  HttpOutputTraits? httpOutputTraits(
-    CodegenContext context, {
+  HttpOutputTraits? httpOutputTraits({
     bool overrideTrait = false,
   }) {
     if (!isOutputShape && !overrideTrait && Shape.unit != shapeId) {
@@ -828,8 +835,7 @@ extension StructureShapeUtil on StructureShape {
   }
 
   /// HTTP metadata on operation input structures.
-  HttpInputTraits? httpInputTraits(
-    CodegenContext context, {
+  HttpInputTraits? httpInputTraits({
     bool overrideTrait = false,
   }) {
     if (!isInputShape && !overrideTrait && Shape.unit != shapeId) {
@@ -864,8 +870,7 @@ extension StructureShapeUtil on StructureShape {
     return builder.build();
   }
 
-  HttpErrorTraits? httpErrorTraits(
-    CodegenContext context, [
+  HttpErrorTraits? httpErrorTraits([
     Reference? payloadSymbol,
   ]) {
     if (!isError) {
@@ -917,15 +922,20 @@ extension StructureShapeUtil on StructureShape {
     });
 
   /// The member shape to serialize when [HttpPayloadTrait] is used.
-  MemberShape? payloadShape(CodegenContext context) =>
-      httpPayload(context).member;
+  MemberShape? get payloadShape => httpPayload.member;
 
   /// The list of all members which convey some information about the request,
   /// and for most protocols are not included in the body of the request.
-  List<MemberShape> metadataMembers(CodegenContext context) {
-    final httpInputTraits = this.httpInputTraits(context);
-    final httpOutputTraits = this.httpOutputTraits(context);
-    final httpErrorTraits = this.httpErrorTraits(context);
+  List<MemberShape> get metadataMembers {
+    final serviceSupportsHttpTraits = context.serviceProtocols
+        .any((protocol) => protocol.supportsTrait(HttpPayloadTrait.id));
+    if (!serviceSupportsHttpTraits) {
+      return const [];
+    }
+
+    final httpInputTraits = this.httpInputTraits();
+    final httpOutputTraits = this.httpOutputTraits();
+    final httpErrorTraits = this.httpErrorTraits();
 
     return <MemberShape?>{
       ...?httpInputTraits?.httpHeaders.values,
@@ -946,8 +956,8 @@ extension StructureShapeUtil on StructureShape {
 
   /// The list of all members which should always be included in the body of
   /// the request.
-  List<MemberShape> payloadMembers(CodegenContext context) => sortedMembers
-      .where((member) => !metadataMembers(context).contains(member))
+  List<MemberShape> get payloadMembers => sortedMembers
+      .where((member) => !metadataMembers.contains(member))
       .toList();
 
   /// Whether the structure has an HTTP payload.
@@ -958,18 +968,17 @@ extension StructureShapeUtil on StructureShape {
     return (isInputShape || isOutputShape || isError) &&
         (members.values.any(
           (shape) =>
-              shape.hasTrait<HttpPayloadTrait>() ||
-              metadataMembers(context).isNotEmpty,
+              shape.hasTrait<HttpPayloadTrait>() || metadataMembers.isNotEmpty,
         ));
   }
 
   /// Whether the structure needs a payload struct.
   bool hasBuiltPayload(CodegenContext context) =>
-      hasPayload(context) && payloadShape(context) == null;
+      hasPayload(context) && payloadShape == null;
 
   /// Whether the structure has a streaming payload.
   bool hasStreamingPayload(CodegenContext context) {
-    final payloadShape = this.payloadShape(context);
+    final payloadShape = this.payloadShape;
     return hasPayload(context) &&
         payloadShape != null &&
         (payloadShape.isStreaming ||

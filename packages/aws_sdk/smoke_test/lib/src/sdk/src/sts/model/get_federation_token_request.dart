@@ -4,13 +4,12 @@
 library smoke_test.sts.model.get_federation_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/tag.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/tag.dart';
 
 part 'get_federation_token_request.g.dart';
 
@@ -23,16 +22,16 @@ abstract class GetFederationTokenRequest
   factory GetFederationTokenRequest({
     required String name,
     String? policy,
-    List<_i3.PolicyDescriptorType>? policyArns,
+    List<PolicyDescriptorType>? policyArns,
     int? durationSeconds,
-    List<_i4.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$GetFederationTokenRequest._(
       name: name,
       policy: policy,
-      policyArns: policyArns == null ? null : _i5.BuiltList(policyArns),
+      policyArns: policyArns == null ? null : _i3.BuiltList(policyArns),
       durationSeconds: durationSeconds,
-      tags: tags == null ? null : _i5.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -83,7 +82,7 @@ abstract class GetFederationTokenRequest
   /// The resulting credentials can be used to access a resource that has a resource-based policy. If that policy specifically references the federated user session in the `Principal` element of the policy, the session has the permissions allowed by the policy. These permissions are granted in addition to the permissions that are granted by the session policies.
   ///
   /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
-  _i5.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
+  _i3.BuiltList<PolicyDescriptorType>? get policyArns;
 
   /// The duration, in seconds, that the session should last. Acceptable durations for federation sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default. Sessions obtained using root user credentials are restricted to a maximum of 3,600 seconds (one hour). If the specified duration is longer than one hour, the session obtained by using root user credentials defaults to one hour.
   int? get durationSeconds;
@@ -97,7 +96,7 @@ abstract class GetFederationTokenRequest
   /// You can pass a session tag with the same key as a tag that is already attached to the user you are federating. When you do, session tags override a user tag with the same key.
   ///
   /// Tag key–value pairs are not case sensitive, but case is preserved. This means that you cannot have separate `Department` and `department` tag keys. Assume that the role has the `Department`=`Marketing` tag and you pass the `department`=`engineering` session tag. `Department` and `department` are not saved as separate tags, and the session tag passed in the request takes precedence over the role tag.
-  _i5.BuiltList<_i4.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   GetFederationTokenRequest getPayload() => this;
   @override
@@ -159,6 +158,14 @@ class GetFederationTokenRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetFederationTokenRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -185,10 +192,10 @@ class GetFederationTokenRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.PolicyDescriptorType)],
+              _i3.BuiltList,
+              [FullType(PolicyDescriptorType)],
             ),
-          ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
+          ) as _i3.BuiltList<PolicyDescriptorType>));
         case 'DurationSeconds':
           result.durationSeconds = (serializers.deserialize(
             value,
@@ -201,10 +208,10 @@ class GetFederationTokenRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i5.BuiltList<_i4.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -253,8 +260,8 @@ class GetFederationTokenRequestAwsQuerySerializer
           serializers,
           policyArns,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i3.PolicyDescriptorType)],
+            _i3.BuiltList,
+            [FullType(PolicyDescriptorType)],
           ),
         ));
     }
@@ -275,8 +282,8 @@ class GetFederationTokenRequestAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i4.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

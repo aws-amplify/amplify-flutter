@@ -16,19 +16,19 @@ class _$ConfigRule extends ConfigRule {
   @override
   final String? description;
   @override
-  final _i2.Scope? scope;
+  final Scope? scope;
   @override
-  final _i3.Source source;
+  final Source source;
   @override
   final String? inputParameters;
   @override
-  final _i4.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final _i5.ConfigRuleState? configRuleState;
+  final ConfigRuleState? configRuleState;
   @override
   final String? createdBy;
   @override
-  final _i7.BuiltList<_i6.EvaluationModeConfiguration>? evaluationModes;
+  final _i2.BuiltList<EvaluationModeConfiguration>? evaluationModes;
 
   factory _$ConfigRule([void Function(ConfigRuleBuilder)? updates]) =>
       (new ConfigRuleBuilder()..update(updates))._build();
@@ -113,41 +113,41 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i2.ScopeBuilder? _scope;
-  _i2.ScopeBuilder get scope => _$this._scope ??= new _i2.ScopeBuilder();
-  set scope(_i2.ScopeBuilder? scope) => _$this._scope = scope;
+  ScopeBuilder? _scope;
+  ScopeBuilder get scope => _$this._scope ??= new ScopeBuilder();
+  set scope(ScopeBuilder? scope) => _$this._scope = scope;
 
-  _i3.SourceBuilder? _source;
-  _i3.SourceBuilder get source => _$this._source ??= new _i3.SourceBuilder();
-  set source(_i3.SourceBuilder? source) => _$this._source = source;
+  SourceBuilder? _source;
+  SourceBuilder get source => _$this._source ??= new SourceBuilder();
+  set source(SourceBuilder? source) => _$this._source = source;
 
   String? _inputParameters;
   String? get inputParameters => _$this._inputParameters;
   set inputParameters(String? inputParameters) =>
       _$this._inputParameters = inputParameters;
 
-  _i4.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  MaximumExecutionFrequency? _maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  _i5.ConfigRuleState? _configRuleState;
-  _i5.ConfigRuleState? get configRuleState => _$this._configRuleState;
-  set configRuleState(_i5.ConfigRuleState? configRuleState) =>
+  ConfigRuleState? _configRuleState;
+  ConfigRuleState? get configRuleState => _$this._configRuleState;
+  set configRuleState(ConfigRuleState? configRuleState) =>
       _$this._configRuleState = configRuleState;
 
   String? _createdBy;
   String? get createdBy => _$this._createdBy;
   set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
-  _i7.ListBuilder<_i6.EvaluationModeConfiguration>? _evaluationModes;
-  _i7.ListBuilder<_i6.EvaluationModeConfiguration> get evaluationModes =>
+  _i2.ListBuilder<EvaluationModeConfiguration>? _evaluationModes;
+  _i2.ListBuilder<EvaluationModeConfiguration> get evaluationModes =>
       _$this._evaluationModes ??=
-          new _i7.ListBuilder<_i6.EvaluationModeConfiguration>();
+          new _i2.ListBuilder<EvaluationModeConfiguration>();
   set evaluationModes(
-          _i7.ListBuilder<_i6.EvaluationModeConfiguration>? evaluationModes) =>
+          _i2.ListBuilder<EvaluationModeConfiguration>? evaluationModes) =>
       _$this._evaluationModes = evaluationModes;
 
   ConfigRuleBuilder();

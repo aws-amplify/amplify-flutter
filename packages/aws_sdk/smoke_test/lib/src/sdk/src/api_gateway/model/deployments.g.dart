@@ -8,7 +8,7 @@ part of 'deployments.dart';
 
 class _$Deployments extends Deployments {
   @override
-  final _i3.BuiltList<_i2.Deployment>? items;
+  final _i2.BuiltList<Deployment>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$Deployments extends Deployments {
 class DeploymentsBuilder implements Builder<Deployments, DeploymentsBuilder> {
   _$Deployments? _$v;
 
-  _i3.ListBuilder<_i2.Deployment>? _items;
-  _i3.ListBuilder<_i2.Deployment> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.Deployment>();
-  set items(_i3.ListBuilder<_i2.Deployment>? items) => _$this._items = items;
+  _i2.ListBuilder<Deployment>? _items;
+  _i2.ListBuilder<Deployment> get items =>
+      _$this._items ??= new _i2.ListBuilder<Deployment>();
+  set items(_i2.ListBuilder<Deployment>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

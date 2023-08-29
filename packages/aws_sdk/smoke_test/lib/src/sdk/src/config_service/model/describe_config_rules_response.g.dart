@@ -8,7 +8,7 @@ part of 'describe_config_rules_response.dart';
 
 class _$DescribeConfigRulesResponse extends DescribeConfigRulesResponse {
   @override
-  final _i3.BuiltList<_i2.ConfigRule>? configRules;
+  final _i2.BuiltList<ConfigRule>? configRules;
   @override
   final String? nextToken;
 
@@ -52,10 +52,10 @@ class DescribeConfigRulesResponseBuilder
             DescribeConfigRulesResponseBuilder> {
   _$DescribeConfigRulesResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConfigRule>? _configRules;
-  _i3.ListBuilder<_i2.ConfigRule> get configRules =>
-      _$this._configRules ??= new _i3.ListBuilder<_i2.ConfigRule>();
-  set configRules(_i3.ListBuilder<_i2.ConfigRule>? configRules) =>
+  _i2.ListBuilder<ConfigRule>? _configRules;
+  _i2.ListBuilder<ConfigRule> get configRules =>
+      _$this._configRules ??= new _i2.ListBuilder<ConfigRule>();
+  set configRules(_i2.ListBuilder<ConfigRule>? configRules) =>
       _$this._configRules = configRules;
 
   String? _nextToken;

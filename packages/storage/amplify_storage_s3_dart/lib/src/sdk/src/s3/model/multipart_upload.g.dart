@@ -14,13 +14,13 @@ class _$MultipartUpload extends MultipartUpload {
   @override
   final DateTime? initiated;
   @override
-  final _i2.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
   @override
-  final _i4.Initiator? initiator;
+  final Initiator? initiator;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$MultipartUpload([void Function(MultipartUploadBuilder)? updates]) =>
       (new MultipartUploadBuilder()..update(updates))._build();
@@ -87,24 +87,23 @@ class MultipartUploadBuilder
   DateTime? get initiated => _$this._initiated;
   set initiated(DateTime? initiated) => _$this._initiated = initiated;
 
-  _i2.StorageClass? _storageClass;
-  _i2.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i2.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i4.InitiatorBuilder? _initiator;
-  _i4.InitiatorBuilder get initiator =>
-      _$this._initiator ??= new _i4.InitiatorBuilder();
-  set initiator(_i4.InitiatorBuilder? initiator) =>
-      _$this._initiator = initiator;
+  InitiatorBuilder? _initiator;
+  InitiatorBuilder get initiator =>
+      _$this._initiator ??= new InitiatorBuilder();
+  set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   MultipartUploadBuilder();

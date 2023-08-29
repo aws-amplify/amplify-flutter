@@ -8,7 +8,7 @@ part of 'object_lock_rule.dart';
 
 class _$ObjectLockRule extends ObjectLockRule {
   @override
-  final _i2.DefaultRetention? defaultRetention;
+  final DefaultRetention? defaultRetention;
 
   factory _$ObjectLockRule([void Function(ObjectLockRuleBuilder)? updates]) =>
       (new ObjectLockRuleBuilder()..update(updates))._build();
@@ -43,10 +43,10 @@ class ObjectLockRuleBuilder
     implements Builder<ObjectLockRule, ObjectLockRuleBuilder> {
   _$ObjectLockRule? _$v;
 
-  _i2.DefaultRetentionBuilder? _defaultRetention;
-  _i2.DefaultRetentionBuilder get defaultRetention =>
-      _$this._defaultRetention ??= new _i2.DefaultRetentionBuilder();
-  set defaultRetention(_i2.DefaultRetentionBuilder? defaultRetention) =>
+  DefaultRetentionBuilder? _defaultRetention;
+  DefaultRetentionBuilder get defaultRetention =>
+      _$this._defaultRetention ??= new DefaultRetentionBuilder();
+  set defaultRetention(DefaultRetentionBuilder? defaultRetention) =>
       _$this._defaultRetention = defaultRetention;
 
   ObjectLockRuleBuilder();

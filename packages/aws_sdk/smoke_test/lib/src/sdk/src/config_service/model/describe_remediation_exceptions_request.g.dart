@@ -11,7 +11,7 @@ class _$DescribeRemediationExceptionsRequest
   @override
   final String configRuleName;
   @override
-  final _i4.BuiltList<_i3.RemediationExceptionResourceKey>? resourceKeys;
+  final _i3.BuiltList<RemediationExceptionResourceKey>? resourceKeys;
   @override
   final int limit;
   @override
@@ -77,12 +77,12 @@ class DescribeRemediationExceptionsRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i4.ListBuilder<_i3.RemediationExceptionResourceKey>? _resourceKeys;
-  _i4.ListBuilder<_i3.RemediationExceptionResourceKey> get resourceKeys =>
+  _i3.ListBuilder<RemediationExceptionResourceKey>? _resourceKeys;
+  _i3.ListBuilder<RemediationExceptionResourceKey> get resourceKeys =>
       _$this._resourceKeys ??=
-          new _i4.ListBuilder<_i3.RemediationExceptionResourceKey>();
+          new _i3.ListBuilder<RemediationExceptionResourceKey>();
   set resourceKeys(
-          _i4.ListBuilder<_i3.RemediationExceptionResourceKey>? resourceKeys) =>
+          _i3.ListBuilder<RemediationExceptionResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
   int? _limit;

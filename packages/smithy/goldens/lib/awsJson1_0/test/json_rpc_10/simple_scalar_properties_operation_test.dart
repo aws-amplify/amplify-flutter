@@ -4,14 +4,11 @@
 // ignore_for_file: unused_element
 library aws_json1_0_v1.json_rpc_10.test.simple_scalar_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart'
-    as _i5;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart'
-    as _i6;
-import 'package:aws_json1_0_v1/src/json_rpc_10/operation/simple_scalar_properties_operation.dart'
-    as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/operation/simple_scalar_properties_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +17,14 @@ void main() {
     'AwsJson10SupportsNaNFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsJson10SupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -66,14 +63,14 @@ void main() {
     'AwsJson10SupportsInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsJson10SupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -113,14 +110,14 @@ void main() {
     'AwsJson10SupportsNegativeInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsJson10SupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -160,14 +157,14 @@ void main() {
     'AwsJson10SupportsNaNFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsJson10SupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -197,14 +194,14 @@ void main() {
     'AwsJson10SupportsInfinityFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsJson10SupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -235,14 +232,14 @@ void main() {
     'AwsJson10SupportsNegativeInfinityFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsJson10SupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -272,26 +269,26 @@ void main() {
 }
 
 class SimpleScalarPropertiesInputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<_i5.SimpleScalarPropertiesInput> {
+    extends _i3.StructuredSmithySerializer<SimpleScalarPropertiesInput> {
   const SimpleScalarPropertiesInputAwsJson10Serializer()
       : super('SimpleScalarPropertiesInput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleScalarPropertiesInput];
+  Iterable<Type> get types => const [SimpleScalarPropertiesInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
       ];
   @override
-  _i5.SimpleScalarPropertiesInput deserialize(
+  SimpleScalarPropertiesInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleScalarPropertiesInputBuilder();
+    final result = SimpleScalarPropertiesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -320,7 +317,7 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleScalarPropertiesInput object, {
+    SimpleScalarPropertiesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -328,26 +325,26 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
 }
 
 class SimpleScalarPropertiesOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<_i6.SimpleScalarPropertiesOutput> {
+    extends _i3.StructuredSmithySerializer<SimpleScalarPropertiesOutput> {
   const SimpleScalarPropertiesOutputAwsJson10Serializer()
       : super('SimpleScalarPropertiesOutput');
 
   @override
-  Iterable<Type> get types => const [_i6.SimpleScalarPropertiesOutput];
+  Iterable<Type> get types => const [SimpleScalarPropertiesOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
       ];
   @override
-  _i6.SimpleScalarPropertiesOutput deserialize(
+  SimpleScalarPropertiesOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.SimpleScalarPropertiesOutputBuilder();
+    final result = SimpleScalarPropertiesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -376,7 +373,7 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.SimpleScalarPropertiesOutput object, {
+    SimpleScalarPropertiesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

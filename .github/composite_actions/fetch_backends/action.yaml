@@ -22,8 +22,9 @@ runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
+      uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
       with:
+        unset-current-credentials: true
         role-to-assume: ${{ inputs.role-to-assume }}
         aws-region: ${{ inputs.aws-region }}
         role-duration-seconds: 900
@@ -33,7 +34,7 @@ runs:
       shell: bash
 
     - name: Get Amplify App IDs / bucket ARNs from Secrets Manager
-      uses: aws-actions/aws-secretsmanager-get-secrets@bafac38d78b5f679d35ef3f36f9842a63de59564 # 1.0.0
+      uses: aws-actions/aws-secretsmanager-get-secrets@022e8919774ecb75e8e375656d7b1898936ab878 # 1.0.4
       with:
         secret-ids: |
           ${{ inputs.secret-identifier }}

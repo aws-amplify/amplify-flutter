@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registration_status.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registration_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'list_type_registrations_input.g.dart';
 
@@ -21,10 +19,10 @@ abstract class ListTypeRegistrationsInput
     implements
         Built<ListTypeRegistrationsInput, ListTypeRegistrationsInputBuilder> {
   factory ListTypeRegistrationsInput({
-    _i3.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? typeArn,
-    _i4.RegistrationStatus? registrationStatusFilter,
+    RegistrationStatus? registrationStatusFilter,
     int? maxResults,
     String? nextToken,
   }) {
@@ -57,7 +55,7 @@ abstract class ListTypeRegistrationsInput
   /// The kind of extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.
-  _i3.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension.
   ///
@@ -72,7 +70,7 @@ abstract class ListTypeRegistrationsInput
   /// The current status of the extension registration request.
   ///
   /// The default is `IN_PROGRESS`.
-  _i4.RegistrationStatus? get registrationStatusFilter;
+  RegistrationStatus? get registrationStatusFilter;
 
   /// The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a `NextToken` value that you can assign to the `NextToken` request parameter to get the next set of results.
   int? get maxResults;
@@ -145,6 +143,14 @@ class ListTypeRegistrationsInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListTypeRegistrationsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -157,8 +163,8 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RegistryType),
-          ) as _i3.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -172,8 +178,8 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         case 'RegistrationStatusFilter':
           result.registrationStatusFilter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.RegistrationStatus),
-          ) as _i4.RegistrationStatus);
+            specifiedType: const FullType(RegistrationStatus),
+          ) as RegistrationStatus);
         case 'MaxResults':
           result.maxResults = (serializers.deserialize(
             value,
@@ -215,7 +221,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -239,7 +245,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RegistrationStatusFilter'))
         ..add(serializers.serialize(
           registrationStatusFilter,
-          specifiedType: const FullType.nullable(_i4.RegistrationStatus),
+          specifiedType: const FullType.nullable(RegistrationStatus),
         ));
     }
     if (maxResults != null) {

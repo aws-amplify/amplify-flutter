@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.parameter_declaration; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter_constraints.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter_constraints.dart';
 
 part 'parameter_declaration.g.dart';
 
@@ -23,7 +22,7 @@ abstract class ParameterDeclaration
     String? parameterType,
     bool? noEcho,
     String? description,
-    _i2.ParameterConstraints? parameterConstraints,
+    ParameterConstraints? parameterConstraints,
   }) {
     return _$ParameterDeclaration._(
       parameterKey: parameterKey,
@@ -42,7 +41,7 @@ abstract class ParameterDeclaration
 
   const ParameterDeclaration._();
 
-  static const List<_i3.SmithySerializer<ParameterDeclaration>> serializers = [
+  static const List<_i2.SmithySerializer<ParameterDeclaration>> serializers = [
     ParameterDeclarationAwsQuerySerializer()
   ];
 
@@ -62,7 +61,7 @@ abstract class ParameterDeclaration
   String? get description;
 
   /// The criteria that CloudFormation uses to validate parameter values.
-  _i2.ParameterConstraints? get parameterConstraints;
+  ParameterConstraints? get parameterConstraints;
   @override
   List<Object?> get props => [
         parameterKey,
@@ -104,7 +103,7 @@ abstract class ParameterDeclaration
 }
 
 class ParameterDeclarationAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<ParameterDeclaration> {
+    extends _i2.StructuredSmithySerializer<ParameterDeclaration> {
   const ParameterDeclarationAwsQuerySerializer()
       : super('ParameterDeclaration');
 
@@ -114,8 +113,8 @@ class ParameterDeclarationAwsQuerySerializer
         _$ParameterDeclaration,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -127,6 +126,14 @@ class ParameterDeclarationAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ParameterDeclarationBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -164,8 +171,8 @@ class ParameterDeclarationAwsQuerySerializer
         case 'ParameterConstraints':
           result.parameterConstraints.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ParameterConstraints),
-          ) as _i2.ParameterConstraints));
+            specifiedType: const FullType(ParameterConstraints),
+          ) as ParameterConstraints));
       }
     }
 
@@ -179,9 +186,9 @@ class ParameterDeclarationAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ParameterDeclarationResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ParameterDeclaration(
@@ -194,7 +201,7 @@ class ParameterDeclarationAwsQuerySerializer
     ) = object;
     if (parameterKey != null) {
       result$
-        ..add(const _i3.XmlElementName('ParameterKey'))
+        ..add(const _i2.XmlElementName('ParameterKey'))
         ..add(serializers.serialize(
           parameterKey,
           specifiedType: const FullType(String),
@@ -202,7 +209,7 @@ class ParameterDeclarationAwsQuerySerializer
     }
     if (defaultValue != null) {
       result$
-        ..add(const _i3.XmlElementName('DefaultValue'))
+        ..add(const _i2.XmlElementName('DefaultValue'))
         ..add(serializers.serialize(
           defaultValue,
           specifiedType: const FullType(String),
@@ -210,7 +217,7 @@ class ParameterDeclarationAwsQuerySerializer
     }
     if (parameterType != null) {
       result$
-        ..add(const _i3.XmlElementName('ParameterType'))
+        ..add(const _i2.XmlElementName('ParameterType'))
         ..add(serializers.serialize(
           parameterType,
           specifiedType: const FullType(String),
@@ -218,7 +225,7 @@ class ParameterDeclarationAwsQuerySerializer
     }
     if (noEcho != null) {
       result$
-        ..add(const _i3.XmlElementName('NoEcho'))
+        ..add(const _i2.XmlElementName('NoEcho'))
         ..add(serializers.serialize(
           noEcho,
           specifiedType: const FullType.nullable(bool),
@@ -226,7 +233,7 @@ class ParameterDeclarationAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i3.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -234,10 +241,10 @@ class ParameterDeclarationAwsQuerySerializer
     }
     if (parameterConstraints != null) {
       result$
-        ..add(const _i3.XmlElementName('ParameterConstraints'))
+        ..add(const _i2.XmlElementName('ParameterConstraints'))
         ..add(serializers.serialize(
           parameterConstraints,
-          specifiedType: const FullType(_i2.ParameterConstraints),
+          specifiedType: const FullType(ParameterConstraints),
         ));
     }
     return result$;

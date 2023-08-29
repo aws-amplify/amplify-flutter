@@ -9,7 +9,7 @@ part of 'get_resource_config_history_request.dart';
 class _$GetResourceConfigHistoryRequest
     extends GetResourceConfigHistoryRequest {
   @override
-  final _i3.ResourceType resourceType;
+  final ResourceType resourceType;
   @override
   final String resourceId;
   @override
@@ -17,7 +17,7 @@ class _$GetResourceConfigHistoryRequest
   @override
   final DateTime? earlierTime;
   @override
-  final _i4.ChronologicalOrder? chronologicalOrder;
+  final ChronologicalOrder? chronologicalOrder;
   @override
   final int limit;
   @override
@@ -87,9 +87,9 @@ class GetResourceConfigHistoryRequestBuilder
             GetResourceConfigHistoryRequestBuilder> {
   _$GetResourceConfigHistoryRequest? _$v;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
   String? _resourceId;
@@ -104,9 +104,9 @@ class GetResourceConfigHistoryRequestBuilder
   DateTime? get earlierTime => _$this._earlierTime;
   set earlierTime(DateTime? earlierTime) => _$this._earlierTime = earlierTime;
 
-  _i4.ChronologicalOrder? _chronologicalOrder;
-  _i4.ChronologicalOrder? get chronologicalOrder => _$this._chronologicalOrder;
-  set chronologicalOrder(_i4.ChronologicalOrder? chronologicalOrder) =>
+  ChronologicalOrder? _chronologicalOrder;
+  ChronologicalOrder? get chronologicalOrder => _$this._chronologicalOrder;
+  set chronologicalOrder(ChronologicalOrder? chronologicalOrder) =>
       _$this._chronologicalOrder = chronologicalOrder;
 
   int? _limit;

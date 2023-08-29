@@ -4,15 +4,13 @@
 library smoke_test.api_gateway.model.create_usage_plan_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart';
 
 part 'create_usage_plan_request.g.dart';
 
@@ -26,18 +24,18 @@ abstract class CreateUsagePlanRequest
   factory CreateUsagePlanRequest({
     required String name,
     String? description,
-    List<_i3.ApiStage>? apiStages,
-    _i4.ThrottleSettings? throttle,
-    _i5.QuotaSettings? quota,
+    List<ApiStage>? apiStages,
+    ThrottleSettings? throttle,
+    QuotaSettings? quota,
     Map<String, String>? tags,
   }) {
     return _$CreateUsagePlanRequest._(
       name: name,
       description: description,
-      apiStages: apiStages == null ? null : _i6.BuiltList(apiStages),
+      apiStages: apiStages == null ? null : _i3.BuiltList(apiStages),
       throttle: throttle,
       quota: quota,
-      tags: tags == null ? null : _i6.BuiltMap(tags),
+      tags: tags == null ? null : _i3.BuiltMap(tags),
     );
   }
 
@@ -65,16 +63,16 @@ abstract class CreateUsagePlanRequest
   String? get description;
 
   /// The associated API stages of the usage plan.
-  _i6.BuiltList<_i3.ApiStage>? get apiStages;
+  _i3.BuiltList<ApiStage>? get apiStages;
 
   /// The throttling limits of the usage plan.
-  _i4.ThrottleSettings? get throttle;
+  ThrottleSettings? get throttle;
 
   /// The quota of the usage plan.
-  _i5.QuotaSettings? get quota;
+  QuotaSettings? get quota;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i6.BuiltMap<String, String>? get tags;
+  _i3.BuiltMap<String, String>? get tags;
   @override
   CreateUsagePlanRequest getPayload() => this;
   @override
@@ -154,10 +152,10 @@ class CreateUsagePlanRequestRestJson1Serializer
           result.apiStages.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.ApiStage)],
+              _i3.BuiltList,
+              [FullType(ApiStage)],
             ),
-          ) as _i6.BuiltList<_i3.ApiStage>));
+          ) as _i3.BuiltList<ApiStage>));
         case 'description':
           result.description = (serializers.deserialize(
             value,
@@ -171,24 +169,24 @@ class CreateUsagePlanRequestRestJson1Serializer
         case 'quota':
           result.quota.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.QuotaSettings),
-          ) as _i5.QuotaSettings));
+            specifiedType: const FullType(QuotaSettings),
+          ) as QuotaSettings));
         case 'tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'throttle':
           result.throttle.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ThrottleSettings),
-          ) as _i4.ThrottleSettings));
+            specifiedType: const FullType(ThrottleSettings),
+          ) as ThrottleSettings));
       }
     }
 
@@ -223,8 +221,8 @@ class CreateUsagePlanRequestRestJson1Serializer
         ..add(serializers.serialize(
           apiStages,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i3.ApiStage)],
+            _i3.BuiltList,
+            [FullType(ApiStage)],
           ),
         ));
     }
@@ -241,7 +239,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ..add('quota')
         ..add(serializers.serialize(
           quota,
-          specifiedType: const FullType(_i5.QuotaSettings),
+          specifiedType: const FullType(QuotaSettings),
         ));
     }
     if (tags != null) {
@@ -250,7 +248,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -263,7 +261,7 @@ class CreateUsagePlanRequestRestJson1Serializer
         ..add('throttle')
         ..add(serializers.serialize(
           throttle,
-          specifiedType: const FullType(_i4.ThrottleSettings),
+          specifiedType: const FullType(ThrottleSettings),
         ));
     }
     return result$;

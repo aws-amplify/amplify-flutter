@@ -6,9 +6,8 @@ library smoke_test.s3.model.accelerate_configuration; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart';
 
 part 'accelerate_configuration.g.dart';
 
@@ -17,7 +16,7 @@ abstract class AccelerateConfiguration
     with _i1.AWSEquatable<AccelerateConfiguration>
     implements Built<AccelerateConfiguration, AccelerateConfigurationBuilder> {
   /// Configures the transfer acceleration state for an Amazon S3 bucket. For more information, see [Amazon S3 Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html) in the _Amazon S3 User Guide_.
-  factory AccelerateConfiguration({_i2.BucketAccelerateStatus? status}) {
+  factory AccelerateConfiguration({BucketAccelerateStatus? status}) {
     return _$AccelerateConfiguration._(status: status);
   }
 
@@ -28,11 +27,11 @@ abstract class AccelerateConfiguration
 
   const AccelerateConfiguration._();
 
-  static const List<_i3.SmithySerializer<AccelerateConfiguration>> serializers =
+  static const List<_i2.SmithySerializer<AccelerateConfiguration>> serializers =
       [AccelerateConfigurationRestXmlSerializer()];
 
   /// Specifies the transfer acceleration status of the bucket.
-  _i2.BucketAccelerateStatus? get status;
+  BucketAccelerateStatus? get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -47,7 +46,7 @@ abstract class AccelerateConfiguration
 }
 
 class AccelerateConfigurationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<AccelerateConfiguration> {
+    extends _i2.StructuredSmithySerializer<AccelerateConfiguration> {
   const AccelerateConfigurationRestXmlSerializer()
       : super('AccelerateConfiguration');
 
@@ -57,8 +56,8 @@ class AccelerateConfigurationRestXmlSerializer
         _$AccelerateConfiguration,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -82,8 +81,8 @@ class AccelerateConfigurationRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BucketAccelerateStatus),
-          ) as _i2.BucketAccelerateStatus);
+            specifiedType: const FullType(BucketAccelerateStatus),
+          ) as BucketAccelerateStatus);
       }
     }
 
@@ -97,18 +96,18 @@ class AccelerateConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AccelerateConfiguration',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AccelerateConfiguration(:status) = object;
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.BucketAccelerateStatus),
+          specifiedType: const FullType.nullable(BucketAccelerateStatus),
         ));
     }
     return result$;

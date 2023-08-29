@@ -8,7 +8,7 @@ part of 'describe_stacks_output.dart';
 
 class _$DescribeStacksOutput extends DescribeStacksOutput {
   @override
-  final _i3.BuiltList<_i2.Stack>? stacks;
+  final _i2.BuiltList<Stack>? stacks;
   @override
   final String? nextToken;
 
@@ -49,10 +49,10 @@ class DescribeStacksOutputBuilder
     implements Builder<DescribeStacksOutput, DescribeStacksOutputBuilder> {
   _$DescribeStacksOutput? _$v;
 
-  _i3.ListBuilder<_i2.Stack>? _stacks;
-  _i3.ListBuilder<_i2.Stack> get stacks =>
-      _$this._stacks ??= new _i3.ListBuilder<_i2.Stack>();
-  set stacks(_i3.ListBuilder<_i2.Stack>? stacks) => _$this._stacks = stacks;
+  _i2.ListBuilder<Stack>? _stacks;
+  _i2.ListBuilder<Stack> get stacks =>
+      _$this._stacks ??= new _i2.ListBuilder<Stack>();
+  set stacks(_i2.ListBuilder<Stack>? stacks) => _$this._stacks = stacks;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;

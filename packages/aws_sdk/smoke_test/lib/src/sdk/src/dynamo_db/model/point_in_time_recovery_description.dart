@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.point_in_time_recovery_description; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_status.dart';
 
 part 'point_in_time_recovery_description.g.dart';
 
@@ -21,7 +20,7 @@ abstract class PointInTimeRecoveryDescription
             PointInTimeRecoveryDescriptionBuilder> {
   /// The description of the point in time settings applied to the table.
   factory PointInTimeRecoveryDescription({
-    _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus,
+    PointInTimeRecoveryStatus? pointInTimeRecoveryStatus,
     DateTime? earliestRestorableDateTime,
     DateTime? latestRestorableDateTime,
   }) {
@@ -39,7 +38,7 @@ abstract class PointInTimeRecoveryDescription
 
   const PointInTimeRecoveryDescription._();
 
-  static const List<_i3.SmithySerializer<PointInTimeRecoveryDescription>>
+  static const List<_i2.SmithySerializer<PointInTimeRecoveryDescription>>
       serializers = [PointInTimeRecoveryDescriptionAwsJson10Serializer()];
 
   /// The current state of point in time recovery:
@@ -47,7 +46,7 @@ abstract class PointInTimeRecoveryDescription
   /// *   `ENABLED` \- Point in time recovery is enabled.
   ///
   /// *   `DISABLED` \- Point in time recovery is disabled.
-  _i2.PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus;
+  PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus;
 
   /// Specifies the earliest point in time you can restore your table to. You can restore your table to any point in time during the last 35 days.
   DateTime? get earliestRestorableDateTime;
@@ -80,7 +79,7 @@ abstract class PointInTimeRecoveryDescription
 }
 
 class PointInTimeRecoveryDescriptionAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<PointInTimeRecoveryDescription> {
+    extends _i2.StructuredSmithySerializer<PointInTimeRecoveryDescription> {
   const PointInTimeRecoveryDescriptionAwsJson10Serializer()
       : super('PointInTimeRecoveryDescription');
 
@@ -90,8 +89,8 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         _$PointInTimeRecoveryDescription,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -115,8 +114,8 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         case 'PointInTimeRecoveryStatus':
           result.pointInTimeRecoveryStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
-          ) as _i2.PointInTimeRecoveryStatus);
+            specifiedType: const FullType(PointInTimeRecoveryStatus),
+          ) as PointInTimeRecoveryStatus);
         case 'EarliestRestorableDateTime':
           result.earliestRestorableDateTime = (serializers.deserialize(
             value,
@@ -150,7 +149,7 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         ..add('PointInTimeRecoveryStatus')
         ..add(serializers.serialize(
           pointInTimeRecoveryStatus,
-          specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
+          specifiedType: const FullType(PointInTimeRecoveryStatus),
         ));
     }
     if (earliestRestorableDateTime != null) {

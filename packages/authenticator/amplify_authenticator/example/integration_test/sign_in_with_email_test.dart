@@ -120,12 +120,9 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       await loadAuthenticator(tester: tester);
@@ -167,12 +164,9 @@ void main() {
         password,
         autoConfirm: true,
         verifyAttributes: true,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       await loadAuthenticator(tester: tester);
@@ -219,12 +213,9 @@ void main() {
       await adminCreateUser(
         username,
         password,
-        attributes: [
-          AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: username,
-          ),
-        ],
+        attributes: {
+          AuthUserAttributeKey.email: username,
+        },
       );
 
       await loadAuthenticator(tester: tester);

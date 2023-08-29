@@ -6,13 +6,10 @@ library smoke_test.cloud_formation.model.change_set_hook; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook_target_details.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_failure_mode.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_invocation_point.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook_target_details.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_failure_mode.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_invocation_point.dart';
 
 part 'change_set_hook.g.dart';
 
@@ -22,12 +19,12 @@ abstract class ChangeSetHook
     implements Built<ChangeSetHook, ChangeSetHookBuilder> {
   /// Specifies the resource, the hook, and the hook version to be invoked.
   factory ChangeSetHook({
-    _i2.HookInvocationPoint? invocationPoint,
-    _i3.HookFailureMode? failureMode,
+    HookInvocationPoint? invocationPoint,
+    HookFailureMode? failureMode,
     String? typeName,
     String? typeVersionId,
     String? typeConfigurationVersionId,
-    _i4.ChangeSetHookTargetDetails? targetDetails,
+    ChangeSetHookTargetDetails? targetDetails,
   }) {
     return _$ChangeSetHook._(
       invocationPoint: invocationPoint,
@@ -45,19 +42,19 @@ abstract class ChangeSetHook
 
   const ChangeSetHook._();
 
-  static const List<_i5.SmithySerializer<ChangeSetHook>> serializers = [
+  static const List<_i2.SmithySerializer<ChangeSetHook>> serializers = [
     ChangeSetHookAwsQuerySerializer()
   ];
 
   /// Specifies the points in provisioning logic where a hook is invoked.
-  _i2.HookInvocationPoint? get invocationPoint;
+  HookInvocationPoint? get invocationPoint;
 
   /// Specify the hook failure mode for non-compliant resources in the followings ways.
   ///
   /// *   `FAIL` Stops provisioning resources.
   ///
   /// *   `WARN` Allows provisioning to continue with a warning message.
-  _i3.HookFailureMode? get failureMode;
+  HookFailureMode? get failureMode;
 
   /// The unique name for your hook. Specifies a three-part namespace for your hook, with a recommended pattern of `Organization::Service::Hook`.
   ///
@@ -85,7 +82,7 @@ abstract class ChangeSetHook
   String? get typeConfigurationVersionId;
 
   /// Specifies details about the target that the hook will run against.
-  _i4.ChangeSetHookTargetDetails? get targetDetails;
+  ChangeSetHookTargetDetails? get targetDetails;
   @override
   List<Object?> get props => [
         invocationPoint,
@@ -127,7 +124,7 @@ abstract class ChangeSetHook
 }
 
 class ChangeSetHookAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<ChangeSetHook> {
+    extends _i2.StructuredSmithySerializer<ChangeSetHook> {
   const ChangeSetHookAwsQuerySerializer() : super('ChangeSetHook');
 
   @override
@@ -136,8 +133,8 @@ class ChangeSetHookAwsQuerySerializer
         _$ChangeSetHook,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -149,6 +146,14 @@ class ChangeSetHookAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ChangeSetHookBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -161,13 +166,13 @@ class ChangeSetHookAwsQuerySerializer
         case 'InvocationPoint':
           result.invocationPoint = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.HookInvocationPoint),
-          ) as _i2.HookInvocationPoint);
+            specifiedType: const FullType(HookInvocationPoint),
+          ) as HookInvocationPoint);
         case 'FailureMode':
           result.failureMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.HookFailureMode),
-          ) as _i3.HookFailureMode);
+            specifiedType: const FullType(HookFailureMode),
+          ) as HookFailureMode);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -186,8 +191,8 @@ class ChangeSetHookAwsQuerySerializer
         case 'TargetDetails':
           result.targetDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
-          ) as _i4.ChangeSetHookTargetDetails));
+            specifiedType: const FullType(ChangeSetHookTargetDetails),
+          ) as ChangeSetHookTargetDetails));
       }
     }
 
@@ -201,9 +206,9 @@ class ChangeSetHookAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i2.XmlElementName(
         'ChangeSetHookResponse',
-        _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ChangeSetHook(
@@ -216,23 +221,23 @@ class ChangeSetHookAwsQuerySerializer
     ) = object;
     if (invocationPoint != null) {
       result$
-        ..add(const _i5.XmlElementName('InvocationPoint'))
+        ..add(const _i2.XmlElementName('InvocationPoint'))
         ..add(serializers.serialize(
           invocationPoint,
-          specifiedType: const FullType.nullable(_i2.HookInvocationPoint),
+          specifiedType: const FullType.nullable(HookInvocationPoint),
         ));
     }
     if (failureMode != null) {
       result$
-        ..add(const _i5.XmlElementName('FailureMode'))
+        ..add(const _i2.XmlElementName('FailureMode'))
         ..add(serializers.serialize(
           failureMode,
-          specifiedType: const FullType.nullable(_i3.HookFailureMode),
+          specifiedType: const FullType.nullable(HookFailureMode),
         ));
     }
     if (typeName != null) {
       result$
-        ..add(const _i5.XmlElementName('TypeName'))
+        ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),
@@ -240,7 +245,7 @@ class ChangeSetHookAwsQuerySerializer
     }
     if (typeVersionId != null) {
       result$
-        ..add(const _i5.XmlElementName('TypeVersionId'))
+        ..add(const _i2.XmlElementName('TypeVersionId'))
         ..add(serializers.serialize(
           typeVersionId,
           specifiedType: const FullType(String),
@@ -248,7 +253,7 @@ class ChangeSetHookAwsQuerySerializer
     }
     if (typeConfigurationVersionId != null) {
       result$
-        ..add(const _i5.XmlElementName('TypeConfigurationVersionId'))
+        ..add(const _i2.XmlElementName('TypeConfigurationVersionId'))
         ..add(serializers.serialize(
           typeConfigurationVersionId,
           specifiedType: const FullType(String),
@@ -256,10 +261,10 @@ class ChangeSetHookAwsQuerySerializer
     }
     if (targetDetails != null) {
       result$
-        ..add(const _i5.XmlElementName('TargetDetails'))
+        ..add(const _i2.XmlElementName('TargetDetails'))
         ..add(serializers.serialize(
           targetDetails,
-          specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
+          specifiedType: const FullType(ChangeSetHookTargetDetails),
         ));
     }
     return result$;

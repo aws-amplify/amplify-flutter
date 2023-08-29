@@ -57,9 +57,7 @@ class UserContextDataTypeBuilder
   String? get encodedData => _$this._encodedData;
   set encodedData(String? encodedData) => _$this._encodedData = encodedData;
 
-  UserContextDataTypeBuilder() {
-    UserContextDataType._init(this);
-  }
+  UserContextDataTypeBuilder();
 
   UserContextDataTypeBuilder get _$this {
     final $v = _$v;

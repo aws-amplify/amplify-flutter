@@ -18,7 +18,7 @@ class _$GetObjectAttributesParts extends GetObjectAttributesParts {
   @override
   final bool? isTruncated;
   @override
-  final _i3.BuiltList<_i2.ObjectPart>? parts;
+  final _i2.BuiltList<ObjectPart>? parts;
 
   factory _$GetObjectAttributesParts(
           [void Function(GetObjectAttributesPartsBuilder)? updates]) =>
@@ -96,10 +96,10 @@ class GetObjectAttributesPartsBuilder
   bool? get isTruncated => _$this._isTruncated;
   set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
 
-  _i3.ListBuilder<_i2.ObjectPart>? _parts;
-  _i3.ListBuilder<_i2.ObjectPart> get parts =>
-      _$this._parts ??= new _i3.ListBuilder<_i2.ObjectPart>();
-  set parts(_i3.ListBuilder<_i2.ObjectPart>? parts) => _$this._parts = parts;
+  _i2.ListBuilder<ObjectPart>? _parts;
+  _i2.ListBuilder<ObjectPart> get parts =>
+      _$this._parts ??= new _i2.ListBuilder<ObjectPart>();
+  set parts(_i2.ListBuilder<ObjectPart>? parts) => _$this._parts = parts;
 
   GetObjectAttributesPartsBuilder();
 

@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.batch_statement_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_error_code_enum.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_error_code_enum.dart';
 
 part 'batch_statement_error.g.dart';
 
@@ -21,14 +19,14 @@ abstract class BatchStatementError
     implements Built<BatchStatementError, BatchStatementErrorBuilder> {
   /// An error associated with a statement in a PartiQL batch that was run.
   factory BatchStatementError({
-    _i2.BatchStatementErrorCodeEnum? code,
+    BatchStatementErrorCodeEnum? code,
     String? message,
-    Map<String, _i3.AttributeValue>? item,
+    Map<String, AttributeValue>? item,
   }) {
     return _$BatchStatementError._(
       code: code,
       message: message,
-      item: item == null ? null : _i4.BuiltMap(item),
+      item: item == null ? null : _i2.BuiltMap(item),
     );
   }
 
@@ -39,18 +37,18 @@ abstract class BatchStatementError
 
   const BatchStatementError._();
 
-  static const List<_i5.SmithySerializer<BatchStatementError>> serializers = [
+  static const List<_i3.SmithySerializer<BatchStatementError>> serializers = [
     BatchStatementErrorAwsJson10Serializer()
   ];
 
   /// The error code associated with the failed PartiQL batch statement.
-  _i2.BatchStatementErrorCodeEnum? get code;
+  BatchStatementErrorCodeEnum? get code;
 
   /// The error message associated with the PartiQL batch response.
   String? get message;
 
   /// The item which caused the condition check to fail. This will be set if ReturnValuesOnConditionCheckFailure is specified as `ALL_OLD`.
-  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
+  _i2.BuiltMap<String, AttributeValue>? get item;
   @override
   List<Object?> get props => [
         code,
@@ -77,7 +75,7 @@ abstract class BatchStatementError
 }
 
 class BatchStatementErrorAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BatchStatementError> {
+    extends _i3.StructuredSmithySerializer<BatchStatementError> {
   const BatchStatementErrorAwsJson10Serializer() : super('BatchStatementError');
 
   @override
@@ -86,8 +84,8 @@ class BatchStatementErrorAwsJson10Serializer
         _$BatchStatementError,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,8 +109,8 @@ class BatchStatementErrorAwsJson10Serializer
         case 'Code':
           result.code = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BatchStatementErrorCodeEnum),
-          ) as _i2.BatchStatementErrorCodeEnum);
+            specifiedType: const FullType(BatchStatementErrorCodeEnum),
+          ) as BatchStatementErrorCodeEnum);
         case 'Message':
           result.message = (serializers.deserialize(
             value,
@@ -122,13 +120,13 @@ class BatchStatementErrorAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -148,7 +146,7 @@ class BatchStatementErrorAwsJson10Serializer
         ..add('Code')
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType(_i2.BatchStatementErrorCodeEnum),
+          specifiedType: const FullType(BatchStatementErrorCodeEnum),
         ));
     }
     if (message != null) {
@@ -165,10 +163,10 @@ class BatchStatementErrorAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

@@ -6,8 +6,8 @@ library smoke_test.s3.model.progress_event; // ignore_for_file: no_leading_under
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/progress.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/progress.dart';
 
 part 'progress_event.g.dart';
 
@@ -16,7 +16,7 @@ abstract class ProgressEvent
     with _i1.AWSEquatable<ProgressEvent>
     implements Built<ProgressEvent, ProgressEventBuilder> {
   /// This data type contains information about the progress event of an operation.
-  factory ProgressEvent({_i2.Progress? details}) {
+  factory ProgressEvent({Progress? details}) {
     return _$ProgressEvent._(details: details);
   }
 
@@ -26,12 +26,12 @@ abstract class ProgressEvent
 
   const ProgressEvent._();
 
-  static const List<_i3.SmithySerializer<ProgressEvent>> serializers = [
+  static const List<_i2.SmithySerializer<ProgressEvent>> serializers = [
     ProgressEventRestXmlSerializer()
   ];
 
   /// The Progress event details.
-  _i2.Progress? get details;
+  Progress? get details;
   @override
   List<Object?> get props => [details];
   @override
@@ -46,7 +46,7 @@ abstract class ProgressEvent
 }
 
 class ProgressEventRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ProgressEvent> {
+    extends _i2.StructuredSmithySerializer<ProgressEvent> {
   const ProgressEventRestXmlSerializer() : super('ProgressEvent');
 
   @override
@@ -55,8 +55,8 @@ class ProgressEventRestXmlSerializer
         _$ProgressEvent,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -80,8 +80,8 @@ class ProgressEventRestXmlSerializer
         case 'Details':
           result.details.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Progress),
-          ) as _i2.Progress));
+            specifiedType: const FullType(Progress),
+          ) as Progress));
       }
     }
 
@@ -95,18 +95,18 @@ class ProgressEventRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ProgressEvent',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ProgressEvent(:details) = object;
     if (details != null) {
       result$
-        ..add(const _i3.XmlElementName('Details'))
+        ..add(const _i2.XmlElementName('Details'))
         ..add(serializers.serialize(
           details,
-          specifiedType: const FullType(_i2.Progress),
+          specifiedType: const FullType(Progress),
         ));
     }
     return result$;

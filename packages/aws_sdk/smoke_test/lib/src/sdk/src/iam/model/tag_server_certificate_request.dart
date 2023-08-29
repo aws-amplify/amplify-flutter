@@ -4,11 +4,11 @@
 library smoke_test.iam.model.tag_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'tag_server_certificate_request.g.dart';
 
@@ -20,11 +20,11 @@ abstract class TagServerCertificateRequest
         Built<TagServerCertificateRequest, TagServerCertificateRequestBuilder> {
   factory TagServerCertificateRequest({
     required String serverCertificateName,
-    required List<_i3.Tag> tags,
+    required List<Tag> tags,
   }) {
     return _$TagServerCertificateRequest._(
       serverCertificateName: serverCertificateName,
-      tags: _i4.BuiltList(tags),
+      tags: _i3.BuiltList(tags),
     );
   }
 
@@ -50,7 +50,7 @@ abstract class TagServerCertificateRequest
   String get serverCertificateName;
 
   /// The list of tags that you want to attach to the IAM server certificate. Each tag consists of a key name and an associated value.
-  _i4.BuiltList<_i3.Tag> get tags;
+  _i3.BuiltList<Tag> get tags;
   @override
   TagServerCertificateRequest getPayload() => this;
   @override
@@ -97,6 +97,14 @@ class TagServerCertificateRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = TagServerCertificateRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -118,10 +126,10 @@ class TagServerCertificateRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -155,8 +163,8 @@ class TagServerCertificateRequestAwsQuerySerializer
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

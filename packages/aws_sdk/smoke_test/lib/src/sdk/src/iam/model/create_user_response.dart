@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_user_response; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/user.dart';
 
 part 'create_user_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class CreateUserResponse
     with _i1.AWSEquatable<CreateUserResponse>
     implements Built<CreateUserResponse, CreateUserResponseBuilder> {
   /// Contains the response to a successful CreateUser request.
-  factory CreateUserResponse({_i2.User? user}) {
+  factory CreateUserResponse({User? user}) {
     return _$CreateUserResponse._(user: user);
   }
 
@@ -34,12 +34,12 @@ abstract class CreateUserResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateUserResponse>> serializers = [
+  static const List<_i2.SmithySerializer<CreateUserResponse>> serializers = [
     CreateUserResponseAwsQuerySerializer()
   ];
 
   /// A structure with details about the new IAM user.
-  _i2.User? get user;
+  User? get user;
   @override
   List<Object?> get props => [user];
   @override
@@ -54,7 +54,7 @@ abstract class CreateUserResponse
 }
 
 class CreateUserResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateUserResponse> {
+    extends _i2.StructuredSmithySerializer<CreateUserResponse> {
   const CreateUserResponseAwsQuerySerializer() : super('CreateUserResponse');
 
   @override
@@ -63,8 +63,8 @@ class CreateUserResponseAwsQuerySerializer
         _$CreateUserResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -76,6 +76,14 @@ class CreateUserResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = CreateUserResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -88,8 +96,8 @@ class CreateUserResponseAwsQuerySerializer
         case 'User':
           result.user.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.User),
-          ) as _i2.User));
+            specifiedType: const FullType(User),
+          ) as User));
       }
     }
 
@@ -103,18 +111,18 @@ class CreateUserResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateUserResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateUserResponse(:user) = object;
     if (user != null) {
       result$
-        ..add(const _i3.XmlElementName('User'))
+        ..add(const _i2.XmlElementName('User'))
         ..add(serializers.serialize(
           user,
-          specifiedType: const FullType(_i2.User),
+          specifiedType: const FullType(User),
         ));
     }
     return result$;

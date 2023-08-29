@@ -4,11 +4,9 @@
 library aws_query_v1.query_protocol.model.query_maps_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart'
-    as _i3;
-import 'package:aws_query_v1/src/query_protocol/model/nested_struct_with_map.dart'
-    as _i4;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart';
+import 'package:aws_query_v1/src/query_protocol/model/nested_struct_with_map.dart';
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -21,25 +19,25 @@ abstract class QueryMapsInput
   factory QueryMapsInput({
     Map<String, String>? mapArg,
     Map<String, String>? renamedMapArg,
-    Map<String, _i3.GreetingStruct>? complexMapArg,
+    Map<String, GreetingStruct>? complexMapArg,
     Map<String, String>? mapWithXmlMemberName,
     Map<String, String>? flattenedMap,
     Map<String, String>? flattenedMapWithXmlName,
     Map<String, List<String>>? mapOfLists,
-    _i4.NestedStructWithMap? nestedStructWithMap,
+    NestedStructWithMap? nestedStructWithMap,
   }) {
     return _$QueryMapsInput._(
-      mapArg: mapArg == null ? null : _i5.BuiltMap(mapArg),
-      renamedMapArg: renamedMapArg == null ? null : _i5.BuiltMap(renamedMapArg),
-      complexMapArg: complexMapArg == null ? null : _i5.BuiltMap(complexMapArg),
+      mapArg: mapArg == null ? null : _i3.BuiltMap(mapArg),
+      renamedMapArg: renamedMapArg == null ? null : _i3.BuiltMap(renamedMapArg),
+      complexMapArg: complexMapArg == null ? null : _i3.BuiltMap(complexMapArg),
       mapWithXmlMemberName: mapWithXmlMemberName == null
           ? null
-          : _i5.BuiltMap(mapWithXmlMemberName),
-      flattenedMap: flattenedMap == null ? null : _i5.BuiltMap(flattenedMap),
+          : _i3.BuiltMap(mapWithXmlMemberName),
+      flattenedMap: flattenedMap == null ? null : _i3.BuiltMap(flattenedMap),
       flattenedMapWithXmlName: flattenedMapWithXmlName == null
           ? null
-          : _i5.BuiltMap(flattenedMapWithXmlName),
-      mapOfLists: mapOfLists == null ? null : _i5.BuiltListMultimap(mapOfLists),
+          : _i3.BuiltMap(flattenedMapWithXmlName),
+      mapOfLists: mapOfLists == null ? null : _i3.BuiltListMultimap(mapOfLists),
       nestedStructWithMap: nestedStructWithMap,
     );
   }
@@ -60,14 +58,14 @@ abstract class QueryMapsInput
     QueryMapsInputAwsQuerySerializer()
   ];
 
-  _i5.BuiltMap<String, String>? get mapArg;
-  _i5.BuiltMap<String, String>? get renamedMapArg;
-  _i5.BuiltMap<String, _i3.GreetingStruct>? get complexMapArg;
-  _i5.BuiltMap<String, String>? get mapWithXmlMemberName;
-  _i5.BuiltMap<String, String>? get flattenedMap;
-  _i5.BuiltMap<String, String>? get flattenedMapWithXmlName;
-  _i5.BuiltListMultimap<String, String>? get mapOfLists;
-  _i4.NestedStructWithMap? get nestedStructWithMap;
+  _i3.BuiltMap<String, String>? get mapArg;
+  _i3.BuiltMap<String, String>? get renamedMapArg;
+  _i3.BuiltMap<String, GreetingStruct>? get complexMapArg;
+  _i3.BuiltMap<String, String>? get mapWithXmlMemberName;
+  _i3.BuiltMap<String, String>? get flattenedMap;
+  _i3.BuiltMap<String, String>? get flattenedMapWithXmlName;
+  _i3.BuiltListMultimap<String, String>? get mapOfLists;
+  NestedStructWithMap? get nestedStructWithMap;
   @override
   QueryMapsInput getPayload() => this;
   @override
@@ -143,6 +141,14 @@ class QueryMapsInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = QueryMapsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -159,7 +165,7 @@ class QueryMapsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
@@ -173,7 +179,7 @@ class QueryMapsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
@@ -187,10 +193,10 @@ class QueryMapsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
           ));
@@ -203,7 +209,7 @@ class QueryMapsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
@@ -219,7 +225,7 @@ class QueryMapsInputAwsQuerySerializer
                 serializers,
                 value is String ? const [] : (value as Iterable<Object?>),
                 specifiedType: const FullType(
-                  _i5.BuiltMap,
+                  _i3.BuiltMap,
                   [
                     FullType(String),
                     FullType(String),
@@ -239,7 +245,7 @@ class QueryMapsInputAwsQuerySerializer
                 serializers,
                 value is String ? const [] : (value as Iterable<Object?>),
                 specifiedType: const FullType(
-                  _i5.BuiltMap,
+                  _i3.BuiltMap,
                   [
                     FullType(String),
                     FullType(String),
@@ -255,7 +261,7 @@ class QueryMapsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltListMultimap,
+              _i3.BuiltListMultimap,
               [
                 FullType(String),
                 FullType(String),
@@ -265,8 +271,8 @@ class QueryMapsInputAwsQuerySerializer
         case 'NestedStructWithMap':
           result.nestedStructWithMap.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.NestedStructWithMap),
-          ) as _i4.NestedStructWithMap));
+            specifiedType: const FullType(NestedStructWithMap),
+          ) as NestedStructWithMap));
       }
     }
 
@@ -304,7 +310,7 @@ class QueryMapsInputAwsQuerySerializer
           serializers,
           mapArg,
           specifiedType: const FullType.nullable(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -321,7 +327,7 @@ class QueryMapsInputAwsQuerySerializer
           serializers,
           renamedMapArg,
           specifiedType: const FullType.nullable(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -338,10 +344,10 @@ class QueryMapsInputAwsQuerySerializer
           serializers,
           complexMapArg,
           specifiedType: const FullType.nullable(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.GreetingStruct),
+              FullType(GreetingStruct),
             ],
           ),
         ));
@@ -357,7 +363,7 @@ class QueryMapsInputAwsQuerySerializer
           serializers,
           mapWithXmlMemberName,
           specifiedType: const FullType.nullable(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -373,7 +379,7 @@ class QueryMapsInputAwsQuerySerializer
         serializers,
         flattenedMap,
         specifiedType: const FullType.nullable(
-          _i5.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
             FullType(String),
@@ -391,7 +397,7 @@ class QueryMapsInputAwsQuerySerializer
         serializers,
         flattenedMapWithXmlName,
         specifiedType: const FullType.nullable(
-          _i5.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
             FullType(String),
@@ -408,7 +414,7 @@ class QueryMapsInputAwsQuerySerializer
           serializers,
           mapOfLists,
           specifiedType: const FullType.nullable(
-            _i5.BuiltListMultimap,
+            _i3.BuiltListMultimap,
             [
               FullType(String),
               FullType(String),
@@ -421,7 +427,7 @@ class QueryMapsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('NestedStructWithMap'))
         ..add(serializers.serialize(
           nestedStructWithMap,
-          specifiedType: const FullType(_i4.NestedStructWithMap),
+          specifiedType: const FullType(NestedStructWithMap),
         ));
     }
     return result$;

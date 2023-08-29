@@ -4,15 +4,14 @@
 library smoke_test.iam.model.user_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/iam/model/attached_permissions_boundary.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_detail.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/attached_permissions_boundary.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/attached_policy.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_detail.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'user_detail.g.dart';
 
@@ -31,11 +30,11 @@ abstract class UserDetail
     String? userId,
     String? arn,
     DateTime? createDate,
-    List<_i2.PolicyDetail>? userPolicyList,
+    List<PolicyDetail>? userPolicyList,
     List<String>? groupList,
-    List<_i3.AttachedPolicy>? attachedManagedPolicies,
-    _i4.AttachedPermissionsBoundary? permissionsBoundary,
-    List<_i5.Tag>? tags,
+    List<AttachedPolicy>? attachedManagedPolicies,
+    AttachedPermissionsBoundary? permissionsBoundary,
+    List<Tag>? tags,
   }) {
     return _$UserDetail._(
       path: path,
@@ -44,13 +43,13 @@ abstract class UserDetail
       arn: arn,
       createDate: createDate,
       userPolicyList:
-          userPolicyList == null ? null : _i6.BuiltList(userPolicyList),
-      groupList: groupList == null ? null : _i6.BuiltList(groupList),
+          userPolicyList == null ? null : _i2.BuiltList(userPolicyList),
+      groupList: groupList == null ? null : _i2.BuiltList(groupList),
       attachedManagedPolicies: attachedManagedPolicies == null
           ? null
-          : _i6.BuiltList(attachedManagedPolicies),
+          : _i2.BuiltList(attachedManagedPolicies),
       permissionsBoundary: permissionsBoundary,
-      tags: tags == null ? null : _i6.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -62,7 +61,7 @@ abstract class UserDetail
 
   const UserDetail._();
 
-  static const List<_i7.SmithySerializer<UserDetail>> serializers = [
+  static const List<_i3.SmithySerializer<UserDetail>> serializers = [
     UserDetailAwsQuerySerializer()
   ];
 
@@ -84,21 +83,21 @@ abstract class UserDetail
   DateTime? get createDate;
 
   /// A list of the inline policies embedded in the user.
-  _i6.BuiltList<_i2.PolicyDetail>? get userPolicyList;
+  _i2.BuiltList<PolicyDetail>? get userPolicyList;
 
   /// A list of IAM groups that the user is in.
-  _i6.BuiltList<String>? get groupList;
+  _i2.BuiltList<String>? get groupList;
 
   /// A list of the managed policies attached to the user.
-  _i6.BuiltList<_i3.AttachedPolicy>? get attachedManagedPolicies;
+  _i2.BuiltList<AttachedPolicy>? get attachedManagedPolicies;
 
   /// The ARN of the policy used to set the permissions boundary for the user.
   ///
   /// For more information about permissions boundaries, see [Permissions boundaries for IAM identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_.
-  _i4.AttachedPermissionsBoundary? get permissionsBoundary;
+  AttachedPermissionsBoundary? get permissionsBoundary;
 
   /// A list of tags that are associated with the user. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i6.BuiltList<_i5.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         path,
@@ -160,7 +159,7 @@ abstract class UserDetail
 }
 
 class UserDetailAwsQuerySerializer
-    extends _i7.StructuredSmithySerializer<UserDetail> {
+    extends _i3.StructuredSmithySerializer<UserDetail> {
   const UserDetailAwsQuerySerializer() : super('UserDetail');
 
   @override
@@ -169,8 +168,8 @@ class UserDetailAwsQuerySerializer
         _$UserDetail,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -182,6 +181,14 @@ class UserDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = UserDetailBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -217,55 +224,55 @@ class UserDetailAwsQuerySerializer
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'UserPolicyList':
-          result.userPolicyList.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.userPolicyList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i2.PolicyDetail)],
+              _i2.BuiltList,
+              [FullType(PolicyDetail)],
             ),
-          ) as _i6.BuiltList<_i2.PolicyDetail>));
+          ) as _i2.BuiltList<PolicyDetail>));
         case 'GroupList':
-          result.groupList.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.groupList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'AttachedManagedPolicies':
           result.attachedManagedPolicies.replace(
-              (const _i7.XmlBuiltListSerializer(
-                      indexer: _i7.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.AttachedPolicy)],
+              _i2.BuiltList,
+              [FullType(AttachedPolicy)],
             ),
-          ) as _i6.BuiltList<_i3.AttachedPolicy>));
+          ) as _i2.BuiltList<AttachedPolicy>));
         case 'PermissionsBoundary':
           result.permissionsBoundary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.AttachedPermissionsBoundary),
-          ) as _i4.AttachedPermissionsBoundary));
+            specifiedType: const FullType(AttachedPermissionsBoundary),
+          ) as AttachedPermissionsBoundary));
         case 'Tags':
-          result.tags.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i6.BuiltList<_i5.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -279,9 +286,9 @@ class UserDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i3.XmlElementName(
         'UserDetailResponse',
-        _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final UserDetail(
@@ -298,7 +305,7 @@ class UserDetailAwsQuerySerializer
     ) = object;
     if (path != null) {
       result$
-        ..add(const _i7.XmlElementName('Path'))
+        ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
@@ -306,7 +313,7 @@ class UserDetailAwsQuerySerializer
     }
     if (userName != null) {
       result$
-        ..add(const _i7.XmlElementName('UserName'))
+        ..add(const _i3.XmlElementName('UserName'))
         ..add(serializers.serialize(
           userName,
           specifiedType: const FullType(String),
@@ -314,7 +321,7 @@ class UserDetailAwsQuerySerializer
     }
     if (userId != null) {
       result$
-        ..add(const _i7.XmlElementName('UserId'))
+        ..add(const _i3.XmlElementName('UserId'))
         ..add(serializers.serialize(
           userId,
           specifiedType: const FullType(String),
@@ -322,7 +329,7 @@ class UserDetailAwsQuerySerializer
     }
     if (arn != null) {
       result$
-        ..add(const _i7.XmlElementName('Arn'))
+        ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -330,7 +337,7 @@ class UserDetailAwsQuerySerializer
     }
     if (createDate != null) {
       result$
-        ..add(const _i7.XmlElementName('CreateDate'))
+        ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -338,65 +345,65 @@ class UserDetailAwsQuerySerializer
     }
     if (userPolicyList != null) {
       result$
-        ..add(const _i7.XmlElementName('UserPolicyList'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('UserPolicyList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           userPolicyList,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i2.PolicyDetail)],
+            _i2.BuiltList,
+            [FullType(PolicyDetail)],
           ),
         ));
     }
     if (groupList != null) {
       result$
-        ..add(const _i7.XmlElementName('GroupList'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('GroupList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           groupList,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (attachedManagedPolicies != null) {
       result$
-        ..add(const _i7.XmlElementName('AttachedManagedPolicies'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('AttachedManagedPolicies'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           attachedManagedPolicies,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i3.AttachedPolicy)],
+            _i2.BuiltList,
+            [FullType(AttachedPolicy)],
           ),
         ));
     }
     if (permissionsBoundary != null) {
       result$
-        ..add(const _i7.XmlElementName('PermissionsBoundary'))
+        ..add(const _i3.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
           permissionsBoundary,
-          specifiedType: const FullType(_i4.AttachedPermissionsBoundary),
+          specifiedType: const FullType(AttachedPermissionsBoundary),
         ));
     }
     if (tags != null) {
       result$
-        ..add(const _i7.XmlElementName('Tags'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i5.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

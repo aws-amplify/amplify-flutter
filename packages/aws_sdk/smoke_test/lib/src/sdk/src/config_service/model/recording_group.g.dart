@@ -12,11 +12,11 @@ class _$RecordingGroup extends RecordingGroup {
   @override
   final bool includeGlobalResourceTypes;
   @override
-  final _i5.BuiltList<_i2.ResourceType>? resourceTypes;
+  final _i2.BuiltList<ResourceType>? resourceTypes;
   @override
-  final _i3.ExclusionByResourceTypes? exclusionByResourceTypes;
+  final ExclusionByResourceTypes? exclusionByResourceTypes;
   @override
-  final _i4.RecordingStrategy? recordingStrategy;
+  final RecordingStrategy? recordingStrategy;
 
   factory _$RecordingGroup([void Function(RecordingGroupBuilder)? updates]) =>
       (new RecordingGroupBuilder()..update(updates))._build();
@@ -79,24 +79,24 @@ class RecordingGroupBuilder
   set includeGlobalResourceTypes(bool? includeGlobalResourceTypes) =>
       _$this._includeGlobalResourceTypes = includeGlobalResourceTypes;
 
-  _i5.ListBuilder<_i2.ResourceType>? _resourceTypes;
-  _i5.ListBuilder<_i2.ResourceType> get resourceTypes =>
-      _$this._resourceTypes ??= new _i5.ListBuilder<_i2.ResourceType>();
-  set resourceTypes(_i5.ListBuilder<_i2.ResourceType>? resourceTypes) =>
+  _i2.ListBuilder<ResourceType>? _resourceTypes;
+  _i2.ListBuilder<ResourceType> get resourceTypes =>
+      _$this._resourceTypes ??= new _i2.ListBuilder<ResourceType>();
+  set resourceTypes(_i2.ListBuilder<ResourceType>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
-  _i3.ExclusionByResourceTypesBuilder? _exclusionByResourceTypes;
-  _i3.ExclusionByResourceTypesBuilder get exclusionByResourceTypes =>
+  ExclusionByResourceTypesBuilder? _exclusionByResourceTypes;
+  ExclusionByResourceTypesBuilder get exclusionByResourceTypes =>
       _$this._exclusionByResourceTypes ??=
-          new _i3.ExclusionByResourceTypesBuilder();
+          new ExclusionByResourceTypesBuilder();
   set exclusionByResourceTypes(
-          _i3.ExclusionByResourceTypesBuilder? exclusionByResourceTypes) =>
+          ExclusionByResourceTypesBuilder? exclusionByResourceTypes) =>
       _$this._exclusionByResourceTypes = exclusionByResourceTypes;
 
-  _i4.RecordingStrategyBuilder? _recordingStrategy;
-  _i4.RecordingStrategyBuilder get recordingStrategy =>
-      _$this._recordingStrategy ??= new _i4.RecordingStrategyBuilder();
-  set recordingStrategy(_i4.RecordingStrategyBuilder? recordingStrategy) =>
+  RecordingStrategyBuilder? _recordingStrategy;
+  RecordingStrategyBuilder get recordingStrategy =>
+      _$this._recordingStrategy ??= new RecordingStrategyBuilder();
+  set recordingStrategy(RecordingStrategyBuilder? recordingStrategy) =>
       _$this._recordingStrategy = recordingStrategy;
 
   RecordingGroupBuilder() {

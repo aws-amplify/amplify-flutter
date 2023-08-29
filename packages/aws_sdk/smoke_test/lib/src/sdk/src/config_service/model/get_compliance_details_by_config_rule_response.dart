@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_compliance_details_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart';
 
 part 'get_compliance_details_by_config_rule_response.g.dart';
 
@@ -20,12 +19,12 @@ abstract class GetComplianceDetailsByConfigRuleResponse
         Built<GetComplianceDetailsByConfigRuleResponse,
             GetComplianceDetailsByConfigRuleResponseBuilder> {
   factory GetComplianceDetailsByConfigRuleResponse({
-    List<_i2.EvaluationResult>? evaluationResults,
+    List<EvaluationResult>? evaluationResults,
     String? nextToken,
   }) {
     return _$GetComplianceDetailsByConfigRuleResponse._(
       evaluationResults:
-          evaluationResults == null ? null : _i3.BuiltList(evaluationResults),
+          evaluationResults == null ? null : _i2.BuiltList(evaluationResults),
       nextToken: nextToken,
     );
   }
@@ -44,13 +43,13 @@ abstract class GetComplianceDetailsByConfigRuleResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetComplianceDetailsByConfigRuleResponse>>
+          _i3.SmithySerializer<GetComplianceDetailsByConfigRuleResponse>>
       serializers = [
     GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
 
   /// Indicates whether the Amazon Web Services resource complies with the specified Config rule.
-  _i3.BuiltList<_i2.EvaluationResult>? get evaluationResults;
+  _i2.BuiltList<EvaluationResult>? get evaluationResults;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -75,7 +74,7 @@ abstract class GetComplianceDetailsByConfigRuleResponse
   }
 }
 
-class GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer extends _i4
+class GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetComplianceDetailsByConfigRuleResponse> {
   const GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
       : super('GetComplianceDetailsByConfigRuleResponse');
@@ -86,8 +85,8 @@ class GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer extends _i4
         _$GetComplianceDetailsByConfigRuleResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -112,10 +111,10 @@ class GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer extends _i4
           result.evaluationResults.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.EvaluationResult)],
+              _i2.BuiltList,
+              [FullType(EvaluationResult)],
             ),
-          ) as _i3.BuiltList<_i2.EvaluationResult>));
+          ) as _i2.BuiltList<EvaluationResult>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -144,8 +143,8 @@ class GetComplianceDetailsByConfigRuleResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           evaluationResults,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.EvaluationResult)],
+            _i2.BuiltList,
+            [FullType(EvaluationResult)],
           ),
         ));
     }

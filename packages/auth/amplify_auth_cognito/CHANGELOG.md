@@ -1,3 +1,26 @@
+## 1.3.3
+
+### Fixes
+- fix(auth): Pass `deviceKey` in custom auth challenge
+
+## 1.3.2
+
+- Minor bug fixes and improvements
+
+## 1.3.1
+
+### Fixes
+- fix(auth): Android Hosted UI flakiness
+
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+
+## 1.2.1
+
+- Minor bug fixes and improvements
+
 ## 1.2.0
 
 ### Fixes

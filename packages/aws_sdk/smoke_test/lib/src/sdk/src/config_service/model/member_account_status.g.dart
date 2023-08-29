@@ -12,7 +12,7 @@ class _$MemberAccountStatus extends MemberAccountStatus {
   @override
   final String configRuleName;
   @override
-  final _i2.MemberAccountRuleStatus memberAccountRuleStatus;
+  final MemberAccountRuleStatus memberAccountRuleStatus;
   @override
   final String? errorCode;
   @override
@@ -88,11 +88,11 @@ class MemberAccountStatusBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i2.MemberAccountRuleStatus? _memberAccountRuleStatus;
-  _i2.MemberAccountRuleStatus? get memberAccountRuleStatus =>
+  MemberAccountRuleStatus? _memberAccountRuleStatus;
+  MemberAccountRuleStatus? get memberAccountRuleStatus =>
       _$this._memberAccountRuleStatus;
   set memberAccountRuleStatus(
-          _i2.MemberAccountRuleStatus? memberAccountRuleStatus) =>
+          MemberAccountRuleStatus? memberAccountRuleStatus) =>
       _$this._memberAccountRuleStatus = memberAccountRuleStatus;
 
   String? _errorCode;

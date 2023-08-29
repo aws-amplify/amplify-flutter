@@ -5,11 +5,9 @@
 library rest_json1_v2.rest_json_protocol.test.http_string_payload_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/string_payload_input.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/http_string_payload_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/string_payload_input.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/http_string_payload_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,14 +16,14 @@ void main() {
     'StringPayloadRequest (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpStringPayloadOperation(
+        operation: HttpStringPayloadOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'StringPayloadRequest',
           documentation: null,
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -56,14 +54,14 @@ void main() {
     'StringPayloadResponse (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.HttpStringPayloadOperation(
+        operation: HttpStringPayloadOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'StringPayloadResponse',
           documentation: null,
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -87,25 +85,25 @@ void main() {
 }
 
 class StringPayloadInputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.StringPayloadInput> {
+    extends _i3.StructuredSmithySerializer<StringPayloadInput> {
   const StringPayloadInputRestJson1Serializer() : super('StringPayloadInput');
 
   @override
-  Iterable<Type> get types => const [_i5.StringPayloadInput];
+  Iterable<Type> get types => const [StringPayloadInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.StringPayloadInput deserialize(
+  StringPayloadInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.StringPayloadInputBuilder();
+    final result = StringPayloadInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -129,7 +127,7 @@ class StringPayloadInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.StringPayloadInput object, {
+    StringPayloadInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

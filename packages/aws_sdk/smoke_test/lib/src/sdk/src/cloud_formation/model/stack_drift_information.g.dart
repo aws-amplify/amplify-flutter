@@ -8,7 +8,7 @@ part of 'stack_drift_information.dart';
 
 class _$StackDriftInformation extends StackDriftInformation {
   @override
-  final _i2.StackDriftStatus stackDriftStatus;
+  final StackDriftStatus stackDriftStatus;
   @override
   final DateTime? lastCheckTimestamp;
 
@@ -54,9 +54,9 @@ class StackDriftInformationBuilder
     implements Builder<StackDriftInformation, StackDriftInformationBuilder> {
   _$StackDriftInformation? _$v;
 
-  _i2.StackDriftStatus? _stackDriftStatus;
-  _i2.StackDriftStatus? get stackDriftStatus => _$this._stackDriftStatus;
-  set stackDriftStatus(_i2.StackDriftStatus? stackDriftStatus) =>
+  StackDriftStatus? _stackDriftStatus;
+  StackDriftStatus? get stackDriftStatus => _$this._stackDriftStatus;
+  set stackDriftStatus(StackDriftStatus? stackDriftStatus) =>
       _$this._stackDriftStatus = stackDriftStatus;
 
   DateTime? _lastCheckTimestamp;

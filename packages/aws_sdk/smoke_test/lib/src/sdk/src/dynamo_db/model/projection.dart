@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.projection; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection_type.dart';
 
 part 'projection.g.dart';
 
@@ -19,13 +18,13 @@ abstract class Projection
     implements Built<Projection, ProjectionBuilder> {
   /// Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
   factory Projection({
-    _i2.ProjectionType? projectionType,
+    ProjectionType? projectionType,
     List<String>? nonKeyAttributes,
   }) {
     return _$Projection._(
       projectionType: projectionType,
       nonKeyAttributes:
-          nonKeyAttributes == null ? null : _i3.BuiltList(nonKeyAttributes),
+          nonKeyAttributes == null ? null : _i2.BuiltList(nonKeyAttributes),
     );
   }
 
@@ -35,7 +34,7 @@ abstract class Projection
 
   const Projection._();
 
-  static const List<_i4.SmithySerializer<Projection>> serializers = [
+  static const List<_i3.SmithySerializer<Projection>> serializers = [
     ProjectionAwsJson10Serializer()
   ];
 
@@ -46,12 +45,12 @@ abstract class Projection
   /// *   `INCLUDE` \- In addition to the attributes described in `KEYS_ONLY`, the secondary index will include other non-key attributes that you specify.
   ///
   /// *   `ALL` \- All of the table attributes are projected into the index.
-  _i2.ProjectionType? get projectionType;
+  ProjectionType? get projectionType;
 
   /// Represents the non-key attribute names which will be projected into the index.
   ///
   /// For local secondary indexes, the total count of `NonKeyAttributes` summed across all of the local secondary indexes, must not exceed 100. If you project the same attribute into two different indexes, this counts as two distinct attributes when determining the total.
-  _i3.BuiltList<String>? get nonKeyAttributes;
+  _i2.BuiltList<String>? get nonKeyAttributes;
   @override
   List<Object?> get props => [
         projectionType,
@@ -73,7 +72,7 @@ abstract class Projection
 }
 
 class ProjectionAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<Projection> {
+    extends _i3.StructuredSmithySerializer<Projection> {
   const ProjectionAwsJson10Serializer() : super('Projection');
 
   @override
@@ -82,8 +81,8 @@ class ProjectionAwsJson10Serializer
         _$Projection,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -107,16 +106,16 @@ class ProjectionAwsJson10Serializer
         case 'ProjectionType':
           result.projectionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ProjectionType),
-          ) as _i2.ProjectionType);
+            specifiedType: const FullType(ProjectionType),
+          ) as ProjectionType);
         case 'NonKeyAttributes':
           result.nonKeyAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -136,7 +135,7 @@ class ProjectionAwsJson10Serializer
         ..add('ProjectionType')
         ..add(serializers.serialize(
           projectionType,
-          specifiedType: const FullType(_i2.ProjectionType),
+          specifiedType: const FullType(ProjectionType),
         ));
     }
     if (nonKeyAttributes != null) {
@@ -145,7 +144,7 @@ class ProjectionAwsJson10Serializer
         ..add(serializers.serialize(
           nonKeyAttributes,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

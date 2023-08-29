@@ -13,14 +13,8 @@ part 'fractional_seconds_output.g.dart';
 abstract class FractionalSecondsOutput
     with _i1.AWSEquatable<FractionalSecondsOutput>
     implements Built<FractionalSecondsOutput, FractionalSecondsOutputBuilder> {
-  factory FractionalSecondsOutput({
-    DateTime? datetime,
-    DateTime? httpdate,
-  }) {
-    return _$FractionalSecondsOutput._(
-      datetime: datetime,
-      httpdate: httpdate,
-    );
+  factory FractionalSecondsOutput({DateTime? datetime}) {
+    return _$FractionalSecondsOutput._(datetime: datetime);
   }
 
   factory FractionalSecondsOutput.build(
@@ -40,22 +34,14 @@ abstract class FractionalSecondsOutput
       [FractionalSecondsOutputRestJson1Serializer()];
 
   DateTime? get datetime;
-  DateTime? get httpdate;
   @override
-  List<Object?> get props => [
-        datetime,
-        httpdate,
-      ];
+  List<Object?> get props => [datetime];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
       ..add(
         'datetime',
         datetime,
-      )
-      ..add(
-        'httpdate',
-        httpdate,
       );
     return helper.toString();
   }
@@ -99,11 +85,6 @@ class FractionalSecondsOutputRestJson1Serializer
             serializers,
             value,
           );
-        case 'httpdate':
-          result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
-            serializers,
-            value,
-          );
       }
     }
 
@@ -117,21 +98,13 @@ class FractionalSecondsOutputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final FractionalSecondsOutput(:datetime, :httpdate) = object;
+    final FractionalSecondsOutput(:datetime) = object;
     if (datetime != null) {
       result$
         ..add('datetime')
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
           datetime,
-        ));
-    }
-    if (httpdate != null) {
-      result$
-        ..add('httpdate')
-        ..add(_i2.TimestampSerializer.httpDate.serialize(
-          serializers,
-          httpdate,
         ));
     }
     return result$;

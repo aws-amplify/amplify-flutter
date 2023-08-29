@@ -11,12 +11,12 @@ class _$ReplicaGlobalSecondaryIndexAutoScalingDescription
   @override
   final String? indexName;
   @override
-  final _i2.IndexStatus? indexStatus;
+  final IndexStatus? indexStatus;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       provisionedReadCapacityAutoScalingSettings;
   @override
-  final _i3.AutoScalingSettingsDescription?
+  final AutoScalingSettingsDescription?
       provisionedWriteCapacityAutoScalingSettings;
 
   factory _$ReplicaGlobalSecondaryIndexAutoScalingDescription(
@@ -80,31 +80,31 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.IndexStatus? _indexStatus;
-  _i2.IndexStatus? get indexStatus => _$this._indexStatus;
-  set indexStatus(_i2.IndexStatus? indexStatus) =>
+  IndexStatus? _indexStatus;
+  IndexStatus? get indexStatus => _$this._indexStatus;
+  set indexStatus(IndexStatus? indexStatus) =>
       _$this._indexStatus = indexStatus;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _provisionedReadCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get provisionedReadCapacityAutoScalingSettings =>
           _$this._provisionedReadCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set provisionedReadCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               provisionedReadCapacityAutoScalingSettings) =>
       _$this._provisionedReadCapacityAutoScalingSettings =
           provisionedReadCapacityAutoScalingSettings;
 
-  _i3.AutoScalingSettingsDescriptionBuilder?
+  AutoScalingSettingsDescriptionBuilder?
       _provisionedWriteCapacityAutoScalingSettings;
-  _i3.AutoScalingSettingsDescriptionBuilder
+  AutoScalingSettingsDescriptionBuilder
       get provisionedWriteCapacityAutoScalingSettings =>
           _$this._provisionedWriteCapacityAutoScalingSettings ??=
-              new _i3.AutoScalingSettingsDescriptionBuilder();
+              new AutoScalingSettingsDescriptionBuilder();
   set provisionedWriteCapacityAutoScalingSettings(
-          _i3.AutoScalingSettingsDescriptionBuilder?
+          AutoScalingSettingsDescriptionBuilder?
               provisionedWriteCapacityAutoScalingSettings) =>
       _$this._provisionedWriteCapacityAutoScalingSettings =
           provisionedWriteCapacityAutoScalingSettings;

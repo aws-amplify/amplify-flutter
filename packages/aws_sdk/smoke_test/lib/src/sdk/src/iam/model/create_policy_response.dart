@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_policy_response; // ignore_for_file: no_lead
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/policy.dart';
 
 part 'create_policy_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class CreatePolicyResponse
     with _i1.AWSEquatable<CreatePolicyResponse>
     implements Built<CreatePolicyResponse, CreatePolicyResponseBuilder> {
   /// Contains the response to a successful CreatePolicy request.
-  factory CreatePolicyResponse({_i2.Policy? policy}) {
+  factory CreatePolicyResponse({Policy? policy}) {
     return _$CreatePolicyResponse._(policy: policy);
   }
 
@@ -34,12 +34,12 @@ abstract class CreatePolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreatePolicyResponse>> serializers = [
+  static const List<_i2.SmithySerializer<CreatePolicyResponse>> serializers = [
     CreatePolicyResponseAwsQuerySerializer()
   ];
 
   /// A structure containing details about the new policy.
-  _i2.Policy? get policy;
+  Policy? get policy;
   @override
   List<Object?> get props => [policy];
   @override
@@ -54,7 +54,7 @@ abstract class CreatePolicyResponse
 }
 
 class CreatePolicyResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreatePolicyResponse> {
+    extends _i2.StructuredSmithySerializer<CreatePolicyResponse> {
   const CreatePolicyResponseAwsQuerySerializer()
       : super('CreatePolicyResponse');
 
@@ -64,8 +64,8 @@ class CreatePolicyResponseAwsQuerySerializer
         _$CreatePolicyResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -77,6 +77,14 @@ class CreatePolicyResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = CreatePolicyResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -89,8 +97,8 @@ class CreatePolicyResponseAwsQuerySerializer
         case 'Policy':
           result.policy.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Policy),
-          ) as _i2.Policy));
+            specifiedType: const FullType(Policy),
+          ) as Policy));
       }
     }
 
@@ -104,18 +112,18 @@ class CreatePolicyResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreatePolicyResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreatePolicyResponse(:policy) = object;
     if (policy != null) {
       result$
-        ..add(const _i3.XmlElementName('Policy'))
+        ..add(const _i2.XmlElementName('Policy'))
         ..add(serializers.serialize(
           policy,
-          specifiedType: const FullType(_i2.Policy),
+          specifiedType: const FullType(Policy),
         ));
     }
     return result$;

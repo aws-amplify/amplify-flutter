@@ -8,17 +8,17 @@ part of 'json_int_enums_input_output.dart';
 
 class _$JsonIntEnumsInputOutput extends JsonIntEnumsInputOutput {
   @override
-  final _i3.IntegerEnum? integerEnum1;
+  final IntegerEnum? integerEnum1;
   @override
-  final _i3.IntegerEnum? integerEnum2;
+  final IntegerEnum? integerEnum2;
   @override
-  final _i3.IntegerEnum? integerEnum3;
+  final IntegerEnum? integerEnum3;
   @override
-  final _i4.BuiltList<_i3.IntegerEnum>? integerEnumList;
+  final _i3.BuiltList<IntegerEnum>? integerEnumList;
   @override
-  final _i4.BuiltSet<_i3.IntegerEnum>? integerEnumSet;
+  final _i3.BuiltSet<IntegerEnum>? integerEnumSet;
   @override
-  final _i4.BuiltMap<String, _i3.IntegerEnum>? integerEnumMap;
+  final _i3.BuiltMap<String, IntegerEnum>? integerEnumMap;
 
   factory _$JsonIntEnumsInputOutput(
           [void Function(JsonIntEnumsInputOutputBuilder)? updates]) =>
@@ -73,37 +73,37 @@ class JsonIntEnumsInputOutputBuilder
         Builder<JsonIntEnumsInputOutput, JsonIntEnumsInputOutputBuilder> {
   _$JsonIntEnumsInputOutput? _$v;
 
-  _i3.IntegerEnum? _integerEnum1;
-  _i3.IntegerEnum? get integerEnum1 => _$this._integerEnum1;
-  set integerEnum1(_i3.IntegerEnum? integerEnum1) =>
+  IntegerEnum? _integerEnum1;
+  IntegerEnum? get integerEnum1 => _$this._integerEnum1;
+  set integerEnum1(IntegerEnum? integerEnum1) =>
       _$this._integerEnum1 = integerEnum1;
 
-  _i3.IntegerEnum? _integerEnum2;
-  _i3.IntegerEnum? get integerEnum2 => _$this._integerEnum2;
-  set integerEnum2(_i3.IntegerEnum? integerEnum2) =>
+  IntegerEnum? _integerEnum2;
+  IntegerEnum? get integerEnum2 => _$this._integerEnum2;
+  set integerEnum2(IntegerEnum? integerEnum2) =>
       _$this._integerEnum2 = integerEnum2;
 
-  _i3.IntegerEnum? _integerEnum3;
-  _i3.IntegerEnum? get integerEnum3 => _$this._integerEnum3;
-  set integerEnum3(_i3.IntegerEnum? integerEnum3) =>
+  IntegerEnum? _integerEnum3;
+  IntegerEnum? get integerEnum3 => _$this._integerEnum3;
+  set integerEnum3(IntegerEnum? integerEnum3) =>
       _$this._integerEnum3 = integerEnum3;
 
-  _i4.ListBuilder<_i3.IntegerEnum>? _integerEnumList;
-  _i4.ListBuilder<_i3.IntegerEnum> get integerEnumList =>
-      _$this._integerEnumList ??= new _i4.ListBuilder<_i3.IntegerEnum>();
-  set integerEnumList(_i4.ListBuilder<_i3.IntegerEnum>? integerEnumList) =>
+  _i3.ListBuilder<IntegerEnum>? _integerEnumList;
+  _i3.ListBuilder<IntegerEnum> get integerEnumList =>
+      _$this._integerEnumList ??= new _i3.ListBuilder<IntegerEnum>();
+  set integerEnumList(_i3.ListBuilder<IntegerEnum>? integerEnumList) =>
       _$this._integerEnumList = integerEnumList;
 
-  _i4.SetBuilder<_i3.IntegerEnum>? _integerEnumSet;
-  _i4.SetBuilder<_i3.IntegerEnum> get integerEnumSet =>
-      _$this._integerEnumSet ??= new _i4.SetBuilder<_i3.IntegerEnum>();
-  set integerEnumSet(_i4.SetBuilder<_i3.IntegerEnum>? integerEnumSet) =>
+  _i3.SetBuilder<IntegerEnum>? _integerEnumSet;
+  _i3.SetBuilder<IntegerEnum> get integerEnumSet =>
+      _$this._integerEnumSet ??= new _i3.SetBuilder<IntegerEnum>();
+  set integerEnumSet(_i3.SetBuilder<IntegerEnum>? integerEnumSet) =>
       _$this._integerEnumSet = integerEnumSet;
 
-  _i4.MapBuilder<String, _i3.IntegerEnum>? _integerEnumMap;
-  _i4.MapBuilder<String, _i3.IntegerEnum> get integerEnumMap =>
-      _$this._integerEnumMap ??= new _i4.MapBuilder<String, _i3.IntegerEnum>();
-  set integerEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? integerEnumMap) =>
+  _i3.MapBuilder<String, IntegerEnum>? _integerEnumMap;
+  _i3.MapBuilder<String, IntegerEnum> get integerEnumMap =>
+      _$this._integerEnumMap ??= new _i3.MapBuilder<String, IntegerEnum>();
+  set integerEnumMap(_i3.MapBuilder<String, IntegerEnum>? integerEnumMap) =>
       _$this._integerEnumMap = integerEnumMap;
 
   JsonIntEnumsInputOutputBuilder();

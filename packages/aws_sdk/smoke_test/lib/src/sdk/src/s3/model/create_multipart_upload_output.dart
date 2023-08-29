@@ -6,12 +6,11 @@ library smoke_test.s3.model.create_multipart_upload_output; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart';
 
 part 'create_multipart_upload_output.g.dart';
 
@@ -26,14 +25,14 @@ abstract class CreateMultipartUploadOutput
     String? bucket,
     String? key,
     String? uploadId,
-    _i3.ServerSideEncryption? serverSideEncryption,
+    ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
     String? ssekmsEncryptionContext,
     bool? bucketKeyEnabled,
-    _i4.RequestCharged? requestCharged,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    RequestCharged? requestCharged,
+    ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$CreateMultipartUploadOutput._(
       abortDate: abortDate,
@@ -77,7 +76,7 @@ abstract class CreateMultipartUploadOutput
           b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i3.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -108,11 +107,11 @@ abstract class CreateMultipartUploadOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
         if (response.headers['x-amz-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(response.headers['x-amz-checksum-algorithm']!);
         }
       });
@@ -142,7 +141,7 @@ abstract class CreateMultipartUploadOutput
   String? get uploadId;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
-  _i3.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -160,10 +159,10 @@ abstract class CreateMultipartUploadOutput
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   @override
   CreateMultipartUploadOutputPayload getPayload() =>
       CreateMultipartUploadOutputPayload((b) {
@@ -246,7 +245,7 @@ abstract class CreateMultipartUploadOutput
   }
 }
 
-@_i6.internal
+@_i3.internal
 abstract class CreateMultipartUploadOutputPayload
     with
         _i1.AWSEquatable<CreateMultipartUploadOutputPayload>

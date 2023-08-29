@@ -9,7 +9,7 @@ part of 'put_configuration_aggregator_response.dart';
 class _$PutConfigurationAggregatorResponse
     extends PutConfigurationAggregatorResponse {
   @override
-  final _i2.ConfigurationAggregator? configurationAggregator;
+  final ConfigurationAggregator? configurationAggregator;
 
   factory _$PutConfigurationAggregatorResponse(
           [void Function(PutConfigurationAggregatorResponseBuilder)?
@@ -51,12 +51,11 @@ class PutConfigurationAggregatorResponseBuilder
             PutConfigurationAggregatorResponseBuilder> {
   _$PutConfigurationAggregatorResponse? _$v;
 
-  _i2.ConfigurationAggregatorBuilder? _configurationAggregator;
-  _i2.ConfigurationAggregatorBuilder get configurationAggregator =>
-      _$this._configurationAggregator ??=
-          new _i2.ConfigurationAggregatorBuilder();
+  ConfigurationAggregatorBuilder? _configurationAggregator;
+  ConfigurationAggregatorBuilder get configurationAggregator =>
+      _$this._configurationAggregator ??= new ConfigurationAggregatorBuilder();
   set configurationAggregator(
-          _i2.ConfigurationAggregatorBuilder? configurationAggregator) =>
+          ConfigurationAggregatorBuilder? configurationAggregator) =>
       _$this._configurationAggregator = configurationAggregator;
 
   PutConfigurationAggregatorResponseBuilder();

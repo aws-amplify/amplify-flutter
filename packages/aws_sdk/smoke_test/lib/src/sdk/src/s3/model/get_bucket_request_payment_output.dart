@@ -6,8 +6,8 @@ library smoke_test.s3.model.get_bucket_request_payment_output; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/payer.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/payer.dart';
 
 part 'get_bucket_request_payment_output.g.dart';
 
@@ -17,7 +17,7 @@ abstract class GetBucketRequestPaymentOutput
     implements
         Built<GetBucketRequestPaymentOutput,
             GetBucketRequestPaymentOutputBuilder> {
-  factory GetBucketRequestPaymentOutput({_i2.Payer? payer}) {
+  factory GetBucketRequestPaymentOutput({Payer? payer}) {
     return _$GetBucketRequestPaymentOutput._(payer: payer);
   }
 
@@ -34,11 +34,11 @@ abstract class GetBucketRequestPaymentOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetBucketRequestPaymentOutput>>
+  static const List<_i2.SmithySerializer<GetBucketRequestPaymentOutput>>
       serializers = [GetBucketRequestPaymentOutputRestXmlSerializer()];
 
   /// Specifies who pays for the download and request fees.
-  _i2.Payer? get payer;
+  Payer? get payer;
   @override
   List<Object?> get props => [payer];
   @override
@@ -53,7 +53,7 @@ abstract class GetBucketRequestPaymentOutput
 }
 
 class GetBucketRequestPaymentOutputRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<GetBucketRequestPaymentOutput> {
+    extends _i2.StructuredSmithySerializer<GetBucketRequestPaymentOutput> {
   const GetBucketRequestPaymentOutputRestXmlSerializer()
       : super('GetBucketRequestPaymentOutput');
 
@@ -63,8 +63,8 @@ class GetBucketRequestPaymentOutputRestXmlSerializer
         _$GetBucketRequestPaymentOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -88,8 +88,8 @@ class GetBucketRequestPaymentOutputRestXmlSerializer
         case 'Payer':
           result.payer = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Payer),
-          ) as _i2.Payer);
+            specifiedType: const FullType(Payer),
+          ) as Payer);
       }
     }
 
@@ -103,18 +103,18 @@ class GetBucketRequestPaymentOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RequestPaymentConfiguration',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketRequestPaymentOutput(:payer) = object;
     if (payer != null) {
       result$
-        ..add(const _i3.XmlElementName('Payer'))
+        ..add(const _i2.XmlElementName('Payer'))
         ..add(serializers.serialize(
           payer,
-          specifiedType: const FullType.nullable(_i2.Payer),
+          specifiedType: const FullType.nullable(Payer),
         ));
     }
     return result$;

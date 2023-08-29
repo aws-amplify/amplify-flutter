@@ -8,7 +8,7 @@ part of 'put_object_legal_hold_output.dart';
 
 class _$PutObjectLegalHoldOutput extends PutObjectLegalHoldOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$PutObjectLegalHoldOutput(
           [void Function(PutObjectLegalHoldOutputBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class PutObjectLegalHoldOutputBuilder
         Builder<PutObjectLegalHoldOutput, PutObjectLegalHoldOutputBuilder> {
   _$PutObjectLegalHoldOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   PutObjectLegalHoldOutputBuilder();

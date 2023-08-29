@@ -8,7 +8,7 @@ part of 'rest_apis.dart';
 
 class _$RestApis extends RestApis {
   @override
-  final _i3.BuiltList<_i2.RestApi>? items;
+  final _i2.BuiltList<RestApi>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$RestApis extends RestApis {
 class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
   _$RestApis? _$v;
 
-  _i3.ListBuilder<_i2.RestApi>? _items;
-  _i3.ListBuilder<_i2.RestApi> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.RestApi>();
-  set items(_i3.ListBuilder<_i2.RestApi>? items) => _$this._items = items;
+  _i2.ListBuilder<RestApi>? _items;
+  _i2.ListBuilder<RestApi> get items =>
+      _$this._items ??= new _i2.ListBuilder<RestApi>();
+  set items(_i2.ListBuilder<RestApi>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

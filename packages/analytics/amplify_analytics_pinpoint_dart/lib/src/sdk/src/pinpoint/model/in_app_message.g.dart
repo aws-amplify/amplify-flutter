@@ -8,11 +8,11 @@ part of 'in_app_message.dart';
 
 class _$InAppMessage extends InAppMessage {
   @override
-  final _i4.BuiltList<_i2.InAppMessageContent>? content;
+  final _i2.BuiltList<InAppMessageContent>? content;
   @override
-  final _i4.BuiltMap<String, String>? customConfig;
+  final _i2.BuiltMap<String, String>? customConfig;
   @override
-  final _i3.Layout? layout;
+  final Layout? layout;
 
   factory _$InAppMessage([void Function(InAppMessageBuilder)? updates]) =>
       (new InAppMessageBuilder()..update(updates))._build();
@@ -50,21 +50,21 @@ class InAppMessageBuilder
     implements Builder<InAppMessage, InAppMessageBuilder> {
   _$InAppMessage? _$v;
 
-  _i4.ListBuilder<_i2.InAppMessageContent>? _content;
-  _i4.ListBuilder<_i2.InAppMessageContent> get content =>
-      _$this._content ??= new _i4.ListBuilder<_i2.InAppMessageContent>();
-  set content(_i4.ListBuilder<_i2.InAppMessageContent>? content) =>
+  _i2.ListBuilder<InAppMessageContent>? _content;
+  _i2.ListBuilder<InAppMessageContent> get content =>
+      _$this._content ??= new _i2.ListBuilder<InAppMessageContent>();
+  set content(_i2.ListBuilder<InAppMessageContent>? content) =>
       _$this._content = content;
 
-  _i4.MapBuilder<String, String>? _customConfig;
-  _i4.MapBuilder<String, String> get customConfig =>
-      _$this._customConfig ??= new _i4.MapBuilder<String, String>();
-  set customConfig(_i4.MapBuilder<String, String>? customConfig) =>
+  _i2.MapBuilder<String, String>? _customConfig;
+  _i2.MapBuilder<String, String> get customConfig =>
+      _$this._customConfig ??= new _i2.MapBuilder<String, String>();
+  set customConfig(_i2.MapBuilder<String, String>? customConfig) =>
       _$this._customConfig = customConfig;
 
-  _i3.Layout? _layout;
-  _i3.Layout? get layout => _$this._layout;
-  set layout(_i3.Layout? layout) => _$this._layout = layout;
+  Layout? _layout;
+  Layout? get layout => _$this._layout;
+  set layout(Layout? layout) => _$this._layout = layout;
 
   InAppMessageBuilder();
 

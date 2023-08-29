@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.list_stacks_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_status.dart';
 
 part 'list_stacks_input.g.dart';
 
@@ -20,12 +19,12 @@ abstract class ListStacksInput
   /// The input for ListStacks action.
   factory ListStacksInput({
     String? nextToken,
-    List<_i3.StackStatus>? stackStatusFilter,
+    List<StackStatus>? stackStatusFilter,
   }) {
     return _$ListStacksInput._(
       nextToken: nextToken,
       stackStatusFilter:
-          stackStatusFilter == null ? null : _i4.BuiltList(stackStatusFilter),
+          stackStatusFilter == null ? null : _i3.BuiltList(stackStatusFilter),
     );
   }
 
@@ -50,7 +49,7 @@ abstract class ListStacksInput
   String? get nextToken;
 
   /// Stack status to use as a filter. Specify one or more stack status codes to list only stacks with the specified status codes. For a complete list of stack status codes, see the `StackStatus` parameter of the Stack data type.
-  _i4.BuiltList<_i3.StackStatus>? get stackStatusFilter;
+  _i3.BuiltList<StackStatus>? get stackStatusFilter;
   @override
   ListStacksInput getPayload() => this;
   @override
@@ -96,6 +95,14 @@ class ListStacksInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListStacksInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -117,10 +124,10 @@ class ListStacksInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.StackStatus)],
+              _i3.BuiltList,
+              [FullType(StackStatus)],
             ),
-          ) as _i4.BuiltList<_i3.StackStatus>));
+          ) as _i3.BuiltList<StackStatus>));
       }
     }
 
@@ -157,8 +164,8 @@ class ListStacksInputAwsQuerySerializer
           serializers,
           stackStatusFilter,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.StackStatus)],
+            _i3.BuiltList,
+            [FullType(StackStatus)],
           ),
         ));
     }

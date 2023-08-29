@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.describe_stack_resources_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource.dart';
 
 part 'describe_stack_resources_output.g.dart';
 
@@ -21,11 +20,10 @@ abstract class DescribeStackResourcesOutput
         Built<DescribeStackResourcesOutput,
             DescribeStackResourcesOutputBuilder> {
   /// The output for a DescribeStackResources action.
-  factory DescribeStackResourcesOutput(
-      {List<_i2.StackResource>? stackResources}) {
+  factory DescribeStackResourcesOutput({List<StackResource>? stackResources}) {
     return _$DescribeStackResourcesOutput._(
         stackResources:
-            stackResources == null ? null : _i3.BuiltList(stackResources));
+            stackResources == null ? null : _i2.BuiltList(stackResources));
   }
 
   /// The output for a DescribeStackResources action.
@@ -42,11 +40,11 @@ abstract class DescribeStackResourcesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeStackResourcesOutput>>
+  static const List<_i3.SmithySerializer<DescribeStackResourcesOutput>>
       serializers = [DescribeStackResourcesOutputAwsQuerySerializer()];
 
   /// A list of `StackResource` structures.
-  _i3.BuiltList<_i2.StackResource>? get stackResources;
+  _i2.BuiltList<StackResource>? get stackResources;
   @override
   List<Object?> get props => [stackResources];
   @override
@@ -61,7 +59,7 @@ abstract class DescribeStackResourcesOutput
 }
 
 class DescribeStackResourcesOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribeStackResourcesOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeStackResourcesOutput> {
   const DescribeStackResourcesOutputAwsQuerySerializer()
       : super('DescribeStackResourcesOutput');
 
@@ -71,8 +69,8 @@ class DescribeStackResourcesOutputAwsQuerySerializer
         _$DescribeStackResourcesOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -84,6 +82,14 @@ class DescribeStackResourcesOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackResourcesOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -94,16 +100,16 @@ class DescribeStackResourcesOutputAwsQuerySerializer
       }
       switch (key) {
         case 'StackResources':
-          result.stackResources.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stackResources.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.StackResource)],
+              _i2.BuiltList,
+              [FullType(StackResource)],
             ),
-          ) as _i3.BuiltList<_i2.StackResource>));
+          ) as _i2.BuiltList<StackResource>));
       }
     }
 
@@ -117,23 +123,23 @@ class DescribeStackResourcesOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeStackResourcesOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackResourcesOutput(:stackResources) = object;
     if (stackResources != null) {
       result$
-        ..add(const _i4.XmlElementName('StackResources'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('StackResources'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           stackResources,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.StackResource)],
+            _i2.BuiltList,
+            [FullType(StackResource)],
           ),
         ));
     }

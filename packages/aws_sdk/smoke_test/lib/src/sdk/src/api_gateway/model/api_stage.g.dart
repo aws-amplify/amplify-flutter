@@ -12,7 +12,7 @@ class _$ApiStage extends ApiStage {
   @override
   final String? stage;
   @override
-  final _i3.BuiltMap<String, _i2.ThrottleSettings>? throttle;
+  final _i2.BuiltMap<String, ThrottleSettings>? throttle;
 
   factory _$ApiStage([void Function(ApiStageBuilder)? updates]) =>
       (new ApiStageBuilder()..update(updates))._build();
@@ -57,10 +57,10 @@ class ApiStageBuilder implements Builder<ApiStage, ApiStageBuilder> {
   String? get stage => _$this._stage;
   set stage(String? stage) => _$this._stage = stage;
 
-  _i3.MapBuilder<String, _i2.ThrottleSettings>? _throttle;
-  _i3.MapBuilder<String, _i2.ThrottleSettings> get throttle =>
-      _$this._throttle ??= new _i3.MapBuilder<String, _i2.ThrottleSettings>();
-  set throttle(_i3.MapBuilder<String, _i2.ThrottleSettings>? throttle) =>
+  _i2.MapBuilder<String, ThrottleSettings>? _throttle;
+  _i2.MapBuilder<String, ThrottleSettings> get throttle =>
+      _$this._throttle ??= new _i2.MapBuilder<String, ThrottleSettings>();
+  set throttle(_i2.MapBuilder<String, ThrottleSettings>? throttle) =>
       _$this._throttle = throttle;
 
   ApiStageBuilder();

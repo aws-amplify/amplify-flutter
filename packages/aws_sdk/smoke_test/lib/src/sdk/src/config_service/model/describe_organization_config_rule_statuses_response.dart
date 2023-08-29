@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_organization_config_rule_statuses_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_status.dart';
 
 part 'describe_organization_config_rule_statuses_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
         Built<DescribeOrganizationConfigRuleStatusesResponse,
             DescribeOrganizationConfigRuleStatusesResponseBuilder> {
   factory DescribeOrganizationConfigRuleStatusesResponse({
-    List<_i2.OrganizationConfigRuleStatus>? organizationConfigRuleStatuses,
+    List<OrganizationConfigRuleStatus>? organizationConfigRuleStatuses,
     String? nextToken,
   }) {
     return _$DescribeOrganizationConfigRuleStatusesResponse._(
       organizationConfigRuleStatuses: organizationConfigRuleStatuses == null
           ? null
-          : _i3.BuiltList(organizationConfigRuleStatuses),
+          : _i2.BuiltList(organizationConfigRuleStatuses),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeOrganizationConfigRuleStatusesResponse>>
+          _i3.SmithySerializer<DescribeOrganizationConfigRuleStatusesResponse>>
       serializers = [
     DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer()
   ];
 
   /// A list of `OrganizationConfigRuleStatus` objects.
-  _i3.BuiltList<_i2.OrganizationConfigRuleStatus>?
+  _i2.BuiltList<OrganizationConfigRuleStatus>?
       get organizationConfigRuleStatuses;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -78,7 +77,7 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
 }
 
 class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         DescribeOrganizationConfigRuleStatusesResponse> {
   const DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer()
       : super('DescribeOrganizationConfigRuleStatusesResponse');
@@ -89,8 +88,8 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
         _$DescribeOrganizationConfigRuleStatusesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -116,10 +115,10 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.OrganizationConfigRuleStatus)],
+              _i2.BuiltList,
+              [FullType(OrganizationConfigRuleStatus)],
             ),
-          ) as _i3.BuiltList<_i2.OrganizationConfigRuleStatus>));
+          ) as _i2.BuiltList<OrganizationConfigRuleStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -148,8 +147,8 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
         ..add(serializers.serialize(
           organizationConfigRuleStatuses,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.OrganizationConfigRuleStatus)],
+            _i2.BuiltList,
+            [FullType(OrganizationConfigRuleStatus)],
           ),
         ));
     }

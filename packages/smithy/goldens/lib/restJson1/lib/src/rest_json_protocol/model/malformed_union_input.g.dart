@@ -8,7 +8,7 @@ part of 'malformed_union_input.dart';
 
 class _$MalformedUnionInput extends MalformedUnionInput {
   @override
-  final _i3.SimpleUnion? union;
+  final SimpleUnion? union;
 
   factory _$MalformedUnionInput(
           [void Function(MalformedUnionInputBuilder)? updates]) =>
@@ -44,9 +44,9 @@ class MalformedUnionInputBuilder
     implements Builder<MalformedUnionInput, MalformedUnionInputBuilder> {
   _$MalformedUnionInput? _$v;
 
-  _i3.SimpleUnion? _union;
-  _i3.SimpleUnion? get union => _$this._union;
-  set union(_i3.SimpleUnion? union) => _$this._union = union;
+  SimpleUnion? _union;
+  SimpleUnion? get union => _$this._union;
+  set union(SimpleUnion? union) => _$this._union = union;
 
   MalformedUnionInputBuilder();
 

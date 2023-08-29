@@ -10,13 +10,13 @@ class _$RecordHandlerProgressInput extends RecordHandlerProgressInput {
   @override
   final String bearerToken;
   @override
-  final _i3.OperationStatus operationStatus;
+  final OperationStatus operationStatus;
   @override
-  final _i3.OperationStatus? currentOperationStatus;
+  final OperationStatus? currentOperationStatus;
   @override
   final String? statusMessage;
   @override
-  final _i4.HandlerErrorCode? errorCode;
+  final HandlerErrorCode? errorCode;
   @override
   final String? resourceModel;
   @override
@@ -87,15 +87,14 @@ class RecordHandlerProgressInputBuilder
   String? get bearerToken => _$this._bearerToken;
   set bearerToken(String? bearerToken) => _$this._bearerToken = bearerToken;
 
-  _i3.OperationStatus? _operationStatus;
-  _i3.OperationStatus? get operationStatus => _$this._operationStatus;
-  set operationStatus(_i3.OperationStatus? operationStatus) =>
+  OperationStatus? _operationStatus;
+  OperationStatus? get operationStatus => _$this._operationStatus;
+  set operationStatus(OperationStatus? operationStatus) =>
       _$this._operationStatus = operationStatus;
 
-  _i3.OperationStatus? _currentOperationStatus;
-  _i3.OperationStatus? get currentOperationStatus =>
-      _$this._currentOperationStatus;
-  set currentOperationStatus(_i3.OperationStatus? currentOperationStatus) =>
+  OperationStatus? _currentOperationStatus;
+  OperationStatus? get currentOperationStatus => _$this._currentOperationStatus;
+  set currentOperationStatus(OperationStatus? currentOperationStatus) =>
       _$this._currentOperationStatus = currentOperationStatus;
 
   String? _statusMessage;
@@ -103,10 +102,9 @@ class RecordHandlerProgressInputBuilder
   set statusMessage(String? statusMessage) =>
       _$this._statusMessage = statusMessage;
 
-  _i4.HandlerErrorCode? _errorCode;
-  _i4.HandlerErrorCode? get errorCode => _$this._errorCode;
-  set errorCode(_i4.HandlerErrorCode? errorCode) =>
-      _$this._errorCode = errorCode;
+  HandlerErrorCode? _errorCode;
+  HandlerErrorCode? get errorCode => _$this._errorCode;
+  set errorCode(HandlerErrorCode? errorCode) => _$this._errorCode = errorCode;
 
   String? _resourceModel;
   String? get resourceModel => _$this._resourceModel;

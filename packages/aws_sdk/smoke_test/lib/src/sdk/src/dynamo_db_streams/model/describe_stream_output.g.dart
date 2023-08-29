@@ -8,7 +8,7 @@ part of 'describe_stream_output.dart';
 
 class _$DescribeStreamOutput extends DescribeStreamOutput {
   @override
-  final _i2.StreamDescription? streamDescription;
+  final StreamDescription? streamDescription;
 
   factory _$DescribeStreamOutput(
           [void Function(DescribeStreamOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class DescribeStreamOutputBuilder
     implements Builder<DescribeStreamOutput, DescribeStreamOutputBuilder> {
   _$DescribeStreamOutput? _$v;
 
-  _i2.StreamDescriptionBuilder? _streamDescription;
-  _i2.StreamDescriptionBuilder get streamDescription =>
-      _$this._streamDescription ??= new _i2.StreamDescriptionBuilder();
-  set streamDescription(_i2.StreamDescriptionBuilder? streamDescription) =>
+  StreamDescriptionBuilder? _streamDescription;
+  StreamDescriptionBuilder get streamDescription =>
+      _$this._streamDescription ??= new StreamDescriptionBuilder();
+  set streamDescription(StreamDescriptionBuilder? streamDescription) =>
       _$this._streamDescription = streamDescription;
 
   DescribeStreamOutputBuilder();

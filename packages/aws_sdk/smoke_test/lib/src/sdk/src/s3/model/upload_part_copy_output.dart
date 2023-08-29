@@ -7,10 +7,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/copy_part_result.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/copy_part_result.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart';
 
 part 'upload_part_copy_output.g.dart';
 
@@ -18,16 +17,16 @@ abstract class UploadPartCopyOutput
     with _i1.AWSEquatable<UploadPartCopyOutput>
     implements
         Built<UploadPartCopyOutput, UploadPartCopyOutputBuilder>,
-        _i2.HasPayload<_i3.CopyPartResult> {
+        _i2.HasPayload<CopyPartResult> {
   factory UploadPartCopyOutput({
     String? copySourceVersionId,
-    _i3.CopyPartResult? copyPartResult,
-    _i4.ServerSideEncryption? serverSideEncryption,
+    CopyPartResult? copyPartResult,
+    ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
     bool? bucketKeyEnabled,
-    _i5.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$UploadPartCopyOutput._(
       copySourceVersionId: copySourceVersionId,
@@ -49,7 +48,7 @@ abstract class UploadPartCopyOutput
 
   /// Constructs a [UploadPartCopyOutput] from a [payload] and [response].
   factory UploadPartCopyOutput.fromResponse(
-    _i3.CopyPartResult? payload,
+    CopyPartResult? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       UploadPartCopyOutput.build((b) {
@@ -61,7 +60,7 @@ abstract class UploadPartCopyOutput
               response.headers['x-amz-copy-source-version-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i4.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -88,12 +87,12 @@ abstract class UploadPartCopyOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i5.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.CopyPartResult?>> serializers = [
+  static const List<_i2.SmithySerializer<CopyPartResult?>> serializers = [
     UploadPartCopyOutputRestXmlSerializer()
   ];
 
@@ -101,10 +100,10 @@ abstract class UploadPartCopyOutput
   String? get copySourceVersionId;
 
   /// Container for all response elements.
-  _i3.CopyPartResult? get copyPartResult;
+  CopyPartResult? get copyPartResult;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
-  _i4.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -119,9 +118,9 @@ abstract class UploadPartCopyOutput
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i5.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
-  _i3.CopyPartResult? getPayload() => copyPartResult ?? _i3.CopyPartResult();
+  CopyPartResult? getPayload() => copyPartResult ?? CopyPartResult();
   @override
   List<Object?> get props => [
         copySourceVersionId,
@@ -173,7 +172,7 @@ abstract class UploadPartCopyOutput
 }
 
 class UploadPartCopyOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.CopyPartResult> {
+    extends _i2.StructuredSmithySerializer<CopyPartResult> {
   const UploadPartCopyOutputRestXmlSerializer() : super('UploadPartCopyOutput');
 
   @override
@@ -189,12 +188,12 @@ class UploadPartCopyOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.CopyPartResult deserialize(
+  CopyPartResult deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.CopyPartResultBuilder();
+    final result = CopyPartResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -243,7 +242,7 @@ class UploadPartCopyOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.CopyPartResult object, {
+    CopyPartResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -252,7 +251,7 @@ class UploadPartCopyOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.CopyPartResult(
+    final CopyPartResult(
       :eTag,
       :lastModified,
       :checksumCrc32,

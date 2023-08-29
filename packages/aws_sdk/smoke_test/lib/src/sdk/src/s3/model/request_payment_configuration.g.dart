@@ -8,7 +8,7 @@ part of 'request_payment_configuration.dart';
 
 class _$RequestPaymentConfiguration extends RequestPaymentConfiguration {
   @override
-  final _i2.Payer payer;
+  final Payer payer;
 
   factory _$RequestPaymentConfiguration(
           [void Function(RequestPaymentConfigurationBuilder)? updates]) =>
@@ -49,9 +49,9 @@ class RequestPaymentConfigurationBuilder
             RequestPaymentConfigurationBuilder> {
   _$RequestPaymentConfiguration? _$v;
 
-  _i2.Payer? _payer;
-  _i2.Payer? get payer => _$this._payer;
-  set payer(_i2.Payer? payer) => _$this._payer = payer;
+  Payer? _payer;
+  Payer? get payer => _$this._payer;
+  set payer(Payer? payer) => _$this._payer = payer;
 
   RequestPaymentConfigurationBuilder();
 

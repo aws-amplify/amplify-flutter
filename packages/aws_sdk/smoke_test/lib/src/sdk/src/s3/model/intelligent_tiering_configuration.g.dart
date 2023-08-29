@@ -11,11 +11,11 @@ class _$IntelligentTieringConfiguration
   @override
   final String id;
   @override
-  final _i2.IntelligentTieringFilter? filter;
+  final IntelligentTieringFilter? filter;
   @override
-  final _i3.IntelligentTieringStatus status;
+  final IntelligentTieringStatus status;
   @override
-  final _i5.BuiltList<_i4.Tiering> tierings;
+  final _i2.BuiltList<Tiering> tierings;
 
   factory _$IntelligentTieringConfiguration(
           [void Function(IntelligentTieringConfigurationBuilder)? updates]) =>
@@ -76,20 +76,20 @@ class IntelligentTieringConfigurationBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.IntelligentTieringFilterBuilder? _filter;
-  _i2.IntelligentTieringFilterBuilder get filter =>
-      _$this._filter ??= new _i2.IntelligentTieringFilterBuilder();
-  set filter(_i2.IntelligentTieringFilterBuilder? filter) =>
+  IntelligentTieringFilterBuilder? _filter;
+  IntelligentTieringFilterBuilder get filter =>
+      _$this._filter ??= new IntelligentTieringFilterBuilder();
+  set filter(IntelligentTieringFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  _i3.IntelligentTieringStatus? _status;
-  _i3.IntelligentTieringStatus? get status => _$this._status;
-  set status(_i3.IntelligentTieringStatus? status) => _$this._status = status;
+  IntelligentTieringStatus? _status;
+  IntelligentTieringStatus? get status => _$this._status;
+  set status(IntelligentTieringStatus? status) => _$this._status = status;
 
-  _i5.ListBuilder<_i4.Tiering>? _tierings;
-  _i5.ListBuilder<_i4.Tiering> get tierings =>
-      _$this._tierings ??= new _i5.ListBuilder<_i4.Tiering>();
-  set tierings(_i5.ListBuilder<_i4.Tiering>? tierings) =>
+  _i2.ListBuilder<Tiering>? _tierings;
+  _i2.ListBuilder<Tiering> get tierings =>
+      _$this._tierings ??= new _i2.ListBuilder<Tiering>();
+  set tierings(_i2.ListBuilder<Tiering>? tierings) =>
       _$this._tierings = tierings;
 
   IntelligentTieringConfigurationBuilder();

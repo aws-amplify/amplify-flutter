@@ -12,13 +12,13 @@ class _$CreateUsagePlanRequest extends CreateUsagePlanRequest {
   @override
   final String? description;
   @override
-  final _i6.BuiltList<_i3.ApiStage>? apiStages;
+  final _i3.BuiltList<ApiStage>? apiStages;
   @override
-  final _i4.ThrottleSettings? throttle;
+  final ThrottleSettings? throttle;
   @override
-  final _i5.QuotaSettings? quota;
+  final QuotaSettings? quota;
   @override
-  final _i6.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
 
   factory _$CreateUsagePlanRequest(
           [void Function(CreateUsagePlanRequestBuilder)? updates]) =>
@@ -83,27 +83,27 @@ class CreateUsagePlanRequestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i6.ListBuilder<_i3.ApiStage>? _apiStages;
-  _i6.ListBuilder<_i3.ApiStage> get apiStages =>
-      _$this._apiStages ??= new _i6.ListBuilder<_i3.ApiStage>();
-  set apiStages(_i6.ListBuilder<_i3.ApiStage>? apiStages) =>
+  _i3.ListBuilder<ApiStage>? _apiStages;
+  _i3.ListBuilder<ApiStage> get apiStages =>
+      _$this._apiStages ??= new _i3.ListBuilder<ApiStage>();
+  set apiStages(_i3.ListBuilder<ApiStage>? apiStages) =>
       _$this._apiStages = apiStages;
 
-  _i4.ThrottleSettingsBuilder? _throttle;
-  _i4.ThrottleSettingsBuilder get throttle =>
-      _$this._throttle ??= new _i4.ThrottleSettingsBuilder();
-  set throttle(_i4.ThrottleSettingsBuilder? throttle) =>
+  ThrottleSettingsBuilder? _throttle;
+  ThrottleSettingsBuilder get throttle =>
+      _$this._throttle ??= new ThrottleSettingsBuilder();
+  set throttle(ThrottleSettingsBuilder? throttle) =>
       _$this._throttle = throttle;
 
-  _i5.QuotaSettingsBuilder? _quota;
-  _i5.QuotaSettingsBuilder get quota =>
-      _$this._quota ??= new _i5.QuotaSettingsBuilder();
-  set quota(_i5.QuotaSettingsBuilder? quota) => _$this._quota = quota;
+  QuotaSettingsBuilder? _quota;
+  QuotaSettingsBuilder get quota =>
+      _$this._quota ??= new QuotaSettingsBuilder();
+  set quota(QuotaSettingsBuilder? quota) => _$this._quota = quota;
 
-  _i6.MapBuilder<String, String>? _tags;
-  _i6.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i6.MapBuilder<String, String>();
-  set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   CreateUsagePlanRequestBuilder();
 

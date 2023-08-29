@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_aggregate_compliance_by_config_rules_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_config_rule.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_config_rule.dart';
 
 part 'describe_aggregate_compliance_by_config_rules_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeAggregateComplianceByConfigRulesResponse
         Built<DescribeAggregateComplianceByConfigRulesResponse,
             DescribeAggregateComplianceByConfigRulesResponseBuilder> {
   factory DescribeAggregateComplianceByConfigRulesResponse({
-    List<_i2.AggregateComplianceByConfigRule>? aggregateComplianceByConfigRules,
+    List<AggregateComplianceByConfigRule>? aggregateComplianceByConfigRules,
     String? nextToken,
   }) {
     return _$DescribeAggregateComplianceByConfigRulesResponse._(
       aggregateComplianceByConfigRules: aggregateComplianceByConfigRules == null
           ? null
-          : _i3.BuiltList(aggregateComplianceByConfigRules),
+          : _i2.BuiltList(aggregateComplianceByConfigRules),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,14 @@ abstract class DescribeAggregateComplianceByConfigRulesResponse
       payload;
 
   static const List<
-      _i4.SmithySerializer<
-          DescribeAggregateComplianceByConfigRulesResponse>> serializers = [
+          _i3
+          .SmithySerializer<DescribeAggregateComplianceByConfigRulesResponse>>
+      serializers = [
     DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of AggregateComplianceByConfigRule object.
-  _i3.BuiltList<_i2.AggregateComplianceByConfigRule>?
+  _i2.BuiltList<AggregateComplianceByConfigRule>?
       get aggregateComplianceByConfigRules;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -78,7 +78,7 @@ abstract class DescribeAggregateComplianceByConfigRulesResponse
 }
 
 class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         DescribeAggregateComplianceByConfigRulesResponse> {
   const DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer()
       : super('DescribeAggregateComplianceByConfigRulesResponse');
@@ -89,8 +89,8 @@ class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
         _$DescribeAggregateComplianceByConfigRulesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -116,10 +116,10 @@ class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregateComplianceByConfigRule)],
+              _i2.BuiltList,
+              [FullType(AggregateComplianceByConfigRule)],
             ),
-          ) as _i3.BuiltList<_i2.AggregateComplianceByConfigRule>));
+          ) as _i2.BuiltList<AggregateComplianceByConfigRule>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -148,8 +148,8 @@ class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
         ..add(serializers.serialize(
           aggregateComplianceByConfigRules,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregateComplianceByConfigRule)],
+            _i2.BuiltList,
+            [FullType(AggregateComplianceByConfigRule)],
           ),
         ));
     }

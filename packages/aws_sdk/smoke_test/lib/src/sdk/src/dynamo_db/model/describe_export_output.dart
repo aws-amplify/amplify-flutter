@@ -6,16 +6,15 @@ library smoke_test.dynamo_db.model.describe_export_output; // ignore_for_file: n
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_description.dart';
 
 part 'describe_export_output.g.dart';
 
 abstract class DescribeExportOutput
     with _i1.AWSEquatable<DescribeExportOutput>
     implements Built<DescribeExportOutput, DescribeExportOutputBuilder> {
-  factory DescribeExportOutput({_i2.ExportDescription? exportDescription}) {
+  factory DescribeExportOutput({ExportDescription? exportDescription}) {
     return _$DescribeExportOutput._(exportDescription: exportDescription);
   }
 
@@ -32,12 +31,12 @@ abstract class DescribeExportOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeExportOutput>> serializers = [
+  static const List<_i2.SmithySerializer<DescribeExportOutput>> serializers = [
     DescribeExportOutputAwsJson10Serializer()
   ];
 
   /// Represents the properties of the export.
-  _i2.ExportDescription? get exportDescription;
+  ExportDescription? get exportDescription;
   @override
   List<Object?> get props => [exportDescription];
   @override
@@ -52,7 +51,7 @@ abstract class DescribeExportOutput
 }
 
 class DescribeExportOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeExportOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeExportOutput> {
   const DescribeExportOutputAwsJson10Serializer()
       : super('DescribeExportOutput');
 
@@ -62,8 +61,8 @@ class DescribeExportOutputAwsJson10Serializer
         _$DescribeExportOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -87,8 +86,8 @@ class DescribeExportOutputAwsJson10Serializer
         case 'ExportDescription':
           result.exportDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ExportDescription),
-          ) as _i2.ExportDescription));
+            specifiedType: const FullType(ExportDescription),
+          ) as ExportDescription));
       }
     }
 
@@ -108,7 +107,7 @@ class DescribeExportOutputAwsJson10Serializer
         ..add('ExportDescription')
         ..add(serializers.serialize(
           exportDescription,
-          specifiedType: const FullType(_i2.ExportDescription),
+          specifiedType: const FullType(ExportDescription),
         ));
     }
     return result$;

@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_compliance_by_config_rule; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart';
 
 part 'aggregate_compliance_by_config_rule.g.dart';
 
@@ -26,7 +25,7 @@ abstract class AggregateComplianceByConfigRule
   /// A rule is compliant if all of the resources that the rule evaluated comply with it. It is noncompliant if any of these resources do not comply.
   factory AggregateComplianceByConfigRule({
     String? configRuleName,
-    _i2.Compliance? compliance,
+    Compliance? compliance,
     String? accountId,
     String? awsRegion,
   }) {
@@ -47,14 +46,14 @@ abstract class AggregateComplianceByConfigRule
 
   const AggregateComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer<AggregateComplianceByConfigRule>>
+  static const List<_i2.SmithySerializer<AggregateComplianceByConfigRule>>
       serializers = [AggregateComplianceByConfigRuleAwsJson11Serializer()];
 
   /// The name of the Config rule.
   String? get configRuleName;
 
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant and provides the number of contributors that affect the compliance.
-  _i2.Compliance? get compliance;
+  Compliance? get compliance;
 
   /// The 12-digit account ID of the source account.
   String? get accountId;
@@ -93,7 +92,7 @@ abstract class AggregateComplianceByConfigRule
 }
 
 class AggregateComplianceByConfigRuleAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AggregateComplianceByConfigRule> {
+    extends _i2.StructuredSmithySerializer<AggregateComplianceByConfigRule> {
   const AggregateComplianceByConfigRuleAwsJson11Serializer()
       : super('AggregateComplianceByConfigRule');
 
@@ -103,8 +102,8 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         _$AggregateComplianceByConfigRule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -133,8 +132,8 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         case 'Compliance':
           result.compliance.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Compliance),
-          ) as _i2.Compliance));
+            specifiedType: const FullType(Compliance),
+          ) as Compliance));
         case 'AccountId':
           result.accountId = (serializers.deserialize(
             value,
@@ -177,7 +176,7 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
-          specifiedType: const FullType(_i2.Compliance),
+          specifiedType: const FullType(Compliance),
         ));
     }
     if (accountId != null) {

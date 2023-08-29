@@ -4,16 +4,13 @@
 library smoke_test.config_service.model.configuration_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/relationship.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/relationship.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'configuration_item.g.dart';
 
@@ -26,11 +23,11 @@ abstract class ConfigurationItem
     String? version,
     String? accountId,
     DateTime? configurationItemCaptureTime,
-    _i2.ConfigurationItemStatus? configurationItemStatus,
+    ConfigurationItemStatus? configurationItemStatus,
     String? configurationStateId,
     String? configurationItemMd5Hash,
     String? arn,
-    _i3.ResourceType? resourceType,
+    ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
     String? awsRegion,
@@ -38,7 +35,7 @@ abstract class ConfigurationItem
     DateTime? resourceCreationTime,
     Map<String, String>? tags,
     List<String>? relatedEvents,
-    List<_i4.Relationship>? relationships,
+    List<Relationship>? relationships,
     String? configuration,
     Map<String, String>? supplementaryConfiguration,
   }) {
@@ -56,15 +53,15 @@ abstract class ConfigurationItem
       awsRegion: awsRegion,
       availabilityZone: availabilityZone,
       resourceCreationTime: resourceCreationTime,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      tags: tags == null ? null : _i2.BuiltMap(tags),
       relatedEvents:
-          relatedEvents == null ? null : _i5.BuiltList(relatedEvents),
+          relatedEvents == null ? null : _i2.BuiltList(relatedEvents),
       relationships:
-          relationships == null ? null : _i5.BuiltList(relationships),
+          relationships == null ? null : _i2.BuiltList(relationships),
       configuration: configuration,
       supplementaryConfiguration: supplementaryConfiguration == null
           ? null
-          : _i5.BuiltMap(supplementaryConfiguration),
+          : _i2.BuiltMap(supplementaryConfiguration),
     );
   }
 
@@ -74,7 +71,7 @@ abstract class ConfigurationItem
 
   const ConfigurationItem._();
 
-  static const List<_i6.SmithySerializer<ConfigurationItem>> serializers = [
+  static const List<_i3.SmithySerializer<ConfigurationItem>> serializers = [
     ConfigurationItemAwsJson11Serializer()
   ];
 
@@ -101,7 +98,7 @@ abstract class ConfigurationItem
   ///
   ///
   /// The CIs do not incur any cost.
-  _i2.ConfigurationItemStatus? get configurationItemStatus;
+  ConfigurationItemStatus? get configurationItemStatus;
 
   /// An identifier that indicates the ordering of the configuration items of a resource.
   String? get configurationStateId;
@@ -115,7 +112,7 @@ abstract class ConfigurationItem
   String? get arn;
 
   /// The type of Amazon Web Services resource.
-  _i3.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The ID of the resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -133,23 +130,23 @@ abstract class ConfigurationItem
   DateTime? get resourceCreationTime;
 
   /// A mapping of key value tags associated with the resource.
-  _i5.BuiltMap<String, String>? get tags;
+  _i2.BuiltMap<String, String>? get tags;
 
   /// A list of CloudTrail event IDs.
   ///
   /// A populated field indicates that the current configuration was initiated by the events recorded in the CloudTrail log. For more information about CloudTrail, see [What Is CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
   ///
   /// An empty field indicates that the current configuration was not initiated by any event. As of Version 1.3, the relatedEvents field is empty. You can access the [LookupEvents API](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_LookupEvents.html) in the _CloudTrail API Reference_ to retrieve the events for the resource.
-  _i5.BuiltList<String>? get relatedEvents;
+  _i2.BuiltList<String>? get relatedEvents;
 
   /// A list of related Amazon Web Services resources.
-  _i5.BuiltList<_i4.Relationship>? get relationships;
+  _i2.BuiltList<Relationship>? get relationships;
 
   /// The description of the resource configuration.
   String? get configuration;
 
   /// Configuration attributes that Config returns for certain resource types to supplement the information returned for the `configuration` parameter.
-  _i5.BuiltMap<String, String>? get supplementaryConfiguration;
+  _i2.BuiltMap<String, String>? get supplementaryConfiguration;
   @override
   List<Object?> get props => [
         version,
@@ -251,7 +248,7 @@ abstract class ConfigurationItem
 }
 
 class ConfigurationItemAwsJson11Serializer
-    extends _i6.StructuredSmithySerializer<ConfigurationItem> {
+    extends _i3.StructuredSmithySerializer<ConfigurationItem> {
   const ConfigurationItemAwsJson11Serializer() : super('ConfigurationItem');
 
   @override
@@ -260,8 +257,8 @@ class ConfigurationItemAwsJson11Serializer
         _$ConfigurationItem,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -300,8 +297,8 @@ class ConfigurationItemAwsJson11Serializer
         case 'configurationItemStatus':
           result.configurationItemStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigurationItemStatus),
-          ) as _i2.ConfigurationItemStatus);
+            specifiedType: const FullType(ConfigurationItemStatus),
+          ) as ConfigurationItemStatus);
         case 'configurationStateId':
           result.configurationStateId = (serializers.deserialize(
             value,
@@ -320,8 +317,8 @@ class ConfigurationItemAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -351,29 +348,29 @@ class ConfigurationItemAwsJson11Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'relatedEvents':
           result.relatedEvents.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'relationships':
           result.relationships.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.Relationship)],
+              _i2.BuiltList,
+              [FullType(Relationship)],
             ),
-          ) as _i5.BuiltList<_i4.Relationship>));
+          ) as _i2.BuiltList<Relationship>));
         case 'configuration':
           result.configuration = (serializers.deserialize(
             value,
@@ -383,13 +380,13 @@ class ConfigurationItemAwsJson11Serializer
           result.supplementaryConfiguration.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -452,7 +449,7 @@ class ConfigurationItemAwsJson11Serializer
         ..add('configurationItemStatus')
         ..add(serializers.serialize(
           configurationItemStatus,
-          specifiedType: const FullType(_i2.ConfigurationItemStatus),
+          specifiedType: const FullType(ConfigurationItemStatus),
         ));
     }
     if (configurationStateId != null) {
@@ -484,7 +481,7 @@ class ConfigurationItemAwsJson11Serializer
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i3.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (resourceId != null) {
@@ -533,7 +530,7 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -547,7 +544,7 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           relatedEvents,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -558,8 +555,8 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           relationships,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.Relationship)],
+            _i2.BuiltList,
+            [FullType(Relationship)],
           ),
         ));
     }
@@ -577,7 +574,7 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           supplementaryConfiguration,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

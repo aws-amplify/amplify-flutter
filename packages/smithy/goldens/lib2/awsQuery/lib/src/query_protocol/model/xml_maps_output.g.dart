@@ -8,7 +8,7 @@ part of 'xml_maps_output.dart';
 
 class _$XmlMapsOutput extends XmlMapsOutput {
   @override
-  final _i3.BuiltMap<String, _i2.GreetingStruct>? myMap;
+  final _i2.BuiltMap<String, GreetingStruct>? myMap;
 
   factory _$XmlMapsOutput([void Function(XmlMapsOutputBuilder)? updates]) =>
       (new XmlMapsOutputBuilder()..update(updates))._build();
@@ -41,10 +41,10 @@ class XmlMapsOutputBuilder
     implements Builder<XmlMapsOutput, XmlMapsOutputBuilder> {
   _$XmlMapsOutput? _$v;
 
-  _i3.MapBuilder<String, _i2.GreetingStruct>? _myMap;
-  _i3.MapBuilder<String, _i2.GreetingStruct> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, _i2.GreetingStruct>();
-  set myMap(_i3.MapBuilder<String, _i2.GreetingStruct>? myMap) =>
+  _i2.MapBuilder<String, GreetingStruct>? _myMap;
+  _i2.MapBuilder<String, GreetingStruct> get myMap =>
+      _$this._myMap ??= new _i2.MapBuilder<String, GreetingStruct>();
+  set myMap(_i2.MapBuilder<String, GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
   XmlMapsOutputBuilder();

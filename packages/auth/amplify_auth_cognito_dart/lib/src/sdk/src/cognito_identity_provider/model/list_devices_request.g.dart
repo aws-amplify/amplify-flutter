@@ -71,9 +71,7 @@ class ListDevicesRequestBuilder
   set paginationToken(String? paginationToken) =>
       _$this._paginationToken = paginationToken;
 
-  ListDevicesRequestBuilder() {
-    ListDevicesRequest._init(this);
-  }
+  ListDevicesRequestBuilder();
 
   ListDevicesRequestBuilder get _$this {
     final $v = _$v;

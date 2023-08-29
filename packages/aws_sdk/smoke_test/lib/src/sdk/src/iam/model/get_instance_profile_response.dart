@@ -6,8 +6,8 @@ library smoke_test.iam.model.get_instance_profile_response; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart';
 
 part 'get_instance_profile_response.g.dart';
 
@@ -18,7 +18,7 @@ abstract class GetInstanceProfileResponse
         Built<GetInstanceProfileResponse, GetInstanceProfileResponseBuilder> {
   /// Contains the response to a successful GetInstanceProfile request.
   factory GetInstanceProfileResponse(
-      {required _i2.InstanceProfile instanceProfile}) {
+      {required InstanceProfile instanceProfile}) {
     return _$GetInstanceProfileResponse._(instanceProfile: instanceProfile);
   }
 
@@ -36,11 +36,11 @@ abstract class GetInstanceProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetInstanceProfileResponse>>
+  static const List<_i2.SmithySerializer<GetInstanceProfileResponse>>
       serializers = [GetInstanceProfileResponseAwsQuerySerializer()];
 
   /// A structure containing details about the instance profile.
-  _i2.InstanceProfile get instanceProfile;
+  InstanceProfile get instanceProfile;
   @override
   List<Object?> get props => [instanceProfile];
   @override
@@ -55,7 +55,7 @@ abstract class GetInstanceProfileResponse
 }
 
 class GetInstanceProfileResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GetInstanceProfileResponse> {
+    extends _i2.StructuredSmithySerializer<GetInstanceProfileResponse> {
   const GetInstanceProfileResponseAwsQuerySerializer()
       : super('GetInstanceProfileResponse');
 
@@ -65,8 +65,8 @@ class GetInstanceProfileResponseAwsQuerySerializer
         _$GetInstanceProfileResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -78,6 +78,14 @@ class GetInstanceProfileResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = GetInstanceProfileResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -90,8 +98,8 @@ class GetInstanceProfileResponseAwsQuerySerializer
         case 'InstanceProfile':
           result.instanceProfile.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InstanceProfile),
-          ) as _i2.InstanceProfile));
+            specifiedType: const FullType(InstanceProfile),
+          ) as InstanceProfile));
       }
     }
 
@@ -105,17 +113,17 @@ class GetInstanceProfileResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GetInstanceProfileResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetInstanceProfileResponse(:instanceProfile) = object;
     result$
-      ..add(const _i3.XmlElementName('InstanceProfile'))
+      ..add(const _i2.XmlElementName('InstanceProfile'))
       ..add(serializers.serialize(
         instanceProfile,
-        specifiedType: const FullType(_i2.InstanceProfile),
+        specifiedType: const FullType(InstanceProfile),
       ));
     return result$;
   }

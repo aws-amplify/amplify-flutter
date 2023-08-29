@@ -4,11 +4,11 @@
 library smoke_test.iam.model.list_policies_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/policy.dart';
 
 part 'list_policies_response.g.dart';
 
@@ -18,13 +18,13 @@ abstract class ListPoliciesResponse
     implements Built<ListPoliciesResponse, ListPoliciesResponseBuilder> {
   /// Contains the response to a successful ListPolicies request.
   factory ListPoliciesResponse({
-    List<_i2.Policy>? policies,
+    List<Policy>? policies,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListPoliciesResponse._(
-      policies: policies == null ? null : _i3.BuiltList(policies),
+      policies: policies == null ? null : _i2.BuiltList(policies),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -44,7 +44,7 @@ abstract class ListPoliciesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListPoliciesResponse>> serializers = [
+  static const List<_i3.SmithySerializer<ListPoliciesResponse>> serializers = [
     ListPoliciesResponseAwsQuerySerializer()
   ];
 
@@ -54,7 +54,7 @@ abstract class ListPoliciesResponse
   }
 
   /// A list of policies.
-  _i3.BuiltList<_i2.Policy>? get policies;
+  _i2.BuiltList<Policy>? get policies;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -87,7 +87,7 @@ abstract class ListPoliciesResponse
 }
 
 class ListPoliciesResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListPoliciesResponse> {
+    extends _i3.StructuredSmithySerializer<ListPoliciesResponse> {
   const ListPoliciesResponseAwsQuerySerializer()
       : super('ListPoliciesResponse');
 
@@ -97,8 +97,8 @@ class ListPoliciesResponseAwsQuerySerializer
         _$ListPoliciesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -110,6 +110,14 @@ class ListPoliciesResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListPoliciesResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -120,16 +128,16 @@ class ListPoliciesResponseAwsQuerySerializer
       }
       switch (key) {
         case 'Policies':
-          result.policies.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.policies.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Policy)],
+              _i2.BuiltList,
+              [FullType(Policy)],
             ),
-          ) as _i3.BuiltList<_i2.Policy>));
+          ) as _i2.BuiltList<Policy>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -153,35 +161,35 @@ class ListPoliciesResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListPoliciesResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListPoliciesResponse(:policies, :isTruncated, :marker) = object;
     if (policies != null) {
       result$
-        ..add(const _i4.XmlElementName('Policies'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Policies'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           policies,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Policy)],
+            _i2.BuiltList,
+            [FullType(Policy)],
           ),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

@@ -3,17 +3,14 @@
 
 library amplify_storage_s3_dart.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/encoding_type.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/optional_object_attributes.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/encoding_type.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/optional_object_attributes.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i7;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'list_objects_v2_request.g.dart';
@@ -29,15 +26,15 @@ abstract class ListObjectsV2Request
   factory ListObjectsV2Request({
     required String bucket,
     String? delimiter,
-    _i3.EncodingType? encodingType,
+    EncodingType? encodingType,
     int? maxKeys,
     String? prefix,
     String? continuationToken,
     bool? fetchOwner,
     String? startAfter,
-    _i4.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
-    List<_i5.OptionalObjectAttributes>? optionalObjectAttributes,
+    List<OptionalObjectAttributes>? optionalObjectAttributes,
   }) {
     return _$ListObjectsV2Request._(
       bucket: bucket,
@@ -52,7 +49,7 @@ abstract class ListObjectsV2Request
       expectedBucketOwner: expectedBucketOwner,
       optionalObjectAttributes: optionalObjectAttributes == null
           ? null
-          : _i6.BuiltList(optionalObjectAttributes),
+          : _i3.BuiltList(optionalObjectAttributes),
     );
   }
 
@@ -69,7 +66,7 @@ abstract class ListObjectsV2Request
   }) =>
       ListObjectsV2Request.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -79,14 +76,13 @@ abstract class ListObjectsV2Request
         if (request.headers['x-amz-optional-object-attributes'] != null) {
           b.optionalObjectAttributes.addAll(_i1
               .parseHeader(request.headers['x-amz-optional-object-attributes']!)
-              .map((el) =>
-                  _i5.OptionalObjectAttributes.values.byValue(el.trim())));
+              .map((el) => OptionalObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
         }
         if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = _i3.EncodingType.values
+          b.encodingType = EncodingType.values
               .byValue(request.queryParameters['encoding-type']!);
         }
         if (request.queryParameters['max-keys'] != null) {
@@ -123,7 +119,7 @@ abstract class ListObjectsV2Request
   String? get delimiter;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
-  _i3.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// Sets the maximum number of keys returned in the response. By default, the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
   int? get maxKeys;
@@ -141,13 +137,13 @@ abstract class ListObjectsV2Request
   String? get startAfter;
 
   /// Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket owners need not specify this parameter in their requests.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
 
   /// Specifies the optional fields that you want returned in the response. Fields that you do not specify are not returned.
-  _i6.BuiltList<_i5.OptionalObjectAttributes>? get optionalObjectAttributes;
+  _i3.BuiltList<OptionalObjectAttributes>? get optionalObjectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -227,7 +223,7 @@ abstract class ListObjectsV2Request
   }
 }
 
-@_i7.internal
+@_i4.internal
 abstract class ListObjectsV2RequestPayload
     with _i2.AWSEquatable<ListObjectsV2RequestPayload>
     implements

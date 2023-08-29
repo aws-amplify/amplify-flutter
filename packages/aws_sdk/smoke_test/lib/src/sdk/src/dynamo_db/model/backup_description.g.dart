@@ -8,11 +8,11 @@ part of 'backup_description.dart';
 
 class _$BackupDescription extends BackupDescription {
   @override
-  final _i2.BackupDetails? backupDetails;
+  final BackupDetails? backupDetails;
   @override
-  final _i3.SourceTableDetails? sourceTableDetails;
+  final SourceTableDetails? sourceTableDetails;
   @override
-  final _i4.SourceTableFeatureDetails? sourceTableFeatureDetails;
+  final SourceTableFeatureDetails? sourceTableFeatureDetails;
 
   factory _$BackupDescription(
           [void Function(BackupDescriptionBuilder)? updates]) =>
@@ -56,24 +56,24 @@ class BackupDescriptionBuilder
     implements Builder<BackupDescription, BackupDescriptionBuilder> {
   _$BackupDescription? _$v;
 
-  _i2.BackupDetailsBuilder? _backupDetails;
-  _i2.BackupDetailsBuilder get backupDetails =>
-      _$this._backupDetails ??= new _i2.BackupDetailsBuilder();
-  set backupDetails(_i2.BackupDetailsBuilder? backupDetails) =>
+  BackupDetailsBuilder? _backupDetails;
+  BackupDetailsBuilder get backupDetails =>
+      _$this._backupDetails ??= new BackupDetailsBuilder();
+  set backupDetails(BackupDetailsBuilder? backupDetails) =>
       _$this._backupDetails = backupDetails;
 
-  _i3.SourceTableDetailsBuilder? _sourceTableDetails;
-  _i3.SourceTableDetailsBuilder get sourceTableDetails =>
-      _$this._sourceTableDetails ??= new _i3.SourceTableDetailsBuilder();
-  set sourceTableDetails(_i3.SourceTableDetailsBuilder? sourceTableDetails) =>
+  SourceTableDetailsBuilder? _sourceTableDetails;
+  SourceTableDetailsBuilder get sourceTableDetails =>
+      _$this._sourceTableDetails ??= new SourceTableDetailsBuilder();
+  set sourceTableDetails(SourceTableDetailsBuilder? sourceTableDetails) =>
       _$this._sourceTableDetails = sourceTableDetails;
 
-  _i4.SourceTableFeatureDetailsBuilder? _sourceTableFeatureDetails;
-  _i4.SourceTableFeatureDetailsBuilder get sourceTableFeatureDetails =>
+  SourceTableFeatureDetailsBuilder? _sourceTableFeatureDetails;
+  SourceTableFeatureDetailsBuilder get sourceTableFeatureDetails =>
       _$this._sourceTableFeatureDetails ??=
-          new _i4.SourceTableFeatureDetailsBuilder();
+          new SourceTableFeatureDetailsBuilder();
   set sourceTableFeatureDetails(
-          _i4.SourceTableFeatureDetailsBuilder? sourceTableFeatureDetails) =>
+          SourceTableFeatureDetailsBuilder? sourceTableFeatureDetails) =>
       _$this._sourceTableFeatureDetails = sourceTableFeatureDetails;
 
   BackupDescriptionBuilder();

@@ -9,7 +9,7 @@ part of 'http_payload_with_xml_namespace_and_prefix_input_output.dart';
 class _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput
     extends HttpPayloadWithXmlNamespaceAndPrefixInputOutput {
   @override
-  final _i2.PayloadWithXmlNamespaceAndPrefix? nested;
+  final PayloadWithXmlNamespaceAndPrefix? nested;
 
   factory _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput(
           [void Function(
@@ -55,10 +55,10 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
             HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder> {
   _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput? _$v;
 
-  _i2.PayloadWithXmlNamespaceAndPrefixBuilder? _nested;
-  _i2.PayloadWithXmlNamespaceAndPrefixBuilder get nested =>
-      _$this._nested ??= new _i2.PayloadWithXmlNamespaceAndPrefixBuilder();
-  set nested(_i2.PayloadWithXmlNamespaceAndPrefixBuilder? nested) =>
+  PayloadWithXmlNamespaceAndPrefixBuilder? _nested;
+  PayloadWithXmlNamespaceAndPrefixBuilder get nested =>
+      _$this._nested ??= new PayloadWithXmlNamespaceAndPrefixBuilder();
+  set nested(PayloadWithXmlNamespaceAndPrefixBuilder? nested) =>
       _$this._nested = nested;
 
   HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder();

@@ -4,15 +4,13 @@
 library smoke_test.config_service.model.put_configuration_aggregator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/account_aggregation_source.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_aggregation_source.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/config_service/model/account_aggregation_source.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_aggregation_source.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 
 part 'put_configuration_aggregator_request.g.dart';
 
@@ -25,17 +23,17 @@ abstract class PutConfigurationAggregatorRequest
             PutConfigurationAggregatorRequestBuilder> {
   factory PutConfigurationAggregatorRequest({
     required String configurationAggregatorName,
-    List<_i3.AccountAggregationSource>? accountAggregationSources,
-    _i4.OrganizationAggregationSource? organizationAggregationSource,
-    List<_i5.Tag>? tags,
+    List<AccountAggregationSource>? accountAggregationSources,
+    OrganizationAggregationSource? organizationAggregationSource,
+    List<Tag>? tags,
   }) {
     return _$PutConfigurationAggregatorRequest._(
       configurationAggregatorName: configurationAggregatorName,
       accountAggregationSources: accountAggregationSources == null
           ? null
-          : _i6.BuiltList(accountAggregationSources),
+          : _i3.BuiltList(accountAggregationSources),
       organizationAggregationSource: organizationAggregationSource,
-      tags: tags == null ? null : _i6.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -59,13 +57,13 @@ abstract class PutConfigurationAggregatorRequest
   String get configurationAggregatorName;
 
   /// A list of AccountAggregationSource object.
-  _i6.BuiltList<_i3.AccountAggregationSource>? get accountAggregationSources;
+  _i3.BuiltList<AccountAggregationSource>? get accountAggregationSources;
 
   /// An OrganizationAggregationSource object.
-  _i4.OrganizationAggregationSource? get organizationAggregationSource;
+  OrganizationAggregationSource? get organizationAggregationSource;
 
   /// An array of tag object.
-  _i6.BuiltList<_i5.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   PutConfigurationAggregatorRequest getPayload() => this;
   @override
@@ -141,23 +139,23 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
           result.accountAggregationSources.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.AccountAggregationSource)],
+              _i3.BuiltList,
+              [FullType(AccountAggregationSource)],
             ),
-          ) as _i6.BuiltList<_i3.AccountAggregationSource>));
+          ) as _i3.BuiltList<AccountAggregationSource>));
         case 'OrganizationAggregationSource':
           result.organizationAggregationSource.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.OrganizationAggregationSource),
-          ) as _i4.OrganizationAggregationSource));
+            specifiedType: const FullType(OrganizationAggregationSource),
+          ) as OrganizationAggregationSource));
         case 'Tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i6.BuiltList<_i5.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -190,8 +188,8 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         ..add(serializers.serialize(
           accountAggregationSources,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i3.AccountAggregationSource)],
+            _i3.BuiltList,
+            [FullType(AccountAggregationSource)],
           ),
         ));
     }
@@ -200,7 +198,7 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
           organizationAggregationSource,
-          specifiedType: const FullType(_i4.OrganizationAggregationSource),
+          specifiedType: const FullType(OrganizationAggregationSource),
         ));
     }
     if (tags != null) {
@@ -209,8 +207,8 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i5.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

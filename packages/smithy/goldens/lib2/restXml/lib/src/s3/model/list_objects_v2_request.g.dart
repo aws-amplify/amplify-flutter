@@ -12,7 +12,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   @override
   final String? delimiter;
   @override
-  final _i3.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final int? maxKeys;
   @override
@@ -24,7 +24,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   @override
   final String? startAfter;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
 
@@ -103,9 +103,9 @@ class ListObjectsV2RequestBuilder
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i3.EncodingType? _encodingType;
-  _i3.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i3.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   int? _maxKeys;
@@ -129,9 +129,9 @@ class ListObjectsV2RequestBuilder
   String? get startAfter => _$this._startAfter;
   set startAfter(String? startAfter) => _$this._startAfter = startAfter;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;

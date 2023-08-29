@@ -8,7 +8,7 @@ part of 'get_bucket_tagging_output.dart';
 
 class _$GetBucketTaggingOutput extends GetBucketTaggingOutput {
   @override
-  final _i3.BuiltList<_i2.Tag> tagSet;
+  final _i2.BuiltList<Tag> tagSet;
 
   factory _$GetBucketTaggingOutput(
           [void Function(GetBucketTaggingOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class GetBucketTaggingOutputBuilder
     implements Builder<GetBucketTaggingOutput, GetBucketTaggingOutputBuilder> {
   _$GetBucketTaggingOutput? _$v;
 
-  _i3.ListBuilder<_i2.Tag>? _tagSet;
-  _i3.ListBuilder<_i2.Tag> get tagSet =>
-      _$this._tagSet ??= new _i3.ListBuilder<_i2.Tag>();
-  set tagSet(_i3.ListBuilder<_i2.Tag>? tagSet) => _$this._tagSet = tagSet;
+  _i2.ListBuilder<Tag>? _tagSet;
+  _i2.ListBuilder<Tag> get tagSet =>
+      _$this._tagSet ??= new _i2.ListBuilder<Tag>();
+  set tagSet(_i2.ListBuilder<Tag>? tagSet) => _$this._tagSet = tagSet;
 
   GetBucketTaggingOutputBuilder();
 

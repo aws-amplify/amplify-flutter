@@ -8,17 +8,17 @@ part of 'xml_enums_input_output.dart';
 
 class _$XmlEnumsInputOutput extends XmlEnumsInputOutput {
   @override
-  final _i3.FooEnum? fooEnum1;
+  final FooEnum? fooEnum1;
   @override
-  final _i3.FooEnum? fooEnum2;
+  final FooEnum? fooEnum2;
   @override
-  final _i3.FooEnum? fooEnum3;
+  final FooEnum? fooEnum3;
   @override
-  final _i4.BuiltList<_i3.FooEnum>? fooEnumList;
+  final _i3.BuiltList<FooEnum>? fooEnumList;
   @override
-  final _i4.BuiltSet<_i3.FooEnum>? fooEnumSet;
+  final _i3.BuiltSet<FooEnum>? fooEnumSet;
   @override
-  final _i4.BuiltMap<String, _i3.FooEnum>? fooEnumMap;
+  final _i3.BuiltMap<String, FooEnum>? fooEnumMap;
 
   factory _$XmlEnumsInputOutput(
           [void Function(XmlEnumsInputOutputBuilder)? updates]) =>
@@ -72,34 +72,34 @@ class XmlEnumsInputOutputBuilder
     implements Builder<XmlEnumsInputOutput, XmlEnumsInputOutputBuilder> {
   _$XmlEnumsInputOutput? _$v;
 
-  _i3.FooEnum? _fooEnum1;
-  _i3.FooEnum? get fooEnum1 => _$this._fooEnum1;
-  set fooEnum1(_i3.FooEnum? fooEnum1) => _$this._fooEnum1 = fooEnum1;
+  FooEnum? _fooEnum1;
+  FooEnum? get fooEnum1 => _$this._fooEnum1;
+  set fooEnum1(FooEnum? fooEnum1) => _$this._fooEnum1 = fooEnum1;
 
-  _i3.FooEnum? _fooEnum2;
-  _i3.FooEnum? get fooEnum2 => _$this._fooEnum2;
-  set fooEnum2(_i3.FooEnum? fooEnum2) => _$this._fooEnum2 = fooEnum2;
+  FooEnum? _fooEnum2;
+  FooEnum? get fooEnum2 => _$this._fooEnum2;
+  set fooEnum2(FooEnum? fooEnum2) => _$this._fooEnum2 = fooEnum2;
 
-  _i3.FooEnum? _fooEnum3;
-  _i3.FooEnum? get fooEnum3 => _$this._fooEnum3;
-  set fooEnum3(_i3.FooEnum? fooEnum3) => _$this._fooEnum3 = fooEnum3;
+  FooEnum? _fooEnum3;
+  FooEnum? get fooEnum3 => _$this._fooEnum3;
+  set fooEnum3(FooEnum? fooEnum3) => _$this._fooEnum3 = fooEnum3;
 
-  _i4.ListBuilder<_i3.FooEnum>? _fooEnumList;
-  _i4.ListBuilder<_i3.FooEnum> get fooEnumList =>
-      _$this._fooEnumList ??= new _i4.ListBuilder<_i3.FooEnum>();
-  set fooEnumList(_i4.ListBuilder<_i3.FooEnum>? fooEnumList) =>
+  _i3.ListBuilder<FooEnum>? _fooEnumList;
+  _i3.ListBuilder<FooEnum> get fooEnumList =>
+      _$this._fooEnumList ??= new _i3.ListBuilder<FooEnum>();
+  set fooEnumList(_i3.ListBuilder<FooEnum>? fooEnumList) =>
       _$this._fooEnumList = fooEnumList;
 
-  _i4.SetBuilder<_i3.FooEnum>? _fooEnumSet;
-  _i4.SetBuilder<_i3.FooEnum> get fooEnumSet =>
-      _$this._fooEnumSet ??= new _i4.SetBuilder<_i3.FooEnum>();
-  set fooEnumSet(_i4.SetBuilder<_i3.FooEnum>? fooEnumSet) =>
+  _i3.SetBuilder<FooEnum>? _fooEnumSet;
+  _i3.SetBuilder<FooEnum> get fooEnumSet =>
+      _$this._fooEnumSet ??= new _i3.SetBuilder<FooEnum>();
+  set fooEnumSet(_i3.SetBuilder<FooEnum>? fooEnumSet) =>
       _$this._fooEnumSet = fooEnumSet;
 
-  _i4.MapBuilder<String, _i3.FooEnum>? _fooEnumMap;
-  _i4.MapBuilder<String, _i3.FooEnum> get fooEnumMap =>
-      _$this._fooEnumMap ??= new _i4.MapBuilder<String, _i3.FooEnum>();
-  set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
+  _i3.MapBuilder<String, FooEnum>? _fooEnumMap;
+  _i3.MapBuilder<String, FooEnum> get fooEnumMap =>
+      _$this._fooEnumMap ??= new _i3.MapBuilder<String, FooEnum>();
+  set fooEnumMap(_i3.MapBuilder<String, FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
   XmlEnumsInputOutputBuilder();

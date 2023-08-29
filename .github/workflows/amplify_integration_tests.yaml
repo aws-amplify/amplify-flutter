@@ -75,7 +75,7 @@ jobs:
       - name: Launch Android emulator
         uses: ./.github/composite_actions/launch_android_emulator
         # Make the timeout a little longer and add retry due to delay from starting emulator.
-        timeout-minutes: 60
+        timeout-minutes: 90
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
@@ -83,7 +83,7 @@ jobs:
           script: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
   ios:
-    runs-on: macos-latest
+    runs-on: macos-latest-xl
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -110,6 +110,7 @@ jobs:
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 20
 
       - name: Pub Upgrade
         run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
@@ -163,7 +164,7 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - uses: nanasess/setup-chromedriver@6fb8f5ffa6b7dc11e631ff695fbd2fec0b04bb52 # 2.1.1
+      - uses: ./.github/composite_actions/setup_chromedriver
 
       - name: Run integration tests
         timeout-minutes: 60

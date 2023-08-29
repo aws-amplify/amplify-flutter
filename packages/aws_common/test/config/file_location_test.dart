@@ -1,6 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:os_detect/override.dart';
 import 'package:test/test.dart';
 
@@ -97,7 +100,10 @@ void main() {
         const OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
-            {'HOMEDRIVE': r'C:', 'HOMEPATH': r'\users\user'},
+            {
+              'HOMEDRIVE': r'C:',
+              'HOMEPATH': r'\users\user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -120,7 +126,10 @@ void main() {
         const OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
-            {'AWS_CONFIG_FILE': r'/other/path/config', 'HOME': r'/home/user'},
+            {
+              'AWS_CONFIG_FILE': r'/other/path/config',
+              'HOME': r'/home/user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -220,7 +229,10 @@ void main() {
         const OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
-            {'AWS_PROFILE': r'other', 'HOME': r'/home/user'},
+            {
+              'AWS_PROFILE': r'other',
+              'HOME': r'/home/user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,

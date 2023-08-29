@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.describe_stack_drift_detection_status_o
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_detection_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_detection_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart';
 
 part 'describe_stack_drift_detection_status_output.g.dart';
 
@@ -23,8 +21,8 @@ abstract class DescribeStackDriftDetectionStatusOutput
   factory DescribeStackDriftDetectionStatusOutput({
     required String stackId,
     required String stackDriftDetectionId,
-    _i2.StackDriftStatus? stackDriftStatus,
-    required _i3.StackDriftDetectionStatus detectionStatus,
+    StackDriftStatus? stackDriftStatus,
+    required StackDriftDetectionStatus detectionStatus,
     String? detectionStatusReason,
     int? driftedStackResourceCount,
     required DateTime timestamp,
@@ -54,7 +52,7 @@ abstract class DescribeStackDriftDetectionStatusOutput
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeStackDriftDetectionStatusOutput>>
+          _i2.SmithySerializer<DescribeStackDriftDetectionStatusOutput>>
       serializers = [
     DescribeStackDriftDetectionStatusOutputAwsQuerySerializer()
   ];
@@ -76,7 +74,7 @@ abstract class DescribeStackDriftDetectionStatusOutput
   /// *   `IN_SYNC`: The stack's actual configuration matches its expected template configuration.
   ///
   /// *   `UNKNOWN`: This value is reserved for future use.
-  _i2.StackDriftStatus? get stackDriftStatus;
+  StackDriftStatus? get stackDriftStatus;
 
   /// The status of the stack drift detection operation.
   ///
@@ -87,7 +85,7 @@ abstract class DescribeStackDriftDetectionStatusOutput
   /// *   `DETECTION_FAILED`: The stack drift detection operation has failed for at least one resource in the stack. Results will be available for resources on which CloudFormation successfully completed drift detection.
   ///
   /// *   `DETECTION\_IN\_PROGRESS`: The stack drift detection operation is currently in progress.
-  _i3.StackDriftDetectionStatus get detectionStatus;
+  StackDriftDetectionStatus get detectionStatus;
 
   /// The reason the stack drift detection operation has its current status.
   String? get detectionStatusReason;
@@ -143,7 +141,7 @@ abstract class DescribeStackDriftDetectionStatusOutput
   }
 }
 
-class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
+class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i2
     .StructuredSmithySerializer<DescribeStackDriftDetectionStatusOutput> {
   const DescribeStackDriftDetectionStatusOutputAwsQuerySerializer()
       : super('DescribeStackDriftDetectionStatusOutput');
@@ -154,8 +152,8 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
         _$DescribeStackDriftDetectionStatusOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -167,6 +165,14 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackDriftDetectionStatusOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -189,13 +195,13 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
         case 'StackDriftStatus':
           result.stackDriftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackDriftStatus),
-          ) as _i2.StackDriftStatus);
+            specifiedType: const FullType(StackDriftStatus),
+          ) as StackDriftStatus);
         case 'DetectionStatus':
           result.detectionStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackDriftDetectionStatus),
-          ) as _i3.StackDriftDetectionStatus);
+            specifiedType: const FullType(StackDriftDetectionStatus),
+          ) as StackDriftDetectionStatus);
         case 'DetectionStatusReason':
           result.detectionStatusReason = (serializers.deserialize(
             value,
@@ -224,9 +230,9 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeStackDriftDetectionStatusOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackDriftDetectionStatusOutput(
@@ -239,34 +245,34 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
       :timestamp
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('StackId'))
+      ..add(const _i2.XmlElementName('StackId'))
       ..add(serializers.serialize(
         stackId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i4.XmlElementName('StackDriftDetectionId'))
+      ..add(const _i2.XmlElementName('StackDriftDetectionId'))
       ..add(serializers.serialize(
         stackDriftDetectionId,
         specifiedType: const FullType(String),
       ));
     if (stackDriftStatus != null) {
       result$
-        ..add(const _i4.XmlElementName('StackDriftStatus'))
+        ..add(const _i2.XmlElementName('StackDriftStatus'))
         ..add(serializers.serialize(
           stackDriftStatus,
-          specifiedType: const FullType.nullable(_i2.StackDriftStatus),
+          specifiedType: const FullType.nullable(StackDriftStatus),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('DetectionStatus'))
+      ..add(const _i2.XmlElementName('DetectionStatus'))
       ..add(serializers.serialize(
         detectionStatus,
-        specifiedType: const FullType.nullable(_i3.StackDriftDetectionStatus),
+        specifiedType: const FullType.nullable(StackDriftDetectionStatus),
       ));
     if (detectionStatusReason != null) {
       result$
-        ..add(const _i4.XmlElementName('DetectionStatusReason'))
+        ..add(const _i2.XmlElementName('DetectionStatusReason'))
         ..add(serializers.serialize(
           detectionStatusReason,
           specifiedType: const FullType(String),
@@ -274,14 +280,14 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
     }
     if (driftedStackResourceCount != null) {
       result$
-        ..add(const _i4.XmlElementName('DriftedStackResourceCount'))
+        ..add(const _i2.XmlElementName('DriftedStackResourceCount'))
         ..add(serializers.serialize(
           driftedStackResourceCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('Timestamp'))
+      ..add(const _i2.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
         specifiedType: const FullType.nullable(DateTime),

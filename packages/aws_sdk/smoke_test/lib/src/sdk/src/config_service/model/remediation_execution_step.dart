@@ -6,9 +6,8 @@ library smoke_test.config_service.model.remediation_execution_step; // ignore_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_step_state.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_step_state.dart';
 
 part 'remediation_execution_step.g.dart';
 
@@ -20,7 +19,7 @@ abstract class RemediationExecutionStep
   /// Name of the step from the SSM document.
   factory RemediationExecutionStep({
     String? name,
-    _i2.RemediationExecutionStepState? state,
+    RemediationExecutionStepState? state,
     String? errorMessage,
     DateTime? startTime,
     DateTime? stopTime,
@@ -41,14 +40,14 @@ abstract class RemediationExecutionStep
 
   const RemediationExecutionStep._();
 
-  static const List<_i3.SmithySerializer<RemediationExecutionStep>>
+  static const List<_i2.SmithySerializer<RemediationExecutionStep>>
       serializers = [RemediationExecutionStepAwsJson11Serializer()];
 
   /// The details of the step.
   String? get name;
 
   /// The valid status of the step.
-  _i2.RemediationExecutionStepState? get state;
+  RemediationExecutionStepState? get state;
 
   /// An error message if the step was interrupted during execution.
   String? get errorMessage;
@@ -94,7 +93,7 @@ abstract class RemediationExecutionStep
 }
 
 class RemediationExecutionStepAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<RemediationExecutionStep> {
+    extends _i2.StructuredSmithySerializer<RemediationExecutionStep> {
   const RemediationExecutionStepAwsJson11Serializer()
       : super('RemediationExecutionStep');
 
@@ -104,8 +103,8 @@ class RemediationExecutionStepAwsJson11Serializer
         _$RemediationExecutionStep,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -134,8 +133,8 @@ class RemediationExecutionStepAwsJson11Serializer
         case 'State':
           result.state = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RemediationExecutionStepState),
-          ) as _i2.RemediationExecutionStepState);
+            specifiedType: const FullType(RemediationExecutionStepState),
+          ) as RemediationExecutionStepState);
         case 'ErrorMessage':
           result.errorMessage = (serializers.deserialize(
             value,
@@ -184,7 +183,7 @@ class RemediationExecutionStepAwsJson11Serializer
         ..add('State')
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType(_i2.RemediationExecutionStepState),
+          specifiedType: const FullType(RemediationExecutionStepState),
         ));
     }
     if (errorMessage != null) {

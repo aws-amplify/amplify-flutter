@@ -4,11 +4,11 @@
 library smoke_test.iam.model.tag_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'tag_role_request.g.dart';
 
@@ -17,11 +17,11 @@ abstract class TagRoleRequest
     implements Built<TagRoleRequest, TagRoleRequestBuilder> {
   factory TagRoleRequest({
     required String roleName,
-    required List<_i3.Tag> tags,
+    required List<Tag> tags,
   }) {
     return _$TagRoleRequest._(
       roleName: roleName,
-      tags: _i4.BuiltList(tags),
+      tags: _i3.BuiltList(tags),
     );
   }
 
@@ -47,7 +47,7 @@ abstract class TagRoleRequest
   String get roleName;
 
   /// The list of tags that you want to attach to the IAM role. Each tag consists of a key name and an associated value.
-  _i4.BuiltList<_i3.Tag> get tags;
+  _i3.BuiltList<Tag> get tags;
   @override
   TagRoleRequest getPayload() => this;
   @override
@@ -93,6 +93,14 @@ class TagRoleRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = TagRoleRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -114,10 +122,10 @@ class TagRoleRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -151,8 +159,8 @@ class TagRoleRequestAwsQuerySerializer
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

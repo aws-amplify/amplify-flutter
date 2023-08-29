@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.describe_kinesis_streaming_destination_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_data_stream_destination.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/kinesis_data_stream_destination.dart';
 
 part 'describe_kinesis_streaming_destination_output.g.dart';
 
@@ -21,13 +20,13 @@ abstract class DescribeKinesisStreamingDestinationOutput
             DescribeKinesisStreamingDestinationOutputBuilder> {
   factory DescribeKinesisStreamingDestinationOutput({
     String? tableName,
-    List<_i2.KinesisDataStreamDestination>? kinesisDataStreamDestinations,
+    List<KinesisDataStreamDestination>? kinesisDataStreamDestinations,
   }) {
     return _$DescribeKinesisStreamingDestinationOutput._(
       tableName: tableName,
       kinesisDataStreamDestinations: kinesisDataStreamDestinations == null
           ? null
-          : _i3.BuiltList(kinesisDataStreamDestinations),
+          : _i2.BuiltList(kinesisDataStreamDestinations),
     );
   }
 
@@ -45,7 +44,7 @@ abstract class DescribeKinesisStreamingDestinationOutput
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeKinesisStreamingDestinationOutput>>
+          _i3.SmithySerializer<DescribeKinesisStreamingDestinationOutput>>
       serializers = [
     DescribeKinesisStreamingDestinationOutputAwsJson10Serializer()
   ];
@@ -54,7 +53,7 @@ abstract class DescribeKinesisStreamingDestinationOutput
   String? get tableName;
 
   /// The list of replica structures for the table being described.
-  _i3.BuiltList<_i2.KinesisDataStreamDestination>?
+  _i2.BuiltList<KinesisDataStreamDestination>?
       get kinesisDataStreamDestinations;
   @override
   List<Object?> get props => [
@@ -77,7 +76,7 @@ abstract class DescribeKinesisStreamingDestinationOutput
   }
 }
 
-class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
+class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i3
     .StructuredSmithySerializer<DescribeKinesisStreamingDestinationOutput> {
   const DescribeKinesisStreamingDestinationOutputAwsJson10Serializer()
       : super('DescribeKinesisStreamingDestinationOutput');
@@ -88,8 +87,8 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
         _$DescribeKinesisStreamingDestinationOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -119,10 +118,10 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
           result.kinesisDataStreamDestinations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.KinesisDataStreamDestination)],
+              _i2.BuiltList,
+              [FullType(KinesisDataStreamDestination)],
             ),
-          ) as _i3.BuiltList<_i2.KinesisDataStreamDestination>));
+          ) as _i2.BuiltList<KinesisDataStreamDestination>));
       }
     }
 
@@ -154,8 +153,8 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
         ..add(serializers.serialize(
           kinesisDataStreamDestinations,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.KinesisDataStreamDestination)],
+            _i2.BuiltList,
+            [FullType(KinesisDataStreamDestination)],
           ),
         ));
     }

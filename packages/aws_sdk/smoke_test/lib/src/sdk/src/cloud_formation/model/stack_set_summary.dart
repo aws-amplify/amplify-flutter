@@ -6,17 +6,12 @@ library smoke_test.cloud_formation.model.stack_set_summary; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/auto_deployment.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/permission_models.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart';
 
 part 'stack_set_summary.g.dart';
 
@@ -29,12 +24,12 @@ abstract class StackSetSummary
     String? stackSetName,
     String? stackSetId,
     String? description,
-    _i2.StackSetStatus? status,
-    _i3.AutoDeployment? autoDeployment,
-    _i4.PermissionModels? permissionModel,
-    _i5.StackDriftStatus? driftStatus,
+    StackSetStatus? status,
+    AutoDeployment? autoDeployment,
+    PermissionModels? permissionModel,
+    StackDriftStatus? driftStatus,
     DateTime? lastDriftCheckTimestamp,
-    _i6.ManagedExecution? managedExecution,
+    ManagedExecution? managedExecution,
   }) {
     return _$StackSetSummary._(
       stackSetName: stackSetName,
@@ -55,7 +50,7 @@ abstract class StackSetSummary
 
   const StackSetSummary._();
 
-  static const List<_i7.SmithySerializer<StackSetSummary>> serializers = [
+  static const List<_i2.SmithySerializer<StackSetSummary>> serializers = [
     StackSetSummaryAwsQuerySerializer()
   ];
 
@@ -69,17 +64,17 @@ abstract class StackSetSummary
   String? get description;
 
   /// The status of the stack set.
-  _i2.StackSetStatus? get status;
+  StackSetStatus? get status;
 
   /// \[Service-managed permissions\] Describes whether StackSets automatically deploys to Organizations accounts that are added to a target organizational unit (OU).
-  _i3.AutoDeployment? get autoDeployment;
+  AutoDeployment? get autoDeployment;
 
   /// Describes how the IAM roles required for stack set operations are created.
   ///
   /// *   With `self-managed` permissions, you must create the administrator and execution roles required to deploy to target accounts. For more information, see [Grant Self-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-self-managed.html).
   ///
   /// *   With `service-managed` permissions, StackSets automatically creates the IAM roles required to deploy to accounts managed by Organizations. For more information, see [Grant Service-Managed Stack Set Permissions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs-service-managed.html).
-  _i4.PermissionModels? get permissionModel;
+  PermissionModels? get permissionModel;
 
   /// Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.
   ///
@@ -90,13 +85,13 @@ abstract class StackSetSummary
   /// *   `IN_SYNC`: All the stack instances belonging to the stack set stack match from the expected template and parameter configuration.
   ///
   /// *   `UNKNOWN`: This value is reserved for future use.
-  _i5.StackDriftStatus? get driftStatus;
+  StackDriftStatus? get driftStatus;
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack set. This value will be `NULL` for any stack set on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
-  _i6.ManagedExecution? get managedExecution;
+  ManagedExecution? get managedExecution;
   @override
   List<Object?> get props => [
         stackSetName,
@@ -153,7 +148,7 @@ abstract class StackSetSummary
 }
 
 class StackSetSummaryAwsQuerySerializer
-    extends _i7.StructuredSmithySerializer<StackSetSummary> {
+    extends _i2.StructuredSmithySerializer<StackSetSummary> {
   const StackSetSummaryAwsQuerySerializer() : super('StackSetSummary');
 
   @override
@@ -162,8 +157,8 @@ class StackSetSummaryAwsQuerySerializer
         _$StackSetSummary,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -175,6 +170,14 @@ class StackSetSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackSetSummaryBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -202,23 +205,23 @@ class StackSetSummaryAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSetStatus),
-          ) as _i2.StackSetStatus);
+            specifiedType: const FullType(StackSetStatus),
+          ) as StackSetStatus);
         case 'AutoDeployment':
           result.autoDeployment.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoDeployment),
-          ) as _i3.AutoDeployment));
+            specifiedType: const FullType(AutoDeployment),
+          ) as AutoDeployment));
         case 'PermissionModel':
           result.permissionModel = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.PermissionModels),
-          ) as _i4.PermissionModels);
+            specifiedType: const FullType(PermissionModels),
+          ) as PermissionModels);
         case 'DriftStatus':
           result.driftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.StackDriftStatus),
-          ) as _i5.StackDriftStatus);
+            specifiedType: const FullType(StackDriftStatus),
+          ) as StackDriftStatus);
         case 'LastDriftCheckTimestamp':
           result.lastDriftCheckTimestamp = (serializers.deserialize(
             value,
@@ -227,8 +230,8 @@ class StackSetSummaryAwsQuerySerializer
         case 'ManagedExecution':
           result.managedExecution.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ManagedExecution),
-          ) as _i6.ManagedExecution));
+            specifiedType: const FullType(ManagedExecution),
+          ) as ManagedExecution));
       }
     }
 
@@ -242,9 +245,9 @@ class StackSetSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i2.XmlElementName(
         'StackSetSummaryResponse',
-        _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSetSummary(
@@ -260,7 +263,7 @@ class StackSetSummaryAwsQuerySerializer
     ) = object;
     if (stackSetName != null) {
       result$
-        ..add(const _i7.XmlElementName('StackSetName'))
+        ..add(const _i2.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
           stackSetName,
           specifiedType: const FullType(String),
@@ -268,7 +271,7 @@ class StackSetSummaryAwsQuerySerializer
     }
     if (stackSetId != null) {
       result$
-        ..add(const _i7.XmlElementName('StackSetId'))
+        ..add(const _i2.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           stackSetId,
           specifiedType: const FullType(String),
@@ -276,7 +279,7 @@ class StackSetSummaryAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i7.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -284,39 +287,39 @@ class StackSetSummaryAwsQuerySerializer
     }
     if (status != null) {
       result$
-        ..add(const _i7.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.StackSetStatus),
+          specifiedType: const FullType.nullable(StackSetStatus),
         ));
     }
     if (autoDeployment != null) {
       result$
-        ..add(const _i7.XmlElementName('AutoDeployment'))
+        ..add(const _i2.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
           autoDeployment,
-          specifiedType: const FullType(_i3.AutoDeployment),
+          specifiedType: const FullType(AutoDeployment),
         ));
     }
     if (permissionModel != null) {
       result$
-        ..add(const _i7.XmlElementName('PermissionModel'))
+        ..add(const _i2.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(_i4.PermissionModels),
+          specifiedType: const FullType.nullable(PermissionModels),
         ));
     }
     if (driftStatus != null) {
       result$
-        ..add(const _i7.XmlElementName('DriftStatus'))
+        ..add(const _i2.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
-          specifiedType: const FullType.nullable(_i5.StackDriftStatus),
+          specifiedType: const FullType.nullable(StackDriftStatus),
         ));
     }
     if (lastDriftCheckTimestamp != null) {
       result$
-        ..add(const _i7.XmlElementName('LastDriftCheckTimestamp'))
+        ..add(const _i2.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
@@ -324,10 +327,10 @@ class StackSetSummaryAwsQuerySerializer
     }
     if (managedExecution != null) {
       result$
-        ..add(const _i7.XmlElementName('ManagedExecution'))
+        ..add(const _i2.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
           managedExecution,
-          specifiedType: const FullType(_i6.ManagedExecution),
+          specifiedType: const FullType(ManagedExecution),
         ));
     }
     return result$;

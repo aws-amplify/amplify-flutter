@@ -4,11 +4,11 @@
 library smoke_test.iam.model.create_open_id_connect_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'create_open_id_connect_provider_response.g.dart';
 
@@ -22,11 +22,11 @@ abstract class CreateOpenIdConnectProviderResponse
   /// Contains the response to a successful CreateOpenIDConnectProvider request.
   factory CreateOpenIdConnectProviderResponse({
     String? openIdConnectProviderArn,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$CreateOpenIdConnectProviderResponse._(
       openIdConnectProviderArn: openIdConnectProviderArn,
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -44,14 +44,14 @@ abstract class CreateOpenIdConnectProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<CreateOpenIdConnectProviderResponse>>
+  static const List<_i3.SmithySerializer<CreateOpenIdConnectProviderResponse>>
       serializers = [CreateOpenIdConnectProviderResponseAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the new IAM OpenID Connect provider that is created. For more information, see OpenIDConnectProviderListEntry.
   String? get openIdConnectProviderArn;
 
   /// A list of tags that are attached to the new IAM OIDC provider. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         openIdConnectProviderArn,
@@ -73,7 +73,7 @@ abstract class CreateOpenIdConnectProviderResponse
   }
 }
 
-class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
+class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<CreateOpenIdConnectProviderResponse> {
   const CreateOpenIdConnectProviderResponseAwsQuerySerializer()
       : super('CreateOpenIdConnectProviderResponse');
@@ -84,8 +84,8 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
         _$CreateOpenIdConnectProviderResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -97,6 +97,14 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = CreateOpenIdConnectProviderResponseBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -112,16 +120,16 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
             specifiedType: const FullType(String),
           ) as String);
         case 'Tags':
-          result.tags.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -135,9 +143,9 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'CreateOpenIdConnectProviderResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateOpenIdConnectProviderResponse(
@@ -146,7 +154,7 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
     ) = object;
     if (openIdConnectProviderArn != null) {
       result$
-        ..add(const _i4.XmlElementName('OpenIDConnectProviderArn'))
+        ..add(const _i3.XmlElementName('OpenIDConnectProviderArn'))
         ..add(serializers.serialize(
           openIdConnectProviderArn,
           specifiedType: const FullType(String),
@@ -154,15 +162,15 @@ class CreateOpenIdConnectProviderResponseAwsQuerySerializer extends _i4
     }
     if (tags != null) {
       result$
-        ..add(const _i4.XmlElementName('Tags'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

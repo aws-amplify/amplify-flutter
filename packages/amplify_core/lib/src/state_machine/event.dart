@@ -54,55 +54,114 @@ final class EventCompleter<Event extends StateMachineEvent,
   /// here and chain it with later stack traces.
   final StackTrace stackTrace;
 
-  /// The zone in which this event was created.
+  /// The zone in which this event was created, used to guarantee Zone values
+  /// are present from the Zone in which the event was created.
   ///
-  /// Used in [run] to guarantee callbacks run in the same zone that this event
+  /// Due to how Zones work with Streams, it cannot be guaranteed that the Zone
+  /// in which this event is accepted (which is the zone in which the state
+  /// machine was created) will be the same as the zone in which the event
   /// was created.
   final Zone _zone = Zone.current;
-  final Completer<void> _acceptedCompleter = Completer();
-  final Completer<State> _completer = Completer();
+
+  /// Every time [accepted] or [completed] is called, generate a new completer.
+  /// This is because the Zone in which a [Completer] is instantiated **must**
+  /// match the Zone in which its future is listened to, otherwise the future
+  /// will never complete.
+  ///
+  /// That is, running `_zone.run(completer.complete)` would still throw
+  /// the error in the Zone where the completer was instantiated. And due
+  /// to how Zone's work, a listener for a completer which completes in a
+  /// different error zone will never finish.
+  ///
+  /// The following example illustrates the problem we're trying to solve
+  /// here:
+  ///
+  /// ```dart
+  /// import "dart:async";
+  ///
+  /// void main() {
+  ///   final completer = Completer();
+  ///   runZonedGuarded(() async {
+  ///     await completer.future;
+  ///     print('never printed');
+  ///   }, (e, s) {
+  ///     print('never printed');
+  ///   });
+  ///   completer.future.catchError((e) => print('outer zone: $e'));
+  ///   completer.completeError('error');
+  /// }
+  /// ```
+  ///
+  /// See this [Dart issue](https://github.com/dart-lang/sdk/issues/49457) for
+  /// more information.
+  final List<Completer<void>> _acceptedCompleters = [];
+  final List<Completer<State>> _completers = [];
+
+  var _accepted = false;
+  (State?, Object?, StackTrace?)? _completion;
 
   /// Completes when the event is accepted by the respective state machine.
   ///
   /// After this completes, intermediate changes can be listened for on the
   /// event's state machine.
-  Future<void> get accepted => _acceptedCompleter.future;
+  Future<void> get accepted {
+    if (_accepted) {
+      return Future.value();
+    }
+    final completer = Completer<void>();
+    _acceptedCompleters.add(completer);
+    return completer.future;
+  }
 
   /// Completes with the stopping state emitted after the full propagation
   /// of this event.
-  Future<State> get completed => _completer.future;
+  Future<State> get completed {
+    if (_completion case (final completion?, _, _)) {
+      return Future.value(completion);
+    }
+    if (_completion case (_, final error?, final stackTrace?)) {
+      return Future.error(error, stackTrace);
+    }
+    final completer = Completer<State>();
+    _completers.add(completer);
+    return completer.future;
+  }
 
   /// Accepts the event by a state machine.
   void accept() {
-    if (!_acceptedCompleter.isCompleted) {
-      _acceptedCompleter.complete();
+    _accepted = true;
+    for (final completer in _acceptedCompleters) {
+      if (!completer.isCompleted) {
+        completer.complete();
+      }
     }
+    _acceptedCompleters.clear();
   }
 
   /// Completes the event propagation with its stopping state.
   void complete(State state) {
-    if (!_completer.isCompleted) {
-      _completer.complete(state);
+    _completion ??= (state, null, null);
+    for (final completer in _completers) {
+      if (!completer.isCompleted) {
+        completer.complete(state);
+      }
     }
+    _completers.clear();
   }
 
   /// Completes the event propagation with an error, if the event failed to
   /// resolve to a meaningful stopping state.
   void completeError(Object error, StackTrace stackTrace) {
-    if (!_completer.isCompleted) {
-      _completer.completeError(error, stackTrace);
+    _completion ??= (null, error, stackTrace);
+    for (final completer in _completers) {
+      if (!completer.isCompleted) {
+        completer.completeError(error, stackTrace);
+      }
     }
+    _completers.clear();
   }
 
   /// Runs [body] in the [Zone] which this event was created.
-  ///
-  /// Due to how Zones work in Flutter, it cannot be guaranteed that the Zone
-  /// in which this event is accepted (which is the zone in which the state
-  /// machine was created) will be the same as the zone in which the _event_
-  /// was created.
-  ///
-  /// Since events are created in the same zone as the user's call, we should
-  /// default to using this zone for running state machine actions.
   R run<R>(R Function() body) => _zone.run(body);
 
   /// Ignores the result of the event completer.

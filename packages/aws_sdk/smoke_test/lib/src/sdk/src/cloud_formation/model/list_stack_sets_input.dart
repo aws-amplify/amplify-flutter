@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart';
 
 part 'list_stack_sets_input.g.dart';
 
@@ -20,8 +18,8 @@ abstract class ListStackSetsInput
   factory ListStackSetsInput({
     String? nextToken,
     int? maxResults,
-    _i3.StackSetStatus? status,
-    _i4.CallAs? callAs,
+    StackSetStatus? status,
+    CallAs? callAs,
   }) {
     return _$ListStackSetsInput._(
       nextToken: nextToken,
@@ -55,7 +53,7 @@ abstract class ListStackSetsInput
   int? get maxResults;
 
   /// The status of the stack sets that you want to get summary information about.
-  _i3.StackSetStatus? get status;
+  StackSetStatus? get status;
 
   /// \[Service-managed permissions\] Specifies whether you are acting as an account administrator in the management account or as a delegated administrator in a member account.
   ///
@@ -66,7 +64,7 @@ abstract class ListStackSetsInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i4.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   ListStackSetsInput getPayload() => this;
   @override
@@ -122,6 +120,14 @@ class ListStackSetsInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListStackSetsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -144,13 +150,13 @@ class ListStackSetsInputAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackSetStatus),
-          ) as _i3.StackSetStatus);
+            specifiedType: const FullType(StackSetStatus),
+          ) as StackSetStatus);
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CallAs),
-          ) as _i4.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -192,7 +198,7 @@ class ListStackSetsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i3.StackSetStatus),
+          specifiedType: const FullType.nullable(StackSetStatus),
         ));
     }
     if (callAs != null) {
@@ -200,7 +206,7 @@ class ListStackSetsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i4.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

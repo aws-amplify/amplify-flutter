@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.type_configuration_identifier; // ignor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart';
 
 part 'type_configuration_identifier.g.dart';
 
@@ -22,7 +21,7 @@ abstract class TypeConfigurationIdentifier
     String? typeArn,
     String? typeConfigurationAlias,
     String? typeConfigurationArn,
-    _i2.ThirdPartyType? type,
+    ThirdPartyType? type,
     String? typeName,
   }) {
     return _$TypeConfigurationIdentifier._(
@@ -41,7 +40,7 @@ abstract class TypeConfigurationIdentifier
 
   const TypeConfigurationIdentifier._();
 
-  static const List<_i3.SmithySerializer<TypeConfigurationIdentifier>>
+  static const List<_i2.SmithySerializer<TypeConfigurationIdentifier>>
       serializers = [TypeConfigurationIdentifierAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
@@ -56,7 +55,7 @@ abstract class TypeConfigurationIdentifier
   String? get typeConfigurationArn;
 
   /// The type of extension.
-  _i2.ThirdPartyType? get type;
+  ThirdPartyType? get type;
 
   /// The name of the extension type to which this configuration applies.
   String? get typeName;
@@ -96,7 +95,7 @@ abstract class TypeConfigurationIdentifier
 }
 
 class TypeConfigurationIdentifierAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<TypeConfigurationIdentifier> {
+    extends _i2.StructuredSmithySerializer<TypeConfigurationIdentifier> {
   const TypeConfigurationIdentifierAwsQuerySerializer()
       : super('TypeConfigurationIdentifier');
 
@@ -106,8 +105,8 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         _$TypeConfigurationIdentifier,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -119,6 +118,14 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = TypeConfigurationIdentifierBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -146,8 +153,8 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ThirdPartyType),
-          ) as _i2.ThirdPartyType);
+            specifiedType: const FullType(ThirdPartyType),
+          ) as ThirdPartyType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -166,9 +173,9 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'TypeConfigurationIdentifierResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final TypeConfigurationIdentifier(
@@ -180,7 +187,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     ) = object;
     if (typeArn != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeArn'))
+        ..add(const _i2.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
           specifiedType: const FullType(String),
@@ -188,7 +195,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     }
     if (typeConfigurationAlias != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeConfigurationAlias'))
+        ..add(const _i2.XmlElementName('TypeConfigurationAlias'))
         ..add(serializers.serialize(
           typeConfigurationAlias,
           specifiedType: const FullType(String),
@@ -196,7 +203,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     }
     if (typeConfigurationArn != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeConfigurationArn'))
+        ..add(const _i2.XmlElementName('TypeConfigurationArn'))
         ..add(serializers.serialize(
           typeConfigurationArn,
           specifiedType: const FullType(String),
@@ -204,15 +211,15 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     }
     if (type != null) {
       result$
-        ..add(const _i3.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.ThirdPartyType),
+          specifiedType: const FullType.nullable(ThirdPartyType),
         ));
     }
     if (typeName != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeName'))
+        ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),

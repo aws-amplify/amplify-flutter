@@ -6,9 +6,8 @@ library smoke_test.config_service.model.organization_conformance_pack_detailed_s
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status.dart';
 
 part 'organization_conformance_pack_detailed_status.g.dart';
 
@@ -23,7 +22,7 @@ abstract class OrganizationConformancePackDetailedStatus
   factory OrganizationConformancePackDetailedStatus({
     required String accountId,
     required String conformancePackName,
-    required _i2.OrganizationResourceDetailedStatus status,
+    required OrganizationResourceDetailedStatus status,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
@@ -46,7 +45,7 @@ abstract class OrganizationConformancePackDetailedStatus
   const OrganizationConformancePackDetailedStatus._();
 
   static const List<
-          _i3.SmithySerializer<OrganizationConformancePackDetailedStatus>>
+          _i2.SmithySerializer<OrganizationConformancePackDetailedStatus>>
       serializers = [
     OrganizationConformancePackDetailedStatusAwsJson11Serializer()
   ];
@@ -78,7 +77,7 @@ abstract class OrganizationConformancePackDetailedStatus
   /// *   `UPDATE\_IN\_PROGRESS` when conformance pack is being updated in the member account.
   ///
   /// *   `UPDATE_FAILED` when conformance pack deletion has failed in the member account.
-  _i2.OrganizationResourceDetailedStatus get status;
+  OrganizationResourceDetailedStatus get status;
 
   /// An error code that is returned when conformance pack creation or deletion failed in the member account.
   String? get errorCode;
@@ -129,7 +128,7 @@ abstract class OrganizationConformancePackDetailedStatus
   }
 }
 
-class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
+class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<OrganizationConformancePackDetailedStatus> {
   const OrganizationConformancePackDetailedStatusAwsJson11Serializer()
       : super('OrganizationConformancePackDetailedStatus');
@@ -140,8 +139,8 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
         _$OrganizationConformancePackDetailedStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -175,9 +174,8 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.OrganizationResourceDetailedStatus),
-          ) as _i2.OrganizationResourceDetailedStatus);
+            specifiedType: const FullType(OrganizationResourceDetailedStatus),
+          ) as OrganizationResourceDetailedStatus);
         case 'ErrorCode':
           result.errorCode = (serializers.deserialize(
             value,
@@ -228,7 +226,7 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
       'Status',
       serializers.serialize(
         status,
-        specifiedType: const FullType(_i2.OrganizationResourceDetailedStatus),
+        specifiedType: const FullType(OrganizationResourceDetailedStatus),
       ),
     ]);
     if (errorCode != null) {

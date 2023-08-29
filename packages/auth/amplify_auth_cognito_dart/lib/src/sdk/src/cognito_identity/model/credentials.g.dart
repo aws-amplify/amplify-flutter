@@ -71,9 +71,7 @@ class CredentialsBuilder implements Builder<Credentials, CredentialsBuilder> {
   DateTime? get expiration => _$this._expiration;
   set expiration(DateTime? expiration) => _$this._expiration = expiration;
 
-  CredentialsBuilder() {
-    Credentials._init(this);
-  }
+  CredentialsBuilder();
 
   CredentialsBuilder get _$this {
     final $v = _$v;

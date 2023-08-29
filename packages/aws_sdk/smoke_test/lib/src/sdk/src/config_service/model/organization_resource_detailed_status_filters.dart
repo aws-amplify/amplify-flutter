@@ -6,9 +6,8 @@ library smoke_test.config_service.model.organization_resource_detailed_status_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status.dart';
 
 part 'organization_resource_detailed_status_filters.g.dart';
 
@@ -22,7 +21,7 @@ abstract class OrganizationResourceDetailedStatusFilters
   /// Status filter object to filter results based on specific member account ID or status type for an organization conformance pack.
   factory OrganizationResourceDetailedStatusFilters({
     String? accountId,
-    _i2.OrganizationResourceDetailedStatus? status,
+    OrganizationResourceDetailedStatus? status,
   }) {
     return _$OrganizationResourceDetailedStatusFilters._(
       accountId: accountId,
@@ -38,7 +37,7 @@ abstract class OrganizationResourceDetailedStatusFilters
   const OrganizationResourceDetailedStatusFilters._();
 
   static const List<
-          _i3.SmithySerializer<OrganizationResourceDetailedStatusFilters>>
+          _i2.SmithySerializer<OrganizationResourceDetailedStatusFilters>>
       serializers = [
     OrganizationResourceDetailedStatusFiltersAwsJson11Serializer()
   ];
@@ -67,7 +66,7 @@ abstract class OrganizationResourceDetailedStatusFilters
   /// *   `UPDATE\_IN\_PROGRESS` when conformance pack is being updated in the member account.
   ///
   /// *   `UPDATE_FAILED` when conformance pack deletion has failed in the member account.
-  _i2.OrganizationResourceDetailedStatus? get status;
+  OrganizationResourceDetailedStatus? get status;
   @override
   List<Object?> get props => [
         accountId,
@@ -89,7 +88,7 @@ abstract class OrganizationResourceDetailedStatusFilters
   }
 }
 
-class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
+class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<OrganizationResourceDetailedStatusFilters> {
   const OrganizationResourceDetailedStatusFiltersAwsJson11Serializer()
       : super('OrganizationResourceDetailedStatusFilters');
@@ -100,8 +99,8 @@ class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
         _$OrganizationResourceDetailedStatusFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -130,9 +129,8 @@ class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.OrganizationResourceDetailedStatus),
-          ) as _i2.OrganizationResourceDetailedStatus);
+            specifiedType: const FullType(OrganizationResourceDetailedStatus),
+          ) as OrganizationResourceDetailedStatus);
       }
     }
 
@@ -161,7 +159,7 @@ class OrganizationResourceDetailedStatusFiltersAwsJson11Serializer extends _i3
         ..add('Status')
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType(_i2.OrganizationResourceDetailedStatus),
+          specifiedType: const FullType(OrganizationResourceDetailedStatus),
         ));
     }
     return result$;

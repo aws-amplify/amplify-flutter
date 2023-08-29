@@ -3,24 +3,23 @@
 
 library rest_xml_v1.rest_xml_protocol.model.http_payload_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/payload_with_xml_name.dart'
-    as _i2;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/payload_with_xml_name.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'http_payload_with_xml_name_input_output.g.dart';
 
 abstract class HttpPayloadWithXmlNameInputOutput
     with
-        _i1.HttpInput<_i2.PayloadWithXmlName>,
-        _i3.AWSEquatable<HttpPayloadWithXmlNameInputOutput>
+        _i1.HttpInput<PayloadWithXmlName>,
+        _i2.AWSEquatable<HttpPayloadWithXmlNameInputOutput>
     implements
         Built<HttpPayloadWithXmlNameInputOutput,
             HttpPayloadWithXmlNameInputOutputBuilder>,
-        _i1.HasPayload<_i2.PayloadWithXmlName> {
-  factory HttpPayloadWithXmlNameInputOutput({_i2.PayloadWithXmlName? nested}) {
+        _i1.HasPayload<PayloadWithXmlName> {
+  factory HttpPayloadWithXmlNameInputOutput({PayloadWithXmlName? nested}) {
     return _$HttpPayloadWithXmlNameInputOutput._(nested: nested);
   }
 
@@ -31,8 +30,8 @@ abstract class HttpPayloadWithXmlNameInputOutput
   const HttpPayloadWithXmlNameInputOutput._();
 
   factory HttpPayloadWithXmlNameInputOutput.fromRequest(
-    _i2.PayloadWithXmlName? payload,
-    _i3.AWSBaseHttpRequest request, {
+    PayloadWithXmlName? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       HttpPayloadWithXmlNameInputOutput.build((b) {
@@ -43,8 +42,8 @@ abstract class HttpPayloadWithXmlNameInputOutput
 
   /// Constructs a [HttpPayloadWithXmlNameInputOutput] from a [payload] and [response].
   factory HttpPayloadWithXmlNameInputOutput.fromResponse(
-    _i2.PayloadWithXmlName? payload,
-    _i3.AWSBaseHttpResponse response,
+    PayloadWithXmlName? payload,
+    _i2.AWSBaseHttpResponse response,
   ) =>
       HttpPayloadWithXmlNameInputOutput.build((b) {
         if (payload != null) {
@@ -52,12 +51,13 @@ abstract class HttpPayloadWithXmlNameInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.PayloadWithXmlName?>> serializers =
-      [HttpPayloadWithXmlNameInputOutputRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<PayloadWithXmlName?>> serializers = [
+    HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
+  ];
 
-  _i2.PayloadWithXmlName? get nested;
+  PayloadWithXmlName? get nested;
   @override
-  _i2.PayloadWithXmlName? getPayload() => nested ?? _i2.PayloadWithXmlName();
+  PayloadWithXmlName? getPayload() => nested ?? PayloadWithXmlName();
   @override
   List<Object?> get props => [nested];
   @override
@@ -73,7 +73,7 @@ abstract class HttpPayloadWithXmlNameInputOutput
 }
 
 class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.PayloadWithXmlName> {
+    extends _i1.StructuredSmithySerializer<PayloadWithXmlName> {
   const HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
       : super('HttpPayloadWithXmlNameInputOutput');
 
@@ -90,12 +90,12 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
         )
       ];
   @override
-  _i2.PayloadWithXmlName deserialize(
+  PayloadWithXmlName deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.PayloadWithXmlNameBuilder();
+    final result = PayloadWithXmlNameBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -119,11 +119,11 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.PayloadWithXmlName object, {
+    PayloadWithXmlName object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[const _i1.XmlElementName('Hello')];
-    final _i2.PayloadWithXmlName(:name) = object;
+    final PayloadWithXmlName(:name) = object;
     if (name != null) {
       result$
         ..add(const _i1.XmlElementName('name'))

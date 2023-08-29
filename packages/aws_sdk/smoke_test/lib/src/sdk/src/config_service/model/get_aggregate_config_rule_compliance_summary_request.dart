@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_summary_filters.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_summary_group_key.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_summary_filters.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_summary_group_key.dart';
 
 part 'get_aggregate_config_rule_compliance_summary_request.g.dart';
 
@@ -23,8 +21,8 @@ abstract class GetAggregateConfigRuleComplianceSummaryRequest
             GetAggregateConfigRuleComplianceSummaryRequestBuilder> {
   factory GetAggregateConfigRuleComplianceSummaryRequest({
     required String configurationAggregatorName,
-    _i3.ConfigRuleComplianceSummaryFilters? filters,
-    _i4.ConfigRuleComplianceSummaryGroupKey? groupByKey,
+    ConfigRuleComplianceSummaryFilters? filters,
+    ConfigRuleComplianceSummaryGroupKey? groupByKey,
     int? limit,
     String? nextToken,
   }) {
@@ -66,10 +64,10 @@ abstract class GetAggregateConfigRuleComplianceSummaryRequest
   String get configurationAggregatorName;
 
   /// Filters the results based on the ConfigRuleComplianceSummaryFilters object.
-  _i3.ConfigRuleComplianceSummaryFilters? get filters;
+  ConfigRuleComplianceSummaryFilters? get filters;
 
   /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
-  _i4.ConfigRuleComplianceSummaryGroupKey? get groupByKey;
+  ConfigRuleComplianceSummaryGroupKey? get groupByKey;
 
   /// The maximum number of evaluation results returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, Config uses the default.
   int get limit;
@@ -156,15 +154,13 @@ class GetAggregateConfigRuleComplianceSummaryRequestAwsJson11Serializer
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.ConfigRuleComplianceSummaryFilters),
-          ) as _i3.ConfigRuleComplianceSummaryFilters));
+            specifiedType: const FullType(ConfigRuleComplianceSummaryFilters),
+          ) as ConfigRuleComplianceSummaryFilters));
         case 'GroupByKey':
           result.groupByKey = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i4.ConfigRuleComplianceSummaryGroupKey),
-          ) as _i4.ConfigRuleComplianceSummaryGroupKey);
+            specifiedType: const FullType(ConfigRuleComplianceSummaryGroupKey),
+          ) as ConfigRuleComplianceSummaryGroupKey);
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -212,7 +208,7 @@ class GetAggregateConfigRuleComplianceSummaryRequestAwsJson11Serializer
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ConfigRuleComplianceSummaryFilters),
+          specifiedType: const FullType(ConfigRuleComplianceSummaryFilters),
         ));
     }
     if (groupByKey != null) {
@@ -220,8 +216,7 @@ class GetAggregateConfigRuleComplianceSummaryRequestAwsJson11Serializer
         ..add('GroupByKey')
         ..add(serializers.serialize(
           groupByKey,
-          specifiedType:
-              const FullType(_i4.ConfigRuleComplianceSummaryGroupKey),
+          specifiedType: const FullType(ConfigRuleComplianceSummaryGroupKey),
         ));
     }
     if (nextToken != null) {

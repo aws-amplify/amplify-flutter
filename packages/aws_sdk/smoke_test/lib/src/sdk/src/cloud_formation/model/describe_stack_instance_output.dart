@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.describe_stack_instance_output; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance.dart';
 
 part 'describe_stack_instance_output.g.dart';
 
@@ -16,7 +15,7 @@ abstract class DescribeStackInstanceOutput
     with _i1.AWSEquatable<DescribeStackInstanceOutput>
     implements
         Built<DescribeStackInstanceOutput, DescribeStackInstanceOutputBuilder> {
-  factory DescribeStackInstanceOutput({_i2.StackInstance? stackInstance}) {
+  factory DescribeStackInstanceOutput({StackInstance? stackInstance}) {
     return _$DescribeStackInstanceOutput._(stackInstance: stackInstance);
   }
 
@@ -33,11 +32,11 @@ abstract class DescribeStackInstanceOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeStackInstanceOutput>>
+  static const List<_i2.SmithySerializer<DescribeStackInstanceOutput>>
       serializers = [DescribeStackInstanceOutputAwsQuerySerializer()];
 
   /// The stack instance that matches the specified request parameters.
-  _i2.StackInstance? get stackInstance;
+  StackInstance? get stackInstance;
   @override
   List<Object?> get props => [stackInstance];
   @override
@@ -52,7 +51,7 @@ abstract class DescribeStackInstanceOutput
 }
 
 class DescribeStackInstanceOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeStackInstanceOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeStackInstanceOutput> {
   const DescribeStackInstanceOutputAwsQuerySerializer()
       : super('DescribeStackInstanceOutput');
 
@@ -62,8 +61,8 @@ class DescribeStackInstanceOutputAwsQuerySerializer
         _$DescribeStackInstanceOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -75,6 +74,14 @@ class DescribeStackInstanceOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackInstanceOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -87,8 +94,8 @@ class DescribeStackInstanceOutputAwsQuerySerializer
         case 'StackInstance':
           result.stackInstance.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackInstance),
-          ) as _i2.StackInstance));
+            specifiedType: const FullType(StackInstance),
+          ) as StackInstance));
       }
     }
 
@@ -102,18 +109,18 @@ class DescribeStackInstanceOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeStackInstanceOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackInstanceOutput(:stackInstance) = object;
     if (stackInstance != null) {
       result$
-        ..add(const _i3.XmlElementName('StackInstance'))
+        ..add(const _i2.XmlElementName('StackInstance'))
         ..add(serializers.serialize(
           stackInstance,
-          specifiedType: const FullType(_i2.StackInstance),
+          specifiedType: const FullType(StackInstance),
         ));
     }
     return result$;

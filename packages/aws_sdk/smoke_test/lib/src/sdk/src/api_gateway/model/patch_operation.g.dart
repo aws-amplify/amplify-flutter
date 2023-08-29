@@ -8,7 +8,7 @@ part of 'patch_operation.dart';
 
 class _$PatchOperation extends PatchOperation {
   @override
-  final _i2.Op? op;
+  final Op? op;
   @override
   final String? path;
   @override
@@ -55,9 +55,9 @@ class PatchOperationBuilder
     implements Builder<PatchOperation, PatchOperationBuilder> {
   _$PatchOperation? _$v;
 
-  _i2.Op? _op;
-  _i2.Op? get op => _$this._op;
-  set op(_i2.Op? op) => _$this._op = op;
+  Op? _op;
+  Op? get op => _$this._op;
+  set op(Op? op) => _$this._op = op;
 
   String? _path;
   String? get path => _$this._path;

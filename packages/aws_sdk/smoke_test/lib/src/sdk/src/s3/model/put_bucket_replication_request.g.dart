@@ -12,9 +12,9 @@ class _$PutBucketReplicationRequest extends PutBucketReplicationRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.ReplicationConfiguration replicationConfiguration;
+  final ReplicationConfiguration replicationConfiguration;
   @override
   final String? token;
   @override
@@ -87,17 +87,17 @@ class PutBucketReplicationRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.ReplicationConfigurationBuilder? _replicationConfiguration;
-  _i2.ReplicationConfigurationBuilder get replicationConfiguration =>
+  ReplicationConfigurationBuilder? _replicationConfiguration;
+  ReplicationConfigurationBuilder get replicationConfiguration =>
       _$this._replicationConfiguration ??=
-          new _i2.ReplicationConfigurationBuilder();
+          new ReplicationConfigurationBuilder();
   set replicationConfiguration(
-          _i2.ReplicationConfigurationBuilder? replicationConfiguration) =>
+          ReplicationConfigurationBuilder? replicationConfiguration) =>
       _$this._replicationConfiguration = replicationConfiguration;
 
   String? _token;

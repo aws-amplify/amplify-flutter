@@ -3,22 +3,17 @@
 
 library amplify_storage_s3_dart.s3.operation.head_object_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i5;
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart'
-    as _i6;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/head_object_output.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/head_object_request.dart'
-    as _i2;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/not_found.dart'
-    as _i9;
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/serializers.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/head_object_output.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/head_object_request.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/not_found.dart';
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
 ///
@@ -79,11 +74,8 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
 ///
 /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-class HeadObjectOperation extends _i1.HttpOperation<
-    _i2.HeadObjectRequestPayload,
-    _i2.HeadObjectRequest,
-    _i3.HeadObjectOutputPayload,
-    _i3.HeadObjectOutput> {
+class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
+    HeadObjectRequest, HeadObjectOutputPayload, HeadObjectOutput> {
   /// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
   ///
   /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
@@ -146,9 +138,9 @@ class HeadObjectOperation extends _i1.HttpOperation<
   HeadObjectOperation({
     required String region,
     Uri? baseUri,
-    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-    _i5.AWSCredentialsProvider credentialsProvider =
-        const _i5.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -160,23 +152,23 @@ class HeadObjectOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.HeadObjectRequestPayload, _i2.HeadObjectRequest,
-          _i3.HeadObjectOutputPayload, _i3.HeadObjectOutput>> protocols = [
-    _i4.RestXmlProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<HeadObjectRequestPayload, HeadObjectRequest,
+          HeadObjectOutputPayload, HeadObjectOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i4.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i7.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -185,8 +177,8 @@ class HeadObjectOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -194,17 +186,16 @@ class HeadObjectOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i5.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.HeadObjectRequest input) =>
-      _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(HeadObjectRequest input) => _i1.HttpRequest((b) {
         b.method = 'HEAD';
         b.path =
             _s3ClientConfig.usePathStyle ? r'/{Bucket}/{Key+}' : r'/{Key+}';
@@ -279,32 +270,32 @@ class HeadObjectOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i3.HeadObjectOutput? output]) => 200;
+  int successCode([HeadObjectOutput? output]) => 200;
   @override
-  _i3.HeadObjectOutput buildOutput(
-    _i3.HeadObjectOutputPayload payload,
-    _i7.AWSBaseHttpResponse response,
+  HeadObjectOutput buildOutput(
+    HeadObjectOutputPayload payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.HeadObjectOutput.fromResponse(
+      HeadObjectOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.NotFound, _i9.NotFound>(
+        _i1.SmithyError<NotFound, NotFound>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NotFound',
           ),
           _i1.ErrorKind.client,
-          _i9.NotFound,
-          builder: _i9.NotFound.fromResponse,
+          NotFound,
+          builder: NotFound.fromResponse,
         )
       ];
   @override
   String get runtimeTypeName => 'HeadObject';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -326,12 +317,12 @@ class HeadObjectOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.HeadObjectOutput> run(
-    _i2.HeadObjectRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<HeadObjectOutput> run(
+    HeadObjectRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i10.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -339,7 +330,7 @@ class HeadObjectOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

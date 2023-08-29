@@ -8,7 +8,7 @@ part of 'entity_details.dart';
 
 class _$EntityDetails extends EntityDetails {
   @override
-  final _i2.EntityInfo entityInfo;
+  final EntityInfo entityInfo;
   @override
   final DateTime? lastAuthenticated;
 
@@ -50,10 +50,10 @@ class EntityDetailsBuilder
     implements Builder<EntityDetails, EntityDetailsBuilder> {
   _$EntityDetails? _$v;
 
-  _i2.EntityInfoBuilder? _entityInfo;
-  _i2.EntityInfoBuilder get entityInfo =>
-      _$this._entityInfo ??= new _i2.EntityInfoBuilder();
-  set entityInfo(_i2.EntityInfoBuilder? entityInfo) =>
+  EntityInfoBuilder? _entityInfo;
+  EntityInfoBuilder get entityInfo =>
+      _$this._entityInfo ??= new EntityInfoBuilder();
+  set entityInfo(EntityInfoBuilder? entityInfo) =>
       _$this._entityInfo = entityInfo;
 
   DateTime? _lastAuthenticated;

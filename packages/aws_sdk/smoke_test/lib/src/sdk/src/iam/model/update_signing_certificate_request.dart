@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'update_signing_certificate_request.g.dart';
 
@@ -21,7 +21,7 @@ abstract class UpdateSigningCertificateRequest
   factory UpdateSigningCertificateRequest({
     String? userName,
     required String certificateId,
-    required _i3.StatusType status,
+    required StatusType status,
   }) {
     return _$UpdateSigningCertificateRequest._(
       userName: userName,
@@ -57,7 +57,7 @@ abstract class UpdateSigningCertificateRequest
   String get certificateId;
 
   /// The status you want to assign to the certificate. `Active` means that the certificate can be used for programmatic calls to Amazon Web Services `Inactive` means that the certificate cannot be used.
-  _i3.StatusType get status;
+  StatusType get status;
   @override
   UpdateSigningCertificateRequest getPayload() => this;
   @override
@@ -110,6 +110,14 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = UpdateSigningCertificateRequestBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -132,8 +140,8 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StatusType),
-          ) as _i3.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
       }
     }
 
@@ -172,7 +180,7 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i3.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     return result$;
   }

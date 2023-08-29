@@ -18,19 +18,19 @@ class _$RestApi extends RestApi {
   @override
   final String? version;
   @override
-  final _i4.BuiltList<String>? warnings;
+  final _i2.BuiltList<String>? warnings;
   @override
-  final _i4.BuiltList<String>? binaryMediaTypes;
+  final _i2.BuiltList<String>? binaryMediaTypes;
   @override
   final int? minimumCompressionSize;
   @override
-  final _i2.ApiKeySourceType? apiKeySource;
+  final ApiKeySourceType? apiKeySource;
   @override
-  final _i3.EndpointConfiguration? endpointConfiguration;
+  final EndpointConfiguration? endpointConfiguration;
   @override
   final String? policy;
   @override
-  final _i4.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
   @override
   final bool disableExecuteApiEndpoint;
 
@@ -126,16 +126,16 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   String? get version => _$this._version;
   set version(String? version) => _$this._version = version;
 
-  _i4.ListBuilder<String>? _warnings;
-  _i4.ListBuilder<String> get warnings =>
-      _$this._warnings ??= new _i4.ListBuilder<String>();
-  set warnings(_i4.ListBuilder<String>? warnings) =>
+  _i2.ListBuilder<String>? _warnings;
+  _i2.ListBuilder<String> get warnings =>
+      _$this._warnings ??= new _i2.ListBuilder<String>();
+  set warnings(_i2.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
-  _i4.ListBuilder<String>? _binaryMediaTypes;
-  _i4.ListBuilder<String> get binaryMediaTypes =>
-      _$this._binaryMediaTypes ??= new _i4.ListBuilder<String>();
-  set binaryMediaTypes(_i4.ListBuilder<String>? binaryMediaTypes) =>
+  _i2.ListBuilder<String>? _binaryMediaTypes;
+  _i2.ListBuilder<String> get binaryMediaTypes =>
+      _$this._binaryMediaTypes ??= new _i2.ListBuilder<String>();
+  set binaryMediaTypes(_i2.ListBuilder<String>? binaryMediaTypes) =>
       _$this._binaryMediaTypes = binaryMediaTypes;
 
   int? _minimumCompressionSize;
@@ -143,26 +143,26 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set minimumCompressionSize(int? minimumCompressionSize) =>
       _$this._minimumCompressionSize = minimumCompressionSize;
 
-  _i2.ApiKeySourceType? _apiKeySource;
-  _i2.ApiKeySourceType? get apiKeySource => _$this._apiKeySource;
-  set apiKeySource(_i2.ApiKeySourceType? apiKeySource) =>
+  ApiKeySourceType? _apiKeySource;
+  ApiKeySourceType? get apiKeySource => _$this._apiKeySource;
+  set apiKeySource(ApiKeySourceType? apiKeySource) =>
       _$this._apiKeySource = apiKeySource;
 
-  _i3.EndpointConfigurationBuilder? _endpointConfiguration;
-  _i3.EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new _i3.EndpointConfigurationBuilder();
+  EndpointConfigurationBuilder? _endpointConfiguration;
+  EndpointConfigurationBuilder get endpointConfiguration =>
+      _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
   set endpointConfiguration(
-          _i3.EndpointConfigurationBuilder? endpointConfiguration) =>
+          EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
   String? _policy;
   String? get policy => _$this._policy;
   set policy(String? policy) => _$this._policy = policy;
 
-  _i4.MapBuilder<String, String>? _tags;
-  _i4.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i4.MapBuilder<String, String>();
-  set tags(_i4.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   bool? _disableExecuteApiEndpoint;
   bool? get disableExecuteApiEndpoint => _$this._disableExecuteApiEndpoint;

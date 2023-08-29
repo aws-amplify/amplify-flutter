@@ -8,7 +8,7 @@ part of 'update_endpoints_batch_response.dart';
 
 class _$UpdateEndpointsBatchResponse extends UpdateEndpointsBatchResponse {
   @override
-  final _i3.MessageBody messageBody;
+  final MessageBody messageBody;
 
   factory _$UpdateEndpointsBatchResponse(
           [void Function(UpdateEndpointsBatchResponseBuilder)? updates]) =>
@@ -50,10 +50,10 @@ class UpdateEndpointsBatchResponseBuilder
             UpdateEndpointsBatchResponseBuilder> {
   _$UpdateEndpointsBatchResponse? _$v;
 
-  _i3.MessageBodyBuilder? _messageBody;
-  _i3.MessageBodyBuilder get messageBody =>
-      _$this._messageBody ??= new _i3.MessageBodyBuilder();
-  set messageBody(_i3.MessageBodyBuilder? messageBody) =>
+  MessageBodyBuilder? _messageBody;
+  MessageBodyBuilder get messageBody =>
+      _$this._messageBody ??= new MessageBodyBuilder();
+  set messageBody(MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
   UpdateEndpointsBatchResponseBuilder();

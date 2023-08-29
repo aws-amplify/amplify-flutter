@@ -9,7 +9,7 @@ part of 'list_instance_profile_tags_response.dart';
 class _$ListInstanceProfileTagsResponse
     extends ListInstanceProfileTagsResponse {
   @override
-  final _i3.BuiltList<_i2.Tag> tags;
+  final _i2.BuiltList<Tag> tags;
   @override
   final bool isTruncated;
   @override
@@ -63,10 +63,9 @@ class ListInstanceProfileTagsResponseBuilder
             ListInstanceProfileTagsResponseBuilder> {
   _$ListInstanceProfileTagsResponse? _$v;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;

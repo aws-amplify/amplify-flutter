@@ -3,8 +3,7 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.put_events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_response.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_response.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -16,8 +15,8 @@ abstract class PutEventsResponse
     with _i1.AWSEquatable<PutEventsResponse>
     implements
         Built<PutEventsResponse, PutEventsResponseBuilder>,
-        _i2.HasPayload<_i3.EventsResponse> {
-  factory PutEventsResponse({required _i3.EventsResponse eventsResponse}) {
+        _i2.HasPayload<EventsResponse> {
+  factory PutEventsResponse({required EventsResponse eventsResponse}) {
     return _$PutEventsResponse._(eventsResponse: eventsResponse);
   }
 
@@ -28,21 +27,21 @@ abstract class PutEventsResponse
 
   /// Constructs a [PutEventsResponse] from a [payload] and [response].
   factory PutEventsResponse.fromResponse(
-    _i3.EventsResponse payload,
+    EventsResponse payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       PutEventsResponse.build((b) {
         b.eventsResponse.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer<_i3.EventsResponse>> serializers = [
+  static const List<_i2.SmithySerializer<EventsResponse>> serializers = [
     PutEventsResponseRestJson1Serializer()
   ];
 
   /// Provides information about endpoints and the events that they're associated with.
-  _i3.EventsResponse get eventsResponse;
+  EventsResponse get eventsResponse;
   @override
-  _i3.EventsResponse getPayload() => eventsResponse;
+  EventsResponse getPayload() => eventsResponse;
   @override
   List<Object?> get props => [eventsResponse];
   @override
@@ -57,7 +56,7 @@ abstract class PutEventsResponse
 }
 
 class PutEventsResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<_i3.EventsResponse> {
+    extends _i2.PrimitiveSmithySerializer<EventsResponse> {
   const PutEventsResponseRestJson1Serializer() : super('PutEventsResponse');
 
   @override
@@ -73,26 +72,26 @@ class PutEventsResponseRestJson1Serializer
         )
       ];
   @override
-  _i3.EventsResponse deserialize(
+  EventsResponse deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
       serialized,
-      specifiedType: const FullType(_i3.EventsResponse),
-    ) as _i3.EventsResponse);
+      specifiedType: const FullType(EventsResponse),
+    ) as EventsResponse);
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    _i3.EventsResponse object, {
+    EventsResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(_i3.EventsResponse),
+      specifiedType: const FullType(EventsResponse),
     )!;
   }
 }

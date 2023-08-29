@@ -8,9 +8,9 @@ part of 'invalid_object_state.dart';
 
 class _$InvalidObjectState extends InvalidObjectState {
   @override
-  final _i3.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i4.IntelligentTieringAccessTier? accessTier;
+  final IntelligentTieringAccessTier? accessTier;
   @override
   final int? statusCode;
   @override
@@ -55,14 +55,14 @@ class InvalidObjectStateBuilder
     implements Builder<InvalidObjectState, InvalidObjectStateBuilder> {
   _$InvalidObjectState? _$v;
 
-  _i3.StorageClass? _storageClass;
-  _i3.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i3.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i4.IntelligentTieringAccessTier? _accessTier;
-  _i4.IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
-  set accessTier(_i4.IntelligentTieringAccessTier? accessTier) =>
+  IntelligentTieringAccessTier? _accessTier;
+  IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
+  set accessTier(IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
 
   int? _statusCode;

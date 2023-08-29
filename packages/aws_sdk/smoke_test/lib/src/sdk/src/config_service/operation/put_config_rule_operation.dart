@@ -3,28 +3,20 @@
 
 library smoke_test.config_service.operation.put_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i13;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/insufficient_permissions_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_config_rules_exceeded_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_available_configuration_recorder_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_config_rule_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exception.dart'
-    as _i12;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/insufficient_permissions_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_config_rules_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_available_configuration_recorder_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exception.dart';
 
 /// Adds or updates an Config rule to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
 ///
@@ -43,8 +35,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exce
 /// For more information about developing and using Config rules, see [Evaluating Resources with Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
 ///
 /// `PutConfigRule` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
-    _i2.PutConfigRuleRequest, _i1.Unit, _i1.Unit> {
+class PutConfigRuleOperation extends _i1.HttpOperation<PutConfigRuleRequest,
+    PutConfigRuleRequest, _i1.Unit, _i1.Unit> {
   /// Adds or updates an Config rule to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
   /// There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_. You can use `PutConfigRule` to create both Config Managed Rules and Config Custom Rules.
@@ -65,8 +57,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
   PutConfigRuleOperation({
     required String region,
     Uri? baseUri,
-    _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -77,11 +69,11 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.PutConfigRuleRequest, _i2.PutConfigRuleRequest,
-          _i1.Unit, _i1.Unit>> protocols = [
-    _i4.AwsJson1_1Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+      _i1.HttpProtocol<PutConfigRuleRequest, PutConfigRuleRequest, _i1.Unit,
+          _i1.Unit>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -89,14 +81,14 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
               'X-Amz-Target',
               'StarlingDoveService.PutConfigRule',
             ),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i6.AWSService.configService,
+              service: _i4.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -104,8 +96,8 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -113,14 +105,14 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
 
   final Uri? _baseUri;
 
-  final _i3.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutConfigRuleRequest input) =>
+  _i1.HttpRequest buildRequest(PutConfigRuleRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
@@ -130,77 +122,76 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.InsufficientPermissionsException,
-            _i8.InsufficientPermissionsException>(
+        _i1.SmithyError<InsufficientPermissionsException,
+            InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
           ),
           _i1.ErrorKind.client,
-          _i8.InsufficientPermissionsException,
-          builder: _i8.InsufficientPermissionsException.fromResponse,
+          InsufficientPermissionsException,
+          builder: InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError<_i9.InvalidParameterValueException,
-            _i9.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidParameterValueException,
-          builder: _i9.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError<_i10.MaxNumberOfConfigRulesExceededException,
-            _i10.MaxNumberOfConfigRulesExceededException>(
+        _i1.SmithyError<MaxNumberOfConfigRulesExceededException,
+            MaxNumberOfConfigRulesExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConfigRulesExceededException',
           ),
           _i1.ErrorKind.client,
-          _i10.MaxNumberOfConfigRulesExceededException,
-          builder: _i10.MaxNumberOfConfigRulesExceededException.fromResponse,
+          MaxNumberOfConfigRulesExceededException,
+          builder: MaxNumberOfConfigRulesExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i11.NoAvailableConfigurationRecorderException,
-            _i11.NoAvailableConfigurationRecorderException>(
+        _i1.SmithyError<NoAvailableConfigurationRecorderException,
+            NoAvailableConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableConfigurationRecorderException',
           ),
           _i1.ErrorKind.client,
-          _i11.NoAvailableConfigurationRecorderException,
-          builder: _i11.NoAvailableConfigurationRecorderException.fromResponse,
+          NoAvailableConfigurationRecorderException,
+          builder: NoAvailableConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ResourceInUseException,
-            _i12.ResourceInUseException>(
+        _i1.SmithyError<ResourceInUseException, ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
           ),
           _i1.ErrorKind.client,
-          _i12.ResourceInUseException,
-          builder: _i12.ResourceInUseException.fromResponse,
+          ResourceInUseException,
+          builder: ResourceInUseException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'PutConfigRule';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.PutConfigRuleRequest input, {
-    _i6.AWSHttpClient? client,
+    PutConfigRuleRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i13.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -208,7 +199,7 @@ class PutConfigRuleOperation extends _i1.HttpOperation<_i2.PutConfigRuleRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

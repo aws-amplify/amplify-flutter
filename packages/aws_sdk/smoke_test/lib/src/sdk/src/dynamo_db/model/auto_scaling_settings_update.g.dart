@@ -16,7 +16,7 @@ class _$AutoScalingSettingsUpdate extends AutoScalingSettingsUpdate {
   @override
   final String? autoScalingRoleArn;
   @override
-  final _i3.AutoScalingPolicyUpdate? scalingPolicyUpdate;
+  final AutoScalingPolicyUpdate? scalingPolicyUpdate;
 
   factory _$AutoScalingSettingsUpdate(
           [void Function(AutoScalingSettingsUpdateBuilder)? updates]) =>
@@ -88,11 +88,11 @@ class AutoScalingSettingsUpdateBuilder
   set autoScalingRoleArn(String? autoScalingRoleArn) =>
       _$this._autoScalingRoleArn = autoScalingRoleArn;
 
-  _i3.AutoScalingPolicyUpdateBuilder? _scalingPolicyUpdate;
-  _i3.AutoScalingPolicyUpdateBuilder get scalingPolicyUpdate =>
-      _$this._scalingPolicyUpdate ??= new _i3.AutoScalingPolicyUpdateBuilder();
+  AutoScalingPolicyUpdateBuilder? _scalingPolicyUpdate;
+  AutoScalingPolicyUpdateBuilder get scalingPolicyUpdate =>
+      _$this._scalingPolicyUpdate ??= new AutoScalingPolicyUpdateBuilder();
   set scalingPolicyUpdate(
-          _i3.AutoScalingPolicyUpdateBuilder? scalingPolicyUpdate) =>
+          AutoScalingPolicyUpdateBuilder? scalingPolicyUpdate) =>
       _$this._scalingPolicyUpdate = scalingPolicyUpdate;
 
   AutoScalingSettingsUpdateBuilder();

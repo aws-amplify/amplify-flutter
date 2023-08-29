@@ -12,7 +12,7 @@ class _$Transition extends Transition {
   @override
   final int? days;
   @override
-  final _i2.TransitionStorageClass? storageClass;
+  final TransitionStorageClass? storageClass;
 
   factory _$Transition([void Function(TransitionBuilder)? updates]) =>
       (new TransitionBuilder()..update(updates))._build();
@@ -57,9 +57,9 @@ class TransitionBuilder implements Builder<Transition, TransitionBuilder> {
   int? get days => _$this._days;
   set days(int? days) => _$this._days = days;
 
-  _i2.TransitionStorageClass? _storageClass;
-  _i2.TransitionStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i2.TransitionStorageClass? storageClass) =>
+  TransitionStorageClass? _storageClass;
+  TransitionStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(TransitionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   TransitionBuilder();

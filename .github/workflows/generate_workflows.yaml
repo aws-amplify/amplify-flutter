@@ -19,17 +19,13 @@ jobs:
           submodules: true
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@cdb51fff2b088939ef86fe041b18e82cb4733522 # main
+        uses: dart-lang/setup-dart@deafe40ee7284c48e67c783c88eed8c8b52b19ca # main
         with:
           sdk: stable
 
       - name: Setup aft
         shell: bash # Run in bash regardless of platform
-        run: |
-          # Patch libgit2dart (see https://github.com/dart-lang/pub/issues/3563)
-          ( cd packages/aft/external/libgit2dart; git apply ../libgit2dart.patch )
-          dart pub global activate -spath packages/aft
-          ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
+        run: dart pub global activate -spath packages/aft
 
       - name: Generate Workflows
         run: aft generate workflows --set-exit-if-changed

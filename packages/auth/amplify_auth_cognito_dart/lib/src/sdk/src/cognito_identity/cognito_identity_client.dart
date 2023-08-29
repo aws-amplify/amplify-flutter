@@ -1,20 +1,14 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity.cognito_identity_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_credentials_for_identity_input.dart'
-    as _i5;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_credentials_for_identity_response.dart'
-    as _i4;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_id_input.dart'
-    as _i8;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_id_response.dart'
-    as _i7;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/operation/get_credentials_for_identity_operation.dart'
-    as _i6;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/operation/get_id_operation.dart'
-    as _i9;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_credentials_for_identity_input.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_credentials_for_identity_response.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_id_input.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/get_id_response.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/operation/get_credentials_for_identity_operation.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/operation/get_id_operation.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
@@ -43,7 +37,7 @@ class CognitoIdentityClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
@@ -68,13 +62,13 @@ class CognitoIdentityClient {
   /// Returns credentials for the provided identity ID. Any provided logins will be validated against supported login providers. If the token is for cognito-identity.amazonaws.com, it will be passed through to AWS Security Token Service with the appropriate role for the token.
   ///
   /// This is a public API. You do not need any credentials to call this API.
-  _i3.SmithyOperation<_i4.GetCredentialsForIdentityResponse>
+  _i3.SmithyOperation<GetCredentialsForIdentityResponse>
       getCredentialsForIdentity(
-    _i5.GetCredentialsForIdentityInput input, {
+    GetCredentialsForIdentityInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i6.GetCredentialsForIdentityOperation(
+    return GetCredentialsForIdentityOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -89,12 +83,12 @@ class CognitoIdentityClient {
   /// Generates (or retrieves) a Cognito ID. Supplying multiple logins will create an implicit linked account.
   ///
   /// This is a public API. You do not need any credentials to call this API.
-  _i3.SmithyOperation<_i7.GetIdResponse> getId(
-    _i8.GetIdInput input, {
+  _i3.SmithyOperation<GetIdResponse> getId(
+    GetIdInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i9.GetIdOperation(
+    return GetIdOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

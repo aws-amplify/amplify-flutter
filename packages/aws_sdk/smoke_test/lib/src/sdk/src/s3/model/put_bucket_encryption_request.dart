@@ -3,31 +3,29 @@
 
 library smoke_test.s3.model.put_bucket_encryption_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart'
-    as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart';
 
 part 'put_bucket_encryption_request.g.dart';
 
 abstract class PutBucketEncryptionRequest
     with
-        _i1.HttpInput<_i2.ServerSideEncryptionConfiguration>,
-        _i3.AWSEquatable<PutBucketEncryptionRequest>
+        _i1.HttpInput<ServerSideEncryptionConfiguration>,
+        _i2.AWSEquatable<PutBucketEncryptionRequest>
     implements
         Built<PutBucketEncryptionRequest, PutBucketEncryptionRequestBuilder>,
-        _i1.HasPayload<_i2.ServerSideEncryptionConfiguration> {
+        _i1.HasPayload<ServerSideEncryptionConfiguration> {
   factory PutBucketEncryptionRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.ServerSideEncryptionConfiguration
+    ChecksumAlgorithm? checksumAlgorithm,
+    required ServerSideEncryptionConfiguration
         serverSideEncryptionConfiguration,
     String? expectedBucketOwner,
   }) {
@@ -47,8 +45,8 @@ abstract class PutBucketEncryptionRequest
   const PutBucketEncryptionRequest._();
 
   factory PutBucketEncryptionRequest.fromRequest(
-    _i2.ServerSideEncryptionConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    ServerSideEncryptionConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketEncryptionRequest.build((b) {
@@ -57,7 +55,7 @@ abstract class PutBucketEncryptionRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -69,7 +67,7 @@ abstract class PutBucketEncryptionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.ServerSideEncryptionConfiguration>>
+  static const List<_i1.SmithySerializer<ServerSideEncryptionConfiguration>>
       serializers = [PutBucketEncryptionRequestRestXmlSerializer()];
 
   /// Specifies default encryption for a bucket using server-side encryption with different key options. By default, all buckets have a default encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3). You can optionally configure default encryption for a bucket by using server-side encryption with an Amazon Web Services KMS key (SSE-KMS) or a customer-provided key (SSE-C). For information about the bucket default encryption feature, see [Amazon S3 Bucket Default Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html) in the _Amazon S3 User Guide_.
@@ -83,10 +81,10 @@ abstract class PutBucketEncryptionRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Specifies the default server-side-encryption configuration.
-  _i2.ServerSideEncryptionConfiguration get serverSideEncryptionConfiguration;
+  ServerSideEncryptionConfiguration get serverSideEncryptionConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -103,7 +101,7 @@ abstract class PutBucketEncryptionRequest
   }
 
   @override
-  _i2.ServerSideEncryptionConfiguration getPayload() =>
+  ServerSideEncryptionConfiguration getPayload() =>
       serverSideEncryptionConfiguration;
   @override
   List<Object?> get props => [
@@ -140,8 +138,8 @@ abstract class PutBucketEncryptionRequest
   }
 }
 
-class PutBucketEncryptionRequestRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<_i2.ServerSideEncryptionConfiguration> {
+class PutBucketEncryptionRequestRestXmlSerializer
+    extends _i1.StructuredSmithySerializer<ServerSideEncryptionConfiguration> {
   const PutBucketEncryptionRequestRestXmlSerializer()
       : super('PutBucketEncryptionRequest');
 
@@ -158,12 +156,12 @@ class PutBucketEncryptionRequestRestXmlSerializer extends _i1
         )
       ];
   @override
-  _i2.ServerSideEncryptionConfiguration deserialize(
+  ServerSideEncryptionConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.ServerSideEncryptionConfigurationBuilder();
+    final result = ServerSideEncryptionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -176,8 +174,8 @@ class PutBucketEncryptionRequestRestXmlSerializer extends _i1
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ServerSideEncryptionRule),
-          ) as _i5.ServerSideEncryptionRule));
+            specifiedType: const FullType(ServerSideEncryptionRule),
+          ) as ServerSideEncryptionRule));
       }
     }
 
@@ -187,7 +185,7 @@ class PutBucketEncryptionRequestRestXmlSerializer extends _i1
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.ServerSideEncryptionConfiguration object, {
+    ServerSideEncryptionConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -196,14 +194,14 @@ class PutBucketEncryptionRequestRestXmlSerializer extends _i1
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.ServerSideEncryptionConfiguration(:rules) = object;
+    final ServerSideEncryptionConfiguration(:rules) = object;
     result$
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i6.BuiltList,
-        [FullType(_i5.ServerSideEncryptionRule)],
+        _i3.BuiltList,
+        [FullType(ServerSideEncryptionRule)],
       ),
     ));
     return result$;

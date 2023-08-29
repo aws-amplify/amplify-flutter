@@ -8,26 +8,25 @@ part of 'get_template_summary_output.dart';
 
 class _$GetTemplateSummaryOutput extends GetTemplateSummaryOutput {
   @override
-  final _i6.BuiltList<_i2.ParameterDeclaration>? parameters;
+  final _i2.BuiltList<ParameterDeclaration>? parameters;
   @override
   final String? description;
   @override
-  final _i6.BuiltList<_i3.Capability>? capabilities;
+  final _i2.BuiltList<Capability>? capabilities;
   @override
   final String? capabilitiesReason;
   @override
-  final _i6.BuiltList<String>? resourceTypes;
+  final _i2.BuiltList<String>? resourceTypes;
   @override
   final String? version;
   @override
   final String? metadata;
   @override
-  final _i6.BuiltList<String>? declaredTransforms;
+  final _i2.BuiltList<String>? declaredTransforms;
   @override
-  final _i6.BuiltList<_i4.ResourceIdentifierSummary>?
-      resourceIdentifierSummaries;
+  final _i2.BuiltList<ResourceIdentifierSummary>? resourceIdentifierSummaries;
   @override
-  final _i5.Warnings? warnings;
+  final Warnings? warnings;
 
   factory _$GetTemplateSummaryOutput(
           [void Function(GetTemplateSummaryOutputBuilder)? updates]) =>
@@ -94,20 +93,20 @@ class GetTemplateSummaryOutputBuilder
         Builder<GetTemplateSummaryOutput, GetTemplateSummaryOutputBuilder> {
   _$GetTemplateSummaryOutput? _$v;
 
-  _i6.ListBuilder<_i2.ParameterDeclaration>? _parameters;
-  _i6.ListBuilder<_i2.ParameterDeclaration> get parameters =>
-      _$this._parameters ??= new _i6.ListBuilder<_i2.ParameterDeclaration>();
-  set parameters(_i6.ListBuilder<_i2.ParameterDeclaration>? parameters) =>
+  _i2.ListBuilder<ParameterDeclaration>? _parameters;
+  _i2.ListBuilder<ParameterDeclaration> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<ParameterDeclaration>();
+  set parameters(_i2.ListBuilder<ParameterDeclaration>? parameters) =>
       _$this._parameters = parameters;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i6.ListBuilder<_i3.Capability>? _capabilities;
-  _i6.ListBuilder<_i3.Capability> get capabilities =>
-      _$this._capabilities ??= new _i6.ListBuilder<_i3.Capability>();
-  set capabilities(_i6.ListBuilder<_i3.Capability>? capabilities) =>
+  _i2.ListBuilder<Capability>? _capabilities;
+  _i2.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i2.ListBuilder<Capability>();
+  set capabilities(_i2.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
   String? _capabilitiesReason;
@@ -115,10 +114,10 @@ class GetTemplateSummaryOutputBuilder
   set capabilitiesReason(String? capabilitiesReason) =>
       _$this._capabilitiesReason = capabilitiesReason;
 
-  _i6.ListBuilder<String>? _resourceTypes;
-  _i6.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i6.ListBuilder<String>();
-  set resourceTypes(_i6.ListBuilder<String>? resourceTypes) =>
+  _i2.ListBuilder<String>? _resourceTypes;
+  _i2.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i2.ListBuilder<String>();
+  set resourceTypes(_i2.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   String? _version;
@@ -129,25 +128,24 @@ class GetTemplateSummaryOutputBuilder
   String? get metadata => _$this._metadata;
   set metadata(String? metadata) => _$this._metadata = metadata;
 
-  _i6.ListBuilder<String>? _declaredTransforms;
-  _i6.ListBuilder<String> get declaredTransforms =>
-      _$this._declaredTransforms ??= new _i6.ListBuilder<String>();
-  set declaredTransforms(_i6.ListBuilder<String>? declaredTransforms) =>
+  _i2.ListBuilder<String>? _declaredTransforms;
+  _i2.ListBuilder<String> get declaredTransforms =>
+      _$this._declaredTransforms ??= new _i2.ListBuilder<String>();
+  set declaredTransforms(_i2.ListBuilder<String>? declaredTransforms) =>
       _$this._declaredTransforms = declaredTransforms;
 
-  _i6.ListBuilder<_i4.ResourceIdentifierSummary>? _resourceIdentifierSummaries;
-  _i6.ListBuilder<_i4.ResourceIdentifierSummary>
-      get resourceIdentifierSummaries => _$this._resourceIdentifierSummaries ??=
-          new _i6.ListBuilder<_i4.ResourceIdentifierSummary>();
+  _i2.ListBuilder<ResourceIdentifierSummary>? _resourceIdentifierSummaries;
+  _i2.ListBuilder<ResourceIdentifierSummary> get resourceIdentifierSummaries =>
+      _$this._resourceIdentifierSummaries ??=
+          new _i2.ListBuilder<ResourceIdentifierSummary>();
   set resourceIdentifierSummaries(
-          _i6.ListBuilder<_i4.ResourceIdentifierSummary>?
+          _i2.ListBuilder<ResourceIdentifierSummary>?
               resourceIdentifierSummaries) =>
       _$this._resourceIdentifierSummaries = resourceIdentifierSummaries;
 
-  _i5.WarningsBuilder? _warnings;
-  _i5.WarningsBuilder get warnings =>
-      _$this._warnings ??= new _i5.WarningsBuilder();
-  set warnings(_i5.WarningsBuilder? warnings) => _$this._warnings = warnings;
+  WarningsBuilder? _warnings;
+  WarningsBuilder get warnings => _$this._warnings ??= new WarningsBuilder();
+  set warnings(WarningsBuilder? warnings) => _$this._warnings = warnings;
 
   GetTemplateSummaryOutputBuilder();
 

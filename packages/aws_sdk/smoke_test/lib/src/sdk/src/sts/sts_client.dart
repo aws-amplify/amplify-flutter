@@ -6,54 +6,30 @@ library smoke_test.sts.sts_client; // ignore_for_file: no_leading_underscores_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_request.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_response.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_request.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_response.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_request.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_response.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/sts/model/decode_authorization_message_request.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/sts/model/decode_authorization_message_response.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/sts/model/get_access_key_info_request.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/sts/model/get_access_key_info_response.dart'
-    as _i16;
-import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_request.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_response.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/sts/model/get_federation_token_request.dart'
-    as _i23;
-import 'package:smoke_test/src/sdk/src/sts/model/get_federation_token_response.dart'
-    as _i22;
-import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_request.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_response.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_operation.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_saml_operation.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_web_identity_operation.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/sts/operation/decode_authorization_message_operation.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_access_key_info_operation.dart'
-    as _i18;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_caller_identity_operation.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_federation_token_operation.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_session_token_operation.dart'
-    as _i27;
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_saml_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/decode_authorization_message_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/decode_authorization_message_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_access_key_info_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_access_key_info_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_federation_token_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_federation_token_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_saml_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_web_identity_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/decode_authorization_message_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/get_access_key_info_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/get_caller_identity_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/get_federation_token_operation.dart';
+import 'package:smoke_test/src/sdk/src/sts/operation/get_session_token_operation.dart';
 
 /// ## Security Token Service
 ///
@@ -67,7 +43,7 @@ class StsClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
@@ -129,12 +105,12 @@ class StsClient {
   /// For more information, see [Configuring MFA-Protected API Access](https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html) in the _IAM User Guide_ guide.
   ///
   /// To use MFA with `AssumeRole`, you pass values for the `SerialNumber` and `TokenCode` parameters. The `SerialNumber` value identifies the user's hardware or virtual MFA device. The `TokenCode` is the time-based one-time password (TOTP) that the MFA device produces.
-  _i3.SmithyOperation<_i4.AssumeRoleResponse> assumeRole(
-    _i5.AssumeRoleRequest input, {
+  _i3.SmithyOperation<AssumeRoleResponse> assumeRole(
+    AssumeRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i6.AssumeRoleOperation(
+    return AssumeRoleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -193,12 +169,12 @@ class StsClient {
   /// *   [Configuring a Relying Party and Claims](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_relying-party.html) in the _IAM User Guide_.
   ///
   /// *   [Creating a Role for SAML 2.0 Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_saml.html) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i7.AssumeRoleWithSamlResponse> assumeRoleWithSaml(
-    _i8.AssumeRoleWithSamlRequest input, {
+  _i3.SmithyOperation<AssumeRoleWithSamlResponse> assumeRoleWithSaml(
+    AssumeRoleWithSamlRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i9.AssumeRoleWithSamlOperation(
+    return AssumeRoleWithSamlOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -259,13 +235,13 @@ class StsClient {
   /// *   [Amazon Web Services SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/) and [Amazon Web Services SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/). These toolkits contain sample apps that show how to invoke the identity providers. The toolkits then show how to use the information from these providers to get and use temporary security credentials.
   ///
   /// *   [Web Identity Federation with Mobile Applications](http://aws.amazon.com/articles/web-identity-federation-with-mobile-applications). This article discusses web identity federation and shows an example of how to use web identity federation to get access to content in Amazon S3.
-  _i3.SmithyOperation<_i10.AssumeRoleWithWebIdentityResponse>
+  _i3.SmithyOperation<AssumeRoleWithWebIdentityResponse>
       assumeRoleWithWebIdentity(
-    _i11.AssumeRoleWithWebIdentityRequest input, {
+    AssumeRoleWithWebIdentityRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i12.AssumeRoleWithWebIdentityOperation(
+    return AssumeRoleWithWebIdentityOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -296,13 +272,13 @@ class StsClient {
   /// *   The requested resource.
   ///
   /// *   The values of condition keys in the context of the user's request.
-  _i3.SmithyOperation<_i13.DecodeAuthorizationMessageResponse>
+  _i3.SmithyOperation<DecodeAuthorizationMessageResponse>
       decodeAuthorizationMessage(
-    _i14.DecodeAuthorizationMessageRequest input, {
+    DecodeAuthorizationMessageRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i15.DecodeAuthorizationMessageOperation(
+    return DecodeAuthorizationMessageOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -321,12 +297,12 @@ class StsClient {
   /// When you pass an access key ID to this operation, it returns the ID of the Amazon Web Services account to which the keys belong. Access key IDs beginning with `AKIA` are long-term credentials for an IAM user or the Amazon Web Services account root user. Access key IDs beginning with `ASIA` are temporary credentials that are created using STS operations. If the account in the response belongs to you, you can sign in as the root user and review your root user access keys. Then, you can pull a [credentials report](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html) to learn which IAM user owns the keys. To learn who requested the temporary credentials for an `ASIA` access key, view the STS events in your [CloudTrail logs](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html) in the _IAM User Guide_.
   ///
   /// This operation does not indicate the state of the access key. The key might be active, inactive, or deleted. Active keys might not have permissions to perform an operation. Providing a deleted access key might return an error that the key doesn't exist.
-  _i3.SmithyOperation<_i16.GetAccessKeyInfoResponse> getAccessKeyInfo(
-    _i17.GetAccessKeyInfoRequest input, {
+  _i3.SmithyOperation<GetAccessKeyInfoResponse> getAccessKeyInfo(
+    GetAccessKeyInfoRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i18.GetAccessKeyInfoOperation(
+    return GetAccessKeyInfoOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -341,12 +317,12 @@ class StsClient {
   /// Returns details about the IAM user or role whose credentials are used to call the operation.
   ///
   /// No permissions are required to perform this operation. If an administrator attaches a policy to your identity that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when access is denied. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i19.GetCallerIdentityResponse> getCallerIdentity(
-    _i20.GetCallerIdentityRequest input, {
+  _i3.SmithyOperation<GetCallerIdentityResponse> getCallerIdentity(
+    GetCallerIdentityRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i21.GetCallerIdentityOperation(
+    return GetCallerIdentityOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -396,12 +372,12 @@ class StsClient {
   /// An administrator must grant you the permissions necessary to pass session tags. The administrator can also create granular permissions to allow you to pass only specific session tags. For more information, see [Tutorial: Using Tags for Attribute-Based Access Control](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html) in the _IAM User Guide_.
   ///
   /// Tag key–value pairs are not case sensitive, but case is preserved. This means that you cannot have separate `Department` and `department` tag keys. Assume that the user that you are federating has the `Department`=`Marketing` tag and you pass the `department`=`engineering` session tag. `Department` and `department` are not saved as separate tags, and the session tag passed in the request takes precedence over the user tag.
-  _i3.SmithyOperation<_i22.GetFederationTokenResponse> getFederationToken(
-    _i23.GetFederationTokenRequest input, {
+  _i3.SmithyOperation<GetFederationTokenResponse> getFederationToken(
+    GetFederationTokenRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i24.GetFederationTokenOperation(
+    return GetFederationTokenOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -437,12 +413,12 @@ class StsClient {
   /// Although it is possible to call `GetSessionToken` using the security credentials of an Amazon Web Services account root user rather than an IAM user, we do not recommend it. If `GetSessionToken` is called using root user credentials, the temporary credentials have root user permissions. For more information, see [Safeguard your root user credentials and don't use them for everyday tasks](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials) in the _IAM User Guide_
   ///
   /// For more information about using `GetSessionToken` to create temporary credentials, see [Temporary Credentials for Users in Untrusted Environments](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getsessiontoken) in the _IAM User Guide_.
-  _i3.SmithyOperation<_i25.GetSessionTokenResponse> getSessionToken(
-    _i26.GetSessionTokenRequest input, {
+  _i3.SmithyOperation<GetSessionTokenResponse> getSessionToken(
+    GetSessionTokenRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i27.GetSessionTokenOperation(
+    return GetSessionTokenOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

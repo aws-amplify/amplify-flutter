@@ -3,32 +3,23 @@
 
 library smoke_test.dynamo_db.operation.query_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i16;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_input.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart'
-    as _i15;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/query_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart';
 
 /// You must provide the name of the partition key attribute and a single value for that attribute. `Query` returns all items with that partition key value. Optionally, you can provide a sort key attribute and use a comparison operator to refine the search results.
 ///
@@ -48,13 +39,13 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 ///
 /// You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local secondary index, you can set the `ConsistentRead` parameter to `true` and obtain a strongly consistent result. Global secondary indexes support eventually consistent reads only, so do not specify `ConsistentRead` when querying a global secondary index.
 class QueryOperation extends _i1.PaginatedHttpOperation<
-    _i2.QueryInput,
-    _i2.QueryInput,
-    _i3.QueryOutput,
-    _i3.QueryOutput,
-    _i4.BuiltMap<String, _i5.AttributeValue>,
+    QueryInput,
+    QueryInput,
+    QueryOutput,
+    QueryOutput,
+    _i2.BuiltMap<String, AttributeValue>,
     int,
-    _i4.BuiltList<_i4.BuiltMap<String, _i5.AttributeValue>>> {
+    _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>>> {
   /// You must provide the name of the partition key attribute and a single value for that attribute. `Query` returns all items with that partition key value. Optionally, you can provide a sort key attribute and use a comparison operator to refine the search results.
   ///
   /// Use the `KeyConditionExpression` parameter to provide a specific value for the partition key. The `Query` operation will return all of the items from the table or index with that partition key value. You can optionally narrow the scope of the `Query` operation by specifying a sort key value and a comparison operator in `KeyConditionExpression`. To further refine the `Query` results, you can optionally provide a `FilterExpression`. A `FilterExpression` determines which items within the results should be returned to you. All of the other results are discarded.
@@ -75,8 +66,8 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
   QueryOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -87,11 +78,11 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.QueryInput, _i2.QueryInput, _i3.QueryOutput,
-          _i3.QueryOutput>> protocols = [
-    _i7.AwsJson1_0Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          _i1.HttpProtocol<QueryInput, QueryInput, QueryOutput, QueryOutput>>
+      protocols = [
+    _i4.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -99,14 +90,14 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
               'X-Amz-Target',
               'DynamoDB_20120810.Query',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.dynamoDb,
+              service: _i5.AWSService.dynamoDb,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -114,8 +105,8 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -123,95 +114,93 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.QueryInput input) => _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(QueryInput input) => _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.QueryOutput? output]) => 200;
+  int successCode([QueryOutput? output]) => 200;
   @override
-  _i3.QueryOutput buildOutput(
-    _i3.QueryOutput payload,
-    _i9.AWSBaseHttpResponse response,
+  QueryOutput buildOutput(
+    QueryOutput payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.QueryOutput.fromResponse(
+      QueryOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i11.InternalServerError,
-          builder: _i11.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidEndpointException,
-            _i12.InvalidEndpointException>(
+        _i1.SmithyError<InvalidEndpointException, InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidEndpointException,
+          InvalidEndpointException,
           statusCode: 421,
-          builder: _i12.InvalidEndpointException.fromResponse,
+          builder: InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
-            _i13.ProvisionedThroughputExceededException>(
+        _i1.SmithyError<ProvisionedThroughputExceededException,
+            ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
           ),
           _i1.ErrorKind.client,
-          _i13.ProvisionedThroughputExceededException,
-          builder: _i13.ProvisionedThroughputExceededException.fromResponse,
+          ProvisionedThroughputExceededException,
+          builder: ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
+        _i1.SmithyError<RequestLimitExceeded, RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
           ),
           _i1.ErrorKind.client,
-          _i14.RequestLimitExceeded,
-          builder: _i14.RequestLimitExceeded.fromResponse,
+          RequestLimitExceeded,
+          builder: RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError<_i15.ResourceNotFoundException,
-            _i15.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i15.ResourceNotFoundException,
-          builder: _i15.ResourceNotFoundException.fromResponse,
+          ResourceNotFoundException,
+          builder: ResourceNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'Query';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.QueryOutput> run(
-    _i2.QueryInput input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<QueryOutput> run(
+    QueryInput input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i16.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -219,22 +208,22 @@ class QueryOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  _i4.BuiltMap<String, _i5.AttributeValue>? getToken(_i3.QueryOutput output) =>
+  _i2.BuiltMap<String, AttributeValue>? getToken(QueryOutput output) =>
       output.lastEvaluatedKey;
   @override
-  _i4.BuiltList<_i4.BuiltMap<String, _i5.AttributeValue>> getItems(
-          _i3.QueryOutput output) =>
-      output.items ?? _i4.BuiltList();
+  _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>> getItems(
+          QueryOutput output) =>
+      output.items ?? _i2.BuiltList();
   @override
-  _i2.QueryInput rebuildInput(
-    _i2.QueryInput input,
-    _i4.BuiltMap<String, _i5.AttributeValue> token,
+  QueryInput rebuildInput(
+    QueryInput input,
+    _i2.BuiltMap<String, AttributeValue> token,
     int? pageSize,
   ) =>
       input.rebuild((b) {

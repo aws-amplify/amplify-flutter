@@ -6,9 +6,8 @@ library smoke_test.api_gateway.model.documentation_part; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_location.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_location.dart';
 
 part 'documentation_part.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DocumentationPart
   /// A documentation part for a targeted API entity.
   factory DocumentationPart({
     String? id,
-    _i2.DocumentationPartLocation? location,
+    DocumentationPartLocation? location,
     String? properties,
   }) {
     return _$DocumentationPart._(
@@ -42,7 +41,7 @@ abstract class DocumentationPart
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DocumentationPart>> serializers = [
+  static const List<_i2.SmithySerializer<DocumentationPart>> serializers = [
     DocumentationPartRestJson1Serializer()
   ];
 
@@ -50,7 +49,7 @@ abstract class DocumentationPart
   String? get id;
 
   /// The location of the API entity to which the documentation applies. Valid fields depend on the targeted API entity type. All the valid location fields are not required. If not explicitly specified, a valid location field is treated as a wildcard and associated documentation content may be inherited by matching entities, unless overridden.
-  _i2.DocumentationPartLocation? get location;
+  DocumentationPartLocation? get location;
 
   /// A content map of API-specific key-value pairs describing the targeted API entity. The map must be encoded as a JSON string, e.g., `"{ \\"description\\": \\"The API does ...\\" }"`. Only OpenAPI-compliant documentation-related fields from the properties map are exported and, hence, published as part of the API entity definitions, while the original documentation parts are exported in a OpenAPI extension of `x-amazon-apigateway-documentation`.
   String? get properties;
@@ -80,7 +79,7 @@ abstract class DocumentationPart
 }
 
 class DocumentationPartRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<DocumentationPart> {
+    extends _i2.StructuredSmithySerializer<DocumentationPart> {
   const DocumentationPartRestJson1Serializer() : super('DocumentationPart');
 
   @override
@@ -89,8 +88,8 @@ class DocumentationPartRestJson1Serializer
         _$DocumentationPart,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -119,8 +118,8 @@ class DocumentationPartRestJson1Serializer
         case 'location':
           result.location.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DocumentationPartLocation),
-          ) as _i2.DocumentationPartLocation));
+            specifiedType: const FullType(DocumentationPartLocation),
+          ) as DocumentationPartLocation));
         case 'properties':
           result.properties = (serializers.deserialize(
             value,
@@ -153,7 +152,7 @@ class DocumentationPartRestJson1Serializer
         ..add('location')
         ..add(serializers.serialize(
           location,
-          specifiedType: const FullType(_i2.DocumentationPartLocation),
+          specifiedType: const FullType(DocumentationPartLocation),
         ));
     }
     if (properties != null) {

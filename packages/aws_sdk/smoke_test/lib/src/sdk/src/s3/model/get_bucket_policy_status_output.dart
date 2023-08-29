@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/policy_status.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/policy_status.dart';
 
 part 'get_bucket_policy_status_output.g.dart';
 
@@ -15,8 +15,8 @@ abstract class GetBucketPolicyStatusOutput
     with _i1.AWSEquatable<GetBucketPolicyStatusOutput>
     implements
         Built<GetBucketPolicyStatusOutput, GetBucketPolicyStatusOutputBuilder>,
-        _i2.HasPayload<_i3.PolicyStatus> {
-  factory GetBucketPolicyStatusOutput({_i3.PolicyStatus? policyStatus}) {
+        _i2.HasPayload<PolicyStatus> {
+  factory GetBucketPolicyStatusOutput({PolicyStatus? policyStatus}) {
     return _$GetBucketPolicyStatusOutput._(policyStatus: policyStatus);
   }
 
@@ -28,7 +28,7 @@ abstract class GetBucketPolicyStatusOutput
 
   /// Constructs a [GetBucketPolicyStatusOutput] from a [payload] and [response].
   factory GetBucketPolicyStatusOutput.fromResponse(
-    _i3.PolicyStatus? payload,
+    PolicyStatus? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketPolicyStatusOutput.build((b) {
@@ -37,14 +37,14 @@ abstract class GetBucketPolicyStatusOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.PolicyStatus?>> serializers = [
+  static const List<_i2.SmithySerializer<PolicyStatus?>> serializers = [
     GetBucketPolicyStatusOutputRestXmlSerializer()
   ];
 
   /// The policy status for the specified bucket.
-  _i3.PolicyStatus? get policyStatus;
+  PolicyStatus? get policyStatus;
   @override
-  _i3.PolicyStatus? getPayload() => policyStatus ?? _i3.PolicyStatus();
+  PolicyStatus? getPayload() => policyStatus ?? PolicyStatus();
   @override
   List<Object?> get props => [policyStatus];
   @override
@@ -59,7 +59,7 @@ abstract class GetBucketPolicyStatusOutput
 }
 
 class GetBucketPolicyStatusOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.PolicyStatus> {
+    extends _i2.StructuredSmithySerializer<PolicyStatus> {
   const GetBucketPolicyStatusOutputRestXmlSerializer()
       : super('GetBucketPolicyStatusOutput');
 
@@ -76,12 +76,12 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.PolicyStatus deserialize(
+  PolicyStatus deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.PolicyStatusBuilder();
+    final result = PolicyStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -105,7 +105,7 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.PolicyStatus object, {
+    PolicyStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -114,7 +114,7 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.PolicyStatus(:isPublic) = object;
+    final PolicyStatus(:isPublic) = object;
     if (isPublic != null) {
       result$
         ..add(const _i2.XmlElementName('IsPublic'))

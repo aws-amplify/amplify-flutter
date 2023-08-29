@@ -6,9 +6,9 @@ library smoke_test.s3.model.restore_object_output; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'restore_object_output.g.dart';
 
@@ -19,7 +19,7 @@ abstract class RestoreObjectOutput
         _i2.EmptyPayload,
         _i2.HasPayload<RestoreObjectOutputPayload> {
   factory RestoreObjectOutput({
-    _i3.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
     String? restoreOutputPath,
   }) {
     return _$RestoreObjectOutput._(
@@ -41,7 +41,7 @@ abstract class RestoreObjectOutput
   ) =>
       RestoreObjectOutput.build((b) {
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
         if (response.headers['x-amz-restore-output-path'] != null) {
@@ -53,7 +53,7 @@ abstract class RestoreObjectOutput
       serializers = [RestoreObjectOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
 
   /// Indicates the path in the provided S3 output location where Select results will be restored to.
   String? get restoreOutputPath;
@@ -79,7 +79,7 @@ abstract class RestoreObjectOutput
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class RestoreObjectOutputPayload
     with _i1.AWSEquatable<RestoreObjectOutputPayload>
     implements

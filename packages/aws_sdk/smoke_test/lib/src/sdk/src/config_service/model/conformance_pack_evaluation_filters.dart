@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.conformance_pack_evaluation_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart';
 
 part 'conformance_pack_evaluation_filters.g.dart';
 
@@ -23,16 +22,16 @@ abstract class ConformancePackEvaluationFilters
   /// Filters a conformance pack by Config rule names, compliance types, Amazon Web Services resource types, and resource IDs.
   factory ConformancePackEvaluationFilters({
     List<String>? configRuleNames,
-    _i2.ConformancePackComplianceType? complianceType,
+    ConformancePackComplianceType? complianceType,
     String? resourceType,
     List<String>? resourceIds,
   }) {
     return _$ConformancePackEvaluationFilters._(
       configRuleNames:
-          configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
+          configRuleNames == null ? null : _i2.BuiltList(configRuleNames),
       complianceType: complianceType,
       resourceType: resourceType,
-      resourceIds: resourceIds == null ? null : _i3.BuiltList(resourceIds),
+      resourceIds: resourceIds == null ? null : _i2.BuiltList(resourceIds),
     );
   }
 
@@ -43,16 +42,16 @@ abstract class ConformancePackEvaluationFilters
 
   const ConformancePackEvaluationFilters._();
 
-  static const List<_i4.SmithySerializer<ConformancePackEvaluationFilters>>
+  static const List<_i3.SmithySerializer<ConformancePackEvaluationFilters>>
       serializers = [ConformancePackEvaluationFiltersAwsJson11Serializer()];
 
   /// Filters the results by Config rule names.
-  _i3.BuiltList<String>? get configRuleNames;
+  _i2.BuiltList<String>? get configRuleNames;
 
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
-  _i2.ConformancePackComplianceType? get complianceType;
+  ConformancePackComplianceType? get complianceType;
 
   /// Filters the results by the resource type (for example, `"AWS::EC2::Instance"`).
   String? get resourceType;
@@ -60,7 +59,7 @@ abstract class ConformancePackEvaluationFilters
   /// Filters the results by resource IDs.
   ///
   /// This is valid only when you provide resource type. If there is no resource type, you will see an error.
-  _i3.BuiltList<String>? get resourceIds;
+  _i2.BuiltList<String>? get resourceIds;
   @override
   List<Object?> get props => [
         configRuleNames,
@@ -93,7 +92,7 @@ abstract class ConformancePackEvaluationFilters
 }
 
 class ConformancePackEvaluationFiltersAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ConformancePackEvaluationFilters> {
+    extends _i3.StructuredSmithySerializer<ConformancePackEvaluationFilters> {
   const ConformancePackEvaluationFiltersAwsJson11Serializer()
       : super('ConformancePackEvaluationFilters');
 
@@ -103,8 +102,8 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         _$ConformancePackEvaluationFilters,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -129,15 +128,15 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
           result.configRuleNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
+            specifiedType: const FullType(ConformancePackComplianceType),
+          ) as ConformancePackComplianceType);
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
             value,
@@ -147,10 +146,10 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
           result.resourceIds.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -176,7 +175,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ..add(serializers.serialize(
           configRuleNames,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -186,7 +185,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          specifiedType: const FullType(ConformancePackComplianceType),
         ));
     }
     if (resourceType != null) {
@@ -203,7 +202,7 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
         ..add(serializers.serialize(
           resourceIds,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

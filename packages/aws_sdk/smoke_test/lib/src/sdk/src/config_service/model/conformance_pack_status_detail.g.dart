@@ -14,7 +14,7 @@ class _$ConformancePackStatusDetail extends ConformancePackStatusDetail {
   @override
   final String conformancePackArn;
   @override
-  final _i2.ConformancePackState conformancePackState;
+  final ConformancePackState conformancePackState;
   @override
   final String stackArn;
   @override
@@ -112,10 +112,10 @@ class ConformancePackStatusDetailBuilder
   set conformancePackArn(String? conformancePackArn) =>
       _$this._conformancePackArn = conformancePackArn;
 
-  _i2.ConformancePackState? _conformancePackState;
-  _i2.ConformancePackState? get conformancePackState =>
+  ConformancePackState? _conformancePackState;
+  ConformancePackState? get conformancePackState =>
       _$this._conformancePackState;
-  set conformancePackState(_i2.ConformancePackState? conformancePackState) =>
+  set conformancePackState(ConformancePackState? conformancePackState) =>
       _$this._conformancePackState = conformancePackState;
 
   String? _stackArn;

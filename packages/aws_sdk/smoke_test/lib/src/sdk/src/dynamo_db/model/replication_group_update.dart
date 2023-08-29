@@ -6,13 +6,10 @@ library smoke_test.dynamo_db.model.replication_group_update; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_replication_group_member_action.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_replication_group_member_action.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_replication_group_member_action.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_replication_group_member_action.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_replication_group_member_action.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_replication_group_member_action.dart';
 
 part 'replication_group_update.g.dart';
 
@@ -40,9 +37,9 @@ abstract class ReplicationGroupUpdate
   ///
   /// When you manually remove a table or global table replica, you do not automatically remove any associated scalable targets, scaling policies, or CloudWatch alarms.
   factory ReplicationGroupUpdate({
-    _i2.CreateReplicationGroupMemberAction? create,
-    _i3.UpdateReplicationGroupMemberAction? update_,
-    _i4.DeleteReplicationGroupMemberAction? delete,
+    CreateReplicationGroupMemberAction? create,
+    UpdateReplicationGroupMemberAction? update_,
+    DeleteReplicationGroupMemberAction? delete,
   }) {
     return _$ReplicationGroupUpdate._(
       create: create,
@@ -67,17 +64,17 @@ abstract class ReplicationGroupUpdate
 
   const ReplicationGroupUpdate._();
 
-  static const List<_i5.SmithySerializer<ReplicationGroupUpdate>> serializers =
+  static const List<_i2.SmithySerializer<ReplicationGroupUpdate>> serializers =
       [ReplicationGroupUpdateAwsJson10Serializer()];
 
   /// The parameters required for creating a replica for the table.
-  _i2.CreateReplicationGroupMemberAction? get create;
+  CreateReplicationGroupMemberAction? get create;
 
   /// The parameters required for updating a replica for the table.
-  _i3.UpdateReplicationGroupMemberAction? get update_;
+  UpdateReplicationGroupMemberAction? get update_;
 
   /// The parameters required for deleting a replica for the table.
-  _i4.DeleteReplicationGroupMemberAction? get delete;
+  DeleteReplicationGroupMemberAction? get delete;
   @override
   List<Object?> get props => [
         create,
@@ -104,7 +101,7 @@ abstract class ReplicationGroupUpdate
 }
 
 class ReplicationGroupUpdateAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<ReplicationGroupUpdate> {
+    extends _i2.StructuredSmithySerializer<ReplicationGroupUpdate> {
   const ReplicationGroupUpdateAwsJson10Serializer()
       : super('ReplicationGroupUpdate');
 
@@ -114,8 +111,8 @@ class ReplicationGroupUpdateAwsJson10Serializer
         _$ReplicationGroupUpdate,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -139,21 +136,18 @@ class ReplicationGroupUpdateAwsJson10Serializer
         case 'Create':
           result.create.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.CreateReplicationGroupMemberAction),
-          ) as _i2.CreateReplicationGroupMemberAction));
+            specifiedType: const FullType(CreateReplicationGroupMemberAction),
+          ) as CreateReplicationGroupMemberAction));
         case 'Update':
           result.update_.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.UpdateReplicationGroupMemberAction),
-          ) as _i3.UpdateReplicationGroupMemberAction));
+            specifiedType: const FullType(UpdateReplicationGroupMemberAction),
+          ) as UpdateReplicationGroupMemberAction));
         case 'Delete':
           result.delete.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i4.DeleteReplicationGroupMemberAction),
-          ) as _i4.DeleteReplicationGroupMemberAction));
+            specifiedType: const FullType(DeleteReplicationGroupMemberAction),
+          ) as DeleteReplicationGroupMemberAction));
       }
     }
 
@@ -173,7 +167,7 @@ class ReplicationGroupUpdateAwsJson10Serializer
         ..add('Create')
         ..add(serializers.serialize(
           create,
-          specifiedType: const FullType(_i2.CreateReplicationGroupMemberAction),
+          specifiedType: const FullType(CreateReplicationGroupMemberAction),
         ));
     }
     if (update_ != null) {
@@ -181,7 +175,7 @@ class ReplicationGroupUpdateAwsJson10Serializer
         ..add('Update')
         ..add(serializers.serialize(
           update_,
-          specifiedType: const FullType(_i3.UpdateReplicationGroupMemberAction),
+          specifiedType: const FullType(UpdateReplicationGroupMemberAction),
         ));
     }
     if (delete != null) {
@@ -189,7 +183,7 @@ class ReplicationGroupUpdateAwsJson10Serializer
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
-          specifiedType: const FullType(_i4.DeleteReplicationGroupMemberAction),
+          specifiedType: const FullType(DeleteReplicationGroupMemberAction),
         ));
     }
     return result$;

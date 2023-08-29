@@ -10,7 +10,7 @@ class _$SignUpResponse extends SignUpResponse {
   @override
   final bool userConfirmed;
   @override
-  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
+  final CodeDeliveryDetailsType? codeDeliveryDetails;
   @override
   final String userSub;
 
@@ -65,11 +65,11 @@ class SignUpResponseBuilder
   set userConfirmed(bool? userConfirmed) =>
       _$this._userConfirmed = userConfirmed;
 
-  _i2.CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
-  _i2.CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new _i2.CodeDeliveryDetailsTypeBuilder();
+  CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
+  CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
+      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
+          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   String? _userSub;

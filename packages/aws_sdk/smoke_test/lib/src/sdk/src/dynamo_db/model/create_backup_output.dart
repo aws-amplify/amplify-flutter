@@ -6,16 +6,15 @@ library smoke_test.dynamo_db.model.create_backup_output; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_details.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_details.dart';
 
 part 'create_backup_output.g.dart';
 
 abstract class CreateBackupOutput
     with _i1.AWSEquatable<CreateBackupOutput>
     implements Built<CreateBackupOutput, CreateBackupOutputBuilder> {
-  factory CreateBackupOutput({_i2.BackupDetails? backupDetails}) {
+  factory CreateBackupOutput({BackupDetails? backupDetails}) {
     return _$CreateBackupOutput._(backupDetails: backupDetails);
   }
 
@@ -32,12 +31,12 @@ abstract class CreateBackupOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateBackupOutput>> serializers = [
+  static const List<_i2.SmithySerializer<CreateBackupOutput>> serializers = [
     CreateBackupOutputAwsJson10Serializer()
   ];
 
   /// Contains the details of the backup created for the table.
-  _i2.BackupDetails? get backupDetails;
+  BackupDetails? get backupDetails;
   @override
   List<Object?> get props => [backupDetails];
   @override
@@ -52,7 +51,7 @@ abstract class CreateBackupOutput
 }
 
 class CreateBackupOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<CreateBackupOutput> {
+    extends _i2.StructuredSmithySerializer<CreateBackupOutput> {
   const CreateBackupOutputAwsJson10Serializer() : super('CreateBackupOutput');
 
   @override
@@ -61,8 +60,8 @@ class CreateBackupOutputAwsJson10Serializer
         _$CreateBackupOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -86,8 +85,8 @@ class CreateBackupOutputAwsJson10Serializer
         case 'BackupDetails':
           result.backupDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BackupDetails),
-          ) as _i2.BackupDetails));
+            specifiedType: const FullType(BackupDetails),
+          ) as BackupDetails));
       }
     }
 
@@ -107,7 +106,7 @@ class CreateBackupOutputAwsJson10Serializer
         ..add('BackupDetails')
         ..add(serializers.serialize(
           backupDetails,
-          specifiedType: const FullType(_i2.BackupDetails),
+          specifiedType: const FullType(BackupDetails),
         ));
     }
     return result$;

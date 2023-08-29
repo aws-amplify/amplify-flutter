@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/handler_error_code.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/handler_error_code.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status.dart';
 
 part 'record_handler_progress_input.g.dart';
 
@@ -22,10 +20,10 @@ abstract class RecordHandlerProgressInput
         Built<RecordHandlerProgressInput, RecordHandlerProgressInputBuilder> {
   factory RecordHandlerProgressInput({
     required String bearerToken,
-    required _i3.OperationStatus operationStatus,
-    _i3.OperationStatus? currentOperationStatus,
+    required OperationStatus operationStatus,
+    OperationStatus? currentOperationStatus,
     String? statusMessage,
-    _i4.HandlerErrorCode? errorCode,
+    HandlerErrorCode? errorCode,
     String? resourceModel,
     String? clientRequestToken,
   }) {
@@ -60,16 +58,16 @@ abstract class RecordHandlerProgressInput
   String get bearerToken;
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
-  _i3.OperationStatus get operationStatus;
+  OperationStatus get operationStatus;
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
-  _i3.OperationStatus? get currentOperationStatus;
+  OperationStatus? get currentOperationStatus;
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
   String? get statusMessage;
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
-  _i4.HandlerErrorCode? get errorCode;
+  HandlerErrorCode? get errorCode;
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
   String? get resourceModel;
@@ -147,6 +145,14 @@ class RecordHandlerProgressInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = RecordHandlerProgressInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -164,13 +170,13 @@ class RecordHandlerProgressInputAwsQuerySerializer
         case 'OperationStatus':
           result.operationStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.OperationStatus),
-          ) as _i3.OperationStatus);
+            specifiedType: const FullType(OperationStatus),
+          ) as OperationStatus);
         case 'CurrentOperationStatus':
           result.currentOperationStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.OperationStatus),
-          ) as _i3.OperationStatus);
+            specifiedType: const FullType(OperationStatus),
+          ) as OperationStatus);
         case 'StatusMessage':
           result.statusMessage = (serializers.deserialize(
             value,
@@ -179,8 +185,8 @@ class RecordHandlerProgressInputAwsQuerySerializer
         case 'ErrorCode':
           result.errorCode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.HandlerErrorCode),
-          ) as _i4.HandlerErrorCode);
+            specifiedType: const FullType(HandlerErrorCode),
+          ) as HandlerErrorCode);
         case 'ResourceModel':
           result.resourceModel = (serializers.deserialize(
             value,
@@ -228,14 +234,14 @@ class RecordHandlerProgressInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('OperationStatus'))
       ..add(serializers.serialize(
         operationStatus,
-        specifiedType: const FullType.nullable(_i3.OperationStatus),
+        specifiedType: const FullType.nullable(OperationStatus),
       ));
     if (currentOperationStatus != null) {
       result$
         ..add(const _i1.XmlElementName('CurrentOperationStatus'))
         ..add(serializers.serialize(
           currentOperationStatus,
-          specifiedType: const FullType.nullable(_i3.OperationStatus),
+          specifiedType: const FullType.nullable(OperationStatus),
         ));
     }
     if (statusMessage != null) {
@@ -251,7 +257,7 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
           errorCode,
-          specifiedType: const FullType.nullable(_i4.HandlerErrorCode),
+          specifiedType: const FullType.nullable(HandlerErrorCode),
         ));
     }
     if (resourceModel != null) {

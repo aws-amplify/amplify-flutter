@@ -10,7 +10,7 @@ class _$TagSamlProviderRequest extends TagSamlProviderRequest {
   @override
   final String samlProviderArn;
   @override
-  final _i4.BuiltList<_i3.Tag> tags;
+  final _i3.BuiltList<Tag> tags;
 
   factory _$TagSamlProviderRequest(
           [void Function(TagSamlProviderRequestBuilder)? updates]) =>
@@ -61,10 +61,9 @@ class TagSamlProviderRequestBuilder
   set samlProviderArn(String? samlProviderArn) =>
       _$this._samlProviderArn = samlProviderArn;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   TagSamlProviderRequestBuilder();
 

@@ -6,7 +6,7 @@ library aws_query_v1.query_protocol.model.simple_input_params_input; // ignore_f
 import 'dart:typed_data' as _i3;
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_query_v1/src/query_protocol/model/foo_enum.dart' as _i4;
+import 'package:aws_query_v1/src/query_protocol/model/foo_enum.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -26,7 +26,7 @@ abstract class SimpleInputParamsInput
     double? floatValue,
     double? boo,
     _i3.Uint8List? qux,
-    _i4.FooEnum? fooEnum,
+    FooEnum? fooEnum,
     int? integerEnum,
   }) {
     return _$SimpleInputParamsInput._(
@@ -65,7 +65,7 @@ abstract class SimpleInputParamsInput
   double? get floatValue;
   double? get boo;
   _i3.Uint8List? get qux;
-  _i4.FooEnum? get fooEnum;
+  FooEnum? get fooEnum;
   int? get integerEnum;
   @override
   SimpleInputParamsInput getPayload() => this;
@@ -148,6 +148,14 @@ class SimpleInputParamsInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = SimpleInputParamsInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -195,8 +203,8 @@ class SimpleInputParamsInputAwsQuerySerializer
         case 'FooEnum':
           result.fooEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.FooEnum),
-          ) as _i4.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'IntegerEnum':
           result.integerEnum = (serializers.deserialize(
             value,
@@ -292,7 +300,7 @@ class SimpleInputParamsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('FooEnum'))
         ..add(serializers.serialize(
           fooEnum,
-          specifiedType: const FullType.nullable(_i4.FooEnum),
+          specifiedType: const FullType.nullable(FooEnum),
         ));
     }
     if (integerEnum != null) {

@@ -20,15 +20,15 @@ class _$SelectObjectContentRequest extends SelectObjectContentRequest {
   @override
   final String expression;
   @override
-  final _i3.ExpressionType expressionType;
+  final ExpressionType expressionType;
   @override
-  final _i4.RequestProgress? requestProgress;
+  final RequestProgress? requestProgress;
   @override
-  final _i5.InputSerialization inputSerialization;
+  final InputSerialization inputSerialization;
   @override
-  final _i6.OutputSerialization outputSerialization;
+  final OutputSerialization outputSerialization;
   @override
-  final _i7.ScanRange? scanRange;
+  final ScanRange? scanRange;
   @override
   final String? expectedBucketOwner;
 
@@ -143,35 +143,33 @@ class SelectObjectContentRequestBuilder
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
 
-  _i3.ExpressionType? _expressionType;
-  _i3.ExpressionType? get expressionType => _$this._expressionType;
-  set expressionType(_i3.ExpressionType? expressionType) =>
+  ExpressionType? _expressionType;
+  ExpressionType? get expressionType => _$this._expressionType;
+  set expressionType(ExpressionType? expressionType) =>
       _$this._expressionType = expressionType;
 
-  _i4.RequestProgressBuilder? _requestProgress;
-  _i4.RequestProgressBuilder get requestProgress =>
-      _$this._requestProgress ??= new _i4.RequestProgressBuilder();
-  set requestProgress(_i4.RequestProgressBuilder? requestProgress) =>
+  RequestProgressBuilder? _requestProgress;
+  RequestProgressBuilder get requestProgress =>
+      _$this._requestProgress ??= new RequestProgressBuilder();
+  set requestProgress(RequestProgressBuilder? requestProgress) =>
       _$this._requestProgress = requestProgress;
 
-  _i5.InputSerializationBuilder? _inputSerialization;
-  _i5.InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new _i5.InputSerializationBuilder();
-  set inputSerialization(_i5.InputSerializationBuilder? inputSerialization) =>
+  InputSerializationBuilder? _inputSerialization;
+  InputSerializationBuilder get inputSerialization =>
+      _$this._inputSerialization ??= new InputSerializationBuilder();
+  set inputSerialization(InputSerializationBuilder? inputSerialization) =>
       _$this._inputSerialization = inputSerialization;
 
-  _i6.OutputSerializationBuilder? _outputSerialization;
-  _i6.OutputSerializationBuilder get outputSerialization =>
-      _$this._outputSerialization ??= new _i6.OutputSerializationBuilder();
-  set outputSerialization(
-          _i6.OutputSerializationBuilder? outputSerialization) =>
+  OutputSerializationBuilder? _outputSerialization;
+  OutputSerializationBuilder get outputSerialization =>
+      _$this._outputSerialization ??= new OutputSerializationBuilder();
+  set outputSerialization(OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
-  _i7.ScanRangeBuilder? _scanRange;
-  _i7.ScanRangeBuilder get scanRange =>
-      _$this._scanRange ??= new _i7.ScanRangeBuilder();
-  set scanRange(_i7.ScanRangeBuilder? scanRange) =>
-      _$this._scanRange = scanRange;
+  ScanRangeBuilder? _scanRange;
+  ScanRangeBuilder get scanRange =>
+      _$this._scanRange ??= new ScanRangeBuilder();
+  set scanRange(ScanRangeBuilder? scanRange) => _$this._scanRange = scanRange;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -264,15 +262,15 @@ class _$SelectObjectContentRequestPayload
   @override
   final String expression;
   @override
-  final _i3.ExpressionType expressionType;
+  final ExpressionType expressionType;
   @override
-  final _i5.InputSerialization inputSerialization;
+  final InputSerialization inputSerialization;
   @override
-  final _i6.OutputSerialization outputSerialization;
+  final OutputSerialization outputSerialization;
   @override
-  final _i4.RequestProgress? requestProgress;
+  final RequestProgress? requestProgress;
   @override
-  final _i7.ScanRange? scanRange;
+  final ScanRange? scanRange;
 
   factory _$SelectObjectContentRequestPayload(
           [void Function(SelectObjectContentRequestPayloadBuilder)? updates]) =>
@@ -342,35 +340,33 @@ class SelectObjectContentRequestPayloadBuilder
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
 
-  _i3.ExpressionType? _expressionType;
-  _i3.ExpressionType? get expressionType => _$this._expressionType;
-  set expressionType(_i3.ExpressionType? expressionType) =>
+  ExpressionType? _expressionType;
+  ExpressionType? get expressionType => _$this._expressionType;
+  set expressionType(ExpressionType? expressionType) =>
       _$this._expressionType = expressionType;
 
-  _i5.InputSerializationBuilder? _inputSerialization;
-  _i5.InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new _i5.InputSerializationBuilder();
-  set inputSerialization(_i5.InputSerializationBuilder? inputSerialization) =>
+  InputSerializationBuilder? _inputSerialization;
+  InputSerializationBuilder get inputSerialization =>
+      _$this._inputSerialization ??= new InputSerializationBuilder();
+  set inputSerialization(InputSerializationBuilder? inputSerialization) =>
       _$this._inputSerialization = inputSerialization;
 
-  _i6.OutputSerializationBuilder? _outputSerialization;
-  _i6.OutputSerializationBuilder get outputSerialization =>
-      _$this._outputSerialization ??= new _i6.OutputSerializationBuilder();
-  set outputSerialization(
-          _i6.OutputSerializationBuilder? outputSerialization) =>
+  OutputSerializationBuilder? _outputSerialization;
+  OutputSerializationBuilder get outputSerialization =>
+      _$this._outputSerialization ??= new OutputSerializationBuilder();
+  set outputSerialization(OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
-  _i4.RequestProgressBuilder? _requestProgress;
-  _i4.RequestProgressBuilder get requestProgress =>
-      _$this._requestProgress ??= new _i4.RequestProgressBuilder();
-  set requestProgress(_i4.RequestProgressBuilder? requestProgress) =>
+  RequestProgressBuilder? _requestProgress;
+  RequestProgressBuilder get requestProgress =>
+      _$this._requestProgress ??= new RequestProgressBuilder();
+  set requestProgress(RequestProgressBuilder? requestProgress) =>
       _$this._requestProgress = requestProgress;
 
-  _i7.ScanRangeBuilder? _scanRange;
-  _i7.ScanRangeBuilder get scanRange =>
-      _$this._scanRange ??= new _i7.ScanRangeBuilder();
-  set scanRange(_i7.ScanRangeBuilder? scanRange) =>
-      _$this._scanRange = scanRange;
+  ScanRangeBuilder? _scanRange;
+  ScanRangeBuilder get scanRange =>
+      _$this._scanRange ??= new ScanRangeBuilder();
+  set scanRange(ScanRangeBuilder? scanRange) => _$this._scanRange = scanRange;
 
   SelectObjectContentRequestPayloadBuilder();
 

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_conformance_pack_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_status_detail.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_status_detail.dart';
 
 part 'describe_conformance_pack_status_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeConformancePackStatusResponse
         Built<DescribeConformancePackStatusResponse,
             DescribeConformancePackStatusResponseBuilder> {
   factory DescribeConformancePackStatusResponse({
-    List<_i2.ConformancePackStatusDetail>? conformancePackStatusDetails,
+    List<ConformancePackStatusDetail>? conformancePackStatusDetails,
     String? nextToken,
   }) {
     return _$DescribeConformancePackStatusResponse._(
       conformancePackStatusDetails: conformancePackStatusDetails == null
           ? null
-          : _i3.BuiltList(conformancePackStatusDetails),
+          : _i2.BuiltList(conformancePackStatusDetails),
       nextToken: nextToken,
     );
   }
@@ -44,14 +43,13 @@ abstract class DescribeConformancePackStatusResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeConformancePackStatusResponse>>
+  static const List<_i3.SmithySerializer<DescribeConformancePackStatusResponse>>
       serializers = [
     DescribeConformancePackStatusResponseAwsJson11Serializer()
   ];
 
   /// A list of `ConformancePackStatusDetail` objects.
-  _i3.BuiltList<_i2.ConformancePackStatusDetail>?
-      get conformancePackStatusDetails;
+  _i2.BuiltList<ConformancePackStatusDetail>? get conformancePackStatusDetails;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +74,7 @@ abstract class DescribeConformancePackStatusResponse
   }
 }
 
-class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
+class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeConformancePackStatusResponse> {
   const DescribeConformancePackStatusResponseAwsJson11Serializer()
       : super('DescribeConformancePackStatusResponse');
@@ -87,8 +85,8 @@ class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
         _$DescribeConformancePackStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +111,10 @@ class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
           result.conformancePackStatusDetails.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackStatusDetail)],
+              _i2.BuiltList,
+              [FullType(ConformancePackStatusDetail)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackStatusDetail>));
+          ) as _i2.BuiltList<ConformancePackStatusDetail>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +143,8 @@ class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           conformancePackStatusDetails,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackStatusDetail)],
+            _i2.BuiltList,
+            [FullType(ConformancePackStatusDetail)],
           ),
         ));
     }

@@ -68,8 +68,8 @@ class VersionBumpCommand extends AmplifyCommand
     return null;
   }();
 
-  GitChanges _changesForPackage(PackageInfo package) {
-    final baseRef = this.baseRef ?? repo.latestBumpRef(package);
+  Future<GitChanges> _changesForPackage(PackageInfo package) async {
+    final baseRef = this.baseRef ?? await repo.latestBumpRef(package);
     if (baseRef == null) {
       exitError(
         'No previous version bumps for package (${package.name}). '
@@ -80,7 +80,7 @@ class VersionBumpCommand extends AmplifyCommand
   }
 
   Future<List<PackageInfo>> _updateVersions() async {
-    repo.bumpAllVersions(
+    await repo.bumpAllVersions(
       commandPackages,
       changesForPackage: _changesForPackage,
       forcedBumpType: forcedBumpType,
@@ -90,19 +90,20 @@ class VersionBumpCommand extends AmplifyCommand
     final bumpedPackages = <PackageInfo>[];
     for (final package in repo.publishablePackages()) {
       final edits = package.pubspecInfo.pubspecYamlEditor.edits;
-      if (edits.isNotEmpty) {
-        bumpedPackages.add(package);
-        if (preview) {
-          logger.info('pubspec.yaml');
-          for (final edit in edits) {
-            final originalText = package.pubspecInfo.pubspecYaml
-                .substring(edit.offset, edit.offset + edit.length);
-            logger.info('$originalText --> ${edit.replacement}');
-          }
-        } else {
-          await File(p.join(package.path, 'pubspec.yaml'))
-              .writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
+      if (edits.isEmpty) {
+        continue;
+      }
+      bumpedPackages.add(package);
+      if (preview) {
+        logger.info('pubspec.yaml');
+        for (final edit in edits) {
+          final originalText = package.pubspecInfo.pubspecYaml
+              .substring(edit.offset, edit.offset + edit.length);
+          logger.info('$originalText --> ${edit.replacement}');
         }
+      } else {
+        await File(p.join(package.path, 'pubspec.yaml'))
+            .writeAsString(package.pubspecInfo.pubspecYamlEditor.toString());
       }
       final changelogUpdate = changelogUpdates[package];
       if (changelogUpdate != null && changelogUpdate.hasUpdate) {

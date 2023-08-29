@@ -4,26 +4,18 @@
 library smoke_test.dynamo_db.model.update_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i11;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_update.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replication_group_update.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart'
-    as _i10;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replication_group_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart';
 
 part 'update_table_input.g.dart';
 
@@ -33,31 +25,31 @@ abstract class UpdateTableInput
     implements Built<UpdateTableInput, UpdateTableInputBuilder> {
   /// Represents the input of an `UpdateTable` operation.
   factory UpdateTableInput({
-    List<_i3.AttributeDefinition>? attributeDefinitions,
+    List<AttributeDefinition>? attributeDefinitions,
     required String tableName,
-    _i4.BillingMode? billingMode,
-    _i5.ProvisionedThroughput? provisionedThroughput,
-    List<_i6.GlobalSecondaryIndexUpdate>? globalSecondaryIndexUpdates,
-    _i7.StreamSpecification? streamSpecification,
-    _i8.SseSpecification? sseSpecification,
-    List<_i9.ReplicationGroupUpdate>? replicaUpdates,
-    _i10.TableClass? tableClass,
+    BillingMode? billingMode,
+    ProvisionedThroughput? provisionedThroughput,
+    List<GlobalSecondaryIndexUpdate>? globalSecondaryIndexUpdates,
+    StreamSpecification? streamSpecification,
+    SseSpecification? sseSpecification,
+    List<ReplicationGroupUpdate>? replicaUpdates,
+    TableClass? tableClass,
     bool? deletionProtectionEnabled,
   }) {
     return _$UpdateTableInput._(
       attributeDefinitions: attributeDefinitions == null
           ? null
-          : _i11.BuiltList(attributeDefinitions),
+          : _i3.BuiltList(attributeDefinitions),
       tableName: tableName,
       billingMode: billingMode,
       provisionedThroughput: provisionedThroughput,
       globalSecondaryIndexUpdates: globalSecondaryIndexUpdates == null
           ? null
-          : _i11.BuiltList(globalSecondaryIndexUpdates),
+          : _i3.BuiltList(globalSecondaryIndexUpdates),
       streamSpecification: streamSpecification,
       sseSpecification: sseSpecification,
       replicaUpdates:
-          replicaUpdates == null ? null : _i11.BuiltList(replicaUpdates),
+          replicaUpdates == null ? null : _i3.BuiltList(replicaUpdates),
       tableClass: tableClass,
       deletionProtectionEnabled: deletionProtectionEnabled,
     );
@@ -81,7 +73,7 @@ abstract class UpdateTableInput
   ];
 
   /// An array of attributes that describe the key schema for the table and indexes. If you are adding a new global secondary index to the table, `AttributeDefinitions` must include the key element(s) of the new index.
-  _i11.BuiltList<_i3.AttributeDefinition>? get attributeDefinitions;
+  _i3.BuiltList<AttributeDefinition>? get attributeDefinitions;
 
   /// The name of the table to be updated.
   String get tableName;
@@ -91,10 +83,10 @@ abstract class UpdateTableInput
   /// *   `PROVISIONED` \- We recommend using `PROVISIONED` for predictable workloads. `PROVISIONED` sets the billing mode to [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual).
   ///
   /// *   `PAY\_PER\_REQUEST` \- We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads. `PAY\_PER\_REQUEST` sets the billing mode to [On-Demand Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand).
-  _i4.BillingMode? get billingMode;
+  BillingMode? get billingMode;
 
   /// The new provisioned throughput settings for the specified table or index.
-  _i5.ProvisionedThroughput? get provisionedThroughput;
+  ProvisionedThroughput? get provisionedThroughput;
 
   /// An array of one or more global secondary indexes for the table. For each index in the array, you can request one action:
   ///
@@ -108,24 +100,23 @@ abstract class UpdateTableInput
   /// You can create or delete only one global secondary index per `UpdateTable` operation.
   ///
   /// For more information, see [Managing Global Secondary Indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.OnlineOps.html) in the _Amazon DynamoDB Developer Guide_.
-  _i11.BuiltList<_i6.GlobalSecondaryIndexUpdate>?
-      get globalSecondaryIndexUpdates;
+  _i3.BuiltList<GlobalSecondaryIndexUpdate>? get globalSecondaryIndexUpdates;
 
   /// Represents the DynamoDB Streams configuration for the table.
   ///
   /// You receive a `ResourceInUseException` if you try to enable a stream on a table that already has a stream, or if you try to disable a stream on a table that doesn't have a stream.
-  _i7.StreamSpecification? get streamSpecification;
+  StreamSpecification? get streamSpecification;
 
   /// The new server-side encryption settings for the specified table.
-  _i8.SseSpecification? get sseSpecification;
+  SseSpecification? get sseSpecification;
 
   /// A list of replica update actions (create, delete, or update) for the table.
   ///
   /// This property only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-  _i11.BuiltList<_i9.ReplicationGroupUpdate>? get replicaUpdates;
+  _i3.BuiltList<ReplicationGroupUpdate>? get replicaUpdates;
 
   /// The table class of the table to be updated. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
-  _i10.TableClass? get tableClass;
+  TableClass? get tableClass;
 
   /// Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
   bool? get deletionProtectionEnabled;
@@ -227,10 +218,10 @@ class UpdateTableInputAwsJson10Serializer
           result.attributeDefinitions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i11.BuiltList,
-              [FullType(_i3.AttributeDefinition)],
+              _i3.BuiltList,
+              [FullType(AttributeDefinition)],
             ),
-          ) as _i11.BuiltList<_i3.AttributeDefinition>));
+          ) as _i3.BuiltList<AttributeDefinition>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -239,44 +230,44 @@ class UpdateTableInputAwsJson10Serializer
         case 'BillingMode':
           result.billingMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.BillingMode),
-          ) as _i4.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ProvisionedThroughput),
-          ) as _i5.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
         case 'GlobalSecondaryIndexUpdates':
           result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i11.BuiltList,
-              [FullType(_i6.GlobalSecondaryIndexUpdate)],
+              _i3.BuiltList,
+              [FullType(GlobalSecondaryIndexUpdate)],
             ),
-          ) as _i11.BuiltList<_i6.GlobalSecondaryIndexUpdate>));
+          ) as _i3.BuiltList<GlobalSecondaryIndexUpdate>));
         case 'StreamSpecification':
           result.streamSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.StreamSpecification),
-          ) as _i7.StreamSpecification));
+            specifiedType: const FullType(StreamSpecification),
+          ) as StreamSpecification));
         case 'SSESpecification':
           result.sseSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.SseSpecification),
-          ) as _i8.SseSpecification));
+            specifiedType: const FullType(SseSpecification),
+          ) as SseSpecification));
         case 'ReplicaUpdates':
           result.replicaUpdates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i11.BuiltList,
-              [FullType(_i9.ReplicationGroupUpdate)],
+              _i3.BuiltList,
+              [FullType(ReplicationGroupUpdate)],
             ),
-          ) as _i11.BuiltList<_i9.ReplicationGroupUpdate>));
+          ) as _i3.BuiltList<ReplicationGroupUpdate>));
         case 'TableClass':
           result.tableClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i10.TableClass),
-          ) as _i10.TableClass);
+            specifiedType: const FullType(TableClass),
+          ) as TableClass);
         case 'DeletionProtectionEnabled':
           result.deletionProtectionEnabled = (serializers.deserialize(
             value,
@@ -320,8 +311,8 @@ class UpdateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           attributeDefinitions,
           specifiedType: const FullType(
-            _i11.BuiltList,
-            [FullType(_i3.AttributeDefinition)],
+            _i3.BuiltList,
+            [FullType(AttributeDefinition)],
           ),
         ));
     }
@@ -330,7 +321,7 @@ class UpdateTableInputAwsJson10Serializer
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
-          specifiedType: const FullType(_i4.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     if (provisionedThroughput != null) {
@@ -338,7 +329,7 @@ class UpdateTableInputAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i5.ProvisionedThroughput),
+          specifiedType: const FullType(ProvisionedThroughput),
         ));
     }
     if (globalSecondaryIndexUpdates != null) {
@@ -347,8 +338,8 @@ class UpdateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexUpdates,
           specifiedType: const FullType(
-            _i11.BuiltList,
-            [FullType(_i6.GlobalSecondaryIndexUpdate)],
+            _i3.BuiltList,
+            [FullType(GlobalSecondaryIndexUpdate)],
           ),
         ));
     }
@@ -357,7 +348,7 @@ class UpdateTableInputAwsJson10Serializer
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
-          specifiedType: const FullType(_i7.StreamSpecification),
+          specifiedType: const FullType(StreamSpecification),
         ));
     }
     if (sseSpecification != null) {
@@ -365,7 +356,7 @@ class UpdateTableInputAwsJson10Serializer
         ..add('SSESpecification')
         ..add(serializers.serialize(
           sseSpecification,
-          specifiedType: const FullType(_i8.SseSpecification),
+          specifiedType: const FullType(SseSpecification),
         ));
     }
     if (replicaUpdates != null) {
@@ -374,8 +365,8 @@ class UpdateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           replicaUpdates,
           specifiedType: const FullType(
-            _i11.BuiltList,
-            [FullType(_i9.ReplicationGroupUpdate)],
+            _i3.BuiltList,
+            [FullType(ReplicationGroupUpdate)],
           ),
         ));
     }
@@ -384,7 +375,7 @@ class UpdateTableInputAwsJson10Serializer
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
-          specifiedType: const FullType(_i10.TableClass),
+          specifiedType: const FullType(TableClass),
         ));
     }
     if (deletionProtectionEnabled != null) {

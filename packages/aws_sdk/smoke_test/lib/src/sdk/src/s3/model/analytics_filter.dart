@@ -6,9 +6,8 @@ library smoke_test.s3.model.analytics_filter; // ignore_for_file: no_leading_und
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/analytics_and_operator.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/analytics_and_operator.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 /// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
 sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
@@ -20,16 +19,16 @@ sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
     required String key,
     required String value,
   }) =>
-      AnalyticsFilterTag$(_i2.Tag(
+      AnalyticsFilterTag$(Tag(
         key: key,
         value: value,
       ));
 
   factory AnalyticsFilter.and({
     String? prefix,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) =>
-      AnalyticsFilterAnd$(_i3.AnalyticsAndOperator(
+      AnalyticsFilterAnd$(AnalyticsAndOperator(
         prefix: prefix,
         tags: tags,
       ));
@@ -47,10 +46,10 @@ sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
   String? get prefix => null;
 
   /// The tag to use when evaluating an analytics filter.
-  _i2.Tag? get tag => null;
+  Tag? get tag => null;
 
   /// A conjunction (logical AND) of predicates, which is used in evaluating an analytics filter. The operator must have at least two predicates.
-  _i3.AnalyticsAndOperator? get and => null;
+  AnalyticsAndOperator? get and => null;
   @override
   Object get value => (prefix ?? tag ?? and)!;
   @override
@@ -92,7 +91,7 @@ final class AnalyticsFilterTag$ extends AnalyticsFilter {
   const AnalyticsFilterTag$(this.tag) : super._();
 
   @override
-  final _i2.Tag tag;
+  final Tag tag;
 
   @override
   String get name => 'Tag';
@@ -102,7 +101,7 @@ final class AnalyticsFilterAnd$ extends AnalyticsFilter {
   const AnalyticsFilterAnd$(this.and) : super._();
 
   @override
-  final _i3.AnalyticsAndOperator and;
+  final AnalyticsAndOperator and;
 
   @override
   String get name => 'And';
@@ -155,13 +154,13 @@ class AnalyticsFilterRestXmlSerializer
       case 'Tag':
         return AnalyticsFilterTag$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.Tag),
-        ) as _i2.Tag));
+          specifiedType: const FullType(Tag),
+        ) as Tag));
       case 'And':
         return AnalyticsFilterAnd$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.AnalyticsAndOperator),
-        ) as _i3.AnalyticsAndOperator));
+          specifiedType: const FullType(AnalyticsAndOperator),
+        ) as AnalyticsAndOperator));
     }
     return AnalyticsFilter.sdkUnknown(
       key,
@@ -184,11 +183,11 @@ class AnalyticsFilterRestXmlSerializer
           ),
         AnalyticsFilterTag$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
+            specifiedType: const FullType(Tag),
           ),
         AnalyticsFilterAnd$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i3.AnalyticsAndOperator),
+            specifiedType: const FullType(AnalyticsAndOperator),
           ),
         AnalyticsFilterSdkUnknown$(:final value) => value,
       },

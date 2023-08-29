@@ -8,9 +8,9 @@ part of 'get_bucket_versioning_output.dart';
 
 class _$GetBucketVersioningOutput extends GetBucketVersioningOutput {
   @override
-  final _i2.BucketVersioningStatus? status;
+  final BucketVersioningStatus? status;
   @override
-  final _i3.MfaDeleteStatus? mfaDelete;
+  final MfaDeleteStatus? mfaDelete;
 
   factory _$GetBucketVersioningOutput(
           [void Function(GetBucketVersioningOutputBuilder)? updates]) =>
@@ -50,14 +50,13 @@ class GetBucketVersioningOutputBuilder
         Builder<GetBucketVersioningOutput, GetBucketVersioningOutputBuilder> {
   _$GetBucketVersioningOutput? _$v;
 
-  _i2.BucketVersioningStatus? _status;
-  _i2.BucketVersioningStatus? get status => _$this._status;
-  set status(_i2.BucketVersioningStatus? status) => _$this._status = status;
+  BucketVersioningStatus? _status;
+  BucketVersioningStatus? get status => _$this._status;
+  set status(BucketVersioningStatus? status) => _$this._status = status;
 
-  _i3.MfaDeleteStatus? _mfaDelete;
-  _i3.MfaDeleteStatus? get mfaDelete => _$this._mfaDelete;
-  set mfaDelete(_i3.MfaDeleteStatus? mfaDelete) =>
-      _$this._mfaDelete = mfaDelete;
+  MfaDeleteStatus? _mfaDelete;
+  MfaDeleteStatus? get mfaDelete => _$this._mfaDelete;
+  set mfaDelete(MfaDeleteStatus? mfaDelete) => _$this._mfaDelete = mfaDelete;
 
   GetBucketVersioningOutputBuilder();
 

@@ -12,7 +12,7 @@ class _$StopStackSetOperationInput extends StopStackSetOperationInput {
   @override
   final String operationId;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$StopStackSetOperationInput(
           [void Function(StopStackSetOperationInputBuilder)? updates]) =>
@@ -69,9 +69,9 @@ class StopStackSetOperationInputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   StopStackSetOperationInputBuilder();
 

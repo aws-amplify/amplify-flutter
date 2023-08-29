@@ -6,11 +6,11 @@ library smoke_test.api_gateway.model.put_rest_api_request; // ignore_for_file: n
 import 'dart:typed_data' as _i2;
 
 import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/put_mode.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/put_mode.dart';
 
 part 'put_rest_api_request.g.dart';
 
@@ -23,7 +23,7 @@ abstract class PutRestApiRequest
   /// A PUT request to update an existing API, with external API definitions specified as the request body.
   factory PutRestApiRequest({
     required String restApiId,
-    _i4.PutMode? mode,
+    PutMode? mode,
     bool? failOnWarnings,
     Map<String, String>? parameters,
     required _i2.Uint8List body,
@@ -33,7 +33,7 @@ abstract class PutRestApiRequest
       restApiId: restApiId,
       mode: mode,
       failOnWarnings: failOnWarnings,
-      parameters: parameters == null ? null : _i5.BuiltMap(parameters),
+      parameters: parameters == null ? null : _i4.BuiltMap(parameters),
       body: body,
     );
   }
@@ -52,7 +52,7 @@ abstract class PutRestApiRequest
       PutRestApiRequest.build((b) {
         b.body = payload;
         if (request.queryParameters['mode'] != null) {
-          b.mode = _i4.PutMode.values.byValue(request.queryParameters['mode']!);
+          b.mode = PutMode.values.byValue(request.queryParameters['mode']!);
         }
         if (request.queryParameters['failonwarnings'] != null) {
           b.failOnWarnings =
@@ -76,13 +76,13 @@ abstract class PutRestApiRequest
   String get restApiId;
 
   /// The `mode` query parameter to specify the update mode. Valid values are "merge" and "overwrite". By default, the update mode is "merge".
-  _i4.PutMode? get mode;
+  PutMode? get mode;
 
   /// A query parameter to indicate whether to rollback the API update (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
   bool get failOnWarnings;
 
   /// Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set `ignore=documentation` as a `parameters` value, as in the AWS CLI command of `aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'`.
-  _i5.BuiltMap<String, String>? get parameters;
+  _i4.BuiltMap<String, String>? get parameters;
 
   /// The PUT request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.
   _i2.Uint8List get body;

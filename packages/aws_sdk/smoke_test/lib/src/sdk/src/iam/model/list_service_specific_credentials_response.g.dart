@@ -9,7 +9,7 @@ part of 'list_service_specific_credentials_response.dart';
 class _$ListServiceSpecificCredentialsResponse
     extends ListServiceSpecificCredentialsResponse {
   @override
-  final _i3.BuiltList<_i2.ServiceSpecificCredentialMetadata>?
+  final _i2.BuiltList<ServiceSpecificCredentialMetadata>?
       serviceSpecificCredentials;
 
   factory _$ListServiceSpecificCredentialsResponse(
@@ -53,13 +53,13 @@ class ListServiceSpecificCredentialsResponseBuilder
             ListServiceSpecificCredentialsResponseBuilder> {
   _$ListServiceSpecificCredentialsResponse? _$v;
 
-  _i3.ListBuilder<_i2.ServiceSpecificCredentialMetadata>?
+  _i2.ListBuilder<ServiceSpecificCredentialMetadata>?
       _serviceSpecificCredentials;
-  _i3.ListBuilder<_i2.ServiceSpecificCredentialMetadata>
+  _i2.ListBuilder<ServiceSpecificCredentialMetadata>
       get serviceSpecificCredentials => _$this._serviceSpecificCredentials ??=
-          new _i3.ListBuilder<_i2.ServiceSpecificCredentialMetadata>();
+          new _i2.ListBuilder<ServiceSpecificCredentialMetadata>();
   set serviceSpecificCredentials(
-          _i3.ListBuilder<_i2.ServiceSpecificCredentialMetadata>?
+          _i2.ListBuilder<ServiceSpecificCredentialMetadata>?
               serviceSpecificCredentials) =>
       _$this._serviceSpecificCredentials = serviceSpecificCredentials;
 

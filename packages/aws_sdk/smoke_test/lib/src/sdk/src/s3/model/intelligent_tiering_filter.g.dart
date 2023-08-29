@@ -10,9 +10,9 @@ class _$IntelligentTieringFilter extends IntelligentTieringFilter {
   @override
   final String? prefix;
   @override
-  final _i2.Tag? tag;
+  final Tag? tag;
   @override
-  final _i3.IntelligentTieringAndOperator? and;
+  final IntelligentTieringAndOperator? and;
 
   factory _$IntelligentTieringFilter(
           [void Function(IntelligentTieringFilterBuilder)? updates]) =>
@@ -58,14 +58,14 @@ class IntelligentTieringFilterBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i2.TagBuilder? _tag;
-  _i2.TagBuilder get tag => _$this._tag ??= new _i2.TagBuilder();
-  set tag(_i2.TagBuilder? tag) => _$this._tag = tag;
+  TagBuilder? _tag;
+  TagBuilder get tag => _$this._tag ??= new TagBuilder();
+  set tag(TagBuilder? tag) => _$this._tag = tag;
 
-  _i3.IntelligentTieringAndOperatorBuilder? _and;
-  _i3.IntelligentTieringAndOperatorBuilder get and =>
-      _$this._and ??= new _i3.IntelligentTieringAndOperatorBuilder();
-  set and(_i3.IntelligentTieringAndOperatorBuilder? and) => _$this._and = and;
+  IntelligentTieringAndOperatorBuilder? _and;
+  IntelligentTieringAndOperatorBuilder get and =>
+      _$this._and ??= new IntelligentTieringAndOperatorBuilder();
+  set and(IntelligentTieringAndOperatorBuilder? and) => _$this._and = and;
 
   IntelligentTieringFilterBuilder();
 

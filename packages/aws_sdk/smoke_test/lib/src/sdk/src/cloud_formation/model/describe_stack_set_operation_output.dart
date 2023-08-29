@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.describe_stack_set_operation_output; //
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation.dart';
 
 part 'describe_stack_set_operation_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DescribeStackSetOperationOutput
         Built<DescribeStackSetOperationOutput,
             DescribeStackSetOperationOutputBuilder> {
   factory DescribeStackSetOperationOutput(
-      {_i2.StackSetOperation? stackSetOperation}) {
+      {StackSetOperation? stackSetOperation}) {
     return _$DescribeStackSetOperationOutput._(
         stackSetOperation: stackSetOperation);
   }
@@ -37,11 +36,11 @@ abstract class DescribeStackSetOperationOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeStackSetOperationOutput>>
+  static const List<_i2.SmithySerializer<DescribeStackSetOperationOutput>>
       serializers = [DescribeStackSetOperationOutputAwsQuerySerializer()];
 
   /// The specified stack set operation.
-  _i2.StackSetOperation? get stackSetOperation;
+  StackSetOperation? get stackSetOperation;
   @override
   List<Object?> get props => [stackSetOperation];
   @override
@@ -57,7 +56,7 @@ abstract class DescribeStackSetOperationOutput
 }
 
 class DescribeStackSetOperationOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeStackSetOperationOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeStackSetOperationOutput> {
   const DescribeStackSetOperationOutputAwsQuerySerializer()
       : super('DescribeStackSetOperationOutput');
 
@@ -67,8 +66,8 @@ class DescribeStackSetOperationOutputAwsQuerySerializer
         _$DescribeStackSetOperationOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -80,6 +79,14 @@ class DescribeStackSetOperationOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackSetOperationOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -92,8 +99,8 @@ class DescribeStackSetOperationOutputAwsQuerySerializer
         case 'StackSetOperation':
           result.stackSetOperation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSetOperation),
-          ) as _i2.StackSetOperation));
+            specifiedType: const FullType(StackSetOperation),
+          ) as StackSetOperation));
       }
     }
 
@@ -107,18 +114,18 @@ class DescribeStackSetOperationOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeStackSetOperationOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackSetOperationOutput(:stackSetOperation) = object;
     if (stackSetOperation != null) {
       result$
-        ..add(const _i3.XmlElementName('StackSetOperation'))
+        ..add(const _i2.XmlElementName('StackSetOperation'))
         ..add(serializers.serialize(
           stackSetOperation,
-          specifiedType: const FullType(_i2.StackSetOperation),
+          specifiedType: const FullType(StackSetOperation),
         ));
     }
     return result$;

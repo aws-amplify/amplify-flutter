@@ -17,12 +17,10 @@ dependencies:
   code_builder: 4.5.0
   collection: ^1.16.0
   file: ">=6.0.0 <8.0.0"
-  git: ^2.0.0
+  git: any # override
   glob: ^2.1.0
   graphs: ^2.1.0
   json_annotation: ">=4.8.1 <4.9.0"
-  libgit2dart:
-    path: external/libgit2dart
   markdown: ^5.0.0
   mason: ^0.1.0-dev.40
   mason_logger: ^0.2.5
@@ -31,6 +29,8 @@ dependencies:
   path: any
   pub_api_client: ^2.4.0
   pub_semver: ^2.1.1
+  pub_server:
+    path: ../test/pub_server
   pubspec_parse: ^1.2.0
   shelf: ^1.4.0
   shelf_static: ^1.1.1
@@ -41,6 +41,7 @@ dependencies:
   yaml: ^3.1.0
   yaml_edit: ^2.0.3
 
+# Use dependency overrides since this must work without `aft link`.
 dependency_overrides:
   amplify_lints:
     path: ../amplify_lints
@@ -48,6 +49,12 @@ dependency_overrides:
     path: ../aws_common
   aws_signature_v4:
     path: ../aws_signature_v4
+  git:
+    git:
+      url: https://github.com/dnys1/git
+      ref: feat/existing-worktree
+  pub_server:
+    path: ../test/pub_server
   smithy:
     path: ../smithy/smithy
   smithy_aws:
@@ -59,8 +66,10 @@ dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"
   build_runner: ^2.4.0
   built_value_generator: 8.6.1
+  checks: ^0.2.2
   json_serializable: 6.7.1
   test: ^1.22.1
+  test_descriptor: ^2.0.1
 
 executables:
   aft:

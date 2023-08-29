@@ -6,11 +6,9 @@ library smoke_test.config_service.model.aggregate_evaluation_result; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart';
 
 part 'aggregate_evaluation_result.g.dart';
 
@@ -21,8 +19,8 @@ abstract class AggregateEvaluationResult
         Built<AggregateEvaluationResult, AggregateEvaluationResultBuilder> {
   /// The details of an Config evaluation for an account ID and region in an aggregator. Provides the Amazon Web Services resource that was evaluated, the compliance of the resource, related time stamps, and supplementary information.
   factory AggregateEvaluationResult({
-    _i2.EvaluationResultIdentifier? evaluationResultIdentifier,
-    _i3.ComplianceType? complianceType,
+    EvaluationResultIdentifier? evaluationResultIdentifier,
+    ComplianceType? complianceType,
     DateTime? resultRecordedTime,
     DateTime? configRuleInvokedTime,
     String? annotation,
@@ -47,16 +45,16 @@ abstract class AggregateEvaluationResult
 
   const AggregateEvaluationResult._();
 
-  static const List<_i4.SmithySerializer<AggregateEvaluationResult>>
+  static const List<_i2.SmithySerializer<AggregateEvaluationResult>>
       serializers = [AggregateEvaluationResultAwsJson11Serializer()];
 
   /// Uniquely identifies the evaluation result.
-  _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
+  EvaluationResultIdentifier? get evaluationResultIdentifier;
 
   /// The resource compliance status.
   ///
   /// For the `AggregationEvaluationResult` data type, Config supports only the `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and `INSUFFICIENT_DATA` value.
-  _i3.ComplianceType? get complianceType;
+  ComplianceType? get complianceType;
 
   /// The time when Config recorded the aggregate evaluation result.
   DateTime? get resultRecordedTime;
@@ -118,7 +116,7 @@ abstract class AggregateEvaluationResult
 }
 
 class AggregateEvaluationResultAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<AggregateEvaluationResult> {
+    extends _i2.StructuredSmithySerializer<AggregateEvaluationResult> {
   const AggregateEvaluationResultAwsJson11Serializer()
       : super('AggregateEvaluationResult');
 
@@ -128,8 +126,8 @@ class AggregateEvaluationResultAwsJson11Serializer
         _$AggregateEvaluationResult,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -153,13 +151,13 @@ class AggregateEvaluationResultAwsJson11Serializer
         case 'EvaluationResultIdentifier':
           result.evaluationResultIdentifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationResultIdentifier),
-          ) as _i2.EvaluationResultIdentifier));
+            specifiedType: const FullType(EvaluationResultIdentifier),
+          ) as EvaluationResultIdentifier));
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplianceType),
-          ) as _i3.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'ResultRecordedTime':
           result.resultRecordedTime = (serializers.deserialize(
             value,
@@ -212,7 +210,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
           evaluationResultIdentifier,
-          specifiedType: const FullType(_i2.EvaluationResultIdentifier),
+          specifiedType: const FullType(EvaluationResultIdentifier),
         ));
     }
     if (complianceType != null) {
@@ -220,7 +218,7 @@ class AggregateEvaluationResultAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i3.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (resultRecordedTime != null) {

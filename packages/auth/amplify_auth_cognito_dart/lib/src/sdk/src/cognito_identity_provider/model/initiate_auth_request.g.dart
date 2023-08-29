@@ -8,17 +8,17 @@ part of 'initiate_auth_request.dart';
 
 class _$InitiateAuthRequest extends InitiateAuthRequest {
   @override
-  final _i3.AuthFlowType authFlow;
+  final AuthFlowType authFlow;
   @override
-  final _i6.BuiltMap<String, String>? authParameters;
+  final _i3.BuiltMap<String, String>? authParameters;
   @override
-  final _i6.BuiltMap<String, String>? clientMetadata;
+  final _i3.BuiltMap<String, String>? clientMetadata;
   @override
   final String clientId;
   @override
-  final _i4.AnalyticsMetadataType? analyticsMetadata;
+  final AnalyticsMetadataType? analyticsMetadata;
   @override
-  final _i5.UserContextDataType? userContextData;
+  final UserContextDataType? userContextData;
 
   factory _$InitiateAuthRequest(
           [void Function(InitiateAuthRequestBuilder)? updates]) =>
@@ -77,41 +77,39 @@ class InitiateAuthRequestBuilder
     implements Builder<InitiateAuthRequest, InitiateAuthRequestBuilder> {
   _$InitiateAuthRequest? _$v;
 
-  _i3.AuthFlowType? _authFlow;
-  _i3.AuthFlowType? get authFlow => _$this._authFlow;
-  set authFlow(_i3.AuthFlowType? authFlow) => _$this._authFlow = authFlow;
+  AuthFlowType? _authFlow;
+  AuthFlowType? get authFlow => _$this._authFlow;
+  set authFlow(AuthFlowType? authFlow) => _$this._authFlow = authFlow;
 
-  _i6.MapBuilder<String, String>? _authParameters;
-  _i6.MapBuilder<String, String> get authParameters =>
-      _$this._authParameters ??= new _i6.MapBuilder<String, String>();
-  set authParameters(_i6.MapBuilder<String, String>? authParameters) =>
+  _i3.MapBuilder<String, String>? _authParameters;
+  _i3.MapBuilder<String, String> get authParameters =>
+      _$this._authParameters ??= new _i3.MapBuilder<String, String>();
+  set authParameters(_i3.MapBuilder<String, String>? authParameters) =>
       _$this._authParameters = authParameters;
 
-  _i6.MapBuilder<String, String>? _clientMetadata;
-  _i6.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i6.MapBuilder<String, String>();
-  set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
+  _i3.MapBuilder<String, String>? _clientMetadata;
+  _i3.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+  set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   String? _clientId;
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  _i4.AnalyticsMetadataTypeBuilder? _analyticsMetadata;
-  _i4.AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new _i4.AnalyticsMetadataTypeBuilder();
-  set analyticsMetadata(_i4.AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
+  AnalyticsMetadataTypeBuilder? _analyticsMetadata;
+  AnalyticsMetadataTypeBuilder get analyticsMetadata =>
+      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+  set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
-  _i5.UserContextDataTypeBuilder? _userContextData;
-  _i5.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i5.UserContextDataTypeBuilder();
-  set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
+  UserContextDataTypeBuilder? _userContextData;
+  UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new UserContextDataTypeBuilder();
+  set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
-  InitiateAuthRequestBuilder() {
-    InitiateAuthRequest._init(this);
-  }
+  InitiateAuthRequestBuilder();
 
   InitiateAuthRequestBuilder get _$this {
     final $v = _$v;

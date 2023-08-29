@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_compliance_by_conformance_pack
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance.dart';
 
 part 'aggregate_compliance_by_conformance_pack.g.dart';
 
@@ -26,7 +25,7 @@ abstract class AggregateComplianceByConformancePack
   /// A conformance pack is compliant if all of the rules in a conformance packs are compliant. It is noncompliant if any of the rules are not compliant. The compliance status of a conformance pack is INSUFFICIENT\_DATA only if all rules within a conformance pack cannot be evaluated due to insufficient data. If some of the rules in a conformance pack are compliant but the compliance status of other rules in that same conformance pack is INSUFFICIENT\_DATA, the conformance pack shows compliant.
   factory AggregateComplianceByConformancePack({
     String? conformancePackName,
-    _i2.AggregateConformancePackCompliance? compliance,
+    AggregateConformancePackCompliance? compliance,
     String? accountId,
     String? awsRegion,
   }) {
@@ -47,14 +46,14 @@ abstract class AggregateComplianceByConformancePack
 
   const AggregateComplianceByConformancePack._();
 
-  static const List<_i3.SmithySerializer<AggregateComplianceByConformancePack>>
+  static const List<_i2.SmithySerializer<AggregateComplianceByConformancePack>>
       serializers = [AggregateComplianceByConformancePackAwsJson11Serializer()];
 
   /// The name of the conformance pack.
   String? get conformancePackName;
 
   /// The compliance status of the conformance pack.
-  _i2.AggregateConformancePackCompliance? get compliance;
+  AggregateConformancePackCompliance? get compliance;
 
   /// The 12-digit Amazon Web Services account ID of the source account.
   String? get accountId;
@@ -92,7 +91,7 @@ abstract class AggregateComplianceByConformancePack
   }
 }
 
-class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
+class AggregateComplianceByConformancePackAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<AggregateComplianceByConformancePack> {
   const AggregateComplianceByConformancePackAwsJson11Serializer()
       : super('AggregateComplianceByConformancePack');
@@ -103,8 +102,8 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         _$AggregateComplianceByConformancePack,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -133,9 +132,8 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         case 'Compliance':
           result.compliance.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.AggregateConformancePackCompliance),
-          ) as _i2.AggregateConformancePackCompliance));
+            specifiedType: const FullType(AggregateConformancePackCompliance),
+          ) as AggregateConformancePackCompliance));
         case 'AccountId':
           result.accountId = (serializers.deserialize(
             value,
@@ -178,7 +176,7 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
-          specifiedType: const FullType(_i2.AggregateConformancePackCompliance),
+          specifiedType: const FullType(AggregateConformancePackCompliance),
         ));
     }
     if (accountId != null) {

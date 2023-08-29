@@ -4,20 +4,15 @@
 library smoke_test.api_gateway.model.integration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/connection_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/content_handling_strategy.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/integration_response.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/integration_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/tls_config.dart'
-    as _i6;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/connection_type.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/content_handling_strategy.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/integration_response.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/integration_type.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/tls_config.dart';
 
 part 'integration.g.dart';
 
@@ -27,21 +22,21 @@ abstract class Integration
     implements Built<Integration, IntegrationBuilder> {
   /// Represents an HTTP, HTTP\_PROXY, AWS, AWS\_PROXY, or Mock integration.
   factory Integration({
-    _i2.IntegrationType? type,
+    IntegrationType? type,
     String? httpMethod,
     String? uri,
-    _i3.ConnectionType? connectionType,
+    ConnectionType? connectionType,
     String? connectionId,
     String? credentials,
     Map<String, String>? requestParameters,
     Map<String, String>? requestTemplates,
     String? passthroughBehavior,
-    _i4.ContentHandlingStrategy? contentHandling,
+    ContentHandlingStrategy? contentHandling,
     int? timeoutInMillis,
     String? cacheNamespace,
     List<String>? cacheKeyParameters,
-    Map<String, _i5.IntegrationResponse>? integrationResponses,
-    _i6.TlsConfig? tlsConfig,
+    Map<String, IntegrationResponse>? integrationResponses,
+    TlsConfig? tlsConfig,
   }) {
     timeoutInMillis ??= 0;
     return _$Integration._(
@@ -52,18 +47,18 @@ abstract class Integration
       connectionId: connectionId,
       credentials: credentials,
       requestParameters:
-          requestParameters == null ? null : _i7.BuiltMap(requestParameters),
+          requestParameters == null ? null : _i2.BuiltMap(requestParameters),
       requestTemplates:
-          requestTemplates == null ? null : _i7.BuiltMap(requestTemplates),
+          requestTemplates == null ? null : _i2.BuiltMap(requestTemplates),
       passthroughBehavior: passthroughBehavior,
       contentHandling: contentHandling,
       timeoutInMillis: timeoutInMillis,
       cacheNamespace: cacheNamespace,
       cacheKeyParameters:
-          cacheKeyParameters == null ? null : _i7.BuiltList(cacheKeyParameters),
+          cacheKeyParameters == null ? null : _i2.BuiltList(cacheKeyParameters),
       integrationResponses: integrationResponses == null
           ? null
-          : _i7.BuiltMap(integrationResponses),
+          : _i2.BuiltMap(integrationResponses),
       tlsConfig: tlsConfig,
     );
   }
@@ -81,7 +76,7 @@ abstract class Integration
   ) =>
       payload;
 
-  static const List<_i8.SmithySerializer<Integration>> serializers = [
+  static const List<_i3.SmithySerializer<Integration>> serializers = [
     IntegrationRestJson1Serializer()
   ];
 
@@ -93,7 +88,7 @@ abstract class Integration
   /// Specifies an API method integration type. The valid value is one of the following:
   ///
   /// For the HTTP and HTTP proxy integrations, each integration can specify a protocol (`http/https`), port and path. Standard 80 and 443 ports are supported as well as custom ports above 1024. An HTTP or HTTP proxy integration with a `connectionType` of `VPC_LINK` is referred to as a private integration and uses a VpcLink to connect API Gateway to a network load balancer of a VPC.
-  _i2.IntegrationType? get type;
+  IntegrationType? get type;
 
   /// Specifies the integration's HTTP method type.
   String? get httpMethod;
@@ -104,7 +99,7 @@ abstract class Integration
   String? get uri;
 
   /// The type of the network connection to the integration endpoint. The valid value is `INTERNET` for connections through the public routable internet or `VPC_LINK` for private connections between API Gateway and a network load balancer in a VPC. The default value is `INTERNET`.
-  _i3.ConnectionType? get connectionType;
+  ConnectionType? get connectionType;
 
   /// The ID of the VpcLink used for the integration when `connectionType=VPC_LINK` and undefined, otherwise.
   String? get connectionId;
@@ -113,10 +108,10 @@ abstract class Integration
   String? get credentials;
 
   /// A key-value map specifying request parameters that are passed from the method request to the back end. The key is an integration request parameter name and the associated value is a method request parameter value or static value that must be enclosed within single quotes and pre-encoded as required by the back end. The method request parameter value must match the pattern of `method.request.{location}.{name}`, where `location` is `querystring`, `path`, or `header` and `name` must be a valid and unique method request parameter name.
-  _i7.BuiltMap<String, String>? get requestParameters;
+  _i2.BuiltMap<String, String>? get requestParameters;
 
   /// Represents a map of Velocity templates that are applied on the request payload based on the value of the Content-Type header sent by the client. The content type value is the key in this map, and the template (as a String) is the value.
-  _i7.BuiltMap<String, String>? get requestTemplates;
+  _i2.BuiltMap<String, String>? get requestTemplates;
 
   /// Specifies how the method request body of an unmapped content type will be passed through the integration request to the back end without transformation. A content type is unmapped if no mapping template is defined in the integration or the content type does not match any of the mapped content types, as specified in `requestTemplates`. The valid value is one of the following: `WHEN\_NO\_MATCH`: passes the method request body through the integration request to the back end without transformation when the method request content type does not match any content type associated with the mapping templates defined in the integration request. `WHEN\_NO\_TEMPLATES`: passes the method request body through the integration request to the back end without transformation when no mapping template is defined in the integration request. If a template is defined when this option is selected, the method request of an unmapped content-type will be rejected with an HTTP 415 Unsupported Media Type response. `NEVER`: rejects the method request with an HTTP 415 Unsupported Media Type response when either the method request content type does not match any content type associated with the mapping templates defined in the integration request or no mapping template is defined in the integration request.
   String? get passthroughBehavior;
@@ -124,7 +119,7 @@ abstract class Integration
   /// Specifies how to handle request payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
   ///
   /// If this property is not defined, the request payload will be passed through from the method request to integration request without modification, provided that the `passthroughBehavior` is configured to support payload pass-through.
-  _i4.ContentHandlingStrategy? get contentHandling;
+  ContentHandlingStrategy? get contentHandling;
 
   /// Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
   int get timeoutInMillis;
@@ -133,13 +128,13 @@ abstract class Integration
   String? get cacheNamespace;
 
   /// A list of request parameters whose values API Gateway caches. To be valid values for `cacheKeyParameters`, these parameters must also be specified for Method `requestParameters`.
-  _i7.BuiltList<String>? get cacheKeyParameters;
+  _i2.BuiltList<String>? get cacheKeyParameters;
 
   /// Specifies the integration's responses.
-  _i7.BuiltMap<String, _i5.IntegrationResponse>? get integrationResponses;
+  _i2.BuiltMap<String, IntegrationResponse>? get integrationResponses;
 
   /// Specifies the TLS configuration for an integration.
-  _i6.TlsConfig? get tlsConfig;
+  TlsConfig? get tlsConfig;
   @override
   List<Object?> get props => [
         type,
@@ -226,7 +221,7 @@ abstract class Integration
 }
 
 class IntegrationRestJson1Serializer
-    extends _i8.StructuredSmithySerializer<Integration> {
+    extends _i3.StructuredSmithySerializer<Integration> {
   const IntegrationRestJson1Serializer() : super('Integration');
 
   @override
@@ -235,8 +230,8 @@ class IntegrationRestJson1Serializer
         _$Integration,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -261,10 +256,10 @@ class IntegrationRestJson1Serializer
           result.cacheKeyParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'cacheNamespace':
           result.cacheNamespace = (serializers.deserialize(
             value,
@@ -278,13 +273,13 @@ class IntegrationRestJson1Serializer
         case 'connectionType':
           result.connectionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConnectionType),
-          ) as _i3.ConnectionType);
+            specifiedType: const FullType(ConnectionType),
+          ) as ConnectionType);
         case 'contentHandling':
           result.contentHandling = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ContentHandlingStrategy),
-          ) as _i4.ContentHandlingStrategy);
+            specifiedType: const FullType(ContentHandlingStrategy),
+          ) as ContentHandlingStrategy);
         case 'credentials':
           result.credentials = (serializers.deserialize(
             value,
@@ -299,13 +294,13 @@ class IntegrationRestJson1Serializer
           result.integrationResponses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i5.IntegrationResponse),
+                FullType(IntegrationResponse),
               ],
             ),
-          ) as _i7.BuiltMap<String, _i5.IntegrationResponse>));
+          ) as _i2.BuiltMap<String, IntegrationResponse>));
         case 'passthroughBehavior':
           result.passthroughBehavior = (serializers.deserialize(
             value,
@@ -315,24 +310,24 @@ class IntegrationRestJson1Serializer
           result.requestParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'requestTemplates':
           result.requestTemplates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'timeoutInMillis':
           result.timeoutInMillis = (serializers.deserialize(
             value,
@@ -341,13 +336,13 @@ class IntegrationRestJson1Serializer
         case 'tlsConfig':
           result.tlsConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.TlsConfig),
-          ) as _i6.TlsConfig));
+            specifiedType: const FullType(TlsConfig),
+          ) as TlsConfig));
         case 'type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.IntegrationType),
-          ) as _i2.IntegrationType);
+            specifiedType: const FullType(IntegrationType),
+          ) as IntegrationType);
         case 'uri':
           result.uri = (serializers.deserialize(
             value,
@@ -396,7 +391,7 @@ class IntegrationRestJson1Serializer
         ..add(serializers.serialize(
           cacheKeyParameters,
           specifiedType: const FullType(
-            _i7.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -422,7 +417,7 @@ class IntegrationRestJson1Serializer
         ..add('connectionType')
         ..add(serializers.serialize(
           connectionType,
-          specifiedType: const FullType(_i3.ConnectionType),
+          specifiedType: const FullType(ConnectionType),
         ));
     }
     if (contentHandling != null) {
@@ -430,7 +425,7 @@ class IntegrationRestJson1Serializer
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
-          specifiedType: const FullType(_i4.ContentHandlingStrategy),
+          specifiedType: const FullType(ContentHandlingStrategy),
         ));
     }
     if (credentials != null) {
@@ -455,10 +450,10 @@ class IntegrationRestJson1Serializer
         ..add(serializers.serialize(
           integrationResponses,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i5.IntegrationResponse),
+              FullType(IntegrationResponse),
             ],
           ),
         ));
@@ -477,7 +472,7 @@ class IntegrationRestJson1Serializer
         ..add(serializers.serialize(
           requestParameters,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -491,7 +486,7 @@ class IntegrationRestJson1Serializer
         ..add(serializers.serialize(
           requestTemplates,
           specifiedType: const FullType(
-            _i7.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -504,7 +499,7 @@ class IntegrationRestJson1Serializer
         ..add('tlsConfig')
         ..add(serializers.serialize(
           tlsConfig,
-          specifiedType: const FullType(_i6.TlsConfig),
+          specifiedType: const FullType(TlsConfig),
         ));
     }
     if (type != null) {
@@ -512,7 +507,7 @@ class IntegrationRestJson1Serializer
         ..add('type')
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType(_i2.IntegrationType),
+          specifiedType: const FullType(IntegrationType),
         ));
     }
     if (uri != null) {

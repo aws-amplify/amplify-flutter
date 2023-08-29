@@ -92,7 +92,7 @@ void main() {
 
     test('should configure correctly', () async {
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) async => standardAndroidPushMessage,
+        (_) async => standardAndroidPushMessage.cast(),
       );
 
       await plugin.configure(
@@ -113,7 +113,7 @@ void main() {
         'should fire both internal one time token and external token received listener',
         () async {
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) async => standardAndroidPushMessage,
+        (_) async => standardAndroidPushMessage.cast(),
       );
 
       await plugin.configure(
@@ -136,7 +136,7 @@ void main() {
         const OperatingSystem('android', ''),
         () async {
           when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-            (_) async => standardAndroidPushMessage,
+            (_) async => standardAndroidPushMessage.cast(),
           );
           plugin = TestAmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
@@ -294,7 +294,7 @@ void main() {
       dependencyManager: dependencyManager,
     );
     when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-      (_) async => standardAndroidPushMessage,
+      (_) async => standardAndroidPushMessage.cast(),
     );
 
     Future.delayed(const Duration(microseconds: 1), () async {
@@ -332,7 +332,7 @@ void main() {
       );
 
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) async => standardAndroidPushMessage,
+        (_) async => standardAndroidPushMessage.cast(),
       );
       Future.delayed(const Duration(microseconds: 1), () async {
         await testWidgetsFlutterBinding.defaultBinaryMessenger
@@ -376,7 +376,7 @@ void main() {
   group('Badge count APIs', () {
     setUp(() async {
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) async => standardAndroidPushMessage,
+        (_) async => standardAndroidPushMessage.cast(),
       );
       Future.delayed(const Duration(microseconds: 1), () async {
         await testWidgetsFlutterBinding.defaultBinaryMessenger
@@ -446,7 +446,7 @@ void main() {
       );
 
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) async => standardAndroidPushMessage,
+        (_) async => standardAndroidPushMessage.cast(),
       );
 
       Future.delayed(const Duration(microseconds: 1), () async {
@@ -567,7 +567,7 @@ void main() {
       );
     });
     when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-      (_) async => standardAndroidPushMessage,
+      (_) async => standardAndroidPushMessage.cast(),
     );
 
     await plugin.configure(
@@ -578,7 +578,9 @@ void main() {
     expect(
       plugin.launchNotification?.title,
       equals(
-        PushNotificationMessage.fromJson(standardAndroidPushMessage).title,
+        PushNotificationMessage.fromJson(
+          standardAndroidPushMessage.cast(),
+        ).title,
       ),
     );
     expect(

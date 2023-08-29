@@ -8,9 +8,9 @@ part of 'get_item_output.dart';
 
 class _$GetItemOutput extends GetItemOutput {
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue>? item;
+  final _i2.BuiltMap<String, AttributeValue>? item;
   @override
-  final _i3.ConsumedCapacity? consumedCapacity;
+  final ConsumedCapacity? consumedCapacity;
 
   factory _$GetItemOutput([void Function(GetItemOutputBuilder)? updates]) =>
       (new GetItemOutputBuilder()..update(updates))._build();
@@ -46,16 +46,15 @@ class GetItemOutputBuilder
     implements Builder<GetItemOutput, GetItemOutputBuilder> {
   _$GetItemOutput? _$v;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _item;
-  _i4.MapBuilder<String, _i2.AttributeValue> get item =>
-      _$this._item ??= new _i4.MapBuilder<String, _i2.AttributeValue>();
-  set item(_i4.MapBuilder<String, _i2.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
-  _i3.ConsumedCapacityBuilder? _consumedCapacity;
-  _i3.ConsumedCapacityBuilder get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i3.ConsumedCapacityBuilder();
-  set consumedCapacity(_i3.ConsumedCapacityBuilder? consumedCapacity) =>
+  ConsumedCapacityBuilder? _consumedCapacity;
+  ConsumedCapacityBuilder get consumedCapacity =>
+      _$this._consumedCapacity ??= new ConsumedCapacityBuilder();
+  set consumedCapacity(ConsumedCapacityBuilder? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   GetItemOutputBuilder();

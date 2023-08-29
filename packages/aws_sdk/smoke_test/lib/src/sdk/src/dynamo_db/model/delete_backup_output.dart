@@ -6,16 +6,15 @@ library smoke_test.dynamo_db.model.delete_backup_output; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_description.dart';
 
 part 'delete_backup_output.g.dart';
 
 abstract class DeleteBackupOutput
     with _i1.AWSEquatable<DeleteBackupOutput>
     implements Built<DeleteBackupOutput, DeleteBackupOutputBuilder> {
-  factory DeleteBackupOutput({_i2.BackupDescription? backupDescription}) {
+  factory DeleteBackupOutput({BackupDescription? backupDescription}) {
     return _$DeleteBackupOutput._(backupDescription: backupDescription);
   }
 
@@ -32,12 +31,12 @@ abstract class DeleteBackupOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DeleteBackupOutput>> serializers = [
+  static const List<_i2.SmithySerializer<DeleteBackupOutput>> serializers = [
     DeleteBackupOutputAwsJson10Serializer()
   ];
 
   /// Contains the description of the backup created for the table.
-  _i2.BackupDescription? get backupDescription;
+  BackupDescription? get backupDescription;
   @override
   List<Object?> get props => [backupDescription];
   @override
@@ -52,7 +51,7 @@ abstract class DeleteBackupOutput
 }
 
 class DeleteBackupOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DeleteBackupOutput> {
+    extends _i2.StructuredSmithySerializer<DeleteBackupOutput> {
   const DeleteBackupOutputAwsJson10Serializer() : super('DeleteBackupOutput');
 
   @override
@@ -61,8 +60,8 @@ class DeleteBackupOutputAwsJson10Serializer
         _$DeleteBackupOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -86,8 +85,8 @@ class DeleteBackupOutputAwsJson10Serializer
         case 'BackupDescription':
           result.backupDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BackupDescription),
-          ) as _i2.BackupDescription));
+            specifiedType: const FullType(BackupDescription),
+          ) as BackupDescription));
       }
     }
 
@@ -107,7 +106,7 @@ class DeleteBackupOutputAwsJson10Serializer
         ..add('BackupDescription')
         ..add(serializers.serialize(
           backupDescription,
-          specifiedType: const FullType(_i2.BackupDescription),
+          specifiedType: const FullType(BackupDescription),
         ));
     }
     return result$;

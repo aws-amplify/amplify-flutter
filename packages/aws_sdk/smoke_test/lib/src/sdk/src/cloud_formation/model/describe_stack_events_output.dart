@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.describe_stack_events_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_event.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_event.dart';
 
 part 'describe_stack_events_output.g.dart';
 
@@ -20,11 +19,11 @@ abstract class DescribeStackEventsOutput
         Built<DescribeStackEventsOutput, DescribeStackEventsOutputBuilder> {
   /// The output for a DescribeStackEvents action.
   factory DescribeStackEventsOutput({
-    List<_i2.StackEvent>? stackEvents,
+    List<StackEvent>? stackEvents,
     String? nextToken,
   }) {
     return _$DescribeStackEventsOutput._(
-      stackEvents: stackEvents == null ? null : _i3.BuiltList(stackEvents),
+      stackEvents: stackEvents == null ? null : _i2.BuiltList(stackEvents),
       nextToken: nextToken,
     );
   }
@@ -43,11 +42,11 @@ abstract class DescribeStackEventsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeStackEventsOutput>>
+  static const List<_i3.SmithySerializer<DescribeStackEventsOutput>>
       serializers = [DescribeStackEventsOutputAwsQuerySerializer()];
 
   /// A list of `StackEvents` structures.
-  _i3.BuiltList<_i2.StackEvent>? get stackEvents;
+  _i2.BuiltList<StackEvent>? get stackEvents;
 
   /// If the output exceeds 1 MB in size, a string that identifies the next page of events. If no additional page exists, this value is null.
   String? get nextToken;
@@ -72,7 +71,7 @@ abstract class DescribeStackEventsOutput
 }
 
 class DescribeStackEventsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribeStackEventsOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeStackEventsOutput> {
   const DescribeStackEventsOutputAwsQuerySerializer()
       : super('DescribeStackEventsOutput');
 
@@ -82,8 +81,8 @@ class DescribeStackEventsOutputAwsQuerySerializer
         _$DescribeStackEventsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -95,6 +94,14 @@ class DescribeStackEventsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = DescribeStackEventsOutputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -105,16 +112,16 @@ class DescribeStackEventsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'StackEvents':
-          result.stackEvents.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stackEvents.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.StackEvent)],
+              _i2.BuiltList,
+              [FullType(StackEvent)],
             ),
-          ) as _i3.BuiltList<_i2.StackEvent>));
+          ) as _i2.BuiltList<StackEvent>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -133,29 +140,29 @@ class DescribeStackEventsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeStackEventsOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackEventsOutput(:stackEvents, :nextToken) = object;
     if (stackEvents != null) {
       result$
-        ..add(const _i4.XmlElementName('StackEvents'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('StackEvents'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           stackEvents,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.StackEvent)],
+            _i2.BuiltList,
+            [FullType(StackEvent)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

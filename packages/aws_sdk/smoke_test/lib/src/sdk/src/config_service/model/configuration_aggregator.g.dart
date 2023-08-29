@@ -12,9 +12,9 @@ class _$ConfigurationAggregator extends ConfigurationAggregator {
   @override
   final String? configurationAggregatorArn;
   @override
-  final _i4.BuiltList<_i2.AccountAggregationSource>? accountAggregationSources;
+  final _i2.BuiltList<AccountAggregationSource>? accountAggregationSources;
   @override
-  final _i3.OrganizationAggregationSource? organizationAggregationSource;
+  final OrganizationAggregationSource? organizationAggregationSource;
   @override
   final DateTime? creationTime;
   @override
@@ -89,21 +89,21 @@ class ConfigurationAggregatorBuilder
   set configurationAggregatorArn(String? configurationAggregatorArn) =>
       _$this._configurationAggregatorArn = configurationAggregatorArn;
 
-  _i4.ListBuilder<_i2.AccountAggregationSource>? _accountAggregationSources;
-  _i4.ListBuilder<_i2.AccountAggregationSource> get accountAggregationSources =>
+  _i2.ListBuilder<AccountAggregationSource>? _accountAggregationSources;
+  _i2.ListBuilder<AccountAggregationSource> get accountAggregationSources =>
       _$this._accountAggregationSources ??=
-          new _i4.ListBuilder<_i2.AccountAggregationSource>();
+          new _i2.ListBuilder<AccountAggregationSource>();
   set accountAggregationSources(
-          _i4.ListBuilder<_i2.AccountAggregationSource>?
+          _i2.ListBuilder<AccountAggregationSource>?
               accountAggregationSources) =>
       _$this._accountAggregationSources = accountAggregationSources;
 
-  _i3.OrganizationAggregationSourceBuilder? _organizationAggregationSource;
-  _i3.OrganizationAggregationSourceBuilder get organizationAggregationSource =>
+  OrganizationAggregationSourceBuilder? _organizationAggregationSource;
+  OrganizationAggregationSourceBuilder get organizationAggregationSource =>
       _$this._organizationAggregationSource ??=
-          new _i3.OrganizationAggregationSourceBuilder();
+          new OrganizationAggregationSourceBuilder();
   set organizationAggregationSource(
-          _i3.OrganizationAggregationSourceBuilder?
+          OrganizationAggregationSourceBuilder?
               organizationAggregationSource) =>
       _$this._organizationAggregationSource = organizationAggregationSource;
 

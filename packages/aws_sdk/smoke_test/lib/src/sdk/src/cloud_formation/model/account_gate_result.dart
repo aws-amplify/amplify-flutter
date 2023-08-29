@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.account_gate_result; // ignore_for_file
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_status.dart';
 
 part 'account_gate_result.g.dart';
 
@@ -26,7 +25,7 @@ abstract class AccountGateResult
   ///
   /// For more information, see [Configuring a target account gate](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html).
   factory AccountGateResult({
-    _i2.AccountGateStatus? status,
+    AccountGateStatus? status,
     String? statusReason,
   }) {
     return _$AccountGateResult._(
@@ -45,7 +44,7 @@ abstract class AccountGateResult
 
   const AccountGateResult._();
 
-  static const List<_i3.SmithySerializer<AccountGateResult>> serializers = [
+  static const List<_i2.SmithySerializer<AccountGateResult>> serializers = [
     AccountGateResultAwsQuerySerializer()
   ];
 
@@ -62,7 +61,7 @@ abstract class AccountGateResult
   ///     *   The `AWSCloudFormationStackSetExecutionRole` of the stack set administration account lacks permissions to invoke the function. CloudFormation proceeds with the stack set operation in this account and Region.
   ///
   ///     *   Either no action is necessary, or no action is possible, on the stack. CloudFormation skips the stack set operation in this account and Region.
-  _i2.AccountGateStatus? get status;
+  AccountGateStatus? get status;
 
   /// The reason for the account gate status assigned to this account and Region for the stack set operation.
   String? get statusReason;
@@ -87,7 +86,7 @@ abstract class AccountGateResult
 }
 
 class AccountGateResultAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<AccountGateResult> {
+    extends _i2.StructuredSmithySerializer<AccountGateResult> {
   const AccountGateResultAwsQuerySerializer() : super('AccountGateResult');
 
   @override
@@ -96,8 +95,8 @@ class AccountGateResultAwsQuerySerializer
         _$AccountGateResult,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -109,6 +108,14 @@ class AccountGateResultAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = AccountGateResultBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -121,8 +128,8 @@ class AccountGateResultAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AccountGateStatus),
-          ) as _i2.AccountGateStatus);
+            specifiedType: const FullType(AccountGateStatus),
+          ) as AccountGateStatus);
         case 'StatusReason':
           result.statusReason = (serializers.deserialize(
             value,
@@ -141,23 +148,23 @@ class AccountGateResultAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AccountGateResultResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final AccountGateResult(:status, :statusReason) = object;
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.AccountGateStatus),
+          specifiedType: const FullType.nullable(AccountGateStatus),
         ));
     }
     if (statusReason != null) {
       result$
-        ..add(const _i3.XmlElementName('StatusReason'))
+        ..add(const _i2.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
           specifiedType: const FullType(String),

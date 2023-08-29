@@ -14,7 +14,7 @@ class _$PropertyDifference extends PropertyDifference {
   @override
   final String actualValue;
   @override
-  final _i2.DifferenceType differenceType;
+  final DifferenceType differenceType;
 
   factory _$PropertyDifference(
           [void Function(PropertyDifferenceBuilder)? updates]) =>
@@ -84,9 +84,9 @@ class PropertyDifferenceBuilder
   String? get actualValue => _$this._actualValue;
   set actualValue(String? actualValue) => _$this._actualValue = actualValue;
 
-  _i2.DifferenceType? _differenceType;
-  _i2.DifferenceType? get differenceType => _$this._differenceType;
-  set differenceType(_i2.DifferenceType? differenceType) =>
+  DifferenceType? _differenceType;
+  DifferenceType? get differenceType => _$this._differenceType;
+  set differenceType(DifferenceType? differenceType) =>
       _$this._differenceType = differenceType;
 
   PropertyDifferenceBuilder();

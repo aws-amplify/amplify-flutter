@@ -8,9 +8,9 @@ part of 'target_grant.dart';
 
 class _$TargetGrant extends TargetGrant {
   @override
-  final _i2.Grantee? grantee;
+  final Grantee? grantee;
   @override
-  final _i3.BucketLogsPermission? permission;
+  final BucketLogsPermission? permission;
 
   factory _$TargetGrant([void Function(TargetGrantBuilder)? updates]) =>
       (new TargetGrantBuilder()..update(updates))._build();
@@ -45,14 +45,13 @@ class _$TargetGrant extends TargetGrant {
 class TargetGrantBuilder implements Builder<TargetGrant, TargetGrantBuilder> {
   _$TargetGrant? _$v;
 
-  _i2.GranteeBuilder? _grantee;
-  _i2.GranteeBuilder get grantee =>
-      _$this._grantee ??= new _i2.GranteeBuilder();
-  set grantee(_i2.GranteeBuilder? grantee) => _$this._grantee = grantee;
+  GranteeBuilder? _grantee;
+  GranteeBuilder get grantee => _$this._grantee ??= new GranteeBuilder();
+  set grantee(GranteeBuilder? grantee) => _$this._grantee = grantee;
 
-  _i3.BucketLogsPermission? _permission;
-  _i3.BucketLogsPermission? get permission => _$this._permission;
-  set permission(_i3.BucketLogsPermission? permission) =>
+  BucketLogsPermission? _permission;
+  BucketLogsPermission? get permission => _$this._permission;
+  set permission(BucketLogsPermission? permission) =>
       _$this._permission = permission;
 
   TargetGrantBuilder();

@@ -3,19 +3,17 @@
 
 library smoke_test.s3.operation.get_object_attributes_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart';
 
 /// Retrieves all the metadata from an object without returning the object itself. This action is useful if you're interested only in an object's metadata. To use `GetObjectAttributes`, you must have READ access to the object.
 ///
@@ -81,10 +79,10 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
 ///
 /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
 class GetObjectAttributesOperation extends _i1.HttpOperation<
-    _i2.GetObjectAttributesRequestPayload,
-    _i2.GetObjectAttributesRequest,
-    _i3.GetObjectAttributesOutputPayload,
-    _i3.GetObjectAttributesOutput> {
+    GetObjectAttributesRequestPayload,
+    GetObjectAttributesRequest,
+    GetObjectAttributesOutputPayload,
+    GetObjectAttributesOutput> {
   /// Retrieves all the metadata from an object without returning the object itself. This action is useful if you're interested only in an object's metadata. To use `GetObjectAttributes`, you must have READ access to the object.
   ///
   /// `GetObjectAttributes` combines the functionality of `HeadObject` and `ListParts`. All of the data returned with each of those individual calls can be returned with a single call to `GetObjectAttributes`.
@@ -151,9 +149,9 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
   GetObjectAttributesOperation({
     required String region,
     Uri? baseUri,
-    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-    _i5.AWSCredentialsProvider credentialsProvider =
-        const _i5.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -166,25 +164,25 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.GetObjectAttributesRequestPayload,
-          _i2.GetObjectAttributesRequest,
-          _i3.GetObjectAttributesOutputPayload,
-          _i3.GetObjectAttributesOutput>> protocols = [
-    _i4.RestXmlProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          GetObjectAttributesRequestPayload,
+          GetObjectAttributesRequest,
+          GetObjectAttributesOutputPayload,
+          GetObjectAttributesOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i4.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i7.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -193,8 +191,8 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -202,16 +200,16 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i5.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.GetObjectAttributesRequest input) =>
+  _i1.HttpRequest buildRequest(GetObjectAttributesRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'GET';
         b.path = _s3ClientConfig.usePathStyle
@@ -267,32 +265,32 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i3.GetObjectAttributesOutput? output]) => 200;
+  int successCode([GetObjectAttributesOutput? output]) => 200;
   @override
-  _i3.GetObjectAttributesOutput buildOutput(
-    _i3.GetObjectAttributesOutputPayload payload,
-    _i7.AWSBaseHttpResponse response,
+  GetObjectAttributesOutput buildOutput(
+    GetObjectAttributesOutputPayload payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.GetObjectAttributesOutput.fromResponse(
+      GetObjectAttributesOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.NoSuchKey, _i9.NoSuchKey>(
+        _i1.SmithyError<NoSuchKey, NoSuchKey>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchKey',
           ),
           _i1.ErrorKind.client,
-          _i9.NoSuchKey,
-          builder: _i9.NoSuchKey.fromResponse,
+          NoSuchKey,
+          builder: NoSuchKey.fromResponse,
         )
       ];
   @override
   String get runtimeTypeName => 'GetObjectAttributes';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -314,12 +312,12 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.GetObjectAttributesOutput> run(
-    _i2.GetObjectAttributesRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<GetObjectAttributesOutput> run(
+    GetObjectAttributesRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i10.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -327,7 +325,7 @@ class GetObjectAttributesOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

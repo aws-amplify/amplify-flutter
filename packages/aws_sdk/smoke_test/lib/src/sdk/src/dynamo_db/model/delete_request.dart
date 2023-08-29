@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.delete_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'delete_request.g.dart';
 
@@ -18,8 +17,8 @@ abstract class DeleteRequest
     with _i1.AWSEquatable<DeleteRequest>
     implements Built<DeleteRequest, DeleteRequestBuilder> {
   /// Represents a request to perform a `DeleteItem` operation on an item.
-  factory DeleteRequest({required Map<String, _i2.AttributeValue> key}) {
-    return _$DeleteRequest._(key: _i3.BuiltMap(key));
+  factory DeleteRequest({required Map<String, AttributeValue> key}) {
+    return _$DeleteRequest._(key: _i2.BuiltMap(key));
   }
 
   /// Represents a request to perform a `DeleteItem` operation on an item.
@@ -28,12 +27,12 @@ abstract class DeleteRequest
 
   const DeleteRequest._();
 
-  static const List<_i4.SmithySerializer<DeleteRequest>> serializers = [
+  static const List<_i3.SmithySerializer<DeleteRequest>> serializers = [
     DeleteRequestAwsJson10Serializer()
   ];
 
   /// A map of attribute name to attribute values, representing the primary key of the item to delete. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema.
-  _i3.BuiltMap<String, _i2.AttributeValue> get key;
+  _i2.BuiltMap<String, AttributeValue> get key;
   @override
   List<Object?> get props => [key];
   @override
@@ -48,7 +47,7 @@ abstract class DeleteRequest
 }
 
 class DeleteRequestAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<DeleteRequest> {
+    extends _i3.StructuredSmithySerializer<DeleteRequest> {
   const DeleteRequestAwsJson10Serializer() : super('DeleteRequest');
 
   @override
@@ -57,8 +56,8 @@ class DeleteRequestAwsJson10Serializer
         _$DeleteRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -83,13 +82,13 @@ class DeleteRequestAwsJson10Serializer
           result.key.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -109,10 +108,10 @@ class DeleteRequestAwsJson10Serializer
       serializers.serialize(
         key,
         specifiedType: const FullType(
-          _i3.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.AttributeValue),
+            FullType(AttributeValue),
           ],
         ),
       ),

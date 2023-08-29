@@ -7,16 +7,11 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/provisioning_type.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_filters.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/provisioning_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_filters.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart';
 
 part 'list_types_input.g.dart';
 
@@ -24,11 +19,11 @@ abstract class ListTypesInput
     with _i1.HttpInput<ListTypesInput>, _i2.AWSEquatable<ListTypesInput>
     implements Built<ListTypesInput, ListTypesInputBuilder> {
   factory ListTypesInput({
-    _i3.Visibility? visibility,
-    _i4.ProvisioningType? provisioningType,
-    _i5.DeprecatedStatus? deprecatedStatus,
-    _i6.RegistryType? type,
-    _i7.TypeFilters? filters,
+    Visibility? visibility,
+    ProvisioningType? provisioningType,
+    DeprecatedStatus? deprecatedStatus,
+    RegistryType? type,
+    TypeFilters? filters,
     int? maxResults,
     String? nextToken,
   }) {
@@ -73,7 +68,7 @@ abstract class ListTypesInput
   ///
   ///
   /// The default is `PRIVATE`.
-  _i3.Visibility? get visibility;
+  Visibility? get visibility;
 
   /// For resource types, the provisioning behavior of the resource type. CloudFormation determines the provisioning type during registration, based on the types of handlers in the schema handler package submitted.
   ///
@@ -87,7 +82,7 @@ abstract class ListTypesInput
   ///
   ///
   /// The default is `FULLY_MUTABLE`.
-  _i4.ProvisioningType? get provisioningType;
+  ProvisioningType? get provisioningType;
 
   /// The deprecation status of the extension that you want to get summary information about.
   ///
@@ -96,15 +91,15 @@ abstract class ListTypesInput
   /// *   `LIVE`: The extension is registered for use in CloudFormation operations.
   ///
   /// *   `DEPRECATED`: The extension has been deregistered and can no longer be used in CloudFormation operations.
-  _i5.DeprecatedStatus? get deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus;
 
   /// The type of extension.
-  _i6.RegistryType? get type;
+  RegistryType? get type;
 
   /// Filter criteria to use in determining which extensions to return.
   ///
   /// Filters must be compatible with `Visibility` to return valid results. For example, specifying `AWS_TYPES` for `Category` and `PRIVATE` for `Visibility` returns an empty list of types, but specifying `PUBLIC` for `Visibility` returns the desired list.
-  _i7.TypeFilters? get filters;
+  TypeFilters? get filters;
 
   /// The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a `NextToken` value that you can assign to the `NextToken` request parameter to get the next set of results.
   int? get maxResults;
@@ -181,6 +176,14 @@ class ListTypesInputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = ListTypesInputBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -193,28 +196,28 @@ class ListTypesInputAwsQuerySerializer
         case 'Visibility':
           result.visibility = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Visibility),
-          ) as _i3.Visibility);
+            specifiedType: const FullType(Visibility),
+          ) as Visibility);
         case 'ProvisioningType':
           result.provisioningType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ProvisioningType),
-          ) as _i4.ProvisioningType);
+            specifiedType: const FullType(ProvisioningType),
+          ) as ProvisioningType);
         case 'DeprecatedStatus':
           result.deprecatedStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.DeprecatedStatus),
-          ) as _i5.DeprecatedStatus);
+            specifiedType: const FullType(DeprecatedStatus),
+          ) as DeprecatedStatus);
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.RegistryType),
-          ) as _i6.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.TypeFilters),
-          ) as _i7.TypeFilters));
+            specifiedType: const FullType(TypeFilters),
+          ) as TypeFilters));
         case 'MaxResults':
           result.maxResults = (serializers.deserialize(
             value,
@@ -257,7 +260,7 @@ class ListTypesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Visibility'))
         ..add(serializers.serialize(
           visibility,
-          specifiedType: const FullType.nullable(_i3.Visibility),
+          specifiedType: const FullType.nullable(Visibility),
         ));
     }
     if (provisioningType != null) {
@@ -265,7 +268,7 @@ class ListTypesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
           provisioningType,
-          specifiedType: const FullType.nullable(_i4.ProvisioningType),
+          specifiedType: const FullType.nullable(ProvisioningType),
         ));
     }
     if (deprecatedStatus != null) {
@@ -273,7 +276,7 @@ class ListTypesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
-          specifiedType: const FullType.nullable(_i5.DeprecatedStatus),
+          specifiedType: const FullType.nullable(DeprecatedStatus),
         ));
     }
     if (type != null) {
@@ -281,7 +284,7 @@ class ListTypesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i6.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (filters != null) {
@@ -289,7 +292,7 @@ class ListTypesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Filters'))
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i7.TypeFilters),
+          specifiedType: const FullType(TypeFilters),
         ));
     }
     if (maxResults != null) {

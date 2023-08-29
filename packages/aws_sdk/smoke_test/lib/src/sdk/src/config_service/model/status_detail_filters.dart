@@ -6,9 +6,8 @@ library smoke_test.config_service.model.status_detail_filters; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/member_account_rule_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/member_account_rule_status.dart';
 
 part 'status_detail_filters.g.dart';
 
@@ -19,7 +18,7 @@ abstract class StatusDetailFilters
   /// Status filter object to filter results based on specific member account ID or status type for an organization Config rule.
   factory StatusDetailFilters({
     String? accountId,
-    _i2.MemberAccountRuleStatus? memberAccountRuleStatus,
+    MemberAccountRuleStatus? memberAccountRuleStatus,
   }) {
     return _$StatusDetailFilters._(
       accountId: accountId,
@@ -34,7 +33,7 @@ abstract class StatusDetailFilters
 
   const StatusDetailFilters._();
 
-  static const List<_i3.SmithySerializer<StatusDetailFilters>> serializers = [
+  static const List<_i2.SmithySerializer<StatusDetailFilters>> serializers = [
     StatusDetailFiltersAwsJson11Serializer()
   ];
 
@@ -62,7 +61,7 @@ abstract class StatusDetailFilters
   /// *   `UPDATE\_IN\_PROGRESS` when Config rule is being updated in the member account.
   ///
   /// *   `UPDATE_FAILED` when Config rule deletion has failed in the member account.
-  _i2.MemberAccountRuleStatus? get memberAccountRuleStatus;
+  MemberAccountRuleStatus? get memberAccountRuleStatus;
   @override
   List<Object?> get props => [
         accountId,
@@ -84,7 +83,7 @@ abstract class StatusDetailFilters
 }
 
 class StatusDetailFiltersAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<StatusDetailFilters> {
+    extends _i2.StructuredSmithySerializer<StatusDetailFilters> {
   const StatusDetailFiltersAwsJson11Serializer() : super('StatusDetailFilters');
 
   @override
@@ -93,8 +92,8 @@ class StatusDetailFiltersAwsJson11Serializer
         _$StatusDetailFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -123,8 +122,8 @@ class StatusDetailFiltersAwsJson11Serializer
         case 'MemberAccountRuleStatus':
           result.memberAccountRuleStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MemberAccountRuleStatus),
-          ) as _i2.MemberAccountRuleStatus);
+            specifiedType: const FullType(MemberAccountRuleStatus),
+          ) as MemberAccountRuleStatus);
       }
     }
 
@@ -152,7 +151,7 @@ class StatusDetailFiltersAwsJson11Serializer
         ..add('MemberAccountRuleStatus')
         ..add(serializers.serialize(
           memberAccountRuleStatus,
-          specifiedType: const FullType(_i2.MemberAccountRuleStatus),
+          specifiedType: const FullType(MemberAccountRuleStatus),
         ));
     }
     return result$;

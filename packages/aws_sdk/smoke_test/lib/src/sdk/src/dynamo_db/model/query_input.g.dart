@@ -12,25 +12,25 @@ class _$QueryInput extends QueryInput {
   @override
   final String? indexName;
   @override
-  final _i3.Select? select;
+  final Select? select;
   @override
-  final _i8.BuiltList<String>? attributesToGet;
+  final _i3.BuiltList<String>? attributesToGet;
   @override
   final int? limit;
   @override
   final bool? consistentRead;
   @override
-  final _i8.BuiltMap<String, _i4.Condition>? keyConditions;
+  final _i3.BuiltMap<String, Condition>? keyConditions;
   @override
-  final _i8.BuiltMap<String, _i4.Condition>? queryFilter;
+  final _i3.BuiltMap<String, Condition>? queryFilter;
   @override
-  final _i5.ConditionalOperator? conditionalOperator;
+  final ConditionalOperator? conditionalOperator;
   @override
   final bool? scanIndexForward;
   @override
-  final _i8.BuiltMap<String, _i6.AttributeValue>? exclusiveStartKey;
+  final _i3.BuiltMap<String, AttributeValue>? exclusiveStartKey;
   @override
-  final _i7.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
   final String? projectionExpression;
   @override
@@ -38,9 +38,9 @@ class _$QueryInput extends QueryInput {
   @override
   final String? keyConditionExpression;
   @override
-  final _i8.BuiltMap<String, String>? expressionAttributeNames;
+  final _i3.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i8.BuiltMap<String, _i6.AttributeValue>? expressionAttributeValues;
+  final _i3.BuiltMap<String, AttributeValue>? expressionAttributeValues;
 
   factory _$QueryInput([void Function(QueryInputBuilder)? updates]) =>
       (new QueryInputBuilder()..update(updates))._build();
@@ -134,14 +134,14 @@ class QueryInputBuilder implements Builder<QueryInput, QueryInputBuilder> {
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i3.Select? _select;
-  _i3.Select? get select => _$this._select;
-  set select(_i3.Select? select) => _$this._select = select;
+  Select? _select;
+  Select? get select => _$this._select;
+  set select(Select? select) => _$this._select = select;
 
-  _i8.ListBuilder<String>? _attributesToGet;
-  _i8.ListBuilder<String> get attributesToGet =>
-      _$this._attributesToGet ??= new _i8.ListBuilder<String>();
-  set attributesToGet(_i8.ListBuilder<String>? attributesToGet) =>
+  _i3.ListBuilder<String>? _attributesToGet;
+  _i3.ListBuilder<String> get attributesToGet =>
+      _$this._attributesToGet ??= new _i3.ListBuilder<String>();
+  set attributesToGet(_i3.ListBuilder<String>? attributesToGet) =>
       _$this._attributesToGet = attributesToGet;
 
   int? _limit;
@@ -153,22 +153,21 @@ class QueryInputBuilder implements Builder<QueryInput, QueryInputBuilder> {
   set consistentRead(bool? consistentRead) =>
       _$this._consistentRead = consistentRead;
 
-  _i8.MapBuilder<String, _i4.Condition>? _keyConditions;
-  _i8.MapBuilder<String, _i4.Condition> get keyConditions =>
-      _$this._keyConditions ??= new _i8.MapBuilder<String, _i4.Condition>();
-  set keyConditions(_i8.MapBuilder<String, _i4.Condition>? keyConditions) =>
+  _i3.MapBuilder<String, Condition>? _keyConditions;
+  _i3.MapBuilder<String, Condition> get keyConditions =>
+      _$this._keyConditions ??= new _i3.MapBuilder<String, Condition>();
+  set keyConditions(_i3.MapBuilder<String, Condition>? keyConditions) =>
       _$this._keyConditions = keyConditions;
 
-  _i8.MapBuilder<String, _i4.Condition>? _queryFilter;
-  _i8.MapBuilder<String, _i4.Condition> get queryFilter =>
-      _$this._queryFilter ??= new _i8.MapBuilder<String, _i4.Condition>();
-  set queryFilter(_i8.MapBuilder<String, _i4.Condition>? queryFilter) =>
+  _i3.MapBuilder<String, Condition>? _queryFilter;
+  _i3.MapBuilder<String, Condition> get queryFilter =>
+      _$this._queryFilter ??= new _i3.MapBuilder<String, Condition>();
+  set queryFilter(_i3.MapBuilder<String, Condition>? queryFilter) =>
       _$this._queryFilter = queryFilter;
 
-  _i5.ConditionalOperator? _conditionalOperator;
-  _i5.ConditionalOperator? get conditionalOperator =>
-      _$this._conditionalOperator;
-  set conditionalOperator(_i5.ConditionalOperator? conditionalOperator) =>
+  ConditionalOperator? _conditionalOperator;
+  ConditionalOperator? get conditionalOperator => _$this._conditionalOperator;
+  set conditionalOperator(ConditionalOperator? conditionalOperator) =>
       _$this._conditionalOperator = conditionalOperator;
 
   bool? _scanIndexForward;
@@ -176,19 +175,18 @@ class QueryInputBuilder implements Builder<QueryInput, QueryInputBuilder> {
   set scanIndexForward(bool? scanIndexForward) =>
       _$this._scanIndexForward = scanIndexForward;
 
-  _i8.MapBuilder<String, _i6.AttributeValue>? _exclusiveStartKey;
-  _i8.MapBuilder<String, _i6.AttributeValue> get exclusiveStartKey =>
+  _i3.MapBuilder<String, AttributeValue>? _exclusiveStartKey;
+  _i3.MapBuilder<String, AttributeValue> get exclusiveStartKey =>
       _$this._exclusiveStartKey ??=
-          new _i8.MapBuilder<String, _i6.AttributeValue>();
+          new _i3.MapBuilder<String, AttributeValue>();
   set exclusiveStartKey(
-          _i8.MapBuilder<String, _i6.AttributeValue>? exclusiveStartKey) =>
+          _i3.MapBuilder<String, AttributeValue>? exclusiveStartKey) =>
       _$this._exclusiveStartKey = exclusiveStartKey;
 
-  _i7.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i7.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i7.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   String? _projectionExpression;
@@ -206,20 +204,19 @@ class QueryInputBuilder implements Builder<QueryInput, QueryInputBuilder> {
   set keyConditionExpression(String? keyConditionExpression) =>
       _$this._keyConditionExpression = keyConditionExpression;
 
-  _i8.MapBuilder<String, String>? _expressionAttributeNames;
-  _i8.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i8.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _expressionAttributeNames;
+  _i3.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i8.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i8.MapBuilder<String, _i6.AttributeValue>? _expressionAttributeValues;
-  _i8.MapBuilder<String, _i6.AttributeValue> get expressionAttributeValues =>
+  _i3.MapBuilder<String, AttributeValue>? _expressionAttributeValues;
+  _i3.MapBuilder<String, AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i8.MapBuilder<String, _i6.AttributeValue>();
+          new _i3.MapBuilder<String, AttributeValue>();
   set expressionAttributeValues(
-          _i8.MapBuilder<String, _i6.AttributeValue>?
-              expressionAttributeValues) =>
+          _i3.MapBuilder<String, AttributeValue>? expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
   QueryInputBuilder();

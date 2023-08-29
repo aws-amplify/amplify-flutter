@@ -4,14 +4,12 @@
 library smoke_test.api_gateway.model.create_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key_source_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key_source_type.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart';
 
 part 'create_rest_api_request.g.dart';
 
@@ -29,8 +27,8 @@ abstract class CreateRestApiRequest
     String? cloneFrom,
     List<String>? binaryMediaTypes,
     int? minimumCompressionSize,
-    _i3.ApiKeySourceType? apiKeySource,
-    _i4.EndpointConfiguration? endpointConfiguration,
+    ApiKeySourceType? apiKeySource,
+    EndpointConfiguration? endpointConfiguration,
     String? policy,
     Map<String, String>? tags,
     bool? disableExecuteApiEndpoint,
@@ -42,12 +40,12 @@ abstract class CreateRestApiRequest
       version: version,
       cloneFrom: cloneFrom,
       binaryMediaTypes:
-          binaryMediaTypes == null ? null : _i5.BuiltList(binaryMediaTypes),
+          binaryMediaTypes == null ? null : _i3.BuiltList(binaryMediaTypes),
       minimumCompressionSize: minimumCompressionSize,
       apiKeySource: apiKeySource,
       endpointConfiguration: endpointConfiguration,
       policy: policy,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      tags: tags == null ? null : _i3.BuiltMap(tags),
       disableExecuteApiEndpoint: disableExecuteApiEndpoint,
     );
   }
@@ -88,22 +86,22 @@ abstract class CreateRestApiRequest
   String? get cloneFrom;
 
   /// The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text payloads.
-  _i5.BuiltList<String>? get binaryMediaTypes;
+  _i3.BuiltList<String>? get binaryMediaTypes;
 
   /// A nullable integer that is used to enable compression (with non-negative between 0 and 10485760 (10M) bytes, inclusive) or disable compression (with a null value) on an API. When compression is enabled, compression or decompression is not applied on the payload if the payload size is smaller than this value. Setting it to zero allows compression for any payload size.
   int? get minimumCompressionSize;
 
   /// The source of the API key for metering requests according to a usage plan. Valid values are: >`HEADER` to read the API key from the `X-API-Key` header of a request. `AUTHORIZER` to read the API key from the `UsageIdentifierKey` from a custom authorizer.
-  _i3.ApiKeySourceType? get apiKeySource;
+  ApiKeySourceType? get apiKeySource;
 
   /// The endpoint configuration of this RestApi showing the endpoint types of the API.
-  _i4.EndpointConfiguration? get endpointConfiguration;
+  EndpointConfiguration? get endpointConfiguration;
 
   /// A stringified JSON policy document that applies to this RestApi regardless of the caller and Method configuration.
   String? get policy;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i5.BuiltMap<String, String>? get tags;
+  _i3.BuiltMap<String, String>? get tags;
 
   /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint
   bool get disableExecuteApiEndpoint;
@@ -210,16 +208,16 @@ class CreateRestApiRequestRestJson1Serializer
         case 'apiKeySource':
           result.apiKeySource = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ApiKeySourceType),
-          ) as _i3.ApiKeySourceType);
+            specifiedType: const FullType(ApiKeySourceType),
+          ) as ApiKeySourceType);
         case 'binaryMediaTypes':
           result.binaryMediaTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'cloneFrom':
           result.cloneFrom = (serializers.deserialize(
             value,
@@ -238,8 +236,8 @@ class CreateRestApiRequestRestJson1Serializer
         case 'endpointConfiguration':
           result.endpointConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EndpointConfiguration),
-          ) as _i4.EndpointConfiguration));
+            specifiedType: const FullType(EndpointConfiguration),
+          ) as EndpointConfiguration));
         case 'minimumCompressionSize':
           result.minimumCompressionSize = (serializers.deserialize(
             value,
@@ -259,13 +257,13 @@ class CreateRestApiRequestRestJson1Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'version':
           result.version = (serializers.deserialize(
             value,
@@ -314,7 +312,7 @@ class CreateRestApiRequestRestJson1Serializer
         ..add('apiKeySource')
         ..add(serializers.serialize(
           apiKeySource,
-          specifiedType: const FullType(_i3.ApiKeySourceType),
+          specifiedType: const FullType(ApiKeySourceType),
         ));
     }
     if (binaryMediaTypes != null) {
@@ -323,7 +321,7 @@ class CreateRestApiRequestRestJson1Serializer
         ..add(serializers.serialize(
           binaryMediaTypes,
           specifiedType: const FullType(
-            _i5.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -349,7 +347,7 @@ class CreateRestApiRequestRestJson1Serializer
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
-          specifiedType: const FullType(_i4.EndpointConfiguration),
+          specifiedType: const FullType(EndpointConfiguration),
         ));
     }
     if (minimumCompressionSize != null) {
@@ -374,7 +372,7 @@ class CreateRestApiRequestRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

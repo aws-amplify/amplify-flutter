@@ -3,41 +3,35 @@
 
 library smoke_test.config_service.operation.put_retention_configuration_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_retention_configurations_exceeded_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_response.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_retention_configurations_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_response.dart';
 
 /// Creates and updates the retention configuration with details about retention period (number of days) that Config stores your historical information. The API creates the `RetentionConfiguration` object and names the object as **default**. When you have a `RetentionConfiguration` object named **default**, calling the API modifies the default object.
 ///
 /// Currently, Config supports only one retention configuration per region in your account.
 class PutRetentionConfigurationOperation extends _i1.HttpOperation<
-    _i2.PutRetentionConfigurationRequest,
-    _i2.PutRetentionConfigurationRequest,
-    _i3.PutRetentionConfigurationResponse,
-    _i3.PutRetentionConfigurationResponse> {
+    PutRetentionConfigurationRequest,
+    PutRetentionConfigurationRequest,
+    PutRetentionConfigurationResponse,
+    PutRetentionConfigurationResponse> {
   /// Creates and updates the retention configuration with details about retention period (number of days) that Config stores your historical information. The API creates the `RetentionConfiguration` object and names the object as **default**. When you have a `RetentionConfiguration` object named **default**, calling the API modifies the default object.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
   PutRetentionConfigurationOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -49,13 +43,13 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.PutRetentionConfigurationRequest,
-          _i2.PutRetentionConfigurationRequest,
-          _i3.PutRetentionConfigurationResponse,
-          _i3.PutRetentionConfigurationResponse>> protocols = [
-    _i5.AwsJson1_1Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          PutRetentionConfigurationRequest,
+          PutRetentionConfigurationRequest,
+          PutRetentionConfigurationResponse,
+          PutRetentionConfigurationResponse>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -63,14 +57,14 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'StarlingDoveService.PutRetentionConfiguration',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.configService,
+              service: _i4.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -78,8 +72,8 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -87,69 +81,68 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutRetentionConfigurationRequest input) =>
+  _i1.HttpRequest buildRequest(PutRetentionConfigurationRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.PutRetentionConfigurationResponse? output]) => 200;
+  int successCode([PutRetentionConfigurationResponse? output]) => 200;
   @override
-  _i3.PutRetentionConfigurationResponse buildOutput(
-    _i3.PutRetentionConfigurationResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  PutRetentionConfigurationResponse buildOutput(
+    PutRetentionConfigurationResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.PutRetentionConfigurationResponse.fromResponse(
+      PutRetentionConfigurationResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InvalidParameterValueException,
-            _i9.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidParameterValueException,
-          builder: _i9.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError<
-            _i10.MaxNumberOfRetentionConfigurationsExceededException,
-            _i10.MaxNumberOfRetentionConfigurationsExceededException>(
+        _i1.SmithyError<MaxNumberOfRetentionConfigurationsExceededException,
+            MaxNumberOfRetentionConfigurationsExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfRetentionConfigurationsExceededException',
           ),
           _i1.ErrorKind.client,
-          _i10.MaxNumberOfRetentionConfigurationsExceededException,
-          builder: _i10
-              .MaxNumberOfRetentionConfigurationsExceededException.fromResponse,
+          MaxNumberOfRetentionConfigurationsExceededException,
+          builder:
+              MaxNumberOfRetentionConfigurationsExceededException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'PutRetentionConfiguration';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.PutRetentionConfigurationResponse> run(
-    _i2.PutRetentionConfigurationRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<PutRetentionConfigurationResponse> run(
+    PutRetentionConfigurationRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -157,7 +150,7 @@ class PutRetentionConfigurationOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

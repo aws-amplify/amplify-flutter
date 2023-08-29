@@ -10,7 +10,7 @@ class _$CreateGlobalTableInput extends CreateGlobalTableInput {
   @override
   final String globalTableName;
   @override
-  final _i4.BuiltList<_i3.Replica> replicationGroup;
+  final _i3.BuiltList<Replica> replicationGroup;
 
   factory _$CreateGlobalTableInput(
           [void Function(CreateGlobalTableInputBuilder)? updates]) =>
@@ -61,10 +61,10 @@ class CreateGlobalTableInputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  _i4.ListBuilder<_i3.Replica>? _replicationGroup;
-  _i4.ListBuilder<_i3.Replica> get replicationGroup =>
-      _$this._replicationGroup ??= new _i4.ListBuilder<_i3.Replica>();
-  set replicationGroup(_i4.ListBuilder<_i3.Replica>? replicationGroup) =>
+  _i3.ListBuilder<Replica>? _replicationGroup;
+  _i3.ListBuilder<Replica> get replicationGroup =>
+      _$this._replicationGroup ??= new _i3.ListBuilder<Replica>();
+  set replicationGroup(_i3.ListBuilder<Replica>? replicationGroup) =>
       _$this._replicationGroup = replicationGroup;
 
   CreateGlobalTableInputBuilder();

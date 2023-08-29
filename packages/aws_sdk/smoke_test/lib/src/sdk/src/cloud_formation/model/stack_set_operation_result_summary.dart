@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.stack_set_operation_result_summary; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_result.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_result.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_status.dart';
 
 part 'stack_set_operation_result_summary.g.dart';
 
@@ -25,9 +23,9 @@ abstract class StackSetOperationResultSummary
   factory StackSetOperationResultSummary({
     String? account,
     String? region,
-    _i2.StackSetOperationResultStatus? status,
+    StackSetOperationResultStatus? status,
     String? statusReason,
-    _i3.AccountGateResult? accountGateResult,
+    AccountGateResult? accountGateResult,
     String? organizationalUnitId,
   }) {
     return _$StackSetOperationResultSummary._(
@@ -47,7 +45,7 @@ abstract class StackSetOperationResultSummary
 
   const StackSetOperationResultSummary._();
 
-  static const List<_i4.SmithySerializer<StackSetOperationResultSummary>>
+  static const List<_i2.SmithySerializer<StackSetOperationResultSummary>>
       serializers = [StackSetOperationResultSummaryAwsQuerySerializer()];
 
   /// \[Self-managed permissions\] The name of the Amazon Web Services account for this operation result.
@@ -69,13 +67,13 @@ abstract class StackSetOperationResultSummary
   /// *   `PENDING`: The operation in the specified account and Region has yet to start.
   ///
   /// *   `SUCCEEDED`: The operation in the specified account and Region completed successfully.
-  _i2.StackSetOperationResultStatus? get status;
+  StackSetOperationResultStatus? get status;
 
   /// The reason for the assigned result status.
   String? get statusReason;
 
   /// The results of the account gate function CloudFormation invokes, if present, before proceeding with stack set operations in an account.
-  _i3.AccountGateResult? get accountGateResult;
+  AccountGateResult? get accountGateResult;
 
   /// \[Service-managed permissions\] The organization root ID or organizational unit (OU) IDs that you specified for [DeploymentTargets](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html).
   String? get organizationalUnitId;
@@ -120,7 +118,7 @@ abstract class StackSetOperationResultSummary
 }
 
 class StackSetOperationResultSummaryAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<StackSetOperationResultSummary> {
+    extends _i2.StructuredSmithySerializer<StackSetOperationResultSummary> {
   const StackSetOperationResultSummaryAwsQuerySerializer()
       : super('StackSetOperationResultSummary');
 
@@ -130,8 +128,8 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         _$StackSetOperationResultSummary,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -143,6 +141,14 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = StackSetOperationResultSummaryBuilder();
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -165,8 +171,8 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSetOperationResultStatus),
-          ) as _i2.StackSetOperationResultStatus);
+            specifiedType: const FullType(StackSetOperationResultStatus),
+          ) as StackSetOperationResultStatus);
         case 'StatusReason':
           result.statusReason = (serializers.deserialize(
             value,
@@ -175,8 +181,8 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         case 'AccountGateResult':
           result.accountGateResult.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AccountGateResult),
-          ) as _i3.AccountGateResult));
+            specifiedType: const FullType(AccountGateResult),
+          ) as AccountGateResult));
         case 'OrganizationalUnitId':
           result.organizationalUnitId = (serializers.deserialize(
             value,
@@ -195,9 +201,9 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'StackSetOperationResultSummaryResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSetOperationResultSummary(
@@ -210,7 +216,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     ) = object;
     if (account != null) {
       result$
-        ..add(const _i4.XmlElementName('Account'))
+        ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
           account,
           specifiedType: const FullType(String),
@@ -218,7 +224,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     }
     if (region != null) {
       result$
-        ..add(const _i4.XmlElementName('Region'))
+        ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
@@ -226,16 +232,15 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     }
     if (status != null) {
       result$
-        ..add(const _i4.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType:
-              const FullType.nullable(_i2.StackSetOperationResultStatus),
+          specifiedType: const FullType.nullable(StackSetOperationResultStatus),
         ));
     }
     if (statusReason != null) {
       result$
-        ..add(const _i4.XmlElementName('StatusReason'))
+        ..add(const _i2.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
           specifiedType: const FullType(String),
@@ -243,15 +248,15 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     }
     if (accountGateResult != null) {
       result$
-        ..add(const _i4.XmlElementName('AccountGateResult'))
+        ..add(const _i2.XmlElementName('AccountGateResult'))
         ..add(serializers.serialize(
           accountGateResult,
-          specifiedType: const FullType(_i3.AccountGateResult),
+          specifiedType: const FullType(AccountGateResult),
         ));
     }
     if (organizationalUnitId != null) {
       result$
-        ..add(const _i4.XmlElementName('OrganizationalUnitId'))
+        ..add(const _i2.XmlElementName('OrganizationalUnitId'))
         ..add(serializers.serialize(
           organizationalUnitId,
           specifiedType: const FullType(String),

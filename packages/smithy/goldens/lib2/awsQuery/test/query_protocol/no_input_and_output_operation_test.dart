@@ -4,14 +4,11 @@
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.no_input_and_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v2/src/query_protocol/model/no_input_and_output_input.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/model/no_input_and_output_output.dart'
-    as _i6;
-import 'package:aws_query_v2/src/query_protocol/operation/no_input_and_output_operation.dart'
-    as _i3;
+import 'package:aws_query_v2/src/query_protocol/model/no_input_and_output_input.dart';
+import 'package:aws_query_v2/src/query_protocol/model/no_input_and_output_output.dart';
+import 'package:aws_query_v2/src/query_protocol/operation/no_input_and_output_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +17,14 @@ void main() {
     'QueryNoInputAndOutput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryNoInputAndOutput',
           documentation: 'No input serializes no payload',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -58,14 +55,14 @@ void main() {
     'QueryNoInputAndOutput (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryNoInputAndOutput',
           documentation: 'Empty output',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -89,32 +86,32 @@ void main() {
 }
 
 class NoInputAndOutputInputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.NoInputAndOutputInput> {
+    extends _i3.StructuredSmithySerializer<NoInputAndOutputInput> {
   const NoInputAndOutputInputAwsQuerySerializer()
       : super('NoInputAndOutputInput');
 
   @override
-  Iterable<Type> get types => const [_i5.NoInputAndOutputInput];
+  Iterable<Type> get types => const [NoInputAndOutputInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.NoInputAndOutputInput deserialize(
+  NoInputAndOutputInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i5.NoInputAndOutputInputBuilder().build();
+    return NoInputAndOutputInputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.NoInputAndOutputInput object, {
+    NoInputAndOutputInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -122,32 +119,32 @@ class NoInputAndOutputInputAwsQuerySerializer
 }
 
 class NoInputAndOutputOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i6.NoInputAndOutputOutput> {
+    extends _i3.StructuredSmithySerializer<NoInputAndOutputOutput> {
   const NoInputAndOutputOutputAwsQuerySerializer()
       : super('NoInputAndOutputOutput');
 
   @override
-  Iterable<Type> get types => const [_i6.NoInputAndOutputOutput];
+  Iterable<Type> get types => const [NoInputAndOutputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i6.NoInputAndOutputOutput deserialize(
+  NoInputAndOutputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i6.NoInputAndOutputOutputBuilder().build();
+    return NoInputAndOutputOutputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.NoInputAndOutputOutput object, {
+    NoInputAndOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

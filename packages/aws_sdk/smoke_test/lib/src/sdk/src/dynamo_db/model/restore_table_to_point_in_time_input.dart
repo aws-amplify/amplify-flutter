@@ -4,20 +4,15 @@
 library smoke_test.dynamo_db.model.restore_table_to_point_in_time_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart'
-    as _i7;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_specification.dart';
 
 part 'restore_table_to_point_in_time_input.g.dart';
 
@@ -34,11 +29,11 @@ abstract class RestoreTableToPointInTimeInput
     required String targetTableName,
     bool? useLatestRestorableTime,
     DateTime? restoreDateTime,
-    _i3.BillingMode? billingModeOverride,
-    List<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride,
-    List<_i5.LocalSecondaryIndex>? localSecondaryIndexOverride,
-    _i6.ProvisionedThroughput? provisionedThroughputOverride,
-    _i7.SseSpecification? sseSpecificationOverride,
+    BillingMode? billingModeOverride,
+    List<GlobalSecondaryIndex>? globalSecondaryIndexOverride,
+    List<LocalSecondaryIndex>? localSecondaryIndexOverride,
+    ProvisionedThroughput? provisionedThroughputOverride,
+    SseSpecification? sseSpecificationOverride,
   }) {
     return _$RestoreTableToPointInTimeInput._(
       sourceTableArn: sourceTableArn,
@@ -49,10 +44,10 @@ abstract class RestoreTableToPointInTimeInput
       billingModeOverride: billingModeOverride,
       globalSecondaryIndexOverride: globalSecondaryIndexOverride == null
           ? null
-          : _i8.BuiltList(globalSecondaryIndexOverride),
+          : _i3.BuiltList(globalSecondaryIndexOverride),
       localSecondaryIndexOverride: localSecondaryIndexOverride == null
           ? null
-          : _i8.BuiltList(localSecondaryIndexOverride),
+          : _i3.BuiltList(localSecondaryIndexOverride),
       provisionedThroughputOverride: provisionedThroughputOverride,
       sseSpecificationOverride: sseSpecificationOverride,
     );
@@ -90,19 +85,19 @@ abstract class RestoreTableToPointInTimeInput
   DateTime? get restoreDateTime;
 
   /// The billing mode of the restored table.
-  _i3.BillingMode? get billingModeOverride;
+  BillingMode? get billingModeOverride;
 
   /// List of global secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
-  _i8.BuiltList<_i4.GlobalSecondaryIndex>? get globalSecondaryIndexOverride;
+  _i3.BuiltList<GlobalSecondaryIndex>? get globalSecondaryIndexOverride;
 
   /// List of local secondary indexes for the restored table. The indexes provided should match existing secondary indexes. You can choose to exclude some or all of the indexes at the time of restore.
-  _i8.BuiltList<_i5.LocalSecondaryIndex>? get localSecondaryIndexOverride;
+  _i3.BuiltList<LocalSecondaryIndex>? get localSecondaryIndexOverride;
 
   /// Provisioned throughput settings for the restored table.
-  _i6.ProvisionedThroughput? get provisionedThroughputOverride;
+  ProvisionedThroughput? get provisionedThroughputOverride;
 
   /// The new server-side encryption settings for the restored table.
-  _i7.SseSpecification? get sseSpecificationOverride;
+  SseSpecification? get sseSpecificationOverride;
   @override
   RestoreTableToPointInTimeInput getPayload() => this;
   @override
@@ -226,34 +221,34 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         case 'BillingModeOverride':
           result.billingModeOverride = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BillingMode),
-          ) as _i3.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
         case 'GlobalSecondaryIndexOverride':
           result.globalSecondaryIndexOverride.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i4.GlobalSecondaryIndex)],
+              _i3.BuiltList,
+              [FullType(GlobalSecondaryIndex)],
             ),
-          ) as _i8.BuiltList<_i4.GlobalSecondaryIndex>));
+          ) as _i3.BuiltList<GlobalSecondaryIndex>));
         case 'LocalSecondaryIndexOverride':
           result.localSecondaryIndexOverride.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i5.LocalSecondaryIndex)],
+              _i3.BuiltList,
+              [FullType(LocalSecondaryIndex)],
             ),
-          ) as _i8.BuiltList<_i5.LocalSecondaryIndex>));
+          ) as _i3.BuiltList<LocalSecondaryIndex>));
         case 'ProvisionedThroughputOverride':
           result.provisionedThroughputOverride.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ProvisionedThroughput),
-          ) as _i6.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
         case 'SSESpecificationOverride':
           result.sseSpecificationOverride.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.SseSpecification),
-          ) as _i7.SseSpecification));
+            specifiedType: const FullType(SseSpecification),
+          ) as SseSpecification));
       }
     }
 
@@ -323,7 +318,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ..add('BillingModeOverride')
         ..add(serializers.serialize(
           billingModeOverride,
-          specifiedType: const FullType(_i3.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     if (globalSecondaryIndexOverride != null) {
@@ -332,8 +327,8 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexOverride,
           specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i4.GlobalSecondaryIndex)],
+            _i3.BuiltList,
+            [FullType(GlobalSecondaryIndex)],
           ),
         ));
     }
@@ -343,8 +338,8 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ..add(serializers.serialize(
           localSecondaryIndexOverride,
           specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i5.LocalSecondaryIndex)],
+            _i3.BuiltList,
+            [FullType(LocalSecondaryIndex)],
           ),
         ));
     }
@@ -353,7 +348,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
-          specifiedType: const FullType(_i6.ProvisionedThroughput),
+          specifiedType: const FullType(ProvisionedThroughput),
         ));
     }
     if (sseSpecificationOverride != null) {
@@ -361,7 +356,7 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
           sseSpecificationOverride,
-          specifiedType: const FullType(_i7.SseSpecification),
+          specifiedType: const FullType(SseSpecification),
         ));
     }
     return result$;
