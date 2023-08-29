@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:aft/src/config/config.dart';
 import 'package:aft/src/config/raw_config.dart';
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:yaml/yaml.dart';
@@ -14,35 +15,58 @@ import 'package:yaml/yaml.dart';
 /// Loads the AFT configuration for the current working directory.
 class AftConfigLoader {
   AftConfigLoader({
+    @visibleForTesting this.rootPackageName = 'amplify_flutter_repo',
     Directory? workingDirectory,
-  }) : workingDirectory = workingDirectory ?? Directory.current;
+    String? rootDirectoryOverride,
+  })  : workingDirectory = workingDirectory ?? Directory.current,
+        _rootDirectoryOverride = rootDirectoryOverride;
 
+  final String rootPackageName;
   final Directory workingDirectory;
+  final String? _rootDirectoryOverride;
 
   AftConfig? _loadedConfig;
 
-  AftConfig reload() {
-    final pubspecQueue = Queue<(YamlMap, Pubspec)>();
+  Queue<PubspecInfo> get _pubspecs {
+    if (_rootDirectoryOverride case final override?) {
+      final rootDirectory = Directory(override);
+      final rootPubspec = rootDirectory.pubspec;
+      if (rootPubspec == null) {
+        throw StateError(
+          'Invalid directory passed to `--root`. Make sure you pass the root '
+          'of the Amplify Flutter repo or worktree.',
+        );
+      }
+      return Queue.of([
+        rootPubspec,
+        if (workingDirectory.pubspec case final workingPubspec?) workingPubspec,
+      ]);
+    }
     var dir = workingDirectory;
     Directory? rootDirectory;
+    final pubspecs = Queue<PubspecInfo>();
     while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
-      if (dir.pubspec case PubspecInfo(:final pubspec, :final pubspecMap)) {
-        pubspecQueue.addFirst((pubspecMap, pubspec));
-        rootDirectory = dir;
+      if (dir.pubspec case final pubspecInfo?) {
+        pubspecs.addFirst(pubspecInfo);
+        if (pubspecInfo.pubspec.name == rootPackageName) {
+          rootDirectory = dir;
+        }
       }
       dir = dir.parent;
     }
-    if (pubspecQueue.isEmpty || rootDirectory == null) {
+    if (rootDirectory == null) {
       throw StateError(
         'Root directory not found. Make sure to run this command '
-        'from within a Dart or Flutter project',
+        'from within a Dart or Flutter project or specify `--root` '
+        'to the location of the Amplify Flutter repo.',
       );
     }
+    return pubspecs;
+  }
 
-    return _loadedConfig = _processPubspecs(
-      pubspecQueue: pubspecQueue,
-      rootDirectory: rootDirectory,
-    );
+  /// Reloads the AFT configuration from disk.
+  AftConfig reload() {
+    return _loadedConfig = _processPubspecs(_pubspecs);
   }
 
   /// Loads the AFT configuration from the `pubspec.yaml` of the uppermost parent,
@@ -78,10 +102,11 @@ class AftConfigLoader {
     });
   }
 
-  AftConfig _processPubspecs({
-    required Queue<(YamlMap, Pubspec)> pubspecQueue,
-    required Directory rootDirectory,
-  }) {
+  /// Creates the consolidated [AftConfig] using all relevant [pubspecs].
+  AftConfig _processPubspecs(Iterable<PubspecInfo> pubspecs) {
+    final rootDirectory = Directory(
+      p.dirname(pubspecs.first.uri.toFilePath()),
+    );
     final aftConfig = AftConfigBuilder()
       ..rootDirectory = rootDirectory.uri
       ..workingDirectory = workingDirectory.uri;
@@ -134,9 +159,8 @@ class AftConfigLoader {
       }
     }
 
-    for (var i = 0; i < pubspecQueue.length; i++) {
-      final (yaml, pubspec) = pubspecQueue.elementAt(i);
-      mergePubspec(yaml, pubspec, isRoot: i == 0);
+    for (final (i, PubspecInfo(:pubspecMap, :pubspec)) in pubspecs.indexed) {
+      mergePubspec(pubspecMap, pubspec, isRoot: i == 0);
     }
 
     final repoPackages = _collectPackages(
