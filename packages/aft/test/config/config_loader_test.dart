@@ -87,8 +87,8 @@ aft:
         d.dir('packages', [
           d.dir('my_pkg', [
             d.file('pubspec.yaml', packagePubspec),
-          ])
-        ])
+          ]),
+        ]),
       ]).create();
 
       final rootDirectory = p.normalize(d.path('repo'));

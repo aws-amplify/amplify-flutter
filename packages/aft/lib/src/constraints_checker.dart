@@ -318,7 +318,7 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
             package: package,
             dependencyPath: [
               package.dependencyType(repoDependency)!.key,
-              repoDependency.name
+              repoDependency.name,
             ],
             expectedConstraint: package.isPublishable
                 ? repoDependency.currentConstraint
