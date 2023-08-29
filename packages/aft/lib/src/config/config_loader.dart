@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:aft/src/config/config.dart';
 import 'package:aft/src/config/raw_config.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -127,10 +128,30 @@ class AftConfigLoader {
         rawComponents.map((name, component) {
           final summaryPackage = switch (component.summary) {
             null => null,
-            final summary => repoPackages[summary]!,
+            final summary => switch (repoPackages[summary]) {
+                final summaryPackage? => summaryPackage,
+                // Allow missing summary package for testing
+                _ when zDebugMode => null,
+                _ => throw StateError(
+                    'Summary package "$summary" does not exist for component: '
+                    '${component.name}',
+                  ),
+              },
           };
-          final packages =
-              component.packages.map((name) => repoPackages[name]!).toList();
+          final packages = component.packages
+              .map(
+                (name) => switch (repoPackages[name]) {
+                  final package? => package,
+                  // Allow missing component package for testing
+                  _ when zDebugMode => null,
+                  _ => throw StateError(
+                      'Component package "$name" does not exist for component: '
+                      '${component.name}',
+                    ),
+                },
+              )
+              .nonNulls
+              .toList();
           final packageGraph = UnmodifiableMapView({
             for (final package in packages)
               package.name: package.pubspecInfo.pubspec.dependencies.keys
