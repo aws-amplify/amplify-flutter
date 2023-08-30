@@ -19,6 +19,12 @@ add_library(${PLUGIN_NAME} SHARED
 ###
 # Below here, keep in sync with: https://github.com/simolus3/sqlite3.dart/blob/main/sqlite3_flutter_libs/windows/CMakeLists.txt
 ###
+
+# Essentially, the idea of this build script is to compile a sqlite3.dll
+# and make Fluter bundle that with the final app.
+# It looks like we can't avoid building a sqlite3_flutter_libs.dll too,
+# but that's not on me.
+
 apply_standard_settings(${PLUGIN_NAME})
 set_target_properties(${PLUGIN_NAME} PROPERTIES
   CXX_VISIBILITY_PRESET hidden)
@@ -34,13 +40,13 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
   # We can't really ask users to use a cmake that recent, so there's this if here.
   FetchContent_Declare(
     sqlite3
-    URL https://sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
+    URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
     DOWNLOAD_EXTRACT_TIMESTAMP NEW
   )
 else()
   FetchContent_Declare(
     sqlite3
-    URL https://sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
+    URL https://sqlite.org/2023/sqlite-autoconf-3430000.tar.gz
   )
 endif()
 FetchContent_MakeAvailable(sqlite3)
@@ -76,8 +82,6 @@ target_compile_definitions(sqlite3 PRIVATE
 
 # Ensure sqlite3 actually gets build
 add_dependencies(${PLUGIN_NAME} sqlite3)
-
-###
 
 # List of absolute paths to libraries that should be bundled with the plugin
 set(amplify_db_common_bundled_libraries
