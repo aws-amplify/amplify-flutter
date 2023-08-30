@@ -7,13 +7,13 @@ import * as httpClient from '@actions/http-client';
 import * as toolCache from '@actions/tool-cache';
 import * as childProcess from 'node:child_process';
 import * as fs from 'node:fs';
-import * as module from 'node:module';
+import { createRequire } from 'node:module';
 import * as os from 'node:os';
-import * as process from 'node:process';
-import * as path from 'node:path';
+import { dirname } from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-const require = module.createRequire(import.meta.url);
+const require = createRequire(import.meta.url);
 
 // Setup properties for JS interop in Dart.
 
@@ -27,7 +27,7 @@ globalThis.os = os;
 globalThis.process = process;
 globalThis.location = { href: `file://${process.cwd()}/` };
 globalThis.__filename = fileURLToPath(import.meta.url);
-globalThis.__dirname = path.dirname(globalThis.__filename);
+globalThis.__dirname = dirname(globalThis.__filename);
 globalThis.require = require;
 globalThis.childProcess = childProcess;
 

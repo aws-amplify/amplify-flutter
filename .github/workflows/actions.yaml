@@ -1,4 +1,4 @@
-name: custom_actions
+name: actions
 on:
   push:
     branches:
@@ -32,7 +32,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
         with:
-          sdk: 3.2.0-74.0.dev
+          sdk: 3.2.0-90.0.dev
 
       - name: Setup pnpm
         uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # 2.4.0
@@ -46,6 +46,42 @@ jobs:
       - name: Build Actions
         working-directory: actions
         run: dart tool/build.dart
+
+  test_runner:
+    name: Test Runner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@deafe40ee7284c48e67c783c88eed8c8b52b19ca # main
+        with:
+          sdk: 3.2.0-90.0.dev
+
+      - name: Get Packages
+        working-directory: actions
+        run: dart pub get
+
+      - name: Test
+        working-directory: actions
+        run: dart --enable-experiment=inline-class test -p node
+
+  test_setup_chromedriver:
+    name: Test Action (setup_chromedriver)
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+
+      - name: Test
+        uses: ./.github/composite_actions/setup_chromedriver
 
   test_launch_ios_simulator:
     name: Test Action (launch_ios_simulator)
@@ -70,3 +106,22 @@ jobs:
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
           ios-version: ${{ matrix.ios-version }}
+
+  test_launch_android_emulator:
+    name: Test Action (launch_android_emulator)
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+
+      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
+      - name: Test
+        timeout-minutes: 10
+        uses: ./.github/composite_actions/launch_android_emulator
+        with:
+          script: echo "Success!"
