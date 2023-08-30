@@ -49,6 +49,16 @@ class AuthenticatorState extends ChangeNotifier {
 
   final StateMachineBloc _authBloc;
 
+  @visibleForTesting
+  StateMachineBloc? get authBloc {
+    if (!zDebugMode) {
+      throw StateError(
+        'AuthenticatorState.authBloc should only be called in tests',
+      );
+    }
+    return _authBloc;
+  }
+
   /// The current step of the authentication flow (signIn, signUp, confirmSignUp, etc.)
   AuthenticatorStep get currentStep {
     final state = _authBloc.currentState;

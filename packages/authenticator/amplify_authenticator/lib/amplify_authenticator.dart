@@ -315,6 +315,7 @@ class Authenticator extends StatefulWidget {
     this.padding = const EdgeInsets.all(32),
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
+    @visibleForTesting this.mockAuthenticatorState,
   }) :
         // ignore: prefer_asserts_with_message
         assert(() {
@@ -437,6 +438,9 @@ class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator_dial_code_options}
   final DialCodeOptions dialCodeOptions;
 
+  @visibleForTesting
+  final AuthenticatorState? mockAuthenticatorState;
+
   @override
   State<Authenticator> createState() => _AuthenticatorState();
 
@@ -485,7 +489,13 @@ class Authenticator extends StatefulWidget {
           dialCodeOptions,
         ),
       )
-      ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions));
+      ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions))
+      ..add(
+        DiagnosticsProperty<AuthenticatorState?>(
+          'mockAuthenticatorState',
+          mockAuthenticatorState,
+        ),
+      );
   }
 }
 
@@ -507,16 +517,19 @@ class _AuthenticatorState extends State<Authenticator> {
   @override
   void initState() {
     super.initState();
-    _stateMachineBloc = StateMachineBloc(
-      authService: _authService,
-      preferPrivateSession: widget.preferPrivateSession,
-      initialStep: widget.initialStep,
-      totpOptions: widget.totpOptions,
-    )..add(const AuthLoad());
-    _authenticatorState = AuthenticatorState(
-      _stateMachineBloc,
-      defaultDialCode: widget.dialCodeOptions.defaultDialCode,
-    );
+    // ignore: invalid_use_of_visible_for_testing_member
+    _stateMachineBloc = widget.mockAuthenticatorState?.authBloc ??
+        (StateMachineBloc(
+          authService: _authService,
+          preferPrivateSession: widget.preferPrivateSession,
+          initialStep: widget.initialStep,
+          totpOptions: widget.totpOptions,
+        )..add(const AuthLoad()));
+    _authenticatorState = widget.mockAuthenticatorState ??
+        AuthenticatorState(
+          _stateMachineBloc,
+          defaultDialCode: widget.dialCodeOptions.defaultDialCode,
+        );
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();
