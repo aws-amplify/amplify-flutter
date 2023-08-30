@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:intl/intl.dart';
 
@@ -9,17 +11,19 @@ import 'package:intl/intl.dart';
 /// [CloudWatchLogStreamProvider]
 /// {@endtemplate}
 abstract class CloudWatchLogStreamProvider {
-  /// Returns CloudWatch log stream name to use for sending logs to CloudWatch.
-  ///
-  /// It creates the log stream if it does not exists.
-  Future<String> get logStream;
+  /// Returns the default log stream name from cache. if cache is missing it
+  /// calls [createLogStream] and return the log stream name.
+  FutureOr<String> get defaultLogStream;
+
+  /// Creates the log stream and add it to the cache.
+  Future<void> createLogStream(String logStreamName);
 }
 
 /// {@template aws_logging_cloudwatch.default_cloudwatch_logstream_provider}
 /// The default implementaion of [CloudWatchLogStreamProvider].
 ///
-/// It uses `logStreamName` if provided otherwise uses `yyyy-MM-dd` date format
-/// of UTC time now for the `logStreamName`.
+/// It uses `defaultLogStreamName` if provided otherwise uses `yyyy-MM-dd`
+/// date format of UTC time now for the `defaultLogStreamName`.
 /// {@endtemplate}
 class DefaultCloudWatchLogStreamProvider
     implements CloudWatchLogStreamProvider {
@@ -27,24 +31,31 @@ class DefaultCloudWatchLogStreamProvider
   DefaultCloudWatchLogStreamProvider({
     required CloudWatchLogsClient client,
     required String logGroupName,
-    String? logStreamName,
-  })  : _logStreamName = logStreamName,
+    String? defaultLogStreamName,
+  })  : _defaultLogStreamName = defaultLogStreamName,
         _logGroupName = logGroupName,
         _client = client;
 
-  final String? _logStreamName;
+  final String? _defaultLogStreamName;
   final String _logGroupName;
   final CloudWatchLogsClient _client;
   static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+  final _createdLogStreams = <String>{};
 
-  /// Creates CloudWatch log stream if does not exists and returns
-  /// the log stream name.
-  ///
-  /// Throws an [Exception] if fails to create the log stream.
   @override
-  Future<String> get logStream async {
+  Future<String> get defaultLogStream async {
     final logStreamName =
-        _logStreamName ?? _dateFormat.format(DateTime.timestamp());
+        _defaultLogStreamName ?? _dateFormat.format(DateTime.timestamp());
+    if (_createdLogStreams.contains(logStreamName)) {
+      return logStreamName;
+    }
+    await createLogStream(logStreamName);
+    _createdLogStreams.add(logStreamName);
+    return logStreamName;
+  }
+
+  @override
+  Future<void> createLogStream(String logStreamName) async {
     try {
       await _client
           .createLogStream(
@@ -55,10 +66,7 @@ class DefaultCloudWatchLogStreamProvider
           )
           .result;
     } on ResourceAlreadyExistsException {
-      return logStreamName;
-    } on Exception {
-      rethrow;
+      return;
     }
-    return logStreamName;
   }
 }

@@ -5,7 +5,6 @@ import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -132,7 +131,101 @@ void main() {
         (_) async => Future<PutLogEventsResponse>.value(PutLogEventsResponse()),
       );
 
-      when(() => mockCloudWatchLogStreamProvider.logStream)
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockQueuedItemStore.addItem(any(), any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogStreamProvider.defaultLogStream,
+      ).called(1);
+
+      verifyNever(
+        () => mockCloudWatchLogStreamProvider.createLogStream(any()),
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(1);
+
+      verify(() => mockQueuedItemStore.deleteItems(queuedItems)).called(1);
+    });
+
+    test('does not start a sync if a sync is in progress', () async {
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async => Future<PutLogEventsResponse>.value(
+          PutLogEventsResponse(),
+        ),
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockQueuedItemStore.addItem(any(), any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+
+      final flushLogs = plugin.flushLogs();
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+      await flushLogs;
+
+      verify(
+        () => mockCloudWatchLogStreamProvider.defaultLogStream,
+      ).called(1);
+
+      verifyNever(
+        () => mockCloudWatchLogStreamProvider.createLogStream(any()),
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(1);
+
+      verify(() => mockQueuedItemStore.deleteItems(queuedItems)).called(1);
+    });
+
+    test('does not delete logs if they are too new', () async {
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async => Future<PutLogEventsResponse>.value(
+          PutLogEventsResponse(
+            rejectedLogEventsInfo:
+                RejectedLogEventsInfo(tooNewLogEventStartIndex: 0),
+          ),
+        ),
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
           .thenAnswer((_) async => Future<String>.value('log stream name'));
 
       when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
@@ -146,11 +239,55 @@ void main() {
         (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
       );
 
-      await plugin.handleLogEntry(errorLog);
       await expectLater(
         plugin.flushLogs(),
         completes,
       );
+
+      verify(
+        () => mockCloudWatchLogStreamProvider.defaultLogStream,
+      ).called(1);
+
+      verifyNever(
+        () => mockCloudWatchLogStreamProvider.createLogStream(any()),
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(1);
+
+      verifyNever(
+        () => mockQueuedItemStore.deleteItems(any()),
+      );
+    });
+
+    test('it calls create log stream on resource not found exception',
+        () async {
+      when(() => mockCloudWatchLogsClient.putLogEvents(any()))
+          .thenThrow(ResourceNotFoundException());
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockCloudWatchLogStreamProvider.createLogStream(any()))
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogStreamProvider.defaultLogStream,
+      ).called(1);
+
+      verify(
+        () => mockCloudWatchLogStreamProvider.createLogStream(any()),
+      ).called(1);
     });
   });
 }
