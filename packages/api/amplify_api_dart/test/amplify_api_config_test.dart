@@ -41,9 +41,9 @@ void main() {
       expect(uri.toString(), equals(expected));
     });
 
-    test('should handle a path with a leading slash', () async {
+    test('should handle a path with a leading or trailing slash', () async {
       const endpoint = 'https://abc123.amazonaws.com/test';
-      const path = '/path/to/nowhere';
+      const path = '/path/to/nowhere/';
       final params = {'foo': 'bar', 'bar': 'baz'};
       final endpointConfig = createEndpointConfig(
         endpoint,
