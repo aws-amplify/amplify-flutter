@@ -9,16 +9,25 @@ external ToolCache get toolCache;
 // https://www.npmjs.com/package/@actions/tool-cache
 @JS()
 extension type ToolCache(JSObject it) {
+  @JS('find')
+  external String _find(
+    String toolName,
+    String versionSpec,
+  );
+
   /// Finds the path to a tool version in the local installed tool cache.
   ///
   /// @param toolName      name of the tool
   /// @param versionSpec   version of the tool
   /// @param arch          optional arch.  defaults to arch of computer
-  external String find(
-    String toolName,
-    String versionSpec, [
-    String? arch,
-  ]);
+  String? find(String toolName, String versionSpec) {
+    try {
+      final path = _find(toolName, versionSpec).trim();
+      return path.isNotEmpty ? path : null;
+    } on Object {
+      return null;
+    }
+  }
 
   @JS('downloadTool')
   external JSPromise _downloadTool(String url);
@@ -33,14 +42,14 @@ extension type ToolCache(JSObject it) {
   }
 
   @JS('extractZip')
-  external JSPromise _extractZip(String file);
+  external JSPromise _extractZip(String file, [String? dest]);
 
   /// Extract a zip.
   ///
   /// @param file     path to the zip
   /// @returns        path to the destination directory
-  Future<String> extractZip(String file) async {
-    final path = await _extractZip(file).toDart;
+  Future<String> extractZip(String file, [String? dest]) async {
+    final path = await _extractZip(file, dest).toDart;
     return (path as JSString).toDart;
   }
 

@@ -25,7 +25,7 @@ extension type HttpClient._(JSObject it) {
 }
 
 @JS()
-extension type TypedResponse<T extends JSAny>._(JSObject it){
+extension type TypedResponse<T extends JSAny>._(JSObject it) {
   external TypedResponse({
     int statusCode,
     T result,

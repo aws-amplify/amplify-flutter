@@ -20,7 +20,8 @@ concurrency:
 
 jobs:
   android:
-    runs-on: macos-latest
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -37,15 +38,8 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
         api-level:
-          - 25
+          - 24
           - 33
-        target:
-          - google_apis
-        include:
-          - api-level: 25
-            arch: x86
-          - api-level: 33
-            arch: x86_64
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
         with:
@@ -78,8 +72,6 @@ jobs:
         timeout-minutes: 90
         with:
           api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
           script: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
   ios:
@@ -128,7 +120,8 @@ jobs:
         run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
-    runs-on: ubuntu-latest
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -217,7 +210,8 @@ jobs:
   #         aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d macos
 
   linux:
-    runs-on: ubuntu-latest
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
