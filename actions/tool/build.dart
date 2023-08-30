@@ -55,6 +55,7 @@ Future<void> main() async {
           'compile',
           'js',
           '--enable-experiment=inline-class',
+          '--server-mode',
           '-o',
           compiledJs,
           entrypoint.path,
