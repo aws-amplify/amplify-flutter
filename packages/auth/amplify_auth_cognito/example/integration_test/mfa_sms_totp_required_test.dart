@@ -237,8 +237,36 @@ void main() {
           check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
         }
 
-        // Verify that we can disable MFA
+        // Verify marking enabled does not change preference.
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.enabled,
+          totp: MfaPreference.enabled,
+        );
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+          because: 'SMS should still be marked preferred',
+        ).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms, MfaType.totp},
+            preferred: MfaType.sms,
+          ),
+        );
 
+        // Verify we can mark neither as preferred
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.notPreferred,
+        );
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+          because: 'SMS should be marked not preferred',
+        ).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms, MfaType.totp},
+            preferred: null,
+          ),
+        );
+
+        // Verify that we can disable MFA
         {
           await check(
             because: 'Interestingly, Cognito does not throw and allows '
@@ -425,8 +453,36 @@ void main() {
           check(confirmRes.nextStep.signInStep).equals(AuthSignInStep.done);
         }
 
-        // Verify that we can disable MFA
+        // Verify marking enabled does not change preference.
+        await cognitoPlugin.updateMfaPreference(
+          sms: MfaPreference.enabled,
+          totp: MfaPreference.enabled,
+        );
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+          because: 'TOTP should still be marked preferred',
+        ).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms, MfaType.totp},
+            preferred: MfaType.totp,
+          ),
+        );
 
+        // Verify we can mark neither as preferred
+        await cognitoPlugin.updateMfaPreference(
+          totp: MfaPreference.notPreferred,
+        );
+        check(
+          await cognitoPlugin.fetchMfaPreference(),
+          because: 'TOTP should be marked not preferred',
+        ).equals(
+          const UserMfaPreference(
+            enabled: {MfaType.sms, MfaType.totp},
+            preferred: null,
+          ),
+        );
+
+        // Verify that we can disable MFA
         {
           await check(
             because: 'Interestingly, Cognito does not throw and allows '
