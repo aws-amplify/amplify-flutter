@@ -19,6 +19,7 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
   - package-ecosystem: "pub"
     directory: "canaries"

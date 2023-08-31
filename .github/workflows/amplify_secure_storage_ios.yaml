@@ -1,0 +1,35 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_secure_storage iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/secure_storage/amplify_secure_storage/**/*.yaml'
+      - 'packages/secure_storage/amplify_secure_storage/ios/**/*'
+      - 'packages/secure_storage/amplify_secure_storage/example/ios/**/*'
+      - '.github/workflows/flutter_ios.yaml'
+      - '.github/workflows/amplify_secure_storage_ios.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios:
+    uses: ./.github/workflows/flutter_ios.yaml
+    with:
+      example-directory: packages/secure_storage/amplify_secure_storage/example
+      package-name: amplify_secure_storage
+      has-native-tests: false

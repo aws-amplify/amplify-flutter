@@ -11,8 +11,8 @@ on:
       - 'packages/analytics/amplify_analytics_pinpoint/**/*.yaml'
       - 'packages/analytics/amplify_analytics_pinpoint/android/**/*'
       - 'packages/analytics/amplify_analytics_pinpoint/example/android/**/*'
-      - '.github/workflows/flutter_android.build.yaml'
-      - '.github/workflows/amplify_analytics_pinpoint.android.yaml'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_analytics_pinpoint_android.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -20,9 +20,16 @@ defaults:
     shell: bash
 permissions: read-all
 
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    uses: ./.github/workflows/flutter_android.build.yaml
+  android:
+    uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/analytics/amplify_analytics_pinpoint/example
+      example-directory: packages/analytics/amplify_analytics_pinpoint/example
       package-name: amplify_analytics_pinpoint
+      has-native-tests: false
