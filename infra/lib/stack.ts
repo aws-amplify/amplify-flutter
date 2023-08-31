@@ -195,6 +195,26 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       {
         associateWithWaf,
         type: "FULL",
+        environmentName: "keep-original-attributes",
+        autoConfirm: true,
+        standardAttributes: {
+          email: {
+            mutable: true,
+            required: true,
+          },
+          phoneNumber: {
+            mutable: true,
+            required: true,
+          }
+        },
+        keepOriginal: {
+          email: true,
+          phone: true,
+        }
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
         environmentName: "hosted-ui",
         enableHostedUI: true,
       },

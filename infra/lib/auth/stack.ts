@@ -138,6 +138,12 @@ export interface AuthFullEnvironmentProps {
    * MFA settings for the user pool.
    */
   mfaConfiguration?: MfaConfiguration;
+
+  /**
+   * Whether to keep original attribute values while updating `email`
+   * and `phone_number` attributes.
+   */
+  keepOriginal?: cognito.KeepOriginalAttrs;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -227,6 +233,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       withClientSecret = false,
       advancedSecurityMode = cognito.AdvancedSecurityMode.OFF,
       mfaConfiguration,
+      keepOriginal,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -417,6 +424,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       deviceTracking,
       mfaSecondFactor,
       advancedSecurityMode,
+      keepOriginal
     });
     this.createUserCleanupJob(userPool);
 
