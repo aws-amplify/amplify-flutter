@@ -17,6 +17,7 @@ part 'serializers.g.dart';
   AndroidEnvironment,
   IosEnvironment,
   MacOSEnvironment,
+  GitHubPackageConfig,
 ])
 final Serializers aftSerializers = (_$aftSerializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
