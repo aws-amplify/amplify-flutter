@@ -11,8 +11,8 @@ on:
       - 'packages/notifications/push/amplify_push_notifications/**/*.yaml'
       - 'packages/notifications/push/amplify_push_notifications/android/**/*'
       - 'packages/notifications/push/amplify_push_notifications/example/android/**/*'
-      - '.github/workflows/flutter_android.test.yaml'
-      - '.github/workflows/amplify_push_notifications.android.yaml'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_push_notifications_android.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -20,9 +20,16 @@ defaults:
     shell: bash
 permissions: read-all
 
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    uses: ./.github/workflows/flutter_android.test.yaml
+  android:
+    uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/notifications/push/amplify_push_notifications/example/android
+      example-directory: packages/notifications/push/amplify_push_notifications/example
       package-name: amplify_push_notifications
+      has-native-tests: true

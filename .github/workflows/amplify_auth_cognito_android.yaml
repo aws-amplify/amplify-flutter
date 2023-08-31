@@ -1,0 +1,35 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_auth_cognito Android
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/auth/amplify_auth_cognito/**/*.yaml'
+      - 'packages/auth/amplify_auth_cognito/android/**/*'
+      - 'packages/auth/amplify_auth_cognito/example/android/**/*'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_auth_cognito_android.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    uses: ./.github/workflows/flutter_android.yaml
+    with:
+      example-directory: packages/auth/amplify_auth_cognito/example
+      package-name: amplify_auth_cognito
+      has-native-tests: true
