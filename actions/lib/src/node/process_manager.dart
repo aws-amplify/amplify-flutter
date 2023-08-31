@@ -49,11 +49,13 @@ final class NodeProcessManager implements Closeable, ProcessManager {
     Map<String, String>? environment,
     bool includeParentEnvironment = true,
     bool runInShell = false,
-    Encoding stdoutEncoding = const Utf8Codec(allowMalformed: true),
-    Encoding stderrEncoding = const Utf8Codec(allowMalformed: true),
+    Encoding? stdoutEncoding,
+    Encoding? stderrEncoding,
     NodeChildProcess? pipe,
     bool echoOutput = false,
   }) async {
+    stdoutEncoding ??= const Utf8Codec(allowMalformed: true);
+    stderrEncoding ??= const Utf8Codec(allowMalformed: true);
     final process = await start(
       command,
       workingDirectory: workingDirectory,
@@ -101,10 +103,12 @@ final class NodeProcessManager implements Closeable, ProcessManager {
     Map<String, String>? environment,
     bool includeParentEnvironment = true,
     bool runInShell = false,
-    Encoding stdoutEncoding = const Utf8Codec(allowMalformed: true),
-    Encoding stderrEncoding = const Utf8Codec(allowMalformed: true),
+    Encoding? stdoutEncoding,
+    Encoding? stderrEncoding,
     bool echoOutput = false,
   }) {
+    stdoutEncoding ??= const Utf8Codec(allowMalformed: true);
+    stderrEncoding ??= const Utf8Codec(allowMalformed: true);
     final [executable, ...args] = command.cast<String>();
     final result = childProcess.execSync(
       executable,
