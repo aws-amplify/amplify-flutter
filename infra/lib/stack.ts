@@ -252,8 +252,15 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       {
         associateWithWaf,
         type: "FULL",
-        environmentName: "custom-auth-device-srp",
+        environmentName: "custom-auth-device-with-srp",
         customAuth: "WITH_SRP",
+        deviceTracking: deviceTrackingAlways,
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "custom-auth-device-without-srp",
+        customAuth: "WITHOUT_SRP",
         deviceTracking: deviceTrackingAlways,
       },
       {
