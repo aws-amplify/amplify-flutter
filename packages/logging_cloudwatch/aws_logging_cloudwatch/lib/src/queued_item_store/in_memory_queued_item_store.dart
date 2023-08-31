@@ -19,7 +19,16 @@ class InMemoryQueuedItemStore implements QueuedItemStore {
       LinkedHashMap<int, QueuedItem>();
 
   @override
-  void addItem(String string, String timestamp) {
+  void addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) {
+    if (enableQueueRotation) {
+      final toDelete = _database.values.take(1);
+      deleteItems(toDelete);
+    }
+
     final queuedItem = QueuedItem(
       id: _nextId,
       value: string,

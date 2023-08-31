@@ -6,7 +6,13 @@ import 'dart:async';
 /// Database for storing strings.
 abstract interface class QueuedItemStore {
   /// Insert an item to the end of the queue.
-  FutureOr<void> addItem(String string, String timestamp);
+  /// If [enableQueueRotation] is `true` it removes the first item from the
+  /// queue and adds the new item to the end of the queue.
+  FutureOr<void> addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  });
 
   /// Get the first [count] items from the queue.
   FutureOr<Iterable<QueuedItem>> getCount(int count);

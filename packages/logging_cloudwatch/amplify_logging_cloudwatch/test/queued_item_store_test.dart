@@ -36,6 +36,21 @@ void main() {
       expect(readValues, equals(values));
     });
 
+    test('writes values to storage with enable queue rotation', () async {
+      const values = ['0', '1', '2', '3', '4', '5'];
+      for (final value in values) {
+        await db.addItem(
+          value,
+          DateTime.now().toIso8601String(),
+          enableQueueRotation: true,
+        );
+      }
+
+      final readItems = await getAll();
+      expect(readItems.length, 1);
+      expect(readItems.first.value, values.last);
+    });
+
     test('returns first n items in storage', () async {
       const values = ['0', '1', '2', '3', '4', '5'];
       for (final value in values) {
