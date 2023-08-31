@@ -6,8 +6,6 @@ import 'dart:math';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
-import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_logging_cloudwatch/src/stoppable_timer.dart';
 import 'package:fixnum/fixnum.dart';
@@ -32,10 +30,11 @@ import 'package:meta/meta.dart';
 // The maximum number of log events in a batch is 10,000.
 
 const int _maxNumberOfLogEventsInBatch = 10000;
-const int _maxLogEventsTimeSpanInBatch = 24 * 3600;
 const int _maxLogEventsBatchSize = 1048576;
 const int _baseBufferSize = 26;
 const int _maxLogEventSize = 256000;
+final int _maxLogEventsTimeSpanInBatch =
+    const Duration(hours: 24).inMilliseconds;
 
 typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 
@@ -138,51 +137,28 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   Future<void> _startSyncingIfNotInProgress() async {
     Future<void> startSyncing() async {
-      String logStream;
-      try {
-        logStream = await _logStreamProvider.logStream;
-      } on Exception catch (e) {
-        if (await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB)) {
-          await _logStore.clear();
-          logger.warn(
-            'Reached local store max size of: '
-            '${_pluginConfig.localStoreMaxSizeInMB}.Hence logs are deleted from '
-            'local store.',
-          );
+      final batchStream = _getLogBatchesToSync();
+      await for (final (logs, events) in batchStream) {
+        final response = await _sendToCloudWatch(events);
+        // TODO(nikahsn): handle tooOldLogEventEndIndex
+        // and expiredLogEventEndIndex.
+        if (response.rejectedLogEventsInfo?.tooNewLogEventStartIndex != null) {
+          // TODO(nikahsn): throw and exception to enable log rotation if the
+          // log store is full.
+          break;
         }
-        logger.error('Failed to create CloudWatch log stream', e);
-        return;
-      }
-
-      final batcheStream = _getLogBatchesToSync();
-      await for (final (logs, events) in batcheStream) {
-        try {
-          final response = await _sendToCloudWatch(events, logStream);
-          if (response.rejectedLogEventsInfo?.tooNewLogEventStartIndex !=
-              null) {
-            break;
-          }
-          await _logStore.deleteItems(logs);
-        } on Exception catch (e) {
-          if (await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB)) {
-            await _logStore.deleteItems(logs);
-            logger.warn(
-              'Reached local store max size of: '
-              '${_pluginConfig.localStoreMaxSizeInMB}.Hence logs are deleted '
-              'from local store.',
-            );
-          }
-          logger.error('Failed to sync batched logs to CloudWatch', e);
-        }
+        await _logStore.deleteItems(logs);
       }
     }
 
     if (!_syncing) {
+      // TODO(nikahsn): disable log rotation.
       _syncing = true;
       try {
         await startSyncing();
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
+        // TODO(nikahsn): enable log rotation if the log store is full
       } finally {
         _syncing = false;
       }
@@ -200,20 +176,25 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   Future<PutLogEventsResponse> _sendToCloudWatch(
     List<InputLogEvent> logEvents,
-    String logStreamName,
   ) async {
+    final logStreamName = await _logStreamProvider.defaultLogStream;
     final request = PutLogEventsRequest(
       logGroupName: _pluginConfig.logGroupName,
       logStreamName: logStreamName,
       logEvents: logEvents,
     );
-    return _client.putLogEvents(request).result;
+    try {
+      return await _client.putLogEvents(request).result;
+    } on ResourceNotFoundException {
+      await _logStreamProvider.createLogStream(logStreamName);
+      return _client.putLogEvents(request).result;
+    }
   }
 
   Stream<_LogBatch> _getLogBatchesToSync() async* {
     final queuedLogs = (await _logStore.getAll()).toList();
     if (queuedLogs.isEmpty) {
-      yield ([], []);
+      return;
     }
     final logEvents = <InputLogEvent>[];
     final logQueues = <QueuedItem>[];
