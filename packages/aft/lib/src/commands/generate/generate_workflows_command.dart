@@ -119,10 +119,9 @@ ${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join(
     required String repoRelativePath,
     required List<PackageInfo> dependentPackages,
   }) async {
-    // Packages without a `lib/` folder generally contain only native code,
-    // e.g. `amplify_auth_cognito_android`. These packages are tested via their
-    // parent package, e.g. `amplify_flutter`, and do not require a workflow
-    // of their own.
+    // Packages without a `lib/` folder generally contain only native code.
+    // These packages are tested via their parent package and do not require
+    // a workflow of their own.
     final libDir = Directory(p.join(package.path, 'lib'));
     if (!libDir.existsSync()) {
       return;
@@ -134,9 +133,13 @@ ${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join(
       '${package.name}.yaml',
     );
     final workflowFile = File(workflowFilepath);
-    final customWorkflow = File(p.join(package.path, 'workflow.yaml'));
-    if (customWorkflow.existsSync()) {
-      customWorkflow.copySync(workflowFilepath);
+    if (package.pubspecInfo.config.aft?.github?.custom ?? false) {
+      if (!workflowFile.existsSync()) {
+        throw Exception(
+          'Package "${package.name}" sets `custom: true` but no workflow '
+          'file was found at: $workflowFilepath',
+        );
+      }
       return;
     }
     final isDartPackage = package.flavor == PackageFlavor.dart;

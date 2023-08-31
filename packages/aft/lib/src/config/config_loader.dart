@@ -55,29 +55,6 @@ class AftConfigLoader {
     return reload();
   }
 
-  Map<String, PackageInfo> _collectPackages({
-    required Directory rootDirectory,
-    required List<String> ignore,
-  }) {
-    final allDirs = rootDirectory
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final package = PackageInfo.fromDirectory(dir);
-      if (package == null) {
-        continue;
-      }
-      if (ignore.contains(package.name)) {
-        continue;
-      }
-      allPackages.add(package);
-    }
-    return UnmodifiableMapView({
-      for (final package in allPackages..sort()) package.name: package,
-    });
-  }
-
   AftConfig _processPubspecs({
     required Queue<(YamlMap, Pubspec)> pubspecQueue,
     required Directory rootDirectory,
@@ -179,5 +156,27 @@ class AftConfigLoader {
       );
 
     return aftConfig.build();
+  }
+
+  /// Collects all packages in [rootDirectory] by recursively searching for directories
+  /// with a `pubspec.yaml`.
+  Map<String, PackageInfo> _collectPackages({
+    required Directory rootDirectory,
+    required List<String> ignore,
+  }) {
+    final allDirs = rootDirectory
+        .listSync(recursive: true, followLinks: false)
+        .whereType<Directory>();
+    final allPackages = <PackageInfo>[];
+    for (final dir in allDirs) {
+      final package = PackageInfo.fromDirectory(dir);
+      if (package == null || ignore.contains(package.name)) {
+        continue;
+      }
+      allPackages.add(package);
+    }
+    return UnmodifiableMapView({
+      for (final package in allPackages..sort()) package.name: package,
+    });
   }
 }
