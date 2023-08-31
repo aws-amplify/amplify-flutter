@@ -73,3 +73,7 @@ dev_dependencies:
 
 executables:
   aft:
+
+aft:
+  github:
+    custom: true
