@@ -57,7 +57,15 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   }
 
   @override
-  Future<void> addItem(String value, String timestamp) async {
+  Future<void> addItem(
+    String value,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) async {
+    if (enableQueueRotation) {
+      final toDelete = await getCount(1);
+      await deleteItems(toDelete);
+    }
     await into(driftQueuedItems).insert(
       DriftQueuedItemsCompanion(
         value: Value(value),

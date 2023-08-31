@@ -67,7 +67,15 @@ class IndexedDbAdapter implements QueuedItemStore {
   }
 
   @override
-  Future<void> addItem(String string, String timestamp) async {
+  Future<void> addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) async {
+    if (enableQueueRotation) {
+      final toDelete = await getCount(1);
+      await deleteItems(toDelete);
+    }
     await _databaseOpenEvent;
     await _getObjectStore()
         .push({'value': string, 'timestamp': timestamp}).future;

@@ -29,9 +29,17 @@ class DartQueuedItemStore
   String get runtimeTypeName => 'DartQueuedItemStore';
 
   @override
-  Future<void> addItem(String string, String timestamp) async {
+  Future<void> addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) async {
     final db = await _database;
-    await db.addItem(string, timestamp);
+    await db.addItem(
+      string,
+      timestamp,
+      enableQueueRotation: enableQueueRotation,
+    );
   }
 
   @override
