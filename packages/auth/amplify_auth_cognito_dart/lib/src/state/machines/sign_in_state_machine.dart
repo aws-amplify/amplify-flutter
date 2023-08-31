@@ -770,8 +770,8 @@ final class SignInStateMachine
   Future<void> _assertSignedOut() async {
     bool isSignedIn;
     try {
-      await manager.getUserPoolTokens();
-      isSignedIn = true;
+      final credentials = await manager.loadCredentials();
+      isSignedIn = credentials.userPoolTokens != null;
     } on Exception {
       isSignedIn = false;
     }
