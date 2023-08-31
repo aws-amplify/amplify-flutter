@@ -26,7 +26,22 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
-  final _dependabotConfig = StringBuffer('''
+  String get _dependabotConfig {
+    final ignorePubPackages = repo.allPackages.values
+        .where((pkg) => pkg.isPublishable)
+        .map((pkg) => pkg.name)
+        .map((pkg) => '      - dependency-name: "$pkg"')
+        .join('\n');
+    final groupPubPackages = repo.aftConfig.dependencies.keys
+        .map(
+          (pkg) => '''
+      $pkg:
+        patterns:
+          - "$pkg"''',
+        )
+        .join('\n');
+
+    return '''
 # Generated with aft. To update, run: `aft generate workflows`
 version: 2
 enable-beta-ecosystems: true
@@ -35,11 +50,61 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  # The `github-actions` ecosystem only searches
+  # `.github/workflows` by default.
   - package-ecosystem: "github-actions"
     directory: ".github/composite_actions"
     schedule:
       interval: "weekly"
-''');
+
+  - package-ecosystem: "npm"
+    directory: "infra"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Ignore Kotlin updates since we should always match Flutter stable
+      # to ensure users can have Kt versions >= Flutter stable.
+      - dependency-name: "kotlin_version"
+      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
+
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+    groups:
+      amplify-android:
+        patterns:
+          - "com.amplifyframework:*"
+          - "com.amazonaws:*"
+      mockito:
+        patterns:
+          - "org.mockito:*"
+
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+    # Ignore all repo packages
+    ignore:
+$ignorePubPackages
+
+    # Group dependencies which have a constraint set in the global
+    # "pubspec.yaml"
+    groups:
+$groupPubPackages
+''';
+  }
 
   @override
   Future<void> run() async {
@@ -57,23 +122,6 @@ updates:
           dependentPackages.add(dependent);
         },
       );
-      _dependabotConfig.write('''
-  - package-ecosystem: "pub"
-    directory: "$repoRelativePath"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-''');
-      if (dependentPackages.isNotEmpty) {
-        _dependabotConfig.write('''
-${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
-''');
-      }
-
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
         continue;
@@ -89,7 +137,7 @@ ${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join(
     final dependabotFile = File(
       p.join(rootDir.path, '.github', 'dependabot.yaml'),
     );
-    writeWorkflowFile(dependabotFile, _dependabotConfig.toString());
+    writeWorkflowFile(dependabotFile, _dependabotConfig);
 
     // Check if workflow generation caused `git diff` to change.
     if (setExitIfChanged) {
@@ -343,23 +391,6 @@ jobs:
         package.example == null) {
       return;
     }
-
-    _dependabotConfig.write('''
-  - package-ecosystem: "gradle"
-    directory: "${p.relative(androidPath, from: rootDir.path)}"
-    schedule:
-      interval: "weekly"
-    ignore:
-      # Ignore Kotlin updates since we should always match Flutter stable
-      # to ensure users can have Kt versions >= Flutter stable.
-      - dependency-name: "kotlin_version"
-      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-''');
 
     final androidTestDir = Directory(
       p.join(androidDir.path, 'src', 'test'),
