@@ -7,6 +7,8 @@ on:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
 
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -73,7 +75,8 @@ jobs:
           dimensions: channel=${{ matrix.channel }}
 
   e2e-android:
-    runs-on: macos-latest
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write

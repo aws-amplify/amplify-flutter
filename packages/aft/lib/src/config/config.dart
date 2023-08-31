@@ -230,6 +230,16 @@ class PackageInfo
     return unitTestDir;
   }
 
+  /// The integration test directory within the enclosing directory, if any
+  Directory? get integrationTestDirectory {
+    final expectedPath = p.join(path, 'integration_test');
+    final integrationTestDir = Directory(expectedPath);
+    if (!integrationTestDir.existsSync()) {
+      return null;
+    }
+    return integrationTestDir;
+  }
+
   /// Whether the package needs `build_runner` to be run.
   ///
   /// Used as a pre-publish check to ensure that generated code is

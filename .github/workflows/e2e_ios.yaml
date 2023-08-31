@@ -1,0 +1,52 @@
+name: E2E (iOS)
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: The working directory relative to the repo root
+        required: true
+        type: string
+      package-name:
+        description: The name of the package being tested
+        required: true
+        type: string
+      needs-aws-config:
+        description: Whether the E2E workflow needs configuration pulled from AWS
+        required: true
+        type: boolean
+
+jobs:
+  e2e-test:
+    runs-on: macos-latest-xl
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 20
+
+      - name: Pub Upgrade
+        run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade
+
+      - name: Fetch Amplify backend configurations
+        if: inputs.needs-aws-config
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: ${{ inputs.package-name }}
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run integration tests
+        timeout-minutes: 60
+        run: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test

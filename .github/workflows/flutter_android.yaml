@@ -1,21 +1,27 @@
-name: Flutter Android Build
+name: Flutter Android
 on:
   workflow_call:
     inputs:
-      working-directory:
-        description: The working directory relative to the repo root
+      # Native code is tested through the example package.
+      example-directory:
+        description: The example directory, relative to the repo root
         required: true
         type: string
       package-name:
-        description: The name of the app-facing package being tested
+        description: The name of the package being tested
         required: true
         type: string
+      has-native-tests:
+        description: Whether the package has native Android unit tests
+        required: true
+        type: boolean
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
+  test:
+    name: Build and Test
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
+    timeout-minutes: 30
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false
@@ -44,6 +50,11 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }}
 
-      - name: Build for Android
+      - name: Build
         run: flutter build apk --debug --verbose
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.example-directory }}
+
+      - name: Run Android unit tests
+        if: inputs.has-native-tests
+        run: ./gradlew :"${{ inputs.package-name }}":testDebugUnitTest --stacktrace
+        working-directory: ${{ inputs.example-directory }}/android
