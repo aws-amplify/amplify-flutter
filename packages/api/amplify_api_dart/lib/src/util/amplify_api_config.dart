@@ -25,22 +25,25 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// Gets the host with environment path prefix from Amplify config and combines
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
-    path = path ?? '';
     final parsed = Uri.parse(config.endpoint);
+
+    final pathSegments =
+        path != null ? [...parsed.pathSegments, ..._getSegments(path)] : null;
+
+    return parsed.replace(
+      pathSegments: pathSegments,
+      queryParameters: queryParameters,
+    );
+  }
+
+  /// Splits the path into segments to avoid URI-encoding slashes in path.
+  List<String> _getSegments(String path) {
     // Remove leading slashes which are suggested in public documentation.
     // https://docs.amplify.aws/lib/restapi/getting-started/q/platform/flutter/#make-a-post-request
     if (path.startsWith(_slash)) {
       path = path.substring(1);
     }
-    // Avoid URI-encoding slashes in path from caller.
-    final pathSegmentsFromPath = path.split(_slash);
-    return parsed.replace(
-      pathSegments: [
-        ...parsed.pathSegments,
-        ...pathSegmentsFromPath,
-      ],
-      queryParameters: queryParameters,
-    );
+    return path.split(_slash);
   }
 }
 
