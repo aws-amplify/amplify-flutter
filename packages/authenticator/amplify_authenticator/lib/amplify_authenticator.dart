@@ -315,7 +315,7 @@ class Authenticator extends StatefulWidget {
     this.padding = const EdgeInsets.all(32),
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
-    @visibleForTesting this.mockAuthenticatorState,
+    @visibleForTesting this.authenticatorStateOverride,
   }) :
         // ignore: prefer_asserts_with_message
         assert(() {
@@ -439,7 +439,7 @@ class Authenticator extends StatefulWidget {
   final DialCodeOptions dialCodeOptions;
 
   @visibleForTesting
-  final AuthenticatorState? mockAuthenticatorState;
+  final AuthenticatorState? authenticatorStateOverride;
 
   @override
   State<Authenticator> createState() => _AuthenticatorState();
@@ -493,7 +493,7 @@ class Authenticator extends StatefulWidget {
       ..add(
         DiagnosticsProperty<AuthenticatorState?>(
           'mockAuthenticatorState',
-          mockAuthenticatorState,
+          authenticatorStateOverride,
         ),
       );
   }
@@ -518,14 +518,14 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     // ignore: invalid_use_of_visible_for_testing_member
-    _stateMachineBloc = widget.mockAuthenticatorState?.authBloc ??
+    _stateMachineBloc = widget.authenticatorStateOverride?.authBloc ??
         (StateMachineBloc(
           authService: _authService,
           preferPrivateSession: widget.preferPrivateSession,
           initialStep: widget.initialStep,
           totpOptions: widget.totpOptions,
         )..add(const AuthLoad()));
-    _authenticatorState = widget.mockAuthenticatorState ??
+    _authenticatorState = widget.authenticatorStateOverride ??
         AuthenticatorState(
           _stateMachineBloc,
           defaultDialCode: widget.dialCodeOptions.defaultDialCode,

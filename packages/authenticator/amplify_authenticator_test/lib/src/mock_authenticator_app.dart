@@ -73,7 +73,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
   Widget build(BuildContext context) {
     return Authenticator(
       key: authenticatorKey,
-      mockAuthenticatorState: MockAuthenticatorState(
+      authenticatorStateOverride: MockAuthenticatorState(
         mockAuthBloc: _stateMachineBloc,
         defaultDialCode: DialCode.us,
       ),

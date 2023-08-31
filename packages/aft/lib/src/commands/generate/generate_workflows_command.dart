@@ -214,6 +214,8 @@ $groupPubPackages
     // TODO(dnys1): Enable E2E runs for Dart packages
     final needsE2ETest = package.flavor == PackageFlavor.flutter &&
         package.integrationTestDirectory != null;
+    final hasGoldens = package.flavor == PackageFlavor.flutter &&
+        package.goldensTestDirectory != null;
     final workflows = <String>[
       analyzeAndTestWorkflow,
       if (needsNativeTest) nativeWorkflow,
@@ -292,6 +294,7 @@ jobs:
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
+      has-goldens: $hasGoldens
 ''',
     );
 
