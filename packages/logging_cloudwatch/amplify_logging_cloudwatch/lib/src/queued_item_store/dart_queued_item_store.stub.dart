@@ -23,7 +23,11 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   }
 
   @override
-  FutureOr<void> addItem(String string, String timestamp) {
+  FutureOr<void> addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) {
     throw UnimplementedError('addItem() has not been implemented.');
   }
 

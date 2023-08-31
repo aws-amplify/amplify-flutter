@@ -25,8 +25,16 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   final DriftQueuedItemStore _database;
 
   @override
-  Future<void> addItem(String string, String timestamp) {
-    return _database.addItem(string, timestamp);
+  Future<void> addItem(
+    String string,
+    String timestamp, {
+    bool enableQueueRotation = false,
+  }) async {
+    return _database.addItem(
+      string,
+      timestamp,
+      enableQueueRotation: enableQueueRotation,
+    );
   }
 
   @override
