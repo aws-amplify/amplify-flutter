@@ -12,7 +12,7 @@ dependencies:
   js: ^0.6.7
   json_annotation: ">=4.8.1 <4.9.0"
   path: ^1.8.3
-  process: ^4.2.4
+  process: ^5.0.0
   retry: ^3.1.2
   source_map_stack_trace: ^2.1.1
   source_maps: ^0.10.12
