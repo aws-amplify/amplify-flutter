@@ -133,6 +133,13 @@ final class SignInStateMachine
         return worker;
       });
 
+  /// Creates the initial SRP public/private values used in SRP handshakes.
+  Future<SrpInitResult> _initSrp() async {
+    final worker = await initWorker;
+    worker.add(SrpInitMessage());
+    return worker.stream.first;
+  }
+
   /// The SRP password verifier worker.
   Future<SrpPasswordVerifierWorker> get passwordVerifierWorker =>
       _passwordVerifierWorkerMemoizer.runOnce(() async {
@@ -389,10 +396,10 @@ final class SignInStateMachine
   /// Creates the device SRP auth request to initiate the device SRP flow.
   @protected
   Future<RespondToAuthChallengeRequest> createDeviceSrpAuthRequest() async {
-    final initResult = _initResult;
-    if (initResult == null) {
-      throw StateError('Must call init first');
-    }
+    // Device SRP auth does not require SRP auth to have been performed already.
+    // In custom auth flows which do not begin with SRP auth but where device
+    // tracking is enabled, Cognito will still perform a device SRP challenge.
+    _initResult ??= await _initSrp();
     return RespondToAuthChallengeRequest.build((b) {
       b
         ..clientId = config.appClientId
@@ -402,7 +409,7 @@ final class SignInStateMachine
           CognitoConstants.challengeParamDeviceKey:
               _user.deviceSecrets!.deviceKey!,
           CognitoConstants.challengeParamSrpA:
-              initResult.publicA.toRadixString(16),
+              _initResult!.publicA.toRadixString(16),
         });
     });
   }
@@ -412,11 +419,6 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest> createDevicePasswordVerifierRequest(
     BuiltMap<String, String?> challengeParameters,
   ) async {
-    final password = parameters.password;
-    if (password == null || password.isEmpty) {
-      throw const AuthValidationException('No password given');
-    }
-
     final worker = await devicePasswordVerifierWorker;
     final workerMessage = SrpDevicePasswordVerifierMessage((b) {
       b
@@ -493,10 +495,7 @@ final class SignInStateMachine
   /// Initiates an SRP flow.
   @protected
   Future<InitiateAuthRequest> initiateSrpAuth(SignInInitiate event) async {
-    final worker = await initWorker;
-    worker.add(SrpInitMessage());
-    _initResult = await worker.stream.first;
-
+    _initResult = await _initSrp();
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.userSrpAuth
