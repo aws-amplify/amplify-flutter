@@ -8,6 +8,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:test/test.dart';
 
 // From aws-sdk-net-extensions-cognito:
@@ -135,116 +136,124 @@ const secretBlock =
 const formattedTimestamp = 'Thu Jun 15 07:00:00 UTC 2017';
 
 void main() {
-  group('AuthenticationHelper', () {
-    group('createPasswordClaim', () {
-      test('authenticateUser', () {
-        final claim = SrpHelper.createPasswordClaim(
-          userId: srpUsername,
-          parameters: SignInParameters(
-            (b) => b
-              ..username = srpUsername
-              ..password = srpPassword,
-          ),
+  group(
+    'AuthenticationHelper',
+    skip: zIsWeb && zDebugMode
+        ? 'Running SRP ops on the main thread in DDC Web tests causes flaky behavior. '
+            'These operations are tested elsewhere including via the worker tests and '
+            'E2E tests which all benefit from offloading the computations.'
+        : null,
+    () {
+      group('createPasswordClaim', () {
+        test('authenticateUser', () {
+          final claim = SrpHelper.createPasswordClaim(
+            userId: srpUsername,
+            parameters: SignInParameters(
+              (b) => b
+                ..username = srpUsername
+                ..password = srpPassword,
+            ),
+            initResult: initResult,
+            encodedSalt: salt,
+            encodedB: publicB,
+            poolName: poolName,
+            secretBlock: secretBlock,
+            formattedTimestamp: formattedTimestamp,
+          );
+          const expectedClaim = 'QwHbbUqF6DSSepJh2QqTWDCb1XjmqaxnnW5kDn5dz7E=';
+
+          expect(claim, equals(expectedClaim));
+        });
+
+        test('rejects B == 0', () {
+          final publicB = BigInt.zero.toRadixString(16);
+
+          expect(
+            () => SrpHelper.createPasswordClaim(
+              userId: srpUsername,
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = srpUsername
+                  ..password = srpPassword,
+              ),
+              initResult: initResult,
+              encodedSalt: salt,
+              encodedB: publicB,
+              poolName: poolName,
+              secretBlock: secretBlock,
+              formattedTimestamp: formattedTimestamp,
+            ),
+            throwsA(isA<SrpError>()),
+          );
+        });
+
+        test('rejects B % N == 0', () {
+          final publicB = SrpHelper.N.toRadixString(16);
+
+          expect(
+            () => SrpHelper.createPasswordClaim(
+              userId: srpUsername,
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = srpUsername
+                  ..password = srpPassword,
+              ),
+              initResult: initResult,
+              encodedSalt: salt,
+              encodedB: publicB,
+              poolName: poolName,
+              secretBlock: secretBlock,
+              formattedTimestamp: formattedTimestamp,
+            ),
+            throwsA(isA<SrpError>()),
+          );
+        });
+      });
+
+      test('getPasswordAuthenticationKey', () {
+        const username = 'User5';
+        const password = 'Password1!';
+        const poolName = 'Pj8nlkpKR';
+        const publicB =
+            '8d340308265ada665b1b2c730fb65ff0b6dc746b63c2d7e9f08b8aa9306d4848'
+            '268bc0c17ee4a2999173ca62af59fd74ba5d00f16c96bea082b163f2c3a0b745'
+            '455d62cb9577425b4b5d4dadba163a8e7759a7c0256795f464682770588c84e8'
+            '2f2c63d4701751476da8e8a7b1a131e78560fe7b56b6761fcef88dcc486f4033'
+            '69a0cac2f04c25ed6d5e08b5a2f488500a0d5af4972cfa1213bfca37bbae189c'
+            '8d58465b13193204f21ea01d267c7688e6e6cb5d3f5a8005db680d272308ee82'
+            '3816032dd2c8fc3b95b6fd0a742feb127e3d094cd002a5e6b209415ff82f6abf'
+            '50d5da43910a0336e9a6fc33dd101bf13f22f13fcb3ea3809aae4917d7c426fb'
+            '8c0a894030c75d3e15f0e1078a9d89e5154391cde6111ac14fab9fa3b3a880da'
+            '7dbd47fd5a055937581d26b5d225c076e82f980dcbd77b3950d270d8b622dca9'
+            'c9bcd8fd6435a59b9690b3c9e2bdabf58cae3420c19066abc420145b1b66f226'
+            'a6493c96588c2d53b637798fcaa573379f2251848065fe1fafb68ed5e79135e9';
+        const salt = 'b704a27deb8cf5efec43a40eac5b60d2';
+
+        final key = SrpHelper.getAuthenticationKey(
           initResult: initResult,
-          encodedSalt: salt,
-          encodedB: publicB,
-          poolName: poolName,
-          secretBlock: secretBlock,
-          formattedTimestamp: formattedTimestamp,
-        );
-        const expectedClaim = 'QwHbbUqF6DSSepJh2QqTWDCb1XjmqaxnnW5kDn5dz7E=';
-
-        expect(claim, equals(expectedClaim));
-      });
-
-      test('rejects B == 0', () {
-        final publicB = BigInt.zero.toRadixString(16);
-
-        expect(
-          () => SrpHelper.createPasswordClaim(
-            userId: srpUsername,
-            parameters: SignInParameters(
-              (b) => b
-                ..username = srpUsername
-                ..password = srpPassword,
-            ),
-            initResult: initResult,
-            encodedSalt: salt,
-            encodedB: publicB,
-            poolName: poolName,
-            secretBlock: secretBlock,
-            formattedTimestamp: formattedTimestamp,
+          publicB: BigInt.parse(publicB, radix: 16),
+          salt: BigInt.parse(salt, radix: 16),
+          privateKeyIdentifier: SrpHelper.privateKeyIdentifier(
+            poolName,
+            username,
+            password,
           ),
-          throwsA(isA<SrpError>()),
         );
+        const expectedKey = 'LmbBsy/4chqMRYOhmtmCrA==';
+
+        expect(base64Encode(key), equals(expectedKey));
       });
 
-      test('rejects B % N == 0', () {
-        final publicB = SrpHelper.N.toRadixString(16);
-
-        expect(
-          () => SrpHelper.createPasswordClaim(
-            userId: srpUsername,
-            parameters: SignInParameters(
-              (b) => b
-                ..username = srpUsername
-                ..password = srpPassword,
-            ),
-            initResult: initResult,
-            encodedSalt: salt,
-            encodedB: publicB,
-            poolName: poolName,
-            secretBlock: secretBlock,
-            formattedTimestamp: formattedTimestamp,
-          ),
-          throwsA(isA<SrpError>()),
+      test('computeSecretHash', () {
+        final hash = computeSecretHash(
+          'Mess',
+          'age',
+          'secret',
         );
+        const expectedHash = 'qnR8UCqJggD55PohusaBNviGoOJ67HC6Btry4qXLVZc=';
+
+        expect(hash, equals(expectedHash));
       });
-    });
-
-    test('getPasswordAuthenticationKey', () {
-      const username = 'User5';
-      const password = 'Password1!';
-      const poolName = 'Pj8nlkpKR';
-      const publicB =
-          '8d340308265ada665b1b2c730fb65ff0b6dc746b63c2d7e9f08b8aa9306d4848'
-          '268bc0c17ee4a2999173ca62af59fd74ba5d00f16c96bea082b163f2c3a0b745'
-          '455d62cb9577425b4b5d4dadba163a8e7759a7c0256795f464682770588c84e8'
-          '2f2c63d4701751476da8e8a7b1a131e78560fe7b56b6761fcef88dcc486f4033'
-          '69a0cac2f04c25ed6d5e08b5a2f488500a0d5af4972cfa1213bfca37bbae189c'
-          '8d58465b13193204f21ea01d267c7688e6e6cb5d3f5a8005db680d272308ee82'
-          '3816032dd2c8fc3b95b6fd0a742feb127e3d094cd002a5e6b209415ff82f6abf'
-          '50d5da43910a0336e9a6fc33dd101bf13f22f13fcb3ea3809aae4917d7c426fb'
-          '8c0a894030c75d3e15f0e1078a9d89e5154391cde6111ac14fab9fa3b3a880da'
-          '7dbd47fd5a055937581d26b5d225c076e82f980dcbd77b3950d270d8b622dca9'
-          'c9bcd8fd6435a59b9690b3c9e2bdabf58cae3420c19066abc420145b1b66f226'
-          'a6493c96588c2d53b637798fcaa573379f2251848065fe1fafb68ed5e79135e9';
-      const salt = 'b704a27deb8cf5efec43a40eac5b60d2';
-
-      final key = SrpHelper.getAuthenticationKey(
-        initResult: initResult,
-        publicB: BigInt.parse(publicB, radix: 16),
-        salt: BigInt.parse(salt, radix: 16),
-        privateKeyIdentifier: SrpHelper.privateKeyIdentifier(
-          poolName,
-          username,
-          password,
-        ),
-      );
-      const expectedKey = 'LmbBsy/4chqMRYOhmtmCrA==';
-
-      expect(base64Encode(key), equals(expectedKey));
-    });
-
-    test('computeSecretHash', () {
-      final hash = computeSecretHash(
-        'Mess',
-        'age',
-        'secret',
-      );
-      const expectedHash = 'qnR8UCqJggD55PohusaBNviGoOJ67HC6Btry4qXLVZc=';
-
-      expect(hash, equals(expectedHash));
-    });
-  });
+    },
+  );
 }
