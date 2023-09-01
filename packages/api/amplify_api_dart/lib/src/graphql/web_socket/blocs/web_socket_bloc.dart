@@ -278,7 +278,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       onError: (Object error, StackTrace st) {
         final exception = NetworkException(
           'Exception from WebSocketService.',
-          underlyingException: error.toString(),
+          underlyingException: error,
         );
         _shutdownWithException(exception, st);
       },
@@ -405,10 +405,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     }
 
     currentState.service
-        .register(
-          currentState,
-          request,
-        )
+        .register(currentState, request)
         .onError<Object>(subscriptionBloc.addResponseError);
   }
 

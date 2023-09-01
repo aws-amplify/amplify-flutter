@@ -336,47 +336,31 @@ void main() {
         bloc = null;
         service = null; // service gets closed in  bloc
       });
-      test(
-        'triggering FailureState on Exception during init',
-        () async {
-          final subscribeEvent = SubscribeEvent(
-            subscriptionRequest,
-            () {
-              service!.channel.sink.add(mockDataString);
-            },
-          );
+      test('triggering FailureState on Exception during init', () async {
+        final badService = MockWebSocketService(badInit: true);
+        mockNetworkStreamController = StreamController<ConnectivityStatus>();
+        final bloc = WebSocketBloc(
+          config: testApiKeyConfig,
+          authProviderRepo: getTestAuthProviderRepo(),
+          wsService: badService,
+          subscriptionOptions: subscriptionOptions,
+          pollClientOverride: mockPollClient.client,
+          connectivity: const MockConnectivity(),
+        );
 
-          final badService = MockWebSocketService(badInit: true);
-          mockNetworkStreamController = StreamController<ConnectivityStatus>();
-          final bloc = WebSocketBloc(
-            config: testApiKeyConfig,
-            authProviderRepo: getTestAuthProviderRepo(),
-            wsService: badService,
-            subscriptionOptions: subscriptionOptions,
-            pollClientOverride: mockPollClient.client,
-            connectivity: const MockConnectivity(),
-          );
-
-          expect(
-            bloc.stream,
-            emitsInOrder(
-              [
-                isA<DisconnectedState>(),
-                isA<ConnectingState>(),
-                isA<FailureState>(),
-                isA<PendingDisconnect>(),
-                isA<DisconnectedState>(),
-              ],
-            ),
-          );
-
-          bloc.subscribe(
-            subscribeEvent,
-          );
-          // TODO(equartey): Fix this test on web
-        },
-        skip: zIsWeb,
-      );
+        expect(
+          bloc.stream,
+          emitsInOrder(
+            [
+              isA<DisconnectedState>(),
+              isA<ConnectingState>(),
+              isA<FailureState>(),
+              isA<PendingDisconnect>(),
+              isA<DisconnectedState>(),
+            ],
+          ),
+        );
+      });
 
       test('Exception from service and should return error to user', () async {
         final subscribeEvent = SubscribeEvent(

@@ -256,14 +256,16 @@ class MockWebSocketService extends AmplifyWebSocketService {
 
   @override
   Stream<WebSocketEvent> init(WebSocketState state) {
-    if (badInit) {
-      return Stream.error(
-        WebSocketChannelException('Mock Web Socket Exception'),
-      );
-    }
     channel = MockWebSocketChannel();
-
     sink = channel.sink;
+
+    if (badInit) {
+      Timer.run(() {
+        channel.controller.addError(
+          WebSocketChannelException('Mock Web Socket Exception'),
+        );
+      });
+    }
 
     return transformStream(channel.stream);
   }
