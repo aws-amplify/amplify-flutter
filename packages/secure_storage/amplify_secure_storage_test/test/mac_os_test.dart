@@ -4,8 +4,8 @@
 @TestOn('mac-os')
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_cupertino.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/cupertino/security.bindings.g.dart';
+import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_cupertino.dart';
 import 'package:test/test.dart';
 
 const key1 = 'key_1';
@@ -29,10 +29,10 @@ void main() {
       ),
     );
 
-    setUp((() {
+    setUp(() {
       storage.removeAll();
       storage2.removeAll();
-    }));
+    });
 
     tearDown(() {
       storage.removeAll();
@@ -43,8 +43,9 @@ void main() {
       'removes all keys from storage',
       () {
         // seed storage and confirm values are present
-        storage.write(key: key1, value: value1);
-        storage.write(key: key2, value: value2);
+        storage
+          ..write(key: key1, value: value1)
+          ..write(key: key2, value: value2);
         expect(storage.read(key: key1), value1);
         expect(storage.read(key: key2), value2);
 
@@ -78,7 +79,7 @@ void main() {
     test(
       'does not throw when called with no data present',
       () {
-        expect(() => storage.removeAll(), returnsNormally);
+        expect(storage.removeAll, returnsNormally);
       },
     );
   });
