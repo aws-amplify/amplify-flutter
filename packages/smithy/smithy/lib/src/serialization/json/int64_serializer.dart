@@ -6,15 +6,13 @@ import 'package:fixnum/fixnum.dart';
 
 enum _Int64Format { number, string }
 
-// TODO(dnys1): Remove when doing so wouldn't crash DDC
-// ignore: use_enums
-class Int64Serializer implements PrimitiveSerializer<Int64> {
+enum Int64Serializer implements PrimitiveSerializer<Int64> {
+  asNum._(_Int64Format.number),
+  asString._(_Int64Format.string);
+
   const Int64Serializer._(this._format);
 
   final _Int64Format _format;
-
-  static const asNum = Int64Serializer._(_Int64Format.number);
-  static const asString = Int64Serializer._(_Int64Format.string);
 
   @override
   Iterable<Type> get types => const [Int64];

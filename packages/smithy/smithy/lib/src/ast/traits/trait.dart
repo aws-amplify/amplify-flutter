@@ -20,10 +20,11 @@ abstract class Trait<TraitValue extends Object>
     with AWSEquatable<Trait<TraitValue>>, AWSSerializable {
   const Trait(this.shapeId, this.value);
 
+  static final _logger = AWSLogger().createChild('SmithyTrait');
+
   static Trait fromJson(ShapeId shapeId, Object? jsonValue) {
     if (!serializers.containsKey(shapeId)) {
-      // TODO(dnys1): Log
-      safePrint('No serializer found for $shapeId');
+      _logger.debug('No serializer found for $shapeId');
       return DynamicTrait._(shapeId, jsonValue ?? const <String, Object?>{});
     }
     return serializers[shapeId]!(jsonValue);

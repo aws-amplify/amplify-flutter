@@ -6,26 +6,16 @@ import 'package:smithy/smithy.dart';
 
 /// A class which handles serialization/deserialization of [Timestamp] objects
 /// using the predefined formats specified by [TimestampFormat].
-// TODO(dnys1): Remove when doing so wouldn't crash DDC
-// ignore: use_enums
-class TimestampSerializer implements PrimitiveSerializer<DateTime> {
+enum TimestampSerializer implements PrimitiveSerializer<DateTime> {
+  dateTime._(TimestampFormat.dateTime),
+  httpDate._(TimestampFormat.httpDate),
+  epochSeconds._(TimestampFormat.epochSeconds),
+  unknown._(TimestampFormat.unknown);
+
   const TimestampSerializer._(this.format);
 
   /// The format to use for serialization/deserialization.
   final TimestampFormat format;
-
-  /// {@macro smithy.timestamp_format_datetime}
-  static const dateTime = TimestampSerializer._(TimestampFormat.dateTime);
-
-  /// {@macro smithy.timestamp_format_httpdate}
-  static const httpDate = TimestampSerializer._(TimestampFormat.httpDate);
-
-  /// {@macro smithy.timestamp_format_epochseconds}
-  static const epochSeconds =
-      TimestampSerializer._(TimestampFormat.epochSeconds);
-
-  /// {@macro smithy.timestamp_format_unknown}
-  static const unknown = TimestampSerializer._(TimestampFormat.unknown);
 
   @override
   DateTime deserialize(
