@@ -79,7 +79,7 @@ body:
     attributes:
       label: "Flutter Version"
       description: "Please share which version of Flutter you're using (found using `flutter --version`)."
-      placeholder: "3.3.10"
+      placeholder: "3.10.6"
     validations:
       required: true
   - type: input
@@ -87,7 +87,7 @@ body:
     attributes:
       label: Amplify Flutter Version
       description: "The version of the Amplify Flutter libraries you're currently using."
-      placeholder: "0.6.10"
+      placeholder: "1.4.0"
     validations:
       required: true
   - type: dropdown
