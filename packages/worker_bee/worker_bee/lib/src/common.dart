@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart';
+import 'package:worker_bee/src/exception/worker_bee_exception.dart';
 import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
 
@@ -53,6 +54,18 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
         'Worker did not include serializer for response type ($Response)',
       );
     }
+  }
+
+  /// Unwraps [parameter] and throws a helpful exception if it's `null`.
+  @protected
+  T unwrapParameter<T extends Object>(String name, T? parameter) {
+    if (parameter != null) {
+      return parameter;
+    }
+    throw WorkerBeeExceptionImpl(
+      'Invalid parameter passed for $name. Expected $T got null.',
+      StackTrace.current,
+    );
   }
 
   @override
@@ -196,10 +209,8 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
     close(force: true);
   }
 
-  late final Stream<Response> _stream = _streamController.stream;
-
   /// The stream of responses.
-  Stream<Response> get stream => _stream;
+  Stream<Response> get stream => _streamController.stream;
 
   @protected
   set stream(Stream<Response> stream) {

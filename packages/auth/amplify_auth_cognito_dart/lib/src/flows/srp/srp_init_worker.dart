@@ -44,7 +44,6 @@ abstract class SrpInitWorker
     Stream<SrpInitMessage> listen,
     StreamSink<SrpInitResult> respond,
   ) async {
-    // ignore: no_leading_underscores_for_local_identifiers
     await for (final _ in listen) {
       respond.add(SrpHelper.deriveEphemeralValues());
     }
