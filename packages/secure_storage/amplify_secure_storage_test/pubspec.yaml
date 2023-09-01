@@ -7,14 +7,12 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  test: ^1.22.1
   amplify_secure_storage_dart: any
-
-dependency_overrides:
-  aws_common:
-    path: ../../aws_common
-  worker_bee:
-    path: ../../worker_bee/worker_bee
+  async: ^2.10.0
+  aws_common: any
+  file: ">=6.0.0 <8.0.0"
+  test: ^1.22.1
+  worker_bee: any
 
 dev_dependencies:
   amplify_lints:

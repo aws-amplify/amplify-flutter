@@ -426,8 +426,7 @@ final class SignInStateMachine
         ..initResult = _initResult
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
-        ..challengeParameters = BuiltMap(_publicChallengeParameters)
-        ..parameters = parameters;
+        ..challengeParameters = BuiltMap(_publicChallengeParameters);
     });
     worker.sink.add(workerMessage);
     return worker.stream.first;

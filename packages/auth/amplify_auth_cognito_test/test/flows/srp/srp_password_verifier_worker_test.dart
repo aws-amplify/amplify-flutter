@@ -77,6 +77,7 @@ void main() {
               ..username = srpUsername
               ..password = srpPassword,
           )
+          // No challenge parameters
           ..challengeParameters = BuiltMap(<String, String>{})
           ..timestamp = DateTime.utc(2017, 6, 15, 7),
       );
