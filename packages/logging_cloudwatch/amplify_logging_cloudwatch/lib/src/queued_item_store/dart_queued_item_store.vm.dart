@@ -7,16 +7,19 @@ import 'package:amplify_logging_cloudwatch/src/queued_item_store/drift/drift_que
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:meta/meta.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
   factory DartQueuedItemStore(String? storagePath) {
-    assert(
-      storagePath != null,
-      'A storage path is required on VM for locating the DB',
-    );
-    final database = DriftQueuedItemStore(storagePath!);
+    final FutureOr<String> path;
+    if (storagePath == null) {
+      path = getApplicationSupportDirectory().then((value) => value.path);
+    } else {
+      path = storagePath;
+    }
+    final database = DriftQueuedItemStore(path);
     return DartQueuedItemStore._(database);
   }
 

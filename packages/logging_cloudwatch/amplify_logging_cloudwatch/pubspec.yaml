@@ -6,6 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/amplify_log
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
+  flutter: ">=3.10.0"
   sdk: "^3.0.0"
 
 dependencies:
@@ -15,7 +16,10 @@ dependencies:
   aws_logging_cloudwatch: ^0.1.0
   collection: ^1.15.0
   drift: ">=2.11.0 <2.12.0"
+  flutter:
+    sdk: flutter
   meta: ^1.7.0
+  path_provider: ^2.0.0
 
 dev_dependencies:
   amplify_lints: ">=3.0.0 <3.1.0"

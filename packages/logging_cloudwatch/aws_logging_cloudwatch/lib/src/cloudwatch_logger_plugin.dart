@@ -44,46 +44,16 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     with AWSDebuggable, AWSLoggerMixin {
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
-  factory CloudWatchLoggerPlugin({
+  CloudWatchLoggerPlugin({
     required AWSCredentialsProvider credentialsProvider,
     required CloudWatchLoggerPluginConfiguration pluginConfig,
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
     CloudWatchLogStreamProvider? logStreamProvider,
-  }) {
-    return CloudWatchLoggerPlugin._(
-      credentialsProvider: credentialsProvider,
-      pluginConfig: pluginConfig,
-      remoteLoggingConstraintProvider: remoteLoggingConstraintProvider,
-      logStreamProvider: logStreamProvider,
-      logStore: InMemoryQueuedItemStore(),
-    );
-  }
-
-  /// An [AWSLoggerPlugin] to use only for testing.
-  @protected
-  @visibleForTesting
-  CloudWatchLoggerPlugin.testPlugin({
-    required CloudWatchLogsClient client,
-    required CloudWatchLoggerPluginConfiguration pluginConfig,
-    required CloudWatchLogStreamProvider logStreamProvider,
-    required QueuedItemStore logStore,
-    RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
+    // TODO(nikahsn): remove after moving queued item store implementation from
+    // amplify_logging_cloudwath to aws_logging_cloudwatch
+    @protected QueuedItemStore? logStore,
   })  : _enabled = pluginConfig.enable,
         _pluginConfig = pluginConfig,
-        _logStore = logStore,
-        _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider,
-        _logStreamProvider = logStreamProvider,
-        _client = client;
-
-  CloudWatchLoggerPlugin._({
-    required AWSCredentialsProvider credentialsProvider,
-    required CloudWatchLoggerPluginConfiguration pluginConfig,
-    RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
-    CloudWatchLogStreamProvider? logStreamProvider,
-    QueuedItemStore? logStore,
-  })  : _enabled = pluginConfig.enable,
-        _pluginConfig = pluginConfig,
-        _logStore = logStore ?? InMemoryQueuedItemStore(),
         _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider ??
             (pluginConfig.defaultRemoteConfiguration != null
                 ? DefaultRemoteLoggingConstraintProvider(
@@ -95,6 +65,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
           region: pluginConfig.region,
           credentialsProvider: credentialsProvider,
         ),
+        // TODO(nikahsn): move queued item store implementation from
+        // amplify_logging_cloudwath to aws_logging_cloudwatch and use
+        // DartQueueItemStore instead of InMemoryQueuedItemStore
+        _logStore = logStore ?? InMemoryQueuedItemStore(),
         _logStreamProvider = logStreamProvider ??
             DefaultCloudWatchLogStreamProvider(
               logGroupName: pluginConfig.logGroupName,
@@ -114,6 +88,22 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       _timer?.stop();
     }
   }
+
+  /// An [AWSLoggerPlugin] to use only for testing.
+  @protected
+  @visibleForTesting
+  CloudWatchLoggerPlugin.testPlugin({
+    required CloudWatchLogsClient client,
+    required CloudWatchLoggerPluginConfiguration pluginConfig,
+    required CloudWatchLogStreamProvider logStreamProvider,
+    required QueuedItemStore logStore,
+    RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
+  })  : _enabled = pluginConfig.enable,
+        _pluginConfig = pluginConfig,
+        _logStore = logStore,
+        _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider,
+        _logStreamProvider = logStreamProvider,
+        _client = client;
 
   final CloudWatchLoggerPluginConfiguration _pluginConfig;
   final CloudWatchLogsClient _client;

@@ -28,7 +28,7 @@ class DriftQueuedItems extends Table {
 class DriftQueuedItemStore extends _$DriftQueuedItemStore
     implements QueuedItemStore {
   /// {@macro amplify_logging_cloudwatch.drift_queued_item_store}
-  factory DriftQueuedItemStore(String storagePath) {
+  factory DriftQueuedItemStore(FutureOr<String> storagePath) {
     final driftQueryExecutor = connect(
       name: 'logging_cached_logs',
       path: storagePath,
