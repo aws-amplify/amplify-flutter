@@ -9,7 +9,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_device_password_veri
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_helper.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/srp/srp_init_result.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
-import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
@@ -46,9 +45,6 @@ abstract class SrpDevicePasswordVerifierMessage
   /// User device secrets.
   CognitoDeviceSecrets get deviceSecrets;
 
-  /// Parameters to the SRP flow.
-  SignInParameters get parameters;
-
   /// Parameters of the current challenge.
   BuiltMap<String, String> get challengeParameters;
 
@@ -78,24 +74,40 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
     StreamSink<RespondToAuthChallengeRequest> respond,
   ) async {
     await for (final message in listen) {
-      final username =
-          message.challengeParameters[CognitoConstants.challengeParamUsername]!;
-      final deviceKey = message
-          .challengeParameters[CognitoConstants.challengeParamDeviceKey]!;
-      final secretBlock = message
-          .challengeParameters[CognitoConstants.challengeParamSecretBlock]!;
-      final encodedSalt =
-          message.challengeParameters[CognitoConstants.challengeParamSalt]!;
-      final encodedB =
-          message.challengeParameters[CognitoConstants.challengeParamSrpB]!;
-      final timestamp = DateTime.now().toUtc();
-      final formattedTimestamp = _dateFormat.format(timestamp);
+      final SrpDevicePasswordVerifierMessage(
+        :initResult,
+        :clientId,
+        :clientSecret,
+        :deviceSecrets,
+        :challengeParameters,
+      ) = message;
+      final username = unwrapParameter(
+        CognitoConstants.challengeParamUsername,
+        challengeParameters[CognitoConstants.challengeParamUsername],
+      );
+      final deviceKey = unwrapParameter(
+        CognitoConstants.challengeParamDeviceKey,
+        challengeParameters[CognitoConstants.challengeParamDeviceKey],
+      );
+      final secretBlock = unwrapParameter(
+        CognitoConstants.challengeParamSecretBlock,
+        challengeParameters[CognitoConstants.challengeParamSecretBlock],
+      );
+      final encodedSalt = unwrapParameter(
+        CognitoConstants.challengeParamSalt,
+        challengeParameters[CognitoConstants.challengeParamSalt],
+      );
+      final encodedB = unwrapParameter(
+        CognitoConstants.challengeParamSrpB,
+        challengeParameters[CognitoConstants.challengeParamSrpB],
+      );
+      final formattedTimestamp = _dateFormat.format(DateTime.timestamp());
 
       final encodedClaim = SrpHelper.createDeviceClaim(
         deviceKey: deviceKey,
-        deviceSecrets: message.deviceSecrets,
+        deviceSecrets: deviceSecrets,
         username: username,
-        initResult: message.initResult,
+        initResult: initResult,
         encodedSalt: encodedSalt,
         encodedB: encodedB,
         secretBlock: secretBlock,
@@ -103,23 +115,22 @@ abstract class SrpDevicePasswordVerifierWorker extends WorkerBeeBase<
       );
       final response = RespondToAuthChallengeRequest.build((b) {
         b
-          ..clientId = message.clientId
+          ..clientId = clientId
           ..challengeName = ChallengeNameType.devicePasswordVerifier
-          ..challengeResponses.addAll({
-            CognitoConstants.challengeParamPasswordSecretBlock: secretBlock,
-            CognitoConstants.challengeParamPasswordSignature: encodedClaim,
-            CognitoConstants.challengeParamUsername: username,
-            CognitoConstants.challengeParamTimestamp: formattedTimestamp,
-            CognitoConstants.challengeParamDeviceKey: deviceKey,
-          });
+          ..challengeResponses[
+              CognitoConstants.challengeParamPasswordSecretBlock] = secretBlock
+          ..challengeResponses[
+              CognitoConstants.challengeParamPasswordSignature] = encodedClaim
+          ..challengeResponses[CognitoConstants.challengeParamUsername] =
+              username
+          ..challengeResponses[CognitoConstants.challengeParamTimestamp] =
+              formattedTimestamp
+          ..challengeResponses[CognitoConstants.challengeParamDeviceKey] =
+              deviceKey;
 
-        if (message.clientSecret != null) {
+        if (clientSecret != null) {
           b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
-              computeSecretHash(
-            username,
-            message.clientId,
-            message.clientSecret!,
-          );
+              computeSecretHash(username, clientId, clientSecret);
         }
       });
 

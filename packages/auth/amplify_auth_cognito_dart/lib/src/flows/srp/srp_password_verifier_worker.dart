@@ -33,7 +33,7 @@ abstract class SrpPasswordVerifierMessage
 
   @BuiltValueHook(finalizeBuilder: true)
   static void _init(SrpPasswordVerifierMessageBuilder b) {
-    b.timestamp ??= DateTime.now().toUtc();
+    b.timestamp ??= DateTime.timestamp();
   }
 
   /// Result of the SRP initialization step.
@@ -85,25 +85,45 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
     StreamSink<RespondToAuthChallengeRequest> respond,
   ) async {
     await for (final message in listen) {
-      final username =
-          message.challengeParameters[CognitoConstants.challengeParamUsername]!;
-      final userId = message
-          .challengeParameters[CognitoConstants.challengeParamUserIdForSrp]!;
+      final SrpPasswordVerifierMessage(
+        :initResult,
+        :clientId,
+        :clientSecret,
+        :poolId,
+        :deviceKey,
+        :parameters,
+        :challengeParameters,
+        :timestamp,
+      ) = message;
+      final username = unwrapParameter(
+        CognitoConstants.challengeParamUsername,
+        challengeParameters[CognitoConstants.challengeParamUsername],
+      );
+      final userId = unwrapParameter(
+        CognitoConstants.challengeParamUserIdForSrp,
+        challengeParameters[CognitoConstants.challengeParamUserIdForSrp],
+      );
+      final secretBlock = unwrapParameter(
+        CognitoConstants.challengeParamSecretBlock,
+        challengeParameters[CognitoConstants.challengeParamSecretBlock],
+      );
+      final encodedSalt = unwrapParameter(
+        CognitoConstants.challengeParamSalt,
+        challengeParameters[CognitoConstants.challengeParamSalt],
+      );
+      final encodedB = unwrapParameter(
+        CognitoConstants.challengeParamSrpB,
+        challengeParameters[CognitoConstants.challengeParamSrpB],
+      );
+
       // Pool ID is in the form `{region}_{poolName}`
-      final poolName = message.poolId.split('_')[1];
-      final secretBlock = message
-          .challengeParameters[CognitoConstants.challengeParamSecretBlock]!;
-      final encodedSalt =
-          message.challengeParameters[CognitoConstants.challengeParamSalt]!;
-      final encodedB =
-          message.challengeParameters[CognitoConstants.challengeParamSrpB]!;
-      final timestamp = message.timestamp;
+      final poolName = poolId.split('_')[1];
       final formattedTimestamp = _dateFormat.format(timestamp);
 
       final encodedClaim = SrpHelper.createPasswordClaim(
         userId: userId,
-        parameters: message.parameters,
-        initResult: message.initResult,
+        parameters: parameters,
+        initResult: initResult,
         encodedSalt: encodedSalt,
         encodedB: encodedB,
         poolName: poolName,
@@ -112,25 +132,21 @@ abstract class SrpPasswordVerifierWorker extends WorkerBeeBase<
       );
       final response = RespondToAuthChallengeRequest.build((b) {
         b
-          ..clientId = message.clientId
+          ..clientId = clientId
           ..challengeName = ChallengeNameType.passwordVerifier
-          ..challengeResponses.addAll({
-            CognitoConstants.challengeParamPasswordSecretBlock: secretBlock,
-            CognitoConstants.challengeParamPasswordSignature: encodedClaim,
-            CognitoConstants.challengeParamUsername: username,
-            CognitoConstants.challengeParamTimestamp: formattedTimestamp,
-          });
+          ..challengeResponses[
+              CognitoConstants.challengeParamPasswordSecretBlock] = secretBlock
+          ..challengeResponses[
+              CognitoConstants.challengeParamPasswordSignature] = encodedClaim
+          ..challengeResponses[CognitoConstants.challengeParamUsername] =
+              username
+          ..challengeResponses[CognitoConstants.challengeParamTimestamp] =
+              formattedTimestamp;
 
-        if (message.clientSecret != null) {
+        if (clientSecret != null) {
           b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
-              computeSecretHash(
-            username,
-            message.clientId,
-            message.clientSecret!,
-          );
+              computeSecretHash(username, clientId, clientSecret);
         }
-
-        final deviceKey = message.deviceKey;
         if (deviceKey != null) {
           b.challengeResponses[CognitoConstants.challengeParamDeviceKey] =
               deviceKey;
