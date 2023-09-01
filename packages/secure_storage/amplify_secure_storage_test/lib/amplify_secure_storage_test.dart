@@ -1,9 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: implementation_imports
+
+import 'dart:async';
+
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_action.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
+import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
 import 'package:amplify_secure_storage_test/data/key_value_pairs.dart';
 import 'package:test/test.dart';
+import 'package:worker_bee/worker_bee.dart';
 
 const key1 = 'key_1';
 
@@ -165,6 +173,41 @@ void runStandardTests(
         expect(readValue2, isNull);
       });
     }
+  });
+
+  group('SecureStorageWorker', () {
+    test('Throws before init is called', () async {
+      final worker = SecureStorageWorker.create();
+      await worker.spawn();
+      worker.add(
+        SecureStorageRequest(
+          (b) => b
+            ..action = SecureStorageAction.read
+            ..key = 'key',
+        ),
+      );
+      expect(
+        worker.result,
+        completion(
+          isA<ErrorResult>().having(
+            (res) => res.error.toString(),
+            'error',
+            contains('Must call init'),
+          ),
+        ),
+      );
+      await expectLater(
+        worker.stream,
+        emitsError(
+          isA<WorkerBeeException>().having(
+            (res) => res.error,
+            'error',
+            contains('Must call init'),
+          ),
+        ),
+      );
+      unawaited(worker.close());
+    });
   });
 }
 

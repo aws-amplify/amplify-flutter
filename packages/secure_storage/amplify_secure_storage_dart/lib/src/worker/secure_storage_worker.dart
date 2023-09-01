@@ -34,30 +34,27 @@ abstract class SecureStorageWorker
     await for (final request in listen) {
       var response = request;
       if (request.action == SecureStorageAction.init) {
-        final config = request.config!;
+        final config = unwrapParameter('config', request.config);
         // ignore: invalid_use_of_visible_for_testing_member
-        _storage ??= AmplifySecureStorageDart(
-          config: config,
-        );
+        _storage ??= AmplifySecureStorageDart(config: config);
       }
       final storage = _storage;
       if (storage == null) {
-        respond.addError(StateError('Must call init first'));
-        return null;
+        throw StateError('Must call init first');
       }
       switch (request.action) {
         case SecureStorageAction.init:
           break;
         case SecureStorageAction.delete:
-          final key = request.key!;
+          final key = unwrapParameter('key', request.key);
           await storage.delete(key: key);
         case SecureStorageAction.read:
-          final key = request.key!;
+          final key = unwrapParameter('key', request.key);
           final value = await storage.read(key: key);
           response = request.rebuild((b) => b..value = value);
         case SecureStorageAction.write:
-          final key = request.key!;
-          final value = request.value!;
+          final key = unwrapParameter('key', request.key);
+          final value = unwrapParameter('value', request.value);
           await storage.write(key: key, value: value);
         case SecureStorageAction.removeAll:
           await storage.removeAll();
