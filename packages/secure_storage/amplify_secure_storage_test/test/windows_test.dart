@@ -80,7 +80,7 @@ void main() {
   group(
       'CryptProtect/CryptUnprotect can encrypt and decrypt keys of various lengths and chars',
       () {
-    for (var value in keyValuePairs.values) {
+    for (final value in keyValuePairs.values) {
       final testName = value.substring(0, 20);
       test('encrypt / decrypt value starting with: $testName', () {
         final encrypted = encryptString(value);
