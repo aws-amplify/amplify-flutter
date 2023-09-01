@@ -10366,18 +10366,23 @@ class NativeMacOsFramework {
 }
 
 final class utsname extends ffi.Struct {
+  /// [XSI] Name of OS
   @ffi.Array.multi([256])
   external ffi.Array<ffi.Char> sysname;
 
+  /// [XSI] Name of this network node
   @ffi.Array.multi([256])
   external ffi.Array<ffi.Char> nodename;
 
+  /// [XSI] Release level
   @ffi.Array.multi([256])
   external ffi.Array<ffi.Char> release;
 
+  /// [XSI] Version level
   @ffi.Array.multi([256])
   external ffi.Array<ffi.Char> version;
 
+  /// [XSI] Hardware type
   @ffi.Array.multi([256])
   external ffi.Array<ffi.Char> machine;
 }
@@ -20023,3 +20028,5 @@ abstract class NSAlignmentOptions {
 typedef CFTypeRef1 = ffi.Pointer<ffi.Void>;
 
 const String kIOPlatformUUIDKey = 'IOPlatformUUID';
+
+const int IO_OBJECT_NULL = 0;

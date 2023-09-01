@@ -78,6 +78,7 @@ enums:
 macros:
   include:
     - kIOPlatformUUIDKey
+    - IO_OBJECT_NULL
 typedefs:
   include:
     - CFTypeRef
