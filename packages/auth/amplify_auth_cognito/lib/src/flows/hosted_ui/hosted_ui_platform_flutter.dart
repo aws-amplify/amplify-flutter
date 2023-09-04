@@ -80,13 +80,13 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         options.isPreferPrivateSession,
         options.browserPackageName,
       );
-      unawaited(
-        dispatcher.dispatchAndComplete(
+      dispatcher
+          .dispatch(
           HostedUiEvent.exchange(
             OAuthParameters.fromJson(queryParameters.cast()),
           ),
-        ),
-      );
+          )
+          .ignore();
     } on Exception catch (e) {
       unawaited(
         dispatcher.dispatchAndComplete(const HostedUiEvent.cancelSignIn()),

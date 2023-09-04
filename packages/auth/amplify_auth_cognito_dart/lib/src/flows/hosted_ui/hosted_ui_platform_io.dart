@@ -250,13 +250,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
           );
           continue;
         }
-        unawaited(
-          dispatcher.dispatchAndComplete(
-            HostedUiEvent.exchange(
-              OAuthParameters.fromJson(queryParams),
-            ),
-          ),
-        );
+        dispatcher
+            .dispatch(
+              HostedUiEvent.exchange(
+                OAuthParameters.fromJson(queryParams),
+              ),
+            )
+            .ignore();
         await _respond(
           request,
           HttpStatus.ok,
@@ -268,7 +268,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(close());
+      close().ignore();
     }
   }
 
@@ -324,7 +324,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(close());
+      close().ignore();
     }
   }
 
