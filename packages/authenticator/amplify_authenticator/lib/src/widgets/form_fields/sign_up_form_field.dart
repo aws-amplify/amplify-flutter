@@ -55,7 +55,7 @@ abstract class SignUpFormField<FieldValue extends Object>
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
   }) =>
-      _SignUpTextField(
+      _SignUpPasswordField(
         key: key ?? keyPasswordSignUpFormField,
         titleKey: InputResolverKey.passwordTitle,
         hintTextKey: InputResolverKey.passwordHint,
@@ -508,8 +508,6 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
     switch (widget.field) {
       case SignUpField.username:
         return state.username;
-      case SignUpField.password:
-        return state.password;
       case SignUpField.passwordConfirmation:
         return state.passwordConfirmation;
       case SignUpField.address:
@@ -535,8 +533,6 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
     switch (widget.field) {
       case SignUpField.username:
         return (v) => state.username = v;
-      case SignUpField.password:
-        return (v) => state.password = v;
       case SignUpField.passwordConfirmation:
         return (v) => state.passwordConfirmation = v;
       case SignUpField.address:
@@ -585,11 +581,6 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
           ),
           isOptional: isOptional,
         );
-      case SignUpField.password:
-        return validateNewPassword(
-          amplifyConfig: config.amplifyConfig,
-          inputResolver: stringResolver.inputs,
-        )(context);
       case SignUpField.passwordConfirmation:
         return validatePasswordConfirmation(
           () => state.password,
@@ -787,5 +778,63 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
       ),
       isOptional: isOptional,
     );
+  }
+}
+
+class _SignUpPasswordField extends SignUpFormField<String> {
+  const _SignUpPasswordField({
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    CognitoUserAttributeKey? attributeKey,
+    super.validator,
+    super.required,
+    super.autofillHints,
+  }) : super._(
+          customAttributeKey: attributeKey,
+        );
+
+  @override
+  _SignUpPasswordFieldState createState() => _SignUpPasswordFieldState();
+}
+
+class _SignUpPasswordFieldState extends _SignUpTextFieldState {
+  @override
+  String? get initialValue {
+    return state.password;
+  }
+
+  @override
+  ValueChanged<String> get onChanged {
+    return (v) => state.password = v;
+  }
+
+  @override
+  Widget? get companionWidget {
+    final policyWidget =
+        InheritedForms.of(context).signUpForm.passwordPolicyWidget;
+    if (policyWidget != null) {
+      return policyWidget;
+    }
+
+    if (state.password.isEmpty) {
+      return null;
+    }
+
+    final validatorResult = validator(state.password);
+    if (validatorResult == null) {
+      return null;
+    }
+
+    return Text(validatorResult);
+  }
+
+  @override
+  FormFieldValidator<String> get validator {
+    return validateNewPassword(
+      amplifyConfig: config.amplifyConfig,
+      inputResolver: stringResolver.inputs,
+    )(context);
   }
 }
