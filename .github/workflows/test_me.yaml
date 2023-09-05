@@ -1,0 +1,95 @@
+name: Test ME 
+on:
+  push:
+    branches:
+      - tempTest
+      - main
+      - stable
+      - feat/**
+      - fix/**
+      - test/**
+  pull_request:
+    paths:
+      - ".github/workflows/test_me.yaml"
+
+jobs: 
+  test: 
+    runs-on: macos-latest
+    # To avoid 'Credentials could not be loaded' calling workflows must include:
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Configure AWS credentials
+        if: env.SKIP != 'true'
+        uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
+        with:
+          unset-current-credentials: true
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-duration-seconds: 900
+
+      - name: Change to Dart script directory
+        if: env.SKIP != 'true'
+        run: cd ./tool
+        shell: bash
+
+      - name: Install Dart dependencies (args)
+        if: env.SKIP != 'true'
+        run: dart pub get
+        shell: bash
+
+      - name: Test Dart
+        run: |
+          dart -e 'print(“Hello from Dart!“);' > dart_output.txt
+          echo “DART_OUTPUT=$(cat dart_output.txt)” >> $GITHUB_ENV
+      - name: Print Dart Output
+        run: |
+          echo “Dart output: $DART_OUTPUT”
+
+      - name: Get Failing Step
+        run: |
+          failing_step=$( \
+            dart ./tool/get_failing_step.dart \
+              --job-status "failure" \
+              --substring "e2e-android (stable, any)" \
+              --github-token "${{ secrets.GITHUB_TOKEN }}" \
+              --repo "fjnoyp/amplify-flutter" \
+              --run-id "6038852014" 2>&1) \
+          echo FAILING_STEP=$failing_step >> $GITHUB_ENV
+          echo Failing Step was $failing_step
+          echo Failing Step was ${{ env.FAILING_STEP }}
+          echo "testing output works"
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Failing Step 2      
+        run: |
+          failing_step=$( \
+            dart ./tool/get_failing_step.dart \
+              --job-status "failure" \
+              --substring "e2e-android (stable, any)" \
+              --github-token ${{ secrets.GITHUB_TOKEN }} \
+              --repo "fjnoyp/amplify-flutter" \
+              --run-id "6038852014" 2>&1) \
+          echo FAILING_STEP=$failing_step >> $GITHUB_ENV
+          echo Failing Step was $failing_step
+          echo Failing Step was ${{ env.FAILING_STEP }}
+          echo "testing output works"
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
