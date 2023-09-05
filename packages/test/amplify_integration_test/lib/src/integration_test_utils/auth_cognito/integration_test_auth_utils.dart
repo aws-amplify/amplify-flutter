@@ -262,6 +262,10 @@ Future<String> adminCreateUser(
 
   _logger.debug('Successfully created user "$username"');
 
+  // Prevent eventual consistency issues caused by authenticating a user
+  // too quickly after creation.
+  await Future<void>.delayed(const Duration(milliseconds: 500));
+
   return cognitoUsername;
 }
 
