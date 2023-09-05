@@ -36,7 +36,7 @@ final class HostedUiStateMachine
   SecureStorageInterface get _secureStorage => getOrCreate();
 
   /// The platform-specific behavior.
-  late final HostedUiPlatform _platform = getOrCreate();
+  HostedUiPlatform get _platform => getOrCreate();
 
   /// The configured identity pool.
   CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
@@ -128,9 +128,14 @@ final class HostedUiStateMachine
     } else {
       await _secureStorage.delete(key: _keys[HostedUiKey.provider]);
     }
-    await _platform.signIn(
-      options: event.options,
-      provider: provider,
+    unawaited(
+      // Unblock the state machine to accept new events but ensure
+      // that [onCancelSignIn] is called if any error occurs.
+      _platform.signIn(options: event.options, provider: provider).onError(
+            (error, stackTrace) => dispatch(
+              HostedUiEvent.cancelSignIn(error, stackTrace),
+            ),
+          ),
     );
   }
 
@@ -138,7 +143,10 @@ final class HostedUiStateMachine
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
     await _platform.cancelSignIn();
     await manager.clearCredentials(_keys);
-    throw const UserCancelledException('The user cancelled the sign-in flow');
+    Error.throwWithStackTrace(
+      event.error,
+      event.stackTrace ?? StackTrace.current,
+    );
   }
 
   /// State machine callback for the [HostedUiExchange] event.
