@@ -29,6 +29,10 @@ enum TestConfig {
 }
 
 enum ScreenGeometry {
+  /// Geometry for an abitrarily constrained screen width, e.g. when
+  /// using a `ConstrainedBox` widget.
+  constrainedWidth(size: Size(200, 1000), pixelRatio: 1),
+
   // Geometry based off of an iPhone SE 2022
   mini(size: Size(750, 1334), pixelRatio: 2),
 
