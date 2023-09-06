@@ -104,7 +104,7 @@ class DriftQueuedItemStore extends _$DriftQueuedItemStore
   }
 
   @override
-  Future<bool> isFull(int maxSizeInMB) async {
+  bool isFull(int maxSizeInMB) {
     final maxBytes = maxSizeInMB * 1024 * 1024;
     return _currentTotalByteSize >= maxBytes;
   }

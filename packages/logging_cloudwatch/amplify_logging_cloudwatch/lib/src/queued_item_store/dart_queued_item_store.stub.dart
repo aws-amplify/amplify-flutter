@@ -42,7 +42,7 @@ class DartQueuedItemStore implements QueuedItemStore, Closeable {
   }
 
   @override
-  FutureOr<bool> isFull(int maxSizeInMB) {
+  bool isFull(int maxSizeInMB) {
     throw UnimplementedError('isFull() has not been implemented.');
   }
 
