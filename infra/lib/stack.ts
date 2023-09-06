@@ -2,89 +2,33 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cdk from "aws-cdk-lib";
-import { CfnOutput } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as wafv2 from "aws-cdk-lib/aws-wafv2";
 import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
   AuthIntegrationTestStackEnvironmentProps
 } from "./auth/stack";
-import { IntegrationTestStack } from "./common";
-import {
-  StorageAccessLevel,
-  StorageIntegrationTestStack
-} from "./storage/stack";
+import { env } from "./common";
+import { StorageAccessLevel, StorageIntegrationTestStack } from "./storage/stack";
+import { GitHubStack } from "./github/github";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
-    // Create shared infrastructure
-
-    // Create a Web Application Firewall (WAF) for blocking malicious requests.
-    const waf = new wafv2.CfnWebACL(this, "WAF", {
-      scope: "REGIONAL",
-      defaultAction: {
-        allow: {},
-      },
-      rules: [
-        // Basic rate limiting to prevent overuse of endpoints
-        {
-          name: "RateLimit",
-          priority: 30,
-          action: {
-            block: {},
-          },
-          statement: {
-            rateBasedStatement: {
-              aggregateKeyType: "IP",
-              // The number of requests which can be performed by
-              // a single IP in a 5-minute window.
-              limit: 3000,
-            },
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: "RateLimit",
-          },
-        },
-      ],
-      visibilityConfig: {
-        sampledRequestsEnabled: false,
-        cloudWatchMetricsEnabled: true,
-        metricName: "WAFViolations",
-      },
-    });
-
-    const wafAssociations: wafv2.CfnWebACLAssociation[] = [];
-
-    // Creates a WAF association on `this` so that they can be chained later
-    // and do not block the concurrent creation of environments.
-    const associateWithWaf = (name: string, resourceArn: string) => {
-      wafAssociations.push(
-        new wafv2.CfnWebACLAssociation(this, `WAFAssociation-${name}`, {
-          resourceArn,
-          webAclArn: waf.attrArn,
-        })
-      );
-    };
 
     // The Analytics stack
     const analytics = new AnalyticsIntegrationTestStack(this, [
       { environmentName: "main" },
       { environmentName: "no-unauth-access", allowUnauthAccess: false },
       { environmentName: "no-unauth-identities", allowUnauthIdentites: false }
-    ]);
+    ], { env });
 
     // The Auth stack
     let customDomainEnv: AuthIntegrationTestStackEnvironmentProps[] = [];
     const customDomain = this.node.tryGetContext("domainName");
     if (customDomain) {
       customDomainEnv.push({
-        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_IAM",
         environmentName: "custom-authorizer-custom-domain",
         customDomain,
@@ -104,21 +48,18 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       deviceOnlyRememberedOnUserPrompt: false,
     };
     const auth = new AuthIntegrationTestStack(this, [
-      { associateWithWaf, type: "FULL", environmentName: "main" },
+      { type: "FULL", environmentName: "main" },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-always",
         deviceTracking: deviceTrackingAlways,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-opt-in",
         deviceTracking: deviceTrackingOptIn,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "device-tracking-email-alias",
         deviceTracking: deviceTrackingAlways,
@@ -127,7 +68,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-username",
         signInAliases: {
@@ -141,7 +81,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-phone",
         signInAliases: {
@@ -155,7 +94,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-email",
         signInAliases: {
@@ -169,7 +107,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-email-or-phone",
         signInAliases: {
@@ -178,7 +115,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "sign-in-with-email-lambda-trigger",
         signInAliases: {
@@ -193,7 +129,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         },
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "keep-original-attributes",
         autoConfirm: true,
@@ -213,71 +148,60 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         }
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "hosted-ui",
         enableHostedUI: true,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "user-pool-only",
         includeIdentityPool: false,
         deviceTracking: deviceTrackingOptIn,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "identity-pool-only",
         includeUserPool: false,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "authenticated-users-only",
         allowUnauthenticatedIdentities: false,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "custom-auth-with-srp",
         customAuth: "WITH_SRP",
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "custom-auth-without-srp",
         customAuth: "WITHOUT_SRP",
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "custom-auth-device-with-srp",
         customAuth: "WITH_SRP",
         deviceTracking: deviceTrackingAlways,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "custom-auth-device-without-srp",
         customAuth: "WITHOUT_SRP",
         deviceTracking: deviceTrackingAlways,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "with-client-secret",
         withClientSecret: true,
         deviceTracking: deviceTrackingOptIn,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "asf-audit",
         advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-optional-sms",
         mfaConfiguration: {
@@ -288,7 +212,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-required-sms",
         mfaConfiguration: {
@@ -300,7 +223,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-optional-totp",
         mfaConfiguration: {
@@ -311,7 +233,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-required-totp",
         mfaConfiguration: {
@@ -323,7 +244,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-optional-sms-totp",
         mfaConfiguration: {
@@ -337,7 +257,6 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "FULL",
         environmentName: "mfa-required-sms-totp",
         mfaConfiguration: {
@@ -352,17 +271,24 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         standardAttributes: {},
       },
       {
-        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },
       {
-        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_IAM",
         environmentName: "custom-authorizer-iam",
       },
       ...customDomainEnv,
-    ]);
+    ], {
+      env,
+
+      // TODO(dnys1): Remove after eventual consistency experiment is complete
+      // env: {
+      //   account: process.env.CDK_DEFAULT_ACCOUNT,
+      //   region: 'eu-south-1',
+      // },
+      // crossRegionReferences: true,
+    });
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
@@ -394,31 +320,30 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         enableTransferAcceleration: false,
         bucketNamePrefix: "amplify.integ-test.stack",
       },
-    ]);
+    ], { env });
 
-    this.outputAmplifyConfig(analytics);
-    this.outputAmplifyConfig(auth);
-    this.outputAmplifyConfig(storage);
-
-    // Chain the creation of WAF associations since the API call `AssociateWebACL`
-    // has a fixed rate limit which can easily be exceeded when deploying concurrent
-    // stacks and their WAF associations.
-    wafAssociations.forEach((assoc, index) => {
-      if (index > 0) assoc.addDependency(wafAssociations[index - 1]);
-    });
-  }
-
-  /**
-   * Outputs the Amplify configurations for `stack`.
-   * @param stack The stack containing the environments.
-   */
-  private outputAmplifyConfig(stack: IntegrationTestStack<any, any>): void {
-    new CfnOutput(this, stack.category, {
+    new cdk.CfnOutput(this, 'Categories', {
       value: JSON.stringify({
-        bucket: stack.bucket.bucketName,
-        region: stack.region,
-        environments: stack.configs,
-      }),
+        analytics: {
+          region: analytics.region,
+          bucketName: analytics.bucket.bucketName,
+        },
+        auth: {
+          region: auth.region,
+          bucketName: auth.bucket.bucketName,
+        },
+        storage: {
+          region: storage.region,
+          bucketName: storage.bucket.bucketName,
+        },
+      })
+    });
+
+    new GitHubStack(this, 'GitHub', {
+      analytics: analytics.bucket,
+      auth: auth.bucket,
+      storage: storage.bucket,
+      env,
     });
   }
 }
