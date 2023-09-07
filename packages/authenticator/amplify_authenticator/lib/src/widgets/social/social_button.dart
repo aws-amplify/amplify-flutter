@@ -113,9 +113,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
     this.icon,
   });
 
-  /// Icon for the social provider. If omitted, default social providers (Amazon,
-  /// Apple, Facebook or Google) will render appropriate icons automatically. Custom
-  /// providers with no defined icon will not render an icon.
+  /// Icon for the social provider.
   final Widget? icon;
 
   /// The Cognito social sign-in provider.
@@ -185,7 +183,6 @@ class _SocialSignInButtonState
         ],
       );
     }
-    safePrint('Unsupported provider: ${widget.provider}');
     return const SizedBox.shrink();
   }
 

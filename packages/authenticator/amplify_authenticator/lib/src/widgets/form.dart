@@ -136,7 +136,7 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
       const [];
 
   /// Additional actions defined at runtime.
-  List<Widget> runtimeActions(BuildContext context) => const [];
+  Widget? runtimeActions(BuildContext context) => null;
 
   final ValueNotifier<bool> obscureTextToggleValue = ValueNotifier(true);
 
@@ -185,9 +185,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
             children: [
               if (widget.actions.isNotEmpty) const SizedBox(height: 4),
               ...widget.actions,
-              if (runtimeActions.isNotEmpty) ...[
+              if (runtimeActions != null) ...[
                 const Divider(),
-                ...runtimeActions,
+                runtimeActions,
               ],
             ].spacedBy(const SizedBox(height: 12)),
           ),
@@ -430,18 +430,16 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
   _SignInFormState() : super();
 
   @override
-  List<Widget> runtimeActions(BuildContext context) {
+  Widget? runtimeActions(BuildContext context) {
     if (!widget.includeDefaultSocialProviders) {
-      return const [];
+      return null;
     }
 
     if (getSocialAuthProviders(context).isEmpty) {
-      return const [];
+      return null;
     }
 
-    return [
-      const SocialSignInButtons(),
-    ];
+    return const SocialSignInButtons();
   }
 }
 

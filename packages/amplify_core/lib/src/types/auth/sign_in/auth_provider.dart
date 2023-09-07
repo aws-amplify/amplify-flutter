@@ -21,9 +21,8 @@ class AuthProvider
   /// The provided [name] should match whatever name you provided when
   /// configuring the provider, while [issuer] must match the `iss` value of
   /// the provider's ID token.
-  const AuthProvider.oidc(this.name, String issuer)
-      : _identityPoolProvider = issuer,
-        displayName = null;
+  const AuthProvider.oidc(this.name, String issuer, [this.displayName])
+      : _identityPoolProvider = issuer;
 
   /// Auth provider that uses Security Assertion Markup Language (SAML).
   ///

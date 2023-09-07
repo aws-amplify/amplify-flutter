@@ -1,6 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 List<AuthProvider> getSocialAuthProviders(BuildContext context) {
@@ -22,7 +24,7 @@ List<AuthProvider> getSocialAuthProviders(BuildContext context) {
     } else if (b == SocialProvider.apple) {
       return 1;
     }
-    return describeEnum(a).compareTo(describeEnum(b));
+    return a.name.compareTo(b.name);
   });
   return socialProviders.map((e) {
     switch (e) {
