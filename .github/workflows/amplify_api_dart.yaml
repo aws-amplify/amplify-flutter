@@ -45,6 +45,7 @@ jobs:
     with:
       package-name: amplify_api_dart
       working-directory: packages/api/amplify_api_dart
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

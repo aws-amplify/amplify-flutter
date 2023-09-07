@@ -38,6 +38,7 @@ jobs:
     with:
       package-name: pub_server
       working-directory: packages/test/pub_server
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

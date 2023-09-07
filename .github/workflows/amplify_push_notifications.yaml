@@ -52,3 +52,4 @@ jobs:
     with:
       package-name: amplify_push_notifications
       working-directory: packages/notifications/push/amplify_push_notifications
+      has-goldens: false

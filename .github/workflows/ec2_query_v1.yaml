@@ -47,6 +47,7 @@ jobs:
     with:
       package-name: ec2_query_v1
       working-directory: packages/smithy/goldens/lib/ec2Query
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
