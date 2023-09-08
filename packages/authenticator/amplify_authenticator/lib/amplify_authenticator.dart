@@ -315,7 +315,7 @@ class Authenticator extends StatefulWidget {
     this.padding = const EdgeInsets.all(32),
     this.dialCodeOptions = const DialCodeOptions(),
     this.totpOptions,
-    @visibleForTesting this.authenticatorStateOverride,
+    @visibleForTesting this.authBlocOverride,
   }) :
         // ignore: prefer_asserts_with_message
         assert(() {
@@ -439,7 +439,7 @@ class Authenticator extends StatefulWidget {
   final DialCodeOptions dialCodeOptions;
 
   @visibleForTesting
-  final AuthenticatorState? authenticatorStateOverride;
+  final StateMachineBloc? authBlocOverride;
 
   @override
   State<Authenticator> createState() => _AuthenticatorState();
@@ -491,9 +491,9 @@ class Authenticator extends StatefulWidget {
       )
       ..add(DiagnosticsProperty<TotpOptions>('totpOptions', totpOptions))
       ..add(
-        DiagnosticsProperty<AuthenticatorState?>(
+        DiagnosticsProperty<StateMachineBloc?>(
           'mockAuthenticatorState',
-          authenticatorStateOverride,
+          authBlocOverride,
         ),
       );
   }
@@ -518,18 +518,17 @@ class _AuthenticatorState extends State<Authenticator> {
   void initState() {
     super.initState();
     // ignore: invalid_use_of_visible_for_testing_member
-    _stateMachineBloc = widget.authenticatorStateOverride?.authBloc ??
+    _stateMachineBloc = widget.authBlocOverride ??
         (StateMachineBloc(
           authService: _authService,
           preferPrivateSession: widget.preferPrivateSession,
           initialStep: widget.initialStep,
           totpOptions: widget.totpOptions,
         )..add(const AuthLoad()));
-    _authenticatorState = widget.authenticatorStateOverride ??
-        AuthenticatorState(
-          _stateMachineBloc,
-          defaultDialCode: widget.dialCodeOptions.defaultDialCode,
-        );
+    _authenticatorState = AuthenticatorState(
+      _stateMachineBloc,
+      defaultDialCode: widget.dialCodeOptions.defaultDialCode,
+    );
     _subscribeToExceptions();
     _subscribeToInfoMessages();
     _subscribeToSuccessEvents();

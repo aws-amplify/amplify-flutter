@@ -47,7 +47,6 @@ class MockAuthenticatorApp extends StatefulWidget {
 }
 
 class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
-  late final StateMachineBloc _stateMachineBloc;
   Future<void> _configureAmplify() async {
     try {
       Amplify = AmplifyStub();
@@ -58,14 +57,53 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
     }
   }
 
-  @override
-  void initState() {
-    _configureAmplify();
-    _stateMachineBloc = StateMachineBloc(
+  StateMachineBloc get _authBloc {
+    final baseBloc = StateMachineBloc(
       authService: AmplifyAuthService(),
       preferPrivateSession: false,
       initialStep: widget.initialStep,
     );
+    switch (baseBloc.initialStep) {
+      case AuthenticatorStep.loading:
+        baseBloc.setState(const LoadingState());
+      case AuthenticatorStep.verifyUser:
+        baseBloc.setState(
+          const VerifyUserFlow(
+            unverifiedAttributeKeys: CognitoUserAttributeKey.values,
+          ),
+        );
+      case AuthenticatorStep.continueSignInWithMfaSelection:
+        baseBloc.setState(
+          const ContinueSignInWithMfaSelection(
+            allowedMfaTypes: {
+              MfaType.totp,
+              MfaType.sms,
+            },
+          ),
+        );
+      case AuthenticatorStep.continueSignInWithTotpSetup:
+        baseBloc.setState(
+          ContinueSignInTotpSetup(
+            const TotpSetupDetails(
+              sharedSecret: 'sharedSecret',
+              username: 'username',
+            ),
+            Uri.parse(
+              'otpauth://totp/My%20Application:username?secret=sharedSecret&issuer=My%20Application',
+            ),
+          ),
+        );
+      default:
+        baseBloc.add(const AuthLoad());
+        break;
+    }
+
+    return baseBloc;
+  }
+
+  @override
+  void initState() {
+    _configureAmplify();
     super.initState();
   }
 
@@ -73,10 +111,7 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
   Widget build(BuildContext context) {
     return Authenticator(
       key: authenticatorKey,
-      authenticatorStateOverride: MockAuthenticatorState(
-        mockAuthBloc: _stateMachineBloc,
-        defaultDialCode: DialCode.us,
-      ),
+      authBlocOverride: _authBloc,
       child: widget.child ??
           MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -93,52 +128,4 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
           ),
     );
   }
-}
-
-class MockAuthenticatorState extends AuthenticatorState {
-  MockAuthenticatorState({
-    required this.mockAuthBloc,
-    required super.defaultDialCode,
-  }) : super(mockAuthBloc) {
-    switch (mockAuthBloc.initialStep) {
-      case AuthenticatorStep.loading:
-        mockAuthBloc.setState(const LoadingState());
-      case AuthenticatorStep.verifyUser:
-        mockAuthBloc.setState(
-          const VerifyUserFlow(
-            unverifiedAttributeKeys: CognitoUserAttributeKey.values,
-          ),
-        );
-      case AuthenticatorStep.continueSignInWithMfaSelection:
-        mockAuthBloc.setState(
-          const ContinueSignInWithMfaSelection(
-            allowedMfaTypes: {
-              MfaType.totp,
-              MfaType.sms,
-            },
-          ),
-        );
-      case AuthenticatorStep.continueSignInWithTotpSetup:
-        mockAuthBloc.setState(
-          ContinueSignInTotpSetup(
-            const TotpSetupDetails(
-              sharedSecret: 'sharedSecret',
-              username: 'username',
-            ),
-            Uri.parse(
-              'otpauth://totp/My%20Application:username?secret=sharedSecret&issuer=My%20Application',
-            ),
-          ),
-        );
-      default:
-        mockAuthBloc.add(const AuthLoad());
-        break;
-    }
-  }
-
-  final StateMachineBloc mockAuthBloc;
-
-  @visibleForTesting
-  @override
-  StateMachineBloc get authBloc => mockAuthBloc;
 }
