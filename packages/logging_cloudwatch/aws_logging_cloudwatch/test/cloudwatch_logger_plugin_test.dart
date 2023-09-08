@@ -45,7 +45,17 @@ void main() {
     ),
     QueuedItem(
       id: 2,
-      value: 'second og message',
+      value: 'second log message',
+      timestamp: DateTime.timestamp().toIso8601String(),
+    ),
+    QueuedItem(
+      id: 3,
+      value: 'third log message',
+      timestamp: DateTime.timestamp().toIso8601String(),
+    ),
+    QueuedItem(
+      id: 4,
+      value: 'forth log message',
       timestamp: DateTime.timestamp().toIso8601String(),
     ),
   ];
@@ -518,8 +528,8 @@ void main() {
           queuedItems.first,
         );
         expect(
-          (captures.captured.last as Iterable<QueuedItem>).first,
-          queuedItems.last,
+          (captures.captured.last as Iterable<QueuedItem>),
+          queuedItems.sublist(1),
         );
       },
     );
@@ -581,8 +591,8 @@ void main() {
         queuedItems.first,
       );
       expect(
-        (captures.captured.last as Iterable<QueuedItem>).first,
-        queuedItems.last,
+        (captures.captured.last as Iterable<QueuedItem>),
+        queuedItems.sublist(1),
       );
     });
 
@@ -642,6 +652,74 @@ void main() {
       expect(
         (captures.captured.last as Iterable<QueuedItem>).first,
         queuedItems.first,
+      );
+    });
+
+    test(
+        'it deltes old logs and leaves too new logs in the batch'
+        ' and sync the rest', () async {
+      final responses = [
+        PutLogEventsResponse(
+          rejectedLogEventsInfo: RejectedLogEventsInfo(
+            expiredLogEventEndIndex: 0,
+            tooOldLogEventEndIndex: 1,
+            tooNewLogEventStartIndex: 3,
+          ),
+        ),
+        PutLogEventsResponse(),
+      ];
+
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async {
+          final response = responses.removeAt(0);
+          return Future<PutLogEventsResponse>.value(response);
+        },
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).thenReturn(false);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(2);
+
+      final captures = verify(
+        () =>
+            mockQueuedItemStore.deleteItems(captureAny<Iterable<QueuedItem>>()),
+      );
+
+      expect(captures.callCount, 2);
+      expect(
+        (captures.captured.first as Iterable<QueuedItem>),
+        queuedItems.sublist(0, 2),
+      );
+
+      expect(
+        (captures.captured.last as Iterable<QueuedItem>),
+        queuedItems.sublist(2, 3),
       );
     });
   });

@@ -146,52 +146,36 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         while (logs.isNotEmpty && events.isNotEmpty) {
           final rejectedLogEventsInfo =
               (await _sendToCloudWatch(events)).rejectedLogEventsInfo;
-          final expiredLogEventEndIndex =
-              rejectedLogEventsInfo?.expiredLogEventEndIndex;
-          final tooOldLogEventEndIndex =
-              rejectedLogEventsInfo?.tooOldLogEventEndIndex;
-          final tooNewLogEventStartIndex =
-              rejectedLogEventsInfo?.tooNewLogEventStartIndex;
+          if (rejectedLogEventsInfo == null) {
+            await _logStore.deleteItems(logs);
+            break;
+          }
+          {
+            final (tooOldEndIndex, tooNewStartIndex) =
+                rejectedLogEventsInfo.parse(events.length);
 
-          if (expiredLogEventEndIndex != null &&
-              expiredLogEventEndIndex >= 0 &&
-              expiredLogEventEndIndex <= events.length - 1) {
-            // delete old logs from log store
-            await _logStore
-                .deleteItems(logs.sublist(0, expiredLogEventEndIndex + 1));
-            // set logs to start from next
-            logs.removeRange(0, expiredLogEventEndIndex + 1);
-            // set events to start from next
-            events.removeRange(0, expiredLogEventEndIndex + 1);
+            if (_isValidIndex(tooNewStartIndex, events.length)) {
+              tooNewException = _TooNewLogEventException(
+                events[tooNewStartIndex!].timestamp.toInt(),
+              );
+              // set logs to end before the index.
+              logs.removeRange(tooNewStartIndex, events.length);
+              // set events to end before the index.
+              events.removeRange(tooNewStartIndex, events.length);
+            }
+            if (_isValidIndex(tooOldEndIndex, events.length)) {
+              // remove old logs from log store.
+              await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
+              // set logs to start after the index.
+              logs.removeRange(0, tooOldEndIndex + 1);
+              // set events to start after the index.
+              events.removeRange(0, tooOldEndIndex + 1);
+            }
             continue;
           }
-          if (tooOldLogEventEndIndex != null &&
-              tooOldLogEventEndIndex >= 0 &&
-              tooOldLogEventEndIndex <= events.length - 1) {
-            // delete old logs from log store
-            await _logStore
-                .deleteItems(logs.sublist(0, tooOldLogEventEndIndex + 1));
-            // set logs to start from next
-            logs.removeRange(0, tooOldLogEventEndIndex + 1);
-            // set events to start from next
-            events.removeRange(0, tooOldLogEventEndIndex + 1);
-            continue;
-          }
-          if (tooNewLogEventStartIndex != null &&
-              tooNewLogEventStartIndex >= 0 &&
-              tooNewLogEventStartIndex <= events.length - 1) {
-            tooNewException = _TooNewLogEventException(
-              events[tooNewLogEventStartIndex].timestamp.toInt(),
-            );
-            // set logs to end at the index
-            logs.removeRange(tooNewLogEventStartIndex, logs.length);
-            // set events to end at the index
-            events.removeRange(tooNewLogEventStartIndex, events.length);
-            continue;
-          }
-          await _logStore.deleteItems(logs);
-          break;
         }
+        // after sending each batch to CloudWatch check if the batch has
+        // `tooNewException` and throw to stop syncing next batches.
         if (tooNewException != null) {
           throw tooNewException;
         }
@@ -386,9 +370,33 @@ extension on LogEntry {
   }
 }
 
+extension on RejectedLogEventsInfo {
+  (int? pastEndIndex, int? futureStartIndex) parse(int length) {
+    int? pastEndIndex;
+    int? futureStartIndex;
+
+    if (_isValidIndex(tooOldLogEventEndIndex, length)) {
+      pastEndIndex = tooOldLogEventEndIndex;
+    }
+    if (_isValidIndex(expiredLogEventEndIndex, length)) {
+      pastEndIndex = pastEndIndex == null
+          ? expiredLogEventEndIndex
+          : max(pastEndIndex, expiredLogEventEndIndex!);
+    }
+    if (_isValidIndex(tooNewLogEventStartIndex, length)) {
+      futureStartIndex = tooNewLogEventStartIndex;
+    }
+    return (pastEndIndex, futureStartIndex);
+  }
+}
+
 class _TooNewLogEventException implements Exception {
   const _TooNewLogEventException(
     this.timeInMillisecondsSinceEpoch,
   );
   final int timeInMillisecondsSinceEpoch;
+}
+
+bool _isValidIndex(int? index, int length) {
+  return index != null && index >= 0 && index <= length - 1;
 }

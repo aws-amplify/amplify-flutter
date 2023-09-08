@@ -34,8 +34,7 @@ class DartQueuedItemStore
     String timestamp, {
     bool enableQueueRotation = false,
   }) async {
-    final db = _database;
-    await db.addItem(
+    await _database.addItem(
       string,
       timestamp,
       enableQueueRotation: enableQueueRotation,
@@ -44,34 +43,29 @@ class DartQueuedItemStore
 
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
-    final db = _database;
-    await db.deleteItems(items);
+    await _database.deleteItems(items);
   }
 
   @override
   Future<Iterable<QueuedItem>> getCount(int count) async {
-    final db = _database;
-    return db.getCount(count);
+    return _database.getCount(count);
   }
 
   @override
   Future<Iterable<QueuedItem>> getAll() async {
-    final db = _database;
-    return db.getAll();
+    return _database.getAll();
   }
 
   @override
   bool isFull(int maxSizeInMB) {
-    final db = _database;
-    return db.isFull(maxSizeInMB);
+    return _database.isFull(maxSizeInMB);
   }
 
   /// Clear IndexedDB data.
   @override
   @visibleForTesting
   Future<void> clear() async {
-    final db = _database;
-    return db.clear();
+    return _database.clear();
   }
 
   @override
