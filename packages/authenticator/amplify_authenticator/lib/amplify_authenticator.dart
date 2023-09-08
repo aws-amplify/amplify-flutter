@@ -92,6 +92,8 @@ export 'src/widgets/form_field.dart'
         SignUpFormField,
         TotpSetupFormField,
         VerifyUserFormField;
+export 'src/widgets/social/social_button.dart'
+    show SocialSignInButton, SocialSignInButtons;
 
 /// {@template amplify_authenticator.authenticator}
 /// # Amplify Authenticator

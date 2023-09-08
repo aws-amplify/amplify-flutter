@@ -3,24 +3,26 @@
 
 import 'dart:math';
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/utils/get_social_auth_providers.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
   const SocialSignInButtons({
     super.key,
-    required this.providers,
+    this.buttons,
   });
 
-  final List<AuthProvider> providers;
+  /// [SocialSignInButton]s to render in a column with space between. If omitted,
+  /// will render buttons based on social providers from Amplify config.
+  final List<SocialSignInButton>? buttons;
 
   @override
   Widget builder(
@@ -34,42 +36,45 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
         // width, so that we can size all button labels to that width and align
         // the logos in the column.
         var maxWidth = 0.0;
-        for (final provider in providers) {
-          final text = stringResolver.buttons.resolve(
-            context,
-            ButtonResolverKey.signInWith(provider),
-          );
-          final style = Theme.of(context)
-                  .outlinedButtonTheme
-                  .style
-                  ?.textStyle
-                  ?.resolve({}) ??
-              Theme.of(context).textTheme.labelLarge;
-          final tp = TextPainter(
-            text: TextSpan(
-              text: text,
-              style: style,
-            ),
-            maxLines: 1,
-            textDirection: TextDirection.ltr,
-          )..layout(maxWidth: constraints.maxWidth);
-          maxWidth = max(maxWidth, tp.width);
+        List<Widget>? providerButtons = buttons;
+        if (providerButtons == null) {
+          final socialProviders = getSocialAuthProviders(context);
+          for (final provider in socialProviders) {
+            final text = stringResolver.buttons.resolve(
+              context,
+              ButtonResolverKey.signInWith(provider),
+            );
+            final style = Theme.of(context)
+                    .outlinedButtonTheme
+                    .style
+                    ?.textStyle
+                    ?.resolve({}) ??
+                Theme.of(context).textTheme.labelLarge;
+            final tp = TextPainter(
+              text: TextSpan(
+                text: text,
+                style: style,
+              ),
+              maxLines: 1,
+              textDirection: TextDirection.ltr,
+            )..layout(maxWidth: constraints.maxWidth);
+            maxWidth = max(maxWidth, tp.width);
+          }
+          providerButtons = socialProviders
+              .map(
+                (provider) => SocialSignInButton._(
+                  provider: provider,
+                  maxWidth: maxWidth,
+                ),
+              )
+              .toList();
         }
 
         return Column(
-          children: <Widget>[
-            for (final provider in providers)
-              SocialSignInButton(provider: provider, maxWidth: maxWidth),
-          ].spacedBy(const SizedBox(height: 12)),
+          children: (providerButtons).spacedBy(const SizedBox(height: 12)),
         );
       },
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IterableProperty<AuthProvider>('providers', providers));
   }
 }
 
@@ -81,24 +86,35 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   const SocialSignInButton({
     super.key,
     required this.provider,
+    this.icon,
     this.maxWidth = double.infinity,
   });
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
-      : this(key: key, provider: AuthProvider.facebook);
+      : this._(key: key, provider: AuthProvider.facebook);
 
   /// A social sign-in button for Google.
   const SocialSignInButton.google({Key? key})
-      : this(key: key, provider: AuthProvider.google);
+      : this._(key: key, provider: AuthProvider.google);
 
   /// A social sign-in button for Amazon.
   const SocialSignInButton.amazon({Key? key})
-      : this(key: key, provider: AuthProvider.amazon);
+      : this._(key: key, provider: AuthProvider.amazon);
 
   /// A social sign-in button for Apple.
   const SocialSignInButton.apple({Key? key})
-      : this(key: key, provider: AuthProvider.apple);
+      : this._(key: key, provider: AuthProvider.apple);
+
+  const SocialSignInButton._({
+    super.key,
+    required this.provider,
+    this.maxWidth = double.infinity,
+    this.icon,
+  });
+
+  /// Icon for the social provider.
+  final Widget? icon;
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
@@ -135,6 +151,9 @@ class _SocialSignInButtonState
   static const _spacing = 5.0;
 
   Widget get icon {
+    if (widget.icon case final customIcon?) {
+      return customIcon;
+    }
     final isDark = Theme.of(context).brightness == Brightness.dark;
     if (widget.provider == AuthProvider.google) {
       return SocialIcons.googleLogo;
@@ -164,7 +183,6 @@ class _SocialSignInButtonState
         ],
       );
     }
-    safePrint('Unsupported provider: ${widget.provider}');
     return const SizedBox.shrink();
   }
 
