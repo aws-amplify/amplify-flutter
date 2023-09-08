@@ -13,16 +13,6 @@ import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Use for testing the [MockAuthenticatorApp] widget locally.
-void main() {
-  runApp(
-    const MockAuthenticatorApp(
-      /// change this step to view any screen of the Authenticator.
-      initialStep: AuthenticatorStep.signIn,
-    ),
-  );
-}
-
 /// Authenticator Test App, using Amplify and Auth stubs.
 class MockAuthenticatorApp extends StatefulWidget {
   const MockAuthenticatorApp({
