@@ -77,6 +77,7 @@ jobs:
     with:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
+      has-goldens: false
   e2e_android_test:
     needs: [test]
     uses: ./.github/workflows/e2e_android.yaml

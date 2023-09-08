@@ -9,6 +9,7 @@ import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
 
@@ -80,6 +81,16 @@ class StateMachineBloc
     logger.debug('Emitting next state: $state');
     _controllerSink.add(state);
     _currentState = state;
+  }
+
+  @visibleForTesting
+  void setState(AuthState state) {
+    if (!zDebugMode) {
+      throw StateError(
+        'StateMachineBloc.setState should only be called in tests',
+      );
+    }
+    _emit(state);
   }
 
   /// Manages exception events separate from the bloc's state.

@@ -33,3 +33,4 @@ jobs:
     with:
       package-name: amplify_lints
       working-directory: packages/amplify_lints
+      has-goldens: false

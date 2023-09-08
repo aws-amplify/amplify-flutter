@@ -43,6 +43,7 @@ jobs:
     with:
       package-name: amplify_core
       working-directory: packages/amplify_core
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

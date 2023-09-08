@@ -48,6 +48,7 @@ jobs:
     with:
       package-name: amplify_storage_s3_dart
       working-directory: packages/storage/amplify_storage_s3_dart
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
