@@ -49,3 +49,4 @@ jobs:
     with:
       package-name: amplify_flutter
       working-directory: packages/amplify/amplify_flutter
+      has-goldens: false

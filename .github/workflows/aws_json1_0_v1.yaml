@@ -47,6 +47,7 @@ jobs:
     with:
       package-name: aws_json1_0_v1
       working-directory: packages/smithy/goldens/lib/awsJson1_0
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

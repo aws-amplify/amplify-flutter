@@ -69,3 +69,4 @@ jobs:
     with:
       package-name: amplify_authenticator
       working-directory: packages/authenticator/amplify_authenticator
+      has-goldens: true

@@ -41,3 +41,4 @@ jobs:
     with:
       package-name: amplify_datastore_plugin_interface
       working-directory: packages/amplify_datastore_plugin_interface
+      has-goldens: false

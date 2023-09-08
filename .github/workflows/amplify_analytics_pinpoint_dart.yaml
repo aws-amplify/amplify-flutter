@@ -57,6 +57,7 @@ jobs:
     with:
       package-name: amplify_analytics_pinpoint_dart
       working-directory: packages/analytics/amplify_analytics_pinpoint_dart
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

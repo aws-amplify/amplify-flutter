@@ -47,6 +47,7 @@ jobs:
     with:
       package-name: rest_xml_v2
       working-directory: packages/smithy/goldens/lib2/restXml
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
