@@ -34,9 +34,8 @@ const int _maxLogEventsBatchSize = 1048576;
 const int _baseBufferSize = 26;
 const int _maxLogEventsTimeSpanInBatch = Duration.millisecondsPerDay;
 const int _maxLogEventSize = 256000;
-const int _maxLogEventTimeInFutureInMilliseconds =
-    Duration.millisecondsPerHour * 2;
-const int _baseRetryIntervalInMilliseconds = Duration.millisecondsPerMinute;
+const Duration _minusMaxLogEventTimeInFuture = Duration(hours: -2);
+const Duration _baseRetryInterval = Duration(minutes: 1);
 
 typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 
@@ -126,7 +125,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   StoppableTimer? _timer;
   RemoteLoggingConstraintProvider? _remoteLoggingConstraintProvider;
   int _retryCount = 0;
-  int? _retryTimeInMillisecondsSinceEpoch;
+  DateTime? _retryTime;
   set remoteLoggingConstraintProvider(
     RemoteLoggingConstraintProvider remoteProvider,
   ) {
@@ -184,17 +183,18 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
     if (!_syncing) {
       _syncing = true;
-      var nextRetry = 0;
+      DateTime? nextRetry;
       try {
         await startSyncing();
       } on _TooNewLogEventException catch (e) {
-        nextRetry = e.timeInMillisecondsSinceEpoch -
-            _maxLogEventTimeInFutureInMilliseconds;
+        nextRetry =
+            DateTime.fromMillisecondsSinceEpoch(e.timeInMillisecondsSinceEpoch)
+                .add(_minusMaxLogEventTimeInFuture);
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
         _handleFullLogStoreAfterSync(
-          retryTimeInMillisecondsSinceEpoch: nextRetry,
+          retryTime: nextRetry,
         );
         _syncing = false;
       }
@@ -202,32 +202,28 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   }
 
   void _handleFullLogStoreAfterSync({
-    int retryTimeInMillisecondsSinceEpoch = 0,
+    DateTime? retryTime,
   }) {
     final isLogStoreFull =
         _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
     if (!isLogStoreFull) {
       _retryCount = 0;
-      _retryTimeInMillisecondsSinceEpoch = null;
+      _retryTime = null;
       return;
     }
-    if (retryTimeInMillisecondsSinceEpoch > 0 &&
-        retryTimeInMillisecondsSinceEpoch >
-            DateTime.now().millisecondsSinceEpoch) {
-      _retryTimeInMillisecondsSinceEpoch = retryTimeInMillisecondsSinceEpoch;
+    if (retryTime != null && retryTime.isAfter(DateTime.timestamp())) {
+      _retryTime = retryTime;
       return;
     }
     _retryCount += 1;
-    _retryTimeInMillisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch +
-        (_retryCount * _baseRetryIntervalInMilliseconds);
+    _retryTime = DateTime.timestamp().add((_baseRetryInterval * _retryCount));
   }
 
   bool _shouldSyncOnFullLogStore() {
-    if (_retryTimeInMillisecondsSinceEpoch == null) {
+    if (_retryTime == null) {
       return true;
     }
-    return DateTime.now().millisecondsSinceEpoch >=
-        _retryTimeInMillisecondsSinceEpoch!;
+    return !(_retryTime!.isAfter(DateTime.timestamp()));
   }
 
   void _onTimerError(Object e) {
@@ -302,8 +298,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     final item = logEntry.toQueuedItem();
     final isLogStoreFull =
         _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
-    final shouldEnableQueueRotation =
-        isLogStoreFull && _retryTimeInMillisecondsSinceEpoch != null;
+    final shouldEnableQueueRotation = isLogStoreFull && _retryTime != null;
 
     await _logStore.addItem(
       item.value,
@@ -336,7 +331,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     _timer?.stop();
     await _logStore.clear();
     _retryCount = 0;
-    _retryTimeInMillisecondsSinceEpoch = null;
+    _retryTime = null;
   }
 
   /// Sends logs on-demand to CloudWatch.
