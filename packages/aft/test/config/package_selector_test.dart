@@ -39,6 +39,7 @@ void main() {
             'packages/auth/amplify_auth_cognito/example',
             'packages/auth/amplify_auth_cognito_dart/example',
             'packages/authenticator/amplify_authenticator/example',
+            'packages/authenticator/amplify_authenticator_test/example',
             'packages/aws_signature_v4/example',
             'packages/common/amplify_db_common/example',
             'packages/common/amplify_db_common_dart/example',
