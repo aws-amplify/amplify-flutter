@@ -79,6 +79,7 @@ jobs:
     with:
       package-name: amplify_authenticator_example
       working-directory: packages/authenticator/amplify_authenticator/example
+      has-goldens: false
   e2e_android_test:
     needs: [test]
     uses: ./.github/workflows/e2e_android.yaml

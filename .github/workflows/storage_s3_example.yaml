@@ -49,3 +49,4 @@ jobs:
     with:
       package-name: storage_s3_example
       working-directory: packages/storage/amplify_storage_s3_dart/example
+      has-goldens: false

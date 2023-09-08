@@ -240,6 +240,16 @@ class PackageInfo
     return integrationTestDir;
   }
 
+  /// The goldens test directory within the enclosing directory, if any
+  Directory? get goldensTestDirectory {
+    final expectedPath = p.join(path, 'test', 'ui');
+    final goldensTestDir = Directory(expectedPath);
+    if (!goldensTestDir.existsSync()) {
+      return null;
+    }
+    return goldensTestDir;
+  }
+
   /// Whether the package needs `build_runner` to be run.
   ///
   /// Used as a pre-publish check to ensure that generated code is
@@ -270,8 +280,9 @@ class PackageInfo
 
   /// Whether the package is a test package.
   bool get isTestPackage {
+    final relativePath = path.split('/packages/').last;
     return p.basename(path).endsWith('_test') ||
-        path.contains('goldens') ||
+        relativePath.contains('goldens') ||
         p.basename(path).contains('e2e');
   }
 

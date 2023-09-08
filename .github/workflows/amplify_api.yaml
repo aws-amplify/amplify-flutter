@@ -53,3 +53,4 @@ jobs:
     with:
       package-name: amplify_api
       working-directory: packages/api/amplify_api
+      has-goldens: false

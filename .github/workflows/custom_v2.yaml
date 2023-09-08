@@ -47,6 +47,7 @@ jobs:
     with:
       package-name: custom_v2
       working-directory: packages/smithy/goldens/lib2/custom
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

@@ -1,12 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: diagnostic_describe_all_properties
+// ignore_for_file: diagnostic_describe_all_properties, invalid_use_of_visible_for_testing_member, implementation_imports
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
+import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_authenticator_test/src/configs/email_config.dart';
-import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
-import 'package:amplify_authenticator_test/src/finders/authenticator_finder.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,50 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
     }
   }
 
+  StateMachineBloc get _authBloc {
+    final baseBloc = StateMachineBloc(
+      authService: AmplifyAuthService(),
+      preferPrivateSession: false,
+      initialStep: widget.initialStep,
+    );
+    switch (baseBloc.initialStep) {
+      case AuthenticatorStep.loading:
+        baseBloc.setState(const LoadingState());
+      case AuthenticatorStep.verifyUser:
+        baseBloc.setState(
+          const VerifyUserFlow(
+            unverifiedAttributeKeys: CognitoUserAttributeKey.values,
+          ),
+        );
+      case AuthenticatorStep.continueSignInWithMfaSelection:
+        baseBloc.setState(
+          const ContinueSignInWithMfaSelection(
+            allowedMfaTypes: {
+              MfaType.totp,
+              MfaType.sms,
+            },
+          ),
+        );
+      case AuthenticatorStep.continueSignInWithTotpSetup:
+        baseBloc.setState(
+          ContinueSignInTotpSetup(
+            const TotpSetupDetails(
+              sharedSecret: 'sharedSecret',
+              username: 'username',
+            ),
+            Uri.parse(
+              'otpauth://totp/My%20Application:username?secret=sharedSecret&issuer=My%20Application',
+            ),
+          ),
+        );
+      default:
+        baseBloc.add(const AuthLoad());
+        break;
+    }
+
+    return baseBloc;
+  }
+
   @override
   void initState() {
     _configureAmplify();
@@ -55,8 +100,8 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
-      initialStep: widget.initialStep,
       key: authenticatorKey,
+      authBlocOverride: _authBloc,
       child: widget.child ??
           MaterialApp(
             debugShowCheckedModeBanner: false,

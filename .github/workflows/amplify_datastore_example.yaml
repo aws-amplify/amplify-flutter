@@ -50,6 +50,7 @@ jobs:
     with:
       package-name: amplify_datastore_example
       working-directory: packages/amplify_datastore/example
+      has-goldens: false
   e2e_android_test:
     needs: [test]
     uses: ./.github/workflows/e2e_android.yaml

@@ -47,6 +47,7 @@ jobs:
     with:
       package-name: rest_xml_with_namespace_v1
       working-directory: packages/smithy/goldens/lib/restXmlWithNamespace
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
