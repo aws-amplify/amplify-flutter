@@ -26,22 +26,10 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
-  String get _dependabotConfig {
-    final ignorePubPackages = repo.allPackages.values
-        .where((pkg) => pkg.isPublishable)
-        .map((pkg) => pkg.name)
-        .map((pkg) => '      - dependency-name: "$pkg"')
-        .join('\n');
-    final groupPubPackages = repo.aftConfig.dependencies.keys
-        .map(
-          (pkg) => '''
-      $pkg:
-        patterns:
-          - "$pkg"''',
-        )
-        .join('\n');
-
-    return '''
+  late final StringBuffer _dependabotConfig = () {
+    final groupPubPackages =
+        repo.aftConfig.dependencies.keys.map(_dependabotGroup).join('\n');
+    return StringBuffer('''
 # Generated with aft. To update, run: `aft generate workflows`
 version: 2
 enable-beta-ecosystems: true
@@ -61,49 +49,37 @@ updates:
     directory: "infra"
     schedule:
       interval: "weekly"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-
-  - package-ecosystem: "gradle"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    ignore:
-      # Ignore Kotlin updates since we should always match Flutter stable
-      # to ensure users can have Kt versions >= Flutter stable.
-      - dependency-name: "kotlin_version"
-      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
     groups:
-      amplify-android:
+      cdk:
         patterns:
-          - "com.amplifyframework:*"
-          - "com.amazonaws:*"
-      mockito:
+          - "aws-cdk"
+          - "aws-cdk-lib"
+          - "@aws-cdk/*"
+          - "constructs"
+      aws-sdk-js:
         patterns:
-          - "org.mockito:*"
-
+          - "@aws-sdk/*"
+          - "@aws-crypto/*"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "/"
     schedule:
       interval: "daily"
-
-    # Ignore all repo packages
-    ignore:
-$ignorePubPackages
-
-    # Group dependencies which have a constraint set in the global
-    # "pubspec.yaml"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
 $groupPubPackages
-''';
+''');
+  }();
+
+  String _dependabotGroup(String pkg) {
+    return '''
+      $pkg:
+        patterns:
+          - "$pkg"''';
   }
 
   @override
@@ -122,6 +98,38 @@ $groupPubPackages
           dependentPackages.add(dependent);
         },
       );
+      _dependabotConfig.write('''
+  - package-ecosystem: "pub"
+    directory: "$repoRelativePath"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+''');
+      if (dependentPackages.isNotEmpty) {
+        _dependabotConfig.write('''
+      # Ignore all repo packages
+${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
+''');
+      }
+      final dependabotGroups = {
+        ...package.pubspecInfo.pubspec.dependencies.keys,
+        ...package.pubspecInfo.pubspec.devDependencies.keys,
+      }
+          .where(repo.aftConfig.dependencies.keys.contains)
+          .map(_dependabotGroup)
+          .toList();
+      if (dependabotGroups.isNotEmpty) {
+        _dependabotConfig.write('''
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+${dependabotGroups.join('\n')}
+''');
+      }
+
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
         continue;
@@ -137,7 +145,7 @@ $groupPubPackages
     final dependabotFile = File(
       p.join(rootDir.path, '.github', 'dependabot.yaml'),
     );
-    writeWorkflowFile(dependabotFile, _dependabotConfig);
+    writeWorkflowFile(dependabotFile, _dependabotConfig.toString());
 
     // Check if workflow generation caused `git diff` to change.
     if (setExitIfChanged) {
@@ -395,6 +403,31 @@ jobs:
         package.example == null) {
       return;
     }
+
+    _dependabotConfig.write('''
+  - package-ecosystem: "gradle"
+    directory: "${p.relative(androidPath, from: rootDir.path)}"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Ignore Kotlin updates since we should always match Flutter stable
+      # to ensure users can have Kt versions >= Flutter stable.
+      - dependency-name: "kotlin_version"
+      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+    groups:
+      amplify-android:
+        patterns:
+          - "com.amplifyframework:*"
+          - "com.amazonaws:*"
+      mockito:
+        patterns:
+          - "org.mockito:*"
+''');
 
     final androidTestDir = Directory(
       p.join(androidDir.path, 'src', 'test'),
