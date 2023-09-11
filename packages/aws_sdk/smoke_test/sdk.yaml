@@ -2,22 +2,22 @@
 # of the six AWS protocols
 apis:
   # API Gateway V1 (restJson1)
-  apigateway:
+  com.amazonaws.apigateway:
 
   # Config (awsJson1_1)
-  config:
+  com.amazonaws.configservice:
 
   # EC2 (ec2Query)
-  ec2:
+  com.amazonaws.ec2:
 
   # DynamoDB (awsJson1_0)
-  dynamodb:
-  streams.dynamodb:
+  com.amazonaws.dynamodb:
+  com.amazonaws.dynamodbstreams:
 
   # CloudFormation, IAM, STS (awsQuery)
-  cloudformation:
-  iam:
-  sts:
+  com.amazonaws.cloudformation:
+  com.amazonaws.iam:
+  com.amazonaws.sts:
 
   # S3 (restXml)
-  s3:
+  com.amazonaws.s3:
