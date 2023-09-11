@@ -240,7 +240,7 @@ class VolumeStatusItemEc2QuerySerializer
         ).serialize(
           serializers,
           actions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VolumeStatusAction)],
           ),
@@ -271,7 +271,7 @@ class VolumeStatusItemEc2QuerySerializer
         ).serialize(
           serializers,
           events,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VolumeStatusEvent)],
           ),
@@ -302,7 +302,7 @@ class VolumeStatusItemEc2QuerySerializer
         ).serialize(
           serializers,
           attachmentStatuses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VolumeStatusAttachmentStatus)],
           ),

@@ -136,7 +136,7 @@ class RestoreStatusRestXmlSerializer
         ..add(const _i2.XmlElementName('IsRestoreInProgress'))
         ..add(serializers.serialize(
           isRestoreInProgress,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (restoreExpiryDate != null) {
@@ -144,7 +144,7 @@ class RestoreStatusRestXmlSerializer
         ..add(const _i2.XmlElementName('RestoreExpiryDate'))
         ..add(serializers.serialize(
           restoreExpiryDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

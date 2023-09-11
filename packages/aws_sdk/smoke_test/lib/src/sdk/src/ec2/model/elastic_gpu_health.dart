@@ -106,7 +106,7 @@ class ElasticGpuHealthEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ElasticGpuStatus),
+          specifiedType: const FullType(ElasticGpuStatus),
         ));
     }
     return result$;

@@ -167,7 +167,7 @@ class DeleteVpcEndpointServiceConfigurationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           serviceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

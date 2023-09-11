@@ -126,7 +126,7 @@ class StopInstancesResultEc2QuerySerializer
         ).serialize(
           serializers,
           stoppingInstances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceStateChange)],
           ),

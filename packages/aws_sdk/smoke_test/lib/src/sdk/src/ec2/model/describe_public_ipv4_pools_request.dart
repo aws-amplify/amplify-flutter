@@ -202,7 +202,7 @@ class DescribePublicIpv4PoolsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           poolIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -231,7 +231,7 @@ class DescribePublicIpv4PoolsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

@@ -121,7 +121,7 @@ class GetObjectLegalHoldOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ObjectLockLegalHoldStatus),
+          specifiedType: const FullType(ObjectLockLegalHoldStatus),
         ));
     }
     return result$;

@@ -131,7 +131,7 @@ class DescribeVpnConnectionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           vpnConnections,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpnConnection)],
           ),

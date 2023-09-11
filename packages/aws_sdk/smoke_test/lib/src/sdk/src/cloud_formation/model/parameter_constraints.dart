@@ -127,7 +127,7 @@ class ParameterConstraintsAwsQuerySerializer
             .serialize(
           serializers,
           allowedValues,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

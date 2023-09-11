@@ -172,7 +172,7 @@ class DeleteVpcEndpointConnectionNotificationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           connectionNotificationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

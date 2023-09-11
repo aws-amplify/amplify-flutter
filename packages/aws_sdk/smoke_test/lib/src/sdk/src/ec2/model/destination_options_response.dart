@@ -157,7 +157,7 @@ class DestinationOptionsResponseEc2QuerySerializer
         ..add(const _i2.XmlElementName('FileFormat'))
         ..add(serializers.serialize(
           fileFormat,
-          specifiedType: const FullType.nullable(DestinationFileFormat),
+          specifiedType: const FullType(DestinationFileFormat),
         ));
     }
     result$

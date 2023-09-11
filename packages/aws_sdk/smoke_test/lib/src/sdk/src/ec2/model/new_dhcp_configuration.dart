@@ -148,7 +148,7 @@ class NewDhcpConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           values,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

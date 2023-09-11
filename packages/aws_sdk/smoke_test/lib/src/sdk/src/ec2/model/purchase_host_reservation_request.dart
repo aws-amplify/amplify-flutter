@@ -230,7 +230,7 @@ class PurchaseHostReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     if (hostIdSet != null) {
@@ -242,7 +242,7 @@ class PurchaseHostReservationRequestEc2QuerySerializer
         ).serialize(
           serializers,
           hostIdSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -273,7 +273,7 @@ class PurchaseHostReservationRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

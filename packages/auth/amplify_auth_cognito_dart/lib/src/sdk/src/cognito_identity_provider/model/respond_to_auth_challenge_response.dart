@@ -81,7 +81,7 @@ abstract class RespondToAuthChallengeResponse
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       )
       ..add(
         'challengeParameters',

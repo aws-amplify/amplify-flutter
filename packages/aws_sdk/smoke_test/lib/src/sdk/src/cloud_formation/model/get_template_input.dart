@@ -184,7 +184,7 @@ class GetTemplateInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('TemplateStage'))
         ..add(serializers.serialize(
           templateStage,
-          specifiedType: const FullType.nullable(TemplateStage),
+          specifiedType: const FullType(TemplateStage),
         ));
     }
     return result$;

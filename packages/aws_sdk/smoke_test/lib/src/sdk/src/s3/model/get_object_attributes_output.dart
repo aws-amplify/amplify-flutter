@@ -362,7 +362,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('ObjectSize'))
         ..add(serializers.serialize(
           objectSize,
-          specifiedType: const FullType.nullable(_i3.Int64),
+          specifiedType: const FullType(_i3.Int64),
         ));
     }
     if (storageClass != null) {
@@ -370,7 +370,7 @@ class GetObjectAttributesOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(StorageClass),
+          specifiedType: const FullType(StorageClass),
         ));
     }
     return result$;

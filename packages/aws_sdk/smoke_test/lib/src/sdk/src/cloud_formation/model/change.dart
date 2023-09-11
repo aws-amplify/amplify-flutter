@@ -149,7 +149,7 @@ class ChangeAwsQuerySerializer extends _i2.StructuredSmithySerializer<Change> {
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ChangeType),
+          specifiedType: const FullType(ChangeType),
         ));
     }
     if (hookInvocationCount != null) {
@@ -157,7 +157,7 @@ class ChangeAwsQuerySerializer extends _i2.StructuredSmithySerializer<Change> {
         ..add(const _i2.XmlElementName('HookInvocationCount'))
         ..add(serializers.serialize(
           hookInvocationCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (resourceChange != null) {

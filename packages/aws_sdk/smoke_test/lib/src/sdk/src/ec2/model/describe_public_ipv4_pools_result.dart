@@ -148,7 +148,7 @@ class DescribePublicIpv4PoolsResultEc2QuerySerializer
         ).serialize(
           serializers,
           publicIpv4Pools,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PublicIpv4Pool)],
           ),

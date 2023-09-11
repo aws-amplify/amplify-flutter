@@ -152,8 +152,7 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('PermissionsBoundaryType'))
         ..add(serializers.serialize(
           permissionsBoundaryType,
-          specifiedType:
-              const FullType.nullable(PermissionsBoundaryAttachmentType),
+          specifiedType: const FullType(PermissionsBoundaryAttachmentType),
         ));
     }
     if (permissionsBoundaryArn != null) {

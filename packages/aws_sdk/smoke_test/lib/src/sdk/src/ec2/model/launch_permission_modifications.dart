@@ -150,7 +150,7 @@ class LaunchPermissionModificationsEc2QuerySerializer
         ).serialize(
           serializers,
           add,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchPermission)],
           ),
@@ -165,7 +165,7 @@ class LaunchPermissionModificationsEc2QuerySerializer
         ).serialize(
           serializers,
           remove,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchPermission)],
           ),

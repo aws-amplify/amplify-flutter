@@ -160,13 +160,13 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(IntelligentTieringStatus),
+        specifiedType: const FullType(IntelligentTieringStatus),
       ));
     result$.addAll(
         const _i2.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
       tierings,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i3.BuiltList,
         [FullType(Tiering)],
       ),

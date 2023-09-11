@@ -206,7 +206,7 @@ class UnassignPrivateNatGatewayAddressRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

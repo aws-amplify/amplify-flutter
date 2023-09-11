@@ -194,7 +194,7 @@ class PropertyDifferenceAwsQuerySerializer
       ..add(const _i2.XmlElementName('DifferenceType'))
       ..add(serializers.serialize(
         differenceType,
-        specifiedType: const FullType.nullable(DifferenceType),
+        specifiedType: const FullType(DifferenceType),
       ));
     return result$;
   }

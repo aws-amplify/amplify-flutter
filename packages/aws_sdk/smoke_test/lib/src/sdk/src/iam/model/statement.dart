@@ -185,7 +185,7 @@ class StatementAwsQuerySerializer
         ..add(const _i2.XmlElementName('SourcePolicyType'))
         ..add(serializers.serialize(
           sourcePolicyType,
-          specifiedType: const FullType.nullable(PolicySourceType),
+          specifiedType: const FullType(PolicySourceType),
         ));
     }
     if (startPosition != null) {

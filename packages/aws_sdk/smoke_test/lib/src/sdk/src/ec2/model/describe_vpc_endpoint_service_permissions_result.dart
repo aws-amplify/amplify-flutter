@@ -155,7 +155,7 @@ class DescribeVpcEndpointServicePermissionsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           allowedPrincipals,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AllowedPrincipal)],
           ),

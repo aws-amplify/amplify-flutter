@@ -298,7 +298,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MinimumPasswordLength'))
         ..add(serializers.serialize(
           minimumPasswordLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$
@@ -336,7 +336,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxPasswordAge'))
         ..add(serializers.serialize(
           maxPasswordAge,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (passwordReusePrevention != null) {
@@ -344,7 +344,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('PasswordReusePrevention'))
         ..add(serializers.serialize(
           passwordReusePrevention,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (hardExpiry != null) {
@@ -352,7 +352,7 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('HardExpiry'))
         ..add(serializers.serialize(
           hardExpiry,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

@@ -167,7 +167,7 @@ class ModifySnapshotTierRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('StorageTier'))
         ..add(serializers.serialize(
           storageTier,
-          specifiedType: const FullType.nullable(TargetStorageTier),
+          specifiedType: const FullType(TargetStorageTier),
         ));
     }
     result$

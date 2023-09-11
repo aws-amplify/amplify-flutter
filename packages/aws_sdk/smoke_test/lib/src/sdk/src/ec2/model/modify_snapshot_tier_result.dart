@@ -140,7 +140,7 @@ class ModifySnapshotTierResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('TieringStartTime'))
         ..add(serializers.serialize(
           tieringStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

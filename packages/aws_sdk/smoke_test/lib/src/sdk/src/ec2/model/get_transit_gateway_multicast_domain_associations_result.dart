@@ -160,7 +160,7 @@ class GetTransitGatewayMulticastDomainAssociationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           multicastDomainAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayMulticastDomainAssociation)],
           ),

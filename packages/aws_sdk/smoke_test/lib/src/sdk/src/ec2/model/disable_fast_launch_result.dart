@@ -266,7 +266,7 @@ class DisableFastLaunchResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(FastLaunchResourceType),
+          specifiedType: const FullType(FastLaunchResourceType),
         ));
     }
     if (snapshotConfiguration != null) {
@@ -306,7 +306,7 @@ class DisableFastLaunchResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(FastLaunchStateCode),
+          specifiedType: const FullType(FastLaunchStateCode),
         ));
     }
     if (stateTransitionReason != null) {
@@ -322,7 +322,7 @@ class DisableFastLaunchResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('StateTransitionTime'))
         ..add(serializers.serialize(
           stateTransitionTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

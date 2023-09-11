@@ -331,7 +331,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
           executionStatus,
-          specifiedType: const FullType.nullable(ExecutionStatus),
+          specifiedType: const FullType(ExecutionStatus),
         ));
     }
     if (status != null) {
@@ -339,7 +339,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ChangeSetStatus),
+          specifiedType: const FullType(ChangeSetStatus),
         ));
     }
     if (statusReason != null) {
@@ -355,7 +355,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (description != null) {
@@ -371,7 +371,7 @@ class ChangeSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (parentChangeSetId != null) {

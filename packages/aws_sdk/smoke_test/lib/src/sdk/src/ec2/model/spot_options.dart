@@ -273,7 +273,7 @@ class SpotOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('AllocationStrategy'))
         ..add(serializers.serialize(
           allocationStrategy,
-          specifiedType: const FullType.nullable(SpotAllocationStrategy),
+          specifiedType: const FullType(SpotAllocationStrategy),
         ));
     }
     if (maintenanceStrategies != null) {
@@ -289,8 +289,7 @@ class SpotOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceInterruptionBehavior'))
         ..add(serializers.serialize(
           instanceInterruptionBehavior,
-          specifiedType:
-              const FullType.nullable(SpotInstanceInterruptionBehavior),
+          specifiedType: const FullType(SpotInstanceInterruptionBehavior),
         ));
     }
     result$

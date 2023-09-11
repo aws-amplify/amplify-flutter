@@ -219,7 +219,7 @@ class DescribeFleetHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EventType'))
         ..add(serializers.serialize(
           eventType,
-          specifiedType: const FullType.nullable(FleetEventType),
+          specifiedType: const FullType(FleetEventType),
         ));
     }
     result$
@@ -249,7 +249,7 @@ class DescribeFleetHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

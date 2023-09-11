@@ -283,7 +283,7 @@ class NetworkAclEntryEc2QuerySerializer
         ..add(const _i2.XmlElementName('RuleAction'))
         ..add(serializers.serialize(
           ruleAction,
-          specifiedType: const FullType.nullable(RuleAction),
+          specifiedType: const FullType(RuleAction),
         ));
     }
     result$

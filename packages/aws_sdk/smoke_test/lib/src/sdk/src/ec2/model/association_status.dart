@@ -127,7 +127,7 @@ class AssociationStatusEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(AssociationStatusCode),
+          specifiedType: const FullType(AssociationStatusCode),
         ));
     }
     if (message != null) {

@@ -149,7 +149,7 @@ class AvailableCapacityEc2QuerySerializer
         ).serialize(
           serializers,
           availableInstanceCapacity,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceCapacity)],
           ),

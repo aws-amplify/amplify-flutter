@@ -226,7 +226,7 @@ class DescribeSecurityGroupRulesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -241,7 +241,7 @@ class DescribeSecurityGroupRulesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupRuleIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

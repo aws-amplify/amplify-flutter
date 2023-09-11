@@ -475,7 +475,7 @@ class ImportImageResultEc2QuerySerializer
         ).serialize(
           serializers,
           snapshotDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SnapshotDetail)],
           ),
@@ -506,7 +506,7 @@ class ImportImageResultEc2QuerySerializer
         ).serialize(
           serializers,
           licenseSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ImportImageLicenseConfigurationResponse)],
           ),
@@ -521,7 +521,7 @@ class ImportImageResultEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

@@ -320,6 +320,7 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_scope_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_scope_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_request.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_versions_request.dart';
@@ -4079,7 +4080,7 @@ class Ec2Client {
     );
   }
 
-  /// Creates a subnet CIDR reservation. For information about subnet CIDR reservations, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_.
+  /// Creates a subnet CIDR reservation. For more information, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_ and [Assign prefixes to network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html) in the _Amazon Elastic Compute Cloud User Guide_.
   _i3.SmithyOperation<CreateSubnetCidrReservationResult>
       createSubnetCidrReservation(
     CreateSubnetCidrReservationRequest input, {
@@ -5088,7 +5089,7 @@ class Ec2Client {
   }
 
   /// Deletes the specified key pair, by removing the public key from Amazon EC2.
-  _i3.SmithyOperation<void> deleteKeyPair(
+  _i3.SmithyOperation<DeleteKeyPairResult> deleteKeyPair(
     DeleteKeyPairRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -5123,7 +5124,13 @@ class Ec2Client {
     );
   }
 
-  /// Deletes one or more versions of a launch template. You cannot delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+  /// Deletes one or more versions of a launch template.
+  ///
+  /// You can't delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+  ///
+  /// You can delete up to 200 launch template versions in a single request. To delete more than 200 versions in a single request, use DeleteLaunchTemplate, which deletes the launch template and all of its versions.
+  ///
+  /// For more information, see [Delete a launch template version](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-launch-template-versions.html#delete-launch-template-version) in the _EC2 User Guide_.
   _i3.SmithyOperation<DeleteLaunchTemplateVersionsResult>
       deleteLaunchTemplateVersions(
     DeleteLaunchTemplateVersionsRequest input, {

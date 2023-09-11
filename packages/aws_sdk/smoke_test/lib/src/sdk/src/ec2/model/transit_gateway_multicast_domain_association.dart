@@ -203,8 +203,7 @@ class TransitGatewayMulticastDomainAssociationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(TransitGatewayAttachmentResourceType),
+          specifiedType: const FullType(TransitGatewayAttachmentResourceType),
         ));
     }
     if (resourceOwnerId != null) {

@@ -415,7 +415,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ).serialize(
           serializers,
           attachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VolumeAttachment)],
           ),
@@ -434,7 +434,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -478,7 +478,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(VolumeState),
+          specifiedType: const FullType(VolumeState),
         ));
     }
     if (volumeId != null) {
@@ -504,7 +504,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -515,7 +515,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ..add(const _i3.XmlElementName('VolumeType'))
         ..add(serializers.serialize(
           volumeType,
-          specifiedType: const FullType.nullable(VolumeType),
+          specifiedType: const FullType(VolumeType),
         ));
     }
     result$
@@ -541,7 +541,7 @@ class VolumeEc2QuerySerializer extends _i3.StructuredSmithySerializer<Volume> {
         ..add(const _i3.XmlElementName('SseType'))
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType.nullable(SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     return result$;

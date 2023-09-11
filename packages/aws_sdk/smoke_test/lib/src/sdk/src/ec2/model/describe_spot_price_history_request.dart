@@ -304,7 +304,7 @@ class DescribeSpotPriceHistoryRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -329,7 +329,7 @@ class DescribeSpotPriceHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndTime'))
         ..add(serializers.serialize(
           endTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instanceTypes != null) {
@@ -340,7 +340,7 @@ class DescribeSpotPriceHistoryRequestEc2QuerySerializer
             .serialize(
           serializers,
           instanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceType)],
           ),
@@ -368,7 +368,7 @@ class DescribeSpotPriceHistoryRequestEc2QuerySerializer
             .serialize(
           serializers,
           productDescriptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -379,7 +379,7 @@ class DescribeSpotPriceHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

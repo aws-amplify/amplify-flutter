@@ -168,7 +168,7 @@ class DescribeElasticGpusResultEc2QuerySerializer
         ).serialize(
           serializers,
           elasticGpuSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ElasticGpus)],
           ),

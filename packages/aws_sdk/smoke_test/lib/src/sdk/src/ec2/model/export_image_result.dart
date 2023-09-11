@@ -280,7 +280,7 @@ class ExportImageResultEc2QuerySerializer
         ..add(const _i3.XmlElementName('DiskImageFormat'))
         ..add(serializers.serialize(
           diskImageFormat,
-          specifiedType: const FullType.nullable(DiskImageFormat),
+          specifiedType: const FullType(DiskImageFormat),
         ));
     }
     if (exportImageTaskId != null) {
@@ -348,7 +348,7 @@ class ExportImageResultEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

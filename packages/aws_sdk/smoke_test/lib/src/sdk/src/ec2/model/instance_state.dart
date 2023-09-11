@@ -160,7 +160,7 @@ class InstanceStateEc2QuerySerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(InstanceStateName),
+          specifiedType: const FullType(InstanceStateName),
         ));
     }
     return result$;

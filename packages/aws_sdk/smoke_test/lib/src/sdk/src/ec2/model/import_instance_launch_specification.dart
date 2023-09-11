@@ -312,7 +312,7 @@ class ImportInstanceLaunchSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('Architecture'))
         ..add(serializers.serialize(
           architecture,
-          specifiedType: const FullType.nullable(ArchitectureValues),
+          specifiedType: const FullType(ArchitectureValues),
         ));
     }
     if (groupIds != null) {
@@ -324,7 +324,7 @@ class ImportInstanceLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           groupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -339,7 +339,7 @@ class ImportInstanceLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           groupNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -350,7 +350,7 @@ class ImportInstanceLaunchSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceInitiatedShutdownBehavior'))
         ..add(serializers.serialize(
           instanceInitiatedShutdownBehavior,
-          specifiedType: const FullType.nullable(ShutdownBehavior),
+          specifiedType: const FullType(ShutdownBehavior),
         ));
     }
     if (instanceType != null) {
@@ -358,7 +358,7 @@ class ImportInstanceLaunchSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     result$

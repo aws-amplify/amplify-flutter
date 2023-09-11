@@ -278,20 +278,20 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i3
       ..add(const _i3.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
-        specifiedType: const FullType.nullable(JobStatusType),
+        specifiedType: const FullType(JobStatusType),
       ));
     result$
       ..add(const _i3.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (jobCompletionDate != null) {
       result$
         ..add(const _i3.XmlElementName('JobCompletionDate'))
         ..add(serializers.serialize(
           jobCompletionDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (numberOfServicesAccessible != null) {
@@ -299,7 +299,7 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i3
         ..add(const _i3.XmlElementName('NumberOfServicesAccessible'))
         ..add(serializers.serialize(
           numberOfServicesAccessible,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (numberOfServicesNotAccessed != null) {
@@ -307,7 +307,7 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i3
         ..add(const _i3.XmlElementName('NumberOfServicesNotAccessed'))
         ..add(serializers.serialize(
           numberOfServicesNotAccessed,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (accessDetails != null) {
@@ -318,7 +318,7 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           accessDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AccessDetail)],
           ),

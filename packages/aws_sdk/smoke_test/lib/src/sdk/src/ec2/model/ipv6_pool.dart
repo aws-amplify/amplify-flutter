@@ -193,7 +193,7 @@ class Ipv6PoolEc2QuerySerializer
         ).serialize(
           serializers,
           poolCidrBlocks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PoolCidrBlock)],
           ),
@@ -208,7 +208,7 @@ class Ipv6PoolEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

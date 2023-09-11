@@ -214,7 +214,7 @@ class ImportInstanceRequestEc2QuerySerializer
             .serialize(
           serializers,
           diskImages,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(DiskImage)],
           ),
@@ -239,7 +239,7 @@ class ImportInstanceRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Platform'))
         ..add(serializers.serialize(
           platform,
-          specifiedType: const FullType.nullable(PlatformValues),
+          specifiedType: const FullType(PlatformValues),
         ));
     }
     return result$;

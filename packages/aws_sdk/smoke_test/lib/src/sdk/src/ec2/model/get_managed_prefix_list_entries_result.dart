@@ -148,7 +148,7 @@ class GetManagedPrefixListEntriesResultEc2QuerySerializer
         ).serialize(
           serializers,
           entries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PrefixListEntry)],
           ),

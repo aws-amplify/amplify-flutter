@@ -204,7 +204,7 @@ class NetworkInsightsAccessScopeEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreatedDate'))
         ..add(serializers.serialize(
           createdDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (updatedDate != null) {
@@ -212,7 +212,7 @@ class NetworkInsightsAccessScopeEc2QuerySerializer
         ..add(const _i3.XmlElementName('UpdatedDate'))
         ..add(serializers.serialize(
           updatedDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -224,7 +224,7 @@ class NetworkInsightsAccessScopeEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

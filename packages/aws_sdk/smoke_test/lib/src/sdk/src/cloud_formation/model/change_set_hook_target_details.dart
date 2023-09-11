@@ -139,7 +139,7 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
         ..add(const _i2.XmlElementName('TargetType'))
         ..add(serializers.serialize(
           targetType,
-          specifiedType: const FullType.nullable(HookTargetType),
+          specifiedType: const FullType(HookTargetType),
         ));
     }
     if (resourceTargetDetails != null) {

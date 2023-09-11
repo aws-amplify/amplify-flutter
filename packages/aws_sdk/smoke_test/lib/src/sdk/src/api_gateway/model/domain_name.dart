@@ -83,7 +83,7 @@ abstract class DomainName
   /// The name of the certificate that will be used by edge-optimized endpoint for this domain name.
   String? get certificateName;
 
-  /// The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
+  /// The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this domain name. Certificate Manager is the only supported source.
   String? get certificateArn;
 
   /// The timestamp when the certificate that was used by edge-optimized endpoint for this domain name was uploaded.
@@ -98,7 +98,7 @@ abstract class DomainName
   /// The name of the certificate that will be used for validating the regional domain name.
   String? get regionalCertificateName;
 
-  /// The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.
+  /// The reference to an Amazon Web Services-managed certificate that will be used for validating the regional domain name. Certificate Manager is the only supported source.
   String? get regionalCertificateArn;
 
   /// The domain name of the Amazon CloudFront distribution associated with this custom domain name for an edge-optimized endpoint. You set up this association when adding a DNS record pointing the custom domain name to this distribution name. For more information about CloudFront distributions, see the Amazon CloudFront documentation.

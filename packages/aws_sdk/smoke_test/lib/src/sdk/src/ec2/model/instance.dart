@@ -1153,7 +1153,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (kernelId != null) {
@@ -1177,7 +1177,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('LaunchTime'))
         ..add(serializers.serialize(
           launchTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (monitoring != null) {
@@ -1201,7 +1201,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Platform'))
         ..add(serializers.serialize(
           platform,
-          specifiedType: const FullType.nullable(PlatformValues),
+          specifiedType: const FullType(PlatformValues),
         ));
     }
     if (privateDnsName != null) {
@@ -1229,7 +1229,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),
@@ -1296,7 +1296,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Architecture'))
         ..add(serializers.serialize(
           architecture,
-          specifiedType: const FullType.nullable(ArchitectureValues),
+          specifiedType: const FullType(ArchitectureValues),
         ));
     }
     if (blockDeviceMappings != null) {
@@ -1308,7 +1308,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceBlockDeviceMapping)],
           ),
@@ -1339,7 +1339,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Hypervisor'))
         ..add(serializers.serialize(
           hypervisor,
-          specifiedType: const FullType.nullable(HypervisorType),
+          specifiedType: const FullType(HypervisorType),
         ));
     }
     if (iamInstanceProfile != null) {
@@ -1355,7 +1355,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceLifecycle'))
         ..add(serializers.serialize(
           instanceLifecycle,
-          specifiedType: const FullType.nullable(InstanceLifecycleType),
+          specifiedType: const FullType(InstanceLifecycleType),
         ));
     }
     if (elasticGpuAssociations != null) {
@@ -1367,7 +1367,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           elasticGpuAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ElasticGpuAssociation)],
           ),
@@ -1383,7 +1383,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           elasticInferenceAcceleratorAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ElasticInferenceAcceleratorAssociation)],
           ),
@@ -1398,7 +1398,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceNetworkInterface)],
           ),
@@ -1425,7 +1425,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('RootDeviceType'))
         ..add(serializers.serialize(
           rootDeviceType,
-          specifiedType: const FullType.nullable(DeviceType),
+          specifiedType: const FullType(DeviceType),
         ));
     }
     if (securityGroups != null) {
@@ -1437,7 +1437,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GroupIdentifier)],
           ),
@@ -1482,7 +1482,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -1493,7 +1493,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('VirtualizationType'))
         ..add(serializers.serialize(
           virtualizationType,
-          specifiedType: const FullType.nullable(VirtualizationType),
+          specifiedType: const FullType(VirtualizationType),
         ));
     }
     if (cpuOptions != null) {
@@ -1538,7 +1538,7 @@ class InstanceEc2QuerySerializer
         ).serialize(
           serializers,
           licenses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LicenseConfiguration)],
           ),
@@ -1565,7 +1565,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('BootMode'))
         ..add(serializers.serialize(
           bootMode,
-          specifiedType: const FullType.nullable(BootModeValues),
+          specifiedType: const FullType(BootModeValues),
         ));
     }
     if (platformDetails != null) {
@@ -1589,7 +1589,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('UsageOperationUpdateTime'))
         ..add(serializers.serialize(
           usageOperationUpdateTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (privateDnsNameOptions != null) {
@@ -1629,7 +1629,7 @@ class InstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('CurrentInstanceBootMode'))
         ..add(serializers.serialize(
           currentInstanceBootMode,
-          specifiedType: const FullType.nullable(InstanceBootModeValues),
+          specifiedType: const FullType(InstanceBootModeValues),
         ));
     }
     return result$;

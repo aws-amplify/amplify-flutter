@@ -170,7 +170,7 @@ class ProcessorInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedArchitectures,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ArchitectureType)],
           ),
@@ -181,7 +181,7 @@ class ProcessorInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('SustainedClockSpeedInGhz'))
         ..add(serializers.serialize(
           sustainedClockSpeedInGhz,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (supportedFeatures != null) {
@@ -193,7 +193,7 @@ class ProcessorInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedFeatures,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SupportedAdditionalProcessorFeature)],
           ),

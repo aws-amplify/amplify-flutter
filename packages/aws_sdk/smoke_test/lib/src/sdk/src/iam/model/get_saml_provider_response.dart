@@ -193,7 +193,7 @@ class GetSamlProviderResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -201,7 +201,7 @@ class GetSamlProviderResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -212,7 +212,7 @@ class GetSamlProviderResponseAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

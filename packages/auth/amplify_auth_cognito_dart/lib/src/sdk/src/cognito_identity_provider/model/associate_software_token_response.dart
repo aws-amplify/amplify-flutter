@@ -61,7 +61,7 @@ abstract class AssociateSoftwareTokenResponse
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       );
     return helper.toString();
   }

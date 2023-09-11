@@ -163,7 +163,7 @@ class GetTemplateOutputAwsQuerySerializer
             .serialize(
           serializers,
           stagesAvailable,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TemplateStage)],
           ),

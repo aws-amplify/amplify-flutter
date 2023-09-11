@@ -175,7 +175,7 @@ class AccessKeyLastUsedAwsQuerySerializer
       ..add(const _i2.XmlElementName('LastUsedDate'))
       ..add(serializers.serialize(
         lastUsedDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i2.XmlElementName('ServiceName'))

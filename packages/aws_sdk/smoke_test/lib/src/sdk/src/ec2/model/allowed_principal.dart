@@ -187,7 +187,7 @@ class AllowedPrincipalEc2QuerySerializer
         ..add(const _i3.XmlElementName('PrincipalType'))
         ..add(serializers.serialize(
           principalType,
-          specifiedType: const FullType.nullable(PrincipalType),
+          specifiedType: const FullType(PrincipalType),
         ));
     }
     if (principal != null) {
@@ -215,7 +215,7 @@ class AllowedPrincipalEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

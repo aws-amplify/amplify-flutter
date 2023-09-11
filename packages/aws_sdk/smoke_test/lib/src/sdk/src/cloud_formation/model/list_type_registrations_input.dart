@@ -221,7 +221,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RegistryType),
+          specifiedType: const FullType(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -245,7 +245,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RegistrationStatusFilter'))
         ..add(serializers.serialize(
           registrationStatusFilter,
-          specifiedType: const FullType.nullable(RegistrationStatus),
+          specifiedType: const FullType(RegistrationStatus),
         ));
     }
     if (maxResults != null) {
@@ -253,7 +253,7 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

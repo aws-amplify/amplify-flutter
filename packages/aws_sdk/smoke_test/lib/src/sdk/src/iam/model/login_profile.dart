@@ -166,7 +166,7 @@ class LoginProfileAwsQuerySerializer
       ..add(const _i2.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i2.XmlElementName('PasswordResetRequired'))

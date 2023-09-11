@@ -355,7 +355,7 @@ class HostReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     result$
@@ -369,7 +369,7 @@ class HostReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('End'))
         ..add(serializers.serialize(
           end,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (hostIdSet != null) {
@@ -381,7 +381,7 @@ class HostReservationEc2QuerySerializer
         ).serialize(
           serializers,
           hostIdSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -424,7 +424,7 @@ class HostReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('PaymentOption'))
         ..add(serializers.serialize(
           paymentOption,
-          specifiedType: const FullType.nullable(PaymentOption),
+          specifiedType: const FullType(PaymentOption),
         ));
     }
     if (start != null) {
@@ -432,7 +432,7 @@ class HostReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('Start'))
         ..add(serializers.serialize(
           start,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (state != null) {
@@ -440,7 +440,7 @@ class HostReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(ReservationState),
+          specifiedType: const FullType(ReservationState),
         ));
     }
     if (upfrontPrice != null) {
@@ -460,7 +460,7 @@ class HostReservationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

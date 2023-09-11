@@ -157,7 +157,7 @@ class DescribeInstanceConnectEndpointsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           instanceConnectEndpoints,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ec2InstanceConnectEndpoint)],
           ),

@@ -304,7 +304,7 @@ class FleetCapacityReservationEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (instancePlatform != null) {
@@ -312,8 +312,7 @@ class FleetCapacityReservationEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstancePlatform'))
         ..add(serializers.serialize(
           instancePlatform,
-          specifiedType:
-              const FullType.nullable(CapacityReservationInstancePlatform),
+          specifiedType: const FullType(CapacityReservationInstancePlatform),
         ));
     }
     if (availabilityZone != null) {
@@ -347,7 +346,7 @@ class FleetCapacityReservationEc2QuerySerializer
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (weight != null) {
@@ -355,7 +354,7 @@ class FleetCapacityReservationEc2QuerySerializer
         ..add(const _i2.XmlElementName('Weight'))
         ..add(serializers.serialize(
           weight,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (priority != null) {
@@ -363,7 +362,7 @@ class FleetCapacityReservationEc2QuerySerializer
         ..add(const _i2.XmlElementName('Priority'))
         ..add(serializers.serialize(
           priority,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

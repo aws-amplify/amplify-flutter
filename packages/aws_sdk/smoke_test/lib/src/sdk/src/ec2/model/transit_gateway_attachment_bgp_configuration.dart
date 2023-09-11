@@ -224,7 +224,7 @@ class TransitGatewayAttachmentBgpConfigurationEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('BgpStatus'))
         ..add(serializers.serialize(
           bgpStatus,
-          specifiedType: const FullType.nullable(BgpStatus),
+          specifiedType: const FullType(BgpStatus),
         ));
     }
     return result$;

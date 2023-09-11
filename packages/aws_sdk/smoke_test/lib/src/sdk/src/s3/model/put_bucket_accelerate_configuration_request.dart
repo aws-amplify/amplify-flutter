@@ -184,7 +184,7 @@ class PutBucketAccelerateConfigurationRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(BucketAccelerateStatus),
+          specifiedType: const FullType(BucketAccelerateStatus),
         ));
     }
     return result$;

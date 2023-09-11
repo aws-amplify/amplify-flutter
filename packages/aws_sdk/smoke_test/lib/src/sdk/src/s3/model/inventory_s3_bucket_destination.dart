@@ -206,7 +206,7 @@ class InventoryS3BucketDestinationRestXmlSerializer
       ..add(const _i2.XmlElementName('Format'))
       ..add(serializers.serialize(
         format,
-        specifiedType: const FullType.nullable(InventoryFormat),
+        specifiedType: const FullType(InventoryFormat),
       ));
     if (prefix != null) {
       result$

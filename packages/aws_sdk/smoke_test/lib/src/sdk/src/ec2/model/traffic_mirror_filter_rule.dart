@@ -302,7 +302,7 @@ class TrafficMirrorFilterRuleEc2QuerySerializer
         ..add(const _i2.XmlElementName('TrafficDirection'))
         ..add(serializers.serialize(
           trafficDirection,
-          specifiedType: const FullType.nullable(TrafficDirection),
+          specifiedType: const FullType(TrafficDirection),
         ));
     }
     result$
@@ -316,7 +316,7 @@ class TrafficMirrorFilterRuleEc2QuerySerializer
         ..add(const _i2.XmlElementName('RuleAction'))
         ..add(serializers.serialize(
           ruleAction,
-          specifiedType: const FullType.nullable(TrafficMirrorRuleAction),
+          specifiedType: const FullType(TrafficMirrorRuleAction),
         ));
     }
     result$

@@ -231,7 +231,7 @@ class LaunchTemplateOverridesEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (spotPrice != null) {

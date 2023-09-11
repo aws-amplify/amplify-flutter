@@ -357,7 +357,7 @@ class ScheduledInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (hourlyPrice != null) {
@@ -395,7 +395,7 @@ class ScheduledInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('NextSlotStartTime'))
         ..add(serializers.serialize(
           nextSlotStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (platform != null) {
@@ -411,7 +411,7 @@ class ScheduledInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('PreviousSlotEndTime'))
         ..add(serializers.serialize(
           previousSlotEndTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (recurrence != null) {
@@ -441,7 +441,7 @@ class ScheduledInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('TermEndDate'))
         ..add(serializers.serialize(
           termEndDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (termStartDate != null) {
@@ -449,7 +449,7 @@ class ScheduledInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('TermStartDate'))
         ..add(serializers.serialize(
           termStartDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

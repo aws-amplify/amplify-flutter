@@ -110,7 +110,7 @@ abstract class ForgotPasswordRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'username',

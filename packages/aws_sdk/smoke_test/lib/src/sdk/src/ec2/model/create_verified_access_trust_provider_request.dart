@@ -299,7 +299,7 @@ class CreateVerifiedAccessTrustProviderRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('TrustProviderType'))
         ..add(serializers.serialize(
           trustProviderType,
-          specifiedType: const FullType.nullable(TrustProviderType),
+          specifiedType: const FullType(TrustProviderType),
         ));
     }
     if (userTrustProviderType != null) {
@@ -307,7 +307,7 @@ class CreateVerifiedAccessTrustProviderRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('UserTrustProviderType'))
         ..add(serializers.serialize(
           userTrustProviderType,
-          specifiedType: const FullType.nullable(UserTrustProviderType),
+          specifiedType: const FullType(UserTrustProviderType),
         ));
     }
     if (deviceTrustProviderType != null) {
@@ -315,7 +315,7 @@ class CreateVerifiedAccessTrustProviderRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('DeviceTrustProviderType'))
         ..add(serializers.serialize(
           deviceTrustProviderType,
-          specifiedType: const FullType.nullable(DeviceTrustProviderType),
+          specifiedType: const FullType(DeviceTrustProviderType),
         ));
     }
     if (oidcOptions != null) {
@@ -361,7 +361,7 @@ class CreateVerifiedAccessTrustProviderRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

@@ -197,7 +197,7 @@ class ModifyInstanceCreditSpecificationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           instanceCreditSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceCreditSpecificationRequest)],
           ),

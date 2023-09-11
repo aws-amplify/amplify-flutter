@@ -256,7 +256,7 @@ class KeyPairInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('KeyType'))
         ..add(serializers.serialize(
           keyType,
-          specifiedType: const FullType.nullable(KeyType),
+          specifiedType: const FullType(KeyType),
         ));
     }
     if (tags != null) {
@@ -268,7 +268,7 @@ class KeyPairInfoEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -287,7 +287,7 @@ class KeyPairInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -126,8 +126,7 @@ class CapacityReservationOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('UsageStrategy'))
         ..add(serializers.serialize(
           usageStrategy,
-          specifiedType:
-              const FullType.nullable(FleetCapacityReservationUsageStrategy),
+          specifiedType: const FullType(FleetCapacityReservationUsageStrategy),
         ));
     }
     return result$;

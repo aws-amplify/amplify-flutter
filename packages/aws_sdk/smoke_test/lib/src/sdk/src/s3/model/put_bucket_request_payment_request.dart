@@ -197,7 +197,7 @@ class PutBucketRequestPaymentRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('Payer'))
       ..add(serializers.serialize(
         payer,
-        specifiedType: const FullType.nullable(Payer),
+        specifiedType: const FullType(Payer),
       ));
     return result$;
   }

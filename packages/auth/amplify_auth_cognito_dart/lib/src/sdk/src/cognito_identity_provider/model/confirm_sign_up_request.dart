@@ -144,7 +144,7 @@ abstract class ConfirmSignUpRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'clientMetadata',

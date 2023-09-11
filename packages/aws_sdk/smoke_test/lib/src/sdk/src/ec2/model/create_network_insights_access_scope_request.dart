@@ -231,7 +231,7 @@ class CreateNetworkInsightsAccessScopeRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           matchPaths,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AccessScopePathRequest)],
           ),
@@ -246,7 +246,7 @@ class CreateNetworkInsightsAccessScopeRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           excludePaths,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AccessScopePathRequest)],
           ),
@@ -269,7 +269,7 @@ class CreateNetworkInsightsAccessScopeRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

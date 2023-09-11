@@ -305,7 +305,7 @@ class VerifiedAccessTrustProviderEc2QuerySerializer
         ..add(const _i3.XmlElementName('TrustProviderType'))
         ..add(serializers.serialize(
           trustProviderType,
-          specifiedType: const FullType.nullable(TrustProviderType),
+          specifiedType: const FullType(TrustProviderType),
         ));
     }
     if (userTrustProviderType != null) {
@@ -313,7 +313,7 @@ class VerifiedAccessTrustProviderEc2QuerySerializer
         ..add(const _i3.XmlElementName('UserTrustProviderType'))
         ..add(serializers.serialize(
           userTrustProviderType,
-          specifiedType: const FullType.nullable(UserTrustProviderType),
+          specifiedType: const FullType(UserTrustProviderType),
         ));
     }
     if (deviceTrustProviderType != null) {
@@ -321,7 +321,7 @@ class VerifiedAccessTrustProviderEc2QuerySerializer
         ..add(const _i3.XmlElementName('DeviceTrustProviderType'))
         ..add(serializers.serialize(
           deviceTrustProviderType,
-          specifiedType: const FullType.nullable(DeviceTrustProviderType),
+          specifiedType: const FullType(DeviceTrustProviderType),
         ));
     }
     if (oidcOptions != null) {
@@ -373,7 +373,7 @@ class VerifiedAccessTrustProviderEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

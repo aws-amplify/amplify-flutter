@@ -193,7 +193,7 @@ class VCpuInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('DefaultVCpus'))
         ..add(serializers.serialize(
           defaultVCpus,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (defaultCores != null) {
@@ -201,7 +201,7 @@ class VCpuInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('DefaultCores'))
         ..add(serializers.serialize(
           defaultCores,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (defaultThreadsPerCore != null) {
@@ -209,7 +209,7 @@ class VCpuInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('DefaultThreadsPerCore'))
         ..add(serializers.serialize(
           defaultThreadsPerCore,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (validCores != null) {
@@ -221,7 +221,7 @@ class VCpuInfoEc2QuerySerializer
         ).serialize(
           serializers,
           validCores,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),
@@ -236,7 +236,7 @@ class VCpuInfoEc2QuerySerializer
         ).serialize(
           serializers,
           validThreadsPerCore,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),

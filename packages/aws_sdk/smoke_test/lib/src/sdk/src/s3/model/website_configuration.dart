@@ -201,7 +201,7 @@ class WebsiteConfigurationRestXmlSerializer
             .serialize(
           serializers,
           routingRules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RoutingRule)],
           ),

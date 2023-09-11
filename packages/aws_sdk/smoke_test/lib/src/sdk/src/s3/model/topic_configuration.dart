@@ -159,7 +159,7 @@ class TopicConfigurationRestXmlSerializer
         .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
       events,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(Event)],
       ),

@@ -403,7 +403,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OperationType'))
         ..add(serializers.serialize(
           operationType,
-          specifiedType: const FullType.nullable(OperationType),
+          specifiedType: const FullType(OperationType),
         ));
     }
     if (productCodes != null) {
@@ -415,7 +415,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -430,7 +430,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           userGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -445,7 +445,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           userIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -474,7 +474,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           organizationArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -489,7 +489,7 @@ class ModifyImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           organizationalUnitArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

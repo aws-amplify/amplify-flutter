@@ -248,7 +248,7 @@ class ModifyInstancePlacementRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Affinity'))
         ..add(serializers.serialize(
           affinity,
-          specifiedType: const FullType.nullable(Affinity),
+          specifiedType: const FullType(Affinity),
         ));
     }
     if (groupName != null) {
@@ -280,7 +280,7 @@ class ModifyInstancePlacementRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType: const FullType.nullable(HostTenancy),
+          specifiedType: const FullType(HostTenancy),
         ));
     }
     result$

@@ -161,7 +161,7 @@ class DescribeSnapshotAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(SnapshotAttributeName),
+          specifiedType: const FullType(SnapshotAttributeName),
         ));
     }
     if (snapshotId != null) {

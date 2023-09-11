@@ -127,7 +127,7 @@ class ScanRangeRestXmlSerializer
         ..add(const _i3.XmlElementName('End'))
         ..add(serializers.serialize(
           end,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (start != null) {
@@ -135,7 +135,7 @@ class ScanRangeRestXmlSerializer
         ..add(const _i3.XmlElementName('Start'))
         ..add(serializers.serialize(
           start,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

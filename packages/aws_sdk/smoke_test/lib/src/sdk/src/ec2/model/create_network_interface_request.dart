@@ -490,7 +490,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -511,7 +511,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceIpv6Address)],
           ),
@@ -534,7 +534,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(PrivateIpAddressSpecification)],
           ),
@@ -555,7 +555,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Ipv4PrefixSpecificationRequest)],
           ),
@@ -576,7 +576,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Ipv6PrefixSpecificationRequest)],
           ),
@@ -593,7 +593,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InterfaceType'))
         ..add(serializers.serialize(
           interfaceType,
-          specifiedType: const FullType.nullable(NetworkInterfaceCreationType),
+          specifiedType: const FullType(NetworkInterfaceCreationType),
         ));
     }
     if (subnetId != null) {
@@ -613,7 +613,7 @@ class CreateNetworkInterfaceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

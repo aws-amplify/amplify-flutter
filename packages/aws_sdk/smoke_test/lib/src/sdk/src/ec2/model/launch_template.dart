@@ -244,7 +244,7 @@ class LaunchTemplateEc2QuerySerializer
         ..add(const _i4.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (createdBy != null) {
@@ -276,7 +276,7 @@ class LaunchTemplateEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

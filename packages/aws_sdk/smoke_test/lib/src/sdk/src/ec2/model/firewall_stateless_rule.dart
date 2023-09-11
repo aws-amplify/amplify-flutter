@@ -283,7 +283,7 @@ class FirewallStatelessRuleEc2QuerySerializer
         ).serialize(
           serializers,
           sources,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -298,7 +298,7 @@ class FirewallStatelessRuleEc2QuerySerializer
         ).serialize(
           serializers,
           destinations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -313,7 +313,7 @@ class FirewallStatelessRuleEc2QuerySerializer
         ).serialize(
           serializers,
           sourcePorts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PortRange)],
           ),
@@ -328,7 +328,7 @@ class FirewallStatelessRuleEc2QuerySerializer
         ).serialize(
           serializers,
           destinationPorts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PortRange)],
           ),
@@ -343,7 +343,7 @@ class FirewallStatelessRuleEc2QuerySerializer
         ).serialize(
           serializers,
           protocols,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),

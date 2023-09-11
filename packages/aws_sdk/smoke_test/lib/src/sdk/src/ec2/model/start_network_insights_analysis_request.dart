@@ -252,7 +252,7 @@ class StartNetworkInsightsAnalysisRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           additionalAccounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -267,7 +267,7 @@ class StartNetworkInsightsAnalysisRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filterInArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -288,7 +288,7 @@ class StartNetworkInsightsAnalysisRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

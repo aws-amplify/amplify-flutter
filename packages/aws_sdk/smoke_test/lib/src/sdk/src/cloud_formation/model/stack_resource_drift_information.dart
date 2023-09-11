@@ -151,14 +151,14 @@ class StackResourceDriftInformationAwsQuerySerializer
       ..add(const _i2.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
         stackResourceDriftStatus,
-        specifiedType: const FullType.nullable(StackResourceDriftStatus),
+        specifiedType: const FullType(StackResourceDriftStatus),
       ));
     if (lastCheckTimestamp != null) {
       result$
         ..add(const _i2.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
           lastCheckTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

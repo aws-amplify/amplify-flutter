@@ -164,7 +164,7 @@ class EbsInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('EbsOptimizedSupport'))
         ..add(serializers.serialize(
           ebsOptimizedSupport,
-          specifiedType: const FullType.nullable(EbsOptimizedSupport),
+          specifiedType: const FullType(EbsOptimizedSupport),
         ));
     }
     if (encryptionSupport != null) {
@@ -172,7 +172,7 @@ class EbsInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('EncryptionSupport'))
         ..add(serializers.serialize(
           encryptionSupport,
-          specifiedType: const FullType.nullable(EbsEncryptionSupport),
+          specifiedType: const FullType(EbsEncryptionSupport),
         ));
     }
     if (ebsOptimizedInfo != null) {
@@ -188,7 +188,7 @@ class EbsInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('NvmeSupport'))
         ..add(serializers.serialize(
           nvmeSupport,
-          specifiedType: const FullType.nullable(EbsNvmeSupport),
+          specifiedType: const FullType(EbsNvmeSupport),
         ));
     }
     return result$;

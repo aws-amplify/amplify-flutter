@@ -127,7 +127,7 @@ class ReplicationTimeRestXmlSerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(ReplicationTimeStatus),
+        specifiedType: const FullType(ReplicationTimeStatus),
       ));
     result$
       ..add(const _i2.XmlElementName('Time'))

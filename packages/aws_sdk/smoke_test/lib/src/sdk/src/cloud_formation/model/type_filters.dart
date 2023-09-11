@@ -164,7 +164,7 @@ class TypeFiltersAwsQuerySerializer
         ..add(const _i2.XmlElementName('Category'))
         ..add(serializers.serialize(
           category,
-          specifiedType: const FullType.nullable(Category),
+          specifiedType: const FullType(Category),
         ));
     }
     if (publisherId != null) {

@@ -112,7 +112,7 @@ class CompletedMultipartUploadRestXmlSerializer
           const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(CompletedPart)],
         ),

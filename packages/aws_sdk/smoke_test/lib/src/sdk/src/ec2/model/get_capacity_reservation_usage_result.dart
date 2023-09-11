@@ -284,7 +284,7 @@ class GetCapacityReservationUsageResultEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(CapacityReservationState),
+          specifiedType: const FullType(CapacityReservationState),
         ));
     }
     if (instanceUsages != null) {
@@ -296,7 +296,7 @@ class GetCapacityReservationUsageResultEc2QuerySerializer
         ).serialize(
           serializers,
           instanceUsages,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceUsage)],
           ),

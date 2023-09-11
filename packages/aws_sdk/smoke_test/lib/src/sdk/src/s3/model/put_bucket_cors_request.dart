@@ -197,7 +197,7 @@ class PutBucketCorsRequestRestXmlSerializer
         const _i1.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
       serializers,
       corsRules,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i3.BuiltList,
         [FullType(CorsRule)],
       ),

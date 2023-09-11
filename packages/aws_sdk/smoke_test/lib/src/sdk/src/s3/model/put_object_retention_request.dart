@@ -264,7 +264,7 @@ class PutObjectRetentionRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
+          specifiedType: const FullType(ObjectLockRetentionMode),
         ));
     }
     if (retainUntilDate != null) {

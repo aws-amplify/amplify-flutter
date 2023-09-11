@@ -10,6 +10,7 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/ec2/model/dns_options_specification.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/ip_address_type.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/subnet_configuration.dart';
 
 part 'modify_vpc_endpoint_request.g.dart';
 
@@ -33,6 +34,7 @@ abstract class ModifyVpcEndpointRequest
     IpAddressType? ipAddressType,
     DnsOptionsSpecification? dnsOptions,
     bool? privateDnsEnabled,
+    List<SubnetConfiguration>? subnetConfigurations,
   }) {
     dryRun ??= false;
     resetPolicy ??= false;
@@ -59,6 +61,9 @@ abstract class ModifyVpcEndpointRequest
       ipAddressType: ipAddressType,
       dnsOptions: dnsOptions,
       privateDnsEnabled: privateDnsEnabled,
+      subnetConfigurations: subnetConfigurations == null
+          ? null
+          : _i3.BuiltList(subnetConfigurations),
     );
   }
 
@@ -110,10 +115,10 @@ abstract class ModifyVpcEndpointRequest
   /// (Interface endpoint) The IDs of the subnets from which to remove the endpoint.
   _i3.BuiltList<String>? get removeSubnetIds;
 
-  /// (Interface endpoint) The IDs of the security groups to associate with the network interface.
+  /// (Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces.
   _i3.BuiltList<String>? get addSecurityGroupIds;
 
-  /// (Interface endpoint) The IDs of the security groups to disassociate from the network interface.
+  /// (Interface endpoint) The IDs of the security groups to disassociate from the endpoint network interfaces.
   _i3.BuiltList<String>? get removeSecurityGroupIds;
 
   /// The IP address type for the endpoint.
@@ -124,6 +129,9 @@ abstract class ModifyVpcEndpointRequest
 
   /// (Interface endpoint) Indicates whether a private hosted zone is associated with the VPC.
   bool get privateDnsEnabled;
+
+  /// The subnet configurations for the endpoint.
+  _i3.BuiltList<SubnetConfiguration>? get subnetConfigurations;
   @override
   ModifyVpcEndpointRequest getPayload() => this;
   @override
@@ -141,6 +149,7 @@ abstract class ModifyVpcEndpointRequest
         ipAddressType,
         dnsOptions,
         privateDnsEnabled,
+        subnetConfigurations,
       ];
   @override
   String toString() {
@@ -196,6 +205,10 @@ abstract class ModifyVpcEndpointRequest
       ..add(
         'privateDnsEnabled',
         privateDnsEnabled,
+      )
+      ..add(
+        'subnetConfigurations',
+        subnetConfigurations,
       );
     return helper.toString();
   }
@@ -342,6 +355,18 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
             value,
             specifiedType: const FullType(bool),
           ) as bool);
+        case 'SubnetConfiguration':
+          result.subnetConfigurations.replace((const _i1.XmlBuiltListSerializer(
+            memberName: 'item',
+            indexer: _i1.XmlIndexer.ec2QueryList,
+          ).deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(SubnetConfiguration)],
+            ),
+          ) as _i3.BuiltList<SubnetConfiguration>));
       }
     }
 
@@ -373,7 +398,8 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
       :removeSecurityGroupIds,
       :ipAddressType,
       :dnsOptions,
-      :privateDnsEnabled
+      :privateDnsEnabled,
+      :subnetConfigurations
     ) = object;
     result$
       ..add(const _i1.XmlElementName('DryRun'))
@@ -412,7 +438,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           addRouteTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -427,7 +453,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           removeRouteTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -442,7 +468,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           addSubnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -457,7 +483,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           removeSubnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -472,7 +498,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           addSecurityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -487,7 +513,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           removeSecurityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -498,7 +524,7 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('IpAddressType'))
         ..add(serializers.serialize(
           ipAddressType,
-          specifiedType: const FullType.nullable(IpAddressType),
+          specifiedType: const FullType(IpAddressType),
         ));
     }
     if (dnsOptions != null) {
@@ -515,6 +541,21 @@ class ModifyVpcEndpointRequestEc2QuerySerializer
         privateDnsEnabled,
         specifiedType: const FullType(bool),
       ));
+    if (subnetConfigurations != null) {
+      result$
+        ..add(const _i1.XmlElementName('SubnetConfiguration'))
+        ..add(const _i1.XmlBuiltListSerializer(
+          memberName: 'item',
+          indexer: _i1.XmlIndexer.ec2QueryList,
+        ).serialize(
+          serializers,
+          subnetConfigurations,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(SubnetConfiguration)],
+          ),
+        ));
+    }
     return result$;
   }
 }

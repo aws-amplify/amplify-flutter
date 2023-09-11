@@ -454,7 +454,7 @@ class CreateVolumeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('VolumeType'))
         ..add(serializers.serialize(
           volumeType,
-          specifiedType: const FullType.nullable(VolumeType),
+          specifiedType: const FullType(VolumeType),
         ));
     }
     result$
@@ -472,7 +472,7 @@ class CreateVolumeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

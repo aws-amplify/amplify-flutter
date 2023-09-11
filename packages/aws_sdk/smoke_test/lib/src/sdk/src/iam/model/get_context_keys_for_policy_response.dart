@@ -137,7 +137,7 @@ class GetContextKeysForPolicyResponseAwsQuerySerializer
             .serialize(
           serializers,
           contextKeyNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

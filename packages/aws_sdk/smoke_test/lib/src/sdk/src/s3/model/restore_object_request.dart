@@ -271,7 +271,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (glacierJobParameters != null) {
@@ -287,7 +287,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RestoreRequestType),
+          specifiedType: const FullType(RestoreRequestType),
         ));
     }
     if (tier != null) {
@@ -295,7 +295,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
-          specifiedType: const FullType.nullable(Tier),
+          specifiedType: const FullType(Tier),
         ));
     }
     if (description != null) {

@@ -184,7 +184,7 @@ class CreateDhcpOptionsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           dhcpConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(NewDhcpConfiguration)],
           ),
@@ -199,7 +199,7 @@ class CreateDhcpOptionsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

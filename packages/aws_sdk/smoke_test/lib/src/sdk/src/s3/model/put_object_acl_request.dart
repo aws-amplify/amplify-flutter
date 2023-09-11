@@ -352,7 +352,7 @@ class PutObjectAclRequestRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           grants,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Grant)],
           ),

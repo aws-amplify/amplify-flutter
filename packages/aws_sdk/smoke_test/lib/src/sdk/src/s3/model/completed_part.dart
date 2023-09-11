@@ -233,7 +233,7 @@ class CompletedPartRestXmlSerializer
         ..add(const _i2.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
           partNumber,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -215,7 +215,7 @@ class ModifyTrafficMirrorFilterNetworkServicesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           addNetworkServices,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TrafficMirrorNetworkService)],
           ),
@@ -230,7 +230,7 @@ class ModifyTrafficMirrorFilterNetworkServicesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           removeNetworkServices,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TrafficMirrorNetworkService)],
           ),

@@ -295,7 +295,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instanceCounts != null) {
@@ -307,7 +307,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ).serialize(
           serializers,
           instanceCounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceCount)],
           ),
@@ -322,7 +322,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ).serialize(
           serializers,
           priceSchedules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PriceSchedule)],
           ),
@@ -349,7 +349,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ListingStatus),
+          specifiedType: const FullType(ListingStatus),
         ));
     }
     if (statusMessage != null) {
@@ -369,7 +369,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -380,7 +380,7 @@ class ReservedInstancesListingEc2QuerySerializer
         ..add(const _i3.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

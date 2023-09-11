@@ -183,7 +183,7 @@ class ModifyReservedInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           reservedInstancesIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -207,7 +207,7 @@ class ModifyReservedInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           targetConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ReservedInstancesConfiguration)],
           ),

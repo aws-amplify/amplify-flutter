@@ -223,7 +223,7 @@ class DescribeStoreImageTasksRequestEc2QuerySerializer
         ).serialize(
           serializers,
           imageIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -244,7 +244,7 @@ class DescribeStoreImageTasksRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

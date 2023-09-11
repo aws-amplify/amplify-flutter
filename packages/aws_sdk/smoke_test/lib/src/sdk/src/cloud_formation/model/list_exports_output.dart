@@ -149,7 +149,7 @@ class ListExportsOutputAwsQuerySerializer
             .serialize(
           serializers,
           exports,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Export)],
           ),

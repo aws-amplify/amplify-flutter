@@ -175,7 +175,7 @@ class InstanceEventWindowTimeRangeEc2QuerySerializer
         ..add(const _i2.XmlElementName('StartWeekDay'))
         ..add(serializers.serialize(
           startWeekDay,
-          specifiedType: const FullType.nullable(WeekDay),
+          specifiedType: const FullType(WeekDay),
         ));
     }
     result$
@@ -189,7 +189,7 @@ class InstanceEventWindowTimeRangeEc2QuerySerializer
         ..add(const _i2.XmlElementName('EndWeekDay'))
         ..add(serializers.serialize(
           endWeekDay,
-          specifiedType: const FullType.nullable(WeekDay),
+          specifiedType: const FullType(WeekDay),
         ));
     }
     result$

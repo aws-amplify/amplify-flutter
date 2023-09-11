@@ -220,7 +220,7 @@ class ModifyCapacityReservationFleetRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

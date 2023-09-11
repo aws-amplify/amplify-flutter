@@ -183,7 +183,7 @@ class GetHostReservationPurchasePreviewResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     if (purchase != null) {
@@ -195,7 +195,7 @@ class GetHostReservationPurchasePreviewResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           purchase,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Purchase)],
           ),

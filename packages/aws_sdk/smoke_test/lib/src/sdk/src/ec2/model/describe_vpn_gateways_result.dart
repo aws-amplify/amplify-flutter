@@ -128,7 +128,7 @@ class DescribeVpnGatewaysResultEc2QuerySerializer
         ).serialize(
           serializers,
           vpnGateways,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpnGateway)],
           ),

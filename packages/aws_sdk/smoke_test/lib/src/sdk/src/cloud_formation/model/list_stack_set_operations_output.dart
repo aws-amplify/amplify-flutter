@@ -153,7 +153,7 @@ class ListStackSetOperationsOutputAwsQuerySerializer
             .serialize(
           serializers,
           summaries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StackSetOperationSummary)],
           ),

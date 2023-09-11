@@ -290,7 +290,7 @@ class PasswordPolicyAwsQuerySerializer
         ..add(const _i2.XmlElementName('MinimumPasswordLength'))
         ..add(serializers.serialize(
           minimumPasswordLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$
@@ -334,7 +334,7 @@ class PasswordPolicyAwsQuerySerializer
         ..add(const _i2.XmlElementName('MaxPasswordAge'))
         ..add(serializers.serialize(
           maxPasswordAge,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (passwordReusePrevention != null) {
@@ -342,7 +342,7 @@ class PasswordPolicyAwsQuerySerializer
         ..add(const _i2.XmlElementName('PasswordReusePrevention'))
         ..add(serializers.serialize(
           passwordReusePrevention,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (hardExpiry != null) {
@@ -350,7 +350,7 @@ class PasswordPolicyAwsQuerySerializer
         ..add(const _i2.XmlElementName('HardExpiry'))
         ..add(serializers.serialize(
           hardExpiry,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

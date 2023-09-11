@@ -417,7 +417,7 @@ class IpamEc2QuerySerializer extends _i3.StructuredSmithySerializer<Ipam> {
         ).serialize(
           serializers,
           operatingRegions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamOperatingRegion)],
           ),
@@ -428,7 +428,7 @@ class IpamEc2QuerySerializer extends _i3.StructuredSmithySerializer<Ipam> {
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(IpamState),
+          specifiedType: const FullType(IpamState),
         ));
     }
     if (tags != null) {
@@ -440,7 +440,7 @@ class IpamEc2QuerySerializer extends _i3.StructuredSmithySerializer<Ipam> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

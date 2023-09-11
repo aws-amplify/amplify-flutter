@@ -281,7 +281,7 @@ class ModifyManagedPrefixListRequestEc2QuerySerializer
             .serialize(
           serializers,
           addEntries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(AddPrefixListEntry)],
           ),
@@ -295,7 +295,7 @@ class ModifyManagedPrefixListRequestEc2QuerySerializer
             .serialize(
           serializers,
           removeEntries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(RemovePrefixListEntry)],
           ),

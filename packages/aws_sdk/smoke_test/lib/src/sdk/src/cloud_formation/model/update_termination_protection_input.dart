@@ -148,7 +148,7 @@ class UpdateTerminationProtectionInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('EnableTerminationProtection'))
       ..add(serializers.serialize(
         enableTerminationProtection,
-        specifiedType: const FullType.nullable(bool),
+        specifiedType: const FullType(bool),
       ));
     result$
       ..add(const _i1.XmlElementName('StackName'))

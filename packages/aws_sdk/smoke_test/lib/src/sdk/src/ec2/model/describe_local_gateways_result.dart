@@ -146,7 +146,7 @@ class DescribeLocalGatewaysResultEc2QuerySerializer
         ).serialize(
           serializers,
           localGateways,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalGateway)],
           ),

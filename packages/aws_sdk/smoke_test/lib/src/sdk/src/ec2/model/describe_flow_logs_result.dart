@@ -144,7 +144,7 @@ class DescribeFlowLogsResultEc2QuerySerializer
         ).serialize(
           serializers,
           flowLogs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FlowLog)],
           ),

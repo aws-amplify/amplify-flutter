@@ -414,14 +414,14 @@ class StackEventAwsQuerySerializer
       ..add(const _i2.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (resourceStatus != null) {
       result$
         ..add(const _i2.XmlElementName('ResourceStatus'))
         ..add(serializers.serialize(
           resourceStatus,
-          specifiedType: const FullType.nullable(ResourceStatus),
+          specifiedType: const FullType(ResourceStatus),
         ));
     }
     if (resourceStatusReason != null) {
@@ -461,7 +461,7 @@ class StackEventAwsQuerySerializer
         ..add(const _i2.XmlElementName('HookStatus'))
         ..add(serializers.serialize(
           hookStatus,
-          specifiedType: const FullType.nullable(HookStatus),
+          specifiedType: const FullType(HookStatus),
         ));
     }
     if (hookStatusReason != null) {
@@ -477,7 +477,7 @@ class StackEventAwsQuerySerializer
         ..add(const _i2.XmlElementName('HookInvocationPoint'))
         ..add(serializers.serialize(
           hookInvocationPoint,
-          specifiedType: const FullType.nullable(HookInvocationPoint),
+          specifiedType: const FullType(HookInvocationPoint),
         ));
     }
     if (hookFailureMode != null) {
@@ -485,7 +485,7 @@ class StackEventAwsQuerySerializer
         ..add(const _i2.XmlElementName('HookFailureMode'))
         ..add(serializers.serialize(
           hookFailureMode,
-          specifiedType: const FullType.nullable(HookFailureMode),
+          specifiedType: const FullType(HookFailureMode),
         ));
     }
     return result$;

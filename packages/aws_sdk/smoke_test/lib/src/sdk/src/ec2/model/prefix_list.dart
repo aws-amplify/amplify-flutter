@@ -153,7 +153,7 @@ class PrefixListEc2QuerySerializer
         ).serialize(
           serializers,
           cidrs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

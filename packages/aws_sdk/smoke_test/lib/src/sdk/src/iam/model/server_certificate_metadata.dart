@@ -233,7 +233,7 @@ class ServerCertificateMetadataAwsQuerySerializer
         ..add(const _i2.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (expiration != null) {
@@ -241,7 +241,7 @@ class ServerCertificateMetadataAwsQuerySerializer
         ..add(const _i2.XmlElementName('Expiration'))
         ..add(serializers.serialize(
           expiration,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

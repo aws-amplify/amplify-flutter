@@ -172,7 +172,7 @@ class UpdateRoleRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

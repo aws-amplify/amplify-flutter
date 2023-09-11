@@ -138,7 +138,7 @@ class GpuInfoEc2QuerySerializer
         ).serialize(
           serializers,
           gpus,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GpuDeviceInfo)],
           ),
@@ -149,7 +149,7 @@ class GpuInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('TotalGpuMemoryInMiB'))
         ..add(serializers.serialize(
           totalGpuMemoryInMib,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

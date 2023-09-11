@@ -145,7 +145,7 @@ class DescribeNetworkAclsResultEc2QuerySerializer
         ).serialize(
           serializers,
           networkAcls,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkAcl)],
           ),

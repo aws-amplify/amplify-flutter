@@ -157,8 +157,7 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('Granularity'))
         ..add(serializers.serialize(
           granularity,
-          specifiedType:
-              const FullType.nullable(AccessAdvisorUsageGranularityType),
+          specifiedType: const FullType(AccessAdvisorUsageGranularityType),
         ));
     }
     return result$;

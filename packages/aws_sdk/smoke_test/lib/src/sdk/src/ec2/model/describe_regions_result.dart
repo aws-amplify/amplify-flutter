@@ -125,7 +125,7 @@ class DescribeRegionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           regions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Region)],
           ),

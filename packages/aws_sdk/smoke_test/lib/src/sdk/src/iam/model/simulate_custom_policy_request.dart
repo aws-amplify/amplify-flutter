@@ -395,7 +395,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
               .serialize(
         serializers,
         policyInputList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -408,7 +408,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             .serialize(
           serializers,
           permissionsBoundaryPolicyInputList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -421,7 +421,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
               .serialize(
         serializers,
         actionNames,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -434,7 +434,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             .serialize(
           serializers,
           resourceArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -472,7 +472,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
             .serialize(
           serializers,
           contextEntries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ContextEntry)],
           ),
@@ -491,7 +491,7 @@ class SimulateCustomPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (marker != null) {

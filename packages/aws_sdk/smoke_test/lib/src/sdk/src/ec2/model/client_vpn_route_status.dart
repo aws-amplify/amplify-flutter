@@ -129,7 +129,7 @@ class ClientVpnRouteStatusEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(ClientVpnRouteStatusCode),
+          specifiedType: const FullType(ClientVpnRouteStatusCode),
         ));
     }
     if (message != null) {

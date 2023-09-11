@@ -191,7 +191,7 @@ class GranteeRestXmlSerializer extends _i2.StructuredSmithySerializer<Grantee> {
       _i3.XmlName('xsi:type'),
       (serializers.serialize(
         type,
-        specifiedType: const FullType.nullable(S3Type),
+        specifiedType: const FullType(S3Type),
       ) as String),
     ));
     if (displayName != null) {

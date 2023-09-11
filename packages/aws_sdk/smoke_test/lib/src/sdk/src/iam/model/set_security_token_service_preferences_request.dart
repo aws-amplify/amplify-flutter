@@ -134,7 +134,7 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
       ..add(const _i1.XmlElementName('GlobalEndpointTokenVersion'))
       ..add(serializers.serialize(
         globalEndpointTokenVersion,
-        specifiedType: const FullType.nullable(GlobalEndpointTokenVersion),
+        specifiedType: const FullType(GlobalEndpointTokenVersion),
       ));
     return result$;
   }

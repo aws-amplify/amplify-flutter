@@ -111,7 +111,7 @@ abstract class ResendConfirmationCodeRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'username',

@@ -276,7 +276,7 @@ class GroupDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (groupPolicyList != null) {
@@ -287,7 +287,7 @@ class GroupDetailAwsQuerySerializer
             .serialize(
           serializers,
           groupPolicyList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyDetail)],
           ),
@@ -301,7 +301,7 @@ class GroupDetailAwsQuerySerializer
             .serialize(
           serializers,
           attachedManagedPolicies,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AttachedPolicy)],
           ),

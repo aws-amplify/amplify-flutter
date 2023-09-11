@@ -139,7 +139,7 @@ abstract class ConfirmForgotPasswordRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'clientMetadata',

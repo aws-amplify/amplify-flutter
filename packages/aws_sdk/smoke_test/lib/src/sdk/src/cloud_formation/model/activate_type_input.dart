@@ -293,7 +293,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ThirdPartyType),
+          specifiedType: const FullType(ThirdPartyType),
         ));
     }
     if (publicTypeArn != null) {
@@ -333,7 +333,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
           autoUpdate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (loggingConfig != null) {
@@ -357,7 +357,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('VersionBump'))
         ..add(serializers.serialize(
           versionBump,
-          specifiedType: const FullType.nullable(VersionBump),
+          specifiedType: const FullType(VersionBump),
         ));
     }
     if (majorVersion != null) {
@@ -365,7 +365,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MajorVersion'))
         ..add(serializers.serialize(
           majorVersion,
-          specifiedType: const FullType.nullable(_i3.Int64),
+          specifiedType: const FullType(_i3.Int64),
         ));
     }
     return result$;

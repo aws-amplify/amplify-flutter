@@ -133,8 +133,8 @@ class ClientCertificateRevocationListStatusEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(
-              ClientCertificateRevocationListStatusCode),
+          specifiedType:
+              const FullType(ClientCertificateRevocationListStatusCode),
         ));
     }
     if (message != null) {

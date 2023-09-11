@@ -257,7 +257,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           userDetailList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UserDetail)],
           ),
@@ -271,7 +271,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           groupDetailList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GroupDetail)],
           ),
@@ -285,7 +285,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           roleDetailList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RoleDetail)],
           ),
@@ -299,7 +299,7 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           policies,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ManagedPolicyDetail)],
           ),

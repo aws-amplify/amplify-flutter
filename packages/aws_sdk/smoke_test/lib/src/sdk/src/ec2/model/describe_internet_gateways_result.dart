@@ -149,7 +149,7 @@ class DescribeInternetGatewaysResultEc2QuerySerializer
         ).serialize(
           serializers,
           internetGateways,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InternetGateway)],
           ),

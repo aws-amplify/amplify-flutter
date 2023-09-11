@@ -350,7 +350,7 @@ class ModifySubnetAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('PrivateDnsHostnameTypeOnLaunch'))
         ..add(serializers.serialize(
           privateDnsHostnameTypeOnLaunch,
-          specifiedType: const FullType.nullable(HostnameType),
+          specifiedType: const FullType(HostnameType),
         ));
     }
     if (enableResourceNameDnsARecordOnLaunch != null) {

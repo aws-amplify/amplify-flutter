@@ -658,7 +658,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase1EncryptionAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1EncryptionAlgorithmsRequestListValue)],
           ),
@@ -673,7 +673,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase2EncryptionAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2EncryptionAlgorithmsRequestListValue)],
           ),
@@ -688,7 +688,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase1IntegrityAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1IntegrityAlgorithmsRequestListValue)],
           ),
@@ -703,7 +703,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase2IntegrityAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2IntegrityAlgorithmsRequestListValue)],
           ),
@@ -718,7 +718,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase1DhGroupNumbers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1DhGroupNumbersRequestListValue)],
           ),
@@ -733,7 +733,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           phase2DhGroupNumbers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2DhGroupNumbersRequestListValue)],
           ),
@@ -748,7 +748,7 @@ class VpnTunnelOptionsSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           ikeVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IkeVersionsRequestListValue)],
           ),

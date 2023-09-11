@@ -124,7 +124,7 @@ class DescribeKeyPairsResultEc2QuerySerializer
         ).serialize(
           serializers,
           keyPairs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(KeyPairInfo)],
           ),

@@ -420,7 +420,7 @@ class IpamResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(IpamResourceType),
+          specifiedType: const FullType(IpamResourceType),
         ));
     }
     if (resourceTags != null) {
@@ -432,7 +432,7 @@ class IpamResourceCidrEc2QuerySerializer
         ).serialize(
           serializers,
           resourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamResourceTag)],
           ),
@@ -443,7 +443,7 @@ class IpamResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('IpUsage'))
         ..add(serializers.serialize(
           ipUsage,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (complianceStatus != null) {
@@ -451,7 +451,7 @@ class IpamResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('ComplianceStatus'))
         ..add(serializers.serialize(
           complianceStatus,
-          specifiedType: const FullType.nullable(IpamComplianceStatus),
+          specifiedType: const FullType(IpamComplianceStatus),
         ));
     }
     if (managementState != null) {
@@ -459,7 +459,7 @@ class IpamResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('ManagementState'))
         ..add(serializers.serialize(
           managementState,
-          specifiedType: const FullType.nullable(IpamManagementState),
+          specifiedType: const FullType(IpamManagementState),
         ));
     }
     if (overlapStatus != null) {
@@ -467,7 +467,7 @@ class IpamResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('OverlapStatus'))
         ..add(serializers.serialize(
           overlapStatus,
-          specifiedType: const FullType.nullable(IpamOverlapStatus),
+          specifiedType: const FullType(IpamOverlapStatus),
         ));
     }
     if (vpcId != null) {

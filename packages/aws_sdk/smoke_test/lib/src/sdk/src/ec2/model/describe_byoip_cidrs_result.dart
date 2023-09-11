@@ -145,7 +145,7 @@ class DescribeByoipCidrsResultEc2QuerySerializer
         ).serialize(
           serializers,
           byoipCidrs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ByoipCidr)],
           ),

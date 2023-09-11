@@ -170,7 +170,7 @@ class ClientDataEc2QuerySerializer
         ..add(const _i2.XmlElementName('UploadEnd'))
         ..add(serializers.serialize(
           uploadEnd,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -184,7 +184,7 @@ class ClientDataEc2QuerySerializer
         ..add(const _i2.XmlElementName('UploadStart'))
         ..add(serializers.serialize(
           uploadStart,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

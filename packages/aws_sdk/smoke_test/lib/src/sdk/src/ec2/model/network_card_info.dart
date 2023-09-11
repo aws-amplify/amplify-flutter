@@ -177,7 +177,7 @@ class NetworkCardInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('NetworkCardIndex'))
         ..add(serializers.serialize(
           networkCardIndex,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (networkPerformance != null) {
@@ -193,7 +193,7 @@ class NetworkCardInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaximumNetworkInterfaces'))
         ..add(serializers.serialize(
           maximumNetworkInterfaces,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (baselineBandwidthInGbps != null) {
@@ -201,7 +201,7 @@ class NetworkCardInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('BaselineBandwidthInGbps'))
         ..add(serializers.serialize(
           baselineBandwidthInGbps,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (peakBandwidthInGbps != null) {
@@ -209,7 +209,7 @@ class NetworkCardInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('PeakBandwidthInGbps'))
         ..add(serializers.serialize(
           peakBandwidthInGbps,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     return result$;

@@ -355,7 +355,7 @@ class NetworkInsightsPathEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreatedDate'))
         ..add(serializers.serialize(
           createdDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (source != null) {
@@ -411,7 +411,7 @@ class NetworkInsightsPathEc2QuerySerializer
         ..add(const _i3.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(Protocol),
+          specifiedType: const FullType(Protocol),
         ));
     }
     result$
@@ -429,7 +429,7 @@ class NetworkInsightsPathEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

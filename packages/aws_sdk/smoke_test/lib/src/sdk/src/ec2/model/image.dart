@@ -622,7 +622,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('Architecture'))
         ..add(serializers.serialize(
           architecture,
-          specifiedType: const FullType.nullable(ArchitectureValues),
+          specifiedType: const FullType(ArchitectureValues),
         ));
     }
     if (creationDate != null) {
@@ -654,7 +654,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('ImageType'))
         ..add(serializers.serialize(
           imageType,
-          specifiedType: const FullType.nullable(ImageTypeValues),
+          specifiedType: const FullType(ImageTypeValues),
         ));
     }
     result$
@@ -684,7 +684,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('Platform'))
         ..add(serializers.serialize(
           platform,
-          specifiedType: const FullType.nullable(PlatformValues),
+          specifiedType: const FullType(PlatformValues),
         ));
     }
     if (platformDetails != null) {
@@ -712,7 +712,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),
@@ -731,7 +731,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('ImageState'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(ImageState),
+          specifiedType: const FullType(ImageState),
         ));
     }
     if (blockDeviceMappings != null) {
@@ -743,7 +743,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -768,7 +768,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('Hypervisor'))
         ..add(serializers.serialize(
           hypervisor,
-          specifiedType: const FullType.nullable(HypervisorType),
+          specifiedType: const FullType(HypervisorType),
         ));
     }
     if (imageOwnerAlias != null) {
@@ -800,7 +800,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('RootDeviceType'))
         ..add(serializers.serialize(
           rootDeviceType,
-          specifiedType: const FullType.nullable(DeviceType),
+          specifiedType: const FullType(DeviceType),
         ));
     }
     if (sriovNetSupport != null) {
@@ -828,7 +828,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -839,7 +839,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('VirtualizationType'))
         ..add(serializers.serialize(
           virtualizationType,
-          specifiedType: const FullType.nullable(VirtualizationType),
+          specifiedType: const FullType(VirtualizationType),
         ));
     }
     if (bootMode != null) {
@@ -847,7 +847,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('BootMode'))
         ..add(serializers.serialize(
           bootMode,
-          specifiedType: const FullType.nullable(BootModeValues),
+          specifiedType: const FullType(BootModeValues),
         ));
     }
     if (tpmSupport != null) {
@@ -855,7 +855,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('TpmSupport'))
         ..add(serializers.serialize(
           tpmSupport,
-          specifiedType: const FullType.nullable(TpmSupportValues),
+          specifiedType: const FullType(TpmSupportValues),
         ));
     }
     if (deprecationTime != null) {
@@ -871,7 +871,7 @@ class ImageEc2QuerySerializer extends _i3.StructuredSmithySerializer<Image> {
         ..add(const _i3.XmlElementName('ImdsSupport'))
         ..add(serializers.serialize(
           imdsSupport,
-          specifiedType: const FullType.nullable(ImdsSupportValues),
+          specifiedType: const FullType(ImdsSupportValues),
         ));
     }
     return result$;

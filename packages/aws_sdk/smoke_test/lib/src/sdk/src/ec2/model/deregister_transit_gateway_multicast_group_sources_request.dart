@@ -216,7 +216,7 @@ class DeregisterTransitGatewayMulticastGroupSourcesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

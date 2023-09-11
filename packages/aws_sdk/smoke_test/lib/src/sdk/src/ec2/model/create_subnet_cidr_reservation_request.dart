@@ -67,13 +67,11 @@ abstract class CreateSubnetCidrReservationRequest
   /// The IPv4 or IPV6 CIDR range to reserve.
   String? get cidr;
 
-  /// The type of reservation.
+  /// The type of reservation. The reservation type determines how the reserved IP addresses are assigned to resources.
   ///
-  /// The following are valid values:
+  /// *   `prefix` \- Amazon Web Services assigns the reserved IP addresses to network interfaces.
   ///
-  /// *   `prefix`: The Amazon EC2 Prefix Delegation feature assigns the IP addresses to network interfaces that are associated with an instance. For information about Prefix Delegation, see [Prefix Delegation for Amazon EC2 network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-delegation.html) in the _Amazon Elastic Compute Cloud User Guide_.
-  ///
-  /// *   `explicit`: You manually assign the IP addresses to resources that reside in your subnet.
+  /// *   `explicit` \- You assign the reserved IP addresses to network interfaces.
   SubnetCidrReservationType? get reservationType;
 
   /// The description to assign to the subnet CIDR reservation.
@@ -244,7 +242,7 @@ class CreateSubnetCidrReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ReservationType'))
         ..add(serializers.serialize(
           reservationType,
-          specifiedType: const FullType.nullable(SubnetCidrReservationType),
+          specifiedType: const FullType(SubnetCidrReservationType),
         ));
     }
     if (description != null) {
@@ -270,7 +268,7 @@ class CreateSubnetCidrReservationRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

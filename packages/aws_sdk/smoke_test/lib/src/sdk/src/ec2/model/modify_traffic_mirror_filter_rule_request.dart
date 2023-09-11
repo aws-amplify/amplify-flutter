@@ -333,7 +333,7 @@ class ModifyTrafficMirrorFilterRuleRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('TrafficDirection'))
         ..add(serializers.serialize(
           trafficDirection,
-          specifiedType: const FullType.nullable(TrafficDirection),
+          specifiedType: const FullType(TrafficDirection),
         ));
     }
     result$
@@ -347,7 +347,7 @@ class ModifyTrafficMirrorFilterRuleRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('RuleAction'))
         ..add(serializers.serialize(
           ruleAction,
-          specifiedType: const FullType.nullable(TrafficMirrorRuleAction),
+          specifiedType: const FullType(TrafficMirrorRuleAction),
         ));
     }
     if (destinationPortRange != null) {
@@ -404,7 +404,7 @@ class ModifyTrafficMirrorFilterRuleRequestEc2QuerySerializer extends _i1
             .serialize(
           serializers,
           removeFields,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TrafficMirrorFilterRuleField)],
           ),

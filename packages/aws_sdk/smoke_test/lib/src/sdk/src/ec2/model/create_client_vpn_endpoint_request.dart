@@ -497,7 +497,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
             .serialize(
           serializers,
           authenticationOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ClientVpnAuthenticationRequest)],
           ),
@@ -520,7 +520,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           dnsServers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -531,7 +531,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TransportProtocol'))
         ..add(serializers.serialize(
           transportProtocol,
-          specifiedType: const FullType.nullable(TransportProtocol),
+          specifiedType: const FullType(TransportProtocol),
         ));
     }
     result$
@@ -577,7 +577,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -592,7 +592,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -611,7 +611,7 @@ class CreateClientVpnEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('SelfServicePortal'))
         ..add(serializers.serialize(
           selfServicePortal,
-          specifiedType: const FullType.nullable(SelfServicePortal),
+          specifiedType: const FullType(SelfServicePortal),
         ));
     }
     if (clientConnectOptions != null) {

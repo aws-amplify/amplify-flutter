@@ -127,7 +127,7 @@ class DeleteFleetErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(DeleteFleetErrorCode),
+          specifiedType: const FullType(DeleteFleetErrorCode),
         ));
     }
     if (message != null) {

@@ -226,7 +226,7 @@ class ObjectPartRestXmlSerializer
         ..add(const _i3.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
           partNumber,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (size != null) {
@@ -234,7 +234,7 @@ class ObjectPartRestXmlSerializer
         ..add(const _i3.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

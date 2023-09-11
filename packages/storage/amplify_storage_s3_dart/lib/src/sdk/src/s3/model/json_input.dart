@@ -106,7 +106,7 @@ class JsonInputRestXmlSerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(JsonType),
+          specifiedType: const FullType(JsonType),
         ));
     }
     return result$;

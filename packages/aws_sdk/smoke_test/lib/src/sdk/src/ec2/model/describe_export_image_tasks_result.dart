@@ -149,7 +149,7 @@ class DescribeExportImageTasksResultEc2QuerySerializer
         ).serialize(
           serializers,
           exportImageTasks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ExportImageTask)],
           ),

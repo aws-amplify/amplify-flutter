@@ -147,7 +147,7 @@ class LaunchTemplateCapacityReservationSpecificationResponseEc2QuerySerializer
         ..add(const _i2.XmlElementName('CapacityReservationPreference'))
         ..add(serializers.serialize(
           capacityReservationPreference,
-          specifiedType: const FullType.nullable(CapacityReservationPreference),
+          specifiedType: const FullType(CapacityReservationPreference),
         ));
     }
     if (capacityReservationTarget != null) {

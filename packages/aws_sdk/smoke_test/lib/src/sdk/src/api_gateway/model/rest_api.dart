@@ -32,6 +32,7 @@ abstract class RestApi
     String? policy,
     Map<String, String>? tags,
     bool? disableExecuteApiEndpoint,
+    String? rootResourceId,
   }) {
     disableExecuteApiEndpoint ??= false;
     return _$RestApi._(
@@ -49,6 +50,7 @@ abstract class RestApi
       policy: policy,
       tags: tags == null ? null : _i2.BuiltMap(tags),
       disableExecuteApiEndpoint: disableExecuteApiEndpoint,
+      rootResourceId: rootResourceId,
     );
   }
 
@@ -111,6 +113,9 @@ abstract class RestApi
 
   /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
   bool get disableExecuteApiEndpoint;
+
+  /// The API's root resource ID.
+  String? get rootResourceId;
   @override
   List<Object?> get props => [
         id,
@@ -126,6 +131,7 @@ abstract class RestApi
         policy,
         tags,
         disableExecuteApiEndpoint,
+        rootResourceId,
       ];
   @override
   String toString() {
@@ -181,6 +187,10 @@ abstract class RestApi
       ..add(
         'disableExecuteApiEndpoint',
         disableExecuteApiEndpoint,
+      )
+      ..add(
+        'rootResourceId',
+        rootResourceId,
       );
     return helper.toString();
   }
@@ -271,6 +281,11 @@ class RestApiRestJson1Serializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'rootResourceId':
+          result.rootResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
           result.tags.replace((serializers.deserialize(
             value,
@@ -319,6 +334,7 @@ class RestApiRestJson1Serializer
       :minimumCompressionSize,
       :name,
       :policy,
+      :rootResourceId,
       :tags,
       :version,
       :warnings
@@ -402,6 +418,14 @@ class RestApiRestJson1Serializer
         ..add('policy')
         ..add(serializers.serialize(
           policy,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (rootResourceId != null) {
+      result$
+        ..add('rootResourceId')
+        ..add(serializers.serialize(
+          rootResourceId,
           specifiedType: const FullType(String),
         ));
     }

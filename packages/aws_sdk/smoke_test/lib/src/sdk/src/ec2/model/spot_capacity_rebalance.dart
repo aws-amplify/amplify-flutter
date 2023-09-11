@@ -146,7 +146,7 @@ class SpotCapacityRebalanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('ReplacementStrategy'))
         ..add(serializers.serialize(
           replacementStrategy,
-          specifiedType: const FullType.nullable(ReplacementStrategy),
+          specifiedType: const FullType(ReplacementStrategy),
         ));
     }
     result$

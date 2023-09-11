@@ -228,7 +228,7 @@ class ModifyTransitGatewayVpcAttachmentRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           addSubnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -243,7 +243,7 @@ class ModifyTransitGatewayVpcAttachmentRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           removeSubnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

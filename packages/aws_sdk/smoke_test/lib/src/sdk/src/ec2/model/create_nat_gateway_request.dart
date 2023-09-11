@@ -345,7 +345,7 @@ class CreateNatGatewayRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -356,7 +356,7 @@ class CreateNatGatewayRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ConnectivityType'))
         ..add(serializers.serialize(
           connectivityType,
-          specifiedType: const FullType.nullable(ConnectivityType),
+          specifiedType: const FullType(ConnectivityType),
         ));
     }
     if (privateIpAddress != null) {
@@ -376,7 +376,7 @@ class CreateNatGatewayRequestEc2QuerySerializer
         ).serialize(
           serializers,
           secondaryAllocationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -391,7 +391,7 @@ class CreateNatGatewayRequestEc2QuerySerializer
         ).serialize(
           serializers,
           secondaryPrivateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

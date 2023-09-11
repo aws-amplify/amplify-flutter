@@ -184,7 +184,7 @@ class DescribePublisherOutputAwsQuerySerializer
         ..add(const _i2.XmlElementName('PublisherStatus'))
         ..add(serializers.serialize(
           publisherStatus,
-          specifiedType: const FullType.nullable(PublisherStatus),
+          specifiedType: const FullType(PublisherStatus),
         ));
     }
     if (identityProvider != null) {
@@ -192,7 +192,7 @@ class DescribePublisherOutputAwsQuerySerializer
         ..add(const _i2.XmlElementName('IdentityProvider'))
         ..add(serializers.serialize(
           identityProvider,
-          specifiedType: const FullType.nullable(IdentityProvider),
+          specifiedType: const FullType(IdentityProvider),
         ));
     }
     if (publisherProfile != null) {

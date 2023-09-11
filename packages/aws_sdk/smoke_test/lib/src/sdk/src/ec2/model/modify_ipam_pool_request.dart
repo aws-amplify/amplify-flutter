@@ -364,7 +364,7 @@ class ModifyIpamPoolRequestEc2QuerySerializer
         ).serialize(
           serializers,
           addAllocationResourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RequestIpamResourceTag)],
           ),
@@ -379,7 +379,7 @@ class ModifyIpamPoolRequestEc2QuerySerializer
         ).serialize(
           serializers,
           removeAllocationResourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RequestIpamResourceTag)],
           ),

@@ -166,7 +166,7 @@ class ClientVpnAuthenticationEc2QuerySerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ClientVpnAuthenticationType),
+          specifiedType: const FullType(ClientVpnAuthenticationType),
         ));
     }
     if (activeDirectory != null) {

@@ -113,7 +113,7 @@ class OwnershipControlsRuleRestXmlSerializer
       ..add(const _i2.XmlElementName('ObjectOwnership'))
       ..add(serializers.serialize(
         objectOwnership,
-        specifiedType: const FullType.nullable(ObjectOwnership),
+        specifiedType: const FullType(ObjectOwnership),
       ));
     return result$;
   }

@@ -140,7 +140,7 @@ class MoveAddressToVpcResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(Status),
+          specifiedType: const FullType(Status),
         ));
     }
     return result$;

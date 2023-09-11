@@ -10,6 +10,7 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/ec2/model/dns_options_specification.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/ip_address_type.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/subnet_configuration.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/tag_specification.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/vpc_endpoint_type.dart';
 
@@ -35,6 +36,7 @@ abstract class CreateVpcEndpointRequest
     String? clientToken,
     bool? privateDnsEnabled,
     List<TagSpecification>? tagSpecifications,
+    List<SubnetConfiguration>? subnetConfigurations,
   }) {
     dryRun ??= false;
     privateDnsEnabled ??= false;
@@ -55,6 +57,9 @@ abstract class CreateVpcEndpointRequest
       privateDnsEnabled: privateDnsEnabled,
       tagSpecifications:
           tagSpecifications == null ? null : _i3.BuiltList(tagSpecifications),
+      subnetConfigurations: subnetConfigurations == null
+          ? null
+          : _i3.BuiltList(subnetConfigurations),
     );
   }
 
@@ -101,10 +106,10 @@ abstract class CreateVpcEndpointRequest
   /// (Gateway endpoint) The route table IDs.
   _i3.BuiltList<String>? get routeTableIds;
 
-  /// (Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to create an endpoint network interface. For a Gateway Load Balancer endpoint, you can specify only one subnet.
+  /// (Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet.
   _i3.BuiltList<String>? get subnetIds;
 
-  /// (Interface endpoint) The IDs of the security groups to associate with the endpoint network interface. If this parameter is not specified, we use the default security group for the VPC.
+  /// (Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.
   _i3.BuiltList<String>? get securityGroupIds;
 
   /// The IP address type for the endpoint.
@@ -125,6 +130,9 @@ abstract class CreateVpcEndpointRequest
 
   /// The tags to associate with the endpoint.
   _i3.BuiltList<TagSpecification>? get tagSpecifications;
+
+  /// The subnet configurations for the endpoint.
+  _i3.BuiltList<SubnetConfiguration>? get subnetConfigurations;
   @override
   CreateVpcEndpointRequest getPayload() => this;
   @override
@@ -142,6 +150,7 @@ abstract class CreateVpcEndpointRequest
         clientToken,
         privateDnsEnabled,
         tagSpecifications,
+        subnetConfigurations,
       ];
   @override
   String toString() {
@@ -197,6 +206,10 @@ abstract class CreateVpcEndpointRequest
       ..add(
         'tagSpecifications',
         tagSpecifications,
+      )
+      ..add(
+        'subnetConfigurations',
+        subnetConfigurations,
       );
     return helper.toString();
   }
@@ -328,6 +341,18 @@ class CreateVpcEndpointRequestEc2QuerySerializer
               [FullType(TagSpecification)],
             ),
           ) as _i3.BuiltList<TagSpecification>));
+        case 'SubnetConfiguration':
+          result.subnetConfigurations.replace((const _i1.XmlBuiltListSerializer(
+            memberName: 'item',
+            indexer: _i1.XmlIndexer.ec2QueryList,
+          ).deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(SubnetConfiguration)],
+            ),
+          ) as _i3.BuiltList<SubnetConfiguration>));
       }
     }
 
@@ -359,7 +384,8 @@ class CreateVpcEndpointRequestEc2QuerySerializer
       :dnsOptions,
       :clientToken,
       :privateDnsEnabled,
-      :tagSpecifications
+      :tagSpecifications,
+      :subnetConfigurations
     ) = object;
     result$
       ..add(const _i1.XmlElementName('DryRun'))
@@ -372,7 +398,7 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('VpcEndpointType'))
         ..add(serializers.serialize(
           vpcEndpointType,
-          specifiedType: const FullType.nullable(VpcEndpointType),
+          specifiedType: const FullType(VpcEndpointType),
         ));
     }
     if (vpcId != null) {
@@ -408,7 +434,7 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           routeTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -423,7 +449,7 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -438,7 +464,7 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -449,7 +475,7 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('IpAddressType'))
         ..add(serializers.serialize(
           ipAddressType,
-          specifiedType: const FullType.nullable(IpAddressType),
+          specifiedType: const FullType(IpAddressType),
         ));
     }
     if (dnsOptions != null) {
@@ -483,9 +509,24 @@ class CreateVpcEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
+          ),
+        ));
+    }
+    if (subnetConfigurations != null) {
+      result$
+        ..add(const _i1.XmlElementName('SubnetConfiguration'))
+        ..add(const _i1.XmlBuiltListSerializer(
+          memberName: 'item',
+          indexer: _i1.XmlIndexer.ec2QueryList,
+        ).serialize(
+          serializers,
+          subnetConfigurations,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(SubnetConfiguration)],
           ),
         ));
     }

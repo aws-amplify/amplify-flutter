@@ -157,7 +157,7 @@ class UntagRoleRequestAwsQuerySerializer
               .serialize(
         serializers,
         tagKeys,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),

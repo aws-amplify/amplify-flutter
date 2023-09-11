@@ -269,7 +269,7 @@ class CreateBucketRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
           locationConstraint,
-          specifiedType: const FullType.nullable(BucketLocationConstraint),
+          specifiedType: const FullType(BucketLocationConstraint),
         ));
     }
     return result$;

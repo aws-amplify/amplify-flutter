@@ -200,7 +200,7 @@ class DescribeFastSnapshotRestoresRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -211,7 +211,7 @@ class DescribeFastSnapshotRestoresRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

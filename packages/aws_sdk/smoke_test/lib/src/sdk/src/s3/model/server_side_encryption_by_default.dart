@@ -150,7 +150,7 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
       ..add(const _i2.XmlElementName('SSEAlgorithm'))
       ..add(serializers.serialize(
         sseAlgorithm,
-        specifiedType: const FullType.nullable(ServerSideEncryption),
+        specifiedType: const FullType(ServerSideEncryption),
       ));
     return result$;
   }

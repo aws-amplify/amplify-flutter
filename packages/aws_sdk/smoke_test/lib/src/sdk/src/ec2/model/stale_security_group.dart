@@ -242,7 +242,7 @@ class StaleSecurityGroupEc2QuerySerializer
         ).serialize(
           serializers,
           staleIpPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StaleIpPermission)],
           ),
@@ -257,7 +257,7 @@ class StaleSecurityGroupEc2QuerySerializer
         ).serialize(
           serializers,
           staleIpPermissionsEgress,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StaleIpPermission)],
           ),

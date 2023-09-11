@@ -116,8 +116,7 @@ class LaunchTemplateInstanceMaintenanceOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('AutoRecovery'))
         ..add(serializers.serialize(
           autoRecovery,
-          specifiedType:
-              const FullType.nullable(LaunchTemplateAutoRecoveryState),
+          specifiedType: const FullType(LaunchTemplateAutoRecoveryState),
         ));
     }
     return result$;

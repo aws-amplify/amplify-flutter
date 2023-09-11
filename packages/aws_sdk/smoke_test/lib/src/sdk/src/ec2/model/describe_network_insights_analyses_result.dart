@@ -154,7 +154,7 @@ class DescribeNetworkInsightsAnalysesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           networkInsightsAnalyses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInsightsAnalysis)],
           ),

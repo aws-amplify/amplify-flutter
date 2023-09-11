@@ -197,7 +197,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (maxParts != null) {
@@ -205,7 +205,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ..add(const _i3.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
           maxParts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextPartNumberMarker != null) {
@@ -229,7 +229,7 @@ class GetObjectAttributesPartsRestXmlSerializer
           const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(ObjectPart)],
         ),
@@ -240,7 +240,7 @@ class GetObjectAttributesPartsRestXmlSerializer
         ..add(const _i3.XmlElementName('PartsCount'))
         ..add(serializers.serialize(
           totalPartsCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

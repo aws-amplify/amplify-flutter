@@ -553,7 +553,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Parameter)],
           ),
@@ -563,14 +563,14 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
       ..add(const _i3.XmlElementName('CreationTime'))
       ..add(serializers.serialize(
         creationTime,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (deletionTime != null) {
       result$
         ..add(const _i3.XmlElementName('DeletionTime'))
         ..add(serializers.serialize(
           deletionTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (lastUpdatedTime != null) {
@@ -578,7 +578,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
         ..add(const _i3.XmlElementName('LastUpdatedTime'))
         ..add(serializers.serialize(
           lastUpdatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (rollbackConfiguration != null) {
@@ -593,7 +593,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
       ..add(const _i3.XmlElementName('StackStatus'))
       ..add(serializers.serialize(
         stackStatus,
-        specifiedType: const FullType.nullable(StackStatus),
+        specifiedType: const FullType(StackStatus),
       ));
     if (stackStatusReason != null) {
       result$
@@ -608,7 +608,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
         ..add(const _i3.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (notificationArNs != null) {
@@ -619,7 +619,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
             .serialize(
           serializers,
           notificationArNs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -630,7 +630,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
         ..add(const _i3.XmlElementName('TimeoutInMinutes'))
         ..add(serializers.serialize(
           timeoutInMinutes,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (capabilities != null) {
@@ -641,7 +641,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Capability)],
           ),
@@ -655,7 +655,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
             .serialize(
           serializers,
           outputs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Output)],
           ),
@@ -677,7 +677,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -688,7 +688,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
         ..add(const _i3.XmlElementName('EnableTerminationProtection'))
         ..add(serializers.serialize(
           enableTerminationProtection,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (parentId != null) {
@@ -720,7 +720,7 @@ class StackAwsQuerySerializer extends _i3.StructuredSmithySerializer<Stack> {
         ..add(const _i3.XmlElementName('RetainExceptOnCreate'))
         ..add(serializers.serialize(
           retainExceptOnCreate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

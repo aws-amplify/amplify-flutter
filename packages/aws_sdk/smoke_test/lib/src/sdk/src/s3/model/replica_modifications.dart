@@ -112,7 +112,7 @@ class ReplicaModificationsRestXmlSerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(ReplicaModificationsStatus),
+        specifiedType: const FullType(ReplicaModificationsStatus),
       ));
     return result$;
   }

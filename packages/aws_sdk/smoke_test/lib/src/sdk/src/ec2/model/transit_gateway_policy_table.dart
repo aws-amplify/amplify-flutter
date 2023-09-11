@@ -205,8 +205,7 @@ class TransitGatewayPolicyTableEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(TransitGatewayPolicyTableState),
+          specifiedType: const FullType(TransitGatewayPolicyTableState),
         ));
     }
     if (creationTime != null) {
@@ -214,7 +213,7 @@ class TransitGatewayPolicyTableEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -226,7 +225,7 @@ class TransitGatewayPolicyTableEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

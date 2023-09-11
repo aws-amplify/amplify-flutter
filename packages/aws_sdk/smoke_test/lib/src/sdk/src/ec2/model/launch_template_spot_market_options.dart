@@ -200,7 +200,7 @@ class LaunchTemplateSpotMarketOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('SpotInstanceType'))
         ..add(serializers.serialize(
           spotInstanceType,
-          specifiedType: const FullType.nullable(SpotInstanceType),
+          specifiedType: const FullType(SpotInstanceType),
         ));
     }
     result$
@@ -214,7 +214,7 @@ class LaunchTemplateSpotMarketOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instanceInterruptionBehavior != null) {
@@ -222,7 +222,7 @@ class LaunchTemplateSpotMarketOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceInterruptionBehavior'))
         ..add(serializers.serialize(
           instanceInterruptionBehavior,
-          specifiedType: const FullType.nullable(InstanceInterruptionBehavior),
+          specifiedType: const FullType(InstanceInterruptionBehavior),
         ));
     }
     return result$;

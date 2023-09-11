@@ -175,7 +175,7 @@ class AssignIpv6AddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           assignedIpv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -190,7 +190,7 @@ class AssignIpv6AddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           assignedIpv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

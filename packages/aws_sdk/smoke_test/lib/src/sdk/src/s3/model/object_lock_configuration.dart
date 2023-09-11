@@ -129,7 +129,7 @@ class ObjectLockConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
           objectLockEnabled,
-          specifiedType: const FullType.nullable(ObjectLockEnabled),
+          specifiedType: const FullType(ObjectLockEnabled),
         ));
     }
     if (rule != null) {

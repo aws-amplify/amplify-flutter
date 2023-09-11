@@ -420,7 +420,7 @@ class RequestSpotInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(SpotInstanceType),
+          specifiedType: const FullType(SpotInstanceType),
         ));
     }
     if (validFrom != null) {
@@ -428,7 +428,7 @@ class RequestSpotInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ValidFrom'))
         ..add(serializers.serialize(
           validFrom,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -436,7 +436,7 @@ class RequestSpotInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tagSpecifications != null) {
@@ -448,7 +448,7 @@ class RequestSpotInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -459,7 +459,7 @@ class RequestSpotInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceInterruptionBehavior'))
         ..add(serializers.serialize(
           instanceInterruptionBehavior,
-          specifiedType: const FullType.nullable(InstanceInterruptionBehavior),
+          specifiedType: const FullType(InstanceInterruptionBehavior),
         ));
     }
     return result$;

@@ -160,7 +160,7 @@ class LaunchTemplatePrivateDnsNameOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('HostnameType'))
         ..add(serializers.serialize(
           hostnameType,
-          specifiedType: const FullType.nullable(HostnameType),
+          specifiedType: const FullType(HostnameType),
         ));
     }
     result$

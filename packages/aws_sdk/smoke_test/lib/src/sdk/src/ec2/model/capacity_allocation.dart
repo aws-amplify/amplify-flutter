@@ -134,7 +134,7 @@ class CapacityAllocationEc2QuerySerializer
         ..add(const _i2.XmlElementName('AllocationType'))
         ..add(serializers.serialize(
           allocationType,
-          specifiedType: const FullType.nullable(AllocationType),
+          specifiedType: const FullType(AllocationType),
         ));
     }
     result$

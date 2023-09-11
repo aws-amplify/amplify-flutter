@@ -149,7 +149,7 @@ class GetEbsEncryptionByDefaultResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('SseType'))
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType.nullable(SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     return result$;

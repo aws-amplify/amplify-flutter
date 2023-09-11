@@ -86,7 +86,7 @@ abstract class CreateApiKeyRequest
   /// DEPRECATED FOR USAGE PLANS - Specifies stages associated with the API key.
   _i3.BuiltList<StageKey>? get stageKeys;
 
-  /// An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+  /// An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS Marketplace.
   String? get customerId;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.

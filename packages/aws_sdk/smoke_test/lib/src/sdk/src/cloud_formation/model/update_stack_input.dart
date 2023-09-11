@@ -531,7 +531,7 @@ class UpdateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
           usePreviousTemplate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (stackPolicyDuringUpdateBody != null) {
@@ -558,7 +558,7 @@ class UpdateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -572,7 +572,7 @@ class UpdateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Capability)],
           ),
@@ -586,7 +586,7 @@ class UpdateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           resourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -632,7 +632,7 @@ class UpdateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           notificationArNs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -646,7 +646,7 @@ class UpdateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),
@@ -657,7 +657,7 @@ class UpdateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (clientRequestToken != null) {
@@ -673,7 +673,7 @@ class UpdateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
         ..add(serializers.serialize(
           retainExceptOnCreate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

@@ -147,7 +147,7 @@ class SearchLocalGatewayRoutesResultEc2QuerySerializer
         ).serialize(
           serializers,
           routes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalGatewayRoute)],
           ),

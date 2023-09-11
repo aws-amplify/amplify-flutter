@@ -160,7 +160,7 @@ class MetricPointEc2QuerySerializer
         ..add(const _i2.XmlElementName('StartDate'))
         ..add(serializers.serialize(
           startDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDate != null) {
@@ -168,7 +168,7 @@ class MetricPointEc2QuerySerializer
         ..add(const _i2.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

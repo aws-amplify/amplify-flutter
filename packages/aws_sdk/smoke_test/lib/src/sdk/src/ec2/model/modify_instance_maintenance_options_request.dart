@@ -175,7 +175,7 @@ class ModifyInstanceMaintenanceOptionsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('AutoRecovery'))
         ..add(serializers.serialize(
           autoRecovery,
-          specifiedType: const FullType.nullable(InstanceAutoRecoveryState),
+          specifiedType: const FullType(InstanceAutoRecoveryState),
         ));
     }
     result$

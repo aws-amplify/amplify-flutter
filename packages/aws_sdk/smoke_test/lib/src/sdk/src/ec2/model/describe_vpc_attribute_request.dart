@@ -158,7 +158,7 @@ class DescribeVpcAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(VpcAttributeName),
+          specifiedType: const FullType(VpcAttributeName),
         ));
     }
     if (vpcId != null) {

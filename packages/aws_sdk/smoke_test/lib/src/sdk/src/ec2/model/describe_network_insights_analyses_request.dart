@@ -276,7 +276,7 @@ class DescribeNetworkInsightsAnalysesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           networkInsightsAnalysisIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -295,7 +295,7 @@ class DescribeNetworkInsightsAnalysesRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('AnalysisStartTime'))
         ..add(serializers.serialize(
           analysisStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (analysisEndTime != null) {
@@ -303,7 +303,7 @@ class DescribeNetworkInsightsAnalysesRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('AnalysisEndTime'))
         ..add(serializers.serialize(
           analysisEndTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (filters != null) {
@@ -315,7 +315,7 @@ class DescribeNetworkInsightsAnalysesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

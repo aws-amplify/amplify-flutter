@@ -211,7 +211,7 @@ class AssociateTransitGatewayMulticastDomainRequestEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

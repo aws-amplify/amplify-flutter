@@ -176,7 +176,7 @@ class GetObjectTaggingOutputRestXmlSerializer
       ..add(const _i2.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Tag)],
         ),

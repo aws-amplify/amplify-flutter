@@ -142,7 +142,7 @@ class DiskInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('SizeInGB'))
         ..add(serializers.serialize(
           sizeInGb,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (count != null) {
@@ -150,7 +150,7 @@ class DiskInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Count'))
         ..add(serializers.serialize(
           count,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (type != null) {
@@ -158,7 +158,7 @@ class DiskInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(DiskType),
+          specifiedType: const FullType(DiskType),
         ));
     }
     return result$;

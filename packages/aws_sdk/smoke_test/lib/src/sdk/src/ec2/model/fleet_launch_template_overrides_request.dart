@@ -272,7 +272,7 @@ class FleetLaunchTemplateOverridesRequestEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (maxPrice != null) {

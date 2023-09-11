@@ -245,7 +245,7 @@ class DataResponseEc2QuerySerializer
         ..add(const _i3.XmlElementName('Metric'))
         ..add(serializers.serialize(
           metric,
-          specifiedType: const FullType.nullable(MetricType),
+          specifiedType: const FullType(MetricType),
         ));
     }
     if (statistic != null) {
@@ -253,7 +253,7 @@ class DataResponseEc2QuerySerializer
         ..add(const _i3.XmlElementName('Statistic'))
         ..add(serializers.serialize(
           statistic,
-          specifiedType: const FullType.nullable(StatisticType),
+          specifiedType: const FullType(StatisticType),
         ));
     }
     if (period != null) {
@@ -261,7 +261,7 @@ class DataResponseEc2QuerySerializer
         ..add(const _i3.XmlElementName('Period'))
         ..add(serializers.serialize(
           period,
-          specifiedType: const FullType.nullable(PeriodType),
+          specifiedType: const FullType(PeriodType),
         ));
     }
     if (metricPoints != null) {
@@ -273,7 +273,7 @@ class DataResponseEc2QuerySerializer
         ).serialize(
           serializers,
           metricPoints,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(MetricPoint)],
           ),

@@ -139,7 +139,7 @@ class DescribeReservedInstancesListingsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           reservedInstancesListings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ReservedInstancesListing)],
           ),

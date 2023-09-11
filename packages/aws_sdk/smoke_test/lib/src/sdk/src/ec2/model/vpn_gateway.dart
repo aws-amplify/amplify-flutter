@@ -244,7 +244,7 @@ class VpnGatewayEc2QuerySerializer
         ..add(const _i4.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(VpnState),
+          specifiedType: const FullType(VpnState),
         ));
     }
     if (type != null) {
@@ -252,7 +252,7 @@ class VpnGatewayEc2QuerySerializer
         ..add(const _i4.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(GatewayType),
+          specifiedType: const FullType(GatewayType),
         ));
     }
     if (vpcAttachments != null) {
@@ -264,7 +264,7 @@ class VpnGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           vpcAttachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(VpcAttachment)],
           ),
@@ -293,7 +293,7 @@ class VpnGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

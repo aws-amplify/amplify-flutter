@@ -240,7 +240,7 @@ class InstanceStatusEc2QuerySerializer
         ).serialize(
           serializers,
           events,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceStatusEvent)],
           ),

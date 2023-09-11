@@ -151,7 +151,7 @@ class GetAssociatedIpv6PoolCidrsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6CidrAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6CidrAssociation)],
           ),

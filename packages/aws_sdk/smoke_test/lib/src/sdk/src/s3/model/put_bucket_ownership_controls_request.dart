@@ -183,7 +183,7 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i3.BuiltList,
         [FullType(OwnershipControlsRule)],
       ),

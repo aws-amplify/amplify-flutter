@@ -14,13 +14,25 @@ import 'package:smoke_test/src/sdk/src/ec2/common/serializers.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_versions_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_versions_result.dart';
 
-/// Deletes one or more versions of a launch template. You cannot delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+/// Deletes one or more versions of a launch template.
+///
+/// You can't delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+///
+/// You can delete up to 200 launch template versions in a single request. To delete more than 200 versions in a single request, use DeleteLaunchTemplate, which deletes the launch template and all of its versions.
+///
+/// For more information, see [Delete a launch template version](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-launch-template-versions.html#delete-launch-template-version) in the _EC2 User Guide_.
 class DeleteLaunchTemplateVersionsOperation extends _i1.HttpOperation<
     DeleteLaunchTemplateVersionsRequest,
     DeleteLaunchTemplateVersionsRequest,
     DeleteLaunchTemplateVersionsResult,
     DeleteLaunchTemplateVersionsResult> {
-  /// Deletes one or more versions of a launch template. You cannot delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+  /// Deletes one or more versions of a launch template.
+  ///
+  /// You can't delete the default version of a launch template; you must first assign a different version as the default. If the default version is the only version for the launch template, you must delete the entire launch template using DeleteLaunchTemplate.
+  ///
+  /// You can delete up to 200 launch template versions in a single request. To delete more than 200 versions in a single request, use DeleteLaunchTemplate, which deletes the launch template and all of its versions.
+  ///
+  /// For more information, see [Delete a launch template version](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-launch-template-versions.html#delete-launch-template-version) in the _EC2 User Guide_.
   DeleteLaunchTemplateVersionsOperation({
     required String region,
     Uri? baseUri,

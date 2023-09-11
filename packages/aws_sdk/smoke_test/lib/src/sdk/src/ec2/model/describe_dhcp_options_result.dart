@@ -145,7 +145,7 @@ class DescribeDhcpOptionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           dhcpOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DhcpOptions)],
           ),

@@ -274,7 +274,7 @@ class ReservedInstancesModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (effectiveDate != null) {
@@ -282,7 +282,7 @@ class ReservedInstancesModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('EffectiveDate'))
         ..add(serializers.serialize(
           effectiveDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (modificationResults != null) {
@@ -294,7 +294,7 @@ class ReservedInstancesModificationEc2QuerySerializer
         ).serialize(
           serializers,
           modificationResults,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ReservedInstancesModificationResult)],
           ),
@@ -309,7 +309,7 @@ class ReservedInstancesModificationEc2QuerySerializer
         ).serialize(
           serializers,
           reservedInstancesIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ReservedInstancesId)],
           ),
@@ -344,7 +344,7 @@ class ReservedInstancesModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -144,7 +144,7 @@ class DescribeCoipPoolsResultEc2QuerySerializer
         ).serialize(
           serializers,
           coipPools,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CoipPool)],
           ),

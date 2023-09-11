@@ -157,7 +157,7 @@ class DiskImageDetailEc2QuerySerializer
         ..add(const _i3.XmlElementName('Format'))
         ..add(serializers.serialize(
           format,
-          specifiedType: const FullType.nullable(DiskImageFormat),
+          specifiedType: const FullType(DiskImageFormat),
         ));
     }
     if (importManifestUrl != null) {

@@ -86,7 +86,7 @@ abstract class S3Storage
       )
       ..add(
         'uploadPolicySignature',
-        uploadPolicySignature,
+        '***SENSITIVE***',
       );
     return helper.toString();
   }
@@ -203,7 +203,7 @@ class S3StorageEc2QuerySerializer
         ..add(const _i3.XmlElementName('UploadPolicy'))
         ..add(serializers.serialize(
           uploadPolicy,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     if (uploadPolicySignature != null) {

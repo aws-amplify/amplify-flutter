@@ -198,7 +198,7 @@ class PurchaseScheduledInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           purchaseRequests,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(PurchaseRequest)],
           ),

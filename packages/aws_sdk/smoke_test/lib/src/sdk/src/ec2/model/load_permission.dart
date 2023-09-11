@@ -135,7 +135,7 @@ class LoadPermissionEc2QuerySerializer
         ..add(const _i2.XmlElementName('Group'))
         ..add(serializers.serialize(
           group,
-          specifiedType: const FullType.nullable(PermissionGroup),
+          specifiedType: const FullType(PermissionGroup),
         ));
     }
     return result$;

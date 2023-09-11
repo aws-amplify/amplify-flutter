@@ -269,7 +269,7 @@ class ResourceChangeAwsQuerySerializer
         ..add(const _i3.XmlElementName('Action'))
         ..add(serializers.serialize(
           action,
-          specifiedType: const FullType.nullable(ChangeAction),
+          specifiedType: const FullType(ChangeAction),
         ));
     }
     if (logicalResourceId != null) {
@@ -301,7 +301,7 @@ class ResourceChangeAwsQuerySerializer
         ..add(const _i3.XmlElementName('Replacement'))
         ..add(serializers.serialize(
           replacement,
-          specifiedType: const FullType.nullable(Replacement),
+          specifiedType: const FullType(Replacement),
         ));
     }
     if (scope != null) {
@@ -312,7 +312,7 @@ class ResourceChangeAwsQuerySerializer
             .serialize(
           serializers,
           scope,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ResourceAttribute)],
           ),
@@ -326,7 +326,7 @@ class ResourceChangeAwsQuerySerializer
             .serialize(
           serializers,
           details,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ResourceChangeDetail)],
           ),

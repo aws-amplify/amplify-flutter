@@ -219,7 +219,7 @@ class ServiceSpecificCredentialAwsQuerySerializer
       ..add(const _i2.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i2.XmlElementName('ServiceName'))
@@ -255,7 +255,7 @@ class ServiceSpecificCredentialAwsQuerySerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(StatusType),
+        specifiedType: const FullType(StatusType),
       ));
     return result$;
   }

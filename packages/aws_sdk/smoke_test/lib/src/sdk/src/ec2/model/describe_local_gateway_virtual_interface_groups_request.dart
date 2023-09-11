@@ -236,7 +236,7 @@ class DescribeLocalGatewayVirtualInterfaceGroupsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           localGatewayVirtualInterfaceGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -251,7 +251,7 @@ class DescribeLocalGatewayVirtualInterfaceGroupsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

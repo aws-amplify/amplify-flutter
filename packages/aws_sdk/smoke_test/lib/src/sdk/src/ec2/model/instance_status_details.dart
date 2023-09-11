@@ -145,7 +145,7 @@ class InstanceStatusDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('ImpairedSince'))
         ..add(serializers.serialize(
           impairedSince,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (name != null) {
@@ -153,7 +153,7 @@ class InstanceStatusDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(StatusName),
+          specifiedType: const FullType(StatusName),
         ));
     }
     if (status != null) {
@@ -161,7 +161,7 @@ class InstanceStatusDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StatusType),
+          specifiedType: const FullType(StatusType),
         ));
     }
     return result$;
