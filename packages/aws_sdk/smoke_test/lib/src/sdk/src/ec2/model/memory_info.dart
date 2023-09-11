@@ -106,7 +106,7 @@ class MemoryInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('SizeInMiB'))
         ..add(serializers.serialize(
           sizeInMib,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

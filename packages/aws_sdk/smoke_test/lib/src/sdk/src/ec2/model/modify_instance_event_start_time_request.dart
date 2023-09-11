@@ -201,7 +201,7 @@ class ModifyInstanceEventStartTimeRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('NotBefore'))
         ..add(serializers.serialize(
           notBefore,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

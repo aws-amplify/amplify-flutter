@@ -131,7 +131,7 @@ class NoncurrentVersionExpirationRestXmlSerializer
         ..add(const _i2.XmlElementName('NewerNoncurrentVersions'))
         ..add(serializers.serialize(
           newerNoncurrentVersions,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (noncurrentDays != null) {
@@ -139,7 +139,7 @@ class NoncurrentVersionExpirationRestXmlSerializer
         ..add(const _i2.XmlElementName('NoncurrentDays'))
         ..add(serializers.serialize(
           noncurrentDays,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

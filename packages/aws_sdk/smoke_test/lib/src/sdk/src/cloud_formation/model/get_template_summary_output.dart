@@ -319,7 +319,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ParameterDeclaration)],
           ),
@@ -341,7 +341,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Capability)],
           ),
@@ -363,7 +363,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             .serialize(
           serializers,
           resourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -393,7 +393,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             .serialize(
           serializers,
           declaredTransforms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -407,7 +407,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             .serialize(
           serializers,
           resourceIdentifierSummaries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ResourceIdentifierSummary)],
           ),

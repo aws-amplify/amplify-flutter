@@ -290,7 +290,7 @@ class AvailabilityZoneEc2QuerySerializer
         ..add(const _i3.XmlElementName('ZoneState'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(AvailabilityZoneState),
+          specifiedType: const FullType(AvailabilityZoneState),
         ));
     }
     if (optInStatus != null) {
@@ -298,7 +298,7 @@ class AvailabilityZoneEc2QuerySerializer
         ..add(const _i3.XmlElementName('OptInStatus'))
         ..add(serializers.serialize(
           optInStatus,
-          specifiedType: const FullType.nullable(AvailabilityZoneOptInStatus),
+          specifiedType: const FullType(AvailabilityZoneOptInStatus),
         ));
     }
     if (messages != null) {
@@ -310,7 +310,7 @@ class AvailabilityZoneEc2QuerySerializer
         ).serialize(
           serializers,
           messages,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AvailabilityZoneMessage)],
           ),

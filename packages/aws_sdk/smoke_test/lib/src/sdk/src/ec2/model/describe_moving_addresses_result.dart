@@ -151,7 +151,7 @@ class DescribeMovingAddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           movingAddressStatuses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(MovingAddressStatus)],
           ),

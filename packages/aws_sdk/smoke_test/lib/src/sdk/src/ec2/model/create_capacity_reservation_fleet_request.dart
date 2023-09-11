@@ -317,7 +317,7 @@ class CreateCapacityReservationFleetRequestEc2QuerySerializer extends _i1
             .serialize(
           serializers,
           instanceTypeSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ReservationFleetInstanceSpecification)],
           ),
@@ -328,8 +328,7 @@ class CreateCapacityReservationFleetRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType:
-              const FullType.nullable(FleetCapacityReservationTenancy),
+          specifiedType: const FullType(FleetCapacityReservationTenancy),
         ));
     }
     result$
@@ -343,7 +342,7 @@ class CreateCapacityReservationFleetRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instanceMatchCriteria != null) {
@@ -351,7 +350,7 @@ class CreateCapacityReservationFleetRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('InstanceMatchCriteria'))
         ..add(serializers.serialize(
           instanceMatchCriteria,
-          specifiedType: const FullType.nullable(FleetInstanceMatchCriteria),
+          specifiedType: const FullType(FleetInstanceMatchCriteria),
         ));
     }
     if (tagSpecifications != null) {
@@ -363,7 +362,7 @@ class CreateCapacityReservationFleetRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

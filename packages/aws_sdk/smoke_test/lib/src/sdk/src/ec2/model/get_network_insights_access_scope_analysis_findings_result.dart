@@ -195,7 +195,7 @@ class GetNetworkInsightsAccessScopeAnalysisFindingsResultEc2QuerySerializer
         ..add(const _i3.XmlElementName('AnalysisStatus'))
         ..add(serializers.serialize(
           analysisStatus,
-          specifiedType: const FullType.nullable(AnalysisStatus),
+          specifiedType: const FullType(AnalysisStatus),
         ));
     }
     if (analysisFindings != null) {
@@ -207,7 +207,7 @@ class GetNetworkInsightsAccessScopeAnalysisFindingsResultEc2QuerySerializer
         ).serialize(
           serializers,
           analysisFindings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AccessScopeAnalysisFinding)],
           ),

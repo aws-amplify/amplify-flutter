@@ -495,7 +495,7 @@ class CreateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -509,7 +509,7 @@ class CreateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Capability)],
           ),
@@ -523,7 +523,7 @@ class CreateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),
@@ -550,7 +550,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(PermissionModels),
+          specifiedType: const FullType(PermissionModels),
         ));
     }
     if (autoDeployment != null) {
@@ -566,7 +566,7 @@ class CreateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     if (clientRequestToken != null) {

@@ -226,7 +226,7 @@ class CreateNetworkInterfacePermissionRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
-          specifiedType: const FullType.nullable(InterfacePermissionType),
+          specifiedType: const FullType(InterfacePermissionType),
         ));
     }
     result$

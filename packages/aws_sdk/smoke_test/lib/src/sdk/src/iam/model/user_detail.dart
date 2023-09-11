@@ -340,7 +340,7 @@ class UserDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (userPolicyList != null) {
@@ -351,7 +351,7 @@ class UserDetailAwsQuerySerializer
             .serialize(
           serializers,
           userPolicyList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyDetail)],
           ),
@@ -365,7 +365,7 @@ class UserDetailAwsQuerySerializer
             .serialize(
           serializers,
           groupList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -379,7 +379,7 @@ class UserDetailAwsQuerySerializer
             .serialize(
           serializers,
           attachedManagedPolicies,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AttachedPolicy)],
           ),
@@ -401,7 +401,7 @@ class UserDetailAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

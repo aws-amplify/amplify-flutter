@@ -302,7 +302,7 @@ class PlacementEc2QuerySerializer
         ..add(const _i2.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     if (spreadDomain != null) {

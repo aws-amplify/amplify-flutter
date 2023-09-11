@@ -224,7 +224,7 @@ class DescribeTransitGatewayPolicyTablesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           transitGatewayPolicyTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -239,7 +239,7 @@ class DescribeTransitGatewayPolicyTablesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

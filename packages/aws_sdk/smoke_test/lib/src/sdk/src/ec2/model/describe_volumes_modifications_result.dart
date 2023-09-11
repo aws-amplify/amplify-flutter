@@ -153,7 +153,7 @@ class DescribeVolumesModificationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           volumesModifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VolumeModification)],
           ),

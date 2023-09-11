@@ -148,7 +148,7 @@ class DescribeSecurityGroupsResultEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SecurityGroup)],
           ),

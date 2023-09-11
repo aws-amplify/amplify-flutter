@@ -168,7 +168,7 @@ class DeleteQueuedReservedInstancesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           successfulQueuedPurchaseDeletions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SuccessfulQueuedPurchaseDeletion)],
           ),
@@ -183,7 +183,7 @@ class DeleteQueuedReservedInstancesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           failedQueuedPurchaseDeletions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FailedQueuedPurchaseDeletion)],
           ),

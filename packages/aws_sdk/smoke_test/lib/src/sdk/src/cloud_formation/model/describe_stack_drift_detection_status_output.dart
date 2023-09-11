@@ -261,14 +261,14 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i2
         ..add(const _i2.XmlElementName('StackDriftStatus'))
         ..add(serializers.serialize(
           stackDriftStatus,
-          specifiedType: const FullType.nullable(StackDriftStatus),
+          specifiedType: const FullType(StackDriftStatus),
         ));
     }
     result$
       ..add(const _i2.XmlElementName('DetectionStatus'))
       ..add(serializers.serialize(
         detectionStatus,
-        specifiedType: const FullType.nullable(StackDriftDetectionStatus),
+        specifiedType: const FullType(StackDriftDetectionStatus),
       ));
     if (detectionStatusReason != null) {
       result$
@@ -283,14 +283,14 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i2
         ..add(const _i2.XmlElementName('DriftedStackResourceCount'))
         ..add(serializers.serialize(
           driftedStackResourceCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$
       ..add(const _i2.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     return result$;
   }

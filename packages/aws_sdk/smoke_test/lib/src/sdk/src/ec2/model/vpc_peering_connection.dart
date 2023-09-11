@@ -214,7 +214,7 @@ class VpcPeeringConnectionEc2QuerySerializer
         ..add(const _i3.XmlElementName('ExpirationTime'))
         ..add(serializers.serialize(
           expirationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (requesterVpcInfo != null) {
@@ -242,7 +242,7 @@ class VpcPeeringConnectionEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

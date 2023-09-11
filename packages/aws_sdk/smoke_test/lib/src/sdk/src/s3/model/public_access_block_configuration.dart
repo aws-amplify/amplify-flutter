@@ -180,7 +180,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('BlockPublicAcls'))
         ..add(serializers.serialize(
           blockPublicAcls,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (blockPublicPolicy != null) {
@@ -188,7 +188,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('BlockPublicPolicy'))
         ..add(serializers.serialize(
           blockPublicPolicy,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (ignorePublicAcls != null) {
@@ -196,7 +196,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('IgnorePublicAcls'))
         ..add(serializers.serialize(
           ignorePublicAcls,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (restrictPublicBuckets != null) {
@@ -204,7 +204,7 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('RestrictPublicBuckets'))
         ..add(serializers.serialize(
           restrictPublicBuckets,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

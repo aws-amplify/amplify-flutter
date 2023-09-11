@@ -178,7 +178,7 @@ class InternetGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           attachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InternetGatewayAttachment)],
           ),
@@ -209,7 +209,7 @@ class InternetGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

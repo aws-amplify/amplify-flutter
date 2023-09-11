@@ -138,7 +138,7 @@ class FpgaInfoEc2QuerySerializer
         ).serialize(
           serializers,
           fpgas,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FpgaDeviceInfo)],
           ),
@@ -149,7 +149,7 @@ class FpgaInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('TotalFpgaMemoryInMiB'))
         ..add(serializers.serialize(
           totalFpgaMemoryInMib,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

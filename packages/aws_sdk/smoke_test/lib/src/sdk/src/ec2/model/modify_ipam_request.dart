@@ -236,7 +236,7 @@ class ModifyIpamRequestEc2QuerySerializer
             .serialize(
           serializers,
           addOperatingRegions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AddIpamOperatingRegion)],
           ),
@@ -250,7 +250,7 @@ class ModifyIpamRequestEc2QuerySerializer
             .serialize(
           serializers,
           removeOperatingRegions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RemoveIpamOperatingRegion)],
           ),

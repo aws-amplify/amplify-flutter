@@ -590,7 +590,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
           usePreviousTemplate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (parameters != null) {
@@ -601,7 +601,7 @@ class UpdateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -615,7 +615,7 @@ class UpdateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Capability)],
           ),
@@ -629,7 +629,7 @@ class UpdateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),
@@ -672,7 +672,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(PermissionModels),
+          specifiedType: const FullType(PermissionModels),
         ));
     }
     if (autoDeployment != null) {
@@ -699,7 +699,7 @@ class UpdateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           accounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -713,7 +713,7 @@ class UpdateStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           regions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -724,7 +724,7 @@ class UpdateStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     if (managedExecution != null) {

@@ -374,7 +374,7 @@ class FlowLogEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (deliverLogsErrorMessage != null) {
@@ -446,7 +446,7 @@ class FlowLogEc2QuerySerializer
         ..add(const _i3.XmlElementName('TrafficType'))
         ..add(serializers.serialize(
           trafficType,
-          specifiedType: const FullType.nullable(TrafficType),
+          specifiedType: const FullType(TrafficType),
         ));
     }
     if (logDestinationType != null) {
@@ -454,7 +454,7 @@ class FlowLogEc2QuerySerializer
         ..add(const _i3.XmlElementName('LogDestinationType'))
         ..add(serializers.serialize(
           logDestinationType,
-          specifiedType: const FullType.nullable(LogDestinationType),
+          specifiedType: const FullType(LogDestinationType),
         ));
     }
     if (logDestination != null) {
@@ -482,7 +482,7 @@ class FlowLogEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

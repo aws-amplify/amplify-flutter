@@ -154,7 +154,7 @@ class GetHostReservationPurchasePreviewRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           hostIdSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

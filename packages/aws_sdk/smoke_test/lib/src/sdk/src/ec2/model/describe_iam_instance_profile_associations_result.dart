@@ -158,7 +158,7 @@ class DescribeIamInstanceProfileAssociationsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           iamInstanceProfileAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IamInstanceProfileAssociation)],
           ),

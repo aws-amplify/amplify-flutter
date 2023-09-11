@@ -129,8 +129,7 @@ class RouteTableAssociationStateEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(RouteTableAssociationStateCode),
+          specifiedType: const FullType(RouteTableAssociationStateCode),
         ));
     }
     if (statusMessage != null) {

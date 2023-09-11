@@ -334,7 +334,7 @@ class AssociateVpcCidrBlockRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Ipv4NetmaskLength'))
         ..add(serializers.serialize(
           ipv4NetmaskLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (ipv6IpamPoolId != null) {
@@ -350,7 +350,7 @@ class AssociateVpcCidrBlockRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Ipv6NetmaskLength'))
         ..add(serializers.serialize(
           ipv6NetmaskLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

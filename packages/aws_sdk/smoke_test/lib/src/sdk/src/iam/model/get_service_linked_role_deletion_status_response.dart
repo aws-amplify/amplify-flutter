@@ -147,7 +147,7 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i2
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(DeletionTaskStatusType),
+        specifiedType: const FullType(DeletionTaskStatusType),
       ));
     if (reason != null) {
       result$

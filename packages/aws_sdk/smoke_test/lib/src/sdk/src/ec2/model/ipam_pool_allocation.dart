@@ -243,8 +243,7 @@ class IpamPoolAllocationEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(IpamPoolAllocationResourceType),
+          specifiedType: const FullType(IpamPoolAllocationResourceType),
         ));
     }
     if (resourceRegion != null) {

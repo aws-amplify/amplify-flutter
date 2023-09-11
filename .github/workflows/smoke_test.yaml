@@ -24,7 +24,8 @@ permissions: read-all
 jobs:
   smoke_test:
     name: Smoke Test
-    runs-on: ubuntu-latest
+    runs-on:
+      labels: amplify-flutter_ubuntu-latest_4-core
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0

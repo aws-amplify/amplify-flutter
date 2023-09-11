@@ -548,7 +548,7 @@ class IpamPoolEc2QuerySerializer
         ..add(const _i3.XmlElementName('IpamScopeType'))
         ..add(serializers.serialize(
           ipamScopeType,
-          specifiedType: const FullType.nullable(IpamScopeType),
+          specifiedType: const FullType(IpamScopeType),
         ));
     }
     if (ipamArn != null) {
@@ -586,7 +586,7 @@ class IpamPoolEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(IpamPoolState),
+          specifiedType: const FullType(IpamPoolState),
         ));
     }
     if (stateMessage != null) {
@@ -622,7 +622,7 @@ class IpamPoolEc2QuerySerializer
         ..add(const _i3.XmlElementName('AddressFamily'))
         ..add(serializers.serialize(
           addressFamily,
-          specifiedType: const FullType.nullable(AddressFamily),
+          specifiedType: const FullType(AddressFamily),
         ));
     }
     result$
@@ -652,7 +652,7 @@ class IpamPoolEc2QuerySerializer
         ).serialize(
           serializers,
           allocationResourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamResourceTag)],
           ),
@@ -667,7 +667,7 @@ class IpamPoolEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -678,7 +678,7 @@ class IpamPoolEc2QuerySerializer
         ..add(const _i3.XmlElementName('AwsService'))
         ..add(serializers.serialize(
           awsService,
-          specifiedType: const FullType.nullable(IpamPoolAwsService),
+          specifiedType: const FullType(IpamPoolAwsService),
         ));
     }
     if (publicIpSource != null) {
@@ -686,7 +686,7 @@ class IpamPoolEc2QuerySerializer
         ..add(const _i3.XmlElementName('PublicIpSource'))
         ..add(serializers.serialize(
           publicIpSource,
-          specifiedType: const FullType.nullable(IpamPoolPublicIpSource),
+          specifiedType: const FullType(IpamPoolPublicIpSource),
         ));
     }
     return result$;

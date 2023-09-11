@@ -246,7 +246,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i3.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           accessControlList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Grant)],
           ),
@@ -263,7 +263,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i3.XmlElementName('CannedACL'))
         ..add(serializers.serialize(
           cannedAcl,
-          specifiedType: const FullType.nullable(ObjectCannedAcl),
+          specifiedType: const FullType(ObjectCannedAcl),
         ));
     }
     if (encryption != null) {
@@ -285,7 +285,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i3.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(StorageClass),
+          specifiedType: const FullType(StorageClass),
         ));
     }
     if (tagging != null) {
@@ -303,7 +303,7 @@ class S3LocationRestXmlSerializer
             .serialize(
           serializers,
           userMetadata,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(MetadataEntry)],
           ),

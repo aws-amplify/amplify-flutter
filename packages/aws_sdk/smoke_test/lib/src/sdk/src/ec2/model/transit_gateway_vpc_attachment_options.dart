@@ -153,7 +153,7 @@ class TransitGatewayVpcAttachmentOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('DnsSupport'))
         ..add(serializers.serialize(
           dnsSupport,
-          specifiedType: const FullType.nullable(DnsSupportValue),
+          specifiedType: const FullType(DnsSupportValue),
         ));
     }
     if (ipv6Support != null) {
@@ -161,7 +161,7 @@ class TransitGatewayVpcAttachmentOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Ipv6Support'))
         ..add(serializers.serialize(
           ipv6Support,
-          specifiedType: const FullType.nullable(Ipv6SupportValue),
+          specifiedType: const FullType(Ipv6SupportValue),
         ));
     }
     if (applianceModeSupport != null) {
@@ -169,7 +169,7 @@ class TransitGatewayVpcAttachmentOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('ApplianceModeSupport'))
         ..add(serializers.serialize(
           applianceModeSupport,
-          specifiedType: const FullType.nullable(ApplianceModeSupportValue),
+          specifiedType: const FullType(ApplianceModeSupportValue),
         ));
     }
     return result$;

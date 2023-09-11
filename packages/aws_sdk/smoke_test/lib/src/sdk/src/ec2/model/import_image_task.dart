@@ -492,7 +492,7 @@ class ImportImageTaskEc2QuerySerializer
         ).serialize(
           serializers,
           snapshotDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SnapshotDetail)],
           ),
@@ -523,7 +523,7 @@ class ImportImageTaskEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -538,7 +538,7 @@ class ImportImageTaskEc2QuerySerializer
         ).serialize(
           serializers,
           licenseSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ImportImageLicenseConfigurationResponse)],
           ),
@@ -557,7 +557,7 @@ class ImportImageTaskEc2QuerySerializer
         ..add(const _i3.XmlElementName('BootMode'))
         ..add(serializers.serialize(
           bootMode,
-          specifiedType: const FullType.nullable(BootModeValues),
+          specifiedType: const FullType(BootModeValues),
         ));
     }
     return result$;

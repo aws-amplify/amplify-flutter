@@ -112,7 +112,7 @@ class ServerSideEncryptionConfigurationRestXmlSerializer
         .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(ServerSideEncryptionRule)],
       ),

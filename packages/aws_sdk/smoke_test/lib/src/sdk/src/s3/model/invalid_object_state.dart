@@ -155,7 +155,7 @@ class InvalidObjectStateRestXmlSerializer
         ..add(const _i2.XmlElementName('AccessTier'))
         ..add(serializers.serialize(
           accessTier,
-          specifiedType: const FullType.nullable(IntelligentTieringAccessTier),
+          specifiedType: const FullType(IntelligentTieringAccessTier),
         ));
     }
     if (storageClass != null) {
@@ -163,7 +163,7 @@ class InvalidObjectStateRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(StorageClass),
+          specifiedType: const FullType(StorageClass),
         ));
     }
     return result$;

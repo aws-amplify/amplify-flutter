@@ -232,7 +232,7 @@ class DescribeVerifiedAccessInstanceLoggingConfigurationsRequestEc2QuerySerializ
         ).serialize(
           serializers,
           verifiedAccessInstanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -261,7 +261,7 @@ class DescribeVerifiedAccessInstanceLoggingConfigurationsRequestEc2QuerySerializ
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

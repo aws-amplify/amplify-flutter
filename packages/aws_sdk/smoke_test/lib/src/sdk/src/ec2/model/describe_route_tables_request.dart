@@ -259,7 +259,7 @@ class DescribeRouteTablesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -280,7 +280,7 @@ class DescribeRouteTablesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           routeTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

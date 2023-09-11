@@ -173,7 +173,7 @@ class ListMfaDevicesResponseAwsQuerySerializer
               .serialize(
         serializers,
         mfaDevices,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(MfaDevice)],
         ),

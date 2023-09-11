@@ -137,7 +137,7 @@ class CancelSpotInstanceRequestsResultEc2QuerySerializer
         ).serialize(
           serializers,
           cancelledSpotInstanceRequests,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CancelledSpotInstanceRequest)],
           ),

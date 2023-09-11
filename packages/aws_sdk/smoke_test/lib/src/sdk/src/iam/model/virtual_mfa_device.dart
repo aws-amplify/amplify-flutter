@@ -218,7 +218,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ..add(const _i4.XmlElementName('Base32StringSeed'))
         ..add(serializers.serialize(
           base32StringSeed,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     if (qrCodePng != null) {
@@ -226,7 +226,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ..add(const _i4.XmlElementName('QRCodePNG'))
         ..add(serializers.serialize(
           qrCodePng,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     if (user != null) {
@@ -242,7 +242,7 @@ class VirtualMfaDeviceAwsQuerySerializer
         ..add(const _i4.XmlElementName('EnableDate'))
         ..add(serializers.serialize(
           enableDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -253,7 +253,7 @@ class VirtualMfaDeviceAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

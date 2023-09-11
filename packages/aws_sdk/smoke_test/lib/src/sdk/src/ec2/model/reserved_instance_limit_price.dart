@@ -141,7 +141,7 @@ class ReservedInstanceLimitPriceEc2QuerySerializer
         ..add(const _i2.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     return result$;

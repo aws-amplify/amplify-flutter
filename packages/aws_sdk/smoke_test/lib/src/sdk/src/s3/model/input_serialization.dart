@@ -161,7 +161,7 @@ class InputSerializationRestXmlSerializer
         ..add(const _i2.XmlElementName('CompressionType'))
         ..add(serializers.serialize(
           compressionType,
-          specifiedType: const FullType.nullable(CompressionType),
+          specifiedType: const FullType(CompressionType),
         ));
     }
     if (csv != null) {

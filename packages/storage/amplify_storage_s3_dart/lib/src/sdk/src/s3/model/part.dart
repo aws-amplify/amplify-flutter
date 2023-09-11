@@ -264,7 +264,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ..add(const _i3.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (partNumber != null) {
@@ -272,7 +272,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ..add(const _i3.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
           partNumber,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (size != null) {
@@ -280,7 +280,7 @@ class PartRestXmlSerializer extends _i3.StructuredSmithySerializer<Part> {
         ..add(const _i3.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

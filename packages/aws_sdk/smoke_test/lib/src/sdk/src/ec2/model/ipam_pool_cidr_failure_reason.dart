@@ -129,7 +129,7 @@ class IpamPoolCidrFailureReasonEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(IpamPoolCidrFailureCode),
+          specifiedType: const FullType(IpamPoolCidrFailureCode),
         ));
     }
     if (message != null) {

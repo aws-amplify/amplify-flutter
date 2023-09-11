@@ -199,7 +199,7 @@ class AcceptReservedInstancesExchangeQuoteRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           reservedInstanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -214,7 +214,7 @@ class AcceptReservedInstancesExchangeQuoteRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           targetConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TargetConfigurationRequest)],
           ),

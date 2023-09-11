@@ -446,7 +446,7 @@ class RegisterImageRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Architecture'))
         ..add(serializers.serialize(
           architecture,
-          specifiedType: const FullType.nullable(ArchitectureValues),
+          specifiedType: const FullType(ArchitectureValues),
         ));
     }
     if (blockDeviceMappings != null) {
@@ -458,7 +458,7 @@ class RegisterImageRequestEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -509,7 +509,7 @@ class RegisterImageRequestEc2QuerySerializer
         ).serialize(
           serializers,
           billingProducts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -552,7 +552,7 @@ class RegisterImageRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('BootMode'))
         ..add(serializers.serialize(
           bootMode,
-          specifiedType: const FullType.nullable(BootModeValues),
+          specifiedType: const FullType(BootModeValues),
         ));
     }
     if (tpmSupport != null) {
@@ -560,7 +560,7 @@ class RegisterImageRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TpmSupport'))
         ..add(serializers.serialize(
           tpmSupport,
-          specifiedType: const FullType.nullable(TpmSupportValues),
+          specifiedType: const FullType(TpmSupportValues),
         ));
     }
     if (uefiData != null) {
@@ -576,7 +576,7 @@ class RegisterImageRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ImdsSupport'))
         ..add(serializers.serialize(
           imdsSupport,
-          specifiedType: const FullType.nullable(ImdsSupportValues),
+          specifiedType: const FullType(ImdsSupportValues),
         ));
     }
     return result$;

@@ -114,7 +114,7 @@ class GetBucketRequestPaymentOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Payer'))
         ..add(serializers.serialize(
           payer,
-          specifiedType: const FullType.nullable(Payer),
+          specifiedType: const FullType(Payer),
         ));
     }
     return result$;

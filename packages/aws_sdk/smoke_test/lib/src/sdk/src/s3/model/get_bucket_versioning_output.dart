@@ -134,7 +134,7 @@ class GetBucketVersioningOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
           mfaDelete,
-          specifiedType: const FullType.nullable(MfaDeleteStatus),
+          specifiedType: const FullType(MfaDeleteStatus),
         ));
     }
     if (status != null) {
@@ -142,7 +142,7 @@ class GetBucketVersioningOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(BucketVersioningStatus),
+          specifiedType: const FullType(BucketVersioningStatus),
         ));
     }
     return result$;

@@ -129,7 +129,7 @@ class DescribePlacementGroupsResultEc2QuerySerializer
         ).serialize(
           serializers,
           placementGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PlacementGroup)],
           ),

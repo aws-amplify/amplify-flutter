@@ -376,7 +376,7 @@ class RoleDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (assumeRolePolicyDocument != null) {
@@ -395,7 +395,7 @@ class RoleDetailAwsQuerySerializer
             .serialize(
           serializers,
           instanceProfileList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceProfile)],
           ),
@@ -409,7 +409,7 @@ class RoleDetailAwsQuerySerializer
             .serialize(
           serializers,
           rolePolicyList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyDetail)],
           ),
@@ -423,7 +423,7 @@ class RoleDetailAwsQuerySerializer
             .serialize(
           serializers,
           attachedManagedPolicies,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AttachedPolicy)],
           ),
@@ -445,7 +445,7 @@ class RoleDetailAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

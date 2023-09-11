@@ -155,7 +155,7 @@ class ListStackInstanceResourceDriftsOutputAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           summaries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StackInstanceResourceDriftsSummary)],
           ),

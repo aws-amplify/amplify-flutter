@@ -183,7 +183,7 @@ class ListAttachedGroupPoliciesResponseAwsQuerySerializer
             .serialize(
           serializers,
           attachedPolicies,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AttachedPolicy)],
           ),

@@ -222,7 +222,7 @@ class AssignIpv6AddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -243,7 +243,7 @@ class AssignIpv6AddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

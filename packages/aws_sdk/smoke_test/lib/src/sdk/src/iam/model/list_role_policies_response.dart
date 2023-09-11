@@ -174,7 +174,7 @@ class ListRolePoliciesResponseAwsQuerySerializer
               .serialize(
         serializers,
         policyNames,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),

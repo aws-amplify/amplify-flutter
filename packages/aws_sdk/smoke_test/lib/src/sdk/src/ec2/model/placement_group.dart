@@ -251,7 +251,7 @@ class PlacementGroupEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(PlacementGroupState),
+          specifiedType: const FullType(PlacementGroupState),
         ));
     }
     if (strategy != null) {
@@ -259,7 +259,7 @@ class PlacementGroupEc2QuerySerializer
         ..add(const _i3.XmlElementName('Strategy'))
         ..add(serializers.serialize(
           strategy,
-          specifiedType: const FullType.nullable(PlacementStrategy),
+          specifiedType: const FullType(PlacementStrategy),
         ));
     }
     result$
@@ -285,7 +285,7 @@ class PlacementGroupEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -304,7 +304,7 @@ class PlacementGroupEc2QuerySerializer
         ..add(const _i3.XmlElementName('SpreadLevel'))
         ..add(serializers.serialize(
           spreadLevel,
-          specifiedType: const FullType.nullable(SpreadLevel),
+          specifiedType: const FullType(SpreadLevel),
         ));
     }
     return result$;

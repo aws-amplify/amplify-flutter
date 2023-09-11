@@ -108,7 +108,7 @@ class S3KeyFilterRestXmlSerializer
           const _i3.XmlBuiltListSerializer(memberName: 'FilterRule').serialize(
         serializers,
         filterRules,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(FilterRule)],
         ),

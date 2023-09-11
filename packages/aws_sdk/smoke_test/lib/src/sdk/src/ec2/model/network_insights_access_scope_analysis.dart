@@ -323,7 +323,7 @@ class NetworkInsightsAccessScopeAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(AnalysisStatus),
+          specifiedType: const FullType(AnalysisStatus),
         ));
     }
     if (statusMessage != null) {
@@ -347,7 +347,7 @@ class NetworkInsightsAccessScopeAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartDate'))
         ..add(serializers.serialize(
           startDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDate != null) {
@@ -355,7 +355,7 @@ class NetworkInsightsAccessScopeAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (findingsFound != null) {
@@ -363,7 +363,7 @@ class NetworkInsightsAccessScopeAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('FindingsFound'))
         ..add(serializers.serialize(
           findingsFound,
-          specifiedType: const FullType.nullable(FindingsFound),
+          specifiedType: const FullType(FindingsFound),
         ));
     }
     result$
@@ -381,7 +381,7 @@ class NetworkInsightsAccessScopeAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

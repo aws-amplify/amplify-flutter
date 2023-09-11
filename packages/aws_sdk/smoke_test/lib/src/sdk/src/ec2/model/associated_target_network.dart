@@ -136,7 +136,7 @@ class AssociatedTargetNetworkEc2QuerySerializer
         ..add(const _i2.XmlElementName('NetworkType'))
         ..add(serializers.serialize(
           networkType,
-          specifiedType: const FullType.nullable(AssociatedNetworkType),
+          specifiedType: const FullType(AssociatedNetworkType),
         ));
     }
     return result$;

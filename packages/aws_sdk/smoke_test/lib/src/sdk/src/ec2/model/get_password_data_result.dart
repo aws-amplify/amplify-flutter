@@ -65,7 +65,7 @@ abstract class GetPasswordDataResult
       )
       ..add(
         'passwordData',
-        passwordData,
+        '***SENSITIVE***',
       )
       ..add(
         'timestamp',
@@ -164,7 +164,7 @@ class GetPasswordDataResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('Timestamp'))
         ..add(serializers.serialize(
           timestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

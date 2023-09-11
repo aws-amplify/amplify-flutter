@@ -165,7 +165,7 @@ class ModifyVpcTenancyRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(VpcTenancy),
+          specifiedType: const FullType(VpcTenancy),
         ));
     }
     result$

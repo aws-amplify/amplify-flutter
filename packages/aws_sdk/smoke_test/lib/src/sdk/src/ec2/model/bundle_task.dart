@@ -260,7 +260,7 @@ class BundleTaskEc2QuerySerializer
         ..add(const _i2.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (state != null) {
@@ -268,7 +268,7 @@ class BundleTaskEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(BundleTaskState),
+          specifiedType: const FullType(BundleTaskState),
         ));
     }
     if (storage != null) {
@@ -284,7 +284,7 @@ class BundleTaskEc2QuerySerializer
         ..add(const _i2.XmlElementName('UpdateTime'))
         ..add(serializers.serialize(
           updateTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

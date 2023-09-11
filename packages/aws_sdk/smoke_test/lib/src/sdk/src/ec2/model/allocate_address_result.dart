@@ -264,7 +264,7 @@ class AllocateAddressResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('Domain'))
         ..add(serializers.serialize(
           domain,
-          specifiedType: const FullType.nullable(DomainType),
+          specifiedType: const FullType(DomainType),
         ));
     }
     if (customerOwnedIp != null) {

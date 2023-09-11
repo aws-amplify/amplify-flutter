@@ -321,7 +321,7 @@ class SnapshotInfoEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -346,7 +346,7 @@ class SnapshotInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(SnapshotState),
+          specifiedType: const FullType(SnapshotState),
         ));
     }
     result$
@@ -360,7 +360,7 @@ class SnapshotInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (progress != null) {
@@ -400,7 +400,7 @@ class SnapshotInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('SseType'))
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType.nullable(SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     return result$;

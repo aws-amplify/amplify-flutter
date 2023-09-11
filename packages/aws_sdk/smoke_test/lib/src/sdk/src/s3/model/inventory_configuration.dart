@@ -242,14 +242,14 @@ class InventoryConfigurationRestXmlSerializer
       ..add(const _i3.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
         includedObjectVersions,
-        specifiedType: const FullType.nullable(InventoryIncludedObjectVersions),
+        specifiedType: const FullType(InventoryIncludedObjectVersions),
       ));
     if (isEnabled != null) {
       result$
         ..add(const _i3.XmlElementName('IsEnabled'))
         ..add(serializers.serialize(
           isEnabled,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (optionalFields != null) {
@@ -258,7 +258,7 @@ class InventoryConfigurationRestXmlSerializer
         ..add(const _i3.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
           optionalFields,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InventoryOptionalField)],
           ),

@@ -154,7 +154,7 @@ class DescribeTrafficMirrorSessionsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           trafficMirrorSessions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrafficMirrorSession)],
           ),

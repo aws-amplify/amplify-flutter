@@ -247,7 +247,7 @@ class DescribeAvailabilityZonesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -262,7 +262,7 @@ class DescribeAvailabilityZonesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           zoneNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -277,7 +277,7 @@ class DescribeAvailabilityZonesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           zoneIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

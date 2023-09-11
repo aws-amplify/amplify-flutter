@@ -168,7 +168,7 @@ class ResetAddressAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(AddressAttributeName),
+          specifiedType: const FullType(AddressAttributeName),
         ));
     }
     result$

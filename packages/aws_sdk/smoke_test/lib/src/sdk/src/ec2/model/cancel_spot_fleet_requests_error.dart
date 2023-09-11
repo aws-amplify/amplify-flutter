@@ -131,7 +131,7 @@ class CancelSpotFleetRequestsErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(CancelBatchErrorCode),
+          specifiedType: const FullType(CancelBatchErrorCode),
         ));
     }
     if (message != null) {

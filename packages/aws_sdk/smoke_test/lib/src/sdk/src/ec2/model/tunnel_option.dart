@@ -610,7 +610,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase1EncryptionAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1EncryptionAlgorithmsListValue)],
           ),
@@ -625,7 +625,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase2EncryptionAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2EncryptionAlgorithmsListValue)],
           ),
@@ -640,7 +640,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase1IntegrityAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1IntegrityAlgorithmsListValue)],
           ),
@@ -655,7 +655,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase2IntegrityAlgorithms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2IntegrityAlgorithmsListValue)],
           ),
@@ -670,7 +670,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase1DhGroupNumbers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase1DhGroupNumbersListValue)],
           ),
@@ -685,7 +685,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           phase2DhGroupNumbers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Phase2DhGroupNumbersListValue)],
           ),
@@ -700,7 +700,7 @@ class TunnelOptionEc2QuerySerializer
         ).serialize(
           serializers,
           ikeVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IkeVersionsListValue)],
           ),

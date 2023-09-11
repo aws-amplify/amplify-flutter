@@ -134,7 +134,7 @@ class MovingAddressStatusEc2QuerySerializer
         ..add(const _i2.XmlElementName('MoveStatus'))
         ..add(serializers.serialize(
           moveStatus,
-          specifiedType: const FullType.nullable(MoveStatus),
+          specifiedType: const FullType(MoveStatus),
         ));
     }
     if (publicIp != null) {

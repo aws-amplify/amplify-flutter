@@ -449,7 +449,7 @@ class CreateIpamPoolRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('AddressFamily'))
         ..add(serializers.serialize(
           addressFamily,
-          specifiedType: const FullType.nullable(AddressFamily),
+          specifiedType: const FullType(AddressFamily),
         ));
     }
     result$
@@ -491,7 +491,7 @@ class CreateIpamPoolRequestEc2QuerySerializer
         ).serialize(
           serializers,
           allocationResourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RequestIpamResourceTag)],
           ),
@@ -506,7 +506,7 @@ class CreateIpamPoolRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -525,7 +525,7 @@ class CreateIpamPoolRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('AwsService'))
         ..add(serializers.serialize(
           awsService,
-          specifiedType: const FullType.nullable(IpamPoolAwsService),
+          specifiedType: const FullType(IpamPoolAwsService),
         ));
     }
     if (publicIpSource != null) {
@@ -533,7 +533,7 @@ class CreateIpamPoolRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('PublicIpSource'))
         ..add(serializers.serialize(
           publicIpSource,
-          specifiedType: const FullType.nullable(IpamPoolPublicIpSource),
+          specifiedType: const FullType(IpamPoolPublicIpSource),
         ));
     }
     return result$;

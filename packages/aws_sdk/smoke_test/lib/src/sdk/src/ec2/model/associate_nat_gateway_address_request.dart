@@ -208,7 +208,7 @@ class AssociateNatGatewayAddressRequestEc2QuerySerializer
         ).serialize(
           serializers,
           allocationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -223,7 +223,7 @@ class AssociateNatGatewayAddressRequestEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

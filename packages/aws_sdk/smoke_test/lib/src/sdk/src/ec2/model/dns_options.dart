@@ -138,7 +138,7 @@ class DnsOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('DnsRecordIpType'))
         ..add(serializers.serialize(
           dnsRecordIpType,
-          specifiedType: const FullType.nullable(DnsRecordIpType),
+          specifiedType: const FullType(DnsRecordIpType),
         ));
     }
     result$

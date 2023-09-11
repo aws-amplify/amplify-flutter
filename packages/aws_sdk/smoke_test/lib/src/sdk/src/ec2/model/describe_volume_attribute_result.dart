@@ -175,7 +175,7 @@ class DescribeVolumeAttributeResultEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),

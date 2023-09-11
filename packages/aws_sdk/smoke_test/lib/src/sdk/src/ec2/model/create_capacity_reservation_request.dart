@@ -429,8 +429,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstancePlatform'))
         ..add(serializers.serialize(
           instancePlatform,
-          specifiedType:
-              const FullType.nullable(CapacityReservationInstancePlatform),
+          specifiedType: const FullType(CapacityReservationInstancePlatform),
         ));
     }
     if (availabilityZone != null) {
@@ -454,7 +453,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType: const FullType.nullable(CapacityReservationTenancy),
+          specifiedType: const FullType(CapacityReservationTenancy),
         ));
     }
     result$
@@ -480,7 +479,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDateType != null) {
@@ -488,7 +487,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndDateType'))
         ..add(serializers.serialize(
           endDateType,
-          specifiedType: const FullType.nullable(EndDateType),
+          specifiedType: const FullType(EndDateType),
         ));
     }
     if (instanceMatchCriteria != null) {
@@ -496,7 +495,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceMatchCriteria'))
         ..add(serializers.serialize(
           instanceMatchCriteria,
-          specifiedType: const FullType.nullable(InstanceMatchCriteria),
+          specifiedType: const FullType(InstanceMatchCriteria),
         ));
     }
     if (tagSpecifications != null) {
@@ -508,7 +507,7 @@ class CreateCapacityReservationRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

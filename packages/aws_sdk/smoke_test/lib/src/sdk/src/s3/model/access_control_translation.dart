@@ -107,7 +107,7 @@ class AccessControlTranslationRestXmlSerializer
       ..add(const _i2.XmlElementName('Owner'))
       ..add(serializers.serialize(
         owner,
-        specifiedType: const FullType.nullable(OwnerOverride),
+        specifiedType: const FullType(OwnerOverride),
       ));
     return result$;
   }

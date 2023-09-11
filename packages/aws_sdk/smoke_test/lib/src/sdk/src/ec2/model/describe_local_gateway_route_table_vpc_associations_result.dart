@@ -162,7 +162,7 @@ class DescribeLocalGatewayRouteTableVpcAssociationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           localGatewayRouteTableVpcAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalGatewayRouteTableVpcAssociation)],
           ),

@@ -790,7 +790,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           cpuManufacturers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CpuManufacturer)],
           ),
@@ -813,7 +813,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           excludedInstanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -828,7 +828,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           instanceGenerations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceGeneration)],
           ),
@@ -852,7 +852,7 @@ class InstanceRequirementsEc2QuerySerializer
         ..add(const _i3.XmlElementName('BareMetal'))
         ..add(serializers.serialize(
           bareMetal,
-          specifiedType: const FullType.nullable(BareMetal),
+          specifiedType: const FullType(BareMetal),
         ));
     }
     if (burstablePerformance != null) {
@@ -860,7 +860,7 @@ class InstanceRequirementsEc2QuerySerializer
         ..add(const _i3.XmlElementName('BurstablePerformance'))
         ..add(serializers.serialize(
           burstablePerformance,
-          specifiedType: const FullType.nullable(BurstablePerformance),
+          specifiedType: const FullType(BurstablePerformance),
         ));
     }
     result$
@@ -882,7 +882,7 @@ class InstanceRequirementsEc2QuerySerializer
         ..add(const _i3.XmlElementName('LocalStorage'))
         ..add(serializers.serialize(
           localStorage,
-          specifiedType: const FullType.nullable(LocalStorage),
+          specifiedType: const FullType(LocalStorage),
         ));
     }
     if (localStorageTypes != null) {
@@ -894,7 +894,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           localStorageTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalStorageType)],
           ),
@@ -925,7 +925,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           acceleratorTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AcceleratorType)],
           ),
@@ -948,7 +948,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           acceleratorManufacturers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AcceleratorManufacturer)],
           ),
@@ -963,7 +963,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           acceleratorNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AcceleratorName)],
           ),
@@ -994,7 +994,7 @@ class InstanceRequirementsEc2QuerySerializer
         ).serialize(
           serializers,
           allowedInstanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

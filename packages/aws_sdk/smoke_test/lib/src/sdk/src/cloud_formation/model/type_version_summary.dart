@@ -239,7 +239,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RegistryType),
+          specifiedType: const FullType(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -263,7 +263,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (arn != null) {
@@ -279,7 +279,7 @@ class TypeVersionSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (description != null) {

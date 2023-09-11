@@ -141,7 +141,7 @@ class ProgressRestXmlSerializer
         ..add(const _i3.XmlElementName('BytesProcessed'))
         ..add(serializers.serialize(
           bytesProcessed,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (bytesReturned != null) {
@@ -149,7 +149,7 @@ class ProgressRestXmlSerializer
         ..add(const _i3.XmlElementName('BytesReturned'))
         ..add(serializers.serialize(
           bytesReturned,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (bytesScanned != null) {
@@ -157,7 +157,7 @@ class ProgressRestXmlSerializer
         ..add(const _i3.XmlElementName('BytesScanned'))
         ..add(serializers.serialize(
           bytesScanned,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

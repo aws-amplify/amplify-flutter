@@ -185,13 +185,13 @@ class IntelligentTieringConfigurationRestXmlSerializer
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(IntelligentTieringStatus),
+        specifiedType: const FullType(IntelligentTieringStatus),
       ));
     result$.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
       tierings,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(Tiering)],
       ),

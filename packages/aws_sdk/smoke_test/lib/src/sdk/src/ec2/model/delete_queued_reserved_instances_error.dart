@@ -133,8 +133,7 @@ class DeleteQueuedReservedInstancesErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType:
-              const FullType.nullable(DeleteQueuedReservedInstancesErrorCode),
+          specifiedType: const FullType(DeleteQueuedReservedInstancesErrorCode),
         ));
     }
     if (message != null) {

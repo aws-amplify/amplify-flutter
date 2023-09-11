@@ -85,13 +85,13 @@ abstract class CreateDomainNameRequest
   /// \[Deprecated\] The intermediate certificates and optionally the root certificate, one after the other without any blank lines, used by an edge-optimized endpoint for this domain name. If you include the root certificate, your certificate chain must start with intermediate certificates and end with the root certificate. Use the intermediate certificates that were provided by your certificate authority. Do not include any intermediaries that are not in the chain of trust path.
   String? get certificateChain;
 
-  /// The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
+  /// The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this domain name. Certificate Manager is the only supported source.
   String? get certificateArn;
 
   /// The user-friendly name of the certificate that will be used by regional endpoint for this domain name.
   String? get regionalCertificateName;
 
-  /// The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS Certificate Manager is the only supported source.
+  /// The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for this domain name. Certificate Manager is the only supported source.
   String? get regionalCertificateArn;
 
   /// The endpoint configuration of this DomainName showing the endpoint types of the domain name.

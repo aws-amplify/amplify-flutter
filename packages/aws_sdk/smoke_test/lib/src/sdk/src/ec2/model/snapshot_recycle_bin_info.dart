@@ -186,7 +186,7 @@ class SnapshotRecycleBinInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('RecycleBinEnterTime'))
         ..add(serializers.serialize(
           recycleBinEnterTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (recycleBinExitTime != null) {
@@ -194,7 +194,7 @@ class SnapshotRecycleBinInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('RecycleBinExitTime'))
         ..add(serializers.serialize(
           recycleBinExitTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (description != null) {

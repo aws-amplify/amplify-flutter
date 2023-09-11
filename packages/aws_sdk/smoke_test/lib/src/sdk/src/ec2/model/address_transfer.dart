@@ -218,7 +218,7 @@ class AddressTransferEc2QuerySerializer
         ..add(const _i2.XmlElementName('TransferOfferExpirationTimestamp'))
         ..add(serializers.serialize(
           transferOfferExpirationTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (transferOfferAcceptedTimestamp != null) {
@@ -226,7 +226,7 @@ class AddressTransferEc2QuerySerializer
         ..add(const _i2.XmlElementName('TransferOfferAcceptedTimestamp'))
         ..add(serializers.serialize(
           transferOfferAcceptedTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (addressTransferStatus != null) {
@@ -234,7 +234,7 @@ class AddressTransferEc2QuerySerializer
         ..add(const _i2.XmlElementName('AddressTransferStatus'))
         ..add(serializers.serialize(
           addressTransferStatus,
-          specifiedType: const FullType.nullable(AddressTransferStatus),
+          specifiedType: const FullType(AddressTransferStatus),
         ));
     }
     return result$;

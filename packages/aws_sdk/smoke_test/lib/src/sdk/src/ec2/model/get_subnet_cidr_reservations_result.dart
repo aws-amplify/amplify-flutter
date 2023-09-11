@@ -180,7 +180,7 @@ class GetSubnetCidrReservationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIpv4CidrReservations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SubnetCidrReservation)],
           ),
@@ -195,7 +195,7 @@ class GetSubnetCidrReservationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIpv6CidrReservations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SubnetCidrReservation)],
           ),

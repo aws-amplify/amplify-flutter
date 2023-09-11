@@ -247,7 +247,7 @@ class RouteTableEc2QuerySerializer
         ).serialize(
           serializers,
           associations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RouteTableAssociation)],
           ),
@@ -262,7 +262,7 @@ class RouteTableEc2QuerySerializer
         ).serialize(
           serializers,
           propagatingVgws,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PropagatingVgw)],
           ),
@@ -285,7 +285,7 @@ class RouteTableEc2QuerySerializer
         ).serialize(
           serializers,
           routes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Route)],
           ),
@@ -300,7 +300,7 @@ class RouteTableEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

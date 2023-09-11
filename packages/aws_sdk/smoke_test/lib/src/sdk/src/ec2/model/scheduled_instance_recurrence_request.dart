@@ -218,7 +218,7 @@ class ScheduledInstanceRecurrenceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           occurrenceDays,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),

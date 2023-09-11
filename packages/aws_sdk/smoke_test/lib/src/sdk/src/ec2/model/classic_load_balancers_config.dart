@@ -124,7 +124,7 @@ class ClassicLoadBalancersConfigEc2QuerySerializer
         ).serialize(
           serializers,
           classicLoadBalancers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ClassicLoadBalancer)],
           ),

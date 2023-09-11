@@ -150,7 +150,7 @@ class DescribeNetworkInterfacesResultEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInterface)],
           ),

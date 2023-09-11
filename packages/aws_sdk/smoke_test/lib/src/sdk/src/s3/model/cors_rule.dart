@@ -196,7 +196,7 @@ class CorsRuleRestXmlSerializer
               .serialize(
         serializers,
         allowedHeaders,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -206,7 +206,7 @@ class CorsRuleRestXmlSerializer
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedMethod').serialize(
       serializers,
       allowedMethods,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(String)],
       ),
@@ -215,7 +215,7 @@ class CorsRuleRestXmlSerializer
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedOrigin').serialize(
       serializers,
       allowedOrigins,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(String)],
       ),
@@ -226,7 +226,7 @@ class CorsRuleRestXmlSerializer
               .serialize(
         serializers,
         exposeHeaders,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -245,7 +245,7 @@ class CorsRuleRestXmlSerializer
         ..add(const _i3.XmlElementName('MaxAgeSeconds'))
         ..add(serializers.serialize(
           maxAgeSeconds,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

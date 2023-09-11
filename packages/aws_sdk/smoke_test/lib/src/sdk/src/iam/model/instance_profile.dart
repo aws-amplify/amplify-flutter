@@ -285,7 +285,7 @@ class InstanceProfileAwsQuerySerializer
       ..add(const _i3.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i3.XmlElementName('Roles'))
@@ -294,7 +294,7 @@ class InstanceProfileAwsQuerySerializer
               .serialize(
         serializers,
         roles,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(Role)],
         ),
@@ -307,7 +307,7 @@ class InstanceProfileAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

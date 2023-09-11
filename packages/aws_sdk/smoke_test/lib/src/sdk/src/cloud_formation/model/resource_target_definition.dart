@@ -154,7 +154,7 @@ class ResourceTargetDefinitionAwsQuerySerializer
         ..add(const _i2.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(ResourceAttribute),
+          specifiedType: const FullType(ResourceAttribute),
         ));
     }
     if (name != null) {
@@ -170,7 +170,7 @@ class ResourceTargetDefinitionAwsQuerySerializer
         ..add(const _i2.XmlElementName('RequiresRecreation'))
         ..add(serializers.serialize(
           requiresRecreation,
-          specifiedType: const FullType.nullable(RequiresRecreation),
+          specifiedType: const FullType(RequiresRecreation),
         ));
     }
     return result$;

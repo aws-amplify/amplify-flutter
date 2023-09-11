@@ -469,7 +469,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GroupIdentifier)],
           ),
@@ -484,7 +484,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceIpv6Address)],
           ),
@@ -539,7 +539,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstancePrivateIpAddress)],
           ),
@@ -556,7 +556,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(NetworkInterfaceStatus),
+          specifiedType: const FullType(NetworkInterfaceStatus),
         ));
     }
     if (subnetId != null) {
@@ -592,7 +592,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceIpv4Prefix)],
           ),
@@ -607,7 +607,7 @@ class InstanceNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceIpv6Prefix)],
           ),

@@ -154,7 +154,7 @@ class DescribeVpcEndpointConnectionsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           vpcEndpointConnections,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpcEndpointConnection)],
           ),

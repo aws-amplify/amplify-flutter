@@ -197,7 +197,7 @@ class RedirectRestXmlSerializer
         ..add(const _i2.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(Protocol),
+          specifiedType: const FullType(Protocol),
         ));
     }
     if (replaceKeyPrefixWith != null) {

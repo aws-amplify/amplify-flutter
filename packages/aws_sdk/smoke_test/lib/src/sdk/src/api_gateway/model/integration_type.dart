@@ -5,7 +5,7 @@ library smoke_test.api_gateway.model.integration_type; // ignore_for_file: no_le
 
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The integration type. The valid value is `HTTP` for integrating an API method with an HTTP backend; `AWS` with any AWS service endpoints; `MOCK` for testing without actually invoking the backend; `HTTP_PROXY` for integrating with the HTTP proxy integration; `AWS_PROXY` for integrating with the Lambda proxy integration.
+/// The integration type. The valid value is `HTTP` for integrating an API method with an HTTP backend; `AWS` with any Amazon Web Services service endpoints; `MOCK` for testing without actually invoking the backend; `HTTP_PROXY` for integrating with the HTTP proxy integration; `AWS_PROXY` for integrating with the Lambda proxy integration.
 class IntegrationType extends _i1.SmithyEnum<IntegrationType> {
   const IntegrationType._(
     super.index,

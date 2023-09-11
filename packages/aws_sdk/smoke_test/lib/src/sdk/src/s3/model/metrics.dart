@@ -133,7 +133,7 @@ class MetricsRestXmlSerializer extends _i2.StructuredSmithySerializer<Metrics> {
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(MetricsStatus),
+        specifiedType: const FullType(MetricsStatus),
       ));
     return result$;
   }

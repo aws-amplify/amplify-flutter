@@ -224,7 +224,7 @@ class ChangeSetHookAwsQuerySerializer
         ..add(const _i2.XmlElementName('InvocationPoint'))
         ..add(serializers.serialize(
           invocationPoint,
-          specifiedType: const FullType.nullable(HookInvocationPoint),
+          specifiedType: const FullType(HookInvocationPoint),
         ));
     }
     if (failureMode != null) {
@@ -232,7 +232,7 @@ class ChangeSetHookAwsQuerySerializer
         ..add(const _i2.XmlElementName('FailureMode'))
         ..add(serializers.serialize(
           failureMode,
-          specifiedType: const FullType.nullable(HookFailureMode),
+          specifiedType: const FullType(HookFailureMode),
         ));
     }
     if (typeName != null) {

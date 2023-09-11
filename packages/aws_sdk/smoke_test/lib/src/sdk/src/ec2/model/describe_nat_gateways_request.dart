@@ -235,7 +235,7 @@ class DescribeNatGatewaysRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filter,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -256,7 +256,7 @@ class DescribeNatGatewaysRequestEc2QuerySerializer
         ).serialize(
           serializers,
           natGatewayIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

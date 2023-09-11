@@ -257,7 +257,7 @@ class CreateSnapshotsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -274,7 +274,7 @@ class CreateSnapshotsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('CopyTagsFromSource'))
         ..add(serializers.serialize(
           copyTagsFromSource,
-          specifiedType: const FullType.nullable(CopyTagsFromSource),
+          specifiedType: const FullType(CopyTagsFromSource),
         ));
     }
     return result$;

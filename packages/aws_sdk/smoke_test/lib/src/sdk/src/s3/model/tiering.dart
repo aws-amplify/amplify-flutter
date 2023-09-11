@@ -124,14 +124,14 @@ class TieringRestXmlSerializer extends _i2.StructuredSmithySerializer<Tiering> {
       ..add(const _i2.XmlElementName('AccessTier'))
       ..add(serializers.serialize(
         accessTier,
-        specifiedType: const FullType.nullable(IntelligentTieringAccessTier),
+        specifiedType: const FullType(IntelligentTieringAccessTier),
       ));
     if (days != null) {
       result$
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

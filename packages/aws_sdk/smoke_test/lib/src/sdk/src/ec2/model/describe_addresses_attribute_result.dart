@@ -148,7 +148,7 @@ class DescribeAddressesAttributeResultEc2QuerySerializer
         ).serialize(
           serializers,
           addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AddressAttribute)],
           ),

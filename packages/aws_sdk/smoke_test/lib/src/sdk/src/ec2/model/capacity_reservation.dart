@@ -565,8 +565,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstancePlatform'))
         ..add(serializers.serialize(
           instancePlatform,
-          specifiedType:
-              const FullType.nullable(CapacityReservationInstancePlatform),
+          specifiedType: const FullType(CapacityReservationInstancePlatform),
         ));
     }
     if (availabilityZone != null) {
@@ -582,7 +581,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType: const FullType.nullable(CapacityReservationTenancy),
+          specifiedType: const FullType(CapacityReservationTenancy),
         ));
     }
     result$
@@ -614,7 +613,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(CapacityReservationState),
+          specifiedType: const FullType(CapacityReservationState),
         ));
     }
     if (startDate != null) {
@@ -622,7 +621,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartDate'))
         ..add(serializers.serialize(
           startDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDate != null) {
@@ -630,7 +629,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDateType != null) {
@@ -638,7 +637,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('EndDateType'))
         ..add(serializers.serialize(
           endDateType,
-          specifiedType: const FullType.nullable(EndDateType),
+          specifiedType: const FullType(EndDateType),
         ));
     }
     if (instanceMatchCriteria != null) {
@@ -646,7 +645,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceMatchCriteria'))
         ..add(serializers.serialize(
           instanceMatchCriteria,
-          specifiedType: const FullType.nullable(InstanceMatchCriteria),
+          specifiedType: const FullType(InstanceMatchCriteria),
         ));
     }
     if (createDate != null) {
@@ -654,7 +653,7 @@ class CapacityReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -666,7 +665,7 @@ class CapacityReservationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -705,7 +704,7 @@ class CapacityReservationEc2QuerySerializer
         ).serialize(
           serializers,
           capacityAllocations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CapacityAllocation)],
           ),

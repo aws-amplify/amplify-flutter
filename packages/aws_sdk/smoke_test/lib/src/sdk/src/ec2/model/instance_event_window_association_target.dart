@@ -178,7 +178,7 @@ class InstanceEventWindowAssociationTargetEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           instanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -193,7 +193,7 @@ class InstanceEventWindowAssociationTargetEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -208,7 +208,7 @@ class InstanceEventWindowAssociationTargetEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           dedicatedHostIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

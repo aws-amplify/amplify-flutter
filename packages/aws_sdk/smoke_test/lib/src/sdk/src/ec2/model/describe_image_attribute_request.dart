@@ -164,7 +164,7 @@ class DescribeImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(ImageAttributeName),
+          specifiedType: const FullType(ImageAttributeName),
         ));
     }
     if (imageId != null) {

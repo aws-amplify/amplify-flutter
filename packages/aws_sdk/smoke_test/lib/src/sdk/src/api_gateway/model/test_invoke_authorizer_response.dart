@@ -73,7 +73,7 @@ abstract class TestInvokeAuthorizerResponse
   /// The API Gateway execution log for the test authorizer request.
   String? get log;
 
-  /// The execution latency of the test authorizer request.
+  /// The execution latency, in ms, of the test authorizer request.
   _i2.Int64 get latency;
 
   /// The principal identity returned by the Authorizer

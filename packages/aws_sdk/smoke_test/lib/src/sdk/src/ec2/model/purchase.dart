@@ -240,7 +240,7 @@ class PurchaseEc2QuerySerializer
         ..add(const _i3.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     result$
@@ -258,7 +258,7 @@ class PurchaseEc2QuerySerializer
         ).serialize(
           serializers,
           hostIdSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -293,7 +293,7 @@ class PurchaseEc2QuerySerializer
         ..add(const _i3.XmlElementName('PaymentOption'))
         ..add(serializers.serialize(
           paymentOption,
-          specifiedType: const FullType.nullable(PaymentOption),
+          specifiedType: const FullType(PaymentOption),
         ));
     }
     if (upfrontPrice != null) {

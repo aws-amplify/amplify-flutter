@@ -217,7 +217,7 @@ class HostOfferingEc2QuerySerializer
         ..add(const _i2.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     result$
@@ -255,7 +255,7 @@ class HostOfferingEc2QuerySerializer
         ..add(const _i2.XmlElementName('PaymentOption'))
         ..add(serializers.serialize(
           paymentOption,
-          specifiedType: const FullType.nullable(PaymentOption),
+          specifiedType: const FullType(PaymentOption),
         ));
     }
     if (upfrontPrice != null) {

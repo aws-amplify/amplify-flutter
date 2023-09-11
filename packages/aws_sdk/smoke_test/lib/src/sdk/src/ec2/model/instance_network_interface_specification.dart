@@ -529,7 +529,7 @@ class InstanceNetworkInterfaceSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -550,7 +550,7 @@ class InstanceNetworkInterfaceSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceIpv6Address)],
           ),
@@ -581,7 +581,7 @@ class InstanceNetworkInterfaceSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PrivateIpAddressSpecification)],
           ),
@@ -630,7 +630,7 @@ class InstanceNetworkInterfaceSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv4PrefixSpecificationRequest)],
           ),
@@ -651,7 +651,7 @@ class InstanceNetworkInterfaceSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6PrefixSpecificationRequest)],
           ),

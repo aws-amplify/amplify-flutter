@@ -207,7 +207,7 @@ class VolumeAttachmentEc2QuerySerializer
         ..add(const _i2.XmlElementName('AttachTime'))
         ..add(serializers.serialize(
           attachTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (device != null) {
@@ -231,7 +231,7 @@ class VolumeAttachmentEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(VolumeAttachmentState),
+          specifiedType: const FullType(VolumeAttachmentState),
         ));
     }
     if (volumeId != null) {

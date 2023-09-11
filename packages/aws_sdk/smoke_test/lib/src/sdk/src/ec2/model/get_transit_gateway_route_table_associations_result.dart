@@ -155,7 +155,7 @@ class GetTransitGatewayRouteTableAssociationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           associations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayRouteTableAssociation)],
           ),

@@ -246,7 +246,7 @@ class ListTypeVersionsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RegistryType),
+          specifiedType: const FullType(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -270,7 +270,7 @@ class ListTypeVersionsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {
@@ -286,7 +286,7 @@ class ListTypeVersionsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
-          specifiedType: const FullType.nullable(DeprecatedStatus),
+          specifiedType: const FullType(DeprecatedStatus),
         ));
     }
     if (publisherId != null) {

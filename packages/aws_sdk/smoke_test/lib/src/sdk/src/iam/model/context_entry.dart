@@ -176,7 +176,7 @@ class ContextEntryAwsQuerySerializer
             .serialize(
           serializers,
           contextKeyValues,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -187,7 +187,7 @@ class ContextEntryAwsQuerySerializer
         ..add(const _i3.XmlElementName('ContextKeyType'))
         ..add(serializers.serialize(
           contextKeyType,
-          specifiedType: const FullType.nullable(ContextKeyTypeEnum),
+          specifiedType: const FullType(ContextKeyTypeEnum),
         ));
     }
     return result$;

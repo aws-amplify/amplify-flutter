@@ -110,7 +110,7 @@ class TaggingRestXmlSerializer extends _i3.StructuredSmithySerializer<Tagging> {
       ..add(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(Tag)],
         ),

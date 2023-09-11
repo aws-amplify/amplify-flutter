@@ -314,7 +314,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
             .serialize(
           serializers,
           accounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -335,7 +335,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
               .serialize(
         serializers,
         regions,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -348,7 +348,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
             .serialize(
           serializers,
           parameterOverrides,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -375,7 +375,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

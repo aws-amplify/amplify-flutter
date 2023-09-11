@@ -140,7 +140,7 @@ class GrantRestXmlSerializer extends _i2.StructuredSmithySerializer<Grant> {
         ..add(const _i2.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
-          specifiedType: const FullType.nullable(Permission),
+          specifiedType: const FullType(Permission),
         ));
     }
     return result$;

@@ -441,7 +441,7 @@ class ModifyClientVpnEndpointRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -460,7 +460,7 @@ class ModifyClientVpnEndpointRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('SelfServicePortal'))
         ..add(serializers.serialize(
           selfServicePortal,
-          specifiedType: const FullType.nullable(SelfServicePortal),
+          specifiedType: const FullType(SelfServicePortal),
         ));
     }
     if (clientConnectOptions != null) {

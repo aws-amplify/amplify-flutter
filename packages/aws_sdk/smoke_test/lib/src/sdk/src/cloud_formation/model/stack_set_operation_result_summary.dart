@@ -235,7 +235,7 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackSetOperationResultStatus),
+          specifiedType: const FullType(StackSetOperationResultStatus),
         ));
     }
     if (statusReason != null) {

@@ -148,7 +148,7 @@ class NoncurrentVersionTransitionRestXmlSerializer
         ..add(const _i2.XmlElementName('NewerNoncurrentVersions'))
         ..add(serializers.serialize(
           newerNoncurrentVersions,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (noncurrentDays != null) {
@@ -156,7 +156,7 @@ class NoncurrentVersionTransitionRestXmlSerializer
         ..add(const _i2.XmlElementName('NoncurrentDays'))
         ..add(serializers.serialize(
           noncurrentDays,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (storageClass != null) {
@@ -164,7 +164,7 @@ class NoncurrentVersionTransitionRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(TransitionStorageClass),
+          specifiedType: const FullType(TransitionStorageClass),
         ));
     }
     return result$;

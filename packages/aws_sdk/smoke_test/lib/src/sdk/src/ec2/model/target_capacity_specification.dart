@@ -218,7 +218,7 @@ class TargetCapacitySpecificationEc2QuerySerializer
         ..add(const _i2.XmlElementName('DefaultTargetCapacityType'))
         ..add(serializers.serialize(
           defaultTargetCapacityType,
-          specifiedType: const FullType.nullable(DefaultTargetCapacityType),
+          specifiedType: const FullType(DefaultTargetCapacityType),
         ));
     }
     if (targetCapacityUnitType != null) {
@@ -226,7 +226,7 @@ class TargetCapacitySpecificationEc2QuerySerializer
         ..add(const _i2.XmlElementName('TargetCapacityUnitType'))
         ..add(serializers.serialize(
           targetCapacityUnitType,
-          specifiedType: const FullType.nullable(TargetCapacityUnitType),
+          specifiedType: const FullType(TargetCapacityUnitType),
         ));
     }
     return result$;

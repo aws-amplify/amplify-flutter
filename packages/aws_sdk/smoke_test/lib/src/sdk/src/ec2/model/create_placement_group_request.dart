@@ -244,7 +244,7 @@ class CreatePlacementGroupRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Strategy'))
         ..add(serializers.serialize(
           strategy,
-          specifiedType: const FullType.nullable(PlacementStrategy),
+          specifiedType: const FullType(PlacementStrategy),
         ));
     }
     result$
@@ -262,7 +262,7 @@ class CreatePlacementGroupRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -273,7 +273,7 @@ class CreatePlacementGroupRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('SpreadLevel'))
         ..add(serializers.serialize(
           spreadLevel,
-          specifiedType: const FullType.nullable(SpreadLevel),
+          specifiedType: const FullType(SpreadLevel),
         ));
     }
     return result$;

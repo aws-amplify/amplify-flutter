@@ -368,7 +368,7 @@ class ScheduledInstancesNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -389,7 +389,7 @@ class ScheduledInstancesNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstancesIpv6Address)],
           ),
@@ -420,7 +420,7 @@ class ScheduledInstancesNetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddressConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstancesPrivateIpAddressConfig)],
           ),

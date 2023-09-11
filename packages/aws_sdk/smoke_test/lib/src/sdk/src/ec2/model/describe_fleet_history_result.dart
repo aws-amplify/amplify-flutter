@@ -199,7 +199,7 @@ class DescribeFleetHistoryResultEc2QuerySerializer
         ).serialize(
           serializers,
           historyRecords,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(HistoryRecordEntry)],
           ),
@@ -210,7 +210,7 @@ class DescribeFleetHistoryResultEc2QuerySerializer
         ..add(const _i3.XmlElementName('LastEvaluatedTime'))
         ..add(serializers.serialize(
           lastEvaluatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (nextToken != null) {
@@ -234,7 +234,7 @@ class DescribeFleetHistoryResultEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

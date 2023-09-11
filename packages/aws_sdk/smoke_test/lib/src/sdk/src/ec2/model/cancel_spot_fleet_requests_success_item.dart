@@ -151,7 +151,7 @@ class CancelSpotFleetRequestsSuccessItemEc2QuerySerializer
         ..add(const _i2.XmlElementName('CurrentSpotFleetRequestState'))
         ..add(serializers.serialize(
           currentSpotFleetRequestState,
-          specifiedType: const FullType.nullable(BatchState),
+          specifiedType: const FullType(BatchState),
         ));
     }
     if (previousSpotFleetRequestState != null) {
@@ -159,7 +159,7 @@ class CancelSpotFleetRequestsSuccessItemEc2QuerySerializer
         ..add(const _i2.XmlElementName('PreviousSpotFleetRequestState'))
         ..add(serializers.serialize(
           previousSpotFleetRequestState,
-          specifiedType: const FullType.nullable(BatchState),
+          specifiedType: const FullType(BatchState),
         ));
     }
     if (spotFleetRequestId != null) {

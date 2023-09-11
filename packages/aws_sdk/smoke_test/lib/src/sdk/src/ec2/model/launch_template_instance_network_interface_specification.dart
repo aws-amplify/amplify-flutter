@@ -532,7 +532,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -561,7 +561,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceIpv6Address)],
           ),
@@ -592,7 +592,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PrivateIpAddressSpecification)],
           ),
@@ -627,7 +627,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv4PrefixSpecificationResponse)],
           ),
@@ -648,7 +648,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6PrefixSpecificationResponse)],
           ),

@@ -231,8 +231,7 @@ class ModifySpotFleetRequestRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ExcessCapacityTerminationPolicy'))
         ..add(serializers.serialize(
           excessCapacityTerminationPolicy,
-          specifiedType:
-              const FullType.nullable(ExcessCapacityTerminationPolicy),
+          specifiedType: const FullType(ExcessCapacityTerminationPolicy),
         ));
     }
     if (launchTemplateConfigs != null) {
@@ -244,7 +243,7 @@ class ModifySpotFleetRequestRequestEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(LaunchTemplateConfig)],
           ),

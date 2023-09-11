@@ -157,7 +157,7 @@ class DescribeVerifiedAccessTrustProvidersResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           verifiedAccessTrustProviders,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VerifiedAccessTrustProvider)],
           ),

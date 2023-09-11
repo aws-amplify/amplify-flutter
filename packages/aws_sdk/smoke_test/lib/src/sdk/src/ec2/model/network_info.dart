@@ -324,7 +324,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('MaximumNetworkInterfaces'))
         ..add(serializers.serialize(
           maximumNetworkInterfaces,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maximumNetworkCards != null) {
@@ -332,7 +332,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('MaximumNetworkCards'))
         ..add(serializers.serialize(
           maximumNetworkCards,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (defaultNetworkCardIndex != null) {
@@ -340,7 +340,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('DefaultNetworkCardIndex'))
         ..add(serializers.serialize(
           defaultNetworkCardIndex,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (networkCards != null) {
@@ -352,7 +352,7 @@ class NetworkInfoEc2QuerySerializer
         ).serialize(
           serializers,
           networkCards,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkCardInfo)],
           ),
@@ -363,7 +363,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Ipv4AddressesPerInterface'))
         ..add(serializers.serialize(
           ipv4AddressesPerInterface,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (ipv6AddressesPerInterface != null) {
@@ -371,7 +371,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Ipv6AddressesPerInterface'))
         ..add(serializers.serialize(
           ipv6AddressesPerInterface,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (ipv6Supported != null) {
@@ -379,7 +379,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Ipv6Supported'))
         ..add(serializers.serialize(
           ipv6Supported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (enaSupport != null) {
@@ -387,7 +387,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('EnaSupport'))
         ..add(serializers.serialize(
           enaSupport,
-          specifiedType: const FullType.nullable(EnaSupport),
+          specifiedType: const FullType(EnaSupport),
         ));
     }
     if (efaSupported != null) {
@@ -395,7 +395,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('EfaSupported'))
         ..add(serializers.serialize(
           efaSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (efaInfo != null) {
@@ -411,7 +411,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('EncryptionInTransitSupported'))
         ..add(serializers.serialize(
           encryptionInTransitSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (enaSrdSupported != null) {
@@ -419,7 +419,7 @@ class NetworkInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('EnaSrdSupported'))
         ..add(serializers.serialize(
           enaSrdSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

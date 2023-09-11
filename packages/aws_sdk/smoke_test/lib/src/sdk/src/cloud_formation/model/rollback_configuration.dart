@@ -172,7 +172,7 @@ class RollbackConfigurationAwsQuerySerializer
             .serialize(
           serializers,
           rollbackTriggers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RollbackTrigger)],
           ),
@@ -183,7 +183,7 @@ class RollbackConfigurationAwsQuerySerializer
         ..add(const _i3.XmlElementName('MonitoringTimeInMinutes'))
         ..add(serializers.serialize(
           monitoringTimeInMinutes,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

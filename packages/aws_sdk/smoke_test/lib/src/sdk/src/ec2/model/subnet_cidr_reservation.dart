@@ -245,7 +245,7 @@ class SubnetCidrReservationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ReservationType'))
         ..add(serializers.serialize(
           reservationType,
-          specifiedType: const FullType.nullable(SubnetCidrReservationType),
+          specifiedType: const FullType(SubnetCidrReservationType),
         ));
     }
     if (ownerId != null) {
@@ -273,7 +273,7 @@ class SubnetCidrReservationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

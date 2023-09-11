@@ -223,8 +223,7 @@ class TransitGatewayConnectPeerEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(TransitGatewayConnectPeerState),
+          specifiedType: const FullType(TransitGatewayConnectPeerState),
         ));
     }
     if (creationTime != null) {
@@ -232,7 +231,7 @@ class TransitGatewayConnectPeerEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (connectPeerConfiguration != null) {
@@ -252,7 +251,7 @@ class TransitGatewayConnectPeerEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

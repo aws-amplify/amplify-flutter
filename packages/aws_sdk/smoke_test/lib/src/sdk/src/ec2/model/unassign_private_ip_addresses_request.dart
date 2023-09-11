@@ -188,7 +188,7 @@ class UnassignPrivateIpAddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -203,7 +203,7 @@ class UnassignPrivateIpAddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

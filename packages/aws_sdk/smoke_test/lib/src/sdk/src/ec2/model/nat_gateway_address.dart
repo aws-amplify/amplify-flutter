@@ -286,7 +286,7 @@ class NatGatewayAddressEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(NatGatewayAddressStatus),
+          specifiedType: const FullType(NatGatewayAddressStatus),
         ));
     }
     return result$;

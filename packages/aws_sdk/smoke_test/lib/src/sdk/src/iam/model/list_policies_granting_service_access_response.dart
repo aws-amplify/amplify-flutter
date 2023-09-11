@@ -185,7 +185,7 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i3
               .serialize(
         serializers,
         policiesGrantingServiceAccess,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(ListPoliciesGrantingServiceAccessEntry)],
         ),

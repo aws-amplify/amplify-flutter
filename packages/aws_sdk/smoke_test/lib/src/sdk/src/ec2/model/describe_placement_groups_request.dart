@@ -220,7 +220,7 @@ class DescribePlacementGroupsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -240,7 +240,7 @@ class DescribePlacementGroupsRequestEc2QuerySerializer
             .serialize(
           serializers,
           groupNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -255,7 +255,7 @@ class DescribePlacementGroupsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           groupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

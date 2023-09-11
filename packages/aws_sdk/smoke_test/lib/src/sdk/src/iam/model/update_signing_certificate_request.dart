@@ -180,7 +180,7 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(StatusType),
+        specifiedType: const FullType(StatusType),
       ));
     return result$;
   }

@@ -216,7 +216,7 @@ class RequiredActivatedTypeAwsQuerySerializer
             .serialize(
           serializers,
           supportedMajorVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),

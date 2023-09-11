@@ -151,7 +151,7 @@ class DescribeSnapshotTierStatusResultEc2QuerySerializer
         ).serialize(
           serializers,
           snapshotTierStatuses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SnapshotTierStatus)],
           ),

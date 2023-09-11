@@ -227,7 +227,7 @@ class DescribeAddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -242,7 +242,7 @@ class DescribeAddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           publicIps,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -257,7 +257,7 @@ class DescribeAddressesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           allocationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

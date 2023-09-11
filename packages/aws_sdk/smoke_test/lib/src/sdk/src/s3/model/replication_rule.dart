@@ -305,7 +305,7 @@ class ReplicationRuleRestXmlSerializer
         ..add(const _i2.XmlElementName('Priority'))
         ..add(serializers.serialize(
           priority,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (sourceSelectionCriteria != null) {
@@ -320,7 +320,7 @@ class ReplicationRuleRestXmlSerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(ReplicationRuleStatus),
+        specifiedType: const FullType(ReplicationRuleStatus),
       ));
     return result$;
   }

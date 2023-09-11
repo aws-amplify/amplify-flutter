@@ -184,8 +184,7 @@ class TransitGatewayRouteTableAssociationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(TransitGatewayAttachmentResourceType),
+          specifiedType: const FullType(TransitGatewayAttachmentResourceType),
         ));
     }
     if (state != null) {
@@ -193,8 +192,7 @@ class TransitGatewayRouteTableAssociationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(TransitGatewayAssociationState),
+          specifiedType: const FullType(TransitGatewayAssociationState),
         ));
     }
     return result$;

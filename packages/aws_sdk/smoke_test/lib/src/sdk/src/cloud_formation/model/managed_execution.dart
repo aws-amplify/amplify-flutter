@@ -119,7 +119,7 @@ class ManagedExecutionAwsQuerySerializer
         ..add(const _i2.XmlElementName('Active'))
         ..add(serializers.serialize(
           active,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

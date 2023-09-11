@@ -153,7 +153,7 @@ class InstanceTagNotificationAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           instanceTagKeys,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

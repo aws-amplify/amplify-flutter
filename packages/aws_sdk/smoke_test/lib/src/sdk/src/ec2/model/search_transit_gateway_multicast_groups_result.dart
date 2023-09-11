@@ -155,7 +155,7 @@ class SearchTransitGatewayMulticastGroupsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           multicastGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayMulticastGroup)],
           ),

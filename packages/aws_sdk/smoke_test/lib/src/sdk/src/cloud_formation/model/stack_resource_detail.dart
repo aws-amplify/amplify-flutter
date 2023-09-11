@@ -336,13 +336,13 @@ class StackResourceDetailAwsQuerySerializer
       ..add(const _i2.XmlElementName('LastUpdatedTimestamp'))
       ..add(serializers.serialize(
         lastUpdatedTimestamp,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i2.XmlElementName('ResourceStatus'))
       ..add(serializers.serialize(
         resourceStatus,
-        specifiedType: const FullType.nullable(ResourceStatus),
+        specifiedType: const FullType(ResourceStatus),
       ));
     if (resourceStatusReason != null) {
       result$

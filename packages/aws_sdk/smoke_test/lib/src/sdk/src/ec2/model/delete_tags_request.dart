@@ -183,7 +183,7 @@ class DeleteTagsRequestEc2QuerySerializer
             .serialize(
           serializers,
           resources,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -198,7 +198,7 @@ class DeleteTagsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

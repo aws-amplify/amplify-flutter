@@ -205,7 +205,7 @@ class InstanceStatusEventEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(EventCode),
+          specifiedType: const FullType(EventCode),
         ));
     }
     if (description != null) {
@@ -221,7 +221,7 @@ class InstanceStatusEventEc2QuerySerializer
         ..add(const _i2.XmlElementName('NotAfter'))
         ..add(serializers.serialize(
           notAfter,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (notBefore != null) {
@@ -229,7 +229,7 @@ class InstanceStatusEventEc2QuerySerializer
         ..add(const _i2.XmlElementName('NotBefore'))
         ..add(serializers.serialize(
           notBefore,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (notBeforeDeadline != null) {
@@ -237,7 +237,7 @@ class InstanceStatusEventEc2QuerySerializer
         ..add(const _i2.XmlElementName('NotBeforeDeadline'))
         ..add(serializers.serialize(
           notBeforeDeadline,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

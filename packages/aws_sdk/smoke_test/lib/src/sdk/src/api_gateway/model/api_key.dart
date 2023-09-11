@@ -73,7 +73,7 @@ abstract class ApiKey
   /// The name of the API Key.
   String? get name;
 
-  /// An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+  /// An Amazon Web Services Marketplace customer identifier, when integrating with the Amazon Web Services SaaS Marketplace.
   String? get customerId;
 
   /// The description of the API Key.

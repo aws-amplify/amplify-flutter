@@ -158,7 +158,7 @@ class DescribeLocalGatewayVirtualInterfacesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           localGatewayVirtualInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalGatewayVirtualInterface)],
           ),

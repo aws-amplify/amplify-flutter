@@ -148,7 +148,7 @@ class DescribeLaunchTemplatesResultEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplates,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplate)],
           ),

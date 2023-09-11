@@ -64,7 +64,7 @@ abstract class UpdateDocumentationVersionRequest
           _i1.SmithySerializer<UpdateDocumentationVersionRequestPayload>>
       serializers = [UpdateDocumentationVersionRequestRestJson1Serializer()];
 
-  /// The string identifier of the associated RestApi..
+  /// The string identifier of the associated RestApi.
   String get restApiId;
 
   /// The version identifier of the to-be-updated documentation version.

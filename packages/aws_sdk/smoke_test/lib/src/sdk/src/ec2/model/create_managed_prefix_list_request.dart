@@ -272,7 +272,7 @@ class CreateManagedPrefixListRequestEc2QuerySerializer
             .serialize(
           serializers,
           entries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AddPrefixListEntry)],
           ),
@@ -293,7 +293,7 @@ class CreateManagedPrefixListRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

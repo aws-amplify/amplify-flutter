@@ -159,7 +159,7 @@ class HistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('EventType'))
         ..add(serializers.serialize(
           eventType,
-          specifiedType: const FullType.nullable(EventType),
+          specifiedType: const FullType(EventType),
         ));
     }
     if (timestamp != null) {
@@ -167,7 +167,7 @@ class HistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('Timestamp'))
         ..add(serializers.serialize(
           timestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

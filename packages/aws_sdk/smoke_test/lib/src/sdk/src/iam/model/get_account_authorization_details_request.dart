@@ -177,7 +177,7 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
             .serialize(
           serializers,
           filter,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(EntityType)],
           ),
@@ -188,7 +188,7 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (marker != null) {

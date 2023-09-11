@@ -125,7 +125,7 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
         const _i3.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
       objects,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(ObjectIdentifier)],
       ),
@@ -135,7 +135,7 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
         ..add(const _i3.XmlElementName('Quiet'))
         ..add(serializers.serialize(
           quiet,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

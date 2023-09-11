@@ -151,7 +151,7 @@ class LaunchTemplateConfigEc2QuerySerializer
         ).serialize(
           serializers,
           overrides,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateOverrides)],
           ),

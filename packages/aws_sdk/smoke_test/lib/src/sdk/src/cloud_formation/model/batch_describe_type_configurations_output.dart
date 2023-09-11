@@ -191,7 +191,7 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           errors,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BatchDescribeTypeConfigurationsError)],
           ),
@@ -205,7 +205,7 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           unprocessedTypeConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TypeConfigurationIdentifier)],
           ),
@@ -219,7 +219,7 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i3
             .serialize(
           serializers,
           typeConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TypeConfigurationDetails)],
           ),

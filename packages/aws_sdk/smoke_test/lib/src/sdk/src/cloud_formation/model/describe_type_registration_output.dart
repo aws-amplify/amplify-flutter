@@ -182,7 +182,7 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         ..add(const _i2.XmlElementName('ProgressStatus'))
         ..add(serializers.serialize(
           progressStatus,
-          specifiedType: const FullType.nullable(RegistrationStatus),
+          specifiedType: const FullType(RegistrationStatus),
         ));
     }
     if (description != null) {

@@ -223,7 +223,7 @@ class CsvInputRestXmlSerializer
         ..add(const _i2.XmlElementName('AllowQuotedRecordDelimiter'))
         ..add(serializers.serialize(
           allowQuotedRecordDelimiter,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (comments != null) {
@@ -247,7 +247,7 @@ class CsvInputRestXmlSerializer
         ..add(const _i2.XmlElementName('FileHeaderInfo'))
         ..add(serializers.serialize(
           fileHeaderInfo,
-          specifiedType: const FullType.nullable(FileHeaderInfo),
+          specifiedType: const FullType(FileHeaderInfo),
         ));
     }
     if (quoteCharacter != null) {

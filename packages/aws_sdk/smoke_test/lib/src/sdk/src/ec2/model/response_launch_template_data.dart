@@ -752,7 +752,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateBlockDeviceMapping)],
           ),
@@ -767,7 +767,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateInstanceNetworkInterfaceSpecification)],
           ),
@@ -786,7 +786,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (keyName != null) {
@@ -832,7 +832,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceInitiatedShutdownBehavior'))
         ..add(serializers.serialize(
           instanceInitiatedShutdownBehavior,
-          specifiedType: const FullType.nullable(ShutdownBehavior),
+          specifiedType: const FullType(ShutdownBehavior),
         ));
     }
     if (userData != null) {
@@ -852,7 +852,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateTagSpecification)],
           ),
@@ -867,7 +867,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           elasticGpuSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ElasticGpuSpecificationResponse)],
           ),
@@ -882,7 +882,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           elasticInferenceAccelerators,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateElasticInferenceAcceleratorResponse)],
           ),
@@ -897,7 +897,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -912,7 +912,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -960,7 +960,7 @@ class ResponseLaunchTemplateDataEc2QuerySerializer
         ).serialize(
           serializers,
           licenseSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateLicenseConfiguration)],
           ),

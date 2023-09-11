@@ -159,7 +159,7 @@ class DescribeTransitGatewayPeeringAttachmentsResultEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayPeeringAttachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayPeeringAttachment)],
           ),

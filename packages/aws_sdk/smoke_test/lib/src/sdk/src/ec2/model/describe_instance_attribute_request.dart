@@ -163,7 +163,7 @@ class DescribeInstanceAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(InstanceAttributeName),
+          specifiedType: const FullType(InstanceAttributeName),
         ));
     }
     result$

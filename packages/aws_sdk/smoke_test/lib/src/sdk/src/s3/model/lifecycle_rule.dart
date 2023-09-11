@@ -305,7 +305,7 @@ class LifecycleRuleRestXmlSerializer
           .serialize(
         serializers,
         noncurrentVersionTransitions,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(NoncurrentVersionTransition)],
         ),
@@ -323,14 +323,14 @@ class LifecycleRuleRestXmlSerializer
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(ExpirationStatus),
+        specifiedType: const FullType(ExpirationStatus),
       ));
     if (transitions != null) {
       result$.addAll(
           const _i3.XmlBuiltListSerializer(memberName: 'Transition').serialize(
         serializers,
         transitions,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(Transition)],
         ),

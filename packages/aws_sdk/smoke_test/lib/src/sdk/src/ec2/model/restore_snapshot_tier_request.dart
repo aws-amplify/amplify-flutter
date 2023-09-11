@@ -190,7 +190,7 @@ class RestoreSnapshotTierRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TemporaryRestoreDays'))
         ..add(serializers.serialize(
           temporaryRestoreDays,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$

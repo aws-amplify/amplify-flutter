@@ -12,10 +12,11 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/ec2/common/endpoint_resolver.dart';
 import 'package:smoke_test/src/sdk/src/ec2/common/serializers.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_request.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_result.dart';
 
 /// Deletes the specified key pair, by removing the public key from Amazon EC2.
 class DeleteKeyPairOperation extends _i1.HttpOperation<DeleteKeyPairRequest,
-    DeleteKeyPairRequest, _i1.Unit, _i1.Unit> {
+    DeleteKeyPairRequest, DeleteKeyPairResult, DeleteKeyPairResult> {
   /// Deletes the specified key pair, by removing the public key from Amazon EC2.
   DeleteKeyPairOperation({
     required String region,
@@ -32,8 +33,8 @@ class DeleteKeyPairOperation extends _i1.HttpOperation<DeleteKeyPairRequest,
 
   @override
   late final List<
-      _i1.HttpProtocol<DeleteKeyPairRequest, DeleteKeyPairRequest, _i1.Unit,
-          _i1.Unit>> protocols = [
+      _i1.HttpProtocol<DeleteKeyPairRequest, DeleteKeyPairRequest,
+          DeleteKeyPairResult, DeleteKeyPairResult>> protocols = [
     _i3.Ec2QueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,
@@ -79,13 +80,16 @@ class DeleteKeyPairOperation extends _i1.HttpOperation<DeleteKeyPairRequest,
         b.path = r'/';
       });
   @override
-  int successCode([_i1.Unit? output]) => 200;
+  int successCode([DeleteKeyPairResult? output]) => 200;
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
+  DeleteKeyPairResult buildOutput(
+    DeleteKeyPairResult payload,
     _i4.AWSBaseHttpResponse response,
   ) =>
-      payload;
+      DeleteKeyPairResult.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -97,7 +101,7 @@ class DeleteKeyPairOperation extends _i1.HttpOperation<DeleteKeyPairRequest,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i1.Unit> run(
+  _i1.SmithyOperation<DeleteKeyPairResult> run(
     DeleteKeyPairRequest input, {
     _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,

@@ -146,7 +146,7 @@ class InstanceTypeOfferingEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (locationType != null) {
@@ -154,7 +154,7 @@ class InstanceTypeOfferingEc2QuerySerializer
         ..add(const _i2.XmlElementName('LocationType'))
         ..add(serializers.serialize(
           locationType,
-          specifiedType: const FullType.nullable(LocationType),
+          specifiedType: const FullType(LocationType),
         ));
     }
     if (location != null) {

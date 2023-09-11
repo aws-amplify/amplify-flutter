@@ -184,7 +184,7 @@ class ModifyVpcEndpointServicePayerResponsibilityRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('PayerResponsibility'))
         ..add(serializers.serialize(
           payerResponsibility,
-          specifiedType: const FullType.nullable(PayerResponsibility),
+          specifiedType: const FullType(PayerResponsibility),
         ));
     }
     return result$;

@@ -147,7 +147,7 @@ class DeleteFleetSuccessItemEc2QuerySerializer
         ..add(const _i2.XmlElementName('CurrentFleetState'))
         ..add(serializers.serialize(
           currentFleetState,
-          specifiedType: const FullType.nullable(FleetStateCode),
+          specifiedType: const FullType(FleetStateCode),
         ));
     }
     if (previousFleetState != null) {
@@ -155,7 +155,7 @@ class DeleteFleetSuccessItemEc2QuerySerializer
         ..add(const _i2.XmlElementName('PreviousFleetState'))
         ..add(serializers.serialize(
           previousFleetState,
-          specifiedType: const FullType.nullable(FleetStateCode),
+          specifiedType: const FullType(FleetStateCode),
         ));
     }
     if (fleetId != null) {

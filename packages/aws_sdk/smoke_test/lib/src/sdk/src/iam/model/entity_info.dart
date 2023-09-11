@@ -199,7 +199,7 @@ class EntityInfoAwsQuerySerializer
       ..add(const _i2.XmlElementName('Type'))
       ..add(serializers.serialize(
         type,
-        specifiedType: const FullType.nullable(PolicyOwnerEntityType),
+        specifiedType: const FullType(PolicyOwnerEntityType),
       ));
     result$
       ..add(const _i2.XmlElementName('Id'))

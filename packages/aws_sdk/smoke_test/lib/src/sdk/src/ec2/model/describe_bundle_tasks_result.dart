@@ -125,7 +125,7 @@ class DescribeBundleTasksResultEc2QuerySerializer
         ).serialize(
           serializers,
           bundleTasks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BundleTask)],
           ),

@@ -169,7 +169,7 @@ class DescribeScheduledInstanceAvailabilityResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           scheduledInstanceAvailabilitySet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstanceAvailability)],
           ),

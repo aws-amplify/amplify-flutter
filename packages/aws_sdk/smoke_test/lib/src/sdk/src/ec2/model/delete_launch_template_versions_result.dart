@@ -172,7 +172,7 @@ class DeleteLaunchTemplateVersionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           successfullyDeletedLaunchTemplateVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DeleteLaunchTemplateVersionsResponseSuccessItem)],
           ),
@@ -188,7 +188,7 @@ class DeleteLaunchTemplateVersionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessfullyDeletedLaunchTemplateVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DeleteLaunchTemplateVersionsResponseErrorItem)],
           ),

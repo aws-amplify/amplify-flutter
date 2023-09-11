@@ -347,7 +347,7 @@ class ImageAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -370,7 +370,7 @@ class ImageAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           launchPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchPermission)],
           ),
@@ -385,7 +385,7 @@ class ImageAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),

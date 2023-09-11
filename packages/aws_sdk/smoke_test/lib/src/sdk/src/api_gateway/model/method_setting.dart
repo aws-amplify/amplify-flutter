@@ -75,34 +75,34 @@ abstract class MethodSetting
       ..requireAuthorizationForCacheControl = false;
   }
 
-  /// Specifies whether Amazon CloudWatch metrics are enabled for this method. The PATCH path for this setting is `/{method\_setting\_key}/metrics/enabled`, and the value is a Boolean.
+  /// Specifies whether Amazon CloudWatch metrics are enabled for this method.
   bool get metricsEnabled;
 
-  /// Specifies the logging level for this method, which affects the log entries pushed to Amazon CloudWatch Logs. The PATCH path for this setting is `/{method\_setting\_key}/logging/loglevel`, and the available levels are `OFF`, `ERROR`, and `INFO`. Choose `ERROR` to write only error-level entries to CloudWatch Logs, or choose `INFO` to include all `ERROR` events as well as extra informational events.
+  /// Specifies the logging level for this method, which affects the log entries pushed to Amazon CloudWatch Logs. Valid values are `OFF`, `ERROR`, and `INFO`. Choose `ERROR` to write only error-level entries to CloudWatch Logs, or choose `INFO` to include all `ERROR` events as well as extra informational events.
   String? get loggingLevel;
 
-  /// Specifies whether data trace logging is enabled for this method, which affects the log entries pushed to Amazon CloudWatch Logs. The PATCH path for this setting is `/{method\_setting\_key}/logging/dataTrace`, and the value is a Boolean.
+  /// Specifies whether data trace logging is enabled for this method, which affects the log entries pushed to Amazon CloudWatch Logs.
   bool get dataTraceEnabled;
 
-  /// Specifies the throttling burst limit. The PATCH path for this setting is `/{method\_setting\_key}/throttling/burstLimit`, and the value is an integer.
+  /// Specifies the throttling burst limit.
   int get throttlingBurstLimit;
 
-  /// Specifies the throttling rate limit. The PATCH path for this setting is `/{method\_setting\_key}/throttling/rateLimit`, and the value is a double.
+  /// Specifies the throttling rate limit.
   double get throttlingRateLimit;
 
-  /// Specifies whether responses should be cached and returned for requests. A cache cluster must be enabled on the stage for responses to be cached. The PATCH path for this setting is `/{method\_setting\_key}/caching/enabled`, and the value is a Boolean.
+  /// Specifies whether responses should be cached and returned for requests. A cache cluster must be enabled on the stage for responses to be cached.
   bool get cachingEnabled;
 
-  /// Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response will be cached. The PATCH path for this setting is `/{method\_setting\_key}/caching/ttlInSeconds`, and the value is an integer.
+  /// Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response will be cached.
   int get cacheTtlInSeconds;
 
-  /// Specifies whether the cached responses are encrypted. The PATCH path for this setting is `/{method\_setting\_key}/caching/dataEncrypted`, and the value is a Boolean.
+  /// Specifies whether the cached responses are encrypted.
   bool get cacheDataEncrypted;
 
-  /// Specifies whether authorization is required for a cache invalidation request. The PATCH path for this setting is `/{method\_setting\_key}/caching/requireAuthorizationForCacheControl`, and the value is a Boolean.
+  /// Specifies whether authorization is required for a cache invalidation request.
   bool get requireAuthorizationForCacheControl;
 
-  /// Specifies how to handle unauthorized requests for cache invalidation. The PATCH path for this setting is `/{method\_setting\_key}/caching/unauthorizedCacheControlHeaderStrategy`, and the available values are `FAIL\_WITH\_403`, `SUCCEED\_WITH\_RESPONSE_HEADER`, `SUCCEED\_WITHOUT\_RESPONSE_HEADER`.
+  /// Specifies how to handle unauthorized requests for cache invalidation.
   UnauthorizedCacheControlHeaderStrategy?
       get unauthorizedCacheControlHeaderStrategy;
   @override

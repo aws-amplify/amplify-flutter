@@ -598,7 +598,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           dnsServers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -615,7 +615,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('VpnProtocol'))
         ..add(serializers.serialize(
           vpnProtocol,
-          specifiedType: const FullType.nullable(VpnProtocol),
+          specifiedType: const FullType(VpnProtocol),
         ));
     }
     if (transportProtocol != null) {
@@ -623,7 +623,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('TransportProtocol'))
         ..add(serializers.serialize(
           transportProtocol,
-          specifiedType: const FullType.nullable(TransportProtocol),
+          specifiedType: const FullType(TransportProtocol),
         ));
     }
     result$
@@ -641,7 +641,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           associatedTargetNetworks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AssociatedTargetNetwork)],
           ),
@@ -664,7 +664,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           authenticationOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ClientVpnAuthentication)],
           ),
@@ -687,7 +687,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -702,7 +702,7 @@ class ClientVpnEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

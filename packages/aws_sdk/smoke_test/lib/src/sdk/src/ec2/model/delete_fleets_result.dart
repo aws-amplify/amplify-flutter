@@ -161,7 +161,7 @@ class DeleteFleetsResultEc2QuerySerializer
         ).serialize(
           serializers,
           successfulFleetDeletions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DeleteFleetSuccessItem)],
           ),
@@ -176,7 +176,7 @@ class DeleteFleetsResultEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessfulFleetDeletions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DeleteFleetErrorItem)],
           ),

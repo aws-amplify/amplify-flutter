@@ -208,7 +208,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
               .serialize(
         serializers,
         topicConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(TopicConfiguration)],
         ),
@@ -220,7 +220,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
               .serialize(
         serializers,
         queueConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(QueueConfiguration)],
         ),
@@ -232,7 +232,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
           .serialize(
         serializers,
         lambdaFunctionConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(LambdaFunctionConfiguration)],
         ),

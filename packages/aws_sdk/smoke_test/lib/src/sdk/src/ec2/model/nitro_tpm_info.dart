@@ -120,7 +120,7 @@ class NitroTpmInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedVersions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

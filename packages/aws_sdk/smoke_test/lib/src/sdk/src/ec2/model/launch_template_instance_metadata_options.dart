@@ -233,8 +233,8 @@ class LaunchTemplateInstanceMetadataOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(
-              LaunchTemplateInstanceMetadataOptionsState),
+          specifiedType:
+              const FullType(LaunchTemplateInstanceMetadataOptionsState),
         ));
     }
     if (httpTokens != null) {
@@ -242,7 +242,7 @@ class LaunchTemplateInstanceMetadataOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('HttpTokens'))
         ..add(serializers.serialize(
           httpTokens,
-          specifiedType: const FullType.nullable(LaunchTemplateHttpTokensState),
+          specifiedType: const FullType(LaunchTemplateHttpTokensState),
         ));
     }
     result$
@@ -256,8 +256,8 @@ class LaunchTemplateInstanceMetadataOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('HttpEndpoint'))
         ..add(serializers.serialize(
           httpEndpoint,
-          specifiedType: const FullType.nullable(
-              LaunchTemplateInstanceMetadataEndpointState),
+          specifiedType:
+              const FullType(LaunchTemplateInstanceMetadataEndpointState),
         ));
     }
     if (httpProtocolIpv6 != null) {
@@ -265,8 +265,8 @@ class LaunchTemplateInstanceMetadataOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('HttpProtocolIpv6'))
         ..add(serializers.serialize(
           httpProtocolIpv6,
-          specifiedType: const FullType.nullable(
-              LaunchTemplateInstanceMetadataProtocolIpv6),
+          specifiedType:
+              const FullType(LaunchTemplateInstanceMetadataProtocolIpv6),
         ));
     }
     if (instanceMetadataTags != null) {
@@ -275,7 +275,7 @@ class LaunchTemplateInstanceMetadataOptionsEc2QuerySerializer extends _i2
         ..add(serializers.serialize(
           instanceMetadataTags,
           specifiedType:
-              const FullType.nullable(LaunchTemplateInstanceMetadataTagsState),
+              const FullType(LaunchTemplateInstanceMetadataTagsState),
         ));
     }
     return result$;

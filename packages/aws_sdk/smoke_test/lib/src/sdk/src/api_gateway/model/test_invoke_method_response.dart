@@ -79,7 +79,7 @@ abstract class TestInvokeMethodResponse
   /// The API Gateway execution log for the test invoke request.
   String? get log;
 
-  /// The execution latency of the test invoke request.
+  /// The execution latency, in ms, of the test invoke request.
   _i2.Int64 get latency;
   @override
   List<Object?> get props => [

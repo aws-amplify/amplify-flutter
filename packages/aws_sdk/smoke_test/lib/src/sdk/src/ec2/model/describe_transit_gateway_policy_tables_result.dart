@@ -157,7 +157,7 @@ class DescribeTransitGatewayPolicyTablesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           transitGatewayPolicyTables,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayPolicyTable)],
           ),

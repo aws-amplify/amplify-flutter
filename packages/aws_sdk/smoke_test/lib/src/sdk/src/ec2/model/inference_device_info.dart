@@ -159,7 +159,7 @@ class InferenceDeviceInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('Count'))
         ..add(serializers.serialize(
           count,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (name != null) {

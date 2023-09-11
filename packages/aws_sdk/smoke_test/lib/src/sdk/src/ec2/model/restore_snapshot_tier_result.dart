@@ -184,7 +184,7 @@ class RestoreSnapshotTierResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('RestoreStartTime'))
         ..add(serializers.serialize(
           restoreStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

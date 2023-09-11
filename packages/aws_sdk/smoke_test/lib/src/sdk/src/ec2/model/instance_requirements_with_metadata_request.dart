@@ -184,7 +184,7 @@ class InstanceRequirementsWithMetadataRequestEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           architectureTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ArchitectureType)],
           ),
@@ -199,7 +199,7 @@ class InstanceRequirementsWithMetadataRequestEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           virtualizationTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VirtualizationType)],
           ),

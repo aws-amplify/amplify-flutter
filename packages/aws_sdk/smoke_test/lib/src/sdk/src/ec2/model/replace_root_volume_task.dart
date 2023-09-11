@@ -289,7 +289,7 @@ class ReplaceRootVolumeTaskEc2QuerySerializer
         ..add(const _i3.XmlElementName('TaskState'))
         ..add(serializers.serialize(
           taskState,
-          specifiedType: const FullType.nullable(ReplaceRootVolumeTaskState),
+          specifiedType: const FullType(ReplaceRootVolumeTaskState),
         ));
     }
     if (startTime != null) {
@@ -317,7 +317,7 @@ class ReplaceRootVolumeTaskEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

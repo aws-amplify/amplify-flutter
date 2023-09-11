@@ -223,7 +223,7 @@ class DescribeFastLaunchImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           imageIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -238,7 +238,7 @@ class DescribeFastLaunchImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -249,7 +249,7 @@ class DescribeFastLaunchImagesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {
