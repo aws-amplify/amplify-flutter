@@ -33,7 +33,7 @@ jobs:
           - channel: "stable"
             flutter-version: "3.10.1"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
 
@@ -91,7 +91,7 @@ jobs:
           - channel: "stable"
             flutter-version: "3.10.1"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
           submodules: true
@@ -168,7 +168,7 @@ jobs:
           - "14.5"
           - "16"
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 3.6.0
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # 4.0.0
         with:
           persist-credentials: false
           submodules: true
