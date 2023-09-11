@@ -4,4 +4,4 @@
 
 set -e
 
-aws s3 cp s3://$AFS_AUTH_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 
+aws --region=eu-south-1 s3 cp s3://$AFS_AUTH_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 
