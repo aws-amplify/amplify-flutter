@@ -402,7 +402,7 @@ class SdkConfig
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SdkConfig({
-    this.ref = 'master',
+    this.ref = 'main',
     required this.apis,
     this.plugins = const [],
   });
@@ -412,9 +412,9 @@ class SdkConfig
 
   /// The `aws-models` ref to pull.
   ///
-  /// Defaults to `master`.
+  /// Defaults to `main`.
   final String ref;
-  final Map<String, List<ShapeId>?> apis;
+  final Map<String, List<String>?> apis;
   final List<String> plugins;
 
   @override
