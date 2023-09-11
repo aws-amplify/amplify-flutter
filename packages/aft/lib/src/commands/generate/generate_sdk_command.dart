@@ -11,7 +11,6 @@ import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:collection/collection.dart';
 import 'package:git/git.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -26,7 +25,7 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       ..addOption(
         'models',
         abbr: 'm',
-        help: 'The path to the AWS SDK models',
+        help: 'The path to the AWS JS V3 repo',
       )
       ..addOption(
         'output',
@@ -75,7 +74,9 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
         await runGit(
           [
             'clone',
-            'https://github.com/aws/aws-models.git',
+            // https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+            '--filter=tree:0',
+            'https://github.com/aws/aws-sdk-js-v3.git',
             cloneDir.path,
           ],
           echoOutput: verbose,
@@ -102,30 +103,6 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     return worktreeDir;
   }
 
-  /// Organizes model files from [baseDir] into a new temporary directory.
-  ///
-  /// Returns the new directory.
-  Future<Directory> _organizeModels(Directory baseDir) async {
-    final modelsDir = await Directory.systemTemp.createTemp('models');
-    logger.debug('Organizing models in ${modelsDir.path}');
-    final services = baseDir.list(followLinks: false).whereType<Directory>();
-    await for (final serviceDir in services) {
-      final serviceName = p.basename(serviceDir.path);
-      final artifacts = await serviceDir.list().whereType<Directory>().toList();
-      final smithyDir = artifacts.firstWhereOrNull(
-        (dir) => p.basename(dir.path) == 'smithy',
-      );
-      if (smithyDir == null) {
-        continue;
-      }
-      final smithyModel = File(p.join(smithyDir.path, 'model.json'));
-      final copyToPath = p.join(modelsDir.path, '$serviceName.json');
-      logger.verbose('Copying $serviceName.json to $copyToPath');
-      await smithyModel.copy(copyToPath);
-    }
-    return modelsDir;
-  }
-
   Future<Directory> _modelsDirForRef(String ref) async {
     if (_modelsCache[ref] case final cachedDir?) {
       return cachedDir;
@@ -137,19 +114,20 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
         exitError('Model directory ($modelsDir) does not exist');
       }
       // Checkout models if modelsPath is a git repository.
-      if (File(p.join(modelsPath, '.git')).existsSync()) {
+      if (Directory(p.join(modelsPath, '.git')).existsSync()) {
         modelsDir = await _checkoutModelsRef(modelsDir, ref);
       } else {
         logger.warn(
           'Unable to check out $ref since $modelsDir is not a git repo',
         );
       }
-      modelsDir = await _organizeModels(modelsDir);
     } else {
       modelsDir = await _downloadModels();
       modelsDir = await _checkoutModelsRef(modelsDir, ref);
-      modelsDir = await _organizeModels(modelsDir);
     }
+    modelsDir = Directory.fromUri(
+      modelsDir.uri.resolve('codegen/sdk-codegen/aws-models'),
+    );
     return _modelsCache[ref] = modelsDir;
   }
 
@@ -180,13 +158,13 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     final modelsDir = await _modelsDirForRef(config.ref);
     final models = modelsDir.list().whereType<File>();
     await for (final model in models) {
-      final serviceName = p.basenameWithoutExtension(model.path);
-      if (!config.apis.keys.contains(serviceName)) {
-        continue;
-      }
       final astJson = await model.readAsString();
       final ast = parseAstJson(astJson);
-
+      final serviceNamespace =
+          ast.shapes.values.whereType<ServiceShape>().single.shapeId.namespace;
+      if (!config.apis.containsKey(serviceNamespace)) {
+        continue;
+      }
       smithyModel.shapes!.addAll(ast.shapes);
     }
 
@@ -201,21 +179,26 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
     }
 
     final includeShapes = <ShapeId>[];
-    for (final shapeIdEntries in config.apis.entries) {
-      final shapeIds = shapeIdEntries.value;
-      if (shapeIds != null && shapeIds.isNotEmpty) {
-        includeShapes.addAll(shapeIds);
-        continue;
-      }
-
-      final apiName = shapeIdEntries.key;
+    for (final MapEntry(key: namespace, value: operations)
+        in config.apis.entries) {
       final serviceShape = smithyModel.shapes!.values
           .whereType<ServiceShape>()
-          .singleWhere(
-            (service) =>
-                service.expectTrait<ServiceTrait>().endpointPrefix == apiName,
+          .singleWhere((service) => service.shapeId.namespace == namespace);
+      final allOperations = serviceShape.operations.map((op) => op.target);
+      final includeOperations = switch (operations) {
+        List<String> _ when operations.isNotEmpty => operations.map(
+            (op) => ShapeId(namespace: namespace, shape: op),
+          ),
+        _ => allOperations,
+      };
+      for (final operation in includeOperations) {
+        if (!allOperations.contains(operation)) {
+          throw Exception(
+            'Invalid operation specified for $namespace: $operation',
           );
-      includeShapes.addAll(serviceShape.operations.map((op) => op.target));
+        }
+      }
+      includeShapes.addAll(includeOperations);
     }
 
     // Generate SDK for combined operations
@@ -326,7 +309,7 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
         ),
       ]);
 
-    final modelsDir = await _modelsDirForRef('master');
+    final modelsDir = await _modelsDirForRef('main');
     final models = modelsDir.list().whereType<File>();
     final services = <Field>[];
     await for (final model in models) {
