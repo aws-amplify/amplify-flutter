@@ -149,7 +149,7 @@ class EntityDetailsAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
           lastAuthenticated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

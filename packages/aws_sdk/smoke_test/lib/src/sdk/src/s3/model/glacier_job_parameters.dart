@@ -106,7 +106,7 @@ class GlacierJobParametersRestXmlSerializer
       ..add(const _i2.XmlElementName('Tier'))
       ..add(serializers.serialize(
         tier,
-        specifiedType: const FullType.nullable(Tier),
+        specifiedType: const FullType(Tier),
       ));
     return result$;
   }

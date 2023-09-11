@@ -126,7 +126,7 @@ class AllocateHostsResultEc2QuerySerializer
         ).serialize(
           serializers,
           hostIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

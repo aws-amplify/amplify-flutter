@@ -276,7 +276,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           sourceAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -291,7 +291,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           destinationAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -306,7 +306,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           sourcePorts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -321,7 +321,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           destinationPorts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -336,7 +336,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           sourcePrefixLists,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -351,7 +351,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           destinationPrefixLists,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -366,7 +366,7 @@ class PacketHeaderStatementRequestEc2QuerySerializer
         ).serialize(
           serializers,
           protocols,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Protocol)],
           ),

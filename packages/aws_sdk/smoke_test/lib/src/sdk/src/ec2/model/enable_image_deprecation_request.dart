@@ -169,7 +169,7 @@ class EnableImageDeprecationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('DeprecateAt'))
         ..add(serializers.serialize(
           deprecateAt,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

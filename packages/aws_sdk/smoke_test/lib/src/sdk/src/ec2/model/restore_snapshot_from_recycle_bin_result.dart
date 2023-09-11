@@ -339,7 +339,7 @@ class RestoreSnapshotFromRecycleBinResultEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (state != null) {
@@ -347,7 +347,7 @@ class RestoreSnapshotFromRecycleBinResultEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(SnapshotState),
+          specifiedType: const FullType(SnapshotState),
         ));
     }
     if (volumeId != null) {
@@ -369,7 +369,7 @@ class RestoreSnapshotFromRecycleBinResultEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('SseType'))
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType.nullable(SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     return result$;

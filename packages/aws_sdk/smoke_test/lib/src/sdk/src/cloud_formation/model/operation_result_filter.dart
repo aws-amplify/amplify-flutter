@@ -137,7 +137,7 @@ class OperationResultFilterAwsQuerySerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(OperationResultFilterName),
+          specifiedType: const FullType(OperationResultFilterName),
         ));
     }
     if (values != null) {

@@ -214,7 +214,7 @@ class ApplySecurityGroupsToClientVpnTargetNetworkRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

@@ -227,7 +227,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
             .serialize(
           serializers,
           policyGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyGroup)],
           ),
@@ -241,7 +241,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
             .serialize(
           serializers,
           policyUsers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyUser)],
           ),
@@ -255,7 +255,7 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
             .serialize(
           serializers,
           policyRoles,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyRole)],
           ),

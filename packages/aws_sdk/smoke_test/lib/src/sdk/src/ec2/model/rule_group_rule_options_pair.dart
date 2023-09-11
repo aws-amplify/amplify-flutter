@@ -149,7 +149,7 @@ class RuleGroupRuleOptionsPairEc2QuerySerializer
         ).serialize(
           serializers,
           ruleOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RuleOption)],
           ),

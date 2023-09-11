@@ -139,8 +139,8 @@ class UnsuccessfulInstanceCreditSpecificationItemErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(
-              UnsuccessfulInstanceCreditSpecificationErrorCode),
+          specifiedType:
+              const FullType(UnsuccessfulInstanceCreditSpecificationErrorCode),
         ));
     }
     if (message != null) {

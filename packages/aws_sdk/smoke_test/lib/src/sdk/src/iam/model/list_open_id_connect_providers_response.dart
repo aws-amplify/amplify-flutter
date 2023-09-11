@@ -142,7 +142,7 @@ class ListOpenIdConnectProvidersResponseAwsQuerySerializer
             .serialize(
           serializers,
           openIdConnectProviderList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(OpenIdConnectProviderListEntry)],
           ),

@@ -179,7 +179,7 @@ class ProvisionedBandwidthEc2QuerySerializer
         ..add(const _i2.XmlElementName('ProvisionTime'))
         ..add(serializers.serialize(
           provisionTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (provisioned != null) {
@@ -195,7 +195,7 @@ class ProvisionedBandwidthEc2QuerySerializer
         ..add(const _i2.XmlElementName('RequestTime'))
         ..add(serializers.serialize(
           requestTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (requested != null) {

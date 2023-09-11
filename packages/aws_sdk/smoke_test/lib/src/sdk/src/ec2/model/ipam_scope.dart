@@ -339,7 +339,7 @@ class IpamScopeEc2QuerySerializer
         ..add(const _i3.XmlElementName('IpamScopeType'))
         ..add(serializers.serialize(
           ipamScopeType,
-          specifiedType: const FullType.nullable(IpamScopeType),
+          specifiedType: const FullType(IpamScopeType),
         ));
     }
     result$
@@ -367,7 +367,7 @@ class IpamScopeEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(IpamScopeState),
+          specifiedType: const FullType(IpamScopeState),
         ));
     }
     if (tags != null) {
@@ -379,7 +379,7 @@ class IpamScopeEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

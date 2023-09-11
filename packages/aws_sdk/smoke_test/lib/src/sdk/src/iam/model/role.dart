@@ -314,7 +314,7 @@ class RoleAwsQuerySerializer extends _i3.StructuredSmithySerializer<Role> {
       ..add(const _i3.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (assumeRolePolicyDocument != null) {
       result$
@@ -337,7 +337,7 @@ class RoleAwsQuerySerializer extends _i3.StructuredSmithySerializer<Role> {
         ..add(const _i3.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (permissionsBoundary != null) {
@@ -356,7 +356,7 @@ class RoleAwsQuerySerializer extends _i3.StructuredSmithySerializer<Role> {
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

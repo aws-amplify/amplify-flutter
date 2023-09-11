@@ -958,7 +958,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -977,7 +977,7 @@ class RunInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     result$
@@ -995,7 +995,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceIpv6Address)],
           ),
@@ -1062,7 +1062,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -1077,7 +1077,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -1146,7 +1146,7 @@ class RunInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceInitiatedShutdownBehavior'))
         ..add(serializers.serialize(
           instanceInitiatedShutdownBehavior,
-          specifiedType: const FullType.nullable(ShutdownBehavior),
+          specifiedType: const FullType(ShutdownBehavior),
         ));
     }
     if (networkInterfaces != null) {
@@ -1158,7 +1158,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceNetworkInterfaceSpecification)],
           ),
@@ -1181,7 +1181,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           elasticGpuSpecification,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ElasticGpuSpecification)],
           ),
@@ -1196,7 +1196,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           elasticInferenceAccelerators,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ElasticInferenceAccelerator)],
           ),
@@ -1211,7 +1211,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -1274,7 +1274,7 @@ class RunInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           licenseSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(LicenseConfigurationRequest)],
           ),

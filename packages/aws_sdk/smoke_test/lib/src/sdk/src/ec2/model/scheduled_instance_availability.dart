@@ -339,7 +339,7 @@ class ScheduledInstanceAvailabilityEc2QuerySerializer
         ..add(const _i2.XmlElementName('FirstSlotStartTime'))
         ..add(serializers.serialize(
           firstSlotStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (hourlyPrice != null) {

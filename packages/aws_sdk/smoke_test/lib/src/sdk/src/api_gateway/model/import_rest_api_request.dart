@@ -72,10 +72,6 @@ abstract class ImportRestApiRequest
   /// To configure the endpoint type, set `parameters` as `endpointConfigurationTypes=EDGE`, `endpointConfigurationTypes=REGIONAL`, or `endpointConfigurationTypes=PRIVATE`. The default endpoint type is `EDGE`.
   ///
   /// To handle imported `basepath`, set `parameters` as `basepath=ignore`, `basepath=prepend` or `basepath=split`.
-  ///
-  /// For example, the AWS CLI command to exclude documentation from the imported API is:
-  ///
-  /// The AWS CLI command to set the regional endpoint on the imported API is:
   _i4.BuiltMap<String, String>? get parameters;
 
   /// The POST request body containing external API definitions. Currently, only OpenAPI definition JSON/YAML files are supported. The maximum size of the API definition file is 6MB.

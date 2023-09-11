@@ -160,7 +160,7 @@ class DescribeIpamResourceDiscoveryAssociationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipamResourceDiscoveryAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamResourceDiscoveryAssociation)],
           ),

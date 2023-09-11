@@ -537,7 +537,7 @@ class SubnetEc2QuerySerializer extends _i3.StructuredSmithySerializer<Subnet> {
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(SubnetState),
+          specifiedType: const FullType(SubnetState),
         ));
     }
     if (subnetId != null) {
@@ -579,7 +579,7 @@ class SubnetEc2QuerySerializer extends _i3.StructuredSmithySerializer<Subnet> {
         ).serialize(
           serializers,
           ipv6CidrBlockAssociationSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SubnetIpv6CidrBlockAssociation)],
           ),
@@ -594,7 +594,7 @@ class SubnetEc2QuerySerializer extends _i3.StructuredSmithySerializer<Subnet> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

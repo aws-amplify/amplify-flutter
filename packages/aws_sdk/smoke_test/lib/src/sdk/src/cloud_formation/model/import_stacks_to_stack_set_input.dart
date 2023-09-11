@@ -271,7 +271,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           stackIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -293,7 +293,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
             .serialize(
           serializers,
           organizationalUnitIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -320,7 +320,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

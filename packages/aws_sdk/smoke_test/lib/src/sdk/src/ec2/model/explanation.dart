@@ -1053,7 +1053,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -1076,7 +1076,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           availabilityZones,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -1091,7 +1091,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           cidrs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -1208,7 +1208,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           loadBalancerTargetGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AnalysisComponent)],
           ),
@@ -1283,7 +1283,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           portRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PortRange)],
           ),
@@ -1306,7 +1306,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           protocols,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -1353,7 +1353,7 @@ class ExplanationEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AnalysisComponent)],
           ),

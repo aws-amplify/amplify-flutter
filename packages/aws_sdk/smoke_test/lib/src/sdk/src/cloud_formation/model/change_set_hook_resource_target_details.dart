@@ -175,7 +175,7 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         ..add(const _i2.XmlElementName('ResourceAction'))
         ..add(serializers.serialize(
           resourceAction,
-          specifiedType: const FullType.nullable(ChangeAction),
+          specifiedType: const FullType(ChangeAction),
         ));
     }
     return result$;

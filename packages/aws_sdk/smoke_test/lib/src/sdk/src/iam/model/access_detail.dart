@@ -243,7 +243,7 @@ class AccessDetailAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastAuthenticatedTime'))
         ..add(serializers.serialize(
           lastAuthenticatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (totalAuthenticatedEntities != null) {
@@ -251,7 +251,7 @@ class AccessDetailAwsQuerySerializer
         ..add(const _i2.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
           totalAuthenticatedEntities,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

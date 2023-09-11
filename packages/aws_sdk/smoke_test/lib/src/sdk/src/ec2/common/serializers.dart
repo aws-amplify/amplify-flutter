@@ -481,6 +481,7 @@ import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_scope_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_ipam_scope_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_request.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/delete_key_pair_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_result.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/delete_launch_template_versions_request.dart';
@@ -1939,6 +1940,7 @@ import 'package:smoke_test/src/sdk/src/ec2/model/subnet_cidr_block_state.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subnet_cidr_block_state_code.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subnet_cidr_reservation.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subnet_cidr_reservation_type.dart';
+import 'package:smoke_test/src/sdk/src/ec2/model/subnet_configuration.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subnet_ipv6_cidr_block_association.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subnet_state.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/subscription.dart';
@@ -2879,6 +2881,7 @@ const List<_i1.SmithySerializer> serializers = [
   ...IpAddressType.serializers,
   ...DnsRecordIpType.serializers,
   ...DnsOptionsSpecification.serializers,
+  ...SubnetConfiguration.serializers,
   ...CreateVpcEndpointRequest.serializers,
   ...State.serializers,
   ...SecurityGroupIdentifier.serializers,
@@ -2980,6 +2983,7 @@ const List<_i1.SmithySerializer> serializers = [
   ...DeleteIpamScopeRequest.serializers,
   ...DeleteIpamScopeResult.serializers,
   ...DeleteKeyPairRequest.serializers,
+  ...DeleteKeyPairResult.serializers,
   ...DeleteLaunchTemplateRequest.serializers,
   ...DeleteLaunchTemplateResult.serializers,
   ...DeleteLaunchTemplateVersionsRequest.serializers,
@@ -4693,6 +4697,10 @@ final Map<FullType, Function> builderFactories = {
     _i2.BuiltList,
     [FullType(VolumeAttachment)],
   ): _i2.ListBuilder<VolumeAttachment>.new,
+  const FullType(
+    _i2.BuiltList,
+    [FullType(SubnetConfiguration)],
+  ): _i2.ListBuilder<SubnetConfiguration>.new,
   const FullType(
     _i2.BuiltList,
     [FullType(DnsEntry)],

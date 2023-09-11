@@ -221,7 +221,7 @@ class DisableAwsNetworkPerformanceMetricSubscriptionRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Metric'))
         ..add(serializers.serialize(
           metric,
-          specifiedType: const FullType.nullable(MetricType),
+          specifiedType: const FullType(MetricType),
         ));
     }
     if (statistic != null) {
@@ -229,7 +229,7 @@ class DisableAwsNetworkPerformanceMetricSubscriptionRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Statistic'))
         ..add(serializers.serialize(
           statistic,
-          specifiedType: const FullType.nullable(StatisticType),
+          specifiedType: const FullType(StatisticType),
         ));
     }
     result$

@@ -144,7 +144,7 @@ class DescribeInstancesResultEc2QuerySerializer
         ).serialize(
           serializers,
           reservations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Reservation)],
           ),

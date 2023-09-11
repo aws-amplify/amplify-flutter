@@ -198,7 +198,7 @@ class CarrierGatewayEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(CarrierGatewayState),
+          specifiedType: const FullType(CarrierGatewayState),
         ));
     }
     if (ownerId != null) {
@@ -218,7 +218,7 @@ class CarrierGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

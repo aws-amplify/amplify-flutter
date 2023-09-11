@@ -189,7 +189,7 @@ class ImportInstanceTaskDetailsEc2QuerySerializer
         ..add(const _i3.XmlElementName('Platform'))
         ..add(serializers.serialize(
           platform,
-          specifiedType: const FullType.nullable(PlatformValues),
+          specifiedType: const FullType(PlatformValues),
         ));
     }
     if (volumes != null) {
@@ -201,7 +201,7 @@ class ImportInstanceTaskDetailsEc2QuerySerializer
         ).serialize(
           serializers,
           volumes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ImportInstanceVolumeDetailItem)],
           ),

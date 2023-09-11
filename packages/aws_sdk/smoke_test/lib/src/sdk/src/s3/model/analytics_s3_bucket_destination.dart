@@ -181,7 +181,7 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
       ..add(const _i2.XmlElementName('Format'))
       ..add(serializers.serialize(
         format,
-        specifiedType: const FullType.nullable(AnalyticsS3ExportFileFormat),
+        specifiedType: const FullType(AnalyticsS3ExportFileFormat),
       ));
     if (prefix != null) {
       result$

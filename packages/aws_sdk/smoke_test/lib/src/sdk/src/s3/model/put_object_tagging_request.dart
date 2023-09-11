@@ -249,7 +249,7 @@ class PutObjectTaggingRequestRestXmlSerializer
       ..add(const _i1.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Tag)],
         ),

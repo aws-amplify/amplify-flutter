@@ -250,7 +250,7 @@ class DescribeReservedInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -261,7 +261,7 @@ class DescribeReservedInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OfferingClass'))
         ..add(serializers.serialize(
           offeringClass,
-          specifiedType: const FullType.nullable(OfferingClassType),
+          specifiedType: const FullType(OfferingClassType),
         ));
     }
     if (reservedInstancesIds != null) {
@@ -273,7 +273,7 @@ class DescribeReservedInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           reservedInstancesIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -290,7 +290,7 @@ class DescribeReservedInstancesRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OfferingType'))
         ..add(serializers.serialize(
           offeringType,
-          specifiedType: const FullType.nullable(OfferingTypeValues),
+          specifiedType: const FullType(OfferingTypeValues),
         ));
     }
     return result$;

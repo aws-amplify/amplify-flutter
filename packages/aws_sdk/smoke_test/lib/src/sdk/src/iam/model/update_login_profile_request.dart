@@ -190,7 +190,7 @@ class UpdateLoginProfileRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('PasswordResetRequired'))
         ..add(serializers.serialize(
           passwordResetRequired,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

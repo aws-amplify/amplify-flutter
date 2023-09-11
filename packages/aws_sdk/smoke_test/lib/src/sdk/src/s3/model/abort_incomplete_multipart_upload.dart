@@ -110,7 +110,7 @@ class AbortIncompleteMultipartUploadRestXmlSerializer
         ..add(const _i2.XmlElementName('DaysAfterInitiation'))
         ..add(serializers.serialize(
           daysAfterInitiation,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

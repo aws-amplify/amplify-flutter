@@ -291,7 +291,7 @@ class LocalGatewayRouteEc2QuerySerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(LocalGatewayRouteType),
+          specifiedType: const FullType(LocalGatewayRouteType),
         ));
     }
     if (state != null) {
@@ -299,7 +299,7 @@ class LocalGatewayRouteEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(LocalGatewayRouteState),
+          specifiedType: const FullType(LocalGatewayRouteState),
         ));
     }
     if (localGatewayRouteTableId != null) {

@@ -260,7 +260,7 @@ class TrunkInterfaceAssociationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InterfaceProtocol'))
         ..add(serializers.serialize(
           interfaceProtocol,
-          specifiedType: const FullType.nullable(InterfaceProtocolType),
+          specifiedType: const FullType(InterfaceProtocolType),
         ));
     }
     result$
@@ -284,7 +284,7 @@ class TrunkInterfaceAssociationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

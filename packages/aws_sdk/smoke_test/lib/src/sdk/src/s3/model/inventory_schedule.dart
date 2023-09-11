@@ -105,7 +105,7 @@ class InventoryScheduleRestXmlSerializer
       ..add(const _i2.XmlElementName('Frequency'))
       ..add(serializers.serialize(
         frequency,
-        specifiedType: const FullType.nullable(InventoryFrequency),
+        specifiedType: const FullType(InventoryFrequency),
       ));
     return result$;
   }

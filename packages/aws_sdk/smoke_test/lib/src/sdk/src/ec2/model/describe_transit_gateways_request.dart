@@ -240,7 +240,7 @@ class DescribeTransitGatewaysRequestEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -255,7 +255,7 @@ class DescribeTransitGatewaysRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

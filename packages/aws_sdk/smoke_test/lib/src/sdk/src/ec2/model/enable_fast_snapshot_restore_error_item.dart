@@ -160,7 +160,7 @@ class EnableFastSnapshotRestoreErrorItemEc2QuerySerializer
         ).serialize(
           serializers,
           fastSnapshotRestoreStateErrors,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(EnableFastSnapshotRestoreStateErrorItem)],
           ),

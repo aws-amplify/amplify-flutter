@@ -216,7 +216,7 @@ class DescribeNetworkInterfacePermissionsRequestEc2QuerySerializer extends _i1
             .serialize(
           serializers,
           networkInterfacePermissionIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -231,7 +231,7 @@ class DescribeNetworkInterfacePermissionsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

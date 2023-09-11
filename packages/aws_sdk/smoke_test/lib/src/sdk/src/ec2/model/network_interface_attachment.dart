@@ -256,7 +256,7 @@ class NetworkInterfaceAttachmentEc2QuerySerializer
         ..add(const _i2.XmlElementName('AttachTime'))
         ..add(serializers.serialize(
           attachTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (attachmentId != null) {
@@ -306,7 +306,7 @@ class NetworkInterfaceAttachmentEc2QuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(AttachmentStatus),
+          specifiedType: const FullType(AttachmentStatus),
         ));
     }
     if (enaSrdSpecification != null) {

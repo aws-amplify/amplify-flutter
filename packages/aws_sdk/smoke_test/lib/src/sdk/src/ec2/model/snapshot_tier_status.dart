@@ -324,7 +324,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(SnapshotState),
+          specifiedType: const FullType(SnapshotState),
         ));
     }
     if (ownerId != null) {
@@ -344,7 +344,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -355,7 +355,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('StorageTier'))
         ..add(serializers.serialize(
           storageTier,
-          specifiedType: const FullType.nullable(StorageTier),
+          specifiedType: const FullType(StorageTier),
         ));
     }
     if (lastTieringStartTime != null) {
@@ -363,7 +363,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('LastTieringStartTime'))
         ..add(serializers.serialize(
           lastTieringStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -377,7 +377,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('LastTieringOperationStatus'))
         ..add(serializers.serialize(
           lastTieringOperationStatus,
-          specifiedType: const FullType.nullable(TieringOperationStatus),
+          specifiedType: const FullType(TieringOperationStatus),
         ));
     }
     if (lastTieringOperationStatusDetail != null) {
@@ -393,7 +393,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('ArchivalCompleteTime'))
         ..add(serializers.serialize(
           archivalCompleteTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (restoreExpiryTime != null) {
@@ -401,7 +401,7 @@ class SnapshotTierStatusEc2QuerySerializer
         ..add(const _i3.XmlElementName('RestoreExpiryTime'))
         ..add(serializers.serialize(
           restoreExpiryTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

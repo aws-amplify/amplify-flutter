@@ -472,7 +472,7 @@ class VpcEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('VpcEndpointType'))
         ..add(serializers.serialize(
           vpcEndpointType,
-          specifiedType: const FullType.nullable(VpcEndpointType),
+          specifiedType: const FullType(VpcEndpointType),
         ));
     }
     if (vpcId != null) {
@@ -496,7 +496,7 @@ class VpcEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(State),
+          specifiedType: const FullType(State),
         ));
     }
     if (policyDocument != null) {
@@ -516,7 +516,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           routeTableIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -531,7 +531,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -546,7 +546,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SecurityGroupIdentifier)],
           ),
@@ -557,7 +557,7 @@ class VpcEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('IpAddressType'))
         ..add(serializers.serialize(
           ipAddressType,
-          specifiedType: const FullType.nullable(IpAddressType),
+          specifiedType: const FullType(IpAddressType),
         ));
     }
     if (dnsOptions != null) {
@@ -589,7 +589,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -604,7 +604,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           dnsEntries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DnsEntry)],
           ),
@@ -615,7 +615,7 @@ class VpcEndpointEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
           creationTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -627,7 +627,7 @@ class VpcEndpointEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

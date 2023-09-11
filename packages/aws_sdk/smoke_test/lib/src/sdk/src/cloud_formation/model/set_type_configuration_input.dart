@@ -238,7 +238,7 @@ class SetTypeConfigurationInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ThirdPartyType),
+          specifiedType: const FullType(ThirdPartyType),
         ));
     }
     return result$;

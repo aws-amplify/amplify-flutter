@@ -204,7 +204,7 @@ class IpamDiscoveredAccountEc2QuerySerializer
         ..add(const _i2.XmlElementName('LastAttemptedDiscoveryTime'))
         ..add(serializers.serialize(
           lastAttemptedDiscoveryTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (lastSuccessfulDiscoveryTime != null) {
@@ -212,7 +212,7 @@ class IpamDiscoveredAccountEc2QuerySerializer
         ..add(const _i2.XmlElementName('LastSuccessfulDiscoveryTime'))
         ..add(serializers.serialize(
           lastSuccessfulDiscoveryTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

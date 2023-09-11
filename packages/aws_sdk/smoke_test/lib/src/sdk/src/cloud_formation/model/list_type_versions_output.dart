@@ -152,7 +152,7 @@ class ListTypeVersionsOutputAwsQuerySerializer
             .serialize(
           serializers,
           typeVersionSummaries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TypeVersionSummary)],
           ),

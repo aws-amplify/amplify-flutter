@@ -135,7 +135,7 @@ class FpgaImageStateEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(FpgaImageStateCode),
+          specifiedType: const FullType(FpgaImageStateCode),
         ));
     }
     if (message != null) {

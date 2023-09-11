@@ -232,7 +232,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('EntityFilter'))
         ..add(serializers.serialize(
           entityFilter,
-          specifiedType: const FullType.nullable(EntityType),
+          specifiedType: const FullType(EntityType),
         ));
     }
     if (pathPrefix != null) {
@@ -248,7 +248,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
           policyUsageFilter,
-          specifiedType: const FullType.nullable(PolicyUsageType),
+          specifiedType: const FullType(PolicyUsageType),
         ));
     }
     if (marker != null) {
@@ -264,7 +264,7 @@ class ListEntitiesForPolicyRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

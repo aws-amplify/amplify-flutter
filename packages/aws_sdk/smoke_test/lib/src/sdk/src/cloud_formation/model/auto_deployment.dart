@@ -134,7 +134,7 @@ class AutoDeploymentAwsQuerySerializer
         ..add(const _i2.XmlElementName('Enabled'))
         ..add(serializers.serialize(
           enabled,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (retainStacksOnAccountRemoval != null) {
@@ -142,7 +142,7 @@ class AutoDeploymentAwsQuerySerializer
         ..add(const _i2.XmlElementName('RetainStacksOnAccountRemoval'))
         ..add(serializers.serialize(
           retainStacksOnAccountRemoval,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

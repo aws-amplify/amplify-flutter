@@ -228,7 +228,7 @@ class ParameterDeclarationAwsQuerySerializer
         ..add(const _i2.XmlElementName('NoEcho'))
         ..add(serializers.serialize(
           noEcho,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (description != null) {

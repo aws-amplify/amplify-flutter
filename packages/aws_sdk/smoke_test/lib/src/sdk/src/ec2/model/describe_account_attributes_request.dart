@@ -158,7 +158,7 @@ class DescribeAccountAttributesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           attributeNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AccountAttributeName)],
           ),

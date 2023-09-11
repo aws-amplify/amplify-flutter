@@ -522,7 +522,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Parameter)],
           ),
@@ -533,7 +533,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (executionStatus != null) {
@@ -541,7 +541,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
           executionStatus,
-          specifiedType: const FullType.nullable(ExecutionStatus),
+          specifiedType: const FullType(ExecutionStatus),
         ));
     }
     if (status != null) {
@@ -549,7 +549,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ChangeSetStatus),
+          specifiedType: const FullType(ChangeSetStatus),
         ));
     }
     if (statusReason != null) {
@@ -568,7 +568,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
             .serialize(
           serializers,
           notificationArNs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -590,7 +590,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Capability)],
           ),
@@ -604,7 +604,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -618,7 +618,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
             .serialize(
           serializers,
           changes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Change)],
           ),
@@ -637,7 +637,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (parentChangeSetId != null) {
@@ -661,7 +661,7 @@ class DescribeChangeSetOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('OnStackFailure'))
         ..add(serializers.serialize(
           onStackFailure,
-          specifiedType: const FullType.nullable(OnStackFailure),
+          specifiedType: const FullType(OnStackFailure),
         ));
     }
     return result$;

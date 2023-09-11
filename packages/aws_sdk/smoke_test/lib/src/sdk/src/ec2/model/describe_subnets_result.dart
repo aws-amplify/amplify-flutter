@@ -145,7 +145,7 @@ class DescribeSubnetsResultEc2QuerySerializer
         ).serialize(
           serializers,
           subnets,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Subnet)],
           ),

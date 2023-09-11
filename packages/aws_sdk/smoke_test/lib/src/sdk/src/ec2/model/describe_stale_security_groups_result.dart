@@ -162,7 +162,7 @@ class DescribeStaleSecurityGroupsResultEc2QuerySerializer
         ).serialize(
           serializers,
           staleSecurityGroupSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StaleSecurityGroup)],
           ),

@@ -127,7 +127,7 @@ class StartInstancesResultEc2QuerySerializer
         ).serialize(
           serializers,
           startingInstances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceStateChange)],
           ),

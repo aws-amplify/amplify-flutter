@@ -290,7 +290,7 @@ class StackSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackSetStatus),
+          specifiedType: const FullType(StackSetStatus),
         ));
     }
     if (autoDeployment != null) {
@@ -306,7 +306,7 @@ class StackSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(PermissionModels),
+          specifiedType: const FullType(PermissionModels),
         ));
     }
     if (driftStatus != null) {
@@ -314,7 +314,7 @@ class StackSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
-          specifiedType: const FullType.nullable(StackDriftStatus),
+          specifiedType: const FullType(StackDriftStatus),
         ));
     }
     if (lastDriftCheckTimestamp != null) {
@@ -322,7 +322,7 @@ class StackSetSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (managedExecution != null) {

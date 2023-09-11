@@ -177,7 +177,7 @@ class AccountLimitAwsQuerySerializer
         ..add(const _i2.XmlElementName('Value'))
         ..add(serializers.serialize(
           value,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

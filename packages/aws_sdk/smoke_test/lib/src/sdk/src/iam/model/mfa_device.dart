@@ -166,7 +166,7 @@ class MfaDeviceAwsQuerySerializer
       ..add(const _i2.XmlElementName('EnableDate'))
       ..add(serializers.serialize(
         enableDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     return result$;
   }

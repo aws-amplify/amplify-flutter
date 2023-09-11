@@ -162,7 +162,7 @@ class AddedPrincipalEc2QuerySerializer
         ..add(const _i2.XmlElementName('PrincipalType'))
         ..add(serializers.serialize(
           principalType,
-          specifiedType: const FullType.nullable(PrincipalType),
+          specifiedType: const FullType(PrincipalType),
         ));
     }
     if (principal != null) {

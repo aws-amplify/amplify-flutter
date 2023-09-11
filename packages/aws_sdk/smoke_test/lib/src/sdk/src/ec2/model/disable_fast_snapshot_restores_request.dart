@@ -184,7 +184,7 @@ class DisableFastSnapshotRestoresRequestEc2QuerySerializer
         ).serialize(
           serializers,
           availabilityZones,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -199,7 +199,7 @@ class DisableFastSnapshotRestoresRequestEc2QuerySerializer
         ).serialize(
           serializers,
           sourceSnapshotIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

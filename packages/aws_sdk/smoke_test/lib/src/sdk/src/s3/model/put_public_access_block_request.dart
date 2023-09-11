@@ -216,7 +216,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('BlockPublicAcls'))
         ..add(serializers.serialize(
           blockPublicAcls,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (ignorePublicAcls != null) {
@@ -224,7 +224,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('IgnorePublicAcls'))
         ..add(serializers.serialize(
           ignorePublicAcls,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (blockPublicPolicy != null) {
@@ -232,7 +232,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('BlockPublicPolicy'))
         ..add(serializers.serialize(
           blockPublicPolicy,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (restrictPublicBuckets != null) {
@@ -240,7 +240,7 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('RestrictPublicBuckets'))
         ..add(serializers.serialize(
           restrictPublicBuckets,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

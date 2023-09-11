@@ -185,7 +185,7 @@ class ModifySecurityGroupRulesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupRules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(SecurityGroupRuleUpdate)],
           ),

@@ -357,7 +357,7 @@ class DescribeImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           executableUsers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -372,7 +372,7 @@ class DescribeImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -387,7 +387,7 @@ class DescribeImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           imageIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -402,7 +402,7 @@ class DescribeImagesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           owners,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

@@ -309,7 +309,7 @@ class LaunchTemplateEbsBlockDeviceRequestEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('VolumeType'))
         ..add(serializers.serialize(
           volumeType,
-          specifiedType: const FullType.nullable(VolumeType),
+          specifiedType: const FullType(VolumeType),
         ));
     }
     result$

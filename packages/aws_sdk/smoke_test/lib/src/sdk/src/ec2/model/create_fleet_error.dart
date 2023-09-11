@@ -171,7 +171,7 @@ class CreateFleetErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Lifecycle'))
         ..add(serializers.serialize(
           lifecycle,
-          specifiedType: const FullType.nullable(InstanceLifecycle),
+          specifiedType: const FullType(InstanceLifecycle),
         ));
     }
     if (errorCode != null) {

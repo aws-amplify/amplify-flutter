@@ -178,7 +178,7 @@ class DeleteMarkerEntryRestXmlSerializer
         ..add(const _i2.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
           isLatest,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (key != null) {
@@ -194,7 +194,7 @@ class DeleteMarkerEntryRestXmlSerializer
         ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (owner != null) {

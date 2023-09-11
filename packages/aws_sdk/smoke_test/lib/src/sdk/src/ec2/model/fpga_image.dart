@@ -445,7 +445,7 @@ class FpgaImageEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (updateTime != null) {
@@ -453,7 +453,7 @@ class FpgaImageEc2QuerySerializer
         ..add(const _i3.XmlElementName('UpdateTime'))
         ..add(serializers.serialize(
           updateTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (ownerId != null) {
@@ -481,7 +481,7 @@ class FpgaImageEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),
@@ -496,7 +496,7 @@ class FpgaImageEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -523,7 +523,7 @@ class FpgaImageEc2QuerySerializer
         ).serialize(
           serializers,
           instanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

@@ -150,7 +150,7 @@ class FilterEc2QuerySerializer extends _i3.StructuredSmithySerializer<Filter> {
         ).serialize(
           serializers,
           values,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

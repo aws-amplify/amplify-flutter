@@ -190,7 +190,7 @@ class NotificationConfigurationRestXmlSerializer
           .serialize(
         serializers,
         lambdaFunctionConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(LambdaFunctionConfiguration)],
         ),
@@ -202,7 +202,7 @@ class NotificationConfigurationRestXmlSerializer
               .serialize(
         serializers,
         queueConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(QueueConfiguration)],
         ),
@@ -214,7 +214,7 @@ class NotificationConfigurationRestXmlSerializer
               .serialize(
         serializers,
         topicConfigurations,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(TopicConfiguration)],
         ),

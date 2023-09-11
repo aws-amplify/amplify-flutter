@@ -252,7 +252,7 @@ class DescribeScheduledInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -281,7 +281,7 @@ class DescribeScheduledInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           scheduledInstanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

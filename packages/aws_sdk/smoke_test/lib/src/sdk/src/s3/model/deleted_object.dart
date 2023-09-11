@@ -161,7 +161,7 @@ class DeletedObjectRestXmlSerializer
         ..add(const _i2.XmlElementName('DeleteMarker'))
         ..add(serializers.serialize(
           deleteMarker,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (deleteMarkerVersionId != null) {

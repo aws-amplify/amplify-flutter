@@ -233,7 +233,7 @@ class PurchaseReservedInstancesOfferingRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('PurchaseTime'))
         ..add(serializers.serialize(
           purchaseTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -170,7 +170,7 @@ class AthenaIntegrationEc2QuerySerializer
         ..add(const _i2.XmlElementName('PartitionLoadFrequency'))
         ..add(serializers.serialize(
           partitionLoadFrequency,
-          specifiedType: const FullType.nullable(PartitionLoadFrequency),
+          specifiedType: const FullType(PartitionLoadFrequency),
         ));
     }
     if (partitionStartDate != null) {
@@ -178,7 +178,7 @@ class AthenaIntegrationEc2QuerySerializer
         ..add(const _i2.XmlElementName('PartitionStartDate'))
         ..add(serializers.serialize(
           partitionStartDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (partitionEndDate != null) {
@@ -186,7 +186,7 @@ class AthenaIntegrationEc2QuerySerializer
         ..add(const _i2.XmlElementName('PartitionEndDate'))
         ..add(serializers.serialize(
           partitionEndDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

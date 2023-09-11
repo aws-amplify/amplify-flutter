@@ -14,13 +14,13 @@ import 'package:smoke_test/src/sdk/src/ec2/common/serializers.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/create_subnet_cidr_reservation_request.dart';
 import 'package:smoke_test/src/sdk/src/ec2/model/create_subnet_cidr_reservation_result.dart';
 
-/// Creates a subnet CIDR reservation. For information about subnet CIDR reservations, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_.
+/// Creates a subnet CIDR reservation. For more information, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_ and [Assign prefixes to network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html) in the _Amazon Elastic Compute Cloud User Guide_.
 class CreateSubnetCidrReservationOperation extends _i1.HttpOperation<
     CreateSubnetCidrReservationRequest,
     CreateSubnetCidrReservationRequest,
     CreateSubnetCidrReservationResult,
     CreateSubnetCidrReservationResult> {
-  /// Creates a subnet CIDR reservation. For information about subnet CIDR reservations, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_.
+  /// Creates a subnet CIDR reservation. For more information, see [Subnet CIDR reservations](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-cidr-reservation.html) in the _Amazon Virtual Private Cloud User Guide_ and [Assign prefixes to network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-prefix-eni.html) in the _Amazon Elastic Compute Cloud User Guide_.
   CreateSubnetCidrReservationOperation({
     required String region,
     Uri? baseUri,

@@ -141,8 +141,7 @@ class ModifyVerifiedAccessEndpointEniOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType:
-              const FullType.nullable(VerifiedAccessEndpointProtocol),
+          specifiedType: const FullType(VerifiedAccessEndpointProtocol),
         ));
     }
     result$

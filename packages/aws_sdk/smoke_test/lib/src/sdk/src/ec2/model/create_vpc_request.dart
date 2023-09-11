@@ -361,7 +361,7 @@ class CreateVpcRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Ipv4NetmaskLength'))
         ..add(serializers.serialize(
           ipv4NetmaskLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (ipv6IpamPoolId != null) {
@@ -377,7 +377,7 @@ class CreateVpcRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Ipv6NetmaskLength'))
         ..add(serializers.serialize(
           ipv6NetmaskLength,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$
@@ -391,7 +391,7 @@ class CreateVpcRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     if (ipv6CidrBlockNetworkBorderGroup != null) {
@@ -411,7 +411,7 @@ class CreateVpcRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

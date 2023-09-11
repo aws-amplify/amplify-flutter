@@ -123,7 +123,7 @@ class GetBucketEncryptionOutputRestXmlSerializer
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i3.BuiltList,
         [FullType(ServerSideEncryptionRule)],
       ),

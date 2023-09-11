@@ -165,7 +165,7 @@ class DescribeSpotFleetRequestsResponseEc2QuerySerializer
         ).serialize(
           serializers,
           spotFleetRequestConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SpotFleetRequestConfig)],
           ),

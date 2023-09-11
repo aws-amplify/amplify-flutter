@@ -177,7 +177,7 @@ class ListSshPublicKeysResponseAwsQuerySerializer
             .serialize(
           serializers,
           sshPublicKeys,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SshPublicKeyMetadata)],
           ),

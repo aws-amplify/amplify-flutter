@@ -148,7 +148,7 @@ class RegisterPublisherInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('AcceptTermsAndConditions'))
         ..add(serializers.serialize(
           acceptTermsAndConditions,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (connectionArn != null) {

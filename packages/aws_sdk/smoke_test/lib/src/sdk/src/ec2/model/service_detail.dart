@@ -426,7 +426,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           serviceType,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ServiceTypeDetail)],
           ),
@@ -441,7 +441,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           availabilityZones,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -464,7 +464,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           baseEndpointDnsNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -487,7 +487,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           privateDnsNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PrivateDnsDetails)],
           ),
@@ -516,7 +516,7 @@ class ServiceDetailEc2QuerySerializer
         ..add(const _i3.XmlElementName('PayerResponsibility'))
         ..add(serializers.serialize(
           payerResponsibility,
-          specifiedType: const FullType.nullable(PayerResponsibility),
+          specifiedType: const FullType(PayerResponsibility),
         ));
     }
     if (tags != null) {
@@ -528,7 +528,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -539,7 +539,7 @@ class ServiceDetailEc2QuerySerializer
         ..add(const _i3.XmlElementName('PrivateDnsNameVerificationState'))
         ..add(serializers.serialize(
           privateDnsNameVerificationState,
-          specifiedType: const FullType.nullable(DnsNameState),
+          specifiedType: const FullType(DnsNameState),
         ));
     }
     if (supportedIpAddressTypes != null) {
@@ -551,7 +551,7 @@ class ServiceDetailEc2QuerySerializer
         ).serialize(
           serializers,
           supportedIpAddressTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ServiceConnectivityType)],
           ),

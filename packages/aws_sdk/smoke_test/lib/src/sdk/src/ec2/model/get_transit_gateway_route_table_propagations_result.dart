@@ -161,7 +161,7 @@ class GetTransitGatewayRouteTablePropagationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayRouteTablePropagations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayRouteTablePropagation)],
           ),

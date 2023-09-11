@@ -138,7 +138,7 @@ class SpotFleetTagSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (tags != null) {
@@ -150,7 +150,7 @@ class SpotFleetTagSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

@@ -130,7 +130,7 @@ class RejectVpcEndpointConnectionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessful,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UnsuccessfulItem)],
           ),

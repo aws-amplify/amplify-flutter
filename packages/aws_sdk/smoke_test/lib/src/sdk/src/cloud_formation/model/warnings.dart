@@ -126,7 +126,7 @@ class WarningsAwsQuerySerializer
             .serialize(
           serializers,
           unrecognizedResourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

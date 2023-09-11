@@ -452,7 +452,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (fault != null) {
@@ -500,7 +500,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('ProductDescription'))
         ..add(serializers.serialize(
           productDescription,
-          specifiedType: const FullType.nullable(RiProductDescription),
+          specifiedType: const FullType(RiProductDescription),
         ));
     }
     if (spotInstanceRequestId != null) {
@@ -524,7 +524,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(SpotInstanceState),
+          specifiedType: const FullType(SpotInstanceState),
         ));
     }
     if (status != null) {
@@ -544,7 +544,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -555,7 +555,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(SpotInstanceType),
+          specifiedType: const FullType(SpotInstanceType),
         ));
     }
     if (validFrom != null) {
@@ -563,7 +563,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidFrom'))
         ..add(serializers.serialize(
           validFrom,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -571,7 +571,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instanceInterruptionBehavior != null) {
@@ -579,7 +579,7 @@ class SpotInstanceRequestEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceInterruptionBehavior'))
         ..add(serializers.serialize(
           instanceInterruptionBehavior,
-          specifiedType: const FullType.nullable(InstanceInterruptionBehavior),
+          specifiedType: const FullType(InstanceInterruptionBehavior),
         ));
     }
     return result$;

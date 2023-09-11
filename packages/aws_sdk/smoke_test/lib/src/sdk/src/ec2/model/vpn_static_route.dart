@@ -151,7 +151,7 @@ class VpnStaticRouteEc2QuerySerializer
         ..add(const _i2.XmlElementName('Source'))
         ..add(serializers.serialize(
           source,
-          specifiedType: const FullType.nullable(VpnStaticRouteSource),
+          specifiedType: const FullType(VpnStaticRouteSource),
         ));
     }
     if (state != null) {
@@ -159,7 +159,7 @@ class VpnStaticRouteEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(VpnState),
+          specifiedType: const FullType(VpnState),
         ));
     }
     return result$;

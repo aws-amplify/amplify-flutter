@@ -177,8 +177,8 @@ void main() {
       {
         final kilobyte = List.generate(1024, (index) => index);
         final largeData = () async* {
-          // Generate 100MiB of data
-          for (var i = 0; i < 100 * 1024; i++) {
+          // Generate 1GiB of data
+          for (var i = 0; i < 1024 * 1024; i++) {
             yield kilobyte;
           }
         }();
@@ -209,7 +209,7 @@ void main() {
       final progressAfterCancel = progress;
       expect(
         progressAfterCancel,
-        lessThan(100 << 20),
+        lessThan(1 << 30),
         reason: 'Stream should have been canceled before download completes',
       );
       await Future<void>.delayed(const Duration(seconds: 1));

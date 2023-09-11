@@ -244,7 +244,7 @@ class ModifySnapshotAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(SnapshotAttributeName),
+          specifiedType: const FullType(SnapshotAttributeName),
         ));
     }
     if (createVolumePermission != null) {
@@ -264,7 +264,7 @@ class ModifySnapshotAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           groupNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -275,7 +275,7 @@ class ModifySnapshotAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OperationType'))
         ..add(serializers.serialize(
           operationType,
-          specifiedType: const FullType.nullable(OperationType),
+          specifiedType: const FullType(OperationType),
         ));
     }
     if (snapshotId != null) {
@@ -295,7 +295,7 @@ class ModifySnapshotAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           userIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

@@ -132,8 +132,7 @@ class ClientVpnEndpointAttributeStatusEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType:
-              const FullType.nullable(ClientVpnEndpointAttributeStatusCode),
+          specifiedType: const FullType(ClientVpnEndpointAttributeStatusCode),
         ));
     }
     if (message != null) {

@@ -239,7 +239,7 @@ class TransitGatewayRouteEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayAttachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayRouteAttachment)],
           ),
@@ -250,7 +250,7 @@ class TransitGatewayRouteEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(TransitGatewayRouteType),
+          specifiedType: const FullType(TransitGatewayRouteType),
         ));
     }
     if (state != null) {
@@ -258,7 +258,7 @@ class TransitGatewayRouteEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(TransitGatewayRouteState),
+          specifiedType: const FullType(TransitGatewayRouteState),
         ));
     }
     return result$;

@@ -601,7 +601,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('AllocationStrategy'))
         ..add(serializers.serialize(
           allocationStrategy,
-          specifiedType: const FullType.nullable(AllocationStrategy),
+          specifiedType: const FullType(AllocationStrategy),
         ));
     }
     if (onDemandAllocationStrategy != null) {
@@ -609,7 +609,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('OnDemandAllocationStrategy'))
         ..add(serializers.serialize(
           onDemandAllocationStrategy,
-          specifiedType: const FullType.nullable(OnDemandAllocationStrategy),
+          specifiedType: const FullType(OnDemandAllocationStrategy),
         ));
     }
     if (spotMaintenanceStrategies != null) {
@@ -633,8 +633,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ExcessCapacityTerminationPolicy'))
         ..add(serializers.serialize(
           excessCapacityTerminationPolicy,
-          specifiedType:
-              const FullType.nullable(ExcessCapacityTerminationPolicy),
+          specifiedType: const FullType(ExcessCapacityTerminationPolicy),
         ));
     }
     result$
@@ -666,7 +665,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ).serialize(
           serializers,
           launchSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SpotFleetLaunchSpecification)],
           ),
@@ -681,7 +680,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LaunchTemplateConfig)],
           ),
@@ -734,7 +733,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(FleetType),
+          specifiedType: const FullType(FleetType),
         ));
     }
     if (validFrom != null) {
@@ -742,7 +741,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidFrom'))
         ..add(serializers.serialize(
           validFrom,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -750,7 +749,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -764,7 +763,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceInterruptionBehavior'))
         ..add(serializers.serialize(
           instanceInterruptionBehavior,
-          specifiedType: const FullType.nullable(InstanceInterruptionBehavior),
+          specifiedType: const FullType(InstanceInterruptionBehavior),
         ));
     }
     if (loadBalancersConfig != null) {
@@ -794,7 +793,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('TargetCapacityUnitType'))
         ..add(serializers.serialize(
           targetCapacityUnitType,
-          specifiedType: const FullType.nullable(TargetCapacityUnitType),
+          specifiedType: const FullType(TargetCapacityUnitType),
         ));
     }
     if (tagSpecifications != null) {
@@ -806,7 +805,7 @@ class SpotFleetRequestConfigDataEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TagSpecification)],
           ),

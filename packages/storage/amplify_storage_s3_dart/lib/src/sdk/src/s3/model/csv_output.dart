@@ -206,7 +206,7 @@ class CsvOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('QuoteFields'))
         ..add(serializers.serialize(
           quoteFields,
-          specifiedType: const FullType.nullable(QuoteFields),
+          specifiedType: const FullType(QuoteFields),
         ));
     }
     if (recordDelimiter != null) {

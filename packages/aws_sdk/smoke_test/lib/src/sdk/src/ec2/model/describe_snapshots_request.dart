@@ -291,7 +291,7 @@ class DescribeSnapshotsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -320,7 +320,7 @@ class DescribeSnapshotsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ownerIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -334,7 +334,7 @@ class DescribeSnapshotsRequestEc2QuerySerializer
             .serialize(
           serializers,
           restorableByUserIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -349,7 +349,7 @@ class DescribeSnapshotsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           snapshotIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

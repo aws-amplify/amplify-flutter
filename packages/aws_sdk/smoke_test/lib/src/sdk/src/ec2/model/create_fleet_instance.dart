@@ -198,7 +198,7 @@ class CreateFleetInstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Lifecycle'))
         ..add(serializers.serialize(
           lifecycle,
-          specifiedType: const FullType.nullable(InstanceLifecycle),
+          specifiedType: const FullType(InstanceLifecycle),
         ));
     }
     if (instanceIds != null) {
@@ -210,7 +210,7 @@ class CreateFleetInstanceEc2QuerySerializer
         ).serialize(
           serializers,
           instanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -221,7 +221,7 @@ class CreateFleetInstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (platform != null) {
@@ -229,7 +229,7 @@ class CreateFleetInstanceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Platform'))
         ..add(serializers.serialize(
           platform,
-          specifiedType: const FullType.nullable(PlatformValues),
+          specifiedType: const FullType(PlatformValues),
         ));
     }
     return result$;

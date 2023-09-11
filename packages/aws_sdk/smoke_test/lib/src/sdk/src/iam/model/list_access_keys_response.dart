@@ -174,7 +174,7 @@ class ListAccessKeysResponseAwsQuerySerializer
               .serialize(
         serializers,
         accessKeyMetadata,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(AccessKeyMetadata)],
         ),

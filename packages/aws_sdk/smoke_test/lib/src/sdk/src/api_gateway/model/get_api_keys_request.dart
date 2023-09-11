@@ -78,7 +78,7 @@ abstract class GetApiKeysRequest
   /// The name of queried API keys.
   String? get nameQuery;
 
-  /// The identifier of a customer in AWS Marketplace or an external system, such as a developer portal.
+  /// The identifier of a customer in Amazon Web Services Marketplace or an external system, such as a developer portal.
   String? get customerId;
 
   /// A boolean flag to specify whether (`true`) or not (`false`) the result contains key values.

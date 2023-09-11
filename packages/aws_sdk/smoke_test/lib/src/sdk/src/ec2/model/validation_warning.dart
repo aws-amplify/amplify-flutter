@@ -119,7 +119,7 @@ class ValidationWarningEc2QuerySerializer
         ).serialize(
           serializers,
           errors,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ValidationError)],
           ),

@@ -238,7 +238,7 @@ class DescribeVpcEndpointServicesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           serviceNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -253,7 +253,7 @@ class DescribeVpcEndpointServicesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

@@ -317,7 +317,7 @@ class AuthorizeSecurityGroupEgressRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           ipPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(IpPermission)],
           ),
@@ -332,7 +332,7 @@ class AuthorizeSecurityGroupEgressRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

@@ -135,7 +135,7 @@ class ProductCodeEc2QuerySerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           productCodeType,
-          specifiedType: const FullType.nullable(ProductCodeValues),
+          specifiedType: const FullType(ProductCodeValues),
         ));
     }
     return result$;

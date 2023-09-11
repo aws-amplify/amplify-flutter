@@ -203,7 +203,7 @@ class AccessScopeAnalysisFindingEc2QuerySerializer
         ).serialize(
           serializers,
           findingComponents,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PathComponent)],
           ),

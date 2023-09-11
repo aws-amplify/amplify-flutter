@@ -452,7 +452,7 @@ class StackSetAwsQuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackSetStatus),
+          specifiedType: const FullType(StackSetStatus),
         ));
     }
     if (templateBody != null) {
@@ -471,7 +471,7 @@ class StackSetAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Parameter)],
           ),
@@ -485,7 +485,7 @@ class StackSetAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Capability)],
           ),
@@ -499,7 +499,7 @@ class StackSetAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -550,7 +550,7 @@ class StackSetAwsQuerySerializer
         ..add(const _i3.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
           permissionModel,
-          specifiedType: const FullType.nullable(PermissionModels),
+          specifiedType: const FullType(PermissionModels),
         ));
     }
     if (organizationalUnitIds != null) {
@@ -561,7 +561,7 @@ class StackSetAwsQuerySerializer
             .serialize(
           serializers,
           organizationalUnitIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -583,7 +583,7 @@ class StackSetAwsQuerySerializer
             .serialize(
           serializers,
           regions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

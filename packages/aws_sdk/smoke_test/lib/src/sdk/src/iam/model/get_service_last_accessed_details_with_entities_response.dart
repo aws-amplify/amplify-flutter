@@ -249,19 +249,19 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
       ..add(const _i3.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
-        specifiedType: const FullType.nullable(JobStatusType),
+        specifiedType: const FullType(JobStatusType),
       ));
     result$
       ..add(const _i3.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i3.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
         jobCompletionDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i3.XmlElementName('EntityDetailsList'))
@@ -270,7 +270,7 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
               .serialize(
         serializers,
         entityDetailsList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(EntityDetails)],
         ),

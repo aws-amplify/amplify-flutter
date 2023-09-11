@@ -121,7 +121,7 @@ class TemplateSummaryConfigAwsQuerySerializer
             'TreatUnrecognizedResourceTypesAsWarnings'))
         ..add(serializers.serialize(
           treatUnrecognizedResourceTypesAsWarnings,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

@@ -587,7 +587,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (currentGeneration != null) {
@@ -595,7 +595,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('CurrentGeneration'))
         ..add(serializers.serialize(
           currentGeneration,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (freeTierEligible != null) {
@@ -603,7 +603,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('FreeTierEligible'))
         ..add(serializers.serialize(
           freeTierEligible,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (supportedUsageClasses != null) {
@@ -615,7 +615,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedUsageClasses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UsageClassType)],
           ),
@@ -630,7 +630,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedRootDeviceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RootDeviceType)],
           ),
@@ -645,7 +645,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedVirtualizationTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VirtualizationType)],
           ),
@@ -656,7 +656,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('BareMetal'))
         ..add(serializers.serialize(
           bareMetal,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (hypervisor != null) {
@@ -664,7 +664,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('Hypervisor'))
         ..add(serializers.serialize(
           hypervisor,
-          specifiedType: const FullType.nullable(InstanceTypeHypervisor),
+          specifiedType: const FullType(InstanceTypeHypervisor),
         ));
     }
     if (processorInfo != null) {
@@ -696,7 +696,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceStorageSupported'))
         ..add(serializers.serialize(
           instanceStorageSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (instanceStorageInfo != null) {
@@ -760,7 +760,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('HibernationSupported'))
         ..add(serializers.serialize(
           hibernationSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (burstablePerformanceSupported != null) {
@@ -768,7 +768,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('BurstablePerformanceSupported'))
         ..add(serializers.serialize(
           burstablePerformanceSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (dedicatedHostsSupported != null) {
@@ -776,7 +776,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('DedicatedHostsSupported'))
         ..add(serializers.serialize(
           dedicatedHostsSupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (autoRecoverySupported != null) {
@@ -784,7 +784,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('AutoRecoverySupported'))
         ..add(serializers.serialize(
           autoRecoverySupported,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (supportedBootModes != null) {
@@ -796,7 +796,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ).serialize(
           serializers,
           supportedBootModes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BootModeType)],
           ),
@@ -807,7 +807,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('NitroEnclavesSupport'))
         ..add(serializers.serialize(
           nitroEnclavesSupport,
-          specifiedType: const FullType.nullable(NitroEnclavesSupport),
+          specifiedType: const FullType(NitroEnclavesSupport),
         ));
     }
     if (nitroTpmSupport != null) {
@@ -815,7 +815,7 @@ class InstanceTypeInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('NitroTpmSupport'))
         ..add(serializers.serialize(
           nitroTpmSupport,
-          specifiedType: const FullType.nullable(NitroTpmSupport),
+          specifiedType: const FullType(NitroTpmSupport),
         ));
     }
     if (nitroTpmInfo != null) {

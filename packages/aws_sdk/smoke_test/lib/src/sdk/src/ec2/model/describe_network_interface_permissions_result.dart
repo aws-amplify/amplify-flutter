@@ -160,7 +160,7 @@ class DescribeNetworkInterfacePermissionsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           networkInterfacePermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInterfacePermission)],
           ),

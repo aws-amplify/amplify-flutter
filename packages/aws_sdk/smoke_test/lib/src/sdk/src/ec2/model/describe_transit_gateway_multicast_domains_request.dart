@@ -231,7 +231,7 @@ class DescribeTransitGatewayMulticastDomainsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayMulticastDomainIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -246,7 +246,7 @@ class DescribeTransitGatewayMulticastDomainsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

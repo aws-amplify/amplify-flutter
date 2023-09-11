@@ -205,7 +205,7 @@ class ReservedInstancesConfigurationEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (platform != null) {
@@ -221,7 +221,7 @@ class ReservedInstancesConfigurationEc2QuerySerializer
         ..add(const _i2.XmlElementName('Scope'))
         ..add(serializers.serialize(
           scope,
-          specifiedType: const FullType.nullable(Scope),
+          specifiedType: const FullType(Scope),
         ));
     }
     return result$;

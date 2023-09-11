@@ -222,7 +222,7 @@ class ReservationFleetInstanceSpecificationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (instancePlatform != null) {
@@ -230,8 +230,7 @@ class ReservationFleetInstanceSpecificationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('InstancePlatform'))
         ..add(serializers.serialize(
           instancePlatform,
-          specifiedType:
-              const FullType.nullable(CapacityReservationInstancePlatform),
+          specifiedType: const FullType(CapacityReservationInstancePlatform),
         ));
     }
     if (weight != null) {
@@ -239,7 +238,7 @@ class ReservationFleetInstanceSpecificationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Weight'))
         ..add(serializers.serialize(
           weight,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (availabilityZone != null) {
@@ -269,7 +268,7 @@ class ReservationFleetInstanceSpecificationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Priority'))
         ..add(serializers.serialize(
           priority,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

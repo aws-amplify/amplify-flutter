@@ -157,7 +157,7 @@ class DescribeInstanceCreditSpecificationsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           instanceCreditSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceCreditSpecification)],
           ),

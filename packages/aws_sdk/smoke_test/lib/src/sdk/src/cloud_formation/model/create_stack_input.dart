@@ -529,7 +529,7 @@ class CreateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -540,7 +540,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (rollbackConfiguration != null) {
@@ -556,7 +556,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('TimeoutInMinutes'))
         ..add(serializers.serialize(
           timeoutInMinutes,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (notificationArNs != null) {
@@ -567,7 +567,7 @@ class CreateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           notificationArNs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -581,7 +581,7 @@ class CreateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Capability)],
           ),
@@ -595,7 +595,7 @@ class CreateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           resourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -614,7 +614,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OnFailure'))
         ..add(serializers.serialize(
           onFailure,
-          specifiedType: const FullType.nullable(OnFailure),
+          specifiedType: const FullType(OnFailure),
         ));
     }
     if (stackPolicyBody != null) {
@@ -641,7 +641,7 @@ class CreateStackInputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),
@@ -660,7 +660,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('EnableTerminationProtection'))
         ..add(serializers.serialize(
           enableTerminationProtection,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (retainExceptOnCreate != null) {
@@ -668,7 +668,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
         ..add(serializers.serialize(
           retainExceptOnCreate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

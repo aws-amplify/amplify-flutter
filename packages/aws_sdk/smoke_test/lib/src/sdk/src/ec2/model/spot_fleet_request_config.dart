@@ -206,7 +206,7 @@ class SpotFleetRequestConfigEc2QuerySerializer
         ..add(const _i3.XmlElementName('ActivityStatus'))
         ..add(serializers.serialize(
           activityStatus,
-          specifiedType: const FullType.nullable(ActivityStatus),
+          specifiedType: const FullType(ActivityStatus),
         ));
     }
     if (createTime != null) {
@@ -214,7 +214,7 @@ class SpotFleetRequestConfigEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (spotFleetRequestConfig != null) {
@@ -238,7 +238,7 @@ class SpotFleetRequestConfigEc2QuerySerializer
         ..add(const _i3.XmlElementName('SpotFleetRequestState'))
         ..add(serializers.serialize(
           spotFleetRequestState,
-          specifiedType: const FullType.nullable(BatchState),
+          specifiedType: const FullType(BatchState),
         ));
     }
     if (tags != null) {
@@ -250,7 +250,7 @@ class SpotFleetRequestConfigEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

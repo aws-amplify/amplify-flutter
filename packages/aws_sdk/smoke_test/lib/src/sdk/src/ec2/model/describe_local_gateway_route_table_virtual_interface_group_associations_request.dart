@@ -258,7 +258,7 @@ class DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequestEc2Q
         ).serialize(
           serializers,
           localGatewayRouteTableVirtualInterfaceGroupAssociationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -273,7 +273,7 @@ class DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequestEc2Q
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

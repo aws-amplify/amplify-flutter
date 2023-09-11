@@ -157,7 +157,7 @@ class DescribeTransitGatewayVpcAttachmentsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           transitGatewayVpcAttachments,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayVpcAttachment)],
           ),

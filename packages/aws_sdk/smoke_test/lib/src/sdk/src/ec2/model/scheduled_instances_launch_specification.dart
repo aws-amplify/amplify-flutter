@@ -375,7 +375,7 @@ class ScheduledInstancesLaunchSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstancesBlockDeviceMapping)],
           ),
@@ -444,7 +444,7 @@ class ScheduledInstancesLaunchSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstancesNetworkInterface)],
           ),
@@ -475,7 +475,7 @@ class ScheduledInstancesLaunchSpecificationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

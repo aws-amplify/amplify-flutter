@@ -249,7 +249,7 @@ class GetInstanceTypesFromInstanceRequirementsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           architectureTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ArchitectureType)],
           ),
@@ -264,7 +264,7 @@ class GetInstanceTypesFromInstanceRequirementsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           virtualizationTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(VirtualizationType)],
           ),

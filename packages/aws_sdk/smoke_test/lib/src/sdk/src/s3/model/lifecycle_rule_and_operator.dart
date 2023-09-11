@@ -166,7 +166,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ..add(const _i4.XmlElementName('ObjectSizeGreaterThan'))
         ..add(serializers.serialize(
           objectSizeGreaterThan,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (objectSizeLessThan != null) {
@@ -174,7 +174,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         ..add(const _i4.XmlElementName('ObjectSizeLessThan'))
         ..add(serializers.serialize(
           objectSizeLessThan,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (prefix != null) {
@@ -190,7 +190,7 @@ class LifecycleRuleAndOperatorRestXmlSerializer
           .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Tag)],
         ),

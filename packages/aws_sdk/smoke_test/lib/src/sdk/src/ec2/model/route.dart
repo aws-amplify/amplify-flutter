@@ -455,7 +455,7 @@ class RouteEc2QuerySerializer extends _i2.StructuredSmithySerializer<Route> {
         ..add(const _i2.XmlElementName('Origin'))
         ..add(serializers.serialize(
           origin,
-          specifiedType: const FullType.nullable(RouteOrigin),
+          specifiedType: const FullType(RouteOrigin),
         ));
     }
     if (state != null) {
@@ -463,7 +463,7 @@ class RouteEc2QuerySerializer extends _i2.StructuredSmithySerializer<Route> {
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(RouteState),
+          specifiedType: const FullType(RouteState),
         ));
     }
     if (vpcPeeringConnectionId != null) {

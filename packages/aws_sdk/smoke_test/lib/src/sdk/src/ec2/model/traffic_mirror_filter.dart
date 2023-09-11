@@ -241,7 +241,7 @@ class TrafficMirrorFilterEc2QuerySerializer
         ).serialize(
           serializers,
           ingressFilterRules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrafficMirrorFilterRule)],
           ),
@@ -256,7 +256,7 @@ class TrafficMirrorFilterEc2QuerySerializer
         ).serialize(
           serializers,
           egressFilterRules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrafficMirrorFilterRule)],
           ),
@@ -271,7 +271,7 @@ class TrafficMirrorFilterEc2QuerySerializer
         ).serialize(
           serializers,
           networkServices,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrafficMirrorNetworkService)],
           ),
@@ -294,7 +294,7 @@ class TrafficMirrorFilterEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

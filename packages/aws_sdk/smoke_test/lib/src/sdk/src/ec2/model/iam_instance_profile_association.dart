@@ -207,8 +207,7 @@ class IamInstanceProfileAssociationEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(IamInstanceProfileAssociationState),
+          specifiedType: const FullType(IamInstanceProfileAssociationState),
         ));
     }
     if (timestamp != null) {
@@ -216,7 +215,7 @@ class IamInstanceProfileAssociationEc2QuerySerializer
         ..add(const _i2.XmlElementName('Timestamp'))
         ..add(serializers.serialize(
           timestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

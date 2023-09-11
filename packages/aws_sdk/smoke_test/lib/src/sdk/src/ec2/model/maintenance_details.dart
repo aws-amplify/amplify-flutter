@@ -154,7 +154,7 @@ class MaintenanceDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaintenanceAutoAppliedAfter'))
         ..add(serializers.serialize(
           maintenanceAutoAppliedAfter,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (lastMaintenanceApplied != null) {
@@ -162,7 +162,7 @@ class MaintenanceDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('LastMaintenanceApplied'))
         ..add(serializers.serialize(
           lastMaintenanceApplied,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

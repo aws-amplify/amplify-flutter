@@ -144,11 +144,11 @@ abstract class RespondToAuthChallengeRequest
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       )
       ..add(
         'challengeResponses',
-        challengeResponses,
+        '***SENSITIVE***',
       )
       ..add(
         'analyticsMetadata',
@@ -156,7 +156,7 @@ abstract class RespondToAuthChallengeRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'clientMetadata',

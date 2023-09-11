@@ -255,7 +255,7 @@ class ModifyInstanceMetadataOptionsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('HttpTokens'))
         ..add(serializers.serialize(
           httpTokens,
-          specifiedType: const FullType.nullable(HttpTokensState),
+          specifiedType: const FullType(HttpTokensState),
         ));
     }
     result$
@@ -269,7 +269,7 @@ class ModifyInstanceMetadataOptionsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('HttpEndpoint'))
         ..add(serializers.serialize(
           httpEndpoint,
-          specifiedType: const FullType.nullable(InstanceMetadataEndpointState),
+          specifiedType: const FullType(InstanceMetadataEndpointState),
         ));
     }
     result$
@@ -283,7 +283,7 @@ class ModifyInstanceMetadataOptionsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('HttpProtocolIpv6'))
         ..add(serializers.serialize(
           httpProtocolIpv6,
-          specifiedType: const FullType.nullable(InstanceMetadataProtocolState),
+          specifiedType: const FullType(InstanceMetadataProtocolState),
         ));
     }
     if (instanceMetadataTags != null) {
@@ -291,7 +291,7 @@ class ModifyInstanceMetadataOptionsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('InstanceMetadataTags'))
         ..add(serializers.serialize(
           instanceMetadataTags,
-          specifiedType: const FullType.nullable(InstanceMetadataTagsState),
+          specifiedType: const FullType(InstanceMetadataTagsState),
         ));
     }
     return result$;

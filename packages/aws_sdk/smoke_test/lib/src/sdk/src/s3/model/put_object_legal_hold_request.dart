@@ -245,7 +245,7 @@ class PutObjectLegalHoldRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ObjectLockLegalHoldStatus),
+          specifiedType: const FullType(ObjectLockLegalHoldStatus),
         ));
     }
     return result$;

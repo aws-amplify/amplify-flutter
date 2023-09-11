@@ -224,7 +224,7 @@ class FpgaImageAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           loadPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LoadPermission)],
           ),
@@ -239,7 +239,7 @@ class FpgaImageAttributeEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),

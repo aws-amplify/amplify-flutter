@@ -362,7 +362,7 @@ class AddressEc2QuerySerializer
         ..add(const _i3.XmlElementName('Domain'))
         ..add(serializers.serialize(
           domain,
-          specifiedType: const FullType.nullable(DomainType),
+          specifiedType: const FullType(DomainType),
         ));
     }
     if (networkInterfaceId != null) {
@@ -398,7 +398,7 @@ class AddressEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

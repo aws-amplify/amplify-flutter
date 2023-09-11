@@ -428,7 +428,7 @@ class ModifyInstanceAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(InstanceAttributeName),
+          specifiedType: const FullType(InstanceAttributeName),
         ));
     }
     if (blockDeviceMappings != null) {
@@ -440,7 +440,7 @@ class ModifyInstanceAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceBlockDeviceMappingSpecification)],
           ),
@@ -485,7 +485,7 @@ class ModifyInstanceAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

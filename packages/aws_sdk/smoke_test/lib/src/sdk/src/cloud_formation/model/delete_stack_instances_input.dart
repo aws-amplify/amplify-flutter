@@ -298,7 +298,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
             .serialize(
           serializers,
           accounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -319,7 +319,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
               .serialize(
         serializers,
         regions,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -351,7 +351,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

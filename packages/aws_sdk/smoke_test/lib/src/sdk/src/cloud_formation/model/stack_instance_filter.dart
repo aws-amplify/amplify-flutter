@@ -136,7 +136,7 @@ class StackInstanceFilterAwsQuerySerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(StackInstanceFilterName),
+          specifiedType: const FullType(StackInstanceFilterName),
         ));
     }
     if (values != null) {

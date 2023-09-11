@@ -75,11 +75,11 @@ abstract class VerifySoftwareTokenRequest
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       )
       ..add(
         'userCode',
-        userCode,
+        '***SENSITIVE***',
       )
       ..add(
         'friendlyDeviceName',

@@ -253,7 +253,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
             .serialize(
           serializers,
           hooks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ChangeSetHook)],
           ),
@@ -264,7 +264,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ChangeSetHooksStatus),
+          specifiedType: const FullType(ChangeSetHooksStatus),
         ));
     }
     if (nextToken != null) {

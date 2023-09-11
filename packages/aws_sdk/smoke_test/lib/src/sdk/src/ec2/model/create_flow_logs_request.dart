@@ -138,7 +138,7 @@ abstract class CreateFlowLogsRequest
 
   /// The fields to include in the flow log record. List the fields in the order in which they should appear. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must include at least one field. For more information about the available fields, see [Flow log records](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records) in the _Amazon VPC User Guide_ or [Transit Gateway Flow Log records](https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html#flow-log-records) in the _Amazon Web Services Transit Gateway Guide_.
   ///
-  /// Specify the fields using the `${field-id}` format, separated by spaces. For the CLI, surround this parameter value with single quotes on Linux or double quotes on Windows.
+  /// Specify the fields using the `${field-id}` format, separated by spaces.
   String? get logFormat;
 
   /// The tags to apply to the flow logs.
@@ -433,7 +433,7 @@ class CreateFlowLogsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           resourceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -444,7 +444,7 @@ class CreateFlowLogsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(FlowLogsResourceType),
+          specifiedType: const FullType(FlowLogsResourceType),
         ));
     }
     if (trafficType != null) {
@@ -452,7 +452,7 @@ class CreateFlowLogsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TrafficType'))
         ..add(serializers.serialize(
           trafficType,
-          specifiedType: const FullType.nullable(TrafficType),
+          specifiedType: const FullType(TrafficType),
         ));
     }
     if (logDestinationType != null) {
@@ -460,7 +460,7 @@ class CreateFlowLogsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('LogDestinationType'))
         ..add(serializers.serialize(
           logDestinationType,
-          specifiedType: const FullType.nullable(LogDestinationType),
+          specifiedType: const FullType(LogDestinationType),
         ));
     }
     if (logDestination != null) {
@@ -488,7 +488,7 @@ class CreateFlowLogsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

@@ -210,14 +210,14 @@ class SigningCertificateAwsQuerySerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(StatusType),
+        specifiedType: const FullType(StatusType),
       ));
     if (uploadDate != null) {
       result$
         ..add(const _i2.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -466,7 +466,7 @@ class SnapshotEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (state != null) {
@@ -474,7 +474,7 @@ class SnapshotEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(SnapshotState),
+          specifiedType: const FullType(SnapshotState),
         ));
     }
     if (stateMessage != null) {
@@ -524,7 +524,7 @@ class SnapshotEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -535,7 +535,7 @@ class SnapshotEc2QuerySerializer
         ..add(const _i3.XmlElementName('StorageTier'))
         ..add(serializers.serialize(
           storageTier,
-          specifiedType: const FullType.nullable(StorageTier),
+          specifiedType: const FullType(StorageTier),
         ));
     }
     if (restoreExpiryTime != null) {
@@ -543,7 +543,7 @@ class SnapshotEc2QuerySerializer
         ..add(const _i3.XmlElementName('RestoreExpiryTime'))
         ..add(serializers.serialize(
           restoreExpiryTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (sseType != null) {
@@ -551,7 +551,7 @@ class SnapshotEc2QuerySerializer
         ..add(const _i3.XmlElementName('SseType'))
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType.nullable(SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     return result$;

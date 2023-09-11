@@ -275,7 +275,7 @@ class GetIpamAddressHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endTime != null) {
@@ -283,7 +283,7 @@ class GetIpamAddressHistoryRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndTime'))
         ..add(serializers.serialize(
           endTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

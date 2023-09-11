@@ -159,7 +159,7 @@ class PrivateDnsNameOptionsRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('HostnameType'))
         ..add(serializers.serialize(
           hostnameType,
-          specifiedType: const FullType.nullable(HostnameType),
+          specifiedType: const FullType(HostnameType),
         ));
     }
     result$

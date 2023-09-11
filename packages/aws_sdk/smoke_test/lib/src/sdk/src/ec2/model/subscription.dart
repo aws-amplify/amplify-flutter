@@ -191,7 +191,7 @@ class SubscriptionEc2QuerySerializer
         ..add(const _i2.XmlElementName('Metric'))
         ..add(serializers.serialize(
           metric,
-          specifiedType: const FullType.nullable(MetricType),
+          specifiedType: const FullType(MetricType),
         ));
     }
     if (statistic != null) {
@@ -199,7 +199,7 @@ class SubscriptionEc2QuerySerializer
         ..add(const _i2.XmlElementName('Statistic'))
         ..add(serializers.serialize(
           statistic,
-          specifiedType: const FullType.nullable(StatisticType),
+          specifiedType: const FullType(StatisticType),
         ));
     }
     if (period != null) {
@@ -207,7 +207,7 @@ class SubscriptionEc2QuerySerializer
         ..add(const _i2.XmlElementName('Period'))
         ..add(serializers.serialize(
           period,
-          specifiedType: const FullType.nullable(PeriodType),
+          specifiedType: const FullType(PeriodType),
         ));
     }
     return result$;

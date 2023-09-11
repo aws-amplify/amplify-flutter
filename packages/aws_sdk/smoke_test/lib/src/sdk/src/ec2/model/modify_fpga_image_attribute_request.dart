@@ -314,7 +314,7 @@ class ModifyFpgaImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(FpgaImageAttributeName),
+          specifiedType: const FullType(FpgaImageAttributeName),
         ));
     }
     if (operationType != null) {
@@ -322,7 +322,7 @@ class ModifyFpgaImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OperationType'))
         ..add(serializers.serialize(
           operationType,
-          specifiedType: const FullType.nullable(OperationType),
+          specifiedType: const FullType(OperationType),
         ));
     }
     if (userIds != null) {
@@ -334,7 +334,7 @@ class ModifyFpgaImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           userIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -349,7 +349,7 @@ class ModifyFpgaImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           userGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -364,7 +364,7 @@ class ModifyFpgaImageAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

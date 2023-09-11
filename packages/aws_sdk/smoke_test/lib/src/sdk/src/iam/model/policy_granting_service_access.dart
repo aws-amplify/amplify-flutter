@@ -206,7 +206,7 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
       ..add(const _i2.XmlElementName('PolicyType'))
       ..add(serializers.serialize(
         policyType,
-        specifiedType: const FullType.nullable(PolicyType),
+        specifiedType: const FullType(PolicyType),
       ));
     if (policyArn != null) {
       result$
@@ -221,7 +221,7 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         ..add(const _i2.XmlElementName('EntityType'))
         ..add(serializers.serialize(
           entityType,
-          specifiedType: const FullType.nullable(PolicyOwnerEntityType),
+          specifiedType: const FullType(PolicyOwnerEntityType),
         ));
     }
     if (entityName != null) {

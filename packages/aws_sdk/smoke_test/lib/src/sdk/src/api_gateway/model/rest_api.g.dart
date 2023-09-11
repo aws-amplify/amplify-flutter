@@ -33,6 +33,8 @@ class _$RestApi extends RestApi {
   final _i2.BuiltMap<String, String>? tags;
   @override
   final bool disableExecuteApiEndpoint;
+  @override
+  final String? rootResourceId;
 
   factory _$RestApi([void Function(RestApiBuilder)? updates]) =>
       (new RestApiBuilder()..update(updates))._build();
@@ -50,7 +52,8 @@ class _$RestApi extends RestApi {
       this.endpointConfiguration,
       this.policy,
       this.tags,
-      required this.disableExecuteApiEndpoint})
+      required this.disableExecuteApiEndpoint,
+      this.rootResourceId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         disableExecuteApiEndpoint, r'RestApi', 'disableExecuteApiEndpoint');
@@ -79,7 +82,8 @@ class _$RestApi extends RestApi {
         endpointConfiguration == other.endpointConfiguration &&
         policy == other.policy &&
         tags == other.tags &&
-        disableExecuteApiEndpoint == other.disableExecuteApiEndpoint;
+        disableExecuteApiEndpoint == other.disableExecuteApiEndpoint &&
+        rootResourceId == other.rootResourceId;
   }
 
   @override
@@ -98,6 +102,7 @@ class _$RestApi extends RestApi {
     _$hash = $jc(_$hash, policy.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, disableExecuteApiEndpoint.hashCode);
+    _$hash = $jc(_$hash, rootResourceId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -169,6 +174,11 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set disableExecuteApiEndpoint(bool? disableExecuteApiEndpoint) =>
       _$this._disableExecuteApiEndpoint = disableExecuteApiEndpoint;
 
+  String? _rootResourceId;
+  String? get rootResourceId => _$this._rootResourceId;
+  set rootResourceId(String? rootResourceId) =>
+      _$this._rootResourceId = rootResourceId;
+
   RestApiBuilder() {
     RestApi._init(this);
   }
@@ -189,6 +199,7 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
       _policy = $v.policy;
       _tags = $v.tags?.toBuilder();
       _disableExecuteApiEndpoint = $v.disableExecuteApiEndpoint;
+      _rootResourceId = $v.rootResourceId;
       _$v = null;
     }
     return this;
@@ -228,7 +239,8 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
               disableExecuteApiEndpoint: BuiltValueNullFieldError.checkNotNull(
                   disableExecuteApiEndpoint,
                   r'RestApi',
-                  'disableExecuteApiEndpoint'));
+                  'disableExecuteApiEndpoint'),
+              rootResourceId: rootResourceId);
     } catch (_) {
       late String _$failedField;
       try {

@@ -439,7 +439,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('End'))
         ..add(serializers.serialize(
           end,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -459,7 +459,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (productDescription != null) {
@@ -467,7 +467,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('ProductDescription'))
         ..add(serializers.serialize(
           productDescription,
-          specifiedType: const FullType.nullable(RiProductDescription),
+          specifiedType: const FullType(RiProductDescription),
         ));
     }
     if (reservedInstancesId != null) {
@@ -483,7 +483,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('Start'))
         ..add(serializers.serialize(
           start,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (state != null) {
@@ -491,7 +491,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(ReservedInstanceState),
+          specifiedType: const FullType(ReservedInstanceState),
         ));
     }
     result$
@@ -505,7 +505,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     if (instanceTenancy != null) {
@@ -513,7 +513,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     if (offeringClass != null) {
@@ -521,7 +521,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('OfferingClass'))
         ..add(serializers.serialize(
           offeringClass,
-          specifiedType: const FullType.nullable(OfferingClassType),
+          specifiedType: const FullType(OfferingClassType),
         ));
     }
     if (offeringType != null) {
@@ -529,7 +529,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('OfferingType'))
         ..add(serializers.serialize(
           offeringType,
-          specifiedType: const FullType.nullable(OfferingTypeValues),
+          specifiedType: const FullType(OfferingTypeValues),
         ));
     }
     if (recurringCharges != null) {
@@ -541,7 +541,7 @@ class ReservedInstancesEc2QuerySerializer
         ).serialize(
           serializers,
           recurringCharges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RecurringCharge)],
           ),
@@ -552,7 +552,7 @@ class ReservedInstancesEc2QuerySerializer
         ..add(const _i4.XmlElementName('Scope'))
         ..add(serializers.serialize(
           scope,
-          specifiedType: const FullType.nullable(Scope),
+          specifiedType: const FullType(Scope),
         ));
     }
     if (tags != null) {
@@ -564,7 +564,7 @@ class ReservedInstancesEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

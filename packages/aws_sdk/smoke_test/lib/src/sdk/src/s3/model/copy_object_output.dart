@@ -311,7 +311,7 @@ class CopyObjectOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (checksumCrc32 != null) {

@@ -147,7 +147,7 @@ class ListImagesInRecycleBinResultEc2QuerySerializer
         ).serialize(
           serializers,
           images,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ImageRecycleBinInfo)],
           ),

@@ -336,7 +336,7 @@ class IpamResourceDiscoveryEc2QuerySerializer
         ).serialize(
           serializers,
           operatingRegions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamOperatingRegion)],
           ),
@@ -353,7 +353,7 @@ class IpamResourceDiscoveryEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(IpamResourceDiscoveryState),
+          specifiedType: const FullType(IpamResourceDiscoveryState),
         ));
     }
     if (tags != null) {
@@ -365,7 +365,7 @@ class IpamResourceDiscoveryEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

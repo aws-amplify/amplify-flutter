@@ -220,7 +220,7 @@ class AnalysisPacketHeaderEc2QuerySerializer
         ).serialize(
           serializers,
           destinationAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -235,7 +235,7 @@ class AnalysisPacketHeaderEc2QuerySerializer
         ).serialize(
           serializers,
           destinationPortRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PortRange)],
           ),
@@ -258,7 +258,7 @@ class AnalysisPacketHeaderEc2QuerySerializer
         ).serialize(
           serializers,
           sourceAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -273,7 +273,7 @@ class AnalysisPacketHeaderEc2QuerySerializer
         ).serialize(
           serializers,
           sourcePortRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PortRange)],
           ),

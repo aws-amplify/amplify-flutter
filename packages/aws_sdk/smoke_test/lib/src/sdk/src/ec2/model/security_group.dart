@@ -272,7 +272,7 @@ class SecurityGroupEc2QuerySerializer
         ).serialize(
           serializers,
           ipPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpPermission)],
           ),
@@ -303,7 +303,7 @@ class SecurityGroupEc2QuerySerializer
         ).serialize(
           serializers,
           ipPermissionsEgress,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpPermission)],
           ),
@@ -318,7 +318,7 @@ class SecurityGroupEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

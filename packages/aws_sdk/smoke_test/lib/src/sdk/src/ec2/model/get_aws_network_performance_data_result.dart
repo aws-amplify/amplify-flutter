@@ -150,7 +150,7 @@ class GetAwsNetworkPerformanceDataResultEc2QuerySerializer
         ).serialize(
           serializers,
           dataResponses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DataResponse)],
           ),

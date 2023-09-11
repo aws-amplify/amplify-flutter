@@ -220,7 +220,7 @@ class ValidateTemplateOutputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TemplateParameter)],
           ),
@@ -242,7 +242,7 @@ class ValidateTemplateOutputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Capability)],
           ),
@@ -264,7 +264,7 @@ class ValidateTemplateOutputAwsQuerySerializer
             .serialize(
           serializers,
           declaredTransforms,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

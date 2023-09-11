@@ -144,7 +144,7 @@ class DescribeHostsResultEc2QuerySerializer
         ).serialize(
           serializers,
           hosts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Host)],
           ),

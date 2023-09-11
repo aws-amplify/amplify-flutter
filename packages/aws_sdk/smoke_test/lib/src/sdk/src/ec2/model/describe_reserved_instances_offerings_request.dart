@@ -438,7 +438,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(Filter)],
           ),
@@ -455,7 +455,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     result$
@@ -481,7 +481,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('OfferingClass'))
         ..add(serializers.serialize(
           offeringClass,
-          specifiedType: const FullType.nullable(OfferingClassType),
+          specifiedType: const FullType(OfferingClassType),
         ));
     }
     if (productDescription != null) {
@@ -489,7 +489,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('ProductDescription'))
         ..add(serializers.serialize(
           productDescription,
-          specifiedType: const FullType.nullable(RiProductDescription),
+          specifiedType: const FullType(RiProductDescription),
         ));
     }
     if (reservedInstancesOfferingIds != null) {
@@ -500,7 +500,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
             .serialize(
           serializers,
           reservedInstancesOfferingIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
@@ -517,7 +517,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     result$
@@ -539,7 +539,7 @@ class DescribeReservedInstancesOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('OfferingType'))
         ..add(serializers.serialize(
           offeringType,
-          specifiedType: const FullType.nullable(OfferingTypeValues),
+          specifiedType: const FullType(OfferingTypeValues),
         ));
     }
     return result$;

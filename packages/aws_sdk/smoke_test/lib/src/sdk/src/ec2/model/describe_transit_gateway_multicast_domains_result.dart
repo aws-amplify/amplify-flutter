@@ -158,7 +158,7 @@ class DescribeTransitGatewayMulticastDomainsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           transitGatewayMulticastDomains,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayMulticastDomain)],
           ),

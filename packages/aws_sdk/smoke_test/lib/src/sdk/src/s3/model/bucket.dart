@@ -124,7 +124,7 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
         ..add(const _i2.XmlElementName('CreationDate'))
         ..add(serializers.serialize(
           creationDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (name != null) {

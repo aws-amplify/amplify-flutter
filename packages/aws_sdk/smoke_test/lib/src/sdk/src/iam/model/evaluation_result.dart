@@ -316,7 +316,7 @@ class EvaluationResultAwsQuerySerializer
       ..add(const _i3.XmlElementName('EvalDecision'))
       ..add(serializers.serialize(
         evalDecision,
-        specifiedType: const FullType.nullable(PolicyEvaluationDecisionType),
+        specifiedType: const FullType(PolicyEvaluationDecisionType),
       ));
     if (matchedStatements != null) {
       result$
@@ -326,7 +326,7 @@ class EvaluationResultAwsQuerySerializer
             .serialize(
           serializers,
           matchedStatements,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Statement)],
           ),
@@ -340,7 +340,7 @@ class EvaluationResultAwsQuerySerializer
             .serialize(
           serializers,
           missingContextValues,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -370,7 +370,7 @@ class EvaluationResultAwsQuerySerializer
                 .serialize(
           serializers,
           evalDecisionDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -387,7 +387,7 @@ class EvaluationResultAwsQuerySerializer
             .serialize(
           serializers,
           resourceSpecificResults,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ResourceSpecificResult)],
           ),

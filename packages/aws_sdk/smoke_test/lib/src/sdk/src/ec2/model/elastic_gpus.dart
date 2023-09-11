@@ -252,7 +252,7 @@ class ElasticGpusEc2QuerySerializer
         ..add(const _i3.XmlElementName('ElasticGpuState'))
         ..add(serializers.serialize(
           elasticGpuState,
-          specifiedType: const FullType.nullable(ElasticGpuState),
+          specifiedType: const FullType(ElasticGpuState),
         ));
     }
     if (instanceId != null) {
@@ -272,7 +272,7 @@ class ElasticGpusEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

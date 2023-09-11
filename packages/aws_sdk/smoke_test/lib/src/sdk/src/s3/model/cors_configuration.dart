@@ -106,7 +106,7 @@ class CorsConfigurationRestXmlSerializer
         const _i3.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
       serializers,
       corsRules,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i2.BuiltList,
         [FullType(CorsRule)],
       ),

@@ -333,7 +333,7 @@ class NatGatewayEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (deleteTime != null) {
@@ -341,7 +341,7 @@ class NatGatewayEc2QuerySerializer
         ..add(const _i3.XmlElementName('DeleteTime'))
         ..add(serializers.serialize(
           deleteTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (failureCode != null) {
@@ -369,7 +369,7 @@ class NatGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           natGatewayAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NatGatewayAddress)],
           ),
@@ -396,7 +396,7 @@ class NatGatewayEc2QuerySerializer
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(NatGatewayState),
+          specifiedType: const FullType(NatGatewayState),
         ));
     }
     if (subnetId != null) {
@@ -424,7 +424,7 @@ class NatGatewayEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -435,7 +435,7 @@ class NatGatewayEc2QuerySerializer
         ..add(const _i3.XmlElementName('ConnectivityType'))
         ..add(serializers.serialize(
           connectivityType,
-          specifiedType: const FullType.nullable(ConnectivityType),
+          specifiedType: const FullType(ConnectivityType),
         ));
     }
     return result$;

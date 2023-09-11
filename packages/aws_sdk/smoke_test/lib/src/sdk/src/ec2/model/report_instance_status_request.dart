@@ -274,7 +274,7 @@ class ReportInstanceStatusRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndTime'))
         ..add(serializers.serialize(
           endTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (instances != null) {
@@ -286,7 +286,7 @@ class ReportInstanceStatusRequestEc2QuerySerializer
         ).serialize(
           serializers,
           instances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -301,7 +301,7 @@ class ReportInstanceStatusRequestEc2QuerySerializer
         ).serialize(
           serializers,
           reasonCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ReportInstanceReasonCodes)],
           ),
@@ -312,7 +312,7 @@ class ReportInstanceStatusRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (status != null) {
@@ -320,7 +320,7 @@ class ReportInstanceStatusRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(ReportStatusType),
+          specifiedType: const FullType(ReportStatusType),
         ));
     }
     return result$;

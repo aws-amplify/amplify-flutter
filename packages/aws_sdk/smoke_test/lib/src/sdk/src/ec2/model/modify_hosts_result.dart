@@ -150,7 +150,7 @@ class ModifyHostsResultEc2QuerySerializer
         ).serialize(
           serializers,
           successful,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -165,7 +165,7 @@ class ModifyHostsResultEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessful,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UnsuccessfulItem)],
           ),

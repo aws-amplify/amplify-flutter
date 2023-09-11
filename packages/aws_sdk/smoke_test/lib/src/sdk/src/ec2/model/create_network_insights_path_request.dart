@@ -341,7 +341,7 @@ class CreateNetworkInsightsPathRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(Protocol),
+          specifiedType: const FullType(Protocol),
         ));
     }
     result$
@@ -359,7 +359,7 @@ class CreateNetworkInsightsPathRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

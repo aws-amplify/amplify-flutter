@@ -207,7 +207,7 @@ class DeploymentTargetsAwsQuerySerializer
             .serialize(
           serializers,
           accounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -229,7 +229,7 @@ class DeploymentTargetsAwsQuerySerializer
             .serialize(
           serializers,
           organizationalUnitIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -240,7 +240,7 @@ class DeploymentTargetsAwsQuerySerializer
         ..add(const _i3.XmlElementName('AccountFilterType'))
         ..add(serializers.serialize(
           accountFilterType,
-          specifiedType: const FullType.nullable(AccountFilterType),
+          specifiedType: const FullType(AccountFilterType),
         ));
     }
     return result$;

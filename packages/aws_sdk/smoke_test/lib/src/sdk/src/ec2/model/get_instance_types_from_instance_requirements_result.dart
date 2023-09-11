@@ -156,7 +156,7 @@ class GetInstanceTypesFromInstanceRequirementsResultEc2QuerySerializer
         ).serialize(
           serializers,
           instanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceTypeInfoFromInstanceRequirements)],
           ),

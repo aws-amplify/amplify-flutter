@@ -162,7 +162,7 @@ class DescribeNetworkInsightsAccessScopeAnalysesResultEc2QuerySerializer
         ).serialize(
           serializers,
           networkInsightsAccessScopeAnalyses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInsightsAccessScopeAnalysis)],
           ),

@@ -163,7 +163,7 @@ class RevokeSecurityGroupIngressResultEc2QuerySerializer
         ).serialize(
           serializers,
           unknownIpPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpPermission)],
           ),

@@ -288,7 +288,7 @@ class CreateRoleRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
           maxSessionDuration,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (permissionsBoundary != null) {
@@ -307,7 +307,7 @@ class CreateRoleRequestAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

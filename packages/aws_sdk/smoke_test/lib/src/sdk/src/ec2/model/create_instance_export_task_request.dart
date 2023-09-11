@@ -225,7 +225,7 @@ class CreateInstanceExportTaskRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TargetEnvironment'))
         ..add(serializers.serialize(
           targetEnvironment,
-          specifiedType: const FullType.nullable(ExportEnvironment),
+          specifiedType: const FullType(ExportEnvironment),
         ));
     }
     if (tagSpecifications != null) {
@@ -237,7 +237,7 @@ class CreateInstanceExportTaskRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

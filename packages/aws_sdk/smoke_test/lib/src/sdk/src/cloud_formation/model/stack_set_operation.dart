@@ -371,7 +371,7 @@ class StackSetOperationAwsQuerySerializer
         ..add(const _i2.XmlElementName('Action'))
         ..add(serializers.serialize(
           action,
-          specifiedType: const FullType.nullable(StackSetOperationAction),
+          specifiedType: const FullType(StackSetOperationAction),
         ));
     }
     if (status != null) {
@@ -379,7 +379,7 @@ class StackSetOperationAwsQuerySerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackSetOperationStatus),
+          specifiedType: const FullType(StackSetOperationStatus),
         ));
     }
     if (operationPreferences != null) {
@@ -395,7 +395,7 @@ class StackSetOperationAwsQuerySerializer
         ..add(const _i2.XmlElementName('RetainStacks'))
         ..add(serializers.serialize(
           retainStacks,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (administrationRoleArn != null) {
@@ -419,7 +419,7 @@ class StackSetOperationAwsQuerySerializer
         ..add(const _i2.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
           creationTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endTimestamp != null) {
@@ -427,7 +427,7 @@ class StackSetOperationAwsQuerySerializer
         ..add(const _i2.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
           endTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (deploymentTargets != null) {

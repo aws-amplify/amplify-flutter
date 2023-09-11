@@ -1,17 +1,17 @@
 apis:
   com.amazonaws.s3:
+    - AbortMultipartUpload
+    - CompleteMultipartUpload
     - CopyObject
+    - CreateMultipartUpload
     - DeleteObject
     - DeleteObjects
     - GetObject
     - HeadObject
-    - ListObjectsV2
-    - PutObject
-    - AbortMultipartUpload
-    - CompleteMultipartUpload
-    - CreateMultipartUpload
-    - ListParts
-    - UploadPart
     - ListMultipartUploads
-    - UploadPartCopy
+    - ListObjectsV2
+    - ListParts
+    - PutObject
     - SelectObjectContent
+    - UploadPart
+    - UploadPartCopy

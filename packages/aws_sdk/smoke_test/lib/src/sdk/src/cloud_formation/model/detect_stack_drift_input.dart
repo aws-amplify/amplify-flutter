@@ -161,7 +161,7 @@ class DetectStackDriftInputAwsQuerySerializer
             .serialize(
           serializers,
           logicalResourceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

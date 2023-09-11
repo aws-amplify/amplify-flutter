@@ -148,7 +148,7 @@ class TargetGrantRestXmlSerializer
         ..add(const _i2.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
-          specifiedType: const FullType.nullable(BucketLogsPermission),
+          specifiedType: const FullType(BucketLogsPermission),
         ));
     }
     return result$;

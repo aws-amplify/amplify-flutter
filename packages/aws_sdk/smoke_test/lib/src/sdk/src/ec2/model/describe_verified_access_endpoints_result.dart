@@ -154,7 +154,7 @@ class DescribeVerifiedAccessEndpointsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           verifiedAccessEndpoints,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VerifiedAccessEndpoint)],
           ),

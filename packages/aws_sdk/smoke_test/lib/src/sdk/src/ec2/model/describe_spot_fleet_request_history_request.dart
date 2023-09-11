@@ -227,7 +227,7 @@ class DescribeSpotFleetRequestHistoryRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('EventType'))
         ..add(serializers.serialize(
           eventType,
-          specifiedType: const FullType.nullable(EventType),
+          specifiedType: const FullType(EventType),
         ));
     }
     result$
@@ -257,7 +257,7 @@ class DescribeSpotFleetRequestHistoryRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

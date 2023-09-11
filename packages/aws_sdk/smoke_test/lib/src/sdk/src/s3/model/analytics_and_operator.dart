@@ -137,7 +137,7 @@ class AnalyticsAndOperatorRestXmlSerializer
           .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(Tag)],
         ),

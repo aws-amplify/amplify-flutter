@@ -206,7 +206,7 @@ class CreateStoreImageTaskRequestEc2QuerySerializer
         ).serialize(
           serializers,
           s3ObjectTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(S3ObjectTag)],
           ),

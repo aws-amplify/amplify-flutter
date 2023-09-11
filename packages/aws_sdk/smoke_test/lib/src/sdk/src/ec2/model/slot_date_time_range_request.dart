@@ -128,7 +128,7 @@ class SlotDateTimeRangeRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('EarliestTime'))
         ..add(serializers.serialize(
           earliestTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (latestTime != null) {
@@ -136,7 +136,7 @@ class SlotDateTimeRangeRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('LatestTime'))
         ..add(serializers.serialize(
           latestTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

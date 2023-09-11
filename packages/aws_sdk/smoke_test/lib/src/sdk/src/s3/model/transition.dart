@@ -150,7 +150,7 @@ class TransitionRestXmlSerializer
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (storageClass != null) {
@@ -158,7 +158,7 @@ class TransitionRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(TransitionStorageClass),
+          specifiedType: const FullType(TransitionStorageClass),
         ));
     }
     return result$;

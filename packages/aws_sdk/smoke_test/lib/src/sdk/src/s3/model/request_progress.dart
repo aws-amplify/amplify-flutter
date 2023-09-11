@@ -105,7 +105,7 @@ class RequestProgressRestXmlSerializer
         ..add(const _i2.XmlElementName('Enabled'))
         ..add(serializers.serialize(
           enabled,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

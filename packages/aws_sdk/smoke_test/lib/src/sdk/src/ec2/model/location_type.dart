@@ -26,8 +26,14 @@ class LocationType extends _i1.SmithyEnum<LocationType> {
     'availability-zone-id',
   );
 
-  static const region = LocationType._(
+  static const outpost = LocationType._(
     2,
+    'outpost',
+    'outpost',
+  );
+
+  static const region = LocationType._(
+    3,
     'region',
     'region',
   );
@@ -36,6 +42,7 @@ class LocationType extends _i1.SmithyEnum<LocationType> {
   static const values = <LocationType>[
     LocationType.availabilityZone,
     LocationType.availabilityZoneId,
+    LocationType.outpost,
     LocationType.region,
   ];
 

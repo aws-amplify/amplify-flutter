@@ -142,7 +142,7 @@ class RoleLastUsedAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastUsedDate'))
         ..add(serializers.serialize(
           lastUsedDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (region != null) {

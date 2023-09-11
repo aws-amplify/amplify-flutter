@@ -313,7 +313,7 @@ class VpnConnectionOptionsSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('TunnelInsideIpVersion'))
         ..add(serializers.serialize(
           tunnelInsideIpVersion,
-          specifiedType: const FullType.nullable(TunnelInsideIpVersion),
+          specifiedType: const FullType(TunnelInsideIpVersion),
         ));
     }
     if (tunnelOptions != null) {
@@ -324,7 +324,7 @@ class VpnConnectionOptionsSpecificationEc2QuerySerializer
             .serialize(
           serializers,
           tunnelOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpnTunnelOptionsSpecification)],
           ),

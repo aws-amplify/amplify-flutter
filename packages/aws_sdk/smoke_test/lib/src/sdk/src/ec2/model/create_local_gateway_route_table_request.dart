@@ -198,7 +198,7 @@ class CreateLocalGatewayRouteTableRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(LocalGatewayRouteTableMode),
+          specifiedType: const FullType(LocalGatewayRouteTableMode),
         ));
     }
     if (tagSpecifications != null) {
@@ -210,7 +210,7 @@ class CreateLocalGatewayRouteTableRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

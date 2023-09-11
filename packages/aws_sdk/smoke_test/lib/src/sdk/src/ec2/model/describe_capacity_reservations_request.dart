@@ -267,7 +267,7 @@ class DescribeCapacityReservationsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           capacityReservationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -296,7 +296,7 @@ class DescribeCapacityReservationsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

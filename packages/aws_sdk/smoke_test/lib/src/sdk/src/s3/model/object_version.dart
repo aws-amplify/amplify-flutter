@@ -265,7 +265,7 @@ class ObjectVersionRestXmlSerializer
               .serialize(
         serializers,
         checksumAlgorithm,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(ChecksumAlgorithm)],
         ),
@@ -284,7 +284,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i4.XmlElementName('IsLatest'))
         ..add(serializers.serialize(
           isLatest,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (key != null) {
@@ -300,7 +300,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i4.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (owner != null) {
@@ -324,7 +324,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i4.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (storageClass != null) {
@@ -332,7 +332,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(ObjectVersionStorageClass),
+          specifiedType: const FullType(ObjectVersionStorageClass),
         ));
     }
     if (versionId != null) {

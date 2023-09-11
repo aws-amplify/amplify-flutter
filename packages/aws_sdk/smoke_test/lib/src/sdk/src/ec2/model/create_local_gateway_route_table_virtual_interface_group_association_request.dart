@@ -227,7 +227,7 @@ class CreateLocalGatewayRouteTableVirtualInterfaceGroupAssociationRequestEc2Quer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

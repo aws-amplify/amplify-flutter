@@ -170,7 +170,7 @@ class GetServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (marker != null) {

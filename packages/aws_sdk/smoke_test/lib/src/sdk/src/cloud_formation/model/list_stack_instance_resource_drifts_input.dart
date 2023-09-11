@@ -289,7 +289,7 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (stackInstanceResourceDriftStatuses != null) {
@@ -300,7 +300,7 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
             .serialize(
           serializers,
           stackInstanceResourceDriftStatuses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(StackResourceDriftStatus)],
           ),
@@ -329,7 +329,7 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

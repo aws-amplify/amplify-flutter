@@ -128,7 +128,7 @@ class VolumeStatusDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(VolumeStatusName),
+          specifiedType: const FullType(VolumeStatusName),
         ));
     }
     if (status != null) {

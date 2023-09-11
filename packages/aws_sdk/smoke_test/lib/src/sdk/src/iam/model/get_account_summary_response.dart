@@ -137,7 +137,7 @@ class GetAccountSummaryResponseAwsQuerySerializer
                 .serialize(
           serializers,
           summaryMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(SummaryKeyType),

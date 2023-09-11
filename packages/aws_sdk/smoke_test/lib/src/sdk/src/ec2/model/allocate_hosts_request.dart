@@ -322,7 +322,7 @@ class AllocateHostsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('AutoPlacement'))
         ..add(serializers.serialize(
           autoPlacement,
-          specifiedType: const FullType.nullable(AutoPlacement),
+          specifiedType: const FullType(AutoPlacement),
         ));
     }
     if (availabilityZone != null) {
@@ -372,7 +372,7 @@ class AllocateHostsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -383,7 +383,7 @@ class AllocateHostsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('HostRecovery'))
         ..add(serializers.serialize(
           hostRecovery,
-          specifiedType: const FullType.nullable(HostRecovery),
+          specifiedType: const FullType(HostRecovery),
         ));
     }
     if (outpostArn != null) {
@@ -399,7 +399,7 @@ class AllocateHostsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('HostMaintenance'))
         ..add(serializers.serialize(
           hostMaintenance,
-          specifiedType: const FullType.nullable(HostMaintenance),
+          specifiedType: const FullType(HostMaintenance),
         ));
     }
     if (assetIds != null) {
@@ -410,7 +410,7 @@ class AllocateHostsRequestEc2QuerySerializer
             .serialize(
           serializers,
           assetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

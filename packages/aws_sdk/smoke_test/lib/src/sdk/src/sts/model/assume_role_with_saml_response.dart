@@ -297,7 +297,7 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (subject != null) {

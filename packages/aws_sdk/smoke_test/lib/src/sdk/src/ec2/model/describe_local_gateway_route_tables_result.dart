@@ -154,7 +154,7 @@ class DescribeLocalGatewayRouteTablesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           localGatewayRouteTables,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(LocalGatewayRouteTable)],
           ),

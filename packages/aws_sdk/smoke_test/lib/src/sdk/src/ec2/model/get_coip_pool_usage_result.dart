@@ -172,7 +172,7 @@ class GetCoipPoolUsageResultEc2QuerySerializer
         ).serialize(
           serializers,
           coipAddressUsages,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CoipAddressUsage)],
           ),

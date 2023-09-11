@@ -342,8 +342,8 @@ class TransitGatewayRouteTableAnnouncementEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('AnnouncementDirection'))
         ..add(serializers.serialize(
           announcementDirection,
-          specifiedType: const FullType.nullable(
-              TransitGatewayRouteTableAnnouncementDirection),
+          specifiedType:
+              const FullType(TransitGatewayRouteTableAnnouncementDirection),
         ));
     }
     if (transitGatewayRouteTableId != null) {
@@ -359,8 +359,8 @@ class TransitGatewayRouteTableAnnouncementEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(
-              TransitGatewayRouteTableAnnouncementState),
+          specifiedType:
+              const FullType(TransitGatewayRouteTableAnnouncementState),
         ));
     }
     if (creationTime != null) {
@@ -368,7 +368,7 @@ class TransitGatewayRouteTableAnnouncementEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -380,7 +380,7 @@ class TransitGatewayRouteTableAnnouncementEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

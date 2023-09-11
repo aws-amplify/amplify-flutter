@@ -147,14 +147,14 @@ class StackDriftInformationSummaryAwsQuerySerializer
       ..add(const _i2.XmlElementName('StackDriftStatus'))
       ..add(serializers.serialize(
         stackDriftStatus,
-        specifiedType: const FullType.nullable(StackDriftStatus),
+        specifiedType: const FullType(StackDriftStatus),
       ));
     if (lastCheckTimestamp != null) {
       result$
         ..add(const _i2.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
           lastCheckTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

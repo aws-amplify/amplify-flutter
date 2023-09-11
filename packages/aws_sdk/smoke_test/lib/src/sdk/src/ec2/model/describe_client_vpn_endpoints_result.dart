@@ -150,7 +150,7 @@ class DescribeClientVpnEndpointsResultEc2QuerySerializer
         ).serialize(
           serializers,
           clientVpnEndpoints,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ClientVpnEndpoint)],
           ),

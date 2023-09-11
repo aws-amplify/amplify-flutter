@@ -137,7 +137,7 @@ class InstanceExportDetailsEc2QuerySerializer
         ..add(const _i2.XmlElementName('TargetEnvironment'))
         ..add(serializers.serialize(
           targetEnvironment,
-          specifiedType: const FullType.nullable(ExportEnvironment),
+          specifiedType: const FullType(ExportEnvironment),
         ));
     }
     return result$;

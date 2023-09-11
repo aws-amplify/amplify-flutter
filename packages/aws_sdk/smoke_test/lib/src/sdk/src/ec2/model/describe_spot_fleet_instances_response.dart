@@ -171,7 +171,7 @@ class DescribeSpotFleetInstancesResponseEc2QuerySerializer
         ).serialize(
           serializers,
           activeInstances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ActiveInstance)],
           ),

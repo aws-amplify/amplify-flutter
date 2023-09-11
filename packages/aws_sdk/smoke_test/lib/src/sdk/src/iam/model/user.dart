@@ -298,14 +298,14 @@ class UserAwsQuerySerializer extends _i3.StructuredSmithySerializer<User> {
       ..add(const _i3.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
         createDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (passwordLastUsed != null) {
       result$
         ..add(const _i3.XmlElementName('PasswordLastUsed'))
         ..add(serializers.serialize(
           passwordLastUsed,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (permissionsBoundary != null) {
@@ -324,7 +324,7 @@ class UserAwsQuerySerializer extends _i3.StructuredSmithySerializer<User> {
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

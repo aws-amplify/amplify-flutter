@@ -152,7 +152,7 @@ class GetIpamDiscoveredAccountsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipamDiscoveredAccounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamDiscoveredAccount)],
           ),

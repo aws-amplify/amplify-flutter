@@ -142,7 +142,7 @@ class InstanceStatusSummaryEc2QuerySerializer
         ).serialize(
           serializers,
           details,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceStatusDetails)],
           ),
@@ -153,7 +153,7 @@ class InstanceStatusSummaryEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(SummaryStatus),
+          specifiedType: const FullType(SummaryStatus),
         ));
     }
     return result$;

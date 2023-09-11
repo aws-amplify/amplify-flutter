@@ -127,7 +127,7 @@ class DescribeVpcClassicLinkResultEc2QuerySerializer
         ).serialize(
           serializers,
           vpcs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpcClassicLink)],
           ),

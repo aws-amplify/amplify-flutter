@@ -127,7 +127,7 @@ class ResponseErrorEc2QuerySerializer
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
           code,
-          specifiedType: const FullType.nullable(LaunchTemplateErrorCode),
+          specifiedType: const FullType(LaunchTemplateErrorCode),
         ));
     }
     if (message != null) {

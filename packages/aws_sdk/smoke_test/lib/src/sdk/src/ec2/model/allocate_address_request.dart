@@ -239,7 +239,7 @@ class AllocateAddressRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Domain'))
         ..add(serializers.serialize(
           domain,
-          specifiedType: const FullType.nullable(DomainType),
+          specifiedType: const FullType(DomainType),
         ));
     }
     if (address != null) {
@@ -289,7 +289,7 @@ class AllocateAddressRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

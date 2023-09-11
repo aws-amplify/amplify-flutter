@@ -154,7 +154,7 @@ class CapacityReservationFleetCancellationStateEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('CurrentFleetState'))
         ..add(serializers.serialize(
           currentFleetState,
-          specifiedType: const FullType.nullable(CapacityReservationFleetState),
+          specifiedType: const FullType(CapacityReservationFleetState),
         ));
     }
     if (previousFleetState != null) {
@@ -162,7 +162,7 @@ class CapacityReservationFleetCancellationStateEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('PreviousFleetState'))
         ..add(serializers.serialize(
           previousFleetState,
-          specifiedType: const FullType.nullable(CapacityReservationFleetState),
+          specifiedType: const FullType(CapacityReservationFleetState),
         ));
     }
     if (capacityReservationFleetId != null) {

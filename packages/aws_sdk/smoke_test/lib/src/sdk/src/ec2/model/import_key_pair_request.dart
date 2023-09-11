@@ -203,7 +203,7 @@ class ImportKeyPairRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('PublicKeyMaterial'))
         ..add(serializers.serialize(
           publicKeyMaterial,
-          specifiedType: const FullType.nullable(_i3.Uint8List),
+          specifiedType: const FullType(_i3.Uint8List),
         ));
     }
     if (tagSpecifications != null) {
@@ -215,7 +215,7 @@ class ImportKeyPairRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(TagSpecification)],
           ),

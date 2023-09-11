@@ -179,7 +179,7 @@ abstract class InitiateAuthRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       );
     return helper.toString();
   }

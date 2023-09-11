@@ -225,7 +225,7 @@ class StoreImageTaskResultEc2QuerySerializer
         ..add(const _i2.XmlElementName('TaskStartTime'))
         ..add(serializers.serialize(
           taskStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (bucket != null) {

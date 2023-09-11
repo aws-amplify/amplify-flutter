@@ -157,7 +157,7 @@ class GetManagedPrefixListAssociationsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           prefixListAssociations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PrefixListAssociation)],
           ),

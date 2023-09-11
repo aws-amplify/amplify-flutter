@@ -178,7 +178,7 @@ class NetworkInsightsAccessScopeContentEc2QuerySerializer
         ).serialize(
           serializers,
           matchPaths,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AccessScopePath)],
           ),
@@ -193,7 +193,7 @@ class NetworkInsightsAccessScopeContentEc2QuerySerializer
         ).serialize(
           serializers,
           excludePaths,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AccessScopePath)],
           ),

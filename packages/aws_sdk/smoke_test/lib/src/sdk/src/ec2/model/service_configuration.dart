@@ -420,7 +420,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           serviceType,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ServiceTypeDetail)],
           ),
@@ -447,7 +447,7 @@ class ServiceConfigurationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ServiceState'))
         ..add(serializers.serialize(
           serviceState,
-          specifiedType: const FullType.nullable(ServiceState),
+          specifiedType: const FullType(ServiceState),
         ));
     }
     if (availabilityZones != null) {
@@ -459,7 +459,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           availabilityZones,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -486,7 +486,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           networkLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -501,7 +501,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           gatewayLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -516,7 +516,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           supportedIpAddressTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ServiceConnectivityType)],
           ),
@@ -531,7 +531,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           baseEndpointDnsNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -558,7 +558,7 @@ class ServiceConfigurationEc2QuerySerializer
         ..add(const _i3.XmlElementName('PayerResponsibility'))
         ..add(serializers.serialize(
           payerResponsibility,
-          specifiedType: const FullType.nullable(PayerResponsibility),
+          specifiedType: const FullType(PayerResponsibility),
         ));
     }
     if (tags != null) {
@@ -570,7 +570,7 @@ class ServiceConfigurationEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

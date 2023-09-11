@@ -225,7 +225,7 @@ class GetAwsNetworkPerformanceDataRequestEc2QuerySerializer extends _i1
             .serialize(
           serializers,
           dataQueries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(DataQuery)],
           ),
@@ -236,7 +236,7 @@ class GetAwsNetworkPerformanceDataRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endTime != null) {
@@ -244,7 +244,7 @@ class GetAwsNetworkPerformanceDataRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('EndTime'))
         ..add(serializers.serialize(
           endTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$

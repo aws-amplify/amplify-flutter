@@ -394,7 +394,7 @@ class VolumeModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ModificationState'))
         ..add(serializers.serialize(
           modificationState,
-          specifiedType: const FullType.nullable(VolumeModificationState),
+          specifiedType: const FullType(VolumeModificationState),
         ));
     }
     if (statusMessage != null) {
@@ -422,7 +422,7 @@ class VolumeModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('TargetVolumeType'))
         ..add(serializers.serialize(
           targetVolumeType,
-          specifiedType: const FullType.nullable(VolumeType),
+          specifiedType: const FullType(VolumeType),
         ));
     }
     result$
@@ -454,7 +454,7 @@ class VolumeModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('OriginalVolumeType'))
         ..add(serializers.serialize(
           originalVolumeType,
-          specifiedType: const FullType.nullable(VolumeType),
+          specifiedType: const FullType(VolumeType),
         ));
     }
     result$
@@ -480,7 +480,7 @@ class VolumeModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endTime != null) {
@@ -488,7 +488,7 @@ class VolumeModificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('EndTime'))
         ..add(serializers.serialize(
           endTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

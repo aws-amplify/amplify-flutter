@@ -212,7 +212,7 @@ class GetObjectAclOutputRestXmlSerializer
         ..add(const _i2.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           grants,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Grant)],
           ),

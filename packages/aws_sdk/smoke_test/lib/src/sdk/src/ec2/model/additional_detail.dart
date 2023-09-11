@@ -291,7 +291,7 @@ class AdditionalDetailEc2QuerySerializer
         ).serialize(
           serializers,
           ruleOptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RuleOption)],
           ),
@@ -306,7 +306,7 @@ class AdditionalDetailEc2QuerySerializer
         ).serialize(
           serializers,
           ruleGroupTypePairs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RuleGroupTypePair)],
           ),
@@ -321,7 +321,7 @@ class AdditionalDetailEc2QuerySerializer
         ).serialize(
           serializers,
           ruleGroupRuleOptionsPairs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RuleGroupRuleOptionsPair)],
           ),
@@ -344,7 +344,7 @@ class AdditionalDetailEc2QuerySerializer
         ).serialize(
           serializers,
           loadBalancers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AnalysisComponent)],
           ),

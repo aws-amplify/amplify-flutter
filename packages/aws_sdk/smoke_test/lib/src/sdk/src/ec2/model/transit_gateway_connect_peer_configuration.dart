@@ -225,7 +225,7 @@ class TransitGatewayConnectPeerConfigurationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           insideCidrBlocks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -236,7 +236,7 @@ class TransitGatewayConnectPeerConfigurationEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(ProtocolValue),
+          specifiedType: const FullType(ProtocolValue),
         ));
     }
     if (bgpConfigurations != null) {
@@ -248,7 +248,7 @@ class TransitGatewayConnectPeerConfigurationEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           bgpConfigurations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayAttachmentBgpConfiguration)],
           ),

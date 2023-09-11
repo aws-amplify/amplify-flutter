@@ -146,7 +146,7 @@ class GetIpamAddressHistoryResultEc2QuerySerializer
         ).serialize(
           serializers,
           historyRecords,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamAddressHistoryRecord)],
           ),

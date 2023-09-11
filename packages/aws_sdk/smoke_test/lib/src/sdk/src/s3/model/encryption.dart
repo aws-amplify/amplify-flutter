@@ -141,7 +141,7 @@ class EncryptionRestXmlSerializer
       ..add(const _i2.XmlElementName('EncryptionType'))
       ..add(serializers.serialize(
         encryptionType,
-        specifiedType: const FullType.nullable(ServerSideEncryption),
+        specifiedType: const FullType(ServerSideEncryption),
       ));
     if (kmsContext != null) {
       result$

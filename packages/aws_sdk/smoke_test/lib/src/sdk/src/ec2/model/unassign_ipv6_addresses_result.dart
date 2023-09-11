@@ -184,7 +184,7 @@ class UnassignIpv6AddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           unassignedIpv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -199,7 +199,7 @@ class UnassignIpv6AddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           unassignedIpv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

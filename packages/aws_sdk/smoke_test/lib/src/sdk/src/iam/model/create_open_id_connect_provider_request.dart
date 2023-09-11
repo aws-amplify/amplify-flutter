@@ -224,7 +224,7 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
             .serialize(
           serializers,
           clientIdList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -237,7 +237,7 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
               .serialize(
         serializers,
         thumbprintList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -250,7 +250,7 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

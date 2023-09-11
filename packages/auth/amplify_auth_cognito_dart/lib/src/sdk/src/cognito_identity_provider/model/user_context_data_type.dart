@@ -51,11 +51,11 @@ abstract class UserContextDataType
     final helper = newBuiltValueToStringHelper('UserContextDataType')
       ..add(
         'ipAddress',
-        ipAddress,
+        '***SENSITIVE***',
       )
       ..add(
         'encodedData',
-        encodedData,
+        '***SENSITIVE***',
       );
     return helper.toString();
   }

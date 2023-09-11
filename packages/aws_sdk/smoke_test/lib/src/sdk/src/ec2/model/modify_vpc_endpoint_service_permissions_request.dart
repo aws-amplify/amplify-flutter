@@ -220,7 +220,7 @@ class ModifyVpcEndpointServicePermissionsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           addAllowedPrincipals,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -235,7 +235,7 @@ class ModifyVpcEndpointServicePermissionsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           removeAllowedPrincipals,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
