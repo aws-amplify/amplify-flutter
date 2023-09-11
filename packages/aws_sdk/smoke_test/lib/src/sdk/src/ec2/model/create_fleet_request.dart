@@ -410,8 +410,7 @@ class CreateFleetRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ExcessCapacityTerminationPolicy'))
         ..add(serializers.serialize(
           excessCapacityTerminationPolicy,
-          specifiedType:
-              const FullType.nullable(FleetExcessCapacityTerminationPolicy),
+          specifiedType: const FullType(FleetExcessCapacityTerminationPolicy),
         ));
     }
     if (launchTemplateConfigs != null) {
@@ -423,7 +422,7 @@ class CreateFleetRequestEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(FleetLaunchTemplateConfigRequest)],
           ),
@@ -448,7 +447,7 @@ class CreateFleetRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(FleetType),
+          specifiedType: const FullType(FleetType),
         ));
     }
     if (validFrom != null) {
@@ -456,7 +455,7 @@ class CreateFleetRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ValidFrom'))
         ..add(serializers.serialize(
           validFrom,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -464,7 +463,7 @@ class CreateFleetRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -482,7 +481,7 @@ class CreateFleetRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

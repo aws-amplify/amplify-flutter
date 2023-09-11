@@ -145,7 +145,7 @@ class DescribeFpgaImagesResultEc2QuerySerializer
         ).serialize(
           serializers,
           fpgaImages,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FpgaImage)],
           ),

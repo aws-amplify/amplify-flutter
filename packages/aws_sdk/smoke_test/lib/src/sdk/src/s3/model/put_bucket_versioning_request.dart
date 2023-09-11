@@ -216,7 +216,7 @@ class PutBucketVersioningRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
           mfaDelete,
-          specifiedType: const FullType.nullable(MfaDelete),
+          specifiedType: const FullType(MfaDelete),
         ));
     }
     if (status != null) {
@@ -224,7 +224,7 @@ class PutBucketVersioningRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(BucketVersioningStatus),
+          specifiedType: const FullType(BucketVersioningStatus),
         ));
     }
     return result$;

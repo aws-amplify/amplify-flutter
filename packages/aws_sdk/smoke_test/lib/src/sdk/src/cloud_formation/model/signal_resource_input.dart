@@ -199,7 +199,7 @@ class SignalResourceInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(ResourceSignalStatus),
+        specifiedType: const FullType(ResourceSignalStatus),
       ));
     return result$;
   }

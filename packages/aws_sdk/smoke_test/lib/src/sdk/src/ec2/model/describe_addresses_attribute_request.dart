@@ -212,7 +212,7 @@ class DescribeAddressesAttributeRequestEc2QuerySerializer
         ).serialize(
           serializers,
           allocationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -223,7 +223,7 @@ class DescribeAddressesAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(AddressAttributeName),
+          specifiedType: const FullType(AddressAttributeName),
         ));
     }
     if (nextToken != null) {

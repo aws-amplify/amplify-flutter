@@ -310,7 +310,7 @@ class VpcEc2QuerySerializer extends _i3.StructuredSmithySerializer<Vpc> {
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(VpcState),
+          specifiedType: const FullType(VpcState),
         ));
     }
     if (vpcId != null) {
@@ -334,7 +334,7 @@ class VpcEc2QuerySerializer extends _i3.StructuredSmithySerializer<Vpc> {
         ..add(const _i3.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     if (ipv6CidrBlockAssociationSet != null) {
@@ -346,7 +346,7 @@ class VpcEc2QuerySerializer extends _i3.StructuredSmithySerializer<Vpc> {
         ).serialize(
           serializers,
           ipv6CidrBlockAssociationSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpcIpv6CidrBlockAssociation)],
           ),
@@ -361,7 +361,7 @@ class VpcEc2QuerySerializer extends _i3.StructuredSmithySerializer<Vpc> {
         ).serialize(
           serializers,
           cidrBlockAssociationSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VpcCidrBlockAssociation)],
           ),
@@ -382,7 +382,7 @@ class VpcEc2QuerySerializer extends _i3.StructuredSmithySerializer<Vpc> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

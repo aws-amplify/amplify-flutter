@@ -67,7 +67,7 @@ abstract class DescribeInstancesRequest
   ///
   /// *   `availability-zone` \- The Availability Zone of the instance.
   ///
-  /// *   `block-device-mapping.attach-time` \- The attach time for an EBS volume mapped to the instance, for example, `2010-09-15T17:15:20.000Z`.
+  /// *   `block-device-mapping.attach-time` \- The attach time for an EBS volume mapped to the instance, for example, `2022-09-15T17:15:20.000Z`.
   ///
   /// *   `block-device-mapping.delete-on-termination` \- A Boolean that indicates whether the EBS volume is deleted on instance termination.
   ///
@@ -77,11 +77,27 @@ abstract class DescribeInstancesRequest
   ///
   /// *   `block-device-mapping.volume-id` \- The volume ID of the EBS volume.
   ///
+  /// *   `boot-mode` \- The boot mode that was specified by the AMI (`legacy-bios` | `uefi` | `uefi-preferred`).
+  ///
   /// *   `capacity-reservation-id` \- The ID of the Capacity Reservation into which the instance was launched.
+  ///
+  /// *   `capacity-reservation-specification.capacity-reservation-preference` \- The instance's Capacity Reservation preference (`open` | `none`).
+  ///
+  /// *   `capacity-reservation-specification.capacity-reservation-target.capacity-reservation-id` \- The ID of the targeted Capacity Reservation.
+  ///
+  /// *   `capacity-reservation-specification.capacity-reservation-target.capacity-reservation-resource-group-arn` \- The ARN of the targeted Capacity Reservation group.
   ///
   /// *   `client-token` \- The idempotency token you provided when you launched the instance.
   ///
+  /// *   `current-instance-boot-mode` \- The boot mode that is used to launch the instance at launch or start (`legacy-bios` | `uefi`).
+  ///
   /// *   `dns-name` \- The public DNS name of the instance.
+  ///
+  /// *   `ebs-optimized` \- A Boolean that indicates whether the instance is optimized for Amazon EBS I/O.
+  ///
+  /// *   `ena-support` \- A Boolean that indicates whether the instance is enabled for enhanced networking with ENA.
+  ///
+  /// *   `enclave-options.enabled` \- A Boolean that indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
   ///
   /// *   `hibernation-options.configured` \- A Boolean that indicates whether the instance is enabled for hibernation. A value of `true` means that the instance is enabled for hibernation.
   ///
@@ -90,6 +106,10 @@ abstract class DescribeInstancesRequest
   /// *   `hypervisor` \- The hypervisor type of the instance (`ovm` | `xen`). The value `xen` is used for both Xen and Nitro hypervisors.
   ///
   /// *   `iam-instance-profile.arn` \- The instance profile associated with the instance. Specified as an ARN.
+  ///
+  /// *   `iam-instance-profile.id` \- The instance profile associated with the instance. Specified as an ID.
+  ///
+  /// *   `iam-instance-profile.name` \- The instance profile associated with the instance. Specified as an name.
   ///
   /// *   `image-id` \- The ID of the image used to launch the instance.
   ///
@@ -109,6 +129,8 @@ abstract class DescribeInstancesRequest
   ///
   /// *   `ip-address` \- The public IPv4 address of the instance.
   ///
+  /// *   `ipv6-address` \- The IPv6 address of the instance.
+  ///
   /// *   `kernel-id` \- The kernel ID.
   ///
   /// *   `key-name` \- The name of the key pair used when the instance was launched.
@@ -117,19 +139,29 @@ abstract class DescribeInstancesRequest
   ///
   /// *   `launch-time` \- The time when the instance was launched, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, `2021-09-29T11:04:43.305Z`. You can use a wildcard (`*`), for example, `2021-09-29T*`, which matches an entire day.
   ///
-  /// *   `metadata-options.http-tokens` \- The metadata request authorization state (`optional` | `required`)
+  /// *   `license-pool` -
   ///
-  /// *   `metadata-options.http-put-response-hop-limit` \- The HTTP metadata request put response hop limit (integer, possible values `1` to `64`)
+  /// *   `maintenance-options.auto-recovery` \- The current automatic recovery behavior of the instance (`disabled` | `default`).
   ///
   /// *   `metadata-options.http-endpoint` \- The status of access to the HTTP metadata endpoint on your instance (`enabled` | `disabled`)
   ///
+  /// *   `metadata-options.http-protocol-ipv4` \- Indicates whether the IPv4 endpoint is enabled (`disabled` | `enabled`).
+  ///
+  /// *   `metadata-options.http-protocol-ipv6` \- Indicates whether the IPv6 endpoint is enabled (`disabled` | `enabled`).
+  ///
+  /// *   `metadata-options.http-put-response-hop-limit` \- The HTTP metadata request put response hop limit (integer, possible values `1` to `64`)
+  ///
+  /// *   `metadata-options.http-tokens` \- The metadata request authorization state (`optional` | `required`)
+  ///
   /// *   `metadata-options.instance-metadata-tags` \- The status of access to instance tags from the instance metadata (`enabled` | `disabled`)
+  ///
+  /// *   `metadata-options.state` \- The state of the metadata option changes (`pending` | `applied`).
   ///
   /// *   `monitoring-state` \- Indicates whether detailed monitoring is enabled (`disabled` | `enabled`).
   ///
-  /// *   `network-interface.addresses.private-ip-address` \- The private IPv4 address associated with the network interface.
-  ///
   /// *   `network-interface.addresses.primary` \- Specifies whether the IPv4 address of the network interface is the primary private IPv4 address.
+  ///
+  /// *   `network-interface.addresses.private-ip-address` \- The private IPv4 address associated with the network interface.
   ///
   /// *   `network-interface.addresses.association.public-ip` \- The ID of the association of an Elastic IP address (IPv4) with a network interface.
   ///
@@ -197,7 +229,15 @@ abstract class DescribeInstancesRequest
   ///
   /// *   `platform` \- The platform. To list only Windows instances, use `windows`.
   ///
+  /// *   `platform-details` \- The platform (`Linux/UNIX` | `Red Hat BYOL Linux` | `Red Hat Enterprise Linux` | `Red Hat Enterprise Linux with HA` | `Red Hat Enterprise Linux with SQL Server Standard and HA` | `Red Hat Enterprise Linux with SQL Server Enterprise and HA` | `Red Hat Enterprise Linux with SQL Server Standard` | `Red Hat Enterprise Linux with SQL Server Web` | `Red Hat Enterprise Linux with SQL Server Enterprise` | `SQL Server Enterprise` | `SQL Server Standard` | `SQL Server Web` | `SUSE Linux` | `Ubuntu Pro` | `Windows` | `Windows BYOL` | `Windows with SQL Server Enterprise` | `Windows with SQL Server Standard` | `Windows with SQL Server Web`).
+  ///
   /// *   `private-dns-name` \- The private IPv4 DNS name of the instance.
+  ///
+  /// *   `private-dns-name-options.enable-resource-name-dns-a-record` \- A Boolean that indicates whether to respond to DNS queries for instance hostnames with DNS A records.
+  ///
+  /// *   `private-dns-name-options.enable-resource-name-dns-aaaa-record` \- A Boolean that indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records.
+  ///
+  /// *   `private-dns-name-options.hostname-type` \- The type of hostname (`ip-name` | `resource-name`).
   ///
   /// *   `private-ip-address` \- The private IPv4 address of the instance.
   ///
@@ -232,6 +272,12 @@ abstract class DescribeInstancesRequest
   /// *   `tag-key` \- The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.
   ///
   /// *   `tenancy` \- The tenancy of an instance (`dedicated` | `default` | `host`).
+  ///
+  /// *   `tpm-support` \- Indicates if the instance is configured for NitroTPM support (`v2.0`).
+  ///
+  /// *   `usage-operation` \- The usage operation value for the instance (`RunInstances` | `RunInstances:00g0` | `RunInstances:0010` | `RunInstances:1010` | `RunInstances:1014` | `RunInstances:1110` | `RunInstances:0014` | `RunInstances:0210` | `RunInstances:0110` | `RunInstances:0100` | `RunInstances:0004` | `RunInstances:0200` | `RunInstances:000g` | `RunInstances:0g00` | `RunInstances:0002` | `RunInstances:0800` | `RunInstances:0102` | `RunInstances:0006` | `RunInstances:0202`).
+  ///
+  /// *   `usage-operation-update-time` \- The time that the usage operation was last updated, for example, `2022-09-15T17:15:20.000Z`.
   ///
   /// *   `virtualization-type` \- The virtualization type of the instance (`paravirtual` | `hvm`).
   ///
@@ -396,7 +442,7 @@ class DescribeInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -411,7 +457,7 @@ class DescribeInstancesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           instanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

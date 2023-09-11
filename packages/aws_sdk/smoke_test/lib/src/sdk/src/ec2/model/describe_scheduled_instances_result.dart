@@ -162,7 +162,7 @@ class DescribeScheduledInstancesResultEc2QuerySerializer
         ).serialize(
           serializers,
           scheduledInstanceSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ScheduledInstance)],
           ),

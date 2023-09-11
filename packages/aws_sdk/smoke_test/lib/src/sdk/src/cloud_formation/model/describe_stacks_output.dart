@@ -154,7 +154,7 @@ class DescribeStacksOutputAwsQuerySerializer
             .serialize(
           serializers,
           stacks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Stack)],
           ),

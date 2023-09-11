@@ -260,7 +260,7 @@ class TrafficMirrorTargetEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(TrafficMirrorTargetType),
+          specifiedType: const FullType(TrafficMirrorTargetType),
         ));
     }
     if (description != null) {
@@ -288,7 +288,7 @@ class TrafficMirrorTargetEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

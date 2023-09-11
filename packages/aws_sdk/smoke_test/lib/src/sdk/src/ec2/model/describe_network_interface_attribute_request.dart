@@ -170,7 +170,7 @@ class DescribeNetworkInterfaceAttributeRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(NetworkInterfaceAttribute),
+          specifiedType: const FullType(NetworkInterfaceAttribute),
         ));
     }
     result$

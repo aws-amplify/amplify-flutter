@@ -202,7 +202,7 @@ class ElasticInferenceAcceleratorAssociationEc2QuerySerializer extends _i2
             'ElasticInferenceAcceleratorAssociationTime'))
         ..add(serializers.serialize(
           elasticInferenceAcceleratorAssociationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

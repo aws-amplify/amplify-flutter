@@ -146,7 +146,7 @@ class IdFormatEc2QuerySerializer
         ..add(const _i2.XmlElementName('Deadline'))
         ..add(serializers.serialize(
           deadline,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (resource != null) {

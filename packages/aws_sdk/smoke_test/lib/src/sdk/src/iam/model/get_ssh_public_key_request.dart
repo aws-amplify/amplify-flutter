@@ -175,7 +175,7 @@ class GetSshPublicKeyRequestAwsQuerySerializer
       ..add(const _i1.XmlElementName('Encoding'))
       ..add(serializers.serialize(
         encoding,
-        specifiedType: const FullType.nullable(EncodingType),
+        specifiedType: const FullType(EncodingType),
       ));
     return result$;
   }

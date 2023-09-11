@@ -245,7 +245,7 @@ class StaleIpPermissionEc2QuerySerializer
         ).serialize(
           serializers,
           ipRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -260,7 +260,7 @@ class StaleIpPermissionEc2QuerySerializer
         ).serialize(
           serializers,
           prefixListIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -281,7 +281,7 @@ class StaleIpPermissionEc2QuerySerializer
         ).serialize(
           serializers,
           userIdGroupPairs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UserIdGroupPair)],
           ),

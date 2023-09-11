@@ -712,6 +712,9 @@ class AWSService {
   /// Amazon Neptune
   static const neptune = AWSService('rds');
 
+  /// Amazon NeptuneData
+  static const neptunedata = AWSService('neptune-db');
+
   /// AWS Network Firewall
   static const networkFirewall = AWSService('network-firewall');
 
@@ -756,6 +759,9 @@ class AWSService {
 
   /// Payment Cryptography Data Plane
   static const paymentCryptographyData = AWSService('payment-cryptography');
+
+  /// PcaConnectorAd
+  static const pcaConnectorAd = AWSService('pca-connector-ad');
 
   /// Amazon Personalize
   static const personalize = AWSService('personalize');
@@ -828,6 +834,9 @@ class AWSService {
 
   /// Amazon Rekognition
   static const rekognition = AWSService('rekognition');
+
+  /// Amazon Rekognition Streaming
+  static const rekognitionStreaming = AWSService('rekognition');
 
   /// AWS Resilience Hub
   static const resiliencehub = AWSService('resiliencehub');

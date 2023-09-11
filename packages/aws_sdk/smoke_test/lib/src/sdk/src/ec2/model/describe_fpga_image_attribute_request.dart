@@ -175,7 +175,7 @@ class DescribeFpgaImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(FpgaImageAttributeName),
+          specifiedType: const FullType(FpgaImageAttributeName),
         ));
     }
     return result$;

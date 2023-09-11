@@ -235,8 +235,7 @@ class TransitGatewayMulticastDomainAssociationsEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(TransitGatewayAttachmentResourceType),
+          specifiedType: const FullType(TransitGatewayAttachmentResourceType),
         ));
     }
     if (resourceOwnerId != null) {
@@ -256,7 +255,7 @@ class TransitGatewayMulticastDomainAssociationsEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           subnets,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SubnetAssociation)],
           ),

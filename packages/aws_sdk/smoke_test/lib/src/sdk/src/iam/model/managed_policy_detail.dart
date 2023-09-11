@@ -377,7 +377,7 @@ class ManagedPolicyDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('AttachmentCount'))
         ..add(serializers.serialize(
           attachmentCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (permissionsBoundaryUsageCount != null) {
@@ -385,7 +385,7 @@ class ManagedPolicyDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('PermissionsBoundaryUsageCount'))
         ..add(serializers.serialize(
           permissionsBoundaryUsageCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$
@@ -407,7 +407,7 @@ class ManagedPolicyDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (updateDate != null) {
@@ -415,7 +415,7 @@ class ManagedPolicyDetailAwsQuerySerializer
         ..add(const _i3.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (policyVersionList != null) {
@@ -426,7 +426,7 @@ class ManagedPolicyDetailAwsQuerySerializer
             .serialize(
           serializers,
           policyVersionList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PolicyVersion)],
           ),

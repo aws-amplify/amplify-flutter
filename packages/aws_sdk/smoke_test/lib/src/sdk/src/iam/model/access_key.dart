@@ -209,7 +209,7 @@ class AccessKeyAwsQuerySerializer
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(StatusType),
+        specifiedType: const FullType(StatusType),
       ));
     result$
       ..add(const _i2.XmlElementName('SecretAccessKey'))
@@ -222,7 +222,7 @@ class AccessKeyAwsQuerySerializer
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

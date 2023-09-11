@@ -223,8 +223,7 @@ class OnDemandOptionsRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('AllocationStrategy'))
         ..add(serializers.serialize(
           allocationStrategy,
-          specifiedType:
-              const FullType.nullable(FleetOnDemandAllocationStrategy),
+          specifiedType: const FullType(FleetOnDemandAllocationStrategy),
         ));
     }
     if (capacityReservationOptions != null) {

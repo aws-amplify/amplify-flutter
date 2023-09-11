@@ -308,14 +308,14 @@ class StackSummaryAwsQuerySerializer
       ..add(const _i2.XmlElementName('CreationTime'))
       ..add(serializers.serialize(
         creationTime,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     if (lastUpdatedTime != null) {
       result$
         ..add(const _i2.XmlElementName('LastUpdatedTime'))
         ..add(serializers.serialize(
           lastUpdatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (deletionTime != null) {
@@ -323,14 +323,14 @@ class StackSummaryAwsQuerySerializer
         ..add(const _i2.XmlElementName('DeletionTime'))
         ..add(serializers.serialize(
           deletionTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
       ..add(const _i2.XmlElementName('StackStatus'))
       ..add(serializers.serialize(
         stackStatus,
-        specifiedType: const FullType.nullable(StackStatus),
+        specifiedType: const FullType(StackStatus),
       ));
     if (stackStatusReason != null) {
       result$

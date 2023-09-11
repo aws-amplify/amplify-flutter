@@ -164,7 +164,7 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('AssignmentStatus'))
         ..add(serializers.serialize(
           assignmentStatus,
-          specifiedType: const FullType.nullable(AssignmentStatusType),
+          specifiedType: const FullType(AssignmentStatusType),
         ));
     }
     if (marker != null) {
@@ -180,7 +180,7 @@ class ListVirtualMfaDevicesRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
           maxItems,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

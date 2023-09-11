@@ -153,7 +153,7 @@ class DescribeFleetsResultEc2QuerySerializer
         ).serialize(
           serializers,
           fleets,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FleetData)],
           ),

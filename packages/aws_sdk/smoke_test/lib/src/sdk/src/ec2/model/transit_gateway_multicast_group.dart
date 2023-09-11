@@ -320,8 +320,7 @@ class TransitGatewayMulticastGroupEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(TransitGatewayAttachmentResourceType),
+          specifiedType: const FullType(TransitGatewayAttachmentResourceType),
         ));
     }
     if (resourceOwnerId != null) {
@@ -357,7 +356,7 @@ class TransitGatewayMulticastGroupEc2QuerySerializer
         ..add(const _i2.XmlElementName('MemberType'))
         ..add(serializers.serialize(
           memberType,
-          specifiedType: const FullType.nullable(MembershipType),
+          specifiedType: const FullType(MembershipType),
         ));
     }
     if (sourceType != null) {
@@ -365,7 +364,7 @@ class TransitGatewayMulticastGroupEc2QuerySerializer
         ..add(const _i2.XmlElementName('SourceType'))
         ..add(serializers.serialize(
           sourceType,
-          specifiedType: const FullType.nullable(MembershipType),
+          specifiedType: const FullType(MembershipType),
         ));
     }
     return result$;

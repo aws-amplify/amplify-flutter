@@ -317,7 +317,7 @@ class RevokeSecurityGroupEgressRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipPermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(IpPermission)],
           ),
@@ -332,7 +332,7 @@ class RevokeSecurityGroupEgressRequestEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupRuleIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

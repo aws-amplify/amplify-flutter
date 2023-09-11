@@ -164,7 +164,7 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
             .serialize(
           serializers,
           roleUsageList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RoleUsageType)],
           ),

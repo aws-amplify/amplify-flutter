@@ -173,7 +173,7 @@ class TagDescriptionEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (value != null) {

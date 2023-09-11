@@ -178,7 +178,7 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i3
               .serialize(
         serializers,
         analyticsConfigurationList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(AnalyticsConfiguration)],
         ),
@@ -197,7 +197,7 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i3
         ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (nextContinuationToken != null) {

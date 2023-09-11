@@ -398,7 +398,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           addNetworkLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -413,7 +413,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           removeNetworkLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -428,7 +428,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           addGatewayLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -443,7 +443,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           removeGatewayLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -458,7 +458,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           addSupportedIpAddressTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -473,7 +473,7 @@ class ModifyVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           removeSupportedIpAddressTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

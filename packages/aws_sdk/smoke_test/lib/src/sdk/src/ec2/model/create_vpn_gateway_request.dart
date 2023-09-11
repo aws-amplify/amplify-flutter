@@ -220,7 +220,7 @@ class CreateVpnGatewayRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(GatewayType),
+          specifiedType: const FullType(GatewayType),
         ));
     }
     if (tagSpecifications != null) {
@@ -232,7 +232,7 @@ class CreateVpnGatewayRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(TagSpecification)],
           ),

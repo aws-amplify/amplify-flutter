@@ -162,7 +162,7 @@ class AuthorizeSecurityGroupIngressResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           securityGroupRules,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SecurityGroupRule)],
           ),

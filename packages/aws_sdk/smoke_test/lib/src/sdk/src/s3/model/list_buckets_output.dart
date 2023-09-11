@@ -140,7 +140,7 @@ class ListBucketsOutputRestXmlSerializer
         ..add(const _i3.XmlBuiltListSerializer(memberName: 'Bucket').serialize(
           serializers,
           buckets,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Bucket)],
           ),

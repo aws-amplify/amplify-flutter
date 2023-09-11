@@ -146,7 +146,7 @@ class ResourceStatementEc2QuerySerializer
         ).serialize(
           serializers,
           resources,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -161,7 +161,7 @@ class ResourceStatementEc2QuerySerializer
         ).serialize(
           serializers,
           resourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

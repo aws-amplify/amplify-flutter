@@ -120,7 +120,7 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('IsPublic'))
         ..add(serializers.serialize(
           isPublic,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

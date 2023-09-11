@@ -229,7 +229,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
             .serialize(
           serializers,
           clientIdList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -243,7 +243,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
             .serialize(
           serializers,
           thumbprintList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -254,7 +254,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -265,7 +265,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

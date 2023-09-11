@@ -155,7 +155,7 @@ class DescribeAccountLimitsOutputAwsQuerySerializer
             .serialize(
           serializers,
           accountLimits,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AccountLimit)],
           ),

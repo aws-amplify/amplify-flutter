@@ -140,7 +140,7 @@ class LaunchTemplateInstanceMarketOptionsRequestEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('MarketType'))
         ..add(serializers.serialize(
           marketType,
-          specifiedType: const FullType.nullable(MarketType),
+          specifiedType: const FullType(MarketType),
         ));
     }
     if (spotOptions != null) {

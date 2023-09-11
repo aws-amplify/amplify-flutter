@@ -148,7 +148,7 @@ class DescribeRouteTablesResultEc2QuerySerializer
         ).serialize(
           serializers,
           routeTables,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RouteTable)],
           ),

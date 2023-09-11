@@ -299,7 +299,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(FastSnapshotRestoreStateCode),
+          specifiedType: const FullType(FastSnapshotRestoreStateCode),
         ));
     }
     if (stateTransitionReason != null) {
@@ -331,7 +331,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('EnablingTime'))
         ..add(serializers.serialize(
           enablingTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (optimizingTime != null) {
@@ -339,7 +339,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('OptimizingTime'))
         ..add(serializers.serialize(
           optimizingTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (enabledTime != null) {
@@ -347,7 +347,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('EnabledTime'))
         ..add(serializers.serialize(
           enabledTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (disablingTime != null) {
@@ -355,7 +355,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('DisablingTime'))
         ..add(serializers.serialize(
           disablingTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (disabledTime != null) {
@@ -363,7 +363,7 @@ class DisableFastSnapshotRestoreSuccessItemEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('DisabledTime'))
         ..add(serializers.serialize(
           disabledTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -235,7 +235,7 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('IsEnabled'))
         ..add(serializers.serialize(
           isEnabled,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (filter != null) {
@@ -256,7 +256,7 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
         includedObjectVersions,
-        specifiedType: const FullType.nullable(InventoryIncludedObjectVersions),
+        specifiedType: const FullType(InventoryIncludedObjectVersions),
       ));
     if (optionalFields != null) {
       result$
@@ -264,7 +264,7 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
           optionalFields,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InventoryOptionalField)],
           ),

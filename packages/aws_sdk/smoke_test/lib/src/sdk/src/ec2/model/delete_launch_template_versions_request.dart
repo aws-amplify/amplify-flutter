@@ -67,7 +67,7 @@ abstract class DeleteLaunchTemplateVersionsRequest
   /// You must specify either the `LaunchTemplateName` or the `LaunchTemplateId`, but not both.
   String? get launchTemplateName;
 
-  /// The version numbers of one or more launch template versions to delete.
+  /// The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template version numbers.
   _i3.BuiltList<String>? get versions;
   @override
   DeleteLaunchTemplateVersionsRequest getPayload() => this;
@@ -217,7 +217,7 @@ class DeleteLaunchTemplateVersionsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           versions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

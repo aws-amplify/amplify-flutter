@@ -127,7 +127,7 @@ class FilterRuleRestXmlSerializer
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(FilterRuleName),
+          specifiedType: const FullType(FilterRuleName),
         ));
     }
     if (value != null) {

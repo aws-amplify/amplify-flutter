@@ -458,7 +458,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           additionalAccounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -473,7 +473,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           filterInArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -484,7 +484,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('StartDate'))
         ..add(serializers.serialize(
           startDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (status != null) {
@@ -492,7 +492,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(AnalysisStatus),
+          specifiedType: const FullType(AnalysisStatus),
         ));
     }
     if (statusMessage != null) {
@@ -526,7 +526,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           forwardPathComponents,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PathComponent)],
           ),
@@ -541,7 +541,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           returnPathComponents,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PathComponent)],
           ),
@@ -556,7 +556,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           explanations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Explanation)],
           ),
@@ -571,7 +571,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           alternatePathHints,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AlternatePathHint)],
           ),
@@ -586,7 +586,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           suggestedAccounts,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -601,7 +601,7 @@ class NetworkInsightsAnalysisEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

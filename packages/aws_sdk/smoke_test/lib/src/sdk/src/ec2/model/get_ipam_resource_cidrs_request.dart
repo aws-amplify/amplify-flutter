@@ -297,7 +297,7 @@ class GetIpamResourceCidrsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -346,7 +346,7 @@ class GetIpamResourceCidrsRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(IpamResourceType),
+          specifiedType: const FullType(IpamResourceType),
         ));
     }
     if (resourceTag != null) {

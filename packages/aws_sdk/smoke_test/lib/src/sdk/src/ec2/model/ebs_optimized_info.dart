@@ -193,7 +193,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('BaselineBandwidthInMbps'))
         ..add(serializers.serialize(
           baselineBandwidthInMbps,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (baselineThroughputInMBps != null) {
@@ -201,7 +201,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('BaselineThroughputInMBps'))
         ..add(serializers.serialize(
           baselineThroughputInMBps,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (baselineIops != null) {
@@ -209,7 +209,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('BaselineIops'))
         ..add(serializers.serialize(
           baselineIops,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maximumBandwidthInMbps != null) {
@@ -217,7 +217,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaximumBandwidthInMbps'))
         ..add(serializers.serialize(
           maximumBandwidthInMbps,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maximumThroughputInMBps != null) {
@@ -225,7 +225,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaximumThroughputInMBps'))
         ..add(serializers.serialize(
           maximumThroughputInMBps,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (maximumIops != null) {
@@ -233,7 +233,7 @@ class EbsOptimizedInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaximumIops'))
         ..add(serializers.serialize(
           maximumIops,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

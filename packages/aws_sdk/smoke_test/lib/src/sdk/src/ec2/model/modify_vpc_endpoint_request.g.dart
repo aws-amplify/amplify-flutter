@@ -33,6 +33,8 @@ class _$ModifyVpcEndpointRequest extends ModifyVpcEndpointRequest {
   final DnsOptionsSpecification? dnsOptions;
   @override
   final bool privateDnsEnabled;
+  @override
+  final _i3.BuiltList<SubnetConfiguration>? subnetConfigurations;
 
   factory _$ModifyVpcEndpointRequest(
           [void Function(ModifyVpcEndpointRequestBuilder)? updates]) =>
@@ -51,7 +53,8 @@ class _$ModifyVpcEndpointRequest extends ModifyVpcEndpointRequest {
       this.removeSecurityGroupIds,
       this.ipAddressType,
       this.dnsOptions,
-      required this.privateDnsEnabled})
+      required this.privateDnsEnabled,
+      this.subnetConfigurations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         dryRun, r'ModifyVpcEndpointRequest', 'dryRun');
@@ -86,7 +89,8 @@ class _$ModifyVpcEndpointRequest extends ModifyVpcEndpointRequest {
         removeSecurityGroupIds == other.removeSecurityGroupIds &&
         ipAddressType == other.ipAddressType &&
         dnsOptions == other.dnsOptions &&
-        privateDnsEnabled == other.privateDnsEnabled;
+        privateDnsEnabled == other.privateDnsEnabled &&
+        subnetConfigurations == other.subnetConfigurations;
   }
 
   @override
@@ -105,6 +109,7 @@ class _$ModifyVpcEndpointRequest extends ModifyVpcEndpointRequest {
     _$hash = $jc(_$hash, ipAddressType.hashCode);
     _$hash = $jc(_$hash, dnsOptions.hashCode);
     _$hash = $jc(_$hash, privateDnsEnabled.hashCode);
+    _$hash = $jc(_$hash, subnetConfigurations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -185,6 +190,14 @@ class ModifyVpcEndpointRequestBuilder
   set privateDnsEnabled(bool? privateDnsEnabled) =>
       _$this._privateDnsEnabled = privateDnsEnabled;
 
+  _i3.ListBuilder<SubnetConfiguration>? _subnetConfigurations;
+  _i3.ListBuilder<SubnetConfiguration> get subnetConfigurations =>
+      _$this._subnetConfigurations ??=
+          new _i3.ListBuilder<SubnetConfiguration>();
+  set subnetConfigurations(
+          _i3.ListBuilder<SubnetConfiguration>? subnetConfigurations) =>
+      _$this._subnetConfigurations = subnetConfigurations;
+
   ModifyVpcEndpointRequestBuilder() {
     ModifyVpcEndpointRequest._init(this);
   }
@@ -205,6 +218,7 @@ class ModifyVpcEndpointRequestBuilder
       _ipAddressType = $v.ipAddressType;
       _dnsOptions = $v.dnsOptions?.toBuilder();
       _privateDnsEnabled = $v.privateDnsEnabled;
+      _subnetConfigurations = $v.subnetConfigurations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -246,7 +260,8 @@ class ModifyVpcEndpointRequestBuilder
               privateDnsEnabled: BuiltValueNullFieldError.checkNotNull(
                   privateDnsEnabled,
                   r'ModifyVpcEndpointRequest',
-                  'privateDnsEnabled'));
+                  'privateDnsEnabled'),
+              subnetConfigurations: _subnetConfigurations?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -265,6 +280,9 @@ class ModifyVpcEndpointRequestBuilder
 
         _$failedField = 'dnsOptions';
         _dnsOptions?.build();
+
+        _$failedField = 'subnetConfigurations';
+        _subnetConfigurations?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ModifyVpcEndpointRequest', _$failedField, e.toString());

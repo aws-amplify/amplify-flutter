@@ -145,7 +145,7 @@ class GetIpamPoolCidrsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipamPoolCidrs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamPoolCidr)],
           ),

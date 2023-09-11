@@ -493,7 +493,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ActivityStatus'))
         ..add(serializers.serialize(
           activityStatus,
-          specifiedType: const FullType.nullable(FleetActivityStatus),
+          specifiedType: const FullType(FleetActivityStatus),
         ));
     }
     if (createTime != null) {
@@ -501,7 +501,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (fleetId != null) {
@@ -517,7 +517,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('FleetState'))
         ..add(serializers.serialize(
           fleetState,
-          specifiedType: const FullType.nullable(FleetStateCode),
+          specifiedType: const FullType(FleetStateCode),
         ));
     }
     if (clientToken != null) {
@@ -533,8 +533,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ExcessCapacityTerminationPolicy'))
         ..add(serializers.serialize(
           excessCapacityTerminationPolicy,
-          specifiedType:
-              const FullType.nullable(FleetExcessCapacityTerminationPolicy),
+          specifiedType: const FullType(FleetExcessCapacityTerminationPolicy),
         ));
     }
     result$
@@ -558,7 +557,7 @@ class FleetDataEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateConfigs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FleetLaunchTemplateConfig)],
           ),
@@ -583,7 +582,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(FleetType),
+          specifiedType: const FullType(FleetType),
         ));
     }
     if (validFrom != null) {
@@ -591,7 +590,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidFrom'))
         ..add(serializers.serialize(
           validFrom,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (validUntil != null) {
@@ -599,7 +598,7 @@ class FleetDataEc2QuerySerializer
         ..add(const _i3.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -633,7 +632,7 @@ class FleetDataEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -648,7 +647,7 @@ class FleetDataEc2QuerySerializer
         ).serialize(
           serializers,
           errors,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DescribeFleetError)],
           ),
@@ -663,7 +662,7 @@ class FleetDataEc2QuerySerializer
         ).serialize(
           serializers,
           instances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DescribeFleetsInstances)],
           ),

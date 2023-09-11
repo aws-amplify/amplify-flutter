@@ -216,7 +216,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (description != null) {
@@ -256,7 +256,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i2.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
-          specifiedType: const FullType.nullable(Tier),
+          specifiedType: const FullType(Tier),
         ));
     }
     if (type != null) {
@@ -264,7 +264,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RestoreRequestType),
+          specifiedType: const FullType(RestoreRequestType),
         ));
     }
     return result$;

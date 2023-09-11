@@ -245,7 +245,7 @@ class ModifyInstanceEventWindowRequestEc2QuerySerializer
             .serialize(
           serializers,
           timeRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(InstanceEventWindowTimeRangeRequest)],
           ),

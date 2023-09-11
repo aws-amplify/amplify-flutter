@@ -260,22 +260,21 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i3
       ..add(const _i3.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
-        specifiedType: const FullType.nullable(JobStatusType),
+        specifiedType: const FullType(JobStatusType),
       ));
     if (jobType != null) {
       result$
         ..add(const _i3.XmlElementName('JobType'))
         ..add(serializers.serialize(
           jobType,
-          specifiedType:
-              const FullType.nullable(AccessAdvisorUsageGranularityType),
+          specifiedType: const FullType(AccessAdvisorUsageGranularityType),
         ));
     }
     result$
       ..add(const _i3.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i3.XmlElementName('ServicesLastAccessed'))
@@ -284,7 +283,7 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i3
               .serialize(
         serializers,
         servicesLastAccessed,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(ServiceLastAccessed)],
         ),
@@ -293,7 +292,7 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i3
       ..add(const _i3.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
         jobCompletionDate,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     result$
       ..add(const _i3.XmlElementName('IsTruncated'))

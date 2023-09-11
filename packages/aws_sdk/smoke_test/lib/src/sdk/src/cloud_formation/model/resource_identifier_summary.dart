@@ -182,7 +182,7 @@ class ResourceIdentifierSummaryAwsQuerySerializer
             .serialize(
           serializers,
           logicalResourceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -196,7 +196,7 @@ class ResourceIdentifierSummaryAwsQuerySerializer
             .serialize(
           serializers,
           resourceIdentifiers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

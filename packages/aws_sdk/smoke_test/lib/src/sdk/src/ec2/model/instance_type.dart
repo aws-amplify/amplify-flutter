@@ -824,3182 +824,3512 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     'c7g.xlarge',
   );
 
-  static const c7Gn12Xlarge = InstanceType._(
+  static const c7Gd12Xlarge = InstanceType._(
     135,
+    'c7gd_12xlarge',
+    'c7gd.12xlarge',
+  );
+
+  static const c7Gd16Xlarge = InstanceType._(
+    136,
+    'c7gd_16xlarge',
+    'c7gd.16xlarge',
+  );
+
+  static const c7Gd2Xlarge = InstanceType._(
+    137,
+    'c7gd_2xlarge',
+    'c7gd.2xlarge',
+  );
+
+  static const c7Gd4Xlarge = InstanceType._(
+    138,
+    'c7gd_4xlarge',
+    'c7gd.4xlarge',
+  );
+
+  static const c7Gd8Xlarge = InstanceType._(
+    139,
+    'c7gd_8xlarge',
+    'c7gd.8xlarge',
+  );
+
+  static const c7GdLarge = InstanceType._(
+    140,
+    'c7gd_large',
+    'c7gd.large',
+  );
+
+  static const c7GdMedium = InstanceType._(
+    141,
+    'c7gd_medium',
+    'c7gd.medium',
+  );
+
+  static const c7GdXlarge = InstanceType._(
+    142,
+    'c7gd_xlarge',
+    'c7gd.xlarge',
+  );
+
+  static const c7Gn12Xlarge = InstanceType._(
+    143,
     'c7gn_12xlarge',
     'c7gn.12xlarge',
   );
 
   static const c7Gn16Xlarge = InstanceType._(
-    136,
+    144,
     'c7gn_16xlarge',
     'c7gn.16xlarge',
   );
 
   static const c7Gn2Xlarge = InstanceType._(
-    137,
+    145,
     'c7gn_2xlarge',
     'c7gn.2xlarge',
   );
 
   static const c7Gn4Xlarge = InstanceType._(
-    138,
+    146,
     'c7gn_4xlarge',
     'c7gn.4xlarge',
   );
 
   static const c7Gn8Xlarge = InstanceType._(
-    139,
+    147,
     'c7gn_8xlarge',
     'c7gn.8xlarge',
   );
 
   static const c7GnLarge = InstanceType._(
-    140,
+    148,
     'c7gn_large',
     'c7gn.large',
   );
 
   static const c7GnMedium = InstanceType._(
-    141,
+    149,
     'c7gn_medium',
     'c7gn.medium',
   );
 
   static const c7GnXlarge = InstanceType._(
-    142,
+    150,
     'c7gn_xlarge',
     'c7gn.xlarge',
   );
 
   static const cc14Xlarge = InstanceType._(
-    143,
+    151,
     'cc1_4xlarge',
     'cc1.4xlarge',
   );
 
   static const cc28Xlarge = InstanceType._(
-    144,
+    152,
     'cc2_8xlarge',
     'cc2.8xlarge',
   );
 
   static const cg14Xlarge = InstanceType._(
-    145,
+    153,
     'cg1_4xlarge',
     'cg1.4xlarge',
   );
 
   static const cr18Xlarge = InstanceType._(
-    146,
+    154,
     'cr1_8xlarge',
     'cr1.8xlarge',
   );
 
   static const d22Xlarge = InstanceType._(
-    147,
+    155,
     'd2_2xlarge',
     'd2.2xlarge',
   );
 
   static const d24Xlarge = InstanceType._(
-    148,
+    156,
     'd2_4xlarge',
     'd2.4xlarge',
   );
 
   static const d28Xlarge = InstanceType._(
-    149,
+    157,
     'd2_8xlarge',
     'd2.8xlarge',
   );
 
   static const d2Xlarge = InstanceType._(
-    150,
+    158,
     'd2_xlarge',
     'd2.xlarge',
   );
 
   static const d32Xlarge = InstanceType._(
-    151,
+    159,
     'd3_2xlarge',
     'd3.2xlarge',
   );
 
   static const d34Xlarge = InstanceType._(
-    152,
+    160,
     'd3_4xlarge',
     'd3.4xlarge',
   );
 
   static const d38Xlarge = InstanceType._(
-    153,
+    161,
     'd3_8xlarge',
     'd3.8xlarge',
   );
 
   static const d3En12Xlarge = InstanceType._(
-    154,
+    162,
     'd3en_12xlarge',
     'd3en.12xlarge',
   );
 
   static const d3En2Xlarge = InstanceType._(
-    155,
+    163,
     'd3en_2xlarge',
     'd3en.2xlarge',
   );
 
   static const d3En4Xlarge = InstanceType._(
-    156,
+    164,
     'd3en_4xlarge',
     'd3en.4xlarge',
   );
 
   static const d3En6Xlarge = InstanceType._(
-    157,
+    165,
     'd3en_6xlarge',
     'd3en.6xlarge',
   );
 
   static const d3En8Xlarge = InstanceType._(
-    158,
+    166,
     'd3en_8xlarge',
     'd3en.8xlarge',
   );
 
   static const d3EnXlarge = InstanceType._(
-    159,
+    167,
     'd3en_xlarge',
     'd3en.xlarge',
   );
 
   static const d3Xlarge = InstanceType._(
-    160,
+    168,
     'd3_xlarge',
     'd3.xlarge',
   );
 
   static const dl124Xlarge = InstanceType._(
-    161,
+    169,
     'dl1_24xlarge',
     'dl1.24xlarge',
   );
 
   static const f116Xlarge = InstanceType._(
-    162,
+    170,
     'f1_16xlarge',
     'f1.16xlarge',
   );
 
   static const f12Xlarge = InstanceType._(
-    163,
+    171,
     'f1_2xlarge',
     'f1.2xlarge',
   );
 
   static const f14Xlarge = InstanceType._(
-    164,
+    172,
     'f1_4xlarge',
     'f1.4xlarge',
   );
 
   static const g22Xlarge = InstanceType._(
-    165,
+    173,
     'g2_2xlarge',
     'g2.2xlarge',
   );
 
   static const g28Xlarge = InstanceType._(
-    166,
+    174,
     'g2_8xlarge',
     'g2.8xlarge',
   );
 
   static const g316Xlarge = InstanceType._(
-    167,
+    175,
     'g3_16xlarge',
     'g3.16xlarge',
   );
 
   static const g34Xlarge = InstanceType._(
-    168,
+    176,
     'g3_4xlarge',
     'g3.4xlarge',
   );
 
   static const g38Xlarge = InstanceType._(
-    169,
+    177,
     'g3_8xlarge',
     'g3.8xlarge',
   );
 
   static const g3SXlarge = InstanceType._(
-    170,
+    178,
     'g3s_xlarge',
     'g3s.xlarge',
   );
 
   static const g4Ad16Xlarge = InstanceType._(
-    171,
+    179,
     'g4ad_16xlarge',
     'g4ad.16xlarge',
   );
 
   static const g4Ad2Xlarge = InstanceType._(
-    172,
+    180,
     'g4ad_2xlarge',
     'g4ad.2xlarge',
   );
 
   static const g4Ad4Xlarge = InstanceType._(
-    173,
+    181,
     'g4ad_4xlarge',
     'g4ad.4xlarge',
   );
 
   static const g4Ad8Xlarge = InstanceType._(
-    174,
+    182,
     'g4ad_8xlarge',
     'g4ad.8xlarge',
   );
 
   static const g4AdXlarge = InstanceType._(
-    175,
+    183,
     'g4ad_xlarge',
     'g4ad.xlarge',
   );
 
   static const g4Dn12Xlarge = InstanceType._(
-    176,
+    184,
     'g4dn_12xlarge',
     'g4dn.12xlarge',
   );
 
   static const g4Dn16Xlarge = InstanceType._(
-    177,
+    185,
     'g4dn_16xlarge',
     'g4dn.16xlarge',
   );
 
   static const g4Dn2Xlarge = InstanceType._(
-    178,
+    186,
     'g4dn_2xlarge',
     'g4dn.2xlarge',
   );
 
   static const g4Dn4Xlarge = InstanceType._(
-    179,
+    187,
     'g4dn_4xlarge',
     'g4dn.4xlarge',
   );
 
   static const g4Dn8Xlarge = InstanceType._(
-    180,
+    188,
     'g4dn_8xlarge',
     'g4dn.8xlarge',
   );
 
   static const g4DnMetal = InstanceType._(
-    181,
+    189,
     'g4dn_metal',
     'g4dn.metal',
   );
 
   static const g4DnXlarge = InstanceType._(
-    182,
+    190,
     'g4dn_xlarge',
     'g4dn.xlarge',
   );
 
   static const g512Xlarge = InstanceType._(
-    183,
+    191,
     'g5_12xlarge',
     'g5.12xlarge',
   );
 
   static const g516Xlarge = InstanceType._(
-    184,
+    192,
     'g5_16xlarge',
     'g5.16xlarge',
   );
 
   static const g524Xlarge = InstanceType._(
-    185,
+    193,
     'g5_24xlarge',
     'g5.24xlarge',
   );
 
   static const g52Xlarge = InstanceType._(
-    186,
+    194,
     'g5_2xlarge',
     'g5.2xlarge',
   );
 
   static const g548Xlarge = InstanceType._(
-    187,
+    195,
     'g5_48xlarge',
     'g5.48xlarge',
   );
 
   static const g54Xlarge = InstanceType._(
-    188,
+    196,
     'g5_4xlarge',
     'g5.4xlarge',
   );
 
   static const g58Xlarge = InstanceType._(
-    189,
+    197,
     'g5_8xlarge',
     'g5.8xlarge',
   );
 
   static const g5G16Xlarge = InstanceType._(
-    190,
+    198,
     'g5g_16xlarge',
     'g5g.16xlarge',
   );
 
   static const g5G2Xlarge = InstanceType._(
-    191,
+    199,
     'g5g_2xlarge',
     'g5g.2xlarge',
   );
 
   static const g5G4Xlarge = InstanceType._(
-    192,
+    200,
     'g5g_4xlarge',
     'g5g.4xlarge',
   );
 
   static const g5G8Xlarge = InstanceType._(
-    193,
+    201,
     'g5g_8xlarge',
     'g5g.8xlarge',
   );
 
   static const g5GMetal = InstanceType._(
-    194,
+    202,
     'g5g_metal',
     'g5g.metal',
   );
 
   static const g5GXlarge = InstanceType._(
-    195,
+    203,
     'g5g_xlarge',
     'g5g.xlarge',
   );
 
   static const g5Xlarge = InstanceType._(
-    196,
+    204,
     'g5_xlarge',
     'g5.xlarge',
   );
 
   static const h116Xlarge = InstanceType._(
-    197,
+    205,
     'h1_16xlarge',
     'h1.16xlarge',
   );
 
   static const h12Xlarge = InstanceType._(
-    198,
+    206,
     'h1_2xlarge',
     'h1.2xlarge',
   );
 
   static const h14Xlarge = InstanceType._(
-    199,
+    207,
     'h1_4xlarge',
     'h1.4xlarge',
   );
 
   static const h18Xlarge = InstanceType._(
-    200,
+    208,
     'h1_8xlarge',
     'h1.8xlarge',
   );
 
   static const hi14Xlarge = InstanceType._(
-    201,
+    209,
     'hi1_4xlarge',
     'hi1.4xlarge',
   );
 
   static const hpc6A48Xlarge = InstanceType._(
-    202,
+    210,
     'hpc6a_48xlarge',
     'hpc6a.48xlarge',
   );
 
   static const hpc6Id32Xlarge = InstanceType._(
-    203,
+    211,
     'hpc6id_32xlarge',
     'hpc6id.32xlarge',
   );
 
+  static const hpc7A12Xlarge = InstanceType._(
+    212,
+    'hpc7a_12xlarge',
+    'hpc7a.12xlarge',
+  );
+
+  static const hpc7A24Xlarge = InstanceType._(
+    213,
+    'hpc7a_24xlarge',
+    'hpc7a.24xlarge',
+  );
+
+  static const hpc7A48Xlarge = InstanceType._(
+    214,
+    'hpc7a_48xlarge',
+    'hpc7a.48xlarge',
+  );
+
+  static const hpc7A96Xlarge = InstanceType._(
+    215,
+    'hpc7a_96xlarge',
+    'hpc7a.96xlarge',
+  );
+
   static const hpc7G16Xlarge = InstanceType._(
-    204,
+    216,
     'hpc7g_16xlarge',
     'hpc7g.16xlarge',
   );
 
   static const hpc7G4Xlarge = InstanceType._(
-    205,
+    217,
     'hpc7g_4xlarge',
     'hpc7g.4xlarge',
   );
 
   static const hpc7G8Xlarge = InstanceType._(
-    206,
+    218,
     'hpc7g_8xlarge',
     'hpc7g.8xlarge',
   );
 
   static const hs18Xlarge = InstanceType._(
-    207,
+    219,
     'hs1_8xlarge',
     'hs1.8xlarge',
   );
 
   static const i22Xlarge = InstanceType._(
-    208,
+    220,
     'i2_2xlarge',
     'i2.2xlarge',
   );
 
   static const i24Xlarge = InstanceType._(
-    209,
+    221,
     'i2_4xlarge',
     'i2.4xlarge',
   );
 
   static const i28Xlarge = InstanceType._(
-    210,
+    222,
     'i2_8xlarge',
     'i2.8xlarge',
   );
 
   static const i2Xlarge = InstanceType._(
-    211,
+    223,
     'i2_xlarge',
     'i2.xlarge',
   );
 
   static const i316Xlarge = InstanceType._(
-    212,
+    224,
     'i3_16xlarge',
     'i3.16xlarge',
   );
 
   static const i32Xlarge = InstanceType._(
-    213,
+    225,
     'i3_2xlarge',
     'i3.2xlarge',
   );
 
   static const i34Xlarge = InstanceType._(
-    214,
+    226,
     'i3_4xlarge',
     'i3.4xlarge',
   );
 
   static const i38Xlarge = InstanceType._(
-    215,
+    227,
     'i3_8xlarge',
     'i3.8xlarge',
   );
 
   static const i3En12Xlarge = InstanceType._(
-    216,
+    228,
     'i3en_12xlarge',
     'i3en.12xlarge',
   );
 
   static const i3En24Xlarge = InstanceType._(
-    217,
+    229,
     'i3en_24xlarge',
     'i3en.24xlarge',
   );
 
   static const i3En2Xlarge = InstanceType._(
-    218,
+    230,
     'i3en_2xlarge',
     'i3en.2xlarge',
   );
 
   static const i3En3Xlarge = InstanceType._(
-    219,
+    231,
     'i3en_3xlarge',
     'i3en.3xlarge',
   );
 
   static const i3En6Xlarge = InstanceType._(
-    220,
+    232,
     'i3en_6xlarge',
     'i3en.6xlarge',
   );
 
   static const i3EnLarge = InstanceType._(
-    221,
+    233,
     'i3en_large',
     'i3en.large',
   );
 
   static const i3EnMetal = InstanceType._(
-    222,
+    234,
     'i3en_metal',
     'i3en.metal',
   );
 
   static const i3EnXlarge = InstanceType._(
-    223,
+    235,
     'i3en_xlarge',
     'i3en.xlarge',
   );
 
   static const i3Large = InstanceType._(
-    224,
+    236,
     'i3_large',
     'i3.large',
   );
 
   static const i3Metal = InstanceType._(
-    225,
+    237,
     'i3_metal',
     'i3.metal',
   );
 
   static const i3Xlarge = InstanceType._(
-    226,
+    238,
     'i3_xlarge',
     'i3.xlarge',
   );
 
   static const i4G16Xlarge = InstanceType._(
-    227,
+    239,
     'i4g_16xlarge',
     'i4g.16xlarge',
   );
 
   static const i4G2Xlarge = InstanceType._(
-    228,
+    240,
     'i4g_2xlarge',
     'i4g.2xlarge',
   );
 
   static const i4G4Xlarge = InstanceType._(
-    229,
+    241,
     'i4g_4xlarge',
     'i4g.4xlarge',
   );
 
   static const i4G8Xlarge = InstanceType._(
-    230,
+    242,
     'i4g_8xlarge',
     'i4g.8xlarge',
   );
 
   static const i4GLarge = InstanceType._(
-    231,
+    243,
     'i4g_large',
     'i4g.large',
   );
 
   static const i4GXlarge = InstanceType._(
-    232,
+    244,
     'i4g_xlarge',
     'i4g.xlarge',
   );
 
   static const i4I16Xlarge = InstanceType._(
-    233,
+    245,
     'i4i_16xlarge',
     'i4i.16xlarge',
   );
 
   static const i4I2Xlarge = InstanceType._(
-    234,
+    246,
     'i4i_2xlarge',
     'i4i.2xlarge',
   );
 
   static const i4I32Xlarge = InstanceType._(
-    235,
+    247,
     'i4i_32xlarge',
     'i4i.32xlarge',
   );
 
   static const i4I4Xlarge = InstanceType._(
-    236,
+    248,
     'i4i_4xlarge',
     'i4i.4xlarge',
   );
 
   static const i4I8Xlarge = InstanceType._(
-    237,
+    249,
     'i4i_8xlarge',
     'i4i.8xlarge',
   );
 
   static const i4ILarge = InstanceType._(
-    238,
+    250,
     'i4i_large',
     'i4i.large',
   );
 
   static const i4IMetal = InstanceType._(
-    239,
+    251,
     'i4i_metal',
     'i4i.metal',
   );
 
   static const i4IXlarge = InstanceType._(
-    240,
+    252,
     'i4i_xlarge',
     'i4i.xlarge',
   );
 
   static const im4Gn16Xlarge = InstanceType._(
-    241,
+    253,
     'im4gn_16xlarge',
     'im4gn.16xlarge',
   );
 
   static const im4Gn2Xlarge = InstanceType._(
-    242,
+    254,
     'im4gn_2xlarge',
     'im4gn.2xlarge',
   );
 
   static const im4Gn4Xlarge = InstanceType._(
-    243,
+    255,
     'im4gn_4xlarge',
     'im4gn.4xlarge',
   );
 
   static const im4Gn8Xlarge = InstanceType._(
-    244,
+    256,
     'im4gn_8xlarge',
     'im4gn.8xlarge',
   );
 
   static const im4GnLarge = InstanceType._(
-    245,
+    257,
     'im4gn_large',
     'im4gn.large',
   );
 
   static const im4GnXlarge = InstanceType._(
-    246,
+    258,
     'im4gn_xlarge',
     'im4gn.xlarge',
   );
 
   static const inf124Xlarge = InstanceType._(
-    247,
+    259,
     'inf1_24xlarge',
     'inf1.24xlarge',
   );
 
   static const inf12Xlarge = InstanceType._(
-    248,
+    260,
     'inf1_2xlarge',
     'inf1.2xlarge',
   );
 
   static const inf16Xlarge = InstanceType._(
-    249,
+    261,
     'inf1_6xlarge',
     'inf1.6xlarge',
   );
 
   static const inf1Xlarge = InstanceType._(
-    250,
+    262,
     'inf1_xlarge',
     'inf1.xlarge',
   );
 
   static const inf224Xlarge = InstanceType._(
-    251,
+    263,
     'inf2_24xlarge',
     'inf2.24xlarge',
   );
 
   static const inf248Xlarge = InstanceType._(
-    252,
+    264,
     'inf2_48xlarge',
     'inf2.48xlarge',
   );
 
   static const inf28Xlarge = InstanceType._(
-    253,
+    265,
     'inf2_8xlarge',
     'inf2.8xlarge',
   );
 
   static const inf2Xlarge = InstanceType._(
-    254,
+    266,
     'inf2_xlarge',
     'inf2.xlarge',
   );
 
   static const is4Gen2Xlarge = InstanceType._(
-    255,
+    267,
     'is4gen_2xlarge',
     'is4gen.2xlarge',
   );
 
   static const is4Gen4Xlarge = InstanceType._(
-    256,
+    268,
     'is4gen_4xlarge',
     'is4gen.4xlarge',
   );
 
   static const is4Gen8Xlarge = InstanceType._(
-    257,
+    269,
     'is4gen_8xlarge',
     'is4gen.8xlarge',
   );
 
   static const is4GenLarge = InstanceType._(
-    258,
+    270,
     'is4gen_large',
     'is4gen.large',
   );
 
   static const is4GenMedium = InstanceType._(
-    259,
+    271,
     'is4gen_medium',
     'is4gen.medium',
   );
 
   static const is4GenXlarge = InstanceType._(
-    260,
+    272,
     'is4gen_xlarge',
     'is4gen.xlarge',
   );
 
   static const m1Large = InstanceType._(
-    261,
+    273,
     'm1_large',
     'm1.large',
   );
 
   static const m1Medium = InstanceType._(
-    262,
+    274,
     'm1_medium',
     'm1.medium',
   );
 
   static const m1Small = InstanceType._(
-    263,
+    275,
     'm1_small',
     'm1.small',
   );
 
   static const m1Xlarge = InstanceType._(
-    264,
+    276,
     'm1_xlarge',
     'm1.xlarge',
   );
 
   static const m22Xlarge = InstanceType._(
-    265,
+    277,
     'm2_2xlarge',
     'm2.2xlarge',
   );
 
   static const m24Xlarge = InstanceType._(
-    266,
+    278,
     'm2_4xlarge',
     'm2.4xlarge',
   );
 
   static const m2Xlarge = InstanceType._(
-    267,
+    279,
     'm2_xlarge',
     'm2.xlarge',
   );
 
   static const m32Xlarge = InstanceType._(
-    268,
+    280,
     'm3_2xlarge',
     'm3.2xlarge',
   );
 
   static const m3Large = InstanceType._(
-    269,
+    281,
     'm3_large',
     'm3.large',
   );
 
   static const m3Medium = InstanceType._(
-    270,
+    282,
     'm3_medium',
     'm3.medium',
   );
 
   static const m3Xlarge = InstanceType._(
-    271,
+    283,
     'm3_xlarge',
     'm3.xlarge',
   );
 
   static const m410Xlarge = InstanceType._(
-    272,
+    284,
     'm4_10xlarge',
     'm4.10xlarge',
   );
 
   static const m416Xlarge = InstanceType._(
-    273,
+    285,
     'm4_16xlarge',
     'm4.16xlarge',
   );
 
   static const m42Xlarge = InstanceType._(
-    274,
+    286,
     'm4_2xlarge',
     'm4.2xlarge',
   );
 
   static const m44Xlarge = InstanceType._(
-    275,
+    287,
     'm4_4xlarge',
     'm4.4xlarge',
   );
 
   static const m4Large = InstanceType._(
-    276,
+    288,
     'm4_large',
     'm4.large',
   );
 
   static const m4Xlarge = InstanceType._(
-    277,
+    289,
     'm4_xlarge',
     'm4.xlarge',
   );
 
   static const m512Xlarge = InstanceType._(
-    278,
+    290,
     'm5_12xlarge',
     'm5.12xlarge',
   );
 
   static const m516Xlarge = InstanceType._(
-    279,
+    291,
     'm5_16xlarge',
     'm5.16xlarge',
   );
 
   static const m524Xlarge = InstanceType._(
-    280,
+    292,
     'm5_24xlarge',
     'm5.24xlarge',
   );
 
   static const m52Xlarge = InstanceType._(
-    281,
+    293,
     'm5_2xlarge',
     'm5.2xlarge',
   );
 
   static const m54Xlarge = InstanceType._(
-    282,
+    294,
     'm5_4xlarge',
     'm5.4xlarge',
   );
 
   static const m58Xlarge = InstanceType._(
-    283,
+    295,
     'm5_8xlarge',
     'm5.8xlarge',
   );
 
   static const m5A12Xlarge = InstanceType._(
-    284,
+    296,
     'm5a_12xlarge',
     'm5a.12xlarge',
   );
 
   static const m5A16Xlarge = InstanceType._(
-    285,
+    297,
     'm5a_16xlarge',
     'm5a.16xlarge',
   );
 
   static const m5A24Xlarge = InstanceType._(
-    286,
+    298,
     'm5a_24xlarge',
     'm5a.24xlarge',
   );
 
   static const m5A2Xlarge = InstanceType._(
-    287,
+    299,
     'm5a_2xlarge',
     'm5a.2xlarge',
   );
 
   static const m5A4Xlarge = InstanceType._(
-    288,
+    300,
     'm5a_4xlarge',
     'm5a.4xlarge',
   );
 
   static const m5A8Xlarge = InstanceType._(
-    289,
+    301,
     'm5a_8xlarge',
     'm5a.8xlarge',
   );
 
   static const m5ALarge = InstanceType._(
-    290,
+    302,
     'm5a_large',
     'm5a.large',
   );
 
   static const m5AXlarge = InstanceType._(
-    291,
+    303,
     'm5a_xlarge',
     'm5a.xlarge',
   );
 
   static const m5Ad12Xlarge = InstanceType._(
-    292,
+    304,
     'm5ad_12xlarge',
     'm5ad.12xlarge',
   );
 
   static const m5Ad16Xlarge = InstanceType._(
-    293,
+    305,
     'm5ad_16xlarge',
     'm5ad.16xlarge',
   );
 
   static const m5Ad24Xlarge = InstanceType._(
-    294,
+    306,
     'm5ad_24xlarge',
     'm5ad.24xlarge',
   );
 
   static const m5Ad2Xlarge = InstanceType._(
-    295,
+    307,
     'm5ad_2xlarge',
     'm5ad.2xlarge',
   );
 
   static const m5Ad4Xlarge = InstanceType._(
-    296,
+    308,
     'm5ad_4xlarge',
     'm5ad.4xlarge',
   );
 
   static const m5Ad8Xlarge = InstanceType._(
-    297,
+    309,
     'm5ad_8xlarge',
     'm5ad.8xlarge',
   );
 
   static const m5AdLarge = InstanceType._(
-    298,
+    310,
     'm5ad_large',
     'm5ad.large',
   );
 
   static const m5AdXlarge = InstanceType._(
-    299,
+    311,
     'm5ad_xlarge',
     'm5ad.xlarge',
   );
 
   static const m5D12Xlarge = InstanceType._(
-    300,
+    312,
     'm5d_12xlarge',
     'm5d.12xlarge',
   );
 
   static const m5D16Xlarge = InstanceType._(
-    301,
+    313,
     'm5d_16xlarge',
     'm5d.16xlarge',
   );
 
   static const m5D24Xlarge = InstanceType._(
-    302,
+    314,
     'm5d_24xlarge',
     'm5d.24xlarge',
   );
 
   static const m5D2Xlarge = InstanceType._(
-    303,
+    315,
     'm5d_2xlarge',
     'm5d.2xlarge',
   );
 
   static const m5D4Xlarge = InstanceType._(
-    304,
+    316,
     'm5d_4xlarge',
     'm5d.4xlarge',
   );
 
   static const m5D8Xlarge = InstanceType._(
-    305,
+    317,
     'm5d_8xlarge',
     'm5d.8xlarge',
   );
 
   static const m5DLarge = InstanceType._(
-    306,
+    318,
     'm5d_large',
     'm5d.large',
   );
 
   static const m5DMetal = InstanceType._(
-    307,
+    319,
     'm5d_metal',
     'm5d.metal',
   );
 
   static const m5DXlarge = InstanceType._(
-    308,
+    320,
     'm5d_xlarge',
     'm5d.xlarge',
   );
 
   static const m5Dn12Xlarge = InstanceType._(
-    309,
+    321,
     'm5dn_12xlarge',
     'm5dn.12xlarge',
   );
 
   static const m5Dn16Xlarge = InstanceType._(
-    310,
+    322,
     'm5dn_16xlarge',
     'm5dn.16xlarge',
   );
 
   static const m5Dn24Xlarge = InstanceType._(
-    311,
+    323,
     'm5dn_24xlarge',
     'm5dn.24xlarge',
   );
 
   static const m5Dn2Xlarge = InstanceType._(
-    312,
+    324,
     'm5dn_2xlarge',
     'm5dn.2xlarge',
   );
 
   static const m5Dn4Xlarge = InstanceType._(
-    313,
+    325,
     'm5dn_4xlarge',
     'm5dn.4xlarge',
   );
 
   static const m5Dn8Xlarge = InstanceType._(
-    314,
+    326,
     'm5dn_8xlarge',
     'm5dn.8xlarge',
   );
 
   static const m5DnLarge = InstanceType._(
-    315,
+    327,
     'm5dn_large',
     'm5dn.large',
   );
 
   static const m5DnMetal = InstanceType._(
-    316,
+    328,
     'm5dn_metal',
     'm5dn.metal',
   );
 
   static const m5DnXlarge = InstanceType._(
-    317,
+    329,
     'm5dn_xlarge',
     'm5dn.xlarge',
   );
 
   static const m5Large = InstanceType._(
-    318,
+    330,
     'm5_large',
     'm5.large',
   );
 
   static const m5Metal = InstanceType._(
-    319,
+    331,
     'm5_metal',
     'm5.metal',
   );
 
   static const m5N12Xlarge = InstanceType._(
-    320,
+    332,
     'm5n_12xlarge',
     'm5n.12xlarge',
   );
 
   static const m5N16Xlarge = InstanceType._(
-    321,
+    333,
     'm5n_16xlarge',
     'm5n.16xlarge',
   );
 
   static const m5N24Xlarge = InstanceType._(
-    322,
+    334,
     'm5n_24xlarge',
     'm5n.24xlarge',
   );
 
   static const m5N2Xlarge = InstanceType._(
-    323,
+    335,
     'm5n_2xlarge',
     'm5n.2xlarge',
   );
 
   static const m5N4Xlarge = InstanceType._(
-    324,
+    336,
     'm5n_4xlarge',
     'm5n.4xlarge',
   );
 
   static const m5N8Xlarge = InstanceType._(
-    325,
+    337,
     'm5n_8xlarge',
     'm5n.8xlarge',
   );
 
   static const m5NLarge = InstanceType._(
-    326,
+    338,
     'm5n_large',
     'm5n.large',
   );
 
   static const m5NMetal = InstanceType._(
-    327,
+    339,
     'm5n_metal',
     'm5n.metal',
   );
 
   static const m5NXlarge = InstanceType._(
-    328,
+    340,
     'm5n_xlarge',
     'm5n.xlarge',
   );
 
   static const m5Xlarge = InstanceType._(
-    329,
+    341,
     'm5_xlarge',
     'm5.xlarge',
   );
 
   static const m5Zn12Xlarge = InstanceType._(
-    330,
+    342,
     'm5zn_12xlarge',
     'm5zn.12xlarge',
   );
 
   static const m5Zn2Xlarge = InstanceType._(
-    331,
+    343,
     'm5zn_2xlarge',
     'm5zn.2xlarge',
   );
 
   static const m5Zn3Xlarge = InstanceType._(
-    332,
+    344,
     'm5zn_3xlarge',
     'm5zn.3xlarge',
   );
 
   static const m5Zn6Xlarge = InstanceType._(
-    333,
+    345,
     'm5zn_6xlarge',
     'm5zn.6xlarge',
   );
 
   static const m5ZnLarge = InstanceType._(
-    334,
+    346,
     'm5zn_large',
     'm5zn.large',
   );
 
   static const m5ZnMetal = InstanceType._(
-    335,
+    347,
     'm5zn_metal',
     'm5zn.metal',
   );
 
   static const m5ZnXlarge = InstanceType._(
-    336,
+    348,
     'm5zn_xlarge',
     'm5zn.xlarge',
   );
 
   static const m6A12Xlarge = InstanceType._(
-    337,
+    349,
     'm6a_12xlarge',
     'm6a.12xlarge',
   );
 
   static const m6A16Xlarge = InstanceType._(
-    338,
+    350,
     'm6a_16xlarge',
     'm6a.16xlarge',
   );
 
   static const m6A24Xlarge = InstanceType._(
-    339,
+    351,
     'm6a_24xlarge',
     'm6a.24xlarge',
   );
 
   static const m6A2Xlarge = InstanceType._(
-    340,
+    352,
     'm6a_2xlarge',
     'm6a.2xlarge',
   );
 
   static const m6A32Xlarge = InstanceType._(
-    341,
+    353,
     'm6a_32xlarge',
     'm6a.32xlarge',
   );
 
   static const m6A48Xlarge = InstanceType._(
-    342,
+    354,
     'm6a_48xlarge',
     'm6a.48xlarge',
   );
 
   static const m6A4Xlarge = InstanceType._(
-    343,
+    355,
     'm6a_4xlarge',
     'm6a.4xlarge',
   );
 
   static const m6A8Xlarge = InstanceType._(
-    344,
+    356,
     'm6a_8xlarge',
     'm6a.8xlarge',
   );
 
   static const m6ALarge = InstanceType._(
-    345,
+    357,
     'm6a_large',
     'm6a.large',
   );
 
   static const m6AMetal = InstanceType._(
-    346,
+    358,
     'm6a_metal',
     'm6a.metal',
   );
 
   static const m6AXlarge = InstanceType._(
-    347,
+    359,
     'm6a_xlarge',
     'm6a.xlarge',
   );
 
   static const m6G12Xlarge = InstanceType._(
-    348,
+    360,
     'm6g_12xlarge',
     'm6g.12xlarge',
   );
 
   static const m6G16Xlarge = InstanceType._(
-    349,
+    361,
     'm6g_16xlarge',
     'm6g.16xlarge',
   );
 
   static const m6G2Xlarge = InstanceType._(
-    350,
+    362,
     'm6g_2xlarge',
     'm6g.2xlarge',
   );
 
   static const m6G4Xlarge = InstanceType._(
-    351,
+    363,
     'm6g_4xlarge',
     'm6g.4xlarge',
   );
 
   static const m6G8Xlarge = InstanceType._(
-    352,
+    364,
     'm6g_8xlarge',
     'm6g.8xlarge',
   );
 
   static const m6GLarge = InstanceType._(
-    353,
+    365,
     'm6g_large',
     'm6g.large',
   );
 
   static const m6GMedium = InstanceType._(
-    354,
+    366,
     'm6g_medium',
     'm6g.medium',
   );
 
   static const m6GMetal = InstanceType._(
-    355,
+    367,
     'm6g_metal',
     'm6g.metal',
   );
 
   static const m6GXlarge = InstanceType._(
-    356,
+    368,
     'm6g_xlarge',
     'm6g.xlarge',
   );
 
   static const m6Gd12Xlarge = InstanceType._(
-    357,
+    369,
     'm6gd_12xlarge',
     'm6gd.12xlarge',
   );
 
   static const m6Gd16Xlarge = InstanceType._(
-    358,
+    370,
     'm6gd_16xlarge',
     'm6gd.16xlarge',
   );
 
   static const m6Gd2Xlarge = InstanceType._(
-    359,
+    371,
     'm6gd_2xlarge',
     'm6gd.2xlarge',
   );
 
   static const m6Gd4Xlarge = InstanceType._(
-    360,
+    372,
     'm6gd_4xlarge',
     'm6gd.4xlarge',
   );
 
   static const m6Gd8Xlarge = InstanceType._(
-    361,
+    373,
     'm6gd_8xlarge',
     'm6gd.8xlarge',
   );
 
   static const m6GdLarge = InstanceType._(
-    362,
+    374,
     'm6gd_large',
     'm6gd.large',
   );
 
   static const m6GdMedium = InstanceType._(
-    363,
+    375,
     'm6gd_medium',
     'm6gd.medium',
   );
 
   static const m6GdMetal = InstanceType._(
-    364,
+    376,
     'm6gd_metal',
     'm6gd.metal',
   );
 
   static const m6GdXlarge = InstanceType._(
-    365,
+    377,
     'm6gd_xlarge',
     'm6gd.xlarge',
   );
 
   static const m6I12Xlarge = InstanceType._(
-    366,
+    378,
     'm6i_12xlarge',
     'm6i.12xlarge',
   );
 
   static const m6I16Xlarge = InstanceType._(
-    367,
+    379,
     'm6i_16xlarge',
     'm6i.16xlarge',
   );
 
   static const m6I24Xlarge = InstanceType._(
-    368,
+    380,
     'm6i_24xlarge',
     'm6i.24xlarge',
   );
 
   static const m6I2Xlarge = InstanceType._(
-    369,
+    381,
     'm6i_2xlarge',
     'm6i.2xlarge',
   );
 
   static const m6I32Xlarge = InstanceType._(
-    370,
+    382,
     'm6i_32xlarge',
     'm6i.32xlarge',
   );
 
   static const m6I4Xlarge = InstanceType._(
-    371,
+    383,
     'm6i_4xlarge',
     'm6i.4xlarge',
   );
 
   static const m6I8Xlarge = InstanceType._(
-    372,
+    384,
     'm6i_8xlarge',
     'm6i.8xlarge',
   );
 
   static const m6ILarge = InstanceType._(
-    373,
+    385,
     'm6i_large',
     'm6i.large',
   );
 
   static const m6IMetal = InstanceType._(
-    374,
+    386,
     'm6i_metal',
     'm6i.metal',
   );
 
   static const m6IXlarge = InstanceType._(
-    375,
+    387,
     'm6i_xlarge',
     'm6i.xlarge',
   );
 
   static const m6Id12Xlarge = InstanceType._(
-    376,
+    388,
     'm6id_12xlarge',
     'm6id.12xlarge',
   );
 
   static const m6Id16Xlarge = InstanceType._(
-    377,
+    389,
     'm6id_16xlarge',
     'm6id.16xlarge',
   );
 
   static const m6Id24Xlarge = InstanceType._(
-    378,
+    390,
     'm6id_24xlarge',
     'm6id.24xlarge',
   );
 
   static const m6Id2Xlarge = InstanceType._(
-    379,
+    391,
     'm6id_2xlarge',
     'm6id.2xlarge',
   );
 
   static const m6Id32Xlarge = InstanceType._(
-    380,
+    392,
     'm6id_32xlarge',
     'm6id.32xlarge',
   );
 
   static const m6Id4Xlarge = InstanceType._(
-    381,
+    393,
     'm6id_4xlarge',
     'm6id.4xlarge',
   );
 
   static const m6Id8Xlarge = InstanceType._(
-    382,
+    394,
     'm6id_8xlarge',
     'm6id.8xlarge',
   );
 
   static const m6IdLarge = InstanceType._(
-    383,
+    395,
     'm6id_large',
     'm6id.large',
   );
 
   static const m6IdMetal = InstanceType._(
-    384,
+    396,
     'm6id_metal',
     'm6id.metal',
   );
 
   static const m6IdXlarge = InstanceType._(
-    385,
+    397,
     'm6id_xlarge',
     'm6id.xlarge',
   );
 
   static const m6Idn12Xlarge = InstanceType._(
-    386,
+    398,
     'm6idn_12xlarge',
     'm6idn.12xlarge',
   );
 
   static const m6Idn16Xlarge = InstanceType._(
-    387,
+    399,
     'm6idn_16xlarge',
     'm6idn.16xlarge',
   );
 
   static const m6Idn24Xlarge = InstanceType._(
-    388,
+    400,
     'm6idn_24xlarge',
     'm6idn.24xlarge',
   );
 
   static const m6Idn2Xlarge = InstanceType._(
-    389,
+    401,
     'm6idn_2xlarge',
     'm6idn.2xlarge',
   );
 
   static const m6Idn32Xlarge = InstanceType._(
-    390,
+    402,
     'm6idn_32xlarge',
     'm6idn.32xlarge',
   );
 
   static const m6Idn4Xlarge = InstanceType._(
-    391,
+    403,
     'm6idn_4xlarge',
     'm6idn.4xlarge',
   );
 
   static const m6Idn8Xlarge = InstanceType._(
-    392,
+    404,
     'm6idn_8xlarge',
     'm6idn.8xlarge',
   );
 
   static const m6IdnLarge = InstanceType._(
-    393,
+    405,
     'm6idn_large',
     'm6idn.large',
   );
 
   static const m6IdnMetal = InstanceType._(
-    394,
+    406,
     'm6idn_metal',
     'm6idn.metal',
   );
 
   static const m6IdnXlarge = InstanceType._(
-    395,
+    407,
     'm6idn_xlarge',
     'm6idn.xlarge',
   );
 
   static const m6In12Xlarge = InstanceType._(
-    396,
+    408,
     'm6in_12xlarge',
     'm6in.12xlarge',
   );
 
   static const m6In16Xlarge = InstanceType._(
-    397,
+    409,
     'm6in_16xlarge',
     'm6in.16xlarge',
   );
 
   static const m6In24Xlarge = InstanceType._(
-    398,
+    410,
     'm6in_24xlarge',
     'm6in.24xlarge',
   );
 
   static const m6In2Xlarge = InstanceType._(
-    399,
+    411,
     'm6in_2xlarge',
     'm6in.2xlarge',
   );
 
   static const m6In32Xlarge = InstanceType._(
-    400,
+    412,
     'm6in_32xlarge',
     'm6in.32xlarge',
   );
 
   static const m6In4Xlarge = InstanceType._(
-    401,
+    413,
     'm6in_4xlarge',
     'm6in.4xlarge',
   );
 
   static const m6In8Xlarge = InstanceType._(
-    402,
+    414,
     'm6in_8xlarge',
     'm6in.8xlarge',
   );
 
   static const m6InLarge = InstanceType._(
-    403,
+    415,
     'm6in_large',
     'm6in.large',
   );
 
   static const m6InMetal = InstanceType._(
-    404,
+    416,
     'm6in_metal',
     'm6in.metal',
   );
 
   static const m6InXlarge = InstanceType._(
-    405,
+    417,
     'm6in_xlarge',
     'm6in.xlarge',
   );
 
+  static const m7A12Xlarge = InstanceType._(
+    418,
+    'm7a_12xlarge',
+    'm7a.12xlarge',
+  );
+
+  static const m7A16Xlarge = InstanceType._(
+    419,
+    'm7a_16xlarge',
+    'm7a.16xlarge',
+  );
+
+  static const m7A24Xlarge = InstanceType._(
+    420,
+    'm7a_24xlarge',
+    'm7a.24xlarge',
+  );
+
+  static const m7A2Xlarge = InstanceType._(
+    421,
+    'm7a_2xlarge',
+    'm7a.2xlarge',
+  );
+
+  static const m7A32Xlarge = InstanceType._(
+    422,
+    'm7a_32xlarge',
+    'm7a.32xlarge',
+  );
+
+  static const m7A48Xlarge = InstanceType._(
+    423,
+    'm7a_48xlarge',
+    'm7a.48xlarge',
+  );
+
+  static const m7A4Xlarge = InstanceType._(
+    424,
+    'm7a_4xlarge',
+    'm7a.4xlarge',
+  );
+
+  static const m7A8Xlarge = InstanceType._(
+    425,
+    'm7a_8xlarge',
+    'm7a.8xlarge',
+  );
+
+  static const m7ALarge = InstanceType._(
+    426,
+    'm7a_large',
+    'm7a.large',
+  );
+
+  static const m7AMedium = InstanceType._(
+    427,
+    'm7a_medium',
+    'm7a.medium',
+  );
+
+  static const m7AMetal48Xl = InstanceType._(
+    428,
+    'm7a_metal_48xl',
+    'm7a.metal-48xl',
+  );
+
+  static const m7AXlarge = InstanceType._(
+    429,
+    'm7a_xlarge',
+    'm7a.xlarge',
+  );
+
   static const m7G12Xlarge = InstanceType._(
-    406,
+    430,
     'm7g_12xlarge',
     'm7g.12xlarge',
   );
 
   static const m7G16Xlarge = InstanceType._(
-    407,
+    431,
     'm7g_16xlarge',
     'm7g.16xlarge',
   );
 
   static const m7G2Xlarge = InstanceType._(
-    408,
+    432,
     'm7g_2xlarge',
     'm7g.2xlarge',
   );
 
   static const m7G4Xlarge = InstanceType._(
-    409,
+    433,
     'm7g_4xlarge',
     'm7g.4xlarge',
   );
 
   static const m7G8Xlarge = InstanceType._(
-    410,
+    434,
     'm7g_8xlarge',
     'm7g.8xlarge',
   );
 
   static const m7GLarge = InstanceType._(
-    411,
+    435,
     'm7g_large',
     'm7g.large',
   );
 
   static const m7GMedium = InstanceType._(
-    412,
+    436,
     'm7g_medium',
     'm7g.medium',
   );
 
   static const m7GMetal = InstanceType._(
-    413,
+    437,
     'm7g_metal',
     'm7g.metal',
   );
 
   static const m7GXlarge = InstanceType._(
-    414,
+    438,
     'm7g_xlarge',
     'm7g.xlarge',
   );
 
+  static const m7Gd12Xlarge = InstanceType._(
+    439,
+    'm7gd_12xlarge',
+    'm7gd.12xlarge',
+  );
+
+  static const m7Gd16Xlarge = InstanceType._(
+    440,
+    'm7gd_16xlarge',
+    'm7gd.16xlarge',
+  );
+
+  static const m7Gd2Xlarge = InstanceType._(
+    441,
+    'm7gd_2xlarge',
+    'm7gd.2xlarge',
+  );
+
+  static const m7Gd4Xlarge = InstanceType._(
+    442,
+    'm7gd_4xlarge',
+    'm7gd.4xlarge',
+  );
+
+  static const m7Gd8Xlarge = InstanceType._(
+    443,
+    'm7gd_8xlarge',
+    'm7gd.8xlarge',
+  );
+
+  static const m7GdLarge = InstanceType._(
+    444,
+    'm7gd_large',
+    'm7gd.large',
+  );
+
+  static const m7GdMedium = InstanceType._(
+    445,
+    'm7gd_medium',
+    'm7gd.medium',
+  );
+
+  static const m7GdXlarge = InstanceType._(
+    446,
+    'm7gd_xlarge',
+    'm7gd.xlarge',
+  );
+
+  static const m7I12Xlarge = InstanceType._(
+    447,
+    'm7i_12xlarge',
+    'm7i.12xlarge',
+  );
+
+  static const m7I16Xlarge = InstanceType._(
+    448,
+    'm7i_16xlarge',
+    'm7i.16xlarge',
+  );
+
+  static const m7I24Xlarge = InstanceType._(
+    449,
+    'm7i_24xlarge',
+    'm7i.24xlarge',
+  );
+
+  static const m7I2Xlarge = InstanceType._(
+    450,
+    'm7i_2xlarge',
+    'm7i.2xlarge',
+  );
+
+  static const m7I48Xlarge = InstanceType._(
+    451,
+    'm7i_48xlarge',
+    'm7i.48xlarge',
+  );
+
+  static const m7I4Xlarge = InstanceType._(
+    452,
+    'm7i_4xlarge',
+    'm7i.4xlarge',
+  );
+
+  static const m7I8Xlarge = InstanceType._(
+    453,
+    'm7i_8xlarge',
+    'm7i.8xlarge',
+  );
+
+  static const m7IFlex2Xlarge = InstanceType._(
+    454,
+    'm7i_flex_2xlarge',
+    'm7i-flex.2xlarge',
+  );
+
+  static const m7IFlex4Xlarge = InstanceType._(
+    455,
+    'm7i_flex_4xlarge',
+    'm7i-flex.4xlarge',
+  );
+
+  static const m7IFlex8Xlarge = InstanceType._(
+    456,
+    'm7i_flex_8xlarge',
+    'm7i-flex.8xlarge',
+  );
+
+  static const m7IFlexLarge = InstanceType._(
+    457,
+    'm7i_flex_large',
+    'm7i-flex.large',
+  );
+
+  static const m7IFlexXlarge = InstanceType._(
+    458,
+    'm7i_flex_xlarge',
+    'm7i-flex.xlarge',
+  );
+
+  static const m7ILarge = InstanceType._(
+    459,
+    'm7i_large',
+    'm7i.large',
+  );
+
+  static const m7IXlarge = InstanceType._(
+    460,
+    'm7i_xlarge',
+    'm7i.xlarge',
+  );
+
   static const mac1Metal = InstanceType._(
-    415,
+    461,
     'mac1_metal',
     'mac1.metal',
   );
 
   static const mac2Metal = InstanceType._(
-    416,
+    462,
     'mac2_metal',
     'mac2.metal',
   );
 
   static const p216Xlarge = InstanceType._(
-    417,
+    463,
     'p2_16xlarge',
     'p2.16xlarge',
   );
 
   static const p28Xlarge = InstanceType._(
-    418,
+    464,
     'p2_8xlarge',
     'p2.8xlarge',
   );
 
   static const p2Xlarge = InstanceType._(
-    419,
+    465,
     'p2_xlarge',
     'p2.xlarge',
   );
 
   static const p316Xlarge = InstanceType._(
-    420,
+    466,
     'p3_16xlarge',
     'p3.16xlarge',
   );
 
   static const p32Xlarge = InstanceType._(
-    421,
+    467,
     'p3_2xlarge',
     'p3.2xlarge',
   );
 
   static const p38Xlarge = InstanceType._(
-    422,
+    468,
     'p3_8xlarge',
     'p3.8xlarge',
   );
 
   static const p3Dn24Xlarge = InstanceType._(
-    423,
+    469,
     'p3dn_24xlarge',
     'p3dn.24xlarge',
   );
 
   static const p4D24Xlarge = InstanceType._(
-    424,
+    470,
     'p4d_24xlarge',
     'p4d.24xlarge',
   );
 
   static const p4De24Xlarge = InstanceType._(
-    425,
+    471,
     'p4de_24xlarge',
     'p4de.24xlarge',
   );
 
+  static const p548Xlarge = InstanceType._(
+    472,
+    'p5_48xlarge',
+    'p5.48xlarge',
+  );
+
   static const r32Xlarge = InstanceType._(
-    426,
+    473,
     'r3_2xlarge',
     'r3.2xlarge',
   );
 
   static const r34Xlarge = InstanceType._(
-    427,
+    474,
     'r3_4xlarge',
     'r3.4xlarge',
   );
 
   static const r38Xlarge = InstanceType._(
-    428,
+    475,
     'r3_8xlarge',
     'r3.8xlarge',
   );
 
   static const r3Large = InstanceType._(
-    429,
+    476,
     'r3_large',
     'r3.large',
   );
 
   static const r3Xlarge = InstanceType._(
-    430,
+    477,
     'r3_xlarge',
     'r3.xlarge',
   );
 
   static const r416Xlarge = InstanceType._(
-    431,
+    478,
     'r4_16xlarge',
     'r4.16xlarge',
   );
 
   static const r42Xlarge = InstanceType._(
-    432,
+    479,
     'r4_2xlarge',
     'r4.2xlarge',
   );
 
   static const r44Xlarge = InstanceType._(
-    433,
+    480,
     'r4_4xlarge',
     'r4.4xlarge',
   );
 
   static const r48Xlarge = InstanceType._(
-    434,
+    481,
     'r4_8xlarge',
     'r4.8xlarge',
   );
 
   static const r4Large = InstanceType._(
-    435,
+    482,
     'r4_large',
     'r4.large',
   );
 
   static const r4Xlarge = InstanceType._(
-    436,
+    483,
     'r4_xlarge',
     'r4.xlarge',
   );
 
   static const r512Xlarge = InstanceType._(
-    437,
+    484,
     'r5_12xlarge',
     'r5.12xlarge',
   );
 
   static const r516Xlarge = InstanceType._(
-    438,
+    485,
     'r5_16xlarge',
     'r5.16xlarge',
   );
 
   static const r524Xlarge = InstanceType._(
-    439,
+    486,
     'r5_24xlarge',
     'r5.24xlarge',
   );
 
   static const r52Xlarge = InstanceType._(
-    440,
+    487,
     'r5_2xlarge',
     'r5.2xlarge',
   );
 
   static const r54Xlarge = InstanceType._(
-    441,
+    488,
     'r5_4xlarge',
     'r5.4xlarge',
   );
 
   static const r58Xlarge = InstanceType._(
-    442,
+    489,
     'r5_8xlarge',
     'r5.8xlarge',
   );
 
   static const r5A12Xlarge = InstanceType._(
-    443,
+    490,
     'r5a_12xlarge',
     'r5a.12xlarge',
   );
 
   static const r5A16Xlarge = InstanceType._(
-    444,
+    491,
     'r5a_16xlarge',
     'r5a.16xlarge',
   );
 
   static const r5A24Xlarge = InstanceType._(
-    445,
+    492,
     'r5a_24xlarge',
     'r5a.24xlarge',
   );
 
   static const r5A2Xlarge = InstanceType._(
-    446,
+    493,
     'r5a_2xlarge',
     'r5a.2xlarge',
   );
 
   static const r5A4Xlarge = InstanceType._(
-    447,
+    494,
     'r5a_4xlarge',
     'r5a.4xlarge',
   );
 
   static const r5A8Xlarge = InstanceType._(
-    448,
+    495,
     'r5a_8xlarge',
     'r5a.8xlarge',
   );
 
   static const r5ALarge = InstanceType._(
-    449,
+    496,
     'r5a_large',
     'r5a.large',
   );
 
   static const r5AXlarge = InstanceType._(
-    450,
+    497,
     'r5a_xlarge',
     'r5a.xlarge',
   );
 
   static const r5Ad12Xlarge = InstanceType._(
-    451,
+    498,
     'r5ad_12xlarge',
     'r5ad.12xlarge',
   );
 
   static const r5Ad16Xlarge = InstanceType._(
-    452,
+    499,
     'r5ad_16xlarge',
     'r5ad.16xlarge',
   );
 
   static const r5Ad24Xlarge = InstanceType._(
-    453,
+    500,
     'r5ad_24xlarge',
     'r5ad.24xlarge',
   );
 
   static const r5Ad2Xlarge = InstanceType._(
-    454,
+    501,
     'r5ad_2xlarge',
     'r5ad.2xlarge',
   );
 
   static const r5Ad4Xlarge = InstanceType._(
-    455,
+    502,
     'r5ad_4xlarge',
     'r5ad.4xlarge',
   );
 
   static const r5Ad8Xlarge = InstanceType._(
-    456,
+    503,
     'r5ad_8xlarge',
     'r5ad.8xlarge',
   );
 
   static const r5AdLarge = InstanceType._(
-    457,
+    504,
     'r5ad_large',
     'r5ad.large',
   );
 
   static const r5AdXlarge = InstanceType._(
-    458,
+    505,
     'r5ad_xlarge',
     'r5ad.xlarge',
   );
 
   static const r5B12Xlarge = InstanceType._(
-    459,
+    506,
     'r5b_12xlarge',
     'r5b.12xlarge',
   );
 
   static const r5B16Xlarge = InstanceType._(
-    460,
+    507,
     'r5b_16xlarge',
     'r5b.16xlarge',
   );
 
   static const r5B24Xlarge = InstanceType._(
-    461,
+    508,
     'r5b_24xlarge',
     'r5b.24xlarge',
   );
 
   static const r5B2Xlarge = InstanceType._(
-    462,
+    509,
     'r5b_2xlarge',
     'r5b.2xlarge',
   );
 
   static const r5B4Xlarge = InstanceType._(
-    463,
+    510,
     'r5b_4xlarge',
     'r5b.4xlarge',
   );
 
   static const r5B8Xlarge = InstanceType._(
-    464,
+    511,
     'r5b_8xlarge',
     'r5b.8xlarge',
   );
 
   static const r5BLarge = InstanceType._(
-    465,
+    512,
     'r5b_large',
     'r5b.large',
   );
 
   static const r5BMetal = InstanceType._(
-    466,
+    513,
     'r5b_metal',
     'r5b.metal',
   );
 
   static const r5BXlarge = InstanceType._(
-    467,
+    514,
     'r5b_xlarge',
     'r5b.xlarge',
   );
 
   static const r5D12Xlarge = InstanceType._(
-    468,
+    515,
     'r5d_12xlarge',
     'r5d.12xlarge',
   );
 
   static const r5D16Xlarge = InstanceType._(
-    469,
+    516,
     'r5d_16xlarge',
     'r5d.16xlarge',
   );
 
   static const r5D24Xlarge = InstanceType._(
-    470,
+    517,
     'r5d_24xlarge',
     'r5d.24xlarge',
   );
 
   static const r5D2Xlarge = InstanceType._(
-    471,
+    518,
     'r5d_2xlarge',
     'r5d.2xlarge',
   );
 
   static const r5D4Xlarge = InstanceType._(
-    472,
+    519,
     'r5d_4xlarge',
     'r5d.4xlarge',
   );
 
   static const r5D8Xlarge = InstanceType._(
-    473,
+    520,
     'r5d_8xlarge',
     'r5d.8xlarge',
   );
 
   static const r5DLarge = InstanceType._(
-    474,
+    521,
     'r5d_large',
     'r5d.large',
   );
 
   static const r5DMetal = InstanceType._(
-    475,
+    522,
     'r5d_metal',
     'r5d.metal',
   );
 
   static const r5DXlarge = InstanceType._(
-    476,
+    523,
     'r5d_xlarge',
     'r5d.xlarge',
   );
 
   static const r5Dn12Xlarge = InstanceType._(
-    477,
+    524,
     'r5dn_12xlarge',
     'r5dn.12xlarge',
   );
 
   static const r5Dn16Xlarge = InstanceType._(
-    478,
+    525,
     'r5dn_16xlarge',
     'r5dn.16xlarge',
   );
 
   static const r5Dn24Xlarge = InstanceType._(
-    479,
+    526,
     'r5dn_24xlarge',
     'r5dn.24xlarge',
   );
 
   static const r5Dn2Xlarge = InstanceType._(
-    480,
+    527,
     'r5dn_2xlarge',
     'r5dn.2xlarge',
   );
 
   static const r5Dn4Xlarge = InstanceType._(
-    481,
+    528,
     'r5dn_4xlarge',
     'r5dn.4xlarge',
   );
 
   static const r5Dn8Xlarge = InstanceType._(
-    482,
+    529,
     'r5dn_8xlarge',
     'r5dn.8xlarge',
   );
 
   static const r5DnLarge = InstanceType._(
-    483,
+    530,
     'r5dn_large',
     'r5dn.large',
   );
 
   static const r5DnMetal = InstanceType._(
-    484,
+    531,
     'r5dn_metal',
     'r5dn.metal',
   );
 
   static const r5DnXlarge = InstanceType._(
-    485,
+    532,
     'r5dn_xlarge',
     'r5dn.xlarge',
   );
 
   static const r5Large = InstanceType._(
-    486,
+    533,
     'r5_large',
     'r5.large',
   );
 
   static const r5Metal = InstanceType._(
-    487,
+    534,
     'r5_metal',
     'r5.metal',
   );
 
   static const r5N12Xlarge = InstanceType._(
-    488,
+    535,
     'r5n_12xlarge',
     'r5n.12xlarge',
   );
 
   static const r5N16Xlarge = InstanceType._(
-    489,
+    536,
     'r5n_16xlarge',
     'r5n.16xlarge',
   );
 
   static const r5N24Xlarge = InstanceType._(
-    490,
+    537,
     'r5n_24xlarge',
     'r5n.24xlarge',
   );
 
   static const r5N2Xlarge = InstanceType._(
-    491,
+    538,
     'r5n_2xlarge',
     'r5n.2xlarge',
   );
 
   static const r5N4Xlarge = InstanceType._(
-    492,
+    539,
     'r5n_4xlarge',
     'r5n.4xlarge',
   );
 
   static const r5N8Xlarge = InstanceType._(
-    493,
+    540,
     'r5n_8xlarge',
     'r5n.8xlarge',
   );
 
   static const r5NLarge = InstanceType._(
-    494,
+    541,
     'r5n_large',
     'r5n.large',
   );
 
   static const r5NMetal = InstanceType._(
-    495,
+    542,
     'r5n_metal',
     'r5n.metal',
   );
 
   static const r5NXlarge = InstanceType._(
-    496,
+    543,
     'r5n_xlarge',
     'r5n.xlarge',
   );
 
   static const r5Xlarge = InstanceType._(
-    497,
+    544,
     'r5_xlarge',
     'r5.xlarge',
   );
 
   static const r6A12Xlarge = InstanceType._(
-    498,
+    545,
     'r6a_12xlarge',
     'r6a.12xlarge',
   );
 
   static const r6A16Xlarge = InstanceType._(
-    499,
+    546,
     'r6a_16xlarge',
     'r6a.16xlarge',
   );
 
   static const r6A24Xlarge = InstanceType._(
-    500,
+    547,
     'r6a_24xlarge',
     'r6a.24xlarge',
   );
 
   static const r6A2Xlarge = InstanceType._(
-    501,
+    548,
     'r6a_2xlarge',
     'r6a.2xlarge',
   );
 
   static const r6A32Xlarge = InstanceType._(
-    502,
+    549,
     'r6a_32xlarge',
     'r6a.32xlarge',
   );
 
   static const r6A48Xlarge = InstanceType._(
-    503,
+    550,
     'r6a_48xlarge',
     'r6a.48xlarge',
   );
 
   static const r6A4Xlarge = InstanceType._(
-    504,
+    551,
     'r6a_4xlarge',
     'r6a.4xlarge',
   );
 
   static const r6A8Xlarge = InstanceType._(
-    505,
+    552,
     'r6a_8xlarge',
     'r6a.8xlarge',
   );
 
   static const r6ALarge = InstanceType._(
-    506,
+    553,
     'r6a_large',
     'r6a.large',
   );
 
   static const r6AMetal = InstanceType._(
-    507,
+    554,
     'r6a_metal',
     'r6a.metal',
   );
 
   static const r6AXlarge = InstanceType._(
-    508,
+    555,
     'r6a_xlarge',
     'r6a.xlarge',
   );
 
   static const r6G12Xlarge = InstanceType._(
-    509,
+    556,
     'r6g_12xlarge',
     'r6g.12xlarge',
   );
 
   static const r6G16Xlarge = InstanceType._(
-    510,
+    557,
     'r6g_16xlarge',
     'r6g.16xlarge',
   );
 
   static const r6G2Xlarge = InstanceType._(
-    511,
+    558,
     'r6g_2xlarge',
     'r6g.2xlarge',
   );
 
   static const r6G4Xlarge = InstanceType._(
-    512,
+    559,
     'r6g_4xlarge',
     'r6g.4xlarge',
   );
 
   static const r6G8Xlarge = InstanceType._(
-    513,
+    560,
     'r6g_8xlarge',
     'r6g.8xlarge',
   );
 
   static const r6GLarge = InstanceType._(
-    514,
+    561,
     'r6g_large',
     'r6g.large',
   );
 
   static const r6GMedium = InstanceType._(
-    515,
+    562,
     'r6g_medium',
     'r6g.medium',
   );
 
   static const r6GMetal = InstanceType._(
-    516,
+    563,
     'r6g_metal',
     'r6g.metal',
   );
 
   static const r6GXlarge = InstanceType._(
-    517,
+    564,
     'r6g_xlarge',
     'r6g.xlarge',
   );
 
   static const r6Gd12Xlarge = InstanceType._(
-    518,
+    565,
     'r6gd_12xlarge',
     'r6gd.12xlarge',
   );
 
   static const r6Gd16Xlarge = InstanceType._(
-    519,
+    566,
     'r6gd_16xlarge',
     'r6gd.16xlarge',
   );
 
   static const r6Gd2Xlarge = InstanceType._(
-    520,
+    567,
     'r6gd_2xlarge',
     'r6gd.2xlarge',
   );
 
   static const r6Gd4Xlarge = InstanceType._(
-    521,
+    568,
     'r6gd_4xlarge',
     'r6gd.4xlarge',
   );
 
   static const r6Gd8Xlarge = InstanceType._(
-    522,
+    569,
     'r6gd_8xlarge',
     'r6gd.8xlarge',
   );
 
   static const r6GdLarge = InstanceType._(
-    523,
+    570,
     'r6gd_large',
     'r6gd.large',
   );
 
   static const r6GdMedium = InstanceType._(
-    524,
+    571,
     'r6gd_medium',
     'r6gd.medium',
   );
 
   static const r6GdMetal = InstanceType._(
-    525,
+    572,
     'r6gd_metal',
     'r6gd.metal',
   );
 
   static const r6GdXlarge = InstanceType._(
-    526,
+    573,
     'r6gd_xlarge',
     'r6gd.xlarge',
   );
 
   static const r6I12Xlarge = InstanceType._(
-    527,
+    574,
     'r6i_12xlarge',
     'r6i.12xlarge',
   );
 
   static const r6I16Xlarge = InstanceType._(
-    528,
+    575,
     'r6i_16xlarge',
     'r6i.16xlarge',
   );
 
   static const r6I24Xlarge = InstanceType._(
-    529,
+    576,
     'r6i_24xlarge',
     'r6i.24xlarge',
   );
 
   static const r6I2Xlarge = InstanceType._(
-    530,
+    577,
     'r6i_2xlarge',
     'r6i.2xlarge',
   );
 
   static const r6I32Xlarge = InstanceType._(
-    531,
+    578,
     'r6i_32xlarge',
     'r6i.32xlarge',
   );
 
   static const r6I4Xlarge = InstanceType._(
-    532,
+    579,
     'r6i_4xlarge',
     'r6i.4xlarge',
   );
 
   static const r6I8Xlarge = InstanceType._(
-    533,
+    580,
     'r6i_8xlarge',
     'r6i.8xlarge',
   );
 
   static const r6ILarge = InstanceType._(
-    534,
+    581,
     'r6i_large',
     'r6i.large',
   );
 
   static const r6IMetal = InstanceType._(
-    535,
+    582,
     'r6i_metal',
     'r6i.metal',
   );
 
   static const r6IXlarge = InstanceType._(
-    536,
+    583,
     'r6i_xlarge',
     'r6i.xlarge',
   );
 
   static const r6Id12Xlarge = InstanceType._(
-    537,
+    584,
     'r6id_12xlarge',
     'r6id.12xlarge',
   );
 
   static const r6Id16Xlarge = InstanceType._(
-    538,
+    585,
     'r6id_16xlarge',
     'r6id.16xlarge',
   );
 
   static const r6Id24Xlarge = InstanceType._(
-    539,
+    586,
     'r6id_24xlarge',
     'r6id.24xlarge',
   );
 
   static const r6Id2Xlarge = InstanceType._(
-    540,
+    587,
     'r6id_2xlarge',
     'r6id.2xlarge',
   );
 
   static const r6Id32Xlarge = InstanceType._(
-    541,
+    588,
     'r6id_32xlarge',
     'r6id.32xlarge',
   );
 
   static const r6Id4Xlarge = InstanceType._(
-    542,
+    589,
     'r6id_4xlarge',
     'r6id.4xlarge',
   );
 
   static const r6Id8Xlarge = InstanceType._(
-    543,
+    590,
     'r6id_8xlarge',
     'r6id.8xlarge',
   );
 
   static const r6IdLarge = InstanceType._(
-    544,
+    591,
     'r6id_large',
     'r6id.large',
   );
 
   static const r6IdMetal = InstanceType._(
-    545,
+    592,
     'r6id_metal',
     'r6id.metal',
   );
 
   static const r6IdXlarge = InstanceType._(
-    546,
+    593,
     'r6id_xlarge',
     'r6id.xlarge',
   );
 
   static const r6Idn12Xlarge = InstanceType._(
-    547,
+    594,
     'r6idn_12xlarge',
     'r6idn.12xlarge',
   );
 
   static const r6Idn16Xlarge = InstanceType._(
-    548,
+    595,
     'r6idn_16xlarge',
     'r6idn.16xlarge',
   );
 
   static const r6Idn24Xlarge = InstanceType._(
-    549,
+    596,
     'r6idn_24xlarge',
     'r6idn.24xlarge',
   );
 
   static const r6Idn2Xlarge = InstanceType._(
-    550,
+    597,
     'r6idn_2xlarge',
     'r6idn.2xlarge',
   );
 
   static const r6Idn32Xlarge = InstanceType._(
-    551,
+    598,
     'r6idn_32xlarge',
     'r6idn.32xlarge',
   );
 
   static const r6Idn4Xlarge = InstanceType._(
-    552,
+    599,
     'r6idn_4xlarge',
     'r6idn.4xlarge',
   );
 
   static const r6Idn8Xlarge = InstanceType._(
-    553,
+    600,
     'r6idn_8xlarge',
     'r6idn.8xlarge',
   );
 
   static const r6IdnLarge = InstanceType._(
-    554,
+    601,
     'r6idn_large',
     'r6idn.large',
   );
 
   static const r6IdnMetal = InstanceType._(
-    555,
+    602,
     'r6idn_metal',
     'r6idn.metal',
   );
 
   static const r6IdnXlarge = InstanceType._(
-    556,
+    603,
     'r6idn_xlarge',
     'r6idn.xlarge',
   );
 
   static const r6In12Xlarge = InstanceType._(
-    557,
+    604,
     'r6in_12xlarge',
     'r6in.12xlarge',
   );
 
   static const r6In16Xlarge = InstanceType._(
-    558,
+    605,
     'r6in_16xlarge',
     'r6in.16xlarge',
   );
 
   static const r6In24Xlarge = InstanceType._(
-    559,
+    606,
     'r6in_24xlarge',
     'r6in.24xlarge',
   );
 
   static const r6In2Xlarge = InstanceType._(
-    560,
+    607,
     'r6in_2xlarge',
     'r6in.2xlarge',
   );
 
   static const r6In32Xlarge = InstanceType._(
-    561,
+    608,
     'r6in_32xlarge',
     'r6in.32xlarge',
   );
 
   static const r6In4Xlarge = InstanceType._(
-    562,
+    609,
     'r6in_4xlarge',
     'r6in.4xlarge',
   );
 
   static const r6In8Xlarge = InstanceType._(
-    563,
+    610,
     'r6in_8xlarge',
     'r6in.8xlarge',
   );
 
   static const r6InLarge = InstanceType._(
-    564,
+    611,
     'r6in_large',
     'r6in.large',
   );
 
   static const r6InMetal = InstanceType._(
-    565,
+    612,
     'r6in_metal',
     'r6in.metal',
   );
 
   static const r6InXlarge = InstanceType._(
-    566,
+    613,
     'r6in_xlarge',
     'r6in.xlarge',
   );
 
   static const r7G12Xlarge = InstanceType._(
-    567,
+    614,
     'r7g_12xlarge',
     'r7g.12xlarge',
   );
 
   static const r7G16Xlarge = InstanceType._(
-    568,
+    615,
     'r7g_16xlarge',
     'r7g.16xlarge',
   );
 
   static const r7G2Xlarge = InstanceType._(
-    569,
+    616,
     'r7g_2xlarge',
     'r7g.2xlarge',
   );
 
   static const r7G4Xlarge = InstanceType._(
-    570,
+    617,
     'r7g_4xlarge',
     'r7g.4xlarge',
   );
 
   static const r7G8Xlarge = InstanceType._(
-    571,
+    618,
     'r7g_8xlarge',
     'r7g.8xlarge',
   );
 
   static const r7GLarge = InstanceType._(
-    572,
+    619,
     'r7g_large',
     'r7g.large',
   );
 
   static const r7GMedium = InstanceType._(
-    573,
+    620,
     'r7g_medium',
     'r7g.medium',
   );
 
   static const r7GMetal = InstanceType._(
-    574,
+    621,
     'r7g_metal',
     'r7g.metal',
   );
 
   static const r7GXlarge = InstanceType._(
-    575,
+    622,
     'r7g_xlarge',
     'r7g.xlarge',
   );
 
+  static const r7Gd12Xlarge = InstanceType._(
+    623,
+    'r7gd_12xlarge',
+    'r7gd.12xlarge',
+  );
+
+  static const r7Gd16Xlarge = InstanceType._(
+    624,
+    'r7gd_16xlarge',
+    'r7gd.16xlarge',
+  );
+
+  static const r7Gd2Xlarge = InstanceType._(
+    625,
+    'r7gd_2xlarge',
+    'r7gd.2xlarge',
+  );
+
+  static const r7Gd4Xlarge = InstanceType._(
+    626,
+    'r7gd_4xlarge',
+    'r7gd.4xlarge',
+  );
+
+  static const r7Gd8Xlarge = InstanceType._(
+    627,
+    'r7gd_8xlarge',
+    'r7gd.8xlarge',
+  );
+
+  static const r7GdLarge = InstanceType._(
+    628,
+    'r7gd_large',
+    'r7gd.large',
+  );
+
+  static const r7GdMedium = InstanceType._(
+    629,
+    'r7gd_medium',
+    'r7gd.medium',
+  );
+
+  static const r7GdXlarge = InstanceType._(
+    630,
+    'r7gd_xlarge',
+    'r7gd.xlarge',
+  );
+
   static const t1Micro = InstanceType._(
-    576,
+    631,
     't1_micro',
     't1.micro',
   );
 
   static const t22Xlarge = InstanceType._(
-    577,
+    632,
     't2_2xlarge',
     't2.2xlarge',
   );
 
   static const t2Large = InstanceType._(
-    578,
+    633,
     't2_large',
     't2.large',
   );
 
   static const t2Medium = InstanceType._(
-    579,
+    634,
     't2_medium',
     't2.medium',
   );
 
   static const t2Micro = InstanceType._(
-    580,
+    635,
     't2_micro',
     't2.micro',
   );
 
   static const t2Nano = InstanceType._(
-    581,
+    636,
     't2_nano',
     't2.nano',
   );
 
   static const t2Small = InstanceType._(
-    582,
+    637,
     't2_small',
     't2.small',
   );
 
   static const t2Xlarge = InstanceType._(
-    583,
+    638,
     't2_xlarge',
     't2.xlarge',
   );
 
   static const t32Xlarge = InstanceType._(
-    584,
+    639,
     't3_2xlarge',
     't3.2xlarge',
   );
 
   static const t3A2Xlarge = InstanceType._(
-    585,
+    640,
     't3a_2xlarge',
     't3a.2xlarge',
   );
 
   static const t3ALarge = InstanceType._(
-    586,
+    641,
     't3a_large',
     't3a.large',
   );
 
   static const t3AMedium = InstanceType._(
-    587,
+    642,
     't3a_medium',
     't3a.medium',
   );
 
   static const t3AMicro = InstanceType._(
-    588,
+    643,
     't3a_micro',
     't3a.micro',
   );
 
   static const t3ANano = InstanceType._(
-    589,
+    644,
     't3a_nano',
     't3a.nano',
   );
 
   static const t3ASmall = InstanceType._(
-    590,
+    645,
     't3a_small',
     't3a.small',
   );
 
   static const t3AXlarge = InstanceType._(
-    591,
+    646,
     't3a_xlarge',
     't3a.xlarge',
   );
 
   static const t3Large = InstanceType._(
-    592,
+    647,
     't3_large',
     't3.large',
   );
 
   static const t3Medium = InstanceType._(
-    593,
+    648,
     't3_medium',
     't3.medium',
   );
 
   static const t3Micro = InstanceType._(
-    594,
+    649,
     't3_micro',
     't3.micro',
   );
 
   static const t3Nano = InstanceType._(
-    595,
+    650,
     't3_nano',
     't3.nano',
   );
 
   static const t3Small = InstanceType._(
-    596,
+    651,
     't3_small',
     't3.small',
   );
 
   static const t3Xlarge = InstanceType._(
-    597,
+    652,
     't3_xlarge',
     't3.xlarge',
   );
 
   static const t4G2Xlarge = InstanceType._(
-    598,
+    653,
     't4g_2xlarge',
     't4g.2xlarge',
   );
 
   static const t4GLarge = InstanceType._(
-    599,
+    654,
     't4g_large',
     't4g.large',
   );
 
   static const t4GMedium = InstanceType._(
-    600,
+    655,
     't4g_medium',
     't4g.medium',
   );
 
   static const t4GMicro = InstanceType._(
-    601,
+    656,
     't4g_micro',
     't4g.micro',
   );
 
   static const t4GNano = InstanceType._(
-    602,
+    657,
     't4g_nano',
     't4g.nano',
   );
 
   static const t4GSmall = InstanceType._(
-    603,
+    658,
     't4g_small',
     't4g.small',
   );
 
   static const t4GXlarge = InstanceType._(
-    604,
+    659,
     't4g_xlarge',
     't4g.xlarge',
   );
 
   static const trn12Xlarge = InstanceType._(
-    605,
+    660,
     'trn1_2xlarge',
     'trn1.2xlarge',
   );
 
   static const trn132Xlarge = InstanceType._(
-    606,
+    661,
     'trn1_32xlarge',
     'trn1.32xlarge',
   );
 
   static const trn1N32Xlarge = InstanceType._(
-    607,
+    662,
     'trn1n_32xlarge',
     'trn1n.32xlarge',
   );
 
   static const u12Tb1112Xlarge = InstanceType._(
-    608,
+    663,
     'u_12tb1_112xlarge',
     'u-12tb1.112xlarge',
   );
 
   static const u12Tb1Metal = InstanceType._(
-    609,
+    664,
     'u_12tb1_metal',
     'u-12tb1.metal',
   );
 
   static const u18Tb1112Xlarge = InstanceType._(
-    610,
+    665,
     'u_18tb1_112xlarge',
     'u-18tb1.112xlarge',
   );
 
   static const u18Tb1Metal = InstanceType._(
-    611,
+    666,
     'u_18tb1_metal',
     'u-18tb1.metal',
   );
 
   static const u24Tb1112Xlarge = InstanceType._(
-    612,
+    667,
     'u_24tb1_112xlarge',
     'u-24tb1.112xlarge',
   );
 
   static const u24Tb1Metal = InstanceType._(
-    613,
+    668,
     'u_24tb1_metal',
     'u-24tb1.metal',
   );
 
   static const u3Tb156Xlarge = InstanceType._(
-    614,
+    669,
     'u_3tb1_56xlarge',
     'u-3tb1.56xlarge',
   );
 
   static const u6Tb1112Xlarge = InstanceType._(
-    615,
+    670,
     'u_6tb1_112xlarge',
     'u-6tb1.112xlarge',
   );
 
   static const u6Tb156Xlarge = InstanceType._(
-    616,
+    671,
     'u_6tb1_56xlarge',
     'u-6tb1.56xlarge',
   );
 
   static const u6Tb1Metal = InstanceType._(
-    617,
+    672,
     'u_6tb1_metal',
     'u-6tb1.metal',
   );
 
   static const u9Tb1112Xlarge = InstanceType._(
-    618,
+    673,
     'u_9tb1_112xlarge',
     'u-9tb1.112xlarge',
   );
 
   static const u9Tb1Metal = InstanceType._(
-    619,
+    674,
     'u_9tb1_metal',
     'u-9tb1.metal',
   );
 
   static const vt124Xlarge = InstanceType._(
-    620,
+    675,
     'vt1_24xlarge',
     'vt1.24xlarge',
   );
 
   static const vt13Xlarge = InstanceType._(
-    621,
+    676,
     'vt1_3xlarge',
     'vt1.3xlarge',
   );
 
   static const vt16Xlarge = InstanceType._(
-    622,
+    677,
     'vt1_6xlarge',
     'vt1.6xlarge',
   );
 
   static const x116Xlarge = InstanceType._(
-    623,
+    678,
     'x1_16xlarge',
     'x1.16xlarge',
   );
 
   static const x132Xlarge = InstanceType._(
-    624,
+    679,
     'x1_32xlarge',
     'x1.32xlarge',
   );
 
   static const x1E16Xlarge = InstanceType._(
-    625,
+    680,
     'x1e_16xlarge',
     'x1e.16xlarge',
   );
 
   static const x1E2Xlarge = InstanceType._(
-    626,
+    681,
     'x1e_2xlarge',
     'x1e.2xlarge',
   );
 
   static const x1E32Xlarge = InstanceType._(
-    627,
+    682,
     'x1e_32xlarge',
     'x1e.32xlarge',
   );
 
   static const x1E4Xlarge = InstanceType._(
-    628,
+    683,
     'x1e_4xlarge',
     'x1e.4xlarge',
   );
 
   static const x1E8Xlarge = InstanceType._(
-    629,
+    684,
     'x1e_8xlarge',
     'x1e.8xlarge',
   );
 
   static const x1EXlarge = InstanceType._(
-    630,
+    685,
     'x1e_xlarge',
     'x1e.xlarge',
   );
 
   static const x2Gd12Xlarge = InstanceType._(
-    631,
+    686,
     'x2gd_12xlarge',
     'x2gd.12xlarge',
   );
 
   static const x2Gd16Xlarge = InstanceType._(
-    632,
+    687,
     'x2gd_16xlarge',
     'x2gd.16xlarge',
   );
 
   static const x2Gd2Xlarge = InstanceType._(
-    633,
+    688,
     'x2gd_2xlarge',
     'x2gd.2xlarge',
   );
 
   static const x2Gd4Xlarge = InstanceType._(
-    634,
+    689,
     'x2gd_4xlarge',
     'x2gd.4xlarge',
   );
 
   static const x2Gd8Xlarge = InstanceType._(
-    635,
+    690,
     'x2gd_8xlarge',
     'x2gd.8xlarge',
   );
 
   static const x2GdLarge = InstanceType._(
-    636,
+    691,
     'x2gd_large',
     'x2gd.large',
   );
 
   static const x2GdMedium = InstanceType._(
-    637,
+    692,
     'x2gd_medium',
     'x2gd.medium',
   );
 
   static const x2GdMetal = InstanceType._(
-    638,
+    693,
     'x2gd_metal',
     'x2gd.metal',
   );
 
   static const x2GdXlarge = InstanceType._(
-    639,
+    694,
     'x2gd_xlarge',
     'x2gd.xlarge',
   );
 
   static const x2Idn16Xlarge = InstanceType._(
-    640,
+    695,
     'x2idn_16xlarge',
     'x2idn.16xlarge',
   );
 
   static const x2Idn24Xlarge = InstanceType._(
-    641,
+    696,
     'x2idn_24xlarge',
     'x2idn.24xlarge',
   );
 
   static const x2Idn32Xlarge = InstanceType._(
-    642,
+    697,
     'x2idn_32xlarge',
     'x2idn.32xlarge',
   );
 
   static const x2IdnMetal = InstanceType._(
-    643,
+    698,
     'x2idn_metal',
     'x2idn.metal',
   );
 
   static const x2Iedn16Xlarge = InstanceType._(
-    644,
+    699,
     'x2iedn_16xlarge',
     'x2iedn.16xlarge',
   );
 
   static const x2Iedn24Xlarge = InstanceType._(
-    645,
+    700,
     'x2iedn_24xlarge',
     'x2iedn.24xlarge',
   );
 
   static const x2Iedn2Xlarge = InstanceType._(
-    646,
+    701,
     'x2iedn_2xlarge',
     'x2iedn.2xlarge',
   );
 
   static const x2Iedn32Xlarge = InstanceType._(
-    647,
+    702,
     'x2iedn_32xlarge',
     'x2iedn.32xlarge',
   );
 
   static const x2Iedn4Xlarge = InstanceType._(
-    648,
+    703,
     'x2iedn_4xlarge',
     'x2iedn.4xlarge',
   );
 
   static const x2Iedn8Xlarge = InstanceType._(
-    649,
+    704,
     'x2iedn_8xlarge',
     'x2iedn.8xlarge',
   );
 
   static const x2IednMetal = InstanceType._(
-    650,
+    705,
     'x2iedn_metal',
     'x2iedn.metal',
   );
 
   static const x2IednXlarge = InstanceType._(
-    651,
+    706,
     'x2iedn_xlarge',
     'x2iedn.xlarge',
   );
 
   static const x2Iezn12Xlarge = InstanceType._(
-    652,
+    707,
     'x2iezn_12xlarge',
     'x2iezn.12xlarge',
   );
 
   static const x2Iezn2Xlarge = InstanceType._(
-    653,
+    708,
     'x2iezn_2xlarge',
     'x2iezn.2xlarge',
   );
 
   static const x2Iezn4Xlarge = InstanceType._(
-    654,
+    709,
     'x2iezn_4xlarge',
     'x2iezn.4xlarge',
   );
 
   static const x2Iezn6Xlarge = InstanceType._(
-    655,
+    710,
     'x2iezn_6xlarge',
     'x2iezn.6xlarge',
   );
 
   static const x2Iezn8Xlarge = InstanceType._(
-    656,
+    711,
     'x2iezn_8xlarge',
     'x2iezn.8xlarge',
   );
 
   static const x2IeznMetal = InstanceType._(
-    657,
+    712,
     'x2iezn_metal',
     'x2iezn.metal',
   );
 
   static const z1D12Xlarge = InstanceType._(
-    658,
+    713,
     'z1d_12xlarge',
     'z1d.12xlarge',
   );
 
   static const z1D2Xlarge = InstanceType._(
-    659,
+    714,
     'z1d_2xlarge',
     'z1d.2xlarge',
   );
 
   static const z1D3Xlarge = InstanceType._(
-    660,
+    715,
     'z1d_3xlarge',
     'z1d.3xlarge',
   );
 
   static const z1D6Xlarge = InstanceType._(
-    661,
+    716,
     'z1d_6xlarge',
     'z1d.6xlarge',
   );
 
   static const z1DLarge = InstanceType._(
-    662,
+    717,
     'z1d_large',
     'z1d.large',
   );
 
   static const z1DMetal = InstanceType._(
-    663,
+    718,
     'z1d_metal',
     'z1d.metal',
   );
 
   static const z1DXlarge = InstanceType._(
-    664,
+    719,
     'z1d_xlarge',
     'z1d.xlarge',
   );
@@ -4141,6 +4471,14 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.c7GMedium,
     InstanceType.c7GMetal,
     InstanceType.c7GXlarge,
+    InstanceType.c7Gd12Xlarge,
+    InstanceType.c7Gd16Xlarge,
+    InstanceType.c7Gd2Xlarge,
+    InstanceType.c7Gd4Xlarge,
+    InstanceType.c7Gd8Xlarge,
+    InstanceType.c7GdLarge,
+    InstanceType.c7GdMedium,
+    InstanceType.c7GdXlarge,
     InstanceType.c7Gn12Xlarge,
     InstanceType.c7Gn16Xlarge,
     InstanceType.c7Gn2Xlarge,
@@ -4210,6 +4548,10 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.hi14Xlarge,
     InstanceType.hpc6A48Xlarge,
     InstanceType.hpc6Id32Xlarge,
+    InstanceType.hpc7A12Xlarge,
+    InstanceType.hpc7A24Xlarge,
+    InstanceType.hpc7A48Xlarge,
+    InstanceType.hpc7A96Xlarge,
     InstanceType.hpc7G16Xlarge,
     InstanceType.hpc7G4Xlarge,
     InstanceType.hpc7G8Xlarge,
@@ -4412,6 +4754,18 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.m6InLarge,
     InstanceType.m6InMetal,
     InstanceType.m6InXlarge,
+    InstanceType.m7A12Xlarge,
+    InstanceType.m7A16Xlarge,
+    InstanceType.m7A24Xlarge,
+    InstanceType.m7A2Xlarge,
+    InstanceType.m7A32Xlarge,
+    InstanceType.m7A48Xlarge,
+    InstanceType.m7A4Xlarge,
+    InstanceType.m7A8Xlarge,
+    InstanceType.m7ALarge,
+    InstanceType.m7AMedium,
+    InstanceType.m7AMetal48Xl,
+    InstanceType.m7AXlarge,
     InstanceType.m7G12Xlarge,
     InstanceType.m7G16Xlarge,
     InstanceType.m7G2Xlarge,
@@ -4421,6 +4775,28 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.m7GMedium,
     InstanceType.m7GMetal,
     InstanceType.m7GXlarge,
+    InstanceType.m7Gd12Xlarge,
+    InstanceType.m7Gd16Xlarge,
+    InstanceType.m7Gd2Xlarge,
+    InstanceType.m7Gd4Xlarge,
+    InstanceType.m7Gd8Xlarge,
+    InstanceType.m7GdLarge,
+    InstanceType.m7GdMedium,
+    InstanceType.m7GdXlarge,
+    InstanceType.m7I12Xlarge,
+    InstanceType.m7I16Xlarge,
+    InstanceType.m7I24Xlarge,
+    InstanceType.m7I2Xlarge,
+    InstanceType.m7I48Xlarge,
+    InstanceType.m7I4Xlarge,
+    InstanceType.m7I8Xlarge,
+    InstanceType.m7IFlex2Xlarge,
+    InstanceType.m7IFlex4Xlarge,
+    InstanceType.m7IFlex8Xlarge,
+    InstanceType.m7IFlexLarge,
+    InstanceType.m7IFlexXlarge,
+    InstanceType.m7ILarge,
+    InstanceType.m7IXlarge,
     InstanceType.mac1Metal,
     InstanceType.mac2Metal,
     InstanceType.p216Xlarge,
@@ -4432,6 +4808,7 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.p3Dn24Xlarge,
     InstanceType.p4D24Xlarge,
     InstanceType.p4De24Xlarge,
+    InstanceType.p548Xlarge,
     InstanceType.r32Xlarge,
     InstanceType.r34Xlarge,
     InstanceType.r38Xlarge,
@@ -4582,6 +4959,14 @@ class InstanceType extends _i1.SmithyEnum<InstanceType> {
     InstanceType.r7GMedium,
     InstanceType.r7GMetal,
     InstanceType.r7GXlarge,
+    InstanceType.r7Gd12Xlarge,
+    InstanceType.r7Gd16Xlarge,
+    InstanceType.r7Gd2Xlarge,
+    InstanceType.r7Gd4Xlarge,
+    InstanceType.r7Gd8Xlarge,
+    InstanceType.r7GdLarge,
+    InstanceType.r7GdMedium,
+    InstanceType.r7GdXlarge,
     InstanceType.t1Micro,
     InstanceType.t22Xlarge,
     InstanceType.t2Large,

@@ -255,7 +255,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (typeArn != null) {
@@ -279,7 +279,7 @@ class TypeConfigurationDetailsAwsQuerySerializer
         ..add(const _i2.XmlElementName('IsDefaultConfiguration'))
         ..add(serializers.serialize(
           isDefaultConfiguration,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

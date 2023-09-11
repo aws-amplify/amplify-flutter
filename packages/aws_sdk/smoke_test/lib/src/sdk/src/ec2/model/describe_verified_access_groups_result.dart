@@ -153,7 +153,7 @@ class DescribeVerifiedAccessGroupsResultEc2QuerySerializer
         ).serialize(
           serializers,
           verifiedAccessGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VerifiedAccessGroup)],
           ),

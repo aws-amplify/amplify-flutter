@@ -465,7 +465,7 @@ class ImportImageRequestEc2QuerySerializer
         ).serialize(
           serializers,
           diskContainers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ImageDiskContainer)],
           ),
@@ -532,7 +532,7 @@ class ImportImageRequestEc2QuerySerializer
         ).serialize(
           serializers,
           licenseSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ImportImageLicenseConfigurationRequest)],
           ),
@@ -547,7 +547,7 @@ class ImportImageRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -566,7 +566,7 @@ class ImportImageRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('BootMode'))
         ..add(serializers.serialize(
           bootMode,
-          specifiedType: const FullType.nullable(BootModeValues),
+          specifiedType: const FullType(BootModeValues),
         ));
     }
     return result$;

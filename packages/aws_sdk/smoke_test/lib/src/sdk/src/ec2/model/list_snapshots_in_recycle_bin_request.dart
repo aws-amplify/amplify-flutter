@@ -187,7 +187,7 @@ class ListSnapshotsInRecycleBinRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {
@@ -207,7 +207,7 @@ class ListSnapshotsInRecycleBinRequestEc2QuerySerializer
         ).serialize(
           serializers,
           snapshotIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

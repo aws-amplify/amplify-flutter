@@ -326,7 +326,7 @@ class AllocateIpamPoolCidrRequestEc2QuerySerializer
         ).serialize(
           serializers,
           disallowedCidrs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

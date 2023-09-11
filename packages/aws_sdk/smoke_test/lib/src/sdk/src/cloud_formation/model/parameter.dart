@@ -185,7 +185,7 @@ class ParameterAwsQuerySerializer
         ..add(const _i2.XmlElementName('UsePreviousValue'))
         ..add(serializers.serialize(
           usePreviousValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (resolvedValue != null) {

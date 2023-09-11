@@ -301,7 +301,7 @@ class GetReservedInstancesExchangeQuoteResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('OutputReservedInstancesWillExpireAt'))
         ..add(serializers.serialize(
           outputReservedInstancesWillExpireAt,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (paymentDue != null) {
@@ -329,7 +329,7 @@ class GetReservedInstancesExchangeQuoteResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           reservedInstanceValueSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ReservedInstanceReservationValue)],
           ),
@@ -352,7 +352,7 @@ class GetReservedInstancesExchangeQuoteResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           targetConfigurationValueSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TargetReservationValue)],
           ),

@@ -256,7 +256,7 @@ class PublicIpv4PoolEc2QuerySerializer
         ).serialize(
           serializers,
           poolAddressRanges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PublicIpv4PoolRange)],
           ),
@@ -291,7 +291,7 @@ class PublicIpv4PoolEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

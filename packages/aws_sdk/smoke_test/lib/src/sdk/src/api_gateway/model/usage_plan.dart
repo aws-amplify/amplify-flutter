@@ -76,7 +76,7 @@ abstract class UsagePlan
   /// The target maximum number of permitted requests per a given unit time interval.
   QuotaSettings? get quota;
 
-  /// The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+  /// The Amazon Web Services Marketplace product identifier to associate with the usage plan as a SaaS product on the Amazon Web Services Marketplace.
   String? get productCode;
 
   /// The collection of tags. Each tag element is associated with a given resource.

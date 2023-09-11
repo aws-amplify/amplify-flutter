@@ -471,7 +471,7 @@ class SpotFleetLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GroupIdentifier)],
           ),
@@ -494,7 +494,7 @@ class SpotFleetLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -527,7 +527,7 @@ class SpotFleetLaunchSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (kernelId != null) {
@@ -563,7 +563,7 @@ class SpotFleetLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceNetworkInterfaceSpecification)],
           ),
@@ -624,7 +624,7 @@ class SpotFleetLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SpotFleetTagSpecification)],
           ),

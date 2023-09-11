@@ -190,7 +190,7 @@ class ListStackSetsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (status != null) {
@@ -198,7 +198,7 @@ class ListStackSetsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackSetStatus),
+          specifiedType: const FullType(StackSetStatus),
         ));
     }
     if (callAs != null) {
@@ -206,7 +206,7 @@ class ListStackSetsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

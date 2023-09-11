@@ -157,7 +157,7 @@ class LifecycleExpirationRestXmlSerializer
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (expiredObjectDeleteMarker != null) {
@@ -165,7 +165,7 @@ class LifecycleExpirationRestXmlSerializer
         ..add(const _i2.XmlElementName('ExpiredObjectDeleteMarker'))
         ..add(serializers.serialize(
           expiredObjectDeleteMarker,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

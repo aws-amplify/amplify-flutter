@@ -161,7 +161,7 @@ class DescribeCapacityReservationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           capacityReservations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CapacityReservation)],
           ),

@@ -159,7 +159,7 @@ class SamlProviderListEntryAwsQuerySerializer
         ..add(const _i2.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
           validUntil,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (createDate != null) {
@@ -167,7 +167,7 @@ class SamlProviderListEntryAwsQuerySerializer
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

@@ -133,8 +133,7 @@ class InstanceFamilyCreditSpecificationEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceFamily'))
         ..add(serializers.serialize(
           instanceFamily,
-          specifiedType:
-              const FullType.nullable(UnlimitedSupportedInstanceFamily),
+          specifiedType: const FullType(UnlimitedSupportedInstanceFamily),
         ));
     }
     if (cpuCredits != null) {

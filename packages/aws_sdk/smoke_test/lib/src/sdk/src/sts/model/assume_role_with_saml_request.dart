@@ -258,7 +258,7 @@ class AssumeRoleWithSamlRequestAwsQuerySerializer
             .serialize(
           serializers,
           policyArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(PolicyDescriptorType)],
           ),
@@ -277,7 +277,7 @@ class AssumeRoleWithSamlRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
           durationSeconds,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

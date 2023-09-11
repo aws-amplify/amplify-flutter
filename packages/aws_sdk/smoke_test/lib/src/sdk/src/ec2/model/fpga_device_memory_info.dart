@@ -107,7 +107,7 @@ class FpgaDeviceMemoryInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('SizeInMiB'))
         ..add(serializers.serialize(
           sizeInMib,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -234,14 +234,14 @@ class RecordHandlerProgressInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('OperationStatus'))
       ..add(serializers.serialize(
         operationStatus,
-        specifiedType: const FullType.nullable(OperationStatus),
+        specifiedType: const FullType(OperationStatus),
       ));
     if (currentOperationStatus != null) {
       result$
         ..add(const _i1.XmlElementName('CurrentOperationStatus'))
         ..add(serializers.serialize(
           currentOperationStatus,
-          specifiedType: const FullType.nullable(OperationStatus),
+          specifiedType: const FullType(OperationStatus),
         ));
     }
     if (statusMessage != null) {
@@ -257,7 +257,7 @@ class RecordHandlerProgressInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
           errorCode,
-          specifiedType: const FullType.nullable(HandlerErrorCode),
+          specifiedType: const FullType(HandlerErrorCode),
         ));
     }
     if (resourceModel != null) {

@@ -139,8 +139,7 @@ class CancelledSpotInstanceRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(CancelSpotInstanceRequestState),
+          specifiedType: const FullType(CancelSpotInstanceRequestState),
         ));
     }
     return result$;

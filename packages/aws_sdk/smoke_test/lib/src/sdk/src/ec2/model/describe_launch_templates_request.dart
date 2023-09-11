@@ -257,7 +257,7 @@ class DescribeLaunchTemplatesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -272,7 +272,7 @@ class DescribeLaunchTemplatesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           launchTemplateNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -287,7 +287,7 @@ class DescribeLaunchTemplatesRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

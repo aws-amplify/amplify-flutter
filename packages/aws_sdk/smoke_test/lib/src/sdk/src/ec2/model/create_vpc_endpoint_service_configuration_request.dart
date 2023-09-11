@@ -313,7 +313,7 @@ class CreateVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           networkLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -328,7 +328,7 @@ class CreateVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           gatewayLoadBalancerArns,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -343,7 +343,7 @@ class CreateVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           supportedIpAddressTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -366,7 +366,7 @@ class CreateVpcEndpointServiceConfigurationRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

@@ -172,7 +172,7 @@ class LaunchTemplateCpuOptionsRequestEc2QuerySerializer
         ..add(const _i2.XmlElementName('AmdSevSnp'))
         ..add(serializers.serialize(
           amdSevSnp,
-          specifiedType: const FullType.nullable(AmdSevSnpSpecification),
+          specifiedType: const FullType(AmdSevSnpSpecification),
         ));
     }
     return result$;

@@ -259,8 +259,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('AutoAcceptSharedAttachments'))
         ..add(serializers.serialize(
           autoAcceptSharedAttachments,
-          specifiedType:
-              const FullType.nullable(AutoAcceptSharedAttachmentsValue),
+          specifiedType: const FullType(AutoAcceptSharedAttachmentsValue),
         ));
     }
     if (defaultRouteTableAssociation != null) {
@@ -268,8 +267,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('DefaultRouteTableAssociation'))
         ..add(serializers.serialize(
           defaultRouteTableAssociation,
-          specifiedType:
-              const FullType.nullable(DefaultRouteTableAssociationValue),
+          specifiedType: const FullType(DefaultRouteTableAssociationValue),
         ));
     }
     if (defaultRouteTablePropagation != null) {
@@ -277,8 +275,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('DefaultRouteTablePropagation'))
         ..add(serializers.serialize(
           defaultRouteTablePropagation,
-          specifiedType:
-              const FullType.nullable(DefaultRouteTablePropagationValue),
+          specifiedType: const FullType(DefaultRouteTablePropagationValue),
         ));
     }
     if (vpnEcmpSupport != null) {
@@ -286,7 +283,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('VpnEcmpSupport'))
         ..add(serializers.serialize(
           vpnEcmpSupport,
-          specifiedType: const FullType.nullable(VpnEcmpSupportValue),
+          specifiedType: const FullType(VpnEcmpSupportValue),
         ));
     }
     if (dnsSupport != null) {
@@ -294,7 +291,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('DnsSupport'))
         ..add(serializers.serialize(
           dnsSupport,
-          specifiedType: const FullType.nullable(DnsSupportValue),
+          specifiedType: const FullType(DnsSupportValue),
         ));
     }
     if (multicastSupport != null) {
@@ -302,7 +299,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ..add(const _i4.XmlElementName('MulticastSupport'))
         ..add(serializers.serialize(
           multicastSupport,
-          specifiedType: const FullType.nullable(MulticastSupportValue),
+          specifiedType: const FullType(MulticastSupportValue),
         ));
     }
     if (transitGatewayCidrBlocks != null) {
@@ -314,7 +311,7 @@ class TransitGatewayRequestOptionsEc2QuerySerializer
         ).serialize(
           serializers,
           transitGatewayCidrBlocks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

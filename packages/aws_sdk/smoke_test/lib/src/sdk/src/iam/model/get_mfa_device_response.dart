@@ -200,7 +200,7 @@ class GetMfaDeviceResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('EnableDate'))
         ..add(serializers.serialize(
           enableDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (certifications != null) {
@@ -211,7 +211,7 @@ class GetMfaDeviceResponseAwsQuerySerializer
                 .serialize(
           serializers,
           certifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

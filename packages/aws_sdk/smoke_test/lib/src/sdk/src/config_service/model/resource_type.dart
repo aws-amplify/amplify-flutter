@@ -26,1898 +26,2108 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     'AWS::S3::AccountPublicAccessBlock',
   );
 
-  static const alarm = ResourceType._(
+  static const acmpcaCertificateAuthority = ResourceType._(
     2,
+    'ACMPCACertificateAuthority',
+    'AWS::ACMPCA::CertificateAuthority',
+  );
+
+  static const alarm = ResourceType._(
+    3,
     'Alarm',
     'AWS::CloudWatch::Alarm',
   );
 
   static const amazonMqBroker = ResourceType._(
-    3,
+    4,
     'AmazonMQBroker',
     'AWS::AmazonMQ::Broker',
   );
 
   static const amplifyApp = ResourceType._(
-    4,
+    5,
     'AmplifyApp',
     'AWS::Amplify::App',
   );
 
+  static const amplifyBranch = ResourceType._(
+    6,
+    'AmplifyBranch',
+    'AWS::Amplify::Branch',
+  );
+
   static const api = ResourceType._(
-    5,
+    7,
     'Api',
     'AWS::ApiGatewayV2::Api',
   );
 
   static const appConfigApplication = ResourceType._(
-    6,
+    8,
     'AppConfigApplication',
     'AWS::AppConfig::Application',
   );
 
   static const appConfigConfigurationProfile = ResourceType._(
-    7,
+    9,
     'AppConfigConfigurationProfile',
     'AWS::AppConfig::ConfigurationProfile',
   );
 
   static const appConfigDeploymentStrategy = ResourceType._(
-    8,
+    10,
     'AppConfigDeploymentStrategy',
     'AWS::AppConfig::DeploymentStrategy',
   );
 
   static const appConfigEnvironment = ResourceType._(
-    9,
+    11,
     'AppConfigEnvironment',
     'AWS::AppConfig::Environment',
   );
 
+  static const appConfigHostedConfigurationVersion = ResourceType._(
+    12,
+    'AppConfigHostedConfigurationVersion',
+    'AWS::AppConfig::HostedConfigurationVersion',
+  );
+
   static const appFlowFlow = ResourceType._(
-    10,
+    13,
     'AppFlowFlow',
     'AWS::AppFlow::Flow',
   );
 
+  static const appIntegrationsEventIntegration = ResourceType._(
+    14,
+    'AppIntegrationsEventIntegration',
+    'AWS::AppIntegrations::EventIntegration',
+  );
+
+  static const appMeshRoute = ResourceType._(
+    15,
+    'AppMeshRoute',
+    'AWS::AppMesh::Route',
+  );
+
+  static const appMeshVirtualGateway = ResourceType._(
+    16,
+    'AppMeshVirtualGateway',
+    'AWS::AppMesh::VirtualGateway',
+  );
+
   static const appMeshVirtualNode = ResourceType._(
-    11,
+    17,
     'AppMeshVirtualNode',
     'AWS::AppMesh::VirtualNode',
   );
 
+  static const appMeshVirtualRouter = ResourceType._(
+    18,
+    'AppMeshVirtualRouter',
+    'AWS::AppMesh::VirtualRouter',
+  );
+
   static const appMeshVirtualService = ResourceType._(
-    12,
+    19,
     'AppMeshVirtualService',
     'AWS::AppMesh::VirtualService',
   );
 
+  static const appRunnerService = ResourceType._(
+    20,
+    'AppRunnerService',
+    'AWS::AppRunner::Service',
+  );
+
   static const appRunnerVpcConnector = ResourceType._(
-    13,
+    21,
     'AppRunnerVpcConnector',
     'AWS::AppRunner::VpcConnector',
   );
 
   static const appStreamApplication = ResourceType._(
-    14,
+    22,
     'AppStreamApplication',
     'AWS::AppStream::Application',
   );
 
   static const appStreamDirectoryConfig = ResourceType._(
-    15,
+    23,
     'AppStreamDirectoryConfig',
     'AWS::AppStream::DirectoryConfig',
   );
 
   static const appSyncGraphQlApi = ResourceType._(
-    16,
+    24,
     'AppSyncGraphQLApi',
     'AWS::AppSync::GraphQLApi',
   );
 
   static const application = ResourceType._(
-    17,
+    25,
     'Application',
     'AWS::ElasticBeanstalk::Application',
   );
 
   static const applicationVersion = ResourceType._(
-    18,
+    26,
     'ApplicationVersion',
     'AWS::ElasticBeanstalk::ApplicationVersion',
   );
 
   static const associationCompliance = ResourceType._(
-    19,
+    27,
     'AssociationCompliance',
     'AWS::SSM::AssociationCompliance',
   );
 
   static const athenaDataCatalog = ResourceType._(
-    20,
+    28,
     'AthenaDataCatalog',
     'AWS::Athena::DataCatalog',
   );
 
+  static const athenaPreparedStatement = ResourceType._(
+    29,
+    'AthenaPreparedStatement',
+    'AWS::Athena::PreparedStatement',
+  );
+
   static const athenaWorkGroup = ResourceType._(
-    21,
+    30,
     'AthenaWorkGroup',
     'AWS::Athena::WorkGroup',
   );
 
   static const auditManagerAssessment = ResourceType._(
-    22,
+    31,
     'AuditManagerAssessment',
     'AWS::AuditManager::Assessment',
   );
 
   static const autoScalingGroup = ResourceType._(
-    23,
+    32,
     'AutoScalingGroup',
     'AWS::AutoScaling::AutoScalingGroup',
   );
 
   static const autoScalingWarmPool = ResourceType._(
-    24,
+    33,
     'AutoScalingWarmPool',
     'AWS::AutoScaling::WarmPool',
   );
 
   static const backupPlan = ResourceType._(
-    25,
+    34,
     'BackupPlan',
     'AWS::Backup::BackupPlan',
   );
 
   static const backupRecoveryPoint = ResourceType._(
-    26,
+    35,
     'BackupRecoveryPoint',
     'AWS::Backup::RecoveryPoint',
   );
 
   static const backupReportPlan = ResourceType._(
-    27,
+    36,
     'BackupReportPlan',
     'AWS::Backup::ReportPlan',
   );
 
   static const backupSelection = ResourceType._(
-    28,
+    37,
     'BackupSelection',
     'AWS::Backup::BackupSelection',
   );
 
   static const backupVault = ResourceType._(
-    29,
+    38,
     'BackupVault',
     'AWS::Backup::BackupVault',
   );
 
   static const batchComputeEnvironment = ResourceType._(
-    30,
+    39,
     'BatchComputeEnvironment',
     'AWS::Batch::ComputeEnvironment',
   );
 
   static const batchJobQueue = ResourceType._(
-    31,
+    40,
     'BatchJobQueue',
     'AWS::Batch::JobQueue',
   );
 
   static const bucket = ResourceType._(
-    32,
+    41,
     'Bucket',
     'AWS::S3::Bucket',
   );
 
   static const budgetsBudgetsAction = ResourceType._(
-    33,
+    42,
     'BudgetsBudgetsAction',
     'AWS::Budgets::BudgetsAction',
   );
 
   static const cassandraKeyspace = ResourceType._(
-    34,
+    43,
     'CassandraKeyspace',
     'AWS::Cassandra::Keyspace',
   );
 
   static const certificate = ResourceType._(
-    35,
+    44,
     'Certificate',
     'AWS::ACM::Certificate',
   );
 
   static const cloud9EnvironmentEc2 = ResourceType._(
-    36,
+    45,
     'Cloud9EnvironmentEC2',
     'AWS::Cloud9::EnvironmentEC2',
   );
 
   static const cloudFormationProduct = ResourceType._(
-    37,
+    46,
     'CloudFormationProduct',
     'AWS::ServiceCatalog::CloudFormationProduct',
   );
 
   static const cloudFormationProvisionedProduct = ResourceType._(
-    38,
+    47,
     'CloudFormationProvisionedProduct',
     'AWS::ServiceCatalog::CloudFormationProvisionedProduct',
   );
 
   static const cloudWatchMetricStream = ResourceType._(
-    39,
+    48,
     'CloudWatchMetricStream',
     'AWS::CloudWatch::MetricStream',
   );
 
   static const cluster = ResourceType._(
-    40,
+    49,
     'Cluster',
     'AWS::Redshift::Cluster',
   );
 
   static const clusterParameterGroup = ResourceType._(
-    41,
+    50,
     'ClusterParameterGroup',
     'AWS::Redshift::ClusterParameterGroup',
   );
 
   static const clusterSecurityGroup = ResourceType._(
-    42,
+    51,
     'ClusterSecurityGroup',
     'AWS::Redshift::ClusterSecurityGroup',
   );
 
   static const clusterSnapshot = ResourceType._(
-    43,
+    52,
     'ClusterSnapshot',
     'AWS::Redshift::ClusterSnapshot',
   );
 
   static const clusterSubnetGroup = ResourceType._(
-    44,
+    53,
     'ClusterSubnetGroup',
     'AWS::Redshift::ClusterSubnetGroup',
   );
 
   static const codeArtifactRepository = ResourceType._(
-    45,
+    54,
     'CodeArtifactRepository',
     'AWS::CodeArtifact::Repository',
   );
 
   static const codeDeployApplication = ResourceType._(
-    46,
+    55,
     'CodeDeployApplication',
     'AWS::CodeDeploy::Application',
   );
 
   static const codeDeployDeploymentConfig = ResourceType._(
-    47,
+    56,
     'CodeDeployDeploymentConfig',
     'AWS::CodeDeploy::DeploymentConfig',
   );
 
   static const codeDeployDeploymentGroup = ResourceType._(
-    48,
+    57,
     'CodeDeployDeploymentGroup',
     'AWS::CodeDeploy::DeploymentGroup',
   );
 
   static const codeGuruReviewerRepositoryAssociation = ResourceType._(
-    49,
+    58,
     'CodeGuruReviewerRepositoryAssociation',
     'AWS::CodeGuruReviewer::RepositoryAssociation',
   );
 
   static const conformancePackCompliance = ResourceType._(
-    50,
+    59,
     'ConformancePackCompliance',
     'AWS::Config::ConformancePackCompliance',
   );
 
   static const connectPhoneNumber = ResourceType._(
-    51,
+    60,
     'ConnectPhoneNumber',
     'AWS::Connect::PhoneNumber',
   );
 
   static const customerGateway = ResourceType._(
-    52,
+    61,
     'CustomerGateway',
     'AWS::EC2::CustomerGateway',
   );
 
   static const customerProfilesDomain = ResourceType._(
-    53,
+    62,
     'CustomerProfilesDomain',
     'AWS::CustomerProfiles::Domain',
   );
 
+  static const customerProfilesObjectType = ResourceType._(
+    63,
+    'CustomerProfilesObjectType',
+    'AWS::CustomerProfiles::ObjectType',
+  );
+
   static const dataSyncLocationEfs = ResourceType._(
-    54,
+    64,
     'DataSyncLocationEFS',
     'AWS::DataSync::LocationEFS',
   );
 
   static const dataSyncLocationFSxLustre = ResourceType._(
-    55,
+    65,
     'DataSyncLocationFSxLustre',
     'AWS::DataSync::LocationFSxLustre',
   );
 
   static const dataSyncLocationFSxWindows = ResourceType._(
-    56,
+    66,
     'DataSyncLocationFSxWindows',
     'AWS::DataSync::LocationFSxWindows',
   );
 
   static const dataSyncLocationHdfs = ResourceType._(
-    57,
+    67,
     'DataSyncLocationHDFS',
     'AWS::DataSync::LocationHDFS',
   );
 
   static const dataSyncLocationNfs = ResourceType._(
-    58,
+    68,
     'DataSyncLocationNFS',
     'AWS::DataSync::LocationNFS',
   );
 
   static const dataSyncLocationObjectStorage = ResourceType._(
-    59,
+    69,
     'DataSyncLocationObjectStorage',
     'AWS::DataSync::LocationObjectStorage',
   );
 
   static const dataSyncLocationS3 = ResourceType._(
-    60,
+    70,
     'DataSyncLocationS3',
     'AWS::DataSync::LocationS3',
   );
 
   static const dataSyncLocationSmb = ResourceType._(
-    61,
+    71,
     'DataSyncLocationSMB',
     'AWS::DataSync::LocationSMB',
   );
 
   static const dataSyncTask = ResourceType._(
-    62,
+    72,
     'DataSyncTask',
     'AWS::DataSync::Task',
   );
 
   static const dbCluster = ResourceType._(
-    63,
+    73,
     'DBCluster',
     'AWS::RDS::DBCluster',
   );
 
   static const dbClusterSnapshot = ResourceType._(
-    64,
+    74,
     'DBClusterSnapshot',
     'AWS::RDS::DBClusterSnapshot',
   );
 
   static const dbInstance = ResourceType._(
-    65,
+    75,
     'DBInstance',
     'AWS::RDS::DBInstance',
   );
 
   static const dbSecurityGroup = ResourceType._(
-    66,
+    76,
     'DBSecurityGroup',
     'AWS::RDS::DBSecurityGroup',
   );
 
   static const dbSnapshot = ResourceType._(
-    67,
+    77,
     'DBSnapshot',
     'AWS::RDS::DBSnapshot',
   );
 
   static const dbSubnetGroup = ResourceType._(
-    68,
+    78,
     'DBSubnetGroup',
     'AWS::RDS::DBSubnetGroup',
   );
 
   static const detectiveGraph = ResourceType._(
-    69,
+    79,
     'DetectiveGraph',
     'AWS::Detective::Graph',
   );
 
   static const deviceFarmInstanceProfile = ResourceType._(
-    70,
+    80,
     'DeviceFarmInstanceProfile',
     'AWS::DeviceFarm::InstanceProfile',
   );
 
   static const deviceFarmProject = ResourceType._(
-    71,
+    81,
     'DeviceFarmProject',
     'AWS::DeviceFarm::Project',
   );
 
   static const deviceFarmTestGridProject = ResourceType._(
-    72,
+    82,
     'DeviceFarmTestGridProject',
     'AWS::DeviceFarm::TestGridProject',
   );
 
   static const distribution = ResourceType._(
-    73,
+    83,
     'Distribution',
     'AWS::CloudFront::Distribution',
   );
 
   static const dmsCertificate = ResourceType._(
-    74,
+    84,
     'DMSCertificate',
     'AWS::DMS::Certificate',
   );
 
+  static const dmsEndpoint = ResourceType._(
+    85,
+    'DMSEndpoint',
+    'AWS::DMS::Endpoint',
+  );
+
   static const dmsEventSubscription = ResourceType._(
-    75,
+    86,
     'DMSEventSubscription',
     'AWS::DMS::EventSubscription',
   );
 
   static const dmsReplicationSubnetGroup = ResourceType._(
-    76,
+    87,
     'DMSReplicationSubnetGroup',
     'AWS::DMS::ReplicationSubnetGroup',
   );
 
   static const domain = ResourceType._(
-    77,
+    88,
     'Domain',
     'AWS::Elasticsearch::Domain',
   );
 
+  static const ec2CapacityReservation = ResourceType._(
+    89,
+    'EC2CapacityReservation',
+    'AWS::EC2::CapacityReservation',
+  );
+
+  static const ec2ClientVpnEndpoint = ResourceType._(
+    90,
+    'EC2ClientVpnEndpoint',
+    'AWS::EC2::ClientVpnEndpoint',
+  );
+
   static const ec2DhcpOptions = ResourceType._(
-    78,
+    91,
     'EC2DHCPOptions',
     'AWS::EC2::DHCPOptions',
   );
 
   static const ec2Ec2Fleet = ResourceType._(
-    79,
+    92,
     'EC2EC2Fleet',
     'AWS::EC2::EC2Fleet',
   );
 
   static const ec2Ipam = ResourceType._(
-    80,
+    93,
     'EC2IPAM',
     'AWS::EC2::IPAM',
   );
 
+  static const ec2IpamScope = ResourceType._(
+    94,
+    'EC2IPAMScope',
+    'AWS::EC2::IPAMScope',
+  );
+
   static const ec2NetworkInsightsPath = ResourceType._(
-    81,
+    95,
     'EC2NetworkInsightsPath',
     'AWS::EC2::NetworkInsightsPath',
   );
 
   static const ec2PrefixList = ResourceType._(
-    82,
+    96,
     'EC2PrefixList',
     'AWS::EC2::PrefixList',
   );
 
   static const ec2SpotFleet = ResourceType._(
-    83,
+    97,
     'EC2SpotFleet',
     'AWS::EC2::SpotFleet',
   );
 
   static const ec2SubnetRouteTableAssociation = ResourceType._(
-    84,
+    98,
     'EC2SubnetRouteTableAssociation',
     'AWS::EC2::SubnetRouteTableAssociation',
   );
 
   static const ec2TrafficMirrorFilter = ResourceType._(
-    85,
+    99,
     'EC2TrafficMirrorFilter',
     'AWS::EC2::TrafficMirrorFilter',
   );
 
   static const ec2TrafficMirrorSession = ResourceType._(
-    86,
+    100,
     'EC2TrafficMirrorSession',
     'AWS::EC2::TrafficMirrorSession',
   );
 
   static const ec2TrafficMirrorTarget = ResourceType._(
-    87,
+    101,
     'EC2TrafficMirrorTarget',
     'AWS::EC2::TrafficMirrorTarget',
   );
 
   static const ecrPublicRepository = ResourceType._(
-    88,
+    102,
     'ECRPublicRepository',
     'AWS::ECR::PublicRepository',
   );
 
   static const ecrPullThroughCacheRule = ResourceType._(
-    89,
+    103,
     'ECRPullThroughCacheRule',
     'AWS::ECR::PullThroughCacheRule',
   );
 
   static const ecrRegistryPolicy = ResourceType._(
-    90,
+    104,
     'ECRRegistryPolicy',
     'AWS::ECR::RegistryPolicy',
   );
 
   static const ecrRepository = ResourceType._(
-    91,
+    105,
     'ECRRepository',
     'AWS::ECR::Repository',
   );
 
   static const ecsCluster = ResourceType._(
-    92,
+    106,
     'ECSCluster',
     'AWS::ECS::Cluster',
   );
 
   static const ecsService = ResourceType._(
-    93,
+    107,
     'ECSService',
     'AWS::ECS::Service',
   );
 
   static const ecsTaskDefinition = ResourceType._(
-    94,
+    108,
     'ECSTaskDefinition',
     'AWS::ECS::TaskDefinition',
   );
 
   static const ecsTaskSet = ResourceType._(
-    95,
+    109,
     'ECSTaskSet',
     'AWS::ECS::TaskSet',
   );
 
   static const efsAccessPoint = ResourceType._(
-    96,
+    110,
     'EFSAccessPoint',
     'AWS::EFS::AccessPoint',
   );
 
   static const efsFileSystem = ResourceType._(
-    97,
+    111,
     'EFSFileSystem',
     'AWS::EFS::FileSystem',
   );
 
   static const egressOnlyInternetGateway = ResourceType._(
-    98,
+    112,
     'EgressOnlyInternetGateway',
     'AWS::EC2::EgressOnlyInternetGateway',
   );
 
   static const eip = ResourceType._(
-    99,
+    113,
     'EIP',
     'AWS::EC2::EIP',
   );
 
   static const eksAddon = ResourceType._(
-    100,
+    114,
     'EKSAddon',
     'AWS::EKS::Addon',
   );
 
   static const eksCluster = ResourceType._(
-    101,
+    115,
     'EKSCluster',
     'AWS::EKS::Cluster',
   );
 
   static const eksFargateProfile = ResourceType._(
-    102,
+    116,
     'EKSFargateProfile',
     'AWS::EKS::FargateProfile',
   );
 
   static const eksIdentityProviderConfig = ResourceType._(
-    103,
+    117,
     'EKSIdentityProviderConfig',
     'AWS::EKS::IdentityProviderConfig',
   );
 
   static const emrSecurityConfiguration = ResourceType._(
-    104,
+    118,
     'EMRSecurityConfiguration',
     'AWS::EMR::SecurityConfiguration',
   );
 
   static const encryptionConfig = ResourceType._(
-    105,
+    119,
     'EncryptionConfig',
     'AWS::XRay::EncryptionConfig',
   );
 
   static const environment = ResourceType._(
-    106,
+    120,
     'Environment',
     'AWS::ElasticBeanstalk::Environment',
   );
 
   static const eventSchemasDiscoverer = ResourceType._(
-    107,
+    121,
     'EventSchemasDiscoverer',
     'AWS::EventSchemas::Discoverer',
   );
 
   static const eventSchemasRegistry = ResourceType._(
-    108,
+    122,
     'EventSchemasRegistry',
     'AWS::EventSchemas::Registry',
   );
 
   static const eventSchemasRegistryPolicy = ResourceType._(
-    109,
+    123,
     'EventSchemasRegistryPolicy',
     'AWS::EventSchemas::RegistryPolicy',
   );
 
   static const eventSchemasSchema = ResourceType._(
-    110,
+    124,
     'EventSchemasSchema',
     'AWS::EventSchemas::Schema',
   );
 
   static const eventSubscription = ResourceType._(
-    111,
+    125,
     'EventSubscription',
     'AWS::RDS::EventSubscription',
   );
 
   static const eventsApiDestination = ResourceType._(
-    112,
+    126,
     'EventsApiDestination',
     'AWS::Events::ApiDestination',
   );
 
   static const eventsArchive = ResourceType._(
-    113,
+    127,
     'EventsArchive',
     'AWS::Events::Archive',
   );
 
   static const eventsConnection = ResourceType._(
-    114,
+    128,
     'EventsConnection',
     'AWS::Events::Connection',
   );
 
   static const eventsEndpoint = ResourceType._(
-    115,
+    129,
     'EventsEndpoint',
     'AWS::Events::Endpoint',
   );
 
   static const eventsEventBus = ResourceType._(
-    116,
+    130,
     'EventsEventBus',
     'AWS::Events::EventBus',
   );
 
   static const eventsRule = ResourceType._(
-    117,
+    131,
     'EventsRule',
     'AWS::Events::Rule',
   );
 
+  static const evidentlyLaunch = ResourceType._(
+    132,
+    'EvidentlyLaunch',
+    'AWS::Evidently::Launch',
+  );
+
   static const evidentlyProject = ResourceType._(
-    118,
+    133,
     'EvidentlyProject',
     'AWS::Evidently::Project',
   );
 
   static const fileData = ResourceType._(
-    119,
+    134,
     'FileData',
     'AWS::SSM::FileData',
   );
 
   static const fisExperimentTemplate = ResourceType._(
-    120,
+    135,
     'FISExperimentTemplate',
     'AWS::FIS::ExperimentTemplate',
   );
 
   static const flowLog = ResourceType._(
-    121,
+    136,
     'FlowLog',
     'AWS::EC2::FlowLog',
   );
 
   static const forecastDataset = ResourceType._(
-    122,
+    137,
     'ForecastDataset',
     'AWS::Forecast::Dataset',
   );
 
+  static const forecastDatasetGroup = ResourceType._(
+    138,
+    'ForecastDatasetGroup',
+    'AWS::Forecast::DatasetGroup',
+  );
+
   static const fraudDetectorEntityType = ResourceType._(
-    123,
+    139,
     'FraudDetectorEntityType',
     'AWS::FraudDetector::EntityType',
   );
 
   static const fraudDetectorLabel = ResourceType._(
-    124,
+    140,
     'FraudDetectorLabel',
     'AWS::FraudDetector::Label',
   );
 
   static const fraudDetectorOutcome = ResourceType._(
-    125,
+    141,
     'FraudDetectorOutcome',
     'AWS::FraudDetector::Outcome',
   );
 
   static const fraudDetectorVariable = ResourceType._(
-    126,
+    142,
     'FraudDetectorVariable',
     'AWS::FraudDetector::Variable',
   );
 
   static const function = ResourceType._(
-    127,
+    143,
     'Function',
     'AWS::Lambda::Function',
   );
 
   static const globalAcceleratorAccelerator = ResourceType._(
-    128,
+    144,
     'GlobalAcceleratorAccelerator',
     'AWS::GlobalAccelerator::Accelerator',
   );
 
   static const globalAcceleratorEndpointGroup = ResourceType._(
-    129,
+    145,
     'GlobalAcceleratorEndpointGroup',
     'AWS::GlobalAccelerator::EndpointGroup',
   );
 
   static const globalAcceleratorListener = ResourceType._(
-    130,
+    146,
     'GlobalAcceleratorListener',
     'AWS::GlobalAccelerator::Listener',
   );
 
   static const glueClassifier = ResourceType._(
-    131,
+    147,
     'GlueClassifier',
     'AWS::Glue::Classifier',
   );
 
   static const glueJob = ResourceType._(
-    132,
+    148,
     'GlueJob',
     'AWS::Glue::Job',
   );
 
   static const glueMlTransform = ResourceType._(
-    133,
+    149,
     'GlueMLTransform',
     'AWS::Glue::MLTransform',
   );
 
+  static const greengrassV2ComponentVersion = ResourceType._(
+    150,
+    'GreengrassV2ComponentVersion',
+    'AWS::GreengrassV2::ComponentVersion',
+  );
+
   static const groundStationConfig = ResourceType._(
-    134,
+    151,
     'GroundStationConfig',
     'AWS::GroundStation::Config',
   );
 
+  static const groundStationMissionProfile = ResourceType._(
+    152,
+    'GroundStationMissionProfile',
+    'AWS::GroundStation::MissionProfile',
+  );
+
   static const group = ResourceType._(
-    135,
+    153,
     'Group',
     'AWS::IAM::Group',
   );
 
   static const guardDutyDetector = ResourceType._(
-    136,
+    154,
     'GuardDutyDetector',
     'AWS::GuardDuty::Detector',
   );
 
   static const guardDutyFilter = ResourceType._(
-    137,
+    155,
     'GuardDutyFilter',
     'AWS::GuardDuty::Filter',
   );
 
   static const guardDutyIpSet = ResourceType._(
-    138,
+    156,
     'GuardDutyIPSet',
     'AWS::GuardDuty::IPSet',
   );
 
   static const guardDutyThreatIntelSet = ResourceType._(
-    139,
+    157,
     'GuardDutyThreatIntelSet',
     'AWS::GuardDuty::ThreatIntelSet',
   );
 
   static const healthLakeFhirDatastore = ResourceType._(
-    140,
+    158,
     'HealthLakeFHIRDatastore',
     'AWS::HealthLake::FHIRDatastore',
   );
 
   static const host = ResourceType._(
-    141,
+    159,
     'Host',
     'AWS::EC2::Host',
   );
 
   static const iamServerCertificate = ResourceType._(
-    142,
+    160,
     'IAMServerCertificate',
     'AWS::IAM::ServerCertificate',
   );
 
   static const iamsamlProvider = ResourceType._(
-    143,
+    161,
     'IAMSAMLProvider',
     'AWS::IAM::SAMLProvider',
   );
 
   static const imageBuilderContainerRecipe = ResourceType._(
-    144,
+    162,
     'ImageBuilderContainerRecipe',
     'AWS::ImageBuilder::ContainerRecipe',
   );
 
   static const imageBuilderDistributionConfiguration = ResourceType._(
-    145,
+    163,
     'ImageBuilderDistributionConfiguration',
     'AWS::ImageBuilder::DistributionConfiguration',
   );
 
   static const imageBuilderImagePipeline = ResourceType._(
-    146,
+    164,
     'ImageBuilderImagePipeline',
     'AWS::ImageBuilder::ImagePipeline',
   );
 
   static const imageBuilderInfrastructureConfiguration = ResourceType._(
-    147,
+    165,
     'ImageBuilderInfrastructureConfiguration',
     'AWS::ImageBuilder::InfrastructureConfiguration',
   );
 
   static const instance = ResourceType._(
-    148,
+    166,
     'Instance',
     'AWS::EC2::Instance',
   );
 
   static const internetGateway = ResourceType._(
-    149,
+    167,
     'InternetGateway',
     'AWS::EC2::InternetGateway',
   );
 
   static const ioTAccountAuditConfiguration = ResourceType._(
-    150,
+    168,
     'IoTAccountAuditConfiguration',
     'AWS::IoT::AccountAuditConfiguration',
   );
 
   static const ioTAnalyticsChannel = ResourceType._(
-    151,
+    169,
     'IoTAnalyticsChannel',
     'AWS::IoTAnalytics::Channel',
   );
 
   static const ioTAnalyticsDataset = ResourceType._(
-    152,
+    170,
     'IoTAnalyticsDataset',
     'AWS::IoTAnalytics::Dataset',
   );
 
   static const ioTAnalyticsDatastore = ResourceType._(
-    153,
+    171,
     'IoTAnalyticsDatastore',
     'AWS::IoTAnalytics::Datastore',
   );
 
   static const ioTAnalyticsPipeline = ResourceType._(
-    154,
+    172,
     'IoTAnalyticsPipeline',
     'AWS::IoTAnalytics::Pipeline',
   );
 
   static const ioTAuthorizer = ResourceType._(
-    155,
+    173,
     'IoTAuthorizer',
     'AWS::IoT::Authorizer',
   );
 
   static const ioTCustomMetric = ResourceType._(
-    156,
+    174,
     'IoTCustomMetric',
     'AWS::IoT::CustomMetric',
   );
 
   static const ioTDimension = ResourceType._(
-    157,
+    175,
     'IoTDimension',
     'AWS::IoT::Dimension',
   );
 
   static const ioTEventsAlarmModel = ResourceType._(
-    158,
+    176,
     'IoTEventsAlarmModel',
     'AWS::IoTEvents::AlarmModel',
   );
 
   static const ioTEventsDetectorModel = ResourceType._(
-    159,
+    177,
     'IoTEventsDetectorModel',
     'AWS::IoTEvents::DetectorModel',
   );
 
   static const ioTEventsInput = ResourceType._(
-    160,
+    178,
     'IoTEventsInput',
     'AWS::IoTEvents::Input',
   );
 
   static const ioTFleetMetric = ResourceType._(
-    161,
+    179,
     'IoTFleetMetric',
     'AWS::IoT::FleetMetric',
   );
 
   static const ioTMitigationAction = ResourceType._(
-    162,
+    180,
     'IoTMitigationAction',
     'AWS::IoT::MitigationAction',
   );
 
   static const ioTPolicy = ResourceType._(
-    163,
+    181,
     'IoTPolicy',
     'AWS::IoT::Policy',
   );
 
   static const ioTRoleAlias = ResourceType._(
-    164,
+    182,
     'IoTRoleAlias',
     'AWS::IoT::RoleAlias',
   );
 
   static const ioTScheduledAudit = ResourceType._(
-    165,
+    183,
     'IoTScheduledAudit',
     'AWS::IoT::ScheduledAudit',
   );
 
   static const ioTSecurityProfile = ResourceType._(
-    166,
+    184,
     'IoTSecurityProfile',
     'AWS::IoT::SecurityProfile',
   );
 
   static const ioTSiteWiseAssetModel = ResourceType._(
-    167,
+    185,
     'IoTSiteWiseAssetModel',
     'AWS::IoTSiteWise::AssetModel',
   );
 
   static const ioTSiteWiseDashboard = ResourceType._(
-    168,
+    186,
     'IoTSiteWiseDashboard',
     'AWS::IoTSiteWise::Dashboard',
   );
 
   static const ioTSiteWiseGateway = ResourceType._(
-    169,
+    187,
     'IoTSiteWiseGateway',
     'AWS::IoTSiteWise::Gateway',
   );
 
   static const ioTSiteWisePortal = ResourceType._(
-    170,
+    188,
     'IoTSiteWisePortal',
     'AWS::IoTSiteWise::Portal',
   );
 
   static const ioTSiteWiseProject = ResourceType._(
-    171,
+    189,
     'IoTSiteWiseProject',
     'AWS::IoTSiteWise::Project',
   );
 
   static const ioTTwinMakerEntity = ResourceType._(
-    172,
+    190,
     'IoTTwinMakerEntity',
     'AWS::IoTTwinMaker::Entity',
   );
 
   static const ioTTwinMakerScene = ResourceType._(
-    173,
+    191,
     'IoTTwinMakerScene',
     'AWS::IoTTwinMaker::Scene',
   );
 
   static const ioTTwinMakerWorkspace = ResourceType._(
-    174,
+    192,
     'IoTTwinMakerWorkspace',
     'AWS::IoTTwinMaker::Workspace',
   );
 
   static const ioTWirelessServiceProfile = ResourceType._(
-    175,
+    193,
     'IoTWirelessServiceProfile',
     'AWS::IoTWireless::ServiceProfile',
   );
 
   static const ipSetV2 = ResourceType._(
-    176,
+    194,
     'IPSetV2',
     'AWS::WAFv2::IPSet',
   );
 
   static const ivsChannel = ResourceType._(
-    177,
+    195,
     'IVSChannel',
     'AWS::IVS::Channel',
   );
 
   static const ivsPlaybackKeyPair = ResourceType._(
-    178,
+    196,
     'IVSPlaybackKeyPair',
     'AWS::IVS::PlaybackKeyPair',
   );
 
   static const ivsRecordingConfiguration = ResourceType._(
-    179,
+    197,
     'IVSRecordingConfiguration',
     'AWS::IVS::RecordingConfiguration',
   );
 
+  static const kendraIndex = ResourceType._(
+    198,
+    'KendraIndex',
+    'AWS::Kendra::Index',
+  );
+
   static const key = ResourceType._(
-    180,
+    199,
     'Key',
     'AWS::KMS::Key',
   );
 
   static const kinesisAnalyticsV2Application = ResourceType._(
-    181,
+    200,
     'KinesisAnalyticsV2Application',
     'AWS::KinesisAnalyticsV2::Application',
   );
 
   static const kinesisFirehoseDeliveryStream = ResourceType._(
-    182,
+    201,
     'KinesisFirehoseDeliveryStream',
     'AWS::KinesisFirehose::DeliveryStream',
   );
 
   static const kinesisStream = ResourceType._(
-    183,
+    202,
     'KinesisStream',
     'AWS::Kinesis::Stream',
   );
 
   static const kinesisStreamConsumer = ResourceType._(
-    184,
+    203,
     'KinesisStreamConsumer',
     'AWS::Kinesis::StreamConsumer',
   );
 
   static const kinesisVideoSignalingChannel = ResourceType._(
-    185,
+    204,
     'KinesisVideoSignalingChannel',
     'AWS::KinesisVideo::SignalingChannel',
   );
 
+  static const kinesisVideoStream = ResourceType._(
+    205,
+    'KinesisVideoStream',
+    'AWS::KinesisVideo::Stream',
+  );
+
   static const launchConfiguration = ResourceType._(
-    186,
+    206,
     'LaunchConfiguration',
     'AWS::AutoScaling::LaunchConfiguration',
   );
 
   static const launchTemplate = ResourceType._(
-    187,
+    207,
     'LaunchTemplate',
     'AWS::EC2::LaunchTemplate',
   );
 
   static const lexBot = ResourceType._(
-    188,
+    208,
     'LexBot',
     'AWS::Lex::Bot',
   );
 
   static const lexBotAlias = ResourceType._(
-    189,
+    209,
     'LexBotAlias',
     'AWS::Lex::BotAlias',
   );
 
   static const lightsailBucket = ResourceType._(
-    190,
+    210,
     'LightsailBucket',
     'AWS::Lightsail::Bucket',
   );
 
   static const lightsailCertificate = ResourceType._(
-    191,
+    211,
     'LightsailCertificate',
     'AWS::Lightsail::Certificate',
   );
 
   static const lightsailDisk = ResourceType._(
-    192,
+    212,
     'LightsailDisk',
     'AWS::Lightsail::Disk',
   );
 
   static const lightsailStaticIp = ResourceType._(
-    193,
+    213,
     'LightsailStaticIp',
     'AWS::Lightsail::StaticIp',
   );
 
   static const listenerV2 = ResourceType._(
-    194,
+    214,
     'ListenerV2',
     'AWS::ElasticLoadBalancingV2::Listener',
   );
 
   static const loadBalancer = ResourceType._(
-    195,
+    215,
     'LoadBalancer',
     'AWS::ElasticLoadBalancing::LoadBalancer',
   );
 
   static const loadBalancerV2 = ResourceType._(
-    196,
+    216,
     'LoadBalancerV2',
     'AWS::ElasticLoadBalancingV2::LoadBalancer',
   );
 
+  static const logsDestination = ResourceType._(
+    217,
+    'LogsDestination',
+    'AWS::Logs::Destination',
+  );
+
   static const lookoutMetricsAlert = ResourceType._(
-    197,
+    218,
     'LookoutMetricsAlert',
     'AWS::LookoutMetrics::Alert',
   );
 
   static const lookoutVisionProject = ResourceType._(
-    198,
+    219,
     'LookoutVisionProject',
     'AWS::LookoutVision::Project',
   );
 
   static const managedInstanceInventory = ResourceType._(
-    199,
+    220,
     'ManagedInstanceInventory',
     'AWS::SSM::ManagedInstanceInventory',
   );
 
   static const managedRuleSetV2 = ResourceType._(
-    200,
+    221,
     'ManagedRuleSetV2',
     'AWS::WAFv2::ManagedRuleSet',
   );
 
+  static const mediaConnectFlowEntitlement = ResourceType._(
+    222,
+    'MediaConnectFlowEntitlement',
+    'AWS::MediaConnect::FlowEntitlement',
+  );
+
+  static const mediaConnectFlowVpcInterface = ResourceType._(
+    223,
+    'MediaConnectFlowVpcInterface',
+    'AWS::MediaConnect::FlowVpcInterface',
+  );
+
   static const mediaPackagePackagingConfiguration = ResourceType._(
-    201,
+    224,
     'MediaPackagePackagingConfiguration',
     'AWS::MediaPackage::PackagingConfiguration',
   );
 
   static const mediaPackagePackagingGroup = ResourceType._(
-    202,
+    225,
     'MediaPackagePackagingGroup',
     'AWS::MediaPackage::PackagingGroup',
   );
 
+  static const mediaTailorPlaybackConfiguration = ResourceType._(
+    226,
+    'MediaTailorPlaybackConfiguration',
+    'AWS::MediaTailor::PlaybackConfiguration',
+  );
+
   static const mskCluster = ResourceType._(
-    203,
+    227,
     'MSKCluster',
     'AWS::MSK::Cluster',
   );
 
+  static const mskConfiguration = ResourceType._(
+    228,
+    'MSKConfiguration',
+    'AWS::MSK::Configuration',
+  );
+
   static const natGateway = ResourceType._(
-    204,
+    229,
     'NatGateway',
     'AWS::EC2::NatGateway',
   );
 
   static const networkAcl = ResourceType._(
-    205,
+    230,
     'NetworkAcl',
     'AWS::EC2::NetworkAcl',
   );
 
   static const networkFirewallFirewall = ResourceType._(
-    206,
+    231,
     'NetworkFirewallFirewall',
     'AWS::NetworkFirewall::Firewall',
   );
 
   static const networkFirewallFirewallPolicy = ResourceType._(
-    207,
+    232,
     'NetworkFirewallFirewallPolicy',
     'AWS::NetworkFirewall::FirewallPolicy',
   );
 
   static const networkFirewallRuleGroup = ResourceType._(
-    208,
+    233,
     'NetworkFirewallRuleGroup',
     'AWS::NetworkFirewall::RuleGroup',
   );
 
   static const networkInsightsAccessScopeAnalysis = ResourceType._(
-    209,
+    234,
     'NetworkInsightsAccessScopeAnalysis',
     'AWS::EC2::NetworkInsightsAccessScopeAnalysis',
   );
 
   static const networkInterface = ResourceType._(
-    210,
+    235,
     'NetworkInterface',
     'AWS::EC2::NetworkInterface',
   );
 
+  static const networkManagerCustomerGatewayAssociation = ResourceType._(
+    236,
+    'NetworkManagerCustomerGatewayAssociation',
+    'AWS::NetworkManager::CustomerGatewayAssociation',
+  );
+
   static const networkManagerDevice = ResourceType._(
-    211,
+    237,
     'NetworkManagerDevice',
     'AWS::NetworkManager::Device',
   );
 
   static const networkManagerGlobalNetwork = ResourceType._(
-    212,
+    238,
     'NetworkManagerGlobalNetwork',
     'AWS::NetworkManager::GlobalNetwork',
   );
 
   static const networkManagerLink = ResourceType._(
-    213,
+    239,
     'NetworkManagerLink',
     'AWS::NetworkManager::Link',
   );
 
+  static const networkManagerLinkAssociation = ResourceType._(
+    240,
+    'NetworkManagerLinkAssociation',
+    'AWS::NetworkManager::LinkAssociation',
+  );
+
   static const networkManagerSite = ResourceType._(
-    214,
+    241,
     'NetworkManagerSite',
     'AWS::NetworkManager::Site',
   );
 
   static const networkManagerTransitGatewayRegistration = ResourceType._(
-    215,
+    242,
     'NetworkManagerTransitGatewayRegistration',
     'AWS::NetworkManager::TransitGatewayRegistration',
   );
 
   static const openSearchDomain = ResourceType._(
-    216,
+    243,
     'OpenSearchDomain',
     'AWS::OpenSearch::Domain',
   );
 
   static const panoramaPackage = ResourceType._(
-    217,
+    244,
     'PanoramaPackage',
     'AWS::Panorama::Package',
   );
 
   static const patchCompliance = ResourceType._(
-    218,
+    245,
     'PatchCompliance',
     'AWS::SSM::PatchCompliance',
   );
 
+  static const personalizeDataset = ResourceType._(
+    246,
+    'PersonalizeDataset',
+    'AWS::Personalize::Dataset',
+  );
+
+  static const personalizeSchema = ResourceType._(
+    247,
+    'PersonalizeSchema',
+    'AWS::Personalize::Schema',
+  );
+
+  static const personalizeSolution = ResourceType._(
+    248,
+    'PersonalizeSolution',
+    'AWS::Personalize::Solution',
+  );
+
   static const pinpointApp = ResourceType._(
-    219,
+    249,
     'PinpointApp',
     'AWS::Pinpoint::App',
   );
 
   static const pinpointApplicationSettings = ResourceType._(
-    220,
+    250,
     'PinpointApplicationSettings',
     'AWS::Pinpoint::ApplicationSettings',
   );
 
   static const pinpointCampaign = ResourceType._(
-    221,
+    251,
     'PinpointCampaign',
     'AWS::Pinpoint::Campaign',
   );
 
+  static const pinpointEmailChannel = ResourceType._(
+    252,
+    'PinpointEmailChannel',
+    'AWS::Pinpoint::EmailChannel',
+  );
+
+  static const pinpointEmailTemplate = ResourceType._(
+    253,
+    'PinpointEmailTemplate',
+    'AWS::Pinpoint::EmailTemplate',
+  );
+
+  static const pinpointEventStream = ResourceType._(
+    254,
+    'PinpointEventStream',
+    'AWS::Pinpoint::EventStream',
+  );
+
   static const pinpointInAppTemplate = ResourceType._(
-    222,
+    255,
     'PinpointInAppTemplate',
     'AWS::Pinpoint::InAppTemplate',
   );
 
   static const pinpointSegment = ResourceType._(
-    223,
+    256,
     'PinpointSegment',
     'AWS::Pinpoint::Segment',
   );
 
   static const pipeline = ResourceType._(
-    224,
+    257,
     'Pipeline',
     'AWS::CodePipeline::Pipeline',
   );
 
   static const policy = ResourceType._(
-    225,
+    258,
     'Policy',
     'AWS::IAM::Policy',
   );
 
   static const portfolio = ResourceType._(
-    226,
+    259,
     'Portfolio',
     'AWS::ServiceCatalog::Portfolio',
   );
 
   static const project = ResourceType._(
-    227,
+    260,
     'Project',
     'AWS::CodeBuild::Project',
   );
 
   static const protection = ResourceType._(
-    228,
+    261,
     'Protection',
     'AWS::Shield::Protection',
   );
 
   static const qldbLedger = ResourceType._(
-    229,
+    262,
     'QLDBLedger',
     'AWS::QLDB::Ledger',
   );
 
   static const queue = ResourceType._(
-    230,
+    263,
     'Queue',
     'AWS::SQS::Queue',
   );
 
   static const rateBasedRule = ResourceType._(
-    231,
+    264,
     'RateBasedRule',
     'AWS::WAF::RateBasedRule',
   );
 
   static const rdsGlobalCluster = ResourceType._(
-    232,
+    265,
     'RDSGlobalCluster',
     'AWS::RDS::GlobalCluster',
   );
 
   static const redshiftEventSubscription = ResourceType._(
-    233,
+    266,
     'RedshiftEventSubscription',
     'AWS::Redshift::EventSubscription',
   );
 
   static const redshiftScheduledAction = ResourceType._(
-    234,
+    267,
     'RedshiftScheduledAction',
     'AWS::Redshift::ScheduledAction',
   );
 
   static const regexPatternSetV2 = ResourceType._(
-    235,
+    268,
     'RegexPatternSetV2',
     'AWS::WAFv2::RegexPatternSet',
   );
 
   static const regionalProtection = ResourceType._(
-    236,
+    269,
     'RegionalProtection',
     'AWS::ShieldRegional::Protection',
   );
 
   static const regionalRateBasedRule = ResourceType._(
-    237,
+    270,
     'RegionalRateBasedRule',
     'AWS::WAFRegional::RateBasedRule',
   );
 
   static const regionalRule = ResourceType._(
-    238,
+    271,
     'RegionalRule',
     'AWS::WAFRegional::Rule',
   );
 
   static const regionalRuleGroup = ResourceType._(
-    239,
+    272,
     'RegionalRuleGroup',
     'AWS::WAFRegional::RuleGroup',
   );
 
   static const regionalWebAcl = ResourceType._(
-    240,
+    273,
     'RegionalWebACL',
     'AWS::WAFRegional::WebACL',
   );
 
   static const registeredHaInstance = ResourceType._(
-    241,
+    274,
     'RegisteredHAInstance',
     'AWS::EC2::RegisteredHAInstance',
   );
 
+  static const resilienceHubApp = ResourceType._(
+    275,
+    'ResilienceHubApp',
+    'AWS::ResilienceHub::App',
+  );
+
   static const resilienceHubResiliencyPolicy = ResourceType._(
-    242,
+    276,
     'ResilienceHubResiliencyPolicy',
     'AWS::ResilienceHub::ResiliencyPolicy',
   );
 
   static const resourceCompliance = ResourceType._(
-    243,
+    277,
     'ResourceCompliance',
     'AWS::Config::ResourceCompliance',
   );
 
   static const restApi = ResourceType._(
-    244,
+    278,
     'RestApi',
     'AWS::ApiGateway::RestApi',
   );
 
   static const roboMakerRobotApplication = ResourceType._(
-    245,
+    279,
     'RoboMakerRobotApplication',
     'AWS::RoboMaker::RobotApplication',
   );
 
   static const roboMakerRobotApplicationVersion = ResourceType._(
-    246,
+    280,
     'RoboMakerRobotApplicationVersion',
     'AWS::RoboMaker::RobotApplicationVersion',
   );
 
   static const roboMakerSimulationApplication = ResourceType._(
-    247,
+    281,
     'RoboMakerSimulationApplication',
     'AWS::RoboMaker::SimulationApplication',
   );
 
   static const role = ResourceType._(
-    248,
+    282,
     'Role',
     'AWS::IAM::Role',
   );
 
   static const route53HostedZone = ResourceType._(
-    249,
+    283,
     'Route53HostedZone',
     'AWS::Route53::HostedZone',
   );
 
   static const route53RecoveryControlCluster = ResourceType._(
-    250,
+    284,
     'Route53RecoveryControlCluster',
     'AWS::Route53RecoveryControl::Cluster',
   );
 
   static const route53RecoveryControlControlPanel = ResourceType._(
-    251,
+    285,
     'Route53RecoveryControlControlPanel',
     'AWS::Route53RecoveryControl::ControlPanel',
   );
 
   static const route53RecoveryControlRoutingControl = ResourceType._(
-    252,
+    286,
     'Route53RecoveryControlRoutingControl',
     'AWS::Route53RecoveryControl::RoutingControl',
   );
 
   static const route53RecoveryControlSafetyRule = ResourceType._(
-    253,
+    287,
     'Route53RecoveryControlSafetyRule',
     'AWS::Route53RecoveryControl::SafetyRule',
   );
 
   static const route53RecoveryReadinessCell = ResourceType._(
-    254,
+    288,
     'Route53RecoveryReadinessCell',
     'AWS::Route53RecoveryReadiness::Cell',
   );
 
   static const route53RecoveryReadinessReadinessCheck = ResourceType._(
-    255,
+    289,
     'Route53RecoveryReadinessReadinessCheck',
     'AWS::Route53RecoveryReadiness::ReadinessCheck',
   );
 
   static const route53RecoveryReadinessRecoveryGroup = ResourceType._(
-    256,
+    290,
     'Route53RecoveryReadinessRecoveryGroup',
     'AWS::Route53RecoveryReadiness::RecoveryGroup',
   );
 
   static const route53RecoveryReadinessResourceSet = ResourceType._(
-    257,
+    291,
     'Route53RecoveryReadinessResourceSet',
     'AWS::Route53RecoveryReadiness::ResourceSet',
   );
 
   static const route53ResolverFirewallDomainList = ResourceType._(
-    258,
+    292,
     'Route53ResolverFirewallDomainList',
     'AWS::Route53Resolver::FirewallDomainList',
   );
 
   static const route53ResolverFirewallRuleGroupAssociation = ResourceType._(
-    259,
+    293,
     'Route53ResolverFirewallRuleGroupAssociation',
     'AWS::Route53Resolver::FirewallRuleGroupAssociation',
   );
 
   static const route53ResolverResolverEndpoint = ResourceType._(
-    260,
+    294,
     'Route53ResolverResolverEndpoint',
     'AWS::Route53Resolver::ResolverEndpoint',
   );
 
   static const route53ResolverResolverRule = ResourceType._(
-    261,
+    295,
     'Route53ResolverResolverRule',
     'AWS::Route53Resolver::ResolverRule',
   );
 
   static const route53ResolverResolverRuleAssociation = ResourceType._(
-    262,
+    296,
     'Route53ResolverResolverRuleAssociation',
     'AWS::Route53Resolver::ResolverRuleAssociation',
   );
 
   static const routeTable = ResourceType._(
-    263,
+    297,
     'RouteTable',
     'AWS::EC2::RouteTable',
   );
 
   static const rule = ResourceType._(
-    264,
+    298,
     'Rule',
     'AWS::WAF::Rule',
   );
 
   static const ruleGroup = ResourceType._(
-    265,
+    299,
     'RuleGroup',
     'AWS::WAF::RuleGroup',
   );
 
   static const ruleGroupV2 = ResourceType._(
-    266,
+    300,
     'RuleGroupV2',
     'AWS::WAFv2::RuleGroup',
   );
 
   static const rumAppMonitor = ResourceType._(
-    267,
+    301,
     'RUMAppMonitor',
     'AWS::RUM::AppMonitor',
   );
 
+  static const s3AccessPoint = ResourceType._(
+    302,
+    'S3AccessPoint',
+    'AWS::S3::AccessPoint',
+  );
+
   static const s3MultiRegionAccessPoint = ResourceType._(
-    268,
+    303,
     'S3MultiRegionAccessPoint',
     'AWS::S3::MultiRegionAccessPoint',
   );
 
   static const s3StorageLens = ResourceType._(
-    269,
+    304,
     'S3StorageLens',
     'AWS::S3::StorageLens',
   );
 
   static const sageMakerAppImageConfig = ResourceType._(
-    270,
+    305,
     'SageMakerAppImageConfig',
     'AWS::SageMaker::AppImageConfig',
   );
 
   static const sageMakerCodeRepository = ResourceType._(
-    271,
+    306,
     'SageMakerCodeRepository',
     'AWS::SageMaker::CodeRepository',
   );
 
   static const sageMakerDomain = ResourceType._(
-    272,
+    307,
     'SageMakerDomain',
     'AWS::SageMaker::Domain',
   );
 
   static const sageMakerImage = ResourceType._(
-    273,
+    308,
     'SageMakerImage',
     'AWS::SageMaker::Image',
   );
 
   static const sageMakerModel = ResourceType._(
-    274,
+    309,
     'SageMakerModel',
     'AWS::SageMaker::Model',
   );
 
   static const sageMakerNotebookInstanceLifecycleConfig = ResourceType._(
-    275,
+    310,
     'SageMakerNotebookInstanceLifecycleConfig',
     'AWS::SageMaker::NotebookInstanceLifecycleConfig',
   );
 
   static const sageMakerWorkteam = ResourceType._(
-    276,
+    311,
     'SageMakerWorkteam',
     'AWS::SageMaker::Workteam',
   );
 
   static const scalingPolicy = ResourceType._(
-    277,
+    312,
     'ScalingPolicy',
     'AWS::AutoScaling::ScalingPolicy',
   );
 
   static const scheduledAction = ResourceType._(
-    278,
+    313,
     'ScheduledAction',
     'AWS::AutoScaling::ScheduledAction',
   );
 
   static const secret = ResourceType._(
-    279,
+    314,
     'Secret',
     'AWS::SecretsManager::Secret',
   );
 
   static const securityGroup = ResourceType._(
-    280,
+    315,
     'SecurityGroup',
     'AWS::EC2::SecurityGroup',
   );
 
   static const serviceDiscoveryHttpNamespace = ResourceType._(
-    281,
+    316,
     'ServiceDiscoveryHttpNamespace',
     'AWS::ServiceDiscovery::HttpNamespace',
   );
 
   static const serviceDiscoveryPublicDnsNamespace = ResourceType._(
-    282,
+    317,
     'ServiceDiscoveryPublicDnsNamespace',
     'AWS::ServiceDiscovery::PublicDnsNamespace',
   );
 
   static const serviceDiscoveryService = ResourceType._(
-    283,
+    318,
     'ServiceDiscoveryService',
     'AWS::ServiceDiscovery::Service',
   );
 
   static const sesConfigurationSet = ResourceType._(
-    284,
+    319,
     'SESConfigurationSet',
     'AWS::SES::ConfigurationSet',
   );
 
   static const sesContactList = ResourceType._(
-    285,
+    320,
     'SESContactList',
     'AWS::SES::ContactList',
   );
 
   static const sesReceiptFilter = ResourceType._(
-    286,
+    321,
     'SESReceiptFilter',
     'AWS::SES::ReceiptFilter',
   );
 
   static const sesReceiptRuleSet = ResourceType._(
-    287,
+    322,
     'SESReceiptRuleSet',
     'AWS::SES::ReceiptRuleSet',
   );
 
   static const sesTemplate = ResourceType._(
-    288,
+    323,
     'SESTemplate',
     'AWS::SES::Template',
   );
 
   static const signerSigningProfile = ResourceType._(
-    289,
+    324,
     'SignerSigningProfile',
     'AWS::Signer::SigningProfile',
   );
 
   static const stack = ResourceType._(
-    290,
+    325,
     'Stack',
     'AWS::CloudFormation::Stack',
   );
 
   static const stage = ResourceType._(
-    291,
+    326,
     'Stage',
     'AWS::ApiGateway::Stage',
   );
 
   static const stageV2 = ResourceType._(
-    292,
+    327,
     'StageV2',
     'AWS::ApiGatewayV2::Stage',
   );
 
   static const stepFunctionsActivity = ResourceType._(
-    293,
+    328,
     'StepFunctionsActivity',
     'AWS::StepFunctions::Activity',
   );
 
   static const stepFunctionsStateMachine = ResourceType._(
-    294,
+    329,
     'StepFunctionsStateMachine',
     'AWS::StepFunctions::StateMachine',
   );
 
   static const streamingDistribution = ResourceType._(
-    295,
+    330,
     'StreamingDistribution',
     'AWS::CloudFront::StreamingDistribution',
   );
 
   static const subnet = ResourceType._(
-    296,
+    331,
     'Subnet',
     'AWS::EC2::Subnet',
   );
 
   static const table = ResourceType._(
-    297,
+    332,
     'Table',
     'AWS::DynamoDB::Table',
   );
 
   static const topic = ResourceType._(
-    298,
+    333,
     'Topic',
     'AWS::SNS::Topic',
   );
 
   static const trail = ResourceType._(
-    299,
+    334,
     'Trail',
     'AWS::CloudTrail::Trail',
   );
 
   static const transferAgreement = ResourceType._(
-    300,
+    335,
     'TransferAgreement',
     'AWS::Transfer::Agreement',
   );
 
   static const transferConnector = ResourceType._(
-    301,
+    336,
     'TransferConnector',
     'AWS::Transfer::Connector',
   );
 
   static const transferWorkflow = ResourceType._(
-    302,
+    337,
     'TransferWorkflow',
     'AWS::Transfer::Workflow',
   );
 
   static const transitGateway = ResourceType._(
-    303,
+    338,
     'TransitGateway',
     'AWS::EC2::TransitGateway',
   );
 
   static const transitGatewayAttachment = ResourceType._(
-    304,
+    339,
     'TransitGatewayAttachment',
     'AWS::EC2::TransitGatewayAttachment',
   );
 
   static const transitGatewayRouteTable = ResourceType._(
-    305,
+    340,
     'TransitGatewayRouteTable',
     'AWS::EC2::TransitGatewayRouteTable',
   );
 
   static const user = ResourceType._(
-    306,
+    341,
     'User',
     'AWS::IAM::User',
   );
 
   static const volume = ResourceType._(
-    307,
+    342,
     'Volume',
     'AWS::EC2::Volume',
   );
 
   static const vpc = ResourceType._(
-    308,
+    343,
     'VPC',
     'AWS::EC2::VPC',
   );
 
   static const vpcEndpoint = ResourceType._(
-    309,
+    344,
     'VPCEndpoint',
     'AWS::EC2::VPCEndpoint',
   );
 
   static const vpcEndpointService = ResourceType._(
-    310,
+    345,
     'VPCEndpointService',
     'AWS::EC2::VPCEndpointService',
   );
 
   static const vpcPeeringConnection = ResourceType._(
-    311,
+    346,
     'VPCPeeringConnection',
     'AWS::EC2::VPCPeeringConnection',
   );
 
   static const vpnConnection = ResourceType._(
-    312,
+    347,
     'VPNConnection',
     'AWS::EC2::VPNConnection',
   );
 
   static const vpnGateway = ResourceType._(
-    313,
+    348,
     'VPNGateway',
     'AWS::EC2::VPNGateway',
   );
 
   static const webAcl = ResourceType._(
-    314,
+    349,
     'WebACL',
     'AWS::WAF::WebACL',
   );
 
   static const webAclv2 = ResourceType._(
-    315,
+    350,
     'WebACLV2',
     'AWS::WAFv2::WebACL',
   );
 
   static const workSpacesConnectionAlias = ResourceType._(
-    316,
+    351,
     'WorkSpacesConnectionAlias',
     'AWS::WorkSpaces::ConnectionAlias',
   );
 
   static const workSpacesWorkspace = ResourceType._(
-    317,
+    352,
     'WorkSpacesWorkspace',
     'AWS::WorkSpaces::Workspace',
   );
@@ -1926,17 +2136,25 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
   static const values = <ResourceType>[
     ResourceType.accessAnalyzerAnalyzer,
     ResourceType.accountPublicAccessBlock,
+    ResourceType.acmpcaCertificateAuthority,
     ResourceType.alarm,
     ResourceType.amazonMqBroker,
     ResourceType.amplifyApp,
+    ResourceType.amplifyBranch,
     ResourceType.api,
     ResourceType.appConfigApplication,
     ResourceType.appConfigConfigurationProfile,
     ResourceType.appConfigDeploymentStrategy,
     ResourceType.appConfigEnvironment,
+    ResourceType.appConfigHostedConfigurationVersion,
     ResourceType.appFlowFlow,
+    ResourceType.appIntegrationsEventIntegration,
+    ResourceType.appMeshRoute,
+    ResourceType.appMeshVirtualGateway,
     ResourceType.appMeshVirtualNode,
+    ResourceType.appMeshVirtualRouter,
     ResourceType.appMeshVirtualService,
+    ResourceType.appRunnerService,
     ResourceType.appRunnerVpcConnector,
     ResourceType.appStreamApplication,
     ResourceType.appStreamDirectoryConfig,
@@ -1945,6 +2163,7 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.applicationVersion,
     ResourceType.associationCompliance,
     ResourceType.athenaDataCatalog,
+    ResourceType.athenaPreparedStatement,
     ResourceType.athenaWorkGroup,
     ResourceType.auditManagerAssessment,
     ResourceType.autoScalingGroup,
@@ -1978,6 +2197,7 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.connectPhoneNumber,
     ResourceType.customerGateway,
     ResourceType.customerProfilesDomain,
+    ResourceType.customerProfilesObjectType,
     ResourceType.dataSyncLocationEfs,
     ResourceType.dataSyncLocationFSxLustre,
     ResourceType.dataSyncLocationFSxWindows,
@@ -1999,12 +2219,16 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.deviceFarmTestGridProject,
     ResourceType.distribution,
     ResourceType.dmsCertificate,
+    ResourceType.dmsEndpoint,
     ResourceType.dmsEventSubscription,
     ResourceType.dmsReplicationSubnetGroup,
     ResourceType.domain,
+    ResourceType.ec2CapacityReservation,
+    ResourceType.ec2ClientVpnEndpoint,
     ResourceType.ec2DhcpOptions,
     ResourceType.ec2Ec2Fleet,
     ResourceType.ec2Ipam,
+    ResourceType.ec2IpamScope,
     ResourceType.ec2NetworkInsightsPath,
     ResourceType.ec2PrefixList,
     ResourceType.ec2SpotFleet,
@@ -2042,11 +2266,13 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.eventsEndpoint,
     ResourceType.eventsEventBus,
     ResourceType.eventsRule,
+    ResourceType.evidentlyLaunch,
     ResourceType.evidentlyProject,
     ResourceType.fileData,
     ResourceType.fisExperimentTemplate,
     ResourceType.flowLog,
     ResourceType.forecastDataset,
+    ResourceType.forecastDatasetGroup,
     ResourceType.fraudDetectorEntityType,
     ResourceType.fraudDetectorLabel,
     ResourceType.fraudDetectorOutcome,
@@ -2058,7 +2284,9 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.glueClassifier,
     ResourceType.glueJob,
     ResourceType.glueMlTransform,
+    ResourceType.greengrassV2ComponentVersion,
     ResourceType.groundStationConfig,
+    ResourceType.groundStationMissionProfile,
     ResourceType.group,
     ResourceType.guardDutyDetector,
     ResourceType.guardDutyFilter,
@@ -2104,12 +2332,14 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.ivsChannel,
     ResourceType.ivsPlaybackKeyPair,
     ResourceType.ivsRecordingConfiguration,
+    ResourceType.kendraIndex,
     ResourceType.key,
     ResourceType.kinesisAnalyticsV2Application,
     ResourceType.kinesisFirehoseDeliveryStream,
     ResourceType.kinesisStream,
     ResourceType.kinesisStreamConsumer,
     ResourceType.kinesisVideoSignalingChannel,
+    ResourceType.kinesisVideoStream,
     ResourceType.launchConfiguration,
     ResourceType.launchTemplate,
     ResourceType.lexBot,
@@ -2121,13 +2351,18 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.listenerV2,
     ResourceType.loadBalancer,
     ResourceType.loadBalancerV2,
+    ResourceType.logsDestination,
     ResourceType.lookoutMetricsAlert,
     ResourceType.lookoutVisionProject,
     ResourceType.managedInstanceInventory,
     ResourceType.managedRuleSetV2,
+    ResourceType.mediaConnectFlowEntitlement,
+    ResourceType.mediaConnectFlowVpcInterface,
     ResourceType.mediaPackagePackagingConfiguration,
     ResourceType.mediaPackagePackagingGroup,
+    ResourceType.mediaTailorPlaybackConfiguration,
     ResourceType.mskCluster,
+    ResourceType.mskConfiguration,
     ResourceType.natGateway,
     ResourceType.networkAcl,
     ResourceType.networkFirewallFirewall,
@@ -2135,17 +2370,25 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.networkFirewallRuleGroup,
     ResourceType.networkInsightsAccessScopeAnalysis,
     ResourceType.networkInterface,
+    ResourceType.networkManagerCustomerGatewayAssociation,
     ResourceType.networkManagerDevice,
     ResourceType.networkManagerGlobalNetwork,
     ResourceType.networkManagerLink,
+    ResourceType.networkManagerLinkAssociation,
     ResourceType.networkManagerSite,
     ResourceType.networkManagerTransitGatewayRegistration,
     ResourceType.openSearchDomain,
     ResourceType.panoramaPackage,
     ResourceType.patchCompliance,
+    ResourceType.personalizeDataset,
+    ResourceType.personalizeSchema,
+    ResourceType.personalizeSolution,
     ResourceType.pinpointApp,
     ResourceType.pinpointApplicationSettings,
     ResourceType.pinpointCampaign,
+    ResourceType.pinpointEmailChannel,
+    ResourceType.pinpointEmailTemplate,
+    ResourceType.pinpointEventStream,
     ResourceType.pinpointInAppTemplate,
     ResourceType.pinpointSegment,
     ResourceType.pipeline,
@@ -2166,6 +2409,7 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.regionalRuleGroup,
     ResourceType.regionalWebAcl,
     ResourceType.registeredHaInstance,
+    ResourceType.resilienceHubApp,
     ResourceType.resilienceHubResiliencyPolicy,
     ResourceType.resourceCompliance,
     ResourceType.restApi,
@@ -2192,6 +2436,7 @@ class ResourceType extends _i1.SmithyEnum<ResourceType> {
     ResourceType.ruleGroup,
     ResourceType.ruleGroupV2,
     ResourceType.rumAppMonitor,
+    ResourceType.s3AccessPoint,
     ResourceType.s3MultiRegionAccessPoint,
     ResourceType.s3StorageLens,
     ResourceType.sageMakerAppImageConfig,

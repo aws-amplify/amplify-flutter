@@ -215,7 +215,7 @@ class DescribeInstanceTypeOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('LocationType'))
         ..add(serializers.serialize(
           locationType,
-          specifiedType: const FullType.nullable(LocationType),
+          specifiedType: const FullType(LocationType),
         ));
     }
     if (filters != null) {
@@ -227,7 +227,7 @@ class DescribeInstanceTypeOfferingsRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -238,7 +238,7 @@ class DescribeInstanceTypeOfferingsRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

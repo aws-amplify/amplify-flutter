@@ -151,7 +151,7 @@ class DescribeImportSnapshotTasksResultEc2QuerySerializer
         ).serialize(
           serializers,
           importSnapshotTasks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ImportSnapshotTask)],
           ),

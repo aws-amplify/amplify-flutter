@@ -154,7 +154,7 @@ class DescribeStackEventsOutputAwsQuerySerializer
             .serialize(
           serializers,
           stackEvents,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StackEvent)],
           ),

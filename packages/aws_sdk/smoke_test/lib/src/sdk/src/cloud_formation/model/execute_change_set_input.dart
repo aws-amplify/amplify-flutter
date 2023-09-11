@@ -227,7 +227,7 @@ class ExecuteChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (retainExceptOnCreate != null) {
@@ -235,7 +235,7 @@ class ExecuteChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
         ..add(serializers.serialize(
           retainExceptOnCreate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

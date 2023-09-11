@@ -139,7 +139,7 @@ class RecurringChargeEc2QuerySerializer
         ..add(const _i2.XmlElementName('Frequency'))
         ..add(serializers.serialize(
           frequency,
-          specifiedType: const FullType.nullable(RecurringChargeFrequency),
+          specifiedType: const FullType(RecurringChargeFrequency),
         ));
     }
     return result$;

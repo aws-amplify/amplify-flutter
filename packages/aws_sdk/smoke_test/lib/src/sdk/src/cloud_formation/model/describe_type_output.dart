@@ -638,7 +638,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RegistryType),
+          specifiedType: const FullType(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -662,7 +662,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (typeTestsStatus != null) {
@@ -670,7 +670,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('TypeTestsStatus'))
         ..add(serializers.serialize(
           typeTestsStatus,
-          specifiedType: const FullType.nullable(TypeTestsStatus),
+          specifiedType: const FullType(TypeTestsStatus),
         ));
     }
     if (typeTestsStatusDescription != null) {
@@ -702,7 +702,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
           provisioningType,
-          specifiedType: const FullType.nullable(ProvisioningType),
+          specifiedType: const FullType(ProvisioningType),
         ));
     }
     if (deprecatedStatus != null) {
@@ -710,7 +710,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
-          specifiedType: const FullType.nullable(DeprecatedStatus),
+          specifiedType: const FullType(DeprecatedStatus),
         ));
     }
     if (loggingConfig != null) {
@@ -729,7 +729,7 @@ class DescribeTypeOutputAwsQuerySerializer
             .serialize(
           serializers,
           requiredActivatedTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(RequiredActivatedType)],
           ),
@@ -748,7 +748,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('Visibility'))
         ..add(serializers.serialize(
           visibility,
-          specifiedType: const FullType.nullable(Visibility),
+          specifiedType: const FullType(Visibility),
         ));
     }
     if (sourceUrl != null) {
@@ -772,7 +772,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (timeCreated != null) {
@@ -780,7 +780,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (configurationSchema != null) {
@@ -836,7 +836,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
           isActivated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (autoUpdate != null) {
@@ -844,7 +844,7 @@ class DescribeTypeOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
           autoUpdate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

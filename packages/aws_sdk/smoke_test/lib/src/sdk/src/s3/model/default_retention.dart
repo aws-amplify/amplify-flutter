@@ -154,7 +154,7 @@ class DefaultRetentionRestXmlSerializer
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (mode != null) {
@@ -162,7 +162,7 @@ class DefaultRetentionRestXmlSerializer
         ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
+          specifiedType: const FullType(ObjectLockRetentionMode),
         ));
     }
     if (years != null) {
@@ -170,7 +170,7 @@ class DefaultRetentionRestXmlSerializer
         ..add(const _i2.XmlElementName('Years'))
         ..add(serializers.serialize(
           years,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

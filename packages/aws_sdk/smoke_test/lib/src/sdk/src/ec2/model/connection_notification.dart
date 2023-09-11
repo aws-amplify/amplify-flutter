@@ -245,7 +245,7 @@ class ConnectionNotificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ConnectionNotificationType'))
         ..add(serializers.serialize(
           connectionNotificationType,
-          specifiedType: const FullType.nullable(ConnectionNotificationType),
+          specifiedType: const FullType(ConnectionNotificationType),
         ));
     }
     if (connectionNotificationArn != null) {
@@ -265,7 +265,7 @@ class ConnectionNotificationEc2QuerySerializer
         ).serialize(
           serializers,
           connectionEvents,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -276,7 +276,7 @@ class ConnectionNotificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('ConnectionNotificationState'))
         ..add(serializers.serialize(
           connectionNotificationState,
-          specifiedType: const FullType.nullable(ConnectionNotificationState),
+          specifiedType: const FullType(ConnectionNotificationState),
         ));
     }
     return result$;

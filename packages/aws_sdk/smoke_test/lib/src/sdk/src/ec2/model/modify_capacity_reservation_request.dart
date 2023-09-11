@@ -255,7 +255,7 @@ class ModifyCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDateType != null) {
@@ -263,7 +263,7 @@ class ModifyCapacityReservationRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('EndDateType'))
         ..add(serializers.serialize(
           endDateType,
-          specifiedType: const FullType.nullable(EndDateType),
+          specifiedType: const FullType(EndDateType),
         ));
     }
     result$

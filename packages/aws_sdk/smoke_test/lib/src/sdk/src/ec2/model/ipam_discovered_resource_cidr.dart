@@ -315,7 +315,7 @@ class IpamDiscoveredResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType.nullable(IpamResourceType),
+          specifiedType: const FullType(IpamResourceType),
         ));
     }
     if (resourceTags != null) {
@@ -327,7 +327,7 @@ class IpamDiscoveredResourceCidrEc2QuerySerializer
         ).serialize(
           serializers,
           resourceTags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamResourceTag)],
           ),
@@ -338,7 +338,7 @@ class IpamDiscoveredResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('IpUsage'))
         ..add(serializers.serialize(
           ipUsage,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (vpcId != null) {
@@ -354,7 +354,7 @@ class IpamDiscoveredResourceCidrEc2QuerySerializer
         ..add(const _i3.XmlElementName('SampleTime'))
         ..add(serializers.serialize(
           sampleTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

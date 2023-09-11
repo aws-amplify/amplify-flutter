@@ -161,7 +161,7 @@ class ResetImageAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(ResetImageAttributeName),
+          specifiedType: const FullType(ResetImageAttributeName),
         ));
     }
     if (imageId != null) {

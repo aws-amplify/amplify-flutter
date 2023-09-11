@@ -411,7 +411,7 @@ class RequestSpotLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -426,7 +426,7 @@ class RequestSpotLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           securityGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -449,7 +449,7 @@ class RequestSpotLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           blockDeviceMappings,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(BlockDeviceMapping)],
           ),
@@ -482,7 +482,7 @@ class RequestSpotLaunchSpecificationEc2QuerySerializer
         ..add(const _i3.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (kernelId != null) {
@@ -518,7 +518,7 @@ class RequestSpotLaunchSpecificationEc2QuerySerializer
         ).serialize(
           serializers,
           networkInterfaces,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceNetworkInterfaceSpecification)],
           ),

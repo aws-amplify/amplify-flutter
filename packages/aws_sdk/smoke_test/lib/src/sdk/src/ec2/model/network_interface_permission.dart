@@ -229,7 +229,7 @@ class NetworkInterfacePermissionEc2QuerySerializer
         ..add(const _i2.XmlElementName('Permission'))
         ..add(serializers.serialize(
           permission,
-          specifiedType: const FullType.nullable(InterfacePermissionType),
+          specifiedType: const FullType(InterfacePermissionType),
         ));
     }
     if (permissionState != null) {

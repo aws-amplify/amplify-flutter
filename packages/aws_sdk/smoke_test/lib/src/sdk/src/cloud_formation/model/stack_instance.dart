@@ -362,7 +362,7 @@ class StackInstanceAwsQuerySerializer
             .serialize(
           serializers,
           parameterOverrides,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Parameter)],
           ),
@@ -373,7 +373,7 @@ class StackInstanceAwsQuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(StackInstanceStatus),
+          specifiedType: const FullType(StackInstanceStatus),
         ));
     }
     if (stackInstanceStatus != null) {
@@ -405,7 +405,7 @@ class StackInstanceAwsQuerySerializer
         ..add(const _i3.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
-          specifiedType: const FullType.nullable(StackDriftStatus),
+          specifiedType: const FullType(StackDriftStatus),
         ));
     }
     if (lastDriftCheckTimestamp != null) {
@@ -413,7 +413,7 @@ class StackInstanceAwsQuerySerializer
         ..add(const _i3.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (lastOperationId != null) {

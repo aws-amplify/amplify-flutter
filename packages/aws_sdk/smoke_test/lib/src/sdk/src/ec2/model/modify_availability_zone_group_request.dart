@@ -172,8 +172,7 @@ class ModifyAvailabilityZoneGroupRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('OptInStatus'))
         ..add(serializers.serialize(
           optInStatus,
-          specifiedType:
-              const FullType.nullable(ModifyAvailabilityZoneOptInStatus),
+          specifiedType: const FullType(ModifyAvailabilityZoneOptInStatus),
         ));
     }
     result$

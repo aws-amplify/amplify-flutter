@@ -261,7 +261,7 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         ..add(const _i2.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
           packedPolicySize,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (provider != null) {

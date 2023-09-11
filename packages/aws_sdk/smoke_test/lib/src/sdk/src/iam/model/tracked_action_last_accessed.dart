@@ -199,7 +199,7 @@ class TrackedActionLastAccessedAwsQuerySerializer
         ..add(const _i2.XmlElementName('LastAccessedTime'))
         ..add(serializers.serialize(
           lastAccessedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (lastAccessedRegion != null) {

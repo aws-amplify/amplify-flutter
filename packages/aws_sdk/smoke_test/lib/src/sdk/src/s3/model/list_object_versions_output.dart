@@ -516,7 +516,7 @@ class ListObjectVersionsOutputRestXmlSerializer
               .serialize(
         serializers,
         commonPrefixes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(CommonPrefix)],
         ),
@@ -528,7 +528,7 @@ class ListObjectVersionsOutputRestXmlSerializer
               .serialize(
         serializers,
         deleteMarkers,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(DeleteMarkerEntry)],
         ),
@@ -547,7 +547,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(EncodingType),
+          specifiedType: const FullType(EncodingType),
         ));
     }
     if (isTruncated != null) {
@@ -555,7 +555,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (keyMarker != null) {
@@ -571,7 +571,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
           maxKeys,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (name != null) {
@@ -619,7 +619,7 @@ class ListObjectVersionsOutputRestXmlSerializer
           const _i2.XmlBuiltListSerializer(memberName: 'Version').serialize(
         serializers,
         versions,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(ObjectVersion)],
         ),

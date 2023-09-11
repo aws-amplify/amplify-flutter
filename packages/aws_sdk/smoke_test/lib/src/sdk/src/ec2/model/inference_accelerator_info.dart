@@ -140,7 +140,7 @@ class InferenceAcceleratorInfoEc2QuerySerializer
             .serialize(
           serializers,
           accelerators,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InferenceDeviceInfo)],
           ),
@@ -151,7 +151,7 @@ class InferenceAcceleratorInfoEc2QuerySerializer
         ..add(const _i3.XmlElementName('TotalInferenceMemoryInMiB'))
         ..add(serializers.serialize(
           totalInferenceMemoryInMib,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

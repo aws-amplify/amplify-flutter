@@ -152,7 +152,7 @@ class DescribeIpamsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipams,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipam)],
           ),

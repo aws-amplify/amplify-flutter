@@ -165,7 +165,7 @@ class TagOpenIdConnectProviderRequestAwsQuerySerializer
               .serialize(
         serializers,
         tags,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Tag)],
         ),

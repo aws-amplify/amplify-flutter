@@ -191,7 +191,7 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
           .serialize(
         serializers,
         intelligentTieringConfigurationList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(IntelligentTieringConfiguration)],
         ),
@@ -202,7 +202,7 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
         ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (nextContinuationToken != null) {

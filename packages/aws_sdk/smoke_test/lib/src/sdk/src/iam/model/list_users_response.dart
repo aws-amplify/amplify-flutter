@@ -172,7 +172,7 @@ class ListUsersResponseAwsQuerySerializer
               .serialize(
         serializers,
         users,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(User)],
         ),

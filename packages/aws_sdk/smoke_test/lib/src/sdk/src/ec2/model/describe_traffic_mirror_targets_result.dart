@@ -153,7 +153,7 @@ class DescribeTrafficMirrorTargetsResultEc2QuerySerializer
         ).serialize(
           serializers,
           trafficMirrorTargets,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrafficMirrorTarget)],
           ),

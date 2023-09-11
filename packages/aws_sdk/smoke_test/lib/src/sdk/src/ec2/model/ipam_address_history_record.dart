@@ -294,8 +294,7 @@ class IpamAddressHistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
-          specifiedType:
-              const FullType.nullable(IpamAddressHistoryResourceType),
+          specifiedType: const FullType(IpamAddressHistoryResourceType),
         ));
     }
     if (resourceId != null) {
@@ -327,7 +326,7 @@ class IpamAddressHistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceComplianceStatus'))
         ..add(serializers.serialize(
           resourceComplianceStatus,
-          specifiedType: const FullType.nullable(IpamComplianceStatus),
+          specifiedType: const FullType(IpamComplianceStatus),
         ));
     }
     if (resourceOverlapStatus != null) {
@@ -335,7 +334,7 @@ class IpamAddressHistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('ResourceOverlapStatus'))
         ..add(serializers.serialize(
           resourceOverlapStatus,
-          specifiedType: const FullType.nullable(IpamOverlapStatus),
+          specifiedType: const FullType(IpamOverlapStatus),
         ));
     }
     if (vpcId != null) {
@@ -351,7 +350,7 @@ class IpamAddressHistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('SampledStartTime'))
         ..add(serializers.serialize(
           sampledStartTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (sampledEndTime != null) {
@@ -359,7 +358,7 @@ class IpamAddressHistoryRecordEc2QuerySerializer
         ..add(const _i2.XmlElementName('SampledEndTime'))
         ..add(serializers.serialize(
           sampledEndTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

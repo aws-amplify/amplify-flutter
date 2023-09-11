@@ -233,7 +233,7 @@ class DescribeIpamResourceDiscoveryAssociationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           ipamResourceDiscoveryAssociationIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -262,7 +262,7 @@ class DescribeIpamResourceDiscoveryAssociationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

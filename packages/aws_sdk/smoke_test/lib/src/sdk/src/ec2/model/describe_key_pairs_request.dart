@@ -236,7 +236,7 @@ class DescribeKeyPairsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -251,7 +251,7 @@ class DescribeKeyPairsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           keyNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -266,7 +266,7 @@ class DescribeKeyPairsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           keyPairIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

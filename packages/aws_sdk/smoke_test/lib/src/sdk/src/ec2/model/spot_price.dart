@@ -195,7 +195,7 @@ class SpotPriceEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (productDescription != null) {
@@ -203,7 +203,7 @@ class SpotPriceEc2QuerySerializer
         ..add(const _i2.XmlElementName('ProductDescription'))
         ..add(serializers.serialize(
           productDescription,
-          specifiedType: const FullType.nullable(RiProductDescription),
+          specifiedType: const FullType(RiProductDescription),
         ));
     }
     if (spotPrice != null) {
@@ -219,7 +219,7 @@ class SpotPriceEc2QuerySerializer
         ..add(const _i2.XmlElementName('Timestamp'))
         ..add(serializers.serialize(
           timestamp,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

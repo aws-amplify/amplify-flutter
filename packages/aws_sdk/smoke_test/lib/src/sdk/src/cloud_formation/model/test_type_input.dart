@@ -221,7 +221,7 @@ class TestTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ThirdPartyType),
+          specifiedType: const FullType(ThirdPartyType),
         ));
     }
     if (typeName != null) {

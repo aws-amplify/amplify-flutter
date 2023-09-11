@@ -129,7 +129,7 @@ class DescribeConversionTasksResultEc2QuerySerializer
         ).serialize(
           serializers,
           conversionTasks,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ConversionTask)],
           ),

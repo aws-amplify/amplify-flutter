@@ -214,7 +214,7 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(ThirdPartyType),
+          specifiedType: const FullType(ThirdPartyType),
         ));
     }
     if (typeName != null) {

@@ -150,7 +150,7 @@ class GetIpamPoolAllocationsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipamPoolAllocations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IpamPoolAllocation)],
           ),

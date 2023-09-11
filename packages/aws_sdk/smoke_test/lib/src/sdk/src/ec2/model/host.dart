@@ -445,7 +445,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('AutoPlacement'))
         ..add(serializers.serialize(
           autoPlacement,
-          specifiedType: const FullType.nullable(AutoPlacement),
+          specifiedType: const FullType(AutoPlacement),
         ));
     }
     if (availabilityZone != null) {
@@ -505,7 +505,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ).serialize(
           serializers,
           instances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(HostInstance)],
           ),
@@ -516,7 +516,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(AllocationState),
+          specifiedType: const FullType(AllocationState),
         ));
     }
     if (allocationTime != null) {
@@ -524,7 +524,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('AllocationTime'))
         ..add(serializers.serialize(
           allocationTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (releaseTime != null) {
@@ -532,7 +532,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('ReleaseTime'))
         ..add(serializers.serialize(
           releaseTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tags != null) {
@@ -544,7 +544,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -555,7 +555,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('HostRecovery'))
         ..add(serializers.serialize(
           hostRecovery,
-          specifiedType: const FullType.nullable(HostRecovery),
+          specifiedType: const FullType(HostRecovery),
         ));
     }
     if (allowsMultipleInstanceTypes != null) {
@@ -563,7 +563,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('AllowsMultipleInstanceTypes'))
         ..add(serializers.serialize(
           allowsMultipleInstanceTypes,
-          specifiedType: const FullType.nullable(AllowsMultipleInstanceTypes),
+          specifiedType: const FullType(AllowsMultipleInstanceTypes),
         ));
     }
     if (ownerId != null) {
@@ -601,7 +601,7 @@ class HostEc2QuerySerializer extends _i3.StructuredSmithySerializer<Host> {
         ..add(const _i3.XmlElementName('HostMaintenance'))
         ..add(serializers.serialize(
           hostMaintenance,
-          specifiedType: const FullType.nullable(HostMaintenance),
+          specifiedType: const FullType(HostMaintenance),
         ));
     }
     if (assetId != null) {

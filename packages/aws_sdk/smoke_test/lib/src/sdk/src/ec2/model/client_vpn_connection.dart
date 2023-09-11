@@ -442,7 +442,7 @@ class ClientVpnConnectionEc2QuerySerializer
         ).serialize(
           serializers,
           postureComplianceStatuses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

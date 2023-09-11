@@ -157,7 +157,7 @@ class DescribeTransitGatewayRouteTablesResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           transitGatewayRouteTables,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGatewayRouteTable)],
           ),

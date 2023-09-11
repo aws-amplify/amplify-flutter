@@ -430,7 +430,7 @@ class SelectObjectContentRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         expressionType,
-        specifiedType: const FullType.nullable(ExpressionType),
+        specifiedType: const FullType(ExpressionType),
       ));
     result$
       ..add(const _i1.XmlElementName('InputSerialization'))

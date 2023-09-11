@@ -213,7 +213,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           checksumAlgorithm,
-          specifiedType: const FullType.nullable(ChecksumAlgorithm),
+          specifiedType: const FullType(ChecksumAlgorithm),
         ));
     }
     if (initiated != null) {
@@ -221,7 +221,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i2.XmlElementName('Initiated'))
         ..add(serializers.serialize(
           initiated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (initiator != null) {
@@ -253,7 +253,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(StorageClass),
+          specifiedType: const FullType(StorageClass),
         ));
     }
     if (uploadId != null) {

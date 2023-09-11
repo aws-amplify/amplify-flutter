@@ -148,7 +148,7 @@ class DescribeTransitGatewaysResultEc2QuerySerializer
         ).serialize(
           serializers,
           transitGateways,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TransitGateway)],
           ),

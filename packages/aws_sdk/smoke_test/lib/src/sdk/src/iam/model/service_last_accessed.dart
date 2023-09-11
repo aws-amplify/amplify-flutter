@@ -253,7 +253,7 @@ class ServiceLastAccessedAwsQuerySerializer
         ..add(const _i3.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
           lastAuthenticated,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     result$
@@ -283,7 +283,7 @@ class ServiceLastAccessedAwsQuerySerializer
         ..add(const _i3.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
           totalAuthenticatedEntities,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (trackedActionsLastAccessed != null) {
@@ -294,7 +294,7 @@ class ServiceLastAccessedAwsQuerySerializer
             .serialize(
           serializers,
           trackedActionsLastAccessed,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TrackedActionLastAccessed)],
           ),

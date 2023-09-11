@@ -174,7 +174,7 @@ class CreateFleetResultEc2QuerySerializer
         ).serialize(
           serializers,
           errors,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CreateFleetError)],
           ),
@@ -189,7 +189,7 @@ class CreateFleetResultEc2QuerySerializer
         ).serialize(
           serializers,
           instances,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CreateFleetInstance)],
           ),

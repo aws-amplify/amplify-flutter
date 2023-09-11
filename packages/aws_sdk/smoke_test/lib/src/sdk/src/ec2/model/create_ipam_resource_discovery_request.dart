@@ -234,7 +234,7 @@ class CreateIpamResourceDiscoveryRequestEc2QuerySerializer
             .serialize(
           serializers,
           operatingRegions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AddIpamOperatingRegion)],
           ),
@@ -249,7 +249,7 @@ class CreateIpamResourceDiscoveryRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

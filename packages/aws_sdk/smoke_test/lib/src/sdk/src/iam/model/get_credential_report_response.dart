@@ -162,7 +162,7 @@ class GetCredentialReportResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('Content'))
         ..add(serializers.serialize(
           content,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     if (reportFormat != null) {
@@ -170,7 +170,7 @@ class GetCredentialReportResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('ReportFormat'))
         ..add(serializers.serialize(
           reportFormat,
-          specifiedType: const FullType.nullable(ReportFormatType),
+          specifiedType: const FullType(ReportFormatType),
         ));
     }
     if (generatedTime != null) {
@@ -178,7 +178,7 @@ class GetCredentialReportResponseAwsQuerySerializer
         ..add(const _i3.XmlElementName('GeneratedTime'))
         ..add(serializers.serialize(
           generatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

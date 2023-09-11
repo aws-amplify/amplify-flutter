@@ -143,7 +143,7 @@ class ServerSideEncryptionRuleRestXmlSerializer
         ..add(const _i2.XmlElementName('BucketKeyEnabled'))
         ..add(serializers.serialize(
           bucketKeyEnabled,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

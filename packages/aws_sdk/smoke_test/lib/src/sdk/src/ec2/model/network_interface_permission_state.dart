@@ -132,8 +132,7 @@ class NetworkInterfacePermissionStateEc2QuerySerializer
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(NetworkInterfacePermissionStateCode),
+          specifiedType: const FullType(NetworkInterfacePermissionStateCode),
         ));
     }
     if (statusMessage != null) {

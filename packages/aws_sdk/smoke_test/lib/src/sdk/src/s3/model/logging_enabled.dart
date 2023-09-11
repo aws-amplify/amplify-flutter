@@ -158,7 +158,7 @@ class LoggingEnabledRestXmlSerializer
         ..add(const _i3.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           targetGrants,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TargetGrant)],
           ),

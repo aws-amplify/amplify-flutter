@@ -121,7 +121,7 @@ class TargetGroupsConfigEc2QuerySerializer
         ).serialize(
           serializers,
           targetGroups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(TargetGroup)],
           ),

@@ -294,7 +294,7 @@ class GetSpotPlacementScoresRequestEc2QuerySerializer
             .serialize(
           serializers,
           instanceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -311,7 +311,7 @@ class GetSpotPlacementScoresRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('TargetCapacityUnitType'))
         ..add(serializers.serialize(
           targetCapacityUnitType,
-          specifiedType: const FullType.nullable(TargetCapacityUnitType),
+          specifiedType: const FullType(TargetCapacityUnitType),
         ));
     }
     result$
@@ -328,7 +328,7 @@ class GetSpotPlacementScoresRequestEc2QuerySerializer
             .serialize(
           serializers,
           regionNames,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

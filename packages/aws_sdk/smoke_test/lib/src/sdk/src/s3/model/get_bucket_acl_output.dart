@@ -141,7 +141,7 @@ class GetBucketAclOutputRestXmlSerializer
         ..add(const _i3.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           grants,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Grant)],
           ),

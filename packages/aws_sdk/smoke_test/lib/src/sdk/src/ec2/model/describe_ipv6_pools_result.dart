@@ -144,7 +144,7 @@ class DescribeIpv6PoolsResultEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Pools,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6Pool)],
           ),

@@ -160,7 +160,7 @@ class DescribeVolumeAttributeRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('Attribute'))
         ..add(serializers.serialize(
           attribute,
-          specifiedType: const FullType.nullable(VolumeAttributeName),
+          specifiedType: const FullType(VolumeAttributeName),
         ));
     }
     if (volumeId != null) {

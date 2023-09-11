@@ -243,7 +243,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ..add(const _i3.XmlElementName('RegionConcurrencyType'))
         ..add(serializers.serialize(
           regionConcurrencyType,
-          specifiedType: const FullType.nullable(RegionConcurrencyType),
+          specifiedType: const FullType(RegionConcurrencyType),
         ));
     }
     if (regionOrder != null) {
@@ -254,7 +254,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
             .serialize(
           serializers,
           regionOrder,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -265,7 +265,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ..add(const _i3.XmlElementName('FailureToleranceCount'))
         ..add(serializers.serialize(
           failureToleranceCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (failureTolerancePercentage != null) {
@@ -273,7 +273,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ..add(const _i3.XmlElementName('FailureTolerancePercentage'))
         ..add(serializers.serialize(
           failureTolerancePercentage,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maxConcurrentCount != null) {
@@ -281,7 +281,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ..add(const _i3.XmlElementName('MaxConcurrentCount'))
         ..add(serializers.serialize(
           maxConcurrentCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maxConcurrentPercentage != null) {
@@ -289,7 +289,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
         ..add(const _i3.XmlElementName('MaxConcurrentPercentage'))
         ..add(serializers.serialize(
           maxConcurrentPercentage,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

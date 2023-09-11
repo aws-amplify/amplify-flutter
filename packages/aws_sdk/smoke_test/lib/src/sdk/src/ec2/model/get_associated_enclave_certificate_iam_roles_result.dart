@@ -135,7 +135,7 @@ class GetAssociatedEnclaveCertificateIamRolesResultEc2QuerySerializer
         ).serialize(
           serializers,
           associatedRoles,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AssociatedRole)],
           ),

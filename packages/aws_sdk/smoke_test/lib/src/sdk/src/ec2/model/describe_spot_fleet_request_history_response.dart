@@ -208,7 +208,7 @@ class DescribeSpotFleetRequestHistoryResponseEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           historyRecords,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(HistoryRecord)],
           ),
@@ -219,7 +219,7 @@ class DescribeSpotFleetRequestHistoryResponseEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('LastEvaluatedTime'))
         ..add(serializers.serialize(
           lastEvaluatedTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (nextToken != null) {
@@ -243,7 +243,7 @@ class DescribeSpotFleetRequestHistoryResponseEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('StartTime'))
         ..add(serializers.serialize(
           startTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

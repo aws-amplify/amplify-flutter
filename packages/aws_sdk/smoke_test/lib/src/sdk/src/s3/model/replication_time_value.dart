@@ -108,7 +108,7 @@ class ReplicationTimeValueRestXmlSerializer
         ..add(const _i2.XmlElementName('Minutes'))
         ..add(serializers.serialize(
           minutes,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

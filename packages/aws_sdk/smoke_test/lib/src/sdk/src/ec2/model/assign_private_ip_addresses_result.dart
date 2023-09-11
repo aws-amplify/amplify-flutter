@@ -187,7 +187,7 @@ class AssignPrivateIpAddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           assignedPrivateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AssignedPrivateIpAddress)],
           ),
@@ -202,7 +202,7 @@ class AssignPrivateIpAddressesResultEc2QuerySerializer
         ).serialize(
           serializers,
           assignedIpv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv4PrefixSpecification)],
           ),

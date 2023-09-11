@@ -186,7 +186,7 @@ class ActiveInstanceEc2QuerySerializer
         ..add(const _i2.XmlElementName('InstanceHealth'))
         ..add(serializers.serialize(
           instanceHealth,
-          specifiedType: const FullType.nullable(InstanceHealthStatus),
+          specifiedType: const FullType(InstanceHealthStatus),
         ));
     }
     return result$;

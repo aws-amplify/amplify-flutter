@@ -178,7 +178,7 @@ class DescribeSnapshotAttributeResultEc2QuerySerializer
         ).serialize(
           serializers,
           createVolumePermissions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CreateVolumePermission)],
           ),
@@ -193,7 +193,7 @@ class DescribeSnapshotAttributeResultEc2QuerySerializer
         ).serialize(
           serializers,
           productCodes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(ProductCode)],
           ),

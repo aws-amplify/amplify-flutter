@@ -194,7 +194,7 @@ class EstimateTemplateCostInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),

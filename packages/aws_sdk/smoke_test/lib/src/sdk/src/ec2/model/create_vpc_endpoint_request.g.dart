@@ -33,6 +33,8 @@ class _$CreateVpcEndpointRequest extends CreateVpcEndpointRequest {
   final bool privateDnsEnabled;
   @override
   final _i3.BuiltList<TagSpecification>? tagSpecifications;
+  @override
+  final _i3.BuiltList<SubnetConfiguration>? subnetConfigurations;
 
   factory _$CreateVpcEndpointRequest(
           [void Function(CreateVpcEndpointRequestBuilder)? updates]) =>
@@ -51,7 +53,8 @@ class _$CreateVpcEndpointRequest extends CreateVpcEndpointRequest {
       this.dnsOptions,
       this.clientToken,
       required this.privateDnsEnabled,
-      this.tagSpecifications})
+      this.tagSpecifications,
+      this.subnetConfigurations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         dryRun, r'CreateVpcEndpointRequest', 'dryRun');
@@ -84,7 +87,8 @@ class _$CreateVpcEndpointRequest extends CreateVpcEndpointRequest {
         dnsOptions == other.dnsOptions &&
         clientToken == other.clientToken &&
         privateDnsEnabled == other.privateDnsEnabled &&
-        tagSpecifications == other.tagSpecifications;
+        tagSpecifications == other.tagSpecifications &&
+        subnetConfigurations == other.subnetConfigurations;
   }
 
   @override
@@ -103,6 +107,7 @@ class _$CreateVpcEndpointRequest extends CreateVpcEndpointRequest {
     _$hash = $jc(_$hash, clientToken.hashCode);
     _$hash = $jc(_$hash, privateDnsEnabled.hashCode);
     _$hash = $jc(_$hash, tagSpecifications.hashCode);
+    _$hash = $jc(_$hash, subnetConfigurations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -179,6 +184,14 @@ class CreateVpcEndpointRequestBuilder
   set tagSpecifications(_i3.ListBuilder<TagSpecification>? tagSpecifications) =>
       _$this._tagSpecifications = tagSpecifications;
 
+  _i3.ListBuilder<SubnetConfiguration>? _subnetConfigurations;
+  _i3.ListBuilder<SubnetConfiguration> get subnetConfigurations =>
+      _$this._subnetConfigurations ??=
+          new _i3.ListBuilder<SubnetConfiguration>();
+  set subnetConfigurations(
+          _i3.ListBuilder<SubnetConfiguration>? subnetConfigurations) =>
+      _$this._subnetConfigurations = subnetConfigurations;
+
   CreateVpcEndpointRequestBuilder() {
     CreateVpcEndpointRequest._init(this);
   }
@@ -199,6 +212,7 @@ class CreateVpcEndpointRequestBuilder
       _clientToken = $v.clientToken;
       _privateDnsEnabled = $v.privateDnsEnabled;
       _tagSpecifications = $v.tagSpecifications?.toBuilder();
+      _subnetConfigurations = $v.subnetConfigurations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -239,7 +253,8 @@ class CreateVpcEndpointRequestBuilder
                   privateDnsEnabled,
                   r'CreateVpcEndpointRequest',
                   'privateDnsEnabled'),
-              tagSpecifications: _tagSpecifications?.build());
+              tagSpecifications: _tagSpecifications?.build(),
+              subnetConfigurations: _subnetConfigurations?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -255,6 +270,8 @@ class CreateVpcEndpointRequestBuilder
 
         _$failedField = 'tagSpecifications';
         _tagSpecifications?.build();
+        _$failedField = 'subnetConfigurations';
+        _subnetConfigurations?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'CreateVpcEndpointRequest', _$failedField, e.toString());

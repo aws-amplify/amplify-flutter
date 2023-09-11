@@ -540,7 +540,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
           usePreviousTemplate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (parameters != null) {
@@ -551,7 +551,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           parameters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Parameter)],
           ),
@@ -565,7 +565,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           capabilities,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Capability)],
           ),
@@ -579,7 +579,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           resourceTypes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -609,7 +609,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           notificationArNs,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -623,7 +623,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),
@@ -656,7 +656,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('ChangeSetType'))
         ..add(serializers.serialize(
           changeSetType,
-          specifiedType: const FullType.nullable(ChangeSetType),
+          specifiedType: const FullType(ChangeSetType),
         ));
     }
     if (resourcesToImport != null) {
@@ -667,7 +667,7 @@ class CreateChangeSetInputAwsQuerySerializer
             .serialize(
           serializers,
           resourcesToImport,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(ResourceToImport)],
           ),
@@ -678,7 +678,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (onStackFailure != null) {
@@ -686,7 +686,7 @@ class CreateChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OnStackFailure'))
         ..add(serializers.serialize(
           onStackFailure,
-          specifiedType: const FullType.nullable(OnStackFailure),
+          specifiedType: const FullType(OnStackFailure),
         ));
     }
     return result$;

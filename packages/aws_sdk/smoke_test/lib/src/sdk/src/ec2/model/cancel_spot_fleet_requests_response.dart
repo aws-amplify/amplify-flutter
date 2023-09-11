@@ -170,7 +170,7 @@ class CancelSpotFleetRequestsResponseEc2QuerySerializer
         ).serialize(
           serializers,
           successfulFleetRequests,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CancelSpotFleetRequestsSuccessItem)],
           ),
@@ -185,7 +185,7 @@ class CancelSpotFleetRequestsResponseEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessfulFleetRequests,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CancelSpotFleetRequestsErrorItem)],
           ),

@@ -218,7 +218,7 @@ class DescribeTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(RegistryType),
+          specifiedType: const FullType(RegistryType),
         ));
     }
     if (typeName != null) {

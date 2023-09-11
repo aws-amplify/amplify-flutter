@@ -198,7 +198,7 @@ class RollbackStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
         ..add(serializers.serialize(
           retainExceptOnCreate,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

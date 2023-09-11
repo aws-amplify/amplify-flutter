@@ -163,7 +163,7 @@ class ExportToS3TaskEc2QuerySerializer
         ..add(const _i2.XmlElementName('ContainerFormat'))
         ..add(serializers.serialize(
           containerFormat,
-          specifiedType: const FullType.nullable(ContainerFormat),
+          specifiedType: const FullType(ContainerFormat),
         ));
     }
     if (diskImageFormat != null) {
@@ -171,7 +171,7 @@ class ExportToS3TaskEc2QuerySerializer
         ..add(const _i2.XmlElementName('DiskImageFormat'))
         ..add(serializers.serialize(
           diskImageFormat,
-          specifiedType: const FullType.nullable(DiskImageFormat),
+          specifiedType: const FullType(DiskImageFormat),
         ));
     }
     if (s3Bucket != null) {

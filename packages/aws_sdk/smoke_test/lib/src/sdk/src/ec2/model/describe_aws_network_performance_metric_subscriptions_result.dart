@@ -167,7 +167,7 @@ class DescribeAwsNetworkPerformanceMetricSubscriptionsResultEc2QuerySerializer
         ).serialize(
           serializers,
           subscriptions,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Subscription)],
           ),

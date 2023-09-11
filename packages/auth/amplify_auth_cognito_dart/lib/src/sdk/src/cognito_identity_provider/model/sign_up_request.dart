@@ -150,7 +150,7 @@ abstract class SignUpRequest
       )
       ..add(
         'userContextData',
-        userContextData,
+        '***SENSITIVE***',
       )
       ..add(
         'clientMetadata',

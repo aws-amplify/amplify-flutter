@@ -492,7 +492,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
               .serialize(
         serializers,
         commonPrefixes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(CommonPrefix)],
         ),
@@ -511,7 +511,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(EncodingType),
+          specifiedType: const FullType(EncodingType),
         ));
     }
     if (isTruncated != null) {
@@ -519,7 +519,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (keyMarker != null) {
@@ -535,7 +535,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('MaxUploads'))
         ..add(serializers.serialize(
           maxUploads,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextKeyMarker != null) {
@@ -575,7 +575,7 @@ class ListMultipartUploadsOutputRestXmlSerializer
           const _i2.XmlBuiltListSerializer(memberName: 'Upload').serialize(
         serializers,
         uploads,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(MultipartUpload)],
         ),

@@ -291,7 +291,7 @@ class StackInstanceResourceDriftsSummaryAwsQuerySerializer
             .serialize(
           serializers,
           physicalResourceIdContext,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PhysicalResourceIdContextKeyValuePair)],
           ),
@@ -311,7 +311,7 @@ class StackInstanceResourceDriftsSummaryAwsQuerySerializer
             .serialize(
           serializers,
           propertyDifferences,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(PropertyDifference)],
           ),
@@ -321,13 +321,13 @@ class StackInstanceResourceDriftsSummaryAwsQuerySerializer
       ..add(const _i3.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
         stackResourceDriftStatus,
-        specifiedType: const FullType.nullable(StackResourceDriftStatus),
+        specifiedType: const FullType(StackResourceDriftStatus),
       ));
     result$
       ..add(const _i3.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
         timestamp,
-        specifiedType: const FullType.nullable(DateTime),
+        specifiedType: const FullType(DateTime),
       ));
     return result$;
   }

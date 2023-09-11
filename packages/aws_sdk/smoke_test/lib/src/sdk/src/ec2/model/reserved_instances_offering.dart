@@ -399,7 +399,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('InstanceType'))
         ..add(serializers.serialize(
           instanceType,
-          specifiedType: const FullType.nullable(InstanceType),
+          specifiedType: const FullType(InstanceType),
         ));
     }
     if (productDescription != null) {
@@ -407,7 +407,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('ProductDescription'))
         ..add(serializers.serialize(
           productDescription,
-          specifiedType: const FullType.nullable(RiProductDescription),
+          specifiedType: const FullType(RiProductDescription),
         ));
     }
     if (reservedInstancesOfferingId != null) {
@@ -429,7 +429,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('CurrencyCode'))
         ..add(serializers.serialize(
           currencyCode,
-          specifiedType: const FullType.nullable(CurrencyCodeValues),
+          specifiedType: const FullType(CurrencyCodeValues),
         ));
     }
     if (instanceTenancy != null) {
@@ -437,7 +437,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('InstanceTenancy'))
         ..add(serializers.serialize(
           instanceTenancy,
-          specifiedType: const FullType.nullable(Tenancy),
+          specifiedType: const FullType(Tenancy),
         ));
     }
     result$
@@ -451,7 +451,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('OfferingClass'))
         ..add(serializers.serialize(
           offeringClass,
-          specifiedType: const FullType.nullable(OfferingClassType),
+          specifiedType: const FullType(OfferingClassType),
         ));
     }
     if (offeringType != null) {
@@ -459,7 +459,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('OfferingType'))
         ..add(serializers.serialize(
           offeringType,
-          specifiedType: const FullType.nullable(OfferingTypeValues),
+          specifiedType: const FullType(OfferingTypeValues),
         ));
     }
     if (pricingDetails != null) {
@@ -471,7 +471,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ).serialize(
           serializers,
           pricingDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(PricingDetail)],
           ),
@@ -486,7 +486,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ).serialize(
           serializers,
           recurringCharges,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(RecurringCharge)],
           ),
@@ -497,7 +497,7 @@ class ReservedInstancesOfferingEc2QuerySerializer
         ..add(const _i4.XmlElementName('Scope'))
         ..add(serializers.serialize(
           scope,
-          specifiedType: const FullType.nullable(Scope),
+          specifiedType: const FullType(Scope),
         ));
     }
     return result$;

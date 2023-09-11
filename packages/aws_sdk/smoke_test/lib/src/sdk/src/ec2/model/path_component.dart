@@ -547,7 +547,7 @@ class PathComponentEc2QuerySerializer
         ).serialize(
           serializers,
           additionalDetails,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(AdditionalDetail)],
           ),
@@ -578,7 +578,7 @@ class PathComponentEc2QuerySerializer
         ).serialize(
           serializers,
           explanations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Explanation)],
           ),

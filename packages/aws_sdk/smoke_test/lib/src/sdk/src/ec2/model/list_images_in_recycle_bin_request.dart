@@ -190,7 +190,7 @@ class ListImagesInRecycleBinRequestEc2QuerySerializer
         ).serialize(
           serializers,
           imageIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -209,7 +209,7 @@ class ListImagesInRecycleBinRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     result$

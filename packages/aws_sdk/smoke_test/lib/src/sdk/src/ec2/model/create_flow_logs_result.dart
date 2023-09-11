@@ -176,7 +176,7 @@ class CreateFlowLogsResultEc2QuerySerializer
         ).serialize(
           serializers,
           flowLogIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -191,7 +191,7 @@ class CreateFlowLogsResultEc2QuerySerializer
         ).serialize(
           serializers,
           unsuccessful,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UnsuccessfulItem)],
           ),

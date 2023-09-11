@@ -138,8 +138,7 @@ class StorageClassAnalysisDataExportRestXmlSerializer
       ..add(const _i2.XmlElementName('OutputSchemaVersion'))
       ..add(serializers.serialize(
         outputSchemaVersion,
-        specifiedType:
-            const FullType.nullable(StorageClassAnalysisSchemaVersion),
+        specifiedType: const FullType(StorageClassAnalysisSchemaVersion),
       ));
     return result$;
   }

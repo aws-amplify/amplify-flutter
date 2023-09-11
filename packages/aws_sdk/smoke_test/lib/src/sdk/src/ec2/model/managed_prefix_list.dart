@@ -293,7 +293,7 @@ class ManagedPrefixListEc2QuerySerializer
         ..add(const _i4.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(PrefixListState),
+          specifiedType: const FullType(PrefixListState),
         ));
     }
     if (stateMessage != null) {
@@ -341,7 +341,7 @@ class ManagedPrefixListEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Tag)],
           ),

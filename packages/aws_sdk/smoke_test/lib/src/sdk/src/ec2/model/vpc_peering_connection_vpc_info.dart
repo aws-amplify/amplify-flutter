@@ -243,7 +243,7 @@ class VpcPeeringConnectionVpcInfoEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6CidrBlockSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6CidrBlock)],
           ),
@@ -258,7 +258,7 @@ class VpcPeeringConnectionVpcInfoEc2QuerySerializer
         ).serialize(
           serializers,
           cidrBlockSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CidrBlock)],
           ),

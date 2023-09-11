@@ -233,7 +233,7 @@ class DeleteObjectsRequestRestXmlSerializer
         const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
       objects,
-      specifiedType: const FullType.nullable(
+      specifiedType: const FullType(
         _i3.BuiltList,
         [FullType(ObjectIdentifier)],
       ),
@@ -243,7 +243,7 @@ class DeleteObjectsRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Quiet'))
         ..add(serializers.serialize(
           quiet,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

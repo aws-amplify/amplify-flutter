@@ -132,7 +132,7 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
         ..add(const _i2.XmlElementName('DetailedStatus'))
         ..add(serializers.serialize(
           detailedStatus,
-          specifiedType: const FullType.nullable(StackInstanceDetailedStatus),
+          specifiedType: const FullType(StackInstanceDetailedStatus),
         ));
     }
     return result$;

@@ -182,7 +182,7 @@ class ListServerCertificatesResponseAwsQuerySerializer
               .serialize(
         serializers,
         serverCertificateMetadataList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(ServerCertificateMetadata)],
         ),

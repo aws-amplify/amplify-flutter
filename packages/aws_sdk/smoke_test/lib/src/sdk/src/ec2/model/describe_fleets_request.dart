@@ -246,7 +246,7 @@ class DescribeFleetsRequestEc2QuerySerializer
             .serialize(
           serializers,
           fleetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -261,7 +261,7 @@ class DescribeFleetsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),

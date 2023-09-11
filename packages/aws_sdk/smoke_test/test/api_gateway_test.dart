@@ -159,6 +159,7 @@ void main() {
               resourceId: petsResourceId,
               restApiId: restApiId,
               type: IntegrationType.mock,
+              requestTemplates: {'application/json': '{}'},
             ),
           )
           .result;
@@ -181,6 +182,7 @@ void main() {
               requestParameters: {
                 'integration.request.path.id': 'method.request.path.petId',
               },
+              requestTemplates: {'application/json': '{}'},
             ),
           )
           .result;
@@ -243,51 +245,53 @@ void main() {
         reason: 'Should match input',
       );
 
-      // TODO(dnys1): https://github.com/localstack/localstack/issues/8553
-      // {
-      //   // Test invoke GET /pets
-      //   final getPetsTestResponse = await client
-      //       .testInvokeMethod(
-      //         TestInvokeMethodRequest(
-      //           httpMethod: 'GET',
-      //           resourceId: petsResourceId,
-      //           restApiId: restApiId,
-      //           pathWithQueryString: '/',
-      //         ),
-      //       )
-      //       .result;
-      //   safePrint('Successfully executed GET /pets: $getPetsTestResponse');
-      //   expect(getPetsTestResponse.status, 200);
+      // Test invoke GET /pets
+      final getPetsTestResponse = await client
+          .testInvokeMethod(
+            TestInvokeMethodRequest(
+              httpMethod: 'GET',
+              resourceId: petsResourceId,
+              restApiId: restApiId,
+              pathWithQueryString: '/pets',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            ),
+          )
+          .result;
+      safePrint('Successfully executed GET /pets: $getPetsTestResponse');
+      expect(getPetsTestResponse.status, 200);
 
-      //   // Test invoke GET /pets/{petId}
-      //   final getPetTestResponse = await client
-      //       .testInvokeMethod(
-      //         TestInvokeMethodRequest(
-      //           httpMethod: 'GET',
-      //           resourceId: petResourceId,
-      //           restApiId: restApiId,
-      //           pathWithQueryString: '/',
-      //         ),
-      //       )
-      //       .result;
-      //   safePrint(
-      //       'Successfully executed GET /pets/{petId}: $getPetTestResponse');
-      //   expect(getPetTestResponse.status, 200);
+      // Test invoke GET /pets/{petId}
+      final getPetTestResponse = await client
+          .testInvokeMethod(
+            TestInvokeMethodRequest(
+              httpMethod: 'GET',
+              resourceId: petResourceId,
+              restApiId: restApiId,
+              pathWithQueryString: '/pets/123',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            ),
+          )
+          .result;
+      safePrint('Successfully executed GET /pets/{petId}: $getPetTestResponse');
+      expect(getPetTestResponse.status, 200);
 
-      //   // Create deployment
-      //   final petsDeployment = await client
-      //       .createDeployment(
-      //         CreateDeploymentRequest(
-      //           restApiId: restApiId,
-      //           stageName: 'test',
-      //           stageDescription: 'Test deployment',
-      //           description: 'API deployment',
-      //         ),
-      //       )
-      //       .result;
-      //   safePrint('Successfully deployed pets API: $petsDeployment');
-      //   expect(petsDeployment.id, isNotNull);
-      // }
+      // Create deployment
+      final petsDeployment = await client
+          .createDeployment(
+            CreateDeploymentRequest(
+              restApiId: restApiId,
+              stageName: 'test',
+              stageDescription: 'Test deployment',
+              description: 'API deployment',
+            ),
+          )
+          .result;
+      safePrint('Successfully deployed pets API: $petsDeployment');
+      expect(petsDeployment.id, isNotNull);
     });
   });
 }

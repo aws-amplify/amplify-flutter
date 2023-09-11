@@ -230,7 +230,7 @@ class DescribeClassicLinkInstancesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -251,7 +251,7 @@ class DescribeClassicLinkInstancesRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           instanceIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

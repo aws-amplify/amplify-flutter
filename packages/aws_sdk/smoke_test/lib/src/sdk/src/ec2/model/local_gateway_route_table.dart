@@ -305,7 +305,7 @@ class LocalGatewayRouteTableEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),
@@ -316,7 +316,7 @@ class LocalGatewayRouteTableEc2QuerySerializer
         ..add(const _i3.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(LocalGatewayRouteTableMode),
+          specifiedType: const FullType(LocalGatewayRouteTableMode),
         ));
     }
     if (stateReason != null) {

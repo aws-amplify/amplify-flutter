@@ -104,7 +104,7 @@ class EfaInfoEc2QuerySerializer
         ..add(const _i2.XmlElementName('MaximumEfaInterfaces'))
         ..add(serializers.serialize(
           maximumEfaInterfaces,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -193,7 +193,7 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
               .serialize(
         serializers,
         serviceNamespaces,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),

@@ -198,7 +198,7 @@ class ResourceChangeDetailAwsQuerySerializer
         ..add(const _i2.XmlElementName('Evaluation'))
         ..add(serializers.serialize(
           evaluation,
-          specifiedType: const FullType.nullable(EvaluationType),
+          specifiedType: const FullType(EvaluationType),
         ));
     }
     if (changeSource != null) {
@@ -206,7 +206,7 @@ class ResourceChangeDetailAwsQuerySerializer
         ..add(const _i2.XmlElementName('ChangeSource'))
         ..add(serializers.serialize(
           changeSource,
-          specifiedType: const FullType.nullable(ChangeSource),
+          specifiedType: const FullType(ChangeSource),
         ));
     }
     if (causingEntity != null) {

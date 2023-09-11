@@ -617,7 +617,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           groups,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(GroupIdentifier)],
           ),
@@ -628,7 +628,7 @@ class NetworkInterfaceEc2QuerySerializer
         ..add(const _i3.XmlElementName('InterfaceType'))
         ..add(serializers.serialize(
           interfaceType,
-          specifiedType: const FullType.nullable(NetworkInterfaceType),
+          specifiedType: const FullType(NetworkInterfaceType),
         ));
     }
     if (ipv6Addresses != null) {
@@ -640,7 +640,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Addresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInterfaceIpv6Address)],
           ),
@@ -703,7 +703,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           privateIpAddresses,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkInterfacePrivateIpAddress)],
           ),
@@ -718,7 +718,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv4Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv4PrefixSpecification)],
           ),
@@ -733,7 +733,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           ipv6Prefixes,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Ipv6PrefixSpecification)],
           ),
@@ -764,7 +764,7 @@ class NetworkInterfaceEc2QuerySerializer
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(NetworkInterfaceStatus),
+          specifiedType: const FullType(NetworkInterfaceStatus),
         ));
     }
     if (subnetId != null) {
@@ -784,7 +784,7 @@ class NetworkInterfaceEc2QuerySerializer
         ).serialize(
           serializers,
           tagSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

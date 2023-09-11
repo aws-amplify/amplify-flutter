@@ -211,7 +211,7 @@ class DescribeHostReservationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           filter,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(Filter)],
           ),
@@ -226,7 +226,7 @@ class DescribeHostReservationsRequestEc2QuerySerializer
         ).serialize(
           serializers,
           hostReservationIdSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

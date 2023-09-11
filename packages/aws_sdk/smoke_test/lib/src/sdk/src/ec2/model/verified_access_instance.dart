@@ -235,7 +235,7 @@ class VerifiedAccessInstanceEc2QuerySerializer
         ).serialize(
           serializers,
           verifiedAccessTrustProviders,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(VerifiedAccessTrustProviderCondensed)],
           ),
@@ -266,7 +266,7 @@ class VerifiedAccessInstanceEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

@@ -244,7 +244,7 @@ class NetworkAclEc2QuerySerializer
         ).serialize(
           serializers,
           associations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkAclAssociation)],
           ),
@@ -259,7 +259,7 @@ class NetworkAclEc2QuerySerializer
         ).serialize(
           serializers,
           entries,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(NetworkAclEntry)],
           ),
@@ -288,7 +288,7 @@ class NetworkAclEc2QuerySerializer
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

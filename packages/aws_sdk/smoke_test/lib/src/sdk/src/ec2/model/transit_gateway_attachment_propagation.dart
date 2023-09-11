@@ -143,8 +143,7 @@ class TransitGatewayAttachmentPropagationEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType:
-              const FullType.nullable(TransitGatewayPropagationState),
+          specifiedType: const FullType(TransitGatewayPropagationState),
         ));
     }
     return result$;

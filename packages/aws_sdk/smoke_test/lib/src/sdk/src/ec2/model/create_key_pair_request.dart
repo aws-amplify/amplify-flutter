@@ -225,7 +225,7 @@ class CreateKeyPairRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('KeyType'))
         ..add(serializers.serialize(
           keyType,
-          specifiedType: const FullType.nullable(KeyType),
+          specifiedType: const FullType(KeyType),
         ));
     }
     if (tagSpecifications != null) {
@@ -237,7 +237,7 @@ class CreateKeyPairRequestEc2QuerySerializer
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),
@@ -248,7 +248,7 @@ class CreateKeyPairRequestEc2QuerySerializer
         ..add(const _i1.XmlElementName('KeyFormat'))
         ..add(serializers.serialize(
           keyFormat,
-          specifiedType: const FullType.nullable(KeyFormat),
+          specifiedType: const FullType(KeyFormat),
         ));
     }
     return result$;

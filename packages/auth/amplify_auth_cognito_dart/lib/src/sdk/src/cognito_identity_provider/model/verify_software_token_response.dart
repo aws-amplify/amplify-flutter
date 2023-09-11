@@ -60,7 +60,7 @@ abstract class VerifySoftwareTokenResponse
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       );
     return helper.toString();
   }

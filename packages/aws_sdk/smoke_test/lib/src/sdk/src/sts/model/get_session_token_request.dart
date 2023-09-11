@@ -163,7 +163,7 @@ class GetSessionTokenRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
           durationSeconds,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (serialNumber != null) {

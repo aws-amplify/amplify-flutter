@@ -173,7 +173,7 @@ class ModifyVerifiedAccessEndpointLoadBalancerOptionsEc2QuerySerializer
         ).serialize(
           serializers,
           subnetIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -184,8 +184,7 @@ class ModifyVerifiedAccessEndpointLoadBalancerOptionsEc2QuerySerializer
         ..add(const _i3.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType:
-              const FullType.nullable(VerifiedAccessEndpointProtocol),
+          specifiedType: const FullType(VerifiedAccessEndpointProtocol),
         ));
     }
     result$

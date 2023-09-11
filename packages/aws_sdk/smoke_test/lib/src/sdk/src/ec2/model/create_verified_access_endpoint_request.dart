@@ -375,7 +375,7 @@ class CreateVerifiedAccessEndpointRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('EndpointType'))
         ..add(serializers.serialize(
           endpointType,
-          specifiedType: const FullType.nullable(VerifiedAccessEndpointType),
+          specifiedType: const FullType(VerifiedAccessEndpointType),
         ));
     }
     if (attachmentType != null) {
@@ -383,8 +383,7 @@ class CreateVerifiedAccessEndpointRequestEc2QuerySerializer extends _i1
         ..add(const _i1.XmlElementName('AttachmentType'))
         ..add(serializers.serialize(
           attachmentType,
-          specifiedType:
-              const FullType.nullable(VerifiedAccessEndpointAttachmentType),
+          specifiedType: const FullType(VerifiedAccessEndpointAttachmentType),
         ));
     }
     if (domainCertificateArn != null) {
@@ -420,7 +419,7 @@ class CreateVerifiedAccessEndpointRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           securityGroupIds,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -468,7 +467,7 @@ class CreateVerifiedAccessEndpointRequestEc2QuerySerializer extends _i1
         ).serialize(
           serializers,
           tagSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(TagSpecification)],
           ),

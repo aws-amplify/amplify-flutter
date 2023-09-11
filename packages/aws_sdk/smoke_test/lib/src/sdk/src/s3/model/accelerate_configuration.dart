@@ -107,7 +107,7 @@ class AccelerateConfigurationRestXmlSerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(BucketAccelerateStatus),
+          specifiedType: const FullType(BucketAccelerateStatus),
         ));
     }
     return result$;

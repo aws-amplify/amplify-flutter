@@ -175,7 +175,7 @@ class ModifyInstanceCreditSpecificationResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           successfulInstanceCreditSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SuccessfulInstanceCreditSpecificationItem)],
           ),
@@ -191,7 +191,7 @@ class ModifyInstanceCreditSpecificationResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           unsuccessfulInstanceCreditSpecifications,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(UnsuccessfulInstanceCreditSpecificationItem)],
           ),

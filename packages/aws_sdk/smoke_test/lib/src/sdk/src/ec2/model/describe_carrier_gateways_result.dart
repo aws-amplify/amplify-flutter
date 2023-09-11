@@ -148,7 +148,7 @@ class DescribeCarrierGatewaysResultEc2QuerySerializer
         ).serialize(
           serializers,
           carrierGateways,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CarrierGateway)],
           ),

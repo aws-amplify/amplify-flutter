@@ -322,7 +322,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(CapacityReservationFleetState),
+          specifiedType: const FullType(CapacityReservationFleetState),
         ));
     }
     result$
@@ -342,7 +342,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('InstanceMatchCriteria'))
         ..add(serializers.serialize(
           instanceMatchCriteria,
-          specifiedType: const FullType.nullable(FleetInstanceMatchCriteria),
+          specifiedType: const FullType(FleetInstanceMatchCriteria),
         ));
     }
     if (allocationStrategy != null) {
@@ -358,7 +358,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('CreateTime'))
         ..add(serializers.serialize(
           createTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (endDate != null) {
@@ -366,7 +366,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('EndDate'))
         ..add(serializers.serialize(
           endDate,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (tenancy != null) {
@@ -374,8 +374,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ..add(const _i3.XmlElementName('Tenancy'))
         ..add(serializers.serialize(
           tenancy,
-          specifiedType:
-              const FullType.nullable(FleetCapacityReservationTenancy),
+          specifiedType: const FullType(FleetCapacityReservationTenancy),
         ));
     }
     if (fleetCapacityReservations != null) {
@@ -387,7 +386,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           fleetCapacityReservations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FleetCapacityReservation)],
           ),
@@ -402,7 +401,7 @@ class CreateCapacityReservationFleetResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           tags,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(Tag)],
           ),

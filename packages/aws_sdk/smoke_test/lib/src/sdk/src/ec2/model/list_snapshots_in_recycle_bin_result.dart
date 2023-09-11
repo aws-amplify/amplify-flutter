@@ -148,7 +148,7 @@ class ListSnapshotsInRecycleBinResultEc2QuerySerializer
         ).serialize(
           serializers,
           snapshots,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(SnapshotRecycleBinInfo)],
           ),

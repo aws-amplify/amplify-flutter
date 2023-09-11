@@ -106,7 +106,7 @@ class ServiceTypeDetailEc2QuerySerializer
         ..add(const _i2.XmlElementName('ServiceType'))
         ..add(serializers.serialize(
           serviceType,
-          specifiedType: const FullType.nullable(ServiceType),
+          specifiedType: const FullType(ServiceType),
         ));
     }
     return result$;

@@ -170,7 +170,7 @@ class CancelCapacityReservationFleetsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           successfulFleetCancellations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(CapacityReservationFleetCancellationState)],
           ),
@@ -185,7 +185,7 @@ class CancelCapacityReservationFleetsResultEc2QuerySerializer extends _i3
         ).serialize(
           serializers,
           failedFleetCancellations,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FailedCapacityReservationFleetCancellationResult)],
           ),

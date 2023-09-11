@@ -205,7 +205,7 @@ class DeleteObjectsOutputRestXmlSerializer
           const _i2.XmlBuiltListSerializer(memberName: 'Deleted').serialize(
         serializers,
         deleted,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(DeletedObject)],
         ),
@@ -216,7 +216,7 @@ class DeleteObjectsOutputRestXmlSerializer
           const _i2.XmlBuiltListSerializer(memberName: 'Error').serialize(
         serializers,
         errors,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Error)],
         ),

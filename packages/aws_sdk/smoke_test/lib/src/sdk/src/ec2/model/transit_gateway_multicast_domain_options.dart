@@ -153,7 +153,7 @@ class TransitGatewayMulticastDomainOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('Igmpv2Support'))
         ..add(serializers.serialize(
           igmpv2Support,
-          specifiedType: const FullType.nullable(Igmpv2SupportValue),
+          specifiedType: const FullType(Igmpv2SupportValue),
         ));
     }
     if (staticSourcesSupport != null) {
@@ -161,7 +161,7 @@ class TransitGatewayMulticastDomainOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('StaticSourcesSupport'))
         ..add(serializers.serialize(
           staticSourcesSupport,
-          specifiedType: const FullType.nullable(StaticSourcesSupportValue),
+          specifiedType: const FullType(StaticSourcesSupportValue),
         ));
     }
     if (autoAcceptSharedAssociations != null) {
@@ -169,8 +169,7 @@ class TransitGatewayMulticastDomainOptionsEc2QuerySerializer extends _i2
         ..add(const _i2.XmlElementName('AutoAcceptSharedAssociations'))
         ..add(serializers.serialize(
           autoAcceptSharedAssociations,
-          specifiedType:
-              const FullType.nullable(AutoAcceptSharedAssociationsValue),
+          specifiedType: const FullType(AutoAcceptSharedAssociationsValue),
         ));
     }
     return result$;

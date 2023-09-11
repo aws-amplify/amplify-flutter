@@ -153,7 +153,7 @@ class DescribeInstanceEventWindowsResultEc2QuerySerializer
         ).serialize(
           serializers,
           instanceEventWindows,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(InstanceEventWindow)],
           ),

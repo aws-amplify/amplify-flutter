@@ -158,7 +158,7 @@ class SpotInstanceStatusEc2QuerySerializer
         ..add(const _i2.XmlElementName('UpdateTime'))
         ..add(serializers.serialize(
           updateTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

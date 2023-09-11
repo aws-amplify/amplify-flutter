@@ -257,7 +257,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
           maxResults,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (filters != null) {
@@ -268,7 +268,7 @@ class ListStackInstancesInputAwsQuerySerializer
             .serialize(
           serializers,
           filters,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(StackInstanceFilter)],
           ),
@@ -295,7 +295,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(CallAs),
+          specifiedType: const FullType(CallAs),
         ));
     }
     return result$;

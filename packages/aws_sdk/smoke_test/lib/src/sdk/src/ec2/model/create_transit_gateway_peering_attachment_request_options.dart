@@ -118,7 +118,7 @@ class CreateTransitGatewayPeeringAttachmentRequestOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('DynamicRouting'))
         ..add(serializers.serialize(
           dynamicRouting,
-          specifiedType: const FullType.nullable(DynamicRoutingValue),
+          specifiedType: const FullType(DynamicRoutingValue),
         ));
     }
     return result$;

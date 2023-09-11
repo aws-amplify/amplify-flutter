@@ -110,7 +110,7 @@ class TransitGatewayConnectOptionsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(ProtocolValue),
+          specifiedType: const FullType(ProtocolValue),
         ));
     }
     return result$;

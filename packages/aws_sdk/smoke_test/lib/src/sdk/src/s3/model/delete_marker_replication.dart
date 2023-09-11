@@ -121,7 +121,7 @@ class DeleteMarkerReplicationRestXmlSerializer
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(DeleteMarkerReplicationStatus),
+          specifiedType: const FullType(DeleteMarkerReplicationStatus),
         ));
     }
     return result$;
