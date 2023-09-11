@@ -280,14 +280,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       ...customDomainEnv,
     ], {
-      env,
-
       // TODO(dnys1): Remove after eventual consistency experiment is complete
-      // env: {
-      //   account: process.env.CDK_DEFAULT_ACCOUNT,
-      //   region: 'eu-south-1',
-      // },
-      // crossRegionReferences: true,
+      env: {
+        account: process.env.CDK_DEFAULT_ACCOUNT,
+        region: 'eu-south-1',
+      },
+      crossRegionReferences: true,
     });
 
     // The Storage stack
