@@ -35,7 +35,7 @@ const int _baseBufferSize = 26;
 const int _maxLogEventsTimeSpanInBatch = Duration.millisecondsPerDay;
 const int _maxLogEventSize = 256000;
 const Duration _minusMaxLogEventTimeInFuture = Duration(hours: -2);
-const Duration _baseRetryInterval = Duration(minutes: 1);
+const Duration _baseRetryInterval = Duration(seconds: 10);
 
 typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 
@@ -149,28 +149,26 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
             await _logStore.deleteItems(logs);
             break;
           }
-          {
-            final (tooOldEndIndex, tooNewStartIndex) =
-                rejectedLogEventsInfo.parse(events.length);
 
-            if (_isValidIndex(tooNewStartIndex, events.length)) {
-              tooNewException = _TooNewLogEventException(
-                events[tooNewStartIndex!].timestamp.toInt(),
-              );
-              // set logs to end before the index.
-              logs.removeRange(tooNewStartIndex, events.length);
-              // set events to end before the index.
-              events.removeRange(tooNewStartIndex, events.length);
-            }
-            if (_isValidIndex(tooOldEndIndex, events.length)) {
-              // remove old logs from log store.
-              await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
-              // set logs to start after the index.
-              logs.removeRange(0, tooOldEndIndex + 1);
-              // set events to start after the index.
-              events.removeRange(0, tooOldEndIndex + 1);
-            }
-            continue;
+          final (tooOldEndIndex, tooNewStartIndex) =
+              rejectedLogEventsInfo.parse(events.length);
+
+          if (_isValidIndex(tooNewStartIndex, events.length)) {
+            tooNewException = _TooNewLogEventException(
+              events[tooNewStartIndex!].timestamp.toInt(),
+            );
+            // set logs to end before the index.
+            logs.removeRange(tooNewStartIndex, events.length);
+            // set events to end before the index.
+            events.removeRange(tooNewStartIndex, events.length);
+          }
+          if (_isValidIndex(tooOldEndIndex, events.length)) {
+            // remove old logs from log store.
+            await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
+            // set logs to start after the index.
+            logs.removeRange(0, tooOldEndIndex + 1);
+            // set events to start after the index.
+            events.removeRange(0, tooOldEndIndex + 1);
           }
         }
         // after sending each batch to CloudWatch check if the batch has
