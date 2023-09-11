@@ -26,7 +26,7 @@
   "dependencies": {
     "@aws-cdk/aws-cognito-identitypool-alpha": "2.89.0-alpha.0",
     "@aws-crypto/client-node": "^4.0.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.391.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.409.0",
     "aws-cdk-lib": "2.89.0",
     "constructs": "^10.2.69",
     "node-fetch": "^3.3.2",
