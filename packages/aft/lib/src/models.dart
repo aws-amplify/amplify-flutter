@@ -81,7 +81,7 @@ extension AmplifyVersion on Version {
     if (preRelease.isEmpty) {
       switch (type) {
         case VersionBumpType.patch:
-          return major == 0 ? replace(build: [newBuild]) : nextPatch;
+          return nextPatch;
         case VersionBumpType.nonBreaking:
           return major == 0 ? nextPatch : nextMinor;
         case VersionBumpType.breaking:

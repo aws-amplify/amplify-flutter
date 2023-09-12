@@ -292,17 +292,17 @@ void main() {
         final finalRepo = d.repo([
           d.package(
             'aws_common',
-            version: '0.1.0+1',
+            version: '0.1.1',
             contents: [
               d.pubspec('''
 name: aws_common
-version: 0.1.0+1
+version: 0.1.1
 
 environment:
   sdk: ^3.0.0
 '''),
               d.file('CHANGELOG.md', '''
-## 0.1.0+1
+## 0.1.1
 
 ### Fixes
 - fix(aws_common): Fix type
