@@ -14,8 +14,8 @@ class DartQueuedItemStore
   // ignore: avoid_unused_constructor_parameters
   DartQueuedItemStore(String? storagePath);
 
-  late final Future<QueuedItemStore> _database = () async {
-    if (await IndexedDbAdapter.checkIsIndexedDBSupported()) {
+  late final QueuedItemStore _database = () {
+    if (IndexedDbAdapter.checkIsIndexedDBSupported()) {
       return IndexedDbAdapter();
     }
     logger.warn(
@@ -34,8 +34,7 @@ class DartQueuedItemStore
     String timestamp, {
     bool enableQueueRotation = false,
   }) async {
-    final db = await _database;
-    await db.addItem(
+    await _database.addItem(
       string,
       timestamp,
       enableQueueRotation: enableQueueRotation,
@@ -44,34 +43,29 @@ class DartQueuedItemStore
 
   @override
   Future<void> deleteItems(Iterable<QueuedItem> items) async {
-    final db = await _database;
-    await db.deleteItems(items);
+    await _database.deleteItems(items);
   }
 
   @override
   Future<Iterable<QueuedItem>> getCount(int count) async {
-    final db = await _database;
-    return db.getCount(count);
+    return _database.getCount(count);
   }
 
   @override
   Future<Iterable<QueuedItem>> getAll() async {
-    final db = await _database;
-    return db.getAll();
+    return _database.getAll();
   }
 
   @override
-  Future<bool> isFull(int maxSizeInMB) async {
-    final db = await _database;
-    return db.isFull(maxSizeInMB);
+  bool isFull(int maxSizeInMB) {
+    return _database.isFull(maxSizeInMB);
   }
 
   /// Clear IndexedDB data.
   @override
   @visibleForTesting
   Future<void> clear() async {
-    final db = await _database;
-    return db.clear();
+    return _database.clear();
   }
 
   @override

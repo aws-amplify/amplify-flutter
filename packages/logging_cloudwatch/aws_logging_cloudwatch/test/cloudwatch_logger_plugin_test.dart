@@ -45,7 +45,17 @@ void main() {
     ),
     QueuedItem(
       id: 2,
-      value: 'second og message',
+      value: 'second log message',
+      timestamp: DateTime.timestamp().toIso8601String(),
+    ),
+    QueuedItem(
+      id: 3,
+      value: 'third log message',
+      timestamp: DateTime.timestamp().toIso8601String(),
+    ),
+    QueuedItem(
+      id: 4,
+      value: 'forth log message',
       timestamp: DateTime.timestamp().toIso8601String(),
     ),
   ];
@@ -62,17 +72,34 @@ void main() {
         logStreamProvider: mockCloudWatchLogStreamProvider,
       );
     });
+
     test('when enabled, logs are added to the item store', () async {
-      when(() => mockQueuedItemStore.addItem(any(), any()))
-          .thenAnswer((_) async => {});
+      when(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).thenAnswer((_) async => {});
+
       when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
-          .thenAnswer((_) async => Future<bool>.value(false));
+          .thenReturn(false);
+
       plugin.enable();
+
       await expectLater(
         plugin.handleLogEntry(errorLog),
         completes,
       );
-      verify(() => mockQueuedItemStore.addItem(any(), any())).called(1);
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).called(1);
+
       verify(
         () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
       ).called(1);
@@ -138,8 +165,8 @@ void main() {
       when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
           .thenAnswer((_) async => Future<String>.value('log stream name'));
 
-      when(() => mockQueuedItemStore.addItem(any(), any()))
-          .thenAnswer((_) async => {});
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
 
       when(() => mockQueuedItemStore.deleteItems(any()))
           .thenAnswer((_) async => {});
@@ -184,8 +211,8 @@ void main() {
       when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
           .thenAnswer((_) async => Future<String>.value('log stream name'));
 
-      when(() => mockQueuedItemStore.addItem(any(), any()))
-          .thenAnswer((_) async => {});
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
 
       when(() => mockQueuedItemStore.getAll()).thenAnswer(
         (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
@@ -239,6 +266,9 @@ void main() {
         (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
       );
 
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
       await expectLater(
         plugin.flushLogs(),
         completes,
@@ -276,6 +306,9 @@ void main() {
         (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
       );
 
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
       await expectLater(
         plugin.flushLogs(),
         completes,
@@ -288,6 +321,406 @@ void main() {
       verify(
         () => mockCloudWatchLogStreamProvider.createLogStream(any()),
       ).called(1);
+    });
+
+    test('it enables log rotation when log store is full and retry is set',
+        () async {
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async => Future<PutLogEventsResponse>.value(PutLogEventsResponse()),
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(true);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      await expectLater(
+        plugin.handleLogEntry(errorLog),
+        completes,
+      );
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: true,
+        ),
+      ).called(1);
+    });
+
+    test(
+      'it does not enable log rotation when log store is full if retry is not '
+      'set. it start sync on full log store.',
+      () async {
+        final isFullResponse = [false, true, false];
+        when(
+          () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+        ).thenAnswer((_) => isFullResponse.removeAt(0));
+
+        when(
+          () => mockPutLogEventsOperation.result,
+        ).thenAnswer(
+          (_) async =>
+              Future<PutLogEventsResponse>.value(PutLogEventsResponse()),
+        );
+
+        when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+          (_) => mockPutLogEventsOperation,
+        );
+
+        when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+            .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+        when(() => mockQueuedItemStore.deleteItems(any()))
+            .thenAnswer((_) async => {});
+
+        when(() => mockQueuedItemStore.getAll()).thenAnswer(
+          (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+        );
+
+        plugin.enable();
+
+        await expectLater(
+          plugin.flushLogs(),
+          completes,
+        );
+
+        await expectLater(
+          plugin.handleLogEntry(errorLog),
+          completes,
+        );
+
+        verify(
+          () => mockCloudWatchLogsClient.putLogEvents(any()),
+        ).called(2);
+
+        verify(() => mockQueuedItemStore.deleteItems(queuedItems)).called(2);
+
+        verify(
+          () => mockQueuedItemStore.addItem(
+            any(),
+            any(),
+            enableQueueRotation: false,
+          ),
+        ).called(1);
+      },
+    );
+
+    test('it does not sync on full log store if retry time not reached',
+        () async {
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async => Future<PutLogEventsResponse>.value(PutLogEventsResponse()),
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(true);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      await expectLater(
+        plugin.handleLogEntry(errorLog),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(1);
+
+      verify(() => mockQueuedItemStore.deleteItems(queuedItems)).called(1);
+    });
+
+    test(
+      'it deletes too old logs in the batch and sync the rest',
+      () async {
+        final responses = [
+          PutLogEventsResponse(
+            rejectedLogEventsInfo:
+                RejectedLogEventsInfo(tooOldLogEventEndIndex: 0),
+          ),
+          PutLogEventsResponse(),
+        ];
+
+        when(
+          () => mockPutLogEventsOperation.result,
+        ).thenAnswer(
+          (_) async {
+            final response = responses.removeAt(0);
+            return Future<PutLogEventsResponse>.value(response);
+          },
+        );
+
+        when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+          (_) => mockPutLogEventsOperation,
+        );
+
+        when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+            .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+        when(
+          () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+        ).thenReturn(false);
+
+        when(() => mockQueuedItemStore.deleteItems(any()))
+            .thenAnswer((_) async => {});
+
+        when(() => mockQueuedItemStore.getAll()).thenAnswer(
+          (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+        );
+        plugin.enable();
+
+        await expectLater(
+          plugin.flushLogs(),
+          completes,
+        );
+
+        verify(
+          () => mockCloudWatchLogsClient.putLogEvents(any()),
+        ).called(2);
+
+        final captures = verify(
+          () => mockQueuedItemStore
+              .deleteItems(captureAny<Iterable<QueuedItem>>()),
+        );
+
+        expect(captures.callCount, 2);
+        expect(
+          (captures.captured.first as Iterable<QueuedItem>).first,
+          queuedItems.first,
+        );
+        expect(
+          (captures.captured.last as Iterable<QueuedItem>),
+          queuedItems.sublist(1),
+        );
+      },
+    );
+
+    test('it deletes expired logs in the batch and sync the rest', () async {
+      final responses = [
+        PutLogEventsResponse(
+          rejectedLogEventsInfo:
+              RejectedLogEventsInfo(expiredLogEventEndIndex: 0),
+        ),
+        PutLogEventsResponse(),
+      ];
+
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async {
+          final response = responses.removeAt(0);
+          return Future<PutLogEventsResponse>.value(response);
+        },
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).thenReturn(false);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(2);
+
+      final captures = verify(
+        () =>
+            mockQueuedItemStore.deleteItems(captureAny<Iterable<QueuedItem>>()),
+      );
+
+      expect(captures.callCount, 2);
+      expect(
+        (captures.captured.first as Iterable<QueuedItem>).first,
+        queuedItems.first,
+      );
+      expect(
+        (captures.captured.last as Iterable<QueuedItem>),
+        queuedItems.sublist(1),
+      );
+    });
+
+    test('it leaves too new logs in the batch and sync the rest', () async {
+      final responses = [
+        PutLogEventsResponse(
+          rejectedLogEventsInfo:
+              RejectedLogEventsInfo(tooNewLogEventStartIndex: 1),
+        ),
+        PutLogEventsResponse(),
+      ];
+
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async {
+          final response = responses.removeAt(0);
+          return Future<PutLogEventsResponse>.value(response);
+        },
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).thenReturn(false);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(2);
+
+      final captures = verify(
+        () =>
+            mockQueuedItemStore.deleteItems(captureAny<Iterable<QueuedItem>>()),
+      );
+
+      expect(captures.callCount, 1);
+      expect(captures.captured.length, 1);
+      expect(
+        (captures.captured.last as Iterable<QueuedItem>).first,
+        queuedItems.first,
+      );
+    });
+
+    test(
+        'it deltes old logs and leaves too new logs in the batch'
+        ' and sync the rest', () async {
+      final responses = [
+        PutLogEventsResponse(
+          rejectedLogEventsInfo: RejectedLogEventsInfo(
+            expiredLogEventEndIndex: 0,
+            tooOldLogEventEndIndex: 1,
+            tooNewLogEventStartIndex: 3,
+          ),
+        ),
+        PutLogEventsResponse(),
+      ];
+
+      when(
+        () => mockPutLogEventsOperation.result,
+      ).thenAnswer(
+        (_) async {
+          final response = responses.removeAt(0);
+          return Future<PutLogEventsResponse>.value(response);
+        },
+      );
+
+      when(() => mockCloudWatchLogsClient.putLogEvents(any())).thenAnswer(
+        (_) => mockPutLogEventsOperation,
+      );
+
+      when(() => mockCloudWatchLogStreamProvider.defaultLogStream)
+          .thenAnswer((_) async => Future<String>.value('log stream name'));
+
+      when(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).thenReturn(false);
+
+      when(() => mockQueuedItemStore.deleteItems(any()))
+          .thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.getAll()).thenAnswer(
+        (_) async => Future<Iterable<QueuedItem>>.value(queuedItems),
+      );
+      plugin.enable();
+
+      await expectLater(
+        plugin.flushLogs(),
+        completes,
+      );
+
+      verify(
+        () => mockCloudWatchLogsClient.putLogEvents(any()),
+      ).called(2);
+
+      final captures = verify(
+        () =>
+            mockQueuedItemStore.deleteItems(captureAny<Iterable<QueuedItem>>()),
+      );
+
+      expect(captures.callCount, 2);
+      expect(
+        (captures.captured.first as Iterable<QueuedItem>),
+        queuedItems.sublist(0, 2),
+      );
+
+      expect(
+        (captures.captured.last as Iterable<QueuedItem>),
+        queuedItems.sublist(2, 3),
+      );
     });
   });
 }

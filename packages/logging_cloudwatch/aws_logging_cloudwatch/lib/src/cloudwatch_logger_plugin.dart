@@ -32,9 +32,10 @@ import 'package:meta/meta.dart';
 const int _maxNumberOfLogEventsInBatch = 10000;
 const int _maxLogEventsBatchSize = 1048576;
 const int _baseBufferSize = 26;
+const int _maxLogEventsTimeSpanInBatch = Duration.millisecondsPerDay;
 const int _maxLogEventSize = 256000;
-final int _maxLogEventsTimeSpanInBatch =
-    const Duration(hours: 24).inMilliseconds;
+const Duration _minusMaxLogEventTimeInFuture = Duration(hours: -2);
+const Duration _baseRetryInterval = Duration(seconds: 10);
 
 typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 
@@ -113,7 +114,8 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   bool _enabled;
   StoppableTimer? _timer;
   RemoteLoggingConstraintProvider? _remoteLoggingConstraintProvider;
-
+  int _retryCount = 0;
+  DateTime? _retryTime;
   set remoteLoggingConstraintProvider(
     RemoteLoggingConstraintProvider remoteProvider,
   ) {
@@ -129,30 +131,87 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     Future<void> startSyncing() async {
       final batchStream = _getLogBatchesToSync();
       await for (final (logs, events) in batchStream) {
-        final response = await _sendToCloudWatch(events);
-        // TODO(nikahsn): handle tooOldLogEventEndIndex
-        // and expiredLogEventEndIndex.
-        if (response.rejectedLogEventsInfo?.tooNewLogEventStartIndex != null) {
-          // TODO(nikahsn): throw and exception to enable log rotation if the
-          // log store is full.
-          break;
+        _TooNewLogEventException? tooNewException;
+        while (logs.isNotEmpty && events.isNotEmpty) {
+          final rejectedLogEventsInfo =
+              (await _sendToCloudWatch(events)).rejectedLogEventsInfo;
+          if (rejectedLogEventsInfo == null) {
+            await _logStore.deleteItems(logs);
+            break;
+          }
+
+          final (tooOldEndIndex, tooNewStartIndex) =
+              rejectedLogEventsInfo.parse(events.length);
+
+          if (_isValidIndex(tooNewStartIndex, events.length)) {
+            tooNewException = _TooNewLogEventException(
+              events[tooNewStartIndex!].timestamp.toInt(),
+            );
+            // set logs to end before the index.
+            logs.removeRange(tooNewStartIndex, events.length);
+            // set events to end before the index.
+            events.removeRange(tooNewStartIndex, events.length);
+          }
+          if (_isValidIndex(tooOldEndIndex, events.length)) {
+            // remove old logs from log store.
+            await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
+            // set logs to start after the index.
+            logs.removeRange(0, tooOldEndIndex + 1);
+            // set events to start after the index.
+            events.removeRange(0, tooOldEndIndex + 1);
+          }
         }
-        await _logStore.deleteItems(logs);
+        // after sending each batch to CloudWatch check if the batch has
+        // `tooNewException` and throw to stop syncing next batches.
+        if (tooNewException != null) {
+          throw tooNewException;
+        }
       }
     }
 
     if (!_syncing) {
-      // TODO(nikahsn): disable log rotation.
       _syncing = true;
+      DateTime? nextRetry;
       try {
         await startSyncing();
+      } on _TooNewLogEventException catch (e) {
+        nextRetry =
+            DateTime.fromMillisecondsSinceEpoch(e.timeInMillisecondsSinceEpoch)
+                .add(_minusMaxLogEventTimeInFuture);
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
-        // TODO(nikahsn): enable log rotation if the log store is full
       } finally {
+        _handleFullLogStoreAfterSync(
+          retryTime: nextRetry,
+        );
         _syncing = false;
       }
     }
+  }
+
+  void _handleFullLogStoreAfterSync({
+    DateTime? retryTime,
+  }) {
+    final isLogStoreFull =
+        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+    if (!isLogStoreFull) {
+      _retryCount = 0;
+      _retryTime = null;
+      return;
+    }
+    if (retryTime != null && retryTime.isAfter(DateTime.timestamp())) {
+      _retryTime = retryTime;
+      return;
+    }
+    _retryCount += 1;
+    _retryTime = DateTime.timestamp().add((_baseRetryInterval * _retryCount));
+  }
+
+  bool _shouldSyncOnFullLogStore() {
+    if (_retryTime == null) {
+      return true;
+    }
+    return !(_retryTime!.isAfter(DateTime.timestamp()));
   }
 
   void _onTimerError(Object e) {
@@ -225,11 +284,17 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       return;
     }
     final item = logEntry.toQueuedItem();
+    final isLogStoreFull =
+        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+    final shouldEnableQueueRotation = isLogStoreFull && _retryTime != null;
+
     await _logStore.addItem(
       item.value,
       item.timestamp,
+      enableQueueRotation: shouldEnableQueueRotation,
     );
-    if (await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB)) {
+
+    if (isLogStoreFull && _shouldSyncOnFullLogStore()) {
       await _startSyncingIfNotInProgress();
     }
   }
@@ -253,6 +318,8 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     _enabled = false;
     _timer?.stop();
     await _logStore.clear();
+    _retryCount = 0;
+    _retryTime = null;
   }
 
   /// Sends logs on-demand to CloudWatch.
@@ -284,4 +351,35 @@ extension on LogEntry {
       timestamp: time.toUtc().toIso8601String()
     );
   }
+}
+
+extension on RejectedLogEventsInfo {
+  (int? pastEndIndex, int? futureStartIndex) parse(int length) {
+    int? pastEndIndex;
+    int? futureStartIndex;
+
+    if (_isValidIndex(tooOldLogEventEndIndex, length)) {
+      pastEndIndex = tooOldLogEventEndIndex;
+    }
+    if (_isValidIndex(expiredLogEventEndIndex, length)) {
+      pastEndIndex = pastEndIndex == null
+          ? expiredLogEventEndIndex
+          : max(pastEndIndex, expiredLogEventEndIndex!);
+    }
+    if (_isValidIndex(tooNewLogEventStartIndex, length)) {
+      futureStartIndex = tooNewLogEventStartIndex;
+    }
+    return (pastEndIndex, futureStartIndex);
+  }
+}
+
+class _TooNewLogEventException implements Exception {
+  const _TooNewLogEventException(
+    this.timeInMillisecondsSinceEpoch,
+  );
+  final int timeInMillisecondsSinceEpoch;
+}
+
+bool _isValidIndex(int? index, int length) {
+  return index != null && index >= 0 && index <= length - 1;
 }

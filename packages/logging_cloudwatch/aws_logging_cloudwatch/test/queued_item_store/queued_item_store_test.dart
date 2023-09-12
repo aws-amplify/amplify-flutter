@@ -231,7 +231,7 @@ void main() {
           await db.addItem('0', DateTime.now().toIso8601String());
         }
 
-        var result = await db.isFull(capacityLimit);
+        var result = db.isFull(capacityLimit);
         expect(result, isFalse);
 
         // add enough items to exceed capacity limit of 1mb
@@ -239,7 +239,7 @@ void main() {
           await db.addItem('0', DateTime.now().toIso8601String());
         }
 
-        result = await db.isFull(capacityLimit);
+        result = db.isFull(capacityLimit);
         expect(result, isTrue);
       },
     );
