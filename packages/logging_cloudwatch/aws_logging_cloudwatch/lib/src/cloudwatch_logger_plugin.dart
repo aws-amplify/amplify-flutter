@@ -73,10 +73,8 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         _logStreamProvider = logStreamProvider ??
             DefaultCloudWatchLogStreamProvider(
               logGroupName: pluginConfig.logGroupName,
-              client: CloudWatchLogsClient(
-                region: pluginConfig.region,
-                credentialsProvider: credentialsProvider,
-              ),
+              region: pluginConfig.region,
+              credentialsProvider: credentialsProvider,
             ) {
     _timer = pluginConfig.flushIntervalInSeconds > Duration.zero
         ? StoppableTimer(
