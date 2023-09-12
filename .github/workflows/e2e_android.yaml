@@ -15,7 +15,6 @@ on:
         required: true
         type: boolean
 
-# TEST
 jobs:
   e2e-test:
     runs-on:
