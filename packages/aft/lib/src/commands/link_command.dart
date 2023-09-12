@@ -80,7 +80,7 @@ Future<void> _createPubspecOverride(
   // It's counter productive to generate it and its presence can interfere
   // with local development.
   if (package.name == 'aft') {
-    await _removePubspecOverride(package);
+    return _removePubspecOverride(package);
   }
   final mergedOverrides = SplayTreeMap.of({
     // Merge in existing dependency overrides since `pub` will only use the
