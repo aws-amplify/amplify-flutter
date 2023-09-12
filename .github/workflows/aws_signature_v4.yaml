@@ -5,6 +5,21 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/aws_signature_v4.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/**/*.dart'
+      - 'packages/aws_signature_v4/**/*.yaml'
+      - 'packages/aws_signature_v4/lib/**/*'
+      - 'packages/aws_signature_v4/test/**/*'
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
@@ -22,7 +37,7 @@ on:
       - 'packages/aws_signature_v4/lib/**/*'
       - 'packages/aws_signature_v4/test/**/*'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
