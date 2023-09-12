@@ -10,8 +10,8 @@ import {
   AuthIntegrationTestStackEnvironmentProps
 } from "./auth/stack";
 import { env } from "./common";
-import { StorageAccessLevel, StorageIntegrationTestStack } from "./storage/stack";
 import { GitHubStack } from "./github/github";
+import { StorageAccessLevel, StorageIntegrationTestStack } from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -280,12 +280,13 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       ...customDomainEnv,
     ], {
+      env,
       // TODO(dnys1): Remove after eventual consistency experiment is complete
-      env: {
-        account: process.env.CDK_DEFAULT_ACCOUNT,
-        region: 'eu-south-1',
-      },
-      crossRegionReferences: true,
+      // env: {
+      //   account: process.env.CDK_DEFAULT_ACCOUNT,
+      //   region: 'eu-south-1',
+      // },
+      // crossRegionReferences: true,
     });
 
     // The Storage stack

@@ -77,6 +77,13 @@ export abstract class IntegrationTestStack<
     this.category = category;
     this.environments = this.buildEnvironments(environments);
 
+    // Chain the creation of WAF associations since the API call `AssociateWebACL`
+    // has a fixed rate limit which can easily be exceeded when deploying concurrent
+    // stacks and their WAF associations.
+    this.wafAssociations.forEach((assoc, index) => {
+      if (index > 0) assoc.addDependency(this.wafAssociations[index - 1]);
+    });
+
     this.createConfig();
   }
 
@@ -140,6 +147,8 @@ export abstract class IntegrationTestStack<
   }
 
   private _waf: wafv2.CfnWebACL;
+  readonly wafAssociations: wafv2.CfnWebACLAssociation[] = [];
+
   /**
    * The shared WAF for all environments of this stack.
    */
@@ -269,10 +278,11 @@ export abstract class IntegrationTestStackEnvironment<
    * @param resourceArn The ARN of the resource.
    */
   protected associateWithWaf(resourceName: string, resourceArn: string) {
-    new wafv2.CfnWebACLAssociation(this, `WAFAssociation-${resourceName}`, {
+    const association = new wafv2.CfnWebACLAssociation(this.parent, `WAFAssociation-${resourceName}`, {
       resourceArn: resourceArn,
       webAclArn: this.parent.waf.attrArn,
     });
+    this.parent.wafAssociations.push(association);
   }
 
   /**
