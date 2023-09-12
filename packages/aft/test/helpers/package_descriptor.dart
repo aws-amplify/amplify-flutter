@@ -2,8 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/constraints_checker.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/src/dependency.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 import 'package:yaml_edit/yaml_edit.dart';
@@ -14,8 +16,8 @@ PackageDescriptor package(
   String? version,
   bool publishable = true,
   String? sdkConstraint,
-  Map<String, String> dependencies = const {},
-  Map<String, String> devDependencies = const {},
+  Map<String, Object> dependencies = const {},
+  Map<String, Object> devDependencies = const {},
   List<d.Descriptor> contents = const [],
 }) =>
     PackageDescriptor(
@@ -41,8 +43,8 @@ final class PackageDescriptor extends d.Descriptor {
     String? version,
     bool publishable = true,
     String? sdkConstraint,
-    Map<String, String> dependencies = const {},
-    Map<String, String> devDependencies = const {},
+    Map<String, Object> dependencies = const {},
+    Map<String, Object> devDependencies = const {},
     List<d.Descriptor> contents = const [],
   }) {
     return PackageDescriptor._(
@@ -56,18 +58,8 @@ final class PackageDescriptor extends d.Descriptor {
         final sdkConstraint? => VersionConstraint.parse(sdkConstraint),
         _ => null,
       },
-      dependencies: dependencies.map(
-        (name, constraint) => MapEntry(
-          name,
-          VersionConstraint.parse(constraint),
-        ),
-      ),
-      devDependencies: devDependencies.map(
-        (name, constraint) => MapEntry(
-          name,
-          VersionConstraint.parse(constraint),
-        ),
-      ),
+      dependencies: parseDeps(dependencies),
+      devDependencies: parseDeps(devDependencies),
       contents: contents,
     );
   }
@@ -85,8 +77,8 @@ final class PackageDescriptor extends d.Descriptor {
   final Version? version;
   final bool publishable;
   final VersionConstraint? sdkConstraint;
-  final Map<String, VersionConstraint> dependencies;
-  final Map<String, VersionConstraint> devDependencies;
+  final Map<String, Dependency> dependencies;
+  final Map<String, Dependency> devDependencies;
 
   /// The contents of the package directory.
   ///
@@ -106,7 +98,7 @@ environment:
 ''');
 
     void addConstraints(
-      Map<String, VersionConstraint> constraints,
+      Map<String, Dependency> constraints,
       DependencyType type,
     ) {
       if (constraints.isNotEmpty) {
@@ -114,7 +106,7 @@ environment:
       }
       for (final MapEntry(key: dep, value: constraint) in constraints.entries) {
         final path = <String>[type.key, dep];
-        pubspecEditor.update(path, constraint.toString());
+        pubspecEditor.update(path, constraint.toYaml());
       }
     }
 
