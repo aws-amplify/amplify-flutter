@@ -82,23 +82,23 @@ $groupPubPackages
           - "$pkg"''';
   }
 
-  @override
-  Future<void> run() async {
-    await super.run();
-    for (final package in commandPackages.values) {
-      final repoRelativePath = p.relative(package.path, from: rootDir.path);
-      final dependentPackages = <PackageInfo>[];
-      dfs(
-        repo.getPackageGraph(includeDevDependencies: true),
-        root: package,
-        (dependent) {
-          if (dependent == package || !dependent.isDevelopmentPackage) {
-            return;
-          }
-          dependentPackages.add(dependent);
-        },
-      );
-      _dependabotConfig.write('''
+  /// Collects all dependencies (direct + transitive) for [package].
+  List<PackageInfo> _collectDependencies(
+    PackageInfo package, {
+    required String repoRelativePath,
+  }) {
+    final dependentPackages = <PackageInfo>[];
+    dfs(
+      repo.getPackageGraph(includeDevDependencies: true),
+      root: package,
+      (dependent) {
+        if (dependent == package || !dependent.isDevelopmentPackage) {
+          return;
+        }
+        dependentPackages.add(dependent);
+      },
+    );
+    _dependabotConfig.write('''
   - package-ecosystem: "pub"
     directory: "$repoRelativePath"
     schedule:
@@ -109,26 +109,38 @@ $groupPubPackages
         update-types:
           - "version-update:semver-patch"
 ''');
-      if (dependentPackages.isNotEmpty) {
-        _dependabotConfig.write('''
+    if (dependentPackages.isNotEmpty) {
+      _dependabotConfig.write('''
       # Ignore all repo packages
 ${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
 ''');
-      }
-      final dependabotGroups = {
-        ...package.pubspecInfo.pubspec.dependencies.keys,
-        ...package.pubspecInfo.pubspec.devDependencies.keys,
-      }
-          .where(repo.aftConfig.dependencies.keys.contains)
-          .map(_dependabotGroup)
-          .toList();
-      if (dependabotGroups.isNotEmpty) {
-        _dependabotConfig.write('''
+    }
+    final dependabotGroups = {
+      ...package.pubspecInfo.pubspec.dependencies.keys,
+      ...package.pubspecInfo.pubspec.devDependencies.keys,
+    }
+        .where(repo.aftConfig.dependencies.keys.contains)
+        .map(_dependabotGroup)
+        .toList();
+    if (dependabotGroups.isNotEmpty) {
+      _dependabotConfig.write('''
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
 ${dependabotGroups.join('\n')}
 ''');
-      }
+    }
+    return dependentPackages;
+  }
+
+  @override
+  Future<void> run() async {
+    await super.run();
+    for (final package in commandPackages.values) {
+      final repoRelativePath = p.relative(package.path, from: rootDir.path);
+      final dependentPackages = _collectDependencies(
+        package,
+        repoRelativePath: repoRelativePath,
+      );
 
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
@@ -279,11 +291,13 @@ on:
     branches:
       - main
       - stable
+    paths:
+${workflowPaths.map((path) => "      - '$path'").join('\n')}
   pull_request:
     paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
@@ -376,14 +390,17 @@ jobs:
     );
 
     if (package.example case final examplePackage?) {
+      final repoRelativePath = p.relative(
+        examplePackage.path,
+        from: rootDir.path,
+      );
       await generateForPackage(
         examplePackage,
-        repoRelativePath: p.relative(examplePackage.path, from: rootDir.path),
-        // TODO(dnys1): Add example's dependency graph
-        dependentPackages: [
-          ...dependentPackages,
-          package,
-        ],
+        repoRelativePath: repoRelativePath,
+        dependentPackages: _collectDependencies(
+          examplePackage,
+          repoRelativePath: repoRelativePath,
+        ),
       );
     }
   }
