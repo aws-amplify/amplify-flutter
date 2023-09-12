@@ -217,10 +217,7 @@ class _SocialSignInButtonState
           builder: (context, constraints) {
             final padding = calculatePadding(constraints);
             return Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 2,
-                horizontal: padding,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: padding),
               child: Row(
                 mainAxisAlignment: padding == 0
                     ? MainAxisAlignment.center
