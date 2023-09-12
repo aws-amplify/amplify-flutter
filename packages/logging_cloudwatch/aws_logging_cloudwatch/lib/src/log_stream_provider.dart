@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:intl/intl.dart';
 
@@ -22,36 +23,46 @@ abstract class CloudWatchLogStreamProvider {
 /// {@template aws_logging_cloudwatch.default_cloudwatch_logstream_provider}
 /// The default implementaion of [CloudWatchLogStreamProvider].
 ///
-/// It uses `defaultLogStreamName` if provided otherwise uses `yyyy-MM-dd`
-/// date format of UTC time now for the `defaultLogStreamName`.
+/// It uses `defaultLogStreamNameProvider` if provided otherwise uses
+/// `yyyy-MM-dd` date format of UTC time now for the `defaultLogStreamName`.
 /// {@endtemplate}
 class DefaultCloudWatchLogStreamProvider
     implements CloudWatchLogStreamProvider {
   /// {@macro aws_logging_cloudwatch.default_cloudwatch_logstream_provider}
   DefaultCloudWatchLogStreamProvider({
-    required CloudWatchLogsClient client,
+    required AWSCredentialsProvider credentialsProvider,
+    required String region,
     required String logGroupName,
-    String? defaultLogStreamName,
-  })  : _defaultLogStreamName = defaultLogStreamName,
-        _logGroupName = logGroupName,
-        _client = client;
+    FutureOr<String> Function()? defaultLogStreamNameProvider,
+  })  : _logGroupName = logGroupName,
+        _client = CloudWatchLogsClient(
+          region: region,
+          credentialsProvider: credentialsProvider,
+        ),
+        _defaultLogStreamNameProvider = defaultLogStreamNameProvider;
 
-  final String? _defaultLogStreamName;
+  final FutureOr<String> Function()? _defaultLogStreamNameProvider;
   final String _logGroupName;
   final CloudWatchLogsClient _client;
+
   static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
   final _createdLogStreams = <String>{};
 
   @override
   Future<String> get defaultLogStream async {
-    final logStreamName =
-        _defaultLogStreamName ?? _dateFormat.format(DateTime.timestamp());
+    final logStreamNameProvider =
+        _defaultLogStreamNameProvider ?? _timeBasedLogStreamNameProvider;
+    final logStreamName = await logStreamNameProvider();
     if (_createdLogStreams.contains(logStreamName)) {
       return logStreamName;
     }
     await createLogStream(logStreamName);
     _createdLogStreams.add(logStreamName);
     return logStreamName;
+  }
+
+  String _timeBasedLogStreamNameProvider() {
+    return _dateFormat.format(DateTime.timestamp());
   }
 
   @override
