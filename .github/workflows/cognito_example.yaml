@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - stable
-  pull_request:
     paths:
       - '.github/workflows/cognito_example.yaml'
       - '.github/workflows/dart_vm.yaml'
@@ -15,6 +14,8 @@ on:
       - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*.dart'
       - 'packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml'
+      - 'packages/api/amplify_api_dart/lib/**/*.dart'
+      - 'packages/api/amplify_api_dart/pubspec.yaml'
       - 'packages/auth/amplify_auth_cognito_dart/example/**/*.dart'
       - 'packages/auth/amplify_auth_cognito_dart/example/**/*.yaml'
       - 'packages/auth/amplify_auth_cognito_dart/example/lib/**/*'
@@ -27,6 +28,46 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/example_common/lib/**/*.dart'
+      - 'packages/example_common/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/cognito_example.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml'
+      - 'packages/api/amplify_api_dart/lib/**/*.dart'
+      - 'packages/api/amplify_api_dart/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito_dart/example/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito_dart/example/**/*.yaml'
+      - 'packages/auth/amplify_auth_cognito_dart/example/lib/**/*'
+      - 'packages/auth/amplify_auth_cognito_dart/example/test/**/*'
+      - 'packages/auth/amplify_auth_cognito_dart/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito_dart/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/example_common/lib/**/*.dart'
+      - 'packages/example_common/pubspec.yaml'
       - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
       - 'packages/smithy/smithy/lib/**/*.dart'
@@ -40,7 +81,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash

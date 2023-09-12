@@ -5,6 +5,13 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/amplify_lints.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_lints/**/*.dart'
+      - 'packages/amplify_lints/**/*.yaml'
+      - 'packages/amplify_lints/lib/**/*'
+      - 'packages/amplify_lints/test/**/*'
   pull_request:
     paths:
       - '.github/workflows/amplify_lints.yaml'
@@ -14,7 +21,7 @@ on:
       - 'packages/amplify_lints/lib/**/*'
       - 'packages/amplify_lints/test/**/*'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
