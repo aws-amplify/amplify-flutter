@@ -150,7 +150,7 @@ class IndexedDbAdapter implements QueuedItemStore {
   }
 
   @override
-  Future<bool> isFull(int maxSizeInMB) async {
+  bool isFull(int maxSizeInMB) {
     final maxBytes = maxSizeInMB * 1024 * 1024;
     return _currentTotalByteSize >= maxBytes;
   }
@@ -167,15 +167,14 @@ class IndexedDbAdapter implements QueuedItemStore {
   void close() {}
 
   /// Check that IndexDB will work on this device.
-  static Future<bool> checkIsIndexedDBSupported() async {
+  static bool checkIsIndexedDBSupported() {
     if (indexedDB == null) {
       return false;
     }
     // indexedDB will be non-null in Firefox private browsing,
     // but will fail to open.
     try {
-      final openRequest = indexedDB!.open('test', 1);
-      await openRequest.future;
+      indexedDB!.open('test', 1).result;
       return true;
     } on Object {
       return false;
