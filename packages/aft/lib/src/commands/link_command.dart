@@ -59,6 +59,16 @@ Map<String, String> _collectDependencies(
   return dependencyPaths;
 }
 
+/// Removes the `pubspec_overrides.yaml` file for [package].
+Future<void> _removePubspecOverride(PackageInfo package) async {
+  final pubspecOverrides = File(
+    path.join(package.path, 'pubspec_overrides.yaml'),
+  );
+  if (await pubspecOverrides.exists()) {
+    await pubspecOverrides.delete();
+  }
+}
+
 /// Creates a `pubspec_overrides.yaml` file for [package].
 Future<void> _createPubspecOverride(
   PackageInfo package,
@@ -66,6 +76,12 @@ Future<void> _createPubspecOverride(
   // To be merged in
   Map<String, Dependency> existingDependencyOverrides,
 ) async {
+  // Unlike every other package, aft must work without pubspec_overrides.
+  // It's counter productive to generate it and its presence can interfere
+  // with local development.
+  if (package.name == 'aft') {
+    return _removePubspecOverride(package);
+  }
   final mergedOverrides = SplayTreeMap.of({
     // Merge in existing dependency overrides since `pub` will only use the
     // pubspec_overrides file if it exists.
