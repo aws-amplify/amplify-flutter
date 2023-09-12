@@ -132,7 +132,9 @@ void main() {
                 'amplify_core': '>=1.0.0 <1.1.0',
               },
               devDependencies: {
-                'amplify_test': 'any',
+                'amplify_test': {
+                  'path': '../amplify_test',
+                },
               },
             ),
           ]).create();
@@ -204,6 +206,69 @@ void main() {
           }
         },
       );
+
+      test(
+          '$result when a published package lists an unpublished package '
+          'as a hosted dependency', () async {
+        final repo = await d.repo([
+          d.package('amplify_test', publishable: false),
+          d.package(
+            'amplify_core',
+            version: '1.0.0',
+            devDependencies: {
+              'amplify_test': 'any',
+            },
+          ),
+        ]).create();
+
+        final constraintsChecker = PublishConstraintsChecker(
+          action,
+          repo.getPackageGraph(includeDevDependencies: true),
+        );
+
+        switch (action) {
+          case ConstraintsAction.apply || ConstraintsAction.update:
+            expect(
+              constraintsChecker.checkConstraints(repo.amplifyCore),
+              isTrue,
+            );
+            expect(
+              repo.amplifyCore.pubspecInfo.pubspecYamlEditor.edits.single,
+              isA<SourceEdit>().having(
+                (edit) => edit.replacement,
+                'replacement',
+                '{path: ../amplify_test}',
+              ),
+            );
+            expect(constraintsChecker.mismatchedDependencies, isEmpty);
+          case ConstraintsAction.check:
+            expect(
+              constraintsChecker.checkConstraints(repo.amplifyCore),
+              isFalse,
+              reason: 'The constraint amplify_core has on amplify_test would '
+                  'cause a publish error since amplify_test cannot be retrieved '
+                  "from pub.dev (it's unpublished)",
+            );
+            expect(
+              constraintsChecker.mismatchedDependencies.single,
+              isA<MismatchedDependency>()
+                  .having(
+                    (err) => err.package.name,
+                    'packageName',
+                    'amplify_core',
+                  )
+                  .having(
+                    (err) => err.dependencyName,
+                    'dependencyName',
+                    'amplify_test',
+                  ),
+            );
+            expect(
+              repo.amplifyTest.pubspecInfo.pubspecYamlEditor.edits,
+              isEmpty,
+            );
+        }
+      });
     }
   });
 }
