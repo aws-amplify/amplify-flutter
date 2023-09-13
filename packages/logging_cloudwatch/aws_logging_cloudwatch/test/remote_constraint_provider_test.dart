@@ -131,7 +131,7 @@ void main() {
     });
 
     test('initializes _loggingConstraint from endpoint', () async {
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       // Verify that _loggingConstraint exists
       expect(
@@ -154,7 +154,7 @@ void main() {
       when(() => mockFileStorage.loadConstraint(any()))
           .thenAnswer((_) async => Future.value(null));
 
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       //  Verify that _loggingConstraint is set
       expect(provider.loggingConstraint, equals(null));
@@ -171,7 +171,7 @@ void main() {
       when(() => mockFileStorage.loadConstraint(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       //  Verify that _loggingConstraint uses local storage
       expect(
@@ -208,7 +208,7 @@ void main() {
         );
       });
 
-      await Future.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       //  Verify that _loggingConstraint got updated
       expect(
