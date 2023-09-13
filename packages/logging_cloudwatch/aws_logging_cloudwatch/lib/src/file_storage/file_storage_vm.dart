@@ -8,7 +8,7 @@ import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
 import 'package:path/path.dart' as p;
 
 /// File storage implementation for saving and loading constraint locally
-final class FileStorageImpl implements FileStorage {
+class FileStorageImpl implements FileStorage {
   /// File storage implementation for saving and loading constraint locally
   FileStorageImpl(this.pathProvider);
 

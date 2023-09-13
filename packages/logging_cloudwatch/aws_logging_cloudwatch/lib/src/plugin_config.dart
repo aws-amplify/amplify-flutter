@@ -63,8 +63,27 @@ class LoggingConstraint with AWSDebuggable {
   factory LoggingConstraint.fromJson(Map<String, dynamic> json) =>
       _$LoggingConstraintFromJson(json);
 
+  // /// Converts an [LoggingConstraint] instance to a [Map].
+  // Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
+
   /// Converts an [LoggingConstraint] instance to a [Map].
-  Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
+  Map<String, dynamic> toJson() {
+    final jsonMap = <String, dynamic>{
+      'defaultLogLevel':
+          defaultLogLevel.toString().split('.').last, // Convert enum to string
+      'categoryLogLevel': categoryLogLevel?.map(
+        (key, value) => MapEntry(key, value.toString().split('.').last),
+      ),
+    };
+
+    if (userLogLevel != null) {
+      jsonMap['userLogLevel'] = userLogLevel!.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      );
+    }
+
+    return jsonMap;
+  }
 
   /// The default [LogLevel] for sending logs to CloudWatch.
   final LogLevel defaultLogLevel;
@@ -93,7 +112,18 @@ class UserLogLevel {
       _$UserLogLevelFromJson(json);
 
   /// Converts a [UserLogLevel] instance to a [Map].
-  Map<String, dynamic> toJson() => _$UserLogLevelToJson(this);
+  Map<String, dynamic> toJson() => {
+        'defaultLogLevel': defaultLogLevel
+            ?.toString()
+            .split('.')
+            .last, // Convert enum to string
+        'categoryLogLevel': categoryLogLevel?.map(
+          (key, value) => MapEntry(
+            key,
+            value.toString().split('.').last,
+          ), // Convert enum to string
+        ),
+      };
 
   /// The default [LogLevel] for sending logs to CloudWatch.
   final LogLevel? defaultLogLevel;

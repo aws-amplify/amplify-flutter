@@ -15,6 +15,9 @@ LoggingConstraint _$LoggingConstraintFromJson(Map<String, dynamic> json) =>
           (json['categoryLogLevel'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, $enumDecode(_$LogLevelEnumMap, e)),
       ),
+      userLogLevel: (json['userLogLevel'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, UserLogLevel.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$LoggingConstraintToJson(LoggingConstraint instance) =>
@@ -22,6 +25,7 @@ Map<String, dynamic> _$LoggingConstraintToJson(LoggingConstraint instance) =>
       'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
       'categoryLogLevel': instance.categoryLogLevel
           ?.map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)),
+      'userLogLevel': instance.userLogLevel,
     };
 
 const _$LogLevelEnumMap = {
