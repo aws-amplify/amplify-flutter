@@ -1,0 +1,103 @@
+name: Log CW Metric Wrapper
+description: Test to log a CW metric
+
+# Wraps log metric by configuring AWS credentials and adding github repo + run id inputs.
+inputs:
+  role-to-assume:
+    description: AWS role to assume for CW pushing
+    required: true
+  aws-region:
+    description: AWS region
+    required: true
+
+  # For getting failing step
+  job-status:
+    description: Used to determine if we track success or failure.
+    required: true
+  job-identifier:
+    description: For differentiating jobs of a run.
+    required: true
+  github-token:
+    required: true
+    description: Github token for requesting failing steps.
+
+  # Global Metric Dimensions
+  test-type:
+    description: canary, integration, unit testType.
+    required: true
+  category:
+    description: analytics, api, authenticator, etc.
+    required: true
+  workflow-name:
+    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
+    required: true
+
+  # FlutterDart Workflows Metric Dimensions
+  framework:
+    description: flutter, dart.
+    required: false
+  flutter-dart-channel:
+    description: beta, stable.
+    required: false
+  dart-version:
+    description: 3, 2.19, 2.18, etc.
+    required: false
+  flutter-version:
+    description: 3.10.6, 3.10.5, etc.
+    required: false
+  dart-compiler:
+    description: dart2js, ddc, dart, dart2wasm.
+    required: false
+
+  # Platform Workflows Metric Dimensions
+  platform:
+    description: android, ios, web, linux, windows.
+    required: false
+  platform-version:
+    description: ios-14.5, ios-16, android-25-x86, etc.
+    required: false
+runs:
+  using: "composite"
+  steps:
+    #- name: Exit if not scheduled
+    #  shell: bash
+    #  run: |
+    #    if [ "${{ github.event_name }}" != "schedule" ]; then
+    #      echo "This was not triggered by a schedule, skipping."
+    #      echo "SKIP=true" >> $GITHUB_ENV
+    #    fi
+
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+      with:
+        persist-credentials: false
+        submodules: true
+
+    - name: Configure AWS credentials
+      #if: env.SKIP != 'true'
+      uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
+      with:
+        unset-current-credentials: true
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-region: ${{ inputs.aws-region }}
+        role-duration-seconds: 900
+
+    - name: Log the CW Metrics
+      #if: env.SKIP != 'true'
+      uses: ./.github/composite_actions/log_cw_metric
+      with:
+        job-status: ${{ inputs.job-status }}
+        job-identifier: ${{ inputs.job-identifier }}
+        github-token: ${{ inputs.github-token }}
+        repo: $${{ github.repository }}
+        run-id: ${{ github.run_id }}
+        metric-name: "github_metric_1.0"
+        test-type: ${{ inputs.test-type }}
+        category: ${{ inputs.category }}
+        workflow-name: ${{ inputs.workflow-name }}
+        framework: ${{ inputs.framework }}
+        flutter-dart-channel: ${{ inputs.flutter-dart-channel }}
+        dart-version: ${{ inputs.dart-version }}
+        flutter-version: ${{ inputs.flutter-version }}
+        dart-compiler: ${{ inputs.dart-compiler }}
+        platform: ${{ inputs.platform }}
+        platform-version: ${{ inputs.platform-version }}
