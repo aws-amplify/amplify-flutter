@@ -217,14 +217,14 @@ final class NodeProcess implements Process, Closeable {
   @override
   Future<int> get exitCode async {
     if (_jsProcess.exitCode case final exitCode?) {
-      return exitCode.toDartInt;
+      return exitCode;
     }
     await Future.any([
       _jsProcess.onClose,
       _jsProcess.onError,
       _jsProcess.onExit,
     ]);
-    return _jsProcess.exitCode!.toDartInt;
+    return _jsProcess.exitCode!;
   }
 
   @override
@@ -233,7 +233,7 @@ final class NodeProcess implements Process, Closeable {
   }
 
   @override
-  int get pid => _jsProcess.pid?.toDartInt ?? -1;
+  int get pid => _jsProcess.pid ?? -1;
 
   @override
   Stream<List<int>> get stderr => _stderr.stream;

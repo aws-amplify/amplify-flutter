@@ -31,7 +31,7 @@ abstract final class FileSystemAccess {
 }
 
 @JS()
-extension type FileSystem(JSObject it) {
+extension type FileSystem._(JSObject it) {
   external bool existsSync(String path);
 
   @JS('readFileSync')
@@ -89,8 +89,7 @@ extension type FileSystem(JSObject it) {
 
 @JS()
 @anonymous
-@staticInterop
-class _RmdirOptions {
+extension type _RmdirOptions._(JSObject it) {
   external factory _RmdirOptions({
     bool? recursive,
   });
