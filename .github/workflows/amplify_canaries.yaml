@@ -55,24 +55,23 @@ jobs:
       - name: Build Canary (Android)
         run: build-support/build_canary.sh apk
 
-      - name: Log failing builds
-        if: ${{ failure() }}
-        uses: ./.github/composite_actions/log_metric
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: BuildCanaryTestFailure
-          value: 1
-          dimensions: channel=${{ matrix.channel }}
-      - name: Log succeeding builds
-        if: ${{ success() }}
-        uses: ./.github/composite_actions/log_metric
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: BuildCanaryTestFailure
-          value: 0
-          dimensions: channel=${{ matrix.channel }}
+
+          job-status: ${{ job.status }}
+          job-identifier: build (${{ matrix.channel }}, ${{ matrix.flutter-version}})
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: canary
+          category: all
+          workflow-name: amplify_canaries/build
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
 
   e2e-android:
     runs-on:
@@ -130,24 +129,25 @@ jobs:
           # Perform a build to reduce startup time of `flutter test` and prevent timeout
           script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
 
-      - name: Log failing android runs
-        if: ${{ failure() }}
-        uses: ./.github/composite_actions/log_metric
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: E2ECanaryTestFailure
-          value: 1
-          dimensions: channel=${{ matrix.channel }},platform=android
-      - name: Log succeeding android runs
-        if: ${{ success() }}
-        uses: ./.github/composite_actions/log_metric
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: E2ECanaryTestFailure
-          value: 0
-          dimensions: channel=${{ matrix.channel }},platform=android
+
+          job-status: ${{ job.status }}
+          job-identifier: e2e-android (${{ matrix.channel }}, ${{ matrix.flutter-version}})
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: canary
+          category: all
+          workflow-name: amplify_canaries/e2e-android
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
+          platform: android
+          platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
     runs-on: macos-latest-xl
@@ -208,21 +208,22 @@ jobs:
           flutter build ios --simulator --target=integration_test/main_test.dart
           flutter test -d test integration_test/main_test.dart --verbose
 
-      - name: Log failing ios runs
-        if: ${{ failure() }}
-        uses: ./.github/composite_actions/log_metric
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: E2ECanaryTestFailure
-          value: 1
-          dimensions: channel=${{ matrix.channel }},platform=ios
-      - name: Log succeeding ios runs
-        if: ${{ success() }}
-        uses: ./.github/composite_actions/log_metric
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          metric-name: E2ECanaryTestFailure
-          value: 0
-          dimensions: channel=${{ matrix.channel }},platform=ios
+
+          job-status: ${{ job.status }}
+          job-identifier: e2e-ios (${{ matrix.channel }}, ${{ matrix.flutter-version}})
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: canary
+          category: all
+          workflow-name: amplify_canaries/e2e-ios
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}
+          platform: ios
+          platform-version: ${{ matrix.ios-version }}
