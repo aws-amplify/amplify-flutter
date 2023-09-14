@@ -12,7 +12,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 const ENABLE_CLOUD_SYNC =
     bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: false);
 const DATASTORE_READY_EVENT_TIMEOUT = const Duration(minutes: 10);
-const DELAY_TO_START_DATASTORE = const Duration(milliseconds: 500);
 const DELAY_TO_CLEAR_DATASTORE = const Duration(seconds: 2);
 const DELAY_FOR_OBSERVE = const Duration(milliseconds: 100);
 
@@ -106,7 +105,6 @@ class DataStoreStarter {
 }
 
 Future<void> startDataStore() async {
-  await Future.delayed(DELAY_TO_START_DATASTORE);
   await DataStoreStarter().startDataStore();
 }
 
