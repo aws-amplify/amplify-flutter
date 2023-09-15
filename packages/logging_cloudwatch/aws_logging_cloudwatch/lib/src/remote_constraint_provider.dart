@@ -113,7 +113,7 @@ base class BaseRemoteLoggingConstraintProvider
       _loggingConstraint = fetchedConstraint;
 
       if (_fileStorage != null) {
-        await _fileStorage!.save(
+        await _fileStorage?.save(
           _cacheFileName,
           jsonEncode(fetchedConstraint.toJson()),
         );
