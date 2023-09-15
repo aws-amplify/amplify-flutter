@@ -16,7 +16,7 @@ class FileStorageImpl implements FileStorage {
   final AppPathProvider pathProvider;
 
   @override
-  Future<String?> loadConstraint(String fileName) async {
+  Future<String?> load(String fileName) async {
     final file =
         File(p.join(await pathProvider.getApplicationSupportPath(), fileName));
     if (await file.exists()) {
@@ -26,7 +26,7 @@ class FileStorageImpl implements FileStorage {
   }
 
   @override
-  Future<void> saveConstraintLocally(String fileName, String content) async {
+  Future<void> save(String fileName, String content) async {
     final file =
         File(p.join(await pathProvider.getApplicationSupportPath(), fileName));
     await file.writeAsString(content);

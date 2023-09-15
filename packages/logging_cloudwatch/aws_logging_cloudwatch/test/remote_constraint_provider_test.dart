@@ -35,7 +35,7 @@ class MockFileStorage extends Mock implements FileStorageImpl {
   MockFileStorage();
 
   @override
-  Future<void> saveConstraintLocally(String fileName, String content) async {}
+  Future<void> save(String fileName, String content) async {}
 }
 
 class MockAWSHttpClient extends Mock implements AWSHttpClient {}
@@ -115,7 +115,7 @@ void main() {
         return mockOperation;
       });
 
-      when(() => mockFileStorage.loadConstraint(any()))
+      when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
@@ -151,7 +151,7 @@ void main() {
       });
 
       // mock load constraint returns null
-      when(() => mockFileStorage.loadConstraint(any()))
+      when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(null));
 
       await Future<void>.delayed(const Duration(seconds: 3));
@@ -168,7 +168,7 @@ void main() {
         );
       });
 
-      when(() => mockFileStorage.loadConstraint(any()))
+      when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
       await Future<void>.delayed(const Duration(seconds: 3));

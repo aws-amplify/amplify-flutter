@@ -13,12 +13,12 @@ class FileStorageImpl implements FileStorage {
   final AppPathProvider pathProvider;
 
   @override
-  Future<String?> loadConstraint(String fileName) async {
+  Future<String?> load(String fileName) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> saveConstraintLocally(String fileName, String content) async {
+  Future<void> save(String fileName, String content) async {
     throw UnimplementedError();
   }
 }

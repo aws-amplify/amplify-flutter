@@ -113,7 +113,7 @@ base class BaseRemoteLoggingConstraintProvider
         _loggingConstraint = fetchedConstraint;
 
         if (_fileStorage != null) {
-          await _fileStorage!.saveConstraintLocally(
+          await _fileStorage!.save(
             'remoteloggingconstraints.json',
             jsonEncode(fetchedConstraint.toJson()),
           );
@@ -122,7 +122,7 @@ base class BaseRemoteLoggingConstraintProvider
         await _loadConstraintFromLocalCache();
       }
     } on Exception catch (exception) {
-      logger.debug(
+      logger.error(
         'Failed to fetch logging constraint from ${_config.endpoint}: $exception',
       );
       await _loadConstraintFromLocalCache();
@@ -140,7 +140,7 @@ base class BaseRemoteLoggingConstraintProvider
 
   Future<void> _loadConstraintFromLocalCache() async {
     final localConstraint =
-        await _fileStorage!.loadConstraint('remoteloggingconstraints.json');
+        await _fileStorage!.load('remoteloggingconstraints.json');
     if (localConstraint != null) {
       _loggingConstraint = LoggingConstraint.fromJson(
         jsonDecode(localConstraint) as Map<String, dynamic>,
