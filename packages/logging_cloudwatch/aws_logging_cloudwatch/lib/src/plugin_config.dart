@@ -99,7 +99,7 @@ class LoggingConstraint with AWSDebuggable {
 }
 
 /// The logging constraint for user specific log level.
-@JsonSerializable()
+@zAmplifySerializable
 class UserLogLevel {
   /// The logging constraint for user specific log level.
   const UserLogLevel({
