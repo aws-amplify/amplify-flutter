@@ -20,13 +20,25 @@ LoggingConstraint _$LoggingConstraintFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$LoggingConstraintToJson(LoggingConstraint instance) =>
-    <String, dynamic>{
-      'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
-      'categoryLogLevel': instance.categoryLogLevel
-          ?.map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)),
-      'userLogLevel': instance.userLogLevel,
-    };
+Map<String, dynamic> _$LoggingConstraintToJson(LoggingConstraint instance) {
+  final val = <String, dynamic>{
+    'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'categoryLogLevel',
+      instance.categoryLogLevel
+          ?.map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)));
+  writeNotNull('userLogLevel',
+      instance.userLogLevel?.map((k, e) => MapEntry(k, e.toJson())));
+  return val;
+}
 
 const _$LogLevelEnumMap = {
   LogLevel.verbose: 'verbose',
@@ -46,9 +58,19 @@ UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(
       ),
     );
 
-Map<String, dynamic> _$UserLogLevelToJson(UserLogLevel instance) =>
-    <String, dynamic>{
-      'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel],
-      'categoryLogLevel': instance.categoryLogLevel
-          ?.map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)),
-    };
+Map<String, dynamic> _$UserLogLevelToJson(UserLogLevel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('defaultLogLevel', _$LogLevelEnumMap[instance.defaultLogLevel]);
+  writeNotNull(
+      'categoryLogLevel',
+      instance.categoryLogLevel
+          ?.map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)));
+  return val;
+}

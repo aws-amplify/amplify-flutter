@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'plugin_config.g.dart';
 
@@ -63,27 +62,8 @@ class LoggingConstraint with AWSDebuggable {
   factory LoggingConstraint.fromJson(Map<String, dynamic> json) =>
       _$LoggingConstraintFromJson(json);
 
-  // /// Converts an [LoggingConstraint] instance to a [Map].
-  // Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
-
   /// Converts an [LoggingConstraint] instance to a [Map].
-  Map<String, dynamic> toJson() {
-    final jsonMap = <String, dynamic>{
-      'defaultLogLevel':
-          defaultLogLevel.toString().split('.').last, // Convert enum to string
-      'categoryLogLevel': categoryLogLevel?.map(
-        (key, value) => MapEntry(key, value.toString().split('.').last),
-      ),
-    };
-
-    if (userLogLevel != null) {
-      jsonMap['userLogLevel'] = userLogLevel!.map(
-        (key, value) => MapEntry(key, value.toJson()),
-      );
-    }
-
-    return jsonMap;
-  }
+  Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
 
   /// The default [LogLevel] for sending logs to CloudWatch.
   final LogLevel defaultLogLevel;
@@ -112,18 +92,7 @@ class UserLogLevel {
       _$UserLogLevelFromJson(json);
 
   /// Converts a [UserLogLevel] instance to a [Map].
-  Map<String, dynamic> toJson() => {
-        'defaultLogLevel': defaultLogLevel
-            ?.toString()
-            .split('.')
-            .last, // Convert enum to string
-        'categoryLogLevel': categoryLogLevel?.map(
-          (key, value) => MapEntry(
-            key,
-            value.toString().split('.').last,
-          ), // Convert enum to string
-        ),
-      };
+  Map<String, dynamic> toJson() => _$UserLogLevelToJson(this);
 
   /// The default [LogLevel] for sending logs to CloudWatch.
   final LogLevel? defaultLogLevel;
