@@ -10,9 +10,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/file_storage/file_storage_stub.dart'
-    if (dart.library.io) 'package:aws_logging_cloudwatch/src/file_storage/file_storage_vm.dart'
-    if (dart.library.html) 'package:aws_logging_cloudwatch/src/file_storage/file_storage_web.dart';
+import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
@@ -32,15 +30,13 @@ abstract class RemoteLoggingConstraintProvider {
 /// {@endtemplate}
 base class BaseRemoteLoggingConstraintProvider
     with AWSDebuggable, AWSLoggerMixin
-    implements RemoteLoggingConstraintProvider {
+    implements RemoteLoggingConstraintProvider, Closeable {
   /// {@macro aws_logging_cloudwatch.base_remote_constraints_provider}
   BaseRemoteLoggingConstraintProvider({
     required DefaultRemoteConfiguration config,
-    required AWSCredentialsProvider credentialsProvider,
-    FileStorageImpl? fileStorage,
+    FileStorage? fileStorage,
   })  : _fileStorage = fileStorage,
         _config = config,
-        _credentialsProvider = credentialsProvider,
         _awsHttpClient = AWSHttpClient() {
     _init();
   }
@@ -50,30 +46,26 @@ base class BaseRemoteLoggingConstraintProvider
   @visibleForTesting
   BaseRemoteLoggingConstraintProvider.forTesting({
     required DefaultRemoteConfiguration config,
-    required AWSCredentialsProvider credentialsProvider,
     required AWSHttpClient awsHttpClient,
-    FileStorageImpl? fileStorage,
+    FileStorage? fileStorage,
   })  : _fileStorage = fileStorage,
         _config = config,
-        _credentialsProvider = credentialsProvider,
         _awsHttpClient = awsHttpClient {
     _init();
   }
 
-  final FileStorageImpl? _fileStorage;
+  final FileStorage? _fileStorage;
 
   final DefaultRemoteConfiguration _config;
-  final AWSCredentialsProvider _credentialsProvider;
 
   LoggingConstraint? _loggingConstraint;
 
   final AWSHttpClient _awsHttpClient;
 
+  static const _cacheFileName = 'remoteloggingconstraints.json';
+
   // The timer to refresh the constraint periodically.
   Timer? _timer;
-
-  /// Whether the periodic fetch is running.
-  bool _isRunning = false;
 
   /// Retrives the runtime type name used for logging.
   @override
@@ -83,12 +75,17 @@ base class BaseRemoteLoggingConstraintProvider
   /// the constraint from the endpoint initially and then
   /// starting the refresh timer afterwards.
   void _init() {
-    _refreshConstraintPeriodically();
+    _readyCompleter.complete(_refreshConstraintPeriodically());
   }
+
+  final Completer<void> _readyCompleter = Completer();
+
+  /// A future that completes when the [BaseRemoteLoggingConstraintProvider]
+  Future<void> get ready => _readyCompleter.future;
 
   /// Creates a request to fetch the constraint from the endpoint.
   @protected
-  Future<AWSHttpRequest> createRequest() async {
+  Future<AWSBaseHttpRequest> createRequest() async {
     final uri = Uri.parse(_config.endpoint);
     return AWSHttpRequest(
       method: AWSHttpMethod.get,
@@ -106,30 +103,24 @@ base class BaseRemoteLoggingConstraintProvider
       final operation = _awsHttpClient.send(request);
       final response = await operation.response;
       final body = await response.decodeBody();
-      if (response.statusCode == 200) {
-        final fetchedConstraint = LoggingConstraint.fromJson(
-          jsonDecode(body) as Map<String, dynamic>,
-        );
-        _loggingConstraint = fetchedConstraint;
+      if (response.statusCode != 200) {
+        logger.error('Failed to fetch constraints', body);
+        return;
+      }
+      final fetchedConstraint = LoggingConstraint.fromJson(
+        jsonDecode(body) as Map<String, dynamic>,
+      );
+      _loggingConstraint = fetchedConstraint;
 
-        if (_fileStorage != null) {
-          await _fileStorage!.save(
-            'remoteloggingconstraints.json',
-            jsonEncode(fetchedConstraint.toJson()),
-          );
-        }
-      } else {
-        await _loadConstraintFromLocalCache();
+      if (_fileStorage != null) {
+        await _fileStorage!.save(
+          _cacheFileName,
+          jsonEncode(fetchedConstraint.toJson()),
+        );
       }
     } on Exception catch (exception) {
       logger.error(
         'Failed to fetch logging constraint from ${_config.endpoint}: $exception',
-      );
-      await _loadConstraintFromLocalCache();
-    } on Error catch (error, stackTrace) {
-      logger.error(
-        'Error while fetching logging constraint from ${_config.endpoint}: $error',
-        stackTrace,
       );
     }
   }
@@ -139,8 +130,7 @@ base class BaseRemoteLoggingConstraintProvider
   LoggingConstraint? get loggingConstraint => _loggingConstraint;
 
   Future<void> _loadConstraintFromLocalCache() async {
-    final localConstraint =
-        await _fileStorage!.load('remoteloggingconstraints.json');
+    final localConstraint = await _fileStorage!.load(_cacheFileName);
     if (localConstraint != null) {
       _loggingConstraint = LoggingConstraint.fromJson(
         jsonDecode(localConstraint) as Map<String, dynamic>,
@@ -149,19 +139,19 @@ base class BaseRemoteLoggingConstraintProvider
   }
 
   /// Refreshes the constraint from the endpoint periodically.
-  void _refreshConstraintPeriodically() {
-    if (_isRunning) {
-      return;
-    }
-
-    _isRunning = true;
-    _timer?.cancel();
-
+  Future<void> _refreshConstraintPeriodically() async {
+    await _loadConstraintFromLocalCache();
     _timer = Timer.periodic(
       _config.refreshInterval,
       (_) => _fetchAndCacheConstraintFromEndpoint(),
     );
-    Timer.run(_fetchAndCacheConstraintFromEndpoint);
+    await _fetchAndCacheConstraintFromEndpoint();
+  }
+
+  @override
+  void close() {
+    _timer?.cancel();
+    _timer = null;
   }
 }
 
@@ -176,16 +166,18 @@ final class DefaultRemoteLoggingConstraintProvider
     required super.config,
     required this.credentialsProvider,
     super.fileStorage,
-  }) : super(credentialsProvider: credentialsProvider);
+  });
 
   /// The credentials provider to use for signing the request.
   final AWSCredentialsProvider credentialsProvider;
 
   /// The signer to use for signing the request.
-  final AWSSigV4Signer _signer = const AWSSigV4Signer();
+  late final AWSSigV4Signer _signer = AWSSigV4Signer(
+    credentialsProvider: credentialsProvider,
+  );
 
   @override
-  Future<AWSHttpRequest> createRequest() async {
+  Future<AWSBaseHttpRequest> createRequest() async {
     final baseRequest = await super.createRequest();
     final scope = AWSCredentialScope(
       region: _config.region,
@@ -197,10 +189,7 @@ final class DefaultRemoteLoggingConstraintProvider
       credentialScope: scope,
     );
 
-    final newRequest =
-        AWSHttpRequest(method: signedRequest.method, uri: signedRequest.uri);
-
-    return newRequest;
+    return signedRequest;
   }
 }
 

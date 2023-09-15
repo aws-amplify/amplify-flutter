@@ -4,11 +4,9 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_common/testing.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart'
-    if (dart.library.io) 'package:aws_logging_cloudwatch/src/file_storage/file_storage_vm.dart'
-    if (dart.library.html) 'package:aws_logging_cloudwatch/src/file_storage/file_storage_web.dart';
-// import 'package:aws_logging_cloudwatch/src/file_storage/file_storage_vm.dart';
+import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -31,24 +29,15 @@ const sampleJson = '''
       }
     ''';
 
-class MockFileStorage extends Mock implements FileStorageImpl {
-  MockFileStorage();
-
+class MockFileStorage extends Mock implements FileStorage {
   @override
   Future<void> save(String fileName, String content) async {}
 }
 
-class MockAWSHttpClient extends Mock implements AWSHttpClient {}
-
-class MockAWSHttpOperation extends Mock
-    implements AWSHttpOperation<AWSBaseHttpResponse> {}
-
 class MockAWSCredentialsProvider extends Mock
     implements AWSCredentialsProvider {}
 
-class PathProvider extends Mock implements AppPathProvider {
-  PathProvider();
-
+class PathProvider implements AppPathProvider {
   @override
   Future<String> getApplicationSupportPath() async {
     return '';
@@ -68,12 +57,19 @@ final fakeRequest = AWSHttpRequest(
 );
 
 void main() {
+  test('LoggingConstraint', () {
+    final sampleJsonMap = jsonDecode(sampleJson) as Map<String, dynamic>;
+    final loggingConstraint = LoggingConstraint.fromJson(sampleJsonMap);
+    expect(
+      loggingConstraint.toJson(),
+      sampleJsonMap,
+    );
+  });
+
   group('RemoteLoggingConstraintProvider', () {
     late BaseRemoteLoggingConstraintProvider provider;
-    late FileStorageImpl mockFileStorage;
+    late FileStorage mockFileStorage;
     late MockAWSHttpClient mockAWSHttpClient;
-    late MockAWSCredentialsProvider mockCredentialsProvider;
-    late MockAWSHttpOperation mockOperation;
 
     const sampleJson = '''
     {
@@ -96,24 +92,8 @@ void main() {
 
     setUp(() {
       mockFileStorage = MockFileStorage();
-      mockAWSHttpClient = MockAWSHttpClient();
-      mockCredentialsProvider = MockAWSCredentialsProvider();
-      mockOperation = MockAWSHttpOperation();
 
       registerFallbackValue(fakeRequest);
-
-      // mock the response from the endpoint
-      when(() => mockOperation.response).thenAnswer((_) async {
-        return AWSHttpResponse(
-          statusCode: 200,
-          body: utf8.encode(sampleJson),
-        );
-      });
-
-      // mock the call to createRequest
-      when(() => mockAWSHttpClient.send(any())).thenAnswer((_) {
-        return mockOperation;
-      });
 
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
@@ -124,13 +104,19 @@ void main() {
           endpoint: 'https://example.com',
           region: 'us-west-2',
         ),
-        credentialsProvider: mockCredentialsProvider,
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
       );
     });
 
     test('initializes _loggingConstraint from endpoint', () async {
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
+        return AWSHttpResponse(
+          statusCode: 200,
+          body: utf8.encode(sampleJson),
+        );
+      });
+
       await Future<void>.delayed(const Duration(seconds: 3));
 
       // Verify that _loggingConstraint exists
@@ -143,7 +129,7 @@ void main() {
     test(
         'fetches _loggingConstraint from local storage and returns null if there are no constraints in local storage',
         () async {
-      when(() => mockOperation.response).thenAnswer((_) async {
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
         return AWSHttpResponse(
           statusCode: 400,
           body: utf8.encode('NO RESPONSE'),
@@ -154,14 +140,14 @@ void main() {
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(null));
 
-      await Future<void>.delayed(const Duration(seconds: 3));
+      await provider.ready;
 
       //  Verify that _loggingConstraint is set
       expect(provider.loggingConstraint, equals(null));
     });
 
     test('uses local storage if endpoint fails', () async {
-      when(() => mockOperation.response).thenAnswer((_) async {
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
         return AWSHttpResponse(
           statusCode: 400,
           body: utf8.encode('NO RESPONSE'),
@@ -171,7 +157,7 @@ void main() {
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
-      await Future<void>.delayed(const Duration(seconds: 3));
+      await provider.ready;
 
       //  Verify that _loggingConstraint uses local storage
       expect(
@@ -201,14 +187,14 @@ void main() {
         }
         ''';
 
-      when(() => mockOperation.response).thenAnswer((_) async {
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
         return AWSHttpResponse(
           statusCode: 200,
           body: utf8.encode(updatedJson),
         );
       });
 
-      await Future<void>.delayed(const Duration(seconds: 3));
+      await provider.ready;
 
       //  Verify that _loggingConstraint got updated
       expect(
