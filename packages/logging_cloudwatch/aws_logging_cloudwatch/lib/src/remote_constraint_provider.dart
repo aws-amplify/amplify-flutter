@@ -38,11 +38,25 @@ base class BaseRemoteLoggingConstraintProvider
     required DefaultRemoteConfiguration config,
     required AWSCredentialsProvider credentialsProvider,
     FileStorageImpl? fileStorage,
-    AWSHttpClient? awsHttpClient,
   })  : _fileStorage = fileStorage,
         _config = config,
         _credentialsProvider = credentialsProvider,
-        _awsHttpClient = awsHttpClient ?? AWSHttpClient() {
+        _awsHttpClient = AWSHttpClient() {
+    _init();
+  }
+
+  /// A [BaseRemoteLoggingConstraintProvider] to use only for testing.
+  @protected
+  @visibleForTesting
+  BaseRemoteLoggingConstraintProvider.forTesting({
+    required DefaultRemoteConfiguration config,
+    required AWSCredentialsProvider credentialsProvider,
+    required AWSHttpClient awsHttpClient,
+    FileStorageImpl? fileStorage,
+  })  : _fileStorage = fileStorage,
+        _config = config,
+        _credentialsProvider = credentialsProvider,
+        _awsHttpClient = awsHttpClient {
     _init();
   }
 
@@ -162,7 +176,6 @@ final class DefaultRemoteLoggingConstraintProvider
     required super.config,
     required this.credentialsProvider,
     super.fileStorage,
-    super.awsHttpClient,
   }) : super(credentialsProvider: credentialsProvider);
 
   /// The credentials provider to use for signing the request.

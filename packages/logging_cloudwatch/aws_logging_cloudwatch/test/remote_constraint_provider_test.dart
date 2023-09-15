@@ -118,7 +118,7 @@ void main() {
       when(() => mockFileStorage.loadConstraint(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
-      provider = BaseRemoteLoggingConstraintProvider(
+      provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
           refreshInterval: Duration(seconds: 10),
           endpoint: 'https://example.com',
