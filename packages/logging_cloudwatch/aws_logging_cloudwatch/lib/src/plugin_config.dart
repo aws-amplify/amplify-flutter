@@ -50,7 +50,7 @@ class CloudWatchLoggerPluginConfiguration with AWSDebuggable {
 /// {@template aws_logging_cloudwatch.logging_constraint}
 /// The logging constraint for sending logs to CloudWatch.
 /// {@endtemplate}
-@JsonSerializable()
+@zAmplifySerializable
 class LoggingConstraint with AWSDebuggable {
   /// {@macro aws_logging_cloudwatch.logging_constraint}
   const LoggingConstraint({
