@@ -8,7 +8,7 @@ export 'file_storage_stub.dart'
 /// File storage interface for saving and loading constraint locally
 abstract interface class FileStorage {
   /// Save constraint locally to file
-  Future<void> save(String filename, String data);
+  Future<void> save(String fileName, String data);
 
   /// Load constraint from file
   Future<String?> load(String filename);
