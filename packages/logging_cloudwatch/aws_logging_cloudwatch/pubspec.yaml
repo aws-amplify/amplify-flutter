@@ -15,8 +15,6 @@ dependencies:
   built_collection: ^5.1.1
   built_value: ">=8.6.0 <8.7.0"
   fixnum: ^1.1.0
-  flutter:
-    sdk: flutter
   intl: ">=0.18.0 <1.0.0"
   json_annotation: ^4.8.1
   meta: ^1.9.1
