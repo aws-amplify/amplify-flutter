@@ -3,15 +3,14 @@
 
 import 'dart:math';
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:aws_common/aws_common.dart';
-import 'package:flutter/foundation.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
@@ -46,6 +45,10 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
                   ?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
           final tp = TextPainter(
+            // TODO(dnys1): replace with textScaleFactor when min flutter version is bumped to 3.16.0
+            // see: https://docs.flutter.dev/release/breaking-changes/deprecate-textscalefactor#migrating-code-that-consumes-textscalefactor
+            // ignore: deprecated_member_use
+            textScaleFactor: MediaQuery.textScaleFactorOf(context),
             text: TextSpan(
               text: text,
               style: style,
@@ -132,7 +135,15 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
 class _SocialSignInButtonState
     extends AuthenticatorButtonState<SocialSignInButton> {
-  static const _spacing = 5.0;
+  /// The spacing between the logo and its text, in pixels.
+  static const double spacing = 5;
+
+  /// The size of the (square) logo, in pixels.
+  static const double logoSize = 40;
+
+  static final AmplifyLogger logger = AmplifyLogger.category(Category.auth)
+      .createChild('Authenticator')
+      .createChild('SocialSignInButton');
 
   Widget get icon {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -164,16 +175,19 @@ class _SocialSignInButtonState
         ],
       );
     }
-    safePrint('Unsupported provider: ${widget.provider}');
+    logger.error('Unsupported provider: ${widget.provider}');
     return const SizedBox.shrink();
   }
 
+  /// Calculates the horizontal padding of the logo, its text, and the
+  /// spacing given the current layout [constraints].
   double calculatePadding(BoxConstraints constraints) {
-    final logoWidth = constraints.maxHeight + _spacing;
+    // Split the space remaining after laying out the logo, its text,
+    // and the spacing.
     final textWidth = widget.maxWidth;
     return max(
       0,
-      (constraints.maxWidth - logoWidth - textWidth) / 2,
+      (constraints.maxWidth - logoSize - spacing - textWidth) / 2,
     );
   }
 
@@ -191,8 +205,8 @@ class _SocialSignInButtonState
   @override
   Widget build(BuildContext context) {
     final resolver = stringResolver.buttons;
-    return SizedBox(
-      height: 40,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 40),
       child: OutlinedButton(
         focusNode: focusNode,
         style: ButtonStyle(
@@ -211,18 +225,23 @@ class _SocialSignInButtonState
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: widget.provider.padding,
-                    child: AspectRatio(
-                      aspectRatio: 1,
+                  SizedBox.square(
+                    dimension: logoSize,
+                    child: Padding(
+                      padding: widget.provider.logoInsets,
                       child: icon,
                     ),
                   ),
-                  const SizedBox(width: _spacing),
-                  Text(
-                    resolver.resolve(
-                      context,
-                      ButtonResolverKey.signInWith(widget.provider),
+                  const SizedBox(width: spacing),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        resolver.resolve(
+                          context,
+                          ButtonResolverKey.signInWith(widget.provider),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -236,10 +255,12 @@ class _SocialSignInButtonState
 }
 
 extension on AuthProvider {
-  EdgeInsets get padding {
-    if (this == AuthProvider.google) {
-      return const EdgeInsets.all(8);
-    }
-    return EdgeInsets.zero;
-  }
+  /// The insets of the logo image in its bounding box.
+  ///
+  /// Used to provide additional padding for the logos which don't have
+  /// padding built into their vector image.
+  EdgeInsets get logoInsets => switch (this) {
+        AuthProvider.google => const EdgeInsets.all(8),
+        _ => EdgeInsets.zero,
+      };
 }
