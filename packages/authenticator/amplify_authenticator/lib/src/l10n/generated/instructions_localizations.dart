@@ -68,7 +68,9 @@ abstract class AuthenticatorInstructionsLocalizations {
 
   static AuthenticatorInstructionsLocalizations? of(BuildContext context) {
     return Localizations.of<AuthenticatorInstructionsLocalizations>(
-        context, AuthenticatorInstructionsLocalizations);
+      context,
+      AuthenticatorInstructionsLocalizations,
+    );
   }
 
   static const LocalizationsDelegate<AuthenticatorInstructionsLocalizations>
@@ -157,9 +159,10 @@ Future<AuthenticatorInstructionsLocalizations>
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return instructions_localizations_en.loadLibrary().then((dynamic _) =>
-          instructions_localizations_en
-              .AuthenticatorInstructionsLocalizationsEn());
+      return instructions_localizations_en.loadLibrary().then(
+            (dynamic _) => instructions_localizations_en
+                .AuthenticatorInstructionsLocalizationsEn(),
+          );
   }
 
   throw FlutterError(
