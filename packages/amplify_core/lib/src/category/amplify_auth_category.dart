@@ -1292,6 +1292,20 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
             ),
           );
 
+  @Deprecated('Use sendUserAttributeVerificationCode.')
+  Future<SendUserAttributeVerificationCodeResult>
+      resendUserAttributeConfirmationCode({
+    required AuthUserAttributeKey userAttributeKey,
+    SendUserAttributeVerificationCodeOptions? options,
+  }) =>
+          identifyCall(
+            AuthCategoryMethod.sendUserAttributeVerificationCode,
+            () => defaultPlugin.sendUserAttributeVerificationCode(
+              userAttributeKey: userAttributeKey,
+              options: options,
+            ),
+          );
+
   /// {@template amplify_core.amplify_auth_category.set_up_totp}
   /// Initiates setup of a time-based one-time passcode (TOTP) MFA method for the
   /// current user.

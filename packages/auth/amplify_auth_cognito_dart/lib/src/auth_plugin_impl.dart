@@ -699,6 +699,18 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<SendUserAttributeVerificationCodeResult>
+      resendUserAttributeConfirmationCode({
+    required AuthUserAttributeKey userAttributeKey,
+    SendUserAttributeVerificationCodeOptions? options,
+  }) async {
+    return sendUserAttributeVerificationCode(
+      userAttributeKey: userAttributeKey,
+      options: options,
+    );
+  }
+
+  @override
+  Future<SendUserAttributeVerificationCodeResult>
       sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
     SendUserAttributeVerificationCodeOptions? options,
