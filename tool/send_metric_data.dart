@@ -43,7 +43,7 @@ void main(List<String> args) {
     value,
   ];
 
-  if (!dimensionsTrimmed.isEmpty) {
+  if (dimensionsTrimmed.isNotEmpty) {
     cloudArgs.add('--dimensions');
     cloudArgs.add(dimensionsTrimmed);
   }
