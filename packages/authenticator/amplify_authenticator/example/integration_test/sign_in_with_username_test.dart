@@ -1,13 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// This test follows the Amplify UI feature "sign-in-with-username"
-// https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
-
-import 'dart:io';
-
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -177,58 +171,55 @@ void main() {
     });
 
     testWidgets(
-      'Sign in with confirmed credentials after a failed attempt with bad credentials',
-      (tester) async {
-        final username = generateUsername();
-        final password = generatePassword();
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
-        );
+        'Sign in with confirmed credentials after a failed attempt with bad credentials',
+        (tester) async {
+      final username = generateUsername();
+      final password = generatePassword();
+      await adminCreateUser(
+        username,
+        password,
+        autoConfirm: true,
+        verifyAttributes: true,
+      );
 
-        await loadAuthenticator(tester: tester);
-        final signInPage = SignInPage(tester: tester);
-        signInPage.expectUsername();
+      await loadAuthenticator(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      signInPage.expectUsername();
 
-        expect(
-          tester.bloc.stream,
-          emitsInOrder([
-            UnauthenticatedState.signIn,
-            isA<AuthenticatedState>(),
-            emitsDone,
-          ]),
-        );
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          emitsDone,
+        ]),
+      );
 
-        // When I type my "username"
-        await signInPage.enterUsername('bad_username');
+      // When I type my "username"
+      await signInPage.enterUsername('bad_username');
 
-        // And I type my bad password
-        await signInPage.enterPassword(password);
+      // And I type my bad password
+      await signInPage.enterPassword(password);
 
-        // And I click the "Sign in" button
-        await signInPage.submitSignIn();
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
 
-        /// Then I see UserNotFound exception banner
-        signInPage.expectUserNotFound();
+      /// Then I see UserNotFound exception banner
+      signInPage.expectUserNotFound();
 
-        // Then I type the correct username
-        await signInPage.enterUsername(username);
+      // Then I type the correct username
+      await signInPage.enterUsername(username);
 
-        // Then I type the correct password
-        await signInPage.enterPassword(password);
+      // Then I type the correct password
+      await signInPage.enterPassword(password);
 
-        // And I click the "Sign in" button
-        await signInPage.submitSignIn();
+      // And I click the "Sign in" button
+      await signInPage.submitSignIn();
 
-        // Then I am signed in
-        await signInPage.expectAuthenticated();
+      // Then I am signed in
+      await signInPage.expectAuthenticated();
 
-        await tester.bloc.close();
-      },
-      // TODO(dnys1): Multiple `enterText` calls is failing on Android
-      skip: !zIsWeb && Platform.isAndroid,
-    );
+      await tester.bloc.close();
+    });
   });
 }
