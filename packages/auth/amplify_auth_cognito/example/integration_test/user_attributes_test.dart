@@ -232,7 +232,7 @@ void main() {
           await createAndLoginUser();
         });
 
-        group('resendUserAttributeConfirmationCode', () {
+        group('sendUserAttributeVerificationCode', () {
           asyncTest('to email', (_) async {
             final newEmail = generateEmail();
             // Cognito sends the confirmation code to the new attribute
@@ -279,7 +279,7 @@ void main() {
               UserAttribute.email(keepOriginal ? email : newEmail),
             );
             final resendResult =
-                await Amplify.Auth.resendUserAttributeConfirmationCode(
+                await Amplify.Auth.sendUserAttributeVerificationCode(
               userAttributeKey: AuthUserAttributeKey.email,
             );
             expect(
@@ -350,7 +350,7 @@ void main() {
               UserAttribute.phone(keepOriginal ? phoneNumber : newPhoneNumber),
             );
             final resendResult =
-                await Amplify.Auth.resendUserAttributeConfirmationCode(
+                await Amplify.Auth.sendUserAttributeVerificationCode(
               userAttributeKey: AuthUserAttributeKey.phoneNumber,
             );
             expect(

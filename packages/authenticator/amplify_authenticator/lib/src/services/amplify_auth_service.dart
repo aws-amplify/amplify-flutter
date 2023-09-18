@@ -49,8 +49,8 @@ abstract class AuthService {
 
   Future<GetAttributeVerificationStatusResult> getAttributeVerificationStatus();
 
-  Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({
+  Future<SendUserAttributeVerificationCodeResult>
+      sendUserAttributeVerificationCode({
     required CognitoUserAttributeKey userAttributeKey,
   });
 
@@ -247,12 +247,12 @@ class AmplifyAuthService
   }
 
   @override
-  Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({
+  Future<SendUserAttributeVerificationCodeResult>
+      sendUserAttributeVerificationCode({
     required CognitoUserAttributeKey userAttributeKey,
   }) {
     return _withUserAgent(
-      () => Amplify.Auth.resendUserAttributeConfirmationCode(
+      () => Amplify.Auth.sendUserAttributeVerificationCode(
         userAttributeKey: userAttributeKey,
       ),
     );

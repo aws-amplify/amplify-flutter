@@ -1233,18 +1233,15 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
         ),
       );
 
-  /// {@template amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
-  /// Resends a confirmation code for the given [userAttributeKey], if required, while
-  /// updating the attribute.
+  /// {@template amplify_core.amplify_auth_category.send_attribute_verification_code}
+  /// Sends a confirmation code for the existing value for the given
+  /// [userAttributeKey].
   ///
-  /// If a confirmation code sent as the result of a [updateUserAttribute] or [updateUserAttributes]
-  /// call expires, you can use this API to request a new one.
+  /// This API can be used to confirm an attribute that was not confirmed during
+  /// the sign up flow.
   ///
   /// Optionally accepts plugin [options] which allow customizing provider-specific
   /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#resend-verification-code).
   ///
   /// ## Examples
   ///
@@ -1254,11 +1251,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// import 'package:amplify_flutter/amplify_flutter.dart';
   /// ```
   ///
-  /// <?code-excerpt "doc/lib/auth.dart" region="resend-user-attribute-code"?>
+  /// <?code-excerpt "doc/lib/auth.dart" region="send-user-attribute-verification-code"?>
   /// ```dart
   /// Future<void> resendVerificationCode() async {
   ///   try {
-  ///     final result = await Amplify.Auth.resendUserAttributeConfirmationCode(
+  ///     final result = await Amplify.Auth.sendUserAttributeVerificationCode(
   ///       userAttributeKey: AuthUserAttributeKey.email,
   ///     );
   ///     _handleCodeDelivery(result.codeDeliveryDetails);
@@ -1269,7 +1266,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   ///
   /// The details of where the code will be delivered are returned in the result's
-  /// [ResendUserAttributeConfirmationCodeResult.codeDeliveryDetails] property
+  /// [SendUserAttributeVerificationCodeResult.codeDeliveryDetails] property
   /// and should be used to prompt the user on where to look for the code.
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="handle-code"?>
@@ -1282,14 +1279,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({
+  Future<SendUserAttributeVerificationCodeResult>
+      sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
-    ResendUserAttributeConfirmationCodeOptions? options,
+    SendUserAttributeVerificationCodeOptions? options,
   }) =>
           identifyCall(
-            AuthCategoryMethod.resendUserAttributeConfirmationCode,
-            () => defaultPlugin.resendUserAttributeConfirmationCode(
+            AuthCategoryMethod.sendUserAttributeVerificationCode,
+            () => defaultPlugin.sendUserAttributeVerificationCode(
               userAttributeKey: userAttributeKey,
               options: options,
             ),
