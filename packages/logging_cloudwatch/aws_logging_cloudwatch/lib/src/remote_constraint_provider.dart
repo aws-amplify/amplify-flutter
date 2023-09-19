@@ -87,6 +87,7 @@ base class BaseRemoteLoggingConstraintProvider
   ///
   /// Can be overridden by subclasses to change how the request is created.
   @protected
+  @visibleForOverriding
   Future<AWSBaseHttpRequest> createRequest() async {
     final uri = Uri.parse(_config.endpoint);
     return AWSHttpRequest(
