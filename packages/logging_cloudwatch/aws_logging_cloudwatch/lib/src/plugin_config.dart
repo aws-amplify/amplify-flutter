@@ -50,7 +50,7 @@ class CloudWatchLoggerPluginConfiguration with AWSDebuggable {
 /// The logging constraint for sending logs to CloudWatch.
 /// {@endtemplate}
 @zAmplifySerializable
-class LoggingConstraint with AWSDebuggable {
+class LoggingConstraint with AWSDebuggable, AWSSerializable {
   /// {@macro aws_logging_cloudwatch.logging_constraint}
   const LoggingConstraint({
     this.defaultLogLevel = LogLevel.error,
@@ -63,6 +63,7 @@ class LoggingConstraint with AWSDebuggable {
       _$LoggingConstraintFromJson(json);
 
   /// Converts an [LoggingConstraint] instance to a [Map].
+  @override
   Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
 
   /// The default [LogLevel] for sending logs to CloudWatch.
@@ -80,7 +81,7 @@ class LoggingConstraint with AWSDebuggable {
 
 /// The logging constraint for user specific log level.
 @zAmplifySerializable
-class UserLogLevel {
+class UserLogLevel with AWSDebuggable, AWSSerializable {
   /// The logging constraint for user specific log level.
   const UserLogLevel({
     this.defaultLogLevel,
@@ -92,6 +93,7 @@ class UserLogLevel {
       _$UserLogLevelFromJson(json);
 
   /// Converts a [UserLogLevel] instance to a [Map].
+  @override
   Map<String, dynamic> toJson() => _$UserLogLevelToJson(this);
 
   /// The default [LogLevel] for sending logs to CloudWatch.
@@ -99,4 +101,7 @@ class UserLogLevel {
 
   /// The [LogLevel] for different categories.
   final Map<String, LogLevel>? categoryLogLevel;
+
+  @override
+  String get runtimeTypeName => 'UserLogLevel';
 }

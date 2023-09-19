@@ -127,7 +127,7 @@ void main() {
 
       await provider.ready;
 
-      //  Verify that _loggingConstraint uses local storage
+      // Verify that _loggingConstraint uses local storage
       expect(
         provider.loggingConstraint!.toJson(),
         equals(json.decode(sampleJson)),
@@ -190,11 +190,12 @@ void main() {
         awsHttpClient: mockAWSHttpClient,
       );
 
+      // Wait for the provider to refresh the constraints and make the second call to the endpoint
       await Future<void>.delayed(const Duration(seconds: 2));
 
       await provider.ready;
 
-      //  Verify that _loggingConstraint got updated
+      // Verify that _loggingConstraint got updated
       expect(
         provider.loggingConstraint!.toJson(),
         equals(json.decode(updatedJson)),
@@ -225,7 +226,7 @@ void main() {
 
       await provider.ready;
 
-      //  Verify that _loggingConstraint is set
+      // Verify that _loggingConstraint is set
       expect(provider.loggingConstraint, equals(null));
     });
   });
