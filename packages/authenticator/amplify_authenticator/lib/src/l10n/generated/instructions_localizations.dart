@@ -99,37 +99,37 @@ abstract class AuthenticatorInstructionsLocalizations {
     Locale('en'),
   ];
 
-  /// The header for the first step of TOTP setup
+  /// The title for the first step of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Step 1: Download an Authenticator app'**
   String get totpStep1Title;
 
-  /// The header for the second step of TOTP setup
+  /// The title for the second step of TOTP setup
   ///
   /// In en, this message translates to:
-  /// **'Step 2: Enter the QR code'**
+  /// **'Step 2: Scan the QR code'**
   String get totpStep2Title;
 
-  /// The header for the third step of TOTP setup
+  /// The title for the third step of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Step 3: Verify your code'**
   String get totpStep3Title;
 
-  /// The instructional text for step one of TOTP setup
+  /// The body text for step one of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Authenticator apps generate one-time codes that can be used to verify your identity'**
   String get totpStep1Body;
 
-  /// The instructional text for step two of TOTP setup
+  /// The body text for step two of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Open then Authenticator app and scan the QR code or enter the key to get your verification code'**
   String get totpStep2Body;
 
-  /// The instructional text for step three of TOTP setup
+  /// The body text for step three of TOTP setup
   ///
   /// In en, this message translates to:
   /// **'Enter the 6 digit code from your Authenticator app'**

@@ -5,7 +5,7 @@
     "@totpStep1Title": {
         "description": "The title for the first step of TOTP setup"
     },
-    "totpStep2Title": "Step 2: Enter the QR code",
+    "totpStep2Title": "Step 2: Scan the QR code",
     "@totpStep2Title": {
         "description": "The title for the second step of TOTP setup"
     },
