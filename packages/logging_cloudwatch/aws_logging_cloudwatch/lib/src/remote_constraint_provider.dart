@@ -5,9 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-// TODO(nikahsn): remove after implementing the get loggingConstraint.
-// ignore_for_file: unused_field
-
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
@@ -107,7 +104,8 @@ base class BaseRemoteLoggingConstraintProvider
       final response = await operation.response;
       final body = await response.decodeBody();
       if (response.statusCode != 200) {
-        logger.error('Failed to fetch constraints', (response.statusCode, body));
+        logger
+            .error('Failed to fetch constraints', (response.statusCode, body));
         return;
       }
       final fetchedConstraint = LoggingConstraint.fromJson(
