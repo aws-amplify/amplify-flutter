@@ -84,6 +84,8 @@ base class BaseRemoteLoggingConstraintProvider
   Future<void> get ready => _readyCompleter.future;
 
   /// Creates a request to fetch the constraint from the endpoint.
+  ///
+  /// Can be overridden by subclasses to change how the request is created.
   @protected
   Future<AWSBaseHttpRequest> createRequest() async {
     final uri = Uri.parse(_config.endpoint);
