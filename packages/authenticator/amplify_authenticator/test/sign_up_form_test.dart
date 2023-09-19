@@ -74,6 +74,53 @@ void main() {
       );
 
       testWidgets(
+        'displays message when submitted with invalid birth date',
+        (tester) async {
+          await tester.pumpWidget(
+            MockAuthenticatorApp(
+              initialStep: AuthenticatorStep.signUp,
+              signUpForm: SignUpForm.custom(
+                fields: [
+                  SignUpFormField.username(),
+                  SignUpFormField.birthdate(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return null;
+                      final age = DateTime.now().difference(
+                        DateTime.parse(value),
+                      );
+                      if (age < const Duration(days: 365 * 18)) {
+                        return 'You must be 18 years or older.';
+                      }
+                      return null;
+                    },
+                  ),
+                  SignUpFormField.password(),
+                  SignUpFormField.passwordConfirmation(),
+                ],
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final signUpPage = SignUpPage(tester: tester);
+
+          await signUpPage.enterUsername('user123');
+          await signUpPage.enterBirthDate('01/01/2020');
+          await signUpPage.enterPassword('Password123');
+          await signUpPage.enterPasswordConfirmation('Password123');
+
+          await signUpPage.submitSignUp();
+
+          final usernameFieldError = find.descendant(
+            of: signUpPage.birthdateField,
+            matching: find.text('You must be 18 years or older.'),
+          );
+
+          expect(usernameFieldError, findsOneWidget);
+        },
+      );
+
+      testWidgets(
         'displays message when password does not meet requirements',
         (tester) async {
           await tester.pumpWidget(

@@ -22,6 +22,8 @@ class MockAuthenticatorApp extends StatefulWidget {
     this.darkTheme,
     this.initialStep = AuthenticatorStep.signIn,
     this.authPlugin,
+    this.signInForm,
+    this.signUpForm,
     this.child,
   });
 
@@ -30,6 +32,8 @@ class MockAuthenticatorApp extends StatefulWidget {
   final ThemeData? darkTheme;
   final AuthenticatorStep initialStep;
   final AuthPluginInterface? authPlugin;
+  final SignInForm? signInForm;
+  final SignUpForm? signUpForm;
   final Widget? child;
 
   @override
@@ -102,6 +106,8 @@ class _MockAuthenticatorAppState extends State<MockAuthenticatorApp> {
     return Authenticator(
       key: authenticatorKey,
       authBlocOverride: _authBloc,
+      signInForm: widget.signInForm,
+      signUpForm: widget.signUpForm,
       child: widget.child ??
           MaterialApp(
             debugShowCheckedModeBanner: false,
