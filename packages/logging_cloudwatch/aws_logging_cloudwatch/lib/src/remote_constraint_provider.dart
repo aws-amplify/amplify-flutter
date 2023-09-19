@@ -125,7 +125,8 @@ base class BaseRemoteLoggingConstraintProvider
     }
   }
 
-  /// Returns [LoggingConstraint] from cache or `null` if cache is missing.
+  /// Returns [LoggingConstraint] from the cache or `null` if the cache is missing
+  /// or if the constraints could not be retrieved from the remote server.
   @override
   LoggingConstraint? get loggingConstraint => _loggingConstraint;
 
