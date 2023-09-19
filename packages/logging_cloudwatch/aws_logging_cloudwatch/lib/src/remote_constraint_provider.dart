@@ -107,7 +107,7 @@ base class BaseRemoteLoggingConstraintProvider
       final response = await operation.response;
       final body = await response.decodeBody();
       if (response.statusCode != 200) {
-        logger.error('Failed to fetch constraints', body);
+        logger.error('Failed to fetch constraints', (response.statusCode, body));
         return;
       }
       final fetchedConstraint = LoggingConstraint.fromJson(
