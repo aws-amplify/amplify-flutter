@@ -76,7 +76,7 @@ class SignUpPage extends AuthenticatorPage {
     await tester.enterText(preferredUsernameField, username);
   }
 
-  /// When I type a new "preferred username"
+  /// When I type a new "birth date"
   Future<void> enterBirthDate(String value) async {
     await tester.ensureVisible(birthdateField);
     await tester.tap(birthdateField);
