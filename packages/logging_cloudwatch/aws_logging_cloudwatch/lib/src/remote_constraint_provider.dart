@@ -129,8 +129,8 @@ base class BaseRemoteLoggingConstraintProvider
   @override
   LoggingConstraint? get loggingConstraint => _loggingConstraint;
 
-  Future<void> _loadConstraintFromLocalCache() async {
-    final localConstraint = await _fileStorage!.load(_cacheFileName);
+  Future<void> _loadConstraintFromLocalStorage() async {
+    final localConstraint = await _fileStorage?.load(_cacheFileName);
     if (localConstraint != null) {
       _loggingConstraint = LoggingConstraint.fromJson(
         jsonDecode(localConstraint) as Map<String, dynamic>,
@@ -140,7 +140,7 @@ base class BaseRemoteLoggingConstraintProvider
 
   /// Refreshes the constraint from the endpoint periodically.
   Future<void> _refreshConstraintPeriodically() async {
-    await _loadConstraintFromLocalCache();
+    await _loadConstraintFromLocalStorage();
     _timer = Timer.periodic(
       _config.refreshInterval,
       (_) => _fetchAndCacheConstraintFromEndpoint(),

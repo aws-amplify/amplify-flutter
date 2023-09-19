@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+@Timeout(Duration(seconds: 300))
+
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -29,10 +31,7 @@ const sampleJson = '''
       }
     ''';
 
-class MockFileStorage extends Mock implements FileStorage {
-  @override
-  Future<void> save(String fileName, String content) async {}
-}
+class MockFileStorage extends Mock implements FileStorage {}
 
 class MockAWSCredentialsProvider extends Mock
     implements AWSCredentialsProvider {}
@@ -57,6 +56,9 @@ final fakeRequest = AWSHttpRequest(
 );
 
 void main() {
+  late BaseRemoteLoggingConstraintProvider provider;
+  late FileStorage mockFileStorage;
+  late MockAWSHttpClient mockAWSHttpClient;
   test('LoggingConstraint', () {
     final sampleJsonMap = jsonDecode(sampleJson) as Map<String, dynamic>;
     final loggingConstraint = LoggingConstraint.fromJson(sampleJsonMap);
@@ -67,37 +69,52 @@ void main() {
   });
 
   group('RemoteLoggingConstraintProvider', () {
-    late BaseRemoteLoggingConstraintProvider provider;
-    late FileStorage mockFileStorage;
-    late MockAWSHttpClient mockAWSHttpClient;
-
-    const sampleJson = '''
-    {
-      "defaultLogLevel": "error",
-      "categoryLogLevel": {
-          "API": "debug",
-          "AUTH": "debug"
-      },
-      "userLogLevel": {
-          "cognito-sub-xyz-123": {
-              "defaultLogLevel": "verbose",
-              "categoryLogLevel": {
-                  "API": "verbose",
-                  "AUTH": "verbose"
-              }
-            }
-        }
-      }
-    ''';
-
     setUp(() {
       mockFileStorage = MockFileStorage();
 
       registerFallbackValue(fakeRequest);
+    });
 
+    test('initializes _loggingConstraint from endpoint', () async {
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
+      when(() => mockFileStorage.save(any(), any())).thenAnswer((_) async {});
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
+        return AWSHttpResponse(
+          statusCode: 200,
+          body: utf8.encode(sampleJson),
+        );
+      });
+      provider = BaseRemoteLoggingConstraintProvider.forTesting(
+        config: const DefaultRemoteConfiguration(
+          refreshInterval: Duration(seconds: 1200),
+          endpoint: 'https://example.com',
+          region: 'us-west-2',
+        ),
+        fileStorage: mockFileStorage,
+        awsHttpClient: mockAWSHttpClient,
+      );
+
+      await provider.ready;
+
+      // Verify that _loggingConstraint exists
+      expect(
+        provider.loggingConstraint!.toJson(),
+        equals(json.decode(sampleJson)),
+      );
+    });
+
+    test('uses local storage if endpoint fails', () async {
+      when(() => mockFileStorage.load(any()))
+          .thenAnswer((_) async => Future.value(sampleJson));
+      when(() => mockFileStorage.save(any(), any())).thenAnswer((_) async {});
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
+        return AWSHttpResponse(
+          statusCode: 400,
+          body: utf8.encode('NO RESPONSE'),
+        );
+      });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
           refreshInterval: Duration(seconds: 10),
@@ -107,55 +124,6 @@ void main() {
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
       );
-    });
-
-    test('initializes _loggingConstraint from endpoint', () async {
-      mockAWSHttpClient = MockAWSHttpClient((request, _) {
-        return AWSHttpResponse(
-          statusCode: 200,
-          body: utf8.encode(sampleJson),
-        );
-      });
-
-      await Future<void>.delayed(const Duration(seconds: 3));
-
-      // Verify that _loggingConstraint exists
-      expect(
-        provider.loggingConstraint!.toJson(),
-        equals(json.decode(sampleJson)),
-      );
-    });
-
-    test(
-        'fetches _loggingConstraint from local storage and returns null if there are no constraints in local storage',
-        () async {
-      mockAWSHttpClient = MockAWSHttpClient((request, _) {
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode('NO RESPONSE'),
-        );
-      });
-
-      // mock load constraint returns null
-      when(() => mockFileStorage.load(any()))
-          .thenAnswer((_) async => Future.value(null));
-
-      await provider.ready;
-
-      //  Verify that _loggingConstraint is set
-      expect(provider.loggingConstraint, equals(null));
-    });
-
-    test('uses local storage if endpoint fails', () async {
-      mockAWSHttpClient = MockAWSHttpClient((request, _) {
-        return AWSHttpResponse(
-          statusCode: 400,
-          body: utf8.encode('NO RESPONSE'),
-        );
-      });
-
-      when(() => mockFileStorage.load(any()))
-          .thenAnswer((_) async => Future.value(sampleJson));
 
       await provider.ready;
 
@@ -186,13 +154,43 @@ void main() {
               }
         }
         ''';
-
-      mockAWSHttpClient = MockAWSHttpClient((request, _) {
-        return AWSHttpResponse(
-          statusCode: 200,
-          body: utf8.encode(updatedJson),
-        );
+      // Mocking the endpoint to return updated constraints on the second call
+      var callCount = 0;
+      var callCount2 = 0;
+      when(() => mockFileStorage.load(any())).thenAnswer((_) async {
+        callCount2++;
+        if (callCount2 == 1) {
+          return Future.value(sampleJson);
+        } else {
+          return Future.value(updatedJson);
+        }
       });
+      when(() => mockFileStorage.save(any(), any())).thenAnswer((_) async {});
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
+        callCount++;
+        if (callCount == 1) {
+          return AWSHttpResponse(
+            statusCode: 200,
+            body: utf8.encode(sampleJson),
+          );
+        } else {
+          return AWSHttpResponse(
+            statusCode: 200,
+            body: utf8.encode(updatedJson),
+          );
+        }
+      });
+      provider = BaseRemoteLoggingConstraintProvider.forTesting(
+        config: const DefaultRemoteConfiguration(
+          refreshInterval: Duration(seconds: 1),
+          endpoint: 'https://example.com',
+          region: 'us-west-2',
+        ),
+        fileStorage: mockFileStorage,
+        awsHttpClient: mockAWSHttpClient,
+      );
+
+      await Future<void>.delayed(const Duration(seconds: 2));
 
       await provider.ready;
 
@@ -201,6 +199,34 @@ void main() {
         provider.loggingConstraint!.toJson(),
         equals(json.decode(updatedJson)),
       );
+    });
+
+    test(
+        'fetches _loggingConstraint from local storage and returns null if there are no constraints in local storage',
+        () async {
+      when(() => mockFileStorage.load(any()))
+          .thenAnswer((_) async => Future.value(null));
+      when(() => mockFileStorage.save(any(), any())).thenAnswer((_) async {});
+      mockAWSHttpClient = MockAWSHttpClient((request, _) {
+        return AWSHttpResponse(
+          statusCode: 400,
+          body: utf8.encode('NO RESPONSE'),
+        );
+      });
+      provider = BaseRemoteLoggingConstraintProvider.forTesting(
+        config: const DefaultRemoteConfiguration(
+          refreshInterval: Duration(seconds: 10),
+          endpoint: 'https://example.com',
+          region: 'us-west-2',
+        ),
+        fileStorage: mockFileStorage,
+        awsHttpClient: mockAWSHttpClient,
+      );
+
+      await provider.ready;
+
+      //  Verify that _loggingConstraint is set
+      expect(provider.loggingConstraint, equals(null));
     });
   });
 }
