@@ -85,8 +85,9 @@ void main() {
                   SignUpFormField.birthdate(
                     validator: (value) {
                       if (value == null || value.isEmpty) return null;
-                      final age =
-                          DateTime.now().difference(DateTime.parse(value));
+                      final age = DateTime.now().difference(
+                        DateTime.parse(value),
+                      );
                       if (age < const Duration(days: 365 * 18)) {
                         return 'You must be 18 years or older.';
                       }
