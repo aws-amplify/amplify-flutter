@@ -21,6 +21,15 @@ class SignUpPage extends AuthenticatorPage {
   Finder get phoneField => find.byKey(keyPhoneNumberSignUpFormField);
   Finder get preferredUsernameField =>
       find.byKey(keyPreferredUsernameSignUpFormField);
+  Finder get birthdateField => find.byKey(keyBirthdateSignUpFormField);
+  Finder get datePickerTextField => find.descendant(
+        of: find.byType(InputDatePickerFormField),
+        matching: find.byType(TextFormField),
+      );
+  Finder get datePickerOkayButton => find.descendant(
+        of: find.byType(DatePickerDialog),
+        matching: find.byType(TextButton).at(1),
+      );
   Finder get signUpButton => find.byKey(keySignUpButton);
 
   Finder get selectEmailButton => find.byKey(keyEmailUsernameToggleButton);
@@ -65,6 +74,16 @@ class SignUpPage extends AuthenticatorPage {
   Future<void> enterPreferredUsername(String username) async {
     await tester.ensureVisible(preferredUsernameField);
     await tester.enterText(preferredUsernameField, username);
+  }
+
+  /// When I type a new "birth date"
+  Future<void> enterBirthDate(String value) async {
+    await tester.ensureVisible(birthdateField);
+    await tester.tap(birthdateField);
+    await tester.pumpAndSettle();
+    await tester.enterText(datePickerTextField, value);
+    await tester.tap(datePickerOkayButton);
+    await tester.pumpAndSettle();
   }
 
   /// When I click the "Create Account" button
