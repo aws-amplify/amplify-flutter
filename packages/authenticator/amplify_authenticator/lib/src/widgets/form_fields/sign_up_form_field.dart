@@ -780,6 +780,9 @@ class _SignUpDateFieldState extends _SignUpFormFieldState<String>
 
   @override
   FormFieldValidator<String> get validator {
+    if (widget.validatorOverride != null) {
+      return widget.validatorOverride!;
+    }
     return simpleValidator(
       stringResolver.inputs.resolve(
         context,
