@@ -198,7 +198,7 @@ void main() {
     });
 
     test(
-        'fetches _loggingConstraint from local storage and returns null if there are no constraints in local storage',
+        'fetches loggingConstraint from local storage and returns null if there are no constraints in local storage',
         () async {
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(null));
