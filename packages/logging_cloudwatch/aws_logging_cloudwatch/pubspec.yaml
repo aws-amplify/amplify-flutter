@@ -16,7 +16,9 @@ dependencies:
   built_value: ">=8.6.0 <8.7.0"
   fixnum: ^1.1.0
   intl: ">=0.18.0 <1.0.0"
+  json_annotation: ^4.8.1
   meta: ^1.9.1
+  path: ^1.8.0
   smithy: ^0.5.0+3
   smithy_aws: ^0.5.0+3
 
