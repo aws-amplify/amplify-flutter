@@ -32,6 +32,10 @@ class WithSigV4 extends HttpRequestInterceptor {
   @override
   Future<AWSBaseHttpRequest> intercept(AWSBaseHttpRequest request) async {
     // Do not attempt to sign requests where auth is optional.
+    //
+    // This is only set in Cognito and SSO services where the trait indicates
+    // that signing is strictly unnecessary and that signing the request does
+    // not impact the behavior of the APIs.
     if (isOptional) return request;
 
     final signer = AWSSigV4Signer(
