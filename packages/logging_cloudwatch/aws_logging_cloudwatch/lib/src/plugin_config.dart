@@ -1,8 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+
+part 'plugin_config.g.dart';
 
 /// {@template aws_logging_cloudwatch.cloudwatch_logger_plugin_configuration}
 /// The configuration for `CloudWatchLoggerPlugin`.
@@ -15,7 +17,7 @@ class CloudWatchLoggerPluginConfiguration with AWSDebuggable {
     required this.localLoggingConstraint,
     this.enable = true,
     this.localStoreMaxSizeInMB = 5,
-    this.flushIntervalInSeconds = const Duration(seconds: 60),
+    this.flushInterval = const Duration(seconds: 60),
     this.defaultRemoteConfiguration,
   });
 
@@ -31,8 +33,8 @@ class CloudWatchLoggerPluginConfiguration with AWSDebuggable {
   /// The max size of the local store in MB to be used for storing logs locally.
   final int localStoreMaxSizeInMB;
 
-  /// The duration in seconds for sending locally stored logs to CloudWatch.
-  final Duration flushIntervalInSeconds;
+  /// The duration for sending locally stored logs to CloudWatch.
+  final Duration flushInterval;
 
   /// {@macro aws_logging_cloudwatch.logging_constraint}
   final LoggingConstraint localLoggingConstraint;
@@ -47,13 +49,59 @@ class CloudWatchLoggerPluginConfiguration with AWSDebuggable {
 /// {@template aws_logging_cloudwatch.logging_constraint}
 /// The logging constraint for sending logs to CloudWatch.
 /// {@endtemplate}
-class LoggingConstraint with AWSDebuggable {
+@zAmplifySerializable
+class LoggingConstraint with AWSDebuggable, AWSSerializable {
   /// {@macro aws_logging_cloudwatch.logging_constraint}
-  const LoggingConstraint({this.defaultLogLevel = LogLevel.error});
+  const LoggingConstraint({
+    this.defaultLogLevel = LogLevel.error,
+    this.categoryLogLevel,
+    this.userLogLevel,
+  });
+
+  /// Converts a [Map] to an [LoggingConstraint] instance.
+  factory LoggingConstraint.fromJson(Map<String, dynamic> json) =>
+      _$LoggingConstraintFromJson(json);
+
+  /// Converts an [LoggingConstraint] instance to a [Map].
+  @override
+  Map<String, dynamic> toJson() => _$LoggingConstraintToJson(this);
 
   /// The default [LogLevel] for sending logs to CloudWatch.
   final LogLevel defaultLogLevel;
 
+  /// The [LogLevel] for different categories.
+  final Map<String, LogLevel>? categoryLogLevel;
+
+  /// The [LogLevel] for different users.
+  final Map<String, UserLogLevel>? userLogLevel;
+
   @override
   String get runtimeTypeName => 'LoggingConstraint';
+}
+
+/// The logging constraint for user specific log level.
+@zAmplifySerializable
+class UserLogLevel with AWSDebuggable, AWSSerializable {
+  /// The logging constraint for user specific log level.
+  const UserLogLevel({
+    this.defaultLogLevel,
+    this.categoryLogLevel,
+  });
+
+  ///Converts a [Map] to a [UserLogLevel] instance.
+  factory UserLogLevel.fromJson(Map<String, dynamic> json) =>
+      _$UserLogLevelFromJson(json);
+
+  /// Converts a [UserLogLevel] instance to a [Map].
+  @override
+  Map<String, dynamic> toJson() => _$UserLogLevelToJson(this);
+
+  /// The default [LogLevel] for sending logs to CloudWatch.
+  final LogLevel? defaultLogLevel;
+
+  /// The [LogLevel] for different categories.
+  final Map<String, LogLevel>? categoryLogLevel;
+
+  @override
+  String get runtimeTypeName => 'UserLogLevel';
 }

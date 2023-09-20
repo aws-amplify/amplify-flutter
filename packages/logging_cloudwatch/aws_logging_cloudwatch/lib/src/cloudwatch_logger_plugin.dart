@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_logging_cloudwatch/src/stoppable_timer.dart';
@@ -76,9 +76,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
               region: pluginConfig.region,
               credentialsProvider: credentialsProvider,
             ) {
-    _timer = pluginConfig.flushIntervalInSeconds > Duration.zero
+    _timer = pluginConfig.flushInterval > Duration.zero
         ? StoppableTimer(
-            duration: pluginConfig.flushIntervalInSeconds,
+            duration: pluginConfig.flushInterval,
             callback: _startSyncingIfNotInProgress,
             onError: _onTimerError,
           )
