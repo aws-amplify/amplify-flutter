@@ -16,7 +16,6 @@ export 'config/serializers.dart';
 const falsePositiveExamples = [
   'aft',
   'smithy_codegen',
-  'smoke_test',
   'amplify_auth_cognito_test',
   'amplify_secure_storage_test',
   'amplify_native_legacy_wrapper',
