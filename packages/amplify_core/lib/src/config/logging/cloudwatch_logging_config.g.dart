@@ -21,7 +21,7 @@ CloudWatchPluginConfig _$CloudWatchPluginConfigFromJson(
           : DefaultRemoteConfiguration.fromJson(
               json['defaultRemoteConfiguration'] as Map<String, dynamic>),
       loggingConstraints: json['loggingConstraints'] == null
-          ? null
+          ? const LoggingConstraints()
           : LoggingConstraints.fromJson(
               json['loggingConstraints'] as Map<String, dynamic>),
     );
@@ -44,7 +44,7 @@ Map<String, dynamic> _$CloudWatchPluginConfigToJson(
 
   writeNotNull('defaultRemoteConfiguration',
       instance.defaultRemoteConfiguration?.toJson());
-  writeNotNull('loggingConstraints', instance.loggingConstraints?.toJson());
+  val['loggingConstraints'] = instance.loggingConstraints.toJson();
   return val;
 }
 

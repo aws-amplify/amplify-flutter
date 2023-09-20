@@ -6,6 +6,8 @@ import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_logging_cloudwatch/src/stoppable_timer.dart';
 import 'package:fixnum/fixnum.dart';
@@ -47,7 +49,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
   CloudWatchLoggerPlugin({
     required AWSCredentialsProvider credentialsProvider,
-    required CloudWatchLoggerPluginConfiguration pluginConfig,
+    required CloudWatchPluginConfig pluginConfig,
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
     CloudWatchLogStreamProvider? logStreamProvider,
     // TODO(nikahsn): remove after moving queued item store implementation from
@@ -60,6 +62,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
                 ? DefaultRemoteLoggingConstraintProvider(
                     config: pluginConfig.defaultRemoteConfiguration!,
                     credentialsProvider: credentialsProvider,
+                    region: pluginConfig.region,
                   )
                 : null),
         _client = CloudWatchLogsClient(
@@ -76,9 +79,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
               region: pluginConfig.region,
               credentialsProvider: credentialsProvider,
             ) {
-    _timer = pluginConfig.flushInterval > Duration.zero
+    _timer = pluginConfig.flushIntervalInSeconds > 0
         ? StoppableTimer(
-            duration: pluginConfig.flushInterval,
+            duration: Duration(seconds: pluginConfig.flushIntervalInSeconds),
             callback: _startSyncingIfNotInProgress,
             onError: _onTimerError,
           )
@@ -93,7 +96,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   @visibleForTesting
   CloudWatchLoggerPlugin.testPlugin({
     required CloudWatchLogsClient client,
-    required CloudWatchLoggerPluginConfiguration pluginConfig,
+    required CloudWatchPluginConfig pluginConfig,
     required CloudWatchLogStreamProvider logStreamProvider,
     required QueuedItemStore logStore,
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
@@ -104,7 +107,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         _logStreamProvider = logStreamProvider,
         _client = client;
 
-  final CloudWatchLoggerPluginConfiguration _pluginConfig;
+  final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
   final CloudWatchLogStreamProvider _logStreamProvider;
   final QueuedItemStore _logStore;
@@ -216,9 +219,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     logger.error('Failed to sync logs to CloudWatch.', e);
   }
 
-  LoggingConstraint _getLoggingConstraint() {
+  LoggingConstraints _getLoggingConstraint() {
     final result = _remoteLoggingConstraintProvider?.loggingConstraint;
-    return result ?? _pluginConfig.localLoggingConstraint;
+    return result ?? _pluginConfig.loggingConstraints;
   }
 
   Future<PutLogEventsResponse> _sendToCloudWatch(
@@ -273,7 +276,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       return false;
     }
     final loggingConstraint = _getLoggingConstraint();
-    return logEntry.level >= loggingConstraint.defaultLogLevel;
+    LogLevel defaultLogLevel;
+    try {
+      defaultLogLevel = LogLevel.values
+          .byName(loggingConstraint.defaultLogLevel.toLowerCase());
+    } on Object {
+      defaultLogLevel = LogLevel.values
+          .byName(const LoggingConstraints().defaultLogLevel.toLowerCase());
+    }
+    return logEntry.level >= defaultLogLevel;
   }
 
   @override

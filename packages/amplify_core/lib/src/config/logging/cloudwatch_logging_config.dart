@@ -39,7 +39,7 @@ class CloudWatchPluginConfig
     this.localStoreMaxSizeInMB = 5,
     this.flushIntervalInSeconds = 60,
     this.defaultRemoteConfiguration,
-    this.loggingConstraints,
+    this.loggingConstraints = const LoggingConstraints(),
   });
 
   factory CloudWatchPluginConfig.fromJson(Map<String, Object?> json) =>
@@ -54,7 +54,7 @@ class CloudWatchPluginConfig
   final int localStoreMaxSizeInMB;
   final int flushIntervalInSeconds;
   final DefaultRemoteConfiguration? defaultRemoteConfiguration;
-  final LoggingConstraints? loggingConstraints;
+  final LoggingConstraints loggingConstraints;
 
   @override
   String get name => pluginKey;

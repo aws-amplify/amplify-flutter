@@ -59,7 +59,7 @@ void main() {
   late MockAWSHttpClient mockAWSHttpClient;
   test('LoggingConstraint', () {
     final sampleJsonMap = jsonDecode(sampleJson) as Map<String, dynamic>;
-    final loggingConstraint = LoggingConstraint.fromJson(sampleJsonMap);
+    final loggingConstraint = LoggingConstraints.fromJson(sampleJsonMap);
     expect(
       loggingConstraint.toJson(),
       sampleJsonMap,
@@ -86,9 +86,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 1200),
+          refreshIntervalInSeconds: 1200,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -114,9 +113,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 10),
+          refreshIntervalInSeconds: 10,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -178,9 +176,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 1),
+          refreshIntervalInSeconds: 1,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -211,9 +208,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 10),
+          refreshIntervalInSeconds: 10,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,

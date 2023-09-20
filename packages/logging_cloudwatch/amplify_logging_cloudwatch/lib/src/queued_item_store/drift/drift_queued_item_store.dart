@@ -4,7 +4,8 @@
 import 'dart:async';
 
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart';
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+// ignore: implementation_imports
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:drift/drift.dart';
 
 part 'drift_queued_item_store.g.dart';
