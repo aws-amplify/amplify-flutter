@@ -1497,38 +1497,6 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "packages/aws_sdk/smoke_test"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      built_value:
-        patterns:
-          - "built_value"
-      xml:
-        patterns:
-          - "xml"
-      build_runner:
-        patterns:
-          - "build_runner"
-      built_value_generator:
-        patterns:
-          - "built_value_generator"
-      test:
-        patterns:
-          - "test"
-  - package-ecosystem: "pub"
     directory: "packages/aws_signature_v4"
     schedule:
       interval: "daily"
