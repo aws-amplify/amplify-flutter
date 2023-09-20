@@ -15,5 +15,5 @@ abstract interface class FileStorage {
   Future<void> save(String fileName, String data);
 
   /// Load constraint from file
-  Future<String?> load(String filename);
+  Future<String?> load(String fileName);
 }
