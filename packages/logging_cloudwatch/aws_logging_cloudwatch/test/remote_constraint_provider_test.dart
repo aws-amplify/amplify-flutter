@@ -73,7 +73,7 @@ void main() {
       registerFallbackValue(fakeRequest);
     });
 
-    test('initializes _loggingConstraint from endpoint', () async {
+    test('initializes loggingConstraint from endpoint', () async {
       when(() => mockFileStorage.load(any()))
           .thenAnswer((_) async => Future.value(sampleJson));
 
