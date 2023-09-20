@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@Timeout(Duration(seconds: 300))
-
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -98,7 +96,6 @@ void main() {
 
       await provider.ready;
 
-      // Verify that _loggingConstraint exists
       expect(
         provider.loggingConstraint!.toJson(),
         equals(json.decode(sampleJson)),
@@ -127,7 +124,6 @@ void main() {
 
       await provider.ready;
 
-      // Verify that _loggingConstraint uses local storage
       expect(
         provider.loggingConstraint!.toJson(),
         equals(json.decode(sampleJson)),
@@ -195,7 +191,6 @@ void main() {
 
       await provider.ready;
 
-      // Verify that _loggingConstraint got updated
       expect(
         provider.loggingConstraint!.toJson(),
         equals(json.decode(updatedJson)),
@@ -226,7 +221,6 @@ void main() {
 
       await provider.ready;
 
-      // Verify that _loggingConstraint is set
       expect(provider.loggingConstraint, equals(null));
     });
   });
