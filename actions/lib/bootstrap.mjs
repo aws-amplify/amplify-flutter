@@ -3,6 +3,7 @@
 
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
+import * as github from '@actions/github';
 import * as httpClient from '@actions/http-client';
 import * as toolCache from '@actions/tool-cache';
 import * as childProcess from 'node:child_process';
@@ -20,6 +21,7 @@ const require = createRequire(import.meta.url);
 globalThis.self = globalThis;
 globalThis.core = core;
 globalThis.exec = exec;
+globalThis.github = github;
 globalThis.HttpClient = httpClient.HttpClient;
 globalThis.toolCache = toolCache;
 globalThis.fs = fs;
