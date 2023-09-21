@@ -15057,7 +15057,7 @@
             case 6:
               // returning from await.
               $async$goto = 7;
-              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["commit", "-m", "chore(deps): Bump dependencies"], t2)), $async$_deputyScan);
+              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["commit", "-m", '"chore(deps): Bump dependencies"'], t2)), $async$_deputyScan);
             case 7:
               // returning from await.
               for (t1 = updates.get$entries(updates), t1 = t1.get$iterator(t1), t3 = "## Updates\n\n"; t1.moveNext$0(); t3 = t4) {
