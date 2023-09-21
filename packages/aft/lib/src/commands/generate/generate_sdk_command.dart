@@ -11,7 +11,6 @@ import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:git/git.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
