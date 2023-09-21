@@ -10,7 +10,8 @@ import 'package:actions/src/node/process.dart';
 external Core get core;
 
 @JS()
-extension type Core(JSObject it) {
+@anonymous
+extension type Core._(JSObject it) {
   @JS('getInput')
   external String _getInput(String name);
 

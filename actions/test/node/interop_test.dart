@@ -70,7 +70,7 @@ void main() {
           ),
         );
         await check(proc.onSpawn).completes();
-        check(proc.pid?.toDartInt).isNotNull().isGreaterThan(0);
+        check(proc.pid).isNotNull().isGreaterThan(0);
       });
 
       test('spawn (pipe)', () async {
@@ -100,7 +100,7 @@ void main() {
           ),
         );
         await check(proc.onSpawn).completes();
-        check(proc.pid?.toDartInt).isNotNull().isGreaterThan(0);
+        check(proc.pid).isNotNull().isGreaterThan(0);
       });
     });
 
