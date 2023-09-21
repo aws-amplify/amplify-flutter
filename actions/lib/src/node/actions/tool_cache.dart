@@ -9,7 +9,7 @@ external ToolCache get toolCache;
 // https://www.npmjs.com/package/@actions/tool-cache
 @JS()
 @anonymous
-extension type ToolCache._(JSObject it) {
+extension type ToolCache._(JSObject it) implements JSObject {
   @JS('find')
   external String _find(
     String toolName,

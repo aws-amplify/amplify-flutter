@@ -58,70 +58,98 @@ abstract base class VersionResolver {
             'Constaints without a lower or upper bound are not supported',
           );
         }
-        // ^1.0.0
-        if (currentConstraint == VersionConstraint.compatibleWith(lowerBound)) {
-          if (latestVersion < upperBound) {
-            return null;
-          }
-          if (includeBreakingChanges) {
-            return VersionConstraint.compatibleWith(latestVersion);
-          }
-          logger.warn(
-            'Breaking change detected for $package: $latestVersion '
-            '(current constraint: $currentConstraint)',
-          );
-          return null;
-        }
-        final versionWindow = switch ((
-          upperBound.major - lowerBound.major,
-          upperBound.minor - lowerBound.minor,
-        )) {
-          (> 0, _) => _VersionWindow.major,
-          (_, > 0) => _VersionWindow.minor,
-          _ => _VersionWindow.patch,
-        };
 
-        switch (versionWindow) {
-          case _VersionWindow.major:
-          case _VersionWindow.minor:
-          case _VersionWindow.patch:
-        }
-
-        // ">=1.1.0 <1.2.0"
-        if (lowerBound.major == upperBound.major &&
-            lowerBound.minor == upperBound.minor - 1 &&
-            includeLowerBound &&
-            !includeUpperBound) {
-          if (latestVersion < upperBound) {
-            return null;
-          }
-          return VersionRange(
-            min: Version(latestVersion.major, latestVersion.minor, 0),
-            includeMin: true,
-            max: Version(latestVersion.major, latestVersion.minor + 1, 0),
-            includeMax: false,
-          );
-        }
         if ((includeUpperBound
             ? latestVersion <= upperBound
             : latestVersion < upperBound)) {
           return null;
         }
-        if (latestVersion >= upperBound.nextBreaking &&
-            !includeBreakingChanges) {
+
+        final isBreakingChange = latestVersion >= upperBound.nextBreaking;
+        if (isBreakingChange && !includeBreakingChanges) {
           logger.warn(
             'Breaking change detected for $package: $latestVersion '
             '(current constraint: $currentConstraint)',
           );
           return null;
         }
-        // ">=1.1.0 <1.4.3"
-        return VersionRange(
-          min: lowerBound,
-          includeMin: includeLowerBound,
-          max: latestVersion,
-          includeMax: includeUpperBound,
-        );
+
+        // ^1.0.0
+        if (currentConstraint == VersionConstraint.compatibleWith(lowerBound)) {
+          return VersionConstraint.compatibleWith(latestVersion);
+        }
+
+        // Determine the version window, i.e. the difference between the lower
+        // and upper bound.
+        final versionWindow = switch ((
+          upperBound.major - lowerBound.major,
+          upperBound.minor - lowerBound.minor,
+        )) {
+          (> 0, _) => _VersionWindow.major,
+          (_, 1) => _VersionWindow.singleMinor,
+          (_, > 1) => _VersionWindow.multipleMinor,
+          _ => _VersionWindow.patch,
+        };
+
+        // Slide the window.
+        switch ((versionWindow, isBreaking: isBreakingChange)) {
+          // ">3.0.5 <6.0.0"
+          case (_VersionWindow.major, isBreaking: true):
+            return VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: Version(latestVersion.major + 1, 0, 0),
+              includeMax: includeUpperBound,
+            );
+          case (_VersionWindow.major, isBreaking: false):
+            return VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: latestVersion,
+              includeMax: includeUpperBound,
+            );
+
+          // ">=1.1.0 <1.2.0"
+          case (_VersionWindow.singleMinor, isBreaking: _):
+            return VersionRange(
+              min: Version(latestVersion.major, latestVersion.minor, 0),
+              includeMin: includeLowerBound,
+              max: Version(latestVersion.major, latestVersion.minor + 1, 0),
+              includeMax: includeUpperBound,
+            );
+
+          // ">=1.1.0 <1.4.3"
+          case (_VersionWindow.multipleMinor, isBreaking: true):
+            return VersionRange(
+              min: Version(latestVersion.major, 0, 0),
+              includeMin: includeLowerBound,
+              max: Version(latestVersion.major, latestVersion.minor + 1, 0),
+              includeMax: includeUpperBound,
+            );
+          case (_VersionWindow.multipleMinor, isBreaking: false):
+            return VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: latestVersion,
+              includeMax: includeUpperBound,
+            );
+
+          // ">=3.0.6 <=3.0.8"
+          case (_VersionWindow.patch, isBreaking: true):
+            return VersionRange(
+              min: latestVersion,
+              includeMin: true,
+              max: latestVersion,
+              includeMax: true,
+            );
+          case (_VersionWindow.patch, isBreaking: false):
+            return VersionRange(
+              min: lowerBound,
+              includeMin: includeLowerBound,
+              max: latestVersion,
+              includeMax: true,
+            );
+        }
     }
   }
 }
@@ -187,4 +215,4 @@ final class PubVersionResolver extends VersionResolver {
   }
 }
 
-enum _VersionWindow { patch, minor, major }
+enum _VersionWindow { patch, singleMinor, multipleMinor, major }
