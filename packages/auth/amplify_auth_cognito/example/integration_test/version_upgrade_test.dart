@@ -25,7 +25,7 @@ void main() {
 
   group(
     'should migrate a user session from the legacy plugin',
-    skip: true || zIsWeb || !(Platform.isIOS || Platform.isAndroid),
+    skip: true,
     () {
       final legacyPlugin = AmplifyNativeLegacyWrapper();
 
