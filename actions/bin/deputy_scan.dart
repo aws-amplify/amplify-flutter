@@ -35,7 +35,7 @@ Future<void> _deputyScan() async {
   await deputy.repo.git.runCommand([
     'commit',
     '-m',
-    'chore(deps): Bump dependencies',
+    '"chore(deps): Bump dependencies"',
   ]);
   final prBody = StringBuffer('''
 ## Updates
