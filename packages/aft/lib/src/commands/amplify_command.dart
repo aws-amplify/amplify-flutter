@@ -1,19 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-import 'dart:io';
+import 'dart:io' show Platform, stderr, stdin, stdout;
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/config/config_loader.dart';
-import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:cli_util/cli_util.dart';
-import 'package:git/git.dart' as git;
+import 'package:file/file.dart';
+import 'package:file/local.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
+import 'package:process/process.dart';
 
 /// Base class for all commands in this package providing common functionality.
 abstract class AmplifyCommand extends Command<void>
@@ -21,6 +19,12 @@ abstract class AmplifyCommand extends Command<void>
   AmplifyCommand() {
     init();
   }
+
+  final ProcessManager processManager = const LocalProcessManager();
+  final FileSystem fileSystem = const LocalFileSystem();
+  late final VersionResolver versionResolver = PubVersionResolver(
+    httpClient: httpClient,
+  );
 
   /// Initializer which runs when this command is instantiated.
   ///
@@ -71,13 +75,13 @@ abstract class AmplifyCommand extends Command<void>
   late final Directory workingDirectory = () {
     final directory = globalResults?['directory'] as String?;
     if (directory == null) {
-      return Directory.current;
+      return fileSystem.currentDirectory;
     }
-    return Directory(directory);
+    return fileSystem.directory(directory);
   }();
 
   late final AftConfigLoader aftConfigLoader = AftConfigLoader(
-    workingDirectory: workingDirectory,
+    workingDirectory: workingDirectory.uri.toFilePath(),
   );
 
   /// The processed `aft` configuration for the repo with packages and
@@ -88,7 +92,7 @@ abstract class AmplifyCommand extends Command<void>
   final AWSHttpClient httpClient = AWSHttpClient();
 
   /// The root directory of the Amplify Flutter repo.
-  late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
+  late final Directory rootDir = fileSystem.directory(aftConfig.rootDirectory);
 
   /// All packages in the Amplify Flutter repo.
   late final Map<String, PackageInfo> repoPackages =
@@ -112,7 +116,7 @@ abstract class AmplifyCommand extends Command<void>
   late final String? flutterRoot = () {
     final dartSdkPath = getSdkPath();
     final flutterBin = p.dirname(p.dirname(dartSdkPath));
-    if (File(p.join(flutterBin, 'flutter')).existsSync()) {
+    if (fileSystem.file(p.join(flutterBin, 'flutter')).existsSync()) {
       return p.dirname(flutterBin);
     }
     return null;
@@ -123,13 +127,15 @@ abstract class AmplifyCommand extends Command<void>
   /// Runs `git` with the given [args] from the repo's root directory.
   Future<void> runGit(
     List<String> args, {
+    String? processWorkingDir,
     bool echoOutput = false,
   }) =>
-      git.runGit(
+      processManager.runGit(
         args,
-        processWorkingDir: rootDir.path,
+        processWorkingDir: processWorkingDir ?? rootDir.path,
         throwOnError: true,
-        echoOutput: echoOutput,
+        stdout: echoOutput ? stdout.writeln : null,
+        stderr: echoOutput ? stderr.writeln : null,
       );
 
   /// Displays a prompt to the user and waits for a response on stdin.
@@ -148,50 +154,20 @@ abstract class AmplifyCommand extends Command<void>
     return answer == 'y' || answer == 'yes';
   }
 
-  /// Resolves the latest version information from `pub.dev`.
-  Future<PubVersionInfo?> resolveVersionInfo(String package) async {
-    // Get the currently published version of the package.
-    final uri = Uri.parse('https://pub.dev/api/packages/$package');
-    final request = AWSHttpRequest.get(
-      uri,
-      headers: const {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
-    );
-    final resp = await httpClient.send(request).response;
-    final body = await resp.decodeBody();
-
-    // Package is unpublished
-    if (resp.statusCode == 404) {
-      return null;
-    }
-    if (resp.statusCode != 200) {
-      throw AWSHttpException(request, body);
-    }
-
-    final respJson = jsonDecode(body) as Map<String, Object?>;
-    final versions = (respJson['versions'] as List<Object?>?) ?? <Object?>[];
-    final semvers = <Version>[];
-    for (final version in versions) {
-      final map = (version as Map).cast<String, Object?>();
-      final semver = map['version'] as String?;
-      if (semver == null) {
-        continue;
-      }
-      semvers.add(Version.parse(semver));
-    }
-
-    return PubVersionInfo(semvers..sort());
-  }
-
   @override
   @mustCallSuper
   Future<void> run() async {
     if (globalResults?['verbose'] as bool? ?? false) {
       AWSLogger().logLevel = LogLevel.verbose;
     }
+    repo = await Repo.open(
+      aftConfig,
+      logger: logger,
+      processManager: processManager,
+    );
     logger
-      ..info('Found Dart SDK: $activeDartSdkVersion')
+      ..info('Found Dart SDK: ${repo.activeDartSdkVersion}')
       ..verbose('Got configuration: $aftConfig');
-    repo = await Repo.open(aftConfig, logger: logger);
   }
 
   @override
