@@ -22,6 +22,46 @@ Future<void> _deputyScan() async {
     processManager: processManager,
     logger: logger,
   );
-  final result = await deputy.scanAndUpdate();
-  core.setOutput('has-updates', '$result');
+  final updates = await deputy.scanAndUpdate();
+  if (updates == null) {
+    return core.info('No updates needed');
+  }
+  await deputy.repo.git.runCommand([
+    'checkout',
+    '-b',
+    'chore/deps/${DateTime.now().millisecondsSinceEpoch}',
+  ]);
+  await deputy.repo.git.runCommand(['add', '*.yaml']);
+  await deputy.repo.git.runCommand([
+    'commit',
+    '-m',
+    'chore(deps): Bump dependencies',
+  ]);
+  final prBody = StringBuffer('''
+## Updates
+
+''');
+  for (final MapEntry(key: packageName, value: updatedConstraint)
+      in updates.entries) {
+    prBody.writeln('- Updated $packageName to `$updatedConstraint`');
+  }
+  final tmpFile = nodeFileSystem.systemTempDirectory
+      .createTempSync('deputy')
+      .childFile('pr_body.txt')
+    ..createSync()
+    ..writeAsStringSync(prBody.toString());
+  final prResult = processManager.runSync(<String>[
+    'gh',
+    'pr',
+    'create',
+    '--base=main',
+    '--body-file=${tmpFile.path}',
+    '--title="chore(deps): Bump dependencies"',
+    '--draft',
+  ]);
+  if (prResult.exitCode != 0) {
+    core.setFailed(
+      'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
+    );
+  }
 }
