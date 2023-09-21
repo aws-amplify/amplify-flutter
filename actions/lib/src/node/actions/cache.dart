@@ -10,7 +10,8 @@ external Cache get cache;
 /// 
 /// See: https://www.npmjs.com/package/@actions/cache
 @JS()
-extension type Cache(JSObject it) {
+@anonymous
+extension type Cache._(JSObject it) {
   /// Returns true if Actions cache service feature is available, otherwise false.
   external bool isFeatureAvailable();
   

@@ -19,7 +19,7 @@ extension type ChildProcess(JSObject it) {
   @JS('spawn')
   external NodeChildProcess _spawn(
     String command, 
-    List<String> args, 
+    JSArray args, 
     _ChildProcessOptions options,
   );
 
@@ -58,18 +58,18 @@ extension type ChildProcess(JSObject it) {
         encoding: 'utf8',
         shell: runInShell ? '/bin/sh' : null,
       ),
-      (JSError? error, JSString stdout, JSString stderr) {
+      (JSError? error, String stdout, String stderr) {
         if (error != null) {
           return completer.completeError(
-            ProcessException(command, args, error.message.toDart),
+            ProcessException(command, args, error.message),
           );
         }
         completer.complete(
           ProcessResult(
-            child.pid?.toDartInt ?? -1,
-            child.exitCode!.toDartInt,
-            stdout.toDart,
-            stderr.toDart,
+            child.pid ?? -1,
+            child.exitCode!,
+            stdout,
+            stderr,
           ),
         );
       }.toJS,
@@ -112,7 +112,7 @@ extension type ChildProcess(JSObject it) {
       );
     } on Object catch (e) {
       final message = switch (e) {
-        JSError _ => e.message.toDart,
+        JSError _ => e.message,
         _ => e.toString(),
       };
       throw ProcessException(command, args, message);
@@ -138,7 +138,7 @@ extension type ChildProcess(JSObject it) {
     }.toJS;
     return _spawn(
       command, 
-      args, 
+      args.map((arg) => arg.toJS).toList().toJS, 
       _ChildProcessOptions(
         cwd: workingDirectory,
         env: {
@@ -175,7 +175,8 @@ extension type _ChildProcessOptions._(JSObject it) {
 }
 
 @JS()
-extension type NodeChildProcess(JSObject it) implements EventEmitter {
+@anonymous
+extension type NodeChildProcess._(JSObject it) implements EventEmitter {
   Future<void> get onSpawn => once('spawn');
   Future<JSObject> get onError => once('error');
   Future<JSNumber> get onExit => once('exit');
@@ -183,15 +184,16 @@ extension type NodeChildProcess(JSObject it) implements EventEmitter {
   external bool kill([String signal]);
 
   /// This is only set once the process has exited.
-  external JSNumber? get exitCode;
-  external JSNumber? get pid;
+  external int? get exitCode;
+  external int? get pid;
   external NodeWriteableStream? get stdin;
   external NodeReadableStream? get stdout;
   external NodeReadableStream? get stderr;
 }
 
 @JS()
-extension type NodeReadableStream(JSObject it) implements EventEmitter {
+@anonymous
+extension type NodeReadableStream._(JSObject it) implements EventEmitter {
   Stream<List<int>> get stream {
     final controller = StreamController<List<int>>(sync: true);
     void onData(JSUint8Array chunk) {
@@ -223,7 +225,7 @@ extension type NodeReadableStream(JSObject it) implements EventEmitter {
 }
 
 @JS()
-extension type EventEmitter(JSObject it) implements JSObject {
+extension type EventEmitter._(JSObject it) implements JSObject {
   external void addListener(String eventName, JSFunction? listener);
 
   external void removeListener(String eventName, JSFunction? listener);
@@ -249,6 +251,7 @@ extension type EventEmitter(JSObject it) implements JSObject {
 }
 
 @JS()
-extension type NodeWriteableStream(JSObject it) {
-  external void write(JSUint8Array chunk, [JSString? encoding, JSFunction flushCallback]);
+@anonymous
+extension type NodeWriteableStream._(JSObject it) {
+  external void write(JSUint8Array chunk, [String? encoding, JSFunction flushCallback]);
 }

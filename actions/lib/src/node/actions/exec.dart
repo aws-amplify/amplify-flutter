@@ -9,7 +9,8 @@ import 'dart:js_util';
 external Exec get exec;
 
 @JS()
-extension type Exec(JSObject it) {
+@anonymous
+extension type Exec._(JSObject it) {
   @JS('exec')
   external JSPromise _exec(
     String commandLine, [
@@ -37,9 +38,9 @@ extension type Exec(JSObject it) {
         stderr: ((JSUint8Array buffer) =>
             stderr.write(utf8.decode(buffer.toDart))).toJS,
       ),
-      silent: (!echoOutput).toJS,
-      cwd: workingDirectory?.toJS,
-      ignoreReturnCode: (!failOnNonZeroExit).toJS,
+      silent: !echoOutput,
+      cwd: workingDirectory,
+      ignoreReturnCode: !failOnNonZeroExit,
     );
     try {
       final exitCode = await promiseToFuture<int>(
@@ -64,20 +65,18 @@ extension type Exec(JSObject it) {
 
 @JS()
 @anonymous
-@staticInterop
-class _ExecOptions {
+extension type _ExecOptions._(JSObject it) {
   external factory _ExecOptions({
     _ExecListeners? listeners,
-    JSString? cwd,
-    JSBoolean? silent,
-    JSBoolean? ignoreReturnCode,
+    String? cwd,
+    bool? silent,
+    bool? ignoreReturnCode,
   });
 }
 
 @JS()
 @anonymous
-@staticInterop
-class _ExecListeners {
+extension type _ExecListeners._(JSObject it) {
   external factory _ExecListeners({
     JSFunction? stdout,
     JSFunction? stderr,

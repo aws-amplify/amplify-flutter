@@ -7,14 +7,14 @@ import 'dart:js_interop';
 external OperatingSystem get os;
 
 @JS()
-extension type OperatingSystem(JSObject it) {
+extension type OperatingSystem._(JSObject it) {
   external String tmpdir();
   external JSArray cpus();
-  external JSNumber freemem();
+  external int freemem();
 
   /// Number of logical cores
   int get numCores => cpus().toDart.length;
 
   /// Available memory, in megabytes
-  int get availableRam => freemem().toDartInt ~/ (1 << 20);
+  int get availableRam => freemem() ~/ (1 << 20);
 }
