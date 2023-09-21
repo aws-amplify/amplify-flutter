@@ -56,7 +56,7 @@ class CognitoSendUserAttributeVerificationCodeOptions
       _$CognitoSendUserAttributeVerificationCodeOptionsToJson(this);
 }
 
+/// {@macro amplify_auth_cognito.cognito_send_user_attribute_verification_code_options}
 @Deprecated(_deprecatedMessage)
-// ignore: public_member_api_docs
 typedef CognitoResendUserAttributeConfirmationCodeOptions
     = CognitoSendUserAttributeVerificationCodeOptions;

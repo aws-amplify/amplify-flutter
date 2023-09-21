@@ -1292,11 +1292,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
             ),
           );
 
+  /// {@macro amplify_core.amplify_auth_category.send_attribute_verification_code}
   @Deprecated('Use sendUserAttributeVerificationCode.')
-  Future<SendUserAttributeVerificationCodeResult>
+  Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
     required AuthUserAttributeKey userAttributeKey,
-    SendUserAttributeVerificationCodeOptions? options,
+    ResendUserAttributeConfirmationCodeOptions? options,
   }) =>
           identifyCall(
             AuthCategoryMethod.sendUserAttributeVerificationCode,

@@ -7,7 +7,7 @@ part 'send_user_attribute_verification_code_result.g.dart';
 
 /// {@category Auth}
 /// {@template amplify_core.send_user_attribute_verification_code_result}
-/// Wraps the result of a resend user confirmation code operation.
+/// Wraps the result of a send user verification code operation.
 /// {@endtemplate}
 @zAmplifySerializable
 class SendUserAttributeVerificationCodeResult
@@ -41,6 +41,7 @@ class SendUserAttributeVerificationCodeResult
       _$SendUserAttributeVerificationCodeResultToJson(this);
 }
 
+/// {@macro amplify_core.send_user_attribute_verification_code_result}
 @Deprecated('Use SendUserAttributeVerificationCodeResult.')
 typedef ResendUserAttributeConfirmationCodeResult
     = SendUserAttributeVerificationCodeResult;

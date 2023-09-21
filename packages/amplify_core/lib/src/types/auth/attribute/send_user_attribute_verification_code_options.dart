@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// {@category Auth}
 /// {@template amplify_core.send_attribute_verification_code_options}
-/// The shared resend user attribute confirmation code options among all Auth
+/// The shared send user attribute verification code options among all Auth
 /// plugins.
 /// {@endtemplate}
 class SendUserAttributeVerificationCodeOptions
@@ -50,10 +50,13 @@ abstract class SendUserAttributeVerificationCodePluginOptions
   const SendUserAttributeVerificationCodePluginOptions();
 }
 
+/// {@macro amplify_core.send_attribute_verification_code_options}
 @Deprecated('Use SendUserAttributeVerificationCodeOptions.')
 typedef ResendUserAttributeConfirmationCodeOptions
     = SendUserAttributeVerificationCodeOptions;
 
+/// @nodoc
+/// {@macro amplify_core.auth.send_user_attribute_verification_code_plugin_options}
 @Deprecated('Use SendUserAttributeVerificationCodePluginOptions.')
 typedef ResendUserAttributeConfirmationCodePluginOptions
     = SendUserAttributeVerificationCodePluginOptions;

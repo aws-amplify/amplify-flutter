@@ -153,6 +153,7 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     );
   }
 
+  /// {@macro amplify_core.amplify_auth_category.send_attribute_verification_code}
   @Deprecated('Use sendUserAttributeVerificationCode instead.')
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
