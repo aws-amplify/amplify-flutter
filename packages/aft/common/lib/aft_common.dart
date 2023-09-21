@@ -14,6 +14,8 @@ export 'src/config/raw_config.dart';
 export 'src/config/script_template.dart';
 export 'src/config/serializers.dart'
     show JsonSerializer, VersionConstraintSerializer;
+export 'src/deputy/deputy.dart';
+export 'src/deputy/group.dart';
 export 'src/git/commit.dart';
 export 'src/git/commit_reference.dart';
 export 'src/git/git_dir.dart';

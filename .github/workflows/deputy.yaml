@@ -1,0 +1,26 @@
+name: deputy
+on:
+  pull_request: # TODO: Remove
+  schedule:
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+defaults:
+  run:
+    shell: bash
+
+permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - id: deputy
+        name: Deputy
+        uses: ./.github/composite_actions/deputy_scan
+      - name: Diff
+        run: git diff
