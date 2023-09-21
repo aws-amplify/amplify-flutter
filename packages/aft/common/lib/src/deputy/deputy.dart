@@ -95,7 +95,10 @@ final class Deputy {
   ///
   /// For each group in which there are updates, this proposes a new update
   /// by modifying the in-memory pubspec for each package.
-  Future<void> _proposeUpdates(List<Group> dependencyGroups) async {
+  Future<Map<String, VersionConstraint>> _proposeUpdates(
+    List<Group> dependencyGroups,
+  ) async {
+    final proposedUpdates = <String, VersionConstraint>{};
     for (final group in dependencyGroups) {
       if (group.globalConstraint case final globalConstraint?) {
         final updatedGlobalConstraint = versionResolver.updateFor(
@@ -107,6 +110,7 @@ final class Deputy {
           logger
             ?..info('Proposing global update to ${group.packageName}:')
             ..info('  $globalConstraint -> $updatedGlobalConstraint');
+          proposedUpdates[group.packageName] = updatedGlobalConstraint;
           repo.rootPubspecEditor.update(
             ['dependencies', group.packageName],
             updatedGlobalConstraint.toString(),
@@ -132,18 +136,20 @@ final class Deputy {
                 .containsKey(group.packageName)
             ? DependencyType.dependency
             : DependencyType.devDependency;
+        proposedUpdates[group.packageName] ??= updatedConstraint;
         package.pubspecInfo.pubspecYamlEditor.update(
           [dependencyType.key, group.packageName],
           updatedConstraint.toString(),
         );
       }
     }
+    return proposedUpdates;
   }
 
   /// Writes any propsed updates to disk.
   ///
   /// Returns `true` if there were updates and `false` if all packages are up-to-date.
-  Future<bool> _commitUpdates() async {
+  Future<void> _commitUpdates() async {
     final outdatedPacakges = [
       for (final package in repo.allPackages.values)
         if (package.pubspecInfo.pubspecYamlEditor case final editor
@@ -154,7 +160,7 @@ final class Deputy {
     ];
     if (outdatedPacakges.isEmpty) {
       logger?.info('All dependencies up-to-date');
-      return false;
+      return;
     }
     for (final (directory, editor) in outdatedPacakges) {
       final pubspecFile =
@@ -165,16 +171,19 @@ final class Deputy {
       pubspecFile.writeAsStringSync(editor.toString());
     }
     logger?.info("Updated ${outdatedPacakges.length} packages' pubspecs.");
-    return true;
   }
 
   /// Scans through all transitive third-party dependencies in the repo and proposes
   /// updates for those which have outdated constraints.
   ///
   /// Returns `true` if there were updates and `false` if all packages are up-to-date.
-  Future<bool> scanAndUpdate() async {
+  Future<Map<String, VersionConstraint>?> scanAndUpdate() async {
     final dependencyGroups = await _listDependencyGroups();
-    await _proposeUpdates(dependencyGroups);
-    return _commitUpdates();
+    final updates = await _proposeUpdates(dependencyGroups);
+    if (updates.isEmpty) {
+      return null;
+    }
+    await _commitUpdates();
+    return updates;
   }
 }
