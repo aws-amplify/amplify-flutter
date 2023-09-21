@@ -3,9 +3,7 @@
 
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
-import 'dart:js_util';
 
-import 'package:actions/src/node/actions/core.dart';
 import 'package:actions/src/node/process.dart';
 import 'package:aws_common/aws_common.dart';
 
@@ -29,25 +27,4 @@ void setupNodeTest() {
   globalContext['fs'] = fs;
   globalContext['childProcess'] = childProcess;
   globalContext['os'] = os;
-  globalContext['core'] = createDartExport(MockCore()) as Core;
-}
-
-@JSExport()
-final class MockCore {
-  String? _currentGroup;
-
-  void startGroup(String name) {
-    _currentGroup = name;
-    safePrint('[Start] $_currentGroup');
-  }
-
-  void endGroup() {
-    safePrint('[End] $_currentGroup');
-    _currentGroup = null;
-  }
-
-  void debug(String name) => safePrint(name);
-  void info(String name) => safePrint(name);
-  void warning(String name) => safePrint(name);
-  void error(String name) => safePrint(name);
 }
