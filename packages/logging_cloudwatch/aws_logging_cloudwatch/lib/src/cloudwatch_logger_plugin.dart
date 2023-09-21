@@ -129,65 +129,70 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   }
 
   Future<void> _startSyncingIfNotInProgress() async {
-    Future<void> startSyncing() async {
-      final batchStream = _getLogBatchesToSync();
-      await for (final (logs, events) in batchStream) {
-        _TooNewLogEventException? tooNewException;
-        while (logs.isNotEmpty && events.isNotEmpty) {
-          final rejectedLogEventsInfo =
-              (await _sendToCloudWatch(events)).rejectedLogEventsInfo;
-          if (rejectedLogEventsInfo == null) {
-            await _logStore.deleteItems(logs);
-            break;
+    await identifyCall(LoggingCategoryMethod.batchSend, () async {
+      Future<void> startSyncing() async {
+        final batchStream = _getLogBatchesToSync();
+
+        await for (final (logs, events) in batchStream) {
+          _TooNewLogEventException? tooNewException;
+
+          while (logs.isNotEmpty && events.isNotEmpty) {
+            final rejectedLogEventsInfo =
+                (await _sendToCloudWatch(events)).rejectedLogEventsInfo;
+
+            if (rejectedLogEventsInfo == null) {
+              await _logStore.deleteItems(logs);
+              break;
+            }
+
+            final (tooOldEndIndex, tooNewStartIndex) =
+                rejectedLogEventsInfo.parse(events.length);
+
+            if (_isValidIndex(tooNewStartIndex, events.length)) {
+              tooNewException = _TooNewLogEventException(
+                events[tooNewStartIndex!].timestamp.toInt(),
+              );
+
+              logs.removeRange(tooNewStartIndex, events.length);
+              events.removeRange(tooNewStartIndex, events.length);
+            }
+
+            if (_isValidIndex(tooOldEndIndex, events.length)) {
+              await _logStore.deleteItems(
+                logs.sublist(0, tooOldEndIndex! + 1),
+              );
+
+              logs.removeRange(0, tooOldEndIndex + 1);
+              events.removeRange(0, tooOldEndIndex + 1);
+            }
           }
 
-          final (tooOldEndIndex, tooNewStartIndex) =
-              rejectedLogEventsInfo.parse(events.length);
-
-          if (_isValidIndex(tooNewStartIndex, events.length)) {
-            tooNewException = _TooNewLogEventException(
-              events[tooNewStartIndex!].timestamp.toInt(),
-            );
-            // set logs to end before the index.
-            logs.removeRange(tooNewStartIndex, events.length);
-            // set events to end before the index.
-            events.removeRange(tooNewStartIndex, events.length);
-          }
-          if (_isValidIndex(tooOldEndIndex, events.length)) {
-            // remove old logs from log store.
-            await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
-            // set logs to start after the index.
-            logs.removeRange(0, tooOldEndIndex + 1);
-            // set events to start after the index.
-            events.removeRange(0, tooOldEndIndex + 1);
+          if (tooNewException != null) {
+            throw tooNewException;
           }
         }
-        // after sending each batch to CloudWatch check if the batch has
-        // `tooNewException` and throw to stop syncing next batches.
-        if (tooNewException != null) {
-          throw tooNewException;
+      }
+
+      if (!_syncing) {
+        _syncing = true;
+
+        DateTime? nextRetry;
+
+        try {
+          await startSyncing();
+        } on _TooNewLogEventException catch (e) {
+          nextRetry = DateTime.fromMillisecondsSinceEpoch(
+            e.timeInMillisecondsSinceEpoch,
+          ).add(_minusMaxLogEventTimeInFuture);
+        } on Exception catch (e) {
+          logger.error('Failed to sync logs to CloudWatch.', e);
+        } finally {
+          _handleFullLogStoreAfterSync(retryTime: nextRetry);
+
+          _syncing = false;
         }
       }
-    }
-
-    if (!_syncing) {
-      _syncing = true;
-      DateTime? nextRetry;
-      try {
-        await startSyncing();
-      } on _TooNewLogEventException catch (e) {
-        nextRetry =
-            DateTime.fromMillisecondsSinceEpoch(e.timeInMillisecondsSinceEpoch)
-                .add(_minusMaxLogEventTimeInFuture);
-      } on Exception catch (e) {
-        logger.error('Failed to sync logs to CloudWatch.', e);
-      } finally {
-        _handleFullLogStoreAfterSync(
-          retryTime: nextRetry,
-        );
-        _syncing = false;
-      }
-    }
+    });
   }
 
   void _handleFullLogStoreAfterSync({
@@ -325,7 +330,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Sends logs on-demand to CloudWatch.
   Future<void> flushLogs() async {
-    await _startSyncingIfNotInProgress();
+    await identifyCall(
+      LoggingCategoryMethod.flush,
+      _startSyncingIfNotInProgress,
+    );
   }
 
   @override

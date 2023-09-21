@@ -46,6 +46,9 @@ enum Category {
   /// Listen for or dispatch Amplify events
   hub,
 
+  /// Logging
+  logging,
+
   /// Upload and download files from the cloud
   storage,
 
@@ -58,6 +61,7 @@ enum Category {
         Category.auth => 'Auth',
         Category.dataStore => 'DataStore',
         Category.hub => 'Hub',
+        Category.logging => 'Logging',
         Category.storage => 'Storage',
         Category.pushNotifications => 'PushNotifications',
       };
