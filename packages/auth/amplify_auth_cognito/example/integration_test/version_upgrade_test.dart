@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
-final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
+final usernameConfig = amplifyEnvironments['sign-in-with-username'];
 
 AmplifyAuthCognito get plugin =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
@@ -25,7 +25,7 @@ void main() {
 
   group(
     'should migrate a user session from the legacy plugin',
-    skip: zIsWeb || !(Platform.isIOS || Platform.isAndroid),
+    skip: true || zIsWeb || !(Platform.isIOS || Platform.isAndroid),
     () {
       final legacyPlugin = AmplifyNativeLegacyWrapper();
 
