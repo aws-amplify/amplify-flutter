@@ -1,3 +1,8 @@
+## 1.4.2
+
+### Fixes
+- fix(aft): Constraints edge cases ([#3732](https://github.com/aws-amplify/amplify-flutter/pull/3732))
+
 ## 1.4.1
 
 ### Fixes
