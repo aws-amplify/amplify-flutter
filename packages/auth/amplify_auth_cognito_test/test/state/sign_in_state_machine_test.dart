@@ -142,7 +142,7 @@ void main() {
       );
 
       fetchAuthSessionStateMachine.stream.listen(
-        (_) => throw StateError('.signIn() should not fetch auth session.'),
+        (_) => fail('.signIn() should not fetch auth session.'),
       );
 
       expect(
