@@ -4,7 +4,7 @@
 import 'dart:js_interop';
 
 @JS()
-extension type HttpClient._(JSObject it) {
+extension type HttpClient._(JSObject it) implements JSObject {
   external HttpClient([
     String? userAgent,
     JSArray? handlers,
@@ -26,7 +26,7 @@ extension type HttpClient._(JSObject it) {
 
 @JS()
 @anonymous
-extension type TypedResponse<T extends JSAny>._(JSObject it) {
+extension type TypedResponse<T extends JSAny>._(JSObject it) implements JSObject {
   external factory TypedResponse({
     int statusCode,
     T result,

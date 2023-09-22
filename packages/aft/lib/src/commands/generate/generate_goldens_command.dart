@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:file/local.dart';
-import 'package:git/git.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -117,10 +116,12 @@ class GenerateGoldensCommand extends AmplifyCommand {
     final latestVersion = versions.last.toString();
     logger.info('Updating models to Smithy $latestVersion');
 
-    final gitDir = await GitDir.fromExisting(tmpDir.path);
+    final gitDir = await GitDir.fromExisting(
+      tmpDir.path,
+      processManager: processManager,
+    );
     await gitDir.runCommand(
       ['checkout', latestVersion],
-      echoOutput: false,
       throwOnError: true,
     );
 

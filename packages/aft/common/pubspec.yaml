@@ -1,0 +1,36 @@
+name: aft_common
+description: Common types and utilities shared between AFT and other local development tools.
+publish_to: none
+
+environment:
+  sdk: "^3.0.0"
+
+dependencies:
+  async: ^2.10.0
+  aws_common: any
+  built_collection: ^5.1.1
+  built_value: ">=8.6.0 <8.7.0"
+  collection: ^1.18.0
+  file: ">=6.0.0 <8.0.0"
+  glob: ^2.1.2
+  graphs: ^2.1.0
+  json_annotation: ">=4.8.1 <4.9.0"
+  markdown: ^7.1.1
+  meta: ^1.10.0
+  mustache_template: ^2.0.0
+  path: ^1.8.3
+  platform: ^3.1.2
+  process: ^5.0.0
+  pub_semver: ^2.1.4
+  pubspec_parse: ^1.2.3
+  test: ^1.22.1
+  test_descriptor: ^2.0.1
+  yaml: ^3.1.2
+  yaml_edit: ^2.1.1
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  build_runner: ^2.4.0
+  built_value_generator: 8.6.1
+  checks: ^0.2.2
+  json_serializable: 6.7.1

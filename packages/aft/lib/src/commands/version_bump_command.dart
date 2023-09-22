@@ -5,11 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/changelog/changelog.dart';
-import 'package:aft/src/changelog/printer.dart';
 import 'package:aft/src/options/git_ref_options.dart';
 import 'package:aft/src/options/glob_options.dart';
-import 'package:aft/src/repo.dart';
 
 /// Command for bumping package versions across the repo.
 class VersionBumpCommand extends AmplifyCommand

@@ -15,7 +15,7 @@ external ChildProcess get childProcess;
 
 @JS()
 @anonymous
-extension type ChildProcess(JSObject it) {
+extension type ChildProcess(JSObject it) implements JSObject {
   @JS('spawn')
   external NodeChildProcess _spawn(
     String command, 
@@ -163,7 +163,7 @@ extension type ChildProcess(JSObject it) {
 
 @JS()
 @anonymous
-extension type _ChildProcessOptions._(JSObject it) {
+extension type _ChildProcessOptions._(JSObject it) implements JSObject {
   external factory _ChildProcessOptions({
     String? cwd,
     JSObject? env,
@@ -252,6 +252,6 @@ extension type EventEmitter._(JSObject it) implements JSObject {
 
 @JS()
 @anonymous
-extension type NodeWriteableStream._(JSObject it) {
+extension type NodeWriteableStream._(JSObject it) implements JSObject {
   external void write(JSUint8Array chunk, [String? encoding, JSFunction flushCallback]);
 }

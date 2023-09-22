@@ -3,12 +3,10 @@
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/constraints_checker.dart';
-import 'package:aft/src/repo.dart';
+import 'package:aft_common/descriptors.dart' as d;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:yaml_edit/yaml_edit.dart';
-
-import 'helpers/descriptors.dart' as d;
 
 extension on Repo {
   PackageInfo get amplifyCore => this['amplify_core'];

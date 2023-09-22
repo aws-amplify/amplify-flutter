@@ -10,7 +10,7 @@ external GitHub get github;
 
 @JS()
 @anonymous
-extension type GitHub._(JSObject it) {
+extension type GitHub._(JSObject it) implements JSObject {
   /// The GitHub context this action is running in.
   /// 
   /// See: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
