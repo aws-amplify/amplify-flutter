@@ -22,25 +22,27 @@ Future<void> _deputyScan() async {
     processManager: processManager,
     logger: logger,
   );
-  final updates = await deputy.scanAndUpdate();
+  final updates = await core.withGroup(
+    'Scan for Updates',
+    deputy.scanAndUpdate,
+  );
   if (updates == null) {
     return core.info('No updates needed');
   }
+  final git = deputy.repo.git;
   await core.withGroup('Diff', () async {
-    await deputy.repo.git.runCommand(['diff']);
+    await git.runCommand(['diff']);
   });
   await core.withGroup('Commit Changes', () async {
-    await deputy.repo.git.runCommand([
-      'checkout',
-      '-b',
-      'chore/deps/${DateTime.now().millisecondsSinceEpoch}',
-    ]);
-    await deputy.repo.git.runCommand(['add', '*.yaml']);
-    await deputy.repo.git.runCommand([
+    final branchName = 'chore/deps/${DateTime.now().millisecondsSinceEpoch}';
+    await git.runCommand(['checkout', '-b', branchName]);
+    await git.runCommand(['add', '*.yaml']);
+    await git.runCommand([
       'commit',
       '-m',
       '"chore(deps): Bump dependencies"',
     ]);
+    await git.runCommand(['push', '-u', 'origin', branchName]);
   });
   await core.withGroup('Create PR', () async {
     final prBody = StringBuffer('''
