@@ -9369,7 +9369,7 @@
     OctokitPullsActions_list(_this) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.List_JSObject),
-        $async$returnValue, t1, t2, $async$temp1, $async$temp2;
+        $async$returnValue, t1, t2, $async$temp1, $async$temp2, $async$temp3;
       var $async$OctokitPullsActions_list = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -9381,11 +9381,12 @@
               t2 = type$.JSObject;
               $async$temp1 = J;
               $async$temp2 = type$.List_nullable_Object;
+              $async$temp3 = t2;
               $async$goto = 3;
               return A._asyncAwait(A.promiseToFuture(A.callMethod(_this, "list", [{owner: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).owner), repo: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).repo), state: "open"}], t2), type$.nullable_Object), $async$OctokitPullsActions_list);
             case 3:
               // returning from await.
-              $async$returnValue = $async$temp1.cast$1$0$ax($async$temp2._as($async$result), t2);
+              $async$returnValue = $async$temp1.cast$1$0$ax($async$temp2._as($async$temp3._as($async$result).data), t2);
               // goto return
               $async$goto = 1;
               break;

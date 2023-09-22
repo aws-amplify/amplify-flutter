@@ -63,7 +63,7 @@ extension type OctokitPullsActions._(JSObject it) {
       ),
     );
     final response = await promise.toDart;
-    return (response as ListPullRequestsResponse).toList();
+    return (response as ListPullRequestsResponse).pulls;
   }
 }
 
@@ -80,8 +80,8 @@ extension type ListJobsForWorkflowRunParams._(JSObject it) {
 @JS()
 @anonymous
 extension type ListJobsForWorkflowRunResponse._(JSObject it) {
-  @JS('jobs')
-  external JSArray _jobs;
+  @JS('data.jobs')
+  external JSArray get _jobs;
 
   List<Job> get jobs => _jobs.toDart.cast<Job>();
 }
@@ -98,8 +98,11 @@ extension type ListPullRequestsParams._(JSObject it) {
 
 @JS()
 @anonymous
-extension type ListPullRequestsResponse._(JSArray it) {
-  List<PullRequest> toList() => it.toDart.cast();
+extension type ListPullRequestsResponse._(JSObject it) {
+  @JS()
+  external JSArray get data;
+  
+  List<PullRequest> get pulls => data.toDart.cast();
 }
 
 @JS()
