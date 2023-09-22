@@ -10114,13 +10114,12 @@
               // Function start
               t1 = J.cwd$0$x(self.process);
               $async$goto = 3;
-              return A._asyncAwait(A.Repo_open(new A.AftConfigLoader(new A.Directory(t1)).load$0(0), fileSystem, platform, processManager), $async$Deputy_create);
+              return A._asyncAwait(A.Repo_open(new A.AftConfigLoader(new A.Directory(t1)).load$0(0), fileSystem, logger, platform, processManager), $async$Deputy_create);
             case 3:
               // returning from await.
               repo = $async$result;
               A.AWSHttpClientImpl$();
-              t1 = A.AWSLogger_AWSLogger(A.AWSLogger_AWSLogger("AWS")._logger.get$fullName() + ".PubVersionResolver");
-              $async$returnValue = new A.Deputy(repo, new A.PubVersionResolver(A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.nullable_PubVersionInfo), t1));
+              $async$returnValue = new A.Deputy(repo, new A.PubVersionResolver(A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.nullable_PubVersionInfo), logger), logger);
               // goto return
               $async$goto = 1;
               break;
@@ -10131,9 +10130,10 @@
       });
       return A._asyncStartSync($async$Deputy_create, $async$completer);
     },
-    Deputy: function Deputy(t0, t1) {
+    Deputy: function Deputy(t0, t1, t2) {
       this.repo = t0;
       this.versionResolver = t1;
+      this.logger = t2;
     },
     Deputy__listDependencyGroups_closure: function Deputy__listDependencyGroups_closure(t0, t1) {
       this.$this = t0;
@@ -10307,7 +10307,7 @@
       this.index = t1;
       this._core$_name = t2;
     },
-    Repo_open(aftConfig, fileSystem, platform, processManager) {
+    Repo_open(aftConfig, fileSystem, logger, platform, processManager) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Repo),
         $async$returnValue, gitDir;
@@ -10323,7 +10323,6 @@
             case 3:
               // returning from await.
               gitDir = $async$result;
-              A.AWSLogger_AWSLogger(A.AWSLogger_AWSLogger("AWS")._logger.get$fullName() + ".Repo");
               $async$returnValue = new A.Repo(aftConfig, fileSystem, gitDir, A.LinkedHashMap_LinkedHashMap$_empty(type$.Record_2_String_and_String, type$.GitChanges), A.LinkedHashMap_LinkedHashMap$_empty(type$.PackageInfo, type$.ChangelogUpdate));
               // goto return
               $async$goto = 1;
@@ -14494,7 +14493,7 @@
     _deputyScan() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$returnValue, deputy, t1, t2, updates, _this, t3, logger;
+        $async$returnValue, deputy, t1, t2, updates, _this, logger;
       var $async$_deputyScan = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -14528,13 +14527,12 @@
               return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Diff", new A._deputyScan_closure(_this), type$.void), $async$_deputyScan);
             case 5:
               // returning from await.
-              t3 = type$.Null;
               $async$goto = 6;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Commit Changes", new A._deputyScan_closure0(_this), t3), $async$_deputyScan);
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Commit Changes", new A._deputyScan_closure0(_this), type$.Null), $async$_deputyScan);
             case 6:
               // returning from await.
               $async$goto = 7;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Create PR", new A._deputyScan_closure1(updates), t3), $async$_deputyScan);
+              return A._asyncAwait(A._createPr(_this, updates), $async$_deputyScan);
             case 7:
               // returning from await.
             case 1:
@@ -14543,6 +14541,26 @@
           }
       });
       return A._asyncStartSync($async$_deputyScan, $async$completer);
+    },
+    _createPr(git, updates) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void);
+      var $async$_createPr = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 2;
+              return A._asyncAwait(A.Core_withGroup(type$.JSObject._as(self.core), "Create PR", new A._createPr_closure(updates), type$.Null), $async$_createPr);
+            case 2:
+              // returning from await.
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$_createPr, $async$completer);
     },
     NodeGitDir_runCommand(_this, args) {
       var t1 = A.Stdout$(J.get$stdout$x(self.process)),
@@ -14556,7 +14574,7 @@
     _deputyScan_closure0: function _deputyScan_closure0(t0) {
       this.git = t0;
     },
-    _deputyScan_closure1: function _deputyScan_closure1(t0) {
+    _createPr_closure: function _createPr_closure(t0) {
       this.updates = t0;
     },
     printString(string) {
@@ -28651,7 +28669,7 @@
     _listDependencyGroups$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.List_Group),
-        $async$returnValue, $async$self = this, t1, t2, t3, t4, t5, t6, t7, t8, t9, latestVersion, groups;
+        $async$returnValue, $async$self = this, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, latestVersion, groups;
       var $async$_listDependencyGroups$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -28661,7 +28679,7 @@
               // Function start
               groups = A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.GroupBuilder);
               A.dfs($async$self.repo.getPackageGraph$1$includeDevDependencies(true), new A.Deputy__listDependencyGroups_closure($async$self, groups), type$.PackageInfo);
-              t1 = groups.get$values(groups), t2 = A._instanceType(t1), t2 = t2._eval$1("@<1>")._bind$1(t2._rest[1]), t1 = new A.MappedIterator(J.get$iterator$ax(t1.__internal$_iterable), t1._f, t2._eval$1("MappedIterator<1,2>")), t3 = type$._Future_nullable_Version, t4 = type$.nullable_Version, t5 = type$.Future_nullable_Version, t6 = $async$self.versionResolver, t2 = t2._rest[1];
+              t1 = groups.get$values(groups), t2 = A._instanceType(t1), t2 = t2._eval$1("@<1>")._bind$1(t2._rest[1]), t1 = new A.MappedIterator(J.get$iterator$ax(t1.__internal$_iterable), t1._f, t2._eval$1("MappedIterator<1,2>")), t3 = type$._Future_nullable_Version, t4 = type$.nullable_Version, t5 = type$.Future_nullable_Version, t6 = $async$self.versionResolver, t7 = $async$self.logger, t2 = t2._rest[1];
             case 3:
               // for condition
               if (!t1.moveNext$0()) {
@@ -28669,27 +28687,28 @@
                 $async$goto = 4;
                 break;
               }
-              t7 = t1.__internal$_current;
-              if (t7 == null)
-                t7 = t2._as(t7);
-              t8 = t7.get$_$this()._packageName;
-              t8.toString;
-              t8 = t6.latestVersion$1(t8);
-              if (!t5._is(t8)) {
-                t4._as(t8);
-                t9 = new A._Future($.Zone__current, t3);
-                t9._state = 8;
-                t9._resultOrListeners = t8;
-                t8 = t9;
+              t8 = t1.__internal$_current;
+              if (t8 == null)
+                t8 = t2._as(t8);
+              t7._logger.log$4(0, B.Level_FINE_500, "Getting latest version for " + A.S(t8.get$_$this()._packageName), null, null);
+              t9 = t8.get$_$this()._packageName;
+              t9.toString;
+              t9 = t6.latestVersion$1(t9);
+              if (!t5._is(t9)) {
+                t4._as(t9);
+                t10 = new A._Future($.Zone__current, t3);
+                t10._state = 8;
+                t10._resultOrListeners = t9;
+                t9 = t10;
               }
               $async$goto = 5;
-              return A._asyncAwait(t8, $async$_listDependencyGroups$0);
+              return A._asyncAwait(t9, $async$_listDependencyGroups$0);
             case 5:
               // returning from await.
               latestVersion = $async$result;
               if (latestVersion == null)
-                throw A.wrapException(A.StateError$("No version info found for package: " + A.S(t7.get$packageName())));
-              t7.get$_$this()._latestVersion = latestVersion;
+                throw A.wrapException(A.StateError$("No version info found for package: " + A.S(t8.get$packageName())));
+              t8.get$_$this()._latestVersion = latestVersion;
               // goto for condition
               $async$goto = 3;
               break;
@@ -28715,7 +28734,7 @@
     _proposeUpdates$body$Deputy(dependencyGroups) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Map_String_VersionConstraint),
-        $async$returnValue, $async$self = this, t1, t2, t3, t4, t5, t6, t7, _0_0, globalConstraint, t8, updatedGlobalConstraint, value, t9, value0, result, t10, packageName, updatedConstraint, dependencyType, t11, proposedUpdates;
+        $async$returnValue, $async$self = this, t1, t2, t3, t4, t5, t6, t7, t8, _0_0, globalConstraint, t9, updatedGlobalConstraint, t10, value, value0, result, t11, t12, packageName, constraint, updatedConstraint, dependencyType, t13, proposedUpdates;
       var $async$_proposeUpdates$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -28724,35 +28743,38 @@
             case 0:
               // Function start
               proposedUpdates = A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.VersionConstraint);
-              for (t1 = J.get$iterator$ax(dependencyGroups), t2 = $async$self.repo, t3 = t2.aftConfig.allPackages._map$_map, t4 = $async$self.versionResolver, t5 = type$.JSArray_SourceEdit, t6 = type$.YamlNode; t1.moveNext$0();) {
-                t7 = t1.get$current();
-                _0_0 = t7.globalConstraint;
+              for (t1 = J.get$iterator$ax(dependencyGroups), t2 = $async$self.repo, t3 = t2.aftConfig.allPackages._map$_map, t4 = $async$self.logger, t5 = $async$self.versionResolver, t6 = type$.JSArray_SourceEdit, t7 = type$.YamlNode; t1.moveNext$0();) {
+                t8 = t1.get$current();
+                _0_0 = t8.globalConstraint;
                 if (_0_0 != null) {
                   globalConstraint = _0_0;
-                  t8 = true;
+                  t9 = true;
                 } else {
                   globalConstraint = null;
-                  t8 = false;
+                  t9 = false;
                 }
-                if (t8) {
-                  t8 = t7.packageName;
-                  updatedGlobalConstraint = t4.updateFor$3(t8, globalConstraint, t7.latestVersion);
+                if (t9) {
+                  t9 = t8.packageName;
+                  updatedGlobalConstraint = t5.updateFor$3(t9, globalConstraint, t8.latestVersion);
                   if (updatedGlobalConstraint != null) {
-                    proposedUpdates.$indexSet(0, t8, updatedGlobalConstraint);
+                    t10 = t4._logger;
+                    t10.log$4(0, B.Level_INFO_800, "Proposing global update to " + t9 + ":", null, null);
+                    t10.log$4(0, B.Level_INFO_800, "  " + A.S(globalConstraint) + " -> " + updatedGlobalConstraint.toString$0(0), null, null);
+                    proposedUpdates.$indexSet(0, t9, updatedGlobalConstraint);
                     value = t2.__Repo_rootPubspecEditor_FI;
                     if (value === $) {
                       value = t2.__Repo_rootPubspec_FI;
                       if (value === $) {
-                        t9 = A.DirectoryX_get_pubspec(t2.get$rootDir());
-                        t9.toString;
+                        t10 = A.DirectoryX_get_pubspec(t2.get$rootDir());
+                        t10.toString;
                         t2.__Repo_rootPubspec_FI !== $ && A.throwLateFieldADI("rootPubspec");
-                        t2.__Repo_rootPubspec_FI = t9;
-                        value = t9;
+                        t2.__Repo_rootPubspec_FI = t10;
+                        value = t10;
                       }
                       value0 = value.__PubspecInfo_pubspecYamlEditor_FI;
                       if (value0 === $) {
-                        t9 = value.pubspecYaml;
-                        result = new A.YamlEditor(A._setArrayType([], t5), t9, A.loadYamlDocument(t9, null, false, null).contents, A.LinkedHashSet_LinkedHashSet$_empty(t6));
+                        t10 = value.pubspecYaml;
+                        result = new A.YamlEditor(A._setArrayType([], t6), t10, A.loadYamlDocument(t10, null, false, null).contents, A.LinkedHashSet_LinkedHashSet$_empty(t7));
                         result._initialize$0();
                         value.__PubspecInfo_pubspecYamlEditor_FI !== $ && A.throwLateFieldADI("pubspecYamlEditor");
                         value.__PubspecInfo_pubspecYamlEditor_FI = result;
@@ -28762,31 +28784,35 @@
                       t2.__Repo_rootPubspecEditor_FI !== $ && A.throwLateFieldADI("rootPubspecEditor");
                       value = t2.__Repo_rootPubspecEditor_FI = value;
                     }
-                    value.update$2(["dependencies", t8], updatedGlobalConstraint.toString$0(0));
+                    value.update$2(["dependencies", t9], updatedGlobalConstraint.toString$0(0));
                   }
                 }
-                for (t8 = t7.dependentPackages._map$_map, t8 = t8.get$entries(t8), t8 = t8.get$iterator(t8), t9 = t7.packageName, t7 = t7.latestVersion; t8.moveNext$0();) {
-                  t10 = t8.get$current();
-                  packageName = t10.key;
-                  updatedConstraint = t4.updateFor$3(t9, t10.value, t7);
+                for (t9 = t8.dependentPackages._map$_map, t9 = t9.get$entries(t9), t9 = t9.get$iterator(t9), t10 = t8.packageName, t11 = "Proposing update to " + t10 + " in ", t8 = t8.latestVersion; t9.moveNext$0();) {
+                  t12 = t9.get$current();
+                  packageName = t12.key;
+                  constraint = t12.value;
+                  updatedConstraint = t5.updateFor$3(t10, constraint, t8);
                   if (updatedConstraint == null)
                     continue;
-                  t10 = t3.$index(0, packageName);
-                  t10.toString;
-                  t10 = t10.pubspecInfo;
-                  dependencyType = t10.pubspec.dependencies.containsKey$1(t9) ? B.DependencyType_dependencies_0_dependency : B.DependencyType_dev_dependencies_1_devDependency;
-                  if (proposedUpdates.$index(0, t9) == null)
-                    proposedUpdates.$indexSet(0, t9, updatedConstraint);
-                  value = t10.__PubspecInfo_pubspecYamlEditor_FI;
+                  t12 = t4._logger;
+                  t12.log$4(0, B.Level_INFO_800, t11 + packageName + ":", null, null);
+                  t12.log$4(0, B.Level_INFO_800, "  " + constraint.toString$0(0) + " -> " + updatedConstraint.toString$0(0), null, null);
+                  t12 = t3.$index(0, packageName);
+                  t12.toString;
+                  t12 = t12.pubspecInfo;
+                  dependencyType = t12.pubspec.dependencies.containsKey$1(t10) ? B.DependencyType_dependencies_0_dependency : B.DependencyType_dev_dependencies_1_devDependency;
+                  if (proposedUpdates.$index(0, t10) == null)
+                    proposedUpdates.$indexSet(0, t10, updatedConstraint);
+                  value = t12.__PubspecInfo_pubspecYamlEditor_FI;
                   if (value === $) {
-                    t11 = t10.pubspecYaml;
-                    result = new A.YamlEditor(A._setArrayType([], t5), t11, A.loadYamlDocument(t11, null, false, null).contents, A.LinkedHashSet_LinkedHashSet$_empty(t6));
+                    t13 = t12.pubspecYaml;
+                    result = new A.YamlEditor(A._setArrayType([], t6), t13, A.loadYamlDocument(t13, null, false, null).contents, A.LinkedHashSet_LinkedHashSet$_empty(t7));
                     result._initialize$0();
-                    t10.__PubspecInfo_pubspecYamlEditor_FI !== $ && A.throwLateFieldADI("pubspecYamlEditor");
-                    t10.__PubspecInfo_pubspecYamlEditor_FI = result;
+                    t12.__PubspecInfo_pubspecYamlEditor_FI !== $ && A.throwLateFieldADI("pubspecYamlEditor");
+                    t12.__PubspecInfo_pubspecYamlEditor_FI = result;
                     value = result;
                   }
-                  value.update$2([dependencyType.key, t9], updatedConstraint.toString$0(0));
+                  value.update$2([dependencyType.key, t10], updatedConstraint.toString$0(0));
                 }
               }
               $async$returnValue = proposedUpdates;
@@ -28832,11 +28858,12 @@
                 t1.push(new A._Record_2(A._Uri__Uri$file(t2.get$rootDir().path, $.$get$Platform_isWindows()).toFilePath$0(), t2.get$rootPubspecEditor()));
               t3 = t1.length;
               if (t3 === 0) {
+                $async$self.logger.info$1(0, "All dependencies up-to-date");
                 // goto return
                 $async$goto = 1;
                 break;
               }
-              for (t4 = type$.Path, t5 = type$.FS, t2 = t2.fileSystem, t6 = type$.nullable_FS, t7 = type$.nullable_Path, _i = 0; _i < t1.length; t1.length === t3 || (0, A.throwConcurrentModificationError)(t1), ++_i) {
+              for (t4 = type$.Path, t5 = type$.FS, t2 = t2.fileSystem, t6 = type$.nullable_FS, t7 = type$.nullable_Path, _i = 0; t8 = t1.length, _i < t8; t1.length === t3 || (0, A.throwConcurrentModificationError)(t1), ++_i) {
                 t8 = t1[_i];
                 t9 = A.join(t2.getPath$1(t8._0), "pubspec.yaml");
                 if (A.FileStat_statSync(t9).type !== B.FileSystemEntityType_0)
@@ -28847,6 +28874,7 @@
                 t11 = $._path;
                 J.writeFileSync$2$x(t10, J.resolve$1$x(t4._as(t11 == null ? $._path = t7._as(self.require("path")) : t11), t9), t8);
               }
+              $async$self.logger.info$1(0, "Updated " + t8 + " packages' pubspecs.");
             case 1:
               // return
               return A._asyncReturn($async$returnValue, $async$completer);
@@ -28905,7 +28933,10 @@
       t2.addAll$1(0, t1.devDependencies);
       t1 = this.$this;
       t2.removeWhere$1(0, new A.Deputy__listDependencyGroups__closure(t1));
-      for (t2 = t2.get$entries(t2), t2 = t2.get$iterator(t2), t3 = $package.name, t1 = t1.repo.aftConfig.dependencies._map$_map, t4 = type$.nullable_VersionConstraint, t5 = this.groups, t6 = type$.HostedDependency, t7 = type$.MapBuilder_String_VersionConstraint; t2.moveNext$0();) {
+      t3 = $package.name;
+      t4 = A._instanceType(t2)._eval$1("LinkedHashMapKeyIterable<1>");
+      t1.logger.debug$1(0, "Found " + t2.__js_helper$_length + " dependencies for " + t3 + ": " + A._JsonStringStringifier_stringify(A.List_List$of(new A.LinkedHashMapKeyIterable(t2, t4), true, t4._eval$1("Iterable.E")), null, "  "));
+      for (t2 = t2.get$entries(t2), t2 = t2.get$iterator(t2), t1 = t1.repo.aftConfig.dependencies._map$_map, t4 = type$.nullable_VersionConstraint, t5 = this.groups, t6 = type$.HostedDependency, t7 = type$.MapBuilder_String_VersionConstraint; t2.moveNext$0();) {
         t8 = t2.get$current();
         _0_2 = A._InitializedCell$named("#0#2", new A.Deputy__listDependencyGroups__closure0(t8));
         dependency = t8.key;
@@ -31008,6 +31039,12 @@
     },
     verbose$1(message) {
       this._logger.log$4(0, B.Level_FINER_400, message, null, null);
+    },
+    debug$1(_, message) {
+      this._logger.log$4(0, B.Level_FINE_500, message, null, null);
+    },
+    info$1(_, message) {
+      this._logger.log$4(0, B.Level_INFO_800, message, null, null);
     },
     warn$1(_, message) {
       this._logger.log$4(0, B.Level_WARNING_900, message, null, null);
@@ -42341,7 +42378,7 @@
             case 2:
               // returning from await.
               $async$goto = 3;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t1, A._setArrayType(["add", "**/*.yaml"], t2)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t1, A._setArrayType(["add", "-A"], t2)), $async$call$0);
             case 3:
               // returning from await.
               $async$goto = 4;
@@ -42360,11 +42397,11 @@
     },
     $signature: 40
   };
-  A._deputyScan_closure1.prototype = {
+  A._createPr_closure.prototype = {
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$self = this, t1, t2, t3, _0_0, executable, args, result, t4;
+        $async$self = this, t1, t2, t3, t4, _0_0, executable, args, result;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -42372,19 +42409,21 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              for (t1 = $async$self.updates, t1 = t1.get$entries(t1), t1 = t1.get$iterator(t1), t2 = "> **NOTE:** This PR was automatically created using the repo's deputy action.\n\n## Updates\n\n"; t1.moveNext$0(); t2 = t3) {
-                t3 = t1.get$current();
-                t3 = t2 + ("- Updated " + t3.key + " to `" + t3.value.toString$0(0) + "`\n");
+              for (t1 = $async$self.updates, t2 = t1.get$entries(t1), t2 = t2.get$iterator(t2), t3 = "> **NOTE:** This PR was automatically created using the repo's deputy action.\n\n## Updates\n\n"; t2.moveNext$0(); t3 = t4) {
+                t4 = t2.get$current();
+                t4 = t3 + ("- Updated " + t4.key + " to `" + t4.value.toString$0(0) + "`\n");
               }
-              t1 = A.join(new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy").path, "pr_body.txt");
-              new A.File(t1).createSync$0();
-              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), t2.charCodeAt(0) == 0 ? t2 : t2);
+              t1 = t1.get$keys(t1);
+              t1 = t3 + "\n" + ("Updated-Packages: " + t1.join$1(t1, ", ") + "\n");
+              t3 = A.join(new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy").path, "pr_body.txt");
+              new A.File(t3).createSync$0();
+              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t3), t1.charCodeAt(0) == 0 ? t1 : t1);
               $.$get$processManager();
-              t1 = type$.List_Object._as(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, '--title="chore(deps): Bump dependencies"', "--draft"], type$.JSArray_String));
-              t2 = A._arrayInstanceType(t1)._eval$1("CastList<1,String>");
-              _0_0 = new A.CastList(t1, t2);
-              if (t1.length >= 1) {
-                executable = t2._rest[1]._as(t1[0]);
+              t3 = type$.List_Object._as(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t3, '--title="chore(deps): Bump dependencies"', "--draft"], type$.JSArray_String));
+              t1 = A._arrayInstanceType(t3)._eval$1("CastList<1,String>");
+              _0_0 = new A.CastList(t3, t1);
+              if (t3.length >= 1) {
+                executable = t1._rest[1]._as(t3[0]);
                 args = _0_0.sublist$1(_0_0, 1);
                 t1 = true;
               } else {
@@ -42665,7 +42704,7 @@
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.JsonUnsupportedObjectError, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError, A.BuiltValueNullFieldError, A.BuiltValueNestedFieldError, A.DeserializationError]);
     _inheritMany(A.ListBase, [A.UnmodifiableListBase, A.YamlListWrapper, A._YamlListNodes]);
     _inheritMany(A.UnmodifiableListBase, [A.CodeUnits, A.UnmodifiableListView]);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A.Deputy__listDependencyGroups__closure0, A._$_serializers_closure, A.VersionResolver_updateFor_closure, A.VersionResolver_updateFor_closure0, A.VersionResolver_updateFor_closure1, A.VersionResolver_updateFor_closure2, A.VersionResolver_updateFor_closure3, A.VersionResolver_updateFor_closure4, A.VersionResolver_updateFor_closure5, A.VersionResolver_updateFor_closure6, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._deputyScan_closure, A._deputyScan_closure0, A._deputyScan_closure1]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A.Deputy__listDependencyGroups__closure0, A._$_serializers_closure, A.VersionResolver_updateFor_closure, A.VersionResolver_updateFor_closure0, A.VersionResolver_updateFor_closure1, A.VersionResolver_updateFor_closure2, A.VersionResolver_updateFor_closure3, A.VersionResolver_updateFor_closure4, A.VersionResolver_updateFor_closure5, A.VersionResolver_updateFor_closure6, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._deputyScan_closure, A._deputyScan_closure0, A._createPr_closure]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable, A._HashMapKeyIterable, A._MapBaseValueIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A.ReversedListIterable, A.ListQueue, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -43596,6 +43635,7 @@
     B["JsonSerializer__#fromJson#tearOff1"] = new A.JsonSerializer(A.raw_config_AftScript___fromJson_tearOff$closure(), A.findType("JsonSerializer<AftScript>"));
     B["JsonSerializer__#fromJson#tearOff"] = new A.JsonSerializer(A.config_PackageInfo___fromJson_tearOff$closure(), A.findType("JsonSerializer<PackageInfo>"));
     B.Level_FINER_400 = new A.Level("FINER", 400);
+    B.Level_FINE_500 = new A.Level("FINE", 500);
     B.Level_INFO_800 = new A.Level("INFO", 800);
     B.Level_WARNING_900 = new A.Level("WARNING", 900);
     B.List_0 = A._setArrayType(makeConstList(["file", "directory", "link", "unixDomainSock", "pipe", "notFound"]), type$.JSArray_String);
