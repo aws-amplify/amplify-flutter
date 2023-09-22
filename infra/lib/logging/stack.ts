@@ -1,19 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Construct } from "constructs";
-import { IntegrationTestStackEnvironment, IntegrationTestStackEnvironmentProps, AmplifyCategory, IntegrationTestStack, randomBucketName } from "../common";
-import * as cdk from "aws-cdk-lib"
-import * as logs from "aws-cdk-lib/aws-logs"
-import * as path from "path"
-import * as iam from "aws-cdk-lib/aws-iam"
 import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
+import * as cdk from "aws-cdk-lib";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as logs from "aws-cdk-lib/aws-logs";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
+import { Construct } from "constructs";
+import * as path from "path";
+import { AmplifyCategory, IntegrationTestStack, IntegrationTestStackEnvironment, IntegrationTestStackEnvironmentProps, randomBucketName } from "../common";
 
-import * as s3 from "aws-cdk-lib/aws-s3"
-import * as lambda from "aws-cdk-lib/aws-lambda"
-import * as lambda_node from "aws-cdk-lib/aws-lambda-nodejs"
-import * as api_gateway from "aws-cdk-lib/aws-apigateway"
+import * as api_gateway from "aws-cdk-lib/aws-apigateway";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as lambda_node from "aws-cdk-lib/aws-lambda-nodejs";
+import * as s3 from "aws-cdk-lib/aws-s3";
 
 export class LoggingIntegrationTestStack extends IntegrationTestStack<LoggingIntegrationTestStackEnvironmentProps, LoggingIntegrationTestStackEnvironment> {
     constructor(
@@ -86,6 +86,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
                 publicReadAccess: false,
                 versioned: true,
                 removalPolicy: cdk.RemovalPolicy.DESTROY,
+                autoDeleteObjects: true,
                 enforceSSL: true,
                 blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             });
