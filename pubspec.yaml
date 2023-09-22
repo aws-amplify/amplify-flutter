@@ -18,12 +18,12 @@ dependencies:
   build_runner: ^2.4.0
   build_web_compilers: ^4.0.0
   built_value: ">=8.6.0 <8.7.0"
-  built_value_generator: 8.6.1
+  built_value_generator: 8.6.3
   code_builder: 4.6.0
   connectivity_plus: ^4.0.1
   # This must exactly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
-  dart_style: 2.3.2
+  dart_style: 2.3.3
   device_info_plus: ^9.0.0
   drift: ">=2.11.0 <2.12.0"
   ffigen: ^9.0.0
@@ -43,7 +43,7 @@ dependencies:
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
   win32: ">=4.1.2 <6.0.0"
-  xml: 6.3.0
+  xml: 6.4.2
   test: ^1.22.1
 
 aft:
