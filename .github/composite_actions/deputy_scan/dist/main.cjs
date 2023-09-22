@@ -42171,15 +42171,15 @@
               t1 = $async$self.git;
               t2 = type$.JSArray_String;
               $async$goto = 2;
-              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["checkout", "-b", branchName], t2)), $async$call$0);
+              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["checkout", "-b", branchName, "origin/main"], t2)), $async$call$0);
             case 2:
               // returning from await.
               $async$goto = 3;
-              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["add", "*.yaml"], t2)), $async$call$0);
+              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["add", "**/*.yaml"], t2)), $async$call$0);
             case 3:
               // returning from await.
               $async$goto = 4;
-              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["commit", "-m", '"chore(deps): Bump dependencies"'], t2)), $async$call$0);
+              return A._asyncAwait(t1.runCommand$1(A._setArrayType(["commit", "-m", '"chore(deps): Bump dependencies\n\nrequest-checks: true"'], t2)), $async$call$0);
             case 4:
               // returning from await.
               $async$goto = 5;

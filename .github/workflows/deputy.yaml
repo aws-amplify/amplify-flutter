@@ -9,6 +9,7 @@ defaults:
 
 # These permissions are needed for creating pull requests.
 permissions:
+  checks: write
   contents: write
   pull-requests: write
 
