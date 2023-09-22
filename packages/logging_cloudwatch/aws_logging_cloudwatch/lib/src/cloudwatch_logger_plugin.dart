@@ -305,7 +305,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
     if (isLogStoreFull && _shouldSyncOnFullLogStore()) {
       await identifyCall(
-        LoggingCategoryMethod.flush,
+        LoggingCategoryMethod.batchSend,
         _startSyncingIfNotInProgress,
       );
       // await _startSyncingIfNotInProgress();
