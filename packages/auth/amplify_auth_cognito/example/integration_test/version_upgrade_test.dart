@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// comment to trigger tests
+
 import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
