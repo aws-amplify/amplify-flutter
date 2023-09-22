@@ -100,12 +100,14 @@ class AuthTestRunner {
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
   }) async {
+    await Future<void>.delayed(const Duration(milliseconds: 100));
     final config = _amplifyEnvironments[environmentName]!;
     final hasApiPlugin = AmplifyConfig.fromJson(
           jsonDecode(config) as Map<String, dynamic>,
         ).api?.awsPlugin !=
         null;
     final authPlugin = AmplifyAuthTestPlugin(hasApiPlugin: hasApiPlugin);
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     await Amplify.addPlugins([
       authPlugin,
       if (hasApiPlugin)
@@ -114,6 +116,7 @@ class AuthTestRunner {
           baseHttpClient: baseClient,
         ),
     ]);
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     await Amplify.configure(config);
     await Amplify.Auth.signOut();
     addTearDown(
