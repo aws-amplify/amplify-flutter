@@ -21,6 +21,7 @@ export 'src/chromedriver/downloads.dart';
 export 'src/node/actions/cache.dart' hide Cache;
 export 'src/node/actions/core.dart' hide Core;
 export 'src/node/actions/exec.dart' hide Exec;
+export 'src/node/actions/github.dart' hide GitHub;
 export 'src/node/actions/http_request.dart';
 export 'src/node/actions/tool_cache.dart' hide ToolCache;
 export 'src/node/child_process.dart' hide ChildProcess;

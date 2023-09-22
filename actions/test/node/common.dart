@@ -4,6 +4,9 @@
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
+import 'package:actions/src/node/process.dart';
+import 'package:aws_common/aws_common.dart';
+
 @JS()
 external JSObject require(String module);
 
@@ -13,13 +16,15 @@ external JSObject require(String module);
 void setupNodeTest() {
   // Test dependencies needed via `require` since they
   // will not be linked by `dart test`.
-  final process = require('node:process');
+  final process = require('node:process') as Process;
   final fs = require('node:fs');
   final childProcess = require('node:child_process');
   final os = require('node:os');
 
-  globalContext['process'.toJS] = process;
-  globalContext['fs'.toJS] = fs;
-  globalContext['childProcess'.toJS] = childProcess;
-  globalContext['os'.toJS] = os;
+  safePrint('Node version: ${process.version}');
+
+  globalContext['process'] = process;
+  globalContext['fs'] = fs;
+  globalContext['childProcess'] = childProcess;
+  globalContext['os'] = os;
 }

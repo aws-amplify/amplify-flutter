@@ -7,7 +7,7 @@ import 'dart:js_interop';
 external OperatingSystem get os;
 
 @JS()
-extension type OperatingSystem._(JSObject it) {
+extension type OperatingSystem._(JSObject it) implements JSObject {
   external String tmpdir();
   external JSArray cpus();
   external int freemem();
