@@ -113,11 +113,15 @@ final class GitDir {
 
   Future<ProcessResult> runCommand(
     List<String> args, {
+    ProcessSink? stdout,
+    ProcessSink? stderr,
     bool throwOnError = true,
   }) {
     return processManager.runGit(
       args,
       throwOnError: throwOnError,
+      stdout: stdout,
+      stderr: stderr,
       processWorkingDir: path,
     );
   }
