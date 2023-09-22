@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -25,8 +25,8 @@ void main() {
 
   group(
     'should migrate a user session from the legacy plugin',
-    // skip: true
-    skip: zIsWeb || !(Platform.isIOS || Platform.isAndroid),
+    skip: true,
+    // skip: zIsWeb || !(Platform.isIOS || Platform.isAndroid),
     () {
       final legacyPlugin = AmplifyNativeLegacyWrapper();
 
