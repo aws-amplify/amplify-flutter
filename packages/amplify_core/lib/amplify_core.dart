@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: invalid_export_of_internal_element
-
 library amplify_core;
 
 import 'package:amplify_core/src/amplify_class.dart';
@@ -31,7 +29,6 @@ export 'src/config/notifications/notifications_config.dart';
 export 'src/config/storage/storage_config.dart';
 
 /// HTTP
-export 'src/http/amplify_category_method.dart';
 export 'src/http/amplify_http_client.dart';
 export 'src/http/amplify_user_agent.dart';
 
