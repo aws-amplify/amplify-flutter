@@ -15,7 +15,7 @@ dependencies:
   built_collection: ^5.0.0
   built_value: ">=8.6.0 <8.7.0"
   checked_yaml: ^2.0.0
-  cli_util: ^0.3.5
+  cli_util: ^0.4.0
   code_builder: 4.6.0
   collection: ^1.16.0
   file: ">=6.0.0 <8.0.0"
@@ -63,7 +63,7 @@ dependency_overrides:
 dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"
   build_runner: ^2.4.0
-  built_value_generator: 8.6.1
+  built_value_generator: 8.6.3
   checks: ^0.2.2
   json_serializable: 6.7.1
   test: ^1.22.1

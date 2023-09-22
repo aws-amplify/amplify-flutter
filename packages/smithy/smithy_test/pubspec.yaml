@@ -18,7 +18,7 @@ dependencies:
   smithy: any
   test: ^1.22.1
   tuple: ^2.0.0
-  xml: 6.3.0
+  xml: 6.4.2
 
 dev_dependencies:
   amplify_lints:
