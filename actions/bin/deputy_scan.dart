@@ -29,7 +29,7 @@ Future<void> _deputyScan() async {
   if (updates == null) {
     return core.info('No updates needed');
   }
-  final git = deputy.repo.git;
+  final git = NodeGitDir(deputy.repo.git);
   await core.withGroup('Diff', () => git.runCommand(['diff']));
   await core.withGroup('Commit Changes', () async {
     final branchName = 'chore/deps/${DateTime.now().millisecondsSinceEpoch}';
@@ -73,4 +73,12 @@ Future<void> _deputyScan() async {
       );
     }
   });
+}
+
+extension type NodeGitDir(GitDir it) {
+  Future<void> runCommand(List<String> args) => it.runCommand(
+    args, 
+    stdout: stdout.writeln, 
+    stderr: stderr.writeln,
+  );
 }
