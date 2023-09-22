@@ -39,20 +39,39 @@ Future<void> _deputyScan() async {
     await git.runCommand([
       'commit',
       '-m',
-      '"chore(deps): Bump dependencies\n\nrequest-checks: true"',
+      '"chore(deps): Bump dependencies"',
     ]);
     await git.runCommand(['push', '-u', 'origin', branchName]);
   });
+  if (await _hasExistingPr()) {
+    return;
+  }
   await _createPr(git, updates);
+}
+
+Future<bool> _hasExistingPr() async {
+  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
+  final existingPr = await core.withGroup('Check for existing PRs', () async {
+    final pulls = await octokit.rest.pulls.list();
+      for (final pull in pulls) {
+      final commitMessage = CommitMessage.parse('', pull.title, body: pull.body);
+      final trailer = commitMessage.trailers['Updated-Packages'];
+      if (trailer != null) {
+        return pull.number;
+      }
+    }
+    return null;
+  });
+  if (existingPr != null) {
+    core.info('Found existing PR: https://github.com/aws-amplify/amplify-flutter/pull/$existingPr');
+  }
+  return existingPr != null;
 }
 
 Future<void> _createPr(
   NodeGitDir git,
   Map<String, VersionConstraint> updates,
 ) async {
-  // await core.withGroup('Check for existing PR', () async {
-  //   final commits = await git.revList(baseCommit, headCommit)
-  // });
   await core.withGroup('Create PR', () async {
     final prBody = StringBuffer('''
 > **NOTE:** This PR was automatically created using the repo's deputy action.

@@ -59,6 +59,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
   const CommitMessage({
     required this.sha,
     required this.summary,
+    required this.body,
     required this.dateTime,
   });
 
@@ -79,6 +80,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
       return MergeCommitMessage(
         sha: sha,
         summary: mergeCommit.group(0)!,
+        body: body,
         dateTime: dateTime,
       );
     }
@@ -97,6 +99,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
       return UnconventionalCommitMessage(
         sha: sha,
         summary: summary,
+        body: body,
         dateTime: dateTime,
       );
     }
@@ -119,12 +122,13 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
       return UnconventionalCommitMessage(
         sha: sha,
         summary: summary,
+        body: body,
         dateTime: dateTime,
       );
     }
 
     if (type == CommitType.chore && scopes.singleOrNull == 'version') {
-      return VersionCommitMessage.parse(
+      return VersionCommitMessage(
         sha: sha,
         summary: summary,
         body: body,
@@ -134,6 +138,7 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     return ConventionalCommitMessage(
       sha: sha,
       summary: summary,
+      body: body,
       description: description,
       type: type,
       isBreakingChange: isBreakingChange,
@@ -167,6 +172,9 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
 
   /// The full, unmodified, commit summary.
   final String summary;
+
+  /// The body of the commit message.
+  final String body;
 
   /// The date/time the commit was made.
   final DateTime dateTime;
@@ -208,6 +216,16 @@ abstract class CommitMessage with AWSEquatable<CommitMessage> {
     return int.parse(match);
   }
 
+  /// Trailers of the commit's [body] message.
+  Map<String, String> get trailers {
+    return Map.fromEntries(
+      LineSplitter.split(body).where(_trailerRegex.hasMatch).map((line) {
+        final split = line.split(':');
+        return MapEntry(split[0], split[1].trim());
+      }),
+    );
+  }
+
   @override
   List<Object?> get props => [summary, dateTime];
 
@@ -223,6 +241,7 @@ class MergeCommitMessage extends CommitMessage {
   const MergeCommitMessage({
     required super.sha,
     required super.summary,
+    required super.body,
     required super.dateTime,
   });
 
@@ -238,6 +257,7 @@ class ConventionalCommitMessage extends CommitMessage {
   const ConventionalCommitMessage({
     required super.sha,
     required super.summary,
+    required super.body,
     required this.description,
     required this.type,
     required this.isBreakingChange,
@@ -324,6 +344,7 @@ class UnconventionalCommitMessage extends CommitMessage {
   const UnconventionalCommitMessage({
     required super.sha,
     required super.summary,
+    required super.body,
     required super.dateTime,
   });
 
@@ -342,41 +363,20 @@ class UnconventionalCommitMessage extends CommitMessage {
 /// {@endtemplate}
 class VersionCommitMessage extends CommitMessage {
   /// {@macro aft.changelog.version_commit_message}
-  factory VersionCommitMessage.parse({
-    required String sha,
-    required String summary,
-    required String body,
-    required DateTime dateTime,
-  }) {
-    final trailers = Map.fromEntries(
-      LineSplitter.split(body).where(_trailerRegex.hasMatch).map(
-            (line) => MapEntry(
-              line.split(':')[0],
-              line.split(':')[1].trim(),
-            ),
-          ),
-    );
-    final updatedComponentsStr = trailers['Updated-Components'];
-    final updatedComponents = updatedComponentsStr == null
-        ? const <String>[]
-        : updatedComponentsStr.split(',').map((el) => el.trim()).toList();
-    return VersionCommitMessage._(
-      sha: sha,
-      summary: summary,
-      updatedComponents: updatedComponents,
-      dateTime: dateTime,
-    );
-  }
-
-  const VersionCommitMessage._({
+  const VersionCommitMessage({
     required super.sha,
     required super.summary,
-    required this.updatedComponents,
+    required super.body,
     required super.dateTime,
   });
 
   /// The list of updated components or packages.
-  final List<String> updatedComponents;
+  List<String> get updatedComponents {
+    final updatedComponentsStr = trailers['Updated-Components'];
+    return updatedComponentsStr == null
+        ? const []
+        : updatedComponentsStr.split(',').map((el) => el.trim()).toList();
+  }
 
   @override
   CommitType get type => CommitType.version;
