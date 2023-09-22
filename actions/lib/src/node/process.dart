@@ -13,7 +13,7 @@ import 'package:actions/src/util.dart';
 external Process get process;
 
 @JS()
-extension type Process._(JSObject it) {
+extension type Process._(JSObject it) implements JSObject {
   /// The current Node version.
   external String get version;
 

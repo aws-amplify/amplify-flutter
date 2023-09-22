@@ -7,7 +7,6 @@ import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
-import 'package:yaml/yaml.dart';
 
 typedef MismatchedDependency = ({
   PackageInfo package,
@@ -449,20 +448,4 @@ extension on PackageInfo {
         includeMin: true,
         max: version.nextMinor,
       );
-}
-
-extension DependencyToYaml on Dependency {
-  YamlNode toYaml() => switch (this) {
-        HostedDependency(:final version) => YamlScalar.wrap(version.toString()),
-        PathDependency(:final path) => YamlMap.wrap({'path': path}),
-        SdkDependency(:final sdk) => YamlMap.wrap({'sdk': sdk}),
-        GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
-            'git': {
-              'url': url.toString(),
-              if (ref != null) 'ref': ref,
-              if (path != null) 'path': path,
-            },
-          }),
-        _ => throw StateError('Invalid dependency: $this'),
-      };
 }
