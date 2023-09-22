@@ -26,6 +26,7 @@ jobs:
         run: |
           git config --global user.email "amplify-flutter@amazon.com"
           git config --global user.name "Amplify Flutter"
-      - id: deputy
-        name: Deputy
+      - name: Deputy
         uses: ./.github/composite_actions/deputy_scan
+        env:
+          GH_TOKEN: ${{ github.token }}
