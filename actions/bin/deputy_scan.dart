@@ -30,9 +30,7 @@ Future<void> _deputyScan() async {
     return core.info('No updates needed');
   }
   final git = deputy.repo.git;
-  await core.withGroup('Diff', () async {
-    await git.runCommand(['diff']);
-  });
+  await core.withGroup('Diff', () => git.runCommand(['diff']));
   await core.withGroup('Commit Changes', () async {
     final branchName = 'chore/deps/${DateTime.now().millisecondsSinceEpoch}';
     await git.runCommand(['checkout', '-b', branchName]);
@@ -46,6 +44,8 @@ Future<void> _deputyScan() async {
   });
   await core.withGroup('Create PR', () async {
     final prBody = StringBuffer('''
+> **NOTE:** This PR was automatically created using the repo's deputy action.
+
 ## Updates
 
 ''');
