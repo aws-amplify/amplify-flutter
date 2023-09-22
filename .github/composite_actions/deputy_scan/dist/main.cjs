@@ -42337,7 +42337,7 @@
               t1 = $async$self.git;
               t2 = type$.JSArray_String;
               $async$goto = 2;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t1, A._setArrayType(["checkout", "-b", branchName, "origin/main"], t2)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t1, A._setArrayType(["checkout", "-b", branchName], t2)), $async$call$0);
             case 2:
               // returning from await.
               $async$goto = 3;
