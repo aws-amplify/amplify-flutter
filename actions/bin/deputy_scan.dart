@@ -33,7 +33,7 @@ Future<void> _deputyScan() async {
   await core.withGroup('Diff', () => git.runCommand(['diff']));
   await core.withGroup('Commit Changes', () async {
     final branchName = 'chore/deps/${DateTime.now().millisecondsSinceEpoch}';
-    await git.runCommand(['checkout', '-b', branchName, 'origin/main']);
+    await git.runCommand(['checkout', '-b', branchName]);
     await git.runCommand(['add', '**/*.yaml']);
     await git.runCommand([
       'commit',
