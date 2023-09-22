@@ -34,10 +34,14 @@ final class Deputy {
       platform: platform,
       fileSystem: fileSystem,
       processManager: processManager,
+      logger: logger,
     );
     return Deputy(
       repo: repo,
-      versionResolver: PubVersionResolver(),
+      versionResolver: PubVersionResolver(
+        logger: logger,
+      ),
+      logger: logger,
     );
   }
 
