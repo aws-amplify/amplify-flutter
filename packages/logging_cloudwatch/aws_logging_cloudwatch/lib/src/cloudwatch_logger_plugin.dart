@@ -156,20 +156,27 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
             tooNewException = _TooNewLogEventException(
               events[tooNewStartIndex!].timestamp.toInt(),
             );
+            // set logs to end before the index.
 
             logs.removeRange(tooNewStartIndex, events.length);
+            // set events to end before the index.
             events.removeRange(tooNewStartIndex, events.length);
           }
 
           if (_isValidIndex(tooOldEndIndex, events.length)) {
+            // remove old logs from log store.
             await _logStore.deleteItems(
               logs.sublist(0, tooOldEndIndex! + 1),
             );
-
+            // set logs to start after the index.
             logs.removeRange(0, tooOldEndIndex + 1);
+            // set events to start after the index.
             events.removeRange(0, tooOldEndIndex + 1);
           }
         }
+
+        // after sending each batch to CloudWatch check if the batch has
+        // `tooNewException` and throw to stop syncing next batches.
 
         if (tooNewException != null) {
           throw tooNewException;
