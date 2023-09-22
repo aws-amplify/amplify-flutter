@@ -11,7 +11,7 @@ dependencies:
     path: ../packages/aft/common
   aws_common: any
   collection: ^1.18.0
-  file: ^6.1.4
+  file: ^7.0.0
   js: ^0.6.7
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.10.0
