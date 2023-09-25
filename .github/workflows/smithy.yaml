@@ -50,7 +50,6 @@ jobs:
     with:
       package-name: smithy
       working-directory: packages/smithy/smithy
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
