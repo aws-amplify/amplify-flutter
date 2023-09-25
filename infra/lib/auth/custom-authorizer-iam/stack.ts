@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
-import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
@@ -134,7 +134,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
       domainName = `https://${apiGateway.domainName?.domainName}/prod/`;
     }
 
-    this.config = {
+    this.saveConfig({
       apiConfig: {
         apis: {
           [apiGateway.restApiName]: {
@@ -149,6 +149,6 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
           identityPoolId: identityPool.identityPoolId,
         },
       },
-    };
+    });
   }
 }
