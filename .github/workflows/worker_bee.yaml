@@ -48,4 +48,3 @@ jobs:
     with:
       package-name: worker_bee
       working-directory: packages/worker_bee/worker_bee
-      has-goldens: false
