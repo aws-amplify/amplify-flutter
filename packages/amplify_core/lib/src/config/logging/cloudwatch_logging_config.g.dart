@@ -65,10 +65,12 @@ Map<String, dynamic> _$DefaultRemoteConfigurationToJson(
 
 LoggingConstraints _$LoggingConstraintsFromJson(Map<String, dynamic> json) =>
     LoggingConstraints(
-      defaultLogLevel: json['defaultLogLevel'] as String? ?? 'ERROR',
+      defaultLogLevel:
+          $enumDecodeNullable(_$LogLevelEnumMap, json['defaultLogLevel']) ??
+              LogLevel.error,
       categoryLogLevel:
           (json['categoryLogLevel'] as Map<String, dynamic>?)?.map(
-                (k, e) => MapEntry(k, e as String),
+                (k, e) => MapEntry(k, $enumDecode(_$LogLevelEnumMap, e)),
               ) ??
               const {},
       userLogLevel: (json['userLogLevel'] as Map<String, dynamic>?)?.map(
@@ -80,14 +82,26 @@ LoggingConstraints _$LoggingConstraintsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$LoggingConstraintsToJson(LoggingConstraints instance) =>
     <String, dynamic>{
-      'defaultLogLevel': instance.defaultLogLevel,
-      'categoryLogLevel': instance.categoryLogLevel,
+      'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
+      'categoryLogLevel': instance.categoryLogLevel
+          .map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)),
       'userLogLevel':
           instance.userLogLevel.map((k, e) => MapEntry(k, e.toJson())),
     };
 
+const _$LogLevelEnumMap = {
+  LogLevel.verbose: 'VERBOSE',
+  LogLevel.debug: 'DEBUG',
+  LogLevel.info: 'INFO',
+  LogLevel.warn: 'WARN',
+  LogLevel.error: 'ERROR',
+  LogLevel.none: 'NONE',
+};
+
 UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(
-      defaultLogLevel: json['defaultLogLevel'] as String? ?? 'ERROR',
+      defaultLogLevel:
+          $enumDecodeNullable(_$LogLevelEnumMap, json['defaultLogLevel']) ??
+              LogLevel.error,
       categoryLogLevel:
           (json['categoryLogLevel'] as Map<String, dynamic>?)?.map(
                 (k, e) => MapEntry(k, e as String),
@@ -97,6 +111,6 @@ UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(
 
 Map<String, dynamic> _$UserLogLevelToJson(UserLogLevel instance) =>
     <String, dynamic>{
-      'defaultLogLevel': instance.defaultLogLevel,
+      'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
       'categoryLogLevel': instance.categoryLogLevel,
     };

@@ -276,15 +276,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       return false;
     }
     final loggingConstraint = _getLoggingConstraint();
-    LogLevel defaultLogLevel;
-    try {
-      defaultLogLevel = LogLevel.values
-          .byName(loggingConstraint.defaultLogLevel.toLowerCase());
-    } on Object {
-      defaultLogLevel = LogLevel.values
-          .byName(const LoggingConstraints().defaultLogLevel.toLowerCase());
-    }
-    return logEntry.level >= defaultLogLevel;
+    return logEntry.level >= loggingConstraint.defaultLogLevel;
   }
 
   @override

@@ -126,7 +126,7 @@ class LoggingConstraints
         AWSEquatable<LoggingConstraints>,
         AWSSerializable<Map<String, Object?>> {
   const LoggingConstraints({
-    this.defaultLogLevel = 'ERROR',
+    this.defaultLogLevel = LogLevel.error,
     this.categoryLogLevel = const {},
     this.userLogLevel = const {},
   });
@@ -134,8 +134,8 @@ class LoggingConstraints
   factory LoggingConstraints.fromJson(Map<String, Object?> json) =>
       _$LoggingConstraintsFromJson(json);
 
-  final String defaultLogLevel;
-  final Map<String, String> categoryLogLevel;
+  final LogLevel defaultLogLevel;
+  final Map<String, LogLevel> categoryLogLevel;
   final Map<String, UserLogLevel> userLogLevel;
 
   @override
@@ -153,14 +153,14 @@ class LoggingConstraints
 class UserLogLevel
     with AWSEquatable<UserLogLevel>, AWSSerializable<Map<String, Object?>> {
   const UserLogLevel({
-    this.defaultLogLevel = 'ERROR',
+    this.defaultLogLevel = LogLevel.error,
     this.categoryLogLevel = const {},
   });
 
   factory UserLogLevel.fromJson(Map<String, Object?> json) =>
       _$UserLogLevelFromJson(json);
 
-  final String defaultLogLevel;
+  final LogLevel defaultLogLevel;
   final Map<String, String> categoryLogLevel;
 
   @override

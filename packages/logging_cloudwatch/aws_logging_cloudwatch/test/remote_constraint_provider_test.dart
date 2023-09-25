@@ -12,17 +12,17 @@ import 'package:test/test.dart';
 
 const sampleJson = '''
     {
-      "defaultLogLevel": "error",
+      "defaultLogLevel": "ERROR",
       "categoryLogLevel": {
-          "API": "debug",
-          "AUTH": "debug"
+          "API": "DEBUG",
+          "AUTH": "DEBUG"
       },
       "userLogLevel": {
           "cognito-sub-xyz-123": {
-              "defaultLogLevel": "verbose",
+              "defaultLogLevel": "VERBOSE",
               "categoryLogLevel": {
-                  "API": "verbose",
-                  "AUTH": "verbose"
+                  "API": "VERBOSE",
+                  "AUTH": "VERBOSE"
               }
             }
         }
@@ -132,14 +132,14 @@ void main() {
         () async {
       const updatedJson = '''
         {
-          "defaultLogLevel": "debug",
+          "defaultLogLevel": "DEBUG",
             "categoryLogLevel": {
-                "API": "debug",
-                "AUTH": "error"
+                "API": "DEBUG",
+                "AUTH": "ERROR"
             },
             "userLogLevel": {
                 "cognito-sub-xyz-123": {
-                    "defaultLogLevel": "verbose",
+                    "defaultLogLevel": "VERBOSE",
                     "categoryLogLevel": {
                         "API": "error",
                         "AUTH": "debug"
