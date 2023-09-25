@@ -62,7 +62,6 @@ jobs:
     with:
       package-name: smithy_codegen
       working-directory: packages/smithy/smithy_codegen
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

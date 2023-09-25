@@ -316,9 +316,15 @@ jobs:
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
-      has-goldens: $hasGoldens
 ''',
     );
+    if (!isDartPackage) {
+      workflowContents.write(
+        '''
+      has-goldens: $hasGoldens
+''',
+      );
+    }
 
     if (needsNativeTest) {
       workflowContents.write(

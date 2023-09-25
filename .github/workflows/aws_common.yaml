@@ -52,7 +52,6 @@ jobs:
     with:
       package-name: aws_common
       working-directory: packages/aws_common
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

@@ -56,7 +56,6 @@ jobs:
     with:
       package-name: aws_signature_v4
       working-directory: packages/aws_signature_v4
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
