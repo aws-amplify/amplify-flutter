@@ -4,7 +4,8 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+// ignore: implementation_imports
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_logging_cloudwatch.dart_queued_item_store}

@@ -1,4 +1,6 @@
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart'
+    show CloudWatchLogStreamProvider, RemoteLoggingConstraintProvider;
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';

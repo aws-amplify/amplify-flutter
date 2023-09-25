@@ -12,17 +12,17 @@ import 'package:test/test.dart';
 
 const sampleJson = '''
     {
-      "defaultLogLevel": "error",
+      "defaultLogLevel": "ERROR",
       "categoryLogLevel": {
-          "API": "debug",
-          "AUTH": "debug"
+          "API": "DEBUG",
+          "AUTH": "DEBUG"
       },
       "userLogLevel": {
           "cognito-sub-xyz-123": {
-              "defaultLogLevel": "verbose",
+              "defaultLogLevel": "VERBOSE",
               "categoryLogLevel": {
-                  "API": "verbose",
-                  "AUTH": "verbose"
+                  "API": "VERBOSE",
+                  "AUTH": "VERBOSE"
               }
             }
         }
@@ -59,7 +59,7 @@ void main() {
   late MockAWSHttpClient mockAWSHttpClient;
   test('LoggingConstraint', () {
     final sampleJsonMap = jsonDecode(sampleJson) as Map<String, dynamic>;
-    final loggingConstraint = LoggingConstraint.fromJson(sampleJsonMap);
+    final loggingConstraint = LoggingConstraints.fromJson(sampleJsonMap);
     expect(
       loggingConstraint.toJson(),
       sampleJsonMap,
@@ -86,9 +86,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 1200),
+          refreshIntervalInSeconds: 1200,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -114,9 +113,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 10),
+          refreshIntervalInSeconds: 10,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -134,14 +132,14 @@ void main() {
         () async {
       const updatedJson = '''
         {
-          "defaultLogLevel": "debug",
+          "defaultLogLevel": "DEBUG",
             "categoryLogLevel": {
-                "API": "debug",
-                "AUTH": "error"
+                "API": "DEBUG",
+                "AUTH": "ERROR"
             },
             "userLogLevel": {
                 "cognito-sub-xyz-123": {
-                    "defaultLogLevel": "verbose",
+                    "defaultLogLevel": "VERBOSE",
                     "categoryLogLevel": {
                         "API": "error",
                         "AUTH": "debug"
@@ -178,9 +176,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 1),
+          refreshIntervalInSeconds: 1,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
@@ -211,9 +208,8 @@ void main() {
       });
       provider = BaseRemoteLoggingConstraintProvider.forTesting(
         config: const DefaultRemoteConfiguration(
-          refreshInterval: Duration(seconds: 10),
+          refreshIntervalInSeconds: 10,
           endpoint: 'https://example.com',
-          region: 'us-west-2',
         ),
         fileStorage: mockFileStorage,
         awsHttpClient: mockAWSHttpClient,
