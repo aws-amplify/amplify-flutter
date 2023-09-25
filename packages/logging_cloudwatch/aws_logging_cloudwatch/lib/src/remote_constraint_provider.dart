@@ -5,8 +5,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:aws_common/aws_common.dart';
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
@@ -14,16 +12,16 @@ import 'package:meta/meta.dart';
 /// {@template aws_logging_cloudwatch.remote_logging_constraint_provider}
 /// An Interface to provide custom implementation for
 /// [RemoteLoggingConstraintProvider]
-/// It gets the [LoggingConstraint] from a remote location and cache it.
+/// It gets the [LoggingConstraints] from a remote location and cache it.
 /// {@endtemplate}
 abstract class RemoteLoggingConstraintProvider {
   /// Returns logging constraint from cache or `null` if cache is missing.
-  LoggingConstraint? get loggingConstraint;
+  LoggingConstraints? get loggingConstraint;
 }
 
 /// {@template aws_logging_cloudwatch.base_remote_constraints_provider}
 /// Base class for [RemoteLoggingConstraintProvider] to provide
-/// [LoggingConstraint] from a remote location and cache it.
+/// [LoggingConstraints] from a remote location and cache it.
 /// {@endtemplate}
 base class BaseRemoteLoggingConstraintProvider
     with AWSDebuggable, AWSLoggerMixin
@@ -55,7 +53,7 @@ base class BaseRemoteLoggingConstraintProvider
 
   final DefaultRemoteConfiguration _config;
 
-  LoggingConstraint? _loggingConstraint;
+  LoggingConstraints? _loggingConstraint;
 
   final AWSHttpClient _awsHttpClient;
 
@@ -108,7 +106,7 @@ base class BaseRemoteLoggingConstraintProvider
             .error('Failed to fetch constraints', (response.statusCode, body));
         return;
       }
-      final fetchedConstraint = LoggingConstraint.fromJson(
+      final fetchedConstraint = LoggingConstraints.fromJson(
         jsonDecode(body) as Map<String, dynamic>,
       );
       _loggingConstraint = fetchedConstraint;
@@ -126,15 +124,15 @@ base class BaseRemoteLoggingConstraintProvider
     }
   }
 
-  /// Returns [LoggingConstraint] from the cache or `null` if the cache is missing
+  /// Returns [LoggingConstraints] from the cache or `null` if the cache is missing
   /// or if the constraints could not be retrieved from the remote server.
   @override
-  LoggingConstraint? get loggingConstraint => _loggingConstraint;
+  LoggingConstraints? get loggingConstraint => _loggingConstraint;
 
   Future<void> _loadConstraintFromLocalStorage() async {
     final localConstraint = await _fileStorage?.load(_cacheFileName);
     if (localConstraint != null) {
-      _loggingConstraint = LoggingConstraint.fromJson(
+      _loggingConstraint = LoggingConstraints.fromJson(
         jsonDecode(localConstraint) as Map<String, dynamic>,
       );
     }
@@ -144,7 +142,7 @@ base class BaseRemoteLoggingConstraintProvider
   Future<void> _refreshConstraintPeriodically() async {
     await _loadConstraintFromLocalStorage();
     _timer = Timer.periodic(
-      _config.refreshInterval,
+      Duration(seconds: _config.refreshIntervalInSeconds),
       (_) => _fetchAndCacheConstraintFromEndpoint(),
     );
     await _fetchAndCacheConstraintFromEndpoint();
@@ -159,30 +157,34 @@ base class BaseRemoteLoggingConstraintProvider
 
 /// {@template aws_logging_cloudwatch.default_remote_logging_constraint_provider}
 /// Default implementation of [RemoteLoggingConstraintProvider] to fetch
-/// [LoggingConstraint] from an http endpoint periodically.
+/// [LoggingConstraints] from an http endpoint periodically.
 /// {@endtemplate}
 final class DefaultRemoteLoggingConstraintProvider
     extends BaseRemoteLoggingConstraintProvider {
   /// {@macro aws_logging_cloudwatch.default_remote_logging_constraint_provider}
   DefaultRemoteLoggingConstraintProvider({
     required super.config,
-    required this.credentialsProvider,
+    required String region,
+    required AWSCredentialsProvider credentialsProvider,
     super.fileStorage,
-  });
+  })  : _region = region,
+        _credentialsProvider = credentialsProvider;
 
   /// The credentials provider to use for signing the request.
-  final AWSCredentialsProvider credentialsProvider;
+  final AWSCredentialsProvider _credentialsProvider;
+
+  final String _region;
 
   /// The signer to use for signing the request.
   late final AWSSigV4Signer _signer = AWSSigV4Signer(
-    credentialsProvider: credentialsProvider,
+    credentialsProvider: _credentialsProvider,
   );
 
   @override
   Future<AWSBaseHttpRequest> createRequest() async {
     final baseRequest = await super.createRequest();
     final scope = AWSCredentialScope(
-      region: _config.region,
+      region: _region,
       service: AWSService.apiGatewayManagementApi,
     );
 
@@ -193,25 +195,4 @@ final class DefaultRemoteLoggingConstraintProvider
 
     return signedRequest;
   }
-}
-
-/// {@template aws_logging_cloudwatch.default_remote_configuration}
-/// The configuration for [BaseRemoteLoggingConstraintProvider]
-/// {@endtemplate}
-class DefaultRemoteConfiguration {
-  /// {@macro aws_logging_cloudwatch.default_remote_configuration}
-  const DefaultRemoteConfiguration({
-    required this.endpoint,
-    this.refreshInterval = const Duration(seconds: 1200),
-    required this.region,
-  });
-
-  /// The endpoint to fetch the `loggingConstraint`.
-  final String endpoint;
-
-  /// The referesh interval to fetch the `loggingConstraint`.
-  final Duration refreshInterval;
-
-  /// The region of the endpoint.
-  final String region;
 }

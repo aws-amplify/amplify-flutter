@@ -1,13 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: implementation_imports
+
 import 'dart:async';
 import 'dart:js_util';
 
 import 'package:amplify_core/amplify_core.dart';
-// ignore: implementation_imports
 import 'package:aws_common/src/js/indexed_db.dart';
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:collection/collection.dart';
 
 // TODO(kylechen): Consider merging/refactoring with existing 'amplify_secure_storage_web - _IndexedDBStorage' class

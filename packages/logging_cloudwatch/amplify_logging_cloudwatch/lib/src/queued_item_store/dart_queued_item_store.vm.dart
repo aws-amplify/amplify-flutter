@@ -5,7 +5,8 @@ import 'dart:async';
 
 import 'package:amplify_logging_cloudwatch/src/queued_item_store/drift/drift_queued_item_store.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+// ignore: implementation_imports
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 

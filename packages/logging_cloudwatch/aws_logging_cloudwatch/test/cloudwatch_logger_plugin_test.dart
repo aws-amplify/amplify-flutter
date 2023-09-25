@@ -3,8 +3,9 @@
 
 import 'dart:async';
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -18,11 +19,11 @@ void main() {
   late CloudWatchLoggerPlugin plugin;
   late MockSmithyOperation<PutLogEventsResponse> mockPutLogEventsOperation;
 
-  const loggingConstraint = LoggingConstraint();
-  const pluginConfig = CloudWatchLoggerPluginConfiguration(
+  const loggingConstraint = LoggingConstraints();
+  const pluginConfig = CloudWatchPluginConfig(
     logGroupName: 'logGroupName',
     region: 'region',
-    localLoggingConstraint: loggingConstraint,
+    loggingConstraints: loggingConstraint,
     enable: false,
   );
   final errorLog = LogEntry(
