@@ -5,6 +5,23 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/amplify_core.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_core/**/*.dart'
+      - 'packages/amplify_core/**/*.yaml'
+      - 'packages/amplify_core/lib/**/*'
+      - 'packages/amplify_core/test/**/*'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
@@ -24,11 +41,18 @@ on:
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -36,6 +60,7 @@ jobs:
     with:
       package-name: amplify_core
       working-directory: packages/amplify_core
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

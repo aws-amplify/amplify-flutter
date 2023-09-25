@@ -302,6 +302,8 @@ abstract class StateMachine<
 
     final resolution = resolveError(error, stackTrace);
 
+    logger.debug('Resolved error with state', resolution?.type);
+
     // Add the error to the state stream if it cannot be resolved to a new
     // state internally.
     if (resolution == null) {

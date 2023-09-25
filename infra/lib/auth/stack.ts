@@ -21,7 +21,8 @@ import {
   IntegrationTestStackEnvironment,
   IntegrationTestStackEnvironmentProps,
   Mutable,
-  UserPoolConfig
+  UserPoolConfig,
+  inOneYear
 } from "../common";
 import { UserMfaPreference } from "./common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
@@ -38,11 +39,6 @@ export type AuthIntegrationTestStackEnvironmentProps =
 
 export interface AuthBaseEnvironmentProps
   extends IntegrationTestStackEnvironmentProps {
-  /**
-   * Associates `resourceArn` with the shared WAF.
-   */
-  associateWithWaf: (name: string, resourceArn: string) => void;
-
   /**
    * The type of environment to build.
    */
@@ -138,6 +134,12 @@ export interface AuthFullEnvironmentProps {
    * MFA settings for the user pool.
    */
   mfaConfiguration?: MfaConfiguration;
+
+  /**
+   * Whether to keep original attribute values while updating `email`
+   * and `phone_number` attributes.
+   */
+  keepOriginal?: cognito.KeepOriginalAttrs;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -153,24 +155,24 @@ export interface AuthCustomAuthorizerEnvironmentProps {
 
 export class AuthIntegrationTestStack extends IntegrationTestStack<
   AuthIntegrationTestStackEnvironmentProps,
-  AuthIntegrationTestStackEnvironment
+  IntegrationTestStackEnvironment<AuthIntegrationTestStackEnvironmentProps>
 > {
   constructor(
     scope: Construct,
     environments: AuthIntegrationTestStackEnvironmentProps[],
-    props?: cdk.NestedStackProps
+    props?: cdk.StackProps
   ) {
     super({
       scope,
       category: AmplifyCategory.Auth,
-      environments,
+      environments: environments,
       props,
     });
   }
 
   protected buildEnvironments(
     props: AuthIntegrationTestStackEnvironmentProps[]
-  ): AuthIntegrationTestStackEnvironment[] {
+  ) {
     return props.map((environment) => {
       switch (environment.type) {
         case "FULL":
@@ -205,7 +207,6 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     super(scope, baseName, props);
 
     const {
-      associateWithWaf,
       autoConfirm = false,
       enableHostedUI = false,
       signInAliases,
@@ -227,6 +228,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       withClientSecret = false,
       advancedSecurityMode = cognito.AdvancedSecurityMode.OFF,
       mfaConfiguration,
+      keepOriginal,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -234,14 +236,16 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
       name: this.name,
-      schema: appsync.SchemaFile.fromAsset(
-        path.resolve(__dirname, "schema.graphql")
-      ),
+      definition: {
+        schema: appsync.SchemaFile.fromAsset(
+          path.resolve(__dirname, "schema.graphql")
+        ),
+      },
       authorizationConfig: {
         defaultAuthorization: {
           authorizationType,
           apiKeyConfig: {
-            expires: Expiration.after(Duration.days(365)),
+            expires: inOneYear(),
           },
         },
       },
@@ -417,6 +421,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       deviceTracking,
       mfaSecondFactor,
       advancedSecurityMode,
+      keepOriginal
     });
     this.createUserCleanupJob(userPool);
 
@@ -487,8 +492,8 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       },
     });
 
-    associateWithWaf(`${this.environmentName}GraphQL`, graphQLApi.arn);
-    associateWithWaf(`${this.environmentName}UserPool`, userPool.userPoolArn);
+    this.associateWithWaf(`${this.environmentName}GraphQL`, graphQLApi.arn);
+    this.associateWithWaf(`${this.environmentName}UserPool`, userPool.userPoolArn);
 
     // Create the DynamoDB table to store MFA codes for AppSync subscriptions
 
@@ -705,13 +710,13 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         scopes: scopes.map((scope) => scope.scopeName),
       };
     }
-    this.config = {
+    this.saveConfig({
       apiConfig,
       authConfig: {
         userPoolConfig,
         identityPoolConfig,
         hostedUiConfig,
       },
-    };
+    });
   }
 }

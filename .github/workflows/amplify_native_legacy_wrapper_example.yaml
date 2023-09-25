@@ -1,0 +1,55 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_native_legacy_wrapper_example
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/amplify_native_legacy_wrapper_example.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_native_legacy_wrapper/example/**/*.dart'
+      - 'packages/amplify_native_legacy_wrapper/example/**/*.yaml'
+      - 'packages/amplify_native_legacy_wrapper/example/lib/**/*'
+      - 'packages/amplify_native_legacy_wrapper/example/test/**/*'
+      - 'packages/amplify_native_legacy_wrapper/lib/**/*.dart'
+      - 'packages/amplify_native_legacy_wrapper/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/amplify_native_legacy_wrapper_example.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_native_legacy_wrapper/example/**/*.dart'
+      - 'packages/amplify_native_legacy_wrapper/example/**/*.yaml'
+      - 'packages/amplify_native_legacy_wrapper/example/lib/**/*'
+      - 'packages/amplify_native_legacy_wrapper/example/test/**/*'
+      - 'packages/amplify_native_legacy_wrapper/lib/**/*.dart'
+      - 'packages/amplify_native_legacy_wrapper/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+  schedule:
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+defaults:
+  run:
+    shell: bash
+
+permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      package-name: amplify_native_legacy_wrapper_example
+      working-directory: packages/amplify_native_legacy_wrapper/example
+      has-goldens: false

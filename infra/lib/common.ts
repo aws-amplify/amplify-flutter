@@ -9,8 +9,35 @@ import * as targets from 'aws-cdk-lib/aws-events-targets';
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3_deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as wafv2 from "aws-cdk-lib/aws-wafv2";
+import * as triggers from 'aws-cdk-lib/triggers';
 import { Construct } from "constructs";
 import { StorageAccessLevel } from "./storage/stack";
+
+// TODO(dnys1): Remove when resources are consolidated in the same region again.
+export const env: cdk.Environment = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: 'us-west-2',
+};
+
+/**
+ * Creates an expiration for 1 year rounded to the nearest day.
+ * 
+ * Helpful for ensuring that multiple deployments of the CDK stack do not trigger
+ * unnecessary re-deploys since the standard Expiration.after(...) is not rounded
+ * and will always be different from previous deploys.
+ * 
+ * @returns An expiration which can be used in GraphQL APIs.
+ */
+export const inOneYear = (): cdk.Expiration => {
+  const now = new Date();
+  const oneYearMillis = cdk.Duration.days(365).toMilliseconds();
+  const oneYear = new Date(now.getTime() + oneYearMillis);
+  oneYear.setHours(0, 0, 0, 0);
+  return cdk.Expiration.atDate(oneYear);
+};
 
 /**
  * Shared properties for nested stack environments.
@@ -30,7 +57,7 @@ export type Mutable<T> = {
 export abstract class IntegrationTestStack<
   EnvironmentProps extends IntegrationTestStackEnvironmentProps,
   Environment extends IntegrationTestStackEnvironment<EnvironmentProps>
-> extends cdk.NestedStack {
+> extends cdk.Stack {
   constructor({
     scope,
     category,
@@ -40,7 +67,7 @@ export abstract class IntegrationTestStack<
     scope: Construct;
     category: AmplifyCategory;
     environments: EnvironmentProps[];
-    props?: cdk.NestedStackProps;
+    props?: cdk.StackProps;
   }) {
     super(scope, `${category}IntegrationTestStack`, {
       ...props,
@@ -48,15 +75,26 @@ export abstract class IntegrationTestStack<
     });
 
     this.category = category;
+    this.environments = this.buildEnvironments(environments);
 
-    for (const environment of this.buildEnvironments(environments)) {
-      this.saveAmplifyConfig(environment.environmentName, environment.config);
-    }
+    // Chain the creation of WAF associations since the API call `AssociateWebACL`
+    // has a fixed rate limit which can easily be exceeded when deploying concurrent
+    // stacks and their WAF associations.
+    this.wafAssociations.forEach((assoc, index) => {
+      if (index > 0) assoc.addDependency(this.wafAssociations[index - 1]);
+    });
+
+    this.createConfig();
   }
 
   protected abstract buildEnvironments(
     props: EnvironmentProps[]
   ): Environment[];
+
+  /**
+   * The result of calling `buildEnvironments`.
+   */
+  private environments: Environment[];
 
   /**
    * The category this stack tests.
@@ -70,13 +108,6 @@ export abstract class IntegrationTestStack<
     return `${this.category}Integ`;
   }
 
-  /**
-   * All Amplify configs generated for this stack.
-   */
-  public readonly configs: {
-    [environmentName: string]: any;
-  } = {};
-
   private _bucket: s3.Bucket;
   /**
    * S3 bucket to store generated config so that it can be pulled by CI pipelines.
@@ -84,10 +115,8 @@ export abstract class IntegrationTestStack<
   public get bucket(): s3.Bucket {
     if (!this._bucket) {
       this._bucket = new s3.Bucket(this, "Bucket", {
-        bucketName: randomBucketName({
-          prefix: `amplify-test-${this.baseName.toLowerCase()}`,
-          stack: this,
-        }),
+        // Create a random name and allow it to be referenced cross-region.
+        bucketName: cdk.PhysicalName.GENERATE_IF_NEEDED,
         removalPolicy: RemovalPolicy.DESTROY,
         autoDeleteObjects: true,
         enforceSSL: true,
@@ -97,15 +126,96 @@ export abstract class IntegrationTestStack<
   }
 
   /**
-   * Saves the Amplify configuration for an environment as a CDK output.
-   * @param config The Amplify config values.
+   * Adds a trigger for creating the final `amplifyconfiguration.dart` in `bucket` with 
+   * all the environments' configurations.
    */
-  private saveAmplifyConfig(
-    environmentName: string,
-    config: AmplifyConfig
-  ): void {
-    const configJson = createAmplifyConfig(this.region, config);
-    this.configs[environmentName] = configJson;
+  private createConfig() {
+    const configCreatorLambda = new lambda_nodejs.NodejsFunction(this, 'ConfigCreatorFn', {
+      entry: './lib/config-creator.ts',
+      runtime: Runtime.NODEJS_18_X,
+      memorySize: 256,
+      timeout: cdk.Duration.seconds(15),
+      environment: {
+        BUCKET: this.bucket.bucketName,
+      }
+    });
+    this.bucket.grantReadWrite(configCreatorLambda);
+    new triggers.Trigger(this, 'ConfigCreatorTrigger', {
+      handler: configCreatorLambda,
+      executeAfter: this.environments,
+    });
+  }
+
+  private _waf: wafv2.CfnWebACL;
+  readonly wafAssociations: wafv2.CfnWebACLAssociation[] = [];
+
+  /**
+   * The shared WAF for all environments of this stack.
+   */
+  public get waf(): wafv2.CfnWebACL {
+    if (!this._waf) {
+      // The dedicated IPs of large GitHub runners, used to exempt these IPs
+      // from WAF rules.
+      const gitHubIps = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubIps', 'github/ips');
+      const largeRunnerIpSet = new wafv2.CfnIPSet(this, 'LargeRunnerIpSet', {
+        addresses: [
+          // Windows
+          gitHubIps.secretValueFromJson('Windows').unsafeUnwrap(),
+
+          // Ubuntu
+          gitHubIps.secretValueFromJson('Ubuntu').unsafeUnwrap(),
+        ],
+        scope: 'REGIONAL',
+        ipAddressVersion: 'IPV4',
+      });
+
+      // Create a Web Application Firewall (WAF) for blocking malicious requests.
+      this._waf = new wafv2.CfnWebACL(this, "WAF", {
+        scope: "REGIONAL",
+        defaultAction: {
+          allow: {},
+        },
+        rules: [
+          // Basic rate limiting to prevent overuse of endpoints
+          {
+            name: "RateLimit",
+            priority: 30,
+            action: {
+              block: {},
+            },
+            statement: {
+              rateBasedStatement: {
+                aggregateKeyType: "IP",
+                // The number of requests which can be performed by
+                // a single IP in a 5-minute window.
+                limit: 3000,
+                scopeDownStatement: {
+                  // Exempt the large runners from the IP-based limiting.
+                  notStatement: {
+                    statement: {
+                      ipSetReferenceStatement: {
+                        arn: largeRunnerIpSet.attrArn,
+                      }
+                    }
+                  }
+                }
+              },
+            },
+            visibilityConfig: {
+              sampledRequestsEnabled: true,
+              cloudWatchMetricsEnabled: true,
+              metricName: "RateLimit",
+            },
+          },
+        ],
+        visibilityConfig: {
+          sampledRequestsEnabled: false,
+          cloudWatchMetricsEnabled: true,
+          metricName: "WAFViolations",
+        },
+      });
+    }
+    return this._waf;
   }
 }
 
@@ -130,9 +240,11 @@ export abstract class IntegrationTestStackEnvironment<
   public readonly environmentName: string;
 
   /**
-   * The Amplify configuration description for this environment.
+   * The parent stack of this nested stack.
    */
-  public config: AmplifyConfig;
+  protected get parent(): IntegrationTestStack<any, any> {
+    return this.nestedStackParent as IntegrationTestStack<any, any>;
+  }
 
   /**
    * Creates a cron-scheduled Lambda which cleans up user pool users
@@ -157,6 +269,40 @@ export abstract class IntegrationTestStackEnvironment<
       schedule: events.Schedule.expression('cron(0 0 ? * * *)'),
     });
     cronRule.addTarget(new targets.LambdaFunction(lambda));
+  }
+
+  /**
+   * Creates an association in the shared WAF for a resource.
+   * 
+   * @param name A unique name for the resource.
+   * @param resourceArn The ARN of the resource.
+   */
+  protected associateWithWaf(resourceName: string, resourceArn: string) {
+    const association = new wafv2.CfnWebACLAssociation(this.parent, `WAFAssociation-${resourceName}`, {
+      resourceArn: resourceArn,
+      webAclArn: this.parent.waf.attrArn,
+    });
+    this.parent.wafAssociations.push(association);
+  }
+
+  /**
+   * Saves the Amplify configuration for this environment to the shared `bucket`.
+   * 
+   * @param config The Amplify configuration
+   */
+  protected saveConfig(config: AmplifyConfig) {
+    new s3_deploy.BucketDeployment(this, 'AmplifyConfig', {
+      destinationBucket: this.parent.bucket,
+      destinationKeyPrefix: 'environments/',
+      prune: false, // Prevent other JSON files from being deleted on upload
+      retainOnDelete: false, // Remove this JSON file when the environment is deleted
+      sources: [
+        s3_deploy.Source.jsonData(`${this.environmentName}.json`, {
+          environmentName: this.environmentName,
+          config: createAmplifyConfig(this.region, config),
+        }),
+      ],
+    });
   }
 }
 

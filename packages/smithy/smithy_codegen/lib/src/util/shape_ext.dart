@@ -198,13 +198,14 @@ extension ShapeUtils on Shape {
               final MemberShape member => context.shapeFor(member.target),
               _ => this,
             },
-          _ => () {
-              assert(
-                this is MemberShape,
-                'Null checks for structs should only happen on the member shape',
-              );
-              return this;
-            }(),
+          _ => switch (this) {
+              MemberShape _ => this,
+              _ => throw ArgumentError.value(
+                  '$shapeId',
+                  'shapeId',
+                  'Null checks for structs should only happen on the member shape',
+                ),
+            },
         };
         return isS3Primitive(context) || targetShape.isBoxed;
 

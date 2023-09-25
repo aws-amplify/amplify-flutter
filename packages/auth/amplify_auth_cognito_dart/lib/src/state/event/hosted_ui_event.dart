@@ -49,7 +49,10 @@ sealed class HostedUiEvent
   }) = HostedUiSignIn;
 
   /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
-  const factory HostedUiEvent.cancelSignIn() = HostedUiCancelSignIn;
+  const factory HostedUiEvent.cancelSignIn([
+    Object? error,
+    StackTrace? stackTrace,
+  ]) = HostedUiCancelSignIn;
 
   /// {@macro amplify_auth_cognito.hosted_ui_exchange}
   const factory HostedUiEvent.exchange(OAuthParameters parameters) =
@@ -143,10 +146,23 @@ final class HostedUiSignIn extends HostedUiEvent {
 /// {@endtemplate}
 final class HostedUiCancelSignIn extends HostedUiEvent {
   /// {@macro amplify_auth_cognito.hosted_ui_cancel_sign_in}
-  const HostedUiCancelSignIn() : super._();
+  const HostedUiCancelSignIn([
+    Object? error,
+    this.stackTrace,
+  ])  : error = error ??
+            const UserCancelledException(
+              'The user canceled the sign-in flow',
+            ),
+        super._();
+
+  /// The cause of the cancellation.
+  final Object error;
+
+  /// The stack trace associated with [error].
+  final StackTrace? stackTrace;
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [type, error, stackTrace];
 
   @override
   HostedUiEventType get type => HostedUiEventType.cancelSignIn;

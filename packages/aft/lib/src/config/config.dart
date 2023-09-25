@@ -230,6 +230,26 @@ class PackageInfo
     return unitTestDir;
   }
 
+  /// The integration test directory within the enclosing directory, if any
+  Directory? get integrationTestDirectory {
+    final expectedPath = p.join(path, 'integration_test');
+    final integrationTestDir = Directory(expectedPath);
+    if (!integrationTestDir.existsSync()) {
+      return null;
+    }
+    return integrationTestDir;
+  }
+
+  /// The goldens test directory within the enclosing directory, if any
+  Directory? get goldensTestDirectory {
+    final expectedPath = p.join(path, 'test', 'ui');
+    final goldensTestDir = Directory(expectedPath);
+    if (!goldensTestDir.existsSync()) {
+      return null;
+    }
+    return goldensTestDir;
+  }
+
   /// Whether the package needs `build_runner` to be run.
   ///
   /// Used as a pre-publish check to ensure that generated code is
@@ -260,8 +280,9 @@ class PackageInfo
 
   /// Whether the package is a test package.
   bool get isTestPackage {
+    final relativePath = path.split('/packages/').last;
     return p.basename(path).endsWith('_test') ||
-        path.contains('goldens') ||
+        relativePath.contains('goldens') ||
         p.basename(path).contains('e2e');
   }
 
@@ -385,6 +406,12 @@ class PubspecInfo with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   /// The package's pubspec as a YAML map.
   final YamlMap pubspecMap;
+
+  /// Package-specific configuration.
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  late final RawPubspecConfig config = RawPubspecConfig.fromJson(
+    pubspecMap.cast(),
+  );
 
   /// The pubspec as a YAML editor, used to alter dependencies or other info.
   @JsonKey(includeFromJson: false, includeToJson: false)

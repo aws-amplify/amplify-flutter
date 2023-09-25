@@ -15,6 +15,8 @@ Serializer<IosEnvironment> _$iosEnvironmentSerializer =
     new _$IosEnvironmentSerializer();
 Serializer<MacOSEnvironment> _$macOSEnvironmentSerializer =
     new _$MacOSEnvironmentSerializer();
+Serializer<GitHubPackageConfig> _$gitHubPackageConfigSerializer =
+    new _$GitHubPackageConfigSerializer();
 
 class _$EnvironmentSerializer implements StructuredSerializer<Environment> {
   @override
@@ -247,6 +249,51 @@ class _$MacOSEnvironmentSerializer
         case 'minOSVersion':
           result.minOSVersion = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GitHubPackageConfigSerializer
+    implements StructuredSerializer<GitHubPackageConfig> {
+  @override
+  final Iterable<Type> types = const [
+    GitHubPackageConfig,
+    _$GitHubPackageConfig
+  ];
+  @override
+  final String wireName = 'GitHubPackageConfig';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GitHubPackageConfig object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'custom',
+      serializers.serialize(object.custom, specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GitHubPackageConfig deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GitHubPackageConfigBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'custom':
+          result.custom = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -711,6 +758,88 @@ class MacOSEnvironmentBuilder
   }
 }
 
+class _$GitHubPackageConfig extends GitHubPackageConfig {
+  @override
+  final bool custom;
+
+  factory _$GitHubPackageConfig(
+          [void Function(GitHubPackageConfigBuilder)? updates]) =>
+      (new GitHubPackageConfigBuilder()..update(updates))._build();
+
+  _$GitHubPackageConfig._({required this.custom}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        custom, r'GitHubPackageConfig', 'custom');
+  }
+
+  @override
+  GitHubPackageConfig rebuild(
+          void Function(GitHubPackageConfigBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GitHubPackageConfigBuilder toBuilder() =>
+      new GitHubPackageConfigBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GitHubPackageConfig && custom == other.custom;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, custom.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+}
+
+class GitHubPackageConfigBuilder
+    implements Builder<GitHubPackageConfig, GitHubPackageConfigBuilder> {
+  _$GitHubPackageConfig? _$v;
+
+  bool? _custom;
+  bool? get custom => _$this._custom;
+  set custom(bool? custom) => _$this._custom = custom;
+
+  GitHubPackageConfigBuilder() {
+    GitHubPackageConfig._initialize(this);
+  }
+
+  GitHubPackageConfigBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _custom = $v.custom;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GitHubPackageConfig other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GitHubPackageConfig;
+  }
+
+  @override
+  void update(void Function(GitHubPackageConfigBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GitHubPackageConfig build() => _build();
+
+  _$GitHubPackageConfig _build() {
+    final _$result = _$v ??
+        new _$GitHubPackageConfig._(
+            custom: BuiltValueNullFieldError.checkNotNull(
+                custom, r'GitHubPackageConfig', 'custom'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint
 
 // **************************************************************************
@@ -742,7 +871,13 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
       ($checkedConvert) {
         $checkKeys(
           json,
-          allowedKeys: const ['platforms', 'ignore', 'components', 'scripts'],
+          allowedKeys: const [
+            'platforms',
+            'ignore',
+            'components',
+            'scripts',
+            'github'
+          ],
         );
         final val = RawAftConfig(
           platforms: $checkedConvert(
@@ -774,6 +909,12 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
                             Map<String, Object?>.from(e as Map))),
                   ) ??
                   const {}),
+          github: $checkedConvert(
+              'github',
+              (v) => v == null
+                  ? null
+                  : GitHubPackageConfig.fromJson(
+                      Map<String, Object?>.from(v as Map))),
         );
         return val;
       },
@@ -785,6 +926,7 @@ Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
       'ignore': instance.ignore,
       'components': instance.components.map((e) => e.toJson()).toList(),
       'scripts': instance.scripts.map((k, e) => MapEntry(k, e.toJson())),
+      'github': instance.github?.toJson(),
     };
 
 RawAftComponent _$RawAftComponentFromJson(Map json) => $checkedCreate(
@@ -834,15 +976,14 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
           allowedKeys: const ['ref', 'apis', 'plugins'],
         );
         final val = SdkConfig(
-          ref: $checkedConvert('ref', (v) => v as String? ?? 'master'),
+          ref: $checkedConvert('ref', (v) => v as String? ?? 'main'),
           apis: $checkedConvert(
               'apis',
               (v) => (v as Map).map(
                     (k, e) => MapEntry(
                         k as String,
                         (e as List<dynamic>?)
-                            ?.map((e) =>
-                                const ShapeIdConverter().fromJson(e as String))
+                            ?.map((e) => e as String)
                             .toList()),
                   )),
           plugins: $checkedConvert(
@@ -857,8 +998,7 @@ SdkConfig _$SdkConfigFromJson(Map json) => $checkedCreate(
 
 Map<String, dynamic> _$SdkConfigToJson(SdkConfig instance) => <String, dynamic>{
       'ref': instance.ref,
-      'apis': instance.apis.map((k, e) =>
-          MapEntry(k, e?.map(const ShapeIdConverter().toJson).toList())),
+      'apis': instance.apis,
       'plugins': instance.plugins,
     };
 

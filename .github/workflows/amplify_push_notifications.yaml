@@ -5,6 +5,32 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/amplify_push_notifications.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/notifications/push/amplify_push_notifications/**/*.dart'
+      - 'packages/notifications/push/amplify_push_notifications/**/*.yaml'
+      - 'packages/notifications/push/amplify_push_notifications/lib/**/*'
+      - 'packages/notifications/push/amplify_push_notifications/test/**/*'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
@@ -33,11 +59,18 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -45,3 +78,4 @@ jobs:
     with:
       package-name: amplify_push_notifications
       working-directory: packages/notifications/push/amplify_push_notifications
+      has-goldens: false

@@ -5,6 +5,13 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/amplify_lints.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - 'packages/amplify_lints/**/*.dart'
+      - 'packages/amplify_lints/**/*.yaml'
+      - 'packages/amplify_lints/lib/**/*'
+      - 'packages/amplify_lints/test/**/*'
   pull_request:
     paths:
       - '.github/workflows/amplify_lints.yaml'
@@ -14,11 +21,18 @@ on:
       - 'packages/amplify_lints/lib/**/*'
       - 'packages/amplify_lints/test/**/*'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -26,3 +40,4 @@ jobs:
     with:
       package-name: amplify_lints
       working-directory: packages/amplify_lints
+      has-goldens: false

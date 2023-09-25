@@ -1,0 +1,180 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_authenticator_example
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/amplify_authenticator_example.yaml'
+      - '.github/workflows/e2e_android.yaml'
+      - '.github/workflows/e2e_ios.yaml'
+      - '.github/workflows/e2e_linux.yaml'
+      - '.github/workflows/e2e_web.yaml'
+      - '.github/workflows/e2e_windows.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify/amplify_flutter/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter/pubspec.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml'
+      - 'packages/api/amplify_api/lib/**/*.dart'
+      - 'packages/api/amplify_api/pubspec.yaml'
+      - 'packages/api/amplify_api_dart/lib/**/*.dart'
+      - 'packages/api/amplify_api_dart/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito_dart/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito_dart/pubspec.yaml'
+      - 'packages/authenticator/amplify_authenticator/example/**/*.dart'
+      - 'packages/authenticator/amplify_authenticator/example/**/*.yaml'
+      - 'packages/authenticator/amplify_authenticator/example/lib/**/*'
+      - 'packages/authenticator/amplify_authenticator/example/test/**/*'
+      - 'packages/authenticator/amplify_authenticator/lib/**/*.dart'
+      - 'packages/authenticator/amplify_authenticator/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common/lib/**/*.dart'
+      - 'packages/common/amplify_db_common/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/amplify_authenticator_example.yaml'
+      - '.github/workflows/e2e_android.yaml'
+      - '.github/workflows/e2e_ios.yaml'
+      - '.github/workflows/e2e_linux.yaml'
+      - '.github/workflows/e2e_web.yaml'
+      - '.github/workflows/e2e_windows.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify/amplify_flutter/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter/pubspec.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml'
+      - 'packages/api/amplify_api/lib/**/*.dart'
+      - 'packages/api/amplify_api/pubspec.yaml'
+      - 'packages/api/amplify_api_dart/lib/**/*.dart'
+      - 'packages/api/amplify_api_dart/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito_dart/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito_dart/pubspec.yaml'
+      - 'packages/authenticator/amplify_authenticator/example/**/*.dart'
+      - 'packages/authenticator/amplify_authenticator/example/**/*.yaml'
+      - 'packages/authenticator/amplify_authenticator/example/lib/**/*'
+      - 'packages/authenticator/amplify_authenticator/example/test/**/*'
+      - 'packages/authenticator/amplify_authenticator/lib/**/*.dart'
+      - 'packages/authenticator/amplify_authenticator/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common/lib/**/*.dart'
+      - 'packages/common/amplify_db_common/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
+  schedule:
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      has-goldens: false
+  e2e_android_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_android.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      needs-aws-config: true
+  e2e_ios_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_ios.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      needs-aws-config: true
+  e2e_web_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_web.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      needs-aws-config: true
+  e2e_linux_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_linux.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      needs-aws-config: true
+  e2e_windows_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_windows.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_authenticator_example
+      working-directory: packages/authenticator/amplify_authenticator/example
+      needs-aws-config: true

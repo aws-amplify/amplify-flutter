@@ -16,7 +16,6 @@ export 'config/serializers.dart';
 const falsePositiveExamples = [
   'aft',
   'smithy_codegen',
-  'smoke_test',
   'amplify_auth_cognito_test',
   'amplify_secure_storage_test',
   'amplify_native_legacy_wrapper',
@@ -81,7 +80,7 @@ extension AmplifyVersion on Version {
     if (preRelease.isEmpty) {
       switch (type) {
         case VersionBumpType.patch:
-          return major == 0 ? replace(build: [newBuild]) : nextPatch;
+          return nextPatch;
         case VersionBumpType.nonBreaking:
           return major == 0 ? nextPatch : nextMinor;
         case VersionBumpType.breaking:

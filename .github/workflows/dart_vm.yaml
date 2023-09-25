@@ -27,7 +27,7 @@ jobs:
           - beta
     steps:
       - name: Cache Pub dependencies
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # 3.3.1
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # 3.3.2
         with:
           path: |
             ~/.pub-cache/hosted
@@ -39,7 +39,7 @@ jobs:
             os:ubuntu-latest
 
       - name: Git Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
 
       - name: Git Submodules
         run: git submodule update --init
@@ -57,7 +57,7 @@ jobs:
           channel: stable
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@deafe40ee7284c48e67c783c88eed8c8b52b19ca # main
+        uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
         with:
           sdk: ${{ matrix.sdk }}
 

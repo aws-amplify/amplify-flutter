@@ -5,6 +5,22 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/smithy_aws.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/**/*.dart'
+      - 'packages/smithy/smithy_aws/**/*.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*'
+      - 'packages/smithy/smithy_aws/test/**/*'
   pull_request:
     paths:
       - '.github/workflows/dart_native.yaml'
@@ -23,11 +39,18 @@ on:
       - 'packages/smithy/smithy_aws/lib/**/*'
       - 'packages/smithy/smithy_aws/test/**/*'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -35,6 +58,7 @@ jobs:
     with:
       package-name: smithy_aws
       working-directory: packages/smithy/smithy_aws
+      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

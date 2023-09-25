@@ -68,10 +68,10 @@ final class EventCompleter<Event extends StateMachineEvent,
   /// match the Zone in which its future is listened to, otherwise the future
   /// will never complete.
   ///
-  /// That is, running `_zone.run(completer.complete)` would still throw
-  /// the error in the Zone where the completer was instantiated. And due
-  /// to how Zone's work, a listener for a completer which completes in a
-  /// different error zone will never finish.
+  /// That is, running `_zone.run(() => completer.completeError(error))` would
+  /// still throw the error in the Zone where the completer was instantiated,
+  /// not `_zone`. And due to how Zone's work, a listener for a completer which
+  /// completes in a different error zone will never finish.
   ///
   /// The following example illustrates the problem we're trying to solve
   /// here:
@@ -168,5 +168,8 @@ final class EventCompleter<Event extends StateMachineEvent,
   ///
   /// Since state machine methods are marked with `@useResult`, this allows
   /// opting into fire-and-forget behavior explicitly.
-  void ignore() {}
+  void ignore() {
+    _acceptedCompleters.clear();
+    _completers.clear();
+  }
 }

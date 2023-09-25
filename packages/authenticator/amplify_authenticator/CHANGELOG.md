@@ -1,3 +1,22 @@
+## 1.4.2
+
+### Fixes
+- fix(authenticator): TOTP Setup typo ([#3758](https://github.com/aws-amplify/amplify-flutter/pull/3758))
+- fix(authenticator): Wrap social button text ([#3692](https://github.com/aws-amplify/amplify-flutter/pull/3692))
+- fix(authenticator): date validator ([#3766](https://github.com/aws-amplify/amplify-flutter/pull/3766))
+
+## 1.4.1
+
+- Minor bug fixes and improvements
+
+## 1.4.0
+
+### Fixes
+- fix(authenticator): Social button debug Property Type ([#3608](https://github.com/aws-amplify/amplify-flutter/pull/3608))
+
+### Features
+- feat(authenticator): TOTP MFA ([#3609](https://github.com/aws-amplify/amplify-flutter/pull/3609))
+
 ## 1.3.2
 
 - Minor bug fixes and improvements

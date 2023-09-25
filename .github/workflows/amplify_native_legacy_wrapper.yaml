@@ -5,6 +5,15 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/amplify_native_legacy_wrapper.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_native_legacy_wrapper/**/*.dart'
+      - 'packages/amplify_native_legacy_wrapper/**/*.yaml'
+      - 'packages/amplify_native_legacy_wrapper/lib/**/*'
+      - 'packages/amplify_native_legacy_wrapper/test/**/*'
   pull_request:
     paths:
       - '.github/workflows/amplify_native_legacy_wrapper.yaml'
@@ -16,11 +25,18 @@ on:
       - 'packages/amplify_native_legacy_wrapper/lib/**/*'
       - 'packages/amplify_native_legacy_wrapper/test/**/*'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -28,3 +44,4 @@ jobs:
     with:
       package-name: amplify_native_legacy_wrapper
       working-directory: packages/amplify_native_legacy_wrapper
+      has-goldens: false

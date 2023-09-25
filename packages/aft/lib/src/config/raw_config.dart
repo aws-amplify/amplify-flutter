@@ -75,6 +75,7 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
     this.ignore = const [],
     this.components = const [],
     this.scripts = const {},
+    this.github,
   });
 
   factory RawAftConfig.fromJson(Map<String, Object?> json) =>
@@ -89,7 +90,11 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// {@macro aft.models.aft_component}
   final List<RawAftComponent> components;
 
+  /// Package- or repo-specific [AftScript]s.
   final Map<String, AftScript> scripts;
+
+  /// Package-specific GitHub configuration.
+  final GitHubPackageConfig? github;
 
   /// Retrieves the component for [packageName], if any.
   String componentForPackage(String packageName) {
@@ -268,6 +273,46 @@ abstract class MacOSEnvironment
       _$macOSEnvironmentSerializer;
 }
 
+abstract class GitHubPackageConfig
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable
+    implements Built<GitHubPackageConfig, GitHubPackageConfigBuilder> {
+  factory GitHubPackageConfig({
+    bool custom = false,
+  }) =>
+      _$GitHubPackageConfig._(custom: custom);
+
+  factory GitHubPackageConfig.build(
+    void Function(GitHubPackageConfigBuilder) updates,
+  ) = _$GitHubPackageConfig;
+
+  factory GitHubPackageConfig.fromJson(Map<String, Object?> json) =>
+      aftSerializers.deserializeWith(serializer, json)!;
+
+  const GitHubPackageConfig._();
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _initialize(GitHubPackageConfigBuilder b) {
+    b.custom = false;
+  }
+
+  /// Whether a custom workflow is being used.
+  ///
+  /// If this is `false`, one will be generated during `aft generate workflows`.
+  /// Otherwise, an assertion will be made that one is present for `package_name.yaml`
+  /// in the `.github/workflows` directory.
+  bool get custom;
+
+  @override
+  String get runtimeTypeName => 'GitHubPackageConfig';
+
+  @override
+  Map<String, Object?> toJson() =>
+      aftSerializers.serializeWith(serializer, this) as Map<String, Object?>;
+
+  static Serializer<GitHubPackageConfig> get serializer =>
+      _$gitHubPackageConfigSerializer;
+}
+
 /// Specifies how to propagate version changes within a component.
 enum VersionPropagation {
   /// Propagates only major version changes.
@@ -357,7 +402,7 @@ class SdkConfig
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SdkConfig({
-    this.ref = 'master',
+    this.ref = 'main',
     required this.apis,
     this.plugins = const [],
   });
@@ -367,9 +412,9 @@ class SdkConfig
 
   /// The `aws-models` ref to pull.
   ///
-  /// Defaults to `master`.
+  /// Defaults to `main`.
   final String ref;
-  final Map<String, List<ShapeId>?> apis;
+  final Map<String, List<String>?> apis;
   final List<String> plugins;
 
   @override

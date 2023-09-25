@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:aft/src/config/config.dart';
 import 'package:aft/src/config/raw_config.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -53,29 +54,6 @@ class AftConfigLoader {
       return loadedConfig;
     }
     return reload();
-  }
-
-  Map<String, PackageInfo> _collectPackages({
-    required Directory rootDirectory,
-    required List<String> ignore,
-  }) {
-    final allDirs = rootDirectory
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final package = PackageInfo.fromDirectory(dir);
-      if (package == null) {
-        continue;
-      }
-      if (ignore.contains(package.name)) {
-        continue;
-      }
-      allPackages.add(package);
-    }
-    return UnmodifiableMapView({
-      for (final package in allPackages..sort()) package.name: package,
-    });
   }
 
   AftConfig _processPubspecs({
@@ -150,10 +128,30 @@ class AftConfigLoader {
         rawComponents.map((name, component) {
           final summaryPackage = switch (component.summary) {
             null => null,
-            final summary => repoPackages[summary]!,
+            final summary => switch (repoPackages[summary]) {
+                final summaryPackage? => summaryPackage,
+                // Allow missing summary package for testing
+                _ when zDebugMode => null,
+                _ => throw StateError(
+                    'Summary package "$summary" does not exist for component: '
+                    '${component.name}',
+                  ),
+              },
           };
-          final packages =
-              component.packages.map((name) => repoPackages[name]!).toList();
+          final packages = component.packages
+              .map(
+                (name) => switch (repoPackages[name]) {
+                  final package? => package,
+                  // Allow missing component package for testing
+                  _ when zDebugMode => null,
+                  _ => throw StateError(
+                      'Component package "$name" does not exist for component: '
+                      '${component.name}',
+                    ),
+                },
+              )
+              .nonNulls
+              .toList();
           final packageGraph = UnmodifiableMapView({
             for (final package in packages)
               package.name: package.pubspecInfo.pubspec.dependencies.keys
@@ -179,5 +177,27 @@ class AftConfigLoader {
       );
 
     return aftConfig.build();
+  }
+
+  /// Collects all packages in [rootDirectory] by recursively searching for directories
+  /// with a `pubspec.yaml`.
+  Map<String, PackageInfo> _collectPackages({
+    required Directory rootDirectory,
+    required List<String> ignore,
+  }) {
+    final allDirs = rootDirectory
+        .listSync(recursive: true, followLinks: false)
+        .whereType<Directory>();
+    final allPackages = <PackageInfo>[];
+    for (final dir in allDirs) {
+      final package = PackageInfo.fromDirectory(dir);
+      if (package == null || ignore.contains(package.name)) {
+        continue;
+      }
+      allPackages.add(package);
+    }
+    return UnmodifiableMapView({
+      for (final package in allPackages..sort()) package.name: package,
+    });
   }
 }

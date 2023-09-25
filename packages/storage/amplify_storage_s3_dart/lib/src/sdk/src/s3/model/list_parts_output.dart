@@ -512,7 +512,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           checksumAlgorithm,
-          specifiedType: const FullType.nullable(ChecksumAlgorithm),
+          specifiedType: const FullType(ChecksumAlgorithm),
         ));
     }
     if (initiator != null) {
@@ -528,7 +528,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (key != null) {
@@ -544,7 +544,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
           maxParts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (nextPartNumberMarker != null) {
@@ -576,7 +576,7 @@ class ListPartsOutputRestXmlSerializer
           const _i2.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(Part)],
         ),
@@ -587,7 +587,7 @@ class ListPartsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(StorageClass),
+          specifiedType: const FullType(StorageClass),
         ));
     }
     if (uploadId != null) {

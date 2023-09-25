@@ -2,25 +2,25 @@ name: Flutter iOS
 on:
   workflow_call:
     inputs:
-      working-directory:
-        description: The working directory relative to the repo root
+      # Native code is tested through the example package.
+      example-directory:
+        description: The example directory, relative to the repo root
         required: true
         type: string
       package-name:
-        description: The name of the app-facing (or federated) iOS package being tested
+        description: The name of the package being tested
         required: true
         type: string
-
-# Cancels in-progress job when there is another push to same ref.
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+      has-native-tests:
+        description: Whether the package has native iOS unit tests
+        required: true
+        type: boolean
 
 jobs:
   test:
-    name: Test
-    runs-on: macos-latest
-    timeout-minutes: 60
+    name: Build and Test
+    runs-on: macos-latest-xl
+    timeout-minutes: 30
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false
@@ -30,7 +30,7 @@ jobs:
           - beta
     steps:
       - name: Git Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
 
       - name: Git Submodules
         run: git submodule update --init
@@ -49,13 +49,17 @@ jobs:
         timeout-minutes: 20
         run: aft bootstrap --fail-fast --include=${{ inputs.package-name }} --verbose
 
+      - name: Build
+        run: flutter build ios --simulator
+        working-directory: ${{ inputs.example-directory }}
+
       - name: Run iOS unit tests
+        if: inputs.has-native-tests
         run: |
           set -o pipefail
-          flutter build ios --simulator
           XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
           xcodebuild test \
               -workspace Runner.xcworkspace \
               -scheme Runner \
               -destination "$XCODEBUILD_DESTINATION" | xcpretty
-        working-directory: ${{ inputs.working-directory }}
+        working-directory: ${{ inputs.example-directory }}/ios

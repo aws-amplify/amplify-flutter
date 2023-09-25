@@ -1,0 +1,21 @@
+name: amplify_authenticator_test_example
+description: An example app for testing amplify_authenticator_test
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
+
+dependencies:
+  amplify_authenticator: any
+  amplify_authenticator_test:
+    path: ../
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../../amplify_lints

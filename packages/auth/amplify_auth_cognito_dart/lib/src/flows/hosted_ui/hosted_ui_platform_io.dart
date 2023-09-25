@@ -156,8 +156,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   /// of the ports may be blocked.
   @visibleForTesting
   Future<LocalServer> localConnect(Iterable<Uri> uris) async {
-    final localServer = _localServer;
-    if (localServer != null) {
+    if (_localServer case final localServer?) {
       return localServer;
     }
 
@@ -182,7 +181,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
             'All ports were blocked: [${uris.map((uri) => uri.port).join(',')}]',
       );
     }
-    return LocalServer(server, selectedUri);
+    return _localServer = LocalServer(server, selectedUri);
   }
 
   Future<void> _respond(
@@ -212,20 +211,16 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: true);
     }
 
-    _localServer = await localConnect(signInUris);
+    final localServer = await localConnect(signInUris);
     try {
       final signInUrl = (await getSignInUri(
         provider: provider,
-        redirectUri: _localServer!.uri,
+        redirectUri: localServer.uri,
       ))
           .toString();
       await launchUrl(signInUrl);
 
-      final server = _localServer?.server;
-      if (server == null) {
-        return;
-      }
-      await for (final request in server) {
+      await for (final request in localServer.server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -250,13 +245,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
           );
           continue;
         }
-        unawaited(
-          dispatcher.dispatchAndComplete(
-            HostedUiEvent.exchange(
-              OAuthParameters.fromJson(queryParams),
-            ),
-          ),
-        );
+        dispatcher
+            .dispatch(
+              HostedUiEvent.exchange(
+                OAuthParameters.fromJson(queryParams),
+              ),
+            )
+            .ignore();
         await _respond(
           request,
           HttpStatus.ok,
@@ -268,7 +263,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(close());
+      close().ignore();
     }
   }
 
@@ -288,17 +283,12 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       _noSuitableRedirect(signIn: false);
     }
 
-    _localServer = await localConnect(signOutUris);
+    final localServer = await localConnect(signOutUris);
     try {
-      final signOutUri =
-          getSignOutUri(redirectUri: _localServer!.uri).toString();
+      final signOutUri = getSignOutUri(redirectUri: localServer.uri).toString();
       await launchUrl(signOutUri);
 
-      final server = _localServer?.server;
-      if (server == null) {
-        return;
-      }
-      await for (final request in server) {
+      await for (final request in localServer.server) {
         final method = request.method;
         if (method != 'GET') {
           await _respond(
@@ -324,15 +314,16 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
         break;
       }
     } finally {
-      unawaited(close());
+      close().ignore();
     }
   }
 
   /// Closes the open server, if any.
   @override
   Future<void> close() async {
-    await _localServer?.server.close();
+    final localServer = _localServer;
     _localServer = null;
+    await localServer?.server.close();
   }
 }
 

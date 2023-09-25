@@ -10,7 +10,6 @@ import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/c
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:collection/collection.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/scaffolding.dart';
 
@@ -252,8 +251,8 @@ Future<String> adminCreateUser(
     try {
       await _oneOf([
         // TODO(dnys1): Cognito cannot always delete a user by `cognitoUsername`. Why?
-        adminDeleteUser(username),
-        adminDeleteUser(cognitoUsername),
+        () => adminDeleteUser(username),
+        () => adminDeleteUser(cognitoUsername),
       ]);
     } on Exception catch (e) {
       _logger.debug('Error deleting user ($username / $cognitoUsername):', e);
@@ -261,6 +260,10 @@ Future<String> adminCreateUser(
   });
 
   _logger.debug('Successfully created user "$username"');
+
+  // Prevent eventual consistency issues caused by authenticating a user
+  // too quickly after creation.
+  await Future<void>.delayed(const Duration(milliseconds: 500));
 
   return cognitoUsername;
 }
@@ -372,19 +375,18 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
 /// Completes if one of the [futures] completes successfully.
 ///
 /// Otherwise, throws with the combined errors of all of them.
-Future<void> _oneOf(List<Future<Object?>> futures) async {
+Future<void> _oneOf(List<Future<Object?> Function()> futures) async {
   var success = false;
-  final errors = List<Object?>.filled(futures.length, null);
-  await Future.wait(
-    futures.mapIndexed(
-      (index, fut) => fut.then((_) {
-        success = true;
-      }).onError((e, _) {
-        errors[index] = e;
-      }),
-    ),
-  );
+  Exception? error;
+  for (final future in futures) {
+    try {
+      await future();
+      success = true;
+    } on Exception catch (e) {
+      error = e;
+    }
+  }
   if (!success) {
-    throw Exception(errors);
+    throw error!;
   }
 }

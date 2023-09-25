@@ -4,8 +4,10 @@
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
+import 'package:yaml/yaml.dart';
 
 typedef MismatchedDependency = ({
   PackageInfo package,
@@ -26,7 +28,7 @@ sealed class ConstraintsChecker {
   bool checkConstraints(PackageInfo package);
 
   /// Populated by [checkConstraints] if a constraint check fails.
-  List<MismatchedDependency> get mismatchedDependencies;
+  final Set<MismatchedDependency> mismatchedDependencies = {};
 
   /// Processes the [expectedConstraint] for [dependencyPath] in [package].
   ///
@@ -36,7 +38,7 @@ sealed class ConstraintsChecker {
   bool _processConstraint({
     required PackageInfo package,
     required List<String> dependencyPath,
-    required VersionConstraint expectedConstraint,
+    required Dependency expectedConstraint,
     required String errorMessage,
   }) {
     switch (action) {
@@ -53,7 +55,7 @@ sealed class ConstraintsChecker {
       case ConstraintsAction.update:
         package.pubspecInfo.pubspecYamlEditor.update(
           dependencyPath,
-          expectedConstraint.toString(),
+          expectedConstraint.toYaml(),
         );
         return true;
     }
@@ -69,9 +71,6 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
 
   final Map<String, VersionConstraint> globalConstraints;
   final Environment globalEnvironment;
-
-  @override
-  final List<MismatchedDependency> mismatchedDependencies = [];
 
   /// Checks the package's dependency constraints against the global config.
   bool _checkDependency(
@@ -99,7 +98,7 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
     return _processConstraint(
       package: package,
       dependencyPath: [dependencyType.key, dependencyName],
-      expectedConstraint: globalConstraint,
+      expectedConstraint: HostedDependency(version: globalConstraint),
       errorMessage: 'Expected $globalConstraint\n'
           'Found $currentConstraint',
     );
@@ -126,7 +125,7 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
       _processConstraint(
         package: package,
         dependencyPath: ['environment', 'sdk'],
-        expectedConstraint: globalSdkConstraint,
+        expectedConstraint: HostedDependency(version: globalSdkConstraint),
         errorMessage: 'Expected $globalSdkConstraint\n'
             'Found $localSdkConstraint',
       );
@@ -143,7 +142,9 @@ final class GlobalConstraintChecker extends ConstraintsChecker {
         _processConstraint(
           package: package,
           dependencyPath: ['environment', 'flutter'],
-          expectedConstraint: globalFlutterConstraint,
+          expectedConstraint: HostedDependency(
+            version: globalFlutterConstraint,
+          ),
           errorMessage: 'Expected $globalFlutterConstraint\n'
               'Found $localFlutterConstraint',
         );
@@ -210,9 +211,6 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
 
   final Map<PackageInfo, List<PackageInfo>> repoGraph;
 
-  @override
-  final List<MismatchedDependency> mismatchedDependencies = [];
-
   /// Returns the intersection of all [constraints].
   VersionConstraint _intersection(Iterable<VersionConstraint> constraints) {
     var constraint = VersionConstraint.any;
@@ -220,6 +218,112 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
       constraint = constraint.intersect(other);
     }
     return constraint;
+  }
+
+  /// Checks the [constraint] on [dependency] in [package] given its
+  /// [dependencyType].
+  void _checkConstraint(
+    PackageInfo package,
+    PackageInfo dependency,
+    DependencyType dependencyType,
+    Dependency constraint,
+    _DependencyConstraintMap allConstraints,
+  ) {
+    switch ((
+      packageIsPublished: package.isPublishable,
+      dependencyIsPublished: dependency.isPublishable,
+      type: dependencyType,
+    )) {
+      /// Publishable packages listed in the `dependencies` block must have a hosted constraint.
+      case (
+              dependencyIsPublished: true,
+              packageIsPublished: _,
+              type: DependencyType.dependency,
+            ) ||
+
+            /// Publishable packages must list other publishable packages with a hosted constraint.
+            (
+              dependencyIsPublished: true,
+              packageIsPublished: true,
+              type: _,
+            ):
+        switch (constraint) {
+          case HostedDependency(:final version):
+            allConstraints.recordConstraint(
+              dependency: dependency,
+              package: package,
+              constraint: version,
+            );
+          default:
+            _processConstraint(
+              package: package,
+              dependencyPath: [dependencyType.key, dependency.name],
+              expectedConstraint: HostedDependency(
+                version: package.isPublishable
+                    ? dependency.currentConstraint
+                    : VersionConstraint.any,
+              ),
+              errorMessage:
+                  'Invalid constraint type: ${constraint.runtimeType}. '
+                  'A hosted dependency is required when listing any publishable '
+                  'package in the `dependencies` block.',
+            );
+        }
+
+      /// Published packages must list unpublished packages with a path constraint.
+      case (
+          packageIsPublished: true,
+          dependencyIsPublished: false,
+          type:
+              DependencyType.devDependency || DependencyType.dependencyOverride,
+        ):
+        switch (constraint) {
+          case PathDependency _:
+            return;
+          default:
+            _processConstraint(
+              package: package,
+              dependencyPath: [dependencyType.key, dependency.name],
+              expectedConstraint: PathDependency(
+                p.relative(dependency.path, from: package.path),
+              ),
+              errorMessage: 'Invalid constraint on unpublished package. '
+                  'A path dependency is required when listing any unpublished '
+                  'package in the `dev_dependencies` block of a published package.',
+            );
+        }
+
+      /// A published package cannot take a dependency on an unpublished package
+      /// anywhere but the `dev_dependencies` block.
+      case (
+          packageIsPublished: true,
+          dependencyIsPublished: false,
+          type: DependencyType.dependency,
+        ):
+        throw AssertionError(
+          'Non-publishable package (${dependency.name}) found in '
+          'the `dependencies` block of ${package.name}.',
+        );
+
+      /// Unpublished packages can depend on other unpublished packages in
+      /// any way they like without it affecting the pub validator.
+      case (
+          packageIsPublished: false,
+          dependencyIsPublished: false,
+          type: _,
+        ):
+        return;
+
+      /// Unpublished packages' `dev_dependencies` and `dependency_overrides`
+      /// blocks are not checked by the pub validator.
+      case (
+          dependencyIsPublished: true,
+          packageIsPublished: false,
+          type:
+              DependencyType.devDependency || DependencyType.dependencyOverride,
+        ):
+        return;
+    }
   }
 
   @override
@@ -249,56 +353,21 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
         };
         for (final MapEntry(
               key: dependencyName,
-              value: (dependencyType, dependency)
+              value: (dependencyType, constraint)
             ) in dependencies.entries) {
-          final repoDependency = repoGraph.keys.singleWhereOrNull(
+          final dependency = repoGraph.keys.singleWhereOrNull(
             (pkg) => pkg.name == dependencyName,
           );
-          if (repoDependency == null) {
+          if (dependency == null) {
             continue;
           }
-          switch (dependency) {
-            case HostedDependency(version: final constraint):
-              allConstraints.recordConstraint(
-                repoDependency: repoDependency,
-                inPackage: package,
-                constraint: constraint,
-              );
-
-            // Do not verify the constraints in the `dev_dependencies`
-            // block since this only affects the `pub` algorithm transitively.
-            case _ when dependencyType == DependencyType.devDependency:
-              return;
-
-            // Do not verify the constraint of non-publishable packages listed
-            // in the `dependencies` block of other non-publishable packages.
-            // We only care about publishable dependencies listed in the `dependencies`
-            // block of non-publishable packages.
-            case _ when !repoDependency.isPublishable:
-              if (package.isPublishable) {
-                throw AssertionError(
-                  'Non-publishable package ($dependencyName) found in '
-                  'the `dependencies` block of ${package.name}.',
-                );
-              }
-              return;
-
-            // Otherwise, we have a constraint which might cause an error. This
-            // is most often caused by path dependency on a publishable package
-            // in a test package's `dependencies` block.
-            case _:
-              _processConstraint(
-                package: package,
-                dependencyPath: [dependencyType.key, dependencyName],
-                expectedConstraint: package.isPublishable
-                    ? repoDependency.currentConstraint
-                    : VersionConstraint.any,
-                errorMessage:
-                    'Invalid constraint type: ${dependency.runtimeType}. '
-                    'A hosted dependency is required when listing any publishable '
-                    'package in the `dependencies` block.',
-              );
-          }
+          _checkConstraint(
+            package,
+            dependency,
+            dependencyType,
+            constraint,
+            allConstraints,
+          );
         }
       },
     );
@@ -318,11 +387,13 @@ final class PublishConstraintsChecker extends ConstraintsChecker {
             package: package,
             dependencyPath: [
               package.dependencyType(repoDependency)!.key,
-              repoDependency.name
+              repoDependency.name,
             ],
-            expectedConstraint: package.isPublishable
-                ? repoDependency.currentConstraint
-                : VersionConstraint.any,
+            expectedConstraint: HostedDependency(
+              version: package.isPublishable
+                  ? repoDependency.currentConstraint
+                  : VersionConstraint.any,
+            ),
             errorMessage:
                 'Constraint for dependency causes an empty intersection '
                 'for ${rootPackage.name}: $constraint',
@@ -339,13 +410,13 @@ final class _DependencyConstraintMap
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
   _DependencyConstraintMap() : super({});
 
-  /// Records the [constraint] for [repoDependency] found in [inPackage].
+  /// Records the [constraint] for [dependency] found in [package].
   void recordConstraint({
-    required PackageInfo repoDependency,
-    required PackageInfo inPackage,
+    required PackageInfo package,
+    required PackageInfo dependency,
     required VersionConstraint constraint,
   }) {
-    (this[repoDependency] ??= _ConstraintMap())[inPackage] = constraint;
+    (this[dependency] ??= _ConstraintMap())[package] = constraint;
   }
 
   @override
@@ -378,4 +449,20 @@ extension on PackageInfo {
         includeMin: true,
         max: version.nextMinor,
       );
+}
+
+extension DependencyToYaml on Dependency {
+  YamlNode toYaml() => switch (this) {
+        HostedDependency(:final version) => YamlScalar.wrap(version.toString()),
+        PathDependency(:final path) => YamlMap.wrap({'path': path}),
+        SdkDependency(:final sdk) => YamlMap.wrap({'sdk': sdk}),
+        GitDependency(:final url, :final ref, :final path) => YamlMap.wrap({
+            'git': {
+              'url': url.toString(),
+              if (ref != null) 'ref': ref,
+              if (path != null) 'path': path,
+            },
+          }),
+        _ => throw StateError('Invalid dependency: $this'),
+      };
 }

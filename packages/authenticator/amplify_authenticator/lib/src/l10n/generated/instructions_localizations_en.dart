@@ -12,7 +12,7 @@ class AuthenticatorInstructionsLocalizationsEn
   String get totpStep1Title => 'Step 1: Download an Authenticator app';
 
   @override
-  String get totpStep2Title => 'Step 2: Enter the QR code';
+  String get totpStep2Title => 'Step 2: Scan the QR code';
 
   @override
   String get totpStep3Title => 'Step 3: Verify your code';

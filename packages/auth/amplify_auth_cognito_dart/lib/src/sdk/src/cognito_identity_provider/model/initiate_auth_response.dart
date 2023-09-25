@@ -105,7 +105,7 @@ abstract class InitiateAuthResponse
       )
       ..add(
         'session',
-        session,
+        '***SENSITIVE***',
       )
       ..add(
         'challengeParameters',

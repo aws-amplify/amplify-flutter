@@ -16,6 +16,7 @@ import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.d
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.hosted_ui_platform_flutter}
@@ -27,7 +28,17 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
   /// {@macro amplify_auth_cognito.hosted_ui_platform_flutter}
   HostedUiPlatformImpl(super.dependencyManager);
 
-  static final bool _isMobile = Platform.isAndroid || Platform.isIOS;
+  static bool get _isMobile {
+    if (Platform.isAndroid || Platform.isIOS) {
+      return true;
+    }
+    // Allow overrides for tests
+    if (zAssertsEnabled) {
+      return debugDefaultTargetPlatformOverride == TargetPlatform.android ||
+          debugDefaultTargetPlatformOverride == TargetPlatform.iOS;
+    }
+    return false;
+  }
 
   NativeAuthBridge get _nativeAuthBridge => dependencyManager.expect();
 
@@ -80,39 +91,37 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
         options.isPreferPrivateSession,
         options.browserPackageName,
       );
-      unawaited(
-        dispatcher.dispatchAndComplete(
-          HostedUiEvent.exchange(
-            OAuthParameters.fromJson(queryParameters.cast()),
-          ),
-        ),
-      );
+      dispatcher
+          .dispatch(
+            HostedUiEvent.exchange(
+              OAuthParameters.fromJson(queryParameters.cast()),
+            ),
+          )
+          .ignore();
     } on Exception catch (e) {
-      unawaited(
-        dispatcher.dispatchAndComplete(const HostedUiEvent.cancelSignIn()),
-      );
-      if (e is PlatformException) {
-        if (e.code == 'CANCELLED') {
+      switch (e) {
+        case PlatformException(code: 'CANCELLED'):
           throw const UserCancelledException(
             'The user cancelled the sign-in flow',
           );
-        }
-        // Generated Android message is `CLASS_NAME: message`
-        var message = e.message;
-        if (message != null && message.contains(': ')) {
-          message = message.split(': ')[1];
-        }
-        String? recoverySuggestion;
-        if (e.code == 'NOBROWSER') {
-          recoverySuggestion = "Ensure you've added the <queries> tag to your "
-              'AndroidManifest.xml as outlined in the docs';
-        }
-        throw UrlLauncherException(
-          message ?? 'An unknown error occurred',
-          recoverySuggestion: recoverySuggestion,
-        );
+        case PlatformException(:final code, :var message):
+          // Generated Android message is `CLASS_NAME: message`
+          if (message != null && message.contains(': ')) {
+            message = message.split(': ')[1];
+          }
+          String? recoverySuggestion;
+          if (code == 'NOBROWSER') {
+            recoverySuggestion =
+                "Ensure you've added the <queries> tag to your "
+                'AndroidManifest.xml as outlined in the docs';
+          }
+          throw UrlLauncherException(
+            message ?? 'An unknown error occurred',
+            recoverySuggestion: recoverySuggestion,
+          );
+        default:
+          rethrow;
       }
-      rethrow;
     }
   }
 

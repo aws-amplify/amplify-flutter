@@ -5,6 +5,51 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/amplify_push_notifications_pinpoint.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify/amplify_flutter/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter/pubspec.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint/pubspec.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/lib/**/*.dart'
+      - 'packages/analytics/amplify_analytics_pinpoint_dart/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito/pubspec.yaml'
+      - 'packages/auth/amplify_auth_cognito_dart/lib/**/*.dart'
+      - 'packages/auth/amplify_auth_cognito_dart/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common/lib/**/*.dart'
+      - 'packages/common/amplify_db_common/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/notifications/push/amplify_push_notifications/lib/**/*.dart'
+      - 'packages/notifications/push/amplify_push_notifications/pubspec.yaml'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/**/*.dart'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/**/*.yaml'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/lib/**/*'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/test/**/*'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
+      - 'packages/smithy/smithy_codegen/lib/**/*.dart'
+      - 'packages/smithy/smithy_codegen/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_push_notifications_pinpoint.yaml'
@@ -52,11 +97,18 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -64,3 +116,4 @@ jobs:
     with:
       package-name: amplify_push_notifications_pinpoint
       working-directory: packages/notifications/push/amplify_push_notifications_pinpoint
+      has-goldens: false

@@ -21,20 +21,16 @@ import 'package:test/test.dart';
 class MockHostedUiPlatform extends HostedUiPlatformImpl {
   MockHostedUiPlatform(super.dependencyManager);
 
-  LocalServer? _localServer;
+  final launchedServer = Completer<void>();
 
   @override
   Future<void> launchUrl(String url) async {}
 
   @override
   Future<LocalServer> localConnect(Iterable<Uri> uris) async {
-    return _localServer = await super.localConnect(uris);
-  }
-
-  @override
-  Future<void> close() async {
-    _localServer = null;
-    await super.close();
+    final localServer = await super.localConnect(uris);
+    launchedServer.complete();
+    return localServer;
   }
 }
 
@@ -153,32 +149,41 @@ void main() {
         expect(hostedUiPlatform.signInRedirectUri, redirect);
         expect(hostedUiPlatform.signOutRedirectUri, redirect);
 
-        unawaited(
+        expect(
           hostedUiPlatform.signIn(
             options: const CognitoSignInWithWebUIPluginOptions(),
           ),
-        );
-
-        await expectLater(client.get(redirect), completes);
-        expect(
-          hostedUiPlatform._localServer,
-          isNotNull,
-          reason: "Server won't close until a valid redirect is performed",
-        );
-
-        await expectLater(
-          client.get(
-            redirect.replace(
-              queryParameters: {'state': 'state', 'code': 'code'},
-            ),
-          ),
           completes,
         );
-        await Future<void>.delayed(Duration.zero);
-        expect(
-          hostedUiPlatform._localServer,
-          isNull,
-          reason: 'A valid redirect includes state + code/error',
+
+        await hostedUiPlatform.launchedServer.future;
+
+        await expectLater(
+          client.get(redirect),
+          completion(
+            isA<http.Response>()
+                .having((res) => res.statusCode, 'statusCode', isNot(200)),
+          ),
+          reason: 'Local server should be running and able to accept '
+              'requests. Should return 4xx for anything but a success/error '
+              'redirect.',
+        );
+
+        final successRedirect = redirect.replace(
+          queryParameters: {'state': 'state', 'code': 'code'},
+        );
+        await expectLater(
+          client.get(successRedirect),
+          completion(
+            isA<http.Response>()
+                .having((res) => res.statusCode, 'statusCode', 200),
+          ),
+          reason: "Server won't close until a valid redirect is performed",
+        );
+        await expectLater(
+          client.get(redirect),
+          throwsA(isA<http.ClientException>()),
+          reason: 'Server should be closed after successful redirect',
         );
       });
     });

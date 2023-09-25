@@ -5,6 +5,23 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/workflows/amplify_datastore.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_datastore/**/*.dart'
+      - 'packages/amplify_datastore/**/*.yaml'
+      - 'packages/amplify_datastore/lib/**/*'
+      - 'packages/amplify_datastore/test/**/*'
+      - 'packages/amplify_datastore_plugin_interface/lib/**/*.dart'
+      - 'packages/amplify_datastore_plugin_interface/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_datastore.yaml'
@@ -24,11 +41,18 @@ on:
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -36,3 +60,4 @@ jobs:
     with:
       package-name: amplify_datastore
       working-directory: packages/amplify_datastore
+      has-goldens: false

@@ -93,12 +93,13 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
   Future<String?> get deviceOsReleaseVersion async => 'macOS/$_osVersion';
 
   NSScreen? get _mainScreen {
-    try {
-      // NSScreen is not linked in Dart-only apps.
-      return NSScreen.getMainScreen(_native);
-    } on Exception {
+    // NSScreen is not linked in Dart-only apps.
+    if (!zIsFlutter) {
       return null;
     }
+    // TODO(dnys1): https://github.com/dart-lang/ffigen/issues/608
+    // return NSScreen.getMainScreen(_native);
+    return null;
   }
 
   @override
@@ -110,12 +111,17 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
       _mainScreen?.visibleFrame.size.width.toInt() ?? 0;
 
   String? _ioValueFor<CFType>(String key) => using((arena) {
+        const serviceName = 'IOPlatformExpertDevice';
         final service = _native.IOServiceGetMatchingService(
           _native.kIOMasterPortDefault,
           _native.IOServiceMatching(
-            'IOPlatformExpertDevice'.toNativeUtf8(allocator: arena).cast(),
+            serviceName.toNativeUtf8(allocator: arena).cast(),
           ),
         );
+        logger.verbose('Found service matching $serviceName: $service');
+        if (service == IO_OBJECT_NULL) {
+          return null;
+        }
         arena.onReleaseAll(() => _native.IOObjectRelease(service));
         final data = _native.IORegistryEntryCreateCFProperty(
           service,
@@ -123,6 +129,10 @@ final class ASFDeviceInfoMacOS extends ASFDeviceInfoPlatform {
           _native.kCFAllocatorDefault,
           0,
         );
+        logger.verbose('Got data for $key: $data');
+        if (data == nullptr) {
+          return null;
+        }
         arena.onReleaseAll(() => _native.CFRelease(data));
         return switch (CFType) {
           const (CFData) => data.cast<CFData>().toDartString(_native),
