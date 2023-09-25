@@ -68,7 +68,6 @@ jobs:
     with:
       package-name: aws_query_v2
       working-directory: packages/smithy/goldens/lib2/awsQuery
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
