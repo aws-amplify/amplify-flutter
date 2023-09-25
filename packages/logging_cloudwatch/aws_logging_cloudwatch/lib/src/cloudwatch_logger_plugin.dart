@@ -157,7 +157,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
               events[tooNewStartIndex!].timestamp.toInt(),
             );
             // set logs to end before the index.
-
             logs.removeRange(tooNewStartIndex, events.length);
             // set events to end before the index.
             events.removeRange(tooNewStartIndex, events.length);
@@ -177,7 +176,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
         // after sending each batch to CloudWatch check if the batch has
         // `tooNewException` and throw to stop syncing next batches.
-
         if (tooNewException != null) {
           throw tooNewException;
         }
@@ -198,8 +196,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
-        _handleFullLogStoreAfterSync(retryTime: nextRetry);
-
+        _handleFullLogStoreAfterSync(
+          retryTime: nextRetry,
+        );
         _syncing = false;
       }
     }
@@ -315,7 +314,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         LoggingCategoryMethod.batchSend,
         _startSyncingIfNotInProgress,
       );
-      // await _startSyncingIfNotInProgress();
     }
   }
 

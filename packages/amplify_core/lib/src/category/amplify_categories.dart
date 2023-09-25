@@ -46,7 +46,7 @@ enum Category {
   /// Listen for or dispatch Amplify events
   hub,
 
-  /// Logging
+  /// Logging events and errors to the cloud
   logging,
 
   /// Upload and download files from the cloud
