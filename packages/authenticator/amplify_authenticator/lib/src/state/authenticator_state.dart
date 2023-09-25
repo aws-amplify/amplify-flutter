@@ -90,7 +90,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get username => _username;
 
   set username(String value) {
-    _username = value;
+    _username = value.trim();
     notifyListeners();
   }
 
@@ -131,7 +131,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get passwordConfirmation => _passwordConfirmation;
 
   set passwordConfirmation(String value) {
-    _passwordConfirmation = value;
+    _passwordConfirmation = value.trim();
     notifyListeners();
   }
 
@@ -144,7 +144,7 @@ class AuthenticatorState extends ChangeNotifier {
   /// This value will be used during confirm sign up, or other actions
   /// that required the confirmation code
   set confirmationCode(String value) {
-    _confirmationCode = value;
+    _confirmationCode = value.trim();
     notifyListeners();
   }
 
