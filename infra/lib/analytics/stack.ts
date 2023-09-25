@@ -18,7 +18,8 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
+  inOneYear
 } from "../common";
 
 export interface AnalyticsIntegrationTestStackEnvironmentProps extends IntegrationTestStackEnvironmentProps {
@@ -44,7 +45,7 @@ export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
   constructor(
     scope: Construct,
     environments: AnalyticsIntegrationTestStackEnvironmentProps[],
-    props?: cdk.NestedStackProps
+    props?: cdk.StackProps
   ) {
     super({
       scope,
@@ -164,14 +165,16 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
     const authorizationType = appsync.AuthorizationType.API_KEY;
     const graphQLApi = new appsync.GraphqlApi(this, "GraphQLApi", {
       name: this.name,
-      schema: appsync.SchemaFile.fromAsset(
-        path.resolve(__dirname, "schema.graphql")
-      ),
+      definition: {
+        schema: appsync.SchemaFile.fromAsset(
+          path.resolve(__dirname, "schema.graphql")
+        ),
+      },
       authorizationConfig: {
         defaultAuthorization: {
           authorizationType,
           apiKeyConfig: {
-            expires: Expiration.after(Duration.days(365)),
+            expires: inOneYear(),
           },
         },
       },
@@ -237,7 +240,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
 
     // Output the values needed to build our Amplify configuration.
 
-    this.config = {
+    this.saveConfig({
       analyticsConfig: {
         appId: pinpointApp.ref,
       },
@@ -256,6 +259,6 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
           identityPoolId: identityPool.identityPoolId,
         },
       },
-    };
+    });
   }
 }
