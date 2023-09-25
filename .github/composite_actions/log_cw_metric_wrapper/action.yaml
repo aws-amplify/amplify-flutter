@@ -14,22 +14,16 @@ inputs:
   job-status:
     description: Used to determine if we track success or failure.
     required: true
-  job-identifier:
-    description: For differentiating jobs of a run.
-    required: true
   github-token:
     required: true
     description: Github token for requesting failing steps.
 
   # Global Metric Dimensions
   test-type:
-    description: canary, integration, unit testType.
+    description: canary, e2e, unit
     required: true
-  category:
-    description: analytics, api, authenticator, etc.
-    required: true
-  workflow-name:
-    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
+  package-name:
+    description: The name of the package being tested
     required: true
 
   # FlutterDart Workflows Metric Dimensions
@@ -88,12 +82,12 @@ runs:
         job-status: ${{ inputs.job-status }}
         job-identifier: ${{ inputs.job-identifier }}
         github-token: ${{ inputs.github-token }}
-        repo: $${{ github.repository }}
-        run-id: ${{ github.run_id }}
+
         metric-name: "github_metric_1.0"
         test-type: ${{ inputs.test-type }}
-        category: ${{ inputs.category }}
-        workflow-name: ${{ inputs.workflow-name }}
+        package-name: ${{ inputs.package-name }}
+        matrix: ${{ toJson(matrix) }}
+
         framework: ${{ inputs.framework }}
         flutter-dart-channel: ${{ inputs.flutter-dart-channel }}
         dart-version: ${{ inputs.dart-version }}

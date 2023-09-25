@@ -4,30 +4,68 @@
 import 'dart:convert';
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/node/actions/github.dart';
+
 import 'package:actions/src/node/process_manager.dart';
 import 'package:http/http.dart' as http;
 
-Future<void> main(List<String> args) => wrapMain(launch);
+Future<void> main(List<String> args) => wrapMain(logMetric);
 
-Future<void> launch() async {
+Future<void> logMetric() async {
   // Inputs for Failing Step
   final jobStatus = core.getRequiredInput('job-status');
-  final jobIdentifier = core.getRequiredInput('job-identifier');
+
+  // Create job identifier from matrix values
+  final matrixRawInput = core.getRequiredInput('matrix');
+
+  // Parse the matrix string (input is raw json string with " and \n)
+  final matrixCleanedInput = matrixRawInput
+      .replaceAll('\n', '')
+      .replaceAll(r'\', '')
+      .replaceAll(' ', '');
+  final matrix = json.decode(matrixCleanedInput) as Map<String, dynamic>;
+
+  final matrixValues = matrix.values.map((e) => e).join(', ');
+  final jobIdentifier =
+      '${github.context.job} ${matrixValues.isEmpty ? '' : '($matrixValues)'}';
+
+  core.info('Job identifier: $jobIdentifier');
+
   final githubToken = core.getRequiredInput('github-token');
-  final repo = core.getRequiredInput('repo');
-  final runId = core.getRequiredInput('run-id');
+  final repo = '${github.context.repo.owner}/${github.context.repo.repo}';
+  final runId = '${github.context.runId}';
 
   final isFailed = jobStatus == 'failure';
-  String? failingStep = isFailed
+  final failingStep = isFailed
       ? await getFailingStep(jobIdentifier, githubToken, repo, runId)
       : '';
 
   // Inputs for Metric
   final metricName = core.getRequiredInput('metric-name');
   final testType = core.getRequiredInput('test-type');
-  var category = core.getRequiredInput('category');
-  final workflowName = core.getRequiredInput('workflow-name');
+  if (!['canary', 'e2e', 'unit'].contains(testType)) {
+    throw Exception(
+      'test-type input of $testType must be one of: canary, e2e, unit',
+    );
+  }
+
+  final packageName = core.getRequiredInput('package-name');
+  final category = packageName.split('_')[1];
+  if (!['canaries', 'analytics', 'api', 'auth', 'datastore', 'push', 'storage']
+      .contains(category)) {
+    throw Exception(
+      'packageName input of $packageName must contain a valid category of: canaries, analytics, api, auth, datastore, push, storage',
+    );
+  }
+
+  final workflowName = '${github.context.workflow}/${github.context.job}';
+
   final framework = core.getInput('framework');
+  if (!['dart', 'flutter'].contains(framework)) {
+    throw Exception(
+      'framework input of $framework must be one of: dart, flutter',
+    );
+  }
   final flutterDartChannel = core.getInput('flutter-dart-channel');
   final dartVersion = core.getInput('dart-version');
   final flutterVersion = core.getInput('flutter-version');
@@ -35,33 +73,7 @@ Future<void> launch() async {
   final platform = core.getInput('platform');
   final platformVersion = core.getInput('platform-version');
 
-/*
-  print('''{
-    metricName: $metricName,
-    isFailed: $isFailed,
-    testType: $testType,
-    category: $category,
-    workflowName: $workflowName,
-    framework: $framework,
-    flutterDartChannel: $flutterDartChannel,
-    dartVersion: $dartVersion,
-    flutterVersion: $flutterVersion,
-    dartCompiler: $dartCompiler,
-    platform: $platform,
-    platformVersion: $platformVersion,
-    failingStep: $failingStep,
-  }''');
-  */
-
   final value = isFailed ? '1' : '0';
-
-  if (category.contains('/')) {
-    // For working directory "packages/analytics/amplify_analytics_pinpoint"
-    category = category.split('/')[1];
-  } else if (category.contains('_')) {
-    // For integration test scope "amplify_analytics_pinpoint_example"
-    category = category.split('_')[1];
-  }
 
   final dimensions = {
     'test-type': testType,
@@ -98,7 +110,7 @@ Future<void> launch() async {
     <String>['aws', ...cloudArgs],
   );
 
-  print('sent the process call with args: $cloudArgs');
+  core.info('Sent cloudwatch metric with args: $cloudArgs');
 }
 
 Future<String> getFailingStep(
@@ -109,7 +121,7 @@ Future<String> getFailingStep(
 ) async {
   final headers = {
     'Authorization': 'token $githubToken',
-    'Accept': 'application/vnd.github.v3+json'
+    'Accept': 'application/vnd.github.v3+json',
   };
 
   final response = await http.get(
@@ -118,7 +130,7 @@ Future<String> getFailingStep(
   );
 
   if (response.statusCode != 200) {
-    print('Error fetching data from GitHub API.');
+    core.error('Error fetching data from GitHub API.');
     return '';
   }
 
@@ -137,7 +149,7 @@ Future<String> getFailingStep(
     return failingStep.name;
   } on Exception catch (e) {
     // Return empty string if no job found or
-    print('Exception in retrieving failing step: $e');
+    core.error('Exception in retrieving failing step: $e');
     return '';
   }
 }

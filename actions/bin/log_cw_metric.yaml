@@ -11,12 +11,12 @@ inputs:
   github-token:
     required: true
     description: Github token for requesting failing steps.
-  repo:
+  package-name:
+    description: The name of the package being tested
     required: true
-    description: Github repo
-  run-id:
+  matrix:
+    description: The matrix of the workflow
     required: true
-    description: Github Action Run Id
 
   # Global Metric Dimensions
   metric-name:
