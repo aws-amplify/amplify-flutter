@@ -53,21 +53,22 @@ inputs:
 runs:
   using: "composite"
   steps:
-    #- name: Exit if not scheduled
-    #  shell: bash
-    #  run: |
-    #    if [ "${{ github.event_name }}" != "schedule" ]; then
-    #      echo "This was not triggered by a schedule, skipping."
-    #      echo "SKIP=true" >> $GITHUB_ENV
-    #    fi
+    - name: Exit if not scheduled
+      shell: bash
+      run: |
+        if [ "${{ github.event_name }}" != "schedule" ]; then
+          echo "This was not triggered by a schedule, skipping."
+          echo "SKIP=true" >> $GITHUB_ENV
+        fi
 
     - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
+      if: env.SKIP != 'true'
       with:
         persist-credentials: false
         submodules: true
 
     - name: Configure AWS credentials
-      #if: env.SKIP != 'true'
+      if: env.SKIP != 'true'
       uses: aws-actions/configure-aws-credentials@04b98b3f9e85f563fb061be8751a0352327246b0 # 3.0.1
       with:
         unset-current-credentials: true
@@ -76,7 +77,7 @@ runs:
         role-duration-seconds: 900
 
     - name: Log the CW Metrics
-      #if: env.SKIP != 'true'
+      if: env.SKIP != 'true'
       uses: ./.github/composite_actions/log_cw_metric
       with:
         job-status: ${{ inputs.job-status }}
