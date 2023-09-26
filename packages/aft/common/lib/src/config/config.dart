@@ -233,11 +233,16 @@ class PackageInfo
     return name == 'amplify_lints';
   }
 
+  /// Whether the package is a Smithy goldens package.
+  bool get isGoldensPackage {
+    const goldensRoot = 'packages/smithy/goldens';
+    return p.absolute(path).contains(goldensRoot);
+  }
+
   /// Whether the package is a test package.
   bool get isTestPackage {
-    final relativePath = path.split('/packages/').last;
     return p.basename(path).endsWith('_test') ||
-        relativePath.contains('goldens') ||
+        isGoldensPackage ||
         p.basename(path).contains('e2e');
   }
 

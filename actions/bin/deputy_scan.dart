@@ -19,6 +19,17 @@ const List<String> _doNotUpdate = [
   // TODO(aft): Remove when min Flutter SDK allows latest xml
   // Updating xml will require changes in smithy.
   'xml',
+
+  // Bumping leads to mismatched `analyzer` constraint with `built_value_generator`
+  'dart_style',
+];
+
+/// The groups of dependencies which should be updated together.
+final List<DependencyUpdateGroup> updateGroups = [
+  DependencyUpdateGroup.of(['drift', 'drift_dev']),
+  DependencyUpdateGroup.of(['json_annotation', 'json_serializable']),
+  DependencyUpdateGroup.of(
+      ['built_value', 'built_collection', 'built_value_generator']),
 ];
 
 Future<void> _deputyScan() async {
@@ -26,6 +37,7 @@ Future<void> _deputyScan() async {
     ..unregisterAllPlugins()
     ..registerPlugin(const NodeLoggerPlugin());
   final deputy = await Deputy.create(
+    groups: updateGroups,
     fileSystem: nodeFileSystem,
     platform: nodePlatform,
     processManager: nodeProcessManager,
@@ -45,26 +57,33 @@ Future<void> _deputyScan() async {
   await allocateSwapSpace();
 
   // Create a PR for each dependency group which does not already have a PR.
-  for (final MapEntry(key: dependencyName, value: groupUpdate)
-      in updates.entries) {
-    await core.withGroup('Create PR for "$dependencyName"', () async {
-      if (_doNotUpdate.contains(dependencyName)) {
-        core.info('Skipping "$dependencyName" since it\'s on the do-not-update list');
+  for (final MapEntry(key: dependencies, value: groupUpdates)
+      in updates.toMap().entries) {
+    final groupName = dependencies.join('+');
+    await core.withGroup('Create PR for group "$groupName"', () async {
+      if (dependencies.any(_doNotUpdate.contains)) {
+        core.info(
+          'Skipping "$groupName" since one of its dependencies are on the do-not-update list',
+        );
         return;
       }
-      final updatedConstraint = groupUpdate.updatedConstraint;
       int? closeExisting;
-      if (existingPrs[dependencyName] case (final prNumber, final constraint)) {
-        if (constraint == updatedConstraint) {
-          core.info(
-            'Skipping "$dependencyName". PR already exists for same update ($constraint): '
-            'https://github.com/aws-amplify/amplify-flutter/pull/$prNumber',
-          );
-          return;
-        }
+      for (final PropsedDependencyUpdate(
+            :updatedConstraint,
+            update: DependencyUpdate(:packageName)
+          ) in groupUpdates) {
+        if (existingPrs[packageName] case (final prNumber, final constraint)) {
+          if (constraint == updatedConstraint) {
+            core.info(
+              'Skipping "$packageName". PR already exists for same update ($constraint): '
+              'https://github.com/aws-amplify/amplify-flutter/pull/$prNumber',
+            );
+            return;
+          }
 
-        // Close existing PR after new PR is created
-        closeExisting = prNumber;
+          // Close existing PR after new PR is created
+          closeExisting = prNumber;
+        }
       }
 
       // Update pubspecs for the dependency and commit changes to a new branch.
@@ -75,13 +94,14 @@ Future<void> _deputyScan() async {
       // TODO(dnys1): Fix
       // const baseBranch = 'origin/main';
       const baseBranch = 'origin/chore/aft-fixes';
+      final updatedConstraint = groupUpdates.first.updatedConstraint;
       final constraint = updatedConstraint
           .toString()
           .replaceAll(_specialChars, '')
           .replaceAll(' ', '-');
-      final branchName = 'chore/deps/$dependencyName-$constraint';
+      final branchName = 'chore/deps/$groupName-$constraint';
       final worktreeDir = nodeFileSystem.systemTempDirectory
-          .createTempSync('worktree_$dependencyName')
+          .createTempSync('worktree_$groupName')
           .path;
       await git.runCommand([
         'worktree',
@@ -100,23 +120,26 @@ Future<void> _deputyScan() async {
       );
       final worktree = NodeGitDir(worktreeRepo.git);
 
-      core.info('Updating pubspecs...');
-      await groupUpdate.updatePubspecs(worktreeRepo);
+      for (final groupUpdate in groupUpdates) {
+        core.info('Updating pubspecs...');
+        await groupUpdate.updatePubspecs(worktreeRepo);
 
-      core.info('Running post-update tasks...');
-      final updatedPackages = groupUpdate.group.dependentPackages.keys.toList();
-      await PostUpdateTasks.runAll(
-        worktreeRepo,
-        dependencyName,
-        updatedPackages,
-      );
+        core.info('Running post-update tasks...');
+        final updatedPackages =
+            groupUpdate.update.dependentPackages.keys.toList();
+        await PostUpdateTasks.runAll(
+          worktreeRepo,
+          groupUpdate.update.packageName,
+          updatedPackages,
+        );
+      }
 
       core.info('Diffing changes...');
       await worktree.runCommand(['diff']);
 
       core.info('Committing changes...');
       final commitTitle =
-          '"chore(deps): Bump $dependencyName to $updatedConstraint"';
+          '"chore(deps): Bump $groupName to $updatedConstraint"';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
@@ -126,12 +149,12 @@ Future<void> _deputyScan() async {
       final prBody = '''
 > **NOTE:** This PR was automatically created using the repo deputy.
 
-Updated $dependencyName to `$updatedConstraint`
+Updated $groupName to `$updatedConstraint`
 
-Updated-Dependency: $dependencyName
+Updated-Dependency: ${dependencies.join(', ')}
 Updated-Constraint: $updatedConstraint
 ''';
-      final tmpFile = tmpDir.childFile('pr_body_$dependencyName.txt')
+      final tmpFile = tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
       final prResult = nodeProcessManager.runSync(
@@ -190,13 +213,15 @@ Future<Map<String, _ExistingPr>> _listExistingPrs() async {
       final commitMessage =
           CommitMessage.parse('', pull.title, body: pull.body);
       final trailers = commitMessage.trailers;
-      final dependencyName = trailers['Updated-Dependency'];
+      final dependencyNames = trailers['Updated-Dependency'];
       final constraintStr = trailers['Updated-Constraint'];
-      if (dependencyName == null || constraintStr == null) {
+      if (dependencyNames == null || constraintStr == null) {
         continue;
       }
       final constraint = VersionConstraint.parse(constraintStr);
-      existingPrs[dependencyName] = (pull.number, constraint);
+      for (final dependency in dependencyNames.split(',')) {
+        existingPrs[dependency.trim()] = (pull.number, constraint);
+      }
     }
     core.info('Found existing PRs: $existingPrs');
     return existingPrs;

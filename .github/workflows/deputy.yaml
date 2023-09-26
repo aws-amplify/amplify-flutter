@@ -9,7 +9,6 @@ defaults:
 
 # These permissions are needed for creating pull requests.
 permissions:
-  actions: write # TODO: remove
   contents: write
   pull-requests: write
 
@@ -20,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
+  scan_and_update:
     # Deputy may run build_runner which benefits from faster runners
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core

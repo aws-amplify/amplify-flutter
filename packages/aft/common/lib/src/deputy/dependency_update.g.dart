@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'group.dart';
+part of 'dependency_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
 Serializers _$_serializers = (new Serializers().toBuilder()
-      ..add(Group.serializer)
+      ..add(DependencyUpdate.serializer)
       ..addBuilderFactory(
           const FullType(BuiltMap, const [
             const FullType(String),
@@ -15,16 +15,18 @@ Serializers _$_serializers = (new Serializers().toBuilder()
           ]),
           () => new MapBuilder<String, VersionConstraint>()))
     .build();
-Serializer<Group> _$groupSerializer = new _$GroupSerializer();
+Serializer<DependencyUpdate> _$dependencyUpdateSerializer =
+    new _$DependencyUpdateSerializer();
 
-class _$GroupSerializer implements StructuredSerializer<Group> {
+class _$DependencyUpdateSerializer
+    implements StructuredSerializer<DependencyUpdate> {
   @override
-  final Iterable<Type> types = const [Group, _$Group];
+  final Iterable<Type> types = const [DependencyUpdate, _$DependencyUpdate];
   @override
-  final String wireName = 'Group';
+  final String wireName = 'DependencyUpdate';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Group object,
+  Iterable<Object?> serialize(Serializers serializers, DependencyUpdate object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'packageName',
@@ -52,9 +54,10 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
   }
 
   @override
-  Group deserialize(Serializers serializers, Iterable<Object?> serialized,
+  DependencyUpdate deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GroupBuilder();
+    final result = new DependencyUpdateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,7 +92,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
   }
 }
 
-class _$Group extends Group {
+class _$DependencyUpdate extends DependencyUpdate {
   @override
   final String packageName;
   @override
@@ -99,33 +102,36 @@ class _$Group extends Group {
   @override
   final BuiltMap<String, VersionConstraint> dependentPackages;
 
-  factory _$Group([void Function(GroupBuilder)? updates]) =>
-      (new GroupBuilder()..update(updates))._build();
+  factory _$DependencyUpdate(
+          [void Function(DependencyUpdateBuilder)? updates]) =>
+      (new DependencyUpdateBuilder()..update(updates))._build();
 
-  _$Group._(
+  _$DependencyUpdate._(
       {required this.packageName,
       required this.latestVersion,
       this.globalConstraint,
       required this.dependentPackages})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(packageName, r'Group', 'packageName');
     BuiltValueNullFieldError.checkNotNull(
-        latestVersion, r'Group', 'latestVersion');
+        packageName, r'DependencyUpdate', 'packageName');
     BuiltValueNullFieldError.checkNotNull(
-        dependentPackages, r'Group', 'dependentPackages');
+        latestVersion, r'DependencyUpdate', 'latestVersion');
+    BuiltValueNullFieldError.checkNotNull(
+        dependentPackages, r'DependencyUpdate', 'dependentPackages');
   }
 
   @override
-  Group rebuild(void Function(GroupBuilder) updates) =>
+  DependencyUpdate rebuild(void Function(DependencyUpdateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GroupBuilder toBuilder() => new GroupBuilder()..replace(this);
+  DependencyUpdateBuilder toBuilder() =>
+      new DependencyUpdateBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Group &&
+    return other is DependencyUpdate &&
         packageName == other.packageName &&
         latestVersion == other.latestVersion &&
         globalConstraint == other.globalConstraint &&
@@ -145,7 +151,7 @@ class _$Group extends Group {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Group')
+    return (newBuiltValueToStringHelper(r'DependencyUpdate')
           ..add('packageName', packageName)
           ..add('latestVersion', latestVersion)
           ..add('globalConstraint', globalConstraint)
@@ -154,8 +160,9 @@ class _$Group extends Group {
   }
 }
 
-class GroupBuilder implements Builder<Group, GroupBuilder> {
-  _$Group? _$v;
+class DependencyUpdateBuilder
+    implements Builder<DependencyUpdate, DependencyUpdateBuilder> {
+  _$DependencyUpdate? _$v;
 
   String? _packageName;
   String? get packageName => _$this._packageName;
@@ -178,9 +185,9 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
           MapBuilder<String, VersionConstraint>? dependentPackages) =>
       _$this._dependentPackages = dependentPackages;
 
-  GroupBuilder();
+  DependencyUpdateBuilder();
 
-  GroupBuilder get _$this {
+  DependencyUpdateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _packageName = $v.packageName;
@@ -193,28 +200,28 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   }
 
   @override
-  void replace(Group other) {
+  void replace(DependencyUpdate other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Group;
+    _$v = other as _$DependencyUpdate;
   }
 
   @override
-  void update(void Function(GroupBuilder)? updates) {
+  void update(void Function(DependencyUpdateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  Group build() => _build();
+  DependencyUpdate build() => _build();
 
-  _$Group _build() {
-    _$Group _$result;
+  _$DependencyUpdate _build() {
+    _$DependencyUpdate _$result;
     try {
       _$result = _$v ??
-          new _$Group._(
+          new _$DependencyUpdate._(
               packageName: BuiltValueNullFieldError.checkNotNull(
-                  packageName, r'Group', 'packageName'),
+                  packageName, r'DependencyUpdate', 'packageName'),
               latestVersion: BuiltValueNullFieldError.checkNotNull(
-                  latestVersion, r'Group', 'latestVersion'),
+                  latestVersion, r'DependencyUpdate', 'latestVersion'),
               globalConstraint: globalConstraint,
               dependentPackages: dependentPackages.build());
     } catch (_) {
@@ -224,7 +231,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
         dependentPackages.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'Group', _$failedField, e.toString());
+            r'DependencyUpdate', _$failedField, e.toString());
       }
       rethrow;
     }

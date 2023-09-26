@@ -21,7 +21,7 @@ enum PostUpdateTasks {
     needsBuildRunner: true,
     needsSmithy: true,
   ),
-  drift(needsBuildRunner: true),
+  driftDev(needsBuildRunner: true),
   jsonSerializable(needsBuildRunner: true);
 
   const PostUpdateTasks({
@@ -54,26 +54,15 @@ enum PostUpdateTasks {
 
   List<PostUpdateTask> buildTasks(Repo repo, List<String> updatedPackages) {
     return [
-      if (needsSmithy) ...[
-        const PostUpdateTask.aft(['generate', 'goldens']),
-        PostUpdateTask.aft([
-          'generate',
-          'sdk',
-          '--include=${updatedPackages.join(',')}',
-          '--exclude=smoke_test',
-        ]),
-      ],
+      if (needsSmithy) const PostUpdateTask.aft(['generate', 'goldens']),
       if (needsBuildRunner)
         PostUpdateTask.buildRunner([
-          // Don't re-run for Smithy outputs
+          // Don't re-run for Smithy goldens
           if (needsSmithy)
             ...updatedPackages
                 .map(repo.maybePackage)
                 .nonNulls
-                .where(
-                  (pkg) => !pkg.pubspecInfo.pubspec.dependencies
-                      .containsKey('smithy'),
-                )
+                .where((pkg) => !pkg.isGoldensPackage)
                 .map((pkg) => pkg.name)
           else
             ...updatedPackages,

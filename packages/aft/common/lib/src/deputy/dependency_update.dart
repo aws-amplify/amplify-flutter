@@ -9,16 +9,19 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-part 'group.g.dart';
+part 'dependency_update.g.dart';
 
-abstract class Group
+typedef DependencyUpdateGroup = BuiltList<String>;
+
+abstract class DependencyUpdate
     with AWSSerializable
-    implements Built<Group, GroupBuilder> {
-  factory Group([void Function(GroupBuilder) updates]) = _$Group;
+    implements Built<DependencyUpdate, DependencyUpdateBuilder> {
+  factory DependencyUpdate([void Function(DependencyUpdateBuilder) updates]) =
+      _$DependencyUpdate;
 
-  const Group._();
+  const DependencyUpdate._();
 
-  static Group fromJson(Map<String, Object?> json) {
+  static DependencyUpdate fromJson(Map<String, Object?> json) {
     return _serializers.deserializeWith(serializer, json)!;
   }
 
@@ -32,11 +35,12 @@ abstract class Group
     return _serializers.serializeWith(serializer, this) as Map<String, Object?>;
   }
 
-  static Serializer<Group> get serializer => _$groupSerializer;
+  static Serializer<DependencyUpdate> get serializer =>
+      _$dependencyUpdateSerializer;
 }
 
 @SerializersFor([
-  Group,
+  DependencyUpdate,
 ])
 final Serializers _serializers = (_$_serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin())
