@@ -12,7 +12,10 @@ final class _UnreachableError extends Error {}
 
 /// Allocate swap space to help relieve memory pressure when running `build_runner`.
 /// 
-/// By default, the large runners do not allocate any swap space.
+/// By default, the large runners do not allocate any swap space. Without swap space,
+/// `build_runner` actions will often fail with an "The operation was canceled" exception.
+/// This was found to be caused by running out of memory (which `build_runner` consumes
+/// a lot of).
 Future<void> allocateSwapSpace({int sizeInGb = 10}) async {
   await core.withGroup('Create swap space', () async {
     await ShellScript('''
