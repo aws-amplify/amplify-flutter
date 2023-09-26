@@ -52,7 +52,7 @@ function log_swap {
   echo "Memory and swap:"
   free -h
   echo
-  swapon -show
+  swapon --show
   echo
 }
 

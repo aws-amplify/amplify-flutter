@@ -43218,7 +43218,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.ShellScript_run('# Log current swap space report\nfunction log_swap {\n  echo "Memory and swap:"\n  free -h\n  echo\n  swapon -show\n  echo\n}\n\n# Set swap\nlog_swap\nexport SWAP_FILE=$(swapon --show=NAME | tail -n 1)\nsudo swapoff $SWAP_FILE\nsudo rm $SWAP_FILE\nsudo fallocate -l 10G $SWAP_FILE\nsudo chmod 600 $SWAP_FILE\nsudo mkswap $SWAP_FILE\nsudo swapon $SWAP_FILE\nlog_swap\n'), $async$call$0);
+              return A._asyncAwait(A.ShellScript_run('# Log current swap space report\nfunction log_swap {\n  echo "Memory and swap:"\n  free -h\n  echo\n  swapon --show\n  echo\n}\n\n# Set swap\nlog_swap\nexport SWAP_FILE=$(swapon --show=NAME | tail -n 1)\nsudo swapoff $SWAP_FILE\nsudo rm $SWAP_FILE\nsudo fallocate -l 10G $SWAP_FILE\nsudo chmod 600 $SWAP_FILE\nsudo mkswap $SWAP_FILE\nsudo swapon $SWAP_FILE\nlog_swap\n'), $async$call$0);
             case 2:
               // returning from await.
               // implicit return
