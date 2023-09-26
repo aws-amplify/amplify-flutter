@@ -314,40 +314,6 @@ updates:
       - dependency-name: "amplify_storage_s3"
       - dependency-name: "amplify_storage_s3_dart"
   - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_datastore"
-      - dependency-name: "amplify_datastore_plugin_interface"
-      - dependency-name: "amplify_storage_s3"
-      - dependency-name: "amplify_storage_s3_dart"
-  - package-ecosystem: "pub"
     directory: "packages/amplify_core"
     schedule:
       interval: "daily"
@@ -466,7 +432,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -479,35 +445,6 @@ updates:
       mockito:
         patterns:
           - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/amplify_datastore/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "amplify_datastore"
-      - dependency-name: "amplify_datastore_plugin_interface"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "smithy_codegen"
   - package-ecosystem: "pub"
     directory: "packages/amplify_datastore/example"
     schedule:
@@ -585,7 +522,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -667,7 +604,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -680,50 +617,6 @@ updates:
       mockito:
         patterns:
           - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_pinpoint/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      built_value:
-        patterns:
-          - "built_value"
-      json_annotation:
-        patterns:
-          - "json_annotation"
-      json_serializable:
-        patterns:
-          - "json_serializable"
   - package-ecosystem: "pub"
     directory: "packages/analytics/amplify_analytics_pinpoint/example"
     schedule:
@@ -879,42 +772,6 @@ updates:
         patterns:
           - "async"
   - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_authenticator"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      async:
-        patterns:
-          - "async"
-  - package-ecosystem: "pub"
     directory: "packages/api/amplify_api_dart"
     schedule:
       interval: "daily"
@@ -989,7 +846,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -1002,52 +859,6 @@ updates:
       mockito:
         patterns:
           - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_cognito/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_authenticator"
-      - dependency-name: "amplify_native_legacy_wrapper"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      async:
-        patterns:
-          - "async"
-      http:
-        patterns:
-          - "http"
-      stack_trace:
-        patterns:
-          - "stack_trace"
-      test:
-        patterns:
-          - "test"
   - package-ecosystem: "pub"
     directory: "packages/auth/amplify_auth_cognito/example"
     schedule:
@@ -1157,45 +968,6 @@ updates:
       json_serializable:
         patterns:
           - "json_serializable"
-      test:
-        patterns:
-          - "test"
-  - package-ecosystem: "pub"
-    directory: "packages/auth/amplify_auth_cognito_dart/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "example_common"
-      - dependency-name: "amplify_api_dart"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
-      mime:
-        patterns:
-          - "mime"
       test:
         patterns:
           - "test"
@@ -1599,7 +1371,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -1694,33 +1466,6 @@ updates:
       test:
         patterns:
           - "test"
-  - package-ecosystem: "pub"
-    directory: "packages/common/amplify_db_common_dart/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "example_common"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      drift:
-        patterns:
-          - "drift"
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/common/amplify_db_common_dart/example"
     schedule:
@@ -1996,7 +1741,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -2182,7 +1927,7 @@ updates:
       # to ensure users can have Kt versions >= Flutter stable.
       - dependency-name: "kotlin_version"
       - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
-      
+
       # Ignore patch version bumps
       - dependency-name: "*"
         update-types:
@@ -2270,30 +2015,6 @@ updates:
       test:
         patterns:
           - "test"
-  - package-ecosystem: "pub"
-    directory: "packages/secure_storage/amplify_secure_storage_dart/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "example_common"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/secure_storage/amplify_secure_storage_dart/example"
     schedule:
@@ -3177,39 +2898,6 @@ updates:
       test:
         patterns:
           - "test"
-  - package-ecosystem: "pub"
-    directory: "packages/storage/amplify_storage_s3_dart/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_storage_s3_dart"
-      - dependency-name: "example_common"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/storage/amplify_storage_s3_dart/example"
     schedule:
