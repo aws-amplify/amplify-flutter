@@ -120,7 +120,10 @@ final class _BuildRunnerTask extends PostUpdateTask {
   Future<void> run(Repo repo) async {
     await _ensureAft(repo);
     for (final package in packages) {
-      final packageInfo = repo[package];
+      final packageInfo = repo.maybePackage(package);
+      if (packageInfo == null) {
+        continue;
+      }
       core.info('Running build_runner in "$package"...');
       final pub = switch (packageInfo.flavor) {
         PackageFlavor.dart => ['dart'],

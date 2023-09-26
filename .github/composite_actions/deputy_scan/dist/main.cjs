@@ -26670,7 +26670,7 @@
               return A._asyncAwait($async$self._ensureAft$1(repo), $async$run$1);
             case 2:
               // returning from await.
-              t1 = $async$self.packages, t2 = t1.length, t3 = type$.String, t4 = repo.aftConfig.allPackages._map$_map, t5 = type$.JSObject, t6 = type$.JSArray_String, _i = 0;
+              t1 = $async$self.packages, t2 = t1.length, t3 = type$.String, t4 = type$.JSObject, t5 = repo.aftConfig.allPackages._map$_map, t6 = type$.JSArray_String, _i = 0;
             case 3:
               // for condition
               if (!(_i < t1.length)) {
@@ -26679,9 +26679,13 @@
                 break;
               }
               t7 = A._asString(t1[_i]);
-              t8 = t4.$index(0, t7);
-              t8.toString;
-              t5._as(self.core).info('Running build_runner in "' + t7 + '"...');
+              t8 = t5.$index(0, t7);
+              if (t8 == null) {
+                // goto for update
+                $async$goto = 4;
+                break;
+              }
+              t4._as(self.core).info('Running build_runner in "' + t7 + '"...');
               switch (t8.flavor.index) {
                 case 1:
                   t7 = A._setArrayType(["dart"], t6);
