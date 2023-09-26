@@ -19,7 +19,7 @@ dependencies:
   build_web_compilers: ^4.0.0
   built_value: ">=8.6.0 <8.7.0"
   built_value_generator: 8.6.1
-  code_builder: 4.6.0
+  code_builder: 4.7.0
   connectivity_plus: ^4.0.1
   # This must exactly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
