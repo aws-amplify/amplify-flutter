@@ -6862,7 +6862,7 @@
       this._core$_name = t0;
     },
     ChildProcess_spawn(_this, command, args, environment, includeParentEnvironment, mode, runInShell, stdin, workingDirectory) {
-      var t1, t2, t3, t4;
+      var t1, t2, t3, t4, t5;
       $label0$0: {
         if (B.ProcessStartMode_0 === mode) {
           t1 = "pipe";
@@ -6882,15 +6882,18 @@
         }
         t1 = A.unreachable();
       }
+      t2 = A._arrayInstanceType(args);
+      t3 = t2._eval$1("MappedListIterable<1,String>");
+      t3 = A.List_List$of(new A.MappedListIterable(args, t2._eval$1("String(1)")._as(new A.ChildProcess_spawn_closure()), t3), true, t3._eval$1("ListIterable.E"));
       t2 = type$.String;
       t2 = A.LinkedHashMap_LinkedHashMap$_empty(t2, t2);
-      t3 = self;
-      t2.addAll$1(0, A.Process_get_env(type$.JSObject._as(t3.process)));
-      t3 = type$.JSObject;
-      t2 = t3._as(A.jsify(t2));
-      t4 = mode === B.ProcessStartMode_2 || mode === B.ProcessStartMode_3;
+      t4 = self;
+      t2.addAll$1(0, A.Process_get_env(type$.JSObject._as(t4.process)));
+      t4 = type$.JSObject;
+      t2 = t4._as(A.jsify(t2));
+      t5 = mode === B.ProcessStartMode_2 || mode === B.ProcessStartMode_3;
       t1 = A._setArrayType([stdin == null ? t1 : stdin, t1, t1], type$.JSArray_Object);
-      return t3._as(_this.spawn.apply(_this, [command, args, {cwd: workingDirectory, env: t2, stdio: t1, detached: t4, shell: null}]));
+      return t4._as(_this.spawn.apply(_this, [command, t3, {cwd: workingDirectory, env: t2, stdio: t1, detached: t5, shell: null}]));
     },
     NodeReadableStream_get_stream(_this) {
       var controller = A.StreamController_StreamController(true, type$.List_int),
@@ -6903,6 +6906,8 @@
       var t1 = new A._Future($.Zone__current, $T._eval$1("_Future<0>"));
       _this.once(eventName, A.allowInterop(new A.EventEmitter_once_closure(new A._AsyncCompleter(t1, $T._eval$1("_AsyncCompleter<0>")), $T), type$.Function));
       return t1;
+    },
+    ChildProcess_spawn_closure: function ChildProcess_spawn_closure() {
     },
     NodeReadableStream_get_stream_onData: function NodeReadableStream_get_stream_onData(t0) {
       this.controller = t0;
@@ -7883,7 +7888,7 @@
     },
     Core_setFailed(_this, error) {
       _this.setFailed(error);
-      type$.Never._as(type$.JSObject._as(self.process).exit(1));
+      A.Process_exit(type$.JSObject._as(self.process), 1);
     },
     Process_get_env(_this) {
       var t2, $name, value,
@@ -7899,6 +7904,10 @@
         variables.$indexSet(0, $name, value);
       }
       return variables;
+    },
+    Process_exit(_this, exitCode) {
+      _this.exit(exitCode);
+      A.unreachable();
     },
     createClient() {
       return A.throwExpression(A.UnsupportedError$("Cannot create a client without dart:html or dart:io."));
@@ -9091,7 +9100,7 @@
     call$0() {
       return A.Future_Future$value(null, type$.Null);
     },
-    $signature: 32
+    $signature: 39
   };
   A.SentinelValue.prototype = {};
   A.EfficientLengthIterable.prototype = {};
@@ -9710,7 +9719,7 @@
       B.JSArray_methods.add$1(this.$arguments, argument);
       ++t1.argumentCount;
     },
-    $signature: 27
+    $signature: 16
   };
   A.TypeErrorDecoder.prototype = {
     matchTypeError$1(message) {
@@ -10048,19 +10057,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 23
+    $signature: 26
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 57
+    $signature: 51
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 11
+    $signature: 12
   };
   A.JSSyntaxRegExp.prototype = {
     toString$0(_) {
@@ -10447,7 +10456,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 43
+    $signature: 32
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -10529,19 +10538,19 @@
     call$1(result) {
       return this.bodyFunction.call$2(0, result);
     },
-    $signature: 18
+    $signature: 21
   };
   A._awaitOnObject_closure0.prototype = {
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 78
+    $signature: 66
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 79
+    $signature: 78
   };
   A.AsyncError.prototype = {
     toString$0(_) {
@@ -10910,7 +10919,7 @@
     call$2(error, stackTrace) {
       this.$this._completeError$2(type$.Object._as(error), type$.StackTrace._as(stackTrace));
     },
-    $signature: 12
+    $signature: 13
   };
   A._Future__chainForeignFuture_closure1.prototype = {
     call$0() {
@@ -10975,7 +10984,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 66
+    $signature: 79
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -12815,7 +12824,7 @@
     call$1(each) {
       return this.$this.$index(0, A._asString(each));
     },
-    $signature: 11
+    $signature: 12
   };
   A._JsonMapKeyIterable.prototype = {
     get$length(_) {
@@ -12871,7 +12880,7 @@
       }
       return null;
     },
-    $signature: 14
+    $signature: 15
   };
   A.Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -12883,7 +12892,7 @@
       }
       return null;
     },
-    $signature: 14
+    $signature: 15
   };
   A.AsciiCodec.prototype = {
     encode$1(source) {
@@ -13762,7 +13771,7 @@
       t1._contents += A.Error_safeToString(value);
       t2.comma = ", ";
     },
-    $signature: 56
+    $signature: 57
   };
   A.Duration.prototype = {
     $eq(_, other) {
@@ -14142,13 +14151,13 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv4 address, " + msg, this.host, position));
     },
-    $signature: 54
+    $signature: 56
   };
   A.Uri_parseIPv6Address_error.prototype = {
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 51
+    $signature: 54
   };
   A.Uri_parseIPv6Address_parseHex.prototype = {
     call$2(start, end) {
@@ -14458,7 +14467,7 @@
     call$1(s) {
       return A._Uri__uriEncode(B.List_XRg0, A._asString(s), B.Utf8Codec_false, false);
     },
-    $signature: 15
+    $signature: 9
   };
   A.UriData.prototype = {
     get$uri() {
@@ -14499,7 +14508,7 @@
       B.NativeUint8List_methods.fillRange$3(t1, 0, 96, defaultTransition);
       return t1;
     },
-    $signature: 39
+    $signature: 43
   };
   A._createTables_setChars.prototype = {
     call$3(target, chars, transition) {
@@ -14511,7 +14520,7 @@
         target[t2] = transition;
       }
     },
-    $signature: 10
+    $signature: 11
   };
   A._createTables_setRange.prototype = {
     call$3(target, range, transition) {
@@ -14530,7 +14539,7 @@
         target[t1] = transition;
       }
     },
-    $signature: 10
+    $signature: 11
   };
   A._SimpleUri.prototype = {
     get$hasAuthority() {
@@ -14958,7 +14967,7 @@
               return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Clean up (Success)", new A.wrapMain__closure0(), type$.void), $async$call$0);
             case 3:
               // returning from await.
-              type$.Never._as(t2._as(t1.process).exit(0));
+              A.Process_exit(t2._as(t1.process), 0);
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
@@ -15046,6 +15055,12 @@
     _enumToString$0() {
       return "ActionResult." + this._core$_name;
     }
+  };
+  A.ChildProcess_spawn_closure.prototype = {
+    call$1(arg) {
+      return A._asString(arg);
+    },
+    $signature: 9
   };
   A.NodeReadableStream_get_stream_onData.prototype = {
     call$1(chunk) {
@@ -15282,14 +15297,14 @@
       A._asString(line);
       this.stdout._contents += line + "\n";
     },
-    $signature: 26
+    $signature: 27
   };
   A.NodeProcessManager_run_closure0.prototype = {
     call$1(line) {
       A._asString(line);
       this.stderr._contents += line + "\n";
     },
-    $signature: 26
+    $signature: 27
   };
   A.NodeProcess.prototype = {
     _init$0() {
@@ -15370,7 +15385,7 @@
             case 0:
               // Function start
               t1 = $async$self._jsProcess;
-              _0_0 = A._asDoubleQ(t1.exitCode);
+              _0_0 = A._asIntQ(t1.exitCode);
               if (_0_0 != null) {
                 exitCode = _0_0;
                 t2 = true;
@@ -15379,7 +15394,7 @@
                 t2 = false;
               }
               if (t2) {
-                $async$returnValue = A._asInt(exitCode);
+                $async$returnValue = exitCode;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -15388,9 +15403,9 @@
               return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
             case 3:
               // returning from await.
-              t1 = A._asDoubleQ(t1.exitCode);
+              t1 = A._asIntQ(t1.exitCode);
               t1.toString;
-              $async$returnValue = A._asInt(t1);
+              $async$returnValue = t1;
               // goto return
               $async$goto = 1;
               break;
@@ -15402,8 +15417,7 @@
       return A._asyncStartSync($async$get$exitCode, $async$completer);
     },
     get$pid() {
-      var t1 = A._asDoubleQ(this._jsProcess.pid);
-      t1 = t1 == null ? null : A._asInt(t1);
+      var t1 = A._asIntQ(this._jsProcess.pid);
       return t1 == null ? -1 : t1;
     },
     close$0() {
@@ -15522,7 +15536,7 @@
       if ((t1._state & 4) === 0)
         t1.addError$2(e, st);
     },
-    $signature: 12
+    $signature: 13
   };
   A.StreamForward_forward_closure0.prototype = {
     call$0() {
@@ -16785,7 +16799,7 @@
       if (B.JSString_methods.startsWith$1($name, "x_"))
         this.$this.extensions.$indexSet(0, $name, value);
     },
-    $signature: 27
+    $signature: 16
   };
   A.SingleMapping__findLine_closure.prototype = {
     call$1(e) {
@@ -17047,7 +17061,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 22
+    $signature: 23
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -17062,7 +17076,7 @@
       type$.Frame._as(frame);
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 21
+    $signature: 22
   };
   A.Frame.prototype = {
     get$library() {
@@ -17644,7 +17658,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 22
+    $signature: 23
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -17653,7 +17667,7 @@
         return frame.toString$0(0) + "\n";
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 21
+    $signature: 22
   };
   A.UnparsedFrame.prototype = {
     toString$0(_) {
@@ -17680,7 +17694,7 @@
     call$1(e) {
       return e;
     },
-    $signature: 23
+    $signature: 26
   };
   A.logMetric_closure0.prototype = {
     call$1(e) {
@@ -17712,9 +17726,9 @@
       _instance_1_u = hunkHelpers._instance_1u,
       _instance_0_u = hunkHelpers._instance_0u,
       _instance = hunkHelpers.installInstanceTearOff;
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 9);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 9);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 9);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 10);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 10);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 10);
     _static(A, "async_Future___value_tearOff$closure", 0, function() {
       return [null];
     }, ["call$1$1", "call$1", "call$0", "call$1$0"], ["Future___value_tearOff", function(value) {
@@ -17751,7 +17765,7 @@
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic, type$.dynamic);
     }], 17, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 16, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 25, 0);
     _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 73, 0);
     _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 74, 0);
     _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 75, 0);
@@ -17759,7 +17773,7 @@
     _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 77, 0);
     _instance_2_u(A._Future.prototype, "get$_completeError", "_completeError$2", 2);
     var _;
-    _instance_1_u(_ = A._StreamController.prototype, "get$_add", "_add$1", 13);
+    _instance_1_u(_ = A._StreamController.prototype, "get$_add", "_add$1", 14);
     _instance_2_u(_, "get$_addError", "_addError$2", 2);
     _instance_0_u(_, "get$_close", "_close$0", 0);
     _instance_0_u(_ = A._ControllerSubscription.prototype, "get$_onPause", "_onPause$0", 0);
@@ -17768,11 +17782,11 @@
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
     _instance_0_u(_ = A._SinkTransformerStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 13);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 14);
     _instance_2_u(_, "get$_handleError", "_handleError$2", 2);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
-    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 15);
-    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 18);
+    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 9);
+    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 21);
     _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 28);
     _instance_0_u(A.NodeProcessManager.prototype, "get$close", "close$0", 7);
     _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 3);
@@ -17785,9 +17799,9 @@
     _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 19, 0, 0);
     _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 17, 0, 0);
     _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 62, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 16, 0, 0);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 25);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 25);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 25, 0, 0);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 18);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 18);
     _static_0(A, "log_cw_metric__logMetric$closure", "logMetric", 7);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
@@ -17810,7 +17824,7 @@
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
-    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.StreamForward_forward_closure, A.get_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.logMetric_closure, A.logMetric_closure0]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.StreamForward_forward_closure, A.get_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.logMetric_closure, A.logMetric_closure0]);
     _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.Primitives_functionNoSuchMethod_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__chainForeignFuture_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._createTables_build, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
@@ -17883,7 +17897,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "~(Object,StackTrace)", "Trace()", "Frame()", "Frame(String)", "Null()", "Future<~>()", "Null(@)", "~(~())", "~(Uint8List,String,int)", "@(String)", "Null(Object,StackTrace)", "~(Object?)", "@()", "String(String)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "~(@)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "String(Frame)", "int(Frame)", "@(@)", "String(Match)", "Trace(String)", "~(String)", "~(String,@)", "~(@,StackTrace?)", "Null(@,@)", "Object?(Object?)", "Future<0&>()", "Future<Null>()", "Future<~>(Object,Chain)", "~(Uint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "Uint8List(@,@)", "~(List<int>)", "0&(JSObject)", "Future<Response0>(Client)", "Null(~())", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "int(int,int)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "~(String,int?)", "List<Frame>(Trace)", "0^(0^,0^)<num>", "~(String,int)", "String(Trace)", "~(Symbol0,@)", "@(@,String)", "Frame(String,String)", "_LineSplitterEventSink(EventSink<String>)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(Object?,Object?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "~(@,@)", "Chain()", "String(MapEntry<String,String>)", "_Future<@>(@)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "Null(@,StackTrace)", "~(int,@)", "int(Trace)"],
+    types: ["~()", "bool(String)", "~(Object,StackTrace)", "Trace()", "Frame()", "Frame(String)", "Null()", "Future<~>()", "Null(@)", "String(String)", "~(~())", "~(Uint8List,String,int)", "@(String)", "Null(Object,StackTrace)", "~(Object?)", "@()", "~(String,@)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "Trace(String)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "~(@)", "String(Frame)", "int(Frame)", "String(Match)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "@(@)", "~(String)", "~(@,StackTrace?)", "Null(@,@)", "Object?(Object?)", "Future<0&>()", "Null(~())", "Future<~>(Object,Chain)", "~(Uint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "Future<Null>()", "~(List<int>)", "0&(JSObject)", "Future<Response0>(Client)", "Uint8List(@,@)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "int(int,int)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "@(@,String)", "List<Frame>(Trace)", "0^(0^,0^)<num>", "~(String,int?)", "String(Trace)", "~(String,int)", "~(Symbol0,@)", "Frame(String,String)", "_LineSplitterEventSink(EventSink<String>)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(Object?,Object?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "~(@,@)", "Chain()", "String(MapEntry<String,String>)", "Null(@,StackTrace)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "~(int,@)", "_Future<@>(@)", "int(Trace)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti")
