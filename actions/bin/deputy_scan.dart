@@ -33,8 +33,10 @@ Future<void> _deputyScan() async {
   final git = NodeGitDir(deputy.repo.git);
   final existingPrs = await _listExistingPrs();
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
-  final currentHead = await git.revParse('HEAD', options: ['--abbrev-ref']);
+  final currentHead = await git.revParse('HEAD');
   core.info('Current HEAD: $currentHead');
+
+  // Create a PR for each dependency group which does not already have a PR.
   for (final MapEntry(key: dependencyName, value: groupUpdate)
       in updates.entries) {
     await core.withGroup('Create PR for "$dependencyName"', () async {
@@ -56,29 +58,40 @@ Future<void> _deputyScan() async {
       }
 
       // Update pubspecs for the dependency and commit changes to a new branch.
-      core.info('Creating new branch...');
+      core.info('Creating new worktree...');
       const baseBranch = 'origin/main';
       final constraint = updatedConstraint
           .toString()
           .replaceAll(_specialChars, '')
           .replaceAll(' ', '-');
       final branchName = 'chore/deps/$dependencyName-$constraint';
-
-      core.info('Checking out new branch: "$branchName"');
-      await git.runCommand(['switch', '-c', branchName, baseBranch]);
+      final worktreeDir = nodeFileSystem.systemTempDirectory
+          .createTempSync('worktree_$dependencyName')
+          .path;
+      await git.runCommand([
+        'worktree',
+        'add',
+        worktreeDir,
+        '-b',
+        branchName,
+        baseBranch,
+      ]);
+      final worktree = NodeGitDir(
+        await GitDir.fromExisting(worktreeDir),
+      );
 
       core.info('Updating pubspecs...');
-      await groupUpdate.updatePubspecs();
+      await groupUpdate.updatePubspecs(worktreeDir);
 
       core.info('Diffing changes...');
-      await git.runCommand(['diff']);
+      await worktree.runCommand(['diff']);
 
       core.info('Committing changes...');
       final commitTitle =
           '"chore(deps): Bump $dependencyName to $updatedConstraint"';
-      await git.runCommand(['add', '-A']);
-      await git.runCommand(['commit', '-m', commitTitle]);
-      await git.runCommand(['push', '-f','-u', 'origin', branchName]);
+      await worktree.runCommand(['add', '-A']);
+      await worktree.runCommand(['commit', '-m', commitTitle]);
+      await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
@@ -93,15 +106,18 @@ Updated-Constraint: $updatedConstraint
       final tmpFile = tmpDir.childFile('pr_body_$dependencyName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
-      final prResult = processManager.runSync(<String>[
-        'gh',
-        'pr',
-        'create',
-        '--base=main',
-        '--body-file=${tmpFile.path}',
-        '--title=$commitTitle',
-        '--draft',
-      ]);
+      final prResult = processManager.runSync(
+        <String>[
+          'gh',
+          'pr',
+          'create',
+          '--base=main',
+          '--body-file=${tmpFile.path}',
+          '--title=$commitTitle',
+          '--draft',
+        ],
+        workingDirectory: worktreeDir,
+      );
       if (prResult.exitCode != 0) {
         core.error(
           'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
@@ -145,13 +161,16 @@ Future<Map<String, _ExistingPr>> _listExistingPrs() async {
     for (final pull in pulls) {
       final commitMessage =
           CommitMessage.parse('', pull.title, body: pull.body);
-      final pkgTrailer = commitMessage.trailers['Updated-Dependency'];
-      final constraintTrailer = commitMessage.trailers['Updated-Constraint'];
-      if (pkgTrailer == null || constraintTrailer == null) {
+      final trailers = commitMessage.trailers;
+      // TODO(dnys1): Remove
+      core.info('Trailers for #${pull.number}: $trailers');
+      final dependencyName = trailers['Updated-Dependency'];
+      final constraintStr = trailers['Updated-Constraint'];
+      if (dependencyName == null || constraintStr == null) {
         continue;
       }
-      final constraint = VersionConstraint.parse(constraintTrailer);
-      existingPrs[pkgTrailer] = (pull.number, constraint);
+      final constraint = VersionConstraint.parse(constraintStr);
+      existingPrs[dependencyName] = (pull.number, constraint);
     }
     core.info('Found existing PRs: $existingPrs');
     return existingPrs;

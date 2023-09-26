@@ -6,6 +6,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 import 'package:platform/platform.dart';
 import 'package:process/process.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -163,14 +164,23 @@ final class Deputy {
   }
 
   /// Writes any propsed updates to disk.
-  Future<void> _commitUpdates() async {
+  ///
+  /// If [worktreeDir] is specified, updates are applied in that
+  /// directory. Otherwise, they are applied to the [repo] directory.
+  Future<void> _commitUpdates([String? worktreeDir]) async {
+    final rootDir = repo.rootDir.uri.toFilePath();
+    String relativeToWorktree(String path) {
+      final relativeToRoot = p.relative(path, from: rootDir);
+      return p.join(worktreeDir ?? rootDir, relativeToRoot);
+    }
+
     final outdatedPacakges = [
       for (final package in repo.allPackages.values)
         if (package.pubspecInfo.pubspecYamlEditor case final editor
             when editor.edits.isNotEmpty)
-          (package.path, editor),
+          (relativeToWorktree(package.path), editor),
       if (repo.rootPubspecEditor.edits.isNotEmpty)
-        (repo.rootDir.uri.toFilePath(), repo.rootPubspecEditor),
+        (relativeToWorktree(rootDir), repo.rootPubspecEditor),
     ];
     if (outdatedPacakges.isEmpty) {
       logger?.info('All dependencies up-to-date');
@@ -225,20 +235,26 @@ final class GroupUpdate {
 
   /// Updates all pubspecs in the group and writes the changes
   /// to disk.
-  Future<void> updatePubspecs() async {
+  ///
+  /// If [worktreeDir] is specified, updates are applied in that
+  /// directory. Otherwise, they are applied to the repo directory.
+  Future<void> updatePubspecs([String? worktreeDir]) async {
     for (final update in _pubspecUpdates) {
       update();
     }
-    await _deputy._commitUpdates();
+    await _deputy._commitUpdates(worktreeDir);
   }
 }
 
 extension UpdateAllGroups on Map<String, GroupUpdate> {
   /// Updates all pubspecs in all groups and writes the changes
   /// to disk.
-  Future<void> updatePubspecs() async {
+  ///
+  /// If [worktreeDir] is specified, updates are applied in that
+  /// directory. Otherwise, they are applied to the repo directory.
+  Future<void> updatePubspecs([String? worktreeDir]) async {
     for (final group in values) {
-      await group.updatePubspecs();
+      await group.updatePubspecs(worktreeDir);
     }
   }
 }
