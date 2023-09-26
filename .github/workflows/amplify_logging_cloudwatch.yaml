@@ -5,6 +5,32 @@ on:
     branches:
       - main
       - stable
+    paths:
+      - '.github/composite_actions/setup_firefox/action.yaml'
+      - '.github/workflows/amplify_logging_cloudwatch.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/logging_cloudwatch/amplify_logging_cloudwatch/**/*.dart'
+      - 'packages/logging_cloudwatch/amplify_logging_cloudwatch/**/*.yaml'
+      - 'packages/logging_cloudwatch/amplify_logging_cloudwatch/lib/**/*'
+      - 'packages/logging_cloudwatch/amplify_logging_cloudwatch/test/**/*'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
@@ -33,11 +59,18 @@ on:
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
+
 permissions: read-all
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -45,3 +78,4 @@ jobs:
     with:
       package-name: amplify_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/amplify_logging_cloudwatch
+      has-goldens: false

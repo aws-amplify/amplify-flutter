@@ -1793,6 +1793,7 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
@@ -1801,6 +1802,26 @@ updates:
       - dependency-name: "aws_logging_cloudwatch"
       - dependency-name: "smithy"
       - dependency-name: "smithy_aws"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      device_info_plus:
+        patterns:
+          - "device_info_plus"
+      drift:
+        patterns:
+          - "drift"
+      intl:
+        patterns:
+          - "intl"
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+      test:
+        patterns:
+          - "test"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
     schedule:
@@ -1810,7 +1831,35 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      # Ignore all repo packages
       - dependency-name: "amplify_lints"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+  - package-ecosystem: "pub"
+    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_lints"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch"
     schedule:
@@ -1820,12 +1869,39 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy"
       - dependency-name: "smithy_aws"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      built_value:
+        patterns:
+          - "built_value"
+      intl:
+        patterns:
+          - "intl"
+      json_annotation:
+        patterns:
+          - "json_annotation"
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+      built_value_generator:
+        patterns:
+          - "built_value_generator"
+      json_serializable:
+        patterns:
+          - "json_serializable"
+      test:
+        patterns:
+          - "test"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
     schedule:
@@ -1835,6 +1911,7 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      # Ignore all repo packages
       - dependency-name: "aws_logging_cloudwatch"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
@@ -1842,6 +1919,39 @@ updates:
       - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy"
       - dependency-name: "smithy_aws"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+  - package-ecosystem: "pub"
+    directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/notifications/push/amplify_push_notifications"
     schedule:
