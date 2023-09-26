@@ -25,88 +25,131 @@ Future<void> _deputyScan() async {
   );
   final updates = await core.withGroup(
     'Scan for Updates',
-    deputy.scanAndUpdate,
+    deputy.scanForUpdates,
   );
   if (updates == null) {
     return core.info('No updates needed');
   }
   final git = NodeGitDir(deputy.repo.git);
-  await core.withGroup('Diff', () => git.runCommand(['diff']));
-  await core.withGroup('Commit Changes', () async {
-    final branchName = 'chore/deps/${DateTime.now().millisecondsSinceEpoch}';
-    await git.runCommand(['checkout', '-b', branchName]);
-    await git.runCommand(['add', '-A']);
-    await git.runCommand([
-      'commit',
-      '-m',
-      '"chore(deps): Bump dependencies"',
-    ]);
-    await git.runCommand(['push', '-u', 'origin', branchName]);
-  });
-  if (await _hasExistingPr()) {
-    return;
-  }
-  await _createPr(git, updates);
-}
+  final existingPrs = await _listExistingPrs();
+  final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
+  for (final MapEntry(key: dependencyName, value: groupUpdate)
+      in updates.entries) {
+    await core.withGroup('Create PR for "$dependencyName"', () async {
+      final updatedConstraint = groupUpdate.updatedConstraint;
+      int? closeExisting;
+      if (existingPrs[dependencyName] case (final prNumber, final constraint)) {
+        if (constraint == updatedConstraint) {
+          core.info(
+            'Skipping "$dependencyName". PR already exists: '
+            'https://github.com/aws-amplify/amplify-flutter/pull/$prNumber',
+          );
+          return;
+        }
 
-Future<bool> _hasExistingPr() async {
-  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
-  final existingPr = await core.withGroup('Check for existing PRs', () async {
-    final pulls = await octokit.rest.pulls.list();
-      for (final pull in pulls) {
-      final commitMessage = CommitMessage.parse('', pull.title, body: pull.body);
-      final trailer = commitMessage.trailers['Updated-Packages'];
-      if (trailer != null) {
-        return pull.number;
+        // Close existing PR after new PR is created
+        closeExisting = prNumber;
       }
-    }
-    return null;
-  });
-  if (existingPr != null) {
-    core.info('Found existing PR: https://github.com/aws-amplify/amplify-flutter/pull/$existingPr');
+
+      // Update pubspecs for the dependency and commit changes to a new branch.
+      core.info('Updating pubspecs...');
+      await groupUpdate.updatePubspecs();
+
+      core.info('Diffing changes...');
+      await git.runCommand(['diff']);
+
+      core.info('Committing changes...');
+      final constraint = updatedConstraint
+          .toString()
+          .replaceAll(_specialChars, '')
+          .replaceAll(' ', '-');
+      final branchName = 'chore/deps/$dependencyName-$constraint';
+      final commitTitle =
+          '"chore(deps): Bump $dependencyName to $updatedConstraint"';
+      await git.runCommand(['checkout', '-b', branchName]);
+      await git.runCommand(['add', '-A']);
+      await git.runCommand(['commit', '-m', commitTitle]);
+      await git.runCommand(['push', '-u', 'origin', branchName]);
+
+      // Create a PR for the changes using the `gh` CLI.
+      core.info('Creating PR...');
+      final prBody = '''
+> **NOTE:** This PR was automatically created using the repo deputy.
+
+Updated $dependencyName to `$updatedConstraint`
+
+Updated-Dependency: $dependencyName
+Updated-Constraint: $updatedConstraint
+''';
+      final tmpFile = tmpDir.childFile('pr_body_$dependencyName.txt')
+        ..createSync()
+        ..writeAsStringSync(prBody);
+      final prResult = processManager.runSync(<String>[
+        'gh',
+        'pr',
+        'create',
+        '--base=main',
+        '--body-file=${tmpFile.path}',
+        '--title=$commitTitle',
+        '--draft',
+      ]);
+      if (prResult.exitCode != 0) {
+        core.error(
+          'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
+        );
+        process.exitCode = 1;
+        return;
+      }
+
+      // Close existing PR with comment pointing to new PR.
+      if (closeExisting == null) {
+        return;
+      }
+
+      core.info('Closing existing PR...');
+      final closeResult = processManager.runSync(<String>[
+        'gh',
+        'pr',
+        'close',
+        '$closeExisting',
+        '--comment="Dependency has been updated. Closing in favor of new PR."',
+      ]);
+      if (closeResult.exitCode != 0) {
+        core.error(
+          'Failed to close existing PR. Will need to be closed manually: '
+          'https://github.com/aws-amplify/amplify-flutter/pull/$closeExisting',
+        );
+        process.exitCode = 1;
+      }
+    });
   }
-  return existingPr != null;
 }
 
-Future<void> _createPr(
-  NodeGitDir git,
-  Map<String, VersionConstraint> updates,
-) async {
-  await core.withGroup('Create PR', () async {
-    final prBody = StringBuffer('''
-> **NOTE:** This PR was automatically created using the repo's deputy action.
-
-## Updates
-
-''');
-    for (final MapEntry(key: packageName, value: updatedConstraint)
-        in updates.entries) {
-      prBody.writeln('- Updated $packageName to `$updatedConstraint`');
+/// Lists all Deputy PRs which currently exist in the repo with the PR number
+/// and the constraint
+Future<Map<String, _ExistingPr>> _listExistingPrs() async {
+  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
+  return core.withGroup('Check for existing PRs', () async {
+    final existingPrs = <String, _ExistingPr>{};
+    final pulls = await octokit.rest.pulls.list();
+    for (final pull in pulls) {
+      final commitMessage =
+          CommitMessage.parse('', pull.title, body: pull.body);
+      final pkgTrailer = commitMessage.trailers['Updated-Dependency'];
+      final constraintTrailer = commitMessage.trailers['Updated-Constraint'];
+      if (pkgTrailer == null || constraintTrailer == null) {
+        continue;
+      }
+      final constraint = VersionConstraint.parse(constraintTrailer);
+      existingPrs[pkgTrailer] = (pull.number, constraint);
     }
-    prBody
-      ..writeln()
-      ..writeln('Updated-Packages: ${updates.keys.join(', ')}');
-    final tmpFile = nodeFileSystem.systemTempDirectory
-        .createTempSync('deputy')
-        .childFile('pr_body.txt')
-      ..createSync()
-      ..writeAsStringSync(prBody.toString());
-    final prResult = processManager.runSync(<String>[
-      'gh',
-      'pr',
-      'create',
-      '--base=main',
-      '--body-file=${tmpFile.path}',
-      '--title="chore(deps): Bump dependencies"',
-      '--draft',
-    ]);
-    if (prResult.exitCode != 0) {
-      core.setFailed(
-        'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
-      );
-    }
+    return existingPrs;
   });
 }
+
+typedef _ExistingPr = (int prNumber, VersionConstraint constraint);
+
+final _specialChars = RegExp(r'[\^<>=]');
 
 extension type NodeGitDir(GitDir it) implements GitDir {
   Future<void> runCommand(List<String> args) => it.runCommand(

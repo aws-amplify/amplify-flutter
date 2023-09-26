@@ -26,7 +26,14 @@ void main() {
           'third_party_a': '1.1.0',
         }),
       );
-      await expectLater(deputy.scanAndUpdate(), completes);
+      final updates = await deputy.scanForUpdates();
+      expect(updates, isNotNull);
+      expect(
+        updates!.entries.single.key,
+        'third_party_a',
+        reason: 'Only "third_party_a" should be updated',
+      );
+      await updates.updatePubspecs();
       await d.repo([
         d.package(
           'local_a',

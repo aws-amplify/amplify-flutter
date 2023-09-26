@@ -98,11 +98,11 @@ final class Deputy {
   /// against the latest published version of the group's package.
   ///
   /// For each group in which there are updates, this proposes a new update
-  /// by modifying the in-memory pubspec for each package.
-  Future<Map<String, VersionConstraint>> _proposeUpdates(
+  /// which modifies the pubspec for each group package.
+  Future<Map<String, GroupUpdate>> _proposeUpdates(
     List<Group> dependencyGroups,
   ) async {
-    final proposedUpdates = <String, VersionConstraint>{};
+    final proposedUpdates = <String, GroupUpdate>{};
     for (final group in dependencyGroups) {
       if (group.globalConstraint case final globalConstraint?) {
         final updatedGlobalConstraint = versionResolver.updateFor(
@@ -114,10 +114,16 @@ final class Deputy {
           logger
             ?..info('Proposing global update to ${group.packageName}:')
             ..info('  $globalConstraint -> $updatedGlobalConstraint');
-          proposedUpdates[group.packageName] = updatedGlobalConstraint;
-          repo.rootPubspecEditor.update(
-            ['dependencies', group.packageName],
-            updatedGlobalConstraint.toString(),
+          final update = proposedUpdates[group.packageName] = GroupUpdate(
+            this,
+            group: group,
+            updatedConstraint: updatedGlobalConstraint,
+          );
+          update._pubspecUpdates.add(
+            () => repo.rootPubspecEditor.update(
+              ['dependencies', group.packageName],
+              updatedGlobalConstraint.toString(),
+            ),
           );
         }
       }
@@ -140,10 +146,16 @@ final class Deputy {
                 .containsKey(group.packageName)
             ? DependencyType.dependency
             : DependencyType.devDependency;
-        proposedUpdates[group.packageName] ??= updatedConstraint;
-        package.pubspecInfo.pubspecYamlEditor.update(
-          [dependencyType.key, group.packageName],
-          updatedConstraint.toString(),
+        final update = proposedUpdates[group.packageName] ??= GroupUpdate(
+          this,
+          group: group,
+          updatedConstraint: updatedConstraint,
+        );
+        update._pubspecUpdates.add(
+          () => package.pubspecInfo.pubspecYamlEditor.update(
+            [dependencyType.key, group.packageName],
+            updatedConstraint.toString(),
+          ),
         );
       }
     }
@@ -151,8 +163,6 @@ final class Deputy {
   }
 
   /// Writes any propsed updates to disk.
-  ///
-  /// Returns `true` if there were updates and `false` if all packages are up-to-date.
   Future<void> _commitUpdates() async {
     final outdatedPacakges = [
       for (final package in repo.allPackages.values)
@@ -181,13 +191,54 @@ final class Deputy {
   /// updates for those which have outdated constraints.
   ///
   /// Returns `true` if there were updates and `false` if all packages are up-to-date.
-  Future<Map<String, VersionConstraint>?> scanAndUpdate() async {
+  Future<Map<String, GroupUpdate>?> scanForUpdates() async {
     final dependencyGroups = await _listDependencyGroups();
     final updates = await _proposeUpdates(dependencyGroups);
     if (updates.isEmpty) {
       return null;
     }
-    await _commitUpdates();
     return updates;
+  }
+}
+
+/// {@template aft_common.deputy.group_update}
+/// A proposed update to a dependency [group].
+///
+/// Call [updatePubspecs] to write proposed changes to disk.
+/// {@endtemplate}
+final class GroupUpdate {
+  /// {@macro aft_common.deputy.group_update}
+  GroupUpdate(
+    this._deputy, {
+    required this.group,
+    required this.updatedConstraint,
+  });
+
+  final Deputy _deputy;
+
+  /// The group this update applies to.
+  final Group group;
+
+  /// The constraint to be used in the update.
+  final VersionConstraint updatedConstraint;
+  final List<void Function()> _pubspecUpdates = [];
+
+  /// Updates all pubspecs in the group and writes the changes
+  /// to disk.
+  Future<void> updatePubspecs() async {
+    for (final update in _pubspecUpdates) {
+      update();
+    }
+    await _deputy._commitUpdates();
+  }
+}
+
+extension UpdateAllGroups on Map<String, GroupUpdate> {
+  /// Updates all pubspecs in all groups and writes the changes
+  /// to disk.
+  Future<void> updatePubspecs() async {
+    for (final group in values) {
+      await group.updatePubspecs();
+    }
   }
 }

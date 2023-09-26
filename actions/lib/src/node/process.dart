@@ -66,6 +66,8 @@ extension type Process._(JSObject it) implements JSObject {
   @JS('exit')
   external void _exit(int exitCode);
 
+  external int exitCode;
+
   Never exit(int exitCode) {
     _exit(exitCode);
     unreachable;
