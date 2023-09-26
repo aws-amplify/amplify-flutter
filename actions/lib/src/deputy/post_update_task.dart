@@ -159,7 +159,7 @@ final class _BuildRunnerTask extends PostUpdateTask {
       if (packageInfo == null) {
         continue;
       }
-      core.info('Running build_runner in "$package"...');
+      core.info('Running build_runner in "${packageInfo.path}"...');
       final upgradeRes = await nodeProcessManager.run(
         <String>[packageInfo.flavor.entrypoint, 'pub', 'upgrade'],
         workingDirectory: packageInfo.path,

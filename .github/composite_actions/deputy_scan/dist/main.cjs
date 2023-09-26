@@ -26816,7 +26816,7 @@
     run$1(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$self = this, t1, t2, t3, t4, t5, t6, _i, t7, t8, t9, t10;
+        $async$self = this, t1, t2, t3, t4, t5, t6, _i, t7, t8, t9;
       var $async$run$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -26836,41 +26836,40 @@
                 $async$goto = 5;
                 break;
               }
-              t7 = A._asString(t1[_i]);
-              t8 = t6.$index(0, t7);
-              if (t8 == null) {
+              t7 = t6.$index(0, A._asString(t1[_i]));
+              if (t7 == null) {
                 // goto for update
                 $async$goto = 4;
                 break;
               }
-              t4._as(self.core).info('Running build_runner in "' + t7 + '"...');
-              t7 = $.$get$nodeProcessManager();
-              t9 = t8.flavor;
-              t10 = A._setArrayType([t9.entrypoint, "pub", "upgrade"], t5);
-              t8 = t8.path;
+              t8 = t4._as(self.core);
+              t9 = t7.path;
+              t8.info('Running build_runner in "' + t9 + '"...');
+              t8 = $.$get$nodeProcessManager();
+              t7 = t7.flavor;
               $async$goto = 6;
-              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(t10, true, t8), $async$run$1);
+              return A._asyncAwait(t8.run$3$echoOutput$workingDirectory(A._setArrayType([t7.entrypoint, "pub", "upgrade"], t5), true, t9), $async$run$1);
             case 6:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Failed to run pub upgrade"));
-              switch (t9.index) {
+              switch (t7.index) {
                 case 1:
-                  t9 = A._setArrayType(["dart"], t5);
+                  t7 = A._setArrayType(["dart"], t5);
                   break;
                 case 0:
-                  t9 = A._setArrayType(["flutter", "pub"], t5);
+                  t7 = A._setArrayType(["flutter", "pub"], t5);
                   break;
                 default:
-                  t9 = null;
+                  t7 = null;
               }
-              t9 = A.List_List$of(t9, true, t3);
-              t9.push("run");
-              t9.push("build_runner");
-              t9.push("build");
-              t9.push("--delete-conflicting-outputs");
+              t7 = A.List_List$of(t7, true, t3);
+              t7.push("run");
+              t7.push("build_runner");
+              t7.push("build");
+              t7.push("--delete-conflicting-outputs");
               $async$goto = 7;
-              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(t9, true, t8), $async$run$1);
+              return A._asyncAwait(t8.run$3$echoOutput$workingDirectory(t7, true, t9), $async$run$1);
             case 7:
               // returning from await.
               if ($async$result.exitCode !== 0)
@@ -43315,7 +43314,7 @@
             case 8:
               // returning from await.
               t3._as(t2.core).info("Committing changes...");
-              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to `" + updatedConstraint.toString$0(0) + "`";
+              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to `" + updatedConstraint.toString$0(0) + '`"';
               $async$goto = 9;
               return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t5)), $async$call$0);
             case 9:

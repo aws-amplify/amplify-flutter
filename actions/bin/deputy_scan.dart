@@ -144,7 +144,7 @@ log_swap
 
       core.info('Committing changes...');
       final commitTitle =
-          '"chore(deps): Bump $dependencyName to `$updatedConstraint`';
+          '"chore(deps): Bump $dependencyName to `$updatedConstraint`"';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
