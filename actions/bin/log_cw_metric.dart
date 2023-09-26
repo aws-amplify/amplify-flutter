@@ -4,10 +4,10 @@
 import 'dart:convert';
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/githubJobs/github_jobs.dart';
 import 'package:actions/src/node/actions/github.dart';
 
 import 'package:actions/src/node/process_manager.dart';
-import 'package:http/http.dart' as http;
 
 Future<void> main(List<String> args) => wrapMain(logMetric);
 
@@ -39,6 +39,8 @@ Future<void> logMetric() async {
   final failingStep = isFailed
       ? await getFailingStep(jobIdentifier, githubToken, repo, runId)
       : '';
+
+  core.info('Failing step was: $failingStep');
 
   // Inputs for Metric
   final metricName = core.getRequiredInput('metric-name');
@@ -119,66 +121,32 @@ Future<String> getFailingStep(
   String repo,
   String runId,
 ) async {
-  final headers = {
-    'Authorization': 'token $githubToken',
-    'Accept': 'application/vnd.github.v3+json',
-  };
-
-  final response = await http.get(
-    Uri.parse('https://api.github.com/repos/$repo/actions/runs/$runId/jobs'),
-    headers: headers,
-  );
-
-  if (response.statusCode != 200) {
-    core.error('Error fetching data from GitHub API.');
-    return '';
-  }
-
-  final jobsListJson = json.decode(response.body) as Map<String, dynamic>;
-  final jobsList = GithubJobsList.fromJson(jobsListJson);
-
   try {
-    final job = jobsList.jobs.firstWhere(
-      (element) => element.name == jobIdentifier,
+    final headers = {
+      'Authorization': 'token $githubToken',
+      'Accept': 'application/vnd.github.v3+json',
+      'user-agent': 'amplify-flutter',
+    };
+
+    final response = await HttpClient().getJson(
+      'https://api.github.com/repos/$repo/actions/runs/$runId/jobs',
+      headers: headers,
     );
 
-    final failingStep = job.steps.firstWhere(
+    final jobsList = GithubJobsList.fromJson(response);
+    final matchingJob =
+        jobsList.jobs.firstWhere((job) => job.name == jobIdentifier);
+    final steps = matchingJob.steps;
+    core.info('steps $steps');
+
+    final failingStep = steps.firstWhere(
       (element) => element.conclusion == 'failure',
     );
+    core.info('failingStep was: ${failingStep.name}');
 
     return failingStep.name;
   } on Exception catch (e) {
-    // Return empty string if no job found or
-    core.error('Exception in retrieving failing step: $e');
+    core.error('Error fetching data from GitHub API: $e');
     return '';
   }
-}
-
-class GithubJobsList {
-  GithubJobsList.fromJson(Map<String, dynamic> json)
-      : jobs = (json['jobs'] as List<Map<String, dynamic>>)
-            .map(GithubJob.fromJson)
-            .toList();
-
-  final List<GithubJob> jobs;
-}
-
-class GithubJob {
-  GithubJob.fromJson(Map<String, dynamic> json)
-      : name = json['name'] as String,
-        steps = (json['steps'] as List<Map<String, dynamic>>)
-            .map(GithubStep.fromJson)
-            .toList();
-
-  final String name;
-  final List<GithubStep> steps;
-}
-
-class GithubStep {
-  GithubStep.fromJson(Map<String, dynamic> json)
-      : name = json['name'] as String,
-        conclusion = json['conclusion'] as String;
-
-  final String name;
-  final String conclusion;
 }

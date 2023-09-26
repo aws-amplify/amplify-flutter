@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:js_interop';
+import 'dart:js_util';
 
 @JS()
 extension type HttpClient._(JSObject it) {
@@ -12,10 +13,13 @@ extension type HttpClient._(JSObject it) {
   ]);
 
   @JS('getJson')
-  external JSPromise _getJson(String requestUrl);
+  external JSPromise _getJson(String requestUrl, dynamic headers);
 
-  Future<Map<String, Object?>> getJson(String requestUrl) async {
-    final response = await _getJson(requestUrl).toDart;
+  Future<Map<String, Object?>> getJson(String requestUrl, {
+    Map<String, String>? headers,
+  }  ) async {
+    final jsHeaders = jsify(headers); 
+    final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
     if (result.statusCode != 200) {
       throw Exception('Could not fetch $requestUrl');
@@ -23,6 +27,7 @@ extension type HttpClient._(JSObject it) {
     return (result.result!.dartify() as Map).cast();
   }
 }
+
 
 @JS()
 @anonymous
