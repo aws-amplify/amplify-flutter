@@ -42,8 +42,6 @@ Future<void> _deputyScan() async {
   final git = NodeGitDir(deputy.repo.git);
   final existingPrs = await _listExistingPrs();
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
-  final currentHead = await git.revParse('HEAD');
-  core.info('Current HEAD: $currentHead');
 
   await core.withGroup('Increase swap space', () async {
     await ShellScript(r'''
@@ -80,8 +78,6 @@ log_swap
         core.info('Skipping "$dependencyName" since it\'s on the do-not-update list');
         return;
       }
-      core.info('Resetting to current HEAD...');
-      await git.runCommand(['checkout', currentHead]);
       final updatedConstraint = groupUpdate.updatedConstraint;
       int? closeExisting;
       if (existingPrs[dependencyName] case (final prNumber, final constraint)) {
@@ -144,7 +140,7 @@ log_swap
 
       core.info('Committing changes...');
       final commitTitle =
-          '"chore(deps): Bump $dependencyName to `$updatedConstraint`"';
+          '"chore(deps): Bump $dependencyName to $updatedConstraint"';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);

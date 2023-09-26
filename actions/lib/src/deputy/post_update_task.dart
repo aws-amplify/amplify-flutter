@@ -56,7 +56,12 @@ enum PostUpdateTasks {
     return [
       if (needsSmithy) ...[
         const PostUpdateTask.aft(['generate', 'goldens']),
-        // const PostUpdateTask.aft(['generate', 'sdk']),
+        PostUpdateTask.aft([
+          'generate',
+          'sdk',
+          '--include=${updatedPackages.join(',')}',
+          '--exclude=smoke_test',
+        ]),
       ],
       if (needsBuildRunner)
         PostUpdateTask.buildRunner([
@@ -69,7 +74,7 @@ enum PostUpdateTasks {
                   (pkg) => !pkg.pubspecInfo.pubspec.dependencies
                       .containsKey('smithy'),
                 )
-                .map((pkg) => pkg.path)
+                .map((pkg) => pkg.name)
           else
             ...updatedPackages,
         ]),
@@ -92,11 +97,7 @@ abstract base class PostUpdateTask {
     final workingDir = repo.rootDir.path;
     final aftDir = p.join(workingDir, 'packages', 'aft');
     core.info('Activating AFT in: $aftDir');
-    final ProcessResult(
-      :exitCode,
-      :stdout,
-      :stderr,
-    ) = nodeProcessManager.runSync(
+    final ProcessResult(:exitCode) = await nodeProcessManager.run(
       <String>[
         'dart',
         'pub',
@@ -105,11 +106,11 @@ abstract base class PostUpdateTask {
         '-spath',
         aftDir,
       ],
+      echoOutput: true,
       workingDirectory: repo.rootDir.path,
-      runInShell: true,
     );
     if (exitCode != 0) {
-      throw Exception('Could not activate AFT:\n$stdout\n$stderr');
+      throw Exception('Could not activate AFT');
     }
 
     // Link packages
@@ -134,9 +135,10 @@ final class _AftTask extends PostUpdateTask {
   @override
   Future<void> run(Repo repo) async {
     await _ensureAft(repo);
-    core.info('Running "aft ${args.join(' ')}"');
+    core.info('Running "aft ${args.join(' ')}" in "${repo.rootDir.path}');
     final ProcessResult(:exitCode) = await nodeProcessManager.run(
       <String>['aft', ...args],
+      workingDirectory: repo.rootDir.path,
       echoOutput: true,
     );
     if (exitCode != 0) {

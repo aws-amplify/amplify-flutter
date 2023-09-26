@@ -9460,7 +9460,8 @@
     },
     PostUpdateTask: function PostUpdateTask() {
     },
-    _AftTask: function _AftTask() {
+    _AftTask: function _AftTask(t0) {
+      this.args = t0;
     },
     _BuildRunnerTask: function _BuildRunnerTask(t0) {
       this.packages = t0;
@@ -9515,11 +9516,10 @@
         t3 = self;
         J.addAll$1$ax(t2, A.Process_get_env(type$.JSObject._as(t3.process)));
         t2 = type$.JSObject._as(A.jsify(t2));
-        t3 = runInShell ? "/bin/sh" : null;
         t4 = [null];
         J.add$1$ax(t4, null);
         J.add$1$ax(t4, null);
-        stdout = A.callMethod(_this, "execSync", [t1, {cwd: workingDirectory, env: t2, stdio: t4, shell: t3, encoding: "buffer"}], type$.nullable_Uint8List);
+        stdout = A.callMethod(_this, "execSync", [t1, {cwd: workingDirectory, env: t2, stdio: t4, shell: null, encoding: "buffer"}], type$.nullable_Uint8List);
         t1 = stdout;
         if (t1 == null)
           t1 = null;
@@ -14788,7 +14788,7 @@
     _deputyScan() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$returnValue, deputy, t1, t2, updates, _this, existingPrs, tmpDir, currentHead, t3, t4, t5, t6, dependencyName, logger;
+        $async$returnValue, deputy, t1, t2, updates, _this, existingPrs, tmpDir, t3, t4, t5, t6, dependencyName, logger;
       var $async$_deputyScan = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -14824,23 +14824,17 @@
               // returning from await.
               existingPrs = $async$result;
               tmpDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy");
+              t3 = type$.Null;
               $async$goto = 6;
-              return A._asyncAwait(_this.revParse$1("HEAD"), $async$_deputyScan);
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Increase swap space", new A._deputyScan_closure(), t3), $async$_deputyScan);
             case 6:
               // returning from await.
-              currentHead = $async$result;
-              t2._as(t1.core).info("Current HEAD: " + currentHead);
-              t3 = type$.Null;
-              $async$goto = 7;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Increase swap space", new A._deputyScan_closure(), t3), $async$_deputyScan);
-            case 7:
-              // returning from await.
               t4 = updates.get$entries(updates), t4 = t4.get$iterator(t4);
-            case 8:
+            case 7:
               // for condition
               if (!t4.moveNext$0()) {
                 // goto after for
-                $async$goto = 9;
+                $async$goto = 8;
                 break;
               }
               t5 = {};
@@ -14849,14 +14843,14 @@
               dependencyName = t6.key;
               t5.dependencyName = dependencyName;
               t5.groupUpdate = t6.value;
-              $async$goto = 10;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for "' + dependencyName + '"', new A._deputyScan_closure0(t5, _this, currentHead, existingPrs, logger, tmpDir), t3), $async$_deputyScan);
-            case 10:
+              $async$goto = 9;
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for "' + dependencyName + '"', new A._deputyScan_closure0(t5, existingPrs, _this, logger, tmpDir), t3), $async$_deputyScan);
+            case 9:
               // returning from await.
               // goto for condition
-              $async$goto = 8;
+              $async$goto = 7;
               break;
-            case 9:
+            case 8:
               // after for
             case 1:
               // return
@@ -14896,19 +14890,20 @@
       return A._asyncStartSync($async$_listExistingPrs, $async$completer);
     },
     NodeGitDir_runCommand(_this, args) {
-      var t1 = A.Stdout$(J.get$stdout$x(self.process));
-      return _this.runCommand$3$stderr$stdout(args, A.Stdout$(J.get$stderr$x(self.process)).get$writeln(), t1.get$writeln());
+      var t1 = A.Stdout$(J.get$stdout$x(self.process)),
+        t2 = A.Stdout$(J.get$stderr$x(self.process)),
+        t3 = type$.nullable_void_Function_String;
+      return A.RunGit_runGit(_this.processManager, type$.List_String._as(args), _this.path, t3._as(t2.get$writeln()), t3._as(t1.get$writeln()), true);
     },
     _deputyScan_closure: function _deputyScan_closure() {
     },
-    _deputyScan_closure0: function _deputyScan_closure0(t0, t1, t2, t3, t4, t5) {
+    _deputyScan_closure0: function _deputyScan_closure0(t0, t1, t2, t3, t4) {
       var _ = this;
       _._box_0 = t0;
-      _.git = t1;
-      _.currentHead = t2;
-      _.existingPrs = t3;
-      _.logger = t4;
-      _.tmpDir = t5;
+      _.existingPrs = t1;
+      _.git = t2;
+      _.logger = t3;
+      _.tmpDir = t4;
     },
     _listExistingPrs_closure: function _listExistingPrs_closure(t0) {
       this.octokit = t0;
@@ -26716,7 +26711,7 @@
       t2 = A._setArrayType([], t1);
       t3 = this.needsSmithy;
       if (t3)
-        B.JSArray_methods.addAll$1(t2, A._setArrayType([B.C__AftTask], t1));
+        B.JSArray_methods.addAll$1(t2, A._setArrayType([B._AftTask_List_generate_goldens, new A._AftTask(A._setArrayType(["generate", "sdk", "--include=" + B.JSArray_methods.join$1(updatedPackages, ","), "--exclude=smoke_test"], type$.JSArray_String))], t1));
       t1 = A._setArrayType([], type$.JSArray_String);
       if (t3) {
         t3 = A._arrayInstanceType(updatedPackages);
@@ -26742,7 +26737,7 @@
   };
   A.PostUpdateTasks_buildTasks_closure0.prototype = {
     call$1(pkg) {
-      return type$.PackageInfo._as(pkg).path;
+      return type$.PackageInfo._as(pkg).name;
     },
     $signature: 208
   };
@@ -26750,7 +26745,7 @@
     _ensureAft$1(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t3, t4, _0_0, aftDir, t1, t2;
+        t3, t4, aftDir, t1, t2;
       var $async$_ensureAft$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -26764,13 +26759,16 @@
               t2._as(t1.core).info("Activating AFT in: " + aftDir);
               t3 = $.$get$nodeProcessManager();
               t4 = type$.JSArray_String;
-              _0_0 = t3.runSync$3$runInShell$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), true, repo.get$rootDir().path);
-              if (_0_0.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Could not activate AFT:\n" + A.S(_0_0.stdout) + "\n" + A.S(_0_0.stderr)));
-              t2._as(t1.core).info("Linking packages...");
               $async$goto = 2;
-              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["aft", "link"], t4), true, repo.get$rootDir().path), $async$_ensureAft$1);
+              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), true, repo.get$rootDir().path), $async$_ensureAft$1);
             case 2:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Could not activate AFT"));
+              t2._as(t1.core).info("Linking packages...");
+              $async$goto = 3;
+              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["aft", "link"], t4), true, repo.get$rootDir().path), $async$_ensureAft$1);
+            case 3:
               // returning from await.
               // implicit return
               return A._asyncReturn(null, $async$completer);
@@ -26783,7 +26781,7 @@
     run$1(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$self = this, t1, t2;
+        $async$self = this, t1, t2, t3;
       var $async$run$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -26795,16 +26793,17 @@
               return A._asyncAwait($async$self._ensureAft$1(repo), $async$run$1);
             case 2:
               // returning from await.
-              type$.JSObject._as(self.core).info('Running "aft ' + B.JSArray_methods.join$1(B.List_generate_goldens, " ") + '"');
-              t1 = $.$get$nodeProcessManager();
-              t2 = A._setArrayType(["aft"], type$.JSArray_String);
-              B.JSArray_methods.addAll$1(t2, B.List_generate_goldens);
+              t1 = $async$self.args;
+              type$.JSObject._as(self.core).info('Running "aft ' + B.JSArray_methods.join$1(t1, " ") + '" in "' + repo.get$rootDir().path);
+              t2 = $.$get$nodeProcessManager();
+              t3 = A._setArrayType(["aft"], type$.JSArray_String);
+              B.JSArray_methods.addAll$1(t3, t1);
               $async$goto = 3;
-              return A._asyncAwait(t1.run$2$echoOutput(t2, true), $async$run$1);
+              return A._asyncAwait(t2.run$3$echoOutput$workingDirectory(t3, true, repo.get$rootDir().path), $async$run$1);
             case 3:
               // returning from await.
               if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.ProcessException$("aft", B.List_generate_goldens, "", 0));
+                throw A.wrapException(A.ProcessException$("aft", t1, "", 0));
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
@@ -27065,9 +27064,6 @@
     run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, runInShell, workingDirectory) {
       return this.run$body$NodeProcessManager(type$.List_Object._as(command), echoOutput, runInShell, workingDirectory);
     },
-    run$2$echoOutput(command, echoOutput) {
-      return this.run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, false, null);
-    },
     run$3$echoOutput$workingDirectory(command, echoOutput, workingDirectory) {
       return this.run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, false, workingDirectory);
     },
@@ -27144,7 +27140,7 @@
       });
       return A._asyncStartSync($async$run$4$echoOutput$runInShell$workingDirectory, $async$completer);
     },
-    runSync$3$runInShell$workingDirectory(command, runInShell, workingDirectory) {
+    runSync$2$workingDirectory(command, workingDirectory) {
       var t1, _0_0, executable, args, result;
       type$.List_Object._as(command);
       t1 = A._arrayInstanceType(command)._eval$1("CastList<1,String>");
@@ -27160,15 +27156,12 @@
       }
       if (!t1)
         throw A.wrapException(A.StateError$("Pattern matching error"));
-      result = A.ChildProcess_execSync(type$.JSObject._as(self.childProcess), executable, args, false, null, true, runInShell, workingDirectory);
+      result = A.ChildProcess_execSync(type$.JSObject._as(self.childProcess), executable, args, false, null, true, false, workingDirectory);
       t1 = type$.Uint8List;
       return new A.ProcessResult(result.exitCode, B.Utf8Codec_true.decode$1(t1._as(result.stdout)), B.Utf8Codec_true.decode$1(t1._as(result.stderr)), result.pid);
     },
-    runSync$2$workingDirectory(command, workingDirectory) {
-      return this.runSync$3$runInShell$workingDirectory(command, false, workingDirectory);
-    },
     runSync$1(command) {
-      return this.runSync$3$runInShell$workingDirectory(command, false, null);
+      return this.runSync$2$workingDirectory(command, null);
     },
     start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory(_, command, environment, includeParentEnvironment, mode, pipe, runInShell, workingDirectory) {
       return this.start$body$NodeProcessManager(0, type$.List_Object._as(command), environment, true, mode, pipe, runInShell, workingDirectory);
@@ -29977,48 +29970,7 @@
     }
   };
   A._Group_Object_AWSSerializable.prototype = {};
-  A.GitDir.prototype = {
-    runCommand$3$stderr$stdout(args, stderr, stdout) {
-      var t1;
-      type$.List_String._as(args);
-      t1 = type$.nullable_void_Function_String;
-      t1._as(stdout);
-      return A.RunGit_runGit(this.processManager, args, this.path, t1._as(stderr), stdout, true);
-    },
-    runCommand$1(args) {
-      return this.runCommand$3$stderr$stdout(args, null, null);
-    },
-    revParse$1(input) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.String),
-        $async$returnValue, $async$self = this, t1, $async$temp1, $async$temp2;
-      var $async$revParse$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              t1 = A._setArrayType(["rev-parse", input], type$.JSArray_String);
-              B.JSArray_methods.addAll$1(t1, B.List_empty0);
-              $async$temp1 = B.JSString_methods;
-              $async$temp2 = A;
-              $async$goto = 3;
-              return A._asyncAwait($async$self.runCommand$1(t1), $async$revParse$1);
-            case 3:
-              // returning from await.
-              $async$returnValue = $async$temp1.trim$0($async$temp2._asString($async$result.stdout));
-              // goto return
-              $async$goto = 1;
-              break;
-            case 1:
-              // return
-              return A._asyncReturn($async$returnValue, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$revParse$1, $async$completer);
-    }
-  };
+  A.GitDir.prototype = {};
   A.RunGit__throwIfProcessFailed_closure.prototype = {
     call$2(k, v) {
       A._asString(k);
@@ -43232,7 +43184,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, t2, t3, t4, t5, updatedConstraint, _1_0, prNumber, constraint, t6, closeExisting, t7, branchName, worktreeDir, worktreeRepo, _this, updatedPackages, commitTitle, t8, t9, prResult, t1;
+        $async$returnValue, $async$self = this, updatedConstraint, _1_0, prNumber, constraint, t2, closeExisting, t3, t4, t5, branchName, worktreeDir, worktreeRepo, _this, t6, updatedPackages, commitTitle, t7, t8, t9, prResult, t1;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -43247,29 +43199,20 @@
                 $async$goto = 1;
                 break;
               }
-              t2 = self;
-              t3 = type$.JSObject;
-              t3._as(t2.core).info("Resetting to current HEAD...");
-              t4 = $async$self.git;
-              t5 = type$.JSArray_String;
-              $async$goto = 3;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", $async$self.currentHead], t5)), $async$call$0);
-            case 3:
-              // returning from await.
               updatedConstraint = t1.groupUpdate.updatedConstraint;
               _1_0 = $async$self.existingPrs.$index(0, t1.dependencyName);
               if (type$.Record_2_nullable_Object_and_nullable_Object._is(_1_0)) {
                 prNumber = A._asInt(_1_0._0);
                 constraint = type$.VersionConstraint._as(_1_0._1);
-                t6 = true;
+                t2 = true;
               } else {
                 prNumber = null;
                 constraint = null;
-                t6 = false;
+                t2 = false;
               }
-              if (t6) {
+              if (t2) {
                 if (J.$eq$(constraint, updatedConstraint)) {
-                  t3._as(t2.core).info('Skipping "' + t1.dependencyName + '". PR already exists for same update (' + A.S(constraint) + "): https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(prNumber));
+                  type$.JSObject._as(self.core).info('Skipping "' + t1.dependencyName + '". PR already exists for same update (' + A.S(constraint) + "): https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(prNumber));
                   // goto return
                   $async$goto = 1;
                   break;
@@ -43277,55 +43220,58 @@
                 closeExisting = prNumber;
               } else
                 closeExisting = null;
+              t2 = self;
+              t3 = type$.JSObject;
               t3._as(t2.core).info("Creating new worktree...");
-              t6 = updatedConstraint.toString$0(0);
-              t7 = $.$get$_specialChars();
-              t6 = A.stringReplaceAllUnchecked(t6, t7, "");
-              constraint = A.stringReplaceAllUnchecked(t6, " ", "-");
+              t4 = updatedConstraint.toString$0(0);
+              t5 = $.$get$_specialChars();
+              t4 = A.stringReplaceAllUnchecked(t4, t5, "");
+              constraint = A.stringReplaceAllUnchecked(t4, " ", "-");
               branchName = "chore/deps/" + t1.dependencyName + "-" + constraint;
               worktreeDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("worktree_" + t1.dependencyName).path;
-              $async$goto = 4;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["worktree", "add", worktreeDir, "-b", branchName, "origin/main"], t5)), $async$call$0);
-            case 4:
+              t4 = type$.JSArray_String;
+              $async$goto = 3;
+              return A._asyncAwait(A.NodeGitDir_runCommand($async$self.git, A._setArrayType(["worktree", "add", worktreeDir, "-b", branchName, "origin/main"], t4)), $async$call$0);
+            case 3:
               // returning from await.
-              t4 = $.$get$nodeProcessManager();
-              $async$goto = 5;
-              return A._asyncAwait(A.Repo_load(B.C_NodeFileSystem, $async$self.logger, worktreeDir, B.C__NodePlatform, t4), $async$call$0);
-            case 5:
+              t5 = $.$get$nodeProcessManager();
+              $async$goto = 4;
+              return A._asyncAwait(A.Repo_load(B.C_NodeFileSystem, $async$self.logger, worktreeDir, B.C__NodePlatform, t5), $async$call$0);
+            case 4:
               // returning from await.
               worktreeRepo = $async$result;
               _this = worktreeRepo.git;
               t3._as(t2.core).info("Updating pubspecs...");
-              $async$goto = 6;
+              $async$goto = 5;
               return A._asyncAwait(t1.groupUpdate.updatePubspecs$1(worktreeRepo), $async$call$0);
-            case 6:
+            case 5:
               // returning from await.
               t3._as(t2.core).info("Running post-update tasks...");
               t6 = t1.groupUpdate.group.dependentPackages;
               t6 = t6.get$keys(t6);
               updatedPackages = A.List_List$of(t6, true, t6.$ti._eval$1("Iterable.E"));
-              $async$goto = 7;
+              $async$goto = 6;
               return A._asyncAwait(A.PostUpdateTasks_runAll(worktreeRepo, t1.dependencyName, updatedPackages), $async$call$0);
-            case 7:
+            case 6:
               // returning from await.
               t3._as(t2.core).info("Diffing changes...");
-              $async$goto = 8;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["diff"], t5)), $async$call$0);
-            case 8:
+              $async$goto = 7;
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["diff"], t4)), $async$call$0);
+            case 7:
               // returning from await.
               t3._as(t2.core).info("Committing changes...");
-              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to `" + updatedConstraint.toString$0(0) + '`"';
+              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to " + updatedConstraint.toString$0(0) + '"';
+              $async$goto = 8;
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t4)), $async$call$0);
+            case 8:
+              // returning from await.
               $async$goto = 9;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", commitTitle], t4)), $async$call$0);
             case 9:
               // returning from await.
               $async$goto = 10;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", commitTitle], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["push", "-f", "-u", "origin", branchName], t4)), $async$call$0);
             case 10:
-              // returning from await.
-              $async$goto = 11;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["push", "-f", "-u", "origin", branchName], t5)), $async$call$0);
-            case 11:
               // returning from await.
               t3._as(t2.core).info("Creating PR...");
               t6 = t1.dependencyName;
@@ -43335,7 +43281,7 @@
               t1 = A.join($async$self.tmpDir.path, "pr_body_" + t1.dependencyName + ".txt", null);
               new A.File(t1).createSync$0();
               J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t6 + " to `" + t7 + "`\n\nUpdated-Dependency: " + t8 + "\nUpdated-Constraint: " + t9 + "\n");
-              prResult = t4.runSync$2$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t5), worktreeDir);
+              prResult = t5.runSync$2$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t4), worktreeDir);
               t1 = prResult.exitCode;
               if (t1 !== 0) {
                 t3._as(t2.core).error("Failed to create PR (" + t1 + "): " + A.S(prResult.stderr));
@@ -43351,7 +43297,7 @@
               }
               t3._as(t2.core).info("Closing existing PR...");
               t1 = A.S(closeExisting);
-              if (t4.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t5)).exitCode !== 0) {
+              if (t5.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t4)).exitCode !== 0) {
                 t3._as(t2.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
                 t3._as(t2.process).exitCode = 1;
                 // goto return
@@ -44530,8 +44476,6 @@
     B.C_Uuid = new A.Uuid();
     B.C_VersionConstraintSerializer0 = new A.VersionConstraintSerializer(A.findType("VersionConstraintSerializer<Version>"));
     B.C_VersionConstraintSerializer = new A.VersionConstraintSerializer(A.findType("VersionConstraintSerializer<VersionConstraint>"));
-    B.List_generate_goldens = A._setArrayType(makeConstList(["generate", "goldens"]), type$.JSArray_String);
-    B.C__AftTask = new A._AftTask();
     B.C__AllPackageSelector = new A._AllPackageSelector();
     B.C__CurrentPackageSelector = new A._CurrentPackageSelector();
     B.C__DartPackageSelector = new A._DartPackageSelector();
@@ -44818,6 +44762,8 @@
     B.Utf8Codec_true = new A.Utf8Codec(true);
     B.Utf8Decoder_false = new A.Utf8Decoder(false);
     B.Utf8Decoder_true = new A.Utf8Decoder(true);
+    B.List_generate_goldens = A._setArrayType(makeConstList(["generate", "goldens"]), type$.JSArray_String);
+    B._AftTask_List_generate_goldens = new A._AftTask(B.List_generate_goldens);
     B._Chomping_0 = new A._Chomping(0, "strip");
     B._Chomping_1 = new A._Chomping(1, "clip");
     B._Chomping_2 = new A._Chomping(2, "keep");
