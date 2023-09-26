@@ -33,15 +33,19 @@ Future<void> _deputyScan() async {
   final git = NodeGitDir(deputy.repo.git);
   final existingPrs = await _listExistingPrs();
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
+  final currentHead = await git.revParse('HEAD', options: ['--abbrev-ref']);
+  core.info('Current HEAD: $currentHead');
   for (final MapEntry(key: dependencyName, value: groupUpdate)
       in updates.entries) {
     await core.withGroup('Create PR for "$dependencyName"', () async {
+      core.info('Resetting to current HEAD...');
+      await git.runCommand(['checkout', currentHead]);
       final updatedConstraint = groupUpdate.updatedConstraint;
       int? closeExisting;
       if (existingPrs[dependencyName] case (final prNumber, final constraint)) {
         if (constraint == updatedConstraint) {
           core.info(
-            'Skipping "$dependencyName". PR already exists: '
+            'Skipping "$dependencyName". PR already exists for same update ($constraint): '
             'https://github.com/aws-amplify/amplify-flutter/pull/$prNumber',
           );
           return;
@@ -53,7 +57,6 @@ Future<void> _deputyScan() async {
 
       // Update pubspecs for the dependency and commit changes to a new branch.
       core.info('Creating new branch...');
-      final currentHead = await git.revParse('HEAD', options: ['--abbrev-ref']);
       const baseBranch = 'origin/main';
       final constraint = updatedConstraint
           .toString()
@@ -75,8 +78,7 @@ Future<void> _deputyScan() async {
           '"chore(deps): Bump $dependencyName to $updatedConstraint"';
       await git.runCommand(['add', '-A']);
       await git.runCommand(['commit', '-m', commitTitle]);
-      await git.runCommand(['push', '-u', 'origin', branchName]);
-      await git.runCommand(['checkout', currentHead]);
+      await git.runCommand(['push', '-f','-u', 'origin', branchName]);
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
@@ -158,6 +160,7 @@ Future<Map<String, _ExistingPr>> _listExistingPrs() async {
 
 typedef _ExistingPr = (int prNumber, VersionConstraint constraint);
 
+/// Special characters which appear in stringified [VersionConstraint]s.
 final _specialChars = RegExp(r'[\^<>=]');
 
 extension type NodeGitDir(GitDir it) implements GitDir {

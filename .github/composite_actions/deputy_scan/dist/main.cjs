@@ -14651,7 +14651,7 @@
     _deputyScan() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$returnValue, deputy, t1, t2, updates, _this, existingPrs, tmpDir, t3, t4, t5, t6, dependencyName, logger;
+        $async$returnValue, deputy, t1, t2, updates, _this, existingPrs, tmpDir, currentHead, t3, t4, t5, t6, dependencyName, logger;
       var $async$_deputyScan = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -14687,12 +14687,18 @@
               // returning from await.
               existingPrs = $async$result;
               tmpDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy");
-              t3 = updates.get$entries(updates), t3 = t3.get$iterator(t3), t4 = type$.Null;
+              $async$goto = 6;
+              return A._asyncAwait(_this.revParse$2$options("HEAD", A._setArrayType(["--abbrev-ref"], type$.JSArray_String)), $async$_deputyScan);
             case 6:
+              // returning from await.
+              currentHead = $async$result;
+              t2._as(t1.core).info("Current HEAD: " + currentHead);
+              t3 = updates.get$entries(updates), t3 = t3.get$iterator(t3), t4 = type$.Null;
+            case 7:
               // for condition
               if (!t3.moveNext$0()) {
                 // goto after for
-                $async$goto = 7;
+                $async$goto = 8;
                 break;
               }
               t5 = {};
@@ -14701,14 +14707,14 @@
               dependencyName = t6.key;
               t5.dependencyName = dependencyName;
               t5.groupUpdate = t6.value;
-              $async$goto = 8;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for "' + dependencyName + '"', new A._deputyScan_closure(t5, existingPrs, _this, tmpDir), t4), $async$_deputyScan);
-            case 8:
+              $async$goto = 9;
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for "' + dependencyName + '"', new A._deputyScan_closure(t5, _this, currentHead, existingPrs, tmpDir), t4), $async$_deputyScan);
+            case 9:
               // returning from await.
               // goto for condition
-              $async$goto = 6;
+              $async$goto = 7;
               break;
-            case 7:
+            case 8:
               // after for
             case 1:
               // return
@@ -14751,12 +14757,13 @@
       var t1 = A.Stdout$(J.get$stdout$x(self.process));
       return _this.runCommand$3$stderr$stdout(args, A.Stdout$(J.get$stderr$x(self.process)).get$writeln(), t1.get$writeln());
     },
-    _deputyScan_closure: function _deputyScan_closure(t0, t1, t2, t3) {
+    _deputyScan_closure: function _deputyScan_closure(t0, t1, t2, t3, t4) {
       var _ = this;
       _._box_0 = t0;
-      _.existingPrs = t1;
-      _.git = t2;
-      _.tmpDir = t3;
+      _.git = t1;
+      _.currentHead = t2;
+      _.existingPrs = t3;
+      _.tmpDir = t4;
     },
     _listExistingPrs_closure: function _listExistingPrs_closure(t0) {
       this.octokit = t0;
@@ -42743,7 +42750,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, prNumber, constraint, t2, closeExisting, t3, currentHead, t4, t5, branchName, commitTitle, t6, t7, t8, prResult, t1, updatedConstraint, _1_0;
+        $async$returnValue, $async$self = this, t3, t4, t5, updatedConstraint, _1_0, prNumber, constraint, t6, closeExisting, t7, branchName, commitTitle, t8, prResult, t1, t2;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -42751,21 +42758,30 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = $async$self._box_0;
-              updatedConstraint = t1.groupUpdate.updatedConstraint;
-              _1_0 = $async$self.existingPrs.$index(0, t1.dependencyName);
+              t1 = self;
+              t2 = type$.JSObject;
+              t2._as(t1.core).info("Resetting to current HEAD...");
+              t3 = $async$self.git;
+              t4 = type$.JSArray_String;
+              $async$goto = 3;
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["checkout", $async$self.currentHead], t4)), $async$call$0);
+            case 3:
+              // returning from await.
+              t5 = $async$self._box_0;
+              updatedConstraint = t5.groupUpdate.updatedConstraint;
+              _1_0 = $async$self.existingPrs.$index(0, t5.dependencyName);
               if (type$.Record_2_nullable_Object_and_nullable_Object._is(_1_0)) {
                 prNumber = A._asInt(_1_0._0);
                 constraint = type$.VersionConstraint._as(_1_0._1);
-                t2 = true;
+                t6 = true;
               } else {
                 prNumber = null;
                 constraint = null;
-                t2 = false;
+                t6 = false;
               }
-              if (t2) {
+              if (t6) {
                 if (J.$eq$(constraint, updatedConstraint)) {
-                  type$.JSObject._as(self.core).info('Skipping "' + t1.dependencyName + '". PR already exists: https://github.com/aws-amplify/amplify-flutter/pull/' + A.S(prNumber));
+                  t2._as(t1.core).info('Skipping "' + t5.dependencyName + '". PR already exists for same update (' + A.S(constraint) + "): https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(prNumber));
                   // goto return
                   $async$goto = 1;
                   break;
@@ -42773,67 +42789,55 @@
                 closeExisting = prNumber;
               } else
                 closeExisting = null;
-              t2 = $async$self.git;
-              t3 = type$.JSArray_String;
-              $async$goto = 3;
-              return A._asyncAwait(t2.revParse$2$options("HEAD", A._setArrayType(["--abbrev-ref"], t3)), $async$call$0);
-            case 3:
-              // returning from await.
-              currentHead = $async$result;
-              t4 = updatedConstraint.toString$0(0);
-              t5 = $.$get$_specialChars();
-              t4 = A.stringReplaceAllUnchecked(t4, t5, "");
-              constraint = A.stringReplaceAllUnchecked(t4, " ", "-");
-              branchName = "chore/deps/" + t1.dependencyName + "-" + constraint;
-              t4 = self;
-              t5 = type$.JSObject;
-              t5._as(t4.core).info('Checking out new branch: "' + branchName + '"');
+              t2._as(t1.core).info("Creating new branch...");
+              t6 = updatedConstraint.toString$0(0);
+              t7 = $.$get$_specialChars();
+              t6 = A.stringReplaceAllUnchecked(t6, t7, "");
+              constraint = A.stringReplaceAllUnchecked(t6, " ", "-");
+              branchName = "chore/deps/" + t5.dependencyName + "-" + constraint;
+              t2._as(t1.core).info('Checking out new branch: "' + branchName + '"');
               $async$goto = 4;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["switch", "-c", branchName, "origin/main"], t3)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["switch", "-c", branchName, "origin/main"], t4)), $async$call$0);
             case 4:
               // returning from await.
-              t5._as(t4.core).info("Updating pubspecs...");
+              t2._as(t1.core).info("Updating pubspecs...");
               $async$goto = 5;
-              return A._asyncAwait(t1.groupUpdate.updatePubspecs$0(), $async$call$0);
+              return A._asyncAwait(t5.groupUpdate.updatePubspecs$0(), $async$call$0);
             case 5:
               // returning from await.
-              t5._as(t4.core).info("Diffing changes...");
+              t2._as(t1.core).info("Diffing changes...");
               $async$goto = 6;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["diff"], t3)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["diff"], t4)), $async$call$0);
             case 6:
               // returning from await.
-              t5._as(t4.core).info("Committing changes...");
-              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to " + updatedConstraint.toString$0(0) + '"';
+              t2._as(t1.core).info("Committing changes...");
+              commitTitle = '"chore(deps): Bump ' + t5.dependencyName + " to " + updatedConstraint.toString$0(0) + '"';
               $async$goto = 7;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["add", "-A"], t3)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["add", "-A"], t4)), $async$call$0);
             case 7:
               // returning from await.
               $async$goto = 8;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["commit", "-m", commitTitle], t3)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["commit", "-m", commitTitle], t4)), $async$call$0);
             case 8:
               // returning from await.
               $async$goto = 9;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["push", "-u", "origin", branchName], t3)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["push", "-f", "-u", "origin", branchName], t4)), $async$call$0);
             case 9:
               // returning from await.
-              $async$goto = 10;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["checkout", currentHead], t3)), $async$call$0);
-            case 10:
-              // returning from await.
-              t5._as(t4.core).info("Creating PR...");
-              t2 = t1.dependencyName;
+              t2._as(t1.core).info("Creating PR...");
+              t3 = t5.dependencyName;
               t6 = updatedConstraint.toString$0(0);
-              t7 = t1.dependencyName;
+              t7 = t5.dependencyName;
               t8 = updatedConstraint.toString$0(0);
-              t1 = A.join($async$self.tmpDir.path, "pr_body_" + t1.dependencyName + ".txt");
-              new A.File(t1).createSync$0();
-              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t2 + " to `" + t6 + "`\n\nUpdated-Dependency: " + t7 + "\nUpdated-Constraint: " + t8 + "\n");
+              t5 = A.join($async$self.tmpDir.path, "pr_body_" + t5.dependencyName + ".txt");
+              new A.File(t5).createSync$0();
+              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t5), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t3 + " to `" + t6 + "`\n\nUpdated-Dependency: " + t7 + "\nUpdated-Constraint: " + t8 + "\n");
               t8 = $.$get$processManager();
-              prResult = t8.runSync$1(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t3));
-              t1 = prResult.exitCode;
-              if (t1 !== 0) {
-                t5._as(t4.core).error("Failed to create PR (" + t1 + "): " + A.S(prResult.stderr));
-                t5._as(t4.process).exitCode = 1;
+              prResult = t8.runSync$1(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t5, "--title=" + commitTitle, "--draft"], t4));
+              t3 = prResult.exitCode;
+              if (t3 !== 0) {
+                t2._as(t1.core).error("Failed to create PR (" + t3 + "): " + A.S(prResult.stderr));
+                t2._as(t1.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -42843,11 +42847,11 @@
                 $async$goto = 1;
                 break;
               }
-              t5._as(t4.core).info("Closing existing PR...");
-              t1 = A.S(closeExisting);
-              if (t8.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t3)).exitCode !== 0) {
-                t5._as(t4.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
-                t5._as(t4.process).exitCode = 1;
+              t2._as(t1.core).info("Closing existing PR...");
+              t3 = A.S(closeExisting);
+              if (t8.runSync$1(A._setArrayType(["gh", "pr", "close", t3, '--comment="Dependency has been updated. Closing in favor of new PR."'], t4)).exitCode !== 0) {
+                t2._as(t1.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t3);
+                t2._as(t1.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
