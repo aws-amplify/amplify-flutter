@@ -20,7 +20,7 @@ void main() {
   group('NodeProcessManager', () {
     group('runSync', () {
       test('echo', () {
-        check(processManager.runSync(['echo', 'Hello']))
+        check(nodeProcessManager.runSync(['echo', 'Hello']))
           ..has((res) => res.exitCode, 'exitCode').equals(0)
           ..has((res) => res.stdout, 'stdout').equals('Hello\n');
       });
@@ -28,7 +28,7 @@ void main() {
 
     group('run', () {
       test('echo', () async {
-        await check(processManager.run(['echo', 'Hello'])).completes(
+        await check(nodeProcessManager.run(['echo', 'Hello'])).completes(
           it()
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
@@ -37,7 +37,7 @@ void main() {
 
       test('pipe', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
-        await check(processManager.run(['tee'], pipe: echo)).completes(
+        await check(nodeProcessManager.run(['tee'], pipe: echo)).completes(
           it()
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
@@ -48,7 +48,7 @@ void main() {
     group('start', () {
       for (final mode in ProcessStartMode.values) {
         test(mode.toString(), () async {
-          final proc = await processManager.start(
+          final proc = await nodeProcessManager.start(
             ['echo', 'Hello'],
             mode: mode,
           );
@@ -73,7 +73,7 @@ void main() {
 
       test('start (pipe)', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
-        final proc = await processManager.start(['tee'], pipe: echo);
+        final proc = await nodeProcessManager.start(['tee'], pipe: echo);
         unawaited(
           check(proc.stdout).withQueue.inOrder([
             it()

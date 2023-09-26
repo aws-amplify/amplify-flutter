@@ -4,8 +4,10 @@
 import 'package:node_io/node_io.dart' as node;
 import 'package:platform/platform.dart';
 
-class NodePlatform extends Platform {
-  const NodePlatform();
+const Platform nodePlatform = _NodePlatform();
+
+class _NodePlatform extends Platform {
+  const _NodePlatform();
 
   @override
   Map<String, String> get environment => node.Platform.environment;

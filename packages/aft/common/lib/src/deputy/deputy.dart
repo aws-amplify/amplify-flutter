@@ -148,7 +148,11 @@ final class Deputy {
           updatedConstraint: updatedConstraint,
         );
         update._pubspecUpdates.add(
-          (repo) => repo[package.name].pubspecInfo.pubspecYamlEditor.update(
+          (repo) => repo
+              .maybePackage(package.name)
+              ?.pubspecInfo
+              .pubspecYamlEditor
+              .update(
             [dependencyType.key, group.packageName],
             updatedConstraint.toString(),
           ),

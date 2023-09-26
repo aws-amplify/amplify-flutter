@@ -27,7 +27,7 @@ export 'dart:io'
         IOSink,
         ProcessException;
 
-final NodeProcessManager processManager = () {
+final NodeProcessManager nodeProcessManager = () {
   final pm = NodeProcessManager();
   context.onExit(pm.close);
   return pm;

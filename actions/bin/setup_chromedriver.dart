@@ -19,7 +19,7 @@ Future<void> _installChromedriver() async {
         OS.linux => 'google-chrome',
       };
 
-      final versionResult = await processManager.run(
+      final versionResult = await nodeProcessManager.run(
         <String>[chromeExecutable, '--version'],
         echoOutput: true,
       );

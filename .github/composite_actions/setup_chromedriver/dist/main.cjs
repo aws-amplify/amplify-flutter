@@ -7549,7 +7549,7 @@
       this.completer = t0;
       this.T = t1;
     },
-    processManager_closure: function processManager_closure() {
+    nodeProcessManager_closure: function nodeProcessManager_closure() {
     },
     NodeProcessManager: function NodeProcessManager(t0) {
       this._activeProcesses = t0;
@@ -16144,7 +16144,7 @@
     },
     $signature: 45
   };
-  A.processManager_closure.prototype = {
+  A.nodeProcessManager_closure.prototype = {
     call$0() {
       var pm = new A.NodeProcessManager(A.LinkedHashMap_LinkedHashMap$_empty(type$.int, type$.NodeProcess)),
         t1 = $.$get$context(),
@@ -18714,7 +18714,7 @@
                   t3 = null;
               }
               $async$goto = 3;
-              return A._asyncAwait($.$get$processManager().run$2$echoOutput(A._setArrayType([t3, "--version"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait($.$get$nodeProcessManager().run$2$echoOutput(A._setArrayType([t3, "--version"], type$.JSArray_String), true), $async$call$0);
             case 3:
               // returning from await.
               versionResult = $async$result;
@@ -18959,7 +18959,7 @@
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
     _inherit(A.CodeUnits, A.UnmodifiableListBase);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.ChromePlatform_fromOsArch_closure, A.ChromePlatform_fromOsArch_closure0, A.ChromePlatform_fromOsArch_closure1, A.ChromePlatform_fromOsArch_closure2, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._installChromedriver_closure, A._installChromedriver__closure, A._installChromedriver__closure0, A._installChromedriver_closure0, A._installChromedriver_closure1]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.ChromePlatform_fromOsArch_closure, A.ChromePlatform_fromOsArch_closure0, A.ChromePlatform_fromOsArch_closure1, A.ChromePlatform_fromOsArch_closure2, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._installChromedriver_closure, A._installChromedriver__closure, A._installChromedriver__closure0, A._installChromedriver_closure0, A._installChromedriver_closure1]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable, A._HashMapKeyIterable, A._MapBaseValueIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -19522,7 +19522,7 @@
       var t1 = A.findType("JSArray<~()>");
       return new A.ActionContext(A._setArrayType([], t1), A._setArrayType([], t1));
     });
-    _lazyFinal($, "processManager", "$get$processManager", () => new A.processManager_closure().call$0());
+    _lazyFinal($, "nodeProcessManager", "$get$nodeProcessManager", () => new A.nodeProcessManager_closure().call$0());
     _lazyFinal($, "windows", "$get$windows", () => A.Context_Context($.$get$Style_windows()));
     _lazyFinal($, "url", "$get$url", () => A.Context_Context($.$get$Style_url()));
     _lazyFinal($, "context0", "$get$context0", () => new A.Context($.$get$Style_platform(), null));

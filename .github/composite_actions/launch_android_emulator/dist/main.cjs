@@ -7521,7 +7521,7 @@
       this.completer = t0;
       this.T = t1;
     },
-    processManager_closure: function processManager_closure() {
+    nodeProcessManager_closure: function nodeProcessManager_closure() {
     },
     NodeProcessManager: function NodeProcessManager(t0) {
       this._activeProcesses = t0;
@@ -15391,7 +15391,7 @@
                 t2 = null;
                 break $label0$0;
               }
-              t3 = $.$get$processManager();
+              t3 = $.$get$nodeProcessManager();
               t4 = $async$self.exe;
               t5 = A._setArrayType([t4], type$.JSArray_String);
               B.JSArray_methods.addAll$1(t5, t1);
@@ -15592,7 +15592,7 @@
             case 0:
               // Function start
               startAvdArgs = A._setArrayType(["-avd", $async$self.$this.name, "-no-window", "-noaudio", "-no-boot-anim", "-restart-when-stalled", "-accel", "on", "-no-snapshot", "-verbose"], type$.JSArray_String);
-              t1 = $.$get$processManager();
+              t1 = $.$get$nodeProcessManager();
               t2 = A._setArrayType([$.$get$AvdManager__emulator().exe], type$.JSArray_Object);
               B.JSArray_methods.addAll$1(t2, startAvdArgs);
               $async$goto = 3;
@@ -15687,7 +15687,7 @@
               return A._asyncAwait(A.ShellScript_run('echo \'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"\' | sudo tee /etc/udev/rules.d/99-kvm4all.rules'), $async$call$0);
             case 2:
               // returning from await.
-              t1 = $.$get$processManager();
+              t1 = $.$get$nodeProcessManager();
               t2 = type$.JSArray_String;
               t1.runSync$1(A._setArrayType(["sudo", "udevadm", "control", "--reload-rules"], t2));
               t1.runSync$1(A._setArrayType(["sudo", "udevadm", "trigger", "--name-match=kvm"], t2));
@@ -16140,7 +16140,7 @@
               scriptPath = A.join(tempDir, "script.sh", null);
               type$.JSObject._as(self.fs).writeFileSync(scriptPath, $async$self.fullScript);
               $async$goto = 3;
-              return A._asyncAwait($.$get$processManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_1), $async$call$1);
+              return A._asyncAwait($.$get$nodeProcessManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_1), $async$call$1);
             case 3:
               // returning from await.
               $async$goto = 2;
@@ -16322,7 +16322,7 @@
     },
     $signature: 51
   };
-  A.processManager_closure.prototype = {
+  A.nodeProcessManager_closure.prototype = {
     call$0() {
       var pm = new A.NodeProcessManager(A.LinkedHashMap_LinkedHashMap$_empty(type$.int, type$.NodeProcess)),
         t1 = $.$get$context0(),
@@ -19167,7 +19167,7 @@
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
     _inherit(A.CodeUnits, A.UnmodifiableListBase);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A.Future_Future$delayed_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.AvdManager_launchEmulator_closure, A.AvdManager__createEmulator_closure, A.AvdManager__startEmulator_closure, A.AvdManager__enableKvm_closure, A.AvdManager__enableKvm_closure0, A.AvdManager__enableKvm_closure1, A.AvdManager__waitForBoot_closure, A.AvdManager__waitForBoot__closure, A.SdkManager_ensureSdk_closure, A.SdkManager_ensureSdk_closure0, A.SdkManager__ensureCmdlineTools_closure, A.SdkManager__ensureBuildTools_closure, A.SdkManager__ensureBuildTools_closure2, A.SdkManager__ensureBuildTools_closure3, A.SdkManager__ensureBuildTools_closure4, A.SdkManager__ensureBuildTools_closure5, A.SdkManager__ensureBuildTools_closure6, A.AndroidAbi_parse_closure0, A.AndroidApiLevel_parse_invalidApiLevel, A.AndroidSystemImageTarget_parse_closure0, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.processManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._action_closure]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A.Future_Future$delayed_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.AvdManager_launchEmulator_closure, A.AvdManager__createEmulator_closure, A.AvdManager__startEmulator_closure, A.AvdManager__enableKvm_closure, A.AvdManager__enableKvm_closure0, A.AvdManager__enableKvm_closure1, A.AvdManager__waitForBoot_closure, A.AvdManager__waitForBoot__closure, A.SdkManager_ensureSdk_closure, A.SdkManager_ensureSdk_closure0, A.SdkManager__ensureCmdlineTools_closure, A.SdkManager__ensureBuildTools_closure, A.SdkManager__ensureBuildTools_closure2, A.SdkManager__ensureBuildTools_closure3, A.SdkManager__ensureBuildTools_closure4, A.SdkManager__ensureBuildTools_closure5, A.SdkManager__ensureBuildTools_closure6, A.AndroidAbi_parse_closure0, A.AndroidApiLevel_parse_invalidApiLevel, A.AndroidSystemImageTarget_parse_closure0, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.StreamForward_forward_closure0, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A._action_closure]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable, A._HashMapKeyIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -19769,7 +19769,7 @@
       return A.AndroidTool$("sdkmanager", t1, "yes", true);
     });
     _lazyFinal($, "SdkManager__cmdlineToolsPath", "$get$SdkManager__cmdlineToolsPath", () => A.join($.$get$androidHome(), "cmdline-tools", "latest"));
-    _lazyFinal($, "processManager", "$get$processManager", () => new A.processManager_closure().call$0());
+    _lazyFinal($, "nodeProcessManager", "$get$nodeProcessManager", () => new A.nodeProcessManager_closure().call$0());
     _lazyFinal($, "windows", "$get$windows", () => A.Context_Context($.$get$Style_windows()));
     _lazyFinal($, "url", "$get$url", () => A.Context_Context($.$get$Style_url()));
     _lazyFinal($, "context0", "$get$context", () => new A.Context($.$get$Style_platform(), null));

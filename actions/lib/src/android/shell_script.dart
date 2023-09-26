@@ -19,7 +19,7 @@ $script
     await fs.withTempDir('launch_android_emulator', (tempDir) async {
       final scriptPath = p.join(tempDir, 'script.sh');
       fs.writeFileSync(scriptPath, fullScript);
-      final result = await processManager.start(
+      final result = await nodeProcessManager.start(
         ['/bin/bash', scriptPath], 
         mode: ProcessStartMode.inheritStdio,
       );

@@ -19,8 +19,8 @@ Future<void> _deputyScan() async {
     ..registerPlugin(const NodeLoggerPlugin());
   final deputy = await Deputy.create(
     fileSystem: nodeFileSystem,
-    platform: const NodePlatform(),
-    processManager: processManager,
+    platform: nodePlatform,
+    processManager: nodeProcessManager,
     logger: logger,
   );
   final updates = await core.withGroup(
@@ -81,9 +81,9 @@ Future<void> _deputyScan() async {
       ]);
       final worktreeRepo = await Repo.load(
         path: worktreeDir,
-        processManager: processManager,
+        processManager: nodeProcessManager,
         fileSystem: nodeFileSystem,
-        platform: const NodePlatform(),
+        platform: nodePlatform,
         logger: logger,
       );
       final worktree = NodeGitDir(worktreeRepo.git);
@@ -114,7 +114,7 @@ Updated-Constraint: $updatedConstraint
       final tmpFile = tmpDir.childFile('pr_body_$dependencyName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
-      final prResult = processManager.runSync(
+      final prResult = nodeProcessManager.runSync(
         <String>[
           'gh',
           'pr',
@@ -140,7 +140,7 @@ Updated-Constraint: $updatedConstraint
       }
 
       core.info('Closing existing PR...');
-      final closeResult = processManager.runSync(<String>[
+      final closeResult = nodeProcessManager.runSync(<String>[
         'gh',
         'pr',
         'close',

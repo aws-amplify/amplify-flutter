@@ -90,6 +90,7 @@ class Repo {
   final GitDir git;
 
   PackageInfo operator [](String packageName) => allPackages[packageName]!;
+  PackageInfo? maybePackage(String packageName) => allPackages[packageName];
 
   late final rootPubspec = rootDir.pubspec!;
   late final rootPubspecEditor = rootPubspec.pubspecYamlEditor;

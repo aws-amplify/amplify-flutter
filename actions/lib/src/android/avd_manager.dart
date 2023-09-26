@@ -85,7 +85,7 @@ final class AvdManager {
             '-no-snapshot',
             '-verbose',
           ];
-          final emulator = await processManager.start(
+          final emulator = await nodeProcessManager.start(
             [_emulator.exe, ...startAvdArgs],
             mode: ProcessStartMode.inheritStdio,
           );
@@ -119,7 +119,7 @@ final class AvdManager {
       await ShellScript(
         '''echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules''',
       ).run();
-      processManager
+      nodeProcessManager
         ..runSync(<String>['sudo', 'udevadm', 'control', '--reload-rules'])
         ..runSync(<String>['sudo', 'udevadm', 'trigger', '--name-match=kvm']);
       core.info('KVM enabled for user');
