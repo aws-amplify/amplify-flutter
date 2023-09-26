@@ -549,19 +549,6 @@ updates:
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
   - package-ecosystem: "pub"
-    directory: "packages/amplify_native_legacy_wrapper/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_native_legacy_wrapper"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_common"
-  - package-ecosystem: "pub"
     directory: "packages/analytics/amplify_analytics_pinpoint"
     schedule:
       interval: "daily"
@@ -1132,42 +1119,6 @@ updates:
         patterns:
           - "uuid"
   - package-ecosystem: "pub"
-    directory: "packages/authenticator/amplify_authenticator/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_authenticator"
-      - dependency-name: "amplify_api"
-      - dependency-name: "amplify_api_dart"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      uuid:
-        patterns:
-          - "uuid"
-  - package-ecosystem: "pub"
     directory: "packages/authenticator/amplify_authenticator_test"
     schedule:
       interval: "daily"
@@ -1322,27 +1273,6 @@ updates:
         patterns:
           - "build_web_compilers"
   - package-ecosystem: "pub"
-    directory: "packages/aws_signature_v4/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
-  - package-ecosystem: "pub"
     directory: "packages/common/amplify_db_common"
     schedule:
       interval: "daily"
@@ -1384,30 +1314,6 @@ updates:
       mockito:
         patterns:
           - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/common/amplify_db_common/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      drift:
-        patterns:
-          - "drift"
-      build_runner:
-        patterns:
-          - "build_runner"
   - package-ecosystem: "pub"
     directory: "packages/common/amplify_db_common/example"
     schedule:
@@ -1587,25 +1493,6 @@ updates:
         patterns:
           - "build_web_compilers"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_lints"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
-  - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch"
     schedule:
       interval: "daily"
@@ -1647,31 +1534,6 @@ updates:
       test:
         patterns:
           - "test"
-  - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_logging_cloudwatch"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
     schedule:
@@ -1774,25 +1636,6 @@ updates:
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
   - package-ecosystem: "pub"
-    directory: "packages/notifications/push/amplify_push_notifications/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_push_notifications"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-  - package-ecosystem: "pub"
     directory: "packages/notifications/push/amplify_push_notifications_pinpoint"
     schedule:
       interval: "daily"
@@ -1832,36 +1675,6 @@ updates:
       built_value_generator:
         patterns:
           - "built_value_generator"
-  - package-ecosystem: "pub"
-    directory: "packages/notifications/push/amplify_push_notifications_pinpoint/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_auth_cognito"
-      - dependency-name: "amplify_analytics_pinpoint"
-      - dependency-name: "amplify_analytics_pinpoint_dart"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "amplify_db_common"
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_auth_cognito_dart"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "amplify_flutter"
-      - dependency-name: "amplify_push_notifications_pinpoint"
-      - dependency-name: "amplify_push_notifications"
   - package-ecosystem: "pub"
     directory: "packages/notifications/push/amplify_push_notifications_pinpoint/example"
     schedule:
@@ -1940,22 +1753,6 @@ updates:
       mockito:
         patterns:
           - "org.mockito:*"
-  - package-ecosystem: "pub"
-    directory: "packages/secure_storage/amplify_secure_storage/example"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_secure_storage"
-      - dependency-name: "amplify_secure_storage_dart"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "worker_bee"
-      - dependency-name: "worker_bee_builder"
   - package-ecosystem: "pub"
     directory: "packages/secure_storage/amplify_secure_storage/example"
     schedule:
