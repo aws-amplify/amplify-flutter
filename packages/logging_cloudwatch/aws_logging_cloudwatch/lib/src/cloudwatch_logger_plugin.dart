@@ -83,7 +83,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
             ) {
     _timer = pluginConfig.flushIntervalInSeconds > 0
         ? StoppableTimer(
-            duration: pluginConfig.flushInterval,
+            duration: Duration(seconds: pluginConfig.flushIntervalInSeconds),
             callback: identifyCall(
               LoggingCategoryMethod.batchSend,
               () => _startSyncingIfNotInProgress,
