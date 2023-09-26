@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/android/shell_script.dart';
 import 'package:actions/src/deputy/post_update_task.dart';
 import 'package:actions/src/logger.dart';
 import 'package:actions/src/node/platform.dart';
@@ -43,6 +44,30 @@ Future<void> _deputyScan() async {
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
   final currentHead = await git.revParse('HEAD');
   core.info('Current HEAD: $currentHead');
+
+  await core.withGroup('Increase swap space', () async {
+    await ShellScript(r'''
+# Log current swap space report
+function log_swap {
+  echo "Memory and swap:"
+  free -h
+  echo
+  swapon -show
+  echo
+}
+
+# Set swap
+log_swap
+export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
+sudo swapoff $SWAP_FILE
+sudo rm $SWAP_FILE
+sudo fallocate -l 10G $SWAP_FILE
+sudo chmod 600 $SWAP_FILE
+sudo mkswap $SWAP_FILE
+sudo swapon $SWAP_FILE
+log_swap
+''').run();
+  });
 
   // Create a PR for each dependency group which does not already have a PR.
   for (final MapEntry(key: dependencyName, value: groupUpdate)
