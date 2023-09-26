@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:actions/actions.dart';
-import 'package:actions/src/android/shell_script.dart';
 import 'package:actions/src/deputy/post_update_task.dart';
 import 'package:actions/src/logger.dart';
 import 'package:actions/src/node/platform.dart';
@@ -43,32 +42,7 @@ Future<void> _deputyScan() async {
   final existingPrs = await _listExistingPrs();
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
 
-  await core.withGroup('Increase swap space', () async {
-    await ShellScript(r'''
-# Log current swap space report
-function log_swap {
-  echo "Memory and swap:"
-  free -h
-  echo
-  swapon --show
-  echo
-}
-
-# Set swap
-log_swap
-# export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
-# if [ -n $SWAP_FILE ]; then
-#  sudo swapoff $SWAP_FILE
-#  sudo rm $SWAP_FILE
-# fi
-SWAP_FILE=/swap
-sudo fallocate -l 10G $SWAP_FILE
-sudo chmod 600 $SWAP_FILE
-sudo mkswap $SWAP_FILE
-sudo swapon $SWAP_FILE
-log_swap
-''').run();
-  });
+  await allocateSwapSpace();
 
   // Create a PR for each dependency group which does not already have a PR.
   for (final MapEntry(key: dependencyName, value: groupUpdate)
@@ -98,7 +72,9 @@ log_swap
       // We create a new worktree to stage changes so that we are not switching
       // branches for each group and interfering with the current checkout.
       core.info('Creating new worktree...');
-      const baseBranch = 'origin/main';
+      // TODO(dnys1): Fix
+      // const baseBranch = 'origin/main';
+      const baseBranch = 'origin/chore/aft-fixes';
       final constraint = updatedConstraint
           .toString()
           .replaceAll(_specialChars, '')

@@ -30,6 +30,7 @@ export 'src/node/fs.dart' hide FileSystem;
 export 'src/node/os.dart' hide OperatingSystem;
 export 'src/node/process.dart' hide Process;
 export 'src/os.dart';
+export 'src/util.dart';
 
 /// Wraps a GitHub action entrypoint to better handle errors and map
 /// JS stack traces to Dart stack traces.

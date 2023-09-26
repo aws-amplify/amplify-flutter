@@ -171,8 +171,8 @@ final class _BuildRunnerTask extends PostUpdateTask {
         throw Exception('Failed to run pub upgrade');
       }
       final runner = switch (packageInfo.flavor) {
-        PackageFlavor.dart => ['dart'],
-        PackageFlavor.flutter => ['flutter', 'pub'],
+        PackageFlavor.dart => const ['dart'],
+        PackageFlavor.flutter => const ['flutter', 'pub'],
       };
       final buildRunnerRes = await nodeProcessManager.run(
         <String>[

@@ -7305,35 +7305,6 @@
     },
     SdkManager__ensureBuildTools_closure6: function SdkManager__ensureBuildTools_closure6() {
     },
-    ShellScript_run(_this) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        fullScript, t1, t2;
-      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              fullScript = "#!/bin/bash\nset -eo pipefail\n" + _this + "\n";
-              t1 = self;
-              t2 = type$.JSObject;
-              t2._as(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
-              $async$goto = 2;
-              return A._asyncAwait(A.FileSystem_withTempDir(t2._as(t1.fs), "launch_android_emulator", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
-            case 2:
-              // returning from await.
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$ShellScript_run, $async$completer);
-    },
-    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
-      this.fullScript = t0;
-      this._this = t1;
-    },
     AndroidAbi_parse(value) {
       return B.JSArray_methods.firstWhere$2$orElse(B.List_s6Q, new A.AndroidAbi_parse_closure(value), new A.AndroidAbi_parse_closure0(value));
     },
@@ -7559,7 +7530,36 @@
     unreachable() {
       return A.throwExpression(new A._UnreachableError());
     },
+    ShellScript_run(_this) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        fullScript, t1, t2;
+      var $async$ShellScript_run = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              fullScript = "#!/bin/bash\nset -eo pipefail\n" + _this + "\n";
+              t1 = self;
+              t2 = type$.JSObject;
+              t2._as(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
+              $async$goto = 2;
+              return A._asyncAwait(A.FileSystem_withTempDir(t2._as(t1.fs), "launch_android_emulator", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
+            case 2:
+              // returning from await.
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$ShellScript_run, $async$completer);
+    },
     _UnreachableError: function _UnreachableError() {
+    },
+    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
+      this.fullScript = t0;
+      this._this = t1;
     },
     StreamForward_forward(_this, controller, $T) {
       var t1 = new A._Future($.Zone__current, type$._Future_void);
@@ -10837,7 +10837,7 @@
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 42
+    $signature: 29
   };
   A.AsyncError.prototype = {
     toString$0(_) {
@@ -13375,7 +13375,7 @@
     call$1(sink) {
       return new A._ConverterStreamEventSink(sink, this.$this.startChunkedConversion$1(sink), type$._ConverterStreamEventSink_dynamic_dynamic);
     },
-    $signature: 53
+    $signature: 52
   };
   A.Encoding.prototype = {};
   A.JsonCodec.prototype = {
@@ -16125,39 +16125,6 @@
     },
     $signature: 2
   };
-  A.ShellScript_run_closure.prototype = {
-    call$1(tempDir) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$self = this, exitCode, scriptPath;
-      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              scriptPath = A.join(tempDir, "script.sh", null);
-              type$.JSObject._as(self.fs).writeFileSync(scriptPath, $async$self.fullScript);
-              $async$goto = 3;
-              return A._asyncAwait($.$get$nodeProcessManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_1), $async$call$1);
-            case 3:
-              // returning from await.
-              $async$goto = 2;
-              return A._asyncAwait($async$result.get$exitCode(), $async$call$1);
-            case 2:
-              // returning from await.
-              exitCode = $async$result;
-              if (exitCode !== 0)
-                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), "Script failed with exit code", exitCode));
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$call$1, $async$completer);
-    },
-    $signature: 40
-  };
   A.AndroidAbi.prototype = {
     _enumToString$0() {
       return "AndroidAbi." + this._name;
@@ -16173,7 +16140,7 @@
       t1 = this.value;
       return el._name === t1 || el.abi === t1;
     },
-    $signature: 29
+    $signature: 40
   };
   A.AndroidAbi_parse_closure0.prototype = {
     call$0() {
@@ -16185,7 +16152,7 @@
     call$1(el) {
       return type$.AndroidAbi._as(el).abi;
     },
-    $signature: 43
+    $signature: 42
   };
   A.AndroidApiLevel.prototype = {
     _enumToString$0() {
@@ -16205,13 +16172,13 @@
     call$1(el) {
       return type$.AndroidApiLevel._as(el).level === this.levelInt;
     },
-    $signature: 44
+    $signature: 43
   };
   A.AndroidApiLevel_allApiLevels_closure.prototype = {
     call$1(el) {
       return type$.AndroidApiLevel._as(el).level;
     },
-    $signature: 45
+    $signature: 44
   };
   A.AndroidSystemImageTarget.prototype = {
     _enumToString$0() {
@@ -16225,7 +16192,7 @@
     call$1(el) {
       return type$.AndroidSystemImageTarget._as(el).tag === this.target;
     },
-    $signature: 46
+    $signature: 45
   };
   A.AndroidSystemImageTarget_parse_closure0.prototype = {
     call$0() {
@@ -16237,7 +16204,7 @@
     call$1(el) {
       return type$.AndroidSystemImageTarget._as(el).tag;
     },
-    $signature: 47
+    $signature: 46
   };
   A.ChildProcess_spawn_closure.prototype = {
     call$1(arg) {
@@ -16254,7 +16221,7 @@
         return;
       t1.add$1(0, chunk);
     },
-    $signature: 48
+    $signature: 47
   };
   A.NodeReadableStream_get_stream_onError.prototype = {
     call$1(error) {
@@ -16266,7 +16233,7 @@
       t1.addError$1(error);
       t1.close$0();
     },
-    $signature: 49
+    $signature: 48
   };
   A.NodeReadableStream_get_stream_onDone.prototype = {
     call$1(_) {
@@ -16283,7 +16250,7 @@
     $defaultValues() {
       return [null];
     },
-    $signature: 50
+    $signature: 49
   };
   A.NodeReadableStream_get_stream_closure.prototype = {
     call$0() {
@@ -16320,7 +16287,7 @@
     $defaultValues() {
       return [null, null, null];
     },
-    $signature: 51
+    $signature: 50
   };
   A.nodeProcessManager_closure.prototype = {
     call$0() {
@@ -16331,7 +16298,7 @@
       B.JSArray_methods.add$1(t1._errorTearDowns, t2);
       return pm;
     },
-    $signature: 52
+    $signature: 51
   };
   A.NodeProcessManager.prototype = {
     run$3$echoOutput$pipe(command, echoOutput, pipe) {
@@ -16685,14 +16652,14 @@
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 54
+    $signature: 53
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
       var t1 = this.$this;
       return A.throwExpression(A.ProcessException$(t1.executable, t1.$arguments, "Error spawning subprocess: " + A.S(type$.JSObject._as(error)), 0));
     },
-    $signature: 55
+    $signature: 54
   };
   A.OS.prototype = {
     _enumToString$0() {
@@ -16705,6 +16672,39 @@
     }
   };
   A._UnreachableError.prototype = {};
+  A.ShellScript_run_closure.prototype = {
+    call$1(tempDir) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
+        $async$self = this, exitCode, scriptPath;
+      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              scriptPath = A.join(tempDir, "script.sh", null);
+              type$.JSObject._as(self.fs).writeFileSync(scriptPath, $async$self.fullScript);
+              $async$goto = 3;
+              return A._asyncAwait($.$get$nodeProcessManager().start$2$mode(A._setArrayType(["/bin/bash", scriptPath], type$.JSArray_Object), B.ProcessStartMode_1), $async$call$1);
+            case 3:
+              // returning from await.
+              $async$goto = 2;
+              return A._asyncAwait($async$result.get$exitCode(), $async$call$1);
+            case 2:
+              // returning from await.
+              exitCode = $async$result;
+              if (exitCode !== 0)
+                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), "Script failed with exit code", exitCode));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$1, $async$completer);
+    },
+    $signature: 55
+  };
   A.StreamForward_forward_closure.prototype = {
     call$1($event) {
       var t1;
@@ -19162,7 +19162,7 @@
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
-    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.ShellScript_run_closure, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A.Converter_bind_closure, A.LineSplitter_bind_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.AvdManager__waitForBoot__closure1, A.AvdManager__waitForBoot__closure0, A.SdkManager__ensureBuildTools_closure0, A.SdkManager__ensureBuildTools_closure1, A.AndroidAbi_parse_closure, A.AndroidAbi_allAbis_closure, A.AndroidApiLevel_parse_closure, A.AndroidApiLevel_allApiLevels_closure, A.AndroidSystemImageTarget_parse_closure, A.AndroidSystemImageTarget_allTags_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.StreamForward_forward_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure]);
     _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.Primitives_functionNoSuchMethod_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__chainForeignFuture_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._createTables_build, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A.StreamForward_forward_closure1, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
@@ -19235,7 +19235,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Null(@)", "0&()", "~(~())", "~(Object?)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "@()", "~(Uint8List,String,int)", "~(String)", "String(Match)", "Trace(String)", "~(String,@)", "int(Frame)", "String(Frame)", "Null(Object,StackTrace)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "bool(AndroidAbi)", "Object?(Object?)", "Future<0&>()", "@(@,String)", "Future<~>(Object,Chain)", "@(String)", "Future<Process>()", "Future<bool>()", "bool(Exception)", "Future<~>(Exception)", "Null(@,StackTrace)", "Future<Null>(String)", "~(@,@)", "~(int,@)", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(Uint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(List<int>)", "0&(JSObject)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "_LineSplitterEventSink(EventSink<String>)", "bool(TargetLineEntry)", "bool(TargetEntry)", "~(Symbol0,@)", "~(String,int)", "List<Frame>(Trace)", "int(Trace)", "~(String,int?)", "Null(~())", "int(int,int)", "@(@)", "Frame(String,String)", "Uint8List(@,@)", "~(Object?,Object?)", "~(@,StackTrace?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Null(@,@)", "Chain()", "_Future<@>(@)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "String(Trace)", "Map<String,int>()"],
+    types: ["~()", "bool(String)", "Future<Null>()", "Future<~>()", "~(Object,StackTrace)", "Future<ProcessResult>()", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Null(@)", "0&()", "~(~())", "~(Object?)", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "@()", "~(Uint8List,String,int)", "~(String)", "String(Match)", "Trace(String)", "~(String,@)", "int(Frame)", "String(Frame)", "Null(Object,StackTrace)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "~(int,@)", "Object?(Object?)", "Future<0&>()", "@(@,String)", "Future<~>(Object,Chain)", "@(String)", "Future<Process>()", "Future<bool>()", "bool(Exception)", "Future<~>(Exception)", "Null(@,StackTrace)", "bool(AndroidAbi)", "~(@,@)", "String(AndroidAbi)", "bool(AndroidApiLevel)", "int(AndroidApiLevel)", "bool(AndroidSystemImageTarget)", "String(AndroidSystemImageTarget)", "~(Uint8List)", "~(JSObject)", "~([@])", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "~(List<int>)", "0&(JSObject)", "Future<Null>(String)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "_LineSplitterEventSink(EventSink<String>)", "bool(TargetLineEntry)", "bool(TargetEntry)", "~(Symbol0,@)", "~(String,int)", "List<Frame>(Trace)", "int(Trace)", "~(String,int?)", "Null(~())", "int(int,int)", "@(@)", "Frame(String,String)", "Uint8List(@,@)", "~(Object?,Object?)", "~(@,StackTrace?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Null(@,@)", "Chain()", "_Future<@>(@)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "0^(0^,0^)<num>", "AndroidAbi(String)", "AndroidApiLevel(String)", "AndroidSystemImageTarget(String)", "String(Trace)", "Map<String,int>()"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti")
