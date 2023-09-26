@@ -1,3 +1,20 @@
+## 1.4.1
+
+### Fixes
+- fix(auth): Crash with EXC_BAD_ACCESS ([#3657](https://github.com/aws-amplify/amplify-flutter/pull/3657))
+- fix(auth): Custom auth with device tracking, no SRP ([#3652](https://github.com/aws-amplify/amplify-flutter/pull/3652))
+- fix(auth): Uncaught Hosted UI cancellation ([#3686](https://github.com/aws-amplify/amplify-flutter/pull/3686))
+- fix: removed trailing slash at the end of uri ([#3626](https://github.com/aws-amplify/amplify-flutter/pull/3626))
+
+## 1.4.0
+
+### Features
+- feat(auth): TOTP MFA
+
+### Fixes
+- fix(analytics): AWSPinpointUserProfile Added null check for user attributes ([#3598](https://github.com/aws-amplify/amplify-flutter/pull/3598))
+- fix(auth): SDK exception mapping
+
 ## 1.3.3
 
 ### Fixes

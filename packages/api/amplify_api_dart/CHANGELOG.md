@@ -1,3 +1,12 @@
+## 0.3.1+1
+
+### Fixes
+- fix: removed trailing slash at the end of uri ([#3626](https://github.com/aws-amplify/amplify-flutter/pull/3626))
+
+## 0.3.1
+
+- Minor bug fixes and improvements
+
 ## 0.3.0+3
 
 - Minor bug fixes and improvements
