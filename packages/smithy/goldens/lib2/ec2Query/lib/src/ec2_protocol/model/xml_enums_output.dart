@@ -208,7 +208,7 @@ class XmlEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('FooEnum1'))
         ..add(serializers.serialize(
           fooEnum1,
-          specifiedType: const FullType.nullable(FooEnum),
+          specifiedType: const FullType(FooEnum),
         ));
     }
     if (fooEnum2 != null) {
@@ -216,7 +216,7 @@ class XmlEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('FooEnum2'))
         ..add(serializers.serialize(
           fooEnum2,
-          specifiedType: const FullType.nullable(FooEnum),
+          specifiedType: const FullType(FooEnum),
         ));
     }
     if (fooEnum3 != null) {
@@ -224,7 +224,7 @@ class XmlEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('FooEnum3'))
         ..add(serializers.serialize(
           fooEnum3,
-          specifiedType: const FullType.nullable(FooEnum),
+          specifiedType: const FullType(FooEnum),
         ));
     }
     if (fooEnumList != null) {
@@ -235,7 +235,7 @@ class XmlEnumsOutputEc2QuerySerializer
             .serialize(
           serializers,
           fooEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FooEnum)],
           ),
@@ -249,7 +249,7 @@ class XmlEnumsOutputEc2QuerySerializer
             .serialize(
           serializers,
           fooEnumSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltSet,
             [FullType(FooEnum)],
           ),
@@ -261,7 +261,7 @@ class XmlEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           fooEnumMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

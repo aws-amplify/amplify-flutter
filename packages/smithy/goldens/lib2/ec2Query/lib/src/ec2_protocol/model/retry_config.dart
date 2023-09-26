@@ -125,7 +125,7 @@ class RetryConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (maxAttempts != null) {
@@ -133,7 +133,7 @@ class RetryConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('Max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

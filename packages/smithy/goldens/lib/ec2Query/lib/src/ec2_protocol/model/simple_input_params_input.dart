@@ -280,7 +280,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('Baz'))
         ..add(serializers.serialize(
           baz,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (bam != null) {
@@ -288,7 +288,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('Bam'))
         ..add(serializers.serialize(
           bam,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (floatValue != null) {
@@ -296,7 +296,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('FloatValue'))
         ..add(serializers.serialize(
           floatValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (boo != null) {
@@ -304,7 +304,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('Boo'))
         ..add(serializers.serialize(
           boo,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (qux != null) {
@@ -312,7 +312,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('Qux'))
         ..add(serializers.serialize(
           qux,
-          specifiedType: const FullType.nullable(_i3.Uint8List),
+          specifiedType: const FullType(_i3.Uint8List),
         ));
     }
     if (fooEnum != null) {
@@ -320,7 +320,7 @@ class SimpleInputParamsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('FooEnum'))
         ..add(serializers.serialize(
           fooEnum,
-          specifiedType: const FullType.nullable(FooEnum),
+          specifiedType: const FullType(FooEnum),
         ));
     }
     if (hasQueryName != null) {

@@ -124,7 +124,7 @@ class AwsConfigRestXmlSerializer
         ..add(const _i2.XmlElementName('clockTime'))
         ..add(serializers.serialize(
           clockTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (scopedConfig != null) {

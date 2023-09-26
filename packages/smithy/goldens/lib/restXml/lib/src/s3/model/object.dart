@@ -189,7 +189,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (owner != null) {
@@ -205,7 +205,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (storageClass != null) {
@@ -213,7 +213,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(ObjectStorageClass),
+          specifiedType: const FullType(ObjectStorageClass),
         ));
     }
     return result$;

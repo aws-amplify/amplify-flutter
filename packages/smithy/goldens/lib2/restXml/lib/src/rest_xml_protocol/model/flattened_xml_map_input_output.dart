@@ -132,7 +132,7 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
           const _i1.XmlBuiltMapSerializer(flattenedKey: 'myMap').serialize(
         serializers,
         myMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),

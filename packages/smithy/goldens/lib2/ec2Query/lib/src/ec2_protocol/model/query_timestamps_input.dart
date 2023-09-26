@@ -147,7 +147,7 @@ class QueryTimestampsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('NormalFormat'))
         ..add(serializers.serialize(
           normalFormat,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (epochMember != null) {

@@ -155,7 +155,7 @@ class QueryTimestampsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('normalFormat'))
         ..add(serializers.serialize(
           normalFormat,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (epochMember != null) {

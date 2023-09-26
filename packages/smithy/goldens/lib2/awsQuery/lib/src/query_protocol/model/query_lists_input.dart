@@ -228,7 +228,7 @@ class QueryListsInputAwsQuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -242,7 +242,7 @@ class QueryListsInputAwsQuerySerializer
             .serialize(
           serializers,
           complexListArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(GreetingStruct)],
           ),
@@ -255,7 +255,7 @@ class QueryListsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListArg,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -270,7 +270,7 @@ class QueryListsInputAwsQuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlNameMember,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -283,7 +283,7 @@ class QueryListsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListArgWithXmlName,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),

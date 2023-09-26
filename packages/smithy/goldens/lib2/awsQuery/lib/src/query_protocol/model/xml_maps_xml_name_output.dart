@@ -137,7 +137,7 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
         ).serialize(
           serializers,
           myMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

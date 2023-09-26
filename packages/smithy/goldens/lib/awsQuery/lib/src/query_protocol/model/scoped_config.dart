@@ -220,7 +220,7 @@ class ScopedConfigAwsQuerySerializer
                 .serialize(
           serializers,
           configFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -237,7 +237,7 @@ class ScopedConfigAwsQuerySerializer
                 .serialize(
           serializers,
           credentialsFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

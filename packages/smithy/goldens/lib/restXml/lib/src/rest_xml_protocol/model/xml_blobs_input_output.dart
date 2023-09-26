@@ -117,7 +117,7 @@ class XmlBlobsInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('data'))
         ..add(serializers.serialize(
           data,
-          specifiedType: const FullType.nullable(_i3.Uint8List),
+          specifiedType: const FullType(_i3.Uint8List),
         ));
     }
     return result$;

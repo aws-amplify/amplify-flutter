@@ -211,7 +211,7 @@ class QueryListsInputEc2QuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -225,7 +225,7 @@ class QueryListsInputEc2QuerySerializer
             .serialize(
           serializers,
           complexListArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(GreetingStruct)],
           ),
@@ -240,7 +240,7 @@ class QueryListsInputEc2QuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlNameMember,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -255,7 +255,7 @@ class QueryListsInputEc2QuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlName,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

@@ -384,7 +384,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           stringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -398,7 +398,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           stringSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltSet,
             [FullType(String)],
           ),
@@ -412,7 +412,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           integerList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),
@@ -426,7 +426,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           booleanList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(bool)],
           ),
@@ -440,7 +440,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           timestampList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DateTime)],
           ),
@@ -454,7 +454,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           enumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FooEnum)],
           ),
@@ -468,7 +468,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           intEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),
@@ -482,7 +482,7 @@ class XmlListsOutputEc2QuerySerializer
             .serialize(
           serializers,
           nestedStringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [
               FullType(
@@ -502,7 +502,7 @@ class XmlListsOutputEc2QuerySerializer
         ).serialize(
           serializers,
           renamedListMembers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -515,7 +515,7 @@ class XmlListsOutputEc2QuerySerializer
       ).serialize(
         serializers,
         flattenedList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -528,7 +528,7 @@ class XmlListsOutputEc2QuerySerializer
       ).serialize(
         serializers,
         flattenedList2,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -542,7 +542,7 @@ class XmlListsOutputEc2QuerySerializer
       ).serialize(
         serializers,
         flattenedListWithMemberNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -555,7 +555,7 @@ class XmlListsOutputEc2QuerySerializer
       ).serialize(
         serializers,
         flattenedListWithNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -570,7 +570,7 @@ class XmlListsOutputEc2QuerySerializer
         ).serialize(
           serializers,
           structureList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StructureListMember)],
           ),

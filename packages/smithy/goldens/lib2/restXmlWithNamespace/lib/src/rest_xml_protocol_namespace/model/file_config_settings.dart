@@ -227,7 +227,7 @@ class FileConfigSettingsRestXmlSerializer
         ..add(const _i2.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (region != null) {
@@ -243,7 +243,7 @@ class FileConfigSettingsRestXmlSerializer
         ..add(const _i2.XmlElementName('retry_mode'))
         ..add(serializers.serialize(
           retryMode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (s3 != null) {

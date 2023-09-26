@@ -114,7 +114,7 @@ class NestedStructWithListEc2QuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

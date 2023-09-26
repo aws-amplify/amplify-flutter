@@ -262,7 +262,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

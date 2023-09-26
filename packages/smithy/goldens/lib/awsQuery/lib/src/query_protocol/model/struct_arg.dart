@@ -149,7 +149,7 @@ class StructArgAwsQuerySerializer
         ..add(const _i2.XmlElementName('OtherArg'))
         ..add(serializers.serialize(
           otherArg,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (recursiveArg != null) {

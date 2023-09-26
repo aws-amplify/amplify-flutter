@@ -204,7 +204,7 @@ class EnvironmentConfigRestXmlSerializer
         ..add(const _i2.XmlElementName('AWS_RETRY_MODE'))
         ..add(serializers.serialize(
           awsRetryMode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (awsSecretAccessKey != null) {

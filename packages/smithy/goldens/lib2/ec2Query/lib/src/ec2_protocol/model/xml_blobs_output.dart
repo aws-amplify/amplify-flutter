@@ -110,7 +110,7 @@ class XmlBlobsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('Data'))
         ..add(serializers.serialize(
           data,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     return result$;

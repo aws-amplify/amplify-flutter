@@ -309,7 +309,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           mapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -326,7 +326,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           renamedMapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -343,7 +343,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           complexMapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -362,7 +362,7 @@ class QueryMapsInputAwsQuerySerializer
         ).serialize(
           serializers,
           mapWithXmlMemberName,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -378,7 +378,7 @@ class QueryMapsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -396,7 +396,7 @@ class QueryMapsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedMapWithXmlName,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -413,7 +413,7 @@ class QueryMapsInputAwsQuerySerializer
             .serialize(
           serializers,
           mapOfLists,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
               FullType(String),

@@ -213,7 +213,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ..add(const _i2.XmlElementName('normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (dateTime != null) {

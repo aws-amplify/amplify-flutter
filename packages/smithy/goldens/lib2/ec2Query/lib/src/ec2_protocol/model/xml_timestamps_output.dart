@@ -205,7 +205,7 @@ class XmlTimestampsOutputEc2QuerySerializer
         ..add(const _i2.XmlElementName('Normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (dateTime != null) {

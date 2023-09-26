@@ -189,7 +189,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
               .serialize(
         serializers,
         flatNestedMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -210,7 +210,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
           nestedMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),

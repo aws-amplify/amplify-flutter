@@ -251,7 +251,7 @@ class FileConfigSettingsAwsQuerySerializer
         ..add(const _i2.XmlElementName('retry_mode'))
         ..add(serializers.serialize(
           retryMode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (maxAttempts != null) {
@@ -259,7 +259,7 @@ class FileConfigSettingsAwsQuerySerializer
         ..add(const _i2.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

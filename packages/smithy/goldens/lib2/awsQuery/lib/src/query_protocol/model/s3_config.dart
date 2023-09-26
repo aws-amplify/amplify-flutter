@@ -149,7 +149,7 @@ class S3ConfigAwsQuerySerializer
         ..add(const _i2.XmlElementName('addressing_style'))
         ..add(serializers.serialize(
           addressingStyle,
-          specifiedType: const FullType.nullable(S3AddressingStyle),
+          specifiedType: const FullType(S3AddressingStyle),
         ));
     }
     if (useAccelerateEndpoint != null) {
@@ -157,7 +157,7 @@ class S3ConfigAwsQuerySerializer
         ..add(const _i2.XmlElementName('use_accelerate_endpoint'))
         ..add(serializers.serialize(
           useAccelerateEndpoint,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (useDualstackEndpoint != null) {
@@ -165,7 +165,7 @@ class S3ConfigAwsQuerySerializer
         ..add(const _i2.XmlElementName('use_dualstack_endpoint'))
         ..add(serializers.serialize(
           useDualstackEndpoint,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

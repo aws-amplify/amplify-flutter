@@ -135,7 +135,7 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
         ).serialize(
           serializers,
           myMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),

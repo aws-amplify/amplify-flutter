@@ -264,7 +264,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('TrueBooleanValue'))
         ..add(serializers.serialize(
           trueBooleanValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (falseBooleanValue != null) {
@@ -272,7 +272,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('FalseBooleanValue'))
         ..add(serializers.serialize(
           falseBooleanValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (byteValue != null) {
@@ -280,7 +280,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('ByteValue'))
         ..add(serializers.serialize(
           byteValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (shortValue != null) {
@@ -288,7 +288,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('ShortValue'))
         ..add(serializers.serialize(
           shortValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (integerValue != null) {
@@ -296,7 +296,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('IntegerValue'))
         ..add(serializers.serialize(
           integerValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (longValue != null) {
@@ -304,7 +304,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('LongValue'))
         ..add(serializers.serialize(
           longValue,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (floatValue != null) {
@@ -312,7 +312,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('FloatValue'))
         ..add(serializers.serialize(
           floatValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (doubleValue != null) {
@@ -320,7 +320,7 @@ class SimpleScalarXmlPropertiesOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('DoubleDribble'))
         ..add(serializers.serialize(
           doubleValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     return result$;

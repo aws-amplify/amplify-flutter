@@ -217,7 +217,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('intEnum1'))
         ..add(serializers.serialize(
           intEnum1,
-          specifiedType: const FullType.nullable(IntegerEnum),
+          specifiedType: const FullType(IntegerEnum),
         ));
     }
     if (intEnum2 != null) {
@@ -225,7 +225,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('intEnum2'))
         ..add(serializers.serialize(
           intEnum2,
-          specifiedType: const FullType.nullable(IntegerEnum),
+          specifiedType: const FullType(IntegerEnum),
         ));
     }
     if (intEnum3 != null) {
@@ -233,7 +233,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('intEnum3'))
         ..add(serializers.serialize(
           intEnum3,
-          specifiedType: const FullType.nullable(IntegerEnum),
+          specifiedType: const FullType(IntegerEnum),
         ));
     }
     if (intEnumList != null) {
@@ -244,7 +244,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
             .serialize(
           serializers,
           intEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IntegerEnum)],
           ),
@@ -258,7 +258,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
             .serialize(
           serializers,
           intEnumSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltSet,
             [FullType(IntegerEnum)],
           ),
@@ -272,7 +272,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
                 .serialize(
           serializers,
           intEnumMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

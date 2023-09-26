@@ -108,6 +108,143 @@ typedef FailedAttemptsLimitExceededException = TooManyFailedAttemptsException;
 @Deprecated('Use MfaMethodNotFoundException instead')
 typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 
+/// {@template amplify_auth_cognito_dart.sdk_exception.external_service_exception}
+/// An exception thrown when a dependent service such as Facebook or Twitter is not responding
+/// {@endtemplate}
+final class ExternalServiceException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.external_service_exception}
+  const ExternalServiceException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'ExternalServiceException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
+/// Thrown when the service encounters an error during processing the request.
+/// {@endtemplate}
+final class InternalErrorException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
+  const InternalErrorException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'InternalErrorException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
+/// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
+/// {@endtemplate}
+final class InvalidIdentityPoolConfigurationException
+    extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
+  const InvalidIdentityPoolConfigurationException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'InvalidIdentityPoolConfigurationException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
+/// Thrown for missing or bad input parameter(s).
+/// {@endtemplate}
+final class InvalidParameterException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
+  const InvalidParameterException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'InvalidParameterException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
+/// Thrown when the total number of user pools has exceeded a preset limit.
+/// {@endtemplate}
+final class LimitExceededException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
+  const LimitExceededException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'LimitExceededException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
+/// Thrown when a user is not authorized to access the requested resource.
+/// {@endtemplate}
+final class NotAuthorizedServiceException extends CognitoServiceException
+    implements core.AuthNotAuthorizedException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
+  const NotAuthorizedServiceException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'NotAuthorizedServiceException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
+/// Thrown when a user tries to use a login which is already linked to another account.
+/// {@endtemplate}
+final class ResourceConflictException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
+  const ResourceConflictException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'ResourceConflictException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
+/// Thrown when the requested resource (for example, a dataset or record) does not exist.
+/// {@endtemplate}
+final class ResourceNotFoundException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
+  const ResourceNotFoundException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'ResourceNotFoundException';
+}
+
+/// {@template amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
+/// Thrown when a request is throttled.
+/// {@endtemplate}
+final class TooManyRequestsException extends CognitoServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
+  const TooManyRequestsException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'TooManyRequestsException';
+}
+
 /// {@template amplify_auth_cognito_dart.sdk_exception.alias_exists_exception}
 /// This exception is thrown when a user tries to confirm the account with an email address or phone number that has already been supplied as an alias for a different user profile. This exception indicates that an account with this email address or phone already exists in a user pool that you've configured to use email address or phone number as a sign-in alias.
 /// {@endtemplate}
@@ -213,21 +350,6 @@ final class ForbiddenException extends CognitoServiceException {
   String get runtimeTypeName => 'ForbiddenException';
 }
 
-/// {@template amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
-/// This exception is thrown when Amazon Cognito encounters an internal error.
-/// {@endtemplate}
-final class InternalErrorException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
-  const InternalErrorException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'InternalErrorException';
-}
-
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_email_role_access_policy_exception}
 /// This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
 /// {@endtemplate}
@@ -257,21 +379,6 @@ final class InvalidLambdaResponseException extends CognitoServiceException {
 
   @override
   String get runtimeTypeName => 'InvalidLambdaResponseException';
-}
-
-/// {@template amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
-/// This exception is thrown when the Amazon Cognito service encounters an invalid parameter.
-/// {@endtemplate}
-final class InvalidParameterException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
-  const InvalidParameterException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'InvalidParameterException';
 }
 
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_password_exception}
@@ -337,21 +444,6 @@ final class InvalidUserPoolConfigurationException
   String get runtimeTypeName => 'InvalidUserPoolConfigurationException';
 }
 
-/// {@template amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
-/// This exception is thrown when a user exceeds the limit for a requested Amazon Web Services resource.
-/// {@endtemplate}
-final class LimitExceededException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
-  const LimitExceededException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'LimitExceededException';
-}
-
 /// {@template amplify_auth_cognito_dart.sdk_exception.mfa_method_not_found_exception}
 /// This exception is thrown when Amazon Cognito can't find a multi-factor authentication (MFA) method.
 /// {@endtemplate}
@@ -367,22 +459,6 @@ final class MfaMethodNotFoundException extends CognitoServiceException {
   String get runtimeTypeName => 'MfaMethodNotFoundException';
 }
 
-/// {@template amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
-/// This exception is thrown when a user isn't authorized.
-/// {@endtemplate}
-final class NotAuthorizedServiceException extends CognitoServiceException
-    implements core.AuthNotAuthorizedException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
-  const NotAuthorizedServiceException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'NotAuthorizedServiceException';
-}
-
 /// {@template amplify_auth_cognito_dart.sdk_exception.password_reset_required_exception}
 /// This exception is thrown when a password reset is required.
 /// {@endtemplate}
@@ -396,21 +472,6 @@ final class PasswordResetRequiredException extends CognitoServiceException {
 
   @override
   String get runtimeTypeName => 'PasswordResetRequiredException';
-}
-
-/// {@template amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
-/// This exception is thrown when the Amazon Cognito service can't find the requested resource.
-/// {@endtemplate}
-final class ResourceNotFoundException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
-  const ResourceNotFoundException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'ResourceNotFoundException';
 }
 
 /// {@template amplify_auth_cognito_dart.sdk_exception.software_token_mfa_not_found_exception}
@@ -441,21 +502,6 @@ final class TooManyFailedAttemptsException extends CognitoServiceException {
 
   @override
   String get runtimeTypeName => 'TooManyFailedAttemptsException';
-}
-
-/// {@template amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
-/// This exception is thrown when the user has made too many requests for a given operation.
-/// {@endtemplate}
-final class TooManyRequestsException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
-  const TooManyRequestsException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'TooManyRequestsException';
 }
 
 /// {@template amplify_auth_cognito_dart.sdk_exception.unauthorized_exception}
@@ -578,52 +624,6 @@ final class UsernameExistsException extends CognitoServiceException {
   String get runtimeTypeName => 'UsernameExistsException';
 }
 
-/// {@template amplify_auth_cognito_dart.sdk_exception.external_service_exception}
-/// An exception thrown when a dependent service such as Facebook or Twitter is not responding
-/// {@endtemplate}
-final class ExternalServiceException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.external_service_exception}
-  const ExternalServiceException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'ExternalServiceException';
-}
-
-/// {@template amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
-/// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
-/// {@endtemplate}
-final class InvalidIdentityPoolConfigurationException
-    extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
-  const InvalidIdentityPoolConfigurationException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'InvalidIdentityPoolConfigurationException';
-}
-
-/// {@template amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
-/// Thrown when a user tries to use a login which is already linked to another account.
-/// {@endtemplate}
-final class ResourceConflictException extends CognitoServiceException {
-  /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
-  const ResourceConflictException(
-    super.message, {
-    super.recoverySuggestion,
-    super.underlyingException,
-  });
-
-  @override
-  String get runtimeTypeName => 'ResourceConflictException';
-}
-
 /// Transforms exceptions thrown by SDK clients to types which replace legacy
 /// wrapper types or merge types with equivalent names from the underlying
 /// service SDKs.
@@ -645,6 +645,43 @@ Object transformSdkException(Object e) {
   }
 
   return switch (shapeName) {
+    'ExternalServiceException' => ExternalServiceException(
+        message,
+        underlyingException: e,
+      ),
+    'InternalErrorException' => InternalErrorException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidIdentityPoolConfigurationException' =>
+      InvalidIdentityPoolConfigurationException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidParameterException' => InvalidParameterException(
+        message,
+        underlyingException: e,
+      ),
+    'LimitExceededException' => LimitExceededException(
+        message,
+        underlyingException: e,
+      ),
+    'NotAuthorizedException' => NotAuthorizedServiceException(
+        message,
+        underlyingException: e,
+      ),
+    'ResourceConflictException' => ResourceConflictException(
+        message,
+        underlyingException: e,
+      ),
+    'ResourceNotFoundException' => ResourceNotFoundException(
+        message,
+        underlyingException: e,
+      ),
+    'TooManyRequestsException' => TooManyRequestsException(
+        message,
+        underlyingException: e,
+      ),
     'AliasExistsException' => AliasExistsException(
         message,
         underlyingException: e,
@@ -673,20 +710,12 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    'InternalErrorException' => InternalErrorException(
-        message,
-        underlyingException: e,
-      ),
     'InvalidEmailRoleAccessPolicyException' =>
       InvalidEmailRoleAccessPolicyException(
         message,
         underlyingException: e,
       ),
     'InvalidLambdaResponseException' => InvalidLambdaResponseException(
-        message,
-        underlyingException: e,
-      ),
-    'InvalidParameterException' => InvalidParameterException(
         message,
         underlyingException: e,
       ),
@@ -709,23 +738,11 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    'LimitExceededException' => LimitExceededException(
-        message,
-        underlyingException: e,
-      ),
     'MFAMethodNotFoundException' => MfaMethodNotFoundException(
         message,
         underlyingException: e,
       ),
-    'NotAuthorizedException' => NotAuthorizedServiceException(
-        message,
-        underlyingException: e,
-      ),
     'PasswordResetRequiredException' => PasswordResetRequiredException(
-        message,
-        underlyingException: e,
-      ),
-    'ResourceNotFoundException' => ResourceNotFoundException(
         message,
         underlyingException: e,
       ),
@@ -734,10 +751,6 @@ Object transformSdkException(Object e) {
         underlyingException: e,
       ),
     'TooManyFailedAttemptsException' => TooManyFailedAttemptsException(
-        message,
-        underlyingException: e,
-      ),
-    'TooManyRequestsException' => TooManyRequestsException(
         message,
         underlyingException: e,
       ),
@@ -770,19 +783,6 @@ Object transformSdkException(Object e) {
         underlyingException: e,
       ),
     'UsernameExistsException' => UsernameExistsException(
-        message,
-        underlyingException: e,
-      ),
-    'ExternalServiceException' => ExternalServiceException(
-        message,
-        underlyingException: e,
-      ),
-    'InvalidIdentityPoolConfigurationException' =>
-      InvalidIdentityPoolConfigurationException(
-        message,
-        underlyingException: e,
-      ),
-    'ResourceConflictException' => ResourceConflictException(
         message,
         underlyingException: e,
       ),

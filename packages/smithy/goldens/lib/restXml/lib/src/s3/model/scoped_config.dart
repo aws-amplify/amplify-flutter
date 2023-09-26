@@ -208,7 +208,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           configFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -223,7 +223,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           credentialsFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
