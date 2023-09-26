@@ -24,9 +24,9 @@ const authExceptions = {
   'ValidationException': 'ValidationServiceException',
 };
 
-void main(List<String> args) {
+void main(List<String> args) async {
   // Should be run with `aft generate-sdk`
-  final astJson = args.single;
+  final astJson = stdin.readLineSync()!;
   final ast = parseAstJson(astJson);
 
   final exceptions = StringBuffer(r'''
