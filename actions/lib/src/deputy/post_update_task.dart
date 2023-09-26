@@ -47,9 +47,10 @@ extension RunAllPostUpdateTasks on PostUpdateTasks {
 abstract base class PostUpdateTask {
   const PostUpdateTask();
 
-  /// Runs `aft $command $args`.
+  /// Runs `aft` with the given [args].
   const factory PostUpdateTask.aft(List<String> args) = _AftTask;
 
+  /// Runs `build_runner` in [packages].
   const factory PostUpdateTask.buildRunner(List<String> packages) =
       _BuildRunnerTask;
 
