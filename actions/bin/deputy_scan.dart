@@ -14,6 +14,13 @@ import 'package:pub_semver/pub_semver.dart';
 /// Scans for outdated Dart and Flutter dependencies and creates PRs for version updates.
 Future<void> main() => wrapMain(_deputyScan);
 
+/// The list of dependencies to never update.
+const List<String> _doNotUpdate = [
+  // TODO(aft): Remove when min Flutter SDK allows latest xml
+  // Updating xml will require changes in smithy.
+  'xml',
+];
+
 Future<void> _deputyScan() async {
   final logger = AWSLogger().createChild('Deputy')
     ..unregisterAllPlugins()
@@ -41,6 +48,10 @@ Future<void> _deputyScan() async {
   for (final MapEntry(key: dependencyName, value: groupUpdate)
       in updates.entries) {
     await core.withGroup('Create PR for "$dependencyName"', () async {
+      if (_doNotUpdate.contains(dependencyName)) {
+        core.info('Skipping "$dependencyName" since it\'s on the do-not-update list');
+        return;
+      }
       core.info('Resetting to current HEAD...');
       await git.runCommand(['checkout', currentHead]);
       final updatedConstraint = groupUpdate.updatedConstraint;
@@ -93,10 +104,11 @@ Future<void> _deputyScan() async {
       await groupUpdate.updatePubspecs(worktreeRepo);
 
       core.info('Running post-update tasks...');
+      final updatedPackages = groupUpdate.group.dependentPackages.keys.toList();
       await postUpdateTasks.runAll(
         worktreeRepo,
         dependencyName,
-        groupUpdate.group.dependentPackages.keys.toList(),
+        updatedPackages,
       );
 
       core.info('Diffing changes...');
@@ -104,7 +116,7 @@ Future<void> _deputyScan() async {
 
       core.info('Committing changes...');
       final commitTitle =
-          '"chore(deps): Bump $dependencyName to $updatedConstraint"';
+          '"chore(deps): Bump $dependencyName to `$updatedConstraint`';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);

@@ -11,16 +11,21 @@ typedef PostUpdateTasks
 
 final PostUpdateTasks postUpdateTasks = {
   'built_value_generator': (packages) => [
+        const PostUpdateTask.aft(['generate', 'goldens']),
         PostUpdateTask.buildRunner(packages),
       ],
-  'json_serializable': (packages) => [
-        PostUpdateTask.buildRunner(packages),
+  'code_builder': (packages) => [
+        const PostUpdateTask.aft(['generate', 'goldens']),
       ],
   'dart_style': (packages) => [
         const PostUpdateTask.aft(['generate', 'goldens']),
       ],
-  'code_builder': (packages) => [
-        const PostUpdateTask.aft(['generate', 'goldens']),
+  // Since `drift_dev` may have been updated as well.
+  'drift': (packages) => [
+        PostUpdateTask.buildRunner(packages),
+      ],
+  'json_serializable': (packages) => [
+        PostUpdateTask.buildRunner(packages),
       ],
 };
 
@@ -91,6 +96,7 @@ abstract base class PostUpdateTask {
   Future<void> run(Repo repo);
 }
 
+/// Runs `aft` with the given [args].
 final class _AftTask extends PostUpdateTask {
   const _AftTask(this.args);
 

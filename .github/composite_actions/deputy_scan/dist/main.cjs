@@ -9418,6 +9418,8 @@
     },
     postUpdateTasks_closure2: function postUpdateTasks_closure2() {
     },
+    postUpdateTasks_closure3: function postUpdateTasks_closure3() {
+    },
     PostUpdateTask: function PostUpdateTask() {
     },
     _AftTask: function _AftTask() {
@@ -18942,7 +18944,7 @@
     call$1(result) {
       return this.bodyFunction.call$2(0, result);
     },
-    $signature: 22
+    $signature: 23
   };
   A._awaitOnObject_closure0.prototype = {
     call$2(error, stackTrace) {
@@ -26363,7 +26365,7 @@
     call$1(r) {
       return this.completer.complete$1(this.T._eval$1("0/?")._as(r));
     },
-    $signature: 22
+    $signature: 23
   };
   A.promiseToFuture_closure0.prototype = {
     call$1(e) {
@@ -26371,7 +26373,7 @@
         return this.completer.completeError$1(new A.NullRejectionException(e === undefined));
       return this.completer.completeError$1(e);
     },
-    $signature: 22
+    $signature: 23
   };
   A.NullRejectionException.prototype = {
     toString$0(_) {
@@ -26565,29 +26567,35 @@
   };
   A.postUpdateTasks_closure.prototype = {
     call$1(packages) {
-      return A._setArrayType([new A._BuildRunnerTask(type$.List_String._as(packages))], type$.JSArray_PostUpdateTask);
+      return A._setArrayType([B.C__AftTask, new A._BuildRunnerTask(type$.List_String._as(packages))], type$.JSArray_PostUpdateTask);
     },
-    $signature: 23
+    $signature: 21
   };
   A.postUpdateTasks_closure0.prototype = {
     call$1(packages) {
-      return A._setArrayType([new A._BuildRunnerTask(type$.List_String._as(packages))], type$.JSArray_PostUpdateTask);
+      type$.List_String._as(packages);
+      return A._setArrayType([B.C__AftTask], type$.JSArray_PostUpdateTask);
     },
-    $signature: 23
+    $signature: 21
   };
   A.postUpdateTasks_closure1.prototype = {
     call$1(packages) {
       type$.List_String._as(packages);
       return A._setArrayType([B.C__AftTask], type$.JSArray_PostUpdateTask);
     },
-    $signature: 23
+    $signature: 21
   };
   A.postUpdateTasks_closure2.prototype = {
     call$1(packages) {
-      type$.List_String._as(packages);
-      return A._setArrayType([B.C__AftTask], type$.JSArray_PostUpdateTask);
+      return A._setArrayType([new A._BuildRunnerTask(type$.List_String._as(packages))], type$.JSArray_PostUpdateTask);
     },
-    $signature: 23
+    $signature: 21
+  };
+  A.postUpdateTasks_closure3.prototype = {
+    call$1(packages) {
+      return A._setArrayType([new A._BuildRunnerTask(type$.List_String._as(packages))], type$.JSArray_PostUpdateTask);
+    },
+    $signature: 21
   };
   A.PostUpdateTask.prototype = {
     _ensureAft$1(repo) {
@@ -26909,11 +26917,11 @@
     run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, runInShell, workingDirectory) {
       return this.run$body$NodeProcessManager(type$.List_Object._as(command), echoOutput, runInShell, workingDirectory);
     },
-    run$2$echoOutput(command, echoOutput) {
-      return this.run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, false, null);
-    },
     run$3$echoOutput$workingDirectory(command, echoOutput, workingDirectory) {
       return this.run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, false, workingDirectory);
+    },
+    run$2$echoOutput(command, echoOutput) {
+      return this.run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, false, null);
     },
     run$3$runInShell$workingDirectory(command, runInShell, workingDirectory) {
       return this.run$4$echoOutput$runInShell$workingDirectory(command, false, runInShell, workingDirectory);
@@ -27270,7 +27278,7 @@
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 30
+    $signature: 29
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
@@ -27778,7 +27786,7 @@
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 32
   };
   A._$AftComponentFromJson__closure1.prototype = {
     call$1(v) {
@@ -27880,13 +27888,13 @@
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 32
   };
   A._$PackageInfoFromJson__closure4.prototype = {
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 32
   };
   A._$PubspecInfoFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -28112,7 +28120,7 @@
     call$0() {
       return this._0_0.value;
     },
-    $signature: 28
+    $signature: 41
   };
   A.AftConfigLoader__processPubspecs_mergePubspec_closure0.prototype = {
     call$1(component) {
@@ -28188,13 +28196,13 @@
       }
       return t1;
     },
-    $signature: 29
+    $signature: 28
   };
   A.AftConfigLoader__processPubspecs__closure0.prototype = {
     call$1(packageName) {
       return A.IterableExtension_firstWhereOrNull(this.packages, new A.AftConfigLoader__processPubspecs___closure(A._asString(packageName)), type$.PackageInfo);
     },
-    $signature: 29
+    $signature: 28
   };
   A.AftConfigLoader__processPubspecs___closure.prototype = {
     call$1(pkg) {
@@ -28389,19 +28397,19 @@
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 31
+    $signature: 30
   };
   A._extension_1_toJson_closure1.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 31
+    $signature: 30
   };
   A._extension_1_toJson_closure2.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 31
+    $signature: 30
   };
   A._$EnvironmentSerializer.prototype = {
     serialize$3$specifiedType(serializers, object, specifiedType) {
@@ -29064,7 +29072,7 @@
     call$1(e) {
       return A._asString(e);
     },
-    $signature: 21
+    $signature: 22
   };
   A._$RawAftConfigFromJson__closure1.prototype = {
     call$1(v) {
@@ -29158,7 +29166,7 @@
     call$1(e) {
       return A._asString(e);
     },
-    $signature: 21
+    $signature: 22
   };
   A._$RawAftComponentFromJson__closure2.prototype = {
     call$1(v) {
@@ -29577,7 +29585,7 @@
     call$0() {
       return this._0_0.value;
     },
-    $signature: 28
+    $signature: 41
   };
   A.Deputy__listDependencyGroups_closure0.prototype = {
     call$1(group) {
@@ -29958,7 +29966,7 @@
     call$1(packageName) {
       return this.$this.aftConfig.allPackages._map$_map.$index(0, A._asString(packageName));
     },
-    $signature: 29
+    $signature: 28
   };
   A.dfs_search.prototype = {
     call$2(node, edges) {
@@ -31266,7 +31274,7 @@
       t1.requestBytesRead = requestBytesRead;
       this.requestProgressController.add$1(0, requestBytesRead);
     },
-    $signature: 30
+    $signature: 29
   };
   A.AWSHttpClientImpl__send_closure2.prototype = {
     call$0() {
@@ -37112,7 +37120,7 @@
       }
       throw A.wrapException(A.StateError$("There is a bug in pubspec_parse."));
     },
-    $signature: 28
+    $signature: 41
   };
   A.Dependency.prototype = {
     toString$0(_) {
@@ -37390,7 +37398,7 @@
     call$1(e) {
       return A._asString(e);
     },
-    $signature: 21
+    $signature: 22
   };
   A._$PubspecFromJson__closure4.prototype = {
     call$1(v) {
@@ -37454,7 +37462,7 @@
     call$1(e) {
       return A._asString(e);
     },
-    $signature: 21
+    $signature: 22
   };
   A._$PubspecFromJson__closure10.prototype = {
     call$1(v) {
@@ -42938,7 +42946,7 @@
     call$1(k) {
       return J.toString$0$(k);
     },
-    $signature: 21
+    $signature: 22
   };
   A.getMapInsertionIndex_closure0.prototype = {
     call$1(key) {
@@ -43041,7 +43049,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, t3, t4, t5, updatedConstraint, _1_0, prNumber, constraint, t6, closeExisting, t7, branchName, worktreeDir, worktreeRepo, _this, t8, commitTitle, t9, prResult, t1, t2;
+        $async$returnValue, $async$self = this, t2, t3, t4, t5, updatedConstraint, _1_0, prNumber, constraint, t6, closeExisting, t7, branchName, worktreeDir, worktreeRepo, _this, updatedPackages, commitTitle, t8, t9, prResult, t1;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -43049,18 +43057,24 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = self;
-              t2 = type$.JSObject;
-              t2._as(t1.core).info("Resetting to current HEAD...");
-              t3 = $async$self.git;
-              t4 = type$.JSArray_String;
+              t1 = $async$self._box_0;
+              if (B.JSArray_methods.contains$1(B.List_xml, t1.dependencyName)) {
+                type$.JSObject._as(self.core).info('Skipping "' + t1.dependencyName + "\" since it's on the do-not-update list");
+                // goto return
+                $async$goto = 1;
+                break;
+              }
+              t2 = self;
+              t3 = type$.JSObject;
+              t3._as(t2.core).info("Resetting to current HEAD...");
+              t4 = $async$self.git;
+              t5 = type$.JSArray_String;
               $async$goto = 3;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["checkout", $async$self.currentHead], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", $async$self.currentHead], t5)), $async$call$0);
             case 3:
               // returning from await.
-              t5 = $async$self._box_0;
-              updatedConstraint = t5.groupUpdate.updatedConstraint;
-              _1_0 = $async$self.existingPrs.$index(0, t5.dependencyName);
+              updatedConstraint = t1.groupUpdate.updatedConstraint;
+              _1_0 = $async$self.existingPrs.$index(0, t1.dependencyName);
               if (type$.Record_2_nullable_Object_and_nullable_Object._is(_1_0)) {
                 prNumber = A._asInt(_1_0._0);
                 constraint = type$.VersionConstraint._as(_1_0._1);
@@ -43072,7 +43086,7 @@
               }
               if (t6) {
                 if (J.$eq$(constraint, updatedConstraint)) {
-                  t2._as(t1.core).info('Skipping "' + t5.dependencyName + '". PR already exists for same update (' + A.S(constraint) + "): https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(prNumber));
+                  t3._as(t2.core).info('Skipping "' + t1.dependencyName + '". PR already exists for same update (' + A.S(constraint) + "): https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(prNumber));
                   // goto return
                   $async$goto = 1;
                   break;
@@ -43080,70 +43094,69 @@
                 closeExisting = prNumber;
               } else
                 closeExisting = null;
-              t2._as(t1.core).info("Creating new worktree...");
+              t3._as(t2.core).info("Creating new worktree...");
               t6 = updatedConstraint.toString$0(0);
               t7 = $.$get$_specialChars();
               t6 = A.stringReplaceAllUnchecked(t6, t7, "");
               constraint = A.stringReplaceAllUnchecked(t6, " ", "-");
-              branchName = "chore/deps/" + t5.dependencyName + "-" + constraint;
-              worktreeDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("worktree_" + t5.dependencyName).path;
+              branchName = "chore/deps/" + t1.dependencyName + "-" + constraint;
+              worktreeDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("worktree_" + t1.dependencyName).path;
               $async$goto = 4;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t3, A._setArrayType(["worktree", "add", worktreeDir, "-b", branchName, "origin/main"], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["worktree", "add", worktreeDir, "-b", branchName, "origin/main"], t5)), $async$call$0);
             case 4:
               // returning from await.
-              t3 = $.$get$nodeProcessManager();
+              t4 = $.$get$nodeProcessManager();
               $async$goto = 5;
-              return A._asyncAwait(A.Repo_load(B.C_NodeFileSystem, $async$self.logger, worktreeDir, B.C__NodePlatform, t3), $async$call$0);
+              return A._asyncAwait(A.Repo_load(B.C_NodeFileSystem, $async$self.logger, worktreeDir, B.C__NodePlatform, t4), $async$call$0);
             case 5:
               // returning from await.
               worktreeRepo = $async$result;
               _this = worktreeRepo.git;
-              t2._as(t1.core).info("Updating pubspecs...");
+              t3._as(t2.core).info("Updating pubspecs...");
               $async$goto = 6;
-              return A._asyncAwait(t5.groupUpdate.updatePubspecs$1(worktreeRepo), $async$call$0);
+              return A._asyncAwait(t1.groupUpdate.updatePubspecs$1(worktreeRepo), $async$call$0);
             case 6:
               // returning from await.
-              t2._as(t1.core).info("Running post-update tasks...");
-              t6 = $.$get$postUpdateTasks();
-              t7 = t5.dependencyName;
-              t8 = t5.groupUpdate.group.dependentPackages;
-              t8 = t8.get$keys(t8);
+              t3._as(t2.core).info("Running post-update tasks...");
+              t6 = t1.groupUpdate.group.dependentPackages;
+              t6 = t6.get$keys(t6);
+              updatedPackages = A.List_List$of(t6, true, t6.$ti._eval$1("Iterable.E"));
               $async$goto = 7;
-              return A._asyncAwait(A.RunAllPostUpdateTasks_runAll(t6, worktreeRepo, t7, A.List_List$of(t8, true, t8.$ti._eval$1("Iterable.E"))), $async$call$0);
+              return A._asyncAwait(A.RunAllPostUpdateTasks_runAll($.$get$postUpdateTasks(), worktreeRepo, t1.dependencyName, updatedPackages), $async$call$0);
             case 7:
               // returning from await.
-              t2._as(t1.core).info("Diffing changes...");
+              t3._as(t2.core).info("Diffing changes...");
               $async$goto = 8;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["diff"], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["diff"], t5)), $async$call$0);
             case 8:
               // returning from await.
-              t2._as(t1.core).info("Committing changes...");
-              commitTitle = '"chore(deps): Bump ' + t5.dependencyName + " to " + updatedConstraint.toString$0(0) + '"';
+              t3._as(t2.core).info("Committing changes...");
+              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to `" + updatedConstraint.toString$0(0) + "`";
               $async$goto = 9;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t5)), $async$call$0);
             case 9:
               // returning from await.
               $async$goto = 10;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", commitTitle], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", commitTitle], t5)), $async$call$0);
             case 10:
               // returning from await.
               $async$goto = 11;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["push", "-f", "-u", "origin", branchName], t4)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["push", "-f", "-u", "origin", branchName], t5)), $async$call$0);
             case 11:
               // returning from await.
-              t2._as(t1.core).info("Creating PR...");
-              t8 = t5.dependencyName;
+              t3._as(t2.core).info("Creating PR...");
+              t6 = t1.dependencyName;
               t7 = updatedConstraint.toString$0(0);
-              t6 = t5.dependencyName;
+              t8 = t1.dependencyName;
               t9 = updatedConstraint.toString$0(0);
-              t5 = A.join($async$self.tmpDir.path, "pr_body_" + t5.dependencyName + ".txt", null);
-              new A.File(t5).createSync$0();
-              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t5), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t8 + " to `" + t7 + "`\n\nUpdated-Dependency: " + t6 + "\nUpdated-Constraint: " + t9 + "\n");
-              prResult = t3.runSync$2$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t5, "--title=" + commitTitle, "--draft"], t4), worktreeDir);
-              t5 = prResult.exitCode;
-              if (t5 !== 0) {
-                t2._as(t1.core).error("Failed to create PR (" + t5 + "): " + A.S(prResult.stderr));
-                t2._as(t1.process).exitCode = 1;
+              t1 = A.join($async$self.tmpDir.path, "pr_body_" + t1.dependencyName + ".txt", null);
+              new A.File(t1).createSync$0();
+              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t6 + " to `" + t7 + "`\n\nUpdated-Dependency: " + t8 + "\nUpdated-Constraint: " + t9 + "\n");
+              prResult = t4.runSync$2$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t5), worktreeDir);
+              t1 = prResult.exitCode;
+              if (t1 !== 0) {
+                t3._as(t2.core).error("Failed to create PR (" + t1 + "): " + A.S(prResult.stderr));
+                t3._as(t2.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -43153,11 +43166,11 @@
                 $async$goto = 1;
                 break;
               }
-              t2._as(t1.core).info("Closing existing PR...");
-              t5 = A.S(closeExisting);
-              if (t3.runSync$1(A._setArrayType(["gh", "pr", "close", t5, '--comment="Dependency has been updated. Closing in favor of new PR."'], t4)).exitCode !== 0) {
-                t2._as(t1.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t5);
-                t2._as(t1.process).exitCode = 1;
+              t3._as(t2.core).info("Closing existing PR...");
+              t1 = A.S(closeExisting);
+              if (t4.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t5)).exitCode !== 0) {
+                t3._as(t2.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
+                t3._as(t2.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -43283,11 +43296,11 @@
       _instance_0_i = hunkHelpers._instance_0i,
       _instance_2_i = hunkHelpers._instance_2i;
     _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 78);
-    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 30);
+    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 29);
     _instance_1_u(A.JSSyntaxRegExp.prototype, "get$hasMatch", "hasMatch$1", 1);
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 32);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 32);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 32);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 31);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 31);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 31);
     _static(A, "async_Future___value_tearOff$closure", 0, function() {
       return [null];
     }, ["call$1$1", "call$1", "call$0", "call$1$0"], ["Future___value_tearOff", function(value) {
@@ -43303,7 +43316,7 @@
       return A.FutureExtensions__ignore(_, null);
     }], 228, 0);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
-    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 22);
+    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 23);
     _static_2(A, "async___nullErrorHandler$closure", "_nullErrorHandler", 6);
     _static_0(A, "async___nullDoneHandler$closure", "_nullDoneHandler", 0);
     _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 229, 0);
@@ -43386,7 +43399,7 @@
     _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 15);
     _static_0(A, "core__Uri__createList$closure", "_Uri__createList", 238);
     _static_2(A, "core___toUnmodifiableStringList$closure", "_toUnmodifiableStringList", 239);
-    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 22);
+    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 23);
     _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 246);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
@@ -43477,7 +43490,7 @@
     _inheritMany(A._CastIterableBase, [A.CastIterable, A.__CastListBase__CastIterableBase_ListMixin, A.CastQueue]);
     _inherit(A._EfficientLengthCastIterable, A.CastIterable);
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
-    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._SyncBroadcastStreamController__sendData_closure, A._SyncBroadcastStreamController__sendError_closure, A._SyncBroadcastStreamController__sendDone_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_fold_closure0, A.Stream_fold__closure0, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A._CustomHashMap_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.Encoding_decodeStream_closure0, A.LineSplitter_bind_closure, A._BigIntImpl_hashCode_finish, A.DateTime_parse_parseIntOrZero, A.DateTime_parse_parseMilliAndMicroseconds, A._Uri__makePath_closure, A._Uri__splitQueryStringAll_parsePair, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.postUpdateTasks_closure, A.postUpdateTasks_closure0, A.postUpdateTasks_closure1, A.postUpdateTasks_closure2, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.CommitMessage_CommitMessage$parse_closure, A.CommitMessage_trailers_closure, A._$AftComponentFromJson_closure, A._$AftComponentFromJson__closure, A._$AftComponentFromJson__closure0, A._$AftComponentFromJson__closure1, A._$AftComponentFromJson___closure0, A._$AftComponentFromJson__closure2, A._$AftComponentFromJson____closure, A._$AftComponentFromJson__closure3, A._$AftComponentToJson_closure, A._$AftComponentToJson__closure, A._$PackageInfoFromJson_closure, A._$PackageInfoFromJson__closure, A._$PackageInfoFromJson__closure0, A._$PackageInfoFromJson__closure1, A._$PackageInfoFromJson__closure2, A._$PackageInfoFromJson__closure3, A._$PackageInfoFromJson__closure4, A._$PubspecInfoFromJson_closure, A._$PubspecInfoFromJson__closure, A._$PubspecInfoFromJson__closure0, A._$PubspecInfoFromJson__closure1, A._$PubspecInfoFromJson__closure2, A.AftConfigLoader__processPubspecs_mergePubspec, A.AftConfigLoader__processPubspecs_mergePubspec_closure, A.AftConfigLoader__processPubspecs_mergePubspec_closure0, A.AftConfigLoader__processPubspecs__closure, A.AftConfigLoader__processPubspecs__closure0, A.AftConfigLoader__processPubspecs___closure, A._OrPackageSelector_toJson_closure, A._AndPackageSelector_toJson_closure, A._$RawPubspecConfigFromJson_closure, A._$RawPubspecConfigFromJson__closure, A._$RawPubspecConfigFromJson__closure0, A._$RawPubspecConfigFromJson__closure1, A._$RawAftConfigFromJson_closure, A._$RawAftConfigFromJson__closure, A._$RawAftConfigFromJson__closure0, A._$RawAftConfigFromJson___closure1, A._$RawAftConfigFromJson__closure1, A._$RawAftConfigFromJson___closure0, A._$RawAftConfigFromJson__closure2, A._$RawAftConfigFromJson__closure3, A._$RawAftConfigToJson_closure, A._$RawAftComponentFromJson_closure, A._$RawAftComponentFromJson__closure, A._$RawAftComponentFromJson__closure0, A._$RawAftComponentFromJson__closure1, A._$RawAftComponentFromJson___closure, A._$RawAftComponentFromJson__closure2, A._$AftScriptFromJson_closure, A._$AftScriptFromJson__closure, A._$AftScriptFromJson__closure0, A._$AftScriptFromJson__closure1, A._$AftScriptFromJson__closure2, A.Deputy__listDependencyGroups_closure, A.Deputy__listDependencyGroups_closure0, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure0, A.Deputy__commitUpdates_worktreePath, A.RunGit__throwIfProcessFailed_closure0, A.PubVersionInfo_latestVersion_closure, A.PubVersionInfo_latestPrerelease_closure, A.Repo_getPackageGraph_closure, A.PubVersionResolver_latestVersion_closure, A.CancelableOperation_valueOrCancellation_closure, A.CancelableOperation_then_closure0, A.CancelableOperation_thenOperation_closure0, A.CancelableCompleter_complete_closure, A.FutureGroup_add_closure, A.StreamQueue__ensureListening_closure, A.StreamSplitter__onPause_closure, A.AWSHttpClient_onBadCertificate_closure, A.AWSHttpClientImpl__send_closure, A.AWSHttpClientImpl__send_closure1, A.AWSBaseHttpRequest_send_closure, A.PropsResponse_get_headers_closure, A.UnderlyingSource__staticInteropFactoryStub_closure, A.StreamToReadableStream_asReadableStream_closure, A.AWSLogger_getPlugin_closure, A.AWSLogger_registerPlugin_hasPlugin, A.AWSLogger_registerPlugin_hasPlugin_closure, A.AWSLogger_registerPlugin_closure, A.StringRecase_get_paramCase_closure, A.StringRecase_groupIntoWords_closure, A.StringRecase_groupIntoWords_closure0, A.StringRecase_groupIntoWords__closure, A.StringRecase_groupIntoWords_closure2, A.StringRecase_groupIntoWords_closure3, A.StreamForward_forward_closure, A.BuiltListMultimap_BuiltListMultimap_closure, A.BuiltListMultimap_hashCode_closure, A.ListMultimapBuilder_replace_closure, A.BuiltMap_BuiltMap_closure, A.BuiltMap_hashCode_closure, A.BuiltSet_hashCode_closure, A.BuiltSetMultimap_hashCode_closure, A.SetMultimapBuilder_replace_closure, A.newBuiltValueToStringHelper_closure, A.BuiltListMultimapSerializer_serialize_closure, A.BuiltListMultimapSerializer_deserialize_closure, A.BuiltListSerializer_serialize_closure, A.BuiltListSerializer_deserialize_closure, A.BuiltSetMultimapSerializer_serialize_closure, A.BuiltSetMultimapSerializer_deserialize_closure, A.BuiltSetSerializer_serialize_closure, A.BuiltSetSerializer_deserialize_closure, A.StandardJsonPlugin__toList_closure, A.StandardJsonPlugin__toListUsingDiscriminator_closure, A.toParsedYamlException_closure, A.$checkKeys_closure, A.$checkKeys_closure0, A.$checkKeys_closure1, A.$checkedCreate_checkedConvert, A.Directory_listSync_list, A.File_length_closure, A.FileStat_stat_callback, A.WritableStream__write__flush, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.Version__splitParts_closure, A._fromJson_closure, A._fromJson_closure1, A._$SdkDependencyFromJson_closure, A._$SdkDependencyFromJson__closure, A._$SdkDependencyFromJson__closure0, A._$GitDependencyFromJson_closure, A._$GitDependencyFromJson__closure, A._$GitDependencyFromJson__closure0, A._$GitDependencyFromJson__closure1, A._$HostedDependencyFromJson_closure, A._$HostedDependencyFromJson__closure, A._$HostedDependencyFromJson__closure0, A._$HostedDetailsFromJson_closure, A._$HostedDetailsFromJson__closure, A._$HostedDetailsFromJson__closure0, A.Pubspec_Pubspec$parse_closure, A._$PubspecFromJson_closure, A._$PubspecFromJson__closure, A._$PubspecFromJson__closure0, A._$PubspecFromJson__closure1, A._$PubspecFromJson__closure2, A._$PubspecFromJson__closure3, A._$PubspecFromJson___closure2, A._$PubspecFromJson__closure4, A._$PubspecFromJson__closure5, A._$PubspecFromJson__closure6, A._$PubspecFromJson__closure7, A._$PubspecFromJson__closure8, A._$PubspecFromJson___closure1, A._$PubspecFromJson__closure9, A._$PubspecFromJson___closure0, A._$PubspecFromJson__closure10, A._$PubspecFromJson__closure11, A._$PubspecFromJson__closure12, A._$PubspecFromJson__closure13, A._$PubspecFromJson__closure14, A._$PubspecFromJson__closure15, A._$PubspecFromJson__closure16, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.TransformByHandlers_transformByHandlers__closure, A.TakeUntil_takeUntil_closure, A.Tap_tap_closure1, A.Tap_tap_closure0, A.deepHashCode_deepHashCodeInner, A.deepHashCode_deepHashCodeInner_closure, A.Parser__parseNode_parseAnchor, A.Parser__parseNode_parseTag, A.Scanner__fetchMoreTokens_closure, A.yamlWarningCallback_closure, A.YamlMap_keys_closure, A._YamlMapNodes_keys_closure, A.YamlEditor__initialize_collectAliases, A.YamlEditor_update_closure, A.YamlEditor__deepModify_closure, A.mapDeepEquals_closure, A.getKeyNode_closure, A.getKey_closure, A.containsKey_closure, A.yamlEncodeFlowString_closure, A.yamlEncodeBlockString_closure, A.yamlEncodeBlockString_closure0, A.getMapInsertionIndex_closure, A.getMapInsertionIndex_closure0, A.YamlMapWrap_keys_closure, A.YamlListWrap_YamlListWrap_closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._SyncBroadcastStreamController__sendData_closure, A._SyncBroadcastStreamController__sendError_closure, A._SyncBroadcastStreamController__sendDone_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_fold_closure0, A.Stream_fold__closure0, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A._CustomHashMap_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.Encoding_decodeStream_closure0, A.LineSplitter_bind_closure, A._BigIntImpl_hashCode_finish, A.DateTime_parse_parseIntOrZero, A.DateTime_parse_parseMilliAndMicroseconds, A._Uri__makePath_closure, A._Uri__splitQueryStringAll_parsePair, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.postUpdateTasks_closure, A.postUpdateTasks_closure0, A.postUpdateTasks_closure1, A.postUpdateTasks_closure2, A.postUpdateTasks_closure3, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.CommitMessage_CommitMessage$parse_closure, A.CommitMessage_trailers_closure, A._$AftComponentFromJson_closure, A._$AftComponentFromJson__closure, A._$AftComponentFromJson__closure0, A._$AftComponentFromJson__closure1, A._$AftComponentFromJson___closure0, A._$AftComponentFromJson__closure2, A._$AftComponentFromJson____closure, A._$AftComponentFromJson__closure3, A._$AftComponentToJson_closure, A._$AftComponentToJson__closure, A._$PackageInfoFromJson_closure, A._$PackageInfoFromJson__closure, A._$PackageInfoFromJson__closure0, A._$PackageInfoFromJson__closure1, A._$PackageInfoFromJson__closure2, A._$PackageInfoFromJson__closure3, A._$PackageInfoFromJson__closure4, A._$PubspecInfoFromJson_closure, A._$PubspecInfoFromJson__closure, A._$PubspecInfoFromJson__closure0, A._$PubspecInfoFromJson__closure1, A._$PubspecInfoFromJson__closure2, A.AftConfigLoader__processPubspecs_mergePubspec, A.AftConfigLoader__processPubspecs_mergePubspec_closure, A.AftConfigLoader__processPubspecs_mergePubspec_closure0, A.AftConfigLoader__processPubspecs__closure, A.AftConfigLoader__processPubspecs__closure0, A.AftConfigLoader__processPubspecs___closure, A._OrPackageSelector_toJson_closure, A._AndPackageSelector_toJson_closure, A._$RawPubspecConfigFromJson_closure, A._$RawPubspecConfigFromJson__closure, A._$RawPubspecConfigFromJson__closure0, A._$RawPubspecConfigFromJson__closure1, A._$RawAftConfigFromJson_closure, A._$RawAftConfigFromJson__closure, A._$RawAftConfigFromJson__closure0, A._$RawAftConfigFromJson___closure1, A._$RawAftConfigFromJson__closure1, A._$RawAftConfigFromJson___closure0, A._$RawAftConfigFromJson__closure2, A._$RawAftConfigFromJson__closure3, A._$RawAftConfigToJson_closure, A._$RawAftComponentFromJson_closure, A._$RawAftComponentFromJson__closure, A._$RawAftComponentFromJson__closure0, A._$RawAftComponentFromJson__closure1, A._$RawAftComponentFromJson___closure, A._$RawAftComponentFromJson__closure2, A._$AftScriptFromJson_closure, A._$AftScriptFromJson__closure, A._$AftScriptFromJson__closure0, A._$AftScriptFromJson__closure1, A._$AftScriptFromJson__closure2, A.Deputy__listDependencyGroups_closure, A.Deputy__listDependencyGroups_closure0, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure0, A.Deputy__commitUpdates_worktreePath, A.RunGit__throwIfProcessFailed_closure0, A.PubVersionInfo_latestVersion_closure, A.PubVersionInfo_latestPrerelease_closure, A.Repo_getPackageGraph_closure, A.PubVersionResolver_latestVersion_closure, A.CancelableOperation_valueOrCancellation_closure, A.CancelableOperation_then_closure0, A.CancelableOperation_thenOperation_closure0, A.CancelableCompleter_complete_closure, A.FutureGroup_add_closure, A.StreamQueue__ensureListening_closure, A.StreamSplitter__onPause_closure, A.AWSHttpClient_onBadCertificate_closure, A.AWSHttpClientImpl__send_closure, A.AWSHttpClientImpl__send_closure1, A.AWSBaseHttpRequest_send_closure, A.PropsResponse_get_headers_closure, A.UnderlyingSource__staticInteropFactoryStub_closure, A.StreamToReadableStream_asReadableStream_closure, A.AWSLogger_getPlugin_closure, A.AWSLogger_registerPlugin_hasPlugin, A.AWSLogger_registerPlugin_hasPlugin_closure, A.AWSLogger_registerPlugin_closure, A.StringRecase_get_paramCase_closure, A.StringRecase_groupIntoWords_closure, A.StringRecase_groupIntoWords_closure0, A.StringRecase_groupIntoWords__closure, A.StringRecase_groupIntoWords_closure2, A.StringRecase_groupIntoWords_closure3, A.StreamForward_forward_closure, A.BuiltListMultimap_BuiltListMultimap_closure, A.BuiltListMultimap_hashCode_closure, A.ListMultimapBuilder_replace_closure, A.BuiltMap_BuiltMap_closure, A.BuiltMap_hashCode_closure, A.BuiltSet_hashCode_closure, A.BuiltSetMultimap_hashCode_closure, A.SetMultimapBuilder_replace_closure, A.newBuiltValueToStringHelper_closure, A.BuiltListMultimapSerializer_serialize_closure, A.BuiltListMultimapSerializer_deserialize_closure, A.BuiltListSerializer_serialize_closure, A.BuiltListSerializer_deserialize_closure, A.BuiltSetMultimapSerializer_serialize_closure, A.BuiltSetMultimapSerializer_deserialize_closure, A.BuiltSetSerializer_serialize_closure, A.BuiltSetSerializer_deserialize_closure, A.StandardJsonPlugin__toList_closure, A.StandardJsonPlugin__toListUsingDiscriminator_closure, A.toParsedYamlException_closure, A.$checkKeys_closure, A.$checkKeys_closure0, A.$checkKeys_closure1, A.$checkedCreate_checkedConvert, A.Directory_listSync_list, A.File_length_closure, A.FileStat_stat_callback, A.WritableStream__write__flush, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.Version__splitParts_closure, A._fromJson_closure, A._fromJson_closure1, A._$SdkDependencyFromJson_closure, A._$SdkDependencyFromJson__closure, A._$SdkDependencyFromJson__closure0, A._$GitDependencyFromJson_closure, A._$GitDependencyFromJson__closure, A._$GitDependencyFromJson__closure0, A._$GitDependencyFromJson__closure1, A._$HostedDependencyFromJson_closure, A._$HostedDependencyFromJson__closure, A._$HostedDependencyFromJson__closure0, A._$HostedDetailsFromJson_closure, A._$HostedDetailsFromJson__closure, A._$HostedDetailsFromJson__closure0, A.Pubspec_Pubspec$parse_closure, A._$PubspecFromJson_closure, A._$PubspecFromJson__closure, A._$PubspecFromJson__closure0, A._$PubspecFromJson__closure1, A._$PubspecFromJson__closure2, A._$PubspecFromJson__closure3, A._$PubspecFromJson___closure2, A._$PubspecFromJson__closure4, A._$PubspecFromJson__closure5, A._$PubspecFromJson__closure6, A._$PubspecFromJson__closure7, A._$PubspecFromJson__closure8, A._$PubspecFromJson___closure1, A._$PubspecFromJson__closure9, A._$PubspecFromJson___closure0, A._$PubspecFromJson__closure10, A._$PubspecFromJson__closure11, A._$PubspecFromJson__closure12, A._$PubspecFromJson__closure13, A._$PubspecFromJson__closure14, A._$PubspecFromJson__closure15, A._$PubspecFromJson__closure16, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.TransformByHandlers_transformByHandlers__closure, A.TakeUntil_takeUntil_closure, A.Tap_tap_closure1, A.Tap_tap_closure0, A.deepHashCode_deepHashCodeInner, A.deepHashCode_deepHashCodeInner_closure, A.Parser__parseNode_parseAnchor, A.Parser__parseNode_parseTag, A.Scanner__fetchMoreTokens_closure, A.yamlWarningCallback_closure, A.YamlMap_keys_closure, A._YamlMapNodes_keys_closure, A.YamlEditor__initialize_collectAliases, A.YamlEditor_update_closure, A.YamlEditor__deepModify_closure, A.mapDeepEquals_closure, A.getKeyNode_closure, A.getKey_closure, A.containsKey_closure, A.yamlEncodeFlowString_closure, A.yamlEncodeBlockString_closure, A.yamlEncodeBlockString_closure0, A.getMapInsertionIndex_closure, A.getMapInsertionIndex_closure0, A.YamlMapWrap_keys_closure, A.YamlListWrap_YamlListWrap_closure]);
     _inheritMany(A.Closure2Args, [A._CastListBase_sort_closure, A.CastMap_forEach_closure, A.ConstantMap_map_closure, A.Primitives_functionNoSuchMethod_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__chainForeignFuture_closure0, A._cancelAndErrorClosure_closure, A.HashMap_HashMap$from_closure, A.LinkedHashMap_LinkedHashMap$from_closure, A.MapBase_mapToString_closure, A.Encoding_decodeStream_closure, A._JsonStringifier_writeMap_closure, A._JsonPrettyPrintMixin_writeMap_closure, A._BigIntImpl_hashCode_combine, A._symbolMapToStringMap_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._Uri__makeQuery_writeParameter, A._Uri__makeQuery_closure, A._createTables_build, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A._$AftComponentFromJson___closure, A._$AftComponentToJson_closure0, A.AftConfigLoader__processPubspecs_closure, A._extension_1_toJson_closure, A._extension_1_toJson_closure0, A._extension_1_toJson_closure1, A._extension_1_toJson_closure2, A._$RawAftConfigFromJson___closure, A._$RawAftConfigToJson_closure0, A.Deputy__listDependencyGroups__closure, A.RunGit__throwIfProcessFailed_closure, A.dfs_search, A.collectBytes_closure, A.CancelableOperation_then_closure, A.CancelableOperation_thenOperation_closure, A.CancelableCompleter_complete_closure0, A.FutureGroup_add_closure0, A.StreamQueue__ensureListening_closure1, A._CancelOnErrorSubscriptionWrapper_onError_closure, A.AWSHttpClientImpl_send_closure, A.AWSBaseHttpRequest_send_closure0, A.Promise_fromFuture_staticInteropFactoryStub_closure, A.StreamForward_forward_closure1, A.hashObjects_closure, A.MapBuilder_replace_closure, A.MapBuilder_replace_closure0, A.StandardJsonPlugin__toList_closure0, A.StandardJsonPlugin__toListUsingDiscriminator_closure0, A.parseDeps_closure, A._environmentMap_closure, A._$PubspecFromJson___closure, A.SingleMapping$fromJson_closure, A.SingleMapping_toJson_closure, A.Highlighter__collateLines_closure0, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure, A.TransformByHandlers_transformByHandlers__closure1, A.Tap_tap_closure, A.YamlEditor__initialize_collectAliases_closure]);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap, A._YamlMapWrapper_MapBase_UnmodifiableMapMixin, A.__YamlMapNodes_MapBase_UnmodifiableMapMixin]);
@@ -43717,7 +43730,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "bool(@)", "String?(Object?)", "~(Object,StackTrace)", "String(Object?)", "@(@)", "Object?(@)", "Future<~>()", "~(Object?)", "int(Object?)", "Null(Object,StackTrace)", "String(Match)", "String(String)", "bool()", "~(@,@)", "Trace()", "Frame()", "bool(Object?,Object?)", "String(@)", "~(@)", "List<PostUpdateTask>(List<String>)", "Map<String,Dependency>(Object?)", "Frame(String)", "~(Object[StackTrace?])", "~(String,@)", "Dependency()", "PackageInfo?(String)", "~(List<int>)", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "~(~())", "~(String)", "bool(Object?)", "int()", "Null(~)", "~(Object?,Object?)", "Uri?(Object?)", "bool(_Highlight)", "Null(@)", "PackageInfo?(Object?)", "~(Uint8List,String,int)", "List<String>(Object?)", "Object?(Object?)", "~([Object?])", "~(LogEntry)", "~([Future<~>?])", "Null(@,StackTrace)", "PackageInfo(@)", "VersionPropagation(Object?)", "Map<String,Object?>(PackageInfo)", "Uri(Object?)", "Object?(PackageSelector)", "@()", "Trace(String)", "PackageSelector(Object?)", "MapBuilder<String,VersionConstraint>()", "~(Repo)", "bool(String,String)", "bool(Version)", "int(int,int)", "bool(AWSLoggerPlugin)", "~(Symbol0,@)", "int(String?)", "VersionConstraint(Object?)", "@(String)", "Future<Null>()", "int(Frame)", "String(Frame)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<~>?()", "YamlNode(Map<@,@>)", "String(MapEntry<@,YamlNode>)", "String(YamlNode)", "int(@,@)", "List<String>?(Object?)", "~(PackageInfo)", "Null(~())", "bool(PackageInfo)", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "_Future<@>(@)", "String(StringBuffer)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Uint8List,int,int)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "0&(JSObject)", "_LineSplitterEventSink(EventSink<String>)", "MapBuilder<String,PackageInfo>()", "MapEntry<String,String>(String)", "ListBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "Future<Map<String,GroupUpdate>?>()", "Null(@,@)", "bool(String,Dependency)", "Group(GroupBuilder)", "Future<~>(Object,Chain)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "String(MapEntry<String,String>)", "~(@,StackTrace)", "@(@,String)", "_VersionWindow()", "int(int)", "Version(Version)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "MapEntry<String,String?>(String,VersionConstraint?)", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "List<PackageInfo>(Object?)", "bool(AWSLogger)", "LogEntry(LogRecord)", "Future<0&>()", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "Map<String,List<PackageInfo>>(Object?)", "YamlMap()", "~(String,int)", "~(String,int?)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "VersionRange?()", "VersionConstraint?()", "Uint8List({seed:int})", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "MapEntry<String,List<PackageInfo>>(@,@)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Uint8List)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "~(JSObject)", "Map<String,VersionConstraint?>?(Object?)", "int(String)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "~(String,String?)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "~(int,int,int)", "List<Frame>(Trace)", "int(Trace)", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "String(Trace)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Uint8List(@,@)", "Frame(String,String)", "PubspecInfo(Object?)", "PackageFlavor(Object?)", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Pubspec(Object?)", "Chain()", "YamlMap(Object?)", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "~([@])", "~(YamlMap,Pubspec{isRoot:bool})", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "YamlNode(@)", "Future<Map<String,+(int,VersionConstraint)>>()", "~(int,@)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "~(@,StackTrace?)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "bool(@,@)", "List<Uri>?(Object?)", "MapEntry<String,Dependency>(@,@)"],
+    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "bool(@)", "String?(Object?)", "~(Object,StackTrace)", "String(Object?)", "@(@)", "Object?(@)", "Future<~>()", "~(Object?)", "int(Object?)", "Null(Object,StackTrace)", "String(Match)", "String(String)", "bool()", "~(@,@)", "Trace()", "Frame()", "bool(Object?,Object?)", "List<PostUpdateTask>(List<String>)", "String(@)", "~(@)", "Map<String,Dependency>(Object?)", "Frame(String)", "~(Object[StackTrace?])", "~(String,@)", "PackageInfo?(String)", "~(List<int>)", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "~(~())", "PackageInfo?(Object?)", "~(String)", "bool(Object?)", "int()", "Null(~)", "~(Object?,Object?)", "Uri?(Object?)", "bool(_Highlight)", "Null(@)", "Dependency()", "~(Uint8List,String,int)", "List<String>(Object?)", "Object?(Object?)", "~([Object?])", "~(LogEntry)", "~([Future<~>?])", "Null(@,StackTrace)", "PackageInfo(@)", "VersionPropagation(Object?)", "Map<String,Object?>(PackageInfo)", "Uri(Object?)", "Object?(PackageSelector)", "@()", "Trace(String)", "PackageSelector(Object?)", "MapBuilder<String,VersionConstraint>()", "~(Repo)", "bool(String,String)", "bool(Version)", "int(int,int)", "bool(AWSLoggerPlugin)", "~(Symbol0,@)", "int(String?)", "VersionConstraint(Object?)", "@(String)", "Future<Null>()", "int(Frame)", "String(Frame)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<~>?()", "YamlNode(Map<@,@>)", "String(MapEntry<@,YamlNode>)", "String(YamlNode)", "int(@,@)", "List<String>?(Object?)", "~(PackageInfo)", "Null(~())", "bool(PackageInfo)", "Null([Object?,Object?,Object?])", "NodeProcessManager()", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "_Future<@>(@)", "String(StringBuffer)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Uint8List,int,int)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "0&(JSObject)", "_LineSplitterEventSink(EventSink<String>)", "MapBuilder<String,PackageInfo>()", "MapEntry<String,String>(String)", "ListBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "Future<Map<String,GroupUpdate>?>()", "Null(@,@)", "bool(String,Dependency)", "Group(GroupBuilder)", "Future<~>(Object,Chain)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "String(MapEntry<String,String>)", "~(@,StackTrace)", "@(@,String)", "_VersionWindow()", "int(int)", "Version(Version)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "MapEntry<String,String?>(String,VersionConstraint?)", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "List<PackageInfo>(Object?)", "bool(AWSLogger)", "LogEntry(LogRecord)", "Future<0&>()", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "Map<String,List<PackageInfo>>(Object?)", "YamlMap()", "~(String,int)", "~(String,int?)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "VersionRange?()", "VersionConstraint?()", "Uint8List({seed:int})", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "MapEntry<String,List<PackageInfo>>(@,@)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Uint8List)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "~(JSObject)", "Map<String,VersionConstraint?>?(Object?)", "int(String)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "~(String,String?)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "~(int,int,int)", "List<Frame>(Trace)", "int(Trace)", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "String(Trace)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Uint8List(@,@)", "Frame(String,String)", "PubspecInfo(Object?)", "PackageFlavor(Object?)", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "Pubspec(Object?)", "Chain()", "YamlMap(Object?)", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "~([@])", "~(YamlMap,Pubspec{isRoot:bool})", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "YamlNode(@)", "Future<Map<String,+(int,VersionConstraint)>>()", "~(int,@)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "~(@,StackTrace?)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "bool(@,@)", "List<Uri>?(Object?)", "MapEntry<String,Dependency>(@,@)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -44502,6 +44515,7 @@
     B.List_sww = A._setArrayType(makeConstList(["normal", "inheritStdio", "detached", "detachedWithStdio"]), type$.JSArray_String);
     B.List_url = A._setArrayType(makeConstList(["url"]), type$.JSArray_String);
     B.List_version_hosted = A._setArrayType(makeConstList(["version", "hosted"]), type$.JSArray_String);
+    B.List_xml = A._setArrayType(makeConstList(["xml"]), type$.JSArray_String);
     B.Type_GitHubPackageConfig_neA = A.typeLiteral("GitHubPackageConfig");
     B.Type__$GitHubPackageConfig_MED = A.typeLiteral("_$GitHubPackageConfig");
     B.List_yv8 = A._setArrayType(makeConstList([B.Type_GitHubPackageConfig_neA, B.Type__$GitHubPackageConfig_MED]), type$.JSArray_Type);
@@ -44802,7 +44816,7 @@
       var t1 = A.findType("JSArray<~()>");
       return new A.ActionContext(A._setArrayType([], t1), A._setArrayType([], t1));
     });
-    _lazyFinal($, "postUpdateTasks", "$get$postUpdateTasks", () => A.LinkedHashMap_LinkedHashMap$_literal(["built_value_generator", new A.postUpdateTasks_closure(), "json_serializable", new A.postUpdateTasks_closure0(), "dart_style", new A.postUpdateTasks_closure1(), "code_builder", new A.postUpdateTasks_closure2()], type$.String, A.findType("List<PostUpdateTask>(List<String>)")));
+    _lazyFinal($, "postUpdateTasks", "$get$postUpdateTasks", () => A.LinkedHashMap_LinkedHashMap$_literal(["built_value_generator", new A.postUpdateTasks_closure(), "code_builder", new A.postUpdateTasks_closure0(), "dart_style", new A.postUpdateTasks_closure1(), "drift", new A.postUpdateTasks_closure2(), "json_serializable", new A.postUpdateTasks_closure3()], type$.String, A.findType("List<PostUpdateTask>(List<String>)")));
     _lazyFinal($, "nodeProcessManager", "$get$nodeProcessManager", () => new A.nodeProcessManager_closure().call$0());
     _lazyFinal($, "_mergeCommitRegex", "$get$_mergeCommitRegex", () => A.RegExp_RegExp("^Merge .+$", true, false));
     _lazyFinal($, "_commitRegex", "$get$_commitRegex", () => A.RegExp_RegExp("(?<type>build|chore|ci|docs|feat|fix|bug|perf|refactor|revert|style|test)?(?<scope>\\([a-zA-Z0-9_,\\s\\*]+\\)?((?=:\\s?)|(?=!:\\s?)))?(?<breaking>!)?(?<description>:\\s?.*)?", true, false));
