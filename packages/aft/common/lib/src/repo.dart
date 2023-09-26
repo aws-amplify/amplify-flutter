@@ -27,6 +27,27 @@ class Repo {
     AWSLogger? logger,
   }) : logger = logger ?? AWSLogger().createChild('Repo');
 
+  static Future<Repo> load({
+    String? path,
+    ProcessManager processManager = const LocalProcessManager(),
+    FileSystem fileSystem = const LocalFileSystem(),
+    Platform platform = const LocalPlatform(),
+    AWSLogger? logger,
+  }) async {
+    final configLoader = AftConfigLoader(
+      workingDirectory: path,
+      fileSystem: fileSystem,
+    );
+    final config = configLoader.load();
+    return open(
+      config,
+      processManager: processManager,
+      fileSystem: fileSystem,
+      platform: platform,
+      logger: logger,
+    );
+  }
+
   static Future<Repo> open(
     AftConfig aftConfig, {
     ProcessManager processManager = const LocalProcessManager(),

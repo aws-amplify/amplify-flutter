@@ -26,12 +26,7 @@ final class Deputy {
     ProcessManager processManager = const LocalProcessManager(),
     AWSLogger? logger,
   }) async {
-    final configLoader = AftConfigLoader(
-      fileSystem: fileSystem,
-    );
-    final config = configLoader.load();
-    final repo = await Repo.open(
-      config,
+    final repo = await Repo.load(
       platform: platform,
       fileSystem: fileSystem,
       processManager: processManager,
@@ -121,7 +116,7 @@ final class Deputy {
             updatedConstraint: updatedGlobalConstraint,
           );
           update._pubspecUpdates.add(
-            () => repo.rootPubspecEditor.update(
+            (repo) => repo.rootPubspecEditor.update(
               ['dependencies', group.packageName],
               updatedGlobalConstraint.toString(),
             ),
@@ -153,7 +148,7 @@ final class Deputy {
           updatedConstraint: updatedConstraint,
         );
         update._pubspecUpdates.add(
-          () => package.pubspecInfo.pubspecYamlEditor.update(
+          (repo) => repo[package.name].pubspecInfo.pubspecYamlEditor.update(
             [dependencyType.key, group.packageName],
             updatedConstraint.toString(),
           ),
@@ -165,22 +160,23 @@ final class Deputy {
 
   /// Writes any propsed updates to disk.
   ///
-  /// If [worktreeDir] is specified, updates are applied in that
-  /// directory. Otherwise, they are applied to the [repo] directory.
-  Future<void> _commitUpdates([String? worktreeDir]) async {
-    final rootDir = repo.rootDir.uri.toFilePath();
-    String relativeToWorktree(String path) {
+  /// If [worktree] is specified, updates are applied in that repo.
+  /// Otherwise, they are applied to the current, active repo.
+  Future<void> _commitUpdates([Repo? worktree]) async {
+    final repo = worktree ?? this.repo;
+    final rootDir = this.repo.rootDir.path;
+    String worktreePath(String path) {
       final relativeToRoot = p.relative(path, from: rootDir);
-      return p.join(worktreeDir ?? rootDir, relativeToRoot);
+      return p.join(worktree?.rootDir.path ?? rootDir, relativeToRoot);
     }
 
     final outdatedPacakges = [
       for (final package in repo.allPackages.values)
         if (package.pubspecInfo.pubspecYamlEditor case final editor
             when editor.edits.isNotEmpty)
-          (relativeToWorktree(package.path), editor),
+          (worktreePath(package.path), editor),
       if (repo.rootPubspecEditor.edits.isNotEmpty)
-        (relativeToWorktree(rootDir), repo.rootPubspecEditor),
+        (worktreePath(rootDir), repo.rootPubspecEditor),
     ];
     if (outdatedPacakges.isEmpty) {
       logger?.info('All dependencies up-to-date');
@@ -231,18 +227,18 @@ final class GroupUpdate {
 
   /// The constraint to be used in the update.
   final VersionConstraint updatedConstraint;
-  final List<void Function()> _pubspecUpdates = [];
+  final List<void Function(Repo)> _pubspecUpdates = [];
 
   /// Updates all pubspecs in the group and writes the changes
   /// to disk.
   ///
-  /// If [worktreeDir] is specified, updates are applied in that
-  /// directory. Otherwise, they are applied to the repo directory.
-  Future<void> updatePubspecs([String? worktreeDir]) async {
+  /// If [worktree] is specified, updates are applied in that repo.
+  /// Otherwise, they are applied to the current, active repo.
+  Future<void> updatePubspecs([Repo? worktree]) async {
     for (final update in _pubspecUpdates) {
-      update();
+      update(worktree ?? _deputy.repo);
     }
-    await _deputy._commitUpdates(worktreeDir);
+    await _deputy._commitUpdates(worktree);
   }
 }
 
@@ -250,11 +246,11 @@ extension UpdateAllGroups on Map<String, GroupUpdate> {
   /// Updates all pubspecs in all groups and writes the changes
   /// to disk.
   ///
-  /// If [worktreeDir] is specified, updates are applied in that
-  /// directory. Otherwise, they are applied to the repo directory.
-  Future<void> updatePubspecs([String? worktreeDir]) async {
+  /// If [worktree] is specified, updates are applied in that repo.
+  /// Otherwise, they are applied to the current, active repo.
+  Future<void> updatePubspecs([Repo? worktree]) async {
     for (final group in values) {
-      await group.updatePubspecs(worktreeDir);
+      await group.updatePubspecs(worktree);
     }
   }
 }

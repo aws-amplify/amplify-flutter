@@ -58,6 +58,9 @@ Future<void> _deputyScan() async {
       }
 
       // Update pubspecs for the dependency and commit changes to a new branch.
+      //
+      // We create a new worktree to stage changes so that we are not switching
+      // branches for each group and interfering with the current checkout.
       core.info('Creating new worktree...');
       const baseBranch = 'origin/main';
       final constraint = updatedConstraint
@@ -76,15 +79,17 @@ Future<void> _deputyScan() async {
         branchName,
         baseBranch,
       ]);
-      final worktree = NodeGitDir(
-        await GitDir.fromExisting(
-          worktreeDir,
-          processManager: processManager,
-        ),
+      final worktreeRepo = await Repo.load(
+        path: worktreeDir,
+        processManager: processManager,
+        fileSystem: nodeFileSystem,
+        platform: const NodePlatform(),
+        logger: logger,
       );
+      final worktree = NodeGitDir(worktreeRepo.git);
 
       core.info('Updating pubspecs...');
-      await groupUpdate.updatePubspecs(worktreeDir);
+      await groupUpdate.updatePubspecs(worktreeRepo);
 
       core.info('Diffing changes...');
       await worktree.runCommand(['diff']);
