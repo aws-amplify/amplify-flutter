@@ -2997,15 +2997,6 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "templates/dart-package/hooks"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-  - package-ecosystem: "pub"
     directory: "templates/flutter-package/hooks"
     schedule:
       interval: "daily"
