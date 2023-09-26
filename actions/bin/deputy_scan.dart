@@ -59,6 +59,8 @@ Future<void> _deputyScan() async {
       await git.runCommand(['diff']);
 
       core.info('Committing changes...');
+      final currentHead = await git.revParse('HEAD', options: ['--abbrev-ref']);
+      const baseBranch = 'origin/main';
       final constraint = updatedConstraint
           .toString()
           .replaceAll(_specialChars, '')
@@ -66,10 +68,11 @@ Future<void> _deputyScan() async {
       final branchName = 'chore/deps/$dependencyName-$constraint';
       final commitTitle =
           '"chore(deps): Bump $dependencyName to $updatedConstraint"';
-      await git.runCommand(['checkout', '-b', branchName]);
+      await git.runCommand(['checkout', '-b', branchName, baseBranch]);
       await git.runCommand(['add', '-A']);
       await git.runCommand(['commit', '-m', commitTitle]);
       await git.runCommand(['push', '-u', 'origin', branchName]);
+      await git.runCommand(['checkout', currentHead]);
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
@@ -120,6 +123,7 @@ Updated-Constraint: $updatedConstraint
           'https://github.com/aws-amplify/amplify-flutter/pull/$closeExisting',
         );
         process.exitCode = 1;
+        return;
       }
     });
   }
@@ -143,6 +147,7 @@ Future<Map<String, _ExistingPr>> _listExistingPrs() async {
       final constraint = VersionConstraint.parse(constraintTrailer);
       existingPrs[pkgTrailer] = (pull.number, constraint);
     }
+    core.info('Found existing PRs: $existingPrs');
     return existingPrs;
   });
 }

@@ -207,8 +207,11 @@ final class GitDir {
   }
 
   /// Runs `git rev-parse` with the provided [input].
-  Future<String> revParse(String input) async {
-    final revParse = await runCommand(['rev-parse', input]);
+  Future<String> revParse(
+    String input, {
+    List<String> options = const [],
+  }) async {
+    final revParse = await runCommand(['rev-parse', input, ...options]);
     return (revParse.stdout as String).trim();
   }
 

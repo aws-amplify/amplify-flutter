@@ -14748,10 +14748,8 @@
       return A._asyncStartSync($async$_listExistingPrs, $async$completer);
     },
     NodeGitDir_runCommand(_this, args) {
-      var t1 = A.Stdout$(J.get$stdout$x(self.process)),
-        t2 = A.Stdout$(J.get$stderr$x(self.process)),
-        t3 = type$.nullable_void_Function_String;
-      return A.RunGit_runGit(_this.processManager, type$.List_String._as(args), _this.path, t3._as(t2.get$writeln()), t3._as(t1.get$writeln()), true);
+      var t1 = A.Stdout$(J.get$stdout$x(self.process));
+      return _this.runCommand$3$stderr$stdout(args, A.Stdout$(J.get$stderr$x(self.process)).get$writeln(), t1.get$writeln());
     },
     _deputyScan_closure: function _deputyScan_closure(t0, t1, t2, t3) {
       var _ = this;
@@ -29519,7 +29517,51 @@
     }
   };
   A._Group_Object_AWSSerializable.prototype = {};
-  A.GitDir.prototype = {};
+  A.GitDir.prototype = {
+    runCommand$3$stderr$stdout(args, stderr, stdout) {
+      var t1;
+      type$.List_String._as(args);
+      t1 = type$.nullable_void_Function_String;
+      t1._as(stdout);
+      return A.RunGit_runGit(this.processManager, args, this.path, t1._as(stderr), stdout, true);
+    },
+    runCommand$1(args) {
+      return this.runCommand$3$stderr$stdout(args, null, null);
+    },
+    revParse$2$options(input, options) {
+      return this.revParse$body$GitDir(input, type$.List_String._as(options));
+    },
+    revParse$body$GitDir(input, options) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.String),
+        $async$returnValue, $async$self = this, t1, $async$temp1, $async$temp2;
+      var $async$revParse$2$options = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              t1 = A._setArrayType(["rev-parse", input], type$.JSArray_String);
+              B.JSArray_methods.addAll$1(t1, options);
+              $async$temp1 = B.JSString_methods;
+              $async$temp2 = A;
+              $async$goto = 3;
+              return A._asyncAwait($async$self.runCommand$1(t1), $async$revParse$2$options);
+            case 3:
+              // returning from await.
+              $async$returnValue = $async$temp1.trim$0($async$temp2._asString($async$result.stdout));
+              // goto return
+              $async$goto = 1;
+              break;
+            case 1:
+              // return
+              return A._asyncReturn($async$returnValue, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$revParse$2$options, $async$completer);
+    }
+  };
   A.RunGit__throwIfProcessFailed_closure.prototype = {
     call$2(k, v) {
       A._asString(k);
@@ -42701,7 +42743,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, prNumber, constraint, t2, closeExisting, t3, t4, t5, t6, t7, branchName, commitTitle, t8, prResult, t1, updatedConstraint, _1_0;
+        $async$returnValue, $async$self = this, prNumber, constraint, t2, closeExisting, t3, t4, t5, currentHead, t6, t7, branchName, commitTitle, t8, prResult, t1, updatedConstraint, _1_0;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -42746,6 +42788,11 @@
             case 4:
               // returning from await.
               t3._as(t2.core).info("Committing changes...");
+              $async$goto = 5;
+              return A._asyncAwait(t4.revParse$2$options("HEAD", A._setArrayType(["--abbrev-ref"], t5)), $async$call$0);
+            case 5:
+              // returning from await.
+              currentHead = $async$result;
               t6 = updatedConstraint.toString$0(0);
               t7 = $.$get$_specialChars();
               t6 = A.stringReplaceAllUnchecked(t6, t7, "");
@@ -42753,21 +42800,25 @@
               t6 = t1.dependencyName;
               branchName = "chore/deps/" + t6 + "-" + constraint;
               commitTitle = '"chore(deps): Bump ' + t6 + " to " + updatedConstraint.toString$0(0) + '"';
-              $async$goto = 5;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", "-b", branchName], t5)), $async$call$0);
-            case 5:
-              // returning from await.
               $async$goto = 6;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["add", "-A"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", "-b", branchName, "origin/main"], t5)), $async$call$0);
             case 6:
               // returning from await.
               $async$goto = 7;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["commit", "-m", commitTitle], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["add", "-A"], t5)), $async$call$0);
             case 7:
               // returning from await.
               $async$goto = 8;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["push", "-u", "origin", branchName], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["commit", "-m", commitTitle], t5)), $async$call$0);
             case 8:
+              // returning from await.
+              $async$goto = 9;
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["push", "-u", "origin", branchName], t5)), $async$call$0);
+            case 9:
+              // returning from await.
+              $async$goto = 10;
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", currentHead], t5)), $async$call$0);
+            case 10:
               // returning from await.
               t3._as(t2.core).info("Creating PR...");
               t4 = t1.dependencyName;
@@ -42797,6 +42848,9 @@
               if (t8.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t5)).exitCode !== 0) {
                 t3._as(t2.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
                 t3._as(t2.process).exitCode = 1;
+                // goto return
+                $async$goto = 1;
+                break;
               }
             case 1:
               // return
@@ -42811,7 +42865,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Map_of_String_and_Record_2_int_and_VersionConstraint),
-        $async$returnValue, $async$self = this, t2, commitMessage, pkgTrailer, constraintTrailer, constraint, existingPrs, t1, $async$temp1;
+        $async$returnValue, $async$self = this, t2, t3, commitMessage, pkgTrailer, constraintTrailer, constraint, existingPrs, t1, $async$temp1;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -42826,16 +42880,16 @@
               return A._asyncAwait(A.OctokitPullsActions_list(t1._as(t1._as($async$self.octokit.rest).pulls)), $async$call$0);
             case 3:
               // returning from await.
-              t1 = $async$temp1.get$iterator$ax($async$result);
+              t2 = $async$temp1.get$iterator$ax($async$result);
             case 4:
               // for condition
-              if (!t1.moveNext$0()) {
+              if (!t2.moveNext$0()) {
                 // goto after for
                 $async$goto = 5;
                 break;
               }
-              t2 = t1.get$current();
-              commitMessage = A.CommitMessage_CommitMessage$parse("", A._asString(t2.title), A._asString(t2.body));
+              t3 = t2.get$current();
+              commitMessage = A.CommitMessage_CommitMessage$parse("", A._asString(t3.title), A._asString(t3.body));
               pkgTrailer = commitMessage.get$trailers(commitMessage).$index(0, "Updated-Dependency");
               constraintTrailer = commitMessage.get$trailers(commitMessage).$index(0, "Updated-Constraint");
               if (pkgTrailer == null || constraintTrailer == null) {
@@ -42844,12 +42898,13 @@
                 break;
               }
               constraint = A.VersionConstraint_VersionConstraint$parse(constraintTrailer);
-              existingPrs.$indexSet(0, pkgTrailer, new A._Record_2(A._asInt(t2.number), constraint));
+              existingPrs.$indexSet(0, pkgTrailer, new A._Record_2(A._asInt(t3.number), constraint));
               // goto for condition
               $async$goto = 4;
               break;
             case 5:
               // after for
+              t1._as(self.core).info("Found existing PRs: " + existingPrs.toString$0(0));
               $async$returnValue = existingPrs;
               // goto return
               $async$goto = 1;
