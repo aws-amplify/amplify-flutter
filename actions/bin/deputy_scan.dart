@@ -77,7 +77,10 @@ Future<void> _deputyScan() async {
         baseBranch,
       ]);
       final worktree = NodeGitDir(
-        await GitDir.fromExisting(worktreeDir),
+        await GitDir.fromExisting(
+          worktreeDir,
+          processManager: processManager,
+        ),
       );
 
       core.info('Updating pubspecs...');
