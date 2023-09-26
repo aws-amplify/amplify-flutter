@@ -158,7 +158,7 @@ final class _BuildRunnerTask extends PostUpdateTask {
     await _ensureAft(repo);
     for (final package in packages) {
       final packageInfo = repo.maybePackage(package);
-      if (packageInfo == null) {
+      if (packageInfo == null || !packageInfo.needsBuildRunner) {
         continue;
       }
       core.info('Running build_runner in "${packageInfo.path}"...');

@@ -12560,8 +12560,8 @@
     },
     ParsedPath_ParsedPath$parse(path, style) {
       var t1, parts, separators, t2, start, i,
-        root = style.getRoot$1(path);
-      style.isRootRelative$1(path);
+        root = style.getRoot$1(path),
+        isRootRelative = style.isRootRelative$1(path);
       if (root != null)
         path = B.JSString_methods.substring$1(path, root.length);
       t1 = type$.JSArray_String;
@@ -12593,14 +12593,15 @@
         B.JSArray_methods.add$1(parts, B.JSString_methods.substring$1(path, start));
         B.JSArray_methods.add$1(separators, "");
       }
-      return new A.ParsedPath(style, root, parts, separators);
+      return new A.ParsedPath(style, root, isRootRelative, parts, separators);
     },
-    ParsedPath: function ParsedPath(t0, t1, t2, t3) {
+    ParsedPath: function ParsedPath(t0, t1, t2, t3, t4) {
       var _ = this;
       _.style = t0;
       _.root = t1;
-      _.parts = t2;
-      _.separators = t3;
+      _.isRootRelative = t2;
+      _.parts = t3;
+      _.separators = t4;
     },
     PathException$(message) {
       return new A.PathException(message);
@@ -26815,7 +26816,7 @@
     run$1(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$self = this, t1, t2, t3, t4, t5, t6, _i, t7, t8, t9;
+        $async$self = this, t1, t2, t3, t4, t5, t6, _i, t7, t8, t9, t10;
       var $async$run$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -26836,7 +26837,26 @@
                 break;
               }
               t7 = t6.$index(0, A._asString(t1[_i]));
-              if (t7 == null) {
+              if (t7 != null) {
+                if (t7.pubspecInfo.pubspec.devDependencies.containsKey$1("build_runner")) {
+                  t8 = t7.path;
+                  t9 = $.$get$context().style;
+                  t10 = A.ParsedPath_ParsedPath$parse(t8, t9);
+                  if (t10.get$basename(t10) !== "example")
+                    if (t7.name !== "doc") {
+                      t8 = A.ParsedPath_ParsedPath$parse(t8, t9);
+                      t8 = t8.get$basename(t8) === "canaries";
+                    } else
+                      t8 = true;
+                  else
+                    t8 = true;
+                  t8 = !t8;
+                } else
+                  t8 = false;
+                t8 = !t8;
+              } else
+                t8 = true;
+              if (t8) {
                 // goto for update
                 $async$goto = 4;
                 break;
@@ -36418,6 +36438,18 @@
     }
   };
   A.ParsedPath.prototype = {
+    get$basename(_) {
+      var _this = this,
+        t1 = type$.String,
+        copy = new A.ParsedPath(_this.style, _this.root, _this.isRootRelative, A.List_List$from(_this.parts, true, t1), A.List_List$from(_this.separators, true, t1));
+      copy.removeTrailingSeparators$0();
+      t1 = copy.parts;
+      if (t1.length === 0) {
+        t1 = _this.root;
+        return t1 == null ? "" : t1;
+      }
+      return B.JSArray_methods.get$last(t1);
+    },
     get$hasTrailingSeparator() {
       var t1 = this.parts;
       if (t1.length !== 0)
