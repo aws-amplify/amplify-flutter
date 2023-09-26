@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Minor bug fixes and improvements
+
 ## 1.3.3
 
 - Minor bug fixes and improvements
