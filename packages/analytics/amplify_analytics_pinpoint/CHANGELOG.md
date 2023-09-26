@@ -1,6 +1,7 @@
 ## 1.5.0
 
 ### Fixes
+
 - fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
 - fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
 
@@ -27,6 +28,7 @@
 ## 1.2.1
 
 ### Fixes
+
 - fix(analytics): Disallowed unauth access
 
 ## 1.2.0
@@ -40,14 +42,17 @@
 ## 1.1.0
 
 ### Features
+
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
 
 ### Fixes
+
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
 
 ## 1.0.1
 
 ### Fixes
+
 - fix(repo): Flutter 3.3 support
 
 ## 1.0.0
@@ -57,17 +62,17 @@ We are thrilled to release version 1.0 of the Amplify Flutter libraries!
 This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
 applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
 
-If you've been using v0 in production, you can now safely migrate to v1. Check out our 
-[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+If you've been using v0 in production, you can now safely migrate to v1. Check out our
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for
 more information.
 
-As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
 [Discord](https://discord.gg/jWVbPfC) to answer any questions.
 
 ### New Features in the Analytics Category
 
-* You can now save to the `UserAttributes` field of a Pinpoint Endpoint by passing an `AWSPinpointUserProfile` to `Amplify.Analytics.identifyUser`.
-* The `autoFlushEventsInterval` in Analytics config can now be set in seconds to control how often cached events are auto-flushed. Beforehand, this value was inconsistently read as seconds on iOS and milliseconds on Android. 
+- You can now save to the `UserAttributes` field of a Pinpoint Endpoint by passing an `AWSPinpointUserProfile` to `Amplify.Analytics.identifyUser`.
+- The `autoFlushEventsInterval` in Analytics config can now be set in seconds to control how often cached events are auto-flushed. Beforehand, this value was inconsistently read as seconds on iOS and milliseconds on Android.
 
 ## 1.0.0-next.8+1
 
@@ -76,6 +81,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.8
 
 ### Breaking Changes
+
 - chore(analytics)!: Remove Analytics Prefix ([#2753](https://github.com/aws-amplify/amplify-flutter/pull/2753))
 - chore(analytics)!: export endpointManager, redo exports
 
@@ -94,16 +100,19 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.5
 
 ### Features
+
 - feat(analytics): Use indexedDB on Web ([#2600](https://github.com/aws-amplify/amplify-flutter/pull/2600))
 
 ## 1.0.0-next.4
 
 ### Features
+
 - feat(analytics): Legacy data migration of Pinpoint Endpoint ID ([#2489](https://github.com/aws-amplify/amplify-flutter/pull/2489))
 
 ## 1.0.0-next.3
 
 ### Fixes
+
 - fix(analytics): Secure storage on Android ([#2530](https://github.com/aws-amplify/amplify-flutter/pull/2530))
 
 ## 1.0.0-next.2

@@ -1,15 +1,18 @@
 ## 1.5.0
 
 ### Feature
+
 - feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
 
 ### Fixes
+
 - fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
 - fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
 
 ## 1.4.1
 
 ### Fixes
+
 - fix(auth): Crash with EXC_BAD_ACCESS ([#3657](https://github.com/aws-amplify/amplify-flutter/pull/3657))
 - fix(auth): Custom auth with device tracking, no SRP ([#3652](https://github.com/aws-amplify/amplify-flutter/pull/3652))
 - fix(auth): Uncaught Hosted UI cancellation ([#3686](https://github.com/aws-amplify/amplify-flutter/pull/3686))
@@ -18,10 +21,12 @@
 ## 1.4.0
 
 ### Features
+
 - feat(auth): TOTP MFA
 - feat(authenticator): TOTP MFA ([#3609](https://github.com/aws-amplify/amplify-flutter/pull/3609))
 
 ### Fixes
+
 - fix(analytics): AWSPinpointUserProfile Added null check for user attributes ([#3598](https://github.com/aws-amplify/amplify-flutter/pull/3598))
 - fix(auth): SDK exception mapping
 - fix(datastore): Use platform thread ([#3607](https://github.com/aws-amplify/amplify-flutter/pull/3607))
@@ -29,18 +34,21 @@
 ## 1.3.3
 
 ### Fixes
+
 - fix(auth): Pass `deviceKey` in custom auth challenge
 - fix(push): Deserialization from platform maps ([#3557](https://github.com/aws-amplify/amplify-flutter/pull/3557))
 
 ## 1.3.2
 
 ### Fixes
+
 - fix(core): Cross-zone completion
 - fix(datastore): Custom list serde ([#3544](https://github.com/aws-amplify/amplify-flutter/pull/3544))
 
 ## 1.3.1
 
 ### Fixes
+
 - fix(auth): Android Hosted UI flakiness
 - fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
 - fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
@@ -49,6 +57,7 @@
 ## 1.3.0
 
 ### Features
+
 - feat(auth): Enable ASF
 - feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
 - feat(logging): logger can register one plugin per type in a logger hierarchy ([#3173](https://github.com/aws-amplify/amplify-flutter/pull/3173))
@@ -57,21 +66,25 @@
 ## 1.2.1
 
 ### Fixes
+
 - fix(analytics): Disallowed unauth access
 - fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
 
 ## 1.2.0
 
 ### Fixes
+
 - fix(auth): Attribute key equality ([#3136](https://github.com/aws-amplify/amplify-flutter/pull/3136))
 - fix(auth): `signOut` after user deletion ([#3162](https://github.com/aws-amplify/amplify-flutter/pull/3162))
 
 ### Features
+
 - feat(storage): using path style URLs when bucket name contains dots
 
 ## 1.1.1
 
 ### Fixes
+
 - fix(auth): remove duplicate continuation call for hosted UI ([#3112](https://github.com/aws-amplify/amplify-flutter/pull/3112))
 - fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
 - fix: suppress browser on sign out when preferPrivateSession is true ([#3099](https://github.com/aws-amplify/amplify-flutter/pull/3099))
@@ -80,10 +93,12 @@
 ## 1.1.0
 
 ### Features
+
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
 - feat(core): add granular model read operations ([#2611](https://github.com/aws-amplify/amplify-flutter/pull/2611))
 
 ### Fixes
+
 - fix(notifications): configure call hangs on Flutter app hot restart ([#3013](https://github.com/aws-amplify/amplify-flutter/pull/3013))
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
 - fix: wait for addPlugin prior to configuration ([#3018](https://github.com/aws-amplify/amplify-flutter/pull/3018))
@@ -91,6 +106,7 @@
 ## 1.0.1
 
 ### Fixes
+
 - fix(repo): Flutter 3.3 support
 - fix: convert AuthUserAttributeKey in updateUserAttributes
 
@@ -101,21 +117,23 @@ We are thrilled to release version 1.0 of the Amplify Flutter libraries!
 This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
 applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
 
-If you've been using v0 in production, you can now safely migrate to v1. Check out our 
-[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+If you've been using v0 in production, you can now safely migrate to v1. Check out our
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for
 more information.
 
-As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
 [Discord](https://discord.gg/jWVbPfC) to answer any questions.
 
 ## 1.0.0-next.8+1
 
 ### Features
+
 - feat(notifications): implement push notification Flutter iOS module ([#2707](https://github.com/aws-amplify/amplify-flutter/pull/2707))
 - feat(notifications): killed state notification handling and Analytics integration ([#2747](https://github.com/aws-amplify/amplify-flutter/pull/2747))
 - feat(push): interfaces, category function and types added for push
 
 ### Fixes
+
 - fix(core): formatting issues in notifications data types
 - fix(notifications): Analytics naming updates, Android test fixes and token received bug fix ([#2824](https://github.com/aws-amplify/amplify-flutter/pull/2824))
 - fix(notifications): analyzer reported issues
@@ -127,6 +145,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.8
 
 ### Breaking Changes
+
 - chore(analytics)!: Remove Analytics Prefix ([#2753](https://github.com/aws-amplify/amplify-flutter/pull/2753))
 - chore(analytics)!: export endpointManager, redo exports
 - chore(auth)!: send Pinpoint Endpoint id to Cognito
@@ -138,6 +157,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 - chore(secure_storage)!: add factory constructor, mark AmplifySecureStorage as internal ([#2607](https://github.com/aws-amplify/amplify-flutter/pull/2607))
 
 ### Fixes
+
 - fix(api): Auth provider registration
 - fix(api): Include owner field in selection set ([#2795](https://github.com/aws-amplify/amplify-flutter/pull/2795))
 - fix(api): Support model definition target name ([#2814](https://github.com/aws-amplify/amplify-flutter/pull/2814))
@@ -146,6 +166,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 - fix(secure_storage): resolve conflict with win32 package ([#2829](https://github.com/aws-amplify/amplify-flutter/pull/2829))
 
 ### Features
+
 - feat(storage): add generic StorageOperationCanceledException in core
 - feat(storage): add handling of non-ascii object metadata values
 - feat(storage): make access level optional for storage APIs ([#2793](https://github.com/aws-amplify/amplify-flutter/pull/2793))
@@ -154,10 +175,12 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.7
 
 ### Breaking Changes
+
 - chore(datastore)!: Reorganize + import cleanup ([#2760](https://github.com/aws-amplify/amplify-flutter/pull/2760))
 - refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
 
 ### Fixes
+
 - fix(android): Bump Amplify Android to 2.4.1
 - fix(core): Refine `toJson` outputs when `createFactory = false`
 - fix(datastore): support use of java8 features in the example App
@@ -166,10 +189,12 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.6
 
 ### Breaking Changes
+
 - chore(core)!: Chain stack traces for state machines
 - feat(api)!: custom primary key support for GraphQL model helpers ([#2606](https://github.com/aws-amplify/amplify-flutter/pull/2606))
 
 ### Fixes
+
 - fix(auth): Await `signInUri` in Hosted UI platform ([#2706](https://github.com/aws-amplify/amplify-flutter/pull/2706))
 
 ## 1.0.0-next.5+1
@@ -179,6 +204,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.5
 
 ### Breaking Changes
+
 - chore(auth)!: Change `AuthCodeDeliveryDetails.attributeKey` to be of type `AuthUserAttributeKey`
 - refactor(auth)!: Make attribute update step an enum
 - refactor(auth)!: Make reset password step an enum
@@ -188,36 +214,43 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 - refactor(auth)!: State machine facade ([#2482](https://github.com/aws-amplify/amplify-flutter/pull/2482))
 
 ### Features
+
 - feat(analytics): Use indexedDB on Web ([#2600](https://github.com/aws-amplify/amplify-flutter/pull/2600))
 - feat(storage): enable pause and cancel APIs for download operations
 
 ### Fixes
+
 - fix(api): Web Socket Multiple Requests Synchronously ([#2567](https://github.com/aws-amplify/amplify-flutter/pull/2567))
 - fix(auth): `federateToIdentityPool` discrepancies
 
 ## 1.0.0-next.4
 
 ### Breaking Changes
+
 - fix(auth)!: Fetch Auth Session offline behavior ([#2585](https://github.com/aws-amplify/amplify-flutter/pull/2585))
 
 ### Fixes
+
 - fix(api): do not include null values in ModelMutations.create ([#2504](https://github.com/aws-amplify/amplify-flutter/pull/2504))
 - fix(api): model helpers use targetNames in schemas with CPK enabled ([#2559](https://github.com/aws-amplify/amplify-flutter/pull/2559))
 - fix(auth): SessionExpired Auth Hub event ([#2609](https://github.com/aws-amplify/amplify-flutter/pull/2609))
 - fix(datastore): prevent unhandled exception crashing App rebuilding sync expression
 
 ### Features
+
 - feat(analytics): Legacy data migration of Pinpoint Endpoint ID ([#2489](https://github.com/aws-amplify/amplify-flutter/pull/2489))
 
 ## 1.0.0-next.3
 
 ### Breaking Changes
+
 - chore(auth)!: Remove `isPreferPrivateSession` from `CognitoSignOutWithWebUIOptions` ([#2538](https://github.com/aws-amplify/amplify-flutter/pull/2538))
 - refactor(auth)!: Align exception types
 - refactor(auth)!: Remove intermediate request types ([#2475](https://github.com/aws-amplify/amplify-flutter/pull/2475))
 - refactor(core)!: Migrate exception types
 
 ### Fixes
+
 - fix(analytics): Secure storage on Android ([#2530](https://github.com/aws-amplify/amplify-flutter/pull/2530))
 - fix(api): SubscriptionDataPayload error decoding type fix ([#2483](https://github.com/aws-amplify/amplify-flutter/pull/2483))
 - fix(api): improve GQL subscription error visibility/recovery ([#2507](https://github.com/aws-amplify/amplify-flutter/pull/2507))
@@ -227,20 +260,24 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.2
 
 ### Breaking Changes
+
 - chore(auth)!: Make sign in result's `nextStep` non-null ([#2462](https://github.com/aws-amplify/amplify-flutter/pull/2462))
-- feat(api)!: Web Socket State Machine  ([#2458](https://github.com/aws-amplify/amplify-flutter/pull/2458))
+- feat(api)!: Web Socket State Machine ([#2458](https://github.com/aws-amplify/amplify-flutter/pull/2458))
 - feat(auth)!: Support partial sign out cases ([#2436](https://github.com/aws-amplify/amplify-flutter/pull/2436))
 
 ### Fixes
+
 - fix(api): support multiple belongsTo ([#2087](https://github.com/aws-amplify/amplify-flutter/pull/2087))
 - fix(auth): Can't resubmit verification code ([#2468](https://github.com/aws-amplify/amplify-flutter/pull/2468))
 
 ### Features
+
 - feat(auth): Add user ID to `CognitoSignUpResult` ([#2437](https://github.com/aws-amplify/amplify-flutter/pull/2437))
 
 ## 1.0.0-next.1+1
 
 ### Fixes
+
 - fix(core): Configure all plugins
 
 ## 1.0.0-next.1
@@ -252,9 +289,10 @@ Three new categories have added support for Web + Desktop: API, Storage, and Ana
 See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to these new versions.
 
 - chore(api,core): change API types ([#2148](https://github.com/aws-amplify/amplify-flutter/pull/2148))
-- chore(storage): migrate interface and setup basic packages 
+- chore(storage): migrate interface and setup basic packages
 
 ### Features
+
 - feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
 - feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
 - feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
@@ -265,15 +303,18 @@ See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on h
 - feat(storage): revise list API interface and add excludeSubPaths parameter
 
 ### Fixes
+
 - fix(api): correct subscription error handling ([#2179](https://github.com/aws-amplify/amplify-flutter/pull/2179))
 - fix(api): fix model helper util on web ([#2270](https://github.com/aws-amplify/amplify-flutter/pull/2270))
 
 ## 1.0.0-next.0+5
 
 ### Features
+
 - feat(auth): SignInDetails
 
 ### Fixes
+
 - fix(auth): Support Cognito proxies
 - fix(authenticator): Configuration error handling
 - fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2325](https://github.com/aws-amplify/amplify-flutter/pull/2325))
@@ -311,7 +352,7 @@ For production use cases please use the latest, non-tagged versions of amplify-f
 - **Auth**: Auth API Changes
 
   - Previously, the [`Amplify.Auth.deleteUser`](https://docs.amplify.aws/lib/auth/delete_user/q/platform/flutter/) API would throw `UnimplementedException` when it was called on Android platform. When this release, this API becomes functional and will delete currently signed in user on Android platform.
-  
+
     **How to Migrate:**
 
     - Remove unwanted calls of the `Amplify.Auth.deleteUser` API, if you were handling the `UnimplementedException` exception for Android

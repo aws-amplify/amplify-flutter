@@ -25,11 +25,13 @@
 ## 1.2.1
 
 ### Fixes
+
 - fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
 
 ## 1.2.0
 
 ### Features
+
 - feat(storage): using path style URLs when bucket name contains dots
 
 ## 1.1.1
@@ -39,11 +41,13 @@
 ## 1.1.0
 
 ### Features
+
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
 
 ## 1.0.1
 
 ### Fixes
+
 - fix(repo): Flutter 3.3 support
 
 ## 1.0.0
@@ -53,23 +57,23 @@ We are thrilled to release version 1.0 of the Amplify Flutter libraries!
 This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
 applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
 
-If you've been using v0 in production, you can now safely migrate to v1. Check out our 
-[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+If you've been using v0 in production, you can now safely migrate to v1. Check out our
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for
 more information.
 
-As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
 [Discord](https://discord.gg/jWVbPfC) to answer any questions.
 
 ### New Features in the Storage Category
 
-* In-flight download and upload operations are now fully controllable.
-    * NOTE: Downloading and uploading in the background is not yet supported.
-* The `list` API now supports pagination.
-* The new APIs `uploadData` and `downloadData` provide flexibility when dealing with data stored in memory.
-    * `uploadData` supports uploading from various data formats such as raw bytes, JSON, strings, Data URLs, and more.
-* The new API `getProperties` allows retrieving S3 object metadata without downloading the object. 
-* New `copy`, `move`, and `removeMany` APIs now support better control of your files.
-* Prefix customization is now supported.
+- In-flight download and upload operations are now fully controllable.
+  - NOTE: Downloading and uploading in the background is not yet supported.
+- The `list` API now supports pagination.
+- The new APIs `uploadData` and `downloadData` provide flexibility when dealing with data stored in memory.
+  - `uploadData` supports uploading from various data formats such as raw bytes, JSON, strings, Data URLs, and more.
+- The new API `getProperties` allows retrieving S3 object metadata without downloading the object.
+- New `copy`, `move`, and `removeMany` APIs now support better control of your files.
+- Prefix customization is now supported.
 
 ### Bug Fixes
 
@@ -87,11 +91,13 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.8
 
 ### Breaking Changes
+
 - feat(storage)!: update upload APIs options to add metadata field ([#2815](https://github.com/aws-amplify/amplify-flutter/pull/2815))
 - refactor(storage)!: rename checkObjectExistence to validateObjectExistence
 - refactor(storage)!: storage category APIs to use category level plugin options ([#2754](https://github.com/aws-amplify/amplify-flutter/pull/2754))
 
 ### Features
+
 - feat(storage): add handling of non-ascii object metadata values
 
 ## 1.0.0-next.7
@@ -101,10 +107,12 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.6
 
 ### Features
+
 - feat(storage): optimize part size for multipart upload
 - feat(storage): web implementation of transfer database using local storage ([#2631](https://github.com/aws-amplify/amplify-flutter/pull/2631))
 
 ### Fixes
+
 - fix(storage): GetUrl signing
 
 ## 1.0.0-next.5
@@ -118,16 +126,19 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.3
 
 ### Fixes
+
 - fix(storage): update expected exception types in integ tests
 
 ## 1.0.0-next.2+1
 
 ### Fixes
+
 - fix(storage): Create a new credential scope for each presigned url
 
 ## 1.0.0-next.2
 
 ### Fixes
+
 - fix(storage): adapt updated AWSFile.contentType getter
 - fix(storage): use correct fallback contentType for upload
 
@@ -147,9 +158,10 @@ Initial preview release of the Dart rewrite!
 
 See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on how to migrate to this new version.
 
-- chore(storage): migrate interface and setup basic packages 
+- chore(storage): migrate interface and setup basic packages
 
 ### Features
+
 - feat(storage): add custom prefix resolver support
 
 ## 1.0.0-next.0+4

@@ -21,6 +21,7 @@
 ## 1.2.0
 
 ### Fixes
+
 - fix(api): GraphQL subscription with custom domain formats URI correctly ([#3148](https://github.com/aws-amplify/amplify-flutter/pull/3148))
 
 ## 1.1.1
@@ -30,11 +31,13 @@
 ## 1.1.0
 
 ### Features
+
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
 
 ## 1.0.1
 
 ### Fixes
+
 - fix(repo): Flutter 3.3 support
 
 ## 1.0.0
@@ -44,20 +47,20 @@ We are thrilled to release version 1.0 of the Amplify Flutter libraries!
 This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
 applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
 
-If you've been using v0 in production, you can now safely migrate to v1. Check out our 
-[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+If you've been using v0 in production, you can now safely migrate to v1. Check out our
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for
 more information.
 
-As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
 [Discord](https://discord.gg/jWVbPfC) to answer any questions.
 
 ### New Features in the API category
 
-* `GraphQLRequest` now has an `authorizationMode` property so callers can specify the authorization mode directly.
-* `GraphQLRequest` now has a `headers` property to specify HTTP headers.
-* GraphQL subscriptions will automatically reconnect when losing internet, or when changing from Wi-fi to cellular data or vice versa.
-* GraphQL model helpers now support [custom primary keys](https://docs.amplify.aws/cli/graphql/data-modeling/#configure-a-primary-key).
-* GraphQL subscription model helpers (`ModelSubscriptions`) now support a `where` clause to use server-side subscription filters via model helpers.
+- `GraphQLRequest` now has an `authorizationMode` property so callers can specify the authorization mode directly.
+- `GraphQLRequest` now has a `headers` property to specify HTTP headers.
+- GraphQL subscriptions will automatically reconnect when losing internet, or when changing from Wi-fi to cellular data or vice versa.
+- GraphQL model helpers now support [custom primary keys](https://docs.amplify.aws/cli/graphql/data-modeling/#configure-a-primary-key).
+- GraphQL subscription model helpers (`ModelSubscriptions`) now support a `where` clause to use server-side subscription filters via model helpers.
 
 ### Bug Fixes
 
@@ -77,6 +80,7 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.8
 
 ### Fixes
+
 - fix(api): Auth provider registration
 - fix(api): Include owner field in selection set ([#2795](https://github.com/aws-amplify/amplify-flutter/pull/2795))
 
@@ -87,38 +91,46 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.6
 
 ### Fixes
+
 - fix(api): early call of Amplify creates wrong instance of AmplifyClass
 - fix(api): write null values in ModelMutations.create() unless owner field ([#2679](https://github.com/aws-amplify/amplify-flutter/pull/2679))
 
 ### Breaking Changes
+
 - feat(api)!: custom primary key support for GraphQL model helpers ([#2606](https://github.com/aws-amplify/amplify-flutter/pull/2606))
 
 ### Features
+
 - feat(api): GraphQL Subscription Where Filter ([#2650](https://github.com/aws-amplify/amplify-flutter/pull/2650))
 
 ## 1.0.0-next.5+1
 
 ### Fixes
+
 - fix(api): include parent IDs in selection set for model helpers ([#2655](https://github.com/aws-amplify/amplify-flutter/pull/2655))
 
 ## 1.0.0-next.5
 
 ### Fixes
+
 - fix(api): Web Socket Multiple Requests Synchronously ([#2567](https://github.com/aws-amplify/amplify-flutter/pull/2567))
 
 ## 1.0.0-next.4
 
 ### Fixes
+
 - fix(api): do not include null values in ModelMutations.create ([#2504](https://github.com/aws-amplify/amplify-flutter/pull/2504))
 - fix(api): model helpers use targetNames in schemas with CPK enabled ([#2559](https://github.com/aws-amplify/amplify-flutter/pull/2559))
 
 ## 1.0.0-next.3
 
 ### Breaking Changes
+
 - refactor(auth)!: Align exception types
 - refactor(core)!: Migrate exception types
 
 ### Fixes
+
 - fix(api): SubscriptionDataPayload error decoding type fix ([#2483](https://github.com/aws-amplify/amplify-flutter/pull/2483))
 - fix(api): improve GQL subscription error visibility/recovery ([#2507](https://github.com/aws-amplify/amplify-flutter/pull/2507))
 - fix(api): prevent GQL subscription race condition error after shutdown ([#2494](https://github.com/aws-amplify/amplify-flutter/pull/2494))
@@ -126,19 +138,23 @@ The following issues have been fixed in this release:
 ## 1.0.0-next.2+1
 
 ### Fixes
+
 - fix(api): Race condition at bloc close
 
 ## 1.0.0-next.2
 
 ### Breaking Changes
-- feat(api)!: Web Socket State Machine  ([#2458](https://github.com/aws-amplify/amplify-flutter/pull/2458))
+
+- feat(api)!: Web Socket State Machine ([#2458](https://github.com/aws-amplify/amplify-flutter/pull/2458))
 
 ### Fixes
+
 - fix(api): support multiple belongsTo ([#2087](https://github.com/aws-amplify/amplify-flutter/pull/2087))
 
 ## 1.0.0-next.1+1
 
 ### Fixes
+
 - fix(api): allow setting extra GQL request params from model helpers ([#2423](https://github.com/aws-amplify/amplify-flutter/pull/2423))
 - fix(api): fix subscription race condition from previous connection close ([#2405](https://github.com/aws-amplify/amplify-flutter/pull/2405))
 - fix(api): Missing query parameters in REST operations ([#2413](https://github.com/aws-amplify/amplify-flutter/pull/2413))
@@ -154,10 +170,12 @@ See our [docs](https://docs.amplify.aws/lib/q/platform/flutter/) for guides on h
 - chore(api,core): change API types ([#2148](https://github.com/aws-amplify/amplify-flutter/pull/2148))
 
 ### Fixes
+
 - fix(api): correct subscription error handling ([#2179](https://github.com/aws-amplify/amplify-flutter/pull/2179))
 - fix(api): fix model helper util on web ([#2270](https://github.com/aws-amplify/amplify-flutter/pull/2270))
 
 ### Features
+
 - feat(api): GraphQL Custom Request Headers ([#1938](https://github.com/aws-amplify/amplify-flutter/pull/1938))
 - feat(api): Subscription Reconnection ([#2074](https://github.com/aws-amplify/amplify-flutter/pull/2074))
 - feat(api): authorizationMode property for GraphQLRequest ([#2143](https://github.com/aws-amplify/amplify-flutter/pull/2143))
