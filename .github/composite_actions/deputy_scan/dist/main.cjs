@@ -42801,7 +42801,7 @@
               branchName = "chore/deps/" + t6 + "-" + constraint;
               commitTitle = '"chore(deps): Bump ' + t6 + " to " + updatedConstraint.toString$0(0) + '"';
               $async$goto = 6;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", "-b", branchName, "origin/main"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["switch", "-c", branchName, "origin/main"], t5)), $async$call$0);
             case 6:
               // returning from await.
               $async$goto = 7;

@@ -68,7 +68,7 @@ Future<void> _deputyScan() async {
       final branchName = 'chore/deps/$dependencyName-$constraint';
       final commitTitle =
           '"chore(deps): Bump $dependencyName to $updatedConstraint"';
-      await git.runCommand(['checkout', '-b', branchName, baseBranch]);
+      await git.runCommand(['switch', '-c', branchName, baseBranch]);
       await git.runCommand(['add', '-A']);
       await git.runCommand(['commit', '-m', commitTitle]);
       await git.runCommand(['push', '-u', 'origin', branchName]);
