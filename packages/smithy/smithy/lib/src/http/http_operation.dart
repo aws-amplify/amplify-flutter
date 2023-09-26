@@ -268,10 +268,11 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     var successCode = this.successCode();
     try {
       final payload = await protocol.deserialize(response.split());
-      output = switch (payload) {
-        Output _ => payload,
-        _ => buildOutput(payload, response),
-      };
+      if (payload is Output) {
+        output = payload;
+      } else {
+        output = buildOutput(payload, response);
+      }
       successCode = this.successCode(output);
     } on Object catch (e, st) {
       error = e;
