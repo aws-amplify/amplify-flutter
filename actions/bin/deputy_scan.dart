@@ -58,12 +58,12 @@ function log_swap {
 
 # Set swap
 log_swap
-export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
-if [ -n $SWAP_FILE ]; then
-  sudo swapoff $SWAP_FILE
-  sudo rm $SWAP_FILE
-fi
-SWAP_FILE=${SWAP_FILE:-/swap}
+# export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
+# if [ -n $SWAP_FILE ]; then
+#  sudo swapoff $SWAP_FILE
+#  sudo rm $SWAP_FILE
+# fi
+SWAP_FILE=/swap
 sudo fallocate -l 10G $SWAP_FILE
 sudo chmod 600 $SWAP_FILE
 sudo mkswap $SWAP_FILE
