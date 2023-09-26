@@ -31,7 +31,7 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   build_runner: ^2.4.0
-  drift_dev: ^2.4.0
+  drift_dev: ">=2.11.0 <2.12.0"
   json_serializable: 6.7.1
   pub_api_client: ^2.4.0
   shelf_router_generator: ^1.0.5
