@@ -52,13 +52,7 @@ Future<void> _deputyScan() async {
       }
 
       // Update pubspecs for the dependency and commit changes to a new branch.
-      core.info('Updating pubspecs...');
-      await groupUpdate.updatePubspecs();
-
-      core.info('Diffing changes...');
-      await git.runCommand(['diff']);
-
-      core.info('Committing changes...');
+      core.info('Creating new branch...');
       final currentHead = await git.revParse('HEAD', options: ['--abbrev-ref']);
       const baseBranch = 'origin/main';
       final constraint = updatedConstraint
@@ -66,9 +60,19 @@ Future<void> _deputyScan() async {
           .replaceAll(_specialChars, '')
           .replaceAll(' ', '-');
       final branchName = 'chore/deps/$dependencyName-$constraint';
+
+      core.info('Checking out new branch: "$branchName"');
+      await git.runCommand(['switch', '-c', branchName, baseBranch]);
+
+      core.info('Updating pubspecs...');
+      await groupUpdate.updatePubspecs();
+
+      core.info('Diffing changes...');
+      await git.runCommand(['diff']);
+
+      core.info('Committing changes...');
       final commitTitle =
           '"chore(deps): Bump $dependencyName to $updatedConstraint"';
-      await git.runCommand(['switch', '-c', branchName, baseBranch]);
       await git.runCommand(['add', '-A']);
       await git.runCommand(['commit', '-m', commitTitle]);
       await git.runCommand(['push', '-u', 'origin', branchName]);

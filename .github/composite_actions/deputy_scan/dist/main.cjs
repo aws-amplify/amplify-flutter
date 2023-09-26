@@ -5139,14 +5139,14 @@
       this.stackTrace = t1;
     },
     _BroadcastStream: function _BroadcastStream(t0, t1) {
-      this._controller = t0;
+      this._async$_controller = t0;
       this.$ti = t1;
     },
     _BroadcastSubscription: function _BroadcastSubscription(t0, t1, t2, t3, t4, t5, t6) {
       var _ = this;
       _._eventState = 0;
       _._async$_previous = _._async$_next = null;
-      _._controller = t0;
+      _._async$_controller = t0;
       _._onData = t1;
       _._onError = t2;
       _._onDone = t3;
@@ -5363,12 +5363,12 @@
       _.$ti = t4;
     },
     _ControllerStream: function _ControllerStream(t0, t1) {
-      this._controller = t0;
+      this._async$_controller = t0;
       this.$ti = t1;
     },
     _ControllerSubscription: function _ControllerSubscription(t0, t1, t2, t3, t4, t5, t6) {
       var _ = this;
-      _._controller = t0;
+      _._async$_controller = t0;
       _._onData = t1;
       _._onError = t2;
       _._onDone = t3;
@@ -12069,7 +12069,7 @@
       _.parent = t1;
       _._level = null;
       _._logger$_children = t2;
-      _._logger$_controller = null;
+      _._controller = null;
     },
     Logger_Logger_closure: function Logger_Logger_closure(t0) {
       this.name = t0;
@@ -20146,25 +20146,25 @@
   A._SyncStreamController.prototype = {};
   A._ControllerStream.prototype = {
     get$hashCode(_) {
-      return (A.Primitives_objectHashCode(this._controller) ^ 892482866) >>> 0;
+      return (A.Primitives_objectHashCode(this._async$_controller) ^ 892482866) >>> 0;
     },
     $eq(_, other) {
       if (other == null)
         return false;
       if (this === other)
         return true;
-      return other instanceof A._ControllerStream && other._controller === this._controller;
+      return other instanceof A._ControllerStream && other._async$_controller === this._async$_controller;
     }
   };
   A._ControllerSubscription.prototype = {
     _onCancel$0() {
-      return this._controller._recordCancel$1(this);
+      return this._async$_controller._recordCancel$1(this);
     },
     _onPause$0() {
-      this._controller._recordPause$1(this);
+      this._async$_controller._recordPause$1(this);
     },
     _onResume$0() {
-      this._controller._recordResume$1(this);
+      this._async$_controller._recordResume$1(this);
     }
   };
   A._StreamSinkWrapper.prototype = {
@@ -20468,7 +20468,7 @@
       var t1 = A._instanceType(this);
       t1._eval$1("~(1)?")._as(onData);
       type$.nullable_void_Function._as(onDone);
-      return this._controller._subscribe$4(t1._eval$1("~(1)?")._as(onData), onError, onDone, cancelOnError === true);
+      return this._async$_controller._subscribe$4(t1._eval$1("~(1)?")._as(onData), onError, onDone, cancelOnError === true);
     },
     listen$1($receiver, onData) {
       return this.listen$4$cancelOnError$onDone$onError($receiver, onData, null, null, null);
@@ -21775,9 +21775,9 @@
         nums = _this._collection$_nums;
         return _this._collection$_addHashTableEntry$2(nums == null ? _this._collection$_nums = A._LinkedHashSet__newHashTable() : nums, element);
       } else
-        return _this._collection$_add$1(element);
+        return _this._add$1(element);
     },
-    _collection$_add$1(element) {
+    _add$1(element) {
       var rest, hash, bucket, _this = this;
       A._instanceType(_this)._precomputed1._as(element);
       rest = _this._collection$_rest;
@@ -22486,7 +22486,7 @@
       _this._collection$_head = (_this._collection$_head + 1 & _this._collection$_table.length - 1) >>> 0;
       return result;
     },
-    _collection$_add$1(element) {
+    _add$1(element) {
       var t1, _this = this;
       _this.$ti._precomputed1._as(element);
       B.JSArray_methods.$indexSet(_this._collection$_table, _this._collection$_tail, element);
@@ -23136,19 +23136,19 @@
   A._Base64EncoderSink.prototype = {
     add$1(_, source) {
       type$.List_int._as(source);
-      this._add$4(source, 0, J.get$length$asx(source), false);
+      this._convert$_add$4(source, 0, J.get$length$asx(source), false);
     },
     close$0(_) {
-      this._add$4(B.List_empty1, 0, 0, true);
+      this._convert$_add$4(B.List_empty1, 0, 0, true);
     },
     addSlice$4(source, start, end, isLast) {
       type$.List_int._as(source);
       A.RangeError_checkValidRange(start, end, source.length);
-      this._add$4(source, start, end, isLast);
+      this._convert$_add$4(source, start, end, isLast);
     }
   };
   A._AsciiBase64EncoderSink.prototype = {
-    _add$4(source, start, end, isLast) {
+    _convert$_add$4(source, start, end, isLast) {
       var buffer = this._encoder.encode$4(type$.List_int._as(source), start, end, isLast);
       if (buffer != null)
         this._sink.add$1(0, A.String_String$fromCharCodes(buffer, 0, null));
@@ -23157,7 +23157,7 @@
     }
   };
   A._Utf8Base64EncoderSink.prototype = {
-    _add$4(source, start, end, isLast) {
+    _convert$_add$4(source, start, end, isLast) {
       var buffer = this._encoder.encode$4(type$.List_int._as(source), start, end, isLast);
       if (buffer != null)
         this._sink.addSlice$4(buffer, 0, buffer.length, isLast);
@@ -30494,7 +30494,7 @@
           return;
         _this._ensureListening$0();
       }
-      t1._collection$_add$1(t1.$ti._precomputed1._as(request));
+      t1._add$1(t1.$ti._precomputed1._as(request));
     },
     set$_stream_queue$_subscription(_subscription) {
       this._stream_queue$_subscription = this.$ti._eval$1("StreamSubscription<1>?")._as(_subscription);
@@ -35011,7 +35011,7 @@
           $.$get$Logger_root()._publish$1(record);
         else
           for (target = _this; target != null;) {
-            t1 = target._logger$_controller;
+            t1 = target._controller;
             if (t1 != null) {
               A._instanceType(t1)._precomputed1._as(record);
               if (!t1.get$_mayAddEvent())
@@ -35024,21 +35024,21 @@
     },
     _getStream$0() {
       if ($.hierarchicalLoggingEnabled || this.parent == null) {
-        var t1 = this._logger$_controller;
+        var t1 = this._controller;
         if (t1 == null) {
           t1 = A.StreamController_StreamController$broadcast(true, type$.LogRecord);
-          this.set$_logger$_controller(t1);
+          this.set$_controller(t1);
         }
         return new A._BroadcastStream(t1, A._instanceType(t1)._eval$1("_BroadcastStream<1>"));
       } else
         return $.$get$Logger_root()._getStream$0();
     },
     _publish$1(record) {
-      var t1 = this._logger$_controller;
+      var t1 = this._controller;
       return t1 == null ? null : t1.add$1(0, record);
     },
-    set$_logger$_controller(_controller) {
-      this._logger$_controller = type$.nullable_StreamController_LogRecord._as(_controller);
+    set$_controller(_controller) {
+      this._controller = type$.nullable_StreamController_LogRecord._as(_controller);
     }
   };
   A.Logger_Logger_closure.prototype = {
@@ -42743,7 +42743,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, prNumber, constraint, t2, closeExisting, t3, t4, t5, currentHead, t6, t7, branchName, commitTitle, t8, prResult, t1, updatedConstraint, _1_0;
+        $async$returnValue, $async$self = this, prNumber, constraint, t2, closeExisting, t3, currentHead, t4, t5, branchName, commitTitle, t6, t7, t8, prResult, t1, updatedConstraint, _1_0;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -42773,67 +42773,67 @@
                 closeExisting = prNumber;
               } else
                 closeExisting = null;
-              t2 = self;
-              t3 = type$.JSObject;
-              t3._as(t2.core).info("Updating pubspecs...");
+              t2 = $async$self.git;
+              t3 = type$.JSArray_String;
               $async$goto = 3;
-              return A._asyncAwait(t1.groupUpdate.updatePubspecs$0(), $async$call$0);
+              return A._asyncAwait(t2.revParse$2$options("HEAD", A._setArrayType(["--abbrev-ref"], t3)), $async$call$0);
             case 3:
               // returning from await.
-              t3._as(t2.core).info("Diffing changes...");
-              t4 = $async$self.git;
-              t5 = type$.JSArray_String;
+              currentHead = $async$result;
+              t4 = updatedConstraint.toString$0(0);
+              t5 = $.$get$_specialChars();
+              t4 = A.stringReplaceAllUnchecked(t4, t5, "");
+              constraint = A.stringReplaceAllUnchecked(t4, " ", "-");
+              branchName = "chore/deps/" + t1.dependencyName + "-" + constraint;
+              t4 = self;
+              t5 = type$.JSObject;
+              t5._as(t4.core).info('Checking out new branch: "' + branchName + '"');
               $async$goto = 4;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["diff"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["switch", "-c", branchName, "origin/main"], t3)), $async$call$0);
             case 4:
               // returning from await.
-              t3._as(t2.core).info("Committing changes...");
+              t5._as(t4.core).info("Updating pubspecs...");
               $async$goto = 5;
-              return A._asyncAwait(t4.revParse$2$options("HEAD", A._setArrayType(["--abbrev-ref"], t5)), $async$call$0);
+              return A._asyncAwait(t1.groupUpdate.updatePubspecs$0(), $async$call$0);
             case 5:
               // returning from await.
-              currentHead = $async$result;
-              t6 = updatedConstraint.toString$0(0);
-              t7 = $.$get$_specialChars();
-              t6 = A.stringReplaceAllUnchecked(t6, t7, "");
-              constraint = A.stringReplaceAllUnchecked(t6, " ", "-");
-              t6 = t1.dependencyName;
-              branchName = "chore/deps/" + t6 + "-" + constraint;
-              commitTitle = '"chore(deps): Bump ' + t6 + " to " + updatedConstraint.toString$0(0) + '"';
+              t5._as(t4.core).info("Diffing changes...");
               $async$goto = 6;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["switch", "-c", branchName, "origin/main"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["diff"], t3)), $async$call$0);
             case 6:
               // returning from await.
+              t5._as(t4.core).info("Committing changes...");
+              commitTitle = '"chore(deps): Bump ' + t1.dependencyName + " to " + updatedConstraint.toString$0(0) + '"';
               $async$goto = 7;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["add", "-A"], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["add", "-A"], t3)), $async$call$0);
             case 7:
               // returning from await.
               $async$goto = 8;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["commit", "-m", commitTitle], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["commit", "-m", commitTitle], t3)), $async$call$0);
             case 8:
               // returning from await.
               $async$goto = 9;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["push", "-u", "origin", branchName], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["push", "-u", "origin", branchName], t3)), $async$call$0);
             case 9:
               // returning from await.
               $async$goto = 10;
-              return A._asyncAwait(A.NodeGitDir_runCommand(t4, A._setArrayType(["checkout", currentHead], t5)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(t2, A._setArrayType(["checkout", currentHead], t3)), $async$call$0);
             case 10:
               // returning from await.
-              t3._as(t2.core).info("Creating PR...");
-              t4 = t1.dependencyName;
+              t5._as(t4.core).info("Creating PR...");
+              t2 = t1.dependencyName;
               t6 = updatedConstraint.toString$0(0);
               t7 = t1.dependencyName;
               t8 = updatedConstraint.toString$0(0);
               t1 = A.join($async$self.tmpDir.path, "pr_body_" + t1.dependencyName + ".txt");
               new A.File(t1).createSync$0();
-              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t4 + " to `" + t6 + "`\n\nUpdated-Dependency: " + t7 + "\nUpdated-Constraint: " + t8 + "\n");
+              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t1), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + t2 + " to `" + t6 + "`\n\nUpdated-Dependency: " + t7 + "\nUpdated-Constraint: " + t8 + "\n");
               t8 = $.$get$processManager();
-              prResult = t8.runSync$1(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t5));
+              prResult = t8.runSync$1(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t1, "--title=" + commitTitle, "--draft"], t3));
               t1 = prResult.exitCode;
               if (t1 !== 0) {
-                t3._as(t2.core).error("Failed to create PR (" + t1 + "): " + A.S(prResult.stderr));
-                t3._as(t2.process).exitCode = 1;
+                t5._as(t4.core).error("Failed to create PR (" + t1 + "): " + A.S(prResult.stderr));
+                t5._as(t4.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -42843,11 +42843,11 @@
                 $async$goto = 1;
                 break;
               }
-              t3._as(t2.core).info("Closing existing PR...");
+              t5._as(t4.core).info("Closing existing PR...");
               t1 = A.S(closeExisting);
-              if (t8.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t5)).exitCode !== 0) {
-                t3._as(t2.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
-                t3._as(t2.process).exitCode = 1;
+              if (t8.runSync$1(A._setArrayType(["gh", "pr", "close", t1, '--comment="Dependency has been updated. Closing in favor of new PR."'], t3)).exitCode !== 0) {
+                t5._as(t4.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
+                t5._as(t4.process).exitCode = 1;
                 // goto return
                 $async$goto = 1;
                 break;
@@ -44673,14 +44673,14 @@
   Function.prototype.call$2$2 = function(a, b) {
     return this(a, b);
   };
-  Function.prototype.call$2$3 = function(a, b, c) {
-    return this(a, b, c);
-  };
   Function.prototype.call$1$2 = function(a, b) {
     return this(a, b);
   };
   Function.prototype.call$1$0 = function() {
     return this();
+  };
+  Function.prototype.call$2$3 = function(a, b, c) {
+    return this(a, b, c);
   };
   Function.prototype.call$2$0 = function() {
     return this();
