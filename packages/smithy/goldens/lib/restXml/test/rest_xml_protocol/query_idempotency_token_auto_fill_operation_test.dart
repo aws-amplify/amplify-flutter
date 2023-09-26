@@ -98,6 +98,7 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [QueryIdempotencyTokenAutoFillInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -105,6 +106,7 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
     Serializers serializers,

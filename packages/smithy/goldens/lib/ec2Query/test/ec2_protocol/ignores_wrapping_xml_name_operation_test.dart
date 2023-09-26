@@ -57,6 +57,7 @@ class IgnoresWrappingXmlNameOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [IgnoresWrappingXmlNameOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -64,6 +65,7 @@ class IgnoresWrappingXmlNameOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   IgnoresWrappingXmlNameOutput deserialize(
     Serializers serializers,

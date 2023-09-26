@@ -88,6 +88,7 @@ class XmlBlobsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlBlobsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -95,6 +96,7 @@ class XmlBlobsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlBlobsInputOutput deserialize(
     Serializers serializers,

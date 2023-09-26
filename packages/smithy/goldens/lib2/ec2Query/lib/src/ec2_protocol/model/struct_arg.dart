@@ -43,6 +43,7 @@ abstract class StructArg
         otherArg,
         recursiveArg,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructArg')
@@ -71,6 +72,7 @@ class StructArgEc2QuerySerializer
         StructArg,
         _$StructArg,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +80,7 @@ class StructArgEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   StructArg deserialize(
     Serializers serializers,
@@ -141,7 +144,7 @@ class StructArgEc2QuerySerializer
         ..add(const _i2.XmlElementName('OtherArg'))
         ..add(serializers.serialize(
           otherArg,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (recursiveArg != null) {

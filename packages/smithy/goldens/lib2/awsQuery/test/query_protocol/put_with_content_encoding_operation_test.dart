@@ -101,6 +101,7 @@ class PutWithContentEncodingInputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [PutWithContentEncodingInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -108,6 +109,7 @@ class PutWithContentEncodingInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   PutWithContentEncodingInput deserialize(
     Serializers serializers,

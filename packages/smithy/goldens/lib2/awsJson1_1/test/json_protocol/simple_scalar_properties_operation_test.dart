@@ -305,6 +305,7 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -312,6 +313,7 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,

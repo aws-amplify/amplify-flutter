@@ -24,9 +24,12 @@ sealed class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   ];
 
   int? get int$ => null;
+
   String? get string => null;
+
   @override
   Object get value => (int$ ?? string)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'SimpleUnion');
@@ -89,6 +92,7 @@ class SimpleUnionRestJson1Serializer
         SimpleUnionInt$,
         SimpleUnionString$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -96,6 +100,7 @@ class SimpleUnionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   SimpleUnion deserialize(
     Serializers serializers,

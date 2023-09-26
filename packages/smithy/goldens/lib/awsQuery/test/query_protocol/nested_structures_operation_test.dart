@@ -70,6 +70,7 @@ class NestedStructuresInputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [NestedStructuresInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -77,6 +78,7 @@ class NestedStructuresInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NestedStructuresInput deserialize(
     Serializers serializers,
@@ -120,6 +122,7 @@ class StructArgAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [StructArg];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -127,6 +130,7 @@ class StructArgAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   StructArg deserialize(
     Serializers serializers,

@@ -71,6 +71,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlIntEnumsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -78,6 +79,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlIntEnumsOutput deserialize(
     Serializers serializers,

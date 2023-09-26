@@ -270,6 +270,7 @@ abstract class InputAndOutputWithHeadersIo
   @override
   InputAndOutputWithHeadersIoPayload getPayload() =>
       InputAndOutputWithHeadersIoPayload();
+
   @override
   List<Object?> get props => [
         headerString,
@@ -291,6 +292,7 @@ abstract class InputAndOutputWithHeadersIo
         headerIntegerEnum,
         headerIntegerEnumList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InputAndOutputWithHeadersIo')
@@ -386,6 +388,7 @@ abstract class InputAndOutputWithHeadersIoPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -406,6 +409,7 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
         InputAndOutputWithHeadersIoPayload,
         _$InputAndOutputWithHeadersIoPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -413,6 +417,7 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   InputAndOutputWithHeadersIoPayload deserialize(
     Serializers serializers,

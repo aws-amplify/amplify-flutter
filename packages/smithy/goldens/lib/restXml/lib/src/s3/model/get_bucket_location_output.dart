@@ -42,8 +42,10 @@ abstract class GetBucketLocationOutput
   BucketLocationConstraint? get locationConstraint;
   @override
   BucketLocationConstraint? getPayload() => locationConstraint;
+
   @override
   List<Object?> get props => [locationConstraint];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationOutput')
@@ -65,6 +67,7 @@ class GetBucketLocationOutputRestXmlSerializer
         GetBucketLocationOutput,
         _$GetBucketLocationOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -72,6 +75,7 @@ class GetBucketLocationOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   BucketLocationConstraint deserialize(
     Serializers serializers,

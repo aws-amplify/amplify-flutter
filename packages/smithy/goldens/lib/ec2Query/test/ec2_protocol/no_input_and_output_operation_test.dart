@@ -92,6 +92,7 @@ class NoInputAndOutputOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [NoInputAndOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -99,6 +100,7 @@ class NoInputAndOutputOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   NoInputAndOutputOutput deserialize(
     Serializers serializers,

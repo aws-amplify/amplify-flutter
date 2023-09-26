@@ -121,6 +121,7 @@ abstract class ListObjectsV2Request
 
   @override
   ListObjectsV2RequestPayload getPayload() => ListObjectsV2RequestPayload();
+
   @override
   List<Object?> get props => [
         bucket,
@@ -134,6 +135,7 @@ abstract class ListObjectsV2Request
         requestPayer,
         expectedBucketOwner,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
@@ -195,6 +197,7 @@ abstract class ListObjectsV2RequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListObjectsV2RequestPayload');
@@ -213,6 +216,7 @@ class ListObjectsV2RequestRestXmlSerializer
         ListObjectsV2RequestPayload,
         _$ListObjectsV2RequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -220,6 +224,7 @@ class ListObjectsV2RequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ListObjectsV2RequestPayload deserialize(
     Serializers serializers,

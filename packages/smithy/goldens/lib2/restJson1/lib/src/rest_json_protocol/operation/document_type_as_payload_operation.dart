@@ -69,8 +69,10 @@ class DocumentTypeAsPayloadOperation extends _i1.HttpOperation<
         b.method = 'PUT';
         b.path = r'/DocumentTypeAsPayload';
       });
+
   @override
   int successCode([DocumentTypeAsPayloadInputOutput? output]) => 200;
+
   @override
   DocumentTypeAsPayloadInputOutput buildOutput(
     _i2.JsonObject? payload,
@@ -80,16 +82,22 @@ class DocumentTypeAsPayloadOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'DocumentTypeAsPayload';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<DocumentTypeAsPayloadInputOutput> run(
     DocumentTypeAsPayloadInputOutput input, {

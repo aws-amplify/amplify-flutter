@@ -55,6 +55,7 @@ class FractionalSecondsOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [FractionalSecondsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -62,6 +63,7 @@ class FractionalSecondsOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   FractionalSecondsOutput deserialize(
     Serializers serializers,
