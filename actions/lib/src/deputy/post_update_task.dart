@@ -125,21 +125,21 @@ final class _BuildRunnerTask extends PostUpdateTask {
         continue;
       }
       core.info('Running build_runner in "$package"...');
-      final pub = switch (packageInfo.flavor) {
-        PackageFlavor.dart => ['dart'],
-        PackageFlavor.flutter => ['flutter', 'pub'],
-      };
       final upgradeRes = await nodeProcessManager.run(
-        <String>[...pub, 'upgrade'],
+        <String>[packageInfo.flavor.entrypoint, 'pub', 'upgrade'],
         workingDirectory: packageInfo.path,
         echoOutput: true,
       );
       if (upgradeRes.exitCode != 0) {
         throw Exception('Failed to run pub upgrade');
       }
+      final runner = switch (packageInfo.flavor) {
+        PackageFlavor.dart => ['dart'],
+        PackageFlavor.flutter => ['flutter', 'pub'],
+      };
       final buildRunnerRes = await nodeProcessManager.run(
         <String>[
-          ...pub,
+          ...runner,
           'run',
           'build_runner',
           'build',

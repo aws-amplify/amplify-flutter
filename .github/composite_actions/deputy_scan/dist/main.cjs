@@ -9747,7 +9747,7 @@
     _$PackageInfoToJson(instance) {
       var t3, t4,
         t1 = A._$PubspecInfoToJson(instance.pubspecInfo),
-        t2 = B.Map_QS6eY.$index(0, instance.flavor);
+        t2 = B.Map_A0aZ8.$index(0, instance.flavor);
       t2.toString;
       t3 = instance.example;
       t3 = t3 == null ? null : A._$PackageInfoToJson(t3);
@@ -10513,12 +10513,13 @@
       var t1 = _this.dependencies;
       t1 = t1.get$keys(t1);
       if (t1.contains$1(t1, "flutter"))
-        return B.PackageFlavor_0_flutter;
-      return B.PackageFlavor_1_dart;
+        return B.PackageFlavor_flutter_0_flutter;
+      return B.PackageFlavor_dart_1_dart;
     },
-    PackageFlavor: function PackageFlavor(t0, t1) {
-      this.index = t0;
-      this._core$_name = t1;
+    PackageFlavor: function PackageFlavor(t0, t1, t2) {
+      this.entrypoint = t0;
+      this.index = t1;
+      this._core$_name = t2;
     },
     PubVersionInfo: function PubVersionInfo(t0) {
       this.allVersions = t0;
@@ -26670,7 +26671,7 @@
               return A._asyncAwait($async$self._ensureAft$1(repo), $async$run$1);
             case 2:
               // returning from await.
-              t1 = $async$self.packages, t2 = t1.length, t3 = type$.String, t4 = type$.JSObject, t5 = repo.aftConfig.allPackages._map$_map, t6 = type$.JSArray_String, _i = 0;
+              t1 = $async$self.packages, t2 = t1.length, t3 = type$.String, t4 = type$.JSObject, t5 = type$.JSArray_String, t6 = repo.aftConfig.allPackages._map$_map, _i = 0;
             case 3:
               // for condition
               if (!(_i < t1.length)) {
@@ -26679,40 +26680,40 @@
                 break;
               }
               t7 = A._asString(t1[_i]);
-              t8 = t5.$index(0, t7);
+              t8 = t6.$index(0, t7);
               if (t8 == null) {
                 // goto for update
                 $async$goto = 4;
                 break;
               }
               t4._as(self.core).info('Running build_runner in "' + t7 + '"...');
-              switch (t8.flavor.index) {
-                case 1:
-                  t7 = A._setArrayType(["dart"], t6);
-                  break;
-                case 0:
-                  t7 = A._setArrayType(["flutter", "pub"], t6);
-                  break;
-                default:
-                  t7 = null;
-              }
-              t9 = $.$get$nodeProcessManager();
-              t10 = A.List_List$of(t7, true, t3);
-              t10.push("upgrade");
+              t7 = $.$get$nodeProcessManager();
+              t9 = t8.flavor;
+              t10 = A._setArrayType([t9.entrypoint, "pub", "upgrade"], t5);
               t8 = t8.path;
               $async$goto = 6;
-              return A._asyncAwait(t9.run$3$echoOutput$workingDirectory(t10, true, t8), $async$run$1);
+              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(t10, true, t8), $async$run$1);
             case 6:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Failed to run pub upgrade"));
-              t7 = A.List_List$of(t7, true, t3);
-              t7.push("run");
-              t7.push("build_runner");
-              t7.push("build");
-              t7.push("--delete-conflicting-outputs");
+              switch (t9.index) {
+                case 1:
+                  t9 = A._setArrayType(["dart"], t5);
+                  break;
+                case 0:
+                  t9 = A._setArrayType(["flutter", "pub"], t5);
+                  break;
+                default:
+                  t9 = null;
+              }
+              t9 = A.List_List$of(t9, true, t3);
+              t9.push("run");
+              t9.push("build_runner");
+              t9.push("build");
+              t9.push("--delete-conflicting-outputs");
               $async$goto = 7;
-              return A._asyncAwait(t9.run$3$echoOutput$workingDirectory(t7, true, t8), $async$run$1);
+              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(t9, true, t8), $async$run$1);
             case 7:
               // returning from await.
               if ($async$result.exitCode !== 0)
@@ -27359,7 +27360,7 @@
     toJson$0() {
       var t3, t4, _this = this,
         t1 = A._$PubspecInfoToJson(_this.pubspecInfo),
-        t2 = B.Map_QS6eY.$index(0, _this.flavor);
+        t2 = B.Map_A0aZ8.$index(0, _this.flavor);
       t2.toString;
       t3 = _this.example;
       t3 = t3 == null ? null : A._$PackageInfoToJson(t3);
@@ -27871,7 +27872,7 @@
   };
   A._$PackageInfoFromJson__closure2.prototype = {
     call$1(v) {
-      return A.$enumDecode(B.Map_QS6eY, v, type$.PackageFlavor, type$.String);
+      return A.$enumDecode(B.Map_A0aZ8, v, type$.PackageFlavor, type$.String);
     },
     $signature: 207
   };
@@ -44513,11 +44514,11 @@
     B.LogLevel_5 = new A.LogLevel(5, "none");
     B.Object_Accept_0 = {Accept: 0};
     B.Map_6pV0v = new A.ConstantStringMap(B.Object_Accept_0, ["application/vnd.pub.v2+json"], type$.ConstantStringMap_String_String);
+    B.PackageFlavor_flutter_0_flutter = new A.PackageFlavor("flutter", 0, "flutter");
+    B.PackageFlavor_dart_1_dart = new A.PackageFlavor("dart", 1, "dart");
+    B.Map_A0aZ8 = new A.GeneralConstantMap([B.PackageFlavor_flutter_0_flutter, "flutter", B.PackageFlavor_dart_1_dart, "dart"], A.findType("GeneralConstantMap<PackageFlavor,String>"));
     B.Object_declaredName_0 = {declaredName: 0};
     B.Map_E8aOh = new A.ConstantStringMap(B.Object_declaredName_0, ["name"], type$.ConstantStringMap_String_String);
-    B.PackageFlavor_0_flutter = new A.PackageFlavor(0, "flutter");
-    B.PackageFlavor_1_dart = new A.PackageFlavor(1, "dart");
-    B.Map_QS6eY = new A.GeneralConstantMap([B.PackageFlavor_0_flutter, "flutter", B.PackageFlavor_1_dart, "dart"], A.findType("GeneralConstantMap<PackageFlavor,String>"));
     B.Object_failFast_0 = {failFast: 0};
     B.Map_bHizW = new A.ConstantStringMap(B.Object_failFast_0, ["fail-fast"], type$.ConstantStringMap_String_String);
     B.Object_empty = {};
