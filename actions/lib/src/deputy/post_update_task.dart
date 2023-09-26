@@ -4,47 +4,76 @@
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
 import 'package:aft_common/aft_common.dart';
+import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
-typedef PostUpdateTasks
-    = Map<String, List<PostUpdateTask> Function(List<String> packages)>;
+enum PostUpdateTasks {
+  builtValueGenerator(
+    needsBuildRunner: true,
+    needsSmithy: true,
+  ),
+  codeBuilder(
+    needsBuildRunner: true,
+    needsSmithy: true,
+  ),
+  dartStyle(
+    needsBuildRunner: true,
+    needsSmithy: true,
+  ),
+  drift(needsBuildRunner: true),
+  jsonSerializable(needsBuildRunner: true);
 
-final PostUpdateTasks postUpdateTasks = {
-  'built_value_generator': (packages) => [
-        const PostUpdateTask.aft(['generate', 'goldens']),
-        PostUpdateTask.buildRunner(packages),
-      ],
-  'code_builder': (packages) => [
-        const PostUpdateTask.aft(['generate', 'goldens']),
-      ],
-  'dart_style': (packages) => [
-        const PostUpdateTask.aft(['generate', 'goldens']),
-      ],
-  // Since `drift_dev` may have been updated as well.
-  'drift': (packages) => [
-        PostUpdateTask.buildRunner(packages),
-      ],
-  'json_serializable': (packages) => [
-        PostUpdateTask.buildRunner(packages),
-      ],
-};
+  const PostUpdateTasks({
+    this.needsBuildRunner = false,
+    this.needsSmithy = false,
+  });
 
-extension RunAllPostUpdateTasks on PostUpdateTasks {
-  Future<void> runAll(
+  final bool needsBuildRunner;
+  final bool needsSmithy;
+
+  static PostUpdateTasks? of(String dependency) =>
+      values.firstWhereOrNull((el) => el.name.snakeCase == dependency);
+
+  static Future<void> runAll(
     Repo repo,
     String dependency,
     List<String> updatedPackages,
   ) async {
-    final tasksBuilder = postUpdateTasks[dependency];
+    final tasksBuilder = PostUpdateTasks.of(dependency);
     if (tasksBuilder == null) {
       core.info('No tasks to run.');
       return;
     }
     core.info('Running post-update tasks for "$dependency"');
-    final tasks = tasksBuilder(updatedPackages);
+    final tasks = tasksBuilder.buildTasks(repo, updatedPackages);
     for (final task in tasks) {
       await task.run(repo);
     }
+  }
+
+  List<PostUpdateTask> buildTasks(Repo repo, List<String> updatedPackages) {
+    return [
+      if (needsSmithy) ...[
+        const PostUpdateTask.aft(['generate', 'goldens']),
+        // const PostUpdateTask.aft(['generate', 'sdk']),
+      ],
+      if (needsBuildRunner)
+        PostUpdateTask.buildRunner([
+          // Don't re-run for Smithy outputs
+          if (needsSmithy)
+            ...updatedPackages
+                .map(repo.maybePackage)
+                .nonNulls
+                .where(
+                  (pkg) => !pkg.pubspecInfo.pubspec.dependencies
+                      .containsKey('smithy'),
+                )
+                .map((pkg) => pkg.path)
+          else
+            ...updatedPackages,
+        ]),
+    ];
   }
 }
 

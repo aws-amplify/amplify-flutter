@@ -105,7 +105,7 @@ Future<void> _deputyScan() async {
 
       core.info('Running post-update tasks...');
       final updatedPackages = groupUpdate.group.dependentPackages.keys.toList();
-      await postUpdateTasks.runAll(
+      await PostUpdateTasks.runAll(
         worktreeRepo,
         dependencyName,
         updatedPackages,
