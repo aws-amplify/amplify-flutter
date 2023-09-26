@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -206,7 +209,9 @@ final class PubVersionResolver extends VersionResolver {
     }
     return maxBy(
       [
-        if (versionInfo?.latestPrerelease case final latestPrerelease?)
+        // Only include pre-releases if the package has not reached 1.0 yet.
+        if (versionInfo?.latestPrerelease case final latestPrerelease?
+            when latestPrerelease < Version(1, 0, 0))
           latestPrerelease,
         if (versionInfo?.latestVersion case final latestVersion?) latestVersion,
       ],

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:actions/actions.dart';
+import 'package:actions/src/deputy/post_update_task.dart';
 import 'package:actions/src/logger.dart';
 import 'package:actions/src/node/platform.dart';
 import 'package:actions/src/node/process_manager.dart';
@@ -91,6 +92,13 @@ Future<void> _deputyScan() async {
       core.info('Updating pubspecs...');
       await groupUpdate.updatePubspecs(worktreeRepo);
 
+      core.info('Running post-update tasks...');
+      await postUpdateTasks.runAll(
+        worktreeRepo,
+        dependencyName,
+        groupUpdate.group.dependentPackages.keys.toList(),
+      );
+
       core.info('Diffing changes...');
       await worktree.runCommand(['diff']);
 
@@ -170,8 +178,6 @@ Future<Map<String, _ExistingPr>> _listExistingPrs() async {
       final commitMessage =
           CommitMessage.parse('', pull.title, body: pull.body);
       final trailers = commitMessage.trailers;
-      // TODO(dnys1): Remove
-      core.info('Trailers for #${pull.number}: $trailers');
       final dependencyName = trailers['Updated-Dependency'];
       final constraintStr = trailers['Updated-Constraint'];
       if (dependencyName == null || constraintStr == null) {
