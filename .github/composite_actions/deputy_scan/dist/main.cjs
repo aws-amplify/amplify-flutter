@@ -9475,10 +9475,11 @@
         t3 = self;
         J.addAll$1$ax(t2, A.Process_get_env(type$.JSObject._as(t3.process)));
         t2 = type$.JSObject._as(A.jsify(t2));
+        t3 = runInShell ? "/bin/sh" : null;
         t4 = [null];
         J.add$1$ax(t4, null);
         J.add$1$ax(t4, null);
-        stdout = A.callMethod(_this, "execSync", [t1, {cwd: workingDirectory, env: t2, stdio: t4, shell: null, encoding: "buffer"}], type$.nullable_Uint8List);
+        stdout = A.callMethod(_this, "execSync", [t1, {cwd: workingDirectory, env: t2, stdio: t4, shell: t3, encoding: "buffer"}], type$.nullable_Uint8List);
         t1 = stdout;
         if (t1 == null)
           t1 = null;
@@ -26605,7 +26606,7 @@
               t2._as(t1.core).info("Activating AFT in: " + aftDir);
               t3 = $.$get$nodeProcessManager();
               t4 = type$.JSArray_String;
-              _0_0 = t3.runSync$2$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), repo.get$rootDir().path);
+              _0_0 = t3.runSync$3$runInShell$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), true, repo.get$rootDir().path);
               if (_0_0.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not activate AFT:\n" + A.S(_0_0.stdout) + "\n" + A.S(_0_0.stderr)));
               t2._as(t1.core).info("Linking packages...");
@@ -26982,7 +26983,7 @@
       });
       return A._asyncStartSync($async$run$4$echoOutput$runInShell$workingDirectory, $async$completer);
     },
-    runSync$2$workingDirectory(command, workingDirectory) {
+    runSync$3$runInShell$workingDirectory(command, runInShell, workingDirectory) {
       var t1, _0_0, executable, args, result;
       type$.List_Object._as(command);
       t1 = A._arrayInstanceType(command)._eval$1("CastList<1,String>");
@@ -26998,12 +26999,15 @@
       }
       if (!t1)
         throw A.wrapException(A.StateError$("Pattern matching error"));
-      result = A.ChildProcess_execSync(type$.JSObject._as(self.childProcess), executable, args, false, null, true, false, workingDirectory);
+      result = A.ChildProcess_execSync(type$.JSObject._as(self.childProcess), executable, args, false, null, true, runInShell, workingDirectory);
       t1 = type$.Uint8List;
       return new A.ProcessResult(result.exitCode, B.Utf8Codec_true.decode$1(t1._as(result.stdout)), B.Utf8Codec_true.decode$1(t1._as(result.stderr)), result.pid);
     },
+    runSync$2$workingDirectory(command, workingDirectory) {
+      return this.runSync$3$runInShell$workingDirectory(command, false, workingDirectory);
+    },
     runSync$1(command) {
-      return this.runSync$2$workingDirectory(command, null);
+      return this.runSync$3$runInShell$workingDirectory(command, false, null);
     },
     start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory(_, command, environment, includeParentEnvironment, mode, pipe, runInShell, workingDirectory) {
       return this.start$body$NodeProcessManager(0, type$.List_Object._as(command), environment, true, mode, pipe, runInShell, workingDirectory);

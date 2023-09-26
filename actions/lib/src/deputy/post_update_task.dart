@@ -71,6 +71,7 @@ abstract base class PostUpdateTask {
         aftDir,
       ],
       workingDirectory: repo.rootDir.path,
+      runInShell: true,
     );
     if (exitCode != 0) {
       throw Exception('Could not activate AFT:\n$stdout\n$stderr');
