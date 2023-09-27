@@ -348,7 +348,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode.trim(),
+      confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -369,7 +369,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode.trim(),
+      confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -405,7 +405,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode.trim(),
+      confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -425,7 +425,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: newPassword.trim(),
+      confirmationValue: _newPassword.trim(),
       attributes: authAttributes,
     );
 
