@@ -13508,6 +13508,13 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:child_p
 
 /***/ }),
 
+/***/ 5673:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("node:events");
+
+/***/ }),
+
 /***/ 7561:
 /***/ ((module) => {
 
@@ -13627,8 +13634,9 @@ var _actions_core__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
 var _actions_exec__WEBPACK_IMPORTED_MODULE_1___namespace_cache;
 var _actions_github__WEBPACK_IMPORTED_MODULE_2___namespace_cache;
 var _actions_tool_cache__WEBPACK_IMPORTED_MODULE_4___namespace_cache;
+var node_events__WEBPACK_IMPORTED_MODULE_7___namespace_cache;
 var node_fs__WEBPACK_IMPORTED_MODULE_6___namespace_cache;
-var node_os__WEBPACK_IMPORTED_MODULE_8___namespace_cache;
+var node_os__WEBPACK_IMPORTED_MODULE_9___namespace_cache;
 var node_child_process__WEBPACK_IMPORTED_MODULE_5___namespace_cache;
 __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(7733);
@@ -13638,11 +13646,12 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 /* harmony import */ var _actions_tool_cache__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(514);
 /* harmony import */ var node_child_process__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(7718);
 /* harmony import */ var node_fs__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(7561);
-/* harmony import */ var node_module__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(5425);
-/* harmony import */ var node_os__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(612);
-/* harmony import */ var node_path__WEBPACK_IMPORTED_MODULE_9__ = __nccwpck_require__(9411);
-/* harmony import */ var node_process__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(7742);
-/* harmony import */ var node_url__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(1041);
+/* harmony import */ var node_events__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(5673);
+/* harmony import */ var node_module__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(5425);
+/* harmony import */ var node_os__WEBPACK_IMPORTED_MODULE_9__ = __nccwpck_require__(612);
+/* harmony import */ var node_path__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(9411);
+/* harmony import */ var node_process__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(7742);
+/* harmony import */ var node_url__WEBPACK_IMPORTED_MODULE_12__ = __nccwpck_require__(1041);
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -13659,7 +13668,8 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 
 
 
-const require = (0,node_module__WEBPACK_IMPORTED_MODULE_7__.createRequire)(import.meta.url);
+
+const require = (0,node_module__WEBPACK_IMPORTED_MODULE_8__.createRequire)(import.meta.url);
 
 // Setup properties for JS interop in Dart.
 
@@ -13669,17 +13679,18 @@ globalThis.exec = /*#__PURE__*/ (_actions_exec__WEBPACK_IMPORTED_MODULE_1___name
 globalThis.github = /*#__PURE__*/ (_actions_github__WEBPACK_IMPORTED_MODULE_2___namespace_cache || (_actions_github__WEBPACK_IMPORTED_MODULE_2___namespace_cache = __nccwpck_require__.t(_actions_github__WEBPACK_IMPORTED_MODULE_2__, 2)));
 globalThis.HttpClient = _actions_http_client__WEBPACK_IMPORTED_MODULE_3__.HttpClient;
 globalThis.toolCache = /*#__PURE__*/ (_actions_tool_cache__WEBPACK_IMPORTED_MODULE_4___namespace_cache || (_actions_tool_cache__WEBPACK_IMPORTED_MODULE_4___namespace_cache = __nccwpck_require__.t(_actions_tool_cache__WEBPACK_IMPORTED_MODULE_4__, 2)));
+globalThis.events = /*#__PURE__*/ (node_events__WEBPACK_IMPORTED_MODULE_7___namespace_cache || (node_events__WEBPACK_IMPORTED_MODULE_7___namespace_cache = __nccwpck_require__.t(node_events__WEBPACK_IMPORTED_MODULE_7__, 2)));
 globalThis.fs = /*#__PURE__*/ (node_fs__WEBPACK_IMPORTED_MODULE_6___namespace_cache || (node_fs__WEBPACK_IMPORTED_MODULE_6___namespace_cache = __nccwpck_require__.t(node_fs__WEBPACK_IMPORTED_MODULE_6__, 2)));
-globalThis.os = /*#__PURE__*/ (node_os__WEBPACK_IMPORTED_MODULE_8___namespace_cache || (node_os__WEBPACK_IMPORTED_MODULE_8___namespace_cache = __nccwpck_require__.t(node_os__WEBPACK_IMPORTED_MODULE_8__, 2)));
-globalThis.process = node_process__WEBPACK_IMPORTED_MODULE_10__;
-globalThis.location = { href: `file://${node_process__WEBPACK_IMPORTED_MODULE_10__.cwd()}/` };
-globalThis.__filename = (0,node_url__WEBPACK_IMPORTED_MODULE_11__.fileURLToPath)(import.meta.url);
-globalThis.__dirname = (0,node_path__WEBPACK_IMPORTED_MODULE_9__.dirname)(globalThis.__filename);
+globalThis.os = /*#__PURE__*/ (node_os__WEBPACK_IMPORTED_MODULE_9___namespace_cache || (node_os__WEBPACK_IMPORTED_MODULE_9___namespace_cache = __nccwpck_require__.t(node_os__WEBPACK_IMPORTED_MODULE_9__, 2)));
+globalThis.process = node_process__WEBPACK_IMPORTED_MODULE_11__;
+globalThis.location = { href: `file://${node_process__WEBPACK_IMPORTED_MODULE_11__.cwd()}/` };
+globalThis.__filename = (0,node_url__WEBPACK_IMPORTED_MODULE_12__.fileURLToPath)(import.meta.url);
+globalThis.__dirname = (0,node_path__WEBPACK_IMPORTED_MODULE_10__.dirname)(globalThis.__filename);
 globalThis.require = require;
 globalThis.childProcess = /*#__PURE__*/ (node_child_process__WEBPACK_IMPORTED_MODULE_5___namespace_cache || (node_child_process__WEBPACK_IMPORTED_MODULE_5___namespace_cache = __nccwpck_require__.t(node_child_process__WEBPACK_IMPORTED_MODULE_5__, 2)));
 
 globalThis.dartMainRunner = async function (main, args) {
-    const dir = node_process__WEBPACK_IMPORTED_MODULE_10__.argv[2];
+    const dir = node_process__WEBPACK_IMPORTED_MODULE_11__.argv[2];
     await main(dir);
 }
 

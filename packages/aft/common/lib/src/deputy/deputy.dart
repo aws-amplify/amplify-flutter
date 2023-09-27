@@ -51,9 +51,9 @@ final class Deputy {
   final AWSLogger? logger;
 
   /// Lists all third-party dependencies, grouped by the packages which depend on them.
-  Future<BuiltListMultimap<String, DependencyUpdate>>
+  Future<BuiltListMultimap<String, DependencyMetadata>>
       _listDependencyGroups() async {
-    final updates = <String, DependencyUpdateBuilder>{};
+    final updates = <String, DependencyMetadataBuilder>{};
     final repoGraph = repo.getPackageGraph(includeDevDependencies: true);
     dfs(repoGraph, (package) {
       final dependencies = {
@@ -75,7 +75,7 @@ final class Deputy {
         if (version == VersionConstraint.any) {
           continue;
         }
-        (updates[dependency] ??= DependencyUpdateBuilder())
+        (updates[dependency] ??= DependencyMetadataBuilder())
           ..dependencyName = dependency
           ..globalConstraint = repo.aftConfig.dependencies[dependency]
           ..dependentPackages[package.name] = version;
@@ -93,7 +93,7 @@ final class Deputy {
       }
       group.latestVersion = latestVersion;
     }
-    return BuiltListMultimap<String, DependencyUpdate>.build((updateGroups) {
+    return BuiltListMultimap<String, DependencyMetadata>.build((updateGroups) {
       // Grouped updates
       dependencyGroups.forEach((groupName, dependencyName) {
         if (updates.remove(dependencyName) case final update?) {
@@ -121,7 +121,7 @@ final class Deputy {
   /// For each group in which there are updates, this proposes a new update
   /// which modifies the pubspec for each group package.
   Future<Map<String, DependencyGroupUpdate>> _proposeUpdates(
-    BuiltListMultimap<String, DependencyUpdate> dependencyGroups,
+    BuiltListMultimap<String, DependencyMetadata> dependencyGroups,
   ) async {
     final proposedUpdates = MapBuilder<String, DependencyGroupUpdateBuilder>();
     for (final MapEntry(key: groupName, value: groupUpdates)

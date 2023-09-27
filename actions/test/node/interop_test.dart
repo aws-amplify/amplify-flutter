@@ -107,5 +107,32 @@ void main() {
     test('os', () {
       check(os.tmpdir()).isNotEmpty();
     });
+
+    group('EventEmitter', () {
+      late EventEmitter emitter;
+
+      setUp(() {
+        emitter = EventEmitter();
+      });
+
+      tearDown(() {
+        emitter.removeAllListeners();
+        expect(emitter.listenerCount, 0);
+      });
+
+      test('once', () async {
+        // Test default Node behavior - that `once` calls only deregister themselves
+        // once they complete.
+        final any = Future.any([
+          emitter.once('a'),
+          emitter.once('b'),
+          emitter.once('c'),
+        ]);
+        expect(emitter.listenerCount, 3);
+        emitter.emit('a');
+        await any;
+        expect(emitter.listenerCount, 2);
+      });
+    });
   });
 }

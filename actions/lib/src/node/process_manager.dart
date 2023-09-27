@@ -16,6 +16,7 @@ import 'dart:typed_data';
 
 import 'package:actions/actions.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
 import 'package:process/process.dart';
 
 export 'dart:io'
@@ -34,12 +35,11 @@ final NodeProcessManager nodeProcessManager = () {
 }();
 
 final class NodeProcessManager implements Closeable, ProcessManager {
-  final _activeProcesses = <int, NodeProcess>{};
+  final _activeProcesses = <NodeProcess>{};
 
   @override
   bool killPid(int pid, [ProcessSignal signal = ProcessSignal.sigterm]) {
-    final process = _activeProcesses.remove(pid);
-    return process?.kill(signal) ?? false;
+    throw UnimplementedError();
   }
 
   @override
@@ -128,7 +128,7 @@ final class NodeProcessManager implements Closeable, ProcessManager {
   }
 
   @override
-  Future<Process> start(
+  Future<NodeProcess> start(
     List<Object> command, {
     String? workingDirectory,
     Map<String, String>? environment,
@@ -150,7 +150,8 @@ final class NodeProcessManager implements Closeable, ProcessManager {
     );
     final nodeProcess = NodeProcess(executable, args, jsProcess);
     await nodeProcess._init();
-    return _activeProcesses[nodeProcess.pid] = nodeProcess;
+    _activeProcesses.add(nodeProcess);
+    return nodeProcess;
   }
 
   @override
@@ -160,7 +161,7 @@ final class NodeProcessManager implements Closeable, ProcessManager {
 
   @override
   Future<void> close() async {
-    for (final process in _activeProcesses.values) {
+    for (final process in _activeProcesses) {
       process.close().ignore();
     }
   }
@@ -170,14 +171,17 @@ final class NodeProcess implements Process, Closeable {
   NodeProcess(
     this.executable,
     this.arguments,
-    this._jsProcess,
+    this.jsProcess,
   );
 
   final String executable;
   final List<String> arguments;
-  final NodeChildProcess _jsProcess;
 
-  final StreamController<List<int>> _stdin = StreamController(sync: true);
+  @visibleForTesting
+  final NodeChildProcess jsProcess;
+
+  final StreamController<List<int>> _stdin =
+      StreamController.broadcast(sync: true);
   StreamSubscription<List<int>>? _stdinSub;
   IOSink? _stdinSink;
 
@@ -186,25 +190,25 @@ final class NodeProcess implements Process, Closeable {
 
   /// Registers callbacks and waits for the child process to spawn.
   Future<void> _init() async {
-    if (_jsProcess.stdin case final stdin?) {
+    if (jsProcess.stdin case final stdin?) {
       _stdinSink = IOSink(_stdin.sink);
       _stdinSub = _stdin.stream.listen((chunk) {
         stdin.write(Uint8List.fromList(chunk).toJS);
       });
     }
-    if (_jsProcess.stdout case final stdout?) {
+    if (jsProcess.stdout case final stdout?) {
       unawaited(stdout.stream.forward(_stdout));
     } else {
       unawaited(_stdout.close());
     }
-    if (_jsProcess.stderr case final stderr?) {
+    if (jsProcess.stderr case final stderr?) {
       unawaited(stderr.stream.forward(_stderr));
     } else {
       unawaited(_stderr.close());
     }
     await Future.any([
-      _jsProcess.onSpawn,
-      _jsProcess.onError.then(
+      jsProcess.onSpawn,
+      jsProcess.onError.then(
         (error) => throw ProcessException(
           executable,
           arguments,
@@ -216,24 +220,24 @@ final class NodeProcess implements Process, Closeable {
 
   @override
   Future<int> get exitCode async {
-    if (_jsProcess.exitCode case final exitCode?) {
+    if (jsProcess.exitCode case final exitCode?) {
       return exitCode;
     }
     await Future.any([
-      _jsProcess.onClose,
-      _jsProcess.onError,
-      _jsProcess.onExit,
+      jsProcess.onClose,
+      jsProcess.onError,
+      jsProcess.onExit,
     ]);
-    return _jsProcess.exitCode!;
+    return jsProcess.exitCode!;
   }
 
   @override
   bool kill([ProcessSignal signal = ProcessSignal.sigterm]) {
-    return _jsProcess.kill(signal.name);
+    return jsProcess.kill(signal.name);
   }
 
   @override
-  int get pid => _jsProcess.pid ?? -1;
+  int get pid => jsProcess.pid ?? -1;
 
   @override
   Stream<List<int>> get stderr => _stderr.stream;
@@ -248,12 +252,18 @@ final class NodeProcess implements Process, Closeable {
   @override
   Future<void> close() async {
     kill();
+    await _stdinSub?.cancel();
+    _stdinSub = null;
+    await _stdinSink?.close();
+    _stdinSink = null;
     await Future.wait([
       if (!_stdin.isClosed) _stdin.close(),
       if (!_stdout.isClosed) _stdout.close(),
       if (!_stderr.isClosed) _stderr.close(),
     ]);
-    await _stdinSub?.cancel();
-    await _stdinSink?.close();
+    jsProcess
+      ..removeAllListeners()
+      ..stdout?.removeAllListeners()
+      ..stderr?.removeAllListeners();
   }
 }

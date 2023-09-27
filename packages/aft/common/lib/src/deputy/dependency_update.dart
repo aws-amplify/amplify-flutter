@@ -2,17 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft_common/aft_common.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:built_value/standard_json_plugin.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 part 'dependency_update.g.dart';
 
+/// A group of dependency names which should be updated together.
 typedef DependencyGroup = BuiltSet<String>;
+
+/// The sets of dependencies which should be updated together,
+/// grouped by a unique name for the set.
 typedef DependencyGroups = BuiltSetMultimap<String, String>;
 
 /// {@template aft_common.deputy.dependency_group_update}
@@ -41,12 +42,14 @@ abstract class DependencyGroupUpdate
   BuiltMap<String, VersionConstraint> get updatedConstraints;
 
   /// The change records, by dependency name.
-  BuiltMap<String, DependencyUpdate> get updates;
+  BuiltMap<String, DependencyMetadata> get updates;
 
   @protected
+  @BuiltValueField(compare: false)
   Deputy get deputy;
 
   @protected
+  @BuiltValueField(compare: false)
   BuiltList<void Function(Repo)> get pubspecUpdates;
 
   /// Updates all pubspecs in the group and writes the changes
@@ -62,37 +65,29 @@ abstract class DependencyGroupUpdate
   }
 }
 
-abstract class DependencyUpdate
-    with AWSSerializable
-    implements Built<DependencyUpdate, DependencyUpdateBuilder> {
-  factory DependencyUpdate([void Function(DependencyUpdateBuilder) updates]) =
-      _$DependencyUpdate;
+/// {@template aft_common.deputy.dependency_metadata}
+/// Metadata about [dependencyName], potentially signaling a necessary
+/// update to the [latestVersion].
+/// {@endtemplate}
+abstract class DependencyMetadata
+    implements Built<DependencyMetadata, DependencyMetadataBuilder> {
+  /// {@macro aft_common.deputy.dependency_metadata}
+  factory DependencyMetadata([
+    void Function(DependencyMetadataBuilder) updates,
+  ]) = _$DependencyMetadata;
 
-  const DependencyUpdate._();
+  const DependencyMetadata._();
 
-  factory DependencyUpdate.fromJson(Map<String, Object?> json) {
-    return _serializers.deserializeWith(serializer, json)!;
-  }
-
+  /// The name of the dependency.
   String get dependencyName;
+
+  /// The latest version of the dependency on `pub.dev`.
   Version get latestVersion;
+
+  /// The current global constraint set in the repo, if any.
   VersionConstraint? get globalConstraint;
+
+  /// A map of dependenct packages and the constraint they currently
+  /// set on [dependencyName].
   BuiltMap<String, VersionConstraint> get dependentPackages;
-
-  @override
-  Map<String, Object?> toJson() {
-    return _serializers.serializeWith(serializer, this) as Map<String, Object?>;
-  }
-
-  static Serializer<DependencyUpdate> get serializer =>
-      _$dependencyUpdateSerializer;
 }
-
-@SerializersFor([
-  DependencyUpdate,
-])
-final Serializers _serializers = (_$_serializers.toBuilder()
-      ..addPlugin(StandardJsonPlugin())
-      ..add(const VersionConstraintSerializer())
-      ..add(const VersionConstraintSerializer<Version>()))
-    .build();

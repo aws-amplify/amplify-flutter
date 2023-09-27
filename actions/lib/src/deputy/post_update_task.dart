@@ -7,9 +7,7 @@ import 'package:aft_common/aft_common.dart';
 import 'package:path/path.dart' as p;
 
 /// A task to run once a dependency has been updated.
-abstract base class PostUpdateTask {
-  const PostUpdateTask();
-
+abstract interface class PostUpdateTask {
   /// Runs `aft` with the given [args].
   const factory PostUpdateTask.aft(List<String> args) = _AftTask;
 
@@ -17,8 +15,45 @@ abstract base class PostUpdateTask {
   const factory PostUpdateTask.buildRunner(List<String> packages) =
       _BuildRunnerTask;
 
-  Future<void> _ensureAft(Repo repo) async {
-    final workingDir = repo.rootDir.path;
+  /// Runs the task in the given [repo].
+  Future<void> run(Repo repo);
+}
+
+/// Runs `aft` with the given [args].
+final class _AftTask implements PostUpdateTask {
+  const _AftTask(this.args);
+
+  final List<String> args;
+
+  @override
+  Future<void> run(Repo repo) async {
+    await repo.ensureAft();
+    await repo.runAft(args);
+  }
+}
+
+/// Runs `build_runner` in each of the [packages].
+final class _BuildRunnerTask implements PostUpdateTask {
+  const _BuildRunnerTask(this.packages);
+
+  final List<String> packages;
+
+  @override
+  Future<void> run(Repo repo) async {
+    await repo.ensureAft();
+    core.info('Running build_runner in packages: $packages');
+    await Future.wait(
+      packages.map(repo.runBuildRunner),
+      eagerError: true,
+    );
+  }
+}
+
+extension on Repo {
+  /// Ensures that the `aft` executable is globally available for scripts
+  /// which run after this.
+  Future<void> ensureAft() async {
+    final workingDir = rootDir.path;
     final aftDir = p.join(workingDir, 'packages', 'aft');
     core.info('Activating AFT in: $aftDir');
     final ProcessResult(:exitCode) = await nodeProcessManager.run(
@@ -31,7 +66,7 @@ abstract base class PostUpdateTask {
         aftDir,
       ],
       echoOutput: true,
-      workingDirectory: repo.rootDir.path,
+      workingDirectory: workingDir,
     );
     if (exitCode != 0) {
       throw Exception('Could not activate AFT');
@@ -41,78 +76,58 @@ abstract base class PostUpdateTask {
     core.info('Linking packages...');
     await nodeProcessManager.run(
       <String>['aft', 'link'],
-      workingDirectory: repo.rootDir.path,
+      workingDirectory: workingDir,
       echoOutput: true,
     );
   }
 
-  /// Runs the task in the given [repo].
-  Future<void> run(Repo repo);
-}
-
-/// Runs `aft` with the given [args].
-final class _AftTask extends PostUpdateTask {
-  const _AftTask(this.args);
-
-  final List<String> args;
-
-  @override
-  Future<void> run(Repo repo) async {
-    await _ensureAft(repo);
-    core.info('Running "aft ${args.join(' ')}" in "${repo.rootDir.path}');
+  /// Runs `aft` with the given [args] from the repo's [rootDir].
+  Future<void> runAft(List<String> args) async {
+    final workingDir = rootDir.path;
+    core.info('Running "aft ${args.join(' ')}" in "$workingDir"');
     final ProcessResult(:exitCode) = await nodeProcessManager.run(
       <String>['aft', ...args],
-      workingDirectory: repo.rootDir.path,
+      workingDirectory: workingDir,
       echoOutput: true,
     );
     if (exitCode != 0) {
-      throw ProcessException('aft', args);
+      throw ProcessException('aft', args, 'Exited with status', exitCode);
     }
   }
-}
 
-/// Runs `build_runner` in each of the [packages].
-final class _BuildRunnerTask extends PostUpdateTask {
-  const _BuildRunnerTask(this.packages);
-
-  final List<String> packages;
-
-  @override
-  Future<void> run(Repo repo) async {
-    await _ensureAft(repo);
-    core.info('Running build_runner in packages: $packages');
-    for (final package in packages) {
-      final packageInfo = repo.maybePackage(package);
-      if (packageInfo == null || !packageInfo.needsBuildRunner) {
-        continue;
-      }
-      core.info('Running build_runner in "${packageInfo.path}"...');
-      final upgradeRes = await nodeProcessManager.run(
-        <String>[packageInfo.flavor.entrypoint, 'pub', 'upgrade'],
-        workingDirectory: packageInfo.path,
-        echoOutput: true,
-      );
-      if (upgradeRes.exitCode != 0) {
-        throw Exception('Failed to run pub upgrade');
-      }
-      final runner = switch (packageInfo.flavor) {
-        PackageFlavor.dart => const ['dart'],
-        PackageFlavor.flutter => const ['flutter', 'pub'],
-      };
-      final buildRunnerRes = await nodeProcessManager.run(
-        <String>[
-          ...runner,
-          'run',
-          'build_runner',
-          'build',
-          '--delete-conflicting-outputs',
-        ],
-        workingDirectory: packageInfo.path,
-        echoOutput: true,
-      );
-      if (buildRunnerRes.exitCode != 0) {
-        throw Exception('Failed to run pub upgrade');
-      }
+  /// Runs `build_runner` in [package] if it exists in this repo.
+  Future<void> runBuildRunner(String package) async {
+    final packageInfo = maybePackage(package);
+    if (packageInfo == null || !packageInfo.needsBuildRunner) {
+      return;
+    }
+    final workingDir = packageInfo.path;
+    core.info('Running build_runner in "$workingDir"');
+    final upgradeRes = await nodeProcessManager.run(
+      <String>[packageInfo.flavor.entrypoint, 'pub', 'upgrade'],
+      workingDirectory: workingDir,
+      echoOutput: true,
+    );
+    if (upgradeRes.exitCode != 0) {
+      throw Exception('Failed to run pub upgrade');
+    }
+    final runner = switch (packageInfo.flavor) {
+      PackageFlavor.dart => const ['dart'],
+      PackageFlavor.flutter => const ['flutter', 'pub'],
+    };
+    final buildRunnerRes = await nodeProcessManager.run(
+      <String>[
+        ...runner,
+        'run',
+        'build_runner',
+        'build',
+        '--delete-conflicting-outputs',
+      ],
+      workingDirectory: workingDir,
+      echoOutput: true,
+    );
+    if (buildRunnerRes.exitCode != 0) {
+      throw Exception('Failed to run build_runner');
     }
   }
 }

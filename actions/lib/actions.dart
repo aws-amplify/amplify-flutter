@@ -26,6 +26,7 @@ export 'src/node/actions/http_request.dart';
 export 'src/node/actions/tool_cache.dart' hide ToolCache;
 export 'src/node/child_process.dart' hide ChildProcess;
 export 'src/node/error.dart';
+export 'src/node/events.dart';
 export 'src/node/fs.dart' hide FileSystem;
 export 'src/node/os.dart' hide OperatingSystem;
 export 'src/node/process.dart' hide Process;

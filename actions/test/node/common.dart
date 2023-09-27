@@ -20,6 +20,7 @@ void setupNodeTest() {
   final fs = require('node:fs');
   final childProcess = require('node:child_process');
   final os = require('node:os');
+  final events = require('node:events');
 
   safePrint('Node version: ${process.version}');
 
@@ -27,4 +28,5 @@ void setupNodeTest() {
   globalContext['fs'] = fs;
   globalContext['childProcess'] = childProcess;
   globalContext['os'] = os;
+  globalContext['events'] = events;
 }

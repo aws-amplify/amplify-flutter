@@ -550,9 +550,6 @@
     get$parent$x(receiver) {
       return J.getInterceptor$x(receiver).get$parent(receiver);
     },
-    get$pid$z(receiver) {
-      return J.getInterceptor$z(receiver).get$pid(receiver);
-    },
     get$runtimeType$(receiver) {
       return J.getInterceptor$(receiver).get$runtimeType(receiver);
     },
@@ -4579,9 +4576,8 @@
       t1._asyncCompleteError$2(error, stackTrace);
       return t1;
     },
-    Future_wait(futures, $T) {
+    Future_wait(futures, eagerError, $T) {
       var error, stackTrace, handleError, future, pos, e, st, t1, t2, exception, _box_0 = {}, cleanUp = null,
-        eagerError = false,
         _future = new A._Future($.Zone__current, $T._eval$1("_Future<List<0>>"));
       _box_0.values = null;
       _box_0.remaining = 0;
@@ -4605,7 +4601,7 @@
       } catch (exception) {
         e = A.unwrapException(exception);
         st = A.getTraceFromException(exception);
-        if (_box_0.remaining === 0 || A.boolConversionCheck(eagerError))
+        if (_box_0.remaining === 0 || eagerError)
           return A.Future_Future$error(e, st, $T._eval$1("List<0>"));
         else {
           error.__late_helper$_value = e;
@@ -9384,12 +9380,154 @@
       this.index = t0;
       this._core$_name = t1;
     },
-    PostUpdateTask: function PostUpdateTask() {
+    _extension_0_ensureAft(_this) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        t3, t4, workingDir, aftDir, t1, t2;
+      var $async$_extension_0_ensureAft = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              workingDir = _this.get$rootDir().path;
+              aftDir = A.join(workingDir, "packages", "aft");
+              t1 = self;
+              t2 = type$.JSObject;
+              t2._as(t1.core).info("Activating AFT in: " + aftDir);
+              t3 = $.$get$nodeProcessManager();
+              t4 = type$.JSArray_String;
+              $async$goto = 2;
+              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), true, workingDir), $async$_extension_0_ensureAft);
+            case 2:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Could not activate AFT"));
+              t2._as(t1.core).info("Linking packages...");
+              $async$goto = 3;
+              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["aft", "link"], t4), true, workingDir), $async$_extension_0_ensureAft);
+            case 3:
+              // returning from await.
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$_extension_0_ensureAft, $async$completer);
+    },
+    _extension_0_runAft(_this, args) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        t1, t2, exitCode, workingDir;
+      var $async$_extension_0_runAft = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              workingDir = _this.get$rootDir().path;
+              type$.JSObject._as(self.core).info('Running "aft ' + B.JSArray_methods.join$1(args, " ") + '" in "' + workingDir + '"');
+              t1 = $.$get$nodeProcessManager();
+              t2 = A._setArrayType(["aft"], type$.JSArray_String);
+              B.JSArray_methods.addAll$1(t2, args);
+              $async$goto = 2;
+              return A._asyncAwait(t1.run$3$echoOutput$workingDirectory(t2, true, workingDir), $async$_extension_0_runAft);
+            case 2:
+              // returning from await.
+              exitCode = $async$result.exitCode;
+              if (exitCode !== 0)
+                throw A.wrapException(A.ProcessException$("aft", args, "Exited with status", exitCode));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$_extension_0_runAft, $async$completer);
+    },
+    _extension_0_get_runBuildRunner(_this) {
+      return new A._extension_0_get_runBuildRunner_closure(_this);
+    },
+    _extension_0_runBuildRunner(_this, $package) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        $async$returnValue, t2, t3, t4, workingDir, t1;
+      var $async$_extension_0_runBuildRunner = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              t1 = _this.aftConfig.allPackages._map$_map.$index(0, $package);
+              if (t1 != null) {
+                if (t1.pubspecInfo.pubspec.devDependencies.containsKey$1("build_runner")) {
+                  t2 = t1.path;
+                  t3 = $.$get$context().style;
+                  t4 = A.ParsedPath_ParsedPath$parse(t2, t3);
+                  if (t4.get$basename(t4) !== "example")
+                    if (t1.name !== "doc") {
+                      t2 = A.ParsedPath_ParsedPath$parse(t2, t3);
+                      t2 = t2.get$basename(t2) === "canaries";
+                    } else
+                      t2 = true;
+                  else
+                    t2 = true;
+                  t2 = !t2;
+                } else
+                  t2 = false;
+                t2 = !t2;
+              } else
+                t2 = true;
+              if (t2) {
+                // goto return
+                $async$goto = 1;
+                break;
+              }
+              workingDir = t1.path;
+              type$.JSObject._as(self.core).info('Running build_runner in "' + workingDir + '"');
+              t2 = $.$get$nodeProcessManager();
+              t1 = t1.flavor;
+              $async$goto = 3;
+              return A._asyncAwait(t2.run$3$echoOutput$workingDirectory(A._setArrayType([t1.entrypoint, "pub", "upgrade"], type$.JSArray_String), true, workingDir), $async$_extension_0_runBuildRunner);
+            case 3:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Failed to run pub upgrade"));
+              switch (t1.index) {
+                case 1:
+                  t1 = B.List_dart;
+                  break;
+                case 0:
+                  t1 = B.List_flutter_pub;
+                  break;
+                default:
+                  t1 = null;
+              }
+              t1 = A.List_List$of(t1, true, type$.String);
+              t1.push("run");
+              t1.push("build_runner");
+              t1.push("build");
+              t1.push("--delete-conflicting-outputs");
+              $async$goto = 4;
+              return A._asyncAwait(t2.run$3$echoOutput$workingDirectory(t1, true, workingDir), $async$_extension_0_runBuildRunner);
+            case 4:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Failed to run build_runner"));
+            case 1:
+              // return
+              return A._asyncReturn($async$returnValue, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$_extension_0_runBuildRunner, $async$completer);
     },
     _AftTask: function _AftTask() {
     },
     _BuildRunnerTask: function _BuildRunnerTask(t0) {
       this.packages = t0;
+    },
+    _extension_0_get_runBuildRunner_closure: function _extension_0_get_runBuildRunner_closure(t0) {
+      this._this = t0;
     },
     DependencyUpdateGroup_all() {
       var _i, value,
@@ -9509,7 +9647,7 @@
       this._core$_name = t1;
     },
     ChildProcess_spawn(_this, command, args, environment, includeParentEnvironment, mode, runInShell, stdin, workingDirectory) {
-      var t1, t2, t3, t4, t5, t6;
+      var t1, t2, t3, t4, t5, t6, childProc;
       $label0$0: {
         if (B.ProcessStartMode_0 === mode) {
           t1 = "pipe";
@@ -9541,20 +9679,39 @@
       t5 = mode === B.ProcessStartMode_2 || mode === B.ProcessStartMode_3;
       t1 = A._setArrayType([stdin == null ? t1 : stdin, t1, t1], type$.JSArray_Object);
       t6 = runInShell ? "/bin/sh" : null;
-      return A.callMethod(_this, "spawn", [command, t3, {cwd: workingDirectory, env: t2, stdio: t1, detached: t5, shell: t6}], t4);
+      childProc = A.callMethod(_this, "spawn", [command, t3, {cwd: workingDirectory, env: t2, stdio: t1, detached: t5, shell: t6}], t4);
+      childProc.setMaxListeners(0);
+      t4 = type$.nullable_JSObject;
+      t6 = t4._as(childProc.stdout);
+      if (t6 != null)
+        t6.setMaxListeners(0);
+      t1 = t4._as(childProc.stderr);
+      if (t1 != null)
+        t1.setMaxListeners(0);
+      return childProc;
+    },
+    NodeChildProcess_get_onError(_this) {
+      var t2,
+        t1 = $.$get$_errorEvents();
+      A.Expando__checkType(_this);
+      t2 = t1._jsWeakMap.get(_this);
+      if (t2 == null) {
+        t2 = A.EventEmitter_once(_this, "error", type$.JSObject);
+        t1.$indexSet(0, _this, t2);
+        t1 = t2;
+      } else
+        t1 = t2;
+      return t1;
     },
     NodeReadableStream_get_stream(_this) {
-      var _null = null,
-        controller = A.StreamController_StreamController(_null, _null, _null, _null, true, type$.List_int),
-        t1 = new A.NodeReadableStream_get_stream_onData(controller);
-      controller.set$onListen(new A.NodeReadableStream_get_stream_closure(_this, t1, new A.NodeReadableStream_get_stream_onDone(controller), new A.NodeReadableStream_get_stream_onError(controller)));
-      controller.set$onCancel(new A.NodeReadableStream_get_stream_closure0(_this, t1));
-      return new A._ControllerStream(controller, A._instanceType(controller)._eval$1("_ControllerStream<1>"));
-    },
-    EventEmitter_once(_this, eventName, $T) {
-      var t1 = new A._Future($.Zone__current, $T._eval$1("_Future<0>"));
-      _this.once(eventName, A.allowInterop(new A.EventEmitter_once_closure(new A._AsyncCompleter(t1, $T._eval$1("_AsyncCompleter<0>")), $T), type$.Function));
-      return t1;
+      var controller = A.StreamController_StreamController$broadcast(true, type$.List_int),
+        t1 = type$.Function,
+        dataListener = A.allowInterop(new A.NodeReadableStream_get_stream_onData(controller), t1),
+        errorListener = A.allowInterop(new A.NodeReadableStream_get_stream_onError(controller), t1),
+        doneListener = A.allowInterop(new A.NodeReadableStream_get_stream_onDone(controller), t1);
+      controller.set$onListen(new A.NodeReadableStream_get_stream_closure(_this, dataListener, errorListener, doneListener));
+      controller.set$onCancel(new A.NodeReadableStream_get_stream_closure0(_this, dataListener, errorListener, doneListener));
+      return new A._BroadcastStream(controller, A._instanceType(controller)._eval$1("_BroadcastStream<1>"));
     },
     ChildProcess_spawn_closure: function ChildProcess_spawn_closure() {
     },
@@ -9570,13 +9727,21 @@
     NodeReadableStream_get_stream_closure: function NodeReadableStream_get_stream_closure(t0, t1, t2, t3) {
       var _ = this;
       _._this = t0;
-      _.onData = t1;
-      _.onDone = t2;
-      _.onError = t3;
+      _.dataListener = t1;
+      _.errorListener = t2;
+      _.doneListener = t3;
     },
-    NodeReadableStream_get_stream_closure0: function NodeReadableStream_get_stream_closure0(t0, t1) {
-      this._this = t0;
-      this.onData = t1;
+    NodeReadableStream_get_stream_closure0: function NodeReadableStream_get_stream_closure0(t0, t1, t2, t3) {
+      var _ = this;
+      _._this = t0;
+      _.dataListener = t1;
+      _.errorListener = t2;
+      _.doneListener = t3;
+    },
+    EventEmitter_once(_this, eventName, $T) {
+      var t1 = new A._Future($.Zone__current, $T._eval$1("_Future<0>"));
+      _this.once(eventName, A.allowInterop(new A.EventEmitter_once_closure(new A._AsyncCompleter(t1, $T._eval$1("_AsyncCompleter<0>")), $T), type$.Function));
+      return t1;
     },
     EventEmitter_once_closure: function EventEmitter_once_closure(t0, t1) {
       this.completer = t0;
@@ -9601,7 +9766,7 @@
       var _ = this;
       _.executable = t0;
       _.$arguments = t1;
-      _._jsProcess = t2;
+      _.jsProcess = t2;
       _._stdin = t3;
       _._stdinSink = _._stdinSub = null;
       _._stdout = t4;
@@ -10363,11 +10528,7 @@
     },
     DependencyGroupUpdate: function DependencyGroupUpdate() {
     },
-    DependencyUpdate: function DependencyUpdate() {
-    },
-    _$_serializers_closure: function _$_serializers_closure() {
-    },
-    _$DependencyUpdateSerializer: function _$DependencyUpdateSerializer() {
+    DependencyMetadata: function DependencyMetadata() {
     },
     _$DependencyGroupUpdate: function _$DependencyGroupUpdate(t0, t1, t2, t3, t4, t5) {
       var _ = this;
@@ -10382,18 +10543,16 @@
       var _ = this;
       _._pubspecUpdates = _._deputy = _._updates = _._updatedConstraints = _._dependency_update$_dependencies = _._groupName = _._dependency_update$_$v = null;
     },
-    _$DependencyUpdate: function _$DependencyUpdate(t0, t1, t2, t3) {
+    _$DependencyMetadata: function _$DependencyMetadata(t0, t1, t2, t3) {
       var _ = this;
       _.dependencyName = t0;
       _.latestVersion = t1;
       _.globalConstraint = t2;
       _.dependentPackages = t3;
     },
-    DependencyUpdateBuilder: function DependencyUpdateBuilder() {
+    DependencyMetadataBuilder: function DependencyMetadataBuilder() {
       var _ = this;
       _._dependentPackages = _._globalConstraint = _._latestVersion = _._dependencyName = _._dependency_update$_$v = null;
-    },
-    _DependencyUpdate_Object_AWSSerializable: function _DependencyUpdate_Object_AWSSerializable() {
     },
     Deputy_create(dependencyGroups, fileSystem, logger, platform, processManager) {
       var $async$goto = 0,
@@ -12424,7 +12583,7 @@
     },
     PathObject: function PathObject() {
     },
-    Process0: function Process0() {
+    Process: function Process() {
     },
     CPUUsage: function CPUUsage() {
     },
@@ -14868,7 +15027,7 @@
     _deputyScan() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$returnValue, logger, deputy, t2, updates, t1;
+        $async$returnValue, logger, deputy, t2, updates, existingPrs, t1;
       var $async$_deputyScan = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -14903,8 +15062,13 @@
             case 5:
               // returning from await.
               $async$goto = 6;
-              return A._asyncAwait(A._createPrs(deputy.repo, updates), $async$_deputyScan);
+              return A._asyncAwait(A._listExistingPrs(), $async$_deputyScan);
             case 6:
+              // returning from await.
+              existingPrs = $async$result;
+              $async$goto = 7;
+              return A._asyncAwait(A._createPrs(deputy.repo, existingPrs, updates), $async$_deputyScan);
+            case 7:
               // returning from await.
             case 1:
               // return
@@ -14943,10 +15107,10 @@
       });
       return A._asyncStartSync($async$_listExistingPrs, $async$completer);
     },
-    _createPrs(repo, updates) {
+    _createPrs(repo, existingPrs, updates) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t3, t4, t5, t6, t7, groupName, group, t8, uniqueConstraint, _this, tmpDir, existingPrs, t1, t2;
+        _this, tmpDir, t3, t4, t5, t6, t7, groupName, group, t8, uniqueConstraint, t1, t2;
       var $async$_createPrs = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -14954,22 +15118,17 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              _this = repo.git;
-              tmpDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy");
-              $async$goto = 2;
-              return A._asyncAwait(A._listExistingPrs(), $async$_createPrs);
-            case 2:
-              // returning from await.
-              existingPrs = $async$result;
               t1 = self;
               t2 = type$.JSObject;
               t2._as(t1.core).info("Creating PRs for update groups: " + updates.toString$0(0));
+              _this = repo.git;
+              tmpDir = new A.Directory(J.tmpdir$0$x(A.os())).createTempSync$1("deputy");
               t3 = updates.get$entries(updates), t3 = t3.get$iterator(t3), t4 = type$.VersionConstraint, t5 = type$.Null;
-            case 3:
+            case 2:
               // for condition
               if (!t3.moveNext$0()) {
                 // goto after for
-                $async$goto = 4;
+                $async$goto = 3;
                 break;
               }
               t6 = {};
@@ -14989,14 +15148,14 @@
               t8 = A.LinkedHashSet_LinkedHashSet(A._instanceType(t7)._eval$1("Iterable.E"));
               t8.addAll$1(0, t7);
               uniqueConstraint = A.IterableExtensions_get_singleOrNull(t8, t4);
-              $async$goto = 5;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for group "' + groupName + '"', new A._createPrs_closure(t6, uniqueConstraint, _this, repo, tmpDir, existingPrs), t5), $async$_createPrs);
-            case 5:
+              $async$goto = 4;
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), 'Create PR for group "' + groupName + '"', new A._createPrs_closure(t6, uniqueConstraint, _this, repo, existingPrs, tmpDir), t5), $async$_createPrs);
+            case 4:
               // returning from await.
               // goto for condition
-              $async$goto = 3;
+              $async$goto = 2;
               break;
-            case 4:
+            case 3:
               // after for
               // implicit return
               return A._asyncReturn(null, $async$completer);
@@ -15019,8 +15178,8 @@
       _.uniqueConstraint = t1;
       _.git = t2;
       _.repo = t3;
-      _.tmpDir = t4;
-      _.existingPrs = t5;
+      _.existingPrs = t4;
+      _.tmpDir = t5;
     },
     _createPrs__closure: function _createPrs__closure() {
     },
@@ -18487,13 +18646,13 @@
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 198
+    $signature: 204
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 55
+    $signature: 54
   };
   A._Record.prototype = {
     get$runtimeType(_) {
@@ -19113,7 +19272,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 204
+    $signature: 207
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -19201,7 +19360,7 @@
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 58
+    $signature: 57
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
@@ -20087,7 +20246,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 216
+    $signature: 218
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -23140,7 +23299,7 @@
     call$1(each) {
       return this.$this.$index(0, A._asString(each));
     },
-    $signature: 55
+    $signature: 54
   };
   A._JsonMapKeyIterable.prototype = {
     get$length(_) {
@@ -23196,7 +23355,7 @@
       }
       return null;
     },
-    $signature: 78
+    $signature: 77
   };
   A.Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -23208,7 +23367,7 @@
       }
       return null;
     },
-    $signature: 78
+    $signature: 77
   };
   A.AsciiCodec.prototype = {
     encode$1(source) {
@@ -24166,7 +24325,7 @@
       type$.EventSink_String._as(sink);
       return new A._LineSplitterEventSink(sink, new A._StringAdapterSink(sink));
     },
-    $signature: 124
+    $signature: 127
   };
   A._LineSplitterSink.prototype = {
     addSlice$4(chunk, start, end, isLast) {
@@ -25164,7 +25323,7 @@
       hash = hash + ((hash & 524287) << 10) & 536870911;
       return hash ^ hash >>> 6;
     },
-    $signature: 61
+    $signature: 60
   };
   A._BigIntImpl_hashCode_finish.prototype = {
     call$1(hash) {
@@ -25172,13 +25331,13 @@
       hash ^= hash >>> 11;
       return hash + ((hash & 16383) << 15) & 536870911;
     },
-    $signature: 179
+    $signature: 184
   };
   A._symbolMapToStringMap_closure.prototype = {
     call$2(key, value) {
       this.result.$indexSet(0, type$.Symbol._as(key)._name, value);
     },
-    $signature: 69
+    $signature: 68
   };
   A._WeakReferenceWrapper.prototype = {$isWeakReference: 1};
   A.NoSuchMethodError_toString_closure.prototype = {
@@ -25194,7 +25353,7 @@
       t1._contents += A.Error_safeToString(value);
       t2.comma = ", ";
     },
-    $signature: 69
+    $signature: 68
   };
   A.DateTime.prototype = {
     $eq(_, other) {
@@ -25237,7 +25396,7 @@
         return 0;
       return A.int_parse(matched, null);
     },
-    $signature: 42
+    $signature: 44
   };
   A.DateTime_parse_parseMilliAndMicroseconds.prototype = {
     call$1(matched) {
@@ -25254,7 +25413,7 @@
       }
       return result;
     },
-    $signature: 42
+    $signature: 44
   };
   A.Duration.prototype = {
     $eq(_, other) {
@@ -25744,13 +25903,13 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv4 address, " + msg, this.host, position));
     },
-    $signature: 209
+    $signature: 210
   };
   A.Uri_parseIPv6Address_error.prototype = {
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 213
+    $signature: 216
   };
   A.Uri_parseIPv6Address_parseHex.prototype = {
     call$2(start, end) {
@@ -25762,7 +25921,7 @@
         this.error.call$2("each part must be in the range of `0x0..0xFFFF`", start);
       return value;
     },
-    $signature: 61
+    $signature: 60
   };
   A._Uri.prototype = {
     get$_text() {
@@ -26089,7 +26248,7 @@
         t1._contents += A._Uri__uriEncode(B.List_M1A, value, B.Utf8Codec_false, true);
       }
     },
-    $signature: 254
+    $signature: 80
   };
   A._Uri__makeQuery_closure.prototype = {
     call$2(key, value) {
@@ -26172,7 +26331,7 @@
         target[t2] = transition;
       }
     },
-    $signature: 44
+    $signature: 45
   };
   A._createTables_setRange.prototype = {
     call$3(target, range, transition) {
@@ -26191,7 +26350,7 @@
         target[t1] = transition;
       }
     },
-    $signature: 44
+    $signature: 45
   };
   A._SimpleUri.prototype = {
     get$hasAuthority() {
@@ -26620,7 +26779,7 @@
       } else
         return o;
     },
-    $signature: 60
+    $signature: 59
   };
   A.promiseToFuture_closure.prototype = {
     call$1(r) {
@@ -26810,7 +26969,7 @@
               t1 = result === B.ActionResult_0 ? $async$self._successTearDowns : $async$self._errorTearDowns;
               t2 = A._arrayInstanceType(t1);
               $async$goto = 2;
-              return A._asyncAwait(A.Future_wait(new A.MappedListIterable(t1, t2._eval$1("Future<~()>(1)")._as(B.CONSTANT1), t2._eval$1("MappedListIterable<1,Future<~()>>")), type$.void_Function), $async$runTearDowns$1);
+              return A._asyncAwait(A.Future_wait(new A.MappedListIterable(t1, t2._eval$1("Future<~()>(1)")._as(B.CONSTANT1), t2._eval$1("MappedListIterable<1,Future<~()>>")), false, type$.void_Function), $async$runTearDowns$1);
             case 2:
               // returning from await.
               type$.JSObject._as(self.core).info("Clean up completed");
@@ -26826,43 +26985,34 @@
       return "ActionResult." + this._core$_name;
     }
   };
-  A.PostUpdateTask.prototype = {
-    _ensureAft$1(repo) {
+  A._AftTask.prototype = {
+    run$1(repo) {
       var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t3, t4, aftDir, t1, t2;
-      var $async$_ensureAft$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void);
+      var $async$run$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
         while (true)
           switch ($async$goto) {
             case 0:
               // Function start
-              aftDir = A.join(repo.get$rootDir().path, "packages", "aft");
-              t1 = self;
-              t2 = type$.JSObject;
-              t2._as(t1.core).info("Activating AFT in: " + aftDir);
-              t3 = $.$get$nodeProcessManager();
-              t4 = type$.JSArray_String;
               $async$goto = 2;
-              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["dart", "pub", "global", "activate", "-spath", aftDir], t4), true, repo.get$rootDir().path), $async$_ensureAft$1);
+              return A._asyncAwait(A._extension_0_ensureAft(repo), $async$run$1);
             case 2:
               // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Could not activate AFT"));
-              t2._as(t1.core).info("Linking packages...");
               $async$goto = 3;
-              return A._asyncAwait(t3.run$3$echoOutput$workingDirectory(A._setArrayType(["aft", "link"], t4), true, repo.get$rootDir().path), $async$_ensureAft$1);
+              return A._asyncAwait(A._extension_0_runAft(repo, B.List_generate_goldens), $async$run$1);
             case 3:
               // returning from await.
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
-      return A._asyncStartSync($async$_ensureAft$1, $async$completer);
-    }
+      return A._asyncStartSync($async$run$1, $async$completer);
+    },
+    $isPostUpdateTask: 1
   };
-  A._AftTask.prototype = {
+  A._BuildRunnerTask.prototype = {
     run$1(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
@@ -26875,125 +27025,29 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait($async$self._ensureAft$1(repo), $async$run$1);
+              return A._asyncAwait(A._extension_0_ensureAft(repo), $async$run$1);
             case 2:
               // returning from await.
-              type$.JSObject._as(self.core).info('Running "aft ' + B.JSArray_methods.join$1(B.List_generate_goldens, " ") + '" in "' + repo.get$rootDir().path);
-              t1 = $.$get$nodeProcessManager();
-              t2 = A._setArrayType(["aft"], type$.JSArray_String);
-              B.JSArray_methods.addAll$1(t2, B.List_generate_goldens);
+              t1 = $async$self.packages;
+              type$.JSObject._as(self.core).info("Running build_runner in packages: " + A.S(t1));
+              t2 = A._arrayInstanceType(t1);
               $async$goto = 3;
-              return A._asyncAwait(t1.run$3$echoOutput$workingDirectory(t2, true, repo.get$rootDir().path), $async$run$1);
+              return A._asyncAwait(A.Future_wait(new A.MappedListIterable(t1, t2._eval$1("Future<~>(1)")._as(A._extension_0_get_runBuildRunner(repo)), t2._eval$1("MappedListIterable<1,Future<~>>")), true, type$.void), $async$run$1);
             case 3:
               // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.ProcessException$("aft", B.List_generate_goldens, "", 0));
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
       return A._asyncStartSync($async$run$1, $async$completer);
-    }
+    },
+    $isPostUpdateTask: 1
   };
-  A._BuildRunnerTask.prototype = {
-    run$1(repo) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$self = this, t1, t2, t3, t4, t5, t6, t7, _i, t8, t9, t10, t11;
-      var $async$run$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              $async$goto = 2;
-              return A._asyncAwait($async$self._ensureAft$1(repo), $async$run$1);
-            case 2:
-              // returning from await.
-              t1 = self;
-              t2 = type$.JSObject;
-              t3 = $async$self.packages;
-              t2._as(t1.core).info("Running build_runner in packages: " + A.S(t3));
-              t4 = t3.length, t5 = type$.String, t6 = type$.JSArray_String, t7 = repo.aftConfig.allPackages._map$_map, _i = 0;
-            case 3:
-              // for condition
-              if (!(_i < t3.length)) {
-                // goto after for
-                $async$goto = 5;
-                break;
-              }
-              t8 = t7.$index(0, A._asString(t3[_i]));
-              if (t8 != null) {
-                if (t8.pubspecInfo.pubspec.devDependencies.containsKey$1("build_runner")) {
-                  t9 = t8.path;
-                  t10 = $.$get$context().style;
-                  t11 = A.ParsedPath_ParsedPath$parse(t9, t10);
-                  if (t11.get$basename(t11) !== "example")
-                    if (t8.name !== "doc") {
-                      t9 = A.ParsedPath_ParsedPath$parse(t9, t10);
-                      t9 = t9.get$basename(t9) === "canaries";
-                    } else
-                      t9 = true;
-                  else
-                    t9 = true;
-                  t9 = !t9;
-                } else
-                  t9 = false;
-                t9 = !t9;
-              } else
-                t9 = true;
-              if (t9) {
-                // goto for update
-                $async$goto = 4;
-                break;
-              }
-              t9 = t2._as(t1.core);
-              t10 = t8.path;
-              t9.info('Running build_runner in "' + t10 + '"...');
-              t9 = $.$get$nodeProcessManager();
-              t8 = t8.flavor;
-              $async$goto = 6;
-              return A._asyncAwait(t9.run$3$echoOutput$workingDirectory(A._setArrayType([t8.entrypoint, "pub", "upgrade"], t6), true, t10), $async$run$1);
-            case 6:
-              // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Failed to run pub upgrade"));
-              switch (t8.index) {
-                case 1:
-                  t8 = B.List_dart;
-                  break;
-                case 0:
-                  t8 = B.List_flutter_pub;
-                  break;
-                default:
-                  t8 = null;
-              }
-              t8 = A.List_List$of(t8, true, t5);
-              t8.push("run");
-              t8.push("build_runner");
-              t8.push("build");
-              t8.push("--delete-conflicting-outputs");
-              $async$goto = 7;
-              return A._asyncAwait(t9.run$3$echoOutput$workingDirectory(t8, true, t10), $async$run$1);
-            case 7:
-              // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Failed to run pub upgrade"));
-            case 4:
-              // for update
-              t3.length === t4 || (0, A.throwConcurrentModificationError)(t3), ++_i;
-              // goto for condition
-              $async$goto = 3;
-              break;
-            case 5:
-              // after for
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$run$1, $async$completer);
-    }
+  A._extension_0_get_runBuildRunner_closure.prototype = {
+    call$1($package) {
+      return A._extension_0_runBuildRunner(this._this, A._asString($package));
+    },
+    $signature: 108
   };
   A.DependencyUpdateGroup.prototype = {
     _enumToString$0() {
@@ -27022,26 +27076,26 @@
     call$1(el) {
       return A.StringRecase_get_snakeCase(type$.DependencyUpdateGroup._as(el)._core$_name) === this.groupName;
     },
-    $signature: 108
+    $signature: 120
   };
   A.DependencyUpdateGroup_postUpdateTasks_closure.prototype = {
     call$1(pkg) {
       return !B.JSString_methods.contains$1(A.absolute(type$.PackageInfo._as(pkg).path), "packages/smithy/goldens");
     },
-    $signature: 59
+    $signature: 58
   };
   A.DependencyUpdateGroup_postUpdateTasks_closure0.prototype = {
     call$1(pkg) {
       return type$.PackageInfo._as(pkg).name;
     },
-    $signature: 120
+    $signature: 124
   };
   A.GroupPostUpdateTasks_runPostUpdateTasks_closure.prototype = {
     call$1(update) {
-      var t1 = type$.DependencyUpdate._as(update).dependentPackages;
+      var t1 = type$.DependencyMetadata._as(update).dependentPackages;
       return t1.get$keys(t1);
     },
-    $signature: 122
+    $signature: 125
   };
   A.NodeLoggerPlugin.prototype = {
     handleLogEntry$1(logEntry) {
@@ -27088,7 +27142,7 @@
         return;
       t1.add$1(0, chunk);
     },
-    $signature: 125
+    $signature: 131
   };
   A.NodeReadableStream_get_stream_onError.prototype = {
     call$1(error) {
@@ -27100,7 +27154,7 @@
       t1.addError$1(error);
       t1.close$0(0);
     },
-    $signature: 127
+    $signature: 140
   };
   A.NodeReadableStream_get_stream_onDone.prototype = {
     call$1(_) {
@@ -27117,24 +27171,27 @@
     $defaultValues() {
       return [null];
     },
-    $signature: 131
+    $signature: 36
   };
   A.NodeReadableStream_get_stream_closure.prototype = {
     call$0() {
-      var t2, _this = this,
+      var _this = this,
         t1 = _this._this;
-      t1.addListener("data", A.allowInterop(_this.onData, type$.Function));
-      t2 = type$.void;
-      A.EventEmitter_once(t1, "close", type$.nullable_Object).then$1$1(0, _this.onDone, t2);
-      A.EventEmitter_once(t1, "error", type$.JSObject).then$1$1(0, _this.onError, t2);
+      t1.addListener("data", _this.dataListener);
+      t1.addListener("error", _this.errorListener);
+      t1.addListener("close", _this.doneListener);
     },
     $signature: 0
   };
   A.NodeReadableStream_get_stream_closure0.prototype = {
     call$0() {
-      return this._this.removeListener("data", A.allowInterop(this.onData, type$.Function));
+      var _this = this,
+        t1 = _this._this;
+      t1.removeListener("data", _this.dataListener);
+      t1.removeListener("error", _this.errorListener);
+      t1.removeListener("close", _this.doneListener);
     },
-    $signature: 0
+    $signature: 2
   };
   A.EventEmitter_once_closure.prototype = {
     call$3(arg0, arg1, arg2) {
@@ -27154,7 +27211,7 @@
     $defaultValues() {
       return [null, null, null];
     },
-    $signature: 140
+    $signature: 143
   };
   A._NodePlatform.prototype = {
     get$environment() {
@@ -27206,14 +27263,14 @@
   };
   A.nodeProcessManager_closure.prototype = {
     call$0() {
-      var pm = new A.NodeProcessManager(A.LinkedHashMap_LinkedHashMap$_empty(type$.int, type$.NodeProcess)),
+      var pm = new A.NodeProcessManager(A.LinkedHashSet_LinkedHashSet$_empty(type$.NodeProcess)),
         t1 = $.$get$context0(),
         t2 = type$.void_Function._as(pm.get$close(pm));
       B.JSArray_methods.add$1(t1._successTearDowns, t2);
       B.JSArray_methods.add$1(t1._errorTearDowns, t2);
       return pm;
     },
-    $signature: 143
+    $signature: 153
   };
   A.NodeProcessManager.prototype = {
     run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, runInShell, workingDirectory) {
@@ -27228,7 +27285,7 @@
     run$body$NodeProcessManager(command, echoOutput, runInShell, workingDirectory) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.ProcessResult),
-        $async$returnValue, $async$handler = 2, $async$currentError, $async$next = [], $async$self = this, stdoutSub, stderrSub, exitCode, process, pid, stdout, stderr, t1, t2;
+        $async$returnValue, $async$handler = 2, $async$currentError, $async$next = [], $async$self = this, stdoutSub, stderrSub, exitCode, process, pid0, pid, stdout, stderr, t1, t2;
       var $async$run$4$echoOutput$runInShell$workingDirectory = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1) {
           $async$currentError = $async$result;
@@ -27243,7 +27300,8 @@
             case 3:
               // returning from await.
               process = $async$result;
-              pid = J.get$pid$z(process);
+              pid0 = A._asIntQ(process.jsProcess.pid);
+              pid = pid0 == null ? -1 : pid0;
               stdout = new A.StringBuffer("");
               stderr = new A.StringBuffer("");
               t1 = process._stdout;
@@ -27303,7 +27361,7 @@
     },
     start$body$NodeProcessManager(_, command, environment, includeParentEnvironment, mode, pipe, runInShell, workingDirectory) {
       var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.Process),
+        $async$completer = A._makeAsyncAwaitCompleter(type$.NodeProcess),
         $async$returnValue, $async$self = this, executable, args, t2, nodeProcess, t1, _0_0;
       var $async$start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
@@ -27327,12 +27385,12 @@
                 throw A.wrapException(A.StateError$("Pattern matching error"));
               t1 = type$.JSObject._as(self.childProcess);
               t2 = type$.List_int;
-              nodeProcess = new A.NodeProcess(executable, args, A.ChildProcess_spawn(t1, executable, args, environment, true, mode, runInShell, null, workingDirectory), A.StreamController_StreamController(null, null, null, null, true, t2), A.StreamController_StreamController(null, null, null, null, true, t2), A.StreamController_StreamController(null, null, null, null, true, t2));
+              nodeProcess = new A.NodeProcess(executable, args, A.ChildProcess_spawn(t1, executable, args, environment, true, mode, runInShell, null, workingDirectory), A.StreamController_StreamController$broadcast(true, t2), A.StreamController_StreamController(null, null, null, null, true, t2), A.StreamController_StreamController(null, null, null, null, true, t2));
               $async$goto = 3;
               return A._asyncAwait(nodeProcess._init$0(), $async$start$7$environment$includeParentEnvironment$mode$pipe$runInShell$workingDirectory);
             case 3:
               // returning from await.
-              $async$self._activeProcesses.$indexSet(0, nodeProcess.get$pid(nodeProcess), nodeProcess);
+              $async$self._activeProcesses.add$1(0, nodeProcess);
               $async$returnValue = nodeProcess;
               // goto return
               $async$goto = 1;
@@ -27355,8 +27413,8 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              for (t1 = $async$self._activeProcesses, t1 = t1.get$values(t1), t2 = A._instanceType(t1), t2 = t2._eval$1("@<1>")._bind$1(t2._rest[1]), t1 = new A.MappedIterator(J.get$iterator$ax(t1.__internal$_iterable), t1._f, t2._eval$1("MappedIterator<1,2>")), t2 = t2._rest[1]; t1.moveNext$0();) {
-                t3 = t1.__internal$_current;
+              for (t1 = $async$self._activeProcesses, t1 = A._LinkedHashSetIterator$(t1, t1._collection$_modifications, A._instanceType(t1)._precomputed1), t2 = t1.$ti._precomputed1; t1.moveNext$0();) {
+                t3 = t1._collection$_current;
                 (t3 == null ? t2._as(t3) : t3).close$0(0)._state |= 1;
               }
               // implicit return
@@ -27402,7 +27460,7 @@
               // Function start
               t1 = {};
               t1.stdin = null;
-              t2 = $async$self._jsProcess;
+              t2 = $async$self.jsProcess;
               t3 = type$.nullable_JSObject;
               _0_0 = t3._as(t2.stdin);
               if (_0_0 != null) {
@@ -27414,7 +27472,7 @@
                 t4 = $async$self._stdin;
                 t5 = A._instanceType(t4);
                 $async$self._stdinSink = new A._IOSinkImpl(B.Utf8Codec_false, new A._StreamSinkWrapper(t4, t5._eval$1("_StreamSinkWrapper<1>")), new A._AsyncCompleter(new A._Future($.Zone__current, type$._Future_dynamic), type$._AsyncCompleter_dynamic));
-                $async$self.set$_stdinSub(new A._ControllerStream(t4, t5._eval$1("_ControllerStream<1>")).listen$1(0, new A.NodeProcess__init_closure(t1)));
+                $async$self.set$_stdinSub(new A._BroadcastStream(t4, t5._eval$1("_BroadcastStream<1>")).listen$1(0, new A.NodeProcess__init_closure(t1)));
               }
               _1_0 = t3._as(t2.stdout);
               if (_1_0 != null) {
@@ -27442,8 +27500,17 @@
                 A.StreamForward_forward(A.NodeReadableStream_get_stream(stderr), t3, false, type$.List_int);
               else
                 t3.close$0(0);
+              t1 = $.$get$_spawnEvents();
+              A.Expando__checkType(t2);
+              t3 = t1._jsWeakMap.get(t2);
+              if (t3 == null) {
+                t3 = A.EventEmitter_once(t2, "spawn", type$.nullable_Object);
+                t1.$indexSet(0, t2, t3);
+                t1 = t3;
+              } else
+                t1 = t3;
               $async$goto = 2;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t2, "spawn", type$.nullable_Object), A.EventEmitter_once(t2, "error", type$.JSObject).then$1$1(0, new A.NodeProcess__init_closure0($async$self), type$.Never)], type$.JSArray_Future_void), type$.void), $async$_init$0);
+              return A._asyncAwait(A.Future_any(A._setArrayType([t1, A.NodeChildProcess_get_onError(t2).then$1$1(0, new A.NodeProcess__init_closure0($async$self), type$.Never)], type$.JSArray_Future_void), type$.void), $async$_init$0);
             case 2:
               // returning from await.
               // implicit return
@@ -27455,7 +27522,7 @@
     get$exitCode(_) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.int),
-        $async$returnValue, $async$self = this, exitCode, t2, t1, _0_0;
+        $async$returnValue, $async$self = this, exitCode, t2, t3, t4, t5, t1, _0_0;
       var $async$get$exitCode = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -27463,7 +27530,7 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = $async$self._jsProcess;
+              t1 = $async$self.jsProcess;
               _0_0 = A._asIntQ(t1.exitCode);
               if (_0_0 != null) {
                 exitCode = _0_0;
@@ -27478,8 +27545,27 @@
                 $async$goto = 1;
                 break;
               }
+              t2 = $.$get$_closeEvents();
+              A.Expando__checkType(t1);
+              t3 = t2._jsWeakMap.get(t1);
+              if (t3 == null) {
+                t3 = A.EventEmitter_once(t1, "close", type$.nullable_Object);
+                t2.$indexSet(0, t1, t3);
+                t2 = t3;
+              } else
+                t2 = t3;
+              t3 = A.NodeChildProcess_get_onError(t1);
+              t4 = $.$get$_exitEvents();
+              A.Expando__checkType(t1);
+              t5 = t4._jsWeakMap.get(t1);
+              if (t5 == null) {
+                t5 = A.EventEmitter_once(t1, "exit", type$.double);
+                t4.$indexSet(0, t1, t5);
+                t4 = t5;
+              } else
+                t4 = t5;
               $async$goto = 3;
-              return A._asyncAwait(A.Future_any(A._setArrayType([A.EventEmitter_once(t1, "close", type$.nullable_Object), A.EventEmitter_once(t1, "error", type$.JSObject), A.EventEmitter_once(t1, "exit", type$.double)], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
+              return A._asyncAwait(A.Future_any(A._setArrayType([t2, t3, t4], type$.JSArray_Future_void), type$.void), $async$get$exitCode);
             case 3:
               // returning from await.
               t1 = A._asIntQ(t1.exitCode);
@@ -27495,14 +27581,10 @@
       });
       return A._asyncStartSync($async$get$exitCode, $async$completer);
     },
-    get$pid(_) {
-      var t1 = A._asIntQ(this._jsProcess.pid);
-      return t1 == null ? -1 : t1;
-    },
     close$0(_) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        $async$self = this, t1, t2;
+        $async$self = this, t2, t3, t4, t1;
       var $async$close$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -27510,34 +27592,45 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              A._asBool($async$self._jsProcess.kill("SIGTERM"));
-              t1 = A._setArrayType([], type$.JSArray_Future_dynamic);
-              t2 = $async$self._stdin;
-              if ((t2._state & 4) === 0)
-                t1.push(t2.close$0(0));
-              t2 = $async$self._stdout;
-              if ((t2._state & 4) === 0)
-                t1.push(t2.close$0(0));
-              t2 = $async$self._stderr;
-              if ((t2._state & 4) === 0)
-                t1.push(t2.close$0(0));
-              t2 = type$.dynamic;
+              t1 = $async$self.jsProcess;
+              A._asBool(t1.kill("SIGTERM"));
+              t2 = $async$self._stdinSub;
+              t2 = t2 == null ? null : t2.cancel$0(0);
               $async$goto = 2;
-              return A._asyncAwait(A.Future_wait(t1, t2), $async$close$0);
+              return A._asyncAwait(t2 instanceof A._Future ? t2 : A._Future$value(t2, type$.void), $async$close$0);
             case 2:
               // returning from await.
-              t1 = $async$self._stdinSub;
-              t1 = t1 == null ? null : t1.cancel$0(0);
+              $async$self.set$_stdinSub(null);
+              t2 = $async$self._stdinSink;
+              t2 = t2 == null ? null : t2.close$0(0);
+              t3 = type$.dynamic;
               $async$goto = 3;
-              return A._asyncAwait(t1 instanceof A._Future ? t1 : A._Future$value(t1, type$.void), $async$close$0);
+              return A._asyncAwait(t2 instanceof A._Future ? t2 : A._Future$value(t2, t3), $async$close$0);
             case 3:
               // returning from await.
-              t1 = $async$self._stdinSink;
-              t1 = t1 == null ? null : t1.close$0(0);
+              $async$self._stdinSink = null;
+              t2 = A._setArrayType([], type$.JSArray_Future_dynamic);
+              t4 = $async$self._stdin;
+              if ((t4._state & 4) === 0)
+                t2.push(t4.close$0(0));
+              t4 = $async$self._stdout;
+              if ((t4._state & 4) === 0)
+                t2.push(t4.close$0(0));
+              t4 = $async$self._stderr;
+              if ((t4._state & 4) === 0)
+                t2.push(t4.close$0(0));
               $async$goto = 4;
-              return A._asyncAwait(t1 instanceof A._Future ? t1 : A._Future$value(t1, t2), $async$close$0);
+              return A._asyncAwait(A.Future_wait(t2, false, t3), $async$close$0);
             case 4:
               // returning from await.
+              t1.removeAllListeners();
+              t2 = type$.nullable_JSObject;
+              t3 = t2._as(t1.stdout);
+              if (t3 != null)
+                t3.removeAllListeners();
+              t1 = t2._as(t1.stderr);
+              if (t1 != null)
+                t1.removeAllListeners();
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
@@ -27546,22 +27639,21 @@
     },
     set$_stdinSub(_stdinSub) {
       this._stdinSub = type$.nullable_StreamSubscription_List_int._as(_stdinSub);
-    },
-    $isProcess: 1
+    }
   };
   A.NodeProcess__init_closure.prototype = {
     call$1(chunk) {
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 38
+    $signature: 39
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
       var t1 = this.$this;
       return A.throwExpression(A.ProcessException$(t1.executable, t1.$arguments, "Error spawning subprocess: " + A.S(type$.JSObject._as(error)), 0));
     },
-    $signature: 155
+    $signature: 156
   };
   A._UnreachableError.prototype = {};
   A.allocateSwapSpace_closure.prototype = {
@@ -27577,7 +27669,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.ShellScript_run('# Log current swap space report\nfunction log_swap {\n  echo "Memory and swap:"\n  free -h\n  echo\n  swapon --show\n  echo\n}\n\n# Set swap\nlog_swap\nSWAP_FILE=/swap\nsudo fallocate -l ' + $async$self.sizeInGb + "G $SWAP_FILE\nsudo chmod 600 $SWAP_FILE\nsudo mkswap $SWAP_FILE\nsudo swapon $SWAP_FILE\nlog_swap\n"), $async$call$0);
+              return A._asyncAwait(A.ShellScript_run('# Log current swap space report\nfunction log_swap {\n  echo "Memory and swap:"\n  free -h\n  echo\n  swapon --show\n  echo\n}\n\necho "****** Before ******"\nlog_swap\n\n# Allocate swap\nSWAP_FILE=/swap\nsudo fallocate -l ' + $async$self.sizeInGb + 'G $SWAP_FILE\nsudo chmod 600 $SWAP_FILE\nsudo mkswap $SWAP_FILE\nsudo swapon $SWAP_FILE\n\necho "****** After ******"\nlog_swap\n'), $async$call$0);
             case 2:
               // returning from await.
               // implicit return
@@ -27620,7 +27712,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 156
+    $signature: 174
   };
   A.CommitTypeGroup.prototype = {
     _enumToString$0() {
@@ -27666,7 +27758,7 @@
         return A.ioore(split, 1);
       return new A.MapEntry(t2, J.trim$0$s(split[1]), type$.MapEntry_String_String);
     },
-    $signature: 174
+    $signature: 179
   };
   A.MergeCommitMessage.prototype = {};
   A.ConventionalCommitMessage.prototype = {};
@@ -28108,7 +28200,7 @@
       A.$checkKeys(this.json, B.List_EFr, null);
       return new A.AftComponent($$checkedConvert.call$1$2("name", new A._$AftComponentFromJson__closure(), type$.String), $$checkedConvert.call$1$2("summary", new A._$AftComponentFromJson__closure0(), type$.nullable_PackageInfo), $$checkedConvert.call$1$2("packages", new A._$AftComponentFromJson__closure1(), type$.List_PackageInfo), $$checkedConvert.call$1$2("packageGraph", new A._$AftComponentFromJson__closure2(), type$.Map_of_String_and_List_PackageInfo), $$checkedConvert.call$1$2("propagate", new A._$AftComponentFromJson__closure3(), type$.VersionPropagation));
     },
-    $signature: 184
+    $signature: 198
   };
   A._$AftComponentFromJson__closure.prototype = {
     call$1(v) {
@@ -28127,19 +28219,19 @@
       var t1 = J.map$1$1$ax(type$.List_dynamic._as(v), new A._$AftComponentFromJson___closure0(), type$.PackageInfo);
       return A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E"));
     },
-    $signature: 207
+    $signature: 209
   };
   A._$AftComponentFromJson___closure0.prototype = {
     call$1(e) {
       return A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(e), type$.String, type$.nullable_Object));
     },
-    $signature: 52
+    $signature: 53
   };
   A._$AftComponentFromJson__closure2.prototype = {
     call$1(v) {
       return type$.Map_dynamic_dynamic._as(v).map$2$1(0, new A._$AftComponentFromJson___closure(), type$.String, type$.List_PackageInfo);
     },
-    $signature: 210
+    $signature: 212
   };
   A._$AftComponentFromJson___closure.prototype = {
     call$2(k, e) {
@@ -28148,25 +28240,25 @@
       t1 = J.map$1$1$ax(type$.List_dynamic._as(e), new A._$AftComponentFromJson____closure(), type$.PackageInfo);
       return new A.MapEntry(k, A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E")), type$.MapEntry_of_String_and_List_PackageInfo);
     },
-    $signature: 212
+    $signature: 213
   };
   A._$AftComponentFromJson____closure.prototype = {
     call$1(e) {
       return A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(e), type$.String, type$.nullable_Object));
     },
-    $signature: 52
+    $signature: 53
   };
   A._$AftComponentFromJson__closure3.prototype = {
     call$1(v) {
       return A.$enumDecode(B.Map_gv0sl, v, type$.VersionPropagation, type$.String);
     },
-    $signature: 47
+    $signature: 52
   };
   A._$AftComponentToJson_closure.prototype = {
     call$1(e) {
       return A._$PackageInfoToJson(type$.PackageInfo._as(e));
     },
-    $signature: 45
+    $signature: 47
   };
   A._$AftComponentToJson_closure0.prototype = {
     call$2(k, e) {
@@ -28175,13 +28267,13 @@
       t1 = J.map$1$1$ax(type$.List_PackageInfo._as(e), new A._$AftComponentToJson__closure(), type$.Map_of_String_and_nullable_Object);
       return new A.MapEntry(k, A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E")), type$.MapEntry_of_String_and_List_Map_of_String_and_nullable_Object);
     },
-    $signature: 218
+    $signature: 226
   };
   A._$AftComponentToJson__closure.prototype = {
     call$1(e) {
       return A._$PackageInfoToJson(type$.PackageInfo._as(e));
     },
-    $signature: 45
+    $signature: 47
   };
   A._$PackageInfoFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -28192,7 +28284,7 @@
       t2 = type$.nullable_PackageInfo;
       return new A.PackageInfo($$checkedConvert.call$1$2("name", new A._$PackageInfoFromJson__closure(), t1), $$checkedConvert.call$1$2("path", new A._$PackageInfoFromJson__closure0(), t1), $$checkedConvert.call$1$2("pubspecInfo", new A._$PackageInfoFromJson__closure1(), type$.PubspecInfo), $$checkedConvert.call$1$2("flavor", new A._$PackageInfoFromJson__closure2(), type$.PackageFlavor), $$checkedConvert.call$1$2("example", new A._$PackageInfoFromJson__closure3(), t2), $$checkedConvert.call$1$2("docs", new A._$PackageInfoFromJson__closure4(), t2));
     },
-    $signature: 226
+    $signature: 227
   };
   A._$PackageInfoFromJson__closure.prototype = {
     call$1(v) {
@@ -28210,13 +28302,13 @@
     call$1(v) {
       return A._$PubspecInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 227
+    $signature: 228
   };
   A._$PackageInfoFromJson__closure2.prototype = {
     call$1(v) {
       return A.$enumDecode(B.Map_A0aZ8, v, type$.PackageFlavor, type$.String);
     },
-    $signature: 228
+    $signature: 232
   };
   A._$PackageInfoFromJson__closure3.prototype = {
     call$1(v) {
@@ -28239,14 +28331,14 @@
       t2 = $$checkedConvert.call$1$2("pubspecYaml", new A._$PubspecInfoFromJson__closure0(), type$.String);
       return A.PubspecInfo$(t1, $$checkedConvert.call$1$2("pubspecMap", new A._$PubspecInfoFromJson__closure1(), type$.YamlMap), t2, $$checkedConvert.call$1$2("uri", new A._$PubspecInfoFromJson__closure2(), type$.Uri));
     },
-    $signature: 232
+    $signature: 233
   };
   A._$PubspecInfoFromJson__closure.prototype = {
     call$1(v) {
       var t1 = type$.Map_of_String_and_nullable_Object;
       return A.Pubspec_Pubspec$fromJson(t1._as(t1._as(v)), false);
     },
-    $signature: 233
+    $signature: 253
   };
   A._$PubspecInfoFromJson__closure0.prototype = {
     call$1(v) {
@@ -28262,13 +28354,13 @@
       A.ArgumentError_checkNotNull(B.CollectionStyle_ANY, "style", type$.CollectionStyle);
       return new A.YamlMapWrapper(B.CollectionStyle_ANY, v, t1, new A._YamlMapNodes(v, t1));
     },
-    $signature: 253
+    $signature: 254
   };
   A._$PubspecInfoFromJson__closure2.prototype = {
     call$1(v) {
       return A.Uri_parse(A._asString(v));
     },
-    $signature: 79
+    $signature: 78
   };
   A._AftComponent_Object_AWSSerializable.prototype = {};
   A._AftComponent_Object_AWSSerializable_AWSDebuggable.prototype = {};
@@ -28507,7 +28599,7 @@
       t2 = component.name;
       return new A.MapEntry(t2, new A.AftComponent(t2, t1, packages, new A.UnmodifiableMapView(t5, type$.UnmodifiableMapView_of_String_and_List_PackageInfo), component.propagate), type$.MapEntry_String_AftComponent);
     },
-    $signature: 80
+    $signature: 79
   };
   A.AftConfigLoader__processPubspecs__closure.prototype = {
     call$1($name) {
@@ -28530,19 +28622,19 @@
       }
       return t1;
     },
-    $signature: 24
+    $signature: 26
   };
   A.AftConfigLoader__processPubspecs__closure0.prototype = {
     call$1(packageName) {
       return A.IterableExtension_firstWhereOrNull(this.packages, new A.AftConfigLoader__processPubspecs___closure(A._asString(packageName)), type$.PackageInfo);
     },
-    $signature: 24
+    $signature: 26
   };
   A.AftConfigLoader__processPubspecs___closure.prototype = {
     call$1(pkg) {
       return type$.PackageInfo._as(pkg).name === this.packageName;
     },
-    $signature: 59
+    $signature: 58
   };
   A.PackageSelector.prototype = {};
   A._PackageSelector.prototype = {
@@ -28731,19 +28823,19 @@
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 39
+    $signature: 41
   };
   A._extension_1_toJson_closure1.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 39
+    $signature: 41
   };
   A._extension_1_toJson_closure2.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 39
+    $signature: 41
   };
   A._$EnvironmentSerializer.prototype = {
     serialize$3$specifiedType(serializers, object, specifiedType) {
@@ -29507,7 +29599,7 @@
       var t1 = A.$enumDecodeNullable(B.Map_gv0sl, v, type$.VersionPropagation, type$.String);
       return t1 == null ? B.VersionPropagation_1 : t1;
     },
-    $signature: 47
+    $signature: 52
   };
   A._$AftScriptFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -29540,7 +29632,7 @@
       A._asBoolQ(v);
       return v === true;
     },
-    $signature: 26
+    $signature: 24
   };
   A._AftScript_Object_AWSSerializable.prototype = {};
   A._AftScript_Object_AWSSerializable_AWSDebuggable.prototype = {};
@@ -29612,7 +29704,7 @@
     call$0() {
       return A.MapBuilder_MapBuilder(type$.String, type$.VersionConstraint);
     },
-    $signature: 50
+    $signature: 110
   };
   A._$aftSerializers_closure1.prototype = {
     call$0() {
@@ -29661,89 +29753,7 @@
       return A._asyncStartSync($async$updatePubspecs$1, $async$completer);
     }
   };
-  A.DependencyUpdate.prototype = {
-    toJson$0() {
-      return type$.Map_of_String_and_nullable_Object._as($.$get$_serializers().serializeWith$1$2($.$get$_$dependencyUpdateSerializer(), this, type$.DependencyUpdate));
-    }
-  };
-  A._$_serializers_closure.prototype = {
-    call$0() {
-      return A.MapBuilder_MapBuilder(type$.String, type$.VersionConstraint);
-    },
-    $signature: 50
-  };
-  A._$DependencyUpdateSerializer.prototype = {
-    serialize$3$specifiedType(serializers, object, specifiedType) {
-      var result, value;
-      type$.DependencyUpdate._as(object);
-      result = ["dependencyName", serializers.serialize$2$specifiedType(object.dependencyName, B.FullType_h8g), "latestVersion", serializers.serialize$2$specifiedType(object.latestVersion, B.FullType_NWH), "dependentPackages", serializers.serialize$2$specifiedType(object.dependentPackages, B.FullType_0)];
-      value = object.globalConstraint;
-      if (value != null) {
-        result.push("globalConstraint");
-        result.push(serializers.serialize$2$specifiedType(value, B.FullType_0AN));
-      }
-      return result;
-    },
-    serialize$2(serializers, object) {
-      return this.serialize$3$specifiedType(serializers, object, B.FullType_null_List_empty_false);
-    },
-    deserialize$3$specifiedType(serializers, serialized, specifiedType) {
-      var t1, t2, t3, t4, value, t5,
-        result = new A.DependencyUpdateBuilder(),
-        iterator = J.get$iterator$ax(type$.Iterable_nullable_Object._as(serialized));
-      for (t1 = type$.MapBuilder_String_VersionConstraint, t2 = type$.nullable_VersionConstraint, t3 = type$.Version; iterator.moveNext$0();) {
-        t4 = iterator.get$current();
-        t4.toString;
-        A._asString(t4);
-        iterator.moveNext$0();
-        value = iterator.get$current();
-        switch (t4) {
-          case "dependencyName":
-            t4 = serializers.deserialize$2$specifiedType(value, B.FullType_h8g);
-            t4.toString;
-            A._asString(t4);
-            result.get$_dependency_update$_$this()._dependencyName = t4;
-            break;
-          case "latestVersion":
-            t4 = serializers.deserialize$2$specifiedType(value, B.FullType_NWH);
-            t4.toString;
-            t3._as(t4);
-            result.get$_dependency_update$_$this()._latestVersion = t4;
-            break;
-          case "globalConstraint":
-            t4 = t2._as(serializers.deserialize$2$specifiedType(value, B.FullType_0AN));
-            result.get$_dependency_update$_$this()._globalConstraint = t4;
-            break;
-          case "dependentPackages":
-            t4 = result.get$_dependency_update$_$this();
-            t5 = t4._dependentPackages;
-            if (t5 == null) {
-              t5 = new A.MapBuilder(null, $, null, t1);
-              t5.replace$1(B.Map_empty3);
-              t4.set$_dependentPackages(t5);
-              t4 = t5;
-            } else
-              t4 = t5;
-            t5 = serializers.deserialize$2$specifiedType(value, B.FullType_0);
-            t5.toString;
-            t4.replace$1(t5);
-            break;
-        }
-      }
-      return result._dependency_update$_build$0();
-    },
-    deserialize$2(serializers, serialized) {
-      return this.deserialize$3$specifiedType(serializers, serialized, B.FullType_null_List_empty_false);
-    },
-    $isSerializer: 1,
-    $isStructuredSerializer: 1,
-    get$types() {
-      return B.List_NIe;
-    },
-    get$wireName() {
-      return "DependencyUpdate";
-    }
-  };
+  A.DependencyMetadata.prototype = {};
   A._$DependencyGroupUpdate.prototype = {
     $eq(_, other) {
       var _this = this;
@@ -29751,15 +29761,14 @@
         return false;
       if (other === _this)
         return true;
-      return other instanceof A._$DependencyGroupUpdate && _this.groupName === other.groupName && _this.dependencies.$eq(0, other.dependencies) && _this.updatedConstraints.$eq(0, other.updatedConstraints) && _this.updates.$eq(0, other.updates) && _this.deputy === other.deputy && _this.pubspecUpdates.$eq(0, other.pubspecUpdates);
+      return other instanceof A._$DependencyGroupUpdate && _this.groupName === other.groupName && _this.dependencies.$eq(0, other.dependencies) && _this.updatedConstraints.$eq(0, other.updatedConstraints) && _this.updates.$eq(0, other.updates);
     },
     get$hashCode(_) {
       var _this = this,
         t1 = _this.dependencies,
         t2 = _this.updatedConstraints,
-        t3 = _this.updates,
-        t4 = _this.pubspecUpdates;
-      return A.$jf(A.$jc(A.$jc(A.$jc(A.$jc(A.$jc(A.$jc(0, B.JSString_methods.get$hashCode(_this.groupName)), t1.get$hashCode(t1)), t2.get$hashCode(t2)), t3.get$hashCode(t3)), A.Primitives_objectHashCode(_this.deputy)), t4.get$hashCode(t4)));
+        t3 = _this.updates;
+      return A.$jf(A.$jc(A.$jc(A.$jc(A.$jc(0, B.JSString_methods.get$hashCode(_this.groupName)), t1.get$hashCode(t1)), t2.get$hashCode(t2)), t3.get$hashCode(t3)));
     },
     toString$0(_) {
       var _this = this,
@@ -29801,7 +29810,7 @@
       var t1 = this.get$_dependency_update$_$this(),
         t2 = t1._updates;
       if (t2 == null) {
-        t2 = A.MapBuilder_MapBuilder(type$.String, type$.DependencyUpdate);
+        t2 = A.MapBuilder_MapBuilder(type$.String, type$.DependencyMetadata);
         t1.set$_updates(t2);
         t1 = t2;
       } else
@@ -29866,7 +29875,7 @@
           A.BuiltValueNullFieldError_checkNotNull(t2, _s21_, _s9_, t1);
           A.BuiltValueNullFieldError_checkNotNull(t3, _s21_, _s12_, type$.BuiltSet_String);
           A.BuiltValueNullFieldError_checkNotNull(t4, _s21_, _s18_, type$.BuiltMap_String_VersionConstraint);
-          A.BuiltValueNullFieldError_checkNotNull(t5, _s21_, "updates", type$.BuiltMap_String_DependencyUpdate);
+          A.BuiltValueNullFieldError_checkNotNull(t5, _s21_, "updates", type$.BuiltMap_String_DependencyMetadata);
           A.BuiltValueNullFieldError_checkNotNull(t7, _s21_, "deputy", t6);
           A.BuiltValueNullFieldError_checkNotNull(t8, _s21_, _s14_, type$.BuiltList_of_void_Function_Repo);
         }
@@ -29902,20 +29911,20 @@
       this._updatedConstraints = type$.nullable_MapBuilder_String_VersionConstraint._as(_updatedConstraints);
     },
     set$_updates(_updates) {
-      this._updates = type$.nullable_MapBuilder_String_DependencyUpdate._as(_updates);
+      this._updates = type$.nullable_MapBuilder_String_DependencyMetadata._as(_updates);
     },
     set$_pubspecUpdates(_pubspecUpdates) {
       this._pubspecUpdates = type$.nullable_ListBuilder_of_void_Function_Repo._as(_pubspecUpdates);
     }
   };
-  A._$DependencyUpdate.prototype = {
+  A._$DependencyMetadata.prototype = {
     $eq(_, other) {
       var _this = this;
       if (other == null)
         return false;
       if (other === _this)
         return true;
-      return other instanceof A._$DependencyUpdate && _this.dependencyName === other.dependencyName && _this.latestVersion.$eq(0, other.latestVersion) && J.$eq$(_this.globalConstraint, other.globalConstraint) && _this.dependentPackages.$eq(0, other.dependentPackages);
+      return other instanceof A._$DependencyMetadata && _this.dependencyName === other.dependencyName && _this.latestVersion.$eq(0, other.latestVersion) && J.$eq$(_this.globalConstraint, other.globalConstraint) && _this.dependentPackages.$eq(0, other.dependentPackages);
     },
     get$hashCode(_) {
       var _this = this,
@@ -29925,7 +29934,7 @@
     },
     toString$0(_) {
       var _this = this,
-        t1 = $.$get$newBuiltValueToStringHelper().call$1("DependencyUpdate"),
+        t1 = $.$get$newBuiltValueToStringHelper().call$1("DependencyMetadata"),
         t2 = J.getInterceptor$ax(t1);
       t2.add$2(t1, "dependencyName", _this.dependencyName);
       t2.add$2(t1, "latestVersion", _this.latestVersion);
@@ -29934,7 +29943,7 @@
       return t2.toString$0(t1);
     }
   };
-  A.DependencyUpdateBuilder.prototype = {
+  A.DependencyMetadataBuilder.prototype = {
     get$dependencyName() {
       return this.get$_dependency_update$_$this()._dependencyName;
     },
@@ -29966,7 +29975,7 @@
     },
     _dependency_update$_build$0() {
       var _$failedField, e, _$result0, t1, t2, t3, t4, t5, t6, exception, _this = this,
-        _s16_ = "DependencyUpdate",
+        _s18_ = "DependencyMetadata",
         _s14_ = "dependencyName",
         _s13_ = "latestVersion",
         _s17_ = "dependentPackages",
@@ -29975,15 +29984,15 @@
         _$result0 = _this._dependency_update$_$v;
         if (_$result0 == null) {
           t1 = type$.String;
-          t2 = A.BuiltValueNullFieldError_checkNotNull(_this.get$_dependency_update$_$this()._dependencyName, _s16_, _s14_, t1);
+          t2 = A.BuiltValueNullFieldError_checkNotNull(_this.get$_dependency_update$_$this()._dependencyName, _s18_, _s14_, t1);
           t3 = type$.Version;
-          t4 = A.BuiltValueNullFieldError_checkNotNull(_this.get$_dependency_update$_$this()._latestVersion, _s16_, _s13_, t3);
+          t4 = A.BuiltValueNullFieldError_checkNotNull(_this.get$_dependency_update$_$this()._latestVersion, _s18_, _s13_, t3);
           t5 = _this.get$_dependency_update$_$this()._globalConstraint;
           t6 = _this.get$dependentPackages().build$0();
-          _$result0 = new A._$DependencyUpdate(t2, t4, t5, t6);
-          A.BuiltValueNullFieldError_checkNotNull(t2, _s16_, _s14_, t1);
-          A.BuiltValueNullFieldError_checkNotNull(t4, _s16_, _s13_, t3);
-          A.BuiltValueNullFieldError_checkNotNull(t6, _s16_, _s17_, type$.BuiltMap_String_VersionConstraint);
+          _$result0 = new A._$DependencyMetadata(t2, t4, t5, t6);
+          A.BuiltValueNullFieldError_checkNotNull(t2, _s18_, _s14_, t1);
+          A.BuiltValueNullFieldError_checkNotNull(t4, _s18_, _s13_, t3);
+          A.BuiltValueNullFieldError_checkNotNull(t6, _s18_, _s17_, type$.BuiltMap_String_VersionConstraint);
         }
         _$result = _$result0;
       } catch (exception) {
@@ -29993,12 +30002,12 @@
           _this.get$dependentPackages().build$0();
         } catch (exception) {
           e = A.unwrapException(exception);
-          t1 = A.BuiltValueNestedFieldError$(_s16_, _$failedField.readLocal$0(), J.toString$0$(e));
+          t1 = A.BuiltValueNestedFieldError$(_s18_, _$failedField.readLocal$0(), J.toString$0$(e));
           throw A.wrapException(t1);
         }
         throw exception;
       }
-      t1 = type$.DependencyUpdate;
+      t1 = type$.DependencyMetadata;
       t2 = t1._as(_$result);
       A.ArgumentError_checkNotNull(t2, "other", t1);
       _this._dependency_update$_$v = t2;
@@ -30008,11 +30017,10 @@
       this._dependentPackages = type$.nullable_MapBuilder_String_VersionConstraint._as(_dependentPackages);
     }
   };
-  A._DependencyUpdate_Object_AWSSerializable.prototype = {};
   A.Deputy.prototype = {
     _listDependencyGroups$0() {
       var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.BuiltListMultimap_String_DependencyUpdate),
+        $async$completer = A._makeAsyncAwaitCompleter(type$.BuiltListMultimap_String_DependencyMetadata),
         $async$returnValue, $async$self = this, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, latestVersion, t1, updates;
       var $async$_listDependencyGroups$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
@@ -30022,7 +30030,7 @@
             case 0:
               // Function start
               t1 = type$.String;
-              updates = A.LinkedHashMap_LinkedHashMap$_empty(t1, type$.DependencyUpdateBuilder);
+              updates = A.LinkedHashMap_LinkedHashMap$_empty(t1, type$.DependencyMetadataBuilder);
               A.dfs($async$self.repo.getPackageGraph$1$includeDevDependencies(true), new A.Deputy__listDependencyGroups_closure($async$self, updates), type$.PackageInfo);
               t2 = updates.get$values(updates), t3 = A._instanceType(t2), t3 = t3._eval$1("@<1>")._bind$1(t3._rest[1]), t2 = new A.MappedIterator(J.get$iterator$ax(t2.__internal$_iterable), t2._f, t3._eval$1("MappedIterator<1,2>")), t4 = type$._Future_nullable_Version, t5 = type$.nullable_Version, t6 = type$.Future_nullable_Version, t7 = $async$self.versionResolver, t8 = $async$self.logger, t3 = t3._rest[1];
             case 3:
@@ -30059,7 +30067,7 @@
               break;
             case 4:
               // after for
-              t1 = A.ListMultimapBuilder_ListMultimapBuilder(t1, type$.DependencyUpdate);
+              t1 = A.ListMultimapBuilder_ListMultimapBuilder(t1, type$.DependencyMetadata);
               t1.$ti._eval$1("@(ListMultimapBuilder<1,2>)")._as(new A.Deputy__listDependencyGroups_closure0($async$self, updates)).call$1(t1);
               $async$returnValue = t1.build$0();
               // goto return
@@ -30073,7 +30081,7 @@
       return A._asyncStartSync($async$_listDependencyGroups$0, $async$completer);
     },
     _proposeUpdates$1(dependencyGroups) {
-      return this._proposeUpdates$body$Deputy(type$.BuiltListMultimap_String_DependencyUpdate._as(dependencyGroups));
+      return this._proposeUpdates$body$Deputy(type$.BuiltListMultimap_String_DependencyMetadata._as(dependencyGroups));
     },
     _proposeUpdates$body$Deputy(dependencyGroups) {
       var $async$goto = 0,
@@ -30330,7 +30338,7 @@
           continue;
         t8 = t5.$index(0, dependency);
         if (t8 == null) {
-          t8 = new A.DependencyUpdateBuilder();
+          t8 = new A.DependencyMetadataBuilder();
           t5.$indexSet(0, dependency, t8);
         }
         t8.get$_dependency_update$_$this()._dependencyName = dependency;
@@ -30374,7 +30382,7 @@
       var t1, t2, t3, t4, t5, t6, t7, dependency, update, t8, t9, t10, t11, _null = null,
         _s9_ = "_builtMap",
         _s5_ = "_list";
-      type$.ListMultimapBuilder_String_DependencyUpdate._as(updateGroups);
+      type$.ListMultimapBuilder_String_DependencyMetadata._as(updateGroups);
       t1 = this.updates;
       this.$this.dependencyGroups.forEach$1(0, new A.Deputy__listDependencyGroups__closure(t1, updateGroups));
       for (t1 = t1.get$entries(t1), t1 = t1.get$iterator(t1), t2 = updateGroups.$ti, t3 = t2._eval$1("ListBuilder<2>"), t4 = t2._precomputed1, t5 = t2._eval$1("BuiltList<2>"), t6 = t2._eval$1("Map<1,BuiltList<2>>"); t1.moveNext$0();) {
@@ -30493,7 +30501,7 @@
     call$1(repo) {
       return type$.Repo._as(repo).get$rootPubspecEditor().update$2(["dependencies", this.update.dependencyName], this.updatedGlobalConstraint.toString$0(0));
     },
-    $signature: 51
+    $signature: 50
   };
   A.Deputy__proposeUpdates_closure0.prototype = {
     call$1(repo) {
@@ -30501,7 +30509,7 @@
         t1 = type$.Repo._as(repo).aftConfig.allPackages._map$_map.$index(0, _this.$package.name);
       return t1 == null ? null : t1.pubspecInfo.get$pubspecYamlEditor().update$2([_this.dependencyType.key, _this.update.dependencyName], _this.updatedConstraint.toString$0(0));
     },
-    $signature: 51
+    $signature: 50
   };
   A.Deputy__proposeUpdates_closure1.prototype = {
     call$2(group, update) {
@@ -30524,7 +30532,7 @@
       A._asString(k);
       return A._asString(v).length === 0;
     },
-    $signature: 66
+    $signature: 51
   };
   A.RunGit__throwIfProcessFailed_closure0.prototype = {
     call$1(e) {
@@ -30554,13 +30562,13 @@
     call$1(version) {
       return type$.Version._as(version).preRelease.length === 0;
     },
-    $signature: 53
+    $signature: 65
   };
   A.PubVersionInfo_latestPrerelease_closure.prototype = {
     call$1(version) {
       return type$.Version._as(version).preRelease.length !== 0;
     },
-    $signature: 53
+    $signature: 65
   };
   A.DependencyType.prototype = {
     _enumToString$0() {
@@ -30620,7 +30628,7 @@
     call$1(packageName) {
       return this.$this.aftConfig.allPackages._map$_map.$index(0, A._asString(packageName));
     },
-    $signature: 24
+    $signature: 26
   };
   A.dfs_search.prototype = {
     call$2(node, edges) {
@@ -30730,7 +30738,7 @@
     call$0() {
       return this._0_0._1;
     },
-    $signature: 36
+    $signature: 38
   };
   A.VersionResolver_updateFor_closure0.prototype = {
     call$0() {
@@ -31655,7 +31663,7 @@
       type$.StackTrace._as(stackTrace);
       this.$this.super$DelegatingStreamSubscription$cancel(0).whenComplete$1(new A._CancelOnErrorSubscriptionWrapper_onError__closure(this.handleError, error, stackTrace));
     },
-    $signature: 58
+    $signature: 57
   };
   A._CancelOnErrorSubscriptionWrapper_onError__closure.prototype = {
     call$0() {
@@ -31928,7 +31936,7 @@
       t1.requestBytesRead = requestBytesRead;
       this.requestProgressController.add$1(0, requestBytesRead);
     },
-    $signature: 38
+    $signature: 39
   };
   A.AWSHttpClientImpl__send_closure2.prototype = {
     call$0() {
@@ -32404,7 +32412,7 @@
     call$1(element) {
       return A.getRuntimeTypeOfDartObject(type$.AWSLoggerPlugin._as(element)) === A.createRuntimeType(this.Plugin);
     },
-    $signature: 57
+    $signature: 56
   };
   A.AWSLogger_registerPlugin_hasPlugin.prototype = {
     call$1(logger) {
@@ -32419,7 +32427,7 @@
     call$1(element) {
       return A.getRuntimeTypeOfDartObject(type$.AWSLoggerPlugin._as(element)) === A.createRuntimeType(this.T);
     },
-    $signature: 57
+    $signature: 56
   };
   A.AWSLogger_registerPlugin_closure.prototype = {
     call$1(record) {
@@ -32963,6 +32971,14 @@
       var t1 = this.__ListBuilder__list_A;
       t1 === $ && A.throwLateFieldNI("_list");
       return t1.length;
+    },
+    add$1(_, value) {
+      var t1 = this.$ti._precomputed1;
+      t1._as(value);
+      if (!$.$get$isSoundMode() && !t1._is(null))
+        if (value == null)
+          A.throwExpression(A.ArgumentError$("null element", null));
+      B.JSArray_methods.add$1(this.get$_safeList(), value);
     },
     addAll$1(_, iterable) {
       var safeList, lengthBefore, i, t2, exception,
@@ -34457,13 +34473,6 @@
       t3 = types.parameters;
       t1.$indexSet(0, !types.nullable ? new A.FullType(t2, t3, true) : new A.FullType(t2, t3, false), $function);
     },
-    addPlugin$1(plugin) {
-      var t1 = this._plugins,
-        t2 = t1.$ti._precomputed1;
-      t2._as(plugin);
-      !$.$get$isSoundMode() && !t2._is(null);
-      B.JSArray_methods.add$1(t1.get$_safeList(), plugin);
-    },
     build$0() {
       var _this = this;
       return new A.BuiltJsonSerializers(_this._typeToSerializer.build$0(), _this._wireNameToSerializer.build$0(), _this._typeNameToSerializer.build$0(), _this._builderFactories.build$0(), _this._plugins.build$0());
@@ -34596,7 +34605,7 @@
     call$1(value) {
       return this.serializers.deserialize$2$specifiedType(value, this.valueType);
     },
-    $signature: 60
+    $signature: 59
   };
   A.BuiltListSerializer.prototype = {
     serialize$3$specifiedType(serializers, builtList, specifiedType) {
@@ -36234,7 +36243,7 @@
   A.OSDLOpenConstants.prototype = {};
   A.Path.prototype = {};
   A.PathObject.prototype = {};
-  A.Process0.prototype = {};
+  A.Process.prototype = {};
   A.CPUUsage.prototype = {};
   A.Release.prototype = {};
   A.StreamModule.prototype = {};
@@ -37986,7 +37995,7 @@
       A._asStringQ(v);
       return v == null ? $.$get$VersionConstraint_any() : A.VersionConstraint_VersionConstraint$parse(v);
     },
-    $signature: 62
+    $signature: 61
   };
   A._$GitDependencyFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -38004,7 +38013,7 @@
       t1 = A._tryParseScpUri(v);
       return t1 == null ? A.Uri_parse(v) : t1;
     },
-    $signature: 79
+    $signature: 78
   };
   A._$GitDependencyFromJson__closure0.prototype = {
     call$1(v) {
@@ -38034,7 +38043,7 @@
       A._asStringQ(v);
       return v == null ? $.$get$VersionConstraint_any() : A.VersionConstraint_VersionConstraint$parse(v);
     },
-    $signature: 62
+    $signature: 61
   };
   A._$HostedDependencyFromJson__closure0.prototype = {
     call$1(v) {
@@ -38209,7 +38218,7 @@
       }
       return t1;
     },
-    $signature: 64
+    $signature: 63
   };
   A._$PubspecFromJson___closure2.prototype = {
     call$1(e) {
@@ -38273,7 +38282,7 @@
       }
       return t1;
     },
-    $signature: 64
+    $signature: 63
   };
   A._$PubspecFromJson___closure0.prototype = {
     call$1(e) {
@@ -39311,7 +39320,7 @@
       var t1 = type$._Highlight._as(highlight).span;
       return t1.get$start(t1).get$line() !== t1.get$end(t1).get$line();
     },
-    $signature: 41
+    $signature: 42
   };
   A.Highlighter$__closure0.prototype = {
     call$1(line) {
@@ -39385,14 +39394,14 @@
       var t1 = type$._Highlight._as(highlight).span;
       return t1.get$end(t1).get$line() < this.line.number;
     },
-    $signature: 41
+    $signature: 42
   };
   A.Highlighter_highlight_closure.prototype = {
     call$1(highlight) {
       type$._Highlight._as(highlight);
       return true;
     },
-    $signature: 41
+    $signature: 42
   };
   A.Highlighter__writeFileStart_closure.prototype = {
     call$0() {
@@ -39491,7 +39500,7 @@
       t2 = t2._contents += B.JSString_methods.$mul("^", Math.max(endColumn + (tabsBefore + tabsInside) * 3 - startColumn, 1));
       return t2.length - t3.length;
     },
-    $signature: 36
+    $signature: 38
   };
   A.Highlighter__writeIndicator_closure0.prototype = {
     call$0() {
@@ -39514,7 +39523,7 @@
       }
       return t2._contents.length - t3.length;
     },
-    $signature: 36
+    $signature: 38
   };
   A.Highlighter__writeSidebar_closure.prototype = {
     call$0() {
@@ -39799,7 +39808,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 67
+    $signature: 66
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -39814,7 +39823,7 @@
       type$.Frame._as(frame);
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 68
+    $signature: 67
   };
   A.Frame.prototype = {
     get$library() {
@@ -40396,7 +40405,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 67
+    $signature: 66
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -40405,7 +40414,7 @@
         return frame.toString$0(0) + "\n";
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 68
+    $signature: 67
   };
   A.UnparsedFrame.prototype = {
     toString$0(_) {
@@ -40476,7 +40485,7 @@
         return toCancel.cancel$0(0);
       return null;
     },
-    $signature: 73
+    $signature: 72
   };
   A.TakeUntil_takeUntil_closure.prototype = {
     call$1(_) {
@@ -40531,7 +40540,7 @@
       t1.subscription = null;
       return t2.cancel$0(0);
     },
-    $signature: 73
+    $signature: 72
   };
   A.Tap_tap_closure.prototype = {
     call$2(value, sink) {
@@ -43632,7 +43641,7 @@
       nodes.$indexSet(0, this.keyOrIndex, t1);
       return t1;
     },
-    $signature: 74
+    $signature: 73
   };
   A.YamlEditor__deepModify_closure.prototype = {
     call$1(nodes) {
@@ -43643,7 +43652,7 @@
       nodes.$indexSet(0, t1, t2);
       return t2;
     },
-    $signature: 74
+    $signature: 73
   };
   A.mapDeepEquals_closure.prototype = {
     call$1(key) {
@@ -43726,7 +43735,7 @@
       type$.MapEntry_dynamic_YamlNode._as(entry);
       return A.yamlEncodeFlowString(type$.YamlNode._as(entry.key)) + ": " + A.yamlEncodeFlowString(entry.value);
     },
-    $signature: 75
+    $signature: 74
   };
   A.yamlEncodeBlockString_closure.prototype = {
     call$1(child) {
@@ -43743,7 +43752,7 @@
         valueString = B.JSString_methods.substring$1(valueString, t1);
       return B.JSString_methods.$mul(" ", this.indentation) + "- " + valueString;
     },
-    $signature: 76
+    $signature: 75
   };
   A.yamlEncodeBlockString_closure0.prototype = {
     call$1(entry) {
@@ -43757,7 +43766,7 @@
         return formattedKey + ":\n" + formattedValue;
       return formattedKey + ": " + formattedValue;
     },
-    $signature: 75
+    $signature: 74
   };
   A.getMapInsertionIndex_closure.prototype = {
     call$1(k) {
@@ -43921,7 +43930,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
-        $async$returnValue, $async$self = this, t3, branchName, t4, t5, t6, t7, worktreeDir, worktreeRepo, _this, groupToken, commitTitle, constraintUpdates, t8, prResult, existingPr, t1, t2;
+        $async$returnValue, $async$self = this, t3, branchName, t4, t5, t6, t7, worktreeDir, worktreeRepo, _this, groupToken, commitTitle, _1_0, existingPr, constraintUpdates, prResult, t1, t2;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -43981,7 +43990,8 @@
               t3._as(t2.core).info("Committing changes...");
               groupToken = t1.group.dependencies._set._collection$_length === 1 ? "" : "group ";
               commitTitle = "chore(deps): Bump " + groupToken + t1.groupName;
-              commitTitle = '"' + (t5 ? commitTitle + (" to " + t4.toString$0(0)) : commitTitle) + '"';
+              if (t5)
+                commitTitle += " to " + t4.toString$0(0);
               $async$goto = 8;
               return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["add", "-A"], t6)), $async$call$0);
             case 8:
@@ -43994,44 +44004,36 @@
               return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["push", "-f", "-u", "origin", branchName], t6)), $async$call$0);
             case 10:
               // returning from await.
+              _1_0 = $async$self.existingPrs.$index(0, t1.groupName);
+              if (_1_0 != null) {
+                existingPr = _1_0;
+                t4 = true;
+              } else {
+                existingPr = null;
+                t4 = false;
+              }
+              if (t4) {
+                t3._as(t2.core).info("Skipping PR creation. PR already exists at: https://github.com/aws-amplify/amplify-flutter/pull/" + A.S(existingPr));
+                // goto return
+                $async$goto = 1;
+                break;
+              }
               t3._as(t2.core).info("Creating PR...");
               t4 = t1.group.updatedConstraints._map$_map;
               constraintUpdates = t4.get$entries(t4).map$1$1(0, new A._createPrs__closure(), type$.String).join$1(0, "\n");
-              t4 = t1.groupName;
-              t8 = A.join($async$self.tmpDir.path, "pr_body_" + t4 + ".txt", null);
-              new A.File(t8).createSync$0();
-              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t8), "> **NOTE:** This PR was automatically created using the repo deputy.\n\nUpdated " + groupToken + t4 + ":\n" + constraintUpdates + "\n\nUpdated-Group: " + t4 + "\n");
+              t1 = t1.groupName;
+              t4 = A.join($async$self.tmpDir.path, "pr_body_" + t1 + ".txt", null);
+              new A.File(t4).createSync$0();
+              J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t4), "> **NOTE:** This PR was automatically created using the repo deputy.\n\n" + constraintUpdates + "\n\nUpdated-Group: " + t1 + "\n");
               $async$goto = 11;
-              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t8, "--title=" + commitTitle], t6), true, worktreeDir), $async$call$0);
+              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t4, "--title=" + commitTitle, "--draft"], t6), true, worktreeDir), $async$call$0);
             case 11:
               // returning from await.
               prResult = $async$result;
-              t4 = prResult.exitCode;
-              if (t4 !== 0) {
-                t3._as(t2.core).error("Failed to create PR (" + t4 + "): " + prResult.stderr);
-                t3._as(t2.process).exitCode = 1;
-                // goto return
-                $async$goto = 1;
-                break;
-              }
-              existingPr = $async$self.existingPrs.$index(0, t1.groupName);
-              if (existingPr == null) {
-                // goto return
-                $async$goto = 1;
-                break;
-              }
-              t3._as(t2.core).info("Closing existing PR...");
-              t1 = A.S(existingPr);
-              $async$goto = 12;
-              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "pr", "close", t1, '--comment="Closing in favor of new PR."'], t6), true, worktreeDir), $async$call$0);
-            case 12:
-              // returning from await.
-              if ($async$result.exitCode !== 0) {
-                t3._as(t2.core).error("Failed to close existing PR. Will need to be closed manually: https://github.com/aws-amplify/amplify-flutter/pull/" + t1);
-                t3._as(t2.process).exitCode = 1;
-                // goto return
-                $async$goto = 1;
-                break;
+              t1 = prResult.exitCode;
+              if (t1 !== 0) {
+                t3._as(t2.core).error("Failed to create PR (" + t1 + "): " + prResult.stderr);
+                A.Process_exit(t3._as(t2.process), t1);
               }
             case 1:
               // return
@@ -44102,9 +44104,9 @@
       _instance_2_u = hunkHelpers._instance_2u,
       _instance_0_i = hunkHelpers._instance_0i,
       _instance_2_i = hunkHelpers._instance_2i;
-    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 77);
-    _instance_1_i(J.JSArray.prototype, "get$contains", "contains$1", 26);
-    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 38);
+    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 76);
+    _instance_1_i(J.JSArray.prototype, "get$contains", "contains$1", 24);
+    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 39);
     _instance_1_u(A.JSSyntaxRegExp.prototype, "get$hasMatch", "hasMatch$1", 1);
     _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 30);
     _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 30);
@@ -44139,14 +44141,14 @@
     }], 239, 1);
     _static(A, "async___rootRegisterCallback$closure", 4, null, ["call$1$4", "call$4"], ["_rootRegisterCallback", function($self, $parent, zone, f) {
       return A._rootRegisterCallback($self, $parent, zone, f, type$.dynamic);
-    }], 70, 0);
+    }], 69, 0);
     _static(A, "async___rootRegisterUnaryCallback$closure", 4, null, ["call$2$4", "call$4"], ["_rootRegisterUnaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterUnaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic);
-    }], 71, 0);
+    }], 70, 0);
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic, type$.dynamic);
-    }], 63, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 72, 0);
+    }], 62, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 71, 0);
     _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 240, 0);
     _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 241, 0);
     _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 242, 0);
@@ -44168,7 +44170,7 @@
     }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 23, 0, 0);
     _instance(A._SyncCompleter.prototype, "get$complete", 0, 0, function() {
       return [null];
-    }, ["call$1", "call$0"], ["complete$1", "complete$0"], 54, 0, 0);
+    }, ["call$1", "call$0"], ["complete$1", "complete$0"], 36, 0, 0);
     _instance_2_u(A._Future.prototype, "get$_completeError", "_completeError$2", 7);
     _instance_1_i(_ = A._StreamController.prototype, "get$add", "add$1", 9);
     _instance(_, "get$addError", 0, 1, function() {
@@ -44189,7 +44191,7 @@
     _instance_0_u(_ = A._ForwardingStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
     _instance_1_u(_, "get$_handleData", "_handleData$1", 9);
-    _instance_2_u(_, "get$_handleError", "_handleError$2", 153);
+    _instance_2_u(_, "get$_handleError", "_handleError$2", 155);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _instance_0_u(_ = A._SinkTransformerStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
@@ -44198,10 +44200,10 @@
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _static_2(A, "collection___defaultEquals$closure", "_defaultEquals", 22);
     _static_1(A, "collection___defaultHashCode$closure", "_defaultHashCode", 13);
-    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 77);
+    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 76);
     _static_1(A, "convert___defaultToEncodable$closure", "_defaultToEncodable", 6);
     _instance_0_i(A._JsonDecoderSink.prototype, "get$close", "close$0", 0);
-    _instance(A._JsonUtf8EncoderSink.prototype, "get$_addChunk", 0, 3, null, ["call$3"], ["_addChunk$3"], 110, 0, 0);
+    _instance(A._JsonUtf8EncoderSink.prototype, "get$_addChunk", 0, 3, null, ["call$3"], ["_addChunk$3"], 122, 0, 0);
     _static_1(A, "core__identityHashCode$closure", "identityHashCode", 13);
     _static_2(A, "core__identical$closure", "identical", 22);
     _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 10);
@@ -44212,7 +44214,7 @@
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
     }], 247, 1);
-    _instance_1_u(A.NodeLoggerPlugin.prototype, "get$handleLogEntry", "handleLogEntry$1", 56);
+    _instance_1_u(A.NodeLoggerPlugin.prototype, "get$handleLogEntry", "handleLogEntry$1", 55);
     _instance_0_i(A.NodeProcessManager.prototype, "get$close", "close$0", 11);
     _static_1(A, "config_AftComponent___fromJson_tearOff$closure", "AftComponent___fromJson_tearOff", 248);
     _static_1(A, "config_PackageInfo___fromJson_tearOff$closure", "PackageInfo___fromJson_tearOff", 249);
@@ -44231,7 +44233,7 @@
     _instance_0_u(A.RawAftComponent.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.AftScript.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.Deputy.prototype, "get$scanForUpdates", "scanForUpdates$0", 114);
-    _instance_1_u(A.Repo.prototype, "get$maybePackage", "maybePackage$1", 24);
+    _instance_1_u(A.Repo.prototype, "get$maybePackage", "maybePackage$1", 26);
     _instance_0_i(A.CancelableOperation.prototype, "get$cancel", "cancel$0", 130);
     _instance(_ = A.CancelableCompleter.prototype, "get$completeError", 0, 1, function() {
       return [null];
@@ -44243,40 +44245,40 @@
     _instance_1_u(_, "get$_stream_splitter$_onData", "_stream_splitter$_onData$1", 9);
     _instance_2_u(_, "get$_stream_splitter$_onError", "_stream_splitter$_onError$2", 7);
     _instance_0_u(_, "get$_stream_splitter$_onDone", "_stream_splitter$_onDone$0", 0);
-    _instance_1_u(A.SimpleLogPrinter.prototype, "get$handleLogEntry", "handleLogEntry$1", 56);
+    _instance_1_u(A.SimpleLogPrinter.prototype, "get$handleLogEntry", "handleLogEntry$1", 55);
     _instance_2_i(_ = A.DefaultEquality.prototype, "get$equals", "equals$2", 22);
     _instance_1_u(_, "get$hash", "hash$1", 13);
-    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 26);
+    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 24);
     _instance_2_i(_ = A.DeepCollectionEquality.prototype, "get$equals", "equals$2", 22);
     _instance_1_u(_, "get$hash", "hash$1", 13);
-    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 26);
+    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 24);
     _static(A, "util__dartify$closure", 1, null, ["call$1$1", "call$1"], ["dartify", function(jsObject) {
       return A.dartify(jsObject, type$.dynamic);
     }], 251, 1);
     _instance_0_i(A.File.prototype, "get$length", "length$0", 162);
     _static_1(A, "streams_NodeIOSink__nodeIoSinkConvert$closure", "NodeIOSink__nodeIoSinkConvert", 252);
     _instance_1_u(A.WritableStream.prototype, "get$_errorHandler", "_errorHandler$1", 165);
-    _instance(A.NodeIOSink.prototype, "get$writeln", 0, 0, null, ["call$1", "call$0"], ["writeln$1", "writeln$0"], 54, 0, 0);
+    _instance(A.NodeIOSink.prototype, "get$writeln", 0, 0, null, ["call$1", "call$0"], ["writeln$1", "writeln$0"], 36, 0, 0);
     _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 20);
     _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 27);
     _static_1(A, "frame_Frame___parseV8_tearOff$closure", "Frame___parseV8_tearOff", 27);
     _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 27);
     _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 27);
     _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 20);
-    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 70, 0, 0);
-    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 71, 0, 0);
-    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 63, 0, 0);
+    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 69, 0, 0);
+    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 70, 0, 0);
+    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 62, 0, 0);
     _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 215, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 72, 0, 0);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 65);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 65);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 71, 0, 0);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 64);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 64);
     _static_2(A, "equality__deepEquals$closure", "deepEquals0", 22);
     _static_1(A, "equality__deepHashCode$closure", "deepHashCode", 13);
     _static_2(A, "equality0__deepEquals$closure", "deepEquals", 255);
     _static_1(A, "equality0__deepHashCode$closure", "deepHashCode0", 13);
-    _static_1(A, "strings__yamlEncodeFlowString$closure", "yamlEncodeFlowString", 76);
+    _static_1(A, "strings__yamlEncodeFlowString$closure", "yamlEncodeFlowString", 75);
     _static_0(A, "deputy_scan___deputyScan$closure", "_deputyScan", 11);
-    _static_2(A, "comparators__equalsIgnoreAsciiCase$closure", "equalsIgnoreAsciiCase", 66);
+    _static_2(A, "comparators__equalsIgnoreAsciiCase$closure", "equalsIgnoreAsciiCase", 51);
     _static_1(A, "comparators__hashIgnoreAsciiCase$closure", "hashIgnoreAsciiCase", 256);
     _static(A, "uuid_util_UuidUtil_mathRNG$closure", 0, function() {
       return {seed: -1};
@@ -44289,24 +44291,24 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A._BytesBuilder, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.NonNullsIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A.Symbol, A._Record, A.MapView, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.SetBase, A.JSInvocationMirror, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A._Required, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A._InitializedCell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A.Stream, A._BufferingStreamSubscription, A._BroadcastStreamController, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._AsyncStreamControllerDispatch, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._DoneStreamSubscription, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._ZoneSpecification, A._ZoneDelegate, A._Zone, A._HashMapKeyIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._MapBaseValueIterator, A._UnmodifiableMapMixin, A._ListQueueIterator, A.StringConversionSink, A.Codec, A.Converter, A.ByteConversionSink, A._Base64Encoder, A._Base64Decoder, A.ChunkedConversionSink, A._ConverterStreamEventSink, A._JsonStringifier, A._JsonPrettyPrintMixin, A._LineSplitIterator, A._ClosableStringSink, A._StringConversionSinkAsStringSinkAdapter, A._Utf8Encoder, A._Utf8Decoder, A._BigIntImpl, A._WeakReferenceWrapper, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.IntegerDivisionByZeroException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A.FileSystemEntityType, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessResult, A.ProcessException, A.NullRejectionException, A._JSRandom, A._Random, A.ActionContext, A.PostUpdateTask, A.NodeLoggerPlugin, A.Platform, A.NodeProcessManager, A.NodeProcess, A._CommitMessage_Object_AWSEquatable, A._AftConfig_Object_AWSSerializable, A._AftComponent_Object_AWSSerializable, A._PackageInfo_Object_AWSEquatable, A._PubspecInfo_Object_AWSSerializable, A._$AftConfigSerializer, A.AftConfigBuilder, A.AftConfigLoader, A._PackageSelector_Object_AWSSerializable, A.PackageSelectorConverter, A.RawPubspecConfig, A._RawAftConfig_Object_AWSSerializable, A._Environment_Object_AWSSerializable, A.PlatformEnvironment, A._AndroidEnvironment_Object_AWSSerializable, A._IosEnvironment_Object_AWSSerializable, A._MacOSEnvironment_Object_AWSSerializable, A._GitHubPackageConfig_Object_AWSSerializable, A._RawAftComponent_Object_AWSSerializable, A._AftScript_Object_AWSSerializable, A._$EnvironmentSerializer, A._$PlatformEnvironmentSerializer, A._$AndroidEnvironmentSerializer, A._$IosEnvironmentSerializer, A._$MacOSEnvironmentSerializer, A._$GitHubPackageConfigSerializer, A.EnvironmentBuilder, A.PlatformEnvironmentBuilder, A.AndroidEnvironmentBuilder, A.IosEnvironmentBuilder, A.MacOSEnvironmentBuilder, A.GitHubPackageConfigBuilder, A.JsonSerializer, A.VersionConstraintSerializer, A.DependencyGroupUpdate, A._DependencyUpdate_Object_AWSSerializable, A._$DependencyUpdateSerializer, A.DependencyGroupUpdateBuilder, A.DependencyUpdateBuilder, A.Deputy, A.GitDir, A.PubVersionInfo, A.Repo, A.VersionResolver, A.AsyncMemoizer, A.CancelableOperation, A.CancelableCompleter, A.DelegatingStreamSubscription, A.FutureGroup, A.ErrorResult, A.ValueResult, A.StreamQueue, A._NextRequest, A._CancelRequest, A._HasNextRequest, A.StreamSplitter, A.DelegatingMap, A.AWSHttpException, A.CancellationException, A.AWSHttpClient, A._AWSOperation_Object_AWSDebuggable, A.AWSBaseHttpRequest, A.AWSBaseHttpResponse, A.JSEnum, A._AWSLogger_Object_AWSDebuggable, A.AWSLoggerMixin, A._LogEntry_Object_AWSEquatable, A.SimpleLogPrinter, A.AWSProgressOperation, A.AWSDebuggable, A.AWSEquatable, A.AWSSerializable, A.CopyOnWriteList, A.CopyOnWriteMap, A.BuiltList, A.ListBuilder, A.BuiltListMultimap, A.ListMultimapBuilder, A.BuiltMap, A.MapBuilder, A.BuiltSet, A.SetBuilder, A.BuiltSetMultimap, A.SetMultimapBuilder, A.IndentingBuiltValueToStringHelper, A.JsonObject, A.FullType, A.BigIntSerializer, A.BoolSerializer, A.BuiltJsonSerializers, A.BuiltJsonSerializersBuilder, A.BuiltListMultimapSerializer, A.BuiltListSerializer, A.BuiltMapSerializer, A.BuiltSetMultimapSerializer, A.BuiltSetSerializer, A.DateTimeSerializer, A.DoubleSerializer, A.DurationSerializer, A.Int64Serializer, A.IntSerializer, A.JsonObjectSerializer, A.NullSerializer, A.NumSerializer, A.RegExpSerializer, A.StringSerializer, A.Uint8ListSerializer, A.UriSerializer, A.StandardJsonPlugin, A.ParsedYamlException, A._WrappedYamlException, A.DefaultEquality, A.IterableEquality, A.ListEquality, A._UnorderedEquality, A._MapEntry, A.MapEquality, A.DeepCollectionEquality, A._QueueList_Object_ListMixin, A.UnmodifiableMapMixin, A.FileSystem, A.Int64, A.BadKeyException, A.CheckedFromJsonException, A.Level, A.LogRecord, A.Logger, A.FileSystemEntity0, A.FileStat, A.WritableStream, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.LocalProcessManager, A.Version, A._EmptyVersion, A.VersionRange, A.Dependency, A.HostedDetails, A.Pubspec, A.Screenshot, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocationMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.SourceSpanException, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A.StringScanner, A._EagerSpanScannerState, A.Uuid, A._DeepEquals, A.Event, A.DocumentStartEvent, A.DocumentEndEvent, A.AliasEvent, A._ValueEvent, A.Loader, A.Parser, A._State, A.Scanner, A._SimpleKey, A.ScalarStyle, A.CollectionStyle, A.Token, A.VersionDirectiveToken, A.TagDirectiveToken, A.AnchorToken, A.AliasToken, A.TagToken, A.ScalarToken, A.Pair, A.YamlDocument, A.VersionDirective, A.TagDirective, A.YamlNode, A.YamlEditor, A.SourceEdit, A.YamlScalarWrap, A._YamlMapWrap_Object_MapMixin, A._YamlListWrap_Object_ListMixin]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A._BytesBuilder, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.NonNullsIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A.Symbol, A._Record, A.MapView, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.SetBase, A.JSInvocationMirror, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A._Required, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A._InitializedCell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A.Stream, A._BufferingStreamSubscription, A._BroadcastStreamController, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.StreamTransformerBase, A._StreamController, A._SyncStreamControllerDispatch, A._AsyncStreamControllerDispatch, A._StreamSinkWrapper, A._AddStreamState, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._DoneStreamSubscription, A._StreamIterator, A._EventSinkWrapper, A._ZoneFunction, A._ZoneSpecification, A._ZoneDelegate, A._Zone, A._HashMapKeyIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._MapBaseValueIterator, A._UnmodifiableMapMixin, A._ListQueueIterator, A.StringConversionSink, A.Codec, A.Converter, A.ByteConversionSink, A._Base64Encoder, A._Base64Decoder, A.ChunkedConversionSink, A._ConverterStreamEventSink, A._JsonStringifier, A._JsonPrettyPrintMixin, A._LineSplitIterator, A._ClosableStringSink, A._StringConversionSinkAsStringSinkAdapter, A._Utf8Encoder, A._Utf8Decoder, A._BigIntImpl, A._WeakReferenceWrapper, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.IntegerDivisionByZeroException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A.FileSystemEntityType, A._StreamSinkImpl, A.ProcessStartMode, A.ProcessResult, A.ProcessException, A.NullRejectionException, A._JSRandom, A._Random, A.ActionContext, A._AftTask, A._BuildRunnerTask, A.NodeLoggerPlugin, A.Platform, A.NodeProcessManager, A.NodeProcess, A._CommitMessage_Object_AWSEquatable, A._AftConfig_Object_AWSSerializable, A._AftComponent_Object_AWSSerializable, A._PackageInfo_Object_AWSEquatable, A._PubspecInfo_Object_AWSSerializable, A._$AftConfigSerializer, A.AftConfigBuilder, A.AftConfigLoader, A._PackageSelector_Object_AWSSerializable, A.PackageSelectorConverter, A.RawPubspecConfig, A._RawAftConfig_Object_AWSSerializable, A._Environment_Object_AWSSerializable, A.PlatformEnvironment, A._AndroidEnvironment_Object_AWSSerializable, A._IosEnvironment_Object_AWSSerializable, A._MacOSEnvironment_Object_AWSSerializable, A._GitHubPackageConfig_Object_AWSSerializable, A._RawAftComponent_Object_AWSSerializable, A._AftScript_Object_AWSSerializable, A._$EnvironmentSerializer, A._$PlatformEnvironmentSerializer, A._$AndroidEnvironmentSerializer, A._$IosEnvironmentSerializer, A._$MacOSEnvironmentSerializer, A._$GitHubPackageConfigSerializer, A.EnvironmentBuilder, A.PlatformEnvironmentBuilder, A.AndroidEnvironmentBuilder, A.IosEnvironmentBuilder, A.MacOSEnvironmentBuilder, A.GitHubPackageConfigBuilder, A.JsonSerializer, A.VersionConstraintSerializer, A.DependencyGroupUpdate, A.DependencyMetadata, A.DependencyGroupUpdateBuilder, A.DependencyMetadataBuilder, A.Deputy, A.GitDir, A.PubVersionInfo, A.Repo, A.VersionResolver, A.AsyncMemoizer, A.CancelableOperation, A.CancelableCompleter, A.DelegatingStreamSubscription, A.FutureGroup, A.ErrorResult, A.ValueResult, A.StreamQueue, A._NextRequest, A._CancelRequest, A._HasNextRequest, A.StreamSplitter, A.DelegatingMap, A.AWSHttpException, A.CancellationException, A.AWSHttpClient, A._AWSOperation_Object_AWSDebuggable, A.AWSBaseHttpRequest, A.AWSBaseHttpResponse, A.JSEnum, A._AWSLogger_Object_AWSDebuggable, A.AWSLoggerMixin, A._LogEntry_Object_AWSEquatable, A.SimpleLogPrinter, A.AWSProgressOperation, A.AWSDebuggable, A.AWSEquatable, A.AWSSerializable, A.CopyOnWriteList, A.CopyOnWriteMap, A.BuiltList, A.ListBuilder, A.BuiltListMultimap, A.ListMultimapBuilder, A.BuiltMap, A.MapBuilder, A.BuiltSet, A.SetBuilder, A.BuiltSetMultimap, A.SetMultimapBuilder, A.IndentingBuiltValueToStringHelper, A.JsonObject, A.FullType, A.BigIntSerializer, A.BoolSerializer, A.BuiltJsonSerializers, A.BuiltJsonSerializersBuilder, A.BuiltListMultimapSerializer, A.BuiltListSerializer, A.BuiltMapSerializer, A.BuiltSetMultimapSerializer, A.BuiltSetSerializer, A.DateTimeSerializer, A.DoubleSerializer, A.DurationSerializer, A.Int64Serializer, A.IntSerializer, A.JsonObjectSerializer, A.NullSerializer, A.NumSerializer, A.RegExpSerializer, A.StringSerializer, A.Uint8ListSerializer, A.UriSerializer, A.StandardJsonPlugin, A.ParsedYamlException, A._WrappedYamlException, A.DefaultEquality, A.IterableEquality, A.ListEquality, A._UnorderedEquality, A._MapEntry, A.MapEquality, A.DeepCollectionEquality, A._QueueList_Object_ListMixin, A.UnmodifiableMapMixin, A.FileSystem, A.Int64, A.BadKeyException, A.CheckedFromJsonException, A.Level, A.LogRecord, A.Logger, A.FileSystemEntity0, A.FileStat, A.WritableStream, A.Context, A._PathDirection, A._PathRelation, A.Style, A.ParsedPath, A.PathException, A.LocalProcessManager, A.Version, A._EmptyVersion, A.VersionRange, A.Dependency, A.HostedDetails, A.Pubspec, A.Screenshot, A.Mapping, A.TargetLineEntry, A.TargetEntry, A._MappingTokenizer, A._TokenKind, A.SourceSpanMixin, A.SourceFile, A.SourceLocationMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.SourceSpanException, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.StackZoneSpecification, A._Node, A.Trace, A.UnparsedFrame, A.StringScanner, A._EagerSpanScannerState, A.Uuid, A._DeepEquals, A.Event, A.DocumentStartEvent, A.DocumentEndEvent, A.AliasEvent, A._ValueEvent, A.Loader, A.Parser, A._State, A.Scanner, A._SimpleKey, A.ScalarStyle, A.CollectionStyle, A.Token, A.VersionDirectiveToken, A.TagDirectiveToken, A.AnchorToken, A.AliasToken, A.TagToken, A.ScalarToken, A.Pair, A.YamlDocument, A.VersionDirective, A.TagDirective, A.YamlNode, A.YamlEditor, A.SourceEdit, A.YamlScalarWrap, A._YamlMapWrap_Object_MapMixin, A._YamlListWrap_Object_ListMixin]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JavaScriptBigInt, J.JavaScriptSymbol, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData]);
-    _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction, A.BufferModule, A.BufferConstants, A.Buffer, A.ConsoleModule, A.Console, A.DNS, A.DNSLookupOptions, A.DNSAddress, A.Resolver, A.EventEmitter, A.FS, A.FSConstants, A.FSWatcher, A.ReadStream, A.ReadStreamOptions, A.WriteStream, A.WriteStreamOptions, A.FileOptions, A.StatOptions, A.MkdirOptions, A.RmdirOptions, A.WatchOptions, A.WatchFileOptions, A.Stats, A.HTTP, A.HttpAgent, A.HttpAgentOptions, A.RequestOptions, A.ClientRequest, A.HttpServer, A.ServerResponse, A.IncomingMessage, A.Promise0, A.Date, A.JsError, A.Atomics, A.Modules, A.Module, A.Net, A.Socket, A.NetAddress, A.NetServer, A.NodeJsError, A.OS, A.CPU, A.CPUTimes, A.OSConstants, A.OSSignalConstants, A.OSErrorConstants, A.OSDLOpenConstants, A.Path, A.PathObject, A.Process0, A.CPUUsage, A.Release, A.StreamModule, A.Readable, A.Writable, A.Duplex, A.Transform, A.WritableOptions, A.ReadableOptions, A.Immediate, A.Timeout, A.TTY, A.Util]);
+    _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction, A.BufferModule, A.BufferConstants, A.Buffer, A.ConsoleModule, A.Console, A.DNS, A.DNSLookupOptions, A.DNSAddress, A.Resolver, A.EventEmitter, A.FS, A.FSConstants, A.FSWatcher, A.ReadStream, A.ReadStreamOptions, A.WriteStream, A.WriteStreamOptions, A.FileOptions, A.StatOptions, A.MkdirOptions, A.RmdirOptions, A.WatchOptions, A.WatchFileOptions, A.Stats, A.HTTP, A.HttpAgent, A.HttpAgentOptions, A.RequestOptions, A.ClientRequest, A.HttpServer, A.ServerResponse, A.IncomingMessage, A.Promise0, A.Date, A.JsError, A.Atomics, A.Modules, A.Module, A.Net, A.Socket, A.NetAddress, A.NetServer, A.NodeJsError, A.OS, A.CPU, A.CPUTimes, A.OSConstants, A.OSSignalConstants, A.OSErrorConstants, A.OSDLOpenConstants, A.Path, A.PathObject, A.Process, A.CPUUsage, A.Release, A.StreamModule, A.Readable, A.Writable, A.Duplex, A.Transform, A.WritableOptions, A.ReadableOptions, A.Immediate, A.Timeout, A.TTY, A.Util]);
     _inherit(J.JSUnmodifiableArray, J.JSArray);
     _inheritMany(J.JSNumber, [J.JSInt, J.JSNumNotInt]);
     _inheritMany(A.Iterable, [A._CastIterableBase, A.EfficientLengthIterable, A.MappedIterable, A.WhereIterable, A.ExpandIterable, A.TakeIterable, A.SkipIterable, A.SkipWhileIterable, A.WhereTypeIterable, A.NonNullsIterable, A._KeysOrValues, A._AllMatchesIterable, A._StringAllMatchesIterable, A._SyncStarIterable, A._LineSplitIterable]);
     _inheritMany(A._CastIterableBase, [A.CastIterable, A.__CastListBase__CastIterableBase_ListMixin, A.CastQueue]);
     _inherit(A._EfficientLengthCastIterable, A.CastIterable);
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
-    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._SyncBroadcastStreamController__sendData_closure, A._SyncBroadcastStreamController__sendError_closure, A._SyncBroadcastStreamController__sendDone_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_fold_closure0, A.Stream_fold__closure0, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A._CustomHashMap_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.Encoding_decodeStream_closure0, A.LineSplitter_bind_closure, A._BigIntImpl_hashCode_finish, A.DateTime_parse_parseIntOrZero, A.DateTime_parse_parseMilliAndMicroseconds, A._Uri__makePath_closure, A._Uri__splitQueryStringAll_parsePair, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.DependencyUpdateGroup_of_closure, A.DependencyUpdateGroup_postUpdateTasks_closure, A.DependencyUpdateGroup_postUpdateTasks_closure0, A.GroupPostUpdateTasks_runPostUpdateTasks_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.CommitMessage_CommitMessage$parse_closure, A.CommitMessage_trailers_closure, A._$AftComponentFromJson_closure, A._$AftComponentFromJson__closure, A._$AftComponentFromJson__closure0, A._$AftComponentFromJson__closure1, A._$AftComponentFromJson___closure0, A._$AftComponentFromJson__closure2, A._$AftComponentFromJson____closure, A._$AftComponentFromJson__closure3, A._$AftComponentToJson_closure, A._$AftComponentToJson__closure, A._$PackageInfoFromJson_closure, A._$PackageInfoFromJson__closure, A._$PackageInfoFromJson__closure0, A._$PackageInfoFromJson__closure1, A._$PackageInfoFromJson__closure2, A._$PackageInfoFromJson__closure3, A._$PackageInfoFromJson__closure4, A._$PubspecInfoFromJson_closure, A._$PubspecInfoFromJson__closure, A._$PubspecInfoFromJson__closure0, A._$PubspecInfoFromJson__closure1, A._$PubspecInfoFromJson__closure2, A.AftConfigLoader__processPubspecs_mergePubspec, A.AftConfigLoader__processPubspecs_mergePubspec_closure, A.AftConfigLoader__processPubspecs_mergePubspec_closure0, A.AftConfigLoader__processPubspecs__closure, A.AftConfigLoader__processPubspecs__closure0, A.AftConfigLoader__processPubspecs___closure, A._OrPackageSelector_toJson_closure, A._AndPackageSelector_toJson_closure, A._$RawPubspecConfigFromJson_closure, A._$RawPubspecConfigFromJson__closure, A._$RawPubspecConfigFromJson__closure0, A._$RawPubspecConfigFromJson__closure1, A._$RawAftConfigFromJson_closure, A._$RawAftConfigFromJson__closure, A._$RawAftConfigFromJson__closure0, A._$RawAftConfigFromJson___closure1, A._$RawAftConfigFromJson__closure1, A._$RawAftConfigFromJson___closure0, A._$RawAftConfigFromJson__closure2, A._$RawAftConfigFromJson__closure3, A._$RawAftConfigToJson_closure, A._$RawAftComponentFromJson_closure, A._$RawAftComponentFromJson__closure, A._$RawAftComponentFromJson__closure0, A._$RawAftComponentFromJson__closure1, A._$RawAftComponentFromJson___closure, A._$RawAftComponentFromJson__closure2, A._$AftScriptFromJson_closure, A._$AftScriptFromJson__closure, A._$AftScriptFromJson__closure0, A._$AftScriptFromJson__closure1, A._$AftScriptFromJson__closure2, A.Deputy__listDependencyGroups_closure, A.Deputy__listDependencyGroups_closure0, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure0, A.Deputy_commitUpdates_worktreePath, A.RunGit__throwIfProcessFailed_closure0, A.PubVersionInfo_latestVersion_closure, A.PubVersionInfo_latestPrerelease_closure, A.Repo_getPackageGraph_closure, A.PubVersionResolver_latestVersion_closure, A.CancelableOperation_valueOrCancellation_closure, A.CancelableOperation_then_closure0, A.CancelableOperation_thenOperation_closure0, A.CancelableCompleter_complete_closure, A.FutureGroup_add_closure, A.StreamQueue__ensureListening_closure, A.StreamSplitter__onPause_closure, A.AWSHttpClient_onBadCertificate_closure, A.AWSHttpClientImpl__send_closure, A.AWSHttpClientImpl__send_closure1, A.AWSBaseHttpRequest_send_closure, A.PropsResponse_get_headers_closure, A.UnderlyingSource__staticInteropFactoryStub_closure, A.StreamToReadableStream_asReadableStream_closure, A.AWSLogger_getPlugin_closure, A.AWSLogger_registerPlugin_hasPlugin, A.AWSLogger_registerPlugin_hasPlugin_closure, A.AWSLogger_registerPlugin_closure, A.StringRecase_get_paramCase_closure, A.StringRecase_get_snakeCase_closure, A.StringRecase_groupIntoWords_closure, A.StringRecase_groupIntoWords_closure0, A.StringRecase_groupIntoWords__closure, A.StringRecase_groupIntoWords_closure2, A.StringRecase_groupIntoWords_closure3, A.StreamForward_forward_closure, A.BuiltListMultimap_BuiltListMultimap_closure, A.BuiltListMultimap_hashCode_closure, A.ListMultimapBuilder_replace_closure, A.BuiltMap_BuiltMap_closure, A.BuiltMap_hashCode_closure, A.BuiltSet_hashCode_closure, A.BuiltSetMultimap_BuiltSetMultimap_closure, A.BuiltSetMultimap_hashCode_closure, A.BuiltSetMultimap_forEach__closure, A.SetMultimapBuilder_replace_closure, A.newBuiltValueToStringHelper_closure, A.BuiltListMultimapSerializer_serialize_closure, A.BuiltListMultimapSerializer_deserialize_closure, A.BuiltListSerializer_serialize_closure, A.BuiltListSerializer_deserialize_closure, A.BuiltSetMultimapSerializer_serialize_closure, A.BuiltSetMultimapSerializer_deserialize_closure, A.BuiltSetSerializer_serialize_closure, A.BuiltSetSerializer_deserialize_closure, A.StandardJsonPlugin__toList_closure, A.StandardJsonPlugin__toListUsingDiscriminator_closure, A.toParsedYamlException_closure, A.$checkKeys_closure, A.$checkKeys_closure0, A.$checkKeys_closure1, A.$checkedCreate_checkedConvert, A.Directory_listSync_list, A.File_length_closure, A.FileStat_stat_callback, A.WritableStream__write__flush, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.Version__splitParts_closure, A._fromJson_closure, A._fromJson_closure1, A._$SdkDependencyFromJson_closure, A._$SdkDependencyFromJson__closure, A._$SdkDependencyFromJson__closure0, A._$GitDependencyFromJson_closure, A._$GitDependencyFromJson__closure, A._$GitDependencyFromJson__closure0, A._$GitDependencyFromJson__closure1, A._$HostedDependencyFromJson_closure, A._$HostedDependencyFromJson__closure, A._$HostedDependencyFromJson__closure0, A._$HostedDetailsFromJson_closure, A._$HostedDetailsFromJson__closure, A._$HostedDetailsFromJson__closure0, A.Pubspec_Pubspec$parse_closure, A._$PubspecFromJson_closure, A._$PubspecFromJson__closure, A._$PubspecFromJson__closure0, A._$PubspecFromJson__closure1, A._$PubspecFromJson__closure2, A._$PubspecFromJson__closure3, A._$PubspecFromJson___closure2, A._$PubspecFromJson__closure4, A._$PubspecFromJson__closure5, A._$PubspecFromJson__closure6, A._$PubspecFromJson__closure7, A._$PubspecFromJson__closure8, A._$PubspecFromJson___closure1, A._$PubspecFromJson__closure9, A._$PubspecFromJson___closure0, A._$PubspecFromJson__closure10, A._$PubspecFromJson__closure11, A._$PubspecFromJson__closure12, A._$PubspecFromJson__closure13, A._$PubspecFromJson__closure14, A._$PubspecFromJson__closure15, A._$PubspecFromJson__closure16, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.TransformByHandlers_transformByHandlers__closure, A.TakeUntil_takeUntil_closure, A.Tap_tap_closure1, A.Tap_tap_closure0, A.deepHashCode_deepHashCodeInner, A.deepHashCode_deepHashCodeInner_closure, A.Parser__parseNode_parseAnchor, A.Parser__parseNode_parseTag, A.Scanner__fetchMoreTokens_closure, A.yamlWarningCallback_closure, A.YamlMap_keys_closure, A._YamlMapNodes_keys_closure, A.YamlEditor__initialize_collectAliases, A.YamlEditor_update_closure, A.YamlEditor__deepModify_closure, A.mapDeepEquals_closure, A.getKeyNode_closure, A.getKey_closure, A.containsKey_closure, A.yamlEncodeFlowString_closure, A.yamlEncodeBlockString_closure, A.yamlEncodeBlockString_closure0, A.getMapInsertionIndex_closure, A.getMapInsertionIndex_closure0, A.YamlMapWrap_keys_closure, A.YamlListWrap_YamlListWrap_closure, A._createPrs__closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._SyncBroadcastStreamController__sendData_closure, A._SyncBroadcastStreamController__sendError_closure, A._SyncBroadcastStreamController__sendDone_closure, A.Future_wait_closure, A.Future_any_onValue, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_fold_closure0, A.Stream_fold__closure0, A.Stream_length_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._HashMap_values_closure, A._CustomHashMap_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._JsonMap_values_closure, A.Converter_bind_closure, A.Encoding_decodeStream_closure0, A.LineSplitter_bind_closure, A._BigIntImpl_hashCode_finish, A.DateTime_parse_parseIntOrZero, A.DateTime_parse_parseMilliAndMicroseconds, A._Uri__makePath_closure, A._Uri__splitQueryStringAll_parsePair, A._createTables_setChars, A._createTables_setRange, A._StreamSinkImpl__controller_closure, A.jsify__convert, A.promiseToFuture_closure, A.promiseToFuture_closure0, A._extension_0_get_runBuildRunner_closure, A.DependencyUpdateGroup_of_closure, A.DependencyUpdateGroup_postUpdateTasks_closure, A.DependencyUpdateGroup_postUpdateTasks_closure0, A.GroupPostUpdateTasks_runPostUpdateTasks_closure, A.ChildProcess_spawn_closure, A.NodeReadableStream_get_stream_onData, A.NodeReadableStream_get_stream_onError, A.NodeReadableStream_get_stream_onDone, A.EventEmitter_once_closure, A.NodeProcessManager_run_closure, A.NodeProcessManager_run_closure0, A.NodeProcess__init_closure, A.NodeProcess__init_closure0, A.ShellScript_run_closure, A.CommitMessage_CommitMessage$parse_closure, A.CommitMessage_trailers_closure, A._$AftComponentFromJson_closure, A._$AftComponentFromJson__closure, A._$AftComponentFromJson__closure0, A._$AftComponentFromJson__closure1, A._$AftComponentFromJson___closure0, A._$AftComponentFromJson__closure2, A._$AftComponentFromJson____closure, A._$AftComponentFromJson__closure3, A._$AftComponentToJson_closure, A._$AftComponentToJson__closure, A._$PackageInfoFromJson_closure, A._$PackageInfoFromJson__closure, A._$PackageInfoFromJson__closure0, A._$PackageInfoFromJson__closure1, A._$PackageInfoFromJson__closure2, A._$PackageInfoFromJson__closure3, A._$PackageInfoFromJson__closure4, A._$PubspecInfoFromJson_closure, A._$PubspecInfoFromJson__closure, A._$PubspecInfoFromJson__closure0, A._$PubspecInfoFromJson__closure1, A._$PubspecInfoFromJson__closure2, A.AftConfigLoader__processPubspecs_mergePubspec, A.AftConfigLoader__processPubspecs_mergePubspec_closure, A.AftConfigLoader__processPubspecs_mergePubspec_closure0, A.AftConfigLoader__processPubspecs__closure, A.AftConfigLoader__processPubspecs__closure0, A.AftConfigLoader__processPubspecs___closure, A._OrPackageSelector_toJson_closure, A._AndPackageSelector_toJson_closure, A._$RawPubspecConfigFromJson_closure, A._$RawPubspecConfigFromJson__closure, A._$RawPubspecConfigFromJson__closure0, A._$RawPubspecConfigFromJson__closure1, A._$RawAftConfigFromJson_closure, A._$RawAftConfigFromJson__closure, A._$RawAftConfigFromJson__closure0, A._$RawAftConfigFromJson___closure1, A._$RawAftConfigFromJson__closure1, A._$RawAftConfigFromJson___closure0, A._$RawAftConfigFromJson__closure2, A._$RawAftConfigFromJson__closure3, A._$RawAftConfigToJson_closure, A._$RawAftComponentFromJson_closure, A._$RawAftComponentFromJson__closure, A._$RawAftComponentFromJson__closure0, A._$RawAftComponentFromJson__closure1, A._$RawAftComponentFromJson___closure, A._$RawAftComponentFromJson__closure2, A._$AftScriptFromJson_closure, A._$AftScriptFromJson__closure, A._$AftScriptFromJson__closure0, A._$AftScriptFromJson__closure1, A._$AftScriptFromJson__closure2, A.Deputy__listDependencyGroups_closure, A.Deputy__listDependencyGroups_closure0, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure0, A.Deputy_commitUpdates_worktreePath, A.RunGit__throwIfProcessFailed_closure0, A.PubVersionInfo_latestVersion_closure, A.PubVersionInfo_latestPrerelease_closure, A.Repo_getPackageGraph_closure, A.PubVersionResolver_latestVersion_closure, A.CancelableOperation_valueOrCancellation_closure, A.CancelableOperation_then_closure0, A.CancelableOperation_thenOperation_closure0, A.CancelableCompleter_complete_closure, A.FutureGroup_add_closure, A.StreamQueue__ensureListening_closure, A.StreamSplitter__onPause_closure, A.AWSHttpClient_onBadCertificate_closure, A.AWSHttpClientImpl__send_closure, A.AWSHttpClientImpl__send_closure1, A.AWSBaseHttpRequest_send_closure, A.PropsResponse_get_headers_closure, A.UnderlyingSource__staticInteropFactoryStub_closure, A.StreamToReadableStream_asReadableStream_closure, A.AWSLogger_getPlugin_closure, A.AWSLogger_registerPlugin_hasPlugin, A.AWSLogger_registerPlugin_hasPlugin_closure, A.AWSLogger_registerPlugin_closure, A.StringRecase_get_paramCase_closure, A.StringRecase_get_snakeCase_closure, A.StringRecase_groupIntoWords_closure, A.StringRecase_groupIntoWords_closure0, A.StringRecase_groupIntoWords__closure, A.StringRecase_groupIntoWords_closure2, A.StringRecase_groupIntoWords_closure3, A.StreamForward_forward_closure, A.BuiltListMultimap_BuiltListMultimap_closure, A.BuiltListMultimap_hashCode_closure, A.ListMultimapBuilder_replace_closure, A.BuiltMap_BuiltMap_closure, A.BuiltMap_hashCode_closure, A.BuiltSet_hashCode_closure, A.BuiltSetMultimap_BuiltSetMultimap_closure, A.BuiltSetMultimap_hashCode_closure, A.BuiltSetMultimap_forEach__closure, A.SetMultimapBuilder_replace_closure, A.newBuiltValueToStringHelper_closure, A.BuiltListMultimapSerializer_serialize_closure, A.BuiltListMultimapSerializer_deserialize_closure, A.BuiltListSerializer_serialize_closure, A.BuiltListSerializer_deserialize_closure, A.BuiltSetMultimapSerializer_serialize_closure, A.BuiltSetMultimapSerializer_deserialize_closure, A.BuiltSetSerializer_serialize_closure, A.BuiltSetSerializer_deserialize_closure, A.StandardJsonPlugin__toList_closure, A.StandardJsonPlugin__toListUsingDiscriminator_closure, A.toParsedYamlException_closure, A.$checkKeys_closure, A.$checkKeys_closure0, A.$checkKeys_closure1, A.$checkedCreate_checkedConvert, A.Directory_listSync_list, A.File_length_closure, A.FileStat_stat_callback, A.WritableStream__write__flush, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.Version__splitParts_closure, A._fromJson_closure, A._fromJson_closure1, A._$SdkDependencyFromJson_closure, A._$SdkDependencyFromJson__closure, A._$SdkDependencyFromJson__closure0, A._$GitDependencyFromJson_closure, A._$GitDependencyFromJson__closure, A._$GitDependencyFromJson__closure0, A._$GitDependencyFromJson__closure1, A._$HostedDependencyFromJson_closure, A._$HostedDependencyFromJson__closure, A._$HostedDependencyFromJson__closure0, A._$HostedDetailsFromJson_closure, A._$HostedDetailsFromJson__closure, A._$HostedDetailsFromJson__closure0, A.Pubspec_Pubspec$parse_closure, A._$PubspecFromJson_closure, A._$PubspecFromJson__closure, A._$PubspecFromJson__closure0, A._$PubspecFromJson__closure1, A._$PubspecFromJson__closure2, A._$PubspecFromJson__closure3, A._$PubspecFromJson___closure2, A._$PubspecFromJson__closure4, A._$PubspecFromJson__closure5, A._$PubspecFromJson__closure6, A._$PubspecFromJson__closure7, A._$PubspecFromJson__closure8, A._$PubspecFromJson___closure1, A._$PubspecFromJson__closure9, A._$PubspecFromJson___closure0, A._$PubspecFromJson__closure10, A._$PubspecFromJson__closure11, A._$PubspecFromJson__closure12, A._$PubspecFromJson__closure13, A._$PubspecFromJson__closure14, A._$PubspecFromJson__closure15, A._$PubspecFromJson__closure16, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.TransformByHandlers_transformByHandlers__closure, A.TakeUntil_takeUntil_closure, A.Tap_tap_closure1, A.Tap_tap_closure0, A.deepHashCode_deepHashCodeInner, A.deepHashCode_deepHashCodeInner_closure, A.Parser__parseNode_parseAnchor, A.Parser__parseNode_parseTag, A.Scanner__fetchMoreTokens_closure, A.yamlWarningCallback_closure, A.YamlMap_keys_closure, A._YamlMapNodes_keys_closure, A.YamlEditor__initialize_collectAliases, A.YamlEditor_update_closure, A.YamlEditor__deepModify_closure, A.mapDeepEquals_closure, A.getKeyNode_closure, A.getKey_closure, A.containsKey_closure, A.yamlEncodeFlowString_closure, A.yamlEncodeBlockString_closure, A.yamlEncodeBlockString_closure0, A.getMapInsertionIndex_closure, A.getMapInsertionIndex_closure0, A.YamlMapWrap_keys_closure, A.YamlListWrap_YamlListWrap_closure, A._createPrs__closure]);
     _inheritMany(A.Closure2Args, [A._CastListBase_sort_closure, A.CastMap_forEach_closure, A.ConstantMap_map_closure, A.Primitives_functionNoSuchMethod_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A.Future_wait_handleError, A.Future_any_onError, A._Future__chainForeignFuture_closure0, A._cancelAndErrorClosure_closure, A.HashMap_HashMap$from_closure, A.LinkedHashMap_LinkedHashMap$from_closure, A.MapBase_mapToString_closure, A.Encoding_decodeStream_closure, A._JsonStringifier_writeMap_closure, A._JsonPrettyPrintMixin_writeMap_closure, A._BigIntImpl_hashCode_combine, A._symbolMapToStringMap_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._Uri__makeQuery_writeParameter, A._Uri__makeQuery_closure, A._createTables_build, A._StreamSinkImpl__controller_closure0, A.wrapMain_closure0, A._$AftComponentFromJson___closure, A._$AftComponentToJson_closure0, A.AftConfigLoader__processPubspecs_closure, A._extension_1_toJson_closure, A._extension_1_toJson_closure0, A._extension_1_toJson_closure1, A._extension_1_toJson_closure2, A._$RawAftConfigFromJson___closure, A._$RawAftConfigToJson_closure0, A.Deputy__listDependencyGroups__closure0, A.Deputy__listDependencyGroups__closure, A.Deputy__proposeUpdates_closure1, A.RunGit__throwIfProcessFailed_closure, A.dfs_search, A.collectBytes_closure, A.CancelableOperation_then_closure, A.CancelableOperation_thenOperation_closure, A.CancelableCompleter_complete_closure0, A.FutureGroup_add_closure0, A.StreamQueue__ensureListening_closure1, A._CancelOnErrorSubscriptionWrapper_onError_closure, A.AWSHttpClientImpl_send_closure, A.AWSBaseHttpRequest_send_closure0, A.Promise_fromFuture_staticInteropFactoryStub_closure, A.StreamForward_forward_closure1, A.hashObjects_closure, A.MapBuilder_replace_closure, A.MapBuilder_replace_closure0, A.BuiltSetMultimap_forEach_closure, A.StandardJsonPlugin__toList_closure0, A.StandardJsonPlugin__toListUsingDiscriminator_closure0, A.parseDeps_closure, A._environmentMap_closure, A._$PubspecFromJson___closure, A.SingleMapping$fromJson_closure, A.SingleMapping_toJson_closure, A.Highlighter__collateLines_closure0, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure, A.TransformByHandlers_transformByHandlers__closure1, A.Tap_tap_closure, A.YamlEditor__initialize_collectAliases_closure]);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap, A._YamlMapWrapper_MapBase_UnmodifiableMapMixin, A.__YamlMapNodes_MapBase_UnmodifiableMapMixin]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.JsonUnsupportedObjectError, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError, A.BuiltValueNullFieldError, A.BuiltValueNestedFieldError, A.DeserializationError]);
     _inheritMany(A.ListBase, [A.UnmodifiableListBase, A.YamlListWrapper, A._YamlListNodes]);
     _inheritMany(A.UnmodifiableListBase, [A.CodeUnits, A.UnmodifiableListView]);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.allocateSwapSpace_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A._$_serializers_closure, A.Deputy__listDependencyGroups__closure1, A.Deputy__proposeUpdates_proposedUpdate, A.VersionResolver_updateFor_closure, A.VersionResolver_updateFor_closure0, A.VersionResolver_updateFor_closure1, A.VersionResolver_updateFor_closure2, A.VersionResolver_updateFor_closure3, A.VersionResolver_updateFor_closure4, A.VersionResolver_updateFor_closure5, A.VersionResolver_updateFor_closure6, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._listExistingPrs_closure, A._createPrs_closure]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.allocateSwapSpace_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A.Deputy__listDependencyGroups__closure1, A.Deputy__proposeUpdates_proposedUpdate, A.VersionResolver_updateFor_closure, A.VersionResolver_updateFor_closure0, A.VersionResolver_updateFor_closure1, A.VersionResolver_updateFor_closure2, A.VersionResolver_updateFor_closure3, A.VersionResolver_updateFor_closure4, A.VersionResolver_updateFor_closure5, A.VersionResolver_updateFor_closure6, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._listExistingPrs_closure, A._createPrs_closure]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable, A._HashMapKeyIterable, A._MapBaseValueIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A.ReversedListIterable, A.ListQueue, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -44373,7 +44375,6 @@
     _inherit(A._DataUri, A._Uri);
     _inherit(A._IOSinkImpl, A._StreamSinkImpl);
     _inheritMany(A._Enum, [A.ActionResult, A.DependencyUpdateGroup, A.PullRequestState, A.CommitTypeGroup, A.CommitType, A.VersionPropagation, A.PackageFlavor, A.DependencyType, A._VersionWindow, A.AlpnProtocol, A.SupportedProtocols, A.AWSHttpMethod, A._RequestCache__Enum_JSEnum, A._RequestCredentials__Enum_JSEnum, A._RequestRedirect__Enum_JSEnum, A._RequestDestination__Enum_JSEnum, A._RequestMode__Enum_JSEnum, A._ReadableStreamType__Enum_JSEnum, A._ReadableStreamReaderMode__Enum_JSEnum, A.LogLevel, A.EventType, A._Chomping, A.TokenType]);
-    _inheritMany(A.PostUpdateTask, [A._AftTask, A._BuildRunnerTask]);
     _inheritMany(A.Platform, [A._NodePlatform, A.LocalPlatform]);
     _inherit(A.CommitMessage, A._CommitMessage_Object_AWSEquatable);
     _inheritMany(A.CommitMessage, [A.MergeCommitMessage, A.ConventionalCommitMessage, A.UnconventionalCommitMessage, A.VersionCommitMessage]);
@@ -44411,9 +44412,8 @@
     _inherit(A._$IosEnvironment, A.IosEnvironment);
     _inherit(A._$MacOSEnvironment, A.MacOSEnvironment);
     _inherit(A._$GitHubPackageConfig, A.GitHubPackageConfig);
-    _inherit(A.DependencyUpdate, A._DependencyUpdate_Object_AWSSerializable);
     _inherit(A._$DependencyGroupUpdate, A.DependencyGroupUpdate);
-    _inherit(A._$DependencyUpdate, A.DependencyUpdate);
+    _inherit(A._$DependencyMetadata, A.DependencyMetadata);
     _inherit(A.PubVersionResolver, A.VersionResolver);
     _inherit(A._CancelOnErrorSubscriptionWrapper, A.DelegatingStreamSubscription);
     _inherit(A.CaseInsensitiveMap, A.DelegatingMap);
@@ -44513,7 +44513,6 @@
     _mixin(A._RawAftComponent_Object_AWSSerializable_AWSDebuggable, A.AWSDebuggable);
     _mixin(A._RawAftConfig_Object_AWSSerializable, A.AWSSerializable);
     _mixin(A._RawAftConfig_Object_AWSSerializable_AWSDebuggable, A.AWSDebuggable);
-    _mixin(A._DependencyUpdate_Object_AWSSerializable, A.AWSSerializable);
     _mixin(A._AWSHttpOperation_AWSOperation_AWSProgressOperation, A.AWSProgressOperation);
     _mixin(A._RequestCache__Enum_JSEnum, A.JSEnum);
     _mixin(A._RequestCredentials__Enum_JSEnum, A.JSEnum);
@@ -44541,7 +44540,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "bool(@)", "String?(Object?)", "@(@)", "~(Object,StackTrace)", "String(Object?)", "~(Object?)", "String(String)", "Future<~>()", "Object?(@)", "int(Object?)", "Null(Object,StackTrace)", "~(@,@)", "bool()", "String(Match)", "Frame()", "~(@)", "Trace()", "String(@)", "bool(Object?,Object?)", "~(Object[StackTrace?])", "PackageInfo?(String)", "~(String,@)", "bool(Object?)", "Frame(String)", "Map<String,Dependency>(Object?)", "Uri?(Object?)", "~(~())", "Null(@)", "~(Object?,Object?)", "Null(~)", "~(String)", "Future<Null>()", "int()", "PackageInfo?(Object?)", "~(List<int>)", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "Dependency()", "bool(_Highlight)", "int(String?)", "Object?(PackageSelector)", "~(Uint8List,String,int)", "Map<String,Object?>(PackageInfo)", "List<String>(Object?)", "VersionPropagation(Object?)", "~([Future<~>?])", "PackageSelector(Object?)", "MapBuilder<String,VersionConstraint>()", "~(Repo)", "PackageInfo(@)", "bool(Version)", "~([Object?])", "@(String)", "~(LogEntry)", "bool(AWSLoggerPlugin)", "Null(@,StackTrace)", "bool(PackageInfo)", "Object?(Object?)", "int(int,int)", "VersionConstraint(Object?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "List<String>?(Object?)", "Trace(String)", "bool(String,String)", "int(Frame)", "String(Frame)", "~(Symbol0,@)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<~>?()", "YamlNode(Map<@,@>)", "String(MapEntry<@,YamlNode>)", "String(YamlNode)", "int(@,@)", "@()", "Uri(Object?)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "~(YamlMap,Pubspec{isRoot:bool})", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "~(int,int,int)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "Uint8List(@,@)", "~(int,@)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "MapEntry<String,String?>(String,VersionConstraint?)", "Null(@,@)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "Future<0&>()", "String(StringBuffer)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<~>(Object,Chain)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "bool(DependencyUpdateGroup)", "MapBuilder<String,PackageInfo>()", "~(Uint8List,int,int)", "ListBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "Future<Map<String,DependencyGroupUpdate>?>()", "~(PackageInfo)", "bool(String,Dependency)", "Null(ListMultimapBuilder<String,DependencyUpdate>)", "~(String,String)", "DependencyGroupUpdateBuilder()", "String(PackageInfo)", "MapEntry<String,DependencyGroupUpdate>(String,DependencyGroupUpdateBuilder)", "Iterable<String>(DependencyUpdate)", "String(MapEntry<String,String>)", "_LineSplitterEventSink(EventSink<String>)", "~(Uint8List)", "_VersionWindow()", "~(JSObject)", "Version(Version)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "~([@])", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "Null([Object?,Object?,Object?])", "bool(AWSLogger)", "LogEntry(LogRecord)", "NodeProcessManager()", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "~(@,StackTrace)", "YamlMap()", "0&(JSObject)", "Future<Null>(String)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "VersionRange?()", "Uint8List({seed:int})", "MapEntry<String,Dependency>(@,@)", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "MapEntry<String,String>(String)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "int(int)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Map<String,VersionConstraint?>?(Object?)", "List<Uri>?(Object?)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "@(@,String)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "Null(~())", "List<Frame>(Trace)", "int(Trace)", "List<PackageInfo>(Object?)", "String(Trace)", "~(String,int)", "Map<String,List<PackageInfo>>(Object?)", "Frame(String,String)", "MapEntry<String,List<PackageInfo>>(@,@)", "~(String,int?)", "VersionConstraint?()", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "_Future<@>(@)", "Chain()", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PubspecInfo(Object?)", "PackageFlavor(Object?)", "YamlNode(@)", "Future<Map<String,int>>()", "String(MapEntry<String,VersionConstraint>)", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Pubspec(Object?)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "YamlMap(Object?)", "~(String,String?)", "bool(@,@)", "int(String)", "~(@,StackTrace?)"],
+    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "bool(@)", "String?(Object?)", "@(@)", "~(Object,StackTrace)", "String(Object?)", "~(Object?)", "String(String)", "Future<~>()", "Object?(@)", "int(Object?)", "Null(Object,StackTrace)", "~(@,@)", "bool()", "String(Match)", "Frame()", "~(@)", "Trace()", "String(@)", "bool(Object?,Object?)", "~(Object[StackTrace?])", "bool(Object?)", "~(String,@)", "PackageInfo?(String)", "Frame(String)", "Map<String,Dependency>(Object?)", "Uri?(Object?)", "~(~())", "Null(@)", "~(Object?,Object?)", "Null(~)", "~(String)", "Future<Null>()", "~([Object?])", "PackageInfo?(Object?)", "int()", "~(List<int>)", "Dependency()", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "bool(_Highlight)", "Object?(PackageSelector)", "int(String?)", "~(Uint8List,String,int)", "List<String>(Object?)", "Map<String,Object?>(PackageInfo)", "~([Future<~>?])", "PackageSelector(Object?)", "~(Repo)", "bool(String,String)", "VersionPropagation(Object?)", "PackageInfo(@)", "@(String)", "~(LogEntry)", "bool(AWSLoggerPlugin)", "Null(@,StackTrace)", "bool(PackageInfo)", "Object?(Object?)", "int(int,int)", "VersionConstraint(Object?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "List<String>?(Object?)", "Trace(String)", "bool(Version)", "int(Frame)", "String(Frame)", "~(Symbol0,@)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<~>?()", "YamlNode(Map<@,@>)", "String(MapEntry<@,YamlNode>)", "String(YamlNode)", "int(@,@)", "@()", "Uri(Object?)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "~(String,String?)", "~(YamlMap,Pubspec{isRoot:bool})", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "~(int,int,int)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "Uint8List(@,@)", "~(int,@)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "MapEntry<String,String?>(String,VersionConstraint?)", "Null(@,@)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "Future<0&>()", "String(StringBuffer)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<~>(Object,Chain)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<~>(String)", "MapBuilder<String,PackageInfo>()", "MapBuilder<String,VersionConstraint>()", "ListBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "Future<Map<String,DependencyGroupUpdate>?>()", "~(PackageInfo)", "bool(String,Dependency)", "Null(ListMultimapBuilder<String,DependencyMetadata>)", "~(String,String)", "DependencyGroupUpdateBuilder()", "bool(DependencyUpdateGroup)", "MapEntry<String,DependencyGroupUpdate>(String,DependencyGroupUpdateBuilder)", "~(Uint8List,int,int)", "String(MapEntry<String,String>)", "String(PackageInfo)", "Iterable<String>(DependencyMetadata)", "_VersionWindow()", "_LineSplitterEventSink(EventSink<String>)", "Version(Version)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "~(Uint8List)", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "~(JSObject)", "bool(AWSLogger)", "LogEntry(LogRecord)", "Null([Object?,Object?,Object?])", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "NodeProcessManager()", "YamlMap()", "~(@,StackTrace)", "0&(JSObject)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "VersionRange?()", "Uint8List({seed:int})", "MapEntry<String,Dependency>(@,@)", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<Null>(String)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "MapEntry<String,String>(String)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "int(int)", "Map<String,VersionConstraint?>?(Object?)", "List<Uri>?(Object?)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "@(@,String)", "List<Frame>(Trace)", "int(Trace)", "Null(~())", "String(Trace)", "List<PackageInfo>(Object?)", "~(String,int)", "Frame(String,String)", "Map<String,List<PackageInfo>>(Object?)", "MapEntry<String,List<PackageInfo>>(@,@)", "VersionConstraint?()", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "~(String,int?)", "Chain()", "_Future<@>(@)", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PubspecInfo(Object?)", "YamlNode(@)", "Future<Map<String,int>>()", "String(MapEntry<String,VersionConstraint>)", "PackageFlavor(Object?)", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "Pubspec(Object?)", "YamlMap(Object?)", "bool(@,@)", "int(String)", "~(@,StackTrace?)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -44550,7 +44549,7 @@
       "2;isBreaking": (t1, t2) => o => o instanceof A._Record_2_isBreaking && t1._is(o._0) && t2._is(o._1)
     }
   };
-  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","BufferModule":"LegacyJavaScriptObject","BufferConstants":"LegacyJavaScriptObject","Buffer":"LegacyJavaScriptObject","ConsoleModule":"LegacyJavaScriptObject","Console":"LegacyJavaScriptObject","DNS":"LegacyJavaScriptObject","DNSLookupOptions":"LegacyJavaScriptObject","DNSAddress":"LegacyJavaScriptObject","Resolver":"LegacyJavaScriptObject","EventEmitter":"LegacyJavaScriptObject","FS":"LegacyJavaScriptObject","FSConstants":"LegacyJavaScriptObject","FSWatcher":"LegacyJavaScriptObject","ReadStream":"LegacyJavaScriptObject","ReadStreamOptions":"LegacyJavaScriptObject","WriteStream":"LegacyJavaScriptObject","WriteStreamOptions":"LegacyJavaScriptObject","FileOptions":"LegacyJavaScriptObject","StatOptions":"LegacyJavaScriptObject","MkdirOptions":"LegacyJavaScriptObject","RmdirOptions":"LegacyJavaScriptObject","WatchOptions":"LegacyJavaScriptObject","WatchFileOptions":"LegacyJavaScriptObject","Stats":"LegacyJavaScriptObject","HTTP":"LegacyJavaScriptObject","HttpAgent":"LegacyJavaScriptObject","HttpAgentOptions":"LegacyJavaScriptObject","RequestOptions":"LegacyJavaScriptObject","ClientRequest":"LegacyJavaScriptObject","HttpServer":"LegacyJavaScriptObject","ServerResponse":"LegacyJavaScriptObject","IncomingMessage":"LegacyJavaScriptObject","JsError":"LegacyJavaScriptObject","Promise0":"LegacyJavaScriptObject","Date":"LegacyJavaScriptObject","Atomics":"LegacyJavaScriptObject","Modules":"LegacyJavaScriptObject","Module":"LegacyJavaScriptObject","Net":"LegacyJavaScriptObject","Socket":"LegacyJavaScriptObject","NetAddress":"LegacyJavaScriptObject","NetServer":"LegacyJavaScriptObject","NodeJsError":"LegacyJavaScriptObject","JsAssertionError":"LegacyJavaScriptObject","JsRangeError":"LegacyJavaScriptObject","JsReferenceError":"LegacyJavaScriptObject","JsSyntaxError":"LegacyJavaScriptObject","JsTypeError":"LegacyJavaScriptObject","JsSystemError":"LegacyJavaScriptObject","OS":"LegacyJavaScriptObject","CPU":"LegacyJavaScriptObject","CPUTimes":"LegacyJavaScriptObject","OSConstants":"LegacyJavaScriptObject","OSSignalConstants":"LegacyJavaScriptObject","OSErrorConstants":"LegacyJavaScriptObject","OSDLOpenConstants":"LegacyJavaScriptObject","Path":"LegacyJavaScriptObject","PathObject":"LegacyJavaScriptObject","Process0":"LegacyJavaScriptObject","CPUUsage":"LegacyJavaScriptObject","Release":"LegacyJavaScriptObject","StreamModule":"LegacyJavaScriptObject","Readable":"LegacyJavaScriptObject","Writable":"LegacyJavaScriptObject","Duplex":"LegacyJavaScriptObject","Transform":"LegacyJavaScriptObject","WritableOptions":"LegacyJavaScriptObject","ReadableOptions":"LegacyJavaScriptObject","Immediate":"LegacyJavaScriptObject","Timeout":"LegacyJavaScriptObject","TTY":"LegacyJavaScriptObject","TTYReadStream":"LegacyJavaScriptObject","TTYWriteStream":"LegacyJavaScriptObject","Util":"LegacyJavaScriptObject","JavaScriptObject":{"JSObject":[]},"JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"LegacyJavaScriptObject":{"JavaScriptObject":[],"JSObject":[],"FS":[],"Writable":[],"Stats":[],"JsError":[],"OS":[],"Path":[],"TTYWriteStream":[]},"JSArray":{"List":["1"],"JavaScriptObject":[],"EfficientLengthIterable":["1"],"JSObject":[],"Iterable":["1"],"JSIndexable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"JavaScriptObject":[],"EfficientLengthIterable":["1"],"JSObject":[],"Iterable":["1"],"JSIndexable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"double":[],"num":[],"Comparable":["num"]},"JSInt":{"double":[],"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"double":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"JSIndexable":["@"],"TrustedGetRuntimeType":[]},"_CastIterableBase":{"Iterable":["2"]},"CastIterator":{"Iterator":["2"]},"CastIterable":{"_CastIterableBase":["1","2"],"Iterable":["2"],"Iterable.E":"2"},"_EfficientLengthCastIterable":{"CastIterable":["1","2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_CastListBase":{"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"]},"CastList":{"_CastListBase":["1","2"],"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","Iterable.E":"2"},"CastMap":{"MapBase":["3","4"],"Map":["3","4"],"MapBase.K":"3","MapBase.V":"4"},"CastQueue":{"Queue":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"SkipWhileIterable":{"Iterable":["1"],"Iterable.E":"1"},"SkipWhileIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"NonNullsIterable":{"Iterable":["1"],"Iterable.E":"1"},"NonNullsIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"Symbol":{"Symbol0":[]},"_Record_2":{"_Record2":[],"_Record":[]},"_Record_2_isBreaking":{"_Record2":[],"_Record":[]},"ConstantMapView":{"UnmodifiableMapView":["1","2"],"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_KeysOrValues":{"Iterable":["1"],"Iterable.E":"1"},"_KeysOrValuesOrElementsIterator":{"Iterator":["1"]},"GeneralConstantMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"ConstantSet":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ConstantStringSet":{"ConstantSet":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"JSInvocationMirror":{"Invocation":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JsIdentityLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"JsConstantLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_Record2":{"_Record":[]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"JavaScriptObject":[],"JSObject":[],"ByteBuffer":[],"TrustedGetRuntimeType":[]},"NativeTypedData":{"JavaScriptObject":[],"JSObject":[]},"NativeByteData":{"JavaScriptObject":[],"ByteData":[],"JSObject":[],"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"],"JavaScriptObject":[],"JSObject":[],"JSIndexable":["1"]},"NativeTypedArrayOfDouble":{"ListBase":["double"],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"]},"NativeTypedArrayOfInt":{"ListBase":["int"],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeFloat32List":{"NativeTypedArrayOfDouble":[],"ListBase":["double"],"Float32List":[],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeFloat64List":{"NativeTypedArrayOfDouble":[],"ListBase":["double"],"Float64List":[],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeInt16List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int16List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt32List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int32List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt8List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int8List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint16List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint16List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint32List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8ClampedList":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint8ClampedList":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint8List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Type":{"Type":[]},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"AsyncError":{"Error":[]},"_Future":{"Future":["1"]},"EventSink":{"Sink":["1"]},"StreamController":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_BufferingStreamSubscription":{"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_TimerImpl":{"Timer":[]},"_AsyncAwaitCompleter":{"Completer":["1"]},"_SyncStarIterator":{"Iterator":["1"]},"_SyncStarIterable":{"Iterable":["1"],"Iterable.E":"1"},"_BroadcastStream":{"_ControllerStream":["1"],"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_BroadcastSubscription":{"_ControllerSubscription":["1"],"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_BroadcastStreamController":{"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_SyncBroadcastStreamController":{"_BroadcastStreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_AsyncBroadcastStreamController":{"_BroadcastStreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_Completer":{"Completer":["1"]},"_AsyncCompleter":{"_Completer":["1"],"Completer":["1"]},"_SyncCompleter":{"_Completer":["1"],"Completer":["1"]},"StreamView":{"Stream":["1"]},"StreamTransformerBase":{"StreamTransformer":["1","2"]},"_StreamController":{"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_AsyncStreamController":{"_AsyncStreamControllerDispatch":["1"],"_StreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_SyncStreamController":{"_SyncStreamControllerDispatch":["1"],"_StreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_ControllerStream":{"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_ControllerSubscription":{"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_StreamSinkWrapper":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_StreamControllerAddStreamState":{"_AddStreamState":["1"]},"_StreamImpl":{"Stream":["1"]},"_DelayedData":{"_DelayedEvent":["1"]},"_DelayedError":{"_DelayedEvent":["@"]},"_DelayedDone":{"_DelayedEvent":["@"]},"_DoneStreamSubscription":{"StreamSubscription":["1"]},"_EmptyStream":{"Stream":["1"],"Stream.T":"1"},"_ForwardingStream":{"Stream":["2"]},"_ForwardingStreamSubscription":{"_BufferingStreamSubscription":["2"],"StreamSubscription":["2"],"_EventSink":["2"],"_EventDispatch":["2"],"_BufferingStreamSubscription.T":"2"},"_MapStream":{"_ForwardingStream":["1","2"],"Stream":["2"],"Stream.T":"2"},"_EventSinkWrapper":{"EventSink":["1"],"Sink":["1"]},"_SinkTransformerStreamSubscription":{"_BufferingStreamSubscription":["2"],"StreamSubscription":["2"],"_EventSink":["2"],"_EventDispatch":["2"],"_BufferingStreamSubscription.T":"2"},"_BoundSinkStream":{"Stream":["2"],"Stream.T":"2"},"_ZoneSpecification":{"ZoneSpecification":[]},"_ZoneDelegate":{"ZoneDelegate":[]},"_Zone":{"Zone":[]},"_CustomZone":{"_Zone":[],"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_HashMap":{"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_IdentityHashMap":{"_HashMap":["1","2"],"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_CustomHashMap":{"_HashMap":["1","2"],"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_HashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_HashMapKeyIterator":{"Iterator":["1"]},"_LinkedCustomHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedHashSet":{"_SetBase":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"UnmodifiableListView":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","UnmodifiableListMixin.E":"1"},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"_MapBaseValueIterable":{"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_MapBaseValueIterator":{"Iterator":["2"]},"MapView":{"Map":["1","2"]},"UnmodifiableMapView":{"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ListQueue":{"Queue":["1"],"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_ListQueueIterator":{"Iterator":["1"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_ConverterStreamEventSink":{"EventSink":["1"],"Sink":["1"]},"_LineSplitterEventSink":{"StringConversionSink":[],"EventSink":["String"],"Sink":["String"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"_JsonDecoderSink":{"_StringSinkConversionSink":["StringBuffer"],"StringConversionSink":[],"Sink":["String"],"_StringSinkConversionSink.0":"StringBuffer"},"AsciiCodec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"_UnicodeSubsetEncoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"]},"AsciiEncoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_UnicodeSubsetEncoderSink":{"StringConversionSink":[],"Sink":["String"]},"_UnicodeSubsetDecoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"]},"AsciiDecoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"_ErrorHandlingAsciiDecoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_SimpleAsciiDecoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Base64Codec":{"Codec":["List<int>","String"],"Codec.S":"List<int>"},"Base64Encoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"_BufferCachingBase64Encoder":{"_Base64Encoder":[]},"_Base64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_AsciiBase64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_Utf8Base64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Base64Decoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_Base64DecoderSink":{"StringConversionSink":[],"Sink":["String"]},"ByteConversionSink":{"Sink":["List<int>"]},"_ByteAdapterSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"ChunkedConversionSink":{"Sink":["1"]},"_FusedCodec":{"Codec":["1","3"],"Codec.S":"1"},"Converter":{"StreamTransformer":["1","2"]},"Encoding":{"Codec":["String","List<int>"]},"JsonUnsupportedObjectError":{"Error":[]},"JsonCyclicError":{"Error":[]},"JsonCodec":{"Codec":["Object?","String"],"Codec.S":"Object?"},"JsonEncoder":{"Converter":["Object?","String"],"StreamTransformer":["Object?","String"],"Converter.S":"Object?","Converter.T":"String"},"_JsonEncoderSink":{"Sink":["Object?"]},"_JsonUtf8EncoderSink":{"Sink":["Object?"]},"JsonDecoder":{"Converter":["String","Object?"],"StreamTransformer":["String","Object?"],"Converter.S":"String","Converter.T":"Object?"},"LineSplitter":{"StreamTransformer":["String","String"]},"_LineSplitterSink":{"StringConversionSink":[],"Sink":["String"]},"_LineSplitIterable":{"Iterable":["String"],"Iterable.E":"String"},"_LineSplitIterator":{"Iterator":["String"]},"StringConversionSink":{"Sink":["String"]},"_ClosableStringSink":{"StringSink":[]},"_StringConversionSinkAsStringSinkAdapter":{"StringSink":[]},"_StringSinkConversionSink":{"StringConversionSink":[],"Sink":["String"]},"_StringAdapterSink":{"StringConversionSink":[],"Sink":["String"]},"_Utf8StringSinkAdapter":{"ByteConversionSink":[],"Sink":["List<int>"]},"_Utf8ConversionSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Utf8Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Utf8Encoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_Utf8EncoderSink":{"StringConversionSink":[],"Sink":["String"]},"Utf8Decoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"BigInt":{"Comparable":["BigInt"]},"DateTime":{"Comparable":["DateTime"]},"double":{"num":[],"Comparable":["num"]},"Duration":{"Comparable":["Duration"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExp":{"Pattern":[]},"RegExpMatch":{"Match":[]},"Set":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"String":{"Comparable":["String"],"Pattern":[]},"StringBuffer":{"StringSink":[]},"_BigIntImpl":{"BigInt":[],"Comparable":["BigInt"]},"_WeakReferenceWrapper":{"WeakReference":["1"]},"_Enum":{"Enum":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"RangeError":[],"Error":[]},"NoSuchMethodError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"IntegerDivisionByZeroException":{"Exception":[],"Error":[]},"_StringStackTrace":{"StackTrace":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"_StreamSinkImpl":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_IOSinkImpl":{"_StreamSinkImpl":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[],"_StreamSinkImpl.T":"List<int>"},"ProcessException":{"Exception":[]},"NullRejectionException":{"Exception":[]},"ActionResult":{"Enum":[]},"_AftTask":{"PostUpdateTask":[]},"_BuildRunnerTask":{"PostUpdateTask":[]},"DependencyUpdateGroup":{"Enum":[]},"NodeLoggerPlugin":{"AWSLoggerPlugin":[]},"PullRequestState":{"Enum":[]},"_NodePlatform":{"Platform":[]},"NodeProcessManager":{"ProcessManager":[]},"NodeProcess":{"Process":[]},"_UnreachableError":{"Error":[]},"CommitType":{"Enum":[]},"CommitMessage":{"AWSEquatable":["CommitMessage"]},"CommitTypeGroup":{"Enum":[]},"MergeCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"ConventionalCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"UnconventionalCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"VersionCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"AftConfig":{"AWSSerializable":["Map<String,Object?>"]},"AftComponent":{"AWSSerializable":["Map<String,Object?>"]},"PackageInfo":{"AWSEquatable":["PackageInfo"],"AWSSerializable":["Map<String,Object?>"],"Comparable":["PackageInfo"],"AWSEquatable.T":"PackageInfo"},"PubspecInfo":{"AWSSerializable":["Map<String,Object?>"]},"_$AftConfigSerializer":{"StructuredSerializer":["AftConfig"],"Serializer":["AftConfig"]},"_$AftConfig":{"AftConfig":[],"AWSSerializable":["Map<String,Object?>"]},"PackageSelector":{"AWSSerializable":["Object?"]},"_PackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_PackageOrComponentSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_AllPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_DevelopmentPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_ExamplePackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_TestPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_DartPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_FlutterPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_RootPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_CurrentPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_OrPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_AndPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"RawAftConfig":{"AWSSerializable":["Map<String,Object?>"]},"Environment":{"AWSSerializable":["Map<String,Object?>"]},"AndroidEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"IosEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"MacOSEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"GitHubPackageConfig":{"AWSSerializable":["Map<String,Object?>"]},"VersionPropagation":{"Enum":[]},"RawAftComponent":{"AWSSerializable":["Map<String,Object?>"]},"AftScript":{"AWSSerializable":["Map<String,Object?>"]},"_$EnvironmentSerializer":{"StructuredSerializer":["Environment"],"Serializer":["Environment"]},"_$PlatformEnvironmentSerializer":{"StructuredSerializer":["PlatformEnvironment"],"Serializer":["PlatformEnvironment"]},"_$AndroidEnvironmentSerializer":{"StructuredSerializer":["AndroidEnvironment"],"Serializer":["AndroidEnvironment"]},"_$IosEnvironmentSerializer":{"StructuredSerializer":["IosEnvironment"],"Serializer":["IosEnvironment"]},"_$MacOSEnvironmentSerializer":{"StructuredSerializer":["MacOSEnvironment"],"Serializer":["MacOSEnvironment"]},"_$GitHubPackageConfigSerializer":{"StructuredSerializer":["GitHubPackageConfig"],"Serializer":["GitHubPackageConfig"]},"_$Environment":{"Environment":[],"AWSSerializable":["Map<String,Object?>"]},"_$PlatformEnvironment":{"PlatformEnvironment":[]},"_$AndroidEnvironment":{"AndroidEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$IosEnvironment":{"IosEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$MacOSEnvironment":{"MacOSEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$GitHubPackageConfig":{"GitHubPackageConfig":[],"AWSSerializable":["Map<String,Object?>"]},"JsonSerializer":{"PrimitiveSerializer":["1"],"Serializer":["1"]},"VersionConstraintSerializer":{"PrimitiveSerializer":["1"],"Serializer":["1"]},"DependencyUpdate":{"AWSSerializable":["Object?"]},"_$DependencyUpdateSerializer":{"StructuredSerializer":["DependencyUpdate"],"Serializer":["DependencyUpdate"]},"_$DependencyGroupUpdate":{"DependencyGroupUpdate":[]},"_$DependencyUpdate":{"DependencyUpdate":[],"AWSSerializable":["Object?"]},"PackageFlavor":{"Enum":[]},"DependencyType":{"Enum":[]},"_VersionWindow":{"Enum":[]},"PubVersionResolver":{"VersionResolver":[]},"DelegatingStreamSubscription":{"StreamSubscription":["1"]},"FutureGroup":{"Sink":["Future<1>"]},"ErrorResult":{"Result":["0&"]},"ValueResult":{"Result":["1"]},"_NextRequest":{"_EventRequest":["1"]},"_CancelRequest":{"_EventRequest":["1"]},"_HasNextRequest":{"_EventRequest":["1"]},"SubscriptionStream":{"Stream":["1"],"Stream.T":"1"},"_CancelOnErrorSubscriptionWrapper":{"DelegatingStreamSubscription":["1"],"StreamSubscription":["1"]},"CaseInsensitiveMap":{"DelegatingMap":["String","1"],"Map":["String","1"],"DelegatingMap.K":"String","DelegatingMap.V":"1"},"AWSHttpException":{"Exception":[]},"CancellationException":{"Exception":[]},"AlpnProtocol":{"Enum":[]},"SupportedProtocols":{"Enum":[]},"AWSHttpClientImpl":{"AWSHttpClient":[]},"AWSHttpMethod":{"Enum":[]},"AWSHttpOperation":{"_AWSHttpOperation_AWSOperation_AWSProgressOperation":["1"],"AWSOperation":["1"],"Cancelable":[]},"AWSBaseHttpRequest":{"StreamSplitter":["List<int>"]},"AWSHttpRequest":{"AWSBaseHttpRequest":[],"StreamSplitter":["List<int>"]},"AWSBaseHttpResponse":{"StreamSplitter":["List<int>"]},"AWSStreamedHttpResponse":{"AWSBaseHttpResponse":[],"StreamSplitter":["List<int>"]},"RequestCache":{"Enum":[]},"RequestCredentials":{"Enum":[]},"RequestRedirect":{"Enum":[]},"RequestDestination":{"Enum":[]},"RequestMode":{"Enum":[]},"ReadableStreamView":{"StreamView":["List<int>"],"Stream":["List<int>"],"Stream.T":"List<int>","StreamView.T":"List<int>"},"ReadableStreamType":{"Enum":[]},"ReadableStreamReaderMode":{"Enum":[]},"LogEntry":{"AWSEquatable":["LogEntry"],"AWSEquatable.T":"LogEntry"},"LogLevel":{"Enum":[],"Comparable":["LogLevel"]},"SimpleLogPrinter":{"AWSLoggerPlugin":[]},"AWSOperation":{"Cancelable":[]},"CopyOnWriteList":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"CopyOnWriteMap":{"Map":["1","2"]},"BuiltList":{"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltList":{"BuiltList":["1"],"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltListMultimap":{"BuiltListMultimap":["1","2"]},"_BuiltMap":{"BuiltMap":["1","2"]},"BuiltSet":{"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltSet":{"BuiltSet":["1"],"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltSetMultimap":{"BuiltSetMultimap":["1","2"]},"BuiltValueNullFieldError":{"Error":[]},"BuiltValueNestedFieldError":{"Error":[]},"BoolJsonObject":{"JsonObject":[]},"ListJsonObject":{"JsonObject":[]},"MapJsonObject":{"JsonObject":[]},"NumJsonObject":{"JsonObject":[]},"StringJsonObject":{"JsonObject":[]},"DeserializationError":{"Error":[]},"BigIntSerializer":{"PrimitiveSerializer":["BigInt"],"Serializer":["BigInt"]},"BoolSerializer":{"PrimitiveSerializer":["bool"],"Serializer":["bool"]},"BuiltJsonSerializers":{"Serializers":[]},"BuiltListMultimapSerializer":{"StructuredSerializer":["BuiltListMultimap<@,@>"],"Serializer":["BuiltListMultimap<@,@>"]},"BuiltListSerializer":{"StructuredSerializer":["BuiltList<@>"],"Serializer":["BuiltList<@>"]},"BuiltMapSerializer":{"StructuredSerializer":["BuiltMap<@,@>"],"Serializer":["BuiltMap<@,@>"]},"BuiltSetMultimapSerializer":{"StructuredSerializer":["BuiltSetMultimap<@,@>"],"Serializer":["BuiltSetMultimap<@,@>"]},"BuiltSetSerializer":{"StructuredSerializer":["BuiltSet<@>"],"Serializer":["BuiltSet<@>"]},"DateTimeSerializer":{"PrimitiveSerializer":["DateTime"],"Serializer":["DateTime"]},"DoubleSerializer":{"PrimitiveSerializer":["double"],"Serializer":["double"]},"DurationSerializer":{"PrimitiveSerializer":["Duration"],"Serializer":["Duration"]},"Int64Serializer":{"PrimitiveSerializer":["Int64"],"Serializer":["Int64"]},"IntSerializer":{"PrimitiveSerializer":["int"],"Serializer":["int"]},"JsonObjectSerializer":{"PrimitiveSerializer":["JsonObject"],"Serializer":["JsonObject"]},"NullSerializer":{"PrimitiveSerializer":["Null"],"Serializer":["Null"]},"NumSerializer":{"PrimitiveSerializer":["num"],"Serializer":["num"]},"RegExpSerializer":{"PrimitiveSerializer":["RegExp"],"Serializer":["RegExp"]},"StringSerializer":{"PrimitiveSerializer":["String"],"Serializer":["String"]},"Uint8ListSerializer":{"PrimitiveSerializer":["Uint8List"],"Serializer":["Uint8List"]},"UriSerializer":{"PrimitiveSerializer":["Uri"],"Serializer":["Uri"]},"StandardJsonPlugin":{"SerializerPlugin":[]},"ParsedYamlException":{"Exception":[]},"_WrappedYamlException":{"Exception":[]},"DefaultEquality":{"Equality":["1"]},"IterableEquality":{"Equality":["Iterable<1>"]},"ListEquality":{"Equality":["List<1>"]},"_UnorderedEquality":{"Equality":["2"]},"UnorderedIterableEquality":{"_UnorderedEquality":["1","Iterable<1>"],"Equality":["Iterable<1>"],"_UnorderedEquality.T":"Iterable<1>","_UnorderedEquality.E":"1"},"SetEquality":{"_UnorderedEquality":["1","Set<1>"],"Equality":["Set<1>"],"_UnorderedEquality.T":"Set<1>","_UnorderedEquality.E":"1"},"MapEquality":{"Equality":["Map<1,2>"]},"DeepCollectionEquality":{"Equality":["@"]},"QueueList":{"ListBase":["1"],"List":["1"],"Queue":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","QueueList.E":"1"},"_CastQueueList":{"QueueList":["2"],"ListBase":["2"],"List":["2"],"Queue":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","QueueList.E":"2"},"DelegatingMap":{"Map":["1","2"]},"LocalFileSystem":{"FileSystem":[]},"Int64":{"Comparable":["Object"]},"BadKeyException":{"Exception":[]},"UnrecognizedKeysException":{"Exception":[]},"DisallowedNullValueException":{"Exception":[]},"CheckedFromJsonException":{"Exception":[]},"Level":{"Comparable":["Level"]},"Directory":{"Directory0":[],"FileSystemEntity":[]},"File":{"FileSystemEntity":[]},"NodeFileSystem":{"FileSystem":[]},"FileSystemEntity0":{"FileSystemEntity":[]},"Link":{"FileSystemEntity":[]},"Stdout":{"WritableStream":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[],"WritableStream.S":"List<int>"},"WritableStream":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"NodeIOSink":{"WritableStream":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[]},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"LocalPlatform":{"Platform":[]},"LocalProcessManager":{"ProcessManager":[]},"Version":{"VersionRange":[],"VersionConstraint":[],"Comparable":["VersionRange"]},"_EmptyVersion":{"VersionConstraint":[]},"VersionRange":{"Comparable":["VersionRange"],"VersionConstraint":[]},"CompatibleWithVersionRange":{"VersionRange":[],"Comparable":["VersionRange"],"VersionConstraint":[]},"SdkDependency":{"Dependency":[]},"GitDependency":{"Dependency":[]},"HostedDependency":{"Dependency":[]},"PathDependency":{"Dependency":[]},"MultiSectionMapping":{"Mapping":[]},"SingleMapping":{"Mapping":[]},"_MappingTokenizer":{"Iterator":["String"]},"SourceMapSpan":{"SourceSpan":[],"Comparable":["SourceSpan"]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanException":{"Exception":[]},"SourceSpanFormatException":{"FormatException":[],"Exception":[]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"Chain":{"StackTrace":[]},"LazyChain":{"Chain":[],"StackTrace":[]},"LazyTrace":{"Trace":[],"StackTrace":[]},"Trace":{"StackTrace":[]},"UnparsedFrame":{"Frame":[]},"EagerSpanScanner":{"SpanScanner":[]},"_EagerSpanScannerState":{"LineScannerState":[]},"StringScannerException":{"FormatException":[],"Exception":[]},"DocumentStartEvent":{"Event":[]},"DocumentEndEvent":{"Event":[]},"AliasEvent":{"Event":[]},"_ValueEvent":{"Event":[]},"ScalarEvent":{"Event":[]},"SequenceStartEvent":{"Event":[]},"MappingStartEvent":{"Event":[]},"EventType":{"Enum":[]},"NullSpan":{"SourceSpan":[],"Comparable":["SourceSpan"]},"_Chomping":{"Enum":[]},"AnchorToken":{"Token":[]},"TagToken":{"Token":[]},"VersionDirectiveToken":{"Token":[]},"TagDirectiveToken":{"Token":[]},"AliasToken":{"Token":[]},"ScalarToken":{"Token":[]},"TokenType":{"Enum":[]},"YamlException":{"FormatException":[],"Exception":[]},"YamlMap":{"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"YamlNode":[],"Map":["@","@"],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"YamlScalar":{"YamlNode":[]},"YamlList":{"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"YamlNode":[],"Iterable":["@"],"ListBase.E":"@"},"YamlMapWrapper":{"YamlMap":[],"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"Map":["@","@"],"YamlNode":[],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"_YamlMapNodes":{"MapBase":["@","YamlNode"],"UnmodifiableMapMixin":["@","YamlNode"],"Map":["@","YamlNode"],"MapBase.K":"@","MapBase.V":"YamlNode","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"YamlNode"},"YamlListWrapper":{"YamlList":[],"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"Iterable":["@"],"YamlNode":[],"ListBase.E":"@"},"_YamlListNodes":{"ListBase":["YamlNode"],"List":["YamlNode"],"EfficientLengthIterable":["YamlNode"],"Iterable":["YamlNode"],"ListBase.E":"YamlNode"},"PathError":{"Error":[]},"AliasError":{"Error":[]},"_YamlAssertionError":{"Error":[]},"YamlScalarWrap":{"YamlScalar":[],"YamlNode":[]},"YamlMapWrap":{"YamlMap":[],"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"Map":["@","@"],"YamlNode":[],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"YamlListWrap":{"YamlList":[],"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"Iterable":["@"],"YamlNode":[],"ListBase.E":"@"},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8ClampedList":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Int16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Int32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Float32List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"]},"Float64List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"]},"Directory0":{"FileSystemEntity":[]}}'));
+  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","BufferModule":"LegacyJavaScriptObject","BufferConstants":"LegacyJavaScriptObject","Buffer":"LegacyJavaScriptObject","ConsoleModule":"LegacyJavaScriptObject","Console":"LegacyJavaScriptObject","DNS":"LegacyJavaScriptObject","DNSLookupOptions":"LegacyJavaScriptObject","DNSAddress":"LegacyJavaScriptObject","Resolver":"LegacyJavaScriptObject","EventEmitter":"LegacyJavaScriptObject","FS":"LegacyJavaScriptObject","FSConstants":"LegacyJavaScriptObject","FSWatcher":"LegacyJavaScriptObject","ReadStream":"LegacyJavaScriptObject","ReadStreamOptions":"LegacyJavaScriptObject","WriteStream":"LegacyJavaScriptObject","WriteStreamOptions":"LegacyJavaScriptObject","FileOptions":"LegacyJavaScriptObject","StatOptions":"LegacyJavaScriptObject","MkdirOptions":"LegacyJavaScriptObject","RmdirOptions":"LegacyJavaScriptObject","WatchOptions":"LegacyJavaScriptObject","WatchFileOptions":"LegacyJavaScriptObject","Stats":"LegacyJavaScriptObject","HTTP":"LegacyJavaScriptObject","HttpAgent":"LegacyJavaScriptObject","HttpAgentOptions":"LegacyJavaScriptObject","RequestOptions":"LegacyJavaScriptObject","ClientRequest":"LegacyJavaScriptObject","HttpServer":"LegacyJavaScriptObject","ServerResponse":"LegacyJavaScriptObject","IncomingMessage":"LegacyJavaScriptObject","JsError":"LegacyJavaScriptObject","Promise0":"LegacyJavaScriptObject","Date":"LegacyJavaScriptObject","Atomics":"LegacyJavaScriptObject","Modules":"LegacyJavaScriptObject","Module":"LegacyJavaScriptObject","Net":"LegacyJavaScriptObject","Socket":"LegacyJavaScriptObject","NetAddress":"LegacyJavaScriptObject","NetServer":"LegacyJavaScriptObject","NodeJsError":"LegacyJavaScriptObject","JsAssertionError":"LegacyJavaScriptObject","JsRangeError":"LegacyJavaScriptObject","JsReferenceError":"LegacyJavaScriptObject","JsSyntaxError":"LegacyJavaScriptObject","JsTypeError":"LegacyJavaScriptObject","JsSystemError":"LegacyJavaScriptObject","OS":"LegacyJavaScriptObject","CPU":"LegacyJavaScriptObject","CPUTimes":"LegacyJavaScriptObject","OSConstants":"LegacyJavaScriptObject","OSSignalConstants":"LegacyJavaScriptObject","OSErrorConstants":"LegacyJavaScriptObject","OSDLOpenConstants":"LegacyJavaScriptObject","Path":"LegacyJavaScriptObject","PathObject":"LegacyJavaScriptObject","Process":"LegacyJavaScriptObject","CPUUsage":"LegacyJavaScriptObject","Release":"LegacyJavaScriptObject","StreamModule":"LegacyJavaScriptObject","Readable":"LegacyJavaScriptObject","Writable":"LegacyJavaScriptObject","Duplex":"LegacyJavaScriptObject","Transform":"LegacyJavaScriptObject","WritableOptions":"LegacyJavaScriptObject","ReadableOptions":"LegacyJavaScriptObject","Immediate":"LegacyJavaScriptObject","Timeout":"LegacyJavaScriptObject","TTY":"LegacyJavaScriptObject","TTYReadStream":"LegacyJavaScriptObject","TTYWriteStream":"LegacyJavaScriptObject","Util":"LegacyJavaScriptObject","JavaScriptObject":{"JSObject":[]},"JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"LegacyJavaScriptObject":{"JavaScriptObject":[],"JSObject":[],"FS":[],"Writable":[],"Stats":[],"JsError":[],"OS":[],"Path":[],"TTYWriteStream":[]},"JSArray":{"List":["1"],"JavaScriptObject":[],"EfficientLengthIterable":["1"],"JSObject":[],"Iterable":["1"],"JSIndexable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"JavaScriptObject":[],"EfficientLengthIterable":["1"],"JSObject":[],"Iterable":["1"],"JSIndexable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"double":[],"num":[],"Comparable":["num"]},"JSInt":{"double":[],"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"double":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"JSIndexable":["@"],"TrustedGetRuntimeType":[]},"_CastIterableBase":{"Iterable":["2"]},"CastIterator":{"Iterator":["2"]},"CastIterable":{"_CastIterableBase":["1","2"],"Iterable":["2"],"Iterable.E":"2"},"_EfficientLengthCastIterable":{"CastIterable":["1","2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_CastListBase":{"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"]},"CastList":{"_CastListBase":["1","2"],"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","Iterable.E":"2"},"CastMap":{"MapBase":["3","4"],"Map":["3","4"],"MapBase.K":"3","MapBase.V":"4"},"CastQueue":{"Queue":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"SkipWhileIterable":{"Iterable":["1"],"Iterable.E":"1"},"SkipWhileIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"NonNullsIterable":{"Iterable":["1"],"Iterable.E":"1"},"NonNullsIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"Symbol":{"Symbol0":[]},"_Record_2":{"_Record2":[],"_Record":[]},"_Record_2_isBreaking":{"_Record2":[],"_Record":[]},"ConstantMapView":{"UnmodifiableMapView":["1","2"],"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_KeysOrValues":{"Iterable":["1"],"Iterable.E":"1"},"_KeysOrValuesOrElementsIterator":{"Iterator":["1"]},"GeneralConstantMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"ConstantSet":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ConstantStringSet":{"ConstantSet":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"JSInvocationMirror":{"Invocation":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JsIdentityLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"JsConstantLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_Record2":{"_Record":[]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"JavaScriptObject":[],"JSObject":[],"ByteBuffer":[],"TrustedGetRuntimeType":[]},"NativeTypedData":{"JavaScriptObject":[],"JSObject":[]},"NativeByteData":{"JavaScriptObject":[],"ByteData":[],"JSObject":[],"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"],"JavaScriptObject":[],"JSObject":[],"JSIndexable":["1"]},"NativeTypedArrayOfDouble":{"ListBase":["double"],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"]},"NativeTypedArrayOfInt":{"ListBase":["int"],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeFloat32List":{"NativeTypedArrayOfDouble":[],"ListBase":["double"],"Float32List":[],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeFloat64List":{"NativeTypedArrayOfDouble":[],"ListBase":["double"],"Float64List":[],"NativeTypedArray":["double"],"List":["double"],"JavaScriptIndexingBehavior":["double"],"JavaScriptObject":[],"EfficientLengthIterable":["double"],"JSObject":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeInt16List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int16List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt32List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int32List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt8List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Int8List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint16List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint16List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint32List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8ClampedList":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint8ClampedList":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"NativeTypedArrayOfInt":[],"ListBase":["int"],"Uint8List":[],"NativeTypedArray":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"JavaScriptObject":[],"EfficientLengthIterable":["int"],"JSObject":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Type":{"Type":[]},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"AsyncError":{"Error":[]},"_Future":{"Future":["1"]},"EventSink":{"Sink":["1"]},"StreamController":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_BufferingStreamSubscription":{"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_TimerImpl":{"Timer":[]},"_AsyncAwaitCompleter":{"Completer":["1"]},"_SyncStarIterator":{"Iterator":["1"]},"_SyncStarIterable":{"Iterable":["1"],"Iterable.E":"1"},"_BroadcastStream":{"_ControllerStream":["1"],"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_BroadcastSubscription":{"_ControllerSubscription":["1"],"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_BroadcastStreamController":{"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_SyncBroadcastStreamController":{"_BroadcastStreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_AsyncBroadcastStreamController":{"_BroadcastStreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_Completer":{"Completer":["1"]},"_AsyncCompleter":{"_Completer":["1"],"Completer":["1"]},"_SyncCompleter":{"_Completer":["1"],"Completer":["1"]},"StreamView":{"Stream":["1"]},"StreamTransformerBase":{"StreamTransformer":["1","2"]},"_StreamController":{"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_AsyncStreamController":{"_AsyncStreamControllerDispatch":["1"],"_StreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_SyncStreamController":{"_SyncStreamControllerDispatch":["1"],"_StreamController":["1"],"StreamController":["1"],"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"],"_StreamControllerLifecycle":["1"],"_EventSink":["1"],"_EventDispatch":["1"]},"_ControllerStream":{"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_ControllerSubscription":{"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventSink":["1"],"_EventDispatch":["1"],"_BufferingStreamSubscription.T":"1"},"_StreamSinkWrapper":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_StreamControllerAddStreamState":{"_AddStreamState":["1"]},"_StreamImpl":{"Stream":["1"]},"_DelayedData":{"_DelayedEvent":["1"]},"_DelayedError":{"_DelayedEvent":["@"]},"_DelayedDone":{"_DelayedEvent":["@"]},"_DoneStreamSubscription":{"StreamSubscription":["1"]},"_EmptyStream":{"Stream":["1"],"Stream.T":"1"},"_ForwardingStream":{"Stream":["2"]},"_ForwardingStreamSubscription":{"_BufferingStreamSubscription":["2"],"StreamSubscription":["2"],"_EventSink":["2"],"_EventDispatch":["2"],"_BufferingStreamSubscription.T":"2"},"_MapStream":{"_ForwardingStream":["1","2"],"Stream":["2"],"Stream.T":"2"},"_EventSinkWrapper":{"EventSink":["1"],"Sink":["1"]},"_SinkTransformerStreamSubscription":{"_BufferingStreamSubscription":["2"],"StreamSubscription":["2"],"_EventSink":["2"],"_EventDispatch":["2"],"_BufferingStreamSubscription.T":"2"},"_BoundSinkStream":{"Stream":["2"],"Stream.T":"2"},"_ZoneSpecification":{"ZoneSpecification":[]},"_ZoneDelegate":{"ZoneDelegate":[]},"_Zone":{"Zone":[]},"_CustomZone":{"_Zone":[],"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_HashMap":{"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_IdentityHashMap":{"_HashMap":["1","2"],"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_CustomHashMap":{"_HashMap":["1","2"],"MapBase":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_HashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_HashMapKeyIterator":{"Iterator":["1"]},"_LinkedCustomHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedHashSet":{"_SetBase":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"UnmodifiableListView":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","UnmodifiableListMixin.E":"1"},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"_MapBaseValueIterable":{"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_MapBaseValueIterator":{"Iterator":["2"]},"MapView":{"Map":["1","2"]},"UnmodifiableMapView":{"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ListQueue":{"Queue":["1"],"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_ListQueueIterator":{"Iterator":["1"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_ConverterStreamEventSink":{"EventSink":["1"],"Sink":["1"]},"_LineSplitterEventSink":{"StringConversionSink":[],"EventSink":["String"],"Sink":["String"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"_JsonDecoderSink":{"_StringSinkConversionSink":["StringBuffer"],"StringConversionSink":[],"Sink":["String"],"_StringSinkConversionSink.0":"StringBuffer"},"AsciiCodec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"_UnicodeSubsetEncoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"]},"AsciiEncoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_UnicodeSubsetEncoderSink":{"StringConversionSink":[],"Sink":["String"]},"_UnicodeSubsetDecoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"]},"AsciiDecoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"_ErrorHandlingAsciiDecoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_SimpleAsciiDecoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Base64Codec":{"Codec":["List<int>","String"],"Codec.S":"List<int>"},"Base64Encoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"_BufferCachingBase64Encoder":{"_Base64Encoder":[]},"_Base64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_AsciiBase64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"_Utf8Base64EncoderSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Base64Decoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_Base64DecoderSink":{"StringConversionSink":[],"Sink":["String"]},"ByteConversionSink":{"Sink":["List<int>"]},"_ByteAdapterSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"ChunkedConversionSink":{"Sink":["1"]},"_FusedCodec":{"Codec":["1","3"],"Codec.S":"1"},"Converter":{"StreamTransformer":["1","2"]},"Encoding":{"Codec":["String","List<int>"]},"JsonUnsupportedObjectError":{"Error":[]},"JsonCyclicError":{"Error":[]},"JsonCodec":{"Codec":["Object?","String"],"Codec.S":"Object?"},"JsonEncoder":{"Converter":["Object?","String"],"StreamTransformer":["Object?","String"],"Converter.S":"Object?","Converter.T":"String"},"_JsonEncoderSink":{"Sink":["Object?"]},"_JsonUtf8EncoderSink":{"Sink":["Object?"]},"JsonDecoder":{"Converter":["String","Object?"],"StreamTransformer":["String","Object?"],"Converter.S":"String","Converter.T":"Object?"},"LineSplitter":{"StreamTransformer":["String","String"]},"_LineSplitterSink":{"StringConversionSink":[],"Sink":["String"]},"_LineSplitIterable":{"Iterable":["String"],"Iterable.E":"String"},"_LineSplitIterator":{"Iterator":["String"]},"StringConversionSink":{"Sink":["String"]},"_ClosableStringSink":{"StringSink":[]},"_StringConversionSinkAsStringSinkAdapter":{"StringSink":[]},"_StringSinkConversionSink":{"StringConversionSink":[],"Sink":["String"]},"_StringAdapterSink":{"StringConversionSink":[],"Sink":["String"]},"_Utf8StringSinkAdapter":{"ByteConversionSink":[],"Sink":["List<int>"]},"_Utf8ConversionSink":{"ByteConversionSink":[],"Sink":["List<int>"]},"Utf8Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Utf8Encoder":{"Converter":["String","List<int>"],"StreamTransformer":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_Utf8EncoderSink":{"StringConversionSink":[],"Sink":["String"]},"Utf8Decoder":{"Converter":["List<int>","String"],"StreamTransformer":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"BigInt":{"Comparable":["BigInt"]},"DateTime":{"Comparable":["DateTime"]},"double":{"num":[],"Comparable":["num"]},"Duration":{"Comparable":["Duration"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExp":{"Pattern":[]},"RegExpMatch":{"Match":[]},"Set":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"String":{"Comparable":["String"],"Pattern":[]},"StringBuffer":{"StringSink":[]},"_BigIntImpl":{"BigInt":[],"Comparable":["BigInt"]},"_WeakReferenceWrapper":{"WeakReference":["1"]},"_Enum":{"Enum":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"RangeError":[],"Error":[]},"NoSuchMethodError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"IntegerDivisionByZeroException":{"Exception":[],"Error":[]},"_StringStackTrace":{"StackTrace":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"_StreamSinkImpl":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"_IOSinkImpl":{"_StreamSinkImpl":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[],"_StreamSinkImpl.T":"List<int>"},"ProcessException":{"Exception":[]},"NullRejectionException":{"Exception":[]},"ActionResult":{"Enum":[]},"_AftTask":{"PostUpdateTask":[]},"_BuildRunnerTask":{"PostUpdateTask":[]},"DependencyUpdateGroup":{"Enum":[]},"NodeLoggerPlugin":{"AWSLoggerPlugin":[]},"PullRequestState":{"Enum":[]},"_NodePlatform":{"Platform":[]},"NodeProcessManager":{"ProcessManager":[]},"_UnreachableError":{"Error":[]},"CommitType":{"Enum":[]},"CommitMessage":{"AWSEquatable":["CommitMessage"]},"CommitTypeGroup":{"Enum":[]},"MergeCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"ConventionalCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"UnconventionalCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"VersionCommitMessage":{"CommitMessage":[],"AWSEquatable":["CommitMessage"],"AWSEquatable.T":"CommitMessage"},"AftConfig":{"AWSSerializable":["Map<String,Object?>"]},"AftComponent":{"AWSSerializable":["Map<String,Object?>"]},"PackageInfo":{"AWSEquatable":["PackageInfo"],"AWSSerializable":["Map<String,Object?>"],"Comparable":["PackageInfo"],"AWSEquatable.T":"PackageInfo"},"PubspecInfo":{"AWSSerializable":["Map<String,Object?>"]},"_$AftConfigSerializer":{"StructuredSerializer":["AftConfig"],"Serializer":["AftConfig"]},"_$AftConfig":{"AftConfig":[],"AWSSerializable":["Map<String,Object?>"]},"PackageSelector":{"AWSSerializable":["Object?"]},"_PackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_PackageOrComponentSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_AllPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_DevelopmentPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_ExamplePackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_TestPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_DartPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_FlutterPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_RootPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_CurrentPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_OrPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"_AndPackageSelector":{"PackageSelector":[],"AWSSerializable":["Object?"]},"RawAftConfig":{"AWSSerializable":["Map<String,Object?>"]},"Environment":{"AWSSerializable":["Map<String,Object?>"]},"AndroidEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"IosEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"MacOSEnvironment":{"AWSSerializable":["Map<String,Object?>"]},"GitHubPackageConfig":{"AWSSerializable":["Map<String,Object?>"]},"VersionPropagation":{"Enum":[]},"RawAftComponent":{"AWSSerializable":["Map<String,Object?>"]},"AftScript":{"AWSSerializable":["Map<String,Object?>"]},"_$EnvironmentSerializer":{"StructuredSerializer":["Environment"],"Serializer":["Environment"]},"_$PlatformEnvironmentSerializer":{"StructuredSerializer":["PlatformEnvironment"],"Serializer":["PlatformEnvironment"]},"_$AndroidEnvironmentSerializer":{"StructuredSerializer":["AndroidEnvironment"],"Serializer":["AndroidEnvironment"]},"_$IosEnvironmentSerializer":{"StructuredSerializer":["IosEnvironment"],"Serializer":["IosEnvironment"]},"_$MacOSEnvironmentSerializer":{"StructuredSerializer":["MacOSEnvironment"],"Serializer":["MacOSEnvironment"]},"_$GitHubPackageConfigSerializer":{"StructuredSerializer":["GitHubPackageConfig"],"Serializer":["GitHubPackageConfig"]},"_$Environment":{"Environment":[],"AWSSerializable":["Map<String,Object?>"]},"_$PlatformEnvironment":{"PlatformEnvironment":[]},"_$AndroidEnvironment":{"AndroidEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$IosEnvironment":{"IosEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$MacOSEnvironment":{"MacOSEnvironment":[],"AWSSerializable":["Map<String,Object?>"]},"_$GitHubPackageConfig":{"GitHubPackageConfig":[],"AWSSerializable":["Map<String,Object?>"]},"JsonSerializer":{"PrimitiveSerializer":["1"],"Serializer":["1"]},"VersionConstraintSerializer":{"PrimitiveSerializer":["1"],"Serializer":["1"]},"_$DependencyGroupUpdate":{"DependencyGroupUpdate":[]},"_$DependencyMetadata":{"DependencyMetadata":[]},"PackageFlavor":{"Enum":[]},"DependencyType":{"Enum":[]},"_VersionWindow":{"Enum":[]},"PubVersionResolver":{"VersionResolver":[]},"DelegatingStreamSubscription":{"StreamSubscription":["1"]},"FutureGroup":{"Sink":["Future<1>"]},"ErrorResult":{"Result":["0&"]},"ValueResult":{"Result":["1"]},"_NextRequest":{"_EventRequest":["1"]},"_CancelRequest":{"_EventRequest":["1"]},"_HasNextRequest":{"_EventRequest":["1"]},"SubscriptionStream":{"Stream":["1"],"Stream.T":"1"},"_CancelOnErrorSubscriptionWrapper":{"DelegatingStreamSubscription":["1"],"StreamSubscription":["1"]},"CaseInsensitiveMap":{"DelegatingMap":["String","1"],"Map":["String","1"],"DelegatingMap.K":"String","DelegatingMap.V":"1"},"AWSHttpException":{"Exception":[]},"CancellationException":{"Exception":[]},"AlpnProtocol":{"Enum":[]},"SupportedProtocols":{"Enum":[]},"AWSHttpClientImpl":{"AWSHttpClient":[]},"AWSHttpMethod":{"Enum":[]},"AWSHttpOperation":{"_AWSHttpOperation_AWSOperation_AWSProgressOperation":["1"],"AWSOperation":["1"],"Cancelable":[]},"AWSBaseHttpRequest":{"StreamSplitter":["List<int>"]},"AWSHttpRequest":{"AWSBaseHttpRequest":[],"StreamSplitter":["List<int>"]},"AWSBaseHttpResponse":{"StreamSplitter":["List<int>"]},"AWSStreamedHttpResponse":{"AWSBaseHttpResponse":[],"StreamSplitter":["List<int>"]},"RequestCache":{"Enum":[]},"RequestCredentials":{"Enum":[]},"RequestRedirect":{"Enum":[]},"RequestDestination":{"Enum":[]},"RequestMode":{"Enum":[]},"ReadableStreamView":{"StreamView":["List<int>"],"Stream":["List<int>"],"Stream.T":"List<int>","StreamView.T":"List<int>"},"ReadableStreamType":{"Enum":[]},"ReadableStreamReaderMode":{"Enum":[]},"LogEntry":{"AWSEquatable":["LogEntry"],"AWSEquatable.T":"LogEntry"},"LogLevel":{"Enum":[],"Comparable":["LogLevel"]},"SimpleLogPrinter":{"AWSLoggerPlugin":[]},"AWSOperation":{"Cancelable":[]},"CopyOnWriteList":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"CopyOnWriteMap":{"Map":["1","2"]},"BuiltList":{"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltList":{"BuiltList":["1"],"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltListMultimap":{"BuiltListMultimap":["1","2"]},"_BuiltMap":{"BuiltMap":["1","2"]},"BuiltSet":{"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltSet":{"BuiltSet":["1"],"BuiltIterable":["1"],"Iterable":["1"]},"_BuiltSetMultimap":{"BuiltSetMultimap":["1","2"]},"BuiltValueNullFieldError":{"Error":[]},"BuiltValueNestedFieldError":{"Error":[]},"BoolJsonObject":{"JsonObject":[]},"ListJsonObject":{"JsonObject":[]},"MapJsonObject":{"JsonObject":[]},"NumJsonObject":{"JsonObject":[]},"StringJsonObject":{"JsonObject":[]},"DeserializationError":{"Error":[]},"BigIntSerializer":{"PrimitiveSerializer":["BigInt"],"Serializer":["BigInt"]},"BoolSerializer":{"PrimitiveSerializer":["bool"],"Serializer":["bool"]},"BuiltJsonSerializers":{"Serializers":[]},"BuiltListMultimapSerializer":{"StructuredSerializer":["BuiltListMultimap<@,@>"],"Serializer":["BuiltListMultimap<@,@>"]},"BuiltListSerializer":{"StructuredSerializer":["BuiltList<@>"],"Serializer":["BuiltList<@>"]},"BuiltMapSerializer":{"StructuredSerializer":["BuiltMap<@,@>"],"Serializer":["BuiltMap<@,@>"]},"BuiltSetMultimapSerializer":{"StructuredSerializer":["BuiltSetMultimap<@,@>"],"Serializer":["BuiltSetMultimap<@,@>"]},"BuiltSetSerializer":{"StructuredSerializer":["BuiltSet<@>"],"Serializer":["BuiltSet<@>"]},"DateTimeSerializer":{"PrimitiveSerializer":["DateTime"],"Serializer":["DateTime"]},"DoubleSerializer":{"PrimitiveSerializer":["double"],"Serializer":["double"]},"DurationSerializer":{"PrimitiveSerializer":["Duration"],"Serializer":["Duration"]},"Int64Serializer":{"PrimitiveSerializer":["Int64"],"Serializer":["Int64"]},"IntSerializer":{"PrimitiveSerializer":["int"],"Serializer":["int"]},"JsonObjectSerializer":{"PrimitiveSerializer":["JsonObject"],"Serializer":["JsonObject"]},"NullSerializer":{"PrimitiveSerializer":["Null"],"Serializer":["Null"]},"NumSerializer":{"PrimitiveSerializer":["num"],"Serializer":["num"]},"RegExpSerializer":{"PrimitiveSerializer":["RegExp"],"Serializer":["RegExp"]},"StringSerializer":{"PrimitiveSerializer":["String"],"Serializer":["String"]},"Uint8ListSerializer":{"PrimitiveSerializer":["Uint8List"],"Serializer":["Uint8List"]},"UriSerializer":{"PrimitiveSerializer":["Uri"],"Serializer":["Uri"]},"StandardJsonPlugin":{"SerializerPlugin":[]},"ParsedYamlException":{"Exception":[]},"_WrappedYamlException":{"Exception":[]},"DefaultEquality":{"Equality":["1"]},"IterableEquality":{"Equality":["Iterable<1>"]},"ListEquality":{"Equality":["List<1>"]},"_UnorderedEquality":{"Equality":["2"]},"UnorderedIterableEquality":{"_UnorderedEquality":["1","Iterable<1>"],"Equality":["Iterable<1>"],"_UnorderedEquality.T":"Iterable<1>","_UnorderedEquality.E":"1"},"SetEquality":{"_UnorderedEquality":["1","Set<1>"],"Equality":["Set<1>"],"_UnorderedEquality.T":"Set<1>","_UnorderedEquality.E":"1"},"MapEquality":{"Equality":["Map<1,2>"]},"DeepCollectionEquality":{"Equality":["@"]},"QueueList":{"ListBase":["1"],"List":["1"],"Queue":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","QueueList.E":"1"},"_CastQueueList":{"QueueList":["2"],"ListBase":["2"],"List":["2"],"Queue":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","QueueList.E":"2"},"DelegatingMap":{"Map":["1","2"]},"LocalFileSystem":{"FileSystem":[]},"Int64":{"Comparable":["Object"]},"BadKeyException":{"Exception":[]},"UnrecognizedKeysException":{"Exception":[]},"DisallowedNullValueException":{"Exception":[]},"CheckedFromJsonException":{"Exception":[]},"Level":{"Comparable":["Level"]},"Directory":{"Directory0":[],"FileSystemEntity":[]},"File":{"FileSystemEntity":[]},"NodeFileSystem":{"FileSystem":[]},"FileSystemEntity0":{"FileSystemEntity":[]},"Link":{"FileSystemEntity":[]},"Stdout":{"WritableStream":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[],"WritableStream.S":"List<int>"},"WritableStream":{"EventSink":["1"],"Sink":["1"],"StreamConsumer":["1"]},"NodeIOSink":{"WritableStream":["List<int>"],"IOSink":[],"EventSink":["List<int>"],"Sink":["List<int>"],"StreamConsumer":["List<int>"],"StringSink":[]},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"LocalPlatform":{"Platform":[]},"LocalProcessManager":{"ProcessManager":[]},"Version":{"VersionRange":[],"VersionConstraint":[],"Comparable":["VersionRange"]},"_EmptyVersion":{"VersionConstraint":[]},"VersionRange":{"Comparable":["VersionRange"],"VersionConstraint":[]},"CompatibleWithVersionRange":{"VersionRange":[],"Comparable":["VersionRange"],"VersionConstraint":[]},"SdkDependency":{"Dependency":[]},"GitDependency":{"Dependency":[]},"HostedDependency":{"Dependency":[]},"PathDependency":{"Dependency":[]},"MultiSectionMapping":{"Mapping":[]},"SingleMapping":{"Mapping":[]},"_MappingTokenizer":{"Iterator":["String"]},"SourceMapSpan":{"SourceSpan":[],"Comparable":["SourceSpan"]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanException":{"Exception":[]},"SourceSpanFormatException":{"FormatException":[],"Exception":[]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"Chain":{"StackTrace":[]},"LazyChain":{"Chain":[],"StackTrace":[]},"LazyTrace":{"Trace":[],"StackTrace":[]},"Trace":{"StackTrace":[]},"UnparsedFrame":{"Frame":[]},"EagerSpanScanner":{"SpanScanner":[]},"_EagerSpanScannerState":{"LineScannerState":[]},"StringScannerException":{"FormatException":[],"Exception":[]},"DocumentStartEvent":{"Event":[]},"DocumentEndEvent":{"Event":[]},"AliasEvent":{"Event":[]},"_ValueEvent":{"Event":[]},"ScalarEvent":{"Event":[]},"SequenceStartEvent":{"Event":[]},"MappingStartEvent":{"Event":[]},"EventType":{"Enum":[]},"NullSpan":{"SourceSpan":[],"Comparable":["SourceSpan"]},"_Chomping":{"Enum":[]},"AnchorToken":{"Token":[]},"TagToken":{"Token":[]},"VersionDirectiveToken":{"Token":[]},"TagDirectiveToken":{"Token":[]},"AliasToken":{"Token":[]},"ScalarToken":{"Token":[]},"TokenType":{"Enum":[]},"YamlException":{"FormatException":[],"Exception":[]},"YamlMap":{"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"YamlNode":[],"Map":["@","@"],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"YamlScalar":{"YamlNode":[]},"YamlList":{"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"YamlNode":[],"Iterable":["@"],"ListBase.E":"@"},"YamlMapWrapper":{"YamlMap":[],"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"Map":["@","@"],"YamlNode":[],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"_YamlMapNodes":{"MapBase":["@","YamlNode"],"UnmodifiableMapMixin":["@","YamlNode"],"Map":["@","YamlNode"],"MapBase.K":"@","MapBase.V":"YamlNode","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"YamlNode"},"YamlListWrapper":{"YamlList":[],"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"Iterable":["@"],"YamlNode":[],"ListBase.E":"@"},"_YamlListNodes":{"ListBase":["YamlNode"],"List":["YamlNode"],"EfficientLengthIterable":["YamlNode"],"Iterable":["YamlNode"],"ListBase.E":"YamlNode"},"PathError":{"Error":[]},"AliasError":{"Error":[]},"_YamlAssertionError":{"Error":[]},"YamlScalarWrap":{"YamlScalar":[],"YamlNode":[]},"YamlMapWrap":{"YamlMap":[],"MapBase":["@","@"],"UnmodifiableMapMixin":["@","@"],"Map":["@","@"],"YamlNode":[],"MapBase.K":"@","MapBase.V":"@","UnmodifiableMapMixin.K":"@","UnmodifiableMapMixin.V":"@"},"YamlListWrap":{"YamlList":[],"ListBase":["@"],"List":["@"],"EfficientLengthIterable":["@"],"Iterable":["@"],"YamlNode":[],"ListBase.E":"@"},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8ClampedList":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Int16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Int32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Float32List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"]},"Float64List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"]},"Directory0":{"FileSystemEntity":[]}}'));
   A._Universe_addErasedTypes(init.typeUniverse, JSON.parse('{"UnmodifiableListBase":1,"__CastListBase__CastIterableBase_ListMixin":2,"NativeTypedArray":1,"StreamTransformerBase":2,"_DelayedEvent":1,"ChunkedConversionSink":1,"AWSProgressOperation":1,"_QueueList_Object_ListMixin":1}'));
   var string$ = {
     x20must_: " must not be greater than the number of characters in the file, ",
@@ -44586,7 +44585,7 @@
       Base64Codec: findType("Base64Codec"),
       BigInt: findType("BigInt"),
       BuiltIterable_dynamic: findType("BuiltIterable<@>"),
-      BuiltListMultimap_String_DependencyUpdate: findType("BuiltListMultimap<String,DependencyUpdate>"),
+      BuiltListMultimap_String_DependencyMetadata: findType("BuiltListMultimap<String,DependencyMetadata>"),
       BuiltListMultimap_dynamic_dynamic: findType("BuiltListMultimap<@,@>"),
       BuiltList_String: findType("BuiltList<String>"),
       BuiltList_dynamic: findType("BuiltList<@>"),
@@ -44594,7 +44593,7 @@
       BuiltList_of_void_Function_Repo: findType("BuiltList<~(Repo)>"),
       BuiltMap_String_AftComponent: findType("BuiltMap<String,AftComponent>"),
       BuiltMap_String_AftScript: findType("BuiltMap<String,AftScript>"),
-      BuiltMap_String_DependencyUpdate: findType("BuiltMap<String,DependencyUpdate>"),
+      BuiltMap_String_DependencyMetadata: findType("BuiltMap<String,DependencyMetadata>"),
       BuiltMap_String_PackageInfo: findType("BuiltMap<String,PackageInfo>"),
       BuiltMap_String_VersionConstraint: findType("BuiltMap<String,VersionConstraint>"),
       BuiltMap_dynamic_dynamic: findType("BuiltMap<@,@>"),
@@ -44617,8 +44616,8 @@
       Dependency: findType("Dependency"),
       DependencyGroupUpdate: findType("DependencyGroupUpdate"),
       DependencyGroupUpdateBuilder: findType("DependencyGroupUpdateBuilder"),
-      DependencyUpdate: findType("DependencyUpdate"),
-      DependencyUpdateBuilder: findType("DependencyUpdateBuilder"),
+      DependencyMetadata: findType("DependencyMetadata"),
+      DependencyMetadataBuilder: findType("DependencyMetadataBuilder"),
       DependencyUpdateGroup: findType("DependencyUpdateGroup"),
       Deputy: findType("Deputy"),
       Directory: findType("Directory0"),
@@ -44711,7 +44710,7 @@
       ListBuilder_String: findType("ListBuilder<String>"),
       ListBuilder_dynamic: findType("ListBuilder<@>"),
       ListEquality_dynamic: findType("ListEquality<@>"),
-      ListMultimapBuilder_String_DependencyUpdate: findType("ListMultimapBuilder<String,DependencyUpdate>"),
+      ListMultimapBuilder_String_DependencyMetadata: findType("ListMultimapBuilder<String,DependencyMetadata>"),
       ListMultimapBuilder_dynamic_dynamic: findType("ListMultimapBuilder<@,@>"),
       List_JSObject: findType("List<JSObject>"),
       List_Map_of_String_and_nullable_Object: findType("List<Map<String,Object?>>"),
@@ -44787,7 +44786,6 @@
       Path: findType("Path"),
       PlatformEnvironment: findType("PlatformEnvironment"),
       PrimitiveSerializer_dynamic: findType("PrimitiveSerializer<@>"),
-      Process: findType("Process"),
       ProcessResult: findType("ProcessResult"),
       Pubspec: findType("Pubspec"),
       PubspecInfo: findType("PubspecInfo"),
@@ -44944,7 +44942,7 @@
       nullable_List_nullable_Object: findType("List<Object?>?"),
       nullable_MapBuilder_String_AftComponent: findType("MapBuilder<String,AftComponent>?"),
       nullable_MapBuilder_String_AftScript: findType("MapBuilder<String,AftScript>?"),
-      nullable_MapBuilder_String_DependencyUpdate: findType("MapBuilder<String,DependencyUpdate>?"),
+      nullable_MapBuilder_String_DependencyMetadata: findType("MapBuilder<String,DependencyMetadata>?"),
       nullable_MapBuilder_String_PackageInfo: findType("MapBuilder<String,PackageInfo>?"),
       nullable_MapBuilder_String_VersionConstraint: findType("MapBuilder<String,VersionConstraint>?"),
       nullable_MapEntry_String_VersionConstraint: findType("MapEntry<String,VersionConstraint>?"),
@@ -45163,7 +45161,6 @@
     B.C_SimpleLogPrinter = new A.SimpleLogPrinter();
     B.C_Utf8Encoder = new A.Utf8Encoder();
     B.C_Uuid = new A.Uuid();
-    B.C_VersionConstraintSerializer0 = new A.VersionConstraintSerializer(A.findType("VersionConstraintSerializer<Version>"));
     B.C_VersionConstraintSerializer = new A.VersionConstraintSerializer(A.findType("VersionConstraintSerializer<VersionConstraint>"));
     B.List_generate_goldens = A._setArrayType(makeConstList(["generate", "goldens"]), type$.JSArray_String);
     B.C__AftTask = new A._AftTask();
@@ -45228,8 +45225,6 @@
     B.FullType_KVM = new A.FullType(B.Type_BuiltSet_fcN, B.List_3wP, false);
     B.Type_bool_lhE = A.typeLiteral("bool");
     B.FullType_MtR = new A.FullType(B.Type_bool_lhE, B.List_empty1, false);
-    B.Type_Version_MPT = A.typeLiteral("Version");
-    B.FullType_NWH = new A.FullType(B.Type_Version_MPT, B.List_empty1, false);
     B.Type_AndroidEnvironment_hO0 = A.typeLiteral("AndroidEnvironment");
     B.FullType_URx = new A.FullType(B.Type_AndroidEnvironment_hO0, B.List_empty1, false);
     B.Type_MacOSEnvironment_K5p = A.typeLiteral("MacOSEnvironment");
@@ -45287,9 +45282,6 @@
     B.List_Kd3 = A._setArrayType(makeConstList(["run", "description", "from", "fail-fast"]), type$.JSArray_String);
     B.List_M1A = A._setArrayType(makeConstList([0, 0, 24576, 1023, 65534, 34815, 65534, 18431]), type$.JSArray_int);
     B.List_MMm = A._setArrayType(makeConstList([0, 0, 26624, 1023, 65534, 2047, 65534, 2047]), type$.JSArray_int);
-    B.Type_DependencyUpdate_THA = A.typeLiteral("DependencyUpdate");
-    B.Type__$DependencyUpdate_xw8 = A.typeLiteral("_$DependencyUpdate");
-    B.List_NIe = A._setArrayType(makeConstList([B.Type_DependencyUpdate_THA, B.Type__$DependencyUpdate_xw8]), type$.JSArray_Type);
     B.List_OL3 = A._setArrayType(makeConstList([0, 0, 32722, 12287, 65534, 34815, 65534, 18431]), type$.JSArray_int);
     B.List_kuc = A._setArrayType(makeConstList(["built_value", "built_collection", "built_value_generator", "json_annotation", "json_serializable", "code_builder"]), type$.JSArray_String);
     B.DependencyUpdateGroup_CVt = new A.DependencyUpdateGroup(B.List_kuc, true, 0, "codeGeneration");
@@ -45448,6 +45440,7 @@
     B.Type_Uint8ClampedList_Jik = A.typeLiteral("Uint8ClampedList");
     B.Type_Uint8List_WLA = A.typeLiteral("Uint8List");
     B.Type_VersionRange_aqJ = A.typeLiteral("VersionRange");
+    B.Type_Version_MPT = A.typeLiteral("Version");
     B.Type_double_K1J = A.typeLiteral("double");
     B.Type_int_tHn = A.typeLiteral("int");
     B.Type_num_cv7 = A.typeLiteral("num");
@@ -45643,6 +45636,10 @@
       var t1 = A.findType("JSArray<~()>");
       return new A.ActionContext(A._setArrayType([], t1), A._setArrayType([], t1));
     });
+    _lazyFinal($, "_spawnEvents", "$get$_spawnEvents", () => A.Expando$(null, A.findType("Future<~>")));
+    _lazyFinal($, "_errorEvents", "$get$_errorEvents", () => A.Expando$(null, A.findType("Future<JSObject>")));
+    _lazyFinal($, "_exitEvents", "$get$_exitEvents", () => A.Expando$(null, A.findType("Future<double>")));
+    _lazyFinal($, "_closeEvents", "$get$_closeEvents", () => A.Expando$(null, A.findType("Future<~>")));
     _lazyFinal($, "nodeProcessManager", "$get$nodeProcessManager", () => new A.nodeProcessManager_closure().call$0());
     _lazyFinal($, "_mergeCommitRegex", "$get$_mergeCommitRegex", () => A.RegExp_RegExp("^Merge .+$", true, false));
     _lazyFinal($, "_commitRegex", "$get$_commitRegex", () => A.RegExp_RegExp("(?<type>build|chore|ci|docs|feat|fix|bug|perf|refactor|revert|style|test)?(?<scope>\\([a-zA-Z0-9_,\\s\\*]+\\)?((?=:\\s?)|(?=!:\\s?)))?(?<breaking>!)?(?<description>:\\s?.*)?", true, false));
@@ -45656,7 +45653,7 @@
     _lazy($, "_$gitHubPackageConfigSerializer", "$get$_$gitHubPackageConfigSerializer", () => new A._$GitHubPackageConfigSerializer());
     _lazyFinal($, "aftSerializers", "$get$aftSerializers", () => {
       var t1 = $.$get$_$aftSerializers().toBuilder$0();
-      t1.addPlugin$1(A.StandardJsonPlugin$());
+      t1._plugins.add$1(0, A.StandardJsonPlugin$());
       t1.add$1(0, B.C_VersionConstraintSerializer);
       t1.add$1(0, B["JsonSerializer__#fromJson#tearOff"]);
       t1.add$1(0, B["JsonSerializer__#fromJson#tearOff0"]);
@@ -45680,20 +45677,6 @@
       t1.addBuilderFactory$2(B.FullType_hYw, new A._$aftSerializers_closure3());
       return t1.build$0();
     });
-    _lazyFinal($, "_serializers", "$get$_serializers", () => {
-      var t1 = $.$get$_$_serializers().toBuilder$0();
-      t1.addPlugin$1(A.StandardJsonPlugin$());
-      t1.add$1(0, B.C_VersionConstraintSerializer);
-      t1.add$1(0, B.C_VersionConstraintSerializer0);
-      return t1.build$0();
-    });
-    _lazy($, "_$_serializers", "$get$_$_serializers", () => {
-      var t1 = A.Serializers_Serializers().toBuilder$0();
-      t1.add$1(0, $.$get$_$dependencyUpdateSerializer());
-      t1.addBuilderFactory$2(B.FullType_0, new A._$_serializers_closure());
-      return t1.build$0();
-    });
-    _lazy($, "_$dependencyUpdateSerializer", "$get$_$dependencyUpdateSerializer", () => new A._$DependencyUpdateSerializer());
     _lazyFinal($, "_responseStreams", "$get$_responseStreams", () => A.Expando$("ResponseStreams", A.findType("ReadableStreamView")));
     _lazyFinal($, "_readableStreamViews", "$get$_readableStreamViews", () => A.Expando$("ReadableStreamViews", A.findType("ReadableStreamView")));
     _lazyFinal($, "StringRecase__nonAlphaNumericChars", "$get$StringRecase__nonAlphaNumericChars", () => A.RegExp_RegExp("[^A-Za-z0-9+]", true, false));

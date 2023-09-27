@@ -28,13 +28,17 @@ function log_swap {
   echo
 }
 
-# Set swap
+echo "****** Before ******"
 log_swap
+
+# Allocate swap
 SWAP_FILE=/swap
 sudo fallocate -l ${sizeInGb}G \$SWAP_FILE
 sudo chmod 600 \$SWAP_FILE
 sudo mkswap \$SWAP_FILE
 sudo swapon \$SWAP_FILE
+
+echo "****** After ******"
 log_swap
 ''').run();
   });

@@ -35,7 +35,9 @@ Future<void> _deputyScan() async {
   }
 
   await allocateSwapSpace();
-  await _createPrs(deputy.repo, updates);
+
+  final existingPrs = await _listExistingPrs();
+  await _createPrs(deputy.repo, existingPrs, updates);
 }
 
 /// Lists all Deputy PRs which currently exist in the repo with the PR number
@@ -60,15 +62,15 @@ Future<Map<String, int>> _listExistingPrs() async {
   });
 }
 
-/// Creates a PR for each dependency group, closing existing PRs which are superceded.
+/// Creates a PR for each dependency group, updating existing PRs if they exist.
 Future<void> _createPrs(
   Repo repo,
+  Map<String, int> existingPrs,
   Map<String, DependencyGroupUpdate> updates,
 ) async {
+  core.info('Creating PRs for update groups: $updates');
   final git = NodeGitDir(repo.git);
   final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
-  final existingPrs = await _listExistingPrs();
-  core.info('Creating PRs for update groups: $updates');
   for (final MapEntry(key: groupName, value: group) in updates.entries) {
     // If the group updates all deps to a unique constraint, use that in messages.
     final uniqueConstraint =
@@ -134,10 +136,20 @@ Future<void> _createPrs(
       if (uniqueConstraint != null) {
         commitTitle += ' to $uniqueConstraint';
       }
-      commitTitle = '"$commitTitle"';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
+
+      // Skip creating a new PR when one already exists.
+      //
+      // Force pushing above will have updated the existing PR already.
+      if (existingPrs[groupName] case final existingPr?) {
+        core.info(
+          'Skipping PR creation. PR already exists at: '
+          'https://github.com/aws-amplify/amplify-flutter/pull/$existingPr',
+        );
+        return;
+      }
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
@@ -149,7 +161,6 @@ Future<void> _createPrs(
       final prBody = '''
 > **NOTE:** This PR was automatically created using the repo deputy.
 
-Updated $groupToken$groupName:
 $constraintUpdates
 
 $_groupTrailer: $groupName
@@ -165,6 +176,7 @@ $_groupTrailer: $groupName
           '--base=main',
           '--body-file=${tmpFile.path}',
           '--title=$commitTitle',
+          '--draft', // FIXME: Remove
         ],
         echoOutput: true,
         workingDirectory: worktreeDir,
@@ -173,35 +185,7 @@ $_groupTrailer: $groupName
         core.error(
           'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
         );
-        process.exitCode = 1;
-        return;
-      }
-
-      // Close existing PR if this supercedes.
-      final existingPr = existingPrs[groupName];
-      if (existingPr == null) {
-        return;
-      }
-
-      core.info('Closing existing PR...');
-      final closeResult = await nodeProcessManager.run(
-        <String>[
-          'gh',
-          'pr',
-          'close',
-          '$existingPr',
-          '--comment="Closing in favor of new PR."',
-        ],
-        echoOutput: true,
-        workingDirectory: worktreeDir,
-      );
-      if (closeResult.exitCode != 0) {
-        core.error(
-          'Failed to close existing PR. Will need to be closed manually: '
-          'https://github.com/aws-amplify/amplify-flutter/pull/$existingPr',
-        );
-        process.exitCode = 1;
-        return;
+        process.exit(prResult.exitCode);
       }
     });
   }
