@@ -21,15 +21,27 @@ const List<String> _doNotUpdate = [
   'xml',
 
   // Bumping leads to mismatched `analyzer` constraint with `built_value_generator`
+  // Must always match stable since it's what `dart format` uses.
   'dart_style',
+
+  // Breaking change would need to be coordinated
+  'uuid',
 ];
 
 /// The groups of dependencies which should be updated together.
 final List<DependencyUpdateGroup> updateGroups = [
+  // Drift
   DependencyUpdateGroup.of(['drift', 'drift_dev']),
-  DependencyUpdateGroup.of(['json_annotation', 'json_serializable']),
-  DependencyUpdateGroup.of(
-      ['built_value', 'built_collection', 'built_value_generator']),
+
+  // Code generation
+  DependencyUpdateGroup.of([
+    'built_value',
+    'built_collection',
+    'built_value_generator',
+    'json_annotation',
+    'json_serializable',
+    'code_builder',
+  ]),
 ];
 
 Future<void> _deputyScan() async {
@@ -37,7 +49,7 @@ Future<void> _deputyScan() async {
     ..unregisterAllPlugins()
     ..registerPlugin(const NodeLoggerPlugin());
   final deputy = await Deputy.create(
-    groups: updateGroups,
+    dependencyGroups: updateGroups,
     fileSystem: nodeFileSystem,
     platform: nodePlatform,
     processManager: nodeProcessManager,
@@ -60,30 +72,13 @@ Future<void> _deputyScan() async {
   for (final MapEntry(key: dependencies, value: groupUpdates)
       in updates.toMap().entries) {
     final groupName = dependencies.join('+');
+    final updatedConstraint = groupUpdates.first.updatedConstraint;
     await core.withGroup('Create PR for group "$groupName"', () async {
       if (dependencies.any(_doNotUpdate.contains)) {
         core.info(
           'Skipping "$groupName" since one of its dependencies are on the do-not-update list',
         );
         return;
-      }
-      int? closeExisting;
-      for (final PropsedDependencyUpdate(
-            :updatedConstraint,
-            update: DependencyUpdate(:packageName)
-          ) in groupUpdates) {
-        if (existingPrs[packageName] case (final prNumber, final constraint)) {
-          if (constraint == updatedConstraint) {
-            core.info(
-              'Skipping "$packageName". PR already exists for same update ($constraint): '
-              'https://github.com/aws-amplify/amplify-flutter/pull/$prNumber',
-            );
-            return;
-          }
-
-          // Close existing PR after new PR is created
-          closeExisting = prNumber;
-        }
       }
 
       // Update pubspecs for the dependency and commit changes to a new branch.
@@ -94,7 +89,6 @@ Future<void> _deputyScan() async {
       // TODO(dnys1): Fix
       // const baseBranch = 'origin/main';
       const baseBranch = 'origin/chore/aft-fixes';
-      final updatedConstraint = groupUpdates.first.updatedConstraint;
       final constraint = updatedConstraint
           .toString()
           .replaceAll(_specialChars, '')
@@ -123,16 +117,17 @@ Future<void> _deputyScan() async {
       for (final groupUpdate in groupUpdates) {
         core.info('Updating pubspecs...');
         await groupUpdate.updatePubspecs(worktreeRepo);
-
-        core.info('Running post-update tasks...');
-        final updatedPackages =
-            groupUpdate.update.dependentPackages.keys.toList();
-        await PostUpdateTasks.runAll(
-          worktreeRepo,
-          groupUpdate.update.packageName,
-          updatedPackages,
-        );
       }
+
+      core.info('Running post-update tasks...');
+      final updatedPackages = groupUpdates
+          .expand((groupUpdate) => groupUpdate.update.dependentPackages.keys)
+          .toList();
+      await PostUpdateTasks.runAll(
+        worktreeRepo,
+        dependencies,
+        updatedPackages,
+      );
 
       core.info('Diffing changes...');
       await worktree.runCommand(['diff']);
@@ -151,8 +146,7 @@ Future<void> _deputyScan() async {
 
 Updated $groupName to `$updatedConstraint`
 
-Updated-Dependency: ${dependencies.join(', ')}
-Updated-Constraint: $updatedConstraint
+Updated-Group: $groupName
 ''';
       final tmpFile = tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
@@ -178,7 +172,8 @@ Updated-Constraint: $updatedConstraint
       }
 
       // Close existing PR with comment pointing to new PR.
-      if (closeExisting == null) {
+      final existingPr = existingPrs[groupName];
+      if (existingPr == null) {
         return;
       }
 
@@ -187,13 +182,13 @@ Updated-Constraint: $updatedConstraint
         'gh',
         'pr',
         'close',
-        '$closeExisting',
+        '$existingPr',
         '--comment="Dependency has been updated. Closing in favor of new PR."',
       ]);
       if (closeResult.exitCode != 0) {
         core.error(
           'Failed to close existing PR. Will need to be closed manually: '
-          'https://github.com/aws-amplify/amplify-flutter/pull/$closeExisting',
+          'https://github.com/aws-amplify/amplify-flutter/pull/$existingPr',
         );
         process.exitCode = 1;
         return;
@@ -204,31 +199,25 @@ Updated-Constraint: $updatedConstraint
 
 /// Lists all Deputy PRs which currently exist in the repo with the PR number
 /// and the constraint
-Future<Map<String, _ExistingPr>> _listExistingPrs() async {
+Future<Map<String, int>> _listExistingPrs() async {
   final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
   return core.withGroup('Check for existing PRs', () async {
-    final existingPrs = <String, _ExistingPr>{};
+    final existingPrs = <String, int>{};
     final pulls = await octokit.rest.pulls.list();
     for (final pull in pulls) {
       final commitMessage =
           CommitMessage.parse('', pull.title, body: pull.body);
       final trailers = commitMessage.trailers;
-      final dependencyNames = trailers['Updated-Dependency'];
-      final constraintStr = trailers['Updated-Constraint'];
-      if (dependencyNames == null || constraintStr == null) {
+      final groupName = trailers['Updated-Group'];
+      if (groupName == null) {
         continue;
       }
-      final constraint = VersionConstraint.parse(constraintStr);
-      for (final dependency in dependencyNames.split(',')) {
-        existingPrs[dependency.trim()] = (pull.number, constraint);
-      }
+      existingPrs[groupName] = pull.number;
     }
     core.info('Found existing PRs: $existingPrs');
     return existingPrs;
   });
 }
-
-typedef _ExistingPr = (int prNumber, VersionConstraint constraint);
 
 /// Special characters which appear in stringified [VersionConstraint]s.
 final _specialChars = RegExp(r'[\^<>=]');

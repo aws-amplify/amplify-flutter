@@ -29,8 +29,8 @@ class _$DependencyUpdateSerializer
   Iterable<Object?> serialize(Serializers serializers, DependencyUpdate object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'packageName',
-      serializers.serialize(object.packageName,
+      'dependencyName',
+      serializers.serialize(object.dependencyName,
           specifiedType: const FullType(String)),
       'latestVersion',
       serializers.serialize(object.latestVersion,
@@ -65,8 +65,8 @@ class _$DependencyUpdateSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'packageName':
-          result.packageName = serializers.deserialize(value,
+        case 'dependencyName':
+          result.dependencyName = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'latestVersion':
@@ -94,7 +94,7 @@ class _$DependencyUpdateSerializer
 
 class _$DependencyUpdate extends DependencyUpdate {
   @override
-  final String packageName;
+  final String dependencyName;
   @override
   final Version latestVersion;
   @override
@@ -107,13 +107,13 @@ class _$DependencyUpdate extends DependencyUpdate {
       (new DependencyUpdateBuilder()..update(updates))._build();
 
   _$DependencyUpdate._(
-      {required this.packageName,
+      {required this.dependencyName,
       required this.latestVersion,
       this.globalConstraint,
       required this.dependentPackages})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        packageName, r'DependencyUpdate', 'packageName');
+        dependencyName, r'DependencyUpdate', 'dependencyName');
     BuiltValueNullFieldError.checkNotNull(
         latestVersion, r'DependencyUpdate', 'latestVersion');
     BuiltValueNullFieldError.checkNotNull(
@@ -132,7 +132,7 @@ class _$DependencyUpdate extends DependencyUpdate {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DependencyUpdate &&
-        packageName == other.packageName &&
+        dependencyName == other.dependencyName &&
         latestVersion == other.latestVersion &&
         globalConstraint == other.globalConstraint &&
         dependentPackages == other.dependentPackages;
@@ -141,7 +141,7 @@ class _$DependencyUpdate extends DependencyUpdate {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, packageName.hashCode);
+    _$hash = $jc(_$hash, dependencyName.hashCode);
     _$hash = $jc(_$hash, latestVersion.hashCode);
     _$hash = $jc(_$hash, globalConstraint.hashCode);
     _$hash = $jc(_$hash, dependentPackages.hashCode);
@@ -152,7 +152,7 @@ class _$DependencyUpdate extends DependencyUpdate {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'DependencyUpdate')
-          ..add('packageName', packageName)
+          ..add('dependencyName', dependencyName)
           ..add('latestVersion', latestVersion)
           ..add('globalConstraint', globalConstraint)
           ..add('dependentPackages', dependentPackages))
@@ -164,9 +164,10 @@ class DependencyUpdateBuilder
     implements Builder<DependencyUpdate, DependencyUpdateBuilder> {
   _$DependencyUpdate? _$v;
 
-  String? _packageName;
-  String? get packageName => _$this._packageName;
-  set packageName(String? packageName) => _$this._packageName = packageName;
+  String? _dependencyName;
+  String? get dependencyName => _$this._dependencyName;
+  set dependencyName(String? dependencyName) =>
+      _$this._dependencyName = dependencyName;
 
   Version? _latestVersion;
   Version? get latestVersion => _$this._latestVersion;
@@ -190,7 +191,7 @@ class DependencyUpdateBuilder
   DependencyUpdateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _packageName = $v.packageName;
+      _dependencyName = $v.dependencyName;
       _latestVersion = $v.latestVersion;
       _globalConstraint = $v.globalConstraint;
       _dependentPackages = $v.dependentPackages.toBuilder();
@@ -218,8 +219,8 @@ class DependencyUpdateBuilder
     try {
       _$result = _$v ??
           new _$DependencyUpdate._(
-              packageName: BuiltValueNullFieldError.checkNotNull(
-                  packageName, r'DependencyUpdate', 'packageName'),
+              dependencyName: BuiltValueNullFieldError.checkNotNull(
+                  dependencyName, r'DependencyUpdate', 'dependencyName'),
               latestVersion: BuiltValueNullFieldError.checkNotNull(
                   latestVersion, r'DependencyUpdate', 'latestVersion'),
               globalConstraint: globalConstraint,

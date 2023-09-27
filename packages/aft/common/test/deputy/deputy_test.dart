@@ -57,7 +57,7 @@ void main() {
           DependencyUpdateGroup.of(['third_party_a', 'third_party_b']);
       final cGroup = DependencyUpdateGroup.of(['third_party_c']);
       final deputy = Deputy(
-        groups: [abGroup],
+        dependencyGroups: [abGroup],
         repo: repo,
         versionResolver: MockVersionResolver({
           'third_party_a': '1.1.0',

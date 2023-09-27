@@ -25,7 +25,7 @@ abstract class DependencyUpdate
     return _serializers.deserializeWith(serializer, json)!;
   }
 
-  String get packageName;
+  String get dependencyName;
   Version get latestVersion;
   VersionConstraint? get globalConstraint;
   BuiltMap<String, VersionConstraint> get dependentPackages;

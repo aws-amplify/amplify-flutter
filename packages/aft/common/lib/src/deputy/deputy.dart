@@ -16,14 +16,14 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 final class Deputy {
   @visibleForTesting
   Deputy({
-    this.groups = const [],
+    this.dependencyGroups = const [],
     required this.repo,
     required this.versionResolver,
     this.logger,
   });
 
   static Future<Deputy> create({
-    List<DependencyUpdateGroup> groups = const [],
+    List<DependencyUpdateGroup> dependencyGroups = const [],
     FileSystem fileSystem = const LocalFileSystem(),
     Platform platform = const LocalPlatform(),
     ProcessManager processManager = const LocalProcessManager(),
@@ -36,7 +36,7 @@ final class Deputy {
       logger: logger,
     );
     return Deputy(
-      groups: groups,
+      dependencyGroups: dependencyGroups,
       repo: repo,
       versionResolver: PubVersionResolver(
         logger: logger,
@@ -45,7 +45,7 @@ final class Deputy {
     );
   }
 
-  final List<DependencyUpdateGroup> groups;
+  final List<DependencyUpdateGroup> dependencyGroups;
   final Repo repo;
   final VersionResolver versionResolver;
   final AWSLogger? logger;
@@ -53,7 +53,7 @@ final class Deputy {
   /// Lists all third-party dependencies, grouped by the packages which depend on them.
   Future<BuiltListMultimap<DependencyUpdateGroup, DependencyUpdate>>
       _listDependencyGroups() async {
-    final groups = <String, DependencyUpdateBuilder>{};
+    final updates = <String, DependencyUpdateBuilder>{};
     final repoGraph = repo.getPackageGraph(includeDevDependencies: true);
     dfs(repoGraph, (package) {
       final dependencies = {
@@ -75,36 +75,36 @@ final class Deputy {
         if (version == VersionConstraint.any) {
           continue;
         }
-        (groups[dependency] ??= DependencyUpdateBuilder())
-          ..packageName = dependency
+        (updates[dependency] ??= DependencyUpdateBuilder())
+          ..dependencyName = dependency
           ..globalConstraint = repo.aftConfig.dependencies[dependency]
           ..dependentPackages[package.name] = version;
       }
     });
-    for (final group in groups.values) {
-      logger?.debug('Getting latest version for ${group.packageName}');
+    for (final group in updates.values) {
+      logger?.debug('Getting latest version for ${group.dependencyName}');
       final latestVersion = await versionResolver.latestVersion(
-        group.packageName!,
+        group.dependencyName!,
       );
       if (latestVersion == null) {
         throw StateError(
-          'No version info found for package: ${group.packageName}',
+          'No version info found for package: ${group.dependencyName}',
         );
       }
       group.latestVersion = latestVersion;
     }
     return BuiltListMultimap.build((updateGroups) {
       // Grouped updates
-      for (final group in this.groups) {
+      for (final group in dependencyGroups) {
         updateGroups[group].addAll(
           [
-            for (final dependency in group) groups.remove(dependency)?.build(),
+            for (final dependency in group) updates.remove(dependency)?.build(),
           ].nonNulls,
         );
       }
 
       // Ungrouped updates
-      for (final MapEntry(key: dependency, value: update) in groups.entries) {
+      for (final MapEntry(key: dependency, value: update) in updates.entries) {
         updateGroups[DependencyUpdateGroup.of([dependency])]
             .add(update.build());
       }
@@ -127,13 +127,13 @@ final class Deputy {
       for (final update in updates) {
         if (update.globalConstraint case final globalConstraint?) {
           final updatedGlobalConstraint = versionResolver.updateFor(
-            update.packageName,
+            update.dependencyName,
             globalConstraint,
             update.latestVersion,
           );
           if (updatedGlobalConstraint != null) {
             logger
-              ?..info('Proposing global update to ${update.packageName}:')
+              ?..info('Proposing global update to ${update.dependencyName}:')
               ..info('  $globalConstraint -> $updatedGlobalConstraint');
             final proposedUpdate = PropsedDependencyUpdate(
               this,
@@ -142,7 +142,7 @@ final class Deputy {
             );
             proposedUpdate._pubspecUpdates.add(
               (repo) => repo.rootPubspecEditor.update(
-                ['dependencies', update.packageName],
+                ['dependencies', update.dependencyName],
                 updatedGlobalConstraint.toString(),
               ),
             );
@@ -153,7 +153,7 @@ final class Deputy {
         for (final MapEntry(key: packageName, value: constraint)
             in update.dependentPackages.entries) {
           final updatedConstraint = versionResolver.updateFor(
-            update.packageName,
+            update.dependencyName,
             constraint,
             update.latestVersion,
           );
@@ -162,11 +162,12 @@ final class Deputy {
           }
           logger
             ?..info(
-                'Proposing update to ${update.packageName} in $packageName:')
+              'Proposing update to ${update.dependencyName} in $packageName:',
+            )
             ..info('  $constraint -> $updatedConstraint');
           final package = repo[packageName];
           final dependencyType = package.pubspecInfo.pubspec.dependencies
-                  .containsKey(update.packageName)
+                  .containsKey(update.dependencyName)
               ? DependencyType.dependency
               : DependencyType.devDependency;
           final proposedUpdate = PropsedDependencyUpdate(
@@ -180,7 +181,7 @@ final class Deputy {
                 ?.pubspecInfo
                 .pubspecYamlEditor
                 .update(
-              [dependencyType.key, update.packageName],
+              [dependencyType.key, update.dependencyName],
               updatedConstraint.toString(),
             ),
           );

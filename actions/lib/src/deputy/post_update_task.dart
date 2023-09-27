@@ -37,16 +37,21 @@ enum PostUpdateTasks {
 
   static Future<void> runAll(
     Repo repo,
-    String dependency,
+    DependencyUpdateGroup group,
     List<String> updatedPackages,
   ) async {
-    final tasksBuilder = PostUpdateTasks.of(dependency);
-    if (tasksBuilder == null) {
+    final tasksBuilders = [
+      for (final dependency in group) PostUpdateTasks.of(dependency),
+    ].nonNulls;
+    if (tasksBuilders.isEmpty) {
       core.info('No tasks to run.');
       return;
     }
-    core.info('Running post-update tasks for "$dependency"');
-    final tasks = tasksBuilder.buildTasks(repo, updatedPackages);
+    final groupName = group.join('+');
+    core.info('Running post-update tasks for "$groupName"');
+    final tasks = tasksBuilders
+        .expand((builder) => builder.buildTasks(repo, updatedPackages))
+        .toSet();
     for (final task in tasks) {
       await task.run(repo);
     }
@@ -54,7 +59,16 @@ enum PostUpdateTasks {
 
   List<PostUpdateTask> buildTasks(Repo repo, List<String> updatedPackages) {
     return [
-      if (needsSmithy) const PostUpdateTask.aft(['generate', 'goldens']),
+      if (needsSmithy) ...[
+        const PostUpdateTask.aft(['generate', 'goldens']),
+        // FIXME: Could run SDK but it would also pull latest models currently
+        // so, updates may be unrelated to dep update.
+        //
+        // Probably should have this run on a schedule before uncommenting this
+        // or find a way to pin the SDK ref so running `generate sdk` does not
+        // change the ref.
+        // const PostUpdateTask.aft(['generate', 'sdk']),
+      ],
       if (needsBuildRunner)
         PostUpdateTask.buildRunner([
           // Don't re-run for Smithy goldens
@@ -116,7 +130,7 @@ abstract base class PostUpdateTask {
 }
 
 /// Runs `aft` with the given [args].
-final class _AftTask extends PostUpdateTask {
+final class _AftTask extends PostUpdateTask with AWSEquatable<_AftTask> {
   const _AftTask(this.args);
 
   final List<String> args;
@@ -134,10 +148,14 @@ final class _AftTask extends PostUpdateTask {
       throw ProcessException('aft', args);
     }
   }
+
+  @override
+  List<Object?> get props => [args];
 }
 
 /// Runs `build_runner` in each of the [packages].
-final class _BuildRunnerTask extends PostUpdateTask {
+final class _BuildRunnerTask extends PostUpdateTask
+    with AWSEquatable<_BuildRunnerTask> {
   const _BuildRunnerTask(this.packages);
 
   final List<String> packages;
@@ -179,4 +197,7 @@ final class _BuildRunnerTask extends PostUpdateTask {
       }
     }
   }
+
+  @override
+  List<Object?> get props => [packages];
 }
