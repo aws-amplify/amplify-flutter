@@ -111,6 +111,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestJson1Serializer extends _i3
 
   @override
   Iterable<Type> get types => const [HttpPayloadTraitsWithMediaTypeInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -118,6 +119,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestJson1Serializer extends _i3
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPayloadTraitsWithMediaTypeInputOutput deserialize(
     Serializers serializers,

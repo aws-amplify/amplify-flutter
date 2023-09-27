@@ -66,8 +66,10 @@ class PostPlayerActionOperation extends _i1.HttpOperation<PostPlayerActionInput,
         b.method = 'POST';
         b.path = r'/PostPlayerAction';
       });
+
   @override
   int successCode([PostPlayerActionOutput? output]) => 200;
+
   @override
   PostPlayerActionOutput buildOutput(
     PostPlayerActionOutput payload,
@@ -77,16 +79,22 @@ class PostPlayerActionOperation extends _i1.HttpOperation<PostPlayerActionInput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'PostPlayerAction';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<PostPlayerActionOutput> run(
     PostPlayerActionInput input, {

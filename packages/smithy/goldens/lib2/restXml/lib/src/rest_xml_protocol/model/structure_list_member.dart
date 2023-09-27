@@ -40,6 +40,7 @@ abstract class StructureListMember
         a,
         b,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructureListMember')
@@ -64,6 +65,7 @@ class StructureListMemberRestXmlSerializer
         StructureListMember,
         _$StructureListMember,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -71,6 +73,7 @@ class StructureListMemberRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   StructureListMember deserialize(
     Serializers serializers,

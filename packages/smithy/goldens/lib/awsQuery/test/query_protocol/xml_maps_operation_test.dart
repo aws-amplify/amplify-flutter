@@ -63,6 +63,7 @@ class XmlMapsOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlMapsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -70,6 +71,7 @@ class XmlMapsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlMapsOutput deserialize(
     Serializers serializers,
@@ -119,6 +121,7 @@ class GreetingStructAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [GreetingStruct];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -126,6 +129,7 @@ class GreetingStructAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,

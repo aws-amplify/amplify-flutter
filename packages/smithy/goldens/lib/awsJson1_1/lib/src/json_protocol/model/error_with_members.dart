@@ -71,8 +71,10 @@ abstract class ErrorWithMembers
         namespace: 'aws.protocoltests.json',
         shape: 'ErrorWithMembers',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -81,6 +83,7 @@ abstract class ErrorWithMembers
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         code,
@@ -91,6 +94,7 @@ abstract class ErrorWithMembers
         message,
         stringField,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ErrorWithMembers')
@@ -135,6 +139,7 @@ class ErrorWithMembersAwsJson11Serializer
         ErrorWithMembers,
         _$ErrorWithMembers,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -142,6 +147,7 @@ class ErrorWithMembersAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ErrorWithMembers deserialize(
     Serializers serializers,

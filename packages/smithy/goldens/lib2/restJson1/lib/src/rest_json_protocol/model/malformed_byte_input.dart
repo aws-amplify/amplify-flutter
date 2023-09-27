@@ -79,6 +79,7 @@ abstract class MalformedByteInput
   MalformedByteInputPayload getPayload() => MalformedByteInputPayload((b) {
         b.byteInBody = byteInBody;
       });
+
   @override
   List<Object?> get props => [
         byteInBody,
@@ -86,6 +87,7 @@ abstract class MalformedByteInput
         byteInQuery,
         byteInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedByteInput')
@@ -123,6 +125,7 @@ abstract class MalformedByteInputPayload
   int? get byteInBody;
   @override
   List<Object?> get props => [byteInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedByteInputPayload')
@@ -145,6 +148,7 @@ class MalformedByteInputRestJson1Serializer
         MalformedByteInputPayload,
         _$MalformedByteInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -152,6 +156,7 @@ class MalformedByteInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedByteInputPayload deserialize(
     Serializers serializers,

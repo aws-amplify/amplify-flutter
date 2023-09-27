@@ -108,6 +108,7 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i3
 
   @override
   Iterable<Type> get types => const [HttpPayloadWithStructureInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -115,6 +116,7 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i3
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPayloadWithStructureInputOutput deserialize(
     Serializers serializers,
@@ -158,6 +160,7 @@ class NestedPayloadRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [NestedPayload];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -165,6 +168,7 @@ class NestedPayloadRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   NestedPayload deserialize(
     Serializers serializers,

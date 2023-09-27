@@ -76,6 +76,7 @@ class PredictInputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [PredictInput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -83,6 +84,7 @@ class PredictInputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PredictInput deserialize(
     Serializers serializers,
@@ -142,6 +144,7 @@ class PredictOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [PredictOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -149,6 +152,7 @@ class PredictOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PredictOutput deserialize(
     Serializers serializers,
@@ -192,6 +196,7 @@ class PredictionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [Prediction];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -199,6 +204,7 @@ class PredictionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   Prediction deserialize(
     Serializers serializers,
@@ -270,6 +276,7 @@ class InternalServerExceptionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [InternalServerException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -277,6 +284,7 @@ class InternalServerExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InternalServerException deserialize(
     Serializers serializers,
@@ -326,6 +334,7 @@ class InvalidInputExceptionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [InvalidInputException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -333,6 +342,7 @@ class InvalidInputExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InvalidInputException deserialize(
     Serializers serializers,
@@ -382,6 +392,7 @@ class LimitExceededExceptionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [LimitExceededException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -389,6 +400,7 @@ class LimitExceededExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   LimitExceededException deserialize(
     Serializers serializers,
@@ -438,6 +450,7 @@ class PredictorNotMountedExceptionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [PredictorNotMountedException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -445,6 +458,7 @@ class PredictorNotMountedExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PredictorNotMountedException deserialize(
     Serializers serializers,
@@ -489,6 +503,7 @@ class ResourceNotFoundExceptionAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [ResourceNotFoundException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -496,6 +511,7 @@ class ResourceNotFoundExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ResourceNotFoundException deserialize(
     Serializers serializers,

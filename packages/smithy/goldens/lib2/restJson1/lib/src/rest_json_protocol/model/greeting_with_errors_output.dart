@@ -45,8 +45,10 @@ abstract class GreetingWithErrorsOutput
   @override
   GreetingWithErrorsOutputPayload getPayload() =>
       GreetingWithErrorsOutputPayload();
+
   @override
   List<Object?> get props => [greeting];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput')
@@ -74,6 +76,7 @@ abstract class GreetingWithErrorsOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -94,6 +97,7 @@ class GreetingWithErrorsOutputRestJson1Serializer
         GreetingWithErrorsOutputPayload,
         _$GreetingWithErrorsOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -101,6 +105,7 @@ class GreetingWithErrorsOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GreetingWithErrorsOutputPayload deserialize(
     Serializers serializers,

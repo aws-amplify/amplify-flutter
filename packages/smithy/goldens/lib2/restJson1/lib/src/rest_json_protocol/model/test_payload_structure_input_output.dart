@@ -71,11 +71,13 @@ abstract class TestPayloadStructureInputOutput
   PayloadConfig? get payloadConfig;
   @override
   PayloadConfig? getPayload() => payloadConfig ?? PayloadConfig();
+
   @override
   List<Object?> get props => [
         testId,
         payloadConfig,
       ];
+
   @override
   String toString() {
     final helper =
@@ -102,6 +104,7 @@ class TestPayloadStructureInputOutputRestJson1Serializer
         TestPayloadStructureInputOutput,
         _$TestPayloadStructureInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -109,6 +112,7 @@ class TestPayloadStructureInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PayloadConfig deserialize(
     Serializers serializers,

@@ -210,6 +210,7 @@ class DeleteObjectTaggingRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [DeleteObjectTaggingRequest];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -217,6 +218,7 @@ class DeleteObjectTaggingRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectTaggingRequest deserialize(
     Serializers serializers,
@@ -276,6 +278,7 @@ class DeleteObjectTaggingOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [DeleteObjectTaggingOutput];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -283,6 +286,7 @@ class DeleteObjectTaggingOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectTaggingOutput deserialize(
     Serializers serializers,
@@ -325,6 +329,7 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
 
   @override
   Iterable<Type> get types => const [AwsConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -332,6 +337,7 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
           shape: 'genericProtocol',
         )
       ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,
@@ -380,6 +386,7 @@ class ScopedConfigSerializer
 
   @override
   Iterable<Type> get types => const [ScopedConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -387,6 +394,7 @@ class ScopedConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -462,6 +470,7 @@ class EnvironmentConfigSerializer
 
   @override
   Iterable<Type> get types => const [EnvironmentConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -469,6 +478,7 @@ class EnvironmentConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,
@@ -537,6 +547,7 @@ class FileConfigSettingsSerializer
 
   @override
   Iterable<Type> get types => const [FileConfigSettings];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -544,6 +555,7 @@ class FileConfigSettingsSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   FileConfigSettings deserialize(
     Serializers serializers,
@@ -616,6 +628,7 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
 
   @override
   Iterable<Type> get types => const [S3Config];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -623,6 +636,7 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
           shape: 'genericProtocol',
         )
       ];
+
   @override
   S3Config deserialize(
     Serializers serializers,
@@ -676,6 +690,7 @@ class ClientConfigSerializer
 
   @override
   Iterable<Type> get types => const [ClientConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -683,6 +698,7 @@ class ClientConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   ClientConfig deserialize(
     Serializers serializers,
@@ -756,6 +772,7 @@ class RetryConfigSerializer
 
   @override
   Iterable<Type> get types => const [RetryConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -763,6 +780,7 @@ class RetryConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,
@@ -811,6 +829,7 @@ class OperationConfigSerializer
 
   @override
   Iterable<Type> get types => const [OperationConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -818,6 +837,7 @@ class OperationConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   OperationConfig deserialize(
     Serializers serializers,

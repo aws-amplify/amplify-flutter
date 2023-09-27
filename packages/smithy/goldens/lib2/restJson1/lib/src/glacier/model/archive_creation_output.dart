@@ -60,12 +60,14 @@ abstract class ArchiveCreationOutput
   String? get archiveId;
   @override
   ArchiveCreationOutputPayload getPayload() => ArchiveCreationOutputPayload();
+
   @override
   List<Object?> get props => [
         location,
         checksum,
         archiveId,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ArchiveCreationOutput')
@@ -101,6 +103,7 @@ abstract class ArchiveCreationOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ArchiveCreationOutputPayload');
@@ -120,6 +123,7 @@ class ArchiveCreationOutputRestJson1Serializer
         ArchiveCreationOutputPayload,
         _$ArchiveCreationOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -127,6 +131,7 @@ class ArchiveCreationOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ArchiveCreationOutputPayload deserialize(
     Serializers serializers,
