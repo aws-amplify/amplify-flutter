@@ -59,7 +59,7 @@ class _AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty('onChanged', onChanged));
+    properties.add(DiagnosticsProperty<Function>('onChanged', onChanged));
   }
 }
 
