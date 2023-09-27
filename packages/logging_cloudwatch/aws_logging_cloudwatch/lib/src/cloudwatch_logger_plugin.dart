@@ -5,6 +5,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: invalid_use_of_internal_member, implementation_imports
+import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
@@ -82,7 +84,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     _timer = pluginConfig.flushIntervalInSeconds > 0
         ? StoppableTimer(
             duration: Duration(seconds: pluginConfig.flushIntervalInSeconds),
-            callback: _startSyncingIfNotInProgress,
+            callback: identifyCall(
+              LoggingCategoryMethod.batchSend,
+              () => _startSyncingIfNotInProgress,
+            ),
             onError: _onTimerError,
           )
         : null;
@@ -131,11 +136,14 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   Future<void> _startSyncingIfNotInProgress() async {
     Future<void> startSyncing() async {
       final batchStream = _getLogBatchesToSync();
+
       await for (final (logs, events) in batchStream) {
         _TooNewLogEventException? tooNewException;
+
         while (logs.isNotEmpty && events.isNotEmpty) {
           final rejectedLogEventsInfo =
               (await _sendToCloudWatch(events)).rejectedLogEventsInfo;
+
           if (rejectedLogEventsInfo == null) {
             await _logStore.deleteItems(logs);
             break;
@@ -153,15 +161,19 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
             // set events to end before the index.
             events.removeRange(tooNewStartIndex, events.length);
           }
+
           if (_isValidIndex(tooOldEndIndex, events.length)) {
             // remove old logs from log store.
-            await _logStore.deleteItems(logs.sublist(0, tooOldEndIndex! + 1));
+            await _logStore.deleteItems(
+              logs.sublist(0, tooOldEndIndex! + 1),
+            );
             // set logs to start after the index.
             logs.removeRange(0, tooOldEndIndex + 1);
             // set events to start after the index.
             events.removeRange(0, tooOldEndIndex + 1);
           }
         }
+
         // after sending each batch to CloudWatch check if the batch has
         // `tooNewException` and throw to stop syncing next batches.
         if (tooNewException != null) {
@@ -172,13 +184,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
     if (!_syncing) {
       _syncing = true;
+
       DateTime? nextRetry;
+
       try {
         await startSyncing();
       } on _TooNewLogEventException catch (e) {
-        nextRetry =
-            DateTime.fromMillisecondsSinceEpoch(e.timeInMillisecondsSinceEpoch)
-                .add(_minusMaxLogEventTimeInFuture);
+        nextRetry = DateTime.fromMillisecondsSinceEpoch(
+          e.timeInMillisecondsSinceEpoch,
+        ).add(_minusMaxLogEventTimeInFuture);
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
@@ -296,7 +310,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     );
 
     if (isLogStoreFull && _shouldSyncOnFullLogStore()) {
-      await _startSyncingIfNotInProgress();
+      await identifyCall(
+        LoggingCategoryMethod.batchSend,
+        _startSyncingIfNotInProgress,
+      );
     }
   }
 
@@ -325,7 +342,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Sends logs on-demand to CloudWatch.
   Future<void> flushLogs() async {
-    await _startSyncingIfNotInProgress();
+    await identifyCall(
+      LoggingCategoryMethod.flush,
+      _startSyncingIfNotInProgress,
+    );
   }
 
   @override
