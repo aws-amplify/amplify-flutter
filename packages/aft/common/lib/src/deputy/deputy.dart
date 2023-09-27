@@ -135,7 +135,8 @@ final class Deputy {
             ..groupName = groupName
             ..deputy = this
             ..dependencies.addAll(this.dependencyGroups[groupName] ?? const {})
-            ..dependencies.add(update.dependencyName);
+            ..dependencies.add(update.dependencyName)
+            ..updates[update.dependencyName] = update;
         }
 
         if (update.globalConstraint case final globalConstraint?) {
@@ -149,7 +150,6 @@ final class Deputy {
               ?..info('Proposing global update to ${update.dependencyName}:')
               ..info('  $globalConstraint -> $updatedGlobalConstraint');
             proposedUpdate()
-              ..updates[update.dependencyName] = update
               ..updatedConstraints[update.dependencyName] ??=
                   updatedGlobalConstraint
               ..pubspecUpdates.add(
@@ -183,8 +183,7 @@ final class Deputy {
               : DependencyType.devDependency;
 
           proposedUpdate()
-            ..updates[update.dependencyName] = update
-            ..updatedConstraints[update.dependencyName] = updatedConstraint
+            ..updatedConstraints[update.dependencyName] ??= updatedConstraint
             ..pubspecUpdates.add(
               (repo) => repo
                   .maybePackage(package.name)

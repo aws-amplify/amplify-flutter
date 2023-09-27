@@ -17,7 +17,7 @@ final class _UnreachableError extends Error {}
 /// This was found to be caused by running out of memory (which `build_runner` consumes
 /// a lot of).
 Future<void> allocateSwapSpace({int sizeInGb = 10}) async {
-  await core.withGroup('Create swap space', () async {
+  await core.withGroup('Allocate swap space', () async {
     await ShellScript('''
 # Log current swap space report
 function log_swap {

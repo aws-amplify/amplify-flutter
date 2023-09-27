@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:actions/actions.dart';
-import 'package:actions/src/deputy/post_update_task.dart';
+import 'package:actions/src/deputy/update_groups.dart';
 import 'package:actions/src/logger.dart';
 import 'package:actions/src/node/platform.dart';
 import 'package:actions/src/node/process_manager.dart';
@@ -14,24 +14,11 @@ import 'package:pub_semver/pub_semver.dart';
 /// Scans for outdated Dart and Flutter dependencies and creates PRs for version updates.
 Future<void> main() => wrapMain(_deputyScan);
 
-/// The list of dependencies to never update.
-const List<String> _doNotUpdate = [
-  // TODO(aft): Remove when min Flutter SDK allows latest xml
-  // Updating xml will require changes in smithy.
-  'xml',
-
-  // Bumping leads to mismatched `analyzer` constraint with `built_value_generator`
-  // Must always match stable since it's what `dart format` uses.
-  'dart_style',
-
-  // Breaking change would need to be coordinated
-  'uuid',
-];
-
 Future<void> _deputyScan() async {
-  final logger = AWSLogger().createChild('Deputy')
+  AWSLogger()
     ..unregisterAllPlugins()
     ..registerPlugin(const NodeLoggerPlugin());
+  final logger = AWSLogger().createChild('Deputy');
   final deputy = await Deputy.create(
     dependencyGroups: DependencyUpdateGroup.all,
     fileSystem: nodeFileSystem,
@@ -48,7 +35,7 @@ Future<void> _deputyScan() async {
   }
 
   await allocateSwapSpace();
-  await createPrs(deputy.repo, updates);
+  await _createPrs(deputy.repo, updates);
 }
 
 /// Lists all Deputy PRs which currently exist in the repo with the PR number
@@ -62,7 +49,7 @@ Future<Map<String, int>> _listExistingPrs() async {
       final commitMessage =
           CommitMessage.parse('', pull.title, body: pull.body);
       final trailers = commitMessage.trailers;
-      final groupName = trailers['Updated-Group'];
+      final groupName = trailers[_groupTrailer];
       if (groupName == null) {
         continue;
       }
@@ -74,7 +61,7 @@ Future<Map<String, int>> _listExistingPrs() async {
 }
 
 /// Creates a PR for each dependency group, closing existing PRs which are superceded.
-Future<void> createPrs(
+Future<void> _createPrs(
   Repo repo,
   Map<String, DependencyGroupUpdate> updates,
 ) async {
@@ -87,7 +74,7 @@ Future<void> createPrs(
     final uniqueConstraint =
         group.updatedConstraints.values.toSet().singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
-      if (group.dependencies.any(_doNotUpdate.contains)) {
+      if (group.dependencies.any(doNotUpdate.contains)) {
         core.info(
           'Skipping "$groupName" since one of its dependencies are on the do-not-update list',
         );
@@ -142,7 +129,8 @@ Future<void> createPrs(
       await worktree.runCommand(['diff']);
 
       core.info('Committing changes...');
-      var commitTitle = 'chore(deps): Bump $groupName';
+      final groupToken = group.dependencies.length == 1 ? '' : 'group ';
+      var commitTitle = 'chore(deps): Bump $groupToken$groupName';
       if (uniqueConstraint != null) {
         commitTitle += ' to $uniqueConstraint';
       }
@@ -153,19 +141,18 @@ Future<void> createPrs(
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
-      final constraintUpdates = group.dependencies
+      final constraintUpdates = group.updatedConstraints.entries
           .map(
-            (dependency) =>
-                '- Updated `$dependency` to `${group.updatedConstraints[dependency]}`',
+            (entry) => '- Updated `${entry.key}` to `${entry.value}`',
           )
           .join('\n');
       final prBody = '''
 > **NOTE:** This PR was automatically created using the repo deputy.
 
-Updated $groupName:
+Updated $groupToken$groupName:
 $constraintUpdates
 
-Updated-Group: $groupName
+$_groupTrailer: $groupName
 ''';
       final tmpFile = tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
@@ -222,6 +209,9 @@ Updated-Group: $groupName
 
 /// Special characters which appear in stringified [VersionConstraint]s.
 final _specialChars = RegExp(r'[\^<>=]');
+
+/// Trailer key for the group being updated.
+const _groupTrailer = 'Updated-Group';
 
 extension type NodeGitDir(GitDir it) implements GitDir {
   Future<void> runCommand(List<String> args) => it.runCommand(

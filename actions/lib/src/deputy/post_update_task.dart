@@ -4,104 +4,7 @@
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
 import 'package:aft_common/aft_common.dart';
-import 'package:aws_common/aws_common.dart';
-import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
-
-/// The groups of dependencies which should be updated together.
-enum DependencyUpdateGroup {
-  codeGeneration(
-    needsBuildRunner: true,
-    needsSmithy: true,
-    dependencies: [
-      'built_value',
-      'built_collection',
-      'built_value_generator',
-      'json_annotation',
-      'json_serializable',
-      'code_builder',
-    ],
-  ),
-  drift(
-    needsBuildRunner: true,
-    dependencies: ['drift', 'drift_dev'],
-  );
-
-  const DependencyUpdateGroup({
-    required this.dependencies,
-    this.needsBuildRunner = false,
-    this.needsSmithy = false,
-  });
-
-  /// The list of dependencies in this group.
-  final List<String> dependencies;
-
-  /// Whether `build_runner` should be run in dependent packages after an update.
-  final bool needsBuildRunner;
-
-  /// Whether Smithy outputs need to be re-generated after an update.
-  final bool needsSmithy;
-
-  /// All groups mapped to their dependencies.
-  static Map<String, List<String>> get all => {
-        for (final value in values) value.name.snakeCase: value.dependencies,
-      };
-
-  /// Finds the group for the given [groupName].
-  static DependencyUpdateGroup? of(String groupName) =>
-      values.firstWhereOrNull((el) => el.name.snakeCase == groupName);
-
-  /// Builds the list of post-update tasks for the group given the active [repo]
-  /// and the set of [updatedPackages].
-  List<PostUpdateTask> postUpdateTasks(
-    Repo repo,
-    Iterable<String> updatedPackages,
-  ) {
-    return [
-      if (needsSmithy) ...[
-        const PostUpdateTask.aft(['generate', 'goldens']),
-        // FIXME: Could run SDK but it would also pull latest models currently
-        // so, updates may be unrelated to dep update.
-        //
-        // Probably should have SDK gen run on a schedule before uncommenting this
-        // or find a way to track the SDK ref so running `generate sdk` does not
-        // necessarily pull the latest models (similar to goldens).
-        // const PostUpdateTask.aft(['generate', 'sdk']),
-      ],
-      if (needsBuildRunner)
-        PostUpdateTask.buildRunner([
-          // Don't re-run for Smithy goldens
-          if (needsSmithy)
-            ...updatedPackages
-                .map(repo.maybePackage)
-                .nonNulls
-                .where((pkg) => !pkg.isGoldensPackage)
-                .map((pkg) => pkg.name)
-          else
-            ...updatedPackages,
-        ]),
-    ];
-  }
-}
-
-extension GroupPostUpdateTasks on DependencyGroupUpdate {
-  /// Runs all post-update tasks for the group in [repo].
-  Future<void> runPostUpdateTasks(Repo repo) async {
-    final tasksBuilder = DependencyUpdateGroup.of(groupName);
-    if (tasksBuilder == null) {
-      core.info('No tasks to run.');
-      return;
-    }
-    core.info('Running post-update tasks for "$groupName"');
-    final updatedPackages = updatedConstraints.keys
-        .expand((updatedDep) => updates[updatedDep]!.dependentPackages.keys)
-        .toSet();
-    final tasks = tasksBuilder.postUpdateTasks(repo, updatedPackages);
-    for (final task in tasks) {
-      await task.run(repo);
-    }
-  }
-}
 
 /// A task to run once a dependency has been updated.
 abstract base class PostUpdateTask {
@@ -177,6 +80,7 @@ final class _BuildRunnerTask extends PostUpdateTask {
   @override
   Future<void> run(Repo repo) async {
     await _ensureAft(repo);
+    core.info('Running build_runner in packages: $packages');
     for (final package in packages) {
       final packageInfo = repo.maybePackage(package);
       if (packageInfo == null || !packageInfo.needsBuildRunner) {
