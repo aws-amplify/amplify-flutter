@@ -7538,7 +7538,7 @@
               t2 = type$.JSObject;
               t2._as(t1.core).info("Running script:\n" + fullScript + "\n=======================================");
               $async$goto = 2;
-              return A._asyncAwait(A.FileSystem_withTempDir(t2._as(t1.fs), "launch_android_emulator", new A.ShellScript_run_closure(fullScript, _this), type$.Null), $async$ShellScript_run);
+              return A._asyncAwait(A.FileSystem_withTempDir(t2._as(t1.fs), "launch_android_emulator", new A.ShellScript_run_closure(fullScript), type$.Null), $async$ShellScript_run);
             case 2:
               // returning from await.
               // implicit return
@@ -7549,9 +7549,8 @@
     },
     _UnreachableError: function _UnreachableError() {
     },
-    ShellScript_run_closure: function ShellScript_run_closure(t0, t1) {
+    ShellScript_run_closure: function ShellScript_run_closure(t0) {
       this.fullScript = t0;
-      this._this = t1;
     },
     StreamForward_forward(_this, controller, $T) {
       var t1 = new A._Future($.Zone__current, type$._Future_void);
@@ -16688,7 +16687,7 @@
               // returning from await.
               exitCode = $async$result;
               if (exitCode !== 0)
-                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([$async$self._this], type$.JSArray_String), "Script failed with exit code", exitCode));
+                throw A.wrapException(A.ProcessException$("/bin/bash", A._setArrayType([scriptPath], type$.JSArray_String), "Script failed with exit code", exitCode));
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }

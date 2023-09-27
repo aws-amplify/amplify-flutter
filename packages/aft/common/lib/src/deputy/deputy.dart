@@ -127,13 +127,17 @@ final class Deputy {
     for (final MapEntry(key: groupName, value: groupUpdates)
         in dependencyGroups.toMap().entries) {
       for (final update in groupUpdates) {
-        final proposedUpdate = (proposedUpdates[groupName] ??=
-            DependencyGroupUpdateBuilder())
-          ..groupName = groupName
-          ..deputy = this
-          ..dependencies.addAll(this.dependencyGroups[groupName] ?? const {})
-          ..dependencies.add(update.dependencyName)
-          ..updates[update.dependencyName] = update;
+        // Lazily add a proposed update when one of the below conditions are true:
+        // - There is a change to the global constraint
+        // - There is a change to one of the packages' constraints.
+        DependencyGroupUpdateBuilder proposedUpdate() {
+          return (proposedUpdates[groupName] ??= DependencyGroupUpdateBuilder())
+            ..groupName = groupName
+            ..deputy = this
+            ..dependencies.addAll(this.dependencyGroups[groupName] ?? const {})
+            ..dependencies.add(update.dependencyName);
+        }
+
         if (update.globalConstraint case final globalConstraint?) {
           final updatedGlobalConstraint = versionResolver.updateFor(
             update.dependencyName,
@@ -144,7 +148,8 @@ final class Deputy {
             logger
               ?..info('Proposing global update to ${update.dependencyName}:')
               ..info('  $globalConstraint -> $updatedGlobalConstraint');
-            proposedUpdate
+            proposedUpdate()
+              ..updates[update.dependencyName] = update
               ..updatedConstraints[update.dependencyName] ??=
                   updatedGlobalConstraint
               ..pubspecUpdates.add(
@@ -177,7 +182,8 @@ final class Deputy {
               ? DependencyType.dependency
               : DependencyType.devDependency;
 
-          proposedUpdate
+          proposedUpdate()
+            ..updates[update.dependencyName] = update
             ..updatedConstraints[update.dependencyName] = updatedConstraint
             ..pubspecUpdates.add(
               (repo) => repo

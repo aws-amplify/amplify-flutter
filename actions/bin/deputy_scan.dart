@@ -46,21 +46,46 @@ Future<void> _deputyScan() async {
   if (updates == null) {
     return core.info('No updates needed');
   }
-  final git = NodeGitDir(deputy.repo.git);
-  final existingPrs = await _listExistingPrs();
-  final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
 
   await allocateSwapSpace();
+  await createPrs(deputy.repo, updates);
+}
 
-  // Create a PR for each dependency group which does not already have a PR.
-  for (final MapEntry(key: groupName, value: group)
-      in updates.entries) {
+/// Lists all Deputy PRs which currently exist in the repo with the PR number
+/// and the constraint
+Future<Map<String, int>> _listExistingPrs() async {
+  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
+  return core.withGroup('Check for existing PRs', () async {
+    final existingPrs = <String, int>{};
+    final pulls = await octokit.rest.pulls.list();
+    for (final pull in pulls) {
+      final commitMessage =
+          CommitMessage.parse('', pull.title, body: pull.body);
+      final trailers = commitMessage.trailers;
+      final groupName = trailers['Updated-Group'];
+      if (groupName == null) {
+        continue;
+      }
+      existingPrs[groupName] = pull.number;
+    }
+    core.info('Found existing PRs: $existingPrs');
+    return existingPrs;
+  });
+}
+
+/// Creates a PR for each dependency group, closing existing PRs which are superceded.
+Future<void> createPrs(
+  Repo repo,
+  Map<String, DependencyGroupUpdate> updates,
+) async {
+  final git = NodeGitDir(repo.git);
+  final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
+  final existingPrs = await _listExistingPrs();
+  core.info('Creating PRs for update groups: $updates');
+  for (final MapEntry(key: groupName, value: group) in updates.entries) {
     // If the group updates all deps to a unique constraint, use that in messages.
-    final uniqueConstraint = group
-        .updatedConstraints
-        .values
-        .toSet()
-        .singleOrNull;
+    final uniqueConstraint =
+        group.updatedConstraints.values.toSet().singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
       if (group.dependencies.any(_doNotUpdate.contains)) {
         core.info(
@@ -103,7 +128,7 @@ Future<void> _deputyScan() async {
         processManager: nodeProcessManager,
         fileSystem: nodeFileSystem,
         platform: nodePlatform,
-        logger: logger,
+        logger: repo.logger,
       );
       final worktree = NodeGitDir(worktreeRepo.git);
 
@@ -145,7 +170,7 @@ Updated-Group: $groupName
       final tmpFile = tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
-      final prResult = nodeProcessManager.runSync(
+      final prResult = await nodeProcessManager.run(
         <String>[
           'gh',
           'pr',
@@ -153,8 +178,8 @@ Updated-Group: $groupName
           '--base=main',
           '--body-file=${tmpFile.path}',
           '--title=$commitTitle',
-          '--draft',
         ],
+        echoOutput: true,
         workingDirectory: worktreeDir,
       );
       if (prResult.exitCode != 0) {
@@ -165,20 +190,24 @@ Updated-Group: $groupName
         return;
       }
 
-      // Close existing PR with comment pointing to new PR.
+      // Close existing PR if this supercedes.
       final existingPr = existingPrs[groupName];
       if (existingPr == null) {
         return;
       }
 
       core.info('Closing existing PR...');
-      final closeResult = nodeProcessManager.runSync(<String>[
-        'gh',
-        'pr',
-        'close',
-        '$existingPr',
-        '--comment="Dependency has been updated. Closing in favor of new PR."',
-      ]);
+      final closeResult = await nodeProcessManager.run(
+        <String>[
+          'gh',
+          'pr',
+          'close',
+          '$existingPr',
+          '--comment="Closing in favor of new PR."',
+        ],
+        echoOutput: true,
+        workingDirectory: worktreeDir,
+      );
       if (closeResult.exitCode != 0) {
         core.error(
           'Failed to close existing PR. Will need to be closed manually: '
@@ -189,28 +218,6 @@ Updated-Group: $groupName
       }
     });
   }
-}
-
-/// Lists all Deputy PRs which currently exist in the repo with the PR number
-/// and the constraint
-Future<Map<String, int>> _listExistingPrs() async {
-  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
-  return core.withGroup('Check for existing PRs', () async {
-    final existingPrs = <String, int>{};
-    final pulls = await octokit.rest.pulls.list();
-    for (final pull in pulls) {
-      final commitMessage =
-          CommitMessage.parse('', pull.title, body: pull.body);
-      final trailers = commitMessage.trailers;
-      final groupName = trailers['Updated-Group'];
-      if (groupName == null) {
-        continue;
-      }
-      existingPrs[groupName] = pull.number;
-    }
-    core.info('Found existing PRs: $existingPrs');
-    return existingPrs;
-  });
 }
 
 /// Special characters which appear in stringified [VersionConstraint]s.

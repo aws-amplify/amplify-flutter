@@ -22,7 +22,10 @@ enum DependencyUpdateGroup {
       'code_builder',
     ],
   ),
-  drift(needsBuildRunner: true, dependencies: ['drift', 'drift_dev']);
+  drift(
+    needsBuildRunner: true,
+    dependencies: ['drift', 'drift_dev'],
+  );
 
   const DependencyUpdateGroup({
     required this.dependencies,
@@ -30,27 +33,39 @@ enum DependencyUpdateGroup {
     this.needsSmithy = false,
   });
 
-  final bool needsBuildRunner;
-  final bool needsSmithy;
+  /// The list of dependencies in this group.
   final List<String> dependencies;
 
+  /// Whether `build_runner` should be run in dependent packages after an update.
+  final bool needsBuildRunner;
+
+  /// Whether Smithy outputs need to be re-generated after an update.
+  final bool needsSmithy;
+
+  /// All groups mapped to their dependencies.
   static Map<String, List<String>> get all => {
         for (final value in values) value.name.snakeCase: value.dependencies,
       };
 
-  static DependencyUpdateGroup? of(String dependency) =>
-      values.firstWhereOrNull((el) => el.name.snakeCase == dependency);
+  /// Finds the group for the given [groupName].
+  static DependencyUpdateGroup? of(String groupName) =>
+      values.firstWhereOrNull((el) => el.name.snakeCase == groupName);
 
-  List<PostUpdateTask> buildTasks(Repo repo, Iterable<String> updatedPackages) {
+  /// Builds the list of post-update tasks for the group given the active [repo]
+  /// and the set of [updatedPackages].
+  List<PostUpdateTask> postUpdateTasks(
+    Repo repo,
+    Iterable<String> updatedPackages,
+  ) {
     return [
       if (needsSmithy) ...[
         const PostUpdateTask.aft(['generate', 'goldens']),
         // FIXME: Could run SDK but it would also pull latest models currently
         // so, updates may be unrelated to dep update.
         //
-        // Probably should have this run on a schedule before uncommenting this
-        // or find a way to pin the SDK ref so running `generate sdk` does not
-        // change the ref.
+        // Probably should have SDK gen run on a schedule before uncommenting this
+        // or find a way to track the SDK ref so running `generate sdk` does not
+        // necessarily pull the latest models (similar to goldens).
         // const PostUpdateTask.aft(['generate', 'sdk']),
       ],
       if (needsBuildRunner)
@@ -78,10 +93,10 @@ extension GroupPostUpdateTasks on DependencyGroupUpdate {
       return;
     }
     core.info('Running post-update tasks for "$groupName"');
-    final updatedPackages = updates.values
-        .expand((update) => update.dependentPackages.keys)
+    final updatedPackages = updatedConstraints.keys
+        .expand((updatedDep) => updates[updatedDep]!.dependentPackages.keys)
         .toSet();
-    final tasks = tasksBuilder.buildTasks(repo, updatedPackages);
+    final tasks = tasksBuilder.postUpdateTasks(repo, updatedPackages);
     for (final task in tasks) {
       await task.run(repo);
     }

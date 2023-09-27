@@ -48,9 +48,15 @@ void main() {
         d.package(
           'local_a',
           dependencies: {
+            // ab group
             'third_party_a': '1.0.0',
             'third_party_b': '1.0.0',
+
+            // c group
             'third_party_c': '1.0.0',
+
+            // not updated
+            'third_party_d': '1.0.0',
           },
         ),
       ]).create();
@@ -67,6 +73,7 @@ void main() {
           'third_party_a': '1.1.0',
           'third_party_b': '1.1.0',
           'third_party_c': '1.1.0',
+          'third_party_d': '1.0.0',
         }),
       );
       final updates = await deputy.scanForUpdates();
@@ -76,7 +83,8 @@ void main() {
         updates!.keys,
         unorderedEquals([abGroupName, cGroupName]),
         reason: 'The third party group should be bundled together. '
-            'third_party_c should be in its own group.',
+            'third_party_c should be in its own group. '
+            'third_party_d should not be included.',
       );
       expect(
         updates.values,
@@ -138,6 +146,7 @@ void main() {
             'third_party_a': '1.1.0',
             'third_party_b': '1.1.0',
             'third_party_c': '1.1.0',
+            'third_party_d': '1.0.0',
           },
         ),
       ]).validate();

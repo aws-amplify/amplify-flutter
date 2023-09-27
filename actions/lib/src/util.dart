@@ -10,7 +10,7 @@ Never get unreachable => throw _UnreachableError();
 
 final class _UnreachableError extends Error {}
 
-/// Allocate swap space to help relieve memory pressure when running `build_runner`.
+/// Allocates swap space to help relieve memory pressure when running `build_runner`.
 /// 
 /// By default, the large runners do not allocate any swap space. Without swap space,
 /// `build_runner` actions will often fail with an "The operation was canceled" exception.
@@ -61,7 +61,7 @@ $script
       if (exitCode != 0) {
         throw ProcessException(
           '/bin/bash',
-          [script],
+          [scriptPath],
           'Script failed with exit code', 
           exitCode,
         );
