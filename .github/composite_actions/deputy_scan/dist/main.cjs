@@ -44030,7 +44030,7 @@
               new A.File(t4).createSync$0();
               J.writeFileSync$2$x(A.fs(), J.resolve$1$x(A.path(), t4), "> **NOTE:** This PR was automatically created using the repo deputy.\n\n" + constraintUpdates + "\n\nUpdated-Group: " + t1 + "\n");
               $async$goto = 11;
-              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t4, '--title="' + commitTitle + '"', "--draft"], t6), true, worktreeDir), $async$call$0);
+              return A._asyncAwait(t7.run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "pr", "create", "--base=main", "--body-file=" + t4, "--title=" + commitTitle, "--draft"], t6), true, worktreeDir), $async$call$0);
             case 11:
               // returning from await.
               prResult = $async$result;

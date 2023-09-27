@@ -175,7 +175,7 @@ $_groupTrailer: $groupName
           'create',
           '--base=main',
           '--body-file=${tmpFile.path}',
-          '--title="$commitTitle"',
+          '--title=$commitTitle',
           '--draft', // FIXME: Remove
         ],
         echoOutput: true,
