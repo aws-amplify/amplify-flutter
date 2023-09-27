@@ -7,7 +7,6 @@ import 'dart:typed_data';
 
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
-import 'package:actions/src/util.dart';
 
 /// Wraps https://nodejs.org/api/child_process.html
 @JS()

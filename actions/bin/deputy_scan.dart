@@ -72,7 +72,11 @@ Future<void> _deputyScan() async {
   for (final MapEntry(key: dependencies, value: groupUpdates)
       in updates.toMap().entries) {
     final groupName = dependencies.join('+');
-    final updatedConstraint = groupUpdates.first.updatedConstraint;
+    // If the group updates all deps to a unique constraint, use that in messages.
+    final uniqueConstraint = groupUpdates
+        .map((update) => update.updatedConstraint)
+        .toSet()
+        .singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
       if (dependencies.any(_doNotUpdate.contains)) {
         core.info(
@@ -89,11 +93,16 @@ Future<void> _deputyScan() async {
       // TODO(dnys1): Fix
       // const baseBranch = 'origin/main';
       const baseBranch = 'origin/chore/aft-fixes';
-      final constraint = updatedConstraint
-          .toString()
-          .replaceAll(_specialChars, '')
-          .replaceAll(' ', '-');
-      final branchName = 'chore/deps/$groupName-$constraint';
+      var branchName = 'chore/deps/$groupName';
+      if (uniqueConstraint != null) {
+        final constraint = uniqueConstraint
+            .toString()
+            .replaceAll(_specialChars, '')
+            .replaceAll(' ', '-');
+        branchName += '-$constraint';
+      } else {
+        branchName += '-${DateTime.now().millisecondsSinceEpoch}';
+      }
       final worktreeDir = nodeFileSystem.systemTempDirectory
           .createTempSync('worktree_$groupName')
           .path;
@@ -133,18 +142,29 @@ Future<void> _deputyScan() async {
       await worktree.runCommand(['diff']);
 
       core.info('Committing changes...');
-      final commitTitle =
-          '"chore(deps): Bump $groupName to $updatedConstraint"';
+      var commitTitle = 'chore(deps): Bump $groupName';
+      if (uniqueConstraint != null) {
+        commitTitle += ' to $uniqueConstraint';
+      }
+      commitTitle = '"$commitTitle"';
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', commitTitle]);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
+      final constraintUpdates = groupUpdates
+          .map(
+            (groupUpdate) =>
+                '- Updated `${groupUpdate.update.dependencyName}` to '
+                '`${groupUpdate.updatedConstraint}`',
+          )
+          .join('\n');
       final prBody = '''
 > **NOTE:** This PR was automatically created using the repo deputy.
 
-Updated $groupName to `$updatedConstraint`
+Updated $groupName:
+$constraintUpdates
 
 Updated-Group: $groupName
 ''';

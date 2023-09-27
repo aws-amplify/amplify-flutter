@@ -50,7 +50,8 @@ Future<void> main() async {
       stdout.writeln('Compiling ${entrypoint.path}...');
       final compiledJs = p.join(distDir.path, 'main.cjs');
       final compileRes = runProcess(
-        'dart',
+        // Use the same `dart` executable which was used to run this script.
+        Platform.resolvedExecutable,
         [
           'compile',
           'js',
