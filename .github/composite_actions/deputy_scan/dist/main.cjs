@@ -44001,7 +44001,7 @@
             case 8:
               // returning from await.
               $async$goto = 9;
-              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", commitTitle], t6)), $async$call$0);
+              return A._asyncAwait(A.NodeGitDir_runCommand(_this, A._setArrayType(["commit", "-m", '"' + commitTitle + '"'], t6)), $async$call$0);
             case 9:
               // returning from await.
               $async$goto = 10;

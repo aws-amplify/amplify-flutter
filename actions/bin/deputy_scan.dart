@@ -137,7 +137,7 @@ Future<void> _createPrs(
         commitTitle += ' to $uniqueConstraint';
       }
       await worktree.runCommand(['add', '-A']);
-      await worktree.runCommand(['commit', '-m', commitTitle]);
+      await worktree.runCommand(['commit', '-m', '"$commitTitle"']);
       await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
 
       // Skip creating a new PR when one already exists.
