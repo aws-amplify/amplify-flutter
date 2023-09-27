@@ -42,10 +42,10 @@ final class _BuildRunnerTask implements PostUpdateTask {
   Future<void> run(Repo repo) async {
     await repo.ensureAft();
     core.info('Running build_runner in packages: $packages');
-    await Future.wait(
-      packages.map(repo.runBuildRunner),
-      eagerError: true,
-    );
+    // Run iteratively; cannot multiplex.
+    for (final package in packages) {
+      await repo.runBuildRunner(package);
+    }
   }
 }
 
