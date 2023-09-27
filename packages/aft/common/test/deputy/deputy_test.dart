@@ -4,7 +4,8 @@
 import 'package:aft_common/aft_common.dart';
 import 'package:aft_common/descriptors.dart' as d;
 import 'package:aws_common/aws_common.dart';
-import 'package:pub_semver/src/version.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -30,7 +31,7 @@ void main() {
       expect(updates, isNotNull);
       expect(
         updates!.keys.single,
-        DependencyUpdateGroup.of(['third_party_a']),
+        'third_party_a',
         reason: 'Only "third_party_a" should be updated',
       );
       await updates.updatePubspecs();
@@ -53,11 +54,14 @@ void main() {
           },
         ),
       ]).create();
-      final abGroup =
-          DependencyUpdateGroup.of(['third_party_a', 'third_party_b']);
-      final cGroup = DependencyUpdateGroup.of(['third_party_c']);
+      const abGroupName = 'ab';
+      const abGroup = {'third_party_a', 'third_party_b'};
+      const cGroupName = 'third_party_c';
+      const cGroup = {'third_party_c'};
       final deputy = Deputy(
-        dependencyGroups: [abGroup],
+        dependencyGroups: BuiltSetMultimap({
+          abGroupName: abGroup,
+        }),
         repo: repo,
         versionResolver: MockVersionResolver({
           'third_party_a': '1.1.0',
@@ -70,9 +74,61 @@ void main() {
 
       expect(
         updates!.keys,
-        unorderedEquals([abGroup, cGroup]),
+        unorderedEquals([abGroupName, cGroupName]),
         reason: 'The third party group should be bundled together. '
             'third_party_c should be in its own group.',
+      );
+      expect(
+        updates.values,
+        unorderedEquals([
+          isA<DependencyGroupUpdate>()
+              .having(
+                (group) => group.groupName,
+                'groupName',
+                abGroupName,
+              )
+              .having(
+                (group) => group.dependencies.toSet(),
+                'dependencies',
+                abGroup,
+              )
+              .having(
+                (group) => group.updatedConstraints.toMap(),
+                'updatedConstraints',
+                equals({
+                  'third_party_a': VersionConstraint.parse('1.1.0'),
+                  'third_party_b': VersionConstraint.parse('1.1.0'),
+                }),
+              )
+              .having(
+                (group) => group.updates.keys,
+                'updates',
+                unorderedEquals(abGroup),
+              ),
+          isA<DependencyGroupUpdate>()
+              .having(
+                (group) => group.groupName,
+                'groupName',
+                cGroupName,
+              )
+              .having(
+                (group) => group.dependencies.toSet(),
+                'dependencies',
+                cGroup,
+              )
+              .having(
+                (group) => group.updatedConstraints.toMap(),
+                'updatedConstraints',
+                equals({
+                  'third_party_c': VersionConstraint.parse('1.1.0'),
+                }),
+              )
+              .having(
+                (group) => group.updates.keys,
+                'updates',
+                unorderedEquals(cGroup),
+              ),
+        ]),
       );
       await updates.updatePubspecs();
       await d.repo([

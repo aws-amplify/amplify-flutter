@@ -8,56 +8,40 @@ import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
-enum PostUpdateTasks {
-  builtValueGenerator(
+/// The groups of dependencies which should be updated together.
+enum DependencyUpdateGroup {
+  codeGeneration(
     needsBuildRunner: true,
     needsSmithy: true,
+    dependencies: [
+      'built_value',
+      'built_collection',
+      'built_value_generator',
+      'json_annotation',
+      'json_serializable',
+      'code_builder',
+    ],
   ),
-  codeBuilder(
-    needsBuildRunner: true,
-    needsSmithy: true,
-  ),
-  dartStyle(
-    needsBuildRunner: true,
-    needsSmithy: true,
-  ),
-  driftDev(needsBuildRunner: true),
-  jsonSerializable(needsBuildRunner: true);
+  drift(needsBuildRunner: true, dependencies: ['drift', 'drift_dev']);
 
-  const PostUpdateTasks({
+  const DependencyUpdateGroup({
+    required this.dependencies,
     this.needsBuildRunner = false,
     this.needsSmithy = false,
   });
 
   final bool needsBuildRunner;
   final bool needsSmithy;
+  final List<String> dependencies;
 
-  static PostUpdateTasks? of(String dependency) =>
+  static Map<String, List<String>> get all => {
+        for (final value in values) value.name.snakeCase: value.dependencies,
+      };
+
+  static DependencyUpdateGroup? of(String dependency) =>
       values.firstWhereOrNull((el) => el.name.snakeCase == dependency);
 
-  static Future<void> runAll(
-    Repo repo,
-    DependencyUpdateGroup group,
-    List<String> updatedPackages,
-  ) async {
-    final tasksBuilders = [
-      for (final dependency in group) PostUpdateTasks.of(dependency),
-    ].nonNulls;
-    if (tasksBuilders.isEmpty) {
-      core.info('No tasks to run.');
-      return;
-    }
-    final groupName = group.join('+');
-    core.info('Running post-update tasks for "$groupName"');
-    final tasks = tasksBuilders
-        .expand((builder) => builder.buildTasks(repo, updatedPackages))
-        .toSet();
-    for (final task in tasks) {
-      await task.run(repo);
-    }
-  }
-
-  List<PostUpdateTask> buildTasks(Repo repo, List<String> updatedPackages) {
+  List<PostUpdateTask> buildTasks(Repo repo, Iterable<String> updatedPackages) {
     return [
       if (needsSmithy) ...[
         const PostUpdateTask.aft(['generate', 'goldens']),
@@ -82,6 +66,25 @@ enum PostUpdateTasks {
             ...updatedPackages,
         ]),
     ];
+  }
+}
+
+extension GroupPostUpdateTasks on DependencyGroupUpdate {
+  /// Runs all post-update tasks for the group in [repo].
+  Future<void> runPostUpdateTasks(Repo repo) async {
+    final tasksBuilder = DependencyUpdateGroup.of(groupName);
+    if (tasksBuilder == null) {
+      core.info('No tasks to run.');
+      return;
+    }
+    core.info('Running post-update tasks for "$groupName"');
+    final updatedPackages = updates.values
+        .expand((update) => update.dependentPackages.keys)
+        .toSet();
+    final tasks = tasksBuilder.buildTasks(repo, updatedPackages);
+    for (final task in tasks) {
+      await task.run(repo);
+    }
   }
 }
 
@@ -130,7 +133,7 @@ abstract base class PostUpdateTask {
 }
 
 /// Runs `aft` with the given [args].
-final class _AftTask extends PostUpdateTask with AWSEquatable<_AftTask> {
+final class _AftTask extends PostUpdateTask {
   const _AftTask(this.args);
 
   final List<String> args;
@@ -148,14 +151,10 @@ final class _AftTask extends PostUpdateTask with AWSEquatable<_AftTask> {
       throw ProcessException('aft', args);
     }
   }
-
-  @override
-  List<Object?> get props => [args];
 }
 
 /// Runs `build_runner` in each of the [packages].
-final class _BuildRunnerTask extends PostUpdateTask
-    with AWSEquatable<_BuildRunnerTask> {
+final class _BuildRunnerTask extends PostUpdateTask {
   const _BuildRunnerTask(this.packages);
 
   final List<String> packages;
@@ -197,7 +196,4 @@ final class _BuildRunnerTask extends PostUpdateTask
       }
     }
   }
-
-  @override
-  List<Object?> get props => [packages];
 }

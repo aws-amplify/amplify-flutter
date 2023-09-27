@@ -92,6 +92,198 @@ class _$DependencyUpdateSerializer
   }
 }
 
+class _$DependencyGroupUpdate extends DependencyGroupUpdate {
+  @override
+  final String groupName;
+  @override
+  final BuiltSet<String> dependencies;
+  @override
+  final BuiltMap<String, VersionConstraint> updatedConstraints;
+  @override
+  final BuiltMap<String, DependencyUpdate> updates;
+  @override
+  final Deputy deputy;
+  @override
+  final BuiltList<void Function(Repo)> pubspecUpdates;
+
+  factory _$DependencyGroupUpdate(
+          [void Function(DependencyGroupUpdateBuilder)? updates]) =>
+      (new DependencyGroupUpdateBuilder()..update(updates))._build();
+
+  _$DependencyGroupUpdate._(
+      {required this.groupName,
+      required this.dependencies,
+      required this.updatedConstraints,
+      required this.updates,
+      required this.deputy,
+      required this.pubspecUpdates})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        groupName, r'DependencyGroupUpdate', 'groupName');
+    BuiltValueNullFieldError.checkNotNull(
+        dependencies, r'DependencyGroupUpdate', 'dependencies');
+    BuiltValueNullFieldError.checkNotNull(
+        updatedConstraints, r'DependencyGroupUpdate', 'updatedConstraints');
+    BuiltValueNullFieldError.checkNotNull(
+        updates, r'DependencyGroupUpdate', 'updates');
+    BuiltValueNullFieldError.checkNotNull(
+        deputy, r'DependencyGroupUpdate', 'deputy');
+    BuiltValueNullFieldError.checkNotNull(
+        pubspecUpdates, r'DependencyGroupUpdate', 'pubspecUpdates');
+  }
+
+  @override
+  DependencyGroupUpdate rebuild(
+          void Function(DependencyGroupUpdateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  DependencyGroupUpdateBuilder toBuilder() =>
+      new DependencyGroupUpdateBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is DependencyGroupUpdate &&
+        groupName == other.groupName &&
+        dependencies == other.dependencies &&
+        updatedConstraints == other.updatedConstraints &&
+        updates == other.updates &&
+        deputy == other.deputy &&
+        pubspecUpdates == _$dynamicOther.pubspecUpdates;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, groupName.hashCode);
+    _$hash = $jc(_$hash, dependencies.hashCode);
+    _$hash = $jc(_$hash, updatedConstraints.hashCode);
+    _$hash = $jc(_$hash, updates.hashCode);
+    _$hash = $jc(_$hash, deputy.hashCode);
+    _$hash = $jc(_$hash, pubspecUpdates.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'DependencyGroupUpdate')
+          ..add('groupName', groupName)
+          ..add('dependencies', dependencies)
+          ..add('updatedConstraints', updatedConstraints)
+          ..add('updates', updates)
+          ..add('deputy', deputy)
+          ..add('pubspecUpdates', pubspecUpdates))
+        .toString();
+  }
+}
+
+class DependencyGroupUpdateBuilder
+    implements Builder<DependencyGroupUpdate, DependencyGroupUpdateBuilder> {
+  _$DependencyGroupUpdate? _$v;
+
+  String? _groupName;
+  String? get groupName => _$this._groupName;
+  set groupName(String? groupName) => _$this._groupName = groupName;
+
+  SetBuilder<String>? _dependencies;
+  SetBuilder<String> get dependencies =>
+      _$this._dependencies ??= new SetBuilder<String>();
+  set dependencies(SetBuilder<String>? dependencies) =>
+      _$this._dependencies = dependencies;
+
+  MapBuilder<String, VersionConstraint>? _updatedConstraints;
+  MapBuilder<String, VersionConstraint> get updatedConstraints =>
+      _$this._updatedConstraints ??=
+          new MapBuilder<String, VersionConstraint>();
+  set updatedConstraints(
+          MapBuilder<String, VersionConstraint>? updatedConstraints) =>
+      _$this._updatedConstraints = updatedConstraints;
+
+  MapBuilder<String, DependencyUpdate>? _updates;
+  MapBuilder<String, DependencyUpdate> get updates =>
+      _$this._updates ??= new MapBuilder<String, DependencyUpdate>();
+  set updates(MapBuilder<String, DependencyUpdate>? updates) =>
+      _$this._updates = updates;
+
+  Deputy? _deputy;
+  Deputy? get deputy => _$this._deputy;
+  set deputy(Deputy? deputy) => _$this._deputy = deputy;
+
+  ListBuilder<void Function(Repo)>? _pubspecUpdates;
+  ListBuilder<void Function(Repo)> get pubspecUpdates =>
+      _$this._pubspecUpdates ??= new ListBuilder<void Function(Repo)>();
+  set pubspecUpdates(ListBuilder<void Function(Repo)>? pubspecUpdates) =>
+      _$this._pubspecUpdates = pubspecUpdates;
+
+  DependencyGroupUpdateBuilder();
+
+  DependencyGroupUpdateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _groupName = $v.groupName;
+      _dependencies = $v.dependencies.toBuilder();
+      _updatedConstraints = $v.updatedConstraints.toBuilder();
+      _updates = $v.updates.toBuilder();
+      _deputy = $v.deputy;
+      _pubspecUpdates = $v.pubspecUpdates.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(DependencyGroupUpdate other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$DependencyGroupUpdate;
+  }
+
+  @override
+  void update(void Function(DependencyGroupUpdateBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  DependencyGroupUpdate build() => _build();
+
+  _$DependencyGroupUpdate _build() {
+    _$DependencyGroupUpdate _$result;
+    try {
+      _$result = _$v ??
+          new _$DependencyGroupUpdate._(
+              groupName: BuiltValueNullFieldError.checkNotNull(
+                  groupName, r'DependencyGroupUpdate', 'groupName'),
+              dependencies: dependencies.build(),
+              updatedConstraints: updatedConstraints.build(),
+              updates: updates.build(),
+              deputy: BuiltValueNullFieldError.checkNotNull(
+                  deputy, r'DependencyGroupUpdate', 'deputy'),
+              pubspecUpdates: pubspecUpdates.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'dependencies';
+        dependencies.build();
+        _$failedField = 'updatedConstraints';
+        updatedConstraints.build();
+        _$failedField = 'updates';
+        updates.build();
+
+        _$failedField = 'pubspecUpdates';
+        pubspecUpdates.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'DependencyGroupUpdate', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$DependencyUpdate extends DependencyUpdate {
   @override
   final String dependencyName;

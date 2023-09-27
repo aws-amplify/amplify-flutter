@@ -16,14 +16,14 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 final class Deputy {
   @visibleForTesting
   Deputy({
-    this.dependencyGroups = const [],
+    DependencyGroups? dependencyGroups,
     required this.repo,
     required this.versionResolver,
     this.logger,
-  });
+  }) : dependencyGroups = dependencyGroups ?? DependencyGroups();
 
   static Future<Deputy> create({
-    List<DependencyUpdateGroup> dependencyGroups = const [],
+    Map<String, Iterable<String>> dependencyGroups = const {},
     FileSystem fileSystem = const LocalFileSystem(),
     Platform platform = const LocalPlatform(),
     ProcessManager processManager = const LocalProcessManager(),
@@ -36,7 +36,7 @@ final class Deputy {
       logger: logger,
     );
     return Deputy(
-      dependencyGroups: dependencyGroups,
+      dependencyGroups: DependencyGroups(dependencyGroups),
       repo: repo,
       versionResolver: PubVersionResolver(
         logger: logger,
@@ -45,13 +45,13 @@ final class Deputy {
     );
   }
 
-  final List<DependencyUpdateGroup> dependencyGroups;
+  final DependencyGroups dependencyGroups;
   final Repo repo;
   final VersionResolver versionResolver;
   final AWSLogger? logger;
 
   /// Lists all third-party dependencies, grouped by the packages which depend on them.
-  Future<BuiltListMultimap<DependencyUpdateGroup, DependencyUpdate>>
+  Future<BuiltListMultimap<String, DependencyUpdate>>
       _listDependencyGroups() async {
     final updates = <String, DependencyUpdateBuilder>{};
     final repoGraph = repo.getPackageGraph(includeDevDependencies: true);
@@ -93,20 +93,24 @@ final class Deputy {
       }
       group.latestVersion = latestVersion;
     }
-    return BuiltListMultimap.build((updateGroups) {
+    return BuiltListMultimap<String, DependencyUpdate>.build((updateGroups) {
       // Grouped updates
-      for (final group in dependencyGroups) {
-        updateGroups[group].addAll(
-          [
-            for (final dependency in group) updates.remove(dependency)?.build(),
-          ].nonNulls,
-        );
-      }
+      dependencyGroups.forEach((groupName, dependencyName) {
+        if (updates.remove(dependencyName) case final update?) {
+          updateGroups[groupName].add(update.build());
+        }
+      });
 
       // Ungrouped updates
       for (final MapEntry(key: dependency, value: update) in updates.entries) {
-        updateGroups[DependencyUpdateGroup.of([dependency])]
-            .add(update.build());
+        if (updateGroups[dependency].isNotEmpty) {
+          throw ArgumentError.value(
+            dependency,
+            'groupName',
+            'Group name conflicts with ungrouped dependency name',
+          );
+        }
+        updateGroups[dependency].add(update.build());
       }
     });
   }
@@ -116,15 +120,20 @@ final class Deputy {
   ///
   /// For each group in which there are updates, this proposes a new update
   /// which modifies the pubspec for each group package.
-  Future<BuiltListMultimap<DependencyUpdateGroup, PropsedDependencyUpdate>>
-      _proposeUpdates(
-    BuiltListMultimap<DependencyUpdateGroup, DependencyUpdate> dependencyGroups,
+  Future<Map<String, DependencyGroupUpdate>> _proposeUpdates(
+    BuiltListMultimap<String, DependencyUpdate> dependencyGroups,
   ) async {
-    final proposedUpdates =
-        ListMultimapBuilder<DependencyUpdateGroup, PropsedDependencyUpdate>();
-    for (final MapEntry(key: dependencyGroup, value: updates)
+    final proposedUpdates = MapBuilder<String, DependencyGroupUpdateBuilder>();
+    for (final MapEntry(key: groupName, value: groupUpdates)
         in dependencyGroups.toMap().entries) {
-      for (final update in updates) {
+      for (final update in groupUpdates) {
+        final proposedUpdate = (proposedUpdates[groupName] ??=
+            DependencyGroupUpdateBuilder())
+          ..groupName = groupName
+          ..deputy = this
+          ..dependencies.addAll(this.dependencyGroups[groupName] ?? const {})
+          ..dependencies.add(update.dependencyName)
+          ..updates[update.dependencyName] = update;
         if (update.globalConstraint case final globalConstraint?) {
           final updatedGlobalConstraint = versionResolver.updateFor(
             update.dependencyName,
@@ -135,18 +144,15 @@ final class Deputy {
             logger
               ?..info('Proposing global update to ${update.dependencyName}:')
               ..info('  $globalConstraint -> $updatedGlobalConstraint');
-            final proposedUpdate = PropsedDependencyUpdate(
-              this,
-              update: update,
-              updatedConstraint: updatedGlobalConstraint,
-            );
-            proposedUpdate._pubspecUpdates.add(
-              (repo) => repo.rootPubspecEditor.update(
-                ['dependencies', update.dependencyName],
-                updatedGlobalConstraint.toString(),
-              ),
-            );
-            proposedUpdates[dependencyGroup].add(proposedUpdate);
+            proposedUpdate
+              ..updatedConstraints[update.dependencyName] ??=
+                  updatedGlobalConstraint
+              ..pubspecUpdates.add(
+                (repo) => repo.rootPubspecEditor.update(
+                  ['dependencies', update.dependencyName],
+                  updatedGlobalConstraint.toString(),
+                ),
+              );
           }
         }
 
@@ -170,33 +176,33 @@ final class Deputy {
                   .containsKey(update.dependencyName)
               ? DependencyType.dependency
               : DependencyType.devDependency;
-          final proposedUpdate = PropsedDependencyUpdate(
-            this,
-            update: update,
-            updatedConstraint: updatedConstraint,
-          );
-          proposedUpdate._pubspecUpdates.add(
-            (repo) => repo
-                .maybePackage(package.name)
-                ?.pubspecInfo
-                .pubspecYamlEditor
-                .update(
-              [dependencyType.key, update.dependencyName],
-              updatedConstraint.toString(),
-            ),
-          );
-          proposedUpdates[dependencyGroup].add(proposedUpdate);
+
+          proposedUpdate
+            ..updatedConstraints[update.dependencyName] = updatedConstraint
+            ..pubspecUpdates.add(
+              (repo) => repo
+                  .maybePackage(package.name)
+                  ?.pubspecInfo
+                  .pubspecYamlEditor
+                  .update(
+                [dependencyType.key, update.dependencyName],
+                updatedConstraint.toString(),
+              ),
+            );
         }
       }
     }
-    return proposedUpdates.build();
+    return proposedUpdates
+        .build()
+        .toMap()
+        .map((group, update) => MapEntry(group, update.build()));
   }
 
   /// Writes any propsed updates to disk.
   ///
   /// If [worktree] is specified, updates are applied in that repo.
   /// Otherwise, they are applied to the current, active repo.
-  Future<void> _commitUpdates([Repo? worktree]) async {
+  Future<void> commitUpdates([Repo? worktree]) async {
     final repo = worktree ?? this.repo;
     final rootDir = this.repo.rootDir.path;
     String worktreePath(String path) {
@@ -231,8 +237,7 @@ final class Deputy {
   /// updates for those which have outdated constraints.
   ///
   /// Returns `true` if there were updates and `false` if all packages are up-to-date.
-  Future<BuiltListMultimap<DependencyUpdateGroup, PropsedDependencyUpdate>?>
-      scanForUpdates() async {
+  Future<Map<String, DependencyGroupUpdate>?> scanForUpdates() async {
     final dependencyGroups = await _listDependencyGroups();
     final updates = await _proposeUpdates(dependencyGroups);
     if (updates.isEmpty) {
@@ -242,43 +247,7 @@ final class Deputy {
   }
 }
 
-/// {@template aft_common.deputy.group_update}
-/// A proposed [update] to a dependency.
-///
-/// Call [updatePubspecs] to write proposed changes to disk.
-/// {@endtemplate}
-final class PropsedDependencyUpdate {
-  /// {@macro aft_common.deputy.group_update}
-  PropsedDependencyUpdate(
-    this._deputy, {
-    required this.update,
-    required this.updatedConstraint,
-  });
-
-  final Deputy _deputy;
-
-  /// The proposed update.
-  final DependencyUpdate update;
-
-  /// The constraint to be used in the update.
-  final VersionConstraint updatedConstraint;
-  final List<void Function(Repo)> _pubspecUpdates = [];
-
-  /// Updates all pubspecs in the group and writes the changes
-  /// to disk.
-  ///
-  /// If [worktree] is specified, updates are applied in that repo.
-  /// Otherwise, they are applied to the current, active repo.
-  Future<void> updatePubspecs([Repo? worktree]) async {
-    for (final update in _pubspecUpdates) {
-      update(worktree ?? _deputy.repo);
-    }
-    await _deputy._commitUpdates(worktree);
-  }
-}
-
-extension UpdateAllGroups
-    on BuiltListMultimap<DependencyUpdateGroup, PropsedDependencyUpdate> {
+extension UpdateAllGroups on Map<String, DependencyGroupUpdate> {
   /// Updates all pubspecs in all groups and writes the changes
   /// to disk.
   ///

@@ -28,28 +28,12 @@ const List<String> _doNotUpdate = [
   'uuid',
 ];
 
-/// The groups of dependencies which should be updated together.
-final List<DependencyUpdateGroup> updateGroups = [
-  // Drift
-  DependencyUpdateGroup.of(['drift', 'drift_dev']),
-
-  // Code generation
-  DependencyUpdateGroup.of([
-    'built_value',
-    'built_collection',
-    'built_value_generator',
-    'json_annotation',
-    'json_serializable',
-    'code_builder',
-  ]),
-];
-
 Future<void> _deputyScan() async {
   final logger = AWSLogger().createChild('Deputy')
     ..unregisterAllPlugins()
     ..registerPlugin(const NodeLoggerPlugin());
   final deputy = await Deputy.create(
-    dependencyGroups: updateGroups,
+    dependencyGroups: DependencyUpdateGroup.all,
     fileSystem: nodeFileSystem,
     platform: nodePlatform,
     processManager: nodeProcessManager,
@@ -69,16 +53,16 @@ Future<void> _deputyScan() async {
   await allocateSwapSpace();
 
   // Create a PR for each dependency group which does not already have a PR.
-  for (final MapEntry(key: dependencies, value: groupUpdates)
-      in updates.toMap().entries) {
-    final groupName = dependencies.join('+');
+  for (final MapEntry(key: groupName, value: group)
+      in updates.entries) {
     // If the group updates all deps to a unique constraint, use that in messages.
-    final uniqueConstraint = groupUpdates
-        .map((update) => update.updatedConstraint)
+    final uniqueConstraint = group
+        .updatedConstraints
+        .values
         .toSet()
         .singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
-      if (dependencies.any(_doNotUpdate.contains)) {
+      if (group.dependencies.any(_doNotUpdate.contains)) {
         core.info(
           'Skipping "$groupName" since one of its dependencies are on the do-not-update list',
         );
@@ -123,20 +107,11 @@ Future<void> _deputyScan() async {
       );
       final worktree = NodeGitDir(worktreeRepo.git);
 
-      for (final groupUpdate in groupUpdates) {
-        core.info('Updating pubspecs...');
-        await groupUpdate.updatePubspecs(worktreeRepo);
-      }
+      core.info('Updating pubspecs...');
+      await group.updatePubspecs(worktreeRepo);
 
       core.info('Running post-update tasks...');
-      final updatedPackages = groupUpdates
-          .expand((groupUpdate) => groupUpdate.update.dependentPackages.keys)
-          .toList();
-      await PostUpdateTasks.runAll(
-        worktreeRepo,
-        dependencies,
-        updatedPackages,
-      );
+      await group.runPostUpdateTasks(worktreeRepo);
 
       core.info('Diffing changes...');
       await worktree.runCommand(['diff']);
@@ -153,11 +128,10 @@ Future<void> _deputyScan() async {
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
-      final constraintUpdates = groupUpdates
+      final constraintUpdates = group.dependencies
           .map(
-            (groupUpdate) =>
-                '- Updated `${groupUpdate.update.dependencyName}` to '
-                '`${groupUpdate.updatedConstraint}`',
+            (dependency) =>
+                '- Updated `$dependency` to `${group.updatedConstraints[dependency]}`',
           )
           .join('\n');
       final prBody = '''
