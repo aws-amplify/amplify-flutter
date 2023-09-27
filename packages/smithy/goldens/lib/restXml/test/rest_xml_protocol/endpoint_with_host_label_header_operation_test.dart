@@ -59,6 +59,7 @@ class HostLabelHeaderInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [HostLabelHeaderInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -66,6 +67,7 @@ class HostLabelHeaderInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HostLabelHeaderInput deserialize(
     Serializers serializers,

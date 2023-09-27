@@ -132,6 +132,7 @@ class GreetingWithErrorsOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -139,6 +140,7 @@ class GreetingWithErrorsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   GreetingWithErrorsOutput deserialize(
     Serializers serializers,
@@ -182,6 +184,7 @@ class ComplexErrorEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [ComplexError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -189,6 +192,7 @@ class ComplexErrorEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -238,6 +242,7 @@ class ComplexNestedErrorDataEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -245,6 +250,7 @@ class ComplexNestedErrorDataEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,
@@ -288,6 +294,7 @@ class InvalidGreetingEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [InvalidGreeting];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -295,6 +302,7 @@ class InvalidGreetingEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

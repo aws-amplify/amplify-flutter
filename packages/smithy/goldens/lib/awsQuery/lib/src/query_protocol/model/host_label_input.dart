@@ -48,8 +48,10 @@ abstract class HostLabelInput
 
   @override
   HostLabelInput getPayload() => this;
+
   @override
   List<Object?> get props => [label];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelInput')
@@ -70,6 +72,7 @@ class HostLabelInputAwsQuerySerializer
         HostLabelInput,
         _$HostLabelInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class HostLabelInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   HostLabelInput deserialize(
     Serializers serializers,

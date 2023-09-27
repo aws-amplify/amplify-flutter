@@ -80,8 +80,10 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
           }
         }
       });
+
   @override
   int successCode([HttpPayloadTraitsWithMediaTypeInputOutput? output]) => 200;
+
   @override
   HttpPayloadTraitsWithMediaTypeInputOutput buildOutput(
     _i2.Uint8List? payload,
@@ -91,16 +93,22 @@ class HttpPayloadTraitsWithMediaTypeOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpPayloadTraitsWithMediaType';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpPayloadTraitsWithMediaTypeInputOutput> run(
     HttpPayloadTraitsWithMediaTypeInputOutput input, {

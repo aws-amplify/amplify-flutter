@@ -41,6 +41,7 @@ abstract class XmlNamespaceNested
         foo,
         values,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespaceNested')
@@ -65,6 +66,7 @@ class XmlNamespaceNestedRestXmlSerializer
         XmlNamespaceNested,
         _$XmlNamespaceNested,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -72,6 +74,7 @@ class XmlNamespaceNestedRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlNamespaceNested deserialize(
     Serializers serializers,
@@ -148,7 +151,7 @@ class XmlNamespaceNestedRestXmlSerializer
             .serialize(
           serializers,
           values,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

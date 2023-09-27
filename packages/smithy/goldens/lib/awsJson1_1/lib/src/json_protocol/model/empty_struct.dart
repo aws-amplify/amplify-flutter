@@ -28,6 +28,7 @@ abstract class EmptyStruct
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EmptyStruct');
@@ -44,6 +45,7 @@ class EmptyStructAwsJson11Serializer
         EmptyStruct,
         _$EmptyStruct,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -51,6 +53,7 @@ class EmptyStructAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   EmptyStruct deserialize(
     Serializers serializers,

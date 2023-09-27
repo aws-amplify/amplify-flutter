@@ -126,6 +126,7 @@ class XmlEnumsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlEnumsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -133,6 +134,7 @@ class XmlEnumsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlEnumsInputOutput deserialize(
     Serializers serializers,

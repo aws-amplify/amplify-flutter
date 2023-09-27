@@ -146,6 +146,7 @@ abstract class DefaultValuesOutput
         optionalDefaultBool,
         nullifiedDefaultBool,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultValuesOutput')
@@ -234,6 +235,7 @@ class DefaultValuesOutputRestJson1Serializer
         DefaultValuesOutput,
         _$DefaultValuesOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -241,6 +243,7 @@ class DefaultValuesOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   DefaultValuesOutput deserialize(
     Serializers serializers,

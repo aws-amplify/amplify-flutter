@@ -54,11 +54,13 @@ abstract class SimpleScalarPropertiesInputOutput
   double? get doubleValue;
   @override
   SimpleScalarPropertiesInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         floatValue,
         doubleValue,
       ];
+
   @override
   String toString() {
     final helper =
@@ -85,6 +87,7 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
         SimpleScalarPropertiesInputOutput,
         _$SimpleScalarPropertiesInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -92,6 +95,7 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,

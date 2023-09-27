@@ -63,6 +63,7 @@ abstract class XmlIntEnumsOutput
         intEnumSet,
         intEnumMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput')
@@ -103,6 +104,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
         XmlIntEnumsOutput,
         _$XmlIntEnumsOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -110,6 +112,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlIntEnumsOutput deserialize(
     Serializers serializers,
@@ -207,7 +210,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('IntEnum1'))
         ..add(serializers.serialize(
           intEnum1,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (intEnum2 != null) {
@@ -215,7 +218,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('IntEnum2'))
         ..add(serializers.serialize(
           intEnum2,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (intEnum3 != null) {
@@ -223,7 +226,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlElementName('IntEnum3'))
         ..add(serializers.serialize(
           intEnum3,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (intEnumList != null) {
@@ -234,7 +237,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
             .serialize(
           serializers,
           intEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),
@@ -248,7 +251,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
             .serialize(
           serializers,
           intEnumSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltSet,
             [FullType(int)],
           ),
@@ -260,7 +263,7 @@ class XmlIntEnumsOutputEc2QuerySerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           intEnumMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

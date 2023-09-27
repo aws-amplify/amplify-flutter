@@ -74,6 +74,7 @@ class QueryParamsAsStringListMapInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [QueryParamsAsStringListMapInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -81,6 +82,7 @@ class QueryParamsAsStringListMapInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   QueryParamsAsStringListMapInput deserialize(
     Serializers serializers,

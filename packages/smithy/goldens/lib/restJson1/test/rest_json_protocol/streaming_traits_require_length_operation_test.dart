@@ -110,6 +110,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [StreamingTraitsRequireLengthInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -117,6 +118,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   StreamingTraitsRequireLengthInput deserialize(
     Serializers serializers,

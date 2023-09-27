@@ -79,8 +79,10 @@ class KitchenSinkOperation extends _i1
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([KitchenSink? output]) => 200;
+
   @override
   KitchenSink buildOutput(
     KitchenSink payload,
@@ -90,6 +92,7 @@ class KitchenSinkOperation extends _i1
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ErrorWithMembers, ErrorWithMembers>(
@@ -111,14 +114,19 @@ class KitchenSinkOperation extends _i1
           builder: ErrorWithoutMembers.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'KitchenSinkOperation';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<KitchenSink> run(
     KitchenSink input, {

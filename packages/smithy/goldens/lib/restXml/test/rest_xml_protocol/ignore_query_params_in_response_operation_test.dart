@@ -57,6 +57,7 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [IgnoreQueryParamsInResponseOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -64,6 +65,7 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   IgnoreQueryParamsInResponseOutput deserialize(
     Serializers serializers,

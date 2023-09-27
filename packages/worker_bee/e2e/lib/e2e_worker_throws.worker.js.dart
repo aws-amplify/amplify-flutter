@@ -7,6 +7,7 @@ import 'package:e2e/e2e_worker_throws.dart';
 class E2EWorkerThrowsImpl extends E2EWorkerThrows {
   @override
   String get name => 'E2EWorkerThrows';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.

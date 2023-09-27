@@ -115,6 +115,7 @@ class GetObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GetObjectRequest];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -122,6 +123,7 @@ class GetObjectRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetObjectRequest deserialize(
     Serializers serializers,
@@ -175,6 +177,7 @@ class GetObjectOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GetObjectOutput];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -182,6 +185,7 @@ class GetObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetObjectOutput deserialize(
     Serializers serializers,

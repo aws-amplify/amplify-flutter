@@ -762,6 +762,7 @@ class UnionInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [UnionInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -769,6 +770,7 @@ class UnionInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   UnionInputOutput deserialize(
     Serializers serializers,
