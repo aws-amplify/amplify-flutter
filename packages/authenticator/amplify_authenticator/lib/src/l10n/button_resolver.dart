@@ -4,7 +4,6 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonResolverKeyType {
@@ -67,7 +66,7 @@ class ButtonResolverKey {
   static const copyKey = ButtonResolverKey._(ButtonResolverKeyType.copyKey);
 
   @override
-  String toString() => describeEnum(type);
+  String toString() => type.name;
 }
 
 /// The resolver class for shared button Widgets
