@@ -8,12 +8,12 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $PackagesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _nameMeta = VerificationMeta('name');
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _latestMeta = VerificationMeta('latest');
+  static const VerificationMeta _latestMeta = const VerificationMeta('latest');
   @override
   late final GeneratedColumn<String> latest = GeneratedColumn<String>(
       'latest', aliasedName, false,
@@ -21,9 +21,10 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   @override
   List<GeneratedColumn> get $columns => [name, latest];
   @override
-  String get aliasedName => _alias ?? 'packages';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'packages';
+  String get actualTableName => $name;
+  static const String $name = 'packages';
   @override
   VerificationContext validateIntegrity(Insertable<Package> instance,
       {bool isInserting = false}) {
@@ -190,38 +191,43 @@ class $PackageVersionsTable extends PackageVersions
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $PackageVersionsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _packageMeta = VerificationMeta('package');
+  static const VerificationMeta _packageMeta =
+      const VerificationMeta('package');
   @override
   late final GeneratedColumn<String> package = GeneratedColumn<String>(
       'package', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _versionMeta = VerificationMeta('version');
+  static const VerificationMeta _versionMeta =
+      const VerificationMeta('version');
   @override
   late final GeneratedColumn<String> version = GeneratedColumn<String>(
       'version', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _archiveUrlMeta =
-      VerificationMeta('archiveUrl');
+      const VerificationMeta('archiveUrl');
   @override
   late final GeneratedColumn<String> archiveUrl = GeneratedColumn<String>(
       'archive_url', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _pubspecMeta = VerificationMeta('pubspec');
+  static const VerificationMeta _pubspecMeta =
+      const VerificationMeta('pubspec');
   @override
   late final GeneratedColumn<String> pubspec = GeneratedColumn<String>(
       'pubspec', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _readmeMeta = VerificationMeta('readme');
+  static const VerificationMeta _readmeMeta = const VerificationMeta('readme');
   @override
   late final GeneratedColumn<String> readme = GeneratedColumn<String>(
       'readme', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _changelogMeta = VerificationMeta('changelog');
+  static const VerificationMeta _changelogMeta =
+      const VerificationMeta('changelog');
   @override
   late final GeneratedColumn<String> changelog = GeneratedColumn<String>(
       'changelog', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _publishedMeta = VerificationMeta('published');
+  static const VerificationMeta _publishedMeta =
+      const VerificationMeta('published');
   @override
   late final GeneratedColumn<DateTime> published = GeneratedColumn<DateTime>(
       'published', aliasedName, false,
@@ -230,9 +236,10 @@ class $PackageVersionsTable extends PackageVersions
   List<GeneratedColumn> get $columns =>
       [package, version, archiveUrl, pubspec, readme, changelog, published];
   @override
-  String get aliasedName => _alias ?? 'package_versions';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'package_versions';
+  String get actualTableName => $name;
+  static const String $name = 'package_versions';
   @override
   VerificationContext validateIntegrity(Insertable<PackageVersion> instance,
       {bool isInserting = false}) {
