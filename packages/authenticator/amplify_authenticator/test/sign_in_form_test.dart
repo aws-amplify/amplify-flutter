@@ -79,6 +79,28 @@ void main() {
           expect(usernameFieldError, findsOneWidget);
         },
       );
+
+      testWidgets(
+        'trims the username field before validation',
+        (tester) async {
+          await tester.pumpWidget(const MockAuthenticatorApp());
+          await tester.pumpAndSettle();
+
+          final signInPage = SignInPage(tester: tester);
+
+          await signInPage.enterUsername('user@example.com ');
+          await signInPage.enterPassword('Password123');
+
+          await signInPage.submitSignIn();
+
+          final usernameFieldError = find.descendant(
+            of: signInPage.usernameField,
+            matching: find.text('Invalid email format.'),
+          );
+
+          expect(usernameFieldError, findsNothing);
+        },
+      );
     });
   });
 }

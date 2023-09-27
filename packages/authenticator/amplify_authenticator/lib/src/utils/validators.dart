@@ -44,7 +44,7 @@ FormFieldValidator<String> usernameValidator({
         InputResolverKey.usernameEmpty,
       );
     }
-
+    input = input.trim();
     if (!usernameRegex.hasMatch(input)) {
       return inputResolver.resolve(
         context,
@@ -173,7 +173,9 @@ FormFieldValidator<String> validateEmail({
         context,
         InputResolverKey.emailEmpty,
       );
-    } else if (!emailRegex.hasMatch(email)) {
+    }
+    email = email.trim();
+    if (!emailRegex.hasMatch(email)) {
       return inputResolver.resolve(context, InputResolverKey.emailFormat);
     }
     return null;

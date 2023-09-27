@@ -7,7 +7,7 @@ void main() {
   runApp(
     const MockAuthenticatorApp(
       /// change this step to view any screen of the Authenticator.
-      initialStep: AuthenticatorStep.continueSignInWithTotpSetup,
+      initialStep: AuthenticatorStep.signIn,
     ),
   );
 }

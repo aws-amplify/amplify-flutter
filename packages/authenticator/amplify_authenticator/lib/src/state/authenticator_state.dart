@@ -90,7 +90,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get username => _username;
 
   set username(String value) {
-    _username = value.trim();
+    _username = value;
     notifyListeners();
   }
 
@@ -131,7 +131,7 @@ class AuthenticatorState extends ChangeNotifier {
   String get passwordConfirmation => _passwordConfirmation;
 
   set passwordConfirmation(String value) {
-    _passwordConfirmation = value.trim();
+    _passwordConfirmation = value;
     notifyListeners();
   }
 
@@ -144,7 +144,7 @@ class AuthenticatorState extends ChangeNotifier {
   /// This value will be used during confirm sign up, or other actions
   /// that required the confirmation code
   set confirmationCode(String value) {
-    _confirmationCode = value.trim();
+    _confirmationCode = value;
     notifyListeners();
   }
 
@@ -339,8 +339,6 @@ class AuthenticatorState extends ChangeNotifier {
   /// Complete custom auth form using the values for [confirmationCode],
   /// [rememberDevice], and any user attributes.
   Future<void> confirmSignInCustomAuth() async {
-    final confirmationCode = _confirmationCode.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -350,7 +348,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode,
+      confirmationValue: confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -362,8 +360,6 @@ class AuthenticatorState extends ChangeNotifier {
   /// Complete MFA using the values for [confirmationCode],
   /// [rememberDevice], and any user attributes.
   Future<void> confirmSignInMFA() async {
-    final confirmationCode = _confirmationCode.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -373,7 +369,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode,
+      confirmationValue: confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -402,8 +398,6 @@ class AuthenticatorState extends ChangeNotifier {
   /// Complete TOTP setup using the values for [confirmationCode]
   /// and any user attributes.
   Future<void> confirmTotp() async {
-    final confirmationCode = _confirmationCode.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -411,7 +405,7 @@ class AuthenticatorState extends ChangeNotifier {
     _setIsBusy(true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: confirmationCode,
+      confirmationValue: confirmationCode.trim(),
       attributes: authAttributes,
     );
 
@@ -422,8 +416,6 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// Complete the force password change with [newPassword]
   Future<void> confirmSignInNewPassword() async {
-    final newPassword = _newPassword.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -433,7 +425,7 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirm = AuthConfirmSignInData(
-      confirmationValue: newPassword,
+      confirmationValue: newPassword.trim(),
       attributes: authAttributes,
     );
 
@@ -444,10 +436,6 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// Confirm sign up with [confirmationCode], [username], and [password]
   Future<void> confirmSignUp() async {
-    final confirmationCode = _confirmationCode.trim();
-    final username = _username.trim();
-    final password = _password.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -457,9 +445,9 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirmation = AuthConfirmSignUpData(
-      code: confirmationCode,
-      username: username,
-      password: password,
+      code: _confirmationCode.trim(),
+      username: _username.trim(),
+      password: _password.trim(),
     );
 
     _authBloc.add(AuthConfirmSignUp(confirmation));
@@ -469,9 +457,6 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// Sign in with [username], and [password]
   Future<void> signIn() async {
-    final username = _username.trim();
-    final password = _password.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -481,8 +466,8 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final signIn = AuthUsernamePasswordSignInData(
-      username: username,
-      password: password,
+      username: _username.trim(),
+      password: _password.trim(),
     );
     _authBloc.add(AuthSignIn(signIn));
     await nextBlocEvent();
@@ -524,10 +509,6 @@ class AuthenticatorState extends ChangeNotifier {
   /// Completes the reset password process with [confirmationCode],
   /// [username], and [newPassword]
   Future<void> confirmResetPassword() async {
-    final username = _username.trim();
-    final confirmationCode = _confirmationCode.trim();
-    final newPassword = _newPassword.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -537,9 +518,9 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final confirmResetPasswordData = AuthConfirmResetPasswordData(
-      username: username,
-      confirmationCode: confirmationCode,
-      newPassword: newPassword,
+      username: _username.trim(),
+      confirmationCode: _confirmationCode.trim(),
+      newPassword: _newPassword.trim(),
     );
     _authBloc.add(AuthConfirmResetPassword(confirmResetPasswordData));
     await nextBlocEvent(
@@ -550,9 +531,6 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// Sign up with [username], [password] and any user attributes
   Future<void> signUp() async {
-    final username = _username.trim();
-    final password = _password.trim();
-
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -561,8 +539,8 @@ class AuthenticatorState extends ChangeNotifier {
     TextInput.finishAutofillContext(shouldSave: true);
 
     final signUp = AuthSignUpData(
-      username: username,
-      password: password,
+      username: _username.trim(),
+      password: _password.trim(),
       attributes: authAttributes,
     );
 
