@@ -535,6 +535,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlTimestampsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -542,6 +543,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlTimestampsInputOutput deserialize(
     Serializers serializers,

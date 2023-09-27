@@ -71,6 +71,7 @@ class OmitsSerializingEmptyListsInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [OmitsSerializingEmptyListsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -78,6 +79,7 @@ class OmitsSerializingEmptyListsInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   OmitsSerializingEmptyListsInput deserialize(
     Serializers serializers,

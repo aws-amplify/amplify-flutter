@@ -64,6 +64,7 @@ class QueryTimestampsInputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [QueryTimestampsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -71,6 +72,7 @@ class QueryTimestampsInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryTimestampsInput deserialize(
     Serializers serializers,

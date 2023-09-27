@@ -91,8 +91,10 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
             : r'/?location';
         b.hostPrefix = _s3ClientConfig.usePathStyle ? null : '{Bucket}.';
       });
+
   @override
   int successCode([GetBucketLocationOutput? output]) => 200;
+
   @override
   GetBucketLocationOutput buildOutput(
     BucketLocationConstraint? payload,
@@ -102,12 +104,16 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'GetBucketLocation';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -128,6 +134,7 @@ class GetBucketLocationOperation extends _i1.HttpOperation<
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetBucketLocationOutput> run(
     GetBucketLocationRequest input, {

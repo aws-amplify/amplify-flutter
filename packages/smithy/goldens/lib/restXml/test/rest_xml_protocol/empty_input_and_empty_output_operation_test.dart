@@ -96,6 +96,7 @@ class EmptyInputAndEmptyOutputInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -103,6 +104,7 @@ class EmptyInputAndEmptyOutputInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,
@@ -129,6 +131,7 @@ class EmptyInputAndEmptyOutputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -136,6 +139,7 @@ class EmptyInputAndEmptyOutputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,

@@ -50,8 +50,10 @@ abstract class EnumPayloadInput
   StringEnum? get payload;
   @override
   StringEnum? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnumPayloadInput')
@@ -72,6 +74,7 @@ class EnumPayloadInputRestJson1Serializer
         EnumPayloadInput,
         _$EnumPayloadInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -79,6 +82,7 @@ class EnumPayloadInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   StringEnum deserialize(
     Serializers serializers,

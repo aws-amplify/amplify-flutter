@@ -40,8 +40,10 @@ abstract class NoInputAndOutputInput
 
   @override
   NoInputAndOutputInput getPayload() => this;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NoInputAndOutputInput');
@@ -59,6 +61,7 @@ class NoInputAndOutputInputAwsQuerySerializer
         NoInputAndOutputInput,
         _$NoInputAndOutputInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -66,6 +69,7 @@ class NoInputAndOutputInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NoInputAndOutputInput deserialize(
     Serializers serializers,

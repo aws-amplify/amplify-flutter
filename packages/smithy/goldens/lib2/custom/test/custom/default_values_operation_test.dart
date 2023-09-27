@@ -123,6 +123,7 @@ class DefaultValuesInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [DefaultValuesInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -130,6 +131,7 @@ class DefaultValuesInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   DefaultValuesInput deserialize(
     Serializers serializers,
@@ -285,6 +287,7 @@ class DefaultValuesOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [DefaultValuesOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -292,6 +295,7 @@ class DefaultValuesOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   DefaultValuesOutput deserialize(
     Serializers serializers,

@@ -55,11 +55,13 @@ abstract class StreamingTraitsRequireLengthInput
   _i2.Stream<List<int>>? get blob;
   @override
   _i2.Stream<List<int>>? getPayload() => blob;
+
   @override
   List<Object?> get props => [
         foo,
         blob,
       ];
+
   @override
   String toString() {
     final helper =
@@ -86,6 +88,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
         StreamingTraitsRequireLengthInput,
         _$StreamingTraitsRequireLengthInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -93,6 +96,7 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Stream<List<int>> deserialize(
     Serializers serializers,
