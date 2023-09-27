@@ -12,18 +12,28 @@ import {
 import { env } from "./common";
 import { GitHubStack } from "./github/github";
 import { LoggingIntegrationTestStack } from "./logging/stack";
-import { StorageAccessLevel, StorageIntegrationTestStack } from "./storage/stack";
+import {
+  StorageAccessLevel,
+  StorageIntegrationTestStack,
+} from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // The Analytics stack
-    const analytics = new AnalyticsIntegrationTestStack(this, [
-      { environmentName: "main" },
-      { environmentName: "no-unauth-access", allowUnauthAccess: false },
-      { environmentName: "no-unauth-identities", allowUnauthIdentites: false }
-    ], { env });
+    const analytics = new AnalyticsIntegrationTestStack(
+      this,
+      [
+        { environmentName: "main" },
+        { environmentName: "no-unauth-access", allowUnauthAccess: false },
+        {
+          environmentName: "no-unauth-identities",
+          allowUnauthIdentites: false,
+        },
+      ],
+      { env }
+    );
 
     // The Auth stack
     let customDomainEnv: AuthIntegrationTestStackEnvironmentProps[] = [];
@@ -48,287 +58,295 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       // Always track
       deviceOnlyRememberedOnUserPrompt: false,
     };
-    const auth = new AuthIntegrationTestStack(this, [
-      { type: "FULL", environmentName: "main" },
-      {
-        type: "FULL",
-        environmentName: "device-tracking-always",
-        deviceTracking: deviceTrackingAlways,
-      },
-      {
-        type: "FULL",
-        environmentName: "device-tracking-opt-in",
-        deviceTracking: deviceTrackingOptIn,
-      },
-      {
-        type: "FULL",
-        environmentName: "device-tracking-email-alias",
-        deviceTracking: deviceTrackingAlways,
-        signInAliases: {
-          email: true,
+    const auth = new AuthIntegrationTestStack(
+      this,
+      [
+        { type: "FULL", environmentName: "main" },
+        {
+          type: "FULL",
+          environmentName: "device-tracking-always",
+          deviceTracking: deviceTrackingAlways,
         },
-      },
-      {
-        type: "FULL",
-        environmentName: "sign-in-with-username",
-        signInAliases: {
-          username: true,
+        {
+          type: "FULL",
+          environmentName: "device-tracking-opt-in",
+          deviceTracking: deviceTrackingOptIn,
         },
-        standardAttributes: {
-          email: {
-            mutable: true,
-            required: true,
+        {
+          type: "FULL",
+          environmentName: "device-tracking-email-alias",
+          deviceTracking: deviceTrackingAlways,
+          signInAliases: {
+            email: true,
           },
         },
-      },
-      {
-        type: "FULL",
-        environmentName: "sign-in-with-phone",
-        signInAliases: {
-          phone: true,
-        },
-        standardAttributes: {
-          phoneNumber: {
-            mutable: true,
-            required: true,
+        {
+          type: "FULL",
+          environmentName: "sign-in-with-username",
+          signInAliases: {
+            username: true,
+          },
+          standardAttributes: {
+            email: {
+              mutable: true,
+              required: true,
+            },
           },
         },
-      },
-      {
-        type: "FULL",
-        environmentName: "sign-in-with-email",
-        signInAliases: {
-          email: true,
-        },
-        standardAttributes: {
-          email: {
-            mutable: true,
-            required: true,
+        {
+          type: "FULL",
+          environmentName: "sign-in-with-phone",
+          signInAliases: {
+            phone: true,
+          },
+          standardAttributes: {
+            phoneNumber: {
+              mutable: true,
+              required: true,
+            },
           },
         },
-      },
-      {
-        type: "FULL",
-        environmentName: "sign-in-with-email-or-phone",
-        signInAliases: {
-          phone: true,
-          email: true,
-        },
-      },
-      {
-        type: "FULL",
-        environmentName: "sign-in-with-email-lambda-trigger",
-        signInAliases: {
-          email: true,
-        },
-        autoConfirm: true,
-        standardAttributes: {
-          email: {
-            mutable: true,
-            required: true,
+        {
+          type: "FULL",
+          environmentName: "sign-in-with-email",
+          signInAliases: {
+            email: true,
+          },
+          standardAttributes: {
+            email: {
+              mutable: true,
+              required: true,
+            },
           },
         },
-      },
-      {
-        type: "FULL",
-        environmentName: "keep-original-attributes",
-        autoConfirm: true,
-        standardAttributes: {
-          email: {
-            mutable: true,
-            required: true,
+        {
+          type: "FULL",
+          environmentName: "sign-in-with-email-or-phone",
+          signInAliases: {
+            phone: true,
+            email: true,
           },
-          phoneNumber: {
-            mutable: true,
-            required: true,
-          }
         },
-        keepOriginal: {
-          email: true,
-          phone: true,
-        }
-      },
-      {
-        type: "FULL",
-        environmentName: "hosted-ui",
-        enableHostedUI: true,
-      },
-      {
-        type: "FULL",
-        environmentName: "user-pool-only",
-        includeIdentityPool: false,
-        deviceTracking: deviceTrackingOptIn,
-      },
-      {
-        type: "FULL",
-        environmentName: "identity-pool-only",
-        includeUserPool: false,
-      },
-      {
-        type: "FULL",
-        environmentName: "authenticated-users-only",
-        allowUnauthenticatedIdentities: false,
-      },
-      {
-        type: "FULL",
-        environmentName: "custom-auth-with-srp",
-        customAuth: "WITH_SRP",
-      },
-      {
-        type: "FULL",
-        environmentName: "custom-auth-without-srp",
-        customAuth: "WITHOUT_SRP",
-      },
-      {
-        type: "FULL",
-        environmentName: "custom-auth-device-with-srp",
-        customAuth: "WITH_SRP",
-        deviceTracking: deviceTrackingAlways,
-      },
-      {
-        type: "FULL",
-        environmentName: "custom-auth-device-without-srp",
-        customAuth: "WITHOUT_SRP",
-        deviceTracking: deviceTrackingAlways,
-      },
-      {
-        type: "FULL",
-        environmentName: "with-client-secret",
-        withClientSecret: true,
-        deviceTracking: deviceTrackingOptIn,
-      },
-      {
-        type: "FULL",
-        environmentName: "asf-audit",
-        advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-optional-sms",
-        mfaConfiguration: {
-          SMSMfaSettings: {
-            Enabled: true
-          }
-        },
-        standardAttributes: {},
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-required-sms",
-        mfaConfiguration: {
-          signIn: cognito.Mfa.REQUIRED,
-          SMSMfaSettings: {
-            Enabled: true
-          }
-        },
-        standardAttributes: {},
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-optional-totp",
-        mfaConfiguration: {
-          SoftwareTokenMfaSettings: {
-            Enabled: true,
-          }
-        },
-        standardAttributes: {},
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-required-totp",
-        mfaConfiguration: {
-          signIn: cognito.Mfa.REQUIRED,
-          SoftwareTokenMfaSettings: {
-            Enabled: true,
-          }
-        },
-        standardAttributes: {},
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-optional-sms-totp",
-        mfaConfiguration: {
-          SMSMfaSettings: {
-            Enabled: true,
+        {
+          type: "FULL",
+          environmentName: "sign-in-with-email-lambda-trigger",
+          signInAliases: {
+            email: true,
           },
-          SoftwareTokenMfaSettings: {
-            Enabled: true,
-          }
-        },
-        standardAttributes: {},
-      },
-      {
-        type: "FULL",
-        environmentName: "mfa-required-sms-totp",
-        mfaConfiguration: {
-          signIn: cognito.Mfa.REQUIRED,
-          SMSMfaSettings: {
-            Enabled: true,
+          autoConfirm: true,
+          standardAttributes: {
+            email: {
+              mutable: true,
+              required: true,
+            },
           },
-          SoftwareTokenMfaSettings: {
-            Enabled: true,
-          }
         },
-        standardAttributes: {},
-      },
+        {
+          type: "FULL",
+          environmentName: "keep-original-attributes",
+          autoConfirm: true,
+          standardAttributes: {
+            email: {
+              mutable: true,
+              required: true,
+            },
+            phoneNumber: {
+              mutable: true,
+              required: true,
+            },
+          },
+          keepOriginal: {
+            email: true,
+            phone: true,
+          },
+        },
+        {
+          type: "FULL",
+          environmentName: "hosted-ui",
+          enableHostedUI: true,
+        },
+        {
+          type: "FULL",
+          environmentName: "user-pool-only",
+          includeIdentityPool: false,
+          deviceTracking: deviceTrackingOptIn,
+        },
+        {
+          type: "FULL",
+          environmentName: "identity-pool-only",
+          includeUserPool: false,
+        },
+        {
+          type: "FULL",
+          environmentName: "authenticated-users-only",
+          allowUnauthenticatedIdentities: false,
+        },
+        {
+          type: "FULL",
+          environmentName: "custom-auth-with-srp",
+          customAuth: "WITH_SRP",
+        },
+        {
+          type: "FULL",
+          environmentName: "custom-auth-without-srp",
+          customAuth: "WITHOUT_SRP",
+        },
+        {
+          type: "FULL",
+          environmentName: "custom-auth-device-with-srp",
+          customAuth: "WITH_SRP",
+          deviceTracking: deviceTrackingAlways,
+        },
+        {
+          type: "FULL",
+          environmentName: "custom-auth-device-without-srp",
+          customAuth: "WITHOUT_SRP",
+          deviceTracking: deviceTrackingAlways,
+        },
+        {
+          type: "FULL",
+          environmentName: "with-client-secret",
+          withClientSecret: true,
+          deviceTracking: deviceTrackingOptIn,
+        },
+        {
+          type: "FULL",
+          environmentName: "asf-audit",
+          advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-optional-sms",
+          mfaConfiguration: {
+            SMSMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-required-sms",
+          mfaConfiguration: {
+            signIn: cognito.Mfa.REQUIRED,
+            SMSMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-optional-totp",
+          mfaConfiguration: {
+            SoftwareTokenMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-required-totp",
+          mfaConfiguration: {
+            signIn: cognito.Mfa.REQUIRED,
+            SoftwareTokenMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-optional-sms-totp",
+          mfaConfiguration: {
+            SMSMfaSettings: {
+              Enabled: true,
+            },
+            SoftwareTokenMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "FULL",
+          environmentName: "mfa-required-sms-totp",
+          mfaConfiguration: {
+            signIn: cognito.Mfa.REQUIRED,
+            SMSMfaSettings: {
+              Enabled: true,
+            },
+            SoftwareTokenMfaSettings: {
+              Enabled: true,
+            },
+          },
+          standardAttributes: {},
+        },
+        {
+          type: "CUSTOM_AUTHORIZER_USER_POOLS",
+          environmentName: "custom-authorizer-user-pools",
+        },
+        {
+          type: "CUSTOM_AUTHORIZER_IAM",
+          environmentName: "custom-authorizer-iam",
+        },
+        ...customDomainEnv,
+      ],
       {
-        type: "CUSTOM_AUTHORIZER_USER_POOLS",
-        environmentName: "custom-authorizer-user-pools",
-      },
-      {
-        type: "CUSTOM_AUTHORIZER_IAM",
-        environmentName: "custom-authorizer-iam",
-      },
-      ...customDomainEnv,
-    ], {
-      env,
-      // TODO(dnys1): Remove after eventual consistency experiment is complete
-      // env: {
-      //   account: process.env.CDK_DEFAULT_ACCOUNT,
-      //   region: 'eu-south-1',
-      // },
-      // crossRegionReferences: true,
-    });
+        env,
+        // TODO(dnys1): Remove after eventual consistency experiment is complete
+        // env: {
+        //   account: process.env.CDK_DEFAULT_ACCOUNT,
+        //   region: 'eu-south-1',
+        // },
+        // crossRegionReferences: true,
+      }
+    );
 
     // The Logging stack
-    const logging = new LoggingIntegrationTestStack(this, [
+    const logging = new LoggingIntegrationTestStack(this, "LoggingStack", [
       { environmentName: "main" },
       { environmentName: "remote-config", remoteConfig: true },
     ]);
 
     // The Storage stack
-    const storage = new StorageIntegrationTestStack(this, [
-      {
-        environmentName: "main",
-        enableTransferAcceleration: true,
-      },
-      {
-        environmentName: "custom-prefix",
-        enableTransferAcceleration: true,
-        prefixResolver(accessLevel, identityId) {
-          switch (accessLevel) {
-            case StorageAccessLevel.public:
-              return `everyone`;
-            case StorageAccessLevel.protected:
-              return `shared/${identityId}`;
-            case StorageAccessLevel.private:
-              return `private/${identityId}`;
-          }
+    const storage = new StorageIntegrationTestStack(
+      this,
+      [
+        {
+          environmentName: "main",
+          enableTransferAcceleration: true,
         },
-        prefixOverrides: {
-          [StorageAccessLevel.public]: "everyone",
-          [StorageAccessLevel.protected]: "shared",
-          [StorageAccessLevel.private]: "private",
+        {
+          environmentName: "custom-prefix",
+          enableTransferAcceleration: true,
+          prefixResolver(accessLevel, identityId) {
+            switch (accessLevel) {
+              case StorageAccessLevel.public:
+                return `everyone`;
+              case StorageAccessLevel.protected:
+                return `shared/${identityId}`;
+              case StorageAccessLevel.private:
+                return `private/${identityId}`;
+            }
+          },
+          prefixOverrides: {
+            [StorageAccessLevel.public]: "everyone",
+            [StorageAccessLevel.protected]: "shared",
+            [StorageAccessLevel.private]: "private",
+          },
         },
-      },
-      {
-        environmentName: "dots-in-name",
-        enableTransferAcceleration: false,
-        bucketNamePrefix: "amplify.integ-test.stack",
-      },
-    ], { env });
+        {
+          environmentName: "dots-in-name",
+          enableTransferAcceleration: false,
+          bucketNamePrefix: "amplify.integ-test.stack",
+        },
+      ],
+      { env }
+    );
 
-    new cdk.CfnOutput(this, 'Categories', {
+    new cdk.CfnOutput(this, "Categories", {
       value: JSON.stringify({
         analytics: {
           region: analytics.region,
@@ -342,10 +360,10 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
           region: storage.region,
           bucketName: storage.bucket.bucketName,
         },
-      })
+      }),
     });
 
-    new GitHubStack(this, 'GitHub', {
+    new GitHubStack(this, "GitHub", {
       analytics: analytics.bucket,
       auth: auth.bucket,
       storage: storage.bucket,
