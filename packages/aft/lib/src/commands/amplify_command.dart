@@ -25,6 +25,9 @@ abstract class AmplifyCommand extends Command<void>
   late final VersionResolver versionResolver = PubVersionResolver(
     httpClient: httpClient,
   );
+  late final ConstraintUpdater constraintUpdater = ConstraintUpdater(
+    logger: logger.createChild('ConstraintUpdater'),
+  );
 
   /// Initializer which runs when this command is instantiated.
   ///

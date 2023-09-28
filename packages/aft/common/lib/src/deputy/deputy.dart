@@ -38,9 +38,7 @@ final class Deputy {
     return Deputy(
       dependencyGroups: DependencyGroups(dependencyGroups),
       repo: repo,
-      versionResolver: PubVersionResolver(
-        logger: logger,
-      ),
+      versionResolver: PubVersionResolver(),
       logger: logger,
     );
   }
@@ -48,6 +46,9 @@ final class Deputy {
   final DependencyGroups dependencyGroups;
   final Repo repo;
   final VersionResolver versionResolver;
+  late final ConstraintUpdater constraintUpdater = ConstraintUpdater(
+    logger: logger?.createChild('ConstraintUpdater'),
+  );
   final AWSLogger? logger;
 
   /// Lists all third-party dependencies, grouped by the packages which depend on them.
@@ -139,8 +140,20 @@ final class Deputy {
             ..updates[update.dependencyName] = update;
         }
 
+        // TODO: Breaking changes
+        // Couple ways to handle:
+        // 1. Create the PR - let it fail or just close if not needed.
+        //    but this means that there will be a lot of PRs if we just
+        //    keep closing them or need to add to denylist.
+        // 2. If breaking change does not affect us, we could add logic
+        //    to take both versions, e.g. currentConstraint=^1.0.0, latest=2.0.1
+        //    => ">=1.0.0 <3.0.0" potentially.
+        //    Sometimes we want to do this because older Flutter or Dart versions
+        //    may pin to 1.x.x but other packages we depend on pin to 2.x.x.
+        // 3. Create a GitHub issue instead
+
         if (update.globalConstraint case final globalConstraint?) {
-          final updatedGlobalConstraint = versionResolver.updateFor(
+          final updatedGlobalConstraint = constraintUpdater.updateFor(
             update.dependencyName,
             globalConstraint,
             update.latestVersion,
@@ -163,7 +176,7 @@ final class Deputy {
 
         for (final MapEntry(key: packageName, value: constraint)
             in update.dependentPackages.entries) {
-          final updatedConstraint = versionResolver.updateFor(
+          final updatedConstraint = constraintUpdater.updateFor(
             update.dependencyName,
             constraint,
             update.latestVersion,
@@ -215,7 +228,7 @@ final class Deputy {
       return p.join(worktree?.rootDir.path ?? rootDir, relativeToRoot);
     }
 
-    final outdatedPacakges = [
+    final outdatedPackages = [
       for (final package in repo.allPackages.values)
         if (package.pubspecInfo.pubspecYamlEditor case final editor
             when editor.edits.isNotEmpty)
@@ -223,11 +236,11 @@ final class Deputy {
       if (repo.rootPubspecEditor.edits.isNotEmpty)
         (worktreePath(rootDir), repo.rootPubspecEditor),
     ];
-    if (outdatedPacakges.isEmpty) {
+    if (outdatedPackages.isEmpty) {
       logger?.info('All dependencies up-to-date');
       return;
     }
-    for (final (directory, editor) in outdatedPacakges) {
+    for (final (directory, editor) in outdatedPackages) {
       final pubspecFile =
           repo.fileSystem.directory(directory).childFile('pubspec.yaml');
       if (!pubspecFile.existsSync()) {
@@ -235,7 +248,7 @@ final class Deputy {
       }
       pubspecFile.writeAsStringSync(editor.toString());
     }
-    logger?.info("Updated ${outdatedPacakges.length} packages' pubspecs.");
+    logger?.info("Updated ${outdatedPackages.length} packages' pubspecs.");
   }
 
   /// Scans through all transitive third-party dependencies in the repo and proposes

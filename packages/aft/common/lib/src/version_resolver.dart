@@ -9,47 +9,61 @@ import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-abstract base class VersionResolver {
-  const VersionResolver({required this.logger});
+/// {@template aft_common.constraint_updater}
+/// Calculates necessary constraint changes to satisfy latest versions.
+/// {@endtemplate}
+final class ConstraintUpdater {
+  /// {@macro aft_common.constraint_updater}
+  ConstraintUpdater({
+    AWSLogger? logger,
+    this.includeBreakingChanges = false,
+  }) : _logger = logger ?? AWSLogger().createChild('ConstraintUpdater');
 
-  final AWSLogger logger;
+  final AWSLogger _logger;
 
-  FutureOr<Version?> latestVersion(String package);
+  /// Whether to consider breaking changes when updating constraints.
+  ///
+  /// Defaults to `false`.
+  final bool includeBreakingChanges;
 
+  /// Checks if [latestVersion] warrants a new version constraint.
+  ///
+  /// Returns `null` if the [currentConstraint] is sufficient to accommodate
+  /// the [latestVersion].
   VersionConstraint? updateFor(
-    String package,
+    String dependency,
     VersionConstraint currentConstraint,
-    Version latestVersion, {
-    bool includeBreakingChanges = false,
-  }) {
+    Version latestVersion,
+  ) {
+    // TODO: Assert no pre-release/build tags (+) in constraints
+    // TODO: Enforce all third-party deps are tracked in root pubspec
     // Update the constraint to include `latestVersion` as its new upper
     // bound.
     switch (currentConstraint) {
-      case Version _:
-        // For pinned versions, update them to the latest version (do not
-        // create a range).
-        if (latestVersion == currentConstraint) {
+      // For pinned versions, update them to the latest version (do not
+      // create a range).
+      case final Version currentVersion:
+        if (latestVersion == currentVersion) {
           return null;
         }
-        if (latestVersion >= currentConstraint.nextBreaking &&
+        if (latestVersion >= currentVersion.nextBreaking &&
             !includeBreakingChanges) {
-          logger.warn(
-            'Breaking change detected for $package: $latestVersion '
-            '(current constraint: $currentConstraint)',
+          _logger.warn(
+            'Breaking change detected for $dependency: $latestVersion '
+            '(current constraint: $currentVersion)',
           );
           return null;
         }
         return latestVersion;
+
+      // For ranged versions, slide the window appropriately, respecting
+      // whether the current constraint includes its upper/lower bounds.
       case final currentConstraint as VersionRange:
-        // For ranged versions:
-        // - If the range specifies a lower bound only, e.g. `^1.0.0`, do
-        //   nothing but warn if a new breaking change is available.
-        // - If the range specifies a sliding window for a single minor
-        //   version, e.g. `>=1.1.0 <1.2.0`, and the latest version is greater
-        //   than the upper bound, slide the window.
-        // - If the range specifies a window larger than a single minor
-        //   version, keep the lower bound and move the upper bound unless
-        //   it's a major version bump.
+        // Do nothing if the current range includes the latest version.
+        if (currentConstraint.allows(latestVersion)) {
+          return null;
+        }
+
         final lowerBound = currentConstraint.min;
         final includeLowerBound = currentConstraint.includeMin;
         final upperBound = currentConstraint.max;
@@ -62,90 +76,73 @@ abstract base class VersionResolver {
           );
         }
 
-        if ((includeUpperBound
-            ? latestVersion <= upperBound
-            : latestVersion < upperBound)) {
-          return null;
-        }
-
-        final isBreakingChange = latestVersion >= upperBound.nextBreaking;
+        final nextBreaking = includeUpperBound
+            ? upperBound.nextBreaking
+            : lowerBound.nextBreaking;
+        final isBreakingChange = latestVersion >= nextBreaking;
         if (isBreakingChange && !includeBreakingChanges) {
-          logger.warn(
-            'Breaking change detected for $package: $latestVersion '
+          _logger.warn(
+            'Breaking change detected for $dependency: $latestVersion '
             '(current constraint: $currentConstraint)',
           );
           return null;
         }
 
-        // ^1.0.0
-        if (currentConstraint == VersionConstraint.compatibleWith(lowerBound)) {
-          return VersionConstraint.compatibleWith(latestVersion);
-        }
-
-        // Determine the version window, i.e. the difference between the lower
-        // and upper bound.
-        final versionWindow = switch ((
-          upperBound.major - lowerBound.major,
-          upperBound.minor - lowerBound.minor,
-        )) {
-          (> 0, _) => _VersionWindow.major,
-          (_, 1) => _VersionWindow.singleMinor,
-          (_, > 1) => _VersionWindow.multipleMinor,
-          _ => _VersionWindow.patch,
-        };
-
         // Slide the window.
+        final versionWindow = VersionWindow.fromRange(currentConstraint);
         switch ((versionWindow, isBreaking: isBreakingChange)) {
           // ">3.0.5 <6.0.0"
-          case (_VersionWindow.major, isBreaking: true):
+          case (VersionWindow.major, isBreaking: _):
+            assert(isBreakingChange, 'Multiple major is always breaking');
             return VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
-              max: Version(latestVersion.major + 1, 0, 0),
-              includeMax: includeUpperBound,
-            );
-          case (_VersionWindow.major, isBreaking: false):
-            return VersionRange(
-              min: lowerBound,
-              includeMin: includeLowerBound,
-              max: latestVersion,
+              max: includeUpperBound ? latestVersion : latestVersion.nextMajor,
               includeMax: includeUpperBound,
             );
 
           // ">=1.1.0 <1.2.0"
-          case (_VersionWindow.singleMinor, isBreaking: _):
+          case (VersionWindow.singleMinor, isBreaking: _):
             return VersionRange(
               min: Version(latestVersion.major, latestVersion.minor, 0),
-              includeMin: includeLowerBound,
-              max: Version(latestVersion.major, latestVersion.minor + 1, 0),
-              includeMax: includeUpperBound,
+              includeMin: true,
+              max: latestVersion.nextMinor,
+              includeMax: false,
             );
 
           // ">=1.1.0 <1.4.3"
-          case (_VersionWindow.multipleMinor, isBreaking: true):
+          case (VersionWindow.multipleMinor, isBreaking: true):
             return VersionRange(
-              min: Version(latestVersion.major, 0, 0),
-              includeMin: includeLowerBound,
-              max: Version(latestVersion.major, latestVersion.minor + 1, 0),
+              // Workaround for pre-v1 versions where isBreaking=true if
+              // the window spans multiple 0.x versions.
+              min: maxBy(
+                [
+                  Version(latestVersion.major, 0, 0),
+                  lowerBound,
+                ],
+                (v) => v,
+              ),
+              includeMin: true,
+              max: includeUpperBound ? latestVersion : latestVersion.nextMinor,
               includeMax: includeUpperBound,
             );
-          case (_VersionWindow.multipleMinor, isBreaking: false):
+          case (VersionWindow.multipleMinor, isBreaking: false):
             return VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
-              max: latestVersion,
+              max: includeUpperBound ? latestVersion : latestVersion.nextMinor,
               includeMax: includeUpperBound,
             );
 
           // ">=3.0.6 <=3.0.8"
-          case (_VersionWindow.patch, isBreaking: true):
+          case (VersionWindow.patch, isBreaking: true):
             return VersionRange(
               min: latestVersion,
               includeMin: true,
-              max: latestVersion,
-              includeMax: true,
+              max: latestVersion.nextPatch,
+              includeMax: false,
             );
-          case (_VersionWindow.patch, isBreaking: false):
+          case (VersionWindow.patch, isBreaking: false):
             return VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
@@ -157,12 +154,16 @@ abstract base class VersionResolver {
   }
 }
 
-final class PubVersionResolver extends VersionResolver {
+/// Resolves hosted dependency versions.
+abstract interface class VersionResolver {
+  /// Retrieves the latest published version of [dependency].
+  FutureOr<Version?> latestVersion(String dependency);
+}
+
+final class PubVersionResolver implements VersionResolver {
   PubVersionResolver({
     AWSHttpClient? httpClient,
-    AWSLogger? logger,
-  })  : httpClient = httpClient ?? AWSHttpClient(),
-        super(logger: logger ?? AWSLogger().createChild('PubVersionResolver'));
+  }) : httpClient = httpClient ?? AWSHttpClient();
 
   final AWSHttpClient httpClient;
   final Map<String, PubVersionInfo?> _cache = {};
@@ -202,10 +203,10 @@ final class PubVersionResolver extends VersionResolver {
   }
 
   @override
-  Future<Version?> latestVersion(String package) async {
-    var versionInfo = _cache[package];
-    if (versionInfo == null && !_cache.containsKey(package)) {
-      versionInfo = await _resolveVersionInfo(package);
+  Future<Version?> latestVersion(String dependency) async {
+    var versionInfo = _cache[dependency];
+    if (versionInfo == null && !_cache.containsKey(dependency)) {
+      versionInfo = await _resolveVersionInfo(dependency);
     }
     return maxBy(
       [
@@ -220,4 +221,35 @@ final class PubVersionResolver extends VersionResolver {
   }
 }
 
-enum _VersionWindow { patch, singleMinor, multipleMinor, major }
+/// The window which a [VersionRange] spans.
+enum VersionWindow {
+  /// Spans only patch versions, e.g. `>=3.0.6 <3.0.8`
+  patch,
+
+  /// Spans a single minor version, e.g. `>=1.1.0 <1.2.0`
+  singleMinor,
+
+  /// Spans multiple minor versions, e.g. `>=1.0.5 <1.4.3`
+  multipleMinor,
+
+  /// Spans multiple major versions, e.g. `>=1.0.0 <3.0.0`
+  major;
+
+  /// Calculates the version window of [range] by examining the difference
+  /// between the upper and lower bounds.
+  factory VersionWindow.fromRange(VersionRange range) {
+    final lowerBound = range.min ?? Version.none;
+    final upperBound = range.max ?? Version.none;
+    return switch ((
+      upperBound.major - lowerBound.major,
+      upperBound.minor - lowerBound.minor,
+      upperBound.patch - lowerBound.patch,
+    )) {
+      (> 0, _, _) => VersionWindow.major,
+      (0, 1, 0) when range.includeMin && !range.includeMax =>
+        VersionWindow.singleMinor,
+      (0, >= 1, _) => VersionWindow.multipleMinor,
+      _ => VersionWindow.patch,
+    };
+  }
+}

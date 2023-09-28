@@ -140,7 +140,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
           continue;
         }
 
-        final newVersionConstraint = versionResolver.updateFor(
+        final newVersionConstraint = constraintUpdater.updateFor(
           package,
           versionConstraint,
           latestVersion,

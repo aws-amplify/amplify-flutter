@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
 import 'package:actions/actions.dart';
 import 'package:actions/src/deputy/update_groups.dart';
 import 'package:actions/src/logger.dart';
@@ -8,8 +10,8 @@ import 'package:actions/src/node/platform.dart';
 import 'package:actions/src/node/process_manager.dart';
 import 'package:aft_common/aft_common.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:node_io/node_io.dart';
-import 'package:pub_semver/pub_semver.dart';
 
 /// Scans for outdated Dart and Flutter dependencies and creates PRs for version updates.
 Future<void> main() => wrapMain(_deputyScan);
@@ -40,8 +42,7 @@ Future<void> _deputyScan() async {
   await _createPrs(deputy.repo, existingPrs, updates);
 }
 
-/// Lists all Deputy PRs which currently exist in the repo with the PR number
-/// and the constraint
+/// Lists all Deputy PRs which currently exist in the repo.
 Future<Map<String, int>> _listExistingPrs() async {
   final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
   return core.withGroup('Check for existing PRs', () async {
@@ -88,19 +89,11 @@ Future<void> _createPrs(
       // We create a new worktree to stage changes so that we are not switching
       // branches for each group and interfering with the current checkout.
       core.info('Creating new worktree...');
-      // TODO(dnys1): Fix
-      // const baseBranch = 'origin/main';
-      const baseBranch = 'origin/chore/aft-fixes';
-      var branchName = 'chore/deps/$groupName';
-      if (uniqueConstraint != null) {
-        final constraint = uniqueConstraint
-            .toString()
-            .replaceAll(_specialChars, '')
-            .replaceAll(' ', '-');
-        branchName += '-$constraint';
-      } else {
-        branchName += '-${DateTime.now().millisecondsSinceEpoch}';
-      }
+      const baseBranch = 'main';
+      // Create a unique branch name for the group. We will later close any existing
+      // PR for the same group to avoid duplicate updates.
+      final branchName =
+          'chore/deps/$groupName-${DateTime.now().millisecondsSinceEpoch}';
       final worktreeDir = nodeFileSystem.systemTempDirectory
           .createTempSync('worktree_$groupName')
           .path;
@@ -110,7 +103,7 @@ Future<void> _createPrs(
         worktreeDir,
         '-b',
         branchName,
-        baseBranch,
+        'origin/$baseBranch',
       ]);
       final worktreeRepo = await Repo.load(
         path: worktreeDir,
@@ -138,18 +131,7 @@ Future<void> _createPrs(
       }
       await worktree.runCommand(['add', '-A']);
       await worktree.runCommand(['commit', '-m', '"$commitTitle"']);
-      await worktree.runCommand(['push', '-f', '-u', 'origin', branchName]);
-
-      // Skip creating a new PR when one already exists.
-      //
-      // Force pushing above will have updated the existing PR already.
-      if (existingPrs[groupName] case final existingPr?) {
-        core.info(
-          'Skipping PR creation. PR already exists at: '
-          'https://github.com/aws-amplify/amplify-flutter/pull/$existingPr',
-        );
-        return;
-      }
+      await worktree.runCommand(['push', '-u', 'origin', branchName]);
 
       // Create a PR for the changes using the `gh` CLI.
       core.info('Creating PR...');
@@ -165,7 +147,7 @@ $constraintUpdates
 
 $_groupTrailer: $groupName
 ''';
-      final tmpFile = tmpDir.childFile('pr_body_$groupName.txt')
+      final bodyFile = tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
       final prResult = await nodeProcessManager.run(
@@ -173,10 +155,9 @@ $_groupTrailer: $groupName
           'gh',
           'pr',
           'create',
-          '--base=main',
-          '--body-file=${tmpFile.path}',
+          '--base=$baseBranch',
+          '--body-file=${bodyFile.path}',
           '--title=$commitTitle',
-          '--draft', // FIXME: Remove
         ],
         echoOutput: true,
         workingDirectory: worktreeDir,
@@ -187,12 +168,66 @@ $_groupTrailer: $groupName
         );
         process.exit(prResult.exitCode);
       }
+      // Extract the new PR's number from the output.
+      final prNumber = prResult.prNumber;
+      if (prNumber == null) {
+        core.error('Failed to parse PR number from URL: ${prResult.stdout}');
+        process.exit(1);
+      }
+
+      // Close any existing PR once the new PR is successfully created.
+      final existingPr = existingPrs[groupName];
+      if (existingPr == null) {
+        return;
+      }
+
+      core.info(
+        'Closing existing PR: '
+        'https://github.com/aws-amplify/amplify-flutter/pull/$existingPr',
+      );
+      final closeResult = await nodeProcessManager.run(
+        <String>[
+          'gh',
+          'pr',
+          'close',
+          '$existingPr',
+          '--delete-branch',
+          '--comment=Superceded by #$prNumber.'
+        ],
+        echoOutput: true,
+        workingDirectory: worktreeDir,
+      );
+      if (closeResult.exitCode != 0) {
+        core.error(
+          'Failed to close existing PR. May need to be closed manually.',
+        );
+        process.exit(closeResult.exitCode);
+      }
     });
   }
 }
 
-/// Special characters which appear in stringified [VersionConstraint]s.
-final _specialChars = RegExp(r'[\^<>=]');
+extension ExtractPrNumber on ProcessResult {
+  /// Regex for matching pull request URLs.
+  static final _prUrlRegex = RegExp(
+    r'https:\/\/github\.com\/aws-amplify\/amplify-flutter\/pull\/(\d+)',
+  );
+
+  /// Extracts the referenced pull request number from the command's [stdout].
+  int? get prNumber {
+    final prUrl = LineSplitter.split(this.stdout.toString())
+        .singleWhereOrNull(_prUrlRegex.hasMatch);
+    if (prUrl == null) {
+      core.info('No single match found for URL: $prUrl');
+      return null;
+    }
+    if (_prUrlRegex.firstMatch(prUrl)?.group(1) case final match?) {
+      return int.tryParse(match);
+    }
+    core.info('No capture group for URL: $prUrl');
+    return null;
+  }
+}
 
 /// Trailer key for the group being updated.
 const _groupTrailer = 'Updated-Group';

@@ -3,7 +3,6 @@
 
 import 'package:aft_common/aft_common.dart';
 import 'package:aft_common/descriptors.dart' as d;
-import 'package:aws_common/aws_common.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
@@ -154,17 +153,16 @@ void main() {
   });
 }
 
-final class MockVersionResolver extends VersionResolver {
+final class MockVersionResolver implements VersionResolver {
   MockVersionResolver(Map<String, String> versions)
       : versions = versions.map(
           (name, spec) => MapEntry(name, Version.parse(spec)),
-        ),
-        super(logger: AWSLogger().createChild('MockVersionResolver'));
+        );
 
   final Map<String, Version> versions;
 
   @override
-  Version? latestVersion(String package) {
-    return versions[package];
+  Version? latestVersion(String dependency) {
+    return versions[dependency];
   }
 }

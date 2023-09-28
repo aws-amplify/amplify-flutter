@@ -85,7 +85,7 @@ class GenerateGoldensCommand extends AmplifyCommand {
   /// v1 models are no longer committed to git and are fixed at the last commit
   /// in which they were updated.
   Future<void> updateModels() async {
-    const url = 'https://github.com/awslabs/smithy';
+    const url = 'https://github.com/smithy-lang/smithy';
     final tmpDir = Directory.systemTemp.createTempSync('smithy');
     final process = await Process.start(
       'git',

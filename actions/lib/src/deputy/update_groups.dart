@@ -33,7 +33,9 @@ enum DependencyUpdateGroup {
       'json_annotation',
       'json_serializable',
       'code_builder',
-      // FIXME: Add back when removed from `doNotUpdate`
+      // FIXME: Change logic to only include group dependencies
+      // which are not in `doNotUpdate` instead of ignoring
+      // the whole group.
       // 'dart_style',
     ],
   ),
