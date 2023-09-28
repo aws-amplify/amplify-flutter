@@ -106,6 +106,7 @@ class AftConfigLoader {
         );
         aftConfig
           ..ignore.addAll(rawAftConfig.ignore)
+          ..doNotBump.addAll(rawAftConfig.doNotBump)
           ..scripts.addAll(rawAftConfig.scripts);
 
         if (isRoot) {

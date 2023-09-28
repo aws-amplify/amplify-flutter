@@ -140,7 +140,7 @@ final class Deputy {
             ..updates[update.dependencyName] = update;
         }
 
-        // TODO: Breaking changes
+        // FIXME: How to handle breaking changes
         // Couple ways to handle:
         // 1. Create the PR - let it fail or just close if not needed.
         //    but this means that there will be a lot of PRs if we just
@@ -165,7 +165,7 @@ final class Deputy {
             proposedUpdate()
               ..updatedConstraints[update.dependencyName] ??=
                   updatedGlobalConstraint
-              ..pubspecUpdates.add(
+              ..pubspecUpdates[update.dependencyName].add(
                 (repo) => repo.rootPubspecEditor.update(
                   ['dependencies', update.dependencyName],
                   updatedGlobalConstraint.toString(),
@@ -197,7 +197,7 @@ final class Deputy {
 
           proposedUpdate()
             ..updatedConstraints[update.dependencyName] ??= updatedConstraint
-            ..pubspecUpdates.add(
+            ..pubspecUpdates[update.dependencyName].add(
               (repo) => repo
                   .maybePackage(package.name)
                   ?.pubspecInfo

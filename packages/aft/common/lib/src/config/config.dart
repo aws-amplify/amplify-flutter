@@ -30,6 +30,7 @@ abstract class AftConfig
     required Environment environment,
     PlatformEnvironment? platforms,
     List<String> ignore = const [],
+    List<String> doNotBump = const [],
     Map<String, AftComponent> components = const {},
     Map<String, AftScript> scripts = const {},
   }) {
@@ -41,6 +42,7 @@ abstract class AftConfig
       environment: environment,
       platforms: platforms,
       ignore: ignore.build(),
+      doNotBump: doNotBump.toSet().build(),
       components: components.build(),
       scripts: scripts.build(),
     );
@@ -76,6 +78,10 @@ abstract class AftConfig
 
   /// Packages to ignore in all repo operations.
   BuiltList<String> get ignore;
+
+  /// The list of dependencies which should not be automatically bumped,
+  /// e.g. by Deputy or `aft constraints` commands.
+  BuiltSet<String> get doNotBump;
 
   /// {@macro aft.models.aft_component}
   BuiltMap<String, AftComponent> get components;

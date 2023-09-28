@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aft/aft.dart';
-import 'package:aft/src/constraints_checker.dart';
+import 'package:aft_common/aft_common.dart';
 import 'package:aft_common/descriptors.dart' as d;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';

@@ -7,20 +7,6 @@ import 'package:aft_common/aft_common.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 
-/// The list of dependencies to never update.
-const List<String> doNotUpdate = [
-  // TODO(aft): Remove when min Flutter SDK allows latest xml
-  // Updating xml will require changes in smithy.
-  'xml',
-
-  // Bumping leads to mismatched `analyzer` constraint with `built_value_generator`
-  // Must always match stable since it's what `dart format` uses.
-  'dart_style',
-
-  // Breaking change would need to be coordinated
-  'uuid',
-];
-
 /// The groups of dependencies which should be updated together.
 enum DependencyUpdateGroup {
   codeGeneration(
@@ -33,10 +19,7 @@ enum DependencyUpdateGroup {
       'json_annotation',
       'json_serializable',
       'code_builder',
-      // FIXME: Change logic to only include group dependencies
-      // which are not in `doNotUpdate` instead of ignoring
-      // the whole group.
-      // 'dart_style',
+      'dart_style',
     ],
   ),
   drift(

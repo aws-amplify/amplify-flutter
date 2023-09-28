@@ -5,30 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/constraints_checker.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:pub_api_client/pub_api_client.dart';
-
-enum ConstraintsAction {
-  check(
-    'Checks whether all constraints in the repo match the global config',
-    'All constraints matched!',
-  ),
-  update(
-    'Updates constraints in aft.yaml to match the latest in pub',
-    'Constraints successfully updated!',
-  ),
-  apply(
-    'Applies constraints throughout the repo to match those '
-        'in the global config',
-    'Constraints successfully applied!',
-  );
-
-  const ConstraintsAction(this.description, this.successMessage);
-
-  final String description;
-  final String successMessage;
-}
 
 /// Command to manage dependencies across all Dart/Flutter packages in the repo.
 class ConstraintsCommand extends AmplifyCommand {
@@ -129,19 +107,26 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
 
     final failedUpdates = <String>[];
     for (final entry in globalDependencyConfig.entries) {
-      final package = entry.key;
+      final dependency = entry.key;
       final versionConstraint = entry.value;
+
+      if (aftConfig.doNotBump.contains(dependency)) {
+        logger.info(
+          'Skipping update of "$dependency" since it\'s on the do-not-update list',
+        );
+        continue;
+      }
 
       // Get the currently published version of the package.
       try {
-        final latestVersion = await versionResolver.latestVersion(package);
+        final latestVersion = await versionResolver.latestVersion(dependency);
         if (latestVersion == null) {
-          failedUpdates.add('No versions found for package: $package');
+          failedUpdates.add('No versions found for package: $dependency');
           continue;
         }
 
         final newVersionConstraint = constraintUpdater.updateFor(
-          package,
+          dependency,
           versionConstraint,
           latestVersion,
         );
@@ -149,11 +134,11 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
           continue;
         }
         repo.rootPubspecEditor.update(
-          ['dependencies', package],
+          ['dependencies', dependency],
           newVersionConstraint.toString(),
         );
       } on Exception catch (e) {
-        failedUpdates.add('$package: $e');
+        failedUpdates.add('$dependency: $e');
         continue;
       }
     }

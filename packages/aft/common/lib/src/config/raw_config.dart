@@ -71,6 +71,7 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   const RawAftConfig({
     this.platforms,
     this.ignore = const [],
+    this.doNotBump = const [],
     this.components = const [],
     this.scripts = const {},
     this.github,
@@ -84,6 +85,10 @@ class RawAftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   /// Packages to ignore in all repo operations.
   final List<String> ignore;
+
+  /// The list of dependencies which should not be automatically bumped,
+  /// e.g. by Deputy or `aft constraints` commands.
+  final List<String> doNotBump;
 
   /// {@macro aft.models.aft_component}
   final List<RawAftComponent> components;

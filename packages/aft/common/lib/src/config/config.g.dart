@@ -41,6 +41,10 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
       serializers.serialize(object.ignore,
           specifiedType:
               const FullType(BuiltList, const [const FullType(String)])),
+      'doNotBump',
+      serializers.serialize(object.doNotBump,
+          specifiedType:
+              const FullType(BuiltSet, const [const FullType(String)])),
       'components',
       serializers.serialize(object.components,
           specifiedType: const FullType(BuiltMap,
@@ -109,6 +113,12 @@ class _$AftConfigSerializer implements StructuredSerializer<AftConfig> {
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
+        case 'doNotBump':
+          result.doNotBump.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltSet, const [const FullType(String)]))!
+              as BuiltSet<Object?>);
+          break;
         case 'components':
           result.components.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
@@ -144,6 +154,8 @@ class _$AftConfig extends AftConfig {
   @override
   final BuiltList<String> ignore;
   @override
+  final BuiltSet<String> doNotBump;
+  @override
   final BuiltMap<String, AftComponent> components;
   @override
   final BuiltMap<String, AftScript> scripts;
@@ -159,6 +171,7 @@ class _$AftConfig extends AftConfig {
       required this.environment,
       this.platforms,
       required this.ignore,
+      required this.doNotBump,
       required this.components,
       required this.scripts})
       : super._() {
@@ -173,6 +186,7 @@ class _$AftConfig extends AftConfig {
     BuiltValueNullFieldError.checkNotNull(
         environment, r'AftConfig', 'environment');
     BuiltValueNullFieldError.checkNotNull(ignore, r'AftConfig', 'ignore');
+    BuiltValueNullFieldError.checkNotNull(doNotBump, r'AftConfig', 'doNotBump');
     BuiltValueNullFieldError.checkNotNull(
         components, r'AftConfig', 'components');
     BuiltValueNullFieldError.checkNotNull(scripts, r'AftConfig', 'scripts');
@@ -196,6 +210,7 @@ class _$AftConfig extends AftConfig {
         environment == other.environment &&
         platforms == other.platforms &&
         ignore == other.ignore &&
+        doNotBump == other.doNotBump &&
         components == other.components &&
         scripts == other.scripts;
   }
@@ -210,6 +225,7 @@ class _$AftConfig extends AftConfig {
     _$hash = $jc(_$hash, environment.hashCode);
     _$hash = $jc(_$hash, platforms.hashCode);
     _$hash = $jc(_$hash, ignore.hashCode);
+    _$hash = $jc(_$hash, doNotBump.hashCode);
     _$hash = $jc(_$hash, components.hashCode);
     _$hash = $jc(_$hash, scripts.hashCode);
     _$hash = $jf(_$hash);
@@ -259,6 +275,11 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
       _$this._ignore ??= new ListBuilder<String>();
   set ignore(ListBuilder<String>? ignore) => _$this._ignore = ignore;
 
+  SetBuilder<String>? _doNotBump;
+  SetBuilder<String> get doNotBump =>
+      _$this._doNotBump ??= new SetBuilder<String>();
+  set doNotBump(SetBuilder<String>? doNotBump) => _$this._doNotBump = doNotBump;
+
   MapBuilder<String, AftComponent>? _components;
   MapBuilder<String, AftComponent> get components =>
       _$this._components ??= new MapBuilder<String, AftComponent>();
@@ -283,6 +304,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
       _environment = $v.environment.toBuilder();
       _platforms = $v.platforms?.toBuilder();
       _ignore = $v.ignore.toBuilder();
+      _doNotBump = $v.doNotBump.toBuilder();
       _components = $v.components.toBuilder();
       _scripts = $v.scripts.toBuilder();
       _$v = null;
@@ -318,6 +340,7 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
               environment: environment.build(),
               platforms: _platforms?.build(),
               ignore: ignore.build(),
+              doNotBump: doNotBump.build(),
               components: components.build(),
               scripts: scripts.build());
     } catch (_) {
@@ -333,6 +356,8 @@ class AftConfigBuilder implements Builder<AftConfig, AftConfigBuilder> {
         _platforms?.build();
         _$failedField = 'ignore';
         ignore.build();
+        _$failedField = 'doNotBump';
+        doNotBump.build();
         _$failedField = 'components';
         components.build();
         _$failedField = 'scripts';

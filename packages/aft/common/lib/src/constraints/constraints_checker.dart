@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aft/aft.dart';
+import 'package:aft_common/aft_common.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;

@@ -874,6 +874,7 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
           allowedKeys: const [
             'platforms',
             'ignore',
+            'doNotBump',
             'components',
             'scripts',
             'github'
@@ -888,6 +889,11 @@ RawAftConfig _$RawAftConfigFromJson(Map json) => $checkedCreate(
                       Map<String, Object?>.from(v as Map))),
           ignore: $checkedConvert(
               'ignore',
+              (v) =>
+                  (v as List<dynamic>?)?.map((e) => e as String).toList() ??
+                  const []),
+          doNotBump: $checkedConvert(
+              'doNotBump',
               (v) =>
                   (v as List<dynamic>?)?.map((e) => e as String).toList() ??
                   const []),
@@ -924,6 +930,7 @@ Map<String, dynamic> _$RawAftConfigToJson(RawAftConfig instance) =>
     <String, dynamic>{
       'platforms': instance.platforms?.toJson(),
       'ignore': instance.ignore,
+      'doNotBump': instance.doNotBump,
       'components': instance.components.map((e) => e.toJson()).toList(),
       'scripts': instance.scripts.map((k, e) => MapEntry(k, e.toJson())),
       'github': instance.github?.toJson(),

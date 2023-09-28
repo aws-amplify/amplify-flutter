@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/constraints_checker.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:graphs/graphs.dart';

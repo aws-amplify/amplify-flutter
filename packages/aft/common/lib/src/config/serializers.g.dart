@@ -28,6 +28,9 @@ Serializers _$aftSerializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
       ..addBuilderFactory(
+          const FullType(BuiltSet, const [const FullType(String)]),
+          () => new SetBuilder<String>())
+      ..addBuilderFactory(
           const FullType(BuiltMap,
               const [const FullType(String), const FullType(AftComponent)]),
           () => new MapBuilder<String, AftComponent>())

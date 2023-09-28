@@ -77,9 +77,10 @@ Future<void> _createPrs(
     final uniqueConstraint =
         group.updatedConstraints.values.toSet().singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
-      if (group.dependencies.any(doNotUpdate.contains)) {
+      final dependenciesToBump = group.dependencies.difference(repo.aftConfig.doNotBump);
+      if (dependenciesToBump.isEmpty) {
         core.info(
-          'Skipping "$groupName" since one of its dependencies are on the do-not-update list',
+          'Skipping "$groupName" since all of its dependencies are on the do-not-update list',
         );
         return;
       }
@@ -192,7 +193,7 @@ $_groupTrailer: $groupName
           'close',
           '$existingPr',
           '--delete-branch',
-          '--comment=Superceded by #$prNumber.'
+          '--comment=Superceded by #$prNumber.',
         ],
         echoOutput: true,
         workingDirectory: worktreeDir,
