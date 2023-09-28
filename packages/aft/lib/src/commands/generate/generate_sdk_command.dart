@@ -224,6 +224,10 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       await outFile.writeAsString(output);
     }
 
+    // Run `pub upgrade` so that plugin packages are resolved.
+    await linkPackages();
+    await pubAction(arguments: ['upgrade'], package: package);
+
     for (final plugin in config.plugins) {
       logger.info('Running plugin $plugin...');
       final generatedShapes = ShapeMap(
@@ -239,13 +243,13 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       );
       final pluginCmd = await Process.start(
         'dart',
-        [
-          plugin,
-          jsonEncode(generatedAst),
-        ],
-        mode: ProcessStartMode.inheritStdio,
+        [plugin],
         workingDirectory: package.path,
       );
+      pluginCmd
+        ..stdin.writeln(jsonEncode(generatedAst))
+        ..captureStdout()
+        ..captureStderr();
       final exitCode = await pluginCmd.exitCode;
       if (exitCode != 0) {
         exitError('`dart $plugin <AST>` failed: $exitCode.');
