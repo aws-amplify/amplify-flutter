@@ -27,4 +27,6 @@ dev_dependencies:
     git:
       url: https://github.com/dart-lang/site-shared
       path: packages/code_excerpter
+      # TODO: Bump when global SDK >=3.1
+      ref: 923adadacbb95f11d222e6fc6135f6dbb66f84ee
   test: ^1.22.1
