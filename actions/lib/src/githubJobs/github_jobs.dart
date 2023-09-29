@@ -14,7 +14,7 @@ class GithubJobsList {
   });
   factory GithubJobsList.fromJson(Map<String, Object?> json) =>
       _$GithubJobsListFromJson(json);
-  final List<GithubJob> jobs; // Initializer list to set the final field.
+  final List<GithubJob> jobs;
 }
 
 @serializable

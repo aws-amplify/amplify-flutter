@@ -28,7 +28,6 @@ extension type HttpClient._(JSObject it) {
   }
 }
 
-
 @JS()
 @anonymous
 extension type TypedResponse<T extends JSAny>._(JSObject it) {
