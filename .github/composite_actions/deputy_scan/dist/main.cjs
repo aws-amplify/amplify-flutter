@@ -9638,37 +9638,6 @@
       });
       return A._asyncStartSync($async$OctokitRestPulls_list, $async$completer);
     },
-    OctokitRestIssues_list(_this) {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.List_JSObject),
-        $async$returnValue, t1, t2, $async$temp1, $async$temp2, $async$temp3;
-      var $async$OctokitRestIssues_list = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              t1 = self;
-              t2 = type$.JSObject;
-              $async$temp1 = J;
-              $async$temp2 = type$.List_nullable_Object;
-              $async$temp3 = t2;
-              $async$goto = 3;
-              return A._asyncAwait(A.promiseToFuture(A.callMethod(_this, "list", [{owner: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).owner), repo: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).repo), state: "open", filter: "all"}], t2), type$.nullable_Object), $async$OctokitRestIssues_list);
-            case 3:
-              // returning from await.
-              $async$returnValue = $async$temp1.cast$1$0$ax($async$temp2._as($async$temp3._as($async$result).data), t2);
-              // goto return
-              $async$goto = 1;
-              break;
-            case 1:
-              // return
-              return A._asyncReturn($async$returnValue, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$OctokitRestIssues_list, $async$completer);
-    },
     IssueState: function IssueState(t0, t1) {
       this.index = t0;
       this._core$_name = t1;
@@ -15209,7 +15178,9 @@
               t1 = self;
               t2 = type$.JSObject;
               t3 = t2._as(t1.github);
-              t4 = A.Process_getEnv(t2._as(t1.process), "GITHUB_TOKEN");
+              t4 = A._asStringQ(t2._as(t2._as(t1.process).env).GITHUB_TOKEN);
+              if (t4 == null)
+                t4 = null;
               t4.toString;
               octokit = t2._as(t3.getOctokit(t4));
               $async$returnValue = A.Core_withGroup(t2._as(t1.core), "Check for existing PRs", new A._listExistingPrs_closure(octokit), type$.Map_String_int);
@@ -15223,10 +15194,10 @@
       });
       return A._asyncStartSync($async$_listExistingPrs, $async$completer);
     },
-    _listExistingSkipIssues() {
+    _listExistingSkipIssues(repo) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Map_String_int),
-        $async$returnValue, octokit, t1, t2, t3, t4;
+        $async$returnValue;
       var $async$_listExistingSkipIssues = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -15234,13 +15205,7 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = self;
-              t2 = type$.JSObject;
-              t3 = t2._as(t1.github);
-              t4 = A.Process_getEnv(t2._as(t1.process), "GITHUB_TOKEN");
-              t4.toString;
-              octokit = t2._as(t3.getOctokit(t4));
-              $async$returnValue = A.Core_withGroup(t2._as(t1.core), "Check for existing skip issues", new A._listExistingSkipIssues_closure(octokit), type$.Map_String_int);
+              $async$returnValue = A.Core_withGroup(type$.JSObject._as(self.core), "Check for existing skip issues", new A._listExistingSkipIssues_closure(repo), type$.Map_String_int);
               // goto return
               $async$goto = 1;
               break;
@@ -15263,7 +15228,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A._listExistingSkipIssues(), $async$_createSkipIssues);
+              return A._asyncAwait(A._listExistingSkipIssues(repo), $async$_createSkipIssues);
             case 2:
               // returning from await.
               existingIssues = $async$result;
@@ -15372,7 +15337,16 @@
       this.octokit = t0;
     },
     _listExistingSkipIssues_closure: function _listExistingSkipIssues_closure(t0) {
-      this.octokit = t0;
+      this.repo = t0;
+    },
+    _listExistingSkipIssues__closure: function _listExistingSkipIssues__closure(t0) {
+      this._0_0 = t0;
+    },
+    _listExistingSkipIssues__closure0: function _listExistingSkipIssues__closure0(t0) {
+      this._0_0 = t0;
+    },
+    _listExistingSkipIssues__closure1: function _listExistingSkipIssues__closure1(t0) {
+      this._0_0 = t0;
     },
     _createSkipIssues_closure: function _createSkipIssues_closure(t0, t1, t2) {
       this.skipped = t0;
@@ -15530,10 +15504,6 @@
         variables.$indexSet(0, $name, value);
       }
       return variables;
-    },
-    Process_getEnv(_this, variable) {
-      var t1 = A._asStringQ(type$.JSObject._as(_this.env)[variable]);
-      return t1 == null ? null : t1;
     },
     Process_exit(_this, exitCode) {
       _this.exit(exitCode);
@@ -17381,7 +17351,7 @@
     call$0() {
       return A.Future_Future$value(null, type$.Null);
     },
-    $signature: 29
+    $signature: 26
   };
   A.SentinelValue.prototype = {};
   A.EfficientLengthIterable.prototype = {};
@@ -18387,7 +18357,7 @@
       B.JSArray_methods.add$1(this.$arguments, argument);
       ++t1.argumentCount;
     },
-    $signature: 28
+    $signature: 27
   };
   A.TypeErrorDecoder.prototype = {
     matchTypeError$1(message) {
@@ -18867,13 +18837,13 @@
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 198
+    $signature: 179
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 54
+    $signature: 51
   };
   A._Record.prototype = {
     get$runtimeType(_) {
@@ -19498,7 +19468,7 @@
       t1.storedCallback = null;
       f.call$0();
     },
-    $signature: 38
+    $signature: 40
   };
   A._AsyncRun__initializeScheduleImmediate_closure.prototype = {
     call$1(callback) {
@@ -19508,7 +19478,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 84
+    $signature: 184
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -19590,19 +19560,19 @@
     call$1(result) {
       return this.bodyFunction.call$2(0, result);
     },
-    $signature: 19
+    $signature: 21
   };
   A._awaitOnObject_closure0.prototype = {
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 68
+    $signature: 81
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 116
+    $signature: 85
   };
   A._SyncStarIterator.prototype = {
     get$current() {
@@ -20411,13 +20381,13 @@
         t1._completeError$2(error, stackTrace);
       }
     },
-    $signature: 38
+    $signature: 40
   };
   A._Future__chainForeignFuture_closure0.prototype = {
     call$2(error, stackTrace) {
       this.$this._completeError$2(type$.Object._as(error), type$.StackTrace._as(stackTrace));
     },
-    $signature: 16
+    $signature: 15
   };
   A._Future__chainForeignFuture_closure1.prototype = {
     call$0() {
@@ -20482,7 +20452,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 216
+    $signature: 212
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -22687,13 +22657,13 @@
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 14
+    $signature: 16
   };
   A.LinkedHashMap_LinkedHashMap$from_closure.prototype = {
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 14
+    $signature: 16
   };
   A.ListBase.prototype = {
     get$iterator(receiver) {
@@ -23036,7 +23006,7 @@
       t1._contents = t2 + ": ";
       t1._contents += A.S(v);
     },
-    $signature: 44
+    $signature: 41
   };
   A._MapBaseValueIterable.prototype = {
     get$length(_) {
@@ -23559,7 +23529,7 @@
     call$1(each) {
       return this.$this.$index(0, A._asString(each));
     },
-    $signature: 54
+    $signature: 51
   };
   A._JsonMapKeyIterable.prototype = {
     get$length(_) {
@@ -23615,7 +23585,7 @@
       }
       return null;
     },
-    $signature: 80
+    $signature: 66
   };
   A.Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -23627,7 +23597,7 @@
       }
       return null;
     },
-    $signature: 80
+    $signature: 66
   };
   A.AsciiCodec.prototype = {
     encode$1(source) {
@@ -24082,7 +24052,7 @@
       var t1 = type$.StringBuffer._as(buffer)._contents;
       return t1.charCodeAt(0) == 0 ? t1 : t1;
     },
-    $signature: 94
+    $signature: 95
   };
   A.JsonUnsupportedObjectError.prototype = {
     toString$0(_) {
@@ -24365,7 +24335,7 @@
       B.JSArray_methods.$indexSet(t1, t2.i++, key);
       B.JSArray_methods.$indexSet(t1, t2.i++, value);
     },
-    $signature: 44
+    $signature: 41
   };
   A._JsonPrettyPrintMixin.prototype = {
     writeList$1(list) {
@@ -24429,7 +24399,7 @@
       B.JSArray_methods.$indexSet(t1, t2.i++, key);
       B.JSArray_methods.$indexSet(t1, t2.i++, value);
     },
-    $signature: 44
+    $signature: 41
   };
   A._JsonStringStringifier.prototype = {
     get$_partialResult() {
@@ -24585,7 +24555,7 @@
       type$.EventSink_String._as(sink);
       return new A._LineSplitterEventSink(sink, new A._StringAdapterSink(sink));
     },
-    $signature: 104
+    $signature: 117
   };
   A._LineSplitterSink.prototype = {
     addSlice$4(chunk, start, end, isLast) {
@@ -25583,7 +25553,7 @@
       hash = hash + ((hash & 524287) << 10) & 536870911;
       return hash ^ hash >>> 6;
     },
-    $signature: 77
+    $signature: 65
   };
   A._BigIntImpl_hashCode_finish.prototype = {
     call$1(hash) {
@@ -25591,13 +25561,13 @@
       hash ^= hash >>> 11;
       return hash + ((hash & 16383) << 15) & 536870911;
     },
-    $signature: 114
+    $signature: 157
   };
   A._symbolMapToStringMap_closure.prototype = {
     call$2(key, value) {
       this.result.$indexSet(0, type$.Symbol._as(key)._name, value);
     },
-    $signature: 46
+    $signature: 63
   };
   A._WeakReferenceWrapper.prototype = {$isWeakReference: 1};
   A.NoSuchMethodError_toString_closure.prototype = {
@@ -25613,7 +25583,7 @@
       t1._contents += A.Error_safeToString(value);
       t2.comma = ", ";
     },
-    $signature: 46
+    $signature: 63
   };
   A.DateTime.prototype = {
     $eq(_, other) {
@@ -25656,7 +25626,7 @@
         return 0;
       return A.int_parse(matched, null);
     },
-    $signature: 75
+    $signature: 61
   };
   A.DateTime_parse_parseMilliAndMicroseconds.prototype = {
     call$1(matched) {
@@ -25673,7 +25643,7 @@
       }
       return result;
     },
-    $signature: 75
+    $signature: 61
   };
   A.Duration.prototype = {
     $eq(_, other) {
@@ -26163,13 +26133,13 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv4 address, " + msg, this.host, position));
     },
-    $signature: 132
+    $signature: 204
   };
   A.Uri_parseIPv6Address_error.prototype = {
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 144
+    $signature: 210
   };
   A.Uri_parseIPv6Address_parseHex.prototype = {
     call$2(start, end) {
@@ -26181,7 +26151,7 @@
         this.error.call$2("each part must be in the range of `0x0..0xFFFF`", start);
       return value;
     },
-    $signature: 77
+    $signature: 65
   };
   A._Uri.prototype = {
     get$_text() {
@@ -26494,7 +26464,7 @@
     call$1(s) {
       return A._Uri__uriEncode(B.List_XRg0, A._asString(s), B.Utf8Codec_false, false);
     },
-    $signature: 13
+    $signature: 11
   };
   A._Uri__makeQuery_writeParameter.prototype = {
     call$2(key, value) {
@@ -26508,7 +26478,7 @@
         t1._contents += A._Uri__uriEncode(B.List_M1A, value, B.Utf8Codec_false, true);
       }
     },
-    $signature: 156
+    $signature: 230
   };
   A._Uri__makeQuery_closure.prototype = {
     call$2(key, value) {
@@ -26520,7 +26490,7 @@
         for (t1 = J.get$iterator$ax(type$.Iterable_dynamic._as(value)), t2 = this.writeParameter; t1.moveNext$0();)
           t2.call$2(key, A._asString(t1.get$current()));
     },
-    $signature: 28
+    $signature: 27
   };
   A._Uri__splitQueryStringAll_parsePair.prototype = {
     call$3(start, equalsIndex, end) {
@@ -26538,7 +26508,7 @@
       }
       J.add$1$ax(this.result.putIfAbsent$2(key, A.core__Uri__createList$closure()), value);
     },
-    $signature: 157
+    $signature: 234
   };
   A.UriData.prototype = {
     get$uri() {
@@ -26579,7 +26549,7 @@
       B.NativeUint8List_methods.fillRange$3(t1, 0, 96, defaultTransition);
       return t1;
     },
-    $signature: 179
+    $signature: 84
   };
   A._createTables_setChars.prototype = {
     call$3(target, chars, transition) {
@@ -26591,7 +26561,7 @@
         target[t2] = transition;
       }
     },
-    $signature: 64
+    $signature: 60
   };
   A._createTables_setRange.prototype = {
     call$3(target, range, transition) {
@@ -26610,7 +26580,7 @@
         target[t1] = transition;
       }
     },
-    $signature: 64
+    $signature: 60
   };
   A._SimpleUri.prototype = {
     get$hasAuthority() {
@@ -26981,7 +26951,7 @@
       } else
         t1._closeTarget$0();
     },
-    $signature: 38
+    $signature: 40
   };
   A._StreamSinkImpl__controller_closure0.prototype = {
     call$2(error, stackTrace) {
@@ -26997,7 +26967,7 @@
       } else
         t1._completeDoneError$2(error, type$.nullable_StackTrace._as(stackTrace));
     },
-    $signature: 128
+    $signature: 129
   };
   A._IOSinkImpl.prototype = {$isStringSink: 1, $isIOSink: 1};
   A.ProcessStartMode.prototype = {
@@ -27039,13 +27009,13 @@
       } else
         return o;
     },
-    $signature: 70
+    $signature: 58
   };
   A.promiseToFuture_closure.prototype = {
     call$1(r) {
       return this.completer.complete$1(this.T._eval$1("0/?")._as(r));
     },
-    $signature: 19
+    $signature: 21
   };
   A.promiseToFuture_closure0.prototype = {
     call$1(e) {
@@ -27053,7 +27023,7 @@
         return this.completer.completeError$1(new A.NullRejectionException(e === undefined));
       return this.completer.completeError$1(e);
     },
-    $signature: 19
+    $signature: 21
   };
   A.NullRejectionException.prototype = {
     toString$0(_) {
@@ -27165,13 +27135,13 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 253
+    $signature: 94
   };
   A.wrapMain__closure0.prototype = {
     call$0() {
       return $.$get$context0().runTearDowns$1(B.ActionResult_0);
     },
-    $signature: 12
+    $signature: 9
   };
   A.wrapMain_closure0.prototype = {
     call$2(error, chain) {
@@ -27206,13 +27176,13 @@
       });
       return A._asyncStartSync($async$call$2, $async$completer);
     },
-    $signature: 254
+    $signature: 104
   };
   A.wrapMain__closure.prototype = {
     call$0() {
       return $.$get$context0().runTearDowns$1(B.ActionResult_1);
     },
-    $signature: 12
+    $signature: 9
   };
   A.ActionContext.prototype = {
     runTearDowns$1(result) {
@@ -27345,26 +27315,26 @@
     call$1(el) {
       return A.StringRecase_get_snakeCase(type$.DependencyUpdateGroup._as(el)._core$_name) === this.groupName;
     },
-    $signature: 233
+    $signature: 106
   };
   A.DependencyUpdateGroup_postUpdateTasks_closure.prototype = {
     call$1(pkg) {
       return !B.JSString_methods.contains$1(A.absolute(type$.PackageInfo._as(pkg).path), "packages/smithy/goldens");
     },
-    $signature: 47
+    $signature: 54
   };
   A.DependencyUpdateGroup_postUpdateTasks_closure0.prototype = {
     call$1(pkg) {
       return type$.PackageInfo._as(pkg).name;
     },
-    $signature: 232
+    $signature: 114
   };
   A.GroupPostUpdateTasks_runPostUpdateTasks_closure.prototype = {
     call$1(update) {
       var t1 = type$.DependencyMetadata._as(update).dependentPackages;
       return t1.get$keys(t1);
     },
-    $signature: 230
+    $signature: 116
   };
   A.NodeLoggerPlugin.prototype = {
     handleLogEntry$1(logEntry) {
@@ -27400,7 +27370,7 @@
     call$1(arg) {
       return A._asString(arg);
     },
-    $signature: 13
+    $signature: 11
   };
   A.NodeReadableStream_get_stream_onData.prototype = {
     call$1(chunk) {
@@ -27411,7 +27381,7 @@
         return;
       t1.add$1(0, chunk);
     },
-    $signature: 228
+    $signature: 124
   };
   A.NodeReadableStream_get_stream_onError.prototype = {
     call$1(error) {
@@ -27423,7 +27393,7 @@
       t1.addError$1(error);
       t1.close$0(0);
     },
-    $signature: 227
+    $signature: 125
   };
   A.NodeReadableStream_get_stream_onDone.prototype = {
     call$1(_) {
@@ -27440,7 +27410,7 @@
     $defaultValues() {
       return [null];
     },
-    $signature: 31
+    $signature: 32
   };
   A.NodeReadableStream_get_stream_closure.prototype = {
     call$0() {
@@ -27480,7 +27450,7 @@
     $defaultValues() {
       return [null, null, null];
     },
-    $signature: 226
+    $signature: 127
   };
   A._NodePlatform.prototype = {
     get$environment() {
@@ -27539,7 +27509,7 @@
       B.JSArray_methods.add$1(t1._errorTearDowns, t2);
       return pm;
     },
-    $signature: 218
+    $signature: 132
   };
   A.NodeProcessManager.prototype = {
     run$4$echoOutput$runInShell$workingDirectory(command, echoOutput, runInShell, workingDirectory) {
@@ -27701,7 +27671,7 @@
         type$.JSObject._as(self.core).info(line);
       this.stdout._contents += line + "\n";
     },
-    $signature: 30
+    $signature: 31
   };
   A.NodeProcessManager_run_closure0.prototype = {
     call$1(line) {
@@ -27710,7 +27680,7 @@
         type$.JSObject._as(self.core).info(line);
       this.stderr._contents += line + "\n";
     },
-    $signature: 30
+    $signature: 31
   };
   A.NodeProcess.prototype = {
     _init$0() {
@@ -27915,14 +27885,14 @@
       type$.List_int._as(chunk);
       this._box_0.stdin.write(new Uint8Array(A._ensureNativeList(chunk)));
     },
-    $signature: 33
+    $signature: 42
   };
   A.NodeProcess__init_closure0.prototype = {
     call$1(error) {
       var t1 = this.$this;
       return A.throwExpression(A.ProcessException$(t1.executable, t1.$arguments, "Error spawning subprocess: " + A.S(type$.JSObject._as(error)), 0));
     },
-    $signature: 213
+    $signature: 144
   };
   A._UnreachableError.prototype = {};
   A.allocateSwapSpace_closure.prototype = {
@@ -27947,7 +27917,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 29
+    $signature: 26
   };
   A.ShellScript_run_closure.prototype = {
     call$1(tempDir) {
@@ -27981,7 +27951,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 212
+    $signature: 154
   };
   A.CommitTypeGroup.prototype = {
     _enumToString$0() {
@@ -28013,7 +27983,7 @@
     call$1(scope) {
       return B.JSString_methods.trim$0(A._asString(scope));
     },
-    $signature: 13
+    $signature: 11
   };
   A.CommitMessage_trailers_closure.prototype = {
     call$1(line) {
@@ -28027,7 +27997,7 @@
         return A.ioore(split, 1);
       return new A.MapEntry(t2, J.trim$0$s(split[1]), type$.MapEntry_String_String);
     },
-    $signature: 210
+    $signature: 156
   };
   A.MergeCommitMessage.prototype = {};
   A.ConventionalCommitMessage.prototype = {};
@@ -28507,7 +28477,7 @@
       A.$checkKeys(this.json, B.List_EFr, null);
       return new A.AftComponent($$checkedConvert.call$1$2("name", new A._$AftComponentFromJson__closure(), type$.String), $$checkedConvert.call$1$2("summary", new A._$AftComponentFromJson__closure0(), type$.nullable_PackageInfo), $$checkedConvert.call$1$2("packages", new A._$AftComponentFromJson__closure1(), type$.List_PackageInfo), $$checkedConvert.call$1$2("packageGraph", new A._$AftComponentFromJson__closure2(), type$.Map_of_String_and_List_PackageInfo), $$checkedConvert.call$1$2("propagate", new A._$AftComponentFromJson__closure3(), type$.VersionPropagation));
     },
-    $signature: 209
+    $signature: 174
   };
   A._$AftComponentFromJson__closure.prototype = {
     call$1(v) {
@@ -28519,14 +28489,14 @@
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 34
   };
   A._$AftComponentFromJson__closure1.prototype = {
     call$1(v) {
       var t1 = J.map$1$1$ax(type$.List_dynamic._as(v), new A._$AftComponentFromJson___closure0(), type$.PackageInfo);
       return A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E"));
     },
-    $signature: 184
+    $signature: 198
   };
   A._$AftComponentFromJson___closure0.prototype = {
     call$1(e) {
@@ -28538,7 +28508,7 @@
     call$1(v) {
       return type$.Map_dynamic_dynamic._as(v).map$2$1(0, new A._$AftComponentFromJson___closure(), type$.String, type$.List_PackageInfo);
     },
-    $signature: 174
+    $signature: 207
   };
   A._$AftComponentFromJson___closure.prototype = {
     call$2(k, e) {
@@ -28547,7 +28517,7 @@
       t1 = J.map$1$1$ax(type$.List_dynamic._as(e), new A._$AftComponentFromJson____closure(), type$.PackageInfo);
       return new A.MapEntry(k, A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E")), type$.MapEntry_of_String_and_List_PackageInfo);
     },
-    $signature: 154
+    $signature: 209
   };
   A._$AftComponentFromJson____closure.prototype = {
     call$1(e) {
@@ -28559,13 +28529,13 @@
     call$1(v) {
       return A.$enumDecode(B.Map_gv0sl, v, type$.VersionPropagation, type$.String);
     },
-    $signature: 51
+    $signature: 49
   };
   A._$AftComponentToJson_closure.prototype = {
     call$1(e) {
       return A._$PackageInfoToJson(type$.PackageInfo._as(e));
     },
-    $signature: 52
+    $signature: 47
   };
   A._$AftComponentToJson_closure0.prototype = {
     call$2(k, e) {
@@ -28574,13 +28544,13 @@
       t1 = J.map$1$1$ax(type$.List_PackageInfo._as(e), new A._$AftComponentToJson__closure(), type$.Map_of_String_and_nullable_Object);
       return new A.MapEntry(k, A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E")), type$.MapEntry_of_String_and_List_Map_of_String_and_nullable_Object);
     },
-    $signature: 141
+    $signature: 213
   };
   A._$AftComponentToJson__closure.prototype = {
     call$1(e) {
       return A._$PackageInfoToJson(type$.PackageInfo._as(e));
     },
-    $signature: 52
+    $signature: 47
   };
   A._$PackageInfoFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -28591,7 +28561,7 @@
       t2 = type$.nullable_PackageInfo;
       return new A.PackageInfo($$checkedConvert.call$1$2("name", new A._$PackageInfoFromJson__closure(), t1), $$checkedConvert.call$1$2("path", new A._$PackageInfoFromJson__closure0(), t1), $$checkedConvert.call$1$2("pubspecInfo", new A._$PackageInfoFromJson__closure1(), type$.PubspecInfo), $$checkedConvert.call$1$2("flavor", new A._$PackageInfoFromJson__closure2(), type$.PackageFlavor), $$checkedConvert.call$1$2("example", new A._$PackageInfoFromJson__closure3(), t2), $$checkedConvert.call$1$2("docs", new A._$PackageInfoFromJson__closure4(), t2));
     },
-    $signature: 129
+    $signature: 214
   };
   A._$PackageInfoFromJson__closure.prototype = {
     call$1(v) {
@@ -28609,25 +28579,25 @@
     call$1(v) {
       return A._$PubspecInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 127
+    $signature: 216
   };
   A._$PackageInfoFromJson__closure2.prototype = {
     call$1(v) {
       return A.$enumDecode(B.Map_A0aZ8, v, type$.PackageFlavor, type$.String);
     },
-    $signature: 125
+    $signature: 218
   };
   A._$PackageInfoFromJson__closure3.prototype = {
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 34
   };
   A._$PackageInfoFromJson__closure4.prototype = {
     call$1(v) {
       return v == null ? null : A._$PackageInfoFromJson(A.LinkedHashMap_LinkedHashMap$from(type$.Map_dynamic_dynamic._as(v), type$.String, type$.nullable_Object));
     },
-    $signature: 41
+    $signature: 34
   };
   A._$PubspecInfoFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -28638,14 +28608,14 @@
       t2 = $$checkedConvert.call$1$2("pubspecYaml", new A._$PubspecInfoFromJson__closure0(), type$.String);
       return A.PubspecInfo$(t1, $$checkedConvert.call$1$2("pubspecMap", new A._$PubspecInfoFromJson__closure1(), type$.YamlMap), t2, $$checkedConvert.call$1$2("uri", new A._$PubspecInfoFromJson__closure2(), type$.Uri));
     },
-    $signature: 124
+    $signature: 226
   };
   A._$PubspecInfoFromJson__closure.prototype = {
     call$1(v) {
       var t1 = type$.Map_of_String_and_nullable_Object;
       return A.Pubspec_Pubspec$fromJson(t1._as(t1._as(v)), false);
     },
-    $signature: 117
+    $signature: 227
   };
   A._$PubspecInfoFromJson__closure0.prototype = {
     call$1(v) {
@@ -28661,13 +28631,13 @@
       A.ArgumentError_checkNotNull(B.CollectionStyle_ANY, "style", type$.CollectionStyle);
       return new A.YamlMapWrapper(B.CollectionStyle_ANY, v, t1, new A._YamlMapNodes(v, t1));
     },
-    $signature: 107
+    $signature: 228
   };
   A._$PubspecInfoFromJson__closure2.prototype = {
     call$1(v) {
       return A.Uri_parse(A._asString(v));
     },
-    $signature: 53
+    $signature: 46
   };
   A._AftComponent_Object_AWSSerializable.prototype = {};
   A._AftComponent_Object_AWSSerializable_AWSDebuggable.prototype = {};
@@ -28824,7 +28794,7 @@
     call$2(yaml, pubspec) {
       return this.call$3$isRoot(yaml, pubspec, false);
     },
-    $signature: 106
+    $signature: 231
   };
   A.AftConfigLoader__processPubspecs_mergePubspec_closure.prototype = {
     call$1(entry) {
@@ -28848,20 +28818,20 @@
       }
       return t1;
     },
-    $signature: 85
+    $signature: 233
   };
   A.AftConfigLoader__processPubspecs_mergePubspec__closure.prototype = {
     call$0() {
       return this._0_0.value;
     },
-    $signature: 32
+    $signature: 39
   };
   A.AftConfigLoader__processPubspecs_mergePubspec_closure0.prototype = {
     call$1(component) {
       type$.RawAftComponent._as(component);
       return new A.MapEntry(component.name, component, type$.MapEntry_String_RawAftComponent);
     },
-    $signature: 82
+    $signature: 254
   };
   A.AftConfigLoader__processPubspecs_closure.prototype = {
     call$2($name, component) {
@@ -28907,7 +28877,7 @@
       t2 = component.name;
       return new A.MapEntry(t2, new A.AftComponent(t2, t1, packages, new A.UnmodifiableMapView(t5, type$.UnmodifiableMapView_of_String_and_List_PackageInfo), component.propagate), type$.MapEntry_String_AftComponent);
     },
-    $signature: 83
+    $signature: 255
   };
   A.AftConfigLoader__processPubspecs__closure.prototype = {
     call$1($name) {
@@ -28930,19 +28900,19 @@
       }
       return t1;
     },
-    $signature: 26
+    $signature: 28
   };
   A.AftConfigLoader__processPubspecs__closure0.prototype = {
     call$1(packageName) {
       return A.IterableExtension_firstWhereOrNull(this.packages, new A.AftConfigLoader__processPubspecs___closure(A._asString(packageName)), type$.PackageInfo);
     },
-    $signature: 26
+    $signature: 28
   };
   A.AftConfigLoader__processPubspecs___closure.prototype = {
     call$1(pkg) {
       return type$.PackageInfo._as(pkg).name === this.packageName;
     },
-    $signature: 47
+    $signature: 54
   };
   A.PackageSelector.prototype = {};
   A._PackageSelector.prototype = {
@@ -29013,7 +28983,7 @@
     call$1(selector) {
       return type$.PackageSelector._as(selector).toJson$0();
     },
-    $signature: 60
+    $signature: 82
   };
   A._AndPackageSelector.prototype = {
     toJson$0() {
@@ -29027,7 +28997,7 @@
     call$1(selector) {
       return type$.PackageSelector._as(selector).toJson$0();
     },
-    $signature: 60
+    $signature: 82
   };
   A.PackageSelectorConverter.prototype = {
     fromJson$1(json) {
@@ -29125,25 +29095,25 @@
       t1 = constraint == null ? null : constraint.toString$0(0);
       return new A.MapEntry(key, t1, type$.MapEntry_of_String_and_nullable_String);
     },
-    $signature: 86
+    $signature: 83
   };
   A._extension_1_toJson_closure0.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 34
+    $signature: 43
   };
   A._extension_1_toJson_closure1.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 34
+    $signature: 43
   };
   A._extension_1_toJson_closure2.prototype = {
     call$2($name, dependency) {
       return new A.MapEntry(A._asString($name), A._extension_0_toJson(type$.Dependency._as(dependency)), type$.MapEntry_of_String_and_Map_of_String_and_nullable_Object);
     },
-    $signature: 34
+    $signature: 43
   };
   A._$EnvironmentSerializer.prototype = {
     serialize$3$specifiedType(serializers, object, specifiedType) {
@@ -29749,7 +29719,7 @@
     call$1(v) {
       return v == null ? B.Map_empty2 : A.parseDeps(type$.nullable_Map_dynamic_dynamic._as(v));
     },
-    $signature: 27
+    $signature: 24
   };
   A._$RawPubspecConfigFromJson__closure0.prototype = {
     call$1(v) {
@@ -29802,7 +29772,7 @@
       }
       return t1 == null ? B.List_empty0 : t1;
     },
-    $signature: 35
+    $signature: 33
   };
   A._$RawAftConfigFromJson___closure2.prototype = {
     call$1(e) {
@@ -29822,7 +29792,7 @@
       }
       return t1 == null ? B.List_empty0 : t1;
     },
-    $signature: 35
+    $signature: 33
   };
   A._$RawAftConfigFromJson___closure1.prototype = {
     call$1(e) {
@@ -29916,7 +29886,7 @@
       var t1 = J.map$1$1$ax(type$.List_dynamic._as(v), new A._$RawAftComponentFromJson___closure(), type$.String);
       return A.List_List$of(t1, true, A._instanceType(t1)._eval$1("ListIterable.E"));
     },
-    $signature: 35
+    $signature: 33
   };
   A._$RawAftComponentFromJson___closure.prototype = {
     call$1(e) {
@@ -29929,7 +29899,7 @@
       var t1 = A.$enumDecodeNullable(B.Map_gv0sl, v, type$.VersionPropagation, type$.String);
       return t1 == null ? B.VersionPropagation_1 : t1;
     },
-    $signature: 51
+    $signature: 49
   };
   A._$AftScriptFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -29955,14 +29925,14 @@
     call$1(v) {
       return v == null ? B.C__DevelopmentPackageSelector : B.C_PackageSelectorConverter.fromJson$1(v);
     },
-    $signature: 79
+    $signature: 48
   };
   A._$AftScriptFromJson__closure2.prototype = {
     call$1(v) {
       A._asBoolQ(v);
       return v === true;
     },
-    $signature: 37
+    $signature: 36
   };
   A._AftScript_Object_AWSSerializable.prototype = {};
   A._AftScript_Object_AWSSerializable_AWSDebuggable.prototype = {};
@@ -30167,7 +30137,7 @@
     call$0() {
       return this._0_0.length;
     },
-    $signature: 20
+    $signature: 22
   };
   A.ConstraintUpdater_updateFor_closure0.prototype = {
     call$0() {
@@ -30179,37 +30149,37 @@
     call$0() {
       return this._1_0._1;
     },
-    $signature: 17
+    $signature: 14
   };
   A.ConstraintUpdater_updateFor_closure1.prototype = {
     call$0() {
       return B.VersionWindow_2 === this._1_1._readFinal$0();
     },
-    $signature: 17
+    $signature: 14
   };
   A.ConstraintUpdater_updateFor_closure3.prototype = {
     call$0() {
       return true === this._1_4._readFinal$0();
     },
-    $signature: 17
+    $signature: 14
   };
   A.ConstraintUpdater_updateFor_closure6.prototype = {
     call$1(v) {
       return type$.Version._as(v);
     },
-    $signature: 76
+    $signature: 52
   };
   A.ConstraintUpdater_updateFor_closure4.prototype = {
     call$0() {
       return false === this._1_4._readFinal$0();
     },
-    $signature: 17
+    $signature: 14
   };
   A.ConstraintUpdater_updateFor_closure5.prototype = {
     call$0() {
       return B.VersionWindow_0 === this._1_1._readFinal$0();
     },
-    $signature: 17
+    $signature: 14
   };
   A.VersionWindow.prototype = {
     _enumToString$0() {
@@ -30220,19 +30190,19 @@
     call$0() {
       return this._0_0._0;
     },
-    $signature: 20
+    $signature: 22
   };
   A.VersionWindow_VersionWindow$fromRange_closure1.prototype = {
     call$0() {
       return this._0_0._1;
     },
-    $signature: 20
+    $signature: 22
   };
   A.VersionWindow_VersionWindow$fromRange_closure0.prototype = {
     call$0() {
       return 0 === this._0_1._readFinal$0();
     },
-    $signature: 17
+    $signature: 14
   };
   A.ConstraintUpdateType.prototype = {
     _enumToString$0() {
@@ -30944,7 +30914,7 @@
     call$0() {
       return this._0_0.value;
     },
-    $signature: 32
+    $signature: 39
   };
   A.Deputy__listDependencyGroups_closure0.prototype = {
     call$1(updateGroups) {
@@ -31064,19 +31034,19 @@
     call$0() {
       return this._2_0._0;
     },
-    $signature: 39
+    $signature: 30
   };
   A.Deputy__proposeUpdates_closure0.prototype = {
     call$1(repo) {
       return type$.Repo._as(repo).get$rootPubspecEditor().update$2(["dependencies", this.dependency], this._box_1.updatedGlobalConstraint.toString$0(0));
     },
-    $signature: 74
+    $signature: 69
   };
   A.Deputy__proposeUpdates_closure1.prototype = {
     call$0() {
       return this._4_0._0;
     },
-    $signature: 39
+    $signature: 30
   };
   A.Deputy__proposeUpdates_closure2.prototype = {
     call$1(repo) {
@@ -31084,7 +31054,7 @@
         t1 = type$.Repo._as(repo).aftConfig.allPackages._map$_map.$index(0, _this.$package.name);
       return t1 == null ? null : t1.pubspecInfo.get$pubspecYamlEditor().update$2([_this.dependencyType.key, _this.dependency], _this._box_0.updatedConstraint.toString$0(0));
     },
-    $signature: 74
+    $signature: 69
   };
   A.Deputy__proposeUpdates_closure3.prototype = {
     call$2(group, update) {
@@ -31099,7 +31069,7 @@
         t2 = this.worktree.get$rootDir().path;
       return A.join(t2, relativeToRoot, null);
     },
-    $signature: 13
+    $signature: 11
   };
   A.DeputyResults.prototype = {};
   A.BreakingChange.prototype = {
@@ -31122,14 +31092,14 @@
       A._asString(k);
       return A._asString(v).length === 0;
     },
-    $signature: 73
+    $signature: 55
   };
   A.RunGit__throwIfProcessFailed_closure0.prototype = {
     call$1(e) {
       type$.MapEntry_String_String._as(e);
       return A.S(e.key) + "\n" + A.S(e.value);
     },
-    $signature: 257
+    $signature: 128
   };
   A.PackageFlavor.prototype = {
     _enumToString$0() {
@@ -31152,13 +31122,13 @@
     call$1(version) {
       return type$.Version._as(version).preRelease.length === 0;
     },
-    $signature: 72
+    $signature: 59
   };
   A.PubVersionInfo_latestPrerelease_closure.prototype = {
     call$1(version) {
       return type$.Version._as(version).preRelease.length !== 0;
     },
-    $signature: 72
+    $signature: 59
   };
   A.DependencyType.prototype = {
     _enumToString$0() {
@@ -31218,7 +31188,7 @@
     call$1(packageName) {
       return this.$this.aftConfig.allPackages._map$_map.$index(0, A._asString(packageName));
     },
-    $signature: 26
+    $signature: 28
   };
   A.dfs_search.prototype = {
     call$2(node, edges) {
@@ -31371,7 +31341,7 @@
     call$1(v) {
       return type$.Version._as(v);
     },
-    $signature: 76
+    $signature: 52
   };
   A.AsyncMemoizer.prototype = {};
   A.collectBytes_closure.prototype = {
@@ -31437,7 +31407,7 @@
     call$1(_) {
       this.completer.complete$1(this.cancellationValue);
     },
-    $signature: 40
+    $signature: 45
   };
   A.CancelableOperation_then_closure.prototype = {
     call$2(value, completer) {
@@ -31640,7 +31610,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 12
+    $signature: 9
   };
   A.CancelableCompleter.prototype = {
     get$operation() {
@@ -31734,7 +31704,7 @@
       if (t1 != null)
         t1.completeError$2(error, stackTrace);
     },
-    $signature: 16
+    $signature: 15
   };
   A.DelegatingStreamSubscription.prototype = {
     onData$1(handleData) {
@@ -31807,7 +31777,7 @@
         return null;
       t1.completeError$2(error, stackTrace);
     },
-    $signature: 16
+    $signature: 15
   };
   A.ErrorResult.prototype = {
     complete$1(completer) {
@@ -31940,7 +31910,7 @@
       type$.StackTrace._as(stackTrace);
       this.$this._addResult$1(new A.ErrorResult(error, stackTrace));
     },
-    $signature: 16
+    $signature: 15
   };
   A.StreamQueue__ensureListening_closure0.prototype = {
     call$0() {
@@ -32119,7 +32089,7 @@
       type$.StackTrace._as(stackTrace);
       this.$this.super$DelegatingStreamSubscription$cancel(0).whenComplete$1(new A._CancelOnErrorSubscriptionWrapper_onError__closure(this.handleError, error, stackTrace));
     },
-    $signature: 68
+    $signature: 81
   };
   A._CancelOnErrorSubscriptionWrapper_onError__closure.prototype = {
     call$0() {
@@ -32375,7 +32345,7 @@
       if (t1 != null)
         t1.call$0();
     },
-    $signature: 40
+    $signature: 45
   };
   A.AWSHttpClientImpl__send_closure0.prototype = {
     call$0() {
@@ -32392,7 +32362,7 @@
       t1.requestBytesRead = requestBytesRead;
       this.requestProgressController.add$1(0, requestBytesRead);
     },
-    $signature: 33
+    $signature: 42
   };
   A.AWSHttpClientImpl__send_closure2.prototype = {
     call$0() {
@@ -32868,7 +32838,7 @@
     call$1(element) {
       return A.getRuntimeTypeOfDartObject(type$.AWSLoggerPlugin._as(element)) === A.createRuntimeType(this.Plugin);
     },
-    $signature: 71
+    $signature: 57
   };
   A.AWSLogger_registerPlugin_hasPlugin.prototype = {
     call$1(logger) {
@@ -32883,7 +32853,7 @@
     call$1(element) {
       return A.getRuntimeTypeOfDartObject(type$.AWSLoggerPlugin._as(element)) === A.createRuntimeType(this.T);
     },
-    $signature: 71
+    $signature: 57
   };
   A.AWSLogger_registerPlugin_closure.prototype = {
     call$1(record) {
@@ -32977,7 +32947,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 12
+    $signature: 9
   };
   A._AWSOperation_Object_AWSDebuggable.prototype = {};
   A._AWSOperation_Object_AWSDebuggable_AWSLoggerMixin.prototype = {};
@@ -33033,25 +33003,25 @@
     call$1(word) {
       return A._asString(word).toLowerCase();
     },
-    $signature: 13
+    $signature: 11
   };
   A.StringRecase_get_snakeCase_closure.prototype = {
     call$1(word) {
       return A._asString(word).toLowerCase();
     },
-    $signature: 13
+    $signature: 11
   };
   A.StringRecase_groupIntoWords_closure.prototype = {
     call$1(m) {
       return A.S(m.group$1(0, 1)) + " v" + A.S(m.group$1(0, 2));
     },
-    $signature: 15
+    $signature: 17
   };
   A.StringRecase_groupIntoWords_closure0.prototype = {
     call$1(m) {
       return A.S(m.group$1(0, 1)) + " V" + A.S(m.group$1(0, 2));
     },
-    $signature: 15
+    $signature: 17
   };
   A.StringRecase_groupIntoWords_closure1.prototype = {
     call$0() {
@@ -33106,13 +33076,13 @@
     call$1(m) {
       return A.S(m.group$1(0, 1)) + " " + A.S(m.group$1(0, 2));
     },
-    $signature: 15
+    $signature: 17
   };
   A.StringRecase_groupIntoWords_closure3.prototype = {
     call$1(m) {
       return A.S(m.group$1(0, 1)) + " " + A.S(m.group$1(0, 2));
     },
-    $signature: 15
+    $signature: 17
   };
   A.AWSSerializable.prototype = {};
   A.StreamForward_forward_closure.prototype = {
@@ -33136,7 +33106,7 @@
       if (!t1.get$isClosed())
         t1.addError$2(e, st);
     },
-    $signature: 16
+    $signature: 15
   };
   A.StreamForward_forward_closure0.prototype = {
     call$0() {
@@ -33996,14 +33966,14 @@
       var t1 = this.$this.$ti;
       this.replacement.$indexSet(0, t1._precomputed1._as(key), t1._rest[1]._as(value));
     },
-    $signature: 14
+    $signature: 16
   };
   A.MapBuilder_replace_closure0.prototype = {
     call$2(key, value) {
       var t1 = this.$this.$ti;
       this.replacement.$indexSet(0, t1._precomputed1._as(key), t1._rest[1]._as(value));
     },
-    $signature: 14
+    $signature: 16
   };
   A.BuiltSet.prototype = {
     get$hashCode(_) {
@@ -35076,13 +35046,13 @@
     call$1(value) {
       return this.serializers.serialize$2$specifiedType(value, this.valueType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltListMultimapSerializer_deserialize_closure.prototype = {
     call$1(value) {
       return this.serializers.deserialize$2$specifiedType(value, this.valueType);
     },
-    $signature: 70
+    $signature: 58
   };
   A.BuiltListSerializer.prototype = {
     serialize$3$specifiedType(serializers, builtList, specifiedType) {
@@ -35140,13 +35110,13 @@
     call$1(item) {
       return this.serializers.serialize$2$specifiedType(item, this.elementType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltListSerializer_deserialize_closure.prototype = {
     call$1(item) {
       return this.serializers.deserialize$2$specifiedType(item, this.elementType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltMapSerializer.prototype = {
     serialize$3$specifiedType(serializers, builtMap, specifiedType) {
@@ -35346,13 +35316,13 @@
     call$1(value) {
       return this.serializers.serialize$2$specifiedType(value, this.valueType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltSetMultimapSerializer_deserialize_closure.prototype = {
     call$1(value) {
       return this.serializers.deserialize$2$specifiedType(value, this.valueType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltSetSerializer.prototype = {
     serialize$3$specifiedType(serializers, builtSet, specifiedType) {
@@ -35410,13 +35380,13 @@
     call$1(item) {
       return this.serializers.serialize$2$specifiedType(item, this.elementType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.BuiltSetSerializer_deserialize_closure.prototype = {
     call$1(item) {
       return this.serializers.deserialize$2$specifiedType(item, this.elementType);
     },
-    $signature: 9
+    $signature: 12
   };
   A.DateTimeSerializer.prototype = {
     serialize$3$specifiedType(serializers, dateTime, specifiedType) {
@@ -35889,7 +35859,7 @@
       B.JSArray_methods.$indexSet(t1, t2.i + 1, value);
       t2.i += 2;
     },
-    $signature: 14
+    $signature: 16
   };
   A.StandardJsonPlugin__toListUsingDiscriminator_closure.prototype = {
     call$1(value) {
@@ -35913,7 +35883,7 @@
       B.JSArray_methods.$indexSet(t1, t3 + 1, value);
       t2.i += 2;
     },
-    $signature: 14
+    $signature: 16
   };
   A.toParsedYamlException_closure.prototype = {
     call$1(k) {
@@ -38247,7 +38217,7 @@
       op.toString;
       throw A.wrapException(A.UnsupportedError$(op));
     },
-    $signature: 214
+    $signature: 171
   };
   A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith.prototype = {
     call$0() {
@@ -38266,7 +38236,7 @@
       t1 = version.get$nextBreaking();
       return new A.CompatibleWithVersionRange(version, A.Version_Version(t1.major, t1.minor, t1.patch, "0"), true, false);
     },
-    $signature: 39
+    $signature: 30
   };
   A._EmptyVersion.prototype = {
     toString$0(_) {
@@ -38426,7 +38396,7 @@
         throw A.wrapException(A.CheckedFromJsonException$(this.source, key, "Pubspec", "Not a valid dependency value.", false));
       return new A.MapEntry(key, value, type$.MapEntry_String_Dependency);
     },
-    $signature: 172
+    $signature: 258
   };
   A._fromJson_closure.prototype = {
     call$1(key) {
@@ -38463,7 +38433,7 @@
       }
       throw A.wrapException(A.StateError$("There is a bug in pubspec_parse."));
     },
-    $signature: 32
+    $signature: 39
   };
   A.Dependency.prototype = {
     toString$0(_) {
@@ -38512,7 +38482,7 @@
       A._asStringQ(v);
       return v == null ? $.$get$VersionConstraint_any() : A.VersionConstraint_VersionConstraint$parse(v);
     },
-    $signature: 67
+    $signature: 62
   };
   A._$GitDependencyFromJson_closure.prototype = {
     call$1($$checkedConvert) {
@@ -38530,7 +38500,7 @@
       t1 = A._tryParseScpUri(v);
       return t1 == null ? A.Uri_parse(v) : t1;
     },
-    $signature: 53
+    $signature: 46
   };
   A._$GitDependencyFromJson__closure0.prototype = {
     call$1(v) {
@@ -38560,7 +38530,7 @@
       A._asStringQ(v);
       return v == null ? $.$get$VersionConstraint_any() : A.VersionConstraint_VersionConstraint$parse(v);
     },
-    $signature: 67
+    $signature: 62
   };
   A._$HostedDependencyFromJson__closure0.prototype = {
     call$1(v) {
@@ -38596,7 +38566,7 @@
       }
       return t1;
     },
-    $signature: 42
+    $signature: 37
   };
   A.Pubspec.prototype = {
     Pubspec$18$author$authors$dependencies$dependencyOverrides$description$devDependencies$documentation$environment$flutter$funding$homepage$issueTracker$publishTo$repository$screenshots$topics$version($name, author, authors, dependencies, dependencyOverrides, description, devDependencies, documentation, environment, flutter, funding, homepage, issueTracker, publishTo, repository, screenshots, topics, version) {
@@ -38735,7 +38705,7 @@
       }
       return t1;
     },
-    $signature: 65
+    $signature: 64
   };
   A._$PubspecFromJson___closure2.prototype = {
     call$1(e) {
@@ -38759,13 +38729,13 @@
     call$1(v) {
       return v == null ? null : A.Uri_parse(A._asString(v));
     },
-    $signature: 42
+    $signature: 37
   };
   A._$PubspecFromJson__closure7.prototype = {
     call$1(v) {
       return v == null ? null : A.Uri_parse(A._asString(v));
     },
-    $signature: 42
+    $signature: 37
   };
   A._$PubspecFromJson__closure8.prototype = {
     call$1(v) {
@@ -38779,7 +38749,7 @@
       }
       return t1;
     },
-    $signature: 256
+    $signature: 186
   };
   A._$PubspecFromJson___closure1.prototype = {
     call$1(e) {
@@ -38799,7 +38769,7 @@
       }
       return t1;
     },
-    $signature: 65
+    $signature: 64
   };
   A._$PubspecFromJson___closure0.prototype = {
     call$1(e) {
@@ -38829,19 +38799,19 @@
     call$1(v) {
       return A.parseDeps(type$.nullable_Map_dynamic_dynamic._as(v));
     },
-    $signature: 27
+    $signature: 24
   };
   A._$PubspecFromJson__closure14.prototype = {
     call$1(v) {
       return A.parseDeps(type$.nullable_Map_dynamic_dynamic._as(v));
     },
-    $signature: 27
+    $signature: 24
   };
   A._$PubspecFromJson__closure15.prototype = {
     call$1(v) {
       return A.parseDeps(type$.nullable_Map_dynamic_dynamic._as(v));
     },
-    $signature: 27
+    $signature: 24
   };
   A._$PubspecFromJson__closure16.prototype = {
     call$1(v) {
@@ -38895,7 +38865,7 @@
     call$1(match) {
       return B.JSString_methods.$mul(".<fn>", match.$index(0, 1).length);
     },
-    $signature: 15
+    $signature: 17
   };
   A._prettifyMember_closure0.prototype = {
     call$1(match) {
@@ -38903,7 +38873,7 @@
       t1.toString;
       return t1 + ".";
     },
-    $signature: 15
+    $signature: 17
   };
   A.Mapping.prototype = {};
   A.MultiSectionMapping.prototype = {
@@ -39231,14 +39201,14 @@
       if (B.JSString_methods.startsWith$1($name, "x_"))
         this.$this.extensions.$indexSet(0, $name, value);
     },
-    $signature: 28
+    $signature: 27
   };
   A.SingleMapping_toJson_closure.prototype = {
     call$2($name, value) {
       this.result.$indexSet(0, A._asString($name), value);
       return value;
     },
-    $signature: 28
+    $signature: 27
   };
   A.SingleMapping__findLine_closure.prototype = {
     call$1(e) {
@@ -39837,7 +39807,7 @@
       var t1 = type$._Highlight._as(highlight).span;
       return t1.get$start(t1).get$line() !== t1.get$end(t1).get$line();
     },
-    $signature: 43
+    $signature: 38
   };
   A.Highlighter$__closure0.prototype = {
     call$1(line) {
@@ -39911,14 +39881,14 @@
       var t1 = type$._Highlight._as(highlight).span;
       return t1.get$end(t1).get$line() < this.line.number;
     },
-    $signature: 43
+    $signature: 38
   };
   A.Highlighter_highlight_closure.prototype = {
     call$1(highlight) {
       type$._Highlight._as(highlight);
       return true;
     },
-    $signature: 43
+    $signature: 38
   };
   A.Highlighter__writeFileStart_closure.prototype = {
     call$0() {
@@ -40017,7 +39987,7 @@
       t2 = t2._contents += B.JSString_methods.$mul("^", Math.max(endColumn + (tabsBefore + tabsInside) * 3 - startColumn, 1));
       return t2.length - t3.length;
     },
-    $signature: 20
+    $signature: 22
   };
   A.Highlighter__writeIndicator_closure0.prototype = {
     call$0() {
@@ -40040,7 +40010,7 @@
       }
       return t2._contents.length - t3.length;
     },
-    $signature: 20
+    $signature: 22
   };
   A.Highlighter__writeSidebar_closure.prototype = {
     call$0() {
@@ -40325,7 +40295,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 63
+    $signature: 67
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -40340,7 +40310,7 @@
       type$.Frame._as(frame);
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 62
+    $signature: 68
   };
   A.Frame.prototype = {
     get$library() {
@@ -40411,7 +40381,7 @@
       line = t1 > 1 ? A.int_parse(lineAndColumn[1], _null) : _null;
       return new A.Frame(uri, line, t1 > 2 ? A.int_parse(lineAndColumn[2], _null) : _null, member);
     },
-    $signature: 23
+    $signature: 19
   };
   A.Frame_Frame$parseV8_closure.prototype = {
     call$0() {
@@ -40442,7 +40412,7 @@
         return t1.call$2(t2, _s4_);
       }
     },
-    $signature: 23
+    $signature: 19
   };
   A.Frame_Frame$parseV8_closure_parseLocation.prototype = {
     call$2($location, member) {
@@ -40505,7 +40475,7 @@
       line = A.int_parse(t1, _null);
       return new A.Frame(uri, line, _null, member.length === 0 || member === "anonymous" ? "<fn>" : member);
     },
-    $signature: 23
+    $signature: 19
   };
   A.Frame_Frame$parseFirefox_closure.prototype = {
     call$0() {
@@ -40563,7 +40533,7 @@
       }
       return new A.Frame(uri, line, column, member);
     },
-    $signature: 23
+    $signature: 19
   };
   A.Frame_Frame$parseFriendly_closure.prototype = {
     call$0() {
@@ -40611,7 +40581,7 @@
         return A.ioore(t1, 4);
       return new A.Frame(uri, line, column, t1[4]);
     },
-    $signature: 23
+    $signature: 19
   };
   A.LazyChain.prototype = {
     get$_chain() {
@@ -40804,7 +40774,7 @@
     call$0() {
       return A.Trace_Trace$parse(this.$this._trimVMChain$1(this.original));
     },
-    $signature: 22
+    $signature: 20
   };
   A.StackZoneSpecification__registerCallback_closure.prototype = {
     call$0() {
@@ -40857,7 +40827,7 @@
         t1 = A.Trace_Trace$parse(text).frames;
       return A.Trace$(A.SubListIterable$(t1, this.level + 2, null, A._arrayInstanceType(t1)._precomputed1), text);
     },
-    $signature: 22
+    $signature: 20
   };
   A._Node.prototype = {
     toChain$0() {
@@ -40885,7 +40855,7 @@
     call$0() {
       return A.Trace_Trace$parse(this.trace.toString$0(0));
     },
-    $signature: 22
+    $signature: 20
   };
   A.Trace__parseVM_closure.prototype = {
     call$1(line) {
@@ -40922,7 +40892,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 63
+    $signature: 67
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -40931,7 +40901,7 @@
         return frame.toString$0(0) + "\n";
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 62
+    $signature: 68
   };
   A.UnparsedFrame.prototype = {
     toString$0(_) {
@@ -40984,7 +40954,7 @@
     call$2(error, stackTrace) {
       this.handleError.call$3(type$.Object._as(error), type$.StackTrace._as(stackTrace), this.controller);
     },
-    $signature: 16
+    $signature: 15
   };
   A.TransformByHandlers_transformByHandlers__closure0.prototype = {
     call$0() {
@@ -41002,7 +40972,7 @@
         return toCancel.cancel$0(0);
       return null;
     },
-    $signature: 56
+    $signature: 74
   };
   A.TakeUntil_takeUntil_closure.prototype = {
     call$1(_) {
@@ -41015,7 +40985,7 @@
         t1.cancel$0(0);
       this.controller.close$0(0);
     },
-    $signature: 40
+    $signature: 45
   };
   A.TakeUntil_takeUntil_closure0.prototype = {
     call$0() {
@@ -41057,7 +41027,7 @@
       t1.subscription = null;
       return t2.cancel$0(0);
     },
-    $signature: 56
+    $signature: 74
   };
   A.Tap_tap_closure.prototype = {
     call$2(value, sink) {
@@ -41397,7 +41367,7 @@
         t1.pop();
       }
     },
-    $signature: 10
+    $signature: 13
   };
   A.deepHashCode_deepHashCodeInner_closure.prototype = {
     call$1($parent) {
@@ -44158,7 +44128,7 @@
       nodes.$indexSet(0, this.keyOrIndex, t1);
       return t1;
     },
-    $signature: 55
+    $signature: 75
   };
   A.YamlEditor__deepModify_closure.prototype = {
     call$1(nodes) {
@@ -44169,7 +44139,7 @@
       nodes.$indexSet(0, t1, t2);
       return t2;
     },
-    $signature: 55
+    $signature: 75
   };
   A.mapDeepEquals_closure.prototype = {
     call$1(key) {
@@ -44252,7 +44222,7 @@
       type$.MapEntry_dynamic_YamlNode._as(entry);
       return A.yamlEncodeFlowString(type$.YamlNode._as(entry.key)) + ": " + A.yamlEncodeFlowString(entry.value);
     },
-    $signature: 81
+    $signature: 76
   };
   A.yamlEncodeBlockString_closure.prototype = {
     call$1(child) {
@@ -44269,7 +44239,7 @@
         valueString = B.JSString_methods.substring$1(valueString, t1);
       return B.JSString_methods.$mul(" ", this.indentation) + "- " + valueString;
     },
-    $signature: 78
+    $signature: 77
   };
   A.yamlEncodeBlockString_closure0.prototype = {
     call$1(entry) {
@@ -44283,7 +44253,7 @@
         return formattedKey + ":\n" + formattedValue;
       return formattedKey + ": " + formattedValue;
     },
-    $signature: 81
+    $signature: 76
   };
   A.getMapInsertionIndex_closure.prototype = {
     call$1(k) {
@@ -44441,13 +44411,13 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 69
+    $signature: 78
   };
   A._listExistingSkipIssues_closure.prototype = {
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Map_String_int),
-        $async$returnValue, $async$self = this, t2, t3, message, dependency, existingIssues, t1, $async$temp1;
+        $async$returnValue, $async$self = this, t3, t4, _0_0, _0_3, _0_7, _0_11, number, title, body, message, dependency, t1, existingIssues, issuesResult, t2;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -44455,36 +44425,71 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              existingIssues = A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.int);
-              t1 = type$.JSObject;
-              $async$temp1 = J;
+              t1 = type$.String;
+              existingIssues = A.LinkedHashMap_LinkedHashMap$_empty(t1, type$.int);
               $async$goto = 3;
-              return A._asyncAwait(A.OctokitRestIssues_list(t1._as(t1._as($async$self.octokit.rest).issues)), $async$call$0);
+              return A._asyncAwait($.$get$nodeProcessManager().run$3$echoOutput$workingDirectory(A._setArrayType(["gh", "issue", "list", "--json=number,title,body"], type$.JSArray_String), true, $async$self.repo.get$rootDir().path), $async$call$0);
             case 3:
               // returning from await.
-              t2 = $async$temp1.get$iterator$ax($async$result);
-            case 4:
-              // for condition
-              if (!t2.moveNext$0()) {
-                // goto after for
-                $async$goto = 5;
-                break;
+              issuesResult = $async$result;
+              t2 = issuesResult.exitCode;
+              if (t2 !== 0) {
+                t3 = self;
+                t4 = type$.JSObject;
+                t4._as(t3.core).error("Failed to list issues (" + t2 + ")");
+                A.Process_exit(t4._as(t3.process), t2);
               }
-              t3 = t2.get$current();
-              message = A.CommitMessage_CommitMessage$parse("", A._asString(t3.title), A._asString(t3.body));
-              dependency = message.get$trailers(message).$index(0, "Dependency-Name");
-              if (dependency == null) {
-                // goto for condition
-                $async$goto = 4;
-                break;
+              for (t2 = J.get$iterator$ax(type$.List_Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(issuesResult.stdout, null))), t3 = type$.nullable_Object; t2.moveNext$0();) {
+                _0_0 = t2.get$current().cast$2$0(0, t1, t3);
+                _0_3 = A._InitializedCell$named("#0#3", new A._listExistingSkipIssues__closure(_0_0));
+                _0_7 = A._InitializedCell$named("#0#7", new A._listExistingSkipIssues__closure0(_0_0));
+                _0_11 = A._InitializedCell$named("#0#11", new A._listExistingSkipIssues__closure1(_0_0));
+                if (_0_3._readFinal$0() == null)
+                  t4 = _0_0.containsKey$1("number");
+                else
+                  t4 = true;
+                if (t4) {
+                  A._asInt(_0_3._readFinal$0());
+                  number = A._asInt(_0_3._readFinal$0());
+                  if (_0_7._readFinal$0() == null)
+                    t4 = _0_0.containsKey$1("title");
+                  else
+                    t4 = true;
+                  if (t4) {
+                    A._asString(_0_7._readFinal$0());
+                    title = A._asString(_0_7._readFinal$0());
+                    if (_0_11._readFinal$0() == null)
+                      t4 = _0_0.containsKey$1("body");
+                    else
+                      t4 = true;
+                    if (t4) {
+                      A._asString(_0_11._readFinal$0());
+                      body = A._asString(_0_11._readFinal$0());
+                      t4 = true;
+                    } else {
+                      body = null;
+                      t4 = false;
+                    }
+                  } else {
+                    title = null;
+                    body = null;
+                    t4 = false;
+                  }
+                } else {
+                  number = null;
+                  title = null;
+                  body = null;
+                  t4 = false;
+                }
+                if (!t4)
+                  throw A.wrapException(A.StateError$("Pattern matching error"));
+                message = A.CommitMessage_CommitMessage$parse("", title, body);
+                dependency = message.get$trailers(message).$index(0, "Dependency-Name");
+                if (dependency == null)
+                  continue;
+                existingIssues.$indexSet(0, dependency, number);
               }
-              existingIssues.$indexSet(0, dependency, A._asInt(t3.number));
-              // goto for condition
-              $async$goto = 4;
-              break;
-            case 5:
-              // after for
-              t1._as(self.core).info("Found existing issues: " + existingIssues.toString$0(0));
+              type$.JSObject._as(self.core).info("Found existing issues: " + existingIssues.toString$0(0));
               $async$returnValue = existingIssues;
               // goto return
               $async$goto = 1;
@@ -44496,7 +44501,25 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 69
+    $signature: 78
+  };
+  A._listExistingSkipIssues__closure.prototype = {
+    call$0() {
+      return this._0_0.$index(0, "number");
+    },
+    $signature: 44
+  };
+  A._listExistingSkipIssues__closure0.prototype = {
+    call$0() {
+      return this._0_0.$index(0, "title");
+    },
+    $signature: 44
+  };
+  A._listExistingSkipIssues__closure1.prototype = {
+    call$0() {
+      return this._0_0.$index(0, "body");
+    },
+    $signature: 44
   };
   A._createSkipIssues_closure.prototype = {
     call$0() {
@@ -44570,7 +44593,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 29
+    $signature: 26
   };
   A._createPrs_closure.prototype = {
     call$0() {
@@ -44688,14 +44711,14 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 29
+    $signature: 26
   };
   A._createPrs__closure.prototype = {
     call$1(entry) {
       type$.MapEntry_String_VersionConstraint._as(entry);
       return "- Updated `" + A.S(entry.key) + "` to `" + A.S(entry.value) + "`";
     },
-    $signature: 231
+    $signature: 232
   };
   (function aliases() {
     var _ = J.LegacyJavaScriptObject.prototype;
@@ -44750,12 +44773,12 @@
       _instance_2_u = hunkHelpers._instance_2u,
       _instance_0_i = hunkHelpers._instance_0i,
       _instance_2_i = hunkHelpers._instance_2i;
-    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 66);
-    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 33);
+    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 80);
+    _instance_1_i(A._BytesBuilder.prototype, "get$add", "add$1", 42);
     _instance_1_u(A.JSSyntaxRegExp.prototype, "get$hasMatch", "hasMatch$1", 1);
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 36);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 36);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 36);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 35);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 35);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 35);
     _static(A, "async_Future___value_tearOff$closure", 0, function() {
       return [null];
     }, ["call$1$1", "call$1", "call$0", "call$1$0"], ["Future___value_tearOff", function(value) {
@@ -44764,50 +44787,50 @@
       return A.Future___value_tearOff(null, type$.dynamic);
     }, function($T) {
       return A.Future___value_tearOff(null, $T);
-    }], 234, 1);
+    }], 235, 1);
     _static(A, "async__FutureExtensions__ignore$closure", 1, function() {
       return [null];
     }, ["call$2", "call$1"], ["FutureExtensions__ignore", function(_) {
       return A.FutureExtensions__ignore(_, null);
-    }], 235, 0);
+    }], 236, 0);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
-    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 19);
+    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 21);
     _static_2(A, "async___nullErrorHandler$closure", "_nullErrorHandler", 7);
     _static_0(A, "async___nullDoneHandler$closure", "_nullDoneHandler", 0);
-    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 236, 0);
+    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 237, 0);
     _static(A, "async___rootRun$closure", 4, null, ["call$1$4", "call$4"], ["_rootRun", function($self, $parent, zone, f) {
       return A._rootRun($self, $parent, zone, f, type$.dynamic);
-    }], 237, 1);
+    }], 238, 1);
     _static(A, "async___rootRunUnary$closure", 5, null, ["call$2$5", "call$5"], ["_rootRunUnary", function($self, $parent, zone, f, arg) {
       return A._rootRunUnary($self, $parent, zone, f, arg, type$.dynamic, type$.dynamic);
-    }], 238, 1);
+    }], 239, 1);
     _static(A, "async___rootRunBinary$closure", 6, null, ["call$3$6", "call$6"], ["_rootRunBinary", function($self, $parent, zone, f, arg1, arg2) {
       return A._rootRunBinary($self, $parent, zone, f, arg1, arg2, type$.dynamic, type$.dynamic, type$.dynamic);
-    }], 239, 1);
+    }], 240, 1);
     _static(A, "async___rootRegisterCallback$closure", 4, null, ["call$1$4", "call$4"], ["_rootRegisterCallback", function($self, $parent, zone, f) {
       return A._rootRegisterCallback($self, $parent, zone, f, type$.dynamic);
-    }], 59, 0);
+    }], 70, 0);
     _static(A, "async___rootRegisterUnaryCallback$closure", 4, null, ["call$2$4", "call$4"], ["_rootRegisterUnaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterUnaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic);
-    }], 58, 0);
+    }], 71, 0);
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic, type$.dynamic);
-    }], 45, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 57, 0);
-    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 240, 0);
-    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 241, 0);
-    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 242, 0);
-    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 243, 0);
-    _static_1(A, "async___printToZone$closure", "_printToZone", 30);
-    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 244, 0);
+    }], 72, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 73, 0);
+    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 241, 0);
+    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 242, 0);
+    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 243, 0);
+    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 244, 0);
+    _static_1(A, "async___printToZone$closure", "_printToZone", 31);
+    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 245, 0);
     var _;
     _instance_0_u(_ = A._BroadcastSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_i(_ = A._BroadcastStreamController.prototype, "get$add", "add$1", 11);
+    _instance_1_i(_ = A._BroadcastStreamController.prototype, "get$add", "add$1", 10);
     _instance(_, "get$addError", 0, 1, function() {
       return [null];
     }, ["call$2", "call$1"], ["addError$2", "addError$1"], 25, 0, 0);
-    _instance_1_u(_, "get$_async$_add", "_async$_add$1", 11);
+    _instance_1_u(_, "get$_async$_add", "_async$_add$1", 10);
     _instance_2_u(_, "get$_addError", "_addError$2", 7);
     _instance_0_u(_, "get$_close", "_close$0", 0);
     _instance(A._Completer.prototype, "get$completeError", 0, 1, function() {
@@ -44815,60 +44838,60 @@
     }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 25, 0, 0);
     _instance(A._SyncCompleter.prototype, "get$complete", 0, 0, function() {
       return [null];
-    }, ["call$1", "call$0"], ["complete$1", "complete$0"], 31, 0, 0);
+    }, ["call$1", "call$0"], ["complete$1", "complete$0"], 32, 0, 0);
     _instance_2_u(A._Future.prototype, "get$_completeError", "_completeError$2", 7);
-    _instance_1_i(_ = A._StreamController.prototype, "get$add", "add$1", 11);
+    _instance_1_i(_ = A._StreamController.prototype, "get$add", "add$1", 10);
     _instance(_, "get$addError", 0, 1, function() {
       return [null];
     }, ["call$2", "call$1"], ["addError$2", "addError$1"], 25, 0, 0);
-    _instance_1_u(_, "get$_async$_add", "_async$_add$1", 11);
+    _instance_1_u(_, "get$_async$_add", "_async$_add$1", 10);
     _instance_2_u(_, "get$_addError", "_addError$2", 7);
     _instance_0_u(_, "get$_close", "_close$0", 0);
     _instance_0_u(_ = A._ControllerSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance(_ = A._BufferingStreamSubscription.prototype, "get$pause", 1, 0, null, ["call$1", "call$0"], ["pause$1", "pause$0"], 49, 0, 0);
+    _instance(_ = A._BufferingStreamSubscription.prototype, "get$pause", 1, 0, null, ["call$1", "call$0"], ["pause$1", "pause$0"], 79, 0, 0);
     _instance_0_i(_, "get$resume", "resume$0", 0);
     _instance_0_u(_, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance(_ = A._DoneStreamSubscription.prototype, "get$pause", 1, 0, null, ["call$1", "call$0"], ["pause$1", "pause$0"], 49, 0, 0);
+    _instance(_ = A._DoneStreamSubscription.prototype, "get$pause", 1, 0, null, ["call$1", "call$0"], ["pause$1", "pause$0"], 79, 0, 0);
     _instance_0_i(_, "get$resume", "resume$0", 0);
     _instance_0_u(_, "get$_onMicrotask", "_onMicrotask$0", 0);
     _instance_0_u(_ = A._ForwardingStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 11);
-    _instance_2_u(_, "get$_handleError", "_handleError$2", 207);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 10);
+    _instance_2_u(_, "get$_handleError", "_handleError$2", 141);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
     _instance_0_u(_ = A._SinkTransformerStreamSubscription.prototype, "get$_onPause", "_onPause$0", 0);
     _instance_0_u(_, "get$_onResume", "_onResume$0", 0);
-    _instance_1_u(_, "get$_handleData", "_handleData$1", 11);
+    _instance_1_u(_, "get$_handleData", "_handleData$1", 10);
     _instance_2_u(_, "get$_handleError", "_handleError$2", 7);
     _instance_0_u(_, "get$_handleDone", "_handleDone$0", 0);
-    _static_2(A, "collection___defaultEquals$closure", "_defaultEquals", 21);
-    _static_1(A, "collection___defaultHashCode$closure", "_defaultHashCode", 10);
-    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 66);
+    _static_2(A, "collection___defaultEquals$closure", "_defaultEquals", 23);
+    _static_1(A, "collection___defaultHashCode$closure", "_defaultHashCode", 13);
+    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 80);
     _static_1(A, "convert___defaultToEncodable$closure", "_defaultToEncodable", 6);
     _instance_0_i(A._JsonDecoderSink.prototype, "get$close", "close$0", 0);
-    _instance(A._JsonUtf8EncoderSink.prototype, "get$_addChunk", 0, 3, null, ["call$3"], ["_addChunk$3"], 95, 0, 0);
-    _static_1(A, "core__identityHashCode$closure", "identityHashCode", 10);
-    _static_2(A, "core__identical$closure", "identical", 21);
-    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 13);
-    _static_0(A, "core__Uri__createList$closure", "_Uri__createList", 245);
-    _static_2(A, "core___toUnmodifiableStringList$closure", "_toUnmodifiableStringList", 246);
-    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 19);
-    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 204);
+    _instance(A._JsonUtf8EncoderSink.prototype, "get$_addChunk", 0, 3, null, ["call$3"], ["_addChunk$3"], 107, 0, 0);
+    _static_1(A, "core__identityHashCode$closure", "identityHashCode", 13);
+    _static_2(A, "core__identical$closure", "identical", 23);
+    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 11);
+    _static_0(A, "core__Uri__createList$closure", "_Uri__createList", 246);
+    _static_2(A, "core___toUnmodifiableStringList$closure", "_toUnmodifiableStringList", 247);
+    _instance_1_u(_ = A._StreamSinkImpl.prototype, "get$_completeDoneValue", "_completeDoneValue$1", 21);
+    _instance_2_u(_, "get$_completeDoneError", "_completeDoneError$2", 86);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
-    }], 247, 1);
-    _instance_1_u(A.NodeLoggerPlugin.prototype, "get$handleLogEntry", "handleLogEntry$1", 48);
-    _instance_0_i(A.NodeProcessManager.prototype, "get$close", "close$0", 12);
-    _static_1(A, "config_AftComponent___fromJson_tearOff$closure", "AftComponent___fromJson_tearOff", 248);
-    _static_1(A, "config_PackageInfo___fromJson_tearOff$closure", "PackageInfo___fromJson_tearOff", 249);
+    }], 248, 1);
+    _instance_1_u(A.NodeLoggerPlugin.prototype, "get$handleLogEntry", "handleLogEntry$1", 53);
+    _instance_0_i(A.NodeProcessManager.prototype, "get$close", "close$0", 9);
+    _static_1(A, "config_AftComponent___fromJson_tearOff$closure", "AftComponent___fromJson_tearOff", 249);
+    _static_1(A, "config_PackageInfo___fromJson_tearOff$closure", "PackageInfo___fromJson_tearOff", 250);
     _instance_0_u(A.AftConfig.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.AftComponent.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.PackageInfo.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.PubspecInfo.prototype, "get$toJson", "toJson$0", 3);
-    _static_1(A, "package_selector_PackageSelector___fromJson_tearOff$closure", "PackageSelector___fromJson_tearOff", 79);
-    _static_1(A, "raw_config_AftScript___fromJson_tearOff$closure", "AftScript___fromJson_tearOff", 250);
+    _static_1(A, "package_selector_PackageSelector___fromJson_tearOff$closure", "PackageSelector___fromJson_tearOff", 48);
+    _static_1(A, "raw_config_AftScript___fromJson_tearOff$closure", "AftScript___fromJson_tearOff", 251);
     _instance_0_u(A.RawAftConfig.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.Environment.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.AndroidEnvironment.prototype, "get$toJson", "toJson$0", 3);
@@ -44878,58 +44901,58 @@
     _instance_0_u(A.RawAftComponent.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.AftScript.prototype, "get$toJson", "toJson$0", 3);
     _instance_0_u(A.Deputy.prototype, "get$scanForUpdates", "scanForUpdates$0", 118);
-    _instance_1_u(A.Repo.prototype, "get$maybePackage", "maybePackage$1", 26);
+    _instance_1_u(A.Repo.prototype, "get$maybePackage", "maybePackage$1", 28);
     _instance_0_i(A.CancelableOperation.prototype, "get$cancel", "cancel$0", 131);
     _instance(_ = A.CancelableCompleter.prototype, "get$completeError", 0, 1, function() {
       return [null];
     }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 25, 0, 0);
-    _instance_0_u(_, "get$_cancelable_operation$_cancel", "_cancelable_operation$_cancel$0", 12);
+    _instance_0_u(_, "get$_cancelable_operation$_cancel", "_cancelable_operation$_cancel$0", 9);
     _instance_0_u(_ = A.StreamSplitter.prototype, "get$_onListen", "_onListen$0", 0);
     _instance_0_u(_, "get$_stream_splitter$_onPause", "_stream_splitter$_onPause$0", 0);
     _instance_0_u(_, "get$_stream_splitter$_onResume", "_stream_splitter$_onResume$0", 0);
-    _instance_1_u(_, "get$_stream_splitter$_onData", "_stream_splitter$_onData$1", 11);
+    _instance_1_u(_, "get$_stream_splitter$_onData", "_stream_splitter$_onData$1", 10);
     _instance_2_u(_, "get$_stream_splitter$_onError", "_stream_splitter$_onError$2", 7);
     _instance_0_u(_, "get$_stream_splitter$_onDone", "_stream_splitter$_onDone$0", 0);
-    _instance_1_u(A.SimpleLogPrinter.prototype, "get$handleLogEntry", "handleLogEntry$1", 48);
-    _instance_2_i(_ = A.DefaultEquality.prototype, "get$equals", "equals$2", 21);
-    _instance_1_u(_, "get$hash", "hash$1", 10);
-    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 37);
-    _instance_2_i(_ = A.DeepCollectionEquality.prototype, "get$equals", "equals$2", 21);
-    _instance_1_u(_, "get$hash", "hash$1", 10);
-    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 37);
+    _instance_1_u(A.SimpleLogPrinter.prototype, "get$handleLogEntry", "handleLogEntry$1", 53);
+    _instance_2_i(_ = A.DefaultEquality.prototype, "get$equals", "equals$2", 23);
+    _instance_1_u(_, "get$hash", "hash$1", 13);
+    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 36);
+    _instance_2_i(_ = A.DeepCollectionEquality.prototype, "get$equals", "equals$2", 23);
+    _instance_1_u(_, "get$hash", "hash$1", 13);
+    _instance_1_u(_, "get$isValidKey", "isValidKey$1", 36);
     _static(A, "util__dartify$closure", 1, null, ["call$1$1", "call$1"], ["dartify", function(jsObject) {
       return A.dartify(jsObject, type$.dynamic);
-    }], 251, 1);
+    }], 252, 1);
     _instance_0_i(A.File.prototype, "get$length", "length$0", 163);
-    _static_1(A, "streams_NodeIOSink__nodeIoSinkConvert$closure", "NodeIOSink__nodeIoSinkConvert", 252);
+    _static_1(A, "streams_NodeIOSink__nodeIoSinkConvert$closure", "NodeIOSink__nodeIoSinkConvert", 253);
     _instance_1_u(A.WritableStream.prototype, "get$_errorHandler", "_errorHandler$1", 166);
-    _instance(A.NodeIOSink.prototype, "get$writeln", 0, 0, null, ["call$1", "call$0"], ["writeln$1", "writeln$0"], 31, 0, 0);
-    _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 22);
-    _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 24);
-    _static_1(A, "frame_Frame___parseV8_tearOff$closure", "Frame___parseV8_tearOff", 24);
-    _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 24);
-    _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 24);
-    _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 22);
-    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 59, 0, 0);
-    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 58, 0, 0);
-    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 45, 0, 0);
+    _instance(A.NodeIOSink.prototype, "get$writeln", 0, 0, null, ["call$1", "call$0"], ["writeln$1", "writeln$0"], 32, 0, 0);
+    _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 20);
+    _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 29);
+    _static_1(A, "frame_Frame___parseV8_tearOff$closure", "Frame___parseV8_tearOff", 29);
+    _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 29);
+    _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 29);
+    _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 20);
+    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 70, 0, 0);
+    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 71, 0, 0);
+    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 72, 0, 0);
     _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 215, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 57, 0, 0);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 61);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 61);
-    _static_2(A, "equality__deepEquals$closure", "deepEquals0", 21);
-    _static_1(A, "equality__deepHashCode$closure", "deepHashCode", 10);
-    _static_2(A, "equality0__deepEquals$closure", "deepEquals", 255);
-    _static_1(A, "equality0__deepHashCode$closure", "deepHashCode0", 10);
-    _static_1(A, "strings__yamlEncodeFlowString$closure", "yamlEncodeFlowString", 78);
-    _static_0(A, "deputy_scan___deputyScan$closure", "_deputyScan", 12);
-    _static_2(A, "comparators__equalsIgnoreAsciiCase$closure", "equalsIgnoreAsciiCase", 73);
-    _static_1(A, "comparators__hashIgnoreAsciiCase$closure", "hashIgnoreAsciiCase", 186);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 73, 0, 0);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 56);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 56);
+    _static_2(A, "equality__deepEquals$closure", "deepEquals0", 23);
+    _static_1(A, "equality__deepHashCode$closure", "deepHashCode", 13);
+    _static_2(A, "equality0__deepEquals$closure", "deepEquals", 256);
+    _static_1(A, "equality0__deepHashCode$closure", "deepHashCode0", 13);
+    _static_1(A, "strings__yamlEncodeFlowString$closure", "yamlEncodeFlowString", 77);
+    _static_0(A, "deputy_scan___deputyScan$closure", "_deputyScan", 9);
+    _static_2(A, "comparators__equalsIgnoreAsciiCase$closure", "equalsIgnoreAsciiCase", 55);
+    _static_1(A, "comparators__hashIgnoreAsciiCase$closure", "hashIgnoreAsciiCase", 257);
     _static(A, "uuid_util_UuidUtil_mathRNG$closure", 0, function() {
       return {seed: -1};
     }, ["call$1$seed", "call$0"], ["UuidUtil_mathRNG", function() {
       return A.UuidUtil_mathRNG(-1);
-    }], 171, 0);
+    }], 172, 0);
   })();
   (function inheritance() {
     var _mixin = hunkHelpers.mixin,
@@ -44953,7 +44976,7 @@
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.JsonUnsupportedObjectError, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError, A._UnreachableError, A.BuiltValueNullFieldError, A.BuiltValueNestedFieldError, A.DeserializationError]);
     _inheritMany(A.ListBase, [A.UnmodifiableListBase, A.YamlListWrapper, A._YamlListNodes]);
     _inheritMany(A.UnmodifiableListBase, [A.CodeUnits, A.UnmodifiableListView]);
-    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.allocateSwapSpace_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A._$aftSerializers_closure4, A.ConstraintUpdater_updateFor_closure, A.ConstraintUpdater_updateFor_closure0, A.ConstraintUpdater_updateFor_closure2, A.ConstraintUpdater_updateFor_closure1, A.ConstraintUpdater_updateFor_closure3, A.ConstraintUpdater_updateFor_closure4, A.ConstraintUpdater_updateFor_closure5, A.VersionWindow_VersionWindow$fromRange_closure, A.VersionWindow_VersionWindow$fromRange_closure1, A.VersionWindow_VersionWindow$fromRange_closure0, A.Deputy__listDependencyGroups__closure1, A.Deputy__proposeUpdates_proposedUpdate, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure1, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._listExistingPrs_closure, A._listExistingSkipIssues_closure, A._createSkipIssues_closure, A._createPrs_closure]);
+    _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_fold_closure, A.Stream_fold__closure, A.Stream_length_closure0, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._AddStreamState_cancel_closure, A._BufferingStreamSubscription__sendError_sendError, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A.wrapMain__closure0, A.wrapMain__closure, A.NodeReadableStream_get_stream_closure, A.NodeReadableStream_get_stream_closure0, A.nodeProcessManager_closure, A.allocateSwapSpace_closure, A.AftConfigLoader__processPubspecs_mergePubspec__closure, A._$aftSerializers_closure, A._$aftSerializers_closure0, A._$aftSerializers_closure1, A._$aftSerializers_closure2, A._$aftSerializers_closure3, A._$aftSerializers_closure4, A.ConstraintUpdater_updateFor_closure, A.ConstraintUpdater_updateFor_closure0, A.ConstraintUpdater_updateFor_closure2, A.ConstraintUpdater_updateFor_closure1, A.ConstraintUpdater_updateFor_closure3, A.ConstraintUpdater_updateFor_closure4, A.ConstraintUpdater_updateFor_closure5, A.VersionWindow_VersionWindow$fromRange_closure, A.VersionWindow_VersionWindow$fromRange_closure1, A.VersionWindow_VersionWindow$fromRange_closure0, A.Deputy__listDependencyGroups__closure1, A.Deputy__proposeUpdates_proposedUpdate, A.Deputy__proposeUpdates_closure, A.Deputy__proposeUpdates_closure1, A._collectBytes_closure, A.CancelableOperation_thenOperation_closure1, A.StreamQueue__ensureListening_closure0, A.StreamSplitter_split_closure, A._CancelOnErrorSubscriptionWrapper_onError__closure, A.AWSHttpClientImpl__send_closure0, A.AWSHttpClientImpl__send_closure2, A.AWSHttpClientImpl__send_closure3, A.AWSHttpClientImpl__send_closure4, A.AWSHttpClientImpl__send_closure5, A.AWSHttpClientImpl_send_wrappedOnCancel, A.AWSBaseHttpRequest_send_closeClient, A.AWSBaseHttpRequest_send_closure1, A.StreamToReadableStream_asReadableStream__closure, A.AWSOperation_cancel_closure, A.StringRecase_groupIntoWords_closure1, A.StreamForward_forward_closure0, A.Serializers_Serializers_closure, A.Serializers_Serializers_closure0, A.Serializers_Serializers_closure1, A.Serializers_Serializers_closure2, A.Serializers_Serializers_closure3, A.toParsedYamlException_closure0, A.$checkedCreate_closure, A.Logger_Logger_closure, A.WritableStream_close_end, A.VersionConstraint_VersionConstraint$parse_skipWhitespace, A.VersionConstraint_VersionConstraint$parse_matchVersion, A.VersionConstraint_VersionConstraint$parse_matchComparison, A.VersionConstraint_VersionConstraint$parse_matchCompatibleWith, A._fromJson_closure0, A._digits_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.TransformByHandlers_transformByHandlers_closure, A.TransformByHandlers_transformByHandlers__closure0, A.TransformByHandlers_transformByHandlers__closure2, A.TakeUntil_takeUntil_closure0, A.TakeUntil_takeUntil__closure, A.TakeUntil_takeUntil__closure0, A._listExistingPrs_closure, A._listExistingSkipIssues_closure, A._listExistingSkipIssues__closure, A._listExistingSkipIssues__closure0, A._listExistingSkipIssues__closure1, A._createSkipIssues_closure, A._createPrs_closure]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable, A._HashMapKeyIterable, A._MapBaseValueIterable]);
     _inheritMany(A.ListIterable, [A.SubListIterable, A.MappedListIterable, A.ReversedListIterable, A.ListQueue, A._JsonMapKeyIterable]);
     _inherit(A.EfficientLengthMappedIterable, A.MappedIterable);
@@ -45189,7 +45212,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "String?(Object?)", "bool(@)", "@(@)", "~(Object,StackTrace)", "String(Object?)", "Object?(@)", "int(Object?)", "~(Object?)", "Future<~>()", "String(String)", "~(@,@)", "String(Match)", "Null(Object,StackTrace)", "bool()", "String(@)", "~(@)", "int()", "bool(Object?,Object?)", "Trace()", "Frame()", "Frame(String)", "~(Object[StackTrace?])", "PackageInfo?(String)", "Map<String,Dependency>(Object?)", "~(String,@)", "Future<Null>()", "~(String)", "~([Object?])", "Dependency()", "~(List<int>)", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "List<String>(Object?)", "~(~())", "bool(Object?)", "Null(@)", "VersionConstraint?()", "Null(~)", "PackageInfo?(Object?)", "Uri?(Object?)", "bool(_Highlight)", "~(Object?,Object?)", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "~(Symbol0,@)", "bool(PackageInfo)", "~(LogEntry)", "~([Future<~>?])", "PackageInfo(@)", "VersionPropagation(Object?)", "Map<String,Object?>(PackageInfo)", "Uri(Object?)", "@(String)", "YamlNode(Map<@,@>)", "Future<~>?()", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "Object?(PackageSelector)", "Trace(String)", "String(Frame)", "int(Frame)", "~(Uint8List,String,int)", "List<String>?(Object?)", "int(@,@)", "VersionConstraint(Object?)", "Null(@,StackTrace)", "Future<Map<String,int>>()", "Object?(Object?)", "bool(AWSLoggerPlugin)", "bool(Version)", "bool(String,String)", "~(Repo)", "int(String?)", "Version(Version)", "int(int,int)", "String(YamlNode)", "PackageSelector(Object?)", "@()", "String(MapEntry<@,YamlNode>)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "Null(~())", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "MapEntry<String,String?>(String,VersionConstraint?)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "String(StringBuffer)", "~(Uint8List,int,int)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "_LineSplitterEventSink(EventSink<String>)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(YamlMap,Pubspec{isRoot:bool})", "YamlMap(Object?)", "MapBuilder<String,PackageInfo>()", "MapBuilder<String,VersionConstraint>()", "ListBuilder<String>()", "SetBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "int(int)", "VersionWindow()", "~(int,@)", "Pubspec(Object?)", "Future<DeputyResults>()", "~(PackageInfo)", "bool(String,Dependency)", "Null(ListMultimapBuilder<String,DependencyMetadata>)", "~(String,String)", "DependencyGroupUpdateBuilder()", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PackageFlavor(Object?)", "MapEntry<String,DependencyGroupUpdate>(String,DependencyGroupUpdateBuilder)", "PubspecInfo(Object?)", "Null(@,@)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "~(String,int)", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "bool(AWSLogger)", "LogEntry(LogRecord)", "~(String,int?)", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "MapEntry<String,List<PackageInfo>>(@,@)", "YamlMap()", "~(String,String?)", "~(int,int,int)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "Uint8List({seed:int})", "MapEntry<String,Dependency>(@,@)", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Map<String,List<PackageInfo>>(Object?)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Uint8List(@,@)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "List<PackageInfo>(Object?)", "Map<String,VersionConstraint?>?(Object?)", "int(String)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "@(@,String)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "~(@,StackTrace?)", "List<Frame>(Trace)", "int(Trace)", "~(@,StackTrace)", "String(Trace)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "MapEntry<String,String>(String)", "Frame(String,String)", "Future<Null>(String)", "0&(JSObject)", "VersionRange?()", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "_Future<@>(@)", "Chain()", "NodeProcessManager()", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "Null([Object?,Object?,Object?])", "~(JSObject)", "~(Uint8List)", "YamlNode(@)", "Iterable<String>(DependencyMetadata)", "String(MapEntry<String,VersionConstraint>)", "String(PackageInfo)", "bool(DependencyUpdateGroup)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "Future<0&>()", "Future<~>(Object,Chain)", "bool(@,@)", "List<Uri>?(Object?)", "String(MapEntry<String,String>)"],
+    types: ["~()", "bool(String)", "Null()", "Map<String,Object?>()", "String?(Object?)", "bool(@)", "@(@)", "~(Object,StackTrace)", "String(Object?)", "Future<~>()", "~(Object?)", "String(String)", "Object?(@)", "int(Object?)", "bool()", "Null(Object,StackTrace)", "~(@,@)", "String(Match)", "String(@)", "Frame()", "Trace()", "~(@)", "int()", "bool(Object?,Object?)", "Map<String,Dependency>(Object?)", "~(Object[StackTrace?])", "Future<Null>()", "~(String,@)", "PackageInfo?(String)", "Frame(String)", "VersionConstraint?()", "~(String)", "~([Object?])", "List<String>(Object?)", "PackageInfo?(Object?)", "~(~())", "bool(Object?)", "Uri?(Object?)", "bool(_Highlight)", "Dependency()", "Null(@)", "~(Object?,Object?)", "~(List<int>)", "MapEntry<String,Map<String,Object?>>(String,Dependency)", "Object?()", "Null(~)", "Uri(Object?)", "Map<String,Object?>(PackageInfo)", "PackageSelector(Object?)", "VersionPropagation(Object?)", "PackageInfo(@)", "@(String)", "Version(Version)", "~(LogEntry)", "bool(PackageInfo)", "bool(String,String)", "Trace(String)", "bool(AWSLoggerPlugin)", "Object?(Object?)", "bool(Version)", "~(Uint8List,String,int)", "int(String?)", "VersionConstraint(Object?)", "~(Symbol0,@)", "List<String>?(Object?)", "int(int,int)", "@()", "int(Frame)", "String(Frame)", "~(Repo)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<~>?()", "YamlNode(Map<@,@>)", "String(MapEntry<@,YamlNode>)", "String(YamlNode)", "Future<Map<String,int>>()", "~([Future<~>?])", "int(@,@)", "Null(@,StackTrace)", "Object?(PackageSelector)", "MapEntry<String,String?>(String,VersionConstraint?)", "Uint8List(@,@)", "~(int,@)", "~(@,StackTrace?)", "_ConverterStreamEventSink<@,@>(EventSink<@>)", "RawPubspecConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "StringBuffer(StringBuffer,String)", "Environment(Object?)", "RawAftConfig?(Object?)", "RawAftConfig(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "PlatformEnvironment?(Object?)", "Future<0&>()", "String(StringBuffer)", "List<RawAftComponent>(Object?)", "RawAftComponent(@)", "Map<String,AftScript>(Object?)", "MapEntry<String,AftScript>(@,@)", "GitHubPackageConfig?(Object?)", "Map<String,Object?>(RawAftComponent)", "MapEntry<String,Map<String,Object?>>(String,AftScript)", "RawAftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Future<~>(Object,Chain)", "AftScript(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "bool(DependencyUpdateGroup)", "~(Uint8List,int,int)", "MapBuilder<String,PackageInfo>()", "MapBuilder<String,VersionConstraint>()", "ListBuilder<String>()", "SetBuilder<String>()", "MapBuilder<String,AftComponent>()", "MapBuilder<String,AftScript>()", "String(PackageInfo)", "VersionWindow()", "Iterable<String>(DependencyMetadata)", "_LineSplitterEventSink(EventSink<String>)", "Future<DeputyResults>()", "~(PackageInfo)", "bool(String,Dependency)", "Null(ListMultimapBuilder<String,DependencyMetadata>)", "~(String,String)", "DependencyGroupUpdateBuilder()", "~(Uint8List)", "~(JSObject)", "MapEntry<String,DependencyGroupUpdate>(String,DependencyGroupUpdateBuilder)", "Null([Object?,Object?,Object?])", "String(MapEntry<String,String>)", "Null(@,@)", "Future<Uint8List>(StreamSubscription<List<int>>,Future<Uint8List>)", "Future<@>()", "NodeProcessManager()", "Future<Null>(Object,StackTrace)", "bool(X509Certificate,String,int)", "~(Object,@)", "AWSBaseHttpResponse(AWSBaseHttpResponse)", "0&(Object,StackTrace)", "~(String,String,JavaScriptObject)", "JavaScriptObject(JavaScriptObject)", "Future<~>(JavaScriptObject)", "~(@,StackTrace)", "bool(AWSLogger)", "LogEntry(LogRecord)", "0&(JSObject)", "Iterable<String>()", "String(RegExpMatch)", "int(int,@)", "IndentingBuiltValueToStringHelper(String)", "ListBuilder<Object>()", "ListMultimapBuilder<Object,Object>()", "MapBuilder<Object,Object>()", "SetBuilder<Object>()", "SetMultimapBuilder<Object,Object>()", "Future<Null>(String)", "YamlMap()", "MapEntry<String,String>(String)", "int(int)", "bool(MapEntry<@,@>)", "String(MapEntry<@,@>)", "0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>", "Logger()", "Iterable<FileSystemEntity>(String)", "Future<int>()", "int(FileStat)", "~(@[@])", "~(JsError)", "~([JsError?])", "String(String?)", "Object(String)", "Version?()", "VersionRange?()", "Uint8List({seed:int})", "SdkDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "AftComponent(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "GitDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDependency(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "HostedDetails?(Object?)", "HostedDetails(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "@(@,String)", "Pubspec(Map<@,@>?)", "MapEntry<String,VersionConstraint?>(@,@)", "Pubspec(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Version?(Object?)", "Null(~())", "Map<String,VersionConstraint?>?(Object?)", "List<Uri>?(Object?)", "Uri(@)", "List<Screenshot>(Object?)", "Map<String,@>?(Object?)", "MapEntry<String,@>(@,@)", "Trace(Trace)", "Frame?(Frame)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "String?()", "int(_Line)", "List<PackageInfo>(Object?)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "SourceSpanWithContext()", "~(String,int)", "List<Frame>(Trace)", "int(Trace)", "Map<String,List<PackageInfo>>(Object?)", "String(Trace)", "MapEntry<String,List<PackageInfo>>(@,@)", "~(String,int?)", "Frame(String,String)", "_Future<@>(@)", "MapEntry<String,List<Map<String,Object?>>>(String,List<PackageInfo>)", "PackageInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "PubspecInfo(Object?)", "Chain()", "PackageFlavor(Object?)", "Token(AnchorToken)", "Token(TagToken)", "bool(_SimpleKey?)", "~(String[SourceSpan?])", "YamlScalar(@)", "~(YamlNode)", "~(@,YamlNode)", "PubspecInfo(0^(String,0^(Object?){readValue:Object?(Map<@,@>,String)?})<Object?>)", "Pubspec(Object?)", "YamlMap(Object?)", "YamlNode(@)", "~(String,String?)", "~(YamlMap,Pubspec{isRoot:bool})", "String(MapEntry<String,VersionConstraint>)", "MapEntry<String,VersionConstraint>?(MapEntry<String,Dependency>)", "~(int,int,int)", "Future<0^>([0^/?])<Object?>", "~(Object?[Object?])", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "List<String>()", "List<String>(String,List<String>)", "0^(0^,0^)<num>", "AftComponent(Map<String,Object?>)", "PackageInfo(Map<String,Object?>)", "AftScript(Map<String,Object?>)", "0^(@)<Object?>", "@(List<int>)", "MapEntry<String,RawAftComponent>(RawAftComponent)", "MapEntry<String,AftComponent>(String,RawAftComponent)", "bool(@,@)", "int(String)", "MapEntry<String,Dependency>(@,@)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -45365,6 +45388,7 @@
       ListMultimapBuilder_String_DependencyMetadata: findType("ListMultimapBuilder<String,DependencyMetadata>"),
       ListMultimapBuilder_dynamic_dynamic: findType("ListMultimapBuilder<@,@>"),
       List_JSObject: findType("List<JSObject>"),
+      List_Map_dynamic_dynamic: findType("List<Map<@,@>>"),
       List_Map_of_String_and_nullable_Object: findType("List<Map<String,Object?>>"),
       List_Object: findType("List<Object>"),
       List_PackageInfo: findType("List<PackageInfo>"),

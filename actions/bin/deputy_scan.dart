@@ -68,19 +68,37 @@ Future<Map<String, int>> _listExistingPrs() async {
 }
 
 /// Lists all Deputy-created issues which currently exist in the repo.
-Future<Map<String, int>> _listExistingSkipIssues() async {
-  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
+Future<Map<String, int>> _listExistingSkipIssues(Repo repo) async {
   return core.withGroup('Check for existing skip issues', () async {
     final existingIssues = <String, int>{};
-    final issues = await octokit.rest.issues.list();
+    final issuesResult = await nodeProcessManager.run(
+      <String>[
+        'gh',
+        'issue',
+        'list',
+        '--json=number,title,body',
+      ],
+      echoOutput: true,
+      workingDirectory: repo.rootDir.path,
+    );
+    if (issuesResult.exitCode != 0) {
+      core.error('Failed to list issues (${issuesResult.exitCode})');
+      process.exit(issuesResult.exitCode);
+    }
+    final issues = jsonDecode(issuesResult.stdout.toString()) as List<Map>;
     for (final issue in issues) {
-      final message = CommitMessage.parse('', issue.title, body: issue.body);
+      final {
+        'number': number as int,
+        'title': title as String,
+        'body': body as String
+      } = issue.cast<String, Object?>();
+      final message = CommitMessage.parse('', title, body: body);
       final trailers = message.trailers;
       final dependency = trailers[_dependencyNameTrailer];
       if (dependency == null) {
         continue;
       }
-      existingIssues[dependency] = issue.number;
+      existingIssues[dependency] = number;
     }
     core.info('Found existing issues: $existingIssues');
     return existingIssues;
@@ -92,7 +110,7 @@ Future<void> _createSkipIssues(
   Repo repo,
   Map<String, SkipReason> skipped,
 ) async {
-  final existingIssues = await _listExistingSkipIssues();
+  final existingIssues = await _listExistingSkipIssues(repo);
   await core.withGroup('Creating skipped issues', () async {
     for (final MapEntry(key: dependency, value: reason) in skipped.entries) {
       if (reason is! BreakingChange) {
