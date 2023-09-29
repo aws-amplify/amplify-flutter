@@ -143,6 +143,7 @@ class GreetingWithErrorsOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -150,6 +151,7 @@ class GreetingWithErrorsOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GreetingWithErrorsOutput deserialize(
     Serializers serializers,
@@ -193,6 +195,7 @@ class ComplexErrorRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ComplexError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -200,6 +203,7 @@ class ComplexErrorRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -254,6 +258,7 @@ class ComplexNestedErrorDataRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -261,6 +266,7 @@ class ComplexNestedErrorDataRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,
@@ -304,6 +310,7 @@ class InvalidGreetingRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [InvalidGreeting];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -311,6 +318,7 @@ class InvalidGreetingRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

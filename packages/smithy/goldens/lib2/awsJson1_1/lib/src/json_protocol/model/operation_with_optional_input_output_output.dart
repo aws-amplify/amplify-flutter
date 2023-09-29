@@ -42,6 +42,7 @@ abstract class OperationWithOptionalInputOutputOutput
   String? get value;
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper =
@@ -64,6 +65,7 @@ class OperationWithOptionalInputOutputOutputAwsJson11Serializer extends _i2
         OperationWithOptionalInputOutputOutput,
         _$OperationWithOptionalInputOutputOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -71,6 +73,7 @@ class OperationWithOptionalInputOutputOutputAwsJson11Serializer extends _i2
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   OperationWithOptionalInputOutputOutput deserialize(
     Serializers serializers,

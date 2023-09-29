@@ -65,8 +65,10 @@ class JsonMapsOperation extends _i1.HttpOperation<JsonMapsInputOutput,
         b.method = 'POST';
         b.path = r'/JsonMaps';
       });
+
   @override
   int successCode([JsonMapsInputOutput? output]) => 200;
+
   @override
   JsonMapsInputOutput buildOutput(
     JsonMapsInputOutput payload,
@@ -76,16 +78,22 @@ class JsonMapsOperation extends _i1.HttpOperation<JsonMapsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'JsonMaps';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<JsonMapsInputOutput> run(
     JsonMapsInputOutput input, {

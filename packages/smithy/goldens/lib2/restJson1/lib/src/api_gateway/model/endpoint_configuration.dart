@@ -43,6 +43,7 @@ abstract class EndpointConfiguration
         types,
         vpcEndpointIds,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndpointConfiguration')
@@ -68,6 +69,7 @@ class EndpointConfigurationRestJson1Serializer
         EndpointConfiguration,
         _$EndpointConfiguration,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -75,6 +77,7 @@ class EndpointConfigurationRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EndpointConfiguration deserialize(
     Serializers serializers,

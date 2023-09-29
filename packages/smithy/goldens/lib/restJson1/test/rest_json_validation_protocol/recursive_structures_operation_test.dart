@@ -70,6 +70,7 @@ class RecursiveStructuresInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RecursiveStructuresInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -77,6 +78,7 @@ class RecursiveStructuresInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveStructuresInput deserialize(
     Serializers serializers,
@@ -120,6 +122,7 @@ class ValidationExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ValidationException];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -127,6 +130,7 @@ class ValidationExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ValidationException deserialize(
     Serializers serializers,
@@ -179,6 +183,7 @@ class ValidationExceptionFieldRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ValidationExceptionField];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -186,6 +191,7 @@ class ValidationExceptionFieldRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ValidationExceptionField deserialize(
     Serializers serializers,

@@ -65,8 +65,10 @@ class XmlBlobsOperation extends _i1
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([XmlBlobsOutput? output]) => 200;
+
   @override
   XmlBlobsOutput buildOutput(
     XmlBlobsOutput payload,
@@ -76,16 +78,22 @@ class XmlBlobsOperation extends _i1
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlBlobs';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlBlobsOutput> run(
     _i1.Unit input, {

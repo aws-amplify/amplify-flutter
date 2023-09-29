@@ -32,6 +32,7 @@ abstract class PayloadWithXmlNamespaceAndPrefix
   String? get name;
   @override
   List<Object?> get props => [name];
+
   @override
   String toString() {
     final helper =
@@ -54,6 +55,7 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
         PayloadWithXmlNamespaceAndPrefix,
         _$PayloadWithXmlNamespaceAndPrefix,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PayloadWithXmlNamespaceAndPrefix deserialize(
     Serializers serializers,

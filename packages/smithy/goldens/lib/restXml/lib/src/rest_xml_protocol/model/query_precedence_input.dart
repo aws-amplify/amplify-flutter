@@ -54,11 +54,13 @@ abstract class QueryPrecedenceInput
   _i3.BuiltMap<String, String>? get baz;
   @override
   QueryPrecedenceInputPayload getPayload() => QueryPrecedenceInputPayload();
+
   @override
   List<Object?> get props => [
         foo,
         baz,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryPrecedenceInput')
@@ -88,6 +90,7 @@ abstract class QueryPrecedenceInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryPrecedenceInputPayload');
@@ -106,6 +109,7 @@ class QueryPrecedenceInputRestXmlSerializer
         QueryPrecedenceInputPayload,
         _$QueryPrecedenceInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -113,6 +117,7 @@ class QueryPrecedenceInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   QueryPrecedenceInputPayload deserialize(
     Serializers serializers,

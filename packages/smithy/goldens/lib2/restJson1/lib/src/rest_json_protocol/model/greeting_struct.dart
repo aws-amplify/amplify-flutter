@@ -43,8 +43,10 @@ abstract class GreetingStruct
   String? get hi;
   @override
   GreetingStruct getPayload() => this;
+
   @override
   List<Object?> get props => [hi];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingStruct')
@@ -65,6 +67,7 @@ class GreetingStructRestJson1Serializer
         GreetingStruct,
         _$GreetingStruct,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -72,6 +75,7 @@ class GreetingStructRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,

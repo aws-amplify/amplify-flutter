@@ -83,8 +83,10 @@ class PredictOperation extends _i1
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([PredictOutput? output]) => 200;
+
   @override
   PredictOutput buildOutput(
     PredictOutput payload,
@@ -94,6 +96,7 @@ class PredictOperation extends _i1
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<InternalServerException, InternalServerException>(
@@ -148,14 +151,19 @@ class PredictOperation extends _i1
           builder: ResourceNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'Predict';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<PredictOutput> run(
     PredictInput input, {

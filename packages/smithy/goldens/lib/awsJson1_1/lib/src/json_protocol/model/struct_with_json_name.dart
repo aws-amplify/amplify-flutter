@@ -30,6 +30,7 @@ abstract class StructWithJsonName
   String? get value;
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StructWithJsonName')
@@ -50,6 +51,7 @@ class StructWithJsonNameAwsJson11Serializer
         StructWithJsonName,
         _$StructWithJsonName,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -57,6 +59,7 @@ class StructWithJsonNameAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   StructWithJsonName deserialize(
     Serializers serializers,

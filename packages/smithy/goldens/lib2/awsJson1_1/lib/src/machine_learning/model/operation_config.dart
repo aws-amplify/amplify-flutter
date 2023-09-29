@@ -34,6 +34,7 @@ abstract class OperationConfig
   S3Config? get s3;
   @override
   List<Object?> get props => [s3];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OperationConfig')
@@ -54,6 +55,7 @@ class OperationConfigAwsJson11Serializer
         OperationConfig,
         _$OperationConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class OperationConfigAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   OperationConfig deserialize(
     Serializers serializers,

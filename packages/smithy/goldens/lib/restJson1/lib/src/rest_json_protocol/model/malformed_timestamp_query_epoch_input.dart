@@ -52,8 +52,10 @@ abstract class MalformedTimestampQueryEpochInput
   @override
   MalformedTimestampQueryEpochInputPayload getPayload() =>
       MalformedTimestampQueryEpochInputPayload();
+
   @override
   List<Object?> get props => [timestamp];
+
   @override
   String toString() {
     final helper =
@@ -82,6 +84,7 @@ abstract class MalformedTimestampQueryEpochInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -102,6 +105,7 @@ class MalformedTimestampQueryEpochInputRestJson1Serializer extends _i1
         MalformedTimestampQueryEpochInputPayload,
         _$MalformedTimestampQueryEpochInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -109,6 +113,7 @@ class MalformedTimestampQueryEpochInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedTimestampQueryEpochInputPayload deserialize(
     Serializers serializers,

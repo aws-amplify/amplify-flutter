@@ -66,8 +66,10 @@ class XmlEnumsOperation extends _i1.HttpOperation<XmlEnumsInputOutput,
         b.method = 'PUT';
         b.path = r'/XmlEnums';
       });
+
   @override
   int successCode([XmlEnumsInputOutput? output]) => 200;
+
   @override
   XmlEnumsInputOutput buildOutput(
     XmlEnumsInputOutput payload,
@@ -77,16 +79,22 @@ class XmlEnumsOperation extends _i1.HttpOperation<XmlEnumsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlEnums';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlEnumsInputOutput> run(
     XmlEnumsInputOutput input, {

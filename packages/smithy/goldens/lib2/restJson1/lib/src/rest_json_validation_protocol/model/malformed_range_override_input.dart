@@ -86,6 +86,7 @@ abstract class MalformedRangeOverrideInput
   double? get maxFloat;
   @override
   MalformedRangeOverrideInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         byte,
@@ -104,6 +105,7 @@ abstract class MalformedRangeOverrideInput
         minFloat,
         maxFloat,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRangeOverrideInput')
@@ -181,6 +183,7 @@ class MalformedRangeOverrideInputRestJson1Serializer
         MalformedRangeOverrideInput,
         _$MalformedRangeOverrideInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -188,6 +191,7 @@ class MalformedRangeOverrideInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedRangeOverrideInput deserialize(
     Serializers serializers,
