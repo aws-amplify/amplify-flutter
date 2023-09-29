@@ -20,6 +20,12 @@ on:
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_datastore_plugin_interface.yaml'
@@ -36,6 +42,12 @@ on:
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
