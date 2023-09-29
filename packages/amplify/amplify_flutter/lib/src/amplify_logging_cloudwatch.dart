@@ -8,7 +8,7 @@ library;
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/logger/amplify_logging_cloudwatch.dart';
-import 'package:amplify_logging_cloudwatch/src/amplify_cloudwatch_logger_plugin.dart';
+import 'package:amplify_logging_cloudwatch/amplify_logging_cloudwatch.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro amplify_core.logger.amplify_logging_cloudwatch}
