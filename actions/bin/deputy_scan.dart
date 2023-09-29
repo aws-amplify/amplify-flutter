@@ -85,13 +85,13 @@ Future<Map<String, int>> _listExistingSkipIssues(Repo repo) async {
       core.error('Failed to list issues (${issuesResult.exitCode})');
       process.exit(issuesResult.exitCode);
     }
-    final issues = jsonDecode(issuesResult.stdout.toString()) as List<Map>;
+    final issues = jsonDecode(issuesResult.stdout.toString()) as List<Object?>;
     for (final issue in issues) {
       final {
         'number': number as int,
         'title': title as String,
         'body': body as String
-      } = issue.cast<String, Object?>();
+      } = (issue as Map<Object?, Object?>).cast<String, Object?>();
       final message = CommitMessage.parse('', title, body: body);
       final trailers = message.trailers;
       final dependency = trailers[_dependencyNameTrailer];

@@ -44417,7 +44417,7 @@
     call$0() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.Map_String_int),
-        $async$returnValue, $async$self = this, t3, t4, _0_0, _0_3, _0_7, _0_11, number, title, body, message, dependency, t1, existingIssues, issuesResult, t2;
+        $async$returnValue, $async$self = this, t3, t4, _0_0, _0_3, _0_7, _0_11, t5, number, title, body, message, dependency, t1, existingIssues, issuesResult, t2;
       var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -44439,49 +44439,49 @@
                 t4._as(t3.core).error("Failed to list issues (" + t2 + ")");
                 A.Process_exit(t4._as(t3.process), t2);
               }
-              for (t2 = J.get$iterator$ax(type$.List_Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(issuesResult.stdout, null))), t3 = type$.nullable_Object; t2.moveNext$0();) {
-                _0_0 = t2.get$current().cast$2$0(0, t1, t3);
+              for (t2 = J.get$iterator$ax(type$.List_nullable_Object._as(B.C_JsonCodec.decode$2$reviver(issuesResult.stdout, null))), t3 = type$.Map_of_nullable_Object_and_nullable_Object, t4 = type$.nullable_Object; t2.moveNext$0();) {
+                _0_0 = t3._as(t2.get$current()).cast$2$0(0, t1, t4);
                 _0_3 = A._InitializedCell$named("#0#3", new A._listExistingSkipIssues__closure(_0_0));
                 _0_7 = A._InitializedCell$named("#0#7", new A._listExistingSkipIssues__closure0(_0_0));
                 _0_11 = A._InitializedCell$named("#0#11", new A._listExistingSkipIssues__closure1(_0_0));
                 if (_0_3._readFinal$0() == null)
-                  t4 = _0_0.containsKey$1("number");
+                  t5 = _0_0.containsKey$1("number");
                 else
-                  t4 = true;
-                if (t4) {
+                  t5 = true;
+                if (t5) {
                   A._asInt(_0_3._readFinal$0());
                   number = A._asInt(_0_3._readFinal$0());
                   if (_0_7._readFinal$0() == null)
-                    t4 = _0_0.containsKey$1("title");
+                    t5 = _0_0.containsKey$1("title");
                   else
-                    t4 = true;
-                  if (t4) {
+                    t5 = true;
+                  if (t5) {
                     A._asString(_0_7._readFinal$0());
                     title = A._asString(_0_7._readFinal$0());
                     if (_0_11._readFinal$0() == null)
-                      t4 = _0_0.containsKey$1("body");
+                      t5 = _0_0.containsKey$1("body");
                     else
-                      t4 = true;
-                    if (t4) {
+                      t5 = true;
+                    if (t5) {
                       A._asString(_0_11._readFinal$0());
                       body = A._asString(_0_11._readFinal$0());
-                      t4 = true;
+                      t5 = true;
                     } else {
                       body = null;
-                      t4 = false;
+                      t5 = false;
                     }
                   } else {
                     title = null;
                     body = null;
-                    t4 = false;
+                    t5 = false;
                   }
                 } else {
                   number = null;
                   title = null;
                   body = null;
-                  t4 = false;
+                  t5 = false;
                 }
-                if (!t4)
+                if (!t5)
                   throw A.wrapException(A.StateError$("Pattern matching error"));
                 message = A.CommitMessage_CommitMessage$parse("", title, body);
                 dependency = message.get$trailers(message).$index(0, "Dependency-Name");
@@ -45388,7 +45388,6 @@
       ListMultimapBuilder_String_DependencyMetadata: findType("ListMultimapBuilder<String,DependencyMetadata>"),
       ListMultimapBuilder_dynamic_dynamic: findType("ListMultimapBuilder<@,@>"),
       List_JSObject: findType("List<JSObject>"),
-      List_Map_dynamic_dynamic: findType("List<Map<@,@>>"),
       List_Map_of_String_and_nullable_Object: findType("List<Map<String,Object?>>"),
       List_Object: findType("List<Object>"),
       List_PackageInfo: findType("List<PackageInfo>"),
