@@ -46,11 +46,13 @@ abstract class MalformedRequestBodyInput
   double? get float;
   @override
   MalformedRequestBodyInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         int_,
         float,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequestBodyInput')
@@ -76,6 +78,7 @@ class MalformedRequestBodyInputRestJson1Serializer
         MalformedRequestBodyInput,
         _$MalformedRequestBodyInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -83,6 +86,7 @@ class MalformedRequestBodyInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedRequestBodyInput deserialize(
     Serializers serializers,

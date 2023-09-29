@@ -48,8 +48,10 @@ abstract class UnionInputOutput
   MyUnion? get contents;
   @override
   UnionInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [contents];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnionInputOutput')
@@ -70,6 +72,7 @@ class UnionInputOutputAwsJson11Serializer
         UnionInputOutput,
         _$UnionInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class UnionInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UnionInputOutput deserialize(
     Serializers serializers,

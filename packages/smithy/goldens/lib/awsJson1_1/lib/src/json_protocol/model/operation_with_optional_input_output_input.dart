@@ -42,8 +42,10 @@ abstract class OperationWithOptionalInputOutputInput
   String? get value;
   @override
   OperationWithOptionalInputOutputInput getPayload() => this;
+
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper =
@@ -66,6 +68,7 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i1
         OperationWithOptionalInputOutputInput,
         _$OperationWithOptionalInputOutputInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -73,6 +76,7 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i1
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   OperationWithOptionalInputOutputInput deserialize(
     Serializers serializers,

@@ -7,6 +7,7 @@ import 'package:aws_common/aws_common.dart';
 class ASFWorkerImpl extends ASFWorker {
   @override
   String get name => 'ASFWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.

@@ -69,6 +69,7 @@ abstract class ScopedConfig
         client,
         operation,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScopedConfig')
@@ -105,6 +106,7 @@ class ScopedConfigAwsQuerySerializer
         ScopedConfig,
         _$ScopedConfig,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +114,7 @@ class ScopedConfigAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -220,7 +223,7 @@ class ScopedConfigAwsQuerySerializer
                 .serialize(
           serializers,
           configFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -237,7 +240,7 @@ class ScopedConfigAwsQuerySerializer
                 .serialize(
           serializers,
           credentialsFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

@@ -540,6 +540,7 @@ class GreetingWithErrorsOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -547,6 +548,7 @@ class GreetingWithErrorsOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GreetingWithErrorsOutput deserialize(
     Serializers serializers,
@@ -590,6 +592,7 @@ class ComplexErrorRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ComplexError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -597,6 +600,7 @@ class ComplexErrorRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -651,6 +655,7 @@ class ComplexNestedErrorDataRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -658,6 +663,7 @@ class ComplexNestedErrorDataRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,
@@ -701,6 +707,7 @@ class FooErrorRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [FooError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -708,6 +715,7 @@ class FooErrorRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   FooError deserialize(
     Serializers serializers,
@@ -733,6 +741,7 @@ class InvalidGreetingRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [InvalidGreeting];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -740,6 +749,7 @@ class InvalidGreetingRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

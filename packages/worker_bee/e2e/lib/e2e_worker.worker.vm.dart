@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class E2EWorkerImpl extends E2EWorker {
   @override
   String get name => 'E2EWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

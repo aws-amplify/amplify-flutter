@@ -90,8 +90,10 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
           }
         }
       });
+
   @override
   int successCode([GetObjectOutput? output]) => 200;
+
   @override
   GetObjectOutput buildOutput(
     _i2.Stream<List<int>> payload,
@@ -101,12 +103,16 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'GetObject';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -127,6 +133,7 @@ class GetObjectOperation extends _i1.HttpOperation<GetObjectRequestPayload,
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetObjectOutput> run(
     GetObjectRequest input, {

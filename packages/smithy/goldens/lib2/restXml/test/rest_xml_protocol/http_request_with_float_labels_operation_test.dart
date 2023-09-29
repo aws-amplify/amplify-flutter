@@ -150,6 +150,7 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [HttpRequestWithFloatLabelsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -157,6 +158,7 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HttpRequestWithFloatLabelsInput deserialize(
     Serializers serializers,

@@ -81,6 +81,7 @@ abstract class MalformedBooleanInput
       MalformedBooleanInputPayload((b) {
         b.booleanInBody = booleanInBody;
       });
+
   @override
   List<Object?> get props => [
         booleanInBody,
@@ -88,6 +89,7 @@ abstract class MalformedBooleanInput
         booleanInQuery,
         booleanInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBooleanInput')
@@ -127,6 +129,7 @@ abstract class MalformedBooleanInputPayload
   bool? get booleanInBody;
   @override
   List<Object?> get props => [booleanInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload')
@@ -150,6 +153,7 @@ class MalformedBooleanInputRestJson1Serializer
         MalformedBooleanInputPayload,
         _$MalformedBooleanInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -157,6 +161,7 @@ class MalformedBooleanInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedBooleanInputPayload deserialize(
     Serializers serializers,

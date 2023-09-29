@@ -66,6 +66,7 @@ class XmlNamespacesOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlNamespacesOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -73,6 +74,7 @@ class XmlNamespacesOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlNamespacesOutput deserialize(
     Serializers serializers,
@@ -116,6 +118,7 @@ class XmlNamespaceNestedEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlNamespaceNested];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -123,6 +126,7 @@ class XmlNamespaceNestedEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlNamespaceNested deserialize(
     Serializers serializers,

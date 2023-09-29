@@ -61,6 +61,7 @@ abstract class EnvironmentConfig
         awsSessionToken,
         awsProfile,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnvironmentConfig')
@@ -101,6 +102,7 @@ class EnvironmentConfigEc2QuerySerializer
         EnvironmentConfig,
         _$EnvironmentConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -108,6 +110,7 @@ class EnvironmentConfigEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,
@@ -209,7 +212,7 @@ class EnvironmentConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('AWS_RETRY_MODE'))
         ..add(serializers.serialize(
           awsRetryMode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (awsSessionToken != null) {

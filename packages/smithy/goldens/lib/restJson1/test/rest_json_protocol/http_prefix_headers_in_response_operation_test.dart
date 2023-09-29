@@ -65,6 +65,7 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpPrefixHeadersInResponseInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -72,6 +73,7 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPrefixHeadersInResponseInput deserialize(
     Serializers serializers,
@@ -98,6 +100,7 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpPrefixHeadersInResponseOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -105,6 +108,7 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPrefixHeadersInResponseOutput deserialize(
     Serializers serializers,
