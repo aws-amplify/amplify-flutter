@@ -51,7 +51,7 @@ abstract class DependencyGroupUpdate
   /// Pubspec updates, keyed by the dependency name.
   @protected
   @BuiltValueField(compare: false)
-  BuiltListMultimap<String, void Function(Repo)> get pubspecUpdates;
+  BuiltList<void Function(Repo)> get pubspecUpdates;
 
   /// Updates all pubspecs in the group and writes the changes
   /// to disk.
@@ -60,18 +60,8 @@ abstract class DependencyGroupUpdate
   /// Otherwise, they are applied to the current, active repo.
   Future<void> updatePubspecs([Repo? worktree]) async {
     final repo = worktree ?? deputy.repo;
-    final doNotBump = repo.aftConfig.doNotBump;
-    for (final MapEntry(key: dependency, value: updates)
-        in pubspecUpdates.toMap().entries) {
-      if (doNotBump.contains(dependency)) {
-        repo.logger.debug(
-          'Skipping updates to "$dependency" since it\'s on the do-not-update list',
-        );
-        continue;
-      }
-      for (final update in updates) {
-        update(repo);
-      }
+    for (final update in pubspecUpdates) {
+      update(repo);
     }
     await deputy.commitUpdates(repo);
   }

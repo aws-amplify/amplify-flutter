@@ -18,7 +18,7 @@ class _$DependencyGroupUpdate extends DependencyGroupUpdate {
   @override
   final Deputy deputy;
   @override
-  final BuiltListMultimap<String, void Function(Repo)> pubspecUpdates;
+  final BuiltList<void Function(Repo)> pubspecUpdates;
 
   factory _$DependencyGroupUpdate(
           [void Function(DependencyGroupUpdateBuilder)? updates]) =>
@@ -121,12 +121,10 @@ class DependencyGroupUpdateBuilder
   Deputy? get deputy => _$this._deputy;
   set deputy(Deputy? deputy) => _$this._deputy = deputy;
 
-  ListMultimapBuilder<String, void Function(Repo)>? _pubspecUpdates;
-  ListMultimapBuilder<String, void Function(Repo)> get pubspecUpdates =>
-      _$this._pubspecUpdates ??=
-          new ListMultimapBuilder<String, void Function(Repo)>();
-  set pubspecUpdates(
-          ListMultimapBuilder<String, void Function(Repo)>? pubspecUpdates) =>
+  ListBuilder<void Function(Repo)>? _pubspecUpdates;
+  ListBuilder<void Function(Repo)> get pubspecUpdates =>
+      _$this._pubspecUpdates ??= new ListBuilder<void Function(Repo)>();
+  set pubspecUpdates(ListBuilder<void Function(Repo)>? pubspecUpdates) =>
       _$this._pubspecUpdates = pubspecUpdates;
 
   DependencyGroupUpdateBuilder();

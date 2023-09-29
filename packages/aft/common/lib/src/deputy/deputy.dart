@@ -128,6 +128,16 @@ final class Deputy {
     for (final MapEntry(key: groupName, value: groupUpdates)
         in dependencyGroups.toMap().entries) {
       for (final update in groupUpdates) {
+        final dependency = update.dependencyName;
+
+        // Ignore dependencies which are on the do-not-bump list.
+        if (repo.aftConfig.doNotBump.contains(dependency)) {
+          logger?.debug(
+            'Skipping updates to "$dependency" since it\'s on the do-not-bump list',
+          );
+          continue;
+        }
+
         // Lazily add a proposed update when one of the below conditions are true:
         // - There is a change to the global constraint
         // - There is a change to one of the packages' constraints.
@@ -136,8 +146,8 @@ final class Deputy {
             ..groupName = groupName
             ..deputy = this
             ..dependencies.addAll(this.dependencyGroups[groupName] ?? const {})
-            ..dependencies.add(update.dependencyName)
-            ..updates[update.dependencyName] = update;
+            ..dependencies.add(dependency)
+            ..updates[dependency] = update;
         }
 
         // FIXME: How to handle breaking changes
@@ -154,20 +164,19 @@ final class Deputy {
 
         if (update.globalConstraint case final globalConstraint?) {
           final updatedGlobalConstraint = constraintUpdater.updateFor(
-            update.dependencyName,
+            dependency,
             globalConstraint,
             update.latestVersion,
           );
           if (updatedGlobalConstraint != null) {
             logger
-              ?..info('Proposing global update to ${update.dependencyName}:')
+              ?..info('Proposing global update to $dependency:')
               ..info('  $globalConstraint -> $updatedGlobalConstraint');
             proposedUpdate()
-              ..updatedConstraints[update.dependencyName] ??=
-                  updatedGlobalConstraint
-              ..pubspecUpdates[update.dependencyName].add(
+              ..updatedConstraints[dependency] ??= updatedGlobalConstraint
+              ..pubspecUpdates.add(
                 (repo) => repo.rootPubspecEditor.update(
-                  ['dependencies', update.dependencyName],
+                  ['dependencies', dependency],
                   updatedGlobalConstraint.toString(),
                 ),
               );
@@ -177,7 +186,7 @@ final class Deputy {
         for (final MapEntry(key: packageName, value: constraint)
             in update.dependentPackages.entries) {
           final updatedConstraint = constraintUpdater.updateFor(
-            update.dependencyName,
+            dependency,
             constraint,
             update.latestVersion,
           );
@@ -185,25 +194,23 @@ final class Deputy {
             continue;
           }
           logger
-            ?..info(
-              'Proposing update to ${update.dependencyName} in $packageName:',
-            )
+            ?..info('Proposing update to $dependency in $packageName:')
             ..info('  $constraint -> $updatedConstraint');
           final package = repo[packageName];
-          final dependencyType = package.pubspecInfo.pubspec.dependencies
-                  .containsKey(update.dependencyName)
-              ? DependencyType.dependency
-              : DependencyType.devDependency;
+          final dependencyType =
+              package.pubspecInfo.pubspec.dependencies.containsKey(dependency)
+                  ? DependencyType.dependency
+                  : DependencyType.devDependency;
 
           proposedUpdate()
-            ..updatedConstraints[update.dependencyName] ??= updatedConstraint
-            ..pubspecUpdates[update.dependencyName].add(
+            ..updatedConstraints[dependency] ??= updatedConstraint
+            ..pubspecUpdates.add(
               (repo) => repo
                   .maybePackage(package.name)
                   ?.pubspecInfo
                   .pubspecYamlEditor
                   .update(
-                [dependencyType.key, update.dependencyName],
+                [dependencyType.key, dependency],
                 updatedConstraint.toString(),
               ),
             );

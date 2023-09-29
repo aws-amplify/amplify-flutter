@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft_common/aft_common.dart';
+import 'package:aft_common/descriptors.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:path/path.dart' as p;
@@ -59,7 +61,9 @@ final class RepoDescriptor extends d.Descriptor {
     await gitDir.runCommand(
       ['commit', '--allow-empty', '-m', 'Initial commit'],
     );
-    await d.file('pubspec.yaml', pubspec).create(parent);
+    if (contents.none((d) => d is PubspecDescriptor)) {
+      await d.file('pubspec.yaml', pubspec).create(parent);
+    }
     for (final item in contents) {
       await item.create(parent);
     }
@@ -77,7 +81,9 @@ final class RepoDescriptor extends d.Descriptor {
   Future<void> validate([String? parent]) async {
     assert(parent == null, 'Not supported. Should use root sandbox');
     await GitDir.fromExisting(parent ?? d.sandbox);
-    await d.file('pubspec.yaml', pubspec).validate(parent);
+    if (contents.none((d) => d is PubspecDescriptor)) {
+      await d.file('pubspec.yaml', pubspec).validate(parent);
+    }
     for (final item in contents) {
       await item.validate(parent);
     }

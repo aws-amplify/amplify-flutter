@@ -150,6 +150,122 @@ void main() {
         ),
       ]).validate();
     });
+
+    // This test's goal is to verify that dependencies on the doNotBump
+    // list are ignored when running Deputy. If they are part of a
+    // group, then every other package in the group should be updated.
+    // If they are not part of a group, then they should not form an
+    // update group and should be completely ignored.
+    test('doNotBump', () async {
+      final repo = await d.repo([
+        d.pubspec('''
+name: amplify_flutter_repo
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
+
+dependencies:
+  code_builder: 4.6.0
+  dart_style: 2.3.2
+  xml: 6.3.0
+
+aft:
+  doNotBump:
+    - dart_style
+    - xml
+'''),
+        d.package(
+          'local_a',
+          dependencies: {
+            // codegen group
+            'code_builder': '4.6.0',
+            'dart_style': '2.3.2',
+
+            // another do-not-bump dep
+            'xml': '6.3.0',
+          },
+        ),
+      ]).create();
+      const codegenGroupName = 'code_generation';
+      const codegenGroup = {'code_builder', 'dart_style'};
+      final deputy = Deputy(
+        dependencyGroups: BuiltSetMultimap({
+          codegenGroupName: codegenGroup,
+        }),
+        repo: repo,
+        versionResolver: MockVersionResolver({
+          'code_builder': '4.7.0',
+          'dart_style': '2.3.3',
+          'xml': '6.4.0',
+        }),
+      );
+      final updates = await deputy.scanForUpdates();
+      expect(updates, isNotNull);
+      expect(
+        updates!.keys,
+        unorderedEquals([codegenGroupName]),
+        reason: 'Only the codegen group should be in the update map. '
+            'xml should not have been included since its on the doNotBump list.',
+      );
+      expect(
+        updates.values.single,
+        isA<DependencyGroupUpdate>()
+            .having(
+              (group) => group.groupName,
+              'groupName',
+              codegenGroupName,
+            )
+            .having(
+              (group) => group.dependencies.toSet(),
+              'dependencies',
+              equals(codegenGroup),
+            )
+            .having(
+              (group) => group.updatedConstraints.toMap(),
+              'updatedConstraints',
+              // xml should not be included
+              equals({
+                'code_builder': VersionConstraint.parse('4.7.0'),
+              }),
+            )
+            .having(
+              (group) => group.updates.keys,
+              'updates',
+              // xml should not be included
+              unorderedEquals(['code_builder']),
+            ),
+      );
+      await updates.updatePubspecs();
+      await d.repo([
+        d.pubspec('''
+name: amplify_flutter_repo
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
+
+dependencies:
+  code_builder: 4.7.0
+  dart_style: 2.3.2
+  xml: 6.3.0
+
+aft:
+  doNotBump:
+    - dart_style
+    - xml
+'''),
+        d.package(
+          'local_a',
+          dependencies: {
+            // Only code_builder should have been bumped.
+            'code_builder': '4.7.0',
+            'dart_style': '2.3.2',
+            'xml': '6.3.0',
+          },
+        ),
+      ]).validate();
+    });
   });
 }
 
