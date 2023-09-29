@@ -16,8 +16,8 @@ on:
         type: boolean
 
 jobs:
-  e2e-test:
-    runs-on: macos-latest-xl
+  e2e-test-ios:
+    runs-on: macos-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -50,3 +50,20 @@ jobs:
       - name: Run integration tests
         timeout-minutes: 60
         run: aft exec --include=${{ inputs.package-name }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: e2e
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: flutter
+
+          platform: ios

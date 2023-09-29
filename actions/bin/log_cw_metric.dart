@@ -16,18 +16,30 @@ Future<void> logMetric() async {
   final jobStatus = core.getRequiredInput('job-status');
 
   // Create job identifier from matrix values
-  final matrixRawInput = core.getRequiredInput('matrix');
+  final matrixRawInput = core.getInput('matrix', defaultValue: '');
 
   // Parse the matrix string (input is raw json string with " and \n)
-  final matrixCleanedInput = matrixRawInput
-      .replaceAll('\n', '')
-      .replaceAll(r'\', '')
-      .replaceAll(' ', '');
-  final matrix = json.decode(matrixCleanedInput) as Map<String, dynamic>;
+  String? parseMatrixInput(String matrixRawInput) {
+    if (matrixRawInput.isEmpty) {
+      return null;
+    }
 
-  final matrixValues = matrix.values.map((e) => e).join(', ');
+    core.info('Accepted matrix input: <$matrixRawInput>');
+
+    final matrixCleanedInput = matrixRawInput
+        .replaceAll('\n', '')
+        .replaceAll(r'\', '')
+        .replaceAll(' ', '');
+    final matrix = json.decode(matrixCleanedInput) as Map<String, dynamic>;
+
+    final matrixValues = matrix.values.map((e) => e).join(', ');
+    return matrixValues;
+  }
+
+  final matrixValues = parseMatrixInput(matrixRawInput);
   final jobIdentifier =
-      '${github.context.job} ${matrixValues.isEmpty ? '' : '($matrixValues)'}';
+      ('${github.context.job} ${matrixValues == null ? '' : '($matrixValues)'}')
+          .trim();
 
   core.info('Job identifier: $jobIdentifier');
 
@@ -36,6 +48,9 @@ Future<void> logMetric() async {
   final runId = '${github.context.runId}';
 
   final isFailed = jobStatus == 'failure';
+
+  core.info('Before failing step test');
+
   final failingStep = isFailed
       ? await getFailingStep(jobIdentifier, githubToken, repo, runId)
       : '';
@@ -51,12 +66,40 @@ Future<void> logMetric() async {
     );
   }
 
-  final packageName = core.getRequiredInput('package-name');
-  final category = packageName.split('_')[1];
-  if (!['canaries', 'analytics', 'api', 'auth', 'datastore', 'push', 'storage']
-      .contains(category)) {
+  final workingDirectory = core.getRequiredInput('working-directory');
+
+  final categories = [
+    'canaries',
+    'analytics',
+    'api',
+    'auth',
+    'authenticator',
+    'core',
+    'datastore',
+    'db_common',
+    'push',
+    'secure_storage',
+    'storage',
+    'aws_common',
+    'aws_signature_v4',
+    'smithy',
+    'worker_bee',
+    'amplify_flutter',
+    'amplify_lints',
+    'amplify_native_legacy_wrapper',
+  ];
+
+  var category = '';
+  for (final cat in categories) {
+    if (workingDirectory.contains(cat)) {
+      category = cat;
+      break;
+    }
+  }
+
+  if (category.isEmpty) {
     throw Exception(
-      'packageName input of $packageName must contain a valid category of: canaries, analytics, api, auth, datastore, push, storage',
+      'WorkingDirectory input of $workingDirectory must contain a valid category.',
     );
   }
 
@@ -122,6 +165,8 @@ Future<String> getFailingStep(
   String runId,
 ) async {
   try {
+    jobIdentifier = jobIdentifier.toLowerCase();
+
     final headers = {
       'Authorization': 'token $githubToken',
       'Accept': 'application/vnd.github.v3+json',
@@ -133,9 +178,16 @@ Future<String> getFailingStep(
       headers: headers,
     );
 
+    print('the response was $response');
+
     final jobsList = GithubJobsList.fromJson(response);
-    final matchingJob =
-        jobsList.jobs.firstWhere((job) => job.name == jobIdentifier);
+
+    print('response successfully parsed to a jobsList');
+
+    final matchingJob = jobsList.jobs.firstWhere(
+        (job) => job.name.toLowerCase().contains(jobIdentifier),
+        orElse: () => throw Exception(
+            'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}'));
     final steps = matchingJob.steps;
     core.info('steps $steps');
 

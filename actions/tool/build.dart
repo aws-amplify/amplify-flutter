@@ -36,6 +36,10 @@ Future<void> main() async {
   );
 
   for (final (:entrypoint, :yaml) in actions) {
+    if (!entrypoint.path.contains('log_cw_metric.dart')) {
+      continue;
+    }
+
     final actionName = p.basenameWithoutExtension(entrypoint.path);
     final outputDir = Directory(p.join(actionsDir.path, actionName))
       ..createSync();

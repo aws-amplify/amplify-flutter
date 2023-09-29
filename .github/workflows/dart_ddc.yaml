@@ -12,11 +12,10 @@ on:
         type: string
 
 jobs:
-  test:
+  test-dart_ddc:
     name: Test
     # These tests heavily leverage build_runner which benefits from faster runners
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails
@@ -82,3 +81,22 @@ jobs:
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: dart
+          flutter-dart-channel: ${{ matrix.sdk }}
+          dart-compiler: ddc
+          platform: web
+          platform-version: ${{ matrix.browser }}

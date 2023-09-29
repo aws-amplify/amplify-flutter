@@ -17,7 +17,7 @@ on:
         type: boolean
 
 jobs:
-  test:
+  test-flutter_ios:
     name: Build and Test
     runs-on: macos-latest-xl
     timeout-minutes: 30
@@ -63,3 +63,21 @@ jobs:
               -scheme Runner \
               -destination "$XCODEBUILD_DESTINATION" | xcpretty
         working-directory: ${{ inputs.example-directory }}/ios
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.example-directory }}
+
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+
+          platform: ios
