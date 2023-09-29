@@ -1,8 +1,8 @@
 name: deputy
 on:
-  pull_request: # TODO: Remove
-  schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+  workflow_dispatch: # TODO: Remove
+  # schedule:
+  #   - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
   run:
     shell: bash
