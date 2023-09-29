@@ -9655,7 +9655,7 @@
               $async$temp2 = type$.List_nullable_Object;
               $async$temp3 = t2;
               $async$goto = 3;
-              return A._asyncAwait(A.promiseToFuture(A.callMethod(_this, "list", [{owner: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).owner), repo: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).repo), state: "open"}], t2), type$.nullable_Object), $async$OctokitRestIssues_list);
+              return A._asyncAwait(A.promiseToFuture(A.callMethod(_this, "list", [{owner: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).owner), repo: A._asString(t2._as(t2._as(t2._as(t1.github).context).repo).repo), state: "open", filter: "all"}], t2), type$.nullable_Object), $async$OctokitRestIssues_list);
             case 3:
               // returning from await.
               $async$returnValue = $async$temp1.cast$1$0$ax($async$temp2._as($async$temp3._as($async$result).data), t2);

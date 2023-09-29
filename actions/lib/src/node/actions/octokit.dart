@@ -84,6 +84,7 @@ extension type OctokitRestIssues._(JSObject it) {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         state: state.name,
+        filter: 'all',
       ),
     );
     final response = await promise.toDart;
@@ -117,6 +118,7 @@ extension type ListIssuesRequest._(JSObject it) {
     required String owner,
     required String repo,
     String? state,
+    String? filter,
   });
 }
 
