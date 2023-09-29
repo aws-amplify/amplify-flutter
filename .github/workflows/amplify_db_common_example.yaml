@@ -29,6 +29,12 @@ on:
       - 'packages/common/amplify_db_common/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   pull_request:
     paths:
       - '.github/workflows/amplify_db_common_example.yaml'
@@ -54,6 +60,12 @@ on:
       - 'packages/common/amplify_db_common/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*.dart'
+      - 'packages/logging_cloudwatch/aws_logging_cloudwatch/pubspec.yaml'
+      - 'packages/smithy/smithy/lib/**/*.dart'
+      - 'packages/smithy/smithy/pubspec.yaml'
+      - 'packages/smithy/smithy_aws/lib/**/*.dart'
+      - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
     - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
 defaults:
