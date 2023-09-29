@@ -16,7 +16,8 @@ extension type Octokit._(JSObject it) {
 @anonymous
 extension type OctokitRest._(JSObject it) {
   external OctokitRestActions get actions;
-  external OctokitPullsActions get pulls;
+  external OctokitRestIssues get issues;
+  external OctokitRestPulls get pulls;
 }
 
 @JS()
@@ -42,28 +43,51 @@ extension type OctokitRestActions._(JSObject it) {
   }
 }
 
-enum PullRequestState { open, closed, all }
+enum IssueState { open, closed, all }
 
 @JS()
 @anonymous
-extension type OctokitPullsActions._(JSObject it) {
+extension type OctokitRestPulls._(JSObject it) {
   /// https://github.com/octokit/plugin-rest-endpoint-methods.js/blob/main/docs/pulls/list.md
   @JS('list')
-  external JSPromise _list(ListPullRequestsParams params);
+  external JSPromise _list(ListPullsRequest params);
 
   /// Lists pull requests in the repo.
   /// 
   /// https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests
-  Future<List<PullRequest>> list({PullRequestState state = PullRequestState.open}) async {
+  Future<List<PullRequest>> list({IssueState state = IssueState.open}) async {
     final promise = _list(
-      ListPullRequestsParams(
+      ListPullsRequest(
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         state: state.name,
       ),
     );
     final response = await promise.toDart;
-    return (response as ListPullRequestsResponse).pulls;
+    return (response as ListPullsResponse).pulls;
+  }
+}
+
+@JS()
+@anonymous
+extension type OctokitRestIssues._(JSObject it) {
+  /// https://github.com/octokit/plugin-rest-endpoint-methods.js/blob/main/docs/issues/list.md
+  @JS('list')
+  external JSPromise _list(ListIssuesRequest params);
+
+  /// Lists issues in the repo.
+  /// 
+  /// https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
+  Future<List<Issue>> list({IssueState state = IssueState.open}) async {
+    final promise = _list(
+      ListIssuesRequest(
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        state: state.name,
+      ),
+    );
+    final response = await promise.toDart;
+    return (response as ListIssuesResponse).issues;
   }
 }
 
@@ -88,8 +112,8 @@ extension type ListJobsForWorkflowRunResponse._(JSObject it) {
 
 @JS()
 @anonymous
-extension type ListPullRequestsParams._(JSObject it) {
-  external factory ListPullRequestsParams({
+extension type ListIssuesRequest._(JSObject it) {
+  external factory ListIssuesRequest({
     required String owner,
     required String repo,
     String? state,
@@ -98,7 +122,26 @@ extension type ListPullRequestsParams._(JSObject it) {
 
 @JS()
 @anonymous
-extension type ListPullRequestsResponse._(JSObject it) {
+extension type ListIssuesResponse._(JSObject it) {
+  @JS()
+  external JSArray get data;
+  
+  List<Issue> get issues => data.toDart.cast();
+}
+
+@JS()
+@anonymous
+extension type ListPullsRequest._(JSObject it) {
+  external factory ListPullsRequest({
+    required String owner,
+    required String repo,
+    String? state,
+  });
+}
+
+@JS()
+@anonymous
+extension type ListPullsResponse._(JSObject it) {
   @JS()
   external JSArray get data;
   
@@ -107,11 +150,15 @@ extension type ListPullRequestsResponse._(JSObject it) {
 
 @JS()
 @anonymous
-extension type PullRequest._(JSObject it) {
+extension type Issue._(JSObject it) {
   external int get number;
   external String get title;
   external String get body;
 }
+
+@JS()
+@anonymous
+extension type PullRequest._(JSObject it) implements Issue {}
 
 /// Information of a job execution in a workflow run.
 @JS()

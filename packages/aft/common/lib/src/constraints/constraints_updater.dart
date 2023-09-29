@@ -23,7 +23,7 @@ final class ConstraintUpdater {
   ///
   /// Returns `null` if the [currentConstraint] is sufficient to accommodate
   /// the [latestVersion].
-  VersionConstraint? updateFor(
+  ConstraintUpdateResult updateFor(
     String dependency,
     VersionConstraint currentConstraint,
     Version latestVersion,
@@ -35,24 +35,29 @@ final class ConstraintUpdater {
       // create a range).
       case final Version currentVersion:
         if (latestVersion == currentVersion) {
-          return null;
+          return (null, ConstraintUpdateType.noChange);
         }
-        if (latestVersion >= currentVersion.nextBreaking &&
-            !includeBreakingChanges) {
+        final isBreakingChange = latestVersion >= currentVersion.nextBreaking;
+        if (isBreakingChange && !includeBreakingChanges) {
           _logger.warn(
             'Breaking change detected for $dependency: $latestVersion '
             '(current constraint: $currentVersion)',
           );
-          return null;
+          return (null, ConstraintUpdateType.breaking);
         }
-        return latestVersion;
+        return (
+          latestVersion,
+          isBreakingChange
+              ? ConstraintUpdateType.breaking
+              : ConstraintUpdateType.nonBreaking
+        );
 
       // For ranged versions, slide the window appropriately, respecting
       // whether the current constraint includes its upper/lower bounds.
       case final currentConstraint as VersionRange:
         // Do nothing if the current range includes the latest version.
         if (currentConstraint.allows(latestVersion)) {
-          return null;
+          return (null, ConstraintUpdateType.noChange);
         }
 
         final lowerBound = currentConstraint.min;
@@ -98,16 +103,17 @@ final class ConstraintUpdater {
             'Breaking change detected for $dependency: $latestVersion '
             '(current constraint: $currentConstraint)',
           );
-          return null;
+          return (null, ConstraintUpdateType.breaking);
         }
 
         // Slide the window.
         final versionWindow = VersionWindow.fromRange(currentConstraint);
+        final VersionConstraint updatedConstraint;
         switch ((versionWindow, isBreaking: isBreakingChange)) {
           // ">3.0.5 <6.0.0"
           case (VersionWindow.major, isBreaking: _):
             assert(isBreakingChange, 'Multiple major is always breaking');
-            return VersionRange(
+            updatedConstraint = VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
               max: includeUpperBound ? latestVersion : latestVersion.nextMajor,
@@ -116,7 +122,7 @@ final class ConstraintUpdater {
 
           // ">=1.1.0 <1.2.0"
           case (VersionWindow.singleMinor, isBreaking: _):
-            return VersionRange(
+            updatedConstraint = VersionRange(
               min: Version(latestVersion.major, latestVersion.minor, 0),
               includeMin: true,
               max: latestVersion.nextMinor,
@@ -125,7 +131,7 @@ final class ConstraintUpdater {
 
           // ">=1.1.0 <1.4.3"
           case (VersionWindow.multipleMinor, isBreaking: true):
-            return VersionRange(
+            updatedConstraint = VersionRange(
               // Workaround for pre-v1 versions where isBreaking=true if
               // the window spans multiple 0.x versions.
               min: maxBy(
@@ -140,7 +146,7 @@ final class ConstraintUpdater {
               includeMax: includeUpperBound,
             );
           case (VersionWindow.multipleMinor, isBreaking: false):
-            return VersionRange(
+            updatedConstraint = VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
               max: includeUpperBound ? latestVersion : latestVersion.nextMinor,
@@ -149,20 +155,26 @@ final class ConstraintUpdater {
 
           // ">=3.0.6 <=3.0.8"
           case (VersionWindow.patch, isBreaking: true):
-            return VersionRange(
+            updatedConstraint = VersionRange(
               min: latestVersion,
               includeMin: true,
               max: latestVersion.nextPatch,
               includeMax: false,
             );
           case (VersionWindow.patch, isBreaking: false):
-            return VersionRange(
+            updatedConstraint = VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
               max: latestVersion,
               includeMax: true,
             );
         }
+        return (
+          updatedConstraint,
+          isBreakingChange
+              ? ConstraintUpdateType.breaking
+              : ConstraintUpdateType.nonBreaking
+        );
     }
   }
 }
@@ -198,4 +210,21 @@ enum VersionWindow {
       _ => VersionWindow.patch,
     };
   }
+}
+
+/// The result of calling [ConstraintUpdater.updateFor].
+typedef ConstraintUpdateResult = (
+  VersionConstraint? updatedConstraint,
+  ConstraintUpdateType updateType,
+);
+
+/// The result from a skipped breaking change.
+const ConstraintUpdateResult skippedBreaking =
+    (null, ConstraintUpdateType.breaking);
+
+/// The type of constraint update.
+enum ConstraintUpdateType {
+  noChange,
+  nonBreaking,
+  breaking,
 }

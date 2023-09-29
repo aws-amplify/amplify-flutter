@@ -10,6 +10,7 @@ defaults:
 # These permissions are needed for creating pull requests.
 permissions:
   contents: write
+  issues: write
   pull-requests: write
 
 # Cancels in-progress job when there is another push to same ref.

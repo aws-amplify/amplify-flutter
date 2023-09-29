@@ -125,7 +125,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
           continue;
         }
 
-        final newVersionConstraint = constraintUpdater.updateFor(
+        final (newVersionConstraint, _) = constraintUpdater.updateFor(
           dependency,
           versionConstraint,
           latestVersion,

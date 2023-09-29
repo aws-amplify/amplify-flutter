@@ -16,6 +16,9 @@ import 'package:node_io/node_io.dart';
 /// Scans for outdated Dart and Flutter dependencies and creates PRs for version updates.
 Future<void> main() => wrapMain(_deputyScan);
 
+/// Temp dir for Deputy action.
+final _tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
+
 Future<void> _deputyScan() async {
   AWSLogger()
     ..unregisterAllPlugins()
@@ -28,18 +31,19 @@ Future<void> _deputyScan() async {
     processManager: nodeProcessManager,
     logger: logger,
   );
-  final updates = await core.withGroup(
+  final DeputyResults(:groupUpdates, :skipped) = await core.withGroup(
     'Scan for Updates',
     deputy.scanForUpdates,
   );
-  if (updates == null) {
+  await _createSkipIssues(deputy.repo, skipped);
+
+  if (groupUpdates.isEmpty) {
     return core.info('No updates needed');
   }
 
   await allocateSwapSpace();
-
   final existingPrs = await _listExistingPrs();
-  await _createPrs(deputy.repo, existingPrs, updates);
+  await _createPrs(deputy.repo, existingPrs, groupUpdates);
 }
 
 /// Lists all Deputy PRs which currently exist in the repo.
@@ -63,6 +67,80 @@ Future<Map<String, int>> _listExistingPrs() async {
   });
 }
 
+/// Lists all Deputy-created issues which currently exist in the repo.
+Future<Map<String, int>> _listExistingSkipIssues() async {
+  final octokit = github.getOctokit(process.getEnv('GITHUB_TOKEN')!);
+  return core.withGroup('Check for existing skip issues', () async {
+    final existingIssues = <String, int>{};
+    final issues = await octokit.rest.issues.list();
+    for (final issue in issues) {
+      final message = CommitMessage.parse('', issue.title, body: issue.body);
+      final trailers = message.trailers;
+      final dependency = trailers[_dependencyNameTrailer];
+      if (dependency == null) {
+        continue;
+      }
+      existingIssues[dependency] = issue.number;
+    }
+    core.info('Found existing issues: $existingIssues');
+    return existingIssues;
+  });
+}
+
+/// Creates issues for updates which were skipped due to breaking change.
+Future<void> _createSkipIssues(
+  Repo repo,
+  Map<String, SkipReason> skipped,
+) async {
+  final existingIssues = await _listExistingSkipIssues();
+  await core.withGroup('Creating skipped issues', () async {
+    for (final MapEntry(key: dependency, value: reason) in skipped.entries) {
+      if (reason is! BreakingChange) {
+        continue;
+      }
+      if (existingIssues[dependency] case final existingIssue?) {
+        core.info(
+          'Skipping creation of issue for "$dependency" as it already exists: '
+          'https://github.com/aws-amplify/amplify-flutter/issues/$existingIssue',
+        );
+        continue;
+      }
+      final BreakingChange(:latestVersion, :currentConstraint) = reason;
+      final issueBody = '''
+> **NOTE:** This issue was automatically created using the repo deputy.
+
+Breaking change detected for dependency: `$dependency`.
+
+- Current constraint: `$currentConstraint`
+- Latest version: `$latestVersion`
+
+This dependency will need to be manually updated.
+
+$_dependencyNameTrailer: $dependency
+''';
+      final bodyFile = _tmpDir.childFile('issue_body_$dependency.txt')
+        ..createSync()
+        ..writeAsStringSync(issueBody);
+      final issueResult = await nodeProcessManager.run(
+        <String>[
+          'gh',
+          'issue',
+          'create',
+          '--body-file=${bodyFile.path}',
+          '--title',
+          '[deps] Breaking change detected for $dependency',
+        ],
+        echoOutput: true,
+        workingDirectory: repo.rootDir.path,
+      );
+      if (issueResult.exitCode != 0) {
+        core.error('Failed to create PR (${issueResult.exitCode})');
+        process.exit(issueResult.exitCode);
+      }
+    }
+  });
+}
+
 /// Creates a PR for each dependency group, updating existing PRs if they exist.
 Future<void> _createPrs(
   Repo repo,
@@ -71,13 +149,13 @@ Future<void> _createPrs(
 ) async {
   core.info('Creating PRs for update groups: $updates');
   final git = NodeGitDir(repo.git);
-  final tmpDir = nodeFileSystem.systemTempDirectory.createTempSync('deputy');
   for (final MapEntry(key: groupName, value: group) in updates.entries) {
     // If the group updates all deps to a unique constraint, use that in messages.
     final uniqueConstraint =
         group.updatedConstraints.values.toSet().singleOrNull;
     await core.withGroup('Create PR for group "$groupName"', () async {
-      final dependenciesToBump = group.dependencies.difference(repo.aftConfig.doNotBump);
+      final dependenciesToBump =
+          group.dependencies.difference(repo.aftConfig.doNotBump);
       if (dependenciesToBump.isEmpty) {
         core.info(
           'Skipping "$groupName" since all of its dependencies are on the do-not-update list',
@@ -148,7 +226,7 @@ $constraintUpdates
 
 $_groupTrailer: $groupName
 ''';
-      final bodyFile = tmpDir.childFile('pr_body_$groupName.txt')
+      final bodyFile = _tmpDir.childFile('pr_body_$groupName.txt')
         ..createSync()
         ..writeAsStringSync(prBody);
       final prResult = await nodeProcessManager.run(
@@ -164,9 +242,7 @@ $_groupTrailer: $groupName
         workingDirectory: worktreeDir,
       );
       if (prResult.exitCode != 0) {
-        core.error(
-          'Failed to create PR (${prResult.exitCode}): ${prResult.stderr}',
-        );
+        core.error('Failed to create PR (${prResult.exitCode})');
         process.exit(prResult.exitCode);
       }
       // Extract the new PR's number from the output.
@@ -232,6 +308,9 @@ extension ExtractPrNumber on ProcessResult {
 
 /// Trailer key for the group being updated.
 const _groupTrailer = 'Updated-Group';
+
+/// Trailer key for skipped dependencies.
+const _dependencyNameTrailer = 'Dependency-Name';
 
 extension type NodeGitDir(GitDir it) implements GitDir {
   Future<void> runCommand(List<String> args) => it.runCommand(

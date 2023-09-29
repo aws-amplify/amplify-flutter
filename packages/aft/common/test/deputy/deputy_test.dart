@@ -26,20 +26,53 @@ void main() {
           'third_party_a': '1.1.0',
         }),
       );
-      final updates = await deputy.scanForUpdates();
-      expect(updates, isNotNull);
+      final DeputyResults(:groupUpdates, :skipped) =
+          await deputy.scanForUpdates();
+      expect(groupUpdates, isNotEmpty);
+      expect(skipped, isEmpty);
       expect(
-        updates!.keys.single,
+        groupUpdates.keys.single,
         'third_party_a',
         reason: 'Only "third_party_a" should be updated',
       );
-      await updates.updatePubspecs();
+      await groupUpdates.updatePubspecs();
       await d.repo([
         d.package(
           'local_a',
           dependencies: {'third_party_a': '1.1.0'},
         ),
       ]).validate();
+    });
+
+    test('breaking change', () async {
+      final repoDesc = d.repo([
+        d.package(
+          'local_a',
+          dependencies: {'third_party_a': '1.0.0'},
+        ),
+      ]);
+      final repo = await repoDesc.create();
+      final deputy = Deputy(
+        repo: repo,
+        versionResolver: MockVersionResolver({
+          'third_party_a': '2.0.0',
+        }),
+      );
+      final DeputyResults(:groupUpdates, :skipped) =
+          await deputy.scanForUpdates();
+      expect(groupUpdates, isEmpty);
+      expect(
+        skipped,
+        equals({
+          'third_party_a': BreakingChange(
+            Version.parse('2.0.0'),
+            Version.parse('1.0.0'),
+          ),
+        }),
+      );
+      await groupUpdates.updatePubspecs();
+      // Expect no change.
+      await repoDesc.validate();
     });
 
     test('groups', () async {
@@ -75,18 +108,19 @@ void main() {
           'third_party_d': '1.0.0',
         }),
       );
-      final updates = await deputy.scanForUpdates();
-      expect(updates, isNotNull);
-
+      final DeputyResults(:groupUpdates, :skipped) =
+          await deputy.scanForUpdates();
+      expect(groupUpdates, isNotEmpty);
+      expect(skipped, isEmpty);
       expect(
-        updates!.keys,
+        groupUpdates.keys,
         unorderedEquals([abGroupName, cGroupName]),
         reason: 'The third party group should be bundled together. '
             'third_party_c should be in its own group. '
             'third_party_d should not be included.',
       );
       expect(
-        updates.values,
+        groupUpdates.values,
         unorderedEquals([
           isA<DependencyGroupUpdate>()
               .having(
@@ -137,7 +171,7 @@ void main() {
               ),
         ]),
       );
-      await updates.updatePubspecs();
+      await groupUpdates.updatePubspecs();
       await d.repo([
         d.package(
           'local_a',
@@ -200,16 +234,24 @@ aft:
           'xml': '6.4.0',
         }),
       );
-      final updates = await deputy.scanForUpdates();
-      expect(updates, isNotNull);
+      final DeputyResults(:groupUpdates, :skipped) =
+          await deputy.scanForUpdates();
+      expect(groupUpdates, isNotEmpty);
       expect(
-        updates!.keys,
+        skipped,
+        allOf([
+          containsPair('dart_style', isA<DoNotBump>()),
+          containsPair('xml', isA<DoNotBump>()),
+        ]),
+      );
+      expect(
+        groupUpdates.keys,
         unorderedEquals([codegenGroupName]),
         reason: 'Only the codegen group should be in the update map. '
             'xml should not have been included since its on the doNotBump list.',
       );
       expect(
-        updates.values.single,
+        groupUpdates.values.single,
         isA<DependencyGroupUpdate>()
             .having(
               (group) => group.groupName,
@@ -236,7 +278,7 @@ aft:
               unorderedEquals(['code_builder']),
             ),
       );
-      await updates.updatePubspecs();
+      await groupUpdates.updatePubspecs();
       await d.repo([
         d.pubspec('''
 name: amplify_flutter_repo
@@ -280,5 +322,18 @@ final class MockVersionResolver implements VersionResolver {
   @override
   Version? latestVersion(String dependency) {
     return versions[dependency];
+  }
+}
+
+extension on Map<String, DependencyGroupUpdate> {
+  /// Updates all pubspecs in all groups and writes the changes
+  /// to disk.
+  ///
+  /// If [worktree] is specified, updates are applied in that repo.
+  /// Otherwise, they are applied to the current, active repo.
+  Future<void> updatePubspecs([Repo? worktree]) async {
+    for (final group in values) {
+      await group.updatePubspecs(worktree);
+    }
   }
 }

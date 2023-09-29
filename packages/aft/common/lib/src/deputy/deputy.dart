@@ -121,12 +121,13 @@ final class Deputy {
   ///
   /// For each group in which there are updates, this proposes a new update
   /// which modifies the pubspec for each group package.
-  Future<Map<String, DependencyGroupUpdate>> _proposeUpdates(
-    BuiltListMultimap<String, DependencyMetadata> dependencyGroups,
+  Future<DeputyResults> _proposeUpdates(
+    Map<String, Iterable<DependencyMetadata>> dependencyGroups,
   ) async {
     final proposedUpdates = MapBuilder<String, DependencyGroupUpdateBuilder>();
+    final skipped = MapBuilder<String, SkipReason>();
     for (final MapEntry(key: groupName, value: groupUpdates)
-        in dependencyGroups.toMap().entries) {
+        in dependencyGroups.entries) {
       for (final update in groupUpdates) {
         final dependency = update.dependencyName;
 
@@ -135,6 +136,7 @@ final class Deputy {
           logger?.debug(
             'Skipping updates to "$dependency" since it\'s on the do-not-bump list',
           );
+          skipped[dependency] = DoNotBump(repo.aftConfig.doNotBump.toList());
           continue;
         }
 
@@ -163,64 +165,79 @@ final class Deputy {
         // 3. Create a GitHub issue instead
 
         if (update.globalConstraint case final globalConstraint?) {
-          final updatedGlobalConstraint = constraintUpdater.updateFor(
+          final constraintUpdate = constraintUpdater.updateFor(
             dependency,
             globalConstraint,
             update.latestVersion,
           );
-          if (updatedGlobalConstraint != null) {
-            logger
-              ?..info('Proposing global update to $dependency:')
-              ..info('  $globalConstraint -> $updatedGlobalConstraint');
-            proposedUpdate()
-              ..updatedConstraints[dependency] ??= updatedGlobalConstraint
-              ..pubspecUpdates.add(
-                (repo) => repo.rootPubspecEditor.update(
-                  ['dependencies', dependency],
-                  updatedGlobalConstraint.toString(),
-                ),
+          switch (constraintUpdate) {
+            case (final updatedGlobalConstraint?, _):
+              logger
+                ?..info('Proposing global update to $dependency:')
+                ..info('  $globalConstraint -> $updatedGlobalConstraint');
+              proposedUpdate()
+                ..updatedConstraints[dependency] ??= updatedGlobalConstraint
+                ..pubspecUpdates.add(
+                  (repo) => repo.rootPubspecEditor.update(
+                    ['dependencies', dependency],
+                    updatedGlobalConstraint.toString(),
+                  ),
+                );
+            case skippedBreaking:
+              skipped[dependency] = BreakingChange(
+                update.latestVersion,
+                globalConstraint,
               );
           }
         }
 
         for (final MapEntry(key: packageName, value: constraint)
             in update.dependentPackages.entries) {
-          final updatedConstraint = constraintUpdater.updateFor(
+          final constraintUpdate = constraintUpdater.updateFor(
             dependency,
             constraint,
             update.latestVersion,
           );
-          if (updatedConstraint == null) {
-            continue;
-          }
-          logger
-            ?..info('Proposing update to $dependency in $packageName:')
-            ..info('  $constraint -> $updatedConstraint');
-          final package = repo[packageName];
-          final dependencyType =
-              package.pubspecInfo.pubspec.dependencies.containsKey(dependency)
+          switch (constraintUpdate) {
+            case (final updatedConstraint?, _):
+              logger
+                ?..info('Proposing update to $dependency in $packageName:')
+                ..info('  $constraint -> $updatedConstraint');
+              final package = repo[packageName];
+              final dependencyType = package.pubspecInfo.pubspec.dependencies
+                      .containsKey(dependency)
                   ? DependencyType.dependency
                   : DependencyType.devDependency;
 
-          proposedUpdate()
-            ..updatedConstraints[dependency] ??= updatedConstraint
-            ..pubspecUpdates.add(
-              (repo) => repo
-                  .maybePackage(package.name)
-                  ?.pubspecInfo
-                  .pubspecYamlEditor
-                  .update(
-                [dependencyType.key, dependency],
-                updatedConstraint.toString(),
-              ),
-            );
+              proposedUpdate()
+                ..updatedConstraints[dependency] ??= updatedConstraint
+                ..pubspecUpdates.add(
+                  (repo) => repo
+                      .maybePackage(package.name)
+                      ?.pubspecInfo
+                      .pubspecYamlEditor
+                      .update(
+                    [dependencyType.key, dependency],
+                    updatedConstraint.toString(),
+                  ),
+                );
+            case skippedBreaking:
+              skipped[dependency] = BreakingChange(
+                update.latestVersion,
+                constraint,
+              );
+          }
         }
       }
     }
-    return proposedUpdates
+    final groupUpdates = proposedUpdates
         .build()
         .toMap()
         .map((group, update) => MapEntry(group, update.build()));
+    return DeputyResults._(
+      groupUpdates: groupUpdates,
+      skipped: skipped.build().toMap(),
+    );
   }
 
   /// Writes any propsed updates to disk.
@@ -262,25 +279,58 @@ final class Deputy {
   /// updates for those which have outdated constraints.
   ///
   /// Returns `true` if there were updates and `false` if all packages are up-to-date.
-  Future<Map<String, DependencyGroupUpdate>?> scanForUpdates() async {
+  Future<DeputyResults> scanForUpdates() async {
     final dependencyGroups = await _listDependencyGroups();
-    final updates = await _proposeUpdates(dependencyGroups);
-    if (updates.isEmpty) {
-      return null;
-    }
-    return updates;
+    return _proposeUpdates(dependencyGroups.toMap());
   }
 }
 
-extension UpdateAllGroups on Map<String, DependencyGroupUpdate> {
-  /// Updates all pubspecs in all groups and writes the changes
-  /// to disk.
-  ///
-  /// If [worktree] is specified, updates are applied in that repo.
-  /// Otherwise, they are applied to the current, active repo.
-  Future<void> updatePubspecs([Repo? worktree]) async {
-    for (final group in values) {
-      await group.updatePubspecs(worktree);
-    }
-  }
+/// The results of a [Deputy] scan.
+final class DeputyResults {
+  const DeputyResults._({
+    required this.groupUpdates,
+    required this.skipped,
+  });
+
+  /// The proposed updates, grouped by the group name.
+  final Map<String, DependencyGroupUpdate> groupUpdates;
+
+  /// The dependencies whose updates were skipped and the reason for the skip.
+  final Map<String, SkipReason> skipped;
+}
+
+/// The reason why a dependency's update was skipped.
+sealed class SkipReason {}
+
+/// {@template aft_common.breaking_change}
+/// A breaking change was detected on the dependency.
+/// {@endtemplate}
+final class BreakingChange
+    with AWSEquatable<BreakingChange>
+    implements SkipReason {
+  /// {@macro aft_common.breaking_change}
+  const BreakingChange(this.latestVersion, this.currentConstraint);
+
+  /// The latest version published on `pub.dev`.
+  final VersionConstraint latestVersion;
+
+  /// The current constraint in the repo.
+  final VersionConstraint currentConstraint;
+
+  @override
+  List<Object?> get props => [latestVersion, currentConstraint];
+}
+
+/// {@template aft_common.do_not_bump}
+/// A breaking change was detected on the dependency.
+/// {@endtemplate}
+final class DoNotBump with AWSEquatable<DoNotBump> implements SkipReason {
+  /// {@macro aft_common.do_not_bump}
+  const DoNotBump(this.repoList);
+
+  /// The repo's list of packages to never bump.
+  final List<String> repoList;
+
+  @override
+  List<Object?> get props => [repoList];
 }
