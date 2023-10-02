@@ -182,13 +182,13 @@ void main() {
               reason:
                   'When both phone and email are passed during sign up, only '
                   'phone is verified by Cognito. It is the responsibility of developers '
-                  'to all resendUserAttributeConfirmationCode to receive a code for '
+                  'to all sendUserAttributeVerificationCode to receive a code for '
                   'verifying the other attribute.',
             );
 
             final emailCode = await getOtpCode(UserAttribute.email(email));
             final resendRes =
-                await Amplify.Auth.resendUserAttributeConfirmationCode(
+                await Amplify.Auth.sendUserAttributeVerificationCode(
               userAttributeKey: AuthUserAttributeKey.email,
             );
             expect(
