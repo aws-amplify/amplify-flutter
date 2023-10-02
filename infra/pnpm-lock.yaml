@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@aws-cdk/aws-cognito-identitypool-alpha':
     specifier: 2.95.0-alpha.0
-    version: 2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.2.70)
+    version: 2.95.0-alpha.0(aws-cdk-lib@2.99.1)(constructs@10.2.70)
   '@aws-crypto/client-node':
     specifier: ^4.0.0
     version: 4.0.0
@@ -21,8 +21,8 @@ dependencies:
     specifier: ^3.408.0
     version: 3.408.0
   aws-cdk-lib:
-    specifier: 2.95.0
-    version: 2.95.0(constructs@10.2.70)
+    specifier: 2.99.1
+    version: 2.99.1(constructs@10.2.70)
   constructs:
     specifier: ^10.2.70
     version: 10.2.70
@@ -47,8 +47,8 @@ devDependencies:
     specifier: ^20.5.9
     version: 20.5.9
   aws-cdk:
-    specifier: 2.95.0
-    version: 2.95.0
+    specifier: 2.99.1
+    version: 2.99.1
   esbuild:
     specifier: ^0.19.2
     version: 0.19.2
@@ -87,14 +87,14 @@ packages:
     resolution: {integrity: sha512-DDt4SLdLOwWCjGtltH4VCST7hpOI5DzieuhGZsBpZ+AgJdSI2GCjklCXm0GCTwJG/SolkL5dtQXyUKgg9luBDg==}
     dev: false
 
-  /@aws-cdk/aws-cognito-identitypool-alpha@2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.2.70):
+  /@aws-cdk/aws-cognito-identitypool-alpha@2.95.0-alpha.0(aws-cdk-lib@2.99.1)(constructs@10.2.70):
     resolution: {integrity: sha512-GxDRBb8sGDRdut4rXUkTErkqPptOI+qK8efwwFrWpCJKWCPVx8Ox6DgbDEOoE3pOHySFLmJCSmNmD0DPkkOXEw==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       aws-cdk-lib: 2.95.0
       constructs: ^10.0.0
     dependencies:
-      aws-cdk-lib: 2.95.0(constructs@10.2.70)
+      aws-cdk-lib: 2.99.1(constructs@10.2.70)
       constructs: 10.2.70
     dev: false
 
@@ -2350,8 +2350,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /aws-cdk-lib@2.95.0(constructs@10.2.70):
-    resolution: {integrity: sha512-2G8QAldRI2Fa/ThaMyO04iLu9lER5AYKgrWshJ59L6JT4XraRTqh8sjti+ew4I6ADk6Zaprh2YcLRS2wTcICzA==}
+  /aws-cdk-lib@2.99.1(constructs@10.2.70):
+    resolution: {integrity: sha512-mUhuT2JTy3VyX9o9IOSuy7UYDimFHGnmpASwTb4rD10Hksb1dTqqN2BsXU5kogHakYevBD3vwYc87rOVso4M7Q==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -2383,8 +2383,8 @@ packages:
       - table
       - yaml
 
-  /aws-cdk@2.95.0:
-    resolution: {integrity: sha512-3BBb9S6Wp5wC+zOZghuIC+Eu4pH0rOJAKUHTlaVUND1ePOxlEcxs2+Rww5jGTksi491q2WLwy8DiuymArhjA/w==}
+  /aws-cdk@2.99.1:
+    resolution: {integrity: sha512-uWg4xhBrHNoRMlEgvWzr0MacJ92dLFeJ5AvT7nruxrgShU1fgt/Rsxw1WCXSASaVUsIUGgtO+P89x8cRU2nf7w==}
     engines: {node: '>= 14.15.0'}
     hasBin: true
     optionalDependencies:
