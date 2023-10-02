@@ -21,8 +21,6 @@ dependencies:
   built_value_generator: 8.6.1
   code_builder: 4.6.0
   connectivity_plus: ^4.0.1
-  # This must exactly match what's included in `dart format`
-  # on stable so that CI checks pass for generated code.
   dart_style: 2.3.2
   device_info_plus: ^9.0.0
   drift: ">=2.11.0 <2.12.0"
@@ -60,6 +58,21 @@ aft:
   # Packages to ignore in all repo operations.
   ignore:
     - synthetic_package
+
+  # The list of dependencies which should not be automatically bumped,
+  # e.g. by Deputy or aft constraints commands.
+  #
+  # Dependencies in this list must be manually bumped.
+  doNotBump:
+    # This must exactly match what's included in `dart format`
+    # on stable so that CI checks pass for generated code.
+    - dart_style
+
+    # TODO: Remove when min Flutter SDK allows latest xml or xml changes their
+    # constraint on `package:collection`.
+    #
+    # Bumping will require changes in Smithy.
+    - xml
 
   # Strongly connected components which should have version bumps happen
   # in unison, i.e. a version bump to one package cascades to all.

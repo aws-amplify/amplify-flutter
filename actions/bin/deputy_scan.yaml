@@ -1,0 +1,5 @@
+name: Deputy Scan
+description: Scans for outdated Dart and Flutter dependencies and creates PRs with latest versions.
+runs:
+  using: "node20"
+  main: "dist/index.mjs"

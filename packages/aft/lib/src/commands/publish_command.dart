@@ -5,10 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:aft/src/constraints_checker.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:collection/collection.dart';
 import 'package:graphs/graphs.dart';
 import 'package:path/path.dart' as p;
 
@@ -79,14 +77,8 @@ mixin PublishHelpers on AmplifyCommand {
     }
 
     try {
-      final versionInfo = await resolveVersionInfo(package.name);
-      final publishedVersion = maxBy(
-        [
-          if (versionInfo?.latestPrerelease != null)
-            versionInfo!.latestPrerelease!,
-          if (versionInfo?.latestVersion != null) versionInfo!.latestVersion!,
-        ],
-        (v) => v,
+      final publishedVersion = await versionResolver.latestVersion(
+        package.name,
       );
       if (publishedVersion == null) {
         logger.info('No published info for package ${package.name}');

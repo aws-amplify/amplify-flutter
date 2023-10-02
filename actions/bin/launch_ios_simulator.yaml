@@ -5,5 +5,5 @@ inputs:
     description: The iOS version
     default: "16"
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.mjs"

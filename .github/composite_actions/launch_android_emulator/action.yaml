@@ -14,5 +14,5 @@ inputs:
     required: true
     description: The script to run once the emulator is booted.
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.mjs"

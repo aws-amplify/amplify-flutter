@@ -20,7 +20,7 @@ void main() {
   group('NodeProcessManager', () {
     group('runSync', () {
       test('echo', () {
-        check(processManager.runSync(['echo', 'Hello']))
+        check(nodeProcessManager.runSync(['echo', 'Hello']))
           ..has((res) => res.exitCode, 'exitCode').equals(0)
           ..has((res) => res.stdout, 'stdout').equals('Hello\n');
       });
@@ -28,7 +28,7 @@ void main() {
 
     group('run', () {
       test('echo', () async {
-        await check(processManager.run(['echo', 'Hello'])).completes(
+        await check(nodeProcessManager.run(['echo', 'Hello'])).completes(
           it()
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
@@ -37,7 +37,7 @@ void main() {
 
       test('pipe', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
-        await check(processManager.run(['tee'], pipe: echo)).completes(
+        await check(nodeProcessManager.run(['tee'], pipe: echo)).completes(
           it()
             ..has((res) => res.exitCode, 'exitCode').equals(0)
             ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
@@ -48,10 +48,14 @@ void main() {
     group('start', () {
       for (final mode in ProcessStartMode.values) {
         test(mode.toString(), () async {
-          final proc = await processManager.start(
+          final proc = await nodeProcessManager.start(
             ['echo', 'Hello'],
             mode: mode,
           );
+          check(
+            because: 'spawn listeners should have deregistered.',
+            proc.jsProcess.eventNames,
+          ).deepEquals(['error']);
           final expectedOutput = utf8.encode('Hello\n');
           unawaited(
             check(proc.stdout).withQueue.inOrder([
@@ -66,14 +70,37 @@ void main() {
           unawaited(
             check(proc.stderr).withQueue.isDone(),
           );
-          check(proc.pid).isGreaterThan(0);
+          if (mode == ProcessStartMode.normal) {
+            check(
+              because: 'stdout listeners should have registered',
+              proc.jsProcess.stdout!.eventNames,
+            ).length.isGreaterThan(1);
+            check(
+              because: 'stderr listeners should have registered',
+              proc.jsProcess.stderr!.eventNames,
+            ).length.isGreaterThan(1);
+          }
           await check(proc.exitCode).completes(it()..equals(0));
+          await proc.close();
+          if (mode == ProcessStartMode.normal) {
+            check(
+              because: 'stream listeners should have deregistered',
+              [
+                ...proc.jsProcess.stdout!.eventNames,
+                ...proc.jsProcess.stderr!.eventNames,
+              ],
+            ).isEmpty();
+          }
         });
       }
 
       test('start (pipe)', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
-        final proc = await processManager.start(['tee'], pipe: echo);
+        final proc = await nodeProcessManager.start(['tee'], pipe: echo);
+        check(
+          because: 'spawn listeners should have deregistered.',
+          proc.jsProcess.eventNames,
+        ).deepEquals(['error']);
         unawaited(
           check(proc.stdout).withQueue.inOrder([
             it()
@@ -84,7 +111,23 @@ void main() {
           ]),
         );
         unawaited(check(proc.stderr).withQueue.isDone());
+        check(
+          because: 'stdout listeners should have registered',
+          proc.jsProcess.stdout!.eventNames,
+        ).length.isGreaterThan(1);
+        check(
+          because: 'stderr listeners should have registered',
+          proc.jsProcess.stderr!.eventNames,
+        ).length.isGreaterThan(1);
         await check(proc.exitCode).completes(it()..equals(0));
+        await proc.close();
+        check(
+          because: 'stream listeners should have deregistered',
+          [
+            ...proc.jsProcess.stdout!.eventNames,
+            ...proc.jsProcess.stderr!.eventNames,
+          ],
+        ).isEmpty();
       });
     });
   });

@@ -11,7 +11,7 @@ external Core get core;
 
 @JS()
 @anonymous
-extension type Core._(JSObject it) {
+extension type Core._(JSObject it) implements JSObject {
   @JS('getInput')
   external String _getInput(String name);
 

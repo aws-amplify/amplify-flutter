@@ -5,7 +5,7 @@ import 'dart:js_interop';
 
 @JS('Error')
 @staticInterop
-extension type JSError(JSObject it) {
+extension type JSError(JSObject it) implements JSObject {
   external String get message;
   external String get code;
   external String get stack;

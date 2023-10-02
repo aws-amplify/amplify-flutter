@@ -42,12 +42,6 @@ jobs:
         working-directory: packages/aft
         run: dart pub upgrade
 
-      - name: Save Repo State
-        working-directory: packages/aft
-        run: |
-          dart pub get
-          dart bin/aft.dart save-repo-state
-
       - name: Run Tests
         working-directory: packages/aft
         run: dart test

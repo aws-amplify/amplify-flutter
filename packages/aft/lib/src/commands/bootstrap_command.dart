@@ -87,7 +87,7 @@ const amplifyEnvironments = <String, String>{};
           // `^3.0.5` when the current repo constraint is `^3.0.0` and we're running
           // `aft` with `3.0.1` is a different issue handled by the constraints commands.
           (pkg) {
-            final compatibleWithActiveSdk = pkg.compatibleWithActiveSdk;
+            final compatibleWithActiveSdk = repo.compatibleWithActiveSdk(pkg);
             if (!compatibleWithActiveSdk) {
               logger.info(
                 'Skipping package ${pkg.name} since it sets an incompatible Dart SDK constraint: '

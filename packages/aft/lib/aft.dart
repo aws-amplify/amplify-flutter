@@ -3,6 +3,8 @@
 
 library aft;
 
+export 'package:aft_common/aft_common.dart';
+
 export 'src/commands/amplify_command.dart';
 export 'src/commands/bootstrap_command.dart';
 export 'src/commands/clean_command.dart';
@@ -17,6 +19,6 @@ export 'src/commands/publish_command.dart';
 export 'src/commands/run_command.dart';
 export 'src/commands/serve_command.dart';
 export 'src/commands/version_bump_command.dart';
-export 'src/models.dart';
+export 'src/model.dart';
 export 'src/pub/pub_runner.dart';
 export 'src/util.dart';

@@ -94,7 +94,7 @@ abstract class _DocsSubcommand extends AmplifyCommand
     Progress? progress,
   }) async {
     final log = progress?.update ?? mLogger.detail;
-    final docsPackageDir = Directory(p.join(package.path, 'doc'));
+    final docsPackageDir = fileSystem.directory(p.join(package.path, 'doc'));
     final docsPackage = PackageInfo.fromDirectory(docsPackageDir);
     if (docsPackage == null) {
       return;

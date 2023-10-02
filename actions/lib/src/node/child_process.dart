@@ -7,7 +7,6 @@ import 'dart:typed_data';
 
 import 'package:actions/actions.dart';
 import 'package:actions/src/node/process_manager.dart';
-import 'package:actions/src/util.dart';
 
 /// Wraps https://nodejs.org/api/child_process.html
 @JS()
@@ -15,7 +14,7 @@ external ChildProcess get childProcess;
 
 @JS()
 @anonymous
-extension type ChildProcess(JSObject it) {
+extension type ChildProcess(JSObject it) implements JSObject {
   @JS('spawn')
   external NodeChildProcess _spawn(
     String command, 
@@ -136,7 +135,7 @@ extension type ChildProcess(JSObject it) {
       ProcessStartMode.inheritStdio => 'inherit',
       _ => unreachable,
     }.toJS;
-    return _spawn(
+    final childProc = _spawn(
       command, 
       args.map((arg) => arg.toJS).toList().toJS, 
       _ChildProcessOptions(
@@ -158,12 +157,19 @@ extension type ChildProcess(JSObject it) {
         shell: runInShell ? '/bin/sh' : null,
       ),
     );
+    // We set various listeners which are difficult to clean up. By default,
+    // Node prints a warning when more than 10 listeners are added but this
+    // is not helpful.
+    return childProc
+      ..setMaxListeners(0)
+      ..stdout?.setMaxListeners(0)
+      ..stderr?.setMaxListeners(0);
   }
 }
 
 @JS()
 @anonymous
-extension type _ChildProcessOptions._(JSObject it) {
+extension type _ChildProcessOptions._(JSObject it) implements JSObject {
   external factory _ChildProcessOptions({
     String? cwd,
     JSObject? env,
@@ -174,13 +180,19 @@ extension type _ChildProcessOptions._(JSObject it) {
   });
 }
 
+// Prevent multiple of these events from being created for an individual process.
+final _spawnEvents = Expando<Future<void>>();
+final _errorEvents = Expando<Future<JSObject>>();
+final _exitEvents = Expando<Future<JSNumber>>();
+final _closeEvents = Expando<Future<void>>();
+
 @JS()
 @anonymous
 extension type NodeChildProcess._(JSObject it) implements EventEmitter {
-  Future<void> get onSpawn => once('spawn');
-  Future<JSObject> get onError => once('error');
-  Future<JSNumber> get onExit => once('exit');
-  Future<void> get onClose => once('close');
+  Future<void> get onSpawn => _spawnEvents[this] ??= once('spawn');
+  Future<JSObject> get onError => _errorEvents[this] ??= once('error');
+  Future<JSNumber> get onExit => _exitEvents[this] ??= once('exit');
+  Future<void> get onClose => _closeEvents[this] ??= once('close');
   external bool kill([String signal]);
 
   /// This is only set once the process has exited.
@@ -195,7 +207,7 @@ extension type NodeChildProcess._(JSObject it) implements EventEmitter {
 @anonymous
 extension type NodeReadableStream._(JSObject it) implements EventEmitter {
   Stream<List<int>> get stream {
-    final controller = StreamController<List<int>>(sync: true);
+    final controller = StreamController<List<int>>.broadcast(sync: true);
     void onData(JSUint8Array chunk) {
       if (controller.isClosed) return;
       controller.add(chunk.toDart);
@@ -208,50 +220,31 @@ extension type NodeReadableStream._(JSObject it) implements EventEmitter {
         ..close();
     }
 
-    void onDone([_]) {
+    void onDone([JSAny? _]) {
       if (controller.isClosed) return;
       controller.close();
     }
 
+    final dataListener = onData.toJS;
+    final errorListener = onError.toJS;
+    final doneListener = onDone.toJS;
     controller
       ..onListen = () {
-        addListener('data', onData.toJS);
-        unawaited(once('close').then(onDone));
-        unawaited(once<JSObject>('error').then(onError));
+        addListener('data', dataListener);
+        addListener('error', errorListener);
+        addListener('close', doneListener);
       }
-      ..onCancel = () => removeListener('data', onData.toJS);
+      ..onCancel = () {
+        removeListener('data', dataListener);
+        removeListener('error', errorListener);
+        removeListener('close', doneListener);
+      };
     return controller.stream;
   }
 }
 
 @JS()
-extension type EventEmitter._(JSObject it) implements JSObject {
-  external void addListener(String eventName, JSFunction? listener);
-
-  external void removeListener(String eventName, JSFunction? listener);
-
-  @JS('once')
-  external void _once(String eventName, JSFunction listener);
-
-  Future<T> once<T extends JSAny?>(String eventName) {
-    final completer = Completer<T>();
-    _once(
-      eventName, 
-      // Callbacks may be called with 0-3 args. This will generate
-      // stubs for each of the argument counts, mimicking a variadic
-      // JS function. 
-      //
-      // We are really only concerned with the first, though.
-      ([JSAny? arg0, JSAny? arg1, JSAny? arg2]) {
-        completer.complete(arg0 as T);
-      }.toJS,
-    );
-    return completer.future;
-  }
-}
-
-@JS()
 @anonymous
-extension type NodeWriteableStream._(JSObject it) {
+extension type NodeWriteableStream._(JSObject it) implements JSObject {
   external void write(JSUint8Array chunk, [String? encoding, JSFunction flushCallback]);
 }

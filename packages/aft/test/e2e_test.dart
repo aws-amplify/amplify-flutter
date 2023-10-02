@@ -16,12 +16,11 @@
 
 import 'dart:io';
 
-import 'package:aft/src/repo.dart';
+import 'package:aft/aft.dart';
+import 'package:aft_common/descriptors.dart' as d;
 import 'package:aws_common/aws_common.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-
-import 'helpers/descriptors.dart' as d;
 
 void main() {
   final logger = AWSLogger().createChild('E2E');
@@ -276,9 +275,9 @@ void main() {
             expect(commits, hasLength(check.value));
 
             // Bump changelogs to NEXT
-            final updateChangelog = package.changelog.update(
-              commits: commits,
-            );
+            final updateChangelog = package.changelog().update(
+                  commits: commits,
+                );
             expect(updateChangelog.hasUpdate, true);
             expect(
               updateChangelog.newText,

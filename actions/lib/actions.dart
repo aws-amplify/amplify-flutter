@@ -21,14 +21,17 @@ export 'src/chromedriver/downloads.dart';
 export 'src/node/actions/cache.dart' hide Cache;
 export 'src/node/actions/core.dart' hide Core;
 export 'src/node/actions/exec.dart' hide Exec;
+export 'src/node/actions/github.dart' hide GitHub;
 export 'src/node/actions/http_request.dart';
 export 'src/node/actions/tool_cache.dart' hide ToolCache;
 export 'src/node/child_process.dart' hide ChildProcess;
 export 'src/node/error.dart';
+export 'src/node/events.dart';
 export 'src/node/fs.dart' hide FileSystem;
 export 'src/node/os.dart' hide OperatingSystem;
 export 'src/node/process.dart' hide Process;
 export 'src/os.dart';
+export 'src/util.dart';
 
 /// Wraps a GitHub action entrypoint to better handle errors and map
 /// JS stack traces to Dart stack traces.

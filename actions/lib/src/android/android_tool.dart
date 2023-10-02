@@ -29,7 +29,7 @@ final class AndroidTool {
       [final exe, ...final args] => childProcess.spawn(exe, args),
       _ => null,
     };
-    final result = await processManager.run(
+    final result = await nodeProcessManager.run(
       <String>[exe, ...args],
       pipe: pipe,
       echoOutput: true,

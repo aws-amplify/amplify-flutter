@@ -3,6 +3,7 @@
 
 import 'dart:js_interop';
 
+import 'package:actions/src/node/actions/octokit.dart';
 import 'package:actions/src/node/process.dart';
 
 @JS()
@@ -10,11 +11,14 @@ external GitHub get github;
 
 @JS()
 @anonymous
-extension type GitHub._(JSObject it) {
+extension type GitHub._(JSObject it) implements JSObject {
   /// The GitHub context this action is running in.
   /// 
   /// See: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
   external GitHubContext get context;
+
+  /// Creates an [Octokit] client with the given GitHub [token].
+  external Octokit getOctokit(String token);
 }
 
 /// A typed representation of the `github` context object.

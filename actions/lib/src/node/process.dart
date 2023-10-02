@@ -13,7 +13,7 @@ import 'package:actions/src/util.dart';
 external Process get process;
 
 @JS()
-extension type Process._(JSObject it) {
+extension type Process._(JSObject it) implements JSObject {
   /// The current Node version.
   external String get version;
 
@@ -65,6 +65,8 @@ extension type Process._(JSObject it) {
 
   @JS('exit')
   external void _exit(int exitCode);
+
+  external int exitCode;
 
   Never exit(int exitCode) {
     _exit(exitCode);

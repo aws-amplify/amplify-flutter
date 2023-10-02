@@ -10,7 +10,7 @@ external Exec get exec;
 
 @JS()
 @anonymous
-extension type Exec._(JSObject it) {
+extension type Exec._(JSObject it) implements JSObject {
   @JS('exec')
   external JSPromise _exec(
     String commandLine, [
