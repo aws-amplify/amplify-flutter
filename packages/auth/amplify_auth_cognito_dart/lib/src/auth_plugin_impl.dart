@@ -698,15 +698,27 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   @override
-  Future<ResendUserAttributeConfirmationCodeResult>
+  Future<SendUserAttributeVerificationCodeResult>
       resendUserAttributeConfirmationCode({
     required AuthUserAttributeKey userAttributeKey,
-    ResendUserAttributeConfirmationCodeOptions? options,
+    SendUserAttributeVerificationCodeOptions? options,
+  }) async {
+    return sendUserAttributeVerificationCode(
+      userAttributeKey: userAttributeKey,
+      options: options,
+    );
+  }
+
+  @override
+  Future<SendUserAttributeVerificationCodeResult>
+      sendUserAttributeVerificationCode({
+    required AuthUserAttributeKey userAttributeKey,
+    SendUserAttributeVerificationCodeOptions? options,
   }) async {
     final pluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions:
-          const CognitoResendUserAttributeConfirmationCodePluginOptions(),
+          const CognitoSendUserAttributeVerificationCodePluginOptions(),
     );
     final tokens = await stateMachine.getUserPoolTokens();
     final result = await _cognitoIdp
@@ -723,7 +735,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     if (codeDeliveryDetails == null) {
       throw const UnknownException('Could not resend confirmation code');
     }
-    return ResendUserAttributeConfirmationCodeResult(
+    return SendUserAttributeVerificationCodeResult(
       codeDeliveryDetails: codeDeliveryDetails,
     );
   }
