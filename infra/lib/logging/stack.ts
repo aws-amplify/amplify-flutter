@@ -24,7 +24,7 @@ export class LoggingIntegrationTestStack extends cdk.Stack {
     scope: constructs.Construct,
     id: string,
     environments: LoggingIntegrationTestStackEnvironmentProps[],
-    props?: cdk.NestedStackProps
+    props?: cdk.StackProps
   ) {
     super(scope, id, props);
 
