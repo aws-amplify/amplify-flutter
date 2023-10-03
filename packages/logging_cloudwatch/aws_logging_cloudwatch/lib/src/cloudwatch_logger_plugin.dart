@@ -304,7 +304,38 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     if (!_enabled) {
       return false;
     }
+
     final loggingConstraint = _getLoggingConstraint();
+
+    String? userId;
+
+    Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
+      if (event.type == AuthHubEventType.signedOut ||
+          event.type == AuthHubEventType.userDeleted ||
+          event.type == AuthHubEventType.sessionExpired) {
+        userId = null;
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        userId = event.payload?.userId;
+      }
+    });
+
+    if (loggingConstraint.userLogLevel.containsKey(userId)) {
+      final userLevel = loggingConstraint.userLogLevel[userId]!;
+
+      if (userLevel.categoryLogLevel.containsKey(logEntry.loggerName)) {
+        return logEntry.level >=
+            userLevel.categoryLogLevel[logEntry.loggerName]!;
+      }
+
+      return logEntry.level >= userLevel.defaultLogLevel;
+    }
+
+    if (loggingConstraint.categoryLogLevel.containsKey(logEntry.loggerName)) {
+      return logEntry.level >=
+          loggingConstraint.categoryLogLevel[logEntry.loggerName]!;
+    }
+
     return logEntry.level >= loggingConstraint.defaultLogLevel;
   }
 

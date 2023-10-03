@@ -161,7 +161,7 @@ class UserLogLevel
       _$UserLogLevelFromJson(json);
 
   final LogLevel defaultLogLevel;
-  final Map<String, String> categoryLogLevel;
+  final Map<String, LogLevel> categoryLogLevel;
 
   @override
   List<Object?> get props => [defaultLogLevel, categoryLogLevel];
