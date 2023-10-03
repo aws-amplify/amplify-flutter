@@ -35,8 +35,8 @@ enum ConstraintsAction {
 /// Command to manage dependencies across all Dart/Flutter packages in the repo.
 class ConstraintsCommand extends AmplifyCommand {
   ConstraintsCommand() {
-    addSubcommand(_ConstraintsSubcommand(ConstraintsAction.check));
-    addSubcommand(_ConstraintsSubcommand(ConstraintsAction.apply));
+    addSubcommand(_ConstraintsCheckCommand());
+    addSubcommand(_ConstraintsApplyCommand());
     addSubcommand(_ConstraintsUpdateCommand());
     addSubcommand(_ConstraintsPubVerifyCommand());
   }
@@ -60,12 +60,12 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
   @override
   String get name => action.name;
 
-  Future<void> _run(ConstraintsAction action) async {
+  Future<void> _run() async {
     final constraintsCheckers = [
       GlobalConstraintChecker(
         action,
-        repo.aftConfig.dependencies.asMap(),
-        repo.aftConfig.environment,
+        aftConfig.dependencies.asMap(),
+        aftConfig.environment,
       ),
       PublishConstraintsChecker(
         action,
@@ -99,11 +99,25 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
     }
     logger.info(action.successMessage);
   }
+}
+
+class _ConstraintsApplyCommand extends _ConstraintsSubcommand {
+  _ConstraintsApplyCommand() : super(ConstraintsAction.apply);
 
   @override
   Future<void> run() async {
     await super.run();
-    return _run(action);
+    await _run();
+  }
+}
+
+class _ConstraintsCheckCommand extends _ConstraintsSubcommand {
+  _ConstraintsCheckCommand() : super(ConstraintsAction.check);
+
+  @override
+  Future<void> run() async {
+    await super.run();
+    await _run();
   }
 }
 
@@ -243,8 +257,9 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
       exit(1);
     }
 
+    // Apply constraints throughout repo.
     if (hasUpdates) {
-      await _run(ConstraintsAction.apply);
+      await _run();
     }
   }
 }
