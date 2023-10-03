@@ -81,7 +81,6 @@ runs:
       uses: ./.github/composite_actions/log_cw_metric
       with:
         job-status: ${{ inputs.job-status }}
-        job-identifier: ${{ inputs.job-identifier }}
         github-token: ${{ inputs.github-token }}
 
         metric-name: "github_metric_1.0"

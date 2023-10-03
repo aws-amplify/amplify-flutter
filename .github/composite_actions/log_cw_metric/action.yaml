@@ -5,9 +5,6 @@ inputs:
   job-status:
     description: Used to determine if we track success or failure.
     required: true
-  job-identifier:
-    description: For differentiating jobs of a run.
-    required: true
   github-token:
     required: true
     description: Github token for requesting failing steps.
@@ -27,9 +24,6 @@ inputs:
     required: true
   category:
     description: analytics, api, authenticator, etc.
-    required: true
-  workflow-name:
-    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
     required: true
 
   # FlutterDart Workflows Metric Dimensions

@@ -7227,9 +7227,6 @@
         return object;
       return new A.jsify__convert(new A._IdentityHashMap(type$._IdentityHashMap_of_nullable_Object_and_nullable_Object)).call$1(object);
     },
-    callMethod(o, method, args, $T) {
-      return $T._as(o[method].apply(o, args));
-    },
     promiseToFuture(jsPromise, $T) {
       var t1 = new A._Future($.Zone__current, $T._eval$1("_Future<0>")),
         completer = new A._AsyncCompleter(t1, $T._eval$1("_AsyncCompleter<0>"));
@@ -7352,7 +7349,7 @@
       t2 = t4._as(A.jsify(t2));
       t5 = mode === B.ProcessStartMode_2 || mode === B.ProcessStartMode_3;
       t1 = A._setArrayType([stdin == null ? t1 : stdin, t1, t1], type$.JSArray_Object);
-      return A.callMethod(_this, "spawn", [command, t3, {cwd: workingDirectory, env: t2, stdio: t1, detached: t5, shell: null}], t4);
+      return t4._as(_this.spawn.apply(_this, [command, t3, {cwd: workingDirectory, env: t2, stdio: t1, detached: t5, shell: null}]));
     },
     NodeReadableStream_get_stream(_this) {
       var controller = A.StreamController_StreamController(true, type$.List_int),
@@ -8375,7 +8372,7 @@
               t2 = type$.nullable_Object;
               $async$temp1 = t1;
               $async$goto = 3;
-              return A._asyncAwait(A.promiseToFuture(A.callMethod(_this, "getJson", [requestUrl, A.jsify(headers)], t1), t2), $async$HttpClient_getJson);
+              return A._asyncAwait(A.promiseToFuture(t1._as(_this.getJson(requestUrl, t1._as(A.jsify(headers)))), t2), $async$HttpClient_getJson);
             case 3:
               // returning from await.
               result = $async$temp1._as($async$result);
@@ -18486,6 +18483,7 @@
     B.List_sww = A._setArrayType(makeConstList(["normal", "inheritStdio", "detached", "detachedWithStdio"]), type$.JSArray_String);
     B.List_yzX = A._setArrayType(makeConstList([0, 0, 27858, 1023, 65534, 51199, 65535, 32767]), type$.JSArray_int);
     B.Object_empty = {};
+    B.Map_empty0 = new A.ConstantStringMap(B.Object_empty, [], A.findType("ConstantStringMap<String,String>"));
     B.Map_empty = new A.ConstantStringMap(B.Object_empty, [], A.findType("ConstantStringMap<Symbol0,@>"));
     B.ProcessStartMode_0 = new A.ProcessStartMode(0);
     B.ProcessStartMode_1 = new A.ProcessStartMode(1);
