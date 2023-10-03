@@ -47,7 +47,7 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
 class CloudWatchLoggerPlugin extends AWSLoggerPlugin
-    with AWSDebuggable, AWSLoggerMixin {
+    with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
   CloudWatchLoggerPlugin({
     required AWSCredentialsProvider credentialsProvider,
@@ -369,6 +369,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   Future<void> _clearLogs() async {
     await _logStore.clear();
   }
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.logging);
 }
 
 extension on QueuedItem {

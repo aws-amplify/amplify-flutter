@@ -10,11 +10,11 @@ import 'package:meta/meta.dart';
 
 /// {@template amplify_core.logger.amplify_logging_cloudwatch}
 /// It configures the [CloudWatchLoggerPlugin] from [AmplifyConfig] to sends
-/// [AmplifyLogger]'s logs to the CloudWatch.
+/// [AWSLogger]'s logs to the CloudWatch.
 /// {@endtemplate}
 class AmplifyLogging {
   static CloudWatchLoggerPlugin? _plugin;
-  static final _logger = AmplifyLogger();
+  static final _logger = AWSLogger();
 
   void configure(
     AmplifyConfig amplifyConfig,
@@ -43,7 +43,9 @@ class AmplifyLogging {
       credentialsProvider: credentialsProvider,
       pluginConfig: pluginConfig,
     );
-    _logger.registerPlugin(_plugin!);
+    _logger
+      ..registerPlugin(_plugin!)
+      ..logLevel = LogLevel.verbose;
   }
 
   @visibleForTesting
