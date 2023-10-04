@@ -126,6 +126,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       }
     });
   }
+  String? _userId;
 
   final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
@@ -313,14 +314,14 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
-        userId = null;
+        _userId = null;
       }
       if (event.type == AuthHubEventType.signedIn) {
-        userId = event.payload?.userId;
+        _userId = event.payload?.userId;
       }
     });
 
-    if (loggingConstraint.userLogLevel.containsKey(userId)) {
+    if (loggingConstraint.userLogLevel.containsKey(_userId)) {
       final userLevel = loggingConstraint.userLogLevel[userId]!;
 
       if (userLevel.categoryLogLevel.containsKey(logEntry.loggerName)) {
