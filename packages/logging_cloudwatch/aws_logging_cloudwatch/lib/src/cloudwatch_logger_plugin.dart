@@ -98,7 +98,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
@@ -307,17 +311,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
 
     final loggingConstraint = _getLoggingConstraint();
-
-    Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
-      if (event.type == AuthHubEventType.signedOut ||
-          event.type == AuthHubEventType.userDeleted ||
-          event.type == AuthHubEventType.sessionExpired) {
-        _userId = null;
-      }
-      if (event.type == AuthHubEventType.signedIn) {
-        _userId = event.payload?.userId;
-      }
-    });
 
     if (loggingConstraint.userLogLevel.containsKey(_userId)) {
       final userLevel = loggingConstraint.userLogLevel[_userId]!;
