@@ -25,7 +25,7 @@ on:
       - 'packages/amplify_native_legacy_wrapper/lib/**/*'
       - 'packages/amplify_native_legacy_wrapper/test/**/*'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 6 * * *" # Every day at 06:00
 defaults:
   run:
     shell: bash
