@@ -724,4 +724,93 @@ void main() {
       );
     });
   });
+
+  group('clear logs on Hub events', () {
+    final hubEventController = StreamController<AuthHubEvent>.broadcast();
+    final events = [
+      AuthHubEvent.sessionExpired,
+      AuthHubEvent.signedOut,
+      AuthHubEvent.userDeleted,
+    ];
+    Amplify.Hub.addChannel(HubChannel.Auth, hubEventController.stream);
+    setUp(() {
+      mockCloudWatchLogsClient = MockCloudWatchLogsClient();
+      mockQueuedItemStore = MockQueuedItemStore();
+      mockCloudWatchLogStreamProvider = MockCloudWatchLogStreamProvider();
+      plugin = CloudWatchLoggerPlugin.testPlugin(
+        client: mockCloudWatchLogsClient,
+        pluginConfig: pluginConfig,
+        logStore: mockQueuedItemStore,
+        logStreamProvider: mockCloudWatchLogStreamProvider,
+      );
+    });
+    tearDownAll(hubEventController.close);
+
+    test('clear logs on expected auth hub events', () async {
+      when(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
+      plugin.enable();
+      for (final event in events) {
+        await expectLater(
+          plugin.handleLogEntry(errorLog),
+          completes,
+        );
+        hubEventController.add(event());
+      }
+      await Future<void>.delayed(Duration.zero);
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).called(events.length);
+
+      verify(
+        () => mockQueuedItemStore.clear(),
+      ).called(events.length);
+    });
+
+    test('does not clear logs on unexpected hub events', () async {
+      when(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
+      plugin.enable();
+      await expectLater(
+        plugin.handleLogEntry(errorLog),
+        completes,
+      );
+      hubEventController.add(AuthHubEvent.signedIn(MockAuhtUser()));
+      await Future<void>.delayed(Duration.zero);
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).called(1);
+      verifyNever(
+        () => mockQueuedItemStore.clear(),
+      );
+    });
+  });
 }
