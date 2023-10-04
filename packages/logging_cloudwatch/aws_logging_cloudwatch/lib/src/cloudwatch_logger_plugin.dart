@@ -334,7 +334,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     LogEntry logEntry,
   ) {
     for (final entry in categoryLogLevel.entries) {
-      if (logEntry.loggerName.contains(entry.key)) {
+      if (logEntry.loggerName.toLowerCase().contains(entry.key.toLowerCase())) {
         return logEntry.level >= entry.value;
       }
     }
