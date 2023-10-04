@@ -308,8 +308,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
     final loggingConstraint = _getLoggingConstraint();
 
-    String? userId;
-
     Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
@@ -322,22 +320,32 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     });
 
     if (loggingConstraint.userLogLevel.containsKey(_userId)) {
-      final userLevel = loggingConstraint.userLogLevel[userId]!;
+      final userLevel = loggingConstraint.userLogLevel[_userId]!;
 
-      if (userLevel.categoryLogLevel.containsKey(logEntry.loggerName)) {
-        return logEntry.level >=
-            userLevel.categoryLogLevel[logEntry.loggerName]!;
+      if (_checkLogLevel(userLevel.categoryLogLevel, logEntry)) {
+        return true;
       }
 
       return logEntry.level >= userLevel.defaultLogLevel;
     }
 
-    if (loggingConstraint.categoryLogLevel.containsKey(logEntry.loggerName)) {
-      return logEntry.level >=
-          loggingConstraint.categoryLogLevel[logEntry.loggerName]!;
+    if (_checkLogLevel(loggingConstraint.categoryLogLevel, logEntry)) {
+      return true;
     }
 
     return logEntry.level >= loggingConstraint.defaultLogLevel;
+  }
+
+  bool _checkLogLevel(
+    Map<String, LogLevel> categoryLogLevel,
+    LogEntry logEntry,
+  ) {
+    for (final entry in categoryLogLevel.entries) {
+      if (logEntry.loggerName.contains(entry.key)) {
+        return logEntry.level >= entry.value;
+      }
+    }
+    return false;
   }
 
   @override
