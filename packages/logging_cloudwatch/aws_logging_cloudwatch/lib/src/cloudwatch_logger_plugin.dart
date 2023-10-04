@@ -131,7 +131,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     });
   }
   String? _userId;
-
   final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
   final CloudWatchLogStreamProvider _logStreamProvider;
@@ -314,18 +313,14 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
     if (loggingConstraint.userLogLevel.containsKey(_userId)) {
       final userLevel = loggingConstraint.userLogLevel[_userId]!;
-
       if (_checkLogLevel(userLevel.categoryLogLevel, logEntry)) {
         return true;
       }
-
       return logEntry.level >= userLevel.defaultLogLevel;
     }
-
     if (_checkLogLevel(loggingConstraint.categoryLogLevel, logEntry)) {
       return true;
     }
-
     return logEntry.level >= loggingConstraint.defaultLogLevel;
   }
 
