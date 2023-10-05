@@ -126,7 +126,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
@@ -318,8 +322,12 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       }
       return logEntry.level >= userLevel.defaultLogLevel;
     }
-    if (_checkLogLevel(loggingConstraint.categoryLogLevel, logEntry)) {
+    final isLoggableByCategory =
+        _checkLogLevel(loggingConstraint.categoryLogLevel, logEntry);
+    if (isLoggableByCategory) {
       return true;
+    } else if (loggingConstraint.categoryLogLevel.isNotEmpty) {
+      return false;
     }
     return logEntry.level >= loggingConstraint.defaultLogLevel;
   }
@@ -335,6 +343,26 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
     return false;
   }
+
+  /// Test the _isLoggable method.
+  @protected
+  @visibleForTesting
+  bool testIsLoggable(LogEntry logEntry) => _isLoggable(logEntry);
+
+  /// Get user id for testing.
+  @protected
+  @visibleForTesting
+  String? get testUserId => _userId;
+
+  /// Set user id for testing.
+  @protected
+  @visibleForTesting
+  set testUserId(String? userId) => _userId = userId;
+
+  /// Get logging constraint for testing.
+  @protected
+  @visibleForTesting
+  LoggingConstraints get testLoggingConstraint => _getLoggingConstraint();
 
   @override
   Future<void> handleLogEntry(LogEntry logEntry) async {
