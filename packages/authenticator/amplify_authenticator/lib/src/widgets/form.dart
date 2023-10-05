@@ -453,7 +453,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       } else if (b == SocialProvider.apple) {
         return 1;
       }
-      return describeEnum(a).compareTo(describeEnum(b));
+      return a.name.compareTo(b.name);
     });
 
     return [

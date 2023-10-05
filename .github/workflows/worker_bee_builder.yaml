@@ -33,7 +33,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*'
       - 'packages/worker_bee/worker_bee_builder/test/**/*'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 6 * * *" # Every day at 06:00
 defaults:
   run:
     shell: bash
@@ -52,4 +52,3 @@ jobs:
     with:
       package-name: worker_bee_builder
       working-directory: packages/worker_bee/worker_bee_builder
-      has-goldens: false
