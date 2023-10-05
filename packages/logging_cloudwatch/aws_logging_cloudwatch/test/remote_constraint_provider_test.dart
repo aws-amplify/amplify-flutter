@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:aws_common/testing.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/file_storage/file_storage.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
