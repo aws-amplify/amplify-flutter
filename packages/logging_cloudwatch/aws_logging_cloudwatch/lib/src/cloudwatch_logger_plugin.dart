@@ -314,36 +314,35 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
 
     final loggingConstraint = _getLoggingConstraint();
-
-    if (loggingConstraint.userLogLevel.containsKey(_userId)) {
-      final userLevel = loggingConstraint.userLogLevel[_userId]!;
-      if (_checkLogLevel(userLevel.categoryLogLevel, logEntry)) {
-        return true;
+if (loggingConstraint.userLogLevel.containsKey(_userId)) {
+      final userLogLevel = loggingConstraint.userLogLevel[_userId]!;
+      final userCategoryLogLevel =
+          _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry);
+      if (userCategoryLogLevel != null) {
+        return logEntry.level >= userCategoryLogLevel;
       }
-      return logEntry.level >= userLevel.defaultLogLevel;
+      return logEntry.level >= userLogLevel.defaultLogLevel;
     }
-    final isLoggableByCategory =
-        _checkLogLevel(loggingConstraint.categoryLogLevel, logEntry);
-    if (isLoggableByCategory) {
-      return true;
-    } else if (loggingConstraint.categoryLogLevel.isNotEmpty) {
-      return false;
+
+    final categoryLogLevel =
+        _getCategoryLogLevel(loggingConstraint.categoryLogLevel, logEntry);
+    if (categoryLogLevel != null) {
+      return logEntry.level >= categoryLogLevel;
     }
     return logEntry.level >= loggingConstraint.defaultLogLevel;
   }
 
-  bool _checkLogLevel(
+  LogLevel? _getCategoryLogLevel(
     Map<String, LogLevel> categoryLogLevel,
     LogEntry logEntry,
   ) {
     for (final entry in categoryLogLevel.entries) {
       if (logEntry.loggerName.toLowerCase().contains(entry.key.toLowerCase())) {
-        return logEntry.level >= entry.value;
+        return entry.value;
       }
     }
-    return false;
+    return null;
   }
-
   /// Test the _isLoggable method.
   @protected
   @visibleForTesting
