@@ -314,7 +314,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
 
     final loggingConstraint = _getLoggingConstraint();
-if (loggingConstraint.userLogLevel.containsKey(_userId)) {
+    if (loggingConstraint.userLogLevel.containsKey(_userId)) {
       final userLogLevel = loggingConstraint.userLogLevel[_userId]!;
       final userCategoryLogLevel =
           _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry);
@@ -343,25 +343,6 @@ if (loggingConstraint.userLogLevel.containsKey(_userId)) {
     }
     return null;
   }
-  /// Test the _isLoggable method.
-  @protected
-  @visibleForTesting
-  bool testIsLoggable(LogEntry logEntry) => _isLoggable(logEntry);
-
-  /// Get user id for testing.
-  @protected
-  @visibleForTesting
-  String? get testUserId => _userId;
-
-  /// Set user id for testing.
-  @protected
-  @visibleForTesting
-  set testUserId(String? userId) => _userId = userId;
-
-  /// Get logging constraint for testing.
-  @protected
-  @visibleForTesting
-  LoggingConstraints get testLoggingConstraint => _getLoggingConstraint();
 
   @override
   Future<void> handleLogEntry(LogEntry logEntry) async {

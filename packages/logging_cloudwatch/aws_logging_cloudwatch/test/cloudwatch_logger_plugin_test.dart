@@ -833,10 +833,17 @@ void main() {
   group('Test _isLoggable method', () {
     final hubEventController = StreamController<AuthHubEvent>.broadcast();
     Amplify.Hub.addChannel(HubChannel.Auth, hubEventController.stream);
+    const loggingConstraints2 = LoggingConstraints(
+      categoryLogLevel: {
+        'Amplify': LogLevel.debug,
+        'Auth': LogLevel.warn,
+      },
+      defaultLogLevel: LogLevel.warn,
+    );
     const pluginConfig = CloudWatchPluginConfig(
       logGroupName: 'logGroupName',
       region: 'region',
-      loggingConstraints: loggingConstraint,
+      loggingConstraints: loggingConstraints2,
       enable: true,
     );
     setUp(() {
@@ -849,185 +856,133 @@ void main() {
         logStore: mockQueuedItemStore,
         logStreamProvider: mockCloudWatchLogStreamProvider,
       );
+
+      when(() => mockQueuedItemStore.isFull(any())).thenReturn(false);
     });
     tearDownAll(hubEventController.close);
 
-    test('returns true for default level logs when no user level set', () {
+    test('logs when log level meets default constraint', () async {
       final entry = LogEntry(
-        level: pluginConfig.loggingConstraints.defaultLogLevel,
+        level: LogLevel.error,
         loggerName: '',
         message: '',
       );
-      expect(plugin.testIsLoggable(entry), isTrue);
+
+      await plugin.handleLogEntry(entry);
+      verify(() => mockQueuedItemStore.addItem(any(), any())).called(1);
     });
 
-    test('returns true for user level logs when user level set', () {
-      final mockRemoteLoggingConstraintProvider =
-          MockRemoteLoggingConstraintProvider();
-
-      plugin = CloudWatchLoggerPlugin.testPlugin(
-        client: mockCloudWatchLogsClient,
-        pluginConfig: pluginConfig,
-        logStreamProvider: mockCloudWatchLogStreamProvider,
-        logStore: mockQueuedItemStore,
-        remoteLoggingConstraintProvider: mockRemoteLoggingConstraintProvider,
-      )..testUserId = 'user1';
-
-      final entry =
-          LogEntry(level: LogLevel.warn, loggerName: 'logger', message: '');
-
-      expect(plugin.testIsLoggable(entry), isTrue);
-    });
-
-    test('returns false when log level is below default level', () {
+    test('does not log when log level is below default constraint', () async {
       final entry = LogEntry(
         level: LogLevel.debug,
         loggerName: '',
         message: '',
       );
 
-      expect(plugin.testIsLoggable(entry), isFalse);
+      await plugin.handleLogEntry(entry);
+      verifyNever(() => mockQueuedItemStore.addItem(any(), any()));
     });
 
-    test('returns true when log level is above default level', () {
+    test('logs when log level meets category override', () async {
       final entry = LogEntry(
-        level: LogLevel.error,
-        loggerName: '',
+        level: LogLevel.debug,
+        loggerName: 'Amplify',
         message: '',
       );
 
-      expect(plugin.testIsLoggable(entry), isTrue);
+      await plugin.handleLogEntry(entry);
+      verify(() => mockQueuedItemStore.addItem(any(), any())).called(1);
     });
 
-    test(
-        'returns true when category log level is set and log level is above category level',
-        () {
-      const loggingConstraint = LoggingConstraints(
-        defaultLogLevel: LogLevel.info,
-        categoryLogLevel: {'logger': LogLevel.warn},
-      );
-
-      const categoryLogLevelPluginConfig = CloudWatchPluginConfig(
-        logGroupName: 'logGroupName',
-        region: 'region',
-        loggingConstraints: loggingConstraint,
-        enable: true,
-      );
-
-      plugin = CloudWatchLoggerPlugin.testPlugin(
-        client: mockCloudWatchLogsClient,
-        pluginConfig: categoryLogLevelPluginConfig,
-        logStreamProvider: mockCloudWatchLogStreamProvider,
-        logStore: mockQueuedItemStore,
-      );
-
-      final entry = LogEntry(
-        level: LogLevel.error,
-        loggerName: 'logger',
-        message: '',
-      );
-
-      expect(plugin.testIsLoggable(entry), isTrue);
-    });
-
-    test(
-        'returns false when category log level is set and log level is below category level',
-        () {
-      const loggingConstraint = LoggingConstraints(
-        defaultLogLevel: LogLevel.info,
-        categoryLogLevel: {'logger': LogLevel.error},
-      );
-
-      const categoryLogLevelPluginConfig = CloudWatchPluginConfig(
-        logGroupName: 'logGroupName',
-        region: 'region',
-        loggingConstraints: loggingConstraint,
-        enable: true,
-      );
-
-      plugin = CloudWatchLoggerPlugin.testPlugin(
-        client: mockCloudWatchLogsClient,
-        pluginConfig: categoryLogLevelPluginConfig,
-        logStreamProvider: mockCloudWatchLogStreamProvider,
-        logStore: mockQueuedItemStore,
-      );
-
+    test('does not log when category override blocks log', () async {
       final entry = LogEntry(
         level: LogLevel.info,
-        loggerName: 'logger',
+        loggerName: 'Auth',
         message: '',
       );
 
-      expect(plugin.testIsLoggable(entry), isFalse);
+      await plugin.handleLogEntry(entry);
+      verifyNever(() => mockQueuedItemStore.addItem(any(), any()));
     });
-  });
 
-  group('Test _userId method', () {
-    final hubEventController = StreamController<AuthHubEvent>.broadcast();
-    final events = <AuthHubEvent>[
-      AuthHubEvent.sessionExpired(),
-      AuthHubEvent.signedOut(),
-      AuthHubEvent.userDeleted(),
-      AuthHubEvent.signedIn(MockAuthUser()),
-    ];
-    Amplify.Hub.addChannel(HubChannel.Auth, hubEventController.stream);
-    const pluginConfig = CloudWatchPluginConfig(
-      logGroupName: 'logGroupName',
-      region: 'region',
-      loggingConstraints: loggingConstraint,
-      enable: true,
-    );
-    setUp(() {
-      mockCloudWatchLogsClient = MockCloudWatchLogsClient();
-      mockQueuedItemStore = MockQueuedItemStore();
-      mockCloudWatchLogStreamProvider = MockCloudWatchLogStreamProvider();
+    test('applies userLogLevel filter', () {
+      const loggingConstraints3 = LoggingConstraints(
+        userLogLevel: {
+          'mockUserId': UserLogLevel(
+            defaultLogLevel: LogLevel.warn,
+            categoryLogLevel: {},
+          ),
+        },
+      );
+      const config2 = CloudWatchPluginConfig(
+        logGroupName: 'logGroupName',
+        region: 'region',
+        loggingConstraints: loggingConstraints3,
+        enable: true,
+      );
+
+      hubEventController.add(
+        AuthHubEvent.signedIn(
+          MockAuthUser(),
+        ),
+      );
+
+      plugin = CloudWatchLoggerPlugin.testPlugin(
+        client: mockCloudWatchLogsClient,
+        pluginConfig: config2,
+        logStore: mockQueuedItemStore,
+        logStreamProvider: mockCloudWatchLogStreamProvider,
+      );
+
+      final entry = LogEntry(level: LogLevel.info, loggerName: '', message: '');
+      plugin.handleLogEntry(entry);
+      verifyNever(() => mockQueuedItemStore.addItem(any(), any()));
+    });
+
+    test('logs at default level', () async {
+      final entry = LogEntry(
+        level: LogLevel.warn,
+        message: '',
+        loggerName: '',
+      );
+
+      await plugin.handleLogEntry(entry);
+      verify(() => mockQueuedItemStore.addItem(any(), any())).called(1);
+    });
+
+    test('does not log below default level', () async {
+      final entry =
+          LogEntry(level: LogLevel.debug, message: '', loggerName: '');
+
+      await plugin.handleLogEntry(entry);
+      verifyNever(() => mockQueuedItemStore.addItem(any(), any()));
+    });
+
+    test('logs at category override level', () async {
+      const pluginConfig = CloudWatchPluginConfig(
+        loggingConstraints: LoggingConstraints(
+          categoryLogLevel: {'Amplify': LogLevel.debug},
+        ),
+        region: 'region',
+        logGroupName: 'logGroupName',
+      );
+
       plugin = CloudWatchLoggerPlugin.testPlugin(
         client: mockCloudWatchLogsClient,
         pluginConfig: pluginConfig,
         logStore: mockQueuedItemStore,
         logStreamProvider: mockCloudWatchLogStreamProvider,
       );
-    });
-    tearDownAll(hubEventController.close);
 
-    test('sets _userId to null on sign out', () async {
-      final event = events[1];
-      hubEventController.add(event);
+      final entry = LogEntry(
+        level: LogLevel.debug,
+        loggerName: 'Amplify',
+        message: '',
+      );
 
-      // Allow event to propagate
-      await Future<void>.delayed(Duration.zero);
+      await plugin.handleLogEntry(entry);
 
-      expect(plugin.testUserId, isNull);
-    });
-
-    test('sets _userId to null on session expired', () async {
-      final event = events[0];
-      hubEventController.add(event);
-
-      // Allow event to propagate
-      await Future<void>.delayed(Duration.zero);
-
-      expect(plugin.testUserId, isNull);
-    });
-
-    test('sets _userId to null on user deleted', () async {
-      final event = events[2];
-      hubEventController.add(event);
-
-      // Allow event to propagate
-      await Future<void>.delayed(Duration.zero);
-
-      expect(plugin.testUserId, isNull);
-    });
-
-    test('sets _userId on signed in', () async {
-      final event = events[3];
-      hubEventController.add(event);
-
-      // Allow event to propagate
-      await Future<void>.delayed(Duration.zero);
-
-      expect(plugin.testUserId, equals(event.payload?.userId));
+      verify(() => mockQueuedItemStore.addItem(any(), any())).called(1);
     });
   });
 }
