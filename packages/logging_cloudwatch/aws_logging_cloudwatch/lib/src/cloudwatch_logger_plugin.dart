@@ -94,6 +94,13 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     if (!pluginConfig.enable) {
       _timer?.stop();
     }
+    Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
+      if (event.type == AuthHubEventType.signedOut ||
+          event.type == AuthHubEventType.userDeleted ||
+          event.type == AuthHubEventType.sessionExpired) {
+        await _clearLogs();
+      }
+    });
   }
 
   /// An [AWSLoggerPlugin] to use only for testing.
@@ -110,7 +117,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         _logStore = logStore,
         _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider,
         _logStreamProvider = logStreamProvider,
-        _client = client;
+        _client = client {
+    Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
+      if (event.type == AuthHubEventType.signedOut ||
+          event.type == AuthHubEventType.userDeleted ||
+          event.type == AuthHubEventType.sessionExpired) {
+        await _clearLogs();
+      }
+    });
+  }
 
   final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
@@ -350,6 +365,10 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   @override
   String get runtimeTypeName => 'CloudWatchLoggerPlugin';
+
+  Future<void> _clearLogs() async {
+    await _logStore.clear();
+  }
 }
 
 extension on QueuedItem {

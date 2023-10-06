@@ -1917,15 +1917,27 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
+      - dependency-name: "amplify_auth_cognito"
+      - dependency-name: "amplify_analytics_pinpoint"
+      - dependency-name: "amplify_analytics_pinpoint_dart"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
+      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "amplify_secure_storage_dart"
+      - dependency-name: "worker_bee"
+      - dependency-name: "worker_bee_builder"
+      - dependency-name: "amplify_db_common"
+      - dependency-name: "amplify_secure_storage"
+      - dependency-name: "amplify_auth_cognito_dart"
+      - dependency-name: "smithy_codegen"
+      - dependency-name: "amplify_flutter"
+      - dependency-name: "amplify_logging_cloudwatch"
+      - dependency-name: "amplify_authenticator"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
     schedule:
@@ -1936,15 +1948,27 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
+      - dependency-name: "amplify_auth_cognito"
+      - dependency-name: "amplify_analytics_pinpoint"
+      - dependency-name: "amplify_analytics_pinpoint_dart"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-      build_runner:
-        patterns:
-          - "build_runner"
-      build_web_compilers:
-        patterns:
-          - "build_web_compilers"
+      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "amplify_secure_storage_dart"
+      - dependency-name: "worker_bee"
+      - dependency-name: "worker_bee_builder"
+      - dependency-name: "amplify_db_common"
+      - dependency-name: "amplify_secure_storage"
+      - dependency-name: "amplify_auth_cognito_dart"
+      - dependency-name: "smithy_codegen"
+      - dependency-name: "amplify_flutter"
+      - dependency-name: "amplify_logging_cloudwatch"
+      - dependency-name: "amplify_authenticator"
   - package-ecosystem: "pub"
     directory: "packages/logging_cloudwatch/aws_logging_cloudwatch"
     schedule:
