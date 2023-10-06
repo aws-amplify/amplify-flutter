@@ -12,8 +12,7 @@ on:
         type: string
 
 jobs:
-  test-dart_ddc:
-    name: Test
+  test-dart-ddc:
     # These tests heavily leverage build_runner which benefits from faster runners
     runs-on: ubuntu-latest
     timeout-minutes: 60

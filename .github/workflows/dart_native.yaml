@@ -13,8 +13,7 @@ on:
         type: string
 
 jobs:
-  test-dart_native:
-    name: Native Test
+  test-dart-native:
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails

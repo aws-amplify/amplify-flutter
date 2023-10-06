@@ -159,6 +159,17 @@ Future<void> logMetric() async {
   core.info('Sent cloudwatch metric with args: $cloudArgs');
 }
 
+/* Notes on Difficulty Getting Failing Step (Oct 6 2023)
+
+1. GithubActions provides no API to directly get failing step name 
+2. GithubActions provides no API to get the currently running jobId
+  i. Thus we need to manually parse the jobs of a run, and find the job that matches (done below). 
+3. GithubActions provides no API to get the actual job name (ie. name: 'job name') 
+  i. If a job name is set, Github job runs use it.  
+  ii. Otherwise they use the github.context.job, which is the job id like "build-and-test" but not the actual numeric job id which is a uuid.
+  iii. Setting a job name will break this method. 
+
+*/
 Future<String> getFailingStep(
   String jobIdentifier,
   String githubToken,
@@ -188,7 +199,7 @@ Future<String> getFailingStep(
     final matchingJob = jobsList.jobs.firstWhere(
         (job) => job.name.toLowerCase().contains(jobIdentifier),
         orElse: () => throw Exception(
-            'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}'));
+            'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used do find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.'));
     final steps = matchingJob.steps;
     core.info('steps $steps');
 

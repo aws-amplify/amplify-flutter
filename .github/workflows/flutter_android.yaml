@@ -17,8 +17,7 @@ on:
         type: boolean
 
 jobs:
-  test-flutter_android:
-    name: Build and Test
+  flutter-android-build-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
