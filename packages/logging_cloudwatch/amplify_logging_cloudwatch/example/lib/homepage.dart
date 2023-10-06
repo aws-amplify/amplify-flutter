@@ -53,6 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+            semanticLabel: 'Sign-out and go to the first screen.',
+          ),
+          onPressed: () {
+            Amplify.Auth.signOut();
+            Navigator.pushNamed(context, '/');
+          },
+        ),
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
