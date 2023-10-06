@@ -120,6 +120,9 @@ class SubscriptionBloc<T>
   @override
   String get runtimeTypeName => 'WsSubscriptionBloc';
 
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.api);
+
   Stream<WsSubscriptionState<T>> _startAck(
     SubscriptionStartAckEvent event,
   ) async* {

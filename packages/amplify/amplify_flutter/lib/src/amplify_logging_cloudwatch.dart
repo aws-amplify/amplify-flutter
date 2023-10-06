@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 /// {@macro amplify_core.logger.amplify_logging_cloudwatch}
 class AmplifyFlutterLogging extends AmplifyLogging {
   static AmplifyCloudWatchLoggerPlugin? _plugin;
-  static final _logger = AmplifyLogger();
+  static final _logger = AWSLogger();
 
   @override
   void configure(
@@ -44,7 +44,9 @@ class AmplifyFlutterLogging extends AmplifyLogging {
       credentialsProvider: credentialsProvider,
       pluginConfig: pluginConfig,
     );
-    _logger.registerPlugin(_plugin!);
+    _logger
+      ..registerPlugin(_plugin!)
+      ..logLevel = LogLevel.verbose;
   }
 
   @override
