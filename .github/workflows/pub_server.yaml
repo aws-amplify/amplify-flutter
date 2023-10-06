@@ -31,7 +31,7 @@ on:
       - 'packages/test/pub_server/lib/**/*'
       - 'packages/test/pub_server/test/**/*'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 6 * * *" # Every day at 06:00
 defaults:
   run:
     shell: bash
@@ -50,7 +50,6 @@ jobs:
     with:
       package-name: pub_server
       working-directory: packages/test/pub_server
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

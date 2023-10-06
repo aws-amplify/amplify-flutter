@@ -53,7 +53,7 @@ on:
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 6 * * *" # Every day at 06:00
 defaults:
   run:
     shell: bash
@@ -72,7 +72,6 @@ jobs:
     with:
       package-name: amplify_core
       working-directory: packages/amplify_core
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml

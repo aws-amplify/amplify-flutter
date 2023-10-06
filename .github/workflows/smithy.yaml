@@ -31,7 +31,7 @@ on:
       - 'packages/smithy/smithy/lib/**/*'
       - 'packages/smithy/smithy/test/**/*'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 6 * * *" # Every day at 06:00
 defaults:
   run:
     shell: bash
@@ -50,7 +50,6 @@ jobs:
     with:
       package-name: smithy
       working-directory: packages/smithy/smithy
-      has-goldens: false
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
