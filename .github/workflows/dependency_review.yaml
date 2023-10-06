@@ -1,5 +1,10 @@
 name: "Dependency Review"
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - stable
 
 permissions:
   contents: read
@@ -13,4 +18,4 @@ jobs:
       - name: "Dependency Review"
         uses: actions/dependency-review-action@
         with:
-          config-file: './.github/dependency-review-config.yml'
+          config-file: "./.github/dependency-review-config.yml"
