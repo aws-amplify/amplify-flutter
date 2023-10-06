@@ -37,6 +37,7 @@ Future<void> logMetric() async {
   }
 
   final matrixValues = parseMatrixInput(matrixRawInput);
+
   final jobIdentifier =
       ('${github.context.job} ${matrixValues == null ? '' : '($matrixValues)'}')
           .trim();

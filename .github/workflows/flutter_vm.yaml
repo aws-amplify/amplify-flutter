@@ -17,7 +17,6 @@ on:
 
 jobs:
   test-flutter-vm:
-    name: Test
     runs-on: ${{ inputs.has-goldens && 'macos-latest' || 'ubuntu-latest' }}
     timeout-minutes: 60
     strategy:
