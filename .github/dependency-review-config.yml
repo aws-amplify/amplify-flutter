@@ -1,4 +1,4 @@
-allow-licenses:
+allow_licenses:
   - "0BSD"
   - "Apache-2.0"
   - "BSD-1-Clause"
@@ -10,5 +10,5 @@ allow-licenses:
   - "bzip2-1.0.6"
   - "CC0-1.0"
   - "curl"
-base-ref: 79982007a70fbd47a47ad9658c25091003e6ac92
-head-ref: 79982007a70fbd47a47ad9658c25091003e6ac92
+base_ref: 79982007a70fbd47a47ad9658c25091003e6ac92
+head_ref: 79982007a70fbd47a47ad9658c25091003e6ac92
