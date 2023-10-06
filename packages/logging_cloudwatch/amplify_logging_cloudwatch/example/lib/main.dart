@@ -66,24 +66,35 @@ class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Amplify.Auth.signOut();
-                Navigator.pushNamed(context, '/login');
-              },
-              child: const Text('Go to Login Page'),
+            const Text(
+              style: TextStyle(fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+              'You are signed-out.\n\nclick on "GO to Login Page" to login or create a user.\n\nclick on "GO to Home Page" to enter as a guest.\n\n\n\n',
             ),
-            ElevatedButton(
-              onPressed: () {
-                Amplify.Auth.signOut();
-                Navigator.pushNamed(context, '/home');
-              },
-              child: const Text('Go to Home Page'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text('Go to Login Page'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                  child: const Text('Go to Home Page'),
+                ),
+              ],
             ),
           ],
         ),
