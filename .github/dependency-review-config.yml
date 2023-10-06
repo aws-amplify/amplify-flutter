@@ -10,3 +10,4 @@ allow-licenses:
   - "bzip2-1.0.6"
   - "CC0-1.0"
   - "curl"
+base-ref: 79982007a70fbd47a47ad9658c25091003e6ac92
