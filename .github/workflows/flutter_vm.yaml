@@ -16,7 +16,7 @@ on:
         type: boolean
 
 jobs:
-  test-flutter_vm:
+  test-flutter-vm:
     name: Test
     runs-on: ${{ inputs.has-goldens && 'macos-latest' || 'ubuntu-latest' }}
     timeout-minutes: 60
