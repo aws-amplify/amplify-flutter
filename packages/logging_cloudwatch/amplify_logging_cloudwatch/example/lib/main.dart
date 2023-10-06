@@ -25,7 +25,6 @@ Future<void> main() async {
 
   await Amplify.addPlugin(authPlugin);
   await Amplify.configure(amplifyConfig);
-  AmplifyLogger().logLevel = LogLevel.verbose;
 
   runApp(
     const MyApp(),

@@ -13,7 +13,7 @@ import 'package:async/async.dart';
 /// Provides user context data as required for Cognito's advanced security features
 /// (ASF) functionality.
 /// {@endtemplate}
-final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
+final class ASFContextDataProvider with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro amplify_auth_cognito_dart.asf.asf_context_data_provider}
   ASFContextDataProvider(this._dependencyManager);
 
@@ -101,4 +101,7 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
 
   @override
   String get runtimeTypeName => 'ASFContextDataProvider';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.auth);
 }

@@ -46,6 +46,9 @@ class StateMachineBloc
   @override
   String get runtimeTypeName => 'StateMachineBloc';
 
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.auth);
+
   /// State controller.
   final StreamController<AuthState> _authStateController =
       StreamController<AuthState>.broadcast();
