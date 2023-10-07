@@ -16,18 +16,31 @@ Future<void> logMetric() async {
   final jobStatus = core.getRequiredInput('job-status');
 
   // Create job identifier from matrix values
-  final matrixRawInput = core.getRequiredInput('matrix');
+  final matrixRawInput = core.getInput('matrix', defaultValue: '');
 
   // Parse the matrix string (input is raw json string with " and \n)
-  final matrixCleanedInput = matrixRawInput
-      .replaceAll('\n', '')
-      .replaceAll(r'\', '')
-      .replaceAll(' ', '');
-  final matrix = json.decode(matrixCleanedInput) as Map<String, dynamic>;
+  String? parseMatrixInput(String matrixRawInput) {
+    if (matrixRawInput.isEmpty) {
+      return null;
+    }
 
-  final matrixValues = matrix.values.map((e) => e).join(', ');
+    core.info('Accepted matrix input: <$matrixRawInput>');
+
+    final matrixCleanedInput = matrixRawInput
+        .replaceAll('\n', '')
+        .replaceAll(r'\', '')
+        .replaceAll(' ', '');
+    final matrix = json.decode(matrixCleanedInput) as Map<String, dynamic>;
+
+    final matrixValues = matrix.values.map((e) => e).join(', ');
+    return matrixValues;
+  }
+
+  final matrixValues = parseMatrixInput(matrixRawInput);
+
   final jobIdentifier =
-      '${github.context.job} ${matrixValues.isEmpty ? '' : '($matrixValues)'}';
+      ('${github.context.job} ${matrixValues == null ? '' : '($matrixValues)'}')
+          .trim();
 
   core.info('Job identifier: $jobIdentifier');
 
@@ -49,12 +62,40 @@ Future<void> logMetric() async {
     );
   }
 
-  final packageName = core.getRequiredInput('package-name');
-  final category = packageName.split('_')[1];
-  if (!['canaries', 'analytics', 'api', 'auth', 'datastore', 'push', 'storage']
-      .contains(category)) {
+  final workingDirectory = core.getRequiredInput('working-directory');
+
+  final categories = [
+    'canaries',
+    'analytics',
+    'api',
+    'auth',
+    'authenticator',
+    'core',
+    'datastore',
+    'db_common',
+    'push',
+    'secure_storage',
+    'storage',
+    'aws_common',
+    'aws_signature_v4',
+    'smithy',
+    'worker_bee',
+    'amplify_flutter',
+    'amplify_lints',
+    'amplify_native_legacy_wrapper',
+  ];
+
+  var category = '';
+  for (final cat in categories) {
+    if (workingDirectory.contains(cat)) {
+      category = cat;
+      break;
+    }
+  }
+
+  if (category.isEmpty) {
     throw Exception(
-      'packageName input of $packageName must contain a valid category of: canaries, analytics, api, auth, datastore, push, storage',
+      'WorkingDirectory input of $workingDirectory must contain a valid category.',
     );
   }
 
@@ -113,6 +154,17 @@ Future<void> logMetric() async {
   core.info('Sent cloudwatch metric with args: $cloudArgs');
 }
 
+/* Notes on Difficulty Getting Failing Step (Oct 6 2023)
+
+1. GithubActions provides no API to directly get failing step name 
+2. GithubActions provides no API to get the currently running jobId
+  i. Thus we need to manually parse the jobs of a run, and find the job that matches (done below). 
+3. GithubActions provides no API to get the actual job name (ie. name: 'job name') 
+  i. If a job name is set, Github job runs use it.  
+  ii. Otherwise they use the github.context.job, which is the job id like "build-and-test" but not the actual numeric job id which is a uuid.
+  iii. Setting a job name will break this method. 
+
+*/
 Future<String> getFailingStep(
   String jobIdentifier,
   String githubToken,
@@ -120,6 +172,8 @@ Future<String> getFailingStep(
   String runId,
 ) async {
   try {
+    jobIdentifier = jobIdentifier.toLowerCase();
+
     final headers = {
       'Authorization': 'token $githubToken',
       'Accept': 'application/vnd.github.v3+json',
@@ -132,8 +186,10 @@ Future<String> getFailingStep(
     );
 
     final jobsList = GithubJobsList.fromJson(response);
-    final matchingJob =
-        jobsList.jobs.firstWhere((job) => job.name == jobIdentifier);
+    final matchingJob = jobsList.jobs.firstWhere(
+        (job) => job.name.toLowerCase().contains(jobIdentifier),
+        orElse: () => throw Exception(
+            'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used do find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.'));
     final steps = matchingJob.steps;
 
     final failingStep = steps.firstWhere(
