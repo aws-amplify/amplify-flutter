@@ -21,5 +21,5 @@ GithubJob _$GithubJobFromJson(Map json) => GithubJob(
 
 GithubStep _$GithubStepFromJson(Map json) => GithubStep(
       name: json['name'] as String,
-      conclusion: json['conclusion'] as String,
+      conclusion: json['conclusion'] as String?,
     );
