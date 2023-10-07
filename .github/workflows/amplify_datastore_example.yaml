@@ -120,6 +120,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_datastore_example
       working-directory: packages/amplify_datastore/example
