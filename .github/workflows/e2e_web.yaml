@@ -16,7 +16,7 @@ on:
         type: boolean
 
 jobs:
-  e2e-test:
+  e2e-test-web:
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -51,3 +51,20 @@ jobs:
         run: |
           chromedriver --port=4444 &
           aft exec --include=${{ inputs.package-name }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: e2e
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: flutter
+
+          platform: web
