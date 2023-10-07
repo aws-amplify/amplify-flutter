@@ -66,15 +66,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
   e2e-android:
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -139,7 +138,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}
@@ -148,7 +147,7 @@ jobs:
           platform-version: ${{ matrix.ios-version }}
 
   e2e-ios:
-    runs-on: macos-latest-xl
+    runs-on: macos-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -217,7 +216,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}
