@@ -275,12 +275,6 @@ ${dependabotGroups.join('\n')}
 
     workflowPaths.sort();
 
-    const permissionsBlock = '''
-# These permissions are needed to interact with GitHub's OIDC Token endpoint.
-permissions:
-  id-token: write
-  contents: read''';
-
     final workflowContents = StringBuffer(
       '''
 # Generated with aft. To update, run: `aft generate workflows`
@@ -598,3 +592,9 @@ jobs:
     workflowFile.writeAsStringSync(content);
   }
 }
+
+const permissionsBlock = '''
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read''';
