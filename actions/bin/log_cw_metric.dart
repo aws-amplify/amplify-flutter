@@ -8,6 +8,7 @@ import 'package:actions/src/githubJobs/github_jobs.dart';
 import 'package:actions/src/node/actions/github.dart';
 
 import 'package:actions/src/node/process_manager.dart';
+import 'package:collection/collection.dart';
 
 Future<void> main(List<String> args) => wrapMain(logMetric);
 
@@ -86,15 +87,11 @@ Future<void> logMetric() async {
     'pub_server',
   ];
 
-  var category = '';
-  for (final cat in categories) {
-    if (workingDirectory.contains(cat)) {
-      category = cat;
-      break;
-    }
-  }
+  final category = categories.firstWhereOrNull(
+    workingDirectory.contains,
+  );
 
-  if (category.isEmpty) {
+  if (category == null) {
     throw Exception(
       'WorkingDirectory input of $workingDirectory must contain a valid category.',
     );
@@ -155,17 +152,13 @@ Future<void> logMetric() async {
   core.info('Sent cloudwatch metric with args: $cloudArgs');
 }
 
-/* Notes on Difficulty Getting Failing Step (Oct 6 2023)
-
-1. GithubActions provides no API to directly get failing step name 
-2. GithubActions provides no API to get the currently running jobId
-  i. Thus we need to manually parse the jobs of a run, and find the job that matches (done below). 
-3. GithubActions provides no API to get the actual job name (ie. name: 'job name') 
-  i. If a job name is set, Github job runs use it.  
-  ii. Otherwise they use the github.context.job, which is the job id like "build-and-test" but not the actual numeric job id which is a uuid.
-  iii. Setting a job name will break this method. 
-
-*/
+/// Returns the name of the failing step for a given job identifier.
+///
+/// Parses the jobs of a run, and finds the job that matches the jobIdentifier.
+/// Then finds the first step in that job that has a conclusion of 'failure'.
+///
+/// GithubActions provides no API to directly get failing step name, running jobId, or actual job name.
+/// Calling Github workflows must not set a job name, as the Github API will start returning the job name instead of the job id (not numeric job id)
 Future<String> getFailingStep(
   String jobIdentifier,
   String githubToken,
