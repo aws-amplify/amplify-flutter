@@ -83,6 +83,7 @@ Future<void> logMetric() async {
     'amplify_flutter',
     'amplify_lints',
     'amplify_native_legacy_wrapper',
+    'pub_server',
   ];
 
   var category = '';

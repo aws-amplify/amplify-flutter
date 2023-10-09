@@ -8122,10 +8122,10 @@
               if (!B.JSArray_methods.contains$1(A._setArrayType(["canary", "e2e", "unit"], t3), testType))
                 throw A.wrapException(A.Exception_Exception("test-type input of " + testType + " must be one of: canary, e2e, unit"));
               workingDirectory = A.Core_getRequiredInput(t2._as(t1.core), "working-directory");
-              categories = ["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_lints", "amplify_native_legacy_wrapper"];
+              categories = ["canaries", "analytics", "api", "auth", "authenticator", "core", "datastore", "db_common", "push", "secure_storage", "storage", "aws_common", "aws_signature_v4", "smithy", "worker_bee", "amplify_flutter", "amplify_lints", "amplify_native_legacy_wrapper", "pub_server"];
               _i = 0;
               while (true) {
-                if (!(_i < 18)) {
+                if (!(_i < 19)) {
                   category = "";
                   break;
                 }
