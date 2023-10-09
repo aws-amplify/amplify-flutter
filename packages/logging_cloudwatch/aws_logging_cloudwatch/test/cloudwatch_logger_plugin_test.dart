@@ -997,6 +997,7 @@ void main() {
       plugin.enable();
 
       hubEventController.add(AuthHubEvent.signedIn(MockAuthUser()));
+      await Future<void>.delayed(Duration.zero);
 
       await expectLater(
         plugin.handleLogEntry(authInfoLog),
@@ -1046,6 +1047,7 @@ void main() {
       plugin.enable();
 
       hubEventController.add(AuthHubEvent.signedIn(MockAuthUser()));
+      await Future<void>.delayed(Duration.zero);
 
       await expectLater(
         plugin.handleLogEntry(warnLog),
