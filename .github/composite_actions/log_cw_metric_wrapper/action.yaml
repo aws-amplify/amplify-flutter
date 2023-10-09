@@ -86,7 +86,9 @@ runs:
         metric-name: "github_metric_1.0"
         test-type: ${{ inputs.test-type }}
         working-directory: ${{ inputs.working-directory }}
-        matrix: ${{ toJson(matrix) != 'null' && toJson(matrix) || '' }}
+
+        # Sending a null value will cause the action to fail so we must send an empty string here.
+        matrix: ${{ matrix == '' && '{}' || toJSON(matrix) }}
 
         framework: ${{ inputs.framework }}
         flutter-dart-channel: ${{ inputs.flutter-dart-channel }}
