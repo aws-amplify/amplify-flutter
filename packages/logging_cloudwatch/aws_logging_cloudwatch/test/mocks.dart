@@ -24,7 +24,4 @@ class MockAuthUser extends Mock implements AuthUser {
 
   @override
   final String username = 'mockUser';
-
-  @override
-  final String _userId = 'mockUserId';
 }
