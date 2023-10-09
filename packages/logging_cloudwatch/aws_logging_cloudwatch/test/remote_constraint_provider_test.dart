@@ -140,8 +140,8 @@ void main() {
                 "cognito-sub-xyz-123": {
                     "defaultLogLevel": "VERBOSE",
                     "categoryLogLevel": {
-                        "API": "error",
-                        "AUTH": "debug"
+                        "API": "ERROR",
+                        "AUTH": "DEBUG"
                     }
                   }
               }
