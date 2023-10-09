@@ -309,27 +309,23 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Whether a [logEntry] should be logged by this plugin.
   bool _isLoggable(LogEntry logEntry) {
-    if (!_enabled) {
-      return false;
-    }
+    if (!_enabled) return false;
 
     final loggingConstraint = _getLoggingConstraint();
-    if (loggingConstraint.userLogLevel.containsKey(_userId)) {
+    final hasUserLogLevel = loggingConstraint.userLogLevel.containsKey(_userId);
+    LogLevel? logLevel;
+
+    if (hasUserLogLevel) {
       final userLogLevel = loggingConstraint.userLogLevel[_userId]!;
-      final userCategoryLogLevel =
-          _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry);
-      if (userCategoryLogLevel != null) {
-        return logEntry.level >= userCategoryLogLevel;
-      }
-      return logEntry.level >= userLogLevel.defaultLogLevel;
+      logLevel =
+          _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry) ??
+              userLogLevel.defaultLogLevel;
+    } else {
+      logLevel =
+          _getCategoryLogLevel(loggingConstraint.categoryLogLevel, logEntry);
     }
 
-    final categoryLogLevel =
-        _getCategoryLogLevel(loggingConstraint.categoryLogLevel, logEntry);
-    if (categoryLogLevel != null) {
-      return logEntry.level >= categoryLogLevel;
-    }
-    return logEntry.level >= loggingConstraint.defaultLogLevel;
+    return logEntry.level >= (logLevel ?? loggingConstraint.defaultLogLevel);
   }
 
   LogLevel? _getCategoryLogLevel(
