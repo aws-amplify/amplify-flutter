@@ -30,7 +30,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.408.0",
     "@aws-sdk/client-s3": "^3.408.0",
     "aws-cdk-lib": "2.95.0",
-    "constructs": "^10.2.70",
+    "constructs": "^10.3.0",
     "node-fetch": "^3.3.2",
     "source-map-support": "^0.5.21"
   }

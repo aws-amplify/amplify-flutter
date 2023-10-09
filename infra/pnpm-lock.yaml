@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@aws-cdk/aws-cognito-identitypool-alpha':
     specifier: 2.95.0-alpha.0
-    version: 2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.2.70)
+    version: 2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.3.0)
   '@aws-crypto/client-node':
     specifier: ^4.0.0
     version: 4.0.0
@@ -22,10 +22,10 @@ dependencies:
     version: 3.408.0
   aws-cdk-lib:
     specifier: 2.95.0
-    version: 2.95.0(constructs@10.2.70)
+    version: 2.95.0(constructs@10.3.0)
   constructs:
-    specifier: ^10.2.70
-    version: 10.2.70
+    specifier: ^10.3.0
+    version: 10.3.0
   node-fetch:
     specifier: ^3.3.2
     version: 3.3.2
@@ -87,15 +87,15 @@ packages:
     resolution: {integrity: sha512-DDt4SLdLOwWCjGtltH4VCST7hpOI5DzieuhGZsBpZ+AgJdSI2GCjklCXm0GCTwJG/SolkL5dtQXyUKgg9luBDg==}
     dev: false
 
-  /@aws-cdk/aws-cognito-identitypool-alpha@2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.2.70):
+  /@aws-cdk/aws-cognito-identitypool-alpha@2.95.0-alpha.0(aws-cdk-lib@2.95.0)(constructs@10.3.0):
     resolution: {integrity: sha512-GxDRBb8sGDRdut4rXUkTErkqPptOI+qK8efwwFrWpCJKWCPVx8Ox6DgbDEOoE3pOHySFLmJCSmNmD0DPkkOXEw==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       aws-cdk-lib: 2.95.0
       constructs: ^10.0.0
     dependencies:
-      aws-cdk-lib: 2.95.0(constructs@10.2.70)
-      constructs: 10.2.70
+      aws-cdk-lib: 2.95.0(constructs@10.3.0)
+      constructs: 10.3.0
     dev: false
 
   /@aws-crypto/cache-material@4.0.0:
@@ -2350,7 +2350,7 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /aws-cdk-lib@2.95.0(constructs@10.2.70):
+  /aws-cdk-lib@2.95.0(constructs@10.3.0):
     resolution: {integrity: sha512-2G8QAldRI2Fa/ThaMyO04iLu9lER5AYKgrWshJ59L6JT4XraRTqh8sjti+ew4I6ADk6Zaprh2YcLRS2wTcICzA==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -2361,7 +2361,7 @@ packages:
       '@aws-cdk/asset-node-proxy-agent-v6': 2.0.1
       '@balena/dockerignore': 1.0.2
       case: 1.6.3
-      constructs: 10.2.70
+      constructs: 10.3.0
       fs-extra: 11.1.1
       ignore: 5.2.4
       jsonschema: 1.4.1
@@ -2613,8 +2613,8 @@ packages:
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  /constructs@10.2.70:
-    resolution: {integrity: sha512-z6zr1E8K/9tzJbCQzY0UGX0/oVKPFKu9C/mzEnghCG6TAJINnvlq0CMKm63XqqeMleadZYm5T3sZGJKcxJS/Pg==}
+  /constructs@10.3.0:
+    resolution: {integrity: sha512-vbK8i3rIb/xwZxSpTjz3SagHn1qq9BChLEfy5Hf6fB3/2eFbrwt2n9kHwQcS0CPTRBesreeAcsJfMq2229FnbQ==}
     engines: {node: '>= 16.14.0'}
     dev: false
 
