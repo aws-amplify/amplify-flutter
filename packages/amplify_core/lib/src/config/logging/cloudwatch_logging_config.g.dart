@@ -104,7 +104,7 @@ UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(
               LogLevel.error,
       categoryLogLevel:
           (json['categoryLogLevel'] as Map<String, dynamic>?)?.map(
-                (k, e) => MapEntry(k, e as String),
+                (k, e) => MapEntry(k, $enumDecode(_$LogLevelEnumMap, e)),
               ) ??
               const {},
     );
@@ -112,5 +112,6 @@ UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(
 Map<String, dynamic> _$UserLogLevelToJson(UserLogLevel instance) =>
     <String, dynamic>{
       'defaultLogLevel': _$LogLevelEnumMap[instance.defaultLogLevel]!,
-      'categoryLogLevel': instance.categoryLogLevel,
+      'categoryLogLevel': instance.categoryLogLevel
+          .map((k, e) => MapEntry(k, _$LogLevelEnumMap[e]!)),
     };

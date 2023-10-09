@@ -98,7 +98,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
@@ -122,11 +126,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
-
+  String? _userId;
   final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
   final CloudWatchLogStreamProvider _logStreamProvider;
@@ -301,11 +309,35 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Whether a [logEntry] should be logged by this plugin.
   bool _isLoggable(LogEntry logEntry) {
-    if (!_enabled) {
-      return false;
-    }
+    if (!_enabled) return false;
+
     final loggingConstraint = _getLoggingConstraint();
-    return logEntry.level >= loggingConstraint.defaultLogLevel;
+    final hasUserLogLevel = loggingConstraint.userLogLevel.containsKey(_userId);
+    LogLevel? logLevel;
+
+    if (hasUserLogLevel) {
+      final userLogLevel = loggingConstraint.userLogLevel[_userId]!;
+      logLevel =
+          _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry) ??
+              userLogLevel.defaultLogLevel;
+    } else {
+      logLevel =
+          _getCategoryLogLevel(loggingConstraint.categoryLogLevel, logEntry);
+    }
+
+    return logEntry.level >= (logLevel ?? loggingConstraint.defaultLogLevel);
+  }
+
+  LogLevel? _getCategoryLogLevel(
+    Map<String, LogLevel> categoryLogLevel,
+    LogEntry logEntry,
+  ) {
+    for (final entry in categoryLogLevel.entries) {
+      if (logEntry.loggerName.toLowerCase().contains(entry.key.toLowerCase())) {
+        return entry.value;
+      }
+    }
+    return null;
   }
 
   @override

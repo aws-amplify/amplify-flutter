@@ -18,4 +18,10 @@ class MockCloudWatchLogStreamProvider extends Mock
 class MockRemoteLoggingConstraintProvider extends Mock
     implements RemoteLoggingConstraintProvider {}
 
-class MockAuhtUser extends Mock implements AuthUser {}
+class MockAuthUser extends Mock implements AuthUser {
+  @override
+  final String userId = 'mockUserId';
+
+  @override
+  final String username = 'mockUser';
+}
