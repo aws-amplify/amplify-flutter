@@ -1,5 +1,5 @@
 name: Log CW Metric
-description: Test to log a CW metric
+description: Logs a metric to Cloudwatch.
 inputs:
   # For getting failing step
   job-status:
