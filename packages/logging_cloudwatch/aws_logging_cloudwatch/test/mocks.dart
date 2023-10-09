@@ -20,5 +20,11 @@ class MockRemoteLoggingConstraintProvider extends Mock
 
 class MockAuthUser extends Mock implements AuthUser {
   @override
-  String get userId => 'mockUserId';
+  final String userId = 'mockUserId';
+
+  @override
+  final String username = 'mockUser';
+
+  @override
+  final String _userId = 'mockUserId';
 }
