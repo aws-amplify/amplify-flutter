@@ -134,6 +134,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_authenticator_example
       working-directory: packages/authenticator/amplify_authenticator/example

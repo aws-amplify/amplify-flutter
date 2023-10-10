@@ -17,8 +17,7 @@ on:
         type: boolean
 
 jobs:
-  test:
-    name: Build and Test
+  flutter-android-build-and-test:
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
     timeout-minutes: 30
@@ -58,3 +57,21 @@ jobs:
         if: inputs.has-native-tests
         run: ./gradlew :"${{ inputs.package-name }}":testDebugUnitTest --stacktrace
         working-directory: ${{ inputs.example-directory }}/android
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.example-directory }}
+
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+
+          platform: android

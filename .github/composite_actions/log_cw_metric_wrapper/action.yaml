@@ -22,8 +22,8 @@ inputs:
   test-type:
     description: canary, e2e, unit
     required: true
-  package-name:
-    description: The name of the package being tested
+  working-directory:
+    description: The working directory relative to the repo root.
     required: true
 
   # FlutterDart Workflows Metric Dimensions
@@ -85,8 +85,10 @@ runs:
 
         metric-name: "github_metric_1.0"
         test-type: ${{ inputs.test-type }}
-        package-name: ${{ inputs.package-name }}
-        matrix: ${{ toJson(matrix) }}
+        working-directory: ${{ inputs.working-directory }}
+
+        # Sending a null value will cause the action to fail so we must send an empty string here.
+        matrix: ${{ matrix == '' && '{}' || toJSON(matrix) }}
 
         framework: ${{ inputs.framework }}
         flutter-dart-channel: ${{ inputs.flutter-dart-channel }}
