@@ -24,6 +24,8 @@ jobs:
           - "3.0.1"
           - stable
           - beta
+        exclude:
+          - sdk: ${{ (github.event_name != 'pull_request') || 'beta' }}
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # 3.3.2

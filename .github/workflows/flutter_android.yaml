@@ -28,6 +28,8 @@ jobs:
         channel:
           - stable
           - beta
+        exclude:
+          - channel: ${{ (github.event_name != 'pull_request') || 'beta' }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
