@@ -12,8 +12,7 @@ on:
         type: string
 
 jobs:
-  test:
-    name: Test
+  test-dart-vm:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -114,3 +113,20 @@ jobs:
         if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk != 'stable'"
         run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: dart
+          flutter-dart-channel: ${{ matrix.sdk }}
+          dart-compiler: vm

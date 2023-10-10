@@ -142,6 +142,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example

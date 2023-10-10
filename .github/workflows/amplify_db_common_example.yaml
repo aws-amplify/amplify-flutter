@@ -86,6 +86,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
