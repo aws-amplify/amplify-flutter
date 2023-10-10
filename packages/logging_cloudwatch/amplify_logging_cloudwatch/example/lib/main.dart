@@ -40,18 +40,23 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (BuildContext context) {
-            return const InitPage(
+            return InitPage(
+              key: GlobalKey(),
               title: 'Amplify Logging Cloudwatch Example',
             );
           },
           '/home': (BuildContext context) {
-            return const MyHomePage(
+            return MyHomePage(
+              key: GlobalKey(),
               title: 'Amplify Logging Cloudwatch Example',
             );
           },
           '/login': (BuildContext context) {
-            return const AuthenticatedView(
-              child: MyHomePage(title: 'Amplify Logging Cloudwatch Example'),
+            return AuthenticatedView(
+              child: MyHomePage(
+                key: GlobalKey(),
+                title: 'Amplify Logging Cloudwatch Example',
+              ),
             );
           },
         },
