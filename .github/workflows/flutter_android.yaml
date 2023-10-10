@@ -28,6 +28,7 @@ jobs:
         channel:
           - stable
           - beta
+        # Skips 'beta' tests on PRs
         exclude:
           - channel: ${{ (github.event_name != 'pull_request') || 'beta' }}
     steps:

@@ -29,6 +29,7 @@ jobs:
         browser:
           - chrome
           - firefox
+        # Skips 'beta' tests on PRs
         exclude:
           - sdk: ${{ (github.event_name != 'pull_request') || 'beta' }}
     steps:
