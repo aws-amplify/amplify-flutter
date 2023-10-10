@@ -65,6 +65,7 @@ class InitPage extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    Amplify.Auth.signOut();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
