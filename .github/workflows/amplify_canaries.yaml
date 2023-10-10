@@ -66,7 +66,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}
@@ -139,7 +139,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}
@@ -217,7 +217,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           test-type: canary
-          package-name: amplify_canaries
+          working-directory: canaries
 
           framework: flutter
           flutter-dart-channel: ${{ matrix.channel }}

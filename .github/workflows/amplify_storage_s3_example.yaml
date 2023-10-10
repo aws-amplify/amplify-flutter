@@ -134,6 +134,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_storage_s3_example
       working-directory: packages/storage/amplify_storage_s3/example
