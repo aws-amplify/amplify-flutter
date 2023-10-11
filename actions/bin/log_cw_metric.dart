@@ -21,7 +21,7 @@ Future<void> logMetric() async {
 
   // Parse the matrix string (input is raw json string with " and \n)
   String? parseMatrixInput(String matrixRawInput) {
-    if (matrixRawInput.isEmpty) {
+    if (matrixRawInput.isEmpty || matrixRawInput == '{}') {
       return null;
     }
 
@@ -40,7 +40,7 @@ Future<void> logMetric() async {
   final matrixValues = parseMatrixInput(matrixRawInput);
 
   final jobIdentifier =
-      ('${github.context.job} ${matrixValues == null ? '' : '($matrixValues)'}')
+      ('${github.context.job} ${(matrixValues == null || matrixValues.isEmpty) ? '' : '($matrixValues)'}')
           .trim();
 
   core.info('Job identifier: $jobIdentifier');
