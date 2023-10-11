@@ -355,14 +355,14 @@ abstract class AmplifyPushNotifications
         recoverySuggestion: 'Review the underlying exception.',
         underlyingException: error,
       );
-    } on TimeoutException catch (error) {
-      throw PushNotificationException(
-        'Timed out awaiting for device token.',
-        recoverySuggestion:
-            'This may happen when the native apps have not been correctly configured'
-            ' for push notifications, review push notification configurations'
-            ' of the native iOS and Android apps of your Flutter project.',
-        underlyingException: error,
+    } on TimeoutException catch (error, st) {
+      _logger.error(
+        'Timed out awaiting for device token.'
+        ' This may happen when the native app has not been correctly configured'
+        ' for push notifications. Review push notification configurations'
+        ' of the native iOS and Android apps of your Flutter project.',
+        error,
+        st,
       );
     }
     await _registerDevice(deviceToken);
