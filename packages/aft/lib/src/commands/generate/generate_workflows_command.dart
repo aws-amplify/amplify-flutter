@@ -575,7 +575,7 @@ concurrency:
 jobs:
   ios:
     uses: ./.github/workflows/$iosWorkflow
-    secrets: inhert
+    secrets: inherit
     with:
       example-directory: $repoRelativePath/example
       package-name: ${package.name}
