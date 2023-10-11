@@ -94,7 +94,7 @@ class PushNotificationsCategory
   /// {@endtemplate}
   Future<void> identifyUser({
     required String userId,
-    required UserProfile userProfile,
+    UserProfile? userProfile,
   }) =>
       identifyCall(
         PushNotificationsCategoryMethod.identifyUser,

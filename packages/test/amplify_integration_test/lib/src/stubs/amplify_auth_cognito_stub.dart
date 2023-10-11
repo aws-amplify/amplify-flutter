@@ -348,15 +348,15 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
-  Future<ResendUserAttributeConfirmationCodeResult>
-      resendUserAttributeConfirmationCode({
+  Future<SendUserAttributeVerificationCodeResult>
+      sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
-    ResendUserAttributeConfirmationCodeOptions? options,
+    SendUserAttributeVerificationCodeOptions? options,
   }) async {
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');
     }
-    return ResendUserAttributeConfirmationCodeResult(
+    return SendUserAttributeVerificationCodeResult(
       codeDeliveryDetails: _codeDeliveryDetails(_currentUser!),
     );
   }

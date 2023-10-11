@@ -279,7 +279,81 @@ void main() {
               UserAttribute.email(keepOriginal ? email : newEmail),
             );
             final resendResult =
+                // ignore: deprecated_member_use
                 await Amplify.Auth.resendUserAttributeConfirmationCode(
+              userAttributeKey: AuthUserAttributeKey.email,
+            );
+            expect(
+              resendResult.codeDeliveryDetails.attributeKey,
+              AuthUserAttributeKey.email,
+            );
+            expect(
+              resendResult.codeDeliveryDetails.deliveryMedium,
+              DeliveryMedium.email,
+            );
+            expect(
+              resendResult.codeDeliveryDetails.destination,
+              isNotNull,
+            );
+
+            await expectLater(
+              Amplify.Auth.confirmUserAttribute(
+                userAttributeKey: AuthUserAttributeKey.email,
+                confirmationCode: await resentCode.code,
+              ),
+              completes,
+            );
+          });
+        });
+
+        group('sendUserAttributeVerificationCode', () {
+          asyncTest('to email', (_) async {
+            final newEmail = generateEmail();
+            // Cognito sends the confirmation code to the new attribute
+            // even when `keepOriginal` is true and even though it uses the old
+            // attribute when resending the code.
+            final code = await getOtpCode(UserAttribute.email(newEmail));
+            logger.debug(
+              'Updating email (keepOriginal=$keepOriginal) to: $newEmail',
+            );
+            final updateResult = await Amplify.Auth.updateUserAttribute(
+              userAttributeKey: AuthUserAttributeKey.email,
+              value: newEmail,
+            );
+            expect(updateResult.isUpdated, false);
+            expect(
+              updateResult.nextStep.updateAttributeStep,
+              AuthUpdateAttributeStep.confirmAttributeWithCode,
+            );
+            expect(
+              updateResult.nextStep.codeDeliveryDetails?.attributeKey,
+              AuthUserAttributeKey.email,
+            );
+            expect(
+              updateResult.nextStep.codeDeliveryDetails?.deliveryMedium,
+              DeliveryMedium.email,
+            );
+            expect(
+              updateResult.nextStep.codeDeliveryDetails?.destination,
+              isNotNull,
+            );
+
+            // Drain original code
+            await expectLater(
+              code.code,
+              completes,
+              reason:
+                  'Cognito sends the confirmation code to the new attribute '
+                  'even when keepOriginal is true and even though it uses the old '
+                  'attribute when resending the code',
+            );
+            logger.debug('Got original code');
+
+            final resentCode = await getOtpCode(
+              UserAttribute.email(keepOriginal ? email : newEmail),
+            );
+            final resendResult =
+                await Amplify.Auth.sendUserAttributeVerificationCode(
               userAttributeKey: AuthUserAttributeKey.email,
             );
             expect(
@@ -350,7 +424,7 @@ void main() {
               UserAttribute.phone(keepOriginal ? phoneNumber : newPhoneNumber),
             );
             final resendResult =
-                await Amplify.Auth.resendUserAttributeConfirmationCode(
+                await Amplify.Auth.sendUserAttributeVerificationCode(
               userAttributeKey: AuthUserAttributeKey.phoneNumber,
             );
             expect(

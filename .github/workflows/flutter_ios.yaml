@@ -17,8 +17,7 @@ on:
         type: boolean
 
 jobs:
-  test:
-    name: Build and Test
+  flutter-ios-build-and-test:
     runs-on: macos-latest-xl
     timeout-minutes: 30
     strategy:
@@ -28,6 +27,9 @@ jobs:
         channel:
           - stable
           - beta
+        # Skips 'beta' tests on PRs
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
@@ -63,3 +65,21 @@ jobs:
               -scheme Runner \
               -destination "$XCODEBUILD_DESTINATION" | xcpretty
         working-directory: ${{ inputs.example-directory }}/ios
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.example-directory }}
+
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+
+          platform: ios
