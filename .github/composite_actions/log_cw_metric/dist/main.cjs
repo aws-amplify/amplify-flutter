@@ -8097,7 +8097,7 @@
               matrixRawInput = inputValue.length === 0 ? "" : inputValue;
               matrixValues = new A.logMetric_parseMatrixInput().call$1(matrixRawInput);
               t3 = A._asString(t2._as(t2._as(t1.github).context).job);
-              t4 = matrixValues == null ? "" : "(" + matrixValues + ")";
+              t4 = matrixValues == null || matrixValues.length === 0 ? "" : "(" + A.S(matrixValues) + ")";
               jobIdentifier = B.JSString_methods.trim$0(t3 + " " + t4);
               t2._as(t1.core).info("Job identifier: " + jobIdentifier);
               githubToken = A.Core_getRequiredInput(t2._as(t1.core), "github-token");
@@ -17963,7 +17963,7 @@
   A.logMetric_parseMatrixInput.prototype = {
     call$1(matrixRawInput) {
       var t1, t2;
-      if (matrixRawInput.length === 0)
+      if (matrixRawInput.length === 0 || matrixRawInput === "{}")
         return null;
       type$.JSObject._as(self.core).info("Accepted matrix input: <" + matrixRawInput + ">");
       t1 = A.stringReplaceAllUnchecked(matrixRawInput, "\n", "");

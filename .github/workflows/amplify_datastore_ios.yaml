@@ -32,7 +32,7 @@ concurrency:
 jobs:
   ios:
     uses: ./.github/workflows/flutter_ios.yaml
-    secrets: inhert
+    secrets: inherit
     with:
       example-directory: packages/amplify_datastore/example
       package-name: amplify_datastore

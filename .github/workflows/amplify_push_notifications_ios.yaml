@@ -32,7 +32,7 @@ concurrency:
 jobs:
   ios:
     uses: ./.github/workflows/flutter_ios.yaml
-    secrets: inhert
+    secrets: inherit
     with:
       example-directory: packages/notifications/push/amplify_push_notifications/example
       package-name: amplify_push_notifications
