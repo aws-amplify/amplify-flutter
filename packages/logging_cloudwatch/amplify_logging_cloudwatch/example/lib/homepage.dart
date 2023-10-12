@@ -196,12 +196,13 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(
             width: 10,
           ),
-          TextField(
-            decoration: const InputDecoration(
-              constraints: BoxConstraints(maxWidth: 250),
-              hintText: 'Enter log message',
+          Expanded(
+            child: TextField(
+              decoration: const InputDecoration(
+                hintText: 'Enter log message',
+              ),
+              controller: loggerInfo.logMsgController,
             ),
-            controller: loggerInfo.logMsgController,
           ),
         ],
       ),
@@ -251,12 +252,13 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               width: 10,
             ),
-            TextField(
-              decoration: const InputDecoration(
-                constraints: BoxConstraints(maxWidth: 225),
-                hintText: 'Enter log message',
+            Expanded(
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter log message',
+                ),
+                controller: _customLogMsgController,
               ),
-              controller: _customLogMsgController,
             ),
           ],
         ),
