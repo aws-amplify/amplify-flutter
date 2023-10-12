@@ -2,14 +2,10 @@ const loggingconfig = '''{
       "plugins": {
         "cloudWatchLoggerPluginConfiguration": {
             "enable": true,
-            "logGroupName": "<log-group>",
-            "region": "<region>",
+            "logGroupName": "test-logging-log-group",
+            "region": "us-west-2",
             "localStoreMaxSizeInMB": 5,
             "flushIntervalInSeconds": 60,
-            "defaultRemoteConfiguration": {
-                "endpoint": "https://<restApiId>.execute-api.<region>.amazonaws.com/prod/loggingconstraints",
-                "refreshIntervalInSeconds": 1200
-            },
             "loggingConstraints": {
                 "defaultLogLevel": "ERROR",
                 "categoryLogLevel": {
