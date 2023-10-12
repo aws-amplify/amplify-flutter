@@ -112,13 +112,13 @@ class InitPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.popAndPushNamed(context, '/login');
                   },
                   child: const Text('Go to Login Page'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.popAndPushNamed(context, '/home');
                   },
                   child: const Text('Go to Home Page'),
                 ),
