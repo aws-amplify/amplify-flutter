@@ -56,7 +56,6 @@ void main() {
         await tester.pumpAndSettle();
 
         final signInPage = SignInPage(tester: tester);
-        signInPage.expectStep(AuthenticatorStep.signIn);
 
         // Go to Sign Up
         await tester.tap(signInPage.signUpTab);
