@@ -8,31 +8,43 @@ import 'package:amplify_logging_cloudwatch_example/amplifyconfiguration_logging.
 import 'package:amplify_logging_cloudwatch_example/homepage.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final authPlugin = AmplifyAuthCognito();
-
-  final amplifyConfigWithLogging = AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfig) as Map<String, dynamic>,
-  ).copyWith(
-    logging: LoggingConfig.fromJson(
-      jsonDecode(loggingconfig) as Map<String, dynamic>,
-    ),
-  );
-
-  final amplifyConfig =
-      const JsonEncoder().convert(amplifyConfigWithLogging.toJson());
-
-  await Amplify.addPlugin(authPlugin);
-  await Amplify.configure(amplifyConfig);
-
-  runApp(
-    const MyApp(),
-  );
+void main() async {
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Future<void> _initialization = _configureAmplify();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  static Future<void> _configureAmplify() async {
+    final authPlugin = AmplifyAuthCognito();
+
+    final amplifyConfigWithLogging = AmplifyConfig.fromJson(
+      jsonDecode(amplifyconfig) as Map<String, dynamic>,
+    ).copyWith(
+      logging: LoggingConfig.fromJson(
+        jsonDecode(loggingconfig) as Map<String, dynamic>,
+      ),
+    );
+
+    final amplifyConfig =
+        const JsonEncoder().convert(amplifyConfigWithLogging.toJson());
+
+    await Amplify.addPlugin(authPlugin);
+    await Amplify.configure(amplifyConfig);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Authenticator(
@@ -40,21 +52,32 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (BuildContext context) {
-            return InitPage(
-              key: GlobalKey(),
-              title: 'Amplify Logging Cloudwatch Example',
+            return FutureBuilder(
+              future: _initialization,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Amplify.Auth.signOut();
+                  return const InitPage(
+                    title: 'Amplify Logging Cloudwatch Example',
+                  );
+                } else {
+                  return const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
             );
           },
           '/home': (BuildContext context) {
-            return MyHomePage(
-              key: GlobalKey(),
+            return const MyHomePage(
               title: 'Amplify Logging Cloudwatch Example',
             );
           },
           '/login': (BuildContext context) {
-            return AuthenticatedView(
+            return const AuthenticatedView(
               child: MyHomePage(
-                key: GlobalKey(),
                 title: 'Amplify Logging Cloudwatch Example',
               ),
             );
@@ -70,7 +93,6 @@ class InitPage extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    Amplify.Auth.signOut();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -90,13 +112,13 @@ class InitPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.popAndPushNamed(context, '/login');
                   },
                   child: const Text('Go to Login Page'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.popAndPushNamed(context, '/home');
                   },
                   child: const Text('Go to Home Page'),
                 ),
