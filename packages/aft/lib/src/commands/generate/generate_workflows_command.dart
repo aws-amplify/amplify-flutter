@@ -290,7 +290,7 @@ ${workflowPaths.map((path) => "      - '$path'").join('\n')}
     paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
-    - cron: "0 6 * * *" # Every day at 06:00
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
   run:
     shell: bash
