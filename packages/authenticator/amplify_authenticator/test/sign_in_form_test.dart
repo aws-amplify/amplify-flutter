@@ -1,50 +1,57 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockAuthService extends Mock implements AmplifyAuthService {}
-
-class MockSignInResult extends Mock implements SignInResult {}
-
-class CustomMockAuthService extends AmplifyAuthService {
+class MockAuthService extends Mock implements AmplifyAuthService {
   String? capturedUsername;
   String? capturedPassword;
 
   @override
-  Future<SignInResult> signIn(String username, String password) {
+  Future<SignInResult> signIn(
+    String username,
+    String password, {
+    SignInOptions? options,
+  }) {
     capturedUsername = username;
     capturedPassword = password;
-    return Future.value(MockSignInResult());
+    return Future.value(
+      const CognitoSignInResult(
+        isSignedIn: true,
+        nextStep: AuthNextSignInStep(signInStep: AuthSignInStep.done),
+      ),
+    );
+  }
+}
+
+class MockAuthPlugin extends AmplifyAuthCognitoStub {
+  MockAuthPlugin(this.authService);
+  final MockAuthService authService;
+
+  @override
+  Future<SignInResult> signIn({
+    required String username,
+    String? password,
+    SignInOptions? options,
+  }) {
+    return authService.signIn(username, password ?? '');
   }
 }
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final mockAuthService = CustomMockAuthService();
+  final mockAuthService = MockAuthService();
 
   final signInArguments = <dynamic>[];
 
-  setUp(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
-
-    registerFallbackValue(MockSignInResult());
-
-    // when(() => mockAuthService.signIn(any(), any())).thenAnswer((_) {
-    //   // capturedUsername = username;
-    //   // capturedPassword = password;
-    //   print(_);
-    //   return Future.value(
-    //     MockSignInResult(),
-    //   );
-    // });
-  });
+  setUp(TestWidgetsFlutterBinding.ensureInitialized);
 
   group('Sign In View', () {
     group('navigation', () {
@@ -141,11 +148,11 @@ void main() {
       testWidgets(
         'ensures email passed to the API is trimmed',
         (tester) async {
-          await tester.pumpWidget(
-            MockAuthenticatorApp(
-              mockAuthService: CustomMockAuthService(),
-            ),
-          );
+          final mockAuthService = MockAuthService();
+          final mockAuthPlugin = MockAuthPlugin(mockAuthService);
+          final app = MockAuthenticatorApp(authPlugin: mockAuthPlugin);
+
+          await tester.pumpWidget(app);
           await tester.pumpAndSettle();
 
           final signInPage = SignInPage(tester: tester);
@@ -154,20 +161,11 @@ void main() {
           await signInPage.enterUsername('user@example.com ');
           await signInPage.enterPassword('Password123');
 
-          var capturedUsername;
-
-          // when(() => mockAuthService.signIn(any(), any())).thenAnswer(
-          //   (_) async {
-          //     capturedUsername = _.positionalArguments[0];
-          //     return MockSignInResult();
-          //   },
-          // );
-
           await signInPage.submitSignIn();
           await tester.pumpAndSettle();
 
-          // Check if captured username is trimmed
-          // expect(mockAuthService.capturedUsername, 'user@example.com');
+          // Verify the email was trimmed before being passed to the signIn method
+          expect(mockAuthService.capturedUsername, 'user@example.com');
         },
       );
     });

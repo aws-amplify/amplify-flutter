@@ -3,10 +3,57 @@
 
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockAuthService extends Mock implements AmplifyAuthService {
+  String? capturedUsername;
+  String? capturedPassword;
+
+  @override
+  Future<SignUpResult> signUp(
+    String username,
+    String password,
+    Map<CognitoUserAttributeKey, String> attributes,
+  ) {
+    capturedUsername = username;
+    capturedPassword = password;
+    // Return mock result
+    return Future.value(
+      const CognitoSignUpResult(
+        isSignUpComplete: true,
+        nextStep: AuthNextSignUpStep(signUpStep: AuthSignUpStep.done),
+      ),
+    );
+  }
+}
+
+class MockAuthPlugin extends AmplifyAuthCognitoStub {
+  MockAuthPlugin(this.authService);
+
+  final MockAuthService authService;
+
+  final attributes = <CognitoUserAttributeKey, String>{};
+
+  @override
+  Future<SignUpResult> signUp({
+    required String username,
+    required String password,
+    SignUpOptions? options,
+  }) {
+    return authService.signUp(
+      username,
+      password,
+      attributes,
+    );
+  }
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -170,6 +217,60 @@ void main() {
           expect(passwordFieldErrorLine2, findsOneWidget);
           expect(passwordFieldErrorLine3, findsOneWidget);
           expect(passwordFieldErrorLine4, findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        'trims the username field before validation',
+        (tester) async {
+          await tester.pumpWidget(
+            const MockAuthenticatorApp(
+              initialStep: AuthenticatorStep.signUp,
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          final signInPage = SignUpPage(tester: tester);
+
+          await signInPage.enterUsername('user@example.com ');
+          await signInPage.enterPassword('Password123');
+
+          await signInPage.submitSignUp();
+
+          final usernameFieldError = find.descendant(
+            of: signInPage.usernameField,
+            matching: find.text('Invalid email format.'),
+          );
+
+          expect(usernameFieldError, findsNothing);
+        },
+      );
+
+      testWidgets(
+        'ensures email passed to the API is trimmed',
+        (tester) async {
+          final mockAuthService = MockAuthService();
+          final mockAuthPlugin = MockAuthPlugin(mockAuthService);
+          final app = MockAuthenticatorApp(
+            authPlugin: mockAuthPlugin,
+            initialStep: AuthenticatorStep.signUp,
+          );
+
+          await tester.pumpWidget(app);
+          await tester.pumpAndSettle();
+
+          final signUpPage = SignUpPage(tester: tester);
+
+          // Enter email with trailing space
+          await signUpPage.enterUsername('user@example.com ');
+          await signUpPage.enterPassword('Password123');
+          await signUpPage.enterPasswordConfirmation('Password123');
+
+          await signUpPage.submitSignUp();
+          await tester.pumpAndSettle();
+
+          // Verify the email was trimmed before being passed to signUp
+          expect(mockAuthService.capturedUsername, 'user@example.com');
         },
       );
     });
