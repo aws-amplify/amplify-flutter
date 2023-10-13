@@ -32,7 +32,8 @@ base class BaseRemoteLoggingConstraintProvider
     FileStorage? fileStorage,
   })  : _fileStorage = fileStorage,
         _config = config,
-        _awsHttpClient = AWSHttpClient() {
+        _awsHttpClient = AWSHttpClient()
+          ..supportedProtocols = SupportedProtocols.http1 {
     _init();
   }
 
@@ -120,9 +121,10 @@ base class BaseRemoteLoggingConstraintProvider
           jsonEncode(fetchedConstraint.toJson()),
         );
       }
-    } on Exception catch (exception) {
+    } on Object catch (exception, st) {
       logger.error(
-        'Failed to fetch logging constraint from ${_config.endpoint}: $exception',
+        'Failed to fetch logging constraint from ${_config.endpoint}. exception: $exception, stack: $st',
+        st,
       );
     }
   }
@@ -194,6 +196,7 @@ final class DefaultRemoteLoggingConstraintProvider
     final signedRequest = await _signer.sign(
       baseRequest,
       credentialScope: scope,
+      serviceConfiguration: const ServiceConfiguration(signBody: false),
     );
 
     return signedRequest;
