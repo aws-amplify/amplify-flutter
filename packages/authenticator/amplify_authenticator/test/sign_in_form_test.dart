@@ -47,10 +47,6 @@ class MockAuthPlugin extends AmplifyAuthCognitoStub {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final mockAuthService = MockAuthService();
-
-  final signInArguments = <dynamic>[];
-
   setUp(TestWidgetsFlutterBinding.ensureInitialized);
 
   group('Sign In View', () {
