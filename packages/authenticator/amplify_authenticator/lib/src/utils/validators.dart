@@ -85,6 +85,7 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
             InputResolverKey.passwordEmpty,
           );
         }
+        password = password.trim();
         if (passwordProtectionSettings == null) {
           return null;
         }
@@ -128,7 +129,9 @@ FormFieldValidator<String> validatePasswordConfirmation(
         context,
         InputResolverKey.passwordConfirmationEmpty,
       );
-    } else if (getPassword() != passwordConfirmation.trim()) {
+    }
+    passwordConfirmation = passwordConfirmation.trim();
+    if (getPassword() != passwordConfirmation.trim()) {
       return inputResolver.resolve(
         context,
         InputResolverKey.passwordsDoNotMatch,
@@ -152,7 +155,9 @@ FormFieldValidator<String> validatePhoneNumber({
         context,
         InputResolverKey.phoneNumberEmpty,
       );
-    } else if (!phoneNumberRegex.hasMatch(phoneNumber)) {
+    }
+    phoneNumber = phoneNumber.trim();
+    if (!phoneNumberRegex.hasMatch(phoneNumber)) {
       return inputResolver.resolve(context, InputResolverKey.phoneNumberFormat);
     }
     return null;
@@ -193,7 +198,9 @@ FormFieldValidator<String> validateCode({
         context,
         InputResolverKey.verificationCodeEmpty,
       );
-    } else if (!_codeRegex.hasMatch(code)) {
+    }
+    code = code.trim();
+    if (!_codeRegex.hasMatch(code)) {
       return inputResolver.resolve(
         context,
         InputResolverKey.verificationCodeFormat,
