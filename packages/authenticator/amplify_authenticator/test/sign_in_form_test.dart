@@ -76,6 +76,8 @@ void main() {
           await tester.pumpAndSettle();
 
           final signInPage = SignInPage(tester: tester);
+          // ignore: cascade_invocations
+          signInPage.expectStep(AuthenticatorStep.signIn);
           await signInPage.submitSignIn();
 
           final usernameFieldError = find.descendant(
