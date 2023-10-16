@@ -11,7 +11,6 @@ import 'package:mocktail/mocktail.dart';
 
 class MockAuthService extends Mock implements AmplifyAuthService {
   String? capturedUsername;
-  String? capturedPassword;
 
   @override
   Future<SignInResult> signIn(
@@ -20,7 +19,6 @@ class MockAuthService extends Mock implements AmplifyAuthService {
     SignInOptions? options,
   }) {
     capturedUsername = username;
-    capturedPassword = password;
     return Future.value(
       const CognitoSignInResult(
         isSignedIn: true,
