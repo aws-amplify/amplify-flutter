@@ -994,6 +994,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<List<CognitoDevice>> fetchDevices() async {
+    final tokens = await stateMachine.getUserPoolTokens();
+    final username = tokens.username;
+    final deviceSecrets = (await _deviceRepo.get(username));
+    final currentDeviceKey = deviceSecrets?.deviceKey;
+
     final allDevices = <CognitoDevice>[];
 
     String? paginationToken;
@@ -1025,6 +1030,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
                 attribute.name: attribute.value ?? '',
             },
             createdDate: device.deviceCreateDate,
+            current: deviceKey == currentDeviceKey,
             lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
             lastModifiedDate: device.deviceLastModifiedDate,
           ),
