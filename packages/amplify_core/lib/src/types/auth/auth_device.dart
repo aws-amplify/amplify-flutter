@@ -19,12 +19,15 @@ abstract class AuthDevice with AWSSerializable<Map<String, Object?>> {
   /// Device name.
   String? get name;
 
+  /// Local device.
+  bool? get current;
+
   /// Converts the instance to a JSON map.
   @override
   Map<String, Object?> toJson();
 
   @override
   String toString() {
-    return 'AuthDevice{id=$id, name=$name}';
+    return 'AuthDevice{id=$id, name=$name, current=$current}';
   }
 }
