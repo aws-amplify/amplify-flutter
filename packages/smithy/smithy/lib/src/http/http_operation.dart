@@ -268,7 +268,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     var successCode = this.successCode();
     try {
       final payload = await protocol.deserialize(response.split());
-      // ignore: unnecessary_cast
       output = switch (payload) {
         final Output p => p,
         _ => buildOutput(payload, response),
