@@ -219,7 +219,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
-        _handleFullLogStoreAfterSync(
+        await _handleFullLogStoreAfterSync(
           retryTime: nextRetry,
         );
         _syncing = false;
@@ -227,11 +227,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
   }
 
-  void _handleFullLogStoreAfterSync({
+  Future<void> _handleFullLogStoreAfterSync({
     DateTime? retryTime,
-  }) {
+  }) async {
     final isLogStoreFull =
-        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+        await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
     if (!isLogStoreFull) {
       _retryCount = 0;
       _retryTime = null;
@@ -347,7 +347,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
     final item = logEntry.toQueuedItem();
     final isLogStoreFull =
-        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+        await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
     final shouldEnableQueueRotation = isLogStoreFull && _retryTime != null;
 
     await _logStore.addItem(
