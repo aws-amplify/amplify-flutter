@@ -981,7 +981,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     if (deviceKey == null) {
       throw const DeviceNotTrackedException();
     }
-    await _deviceRepo.remove(username);
+    if (device == null || device.id == deviceSecrets?.deviceKey) {
+      await _deviceRepo.remove(username);
+    }
     await _cognitoIdp
         .forgetDevice(
           cognito.ForgetDeviceRequest(
