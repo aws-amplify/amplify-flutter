@@ -97,10 +97,10 @@ class IndexedDbAdapter implements QueuedItemStore {
     for (final elem in request.result) {
       final value = elem as Object;
       final id = getProperty<int>(value, 'id');
-      final string = getProperty<String>(value, 'value');
+      final itemValue = getProperty<String>(value, 'value');
       final timestamp = getProperty<String>(value, 'timestamp');
       readValues.add(
-        QueuedItem(id: id, value: string, timestamp: timestamp),
+        QueuedItem(id: id, value: itemValue, timestamp: timestamp),
       );
     }
     return readValues;
@@ -129,25 +129,7 @@ class IndexedDbAdapter implements QueuedItemStore {
 
   @override
   Future<Iterable<QueuedItem>> getAll() async {
-    final readValues = <QueuedItem>[];
-
-    await _databaseOpenEvent;
-    final store = _getObjectStore();
-    final request = store.getAll(null, null);
-
-    await request.future;
-
-    for (final elem in request.result) {
-      final value = elem as Map<String, dynamic>;
-      final id = value['id'] as int;
-      final itemValue = value['value'] as String;
-      final timestamp = value['timestamp'] as String;
-      readValues.add(
-        QueuedItem(id: id, value: itemValue, timestamp: timestamp),
-      );
-    }
-
-    return readValues;
+    return getCount();
   }
 
   @override
@@ -168,14 +150,14 @@ class IndexedDbAdapter implements QueuedItemStore {
   void close() {}
 
   /// Check that IndexDB will work on this device.
-  static bool checkIsIndexedDBSupported() {
+  static Future<bool> checkIsIndexedDBSupported() async {
     if (indexedDB == null) {
       return false;
     }
     // indexedDB will be non-null in Firefox private browsing,
     // but will fail to open.
     try {
-      indexedDB!.open('test', 1).result;
+      await indexedDB!.open('test', 1).future;
       return true;
     } on Object {
       return false;
