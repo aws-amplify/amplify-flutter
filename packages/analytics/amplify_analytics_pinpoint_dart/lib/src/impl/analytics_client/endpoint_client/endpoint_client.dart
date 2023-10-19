@@ -149,7 +149,7 @@ class EndpointClient {
 
   /// Send local Endpoint instance to AWS Pinpoint.
   Future<void> updateEndpoint() async {
-    try {
+    Future<void> update() async {
       await _pinpointClient
           .updateEndpoint(
             UpdateEndpointRequest(
@@ -159,6 +159,12 @@ class EndpointClient {
             ),
           )
           .result;
+    }
+
+    try {
+      await update();
+    } on SessionExpiredException {
+      await update();
     } on Exception catch (e) {
       throw fromPinpointException(e);
     }
