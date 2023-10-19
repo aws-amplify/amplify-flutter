@@ -42,5 +42,5 @@ class GithubStep {
   factory GithubStep.fromJson(Map<String, dynamic> json) =>
       _$GithubStepFromJson(json);
   final String name;
-  final String conclusion;
+  final String? conclusion;
 }

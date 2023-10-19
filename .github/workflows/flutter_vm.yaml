@@ -16,8 +16,7 @@ on:
         type: boolean
 
 jobs:
-  test:
-    name: Test
+  test-flutter-vm:
     runs-on: ${{ inputs.has-goldens && 'macos-latest' || 'ubuntu-latest' }}
     timeout-minutes: 60
     strategy:
@@ -32,6 +31,9 @@ jobs:
         include:
           - channel: "stable"
             flutter-version: "3.10.1"
+        # Skips 'beta' tests on PRs
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
@@ -97,3 +99,20 @@ jobs:
         with:
           name: golden-failures-${{ matrix.channel }}-${{ matrix.flutter-version }}
           path: ${{ inputs.working-directory }}/test/ui/failures/
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: flutter
+          flutter-dart-channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.flutter-version }}

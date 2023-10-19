@@ -1,19 +1,19 @@
 name: Log CW Metric
-description: Test to log a CW metric
+description: Logs a metric to Cloudwatch.
 inputs:
   # For getting failing step
   job-status:
     description: Used to determine if we track success or failure.
     required: true
+  # Temporarily ignored - see comments for failingStep in log_cw_metric.dart
   github-token:
     required: true
     description: Github token for requesting failing steps.
-  package-name:
-    description: The name of the package being tested
+  working-directory:
+    description: The working directory relative to the repo root.
     required: true
   matrix:
     description: The matrix of the workflow
-    required: true
 
   # Global Metric Dimensions
   metric-name:
@@ -21,9 +21,6 @@ inputs:
     required: true
   test-type:
     description: canary, integration, unit testType.
-    required: true
-  category:
-    description: analytics, api, authenticator, etc.
     required: true
 
   # FlutterDart Workflows Metric Dimensions
