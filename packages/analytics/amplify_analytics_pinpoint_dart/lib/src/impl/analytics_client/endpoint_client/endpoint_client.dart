@@ -150,23 +150,31 @@ class EndpointClient {
   /// Send local Endpoint instance to AWS Pinpoint.
   Future<void> updateEndpoint() async {
     Future<void> update() async {
-      await _pinpointClient
-          .updateEndpoint(
-            UpdateEndpointRequest(
-              applicationId: _pinpointAppId,
-              endpointId: _fixedEndpointId,
-              endpointRequest: _endpointToRequest(getPublicEndpoint()),
-            ),
-          )
-          .result;
+      try {
+        await _pinpointClient
+            .updateEndpoint(
+              UpdateEndpointRequest(
+                applicationId: _pinpointAppId,
+                endpointId: _fixedEndpointId,
+                endpointRequest: _endpointToRequest(getPublicEndpoint()),
+              ),
+            )
+            .result;
+      } on SessionExpiredException {
+        // rethrow SessionExpiredException so that it can be retried.
+        rethrow;
+      } on Exception catch (e) {
+        throw fromPinpointException(e);
+      }
     }
 
     try {
       await update();
     } on SessionExpiredException {
+      // When SessionExpiredException is thrown, the local credential store
+      // is cleared. At this point the operation should be retired with guest
+      // credentials.
       await update();
-    } on Exception catch (e) {
-      throw fromPinpointException(e);
     }
   }
 
