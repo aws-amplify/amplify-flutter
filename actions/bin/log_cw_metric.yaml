@@ -5,6 +5,7 @@ inputs:
   job-status:
     description: Used to determine if we track success or failure.
     required: true
+  # Temporarily ignored - see comments for failingStep in log_cw_metric.dart
   github-token:
     required: true
     description: Github token for requesting failing steps.
