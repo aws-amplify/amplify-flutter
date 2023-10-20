@@ -1,3 +1,21 @@
+## 1.4.2
+
+### Fixes
+- fix(aft): Constraints edge cases ([#3732](https://github.com/aws-amplify/amplify-flutter/pull/3732))
+
+## 1.4.1
+
+### Fixes
+- fix(auth): Crash with EXC_BAD_ACCESS ([#3657](https://github.com/aws-amplify/amplify-flutter/pull/3657))
+- fix(auth): Custom auth with device tracking, no SRP ([#3652](https://github.com/aws-amplify/amplify-flutter/pull/3652))
+- fix(auth): Uncaught Hosted UI cancellation ([#3686](https://github.com/aws-amplify/amplify-flutter/pull/3686))
+
+## 1.4.0
+
+### Features
+- feat(auth): TOTP MFA
+- feat(authenticator): TOTP MFA ([#3609](https://github.com/aws-amplify/amplify-flutter/pull/3609))
+
 ## 1.3.3
 
 ### Fixes

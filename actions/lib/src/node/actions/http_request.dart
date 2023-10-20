@@ -12,12 +12,15 @@ extension type HttpClient._(JSObject it) {
   ]);
 
   @JS('getJson')
-  external JSPromise _getJson(String requestUrl);
+  external JSPromise _getJson(String requestUrl, [JSObject headers]);
 
-  Future<Map<String, Object?>> getJson(String requestUrl) async {
-    final response = await _getJson(requestUrl).toDart;
+  Future<Map<String, Object?>> getJson(String requestUrl, {
+    Map<String, String> headers = const {},
+  }  ) async {
+    final jsHeaders = headers.jsify() as JSObject; 
+    final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
-    if (result.statusCode.toDartInt != 200) {
+    if (result.statusCode != 200) {
       throw Exception('Could not fetch $requestUrl');
     }
     return (result.result!.dartify() as Map).cast();
@@ -25,12 +28,13 @@ extension type HttpClient._(JSObject it) {
 }
 
 @JS()
+@anonymous
 extension type TypedResponse<T extends JSAny>._(JSObject it) {
-  external TypedResponse({
+  external factory TypedResponse({
     int statusCode,
     T result,
   });
 
-  external JSNumber get statusCode;
+  external int get statusCode;
   external T? get result;
 }

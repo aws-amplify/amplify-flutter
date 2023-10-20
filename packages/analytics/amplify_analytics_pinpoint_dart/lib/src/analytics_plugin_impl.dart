@@ -238,7 +238,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   @override
   Future<void> identifyUser({
     required String userId,
-    required UserProfile userProfile,
+    UserProfile? userProfile,
   }) async {
     _ensureConfigured();
     await _endpointClient.setUser(userId, userProfile);

@@ -115,7 +115,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
   run:
     shell: bash
@@ -134,6 +134,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_authenticator_example
       working-directory: packages/authenticator/amplify_authenticator/example

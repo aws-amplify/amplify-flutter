@@ -105,7 +105,7 @@ class PinpointProvider implements ServiceProviderClient {
   @override
   Future<void> identifyUser({
     required String userId,
-    required UserProfile userProfile,
+    UserProfile? userProfile,
   }) async {
     try {
       if (!_isInitialized) {

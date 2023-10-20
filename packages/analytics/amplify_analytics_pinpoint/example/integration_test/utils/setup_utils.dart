@@ -30,8 +30,12 @@ import 'test_event.dart';
 Future<void> configureAnalytics({
   String environmentName = 'main',
   AppLifecycleProvider? appLifecycleProvider,
+  String? endpointId,
 }) async {
-  storageFactory(scope) => mockPersistedSecuredStorage;
+  storageFactory(scope) {
+    return setupAndCreateMockPersistedSecuredStorage(endpointId: endpointId);
+  }
+
   await Amplify.addPlugins([
     AmplifyAuthCognito(
       secureStorageFactory: storageFactory,

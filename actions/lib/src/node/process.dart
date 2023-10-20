@@ -5,6 +5,7 @@ import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
 import 'package:actions/src/os.dart';
+import 'package:actions/src/util.dart';
 
 /// Provides information about, and control over, the current Node.js process.
 /// Wraps https://nodejs.org/api/process.html
@@ -12,7 +13,7 @@ import 'package:actions/src/os.dart';
 external Process get process;
 
 @JS()
-extension type Process(JSObject it) {
+extension type Process._(JSObject it) {
   /// The current Node version.
   external String get version;
 
@@ -62,7 +63,13 @@ extension type Process(JSObject it) {
   String? getEnv(String variable) =>
       _env.getProperty<JSString?>(variable.toJS)?.toDart;
 
-  external Never exit(int exitCode);
+  @JS('exit')
+  external void _exit(int exitCode);
+
+  Never exit(int exitCode) {
+    _exit(exitCode);
+    unreachable;
+  }
 }
 
 @JS('Object')
