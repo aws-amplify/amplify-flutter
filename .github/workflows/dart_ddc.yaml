@@ -12,8 +12,7 @@ on:
         type: string
 
 jobs:
-  test:
-    name: Test
+  test-dart-ddc:
     # These tests heavily leverage build_runner which benefits from faster runners
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
@@ -30,6 +29,9 @@ jobs:
         browser:
           - chrome
           - firefox
+        # Skips 'beta' tests on PRs
+        exclude:
+          - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # 3.3.2
@@ -82,3 +84,22 @@ jobs:
         if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: unit
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: dart
+          flutter-dart-channel: ${{ matrix.sdk }}
+          dart-compiler: ddc
+          platform: web
+          platform-version: ${{ matrix.browser }}

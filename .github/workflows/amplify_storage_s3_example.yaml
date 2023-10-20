@@ -123,7 +123,7 @@ on:
       - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
   schedule:
-    - cron: "0 6 * * *" # Every day at 06:00
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
   run:
     shell: bash
@@ -142,6 +142,7 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
     with:
       package-name: amplify_storage_s3_example
       working-directory: packages/storage/amplify_storage_s3/example
