@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -269,21 +268,20 @@ void main() {
       );
     });
 
-    test('configure should fail if timed out awaiting for device token',
+    test('configure should log an error if timed out awaiting for device token',
         () async {
-      expect(
-        plugin.configure(
-          authProviderRepo: authProviderRepo,
-          config: config,
-        ),
-        throwsA(
-          isA<PushNotificationException>().having(
-            (o) => o.underlyingException,
-            'underlyingException',
-            isA<TimeoutException>(),
-          ),
-        ),
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) async => standardAndroidPushMessage.cast(),
       );
+      final loggerPlugin = InMemoryLogger();
+      AmplifyLogger.category(Category.pushNotifications)
+          .registerPlugin(loggerPlugin);
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+      expect(loggerPlugin.logs.length, 1);
+      expect(loggerPlugin.logs.first.level, LogLevel.error);
     });
   });
   test('should fail configure when registering device is unsuccessful',
@@ -588,4 +586,13 @@ void main() {
       isNull,
     );
   });
+}
+
+class InMemoryLogger implements AWSLoggerPlugin {
+  final List<LogEntry> logs = [];
+
+  @override
+  void handleLogEntry(LogEntry logEntry) {
+    logs.add(logEntry);
+  }
 }
