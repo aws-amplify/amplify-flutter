@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart';
+import 'package:amplify_core/src/logger/amplify_logging_cloudwatch.dart';
 import 'package:amplify_core/src/version.dart';
 import 'package:graphs/graphs.dart';
 import 'package:meta/meta.dart';
@@ -51,6 +52,10 @@ abstract class AmplifyClass {
 
   /// The Notifications category.
   final NotificationsCategory Notifications = NotificationsCategory();
+
+  /// The Amplify Logging utility.
+  @protected
+  AmplifyLogging get logging => AmplifyLogging();
 
   /// Shared dependencies for use across categories.
   @protected
@@ -126,6 +131,7 @@ abstract class AmplifyClass {
         );
       }
       await _configurePlugins(amplifyConfig);
+      logging.configure(amplifyConfig, authProviderRepo);
       _configCompleter.complete(amplifyConfig);
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
@@ -197,6 +203,7 @@ abstract class AmplifyClass {
       DataStore.reset(),
       Notifications.Push.reset(),
       Storage.reset(),
+      logging.reset(),
     ]);
     dependencies.close();
   }

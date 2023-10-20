@@ -153,6 +153,9 @@ class _NativeAmplifyAuthCognito
 
   @override
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.auth);
 }
 
 final class _NativeASFDeviceInfoCollector extends ASFDeviceInfoCollector {

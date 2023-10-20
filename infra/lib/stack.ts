@@ -7,10 +7,11 @@ import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps
+  AuthIntegrationTestStackEnvironmentProps,
 } from "./auth/stack";
 import { env } from "./common";
 import { GitHubStack } from "./github/github";
+import { LoggingIntegrationTestStack } from "./logging/stack";
 import { StorageAccessLevel, StorageIntegrationTestStack } from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
@@ -288,6 +289,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       // },
       // crossRegionReferences: true,
     });
+
+    // The Logging stack
+    const logging = new LoggingIntegrationTestStack(this, [
+      { environmentName: "main" },
+      { environmentName: "remote-config", remoteConfig: true },
+    ]);
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [

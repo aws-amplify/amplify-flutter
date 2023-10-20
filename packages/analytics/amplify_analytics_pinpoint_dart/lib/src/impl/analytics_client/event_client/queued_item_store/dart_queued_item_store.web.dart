@@ -3,14 +3,13 @@
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/indexed_db_adapter.dart';
-
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro amplify_analytics_pinpoint_dart.dart_queued_item_store}
 class DartQueuedItemStore
-    with AWSDebuggable, AWSLoggerMixin
+    with AWSDebuggable, AmplifyLoggerMixin
     implements QueuedItemStore, Closeable {
   /// {@macro amplify_analytics_pinpoint_dart.index_db_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
@@ -29,6 +28,9 @@ class DartQueuedItemStore
 
   @override
   String get runtimeTypeName => 'DartQueuedItemStore';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.analytics);
 
   @override
   Future<void> addItem(String string) async {

@@ -44,6 +44,8 @@ class AmplifyClassImpl extends AmplifyClass {
         );
       case Category.hub:
         throw UnimplementedError();
+      case Category.logging:
+        throw UnimplementedError();
       case Category.pushNotifications:
         return Notifications.Push.addPlugin(
           plugin.cast(),

@@ -139,6 +139,19 @@ enum PushNotificationsCategoryMethod with AmplifyCategoryMethod {
   final String method;
 }
 
+enum LoggingCategoryMethod with AmplifyCategoryMethod {
+  flush('60'),
+  batchSend('61');
+
+  const LoggingCategoryMethod(this.method);
+
+  @override
+  Category get category => Category.logging;
+
+  @override
+  final String method;
+}
+
 /// Identifies [fn] as originating from a call to [categoryMethod].
 R identifyCall<R>(
   AmplifyCategoryMethod categoryMethod,

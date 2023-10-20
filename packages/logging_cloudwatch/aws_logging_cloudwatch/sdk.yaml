@@ -1,0 +1,4 @@
+apis:
+  logs:
+  - com.amazonaws.cloudwatchlogs#PutLogEvents
+  - com.amazonaws.cloudwatchlogs#CreateLogStream

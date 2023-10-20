@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart' as core;
+import 'package:amplify_flutter/src/amplify_logging_cloudwatch.dart';
 import 'package:amplify_flutter/src/hybrid_impl.dart';
 import 'package:meta/meta.dart';
 
@@ -24,4 +25,7 @@ class AmplifyClassImpl extends core.AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_class}
   @protected
   AmplifyClassImpl.protected();
+
+  @override
+  AmplifyFlutterLogging get logging => AmplifyFlutterLogging();
 }

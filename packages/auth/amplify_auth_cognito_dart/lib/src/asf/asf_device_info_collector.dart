@@ -57,7 +57,7 @@ abstract base class ASFDeviceInfoCollector {
 /// {@endtemplate}
 @internal
 abstract base class NativeASFDeviceInfoCollector extends ASFDeviceInfoCollector
-    with AWSDebuggable, AWSLoggerMixin {
+    with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro amplify_auth_cognito_dart.asf.asf_device_info}
   const NativeASFDeviceInfoCollector() : super.base();
 
@@ -158,4 +158,7 @@ abstract base class NativeASFDeviceInfoCollector extends ASFDeviceInfoCollector
 
   @override
   String get runtimeTypeName => 'NativeASFDeviceInfoCollector';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.auth);
 }

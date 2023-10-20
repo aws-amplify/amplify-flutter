@@ -201,4 +201,7 @@ class AmplifyWebSocketService
 
   @override
   String get runtimeTypeName => 'WebSocketService';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.api);
 }

@@ -27,7 +27,7 @@ bool get _zIsTest => Zone.current[zIsTest] as bool? ?? false;
 /// The Dart Storage S3 plugin for the Amplify Storage Category.
 /// {@endtemplate}
 class AmplifyStorageS3Dart extends StoragePluginInterface
-    with AWSDebuggable, AWSLoggerMixin {
+    with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
@@ -478,6 +478,9 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   String get runtimeTypeName => 'AmplifyStorageS3Dart';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.storage);
 }
 
 class _AmplifyStorageS3DartPluginKey

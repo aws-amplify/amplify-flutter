@@ -5,6 +5,7 @@ import 'package:amplify_core/src/config/amplify_plugin_config.dart';
 import 'package:amplify_core/src/config/analytics/pinpoint_config.dart';
 import 'package:amplify_core/src/config/api/aws_api_config.dart';
 import 'package:amplify_core/src/config/auth/cognito_config.dart';
+import 'package:amplify_core/src/config/logging/cloudwatch_logging_config.dart';
 import 'package:amplify_core/src/config/notifications/notifications_pinpoint_config.dart';
 import 'package:amplify_core/src/config/storage/s3_config.dart';
 
@@ -25,6 +26,9 @@ const _defaultPlugins = <AmplifyPluginConfigFactory>[
 
   // Storage
   S3PluginConfigFactory(),
+
+  // Logging
+  CloudWatchPluginConfigFactory(),
 ];
 
 /// {@template amplify_core.amplify_plugin_config_factory}
