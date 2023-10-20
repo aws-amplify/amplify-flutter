@@ -52,7 +52,7 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   /// {@macro amplify_core.amplify_analytics_category.identify_user}
   Future<void> identifyUser({
     required String userId,
-    required UserProfile userProfile,
+    UserProfile? userProfile,
   }) {
     throw UnimplementedError('identifyUser() has not been implemented');
   }

@@ -39,7 +39,7 @@ enum AuthCategoryMethod with AmplifyCategoryMethod {
   getCurrentUser('10'),
   rememberDevice('11'),
   resendSignUpCode('12'),
-  resendUserAttributeConfirmationCode('13'),
+  sendUserAttributeVerificationCode('13'),
   resetPassword('14'),
   signIn('15'),
   signInWithWebUI('16'),

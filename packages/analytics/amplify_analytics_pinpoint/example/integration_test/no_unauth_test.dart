@@ -22,7 +22,7 @@ void main() {
       'no-unauth-identities',
     ]) {
       testWidgets(environmentName, (_) async {
-        storageFactory(scope) => mockPersistedSecuredStorage;
+        storageFactory(scope) => setupAndCreateMockPersistedSecuredStorage();
         await Amplify.addPlugins([
           AmplifyAuthCognito(
             secureStorageFactory: storageFactory,

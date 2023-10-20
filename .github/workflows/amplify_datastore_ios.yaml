@@ -18,7 +18,10 @@ on:
 defaults:
   run:
     shell: bash
-permissions: read-all
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
 
 # Cancels in-progress job when there is another push to same ref.
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
@@ -29,6 +32,7 @@ concurrency:
 jobs:
   ios:
     uses: ./.github/workflows/flutter_ios.yaml
+    secrets: inherit
     with:
       example-directory: packages/amplify_datastore/example
       package-name: amplify_datastore

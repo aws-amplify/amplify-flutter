@@ -12,8 +12,7 @@ on:
         type: string
 
 jobs:
-  test:
-    name: Test
+  test-dart-2js:
     # These tests heavily leverage build_runner which benefits from faster runners
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
@@ -30,6 +29,9 @@ jobs:
         browser:
           - chrome
           - firefox
+        # Skips 'beta' tests on PRs
+        exclude:
+          - sdk: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
     steps:
       - name: Cache Pub dependencies
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # 3.3.2

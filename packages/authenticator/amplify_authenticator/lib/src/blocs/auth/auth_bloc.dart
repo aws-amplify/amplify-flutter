@@ -494,7 +494,7 @@ class StateMachineBloc
 
   Stream<AuthState> _verifyUser(AuthVerifyUserData data) async* {
     try {
-      final result = await _authService.resendUserAttributeConfirmationCode(
+      final result = await _authService.sendUserAttributeVerificationCode(
         userAttributeKey: data.userAttributeKey,
       );
       _notifyCodeSent(result.codeDeliveryDetails.destination);

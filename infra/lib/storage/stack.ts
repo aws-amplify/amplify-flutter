@@ -70,7 +70,7 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
   constructor(
     scope: Construct,
     environments: StorageIntegrationTestEnvironmentProps[],
-    props?: cdk.NestedStackProps
+    props?: cdk.StackProps
   ) {
     super({
       scope,
@@ -286,7 +286,7 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
 
     // Save the values needed to build our Amplify configuration.
 
-    this.config = {
+    this.saveConfig({
       authConfig: {
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
@@ -302,6 +302,6 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
         defaultAccessLevel:
           props.defaultAccessLevel || StorageAccessLevel.public,
       },
-    };
+    });
   }
 }

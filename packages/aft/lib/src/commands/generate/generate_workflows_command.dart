@@ -275,13 +275,6 @@ ${dependabotGroups.join('\n')}
 
     workflowPaths.sort();
 
-    final permissionsBlock = needsE2ETest
-        ? '''
-# These permissions are needed to interact with GitHub's OIDC Token endpoint.
-permissions:
-  id-token: write
-  contents: read'''
-        : 'permissions: read-all';
     final workflowContents = StringBuffer(
       '''
 # Generated with aft. To update, run: `aft generate workflows`
@@ -297,7 +290,7 @@ ${workflowPaths.map((path) => "      - '$path'").join('\n')}
     paths:
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
-    - cron: "0 6,12 * * *" # Every day at 06:00 and 12:00
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
   run:
     shell: bash
@@ -313,12 +306,19 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
+    secrets: inherit
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
-      has-goldens: $hasGoldens
 ''',
     );
+    if (!isDartPackage) {
+      workflowContents.write(
+        '''
+      has-goldens: $hasGoldens
+''',
+      );
+    }
 
     if (needsNativeTest) {
       workflowContents.write(
@@ -326,6 +326,7 @@ jobs:
   native_test:
     needs: test
     uses: ./.github/workflows/$nativeWorkflow
+    secrets: inherit 
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
@@ -338,12 +339,14 @@ jobs:
   ddc_test:
     needs: test
     uses: ./.github/workflows/$ddcWorkflow
+    secrets: inherit
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
+    secrets: inherit
     with:
       package-name: ${package.name}
       working-directory: $repoRelativePath
@@ -490,7 +493,7 @@ ${androidWorkflowPaths.map((path) => "      - '$path'").join('\n')}
 defaults:
   run:
     shell: bash
-permissions: read-all
+$permissionsBlock
 
 # Cancels in-progress job when there is another push to same ref.
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
@@ -501,6 +504,7 @@ concurrency:
 jobs:
   android:
     uses: ./.github/workflows/$androidWorkflow
+    secrets: inherit
     with:
       example-directory: $repoRelativePath/example
       package-name: ${package.name}
@@ -560,7 +564,7 @@ ${iosWorkflowPaths.map((path) => "      - '$path'").join('\n')}
 defaults:
   run:
     shell: bash
-permissions: read-all
+$permissionsBlock
 
 # Cancels in-progress job when there is another push to same ref.
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
@@ -571,6 +575,7 @@ concurrency:
 jobs:
   ios:
     uses: ./.github/workflows/$iosWorkflow
+    secrets: inherit
     with:
       example-directory: $repoRelativePath/example
       package-name: ${package.name}
@@ -587,3 +592,9 @@ jobs:
     workflowFile.writeAsStringSync(content);
   }
 }
+
+const permissionsBlock = '''
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read''';
