@@ -54,6 +54,9 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   @override
   String get runtimeTypeName => 'WebSocketBloc';
 
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.api);
+
   /// Default timeout response for polling
   static const Duration _pollResponseTimeout = Duration(seconds: 5);
 

@@ -7,7 +7,7 @@ const loggingconfig = '''{
             "localStoreMaxSizeInMB": 5,
             "flushIntervalInSeconds": 60,
             "defaultRemoteConfiguration": {
-                "endpoint": "https://<api.restApiId>.execute-api.<region>.amazonaws.com/prod/loggingconstraints",
+                "endpoint": "https://<restApiId>.execute-api.<region>.amazonaws.com/prod/loggingconstraints",
                 "refreshIntervalInSeconds": 1200
             },
             "loggingConstraints": {
@@ -21,7 +21,7 @@ const loggingconfig = '''{
                         "defaultLogLevel": "WARN",
                         "categoryLogLevel": {
                             "AUTH": "INFO",
-                            "API": "ERROR"
+                            "API": "INFO"
                         }
                     }
                 }

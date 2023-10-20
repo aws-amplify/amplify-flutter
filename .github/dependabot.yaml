@@ -69,6 +69,9 @@ updates:
       drift:
         patterns:
           - "drift"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       ffigen:
         patterns:
           - "ffigen"
@@ -126,6 +129,23 @@ updates:
       test:
         patterns:
           - "test"
+  - package-ecosystem: "pub"
+    directory: "infra"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
   - package-ecosystem: "pub"
     directory: "actions"
     schedule:
@@ -192,23 +212,6 @@ updates:
       - dependency-name: "amplify_datastore_plugin_interface"
       - dependency-name: "amplify_storage_s3"
       - dependency-name: "amplify_storage_s3_dart"
-  - package-ecosystem: "pub"
-    directory: "infra"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_logging_cloudwatch"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
   - package-ecosystem: "pub"
     directory: "packages/aft"
     schedule:
@@ -846,6 +849,9 @@ updates:
       built_value_generator:
         patterns:
           - "built_value_generator"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       test:
         patterns:
           - "test"
@@ -1706,6 +1712,9 @@ updates:
       drift:
         patterns:
           - "drift"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       build_runner:
         patterns:
           - "build_runner"
@@ -1733,6 +1742,9 @@ updates:
       drift:
         patterns:
           - "drift"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       build_runner:
         patterns:
           - "build_runner"
@@ -1770,6 +1782,9 @@ updates:
       build_web_compilers:
         patterns:
           - "build_web_compilers"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       test:
         patterns:
           - "test"
@@ -1803,6 +1818,9 @@ updates:
       build_web_compilers:
         patterns:
           - "build_web_compilers"
+      drift_dev:
+        patterns:
+          - "drift_dev"
   - package-ecosystem: "pub"
     directory: "packages/common/amplify_db_common_dart/example"
     schedule:
@@ -1833,6 +1851,9 @@ updates:
       build_web_compilers:
         patterns:
           - "build_web_compilers"
+      drift_dev:
+        patterns:
+          - "drift_dev"
   - package-ecosystem: "pub"
     directory: "packages/example_common"
     schedule:
@@ -1904,6 +1925,9 @@ updates:
       build_web_compilers:
         patterns:
           - "build_web_compilers"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       test:
         patterns:
           - "test"
@@ -3301,6 +3325,9 @@ updates:
       built_value_generator:
         patterns:
           - "built_value_generator"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       json_serializable:
         patterns:
           - "json_serializable"
@@ -3505,6 +3532,9 @@ updates:
       build_runner:
         patterns:
           - "build_runner"
+      drift_dev:
+        patterns:
+          - "drift_dev"
       json_serializable:
         patterns:
           - "json_serializable"

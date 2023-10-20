@@ -24,7 +24,7 @@ abstract class RemoteLoggingConstraintProvider {
 /// [LoggingConstraints] from a remote location and cache it.
 /// {@endtemplate}
 base class BaseRemoteLoggingConstraintProvider
-    with AWSDebuggable, AWSLoggerMixin
+    with AWSDebuggable, AmplifyLoggerMixin
     implements RemoteLoggingConstraintProvider, Closeable {
   /// {@macro aws_logging_cloudwatch.base_remote_constraints_provider}
   BaseRemoteLoggingConstraintProvider({
@@ -32,7 +32,8 @@ base class BaseRemoteLoggingConstraintProvider
     FileStorage? fileStorage,
   })  : _fileStorage = fileStorage,
         _config = config,
-        _awsHttpClient = AWSHttpClient() {
+        _awsHttpClient = AWSHttpClient()
+          ..supportedProtocols = SupportedProtocols.http1 {
     _init();
   }
 
@@ -65,6 +66,9 @@ base class BaseRemoteLoggingConstraintProvider
   /// Retrives the runtime type name used for logging.
   @override
   String get runtimeTypeName => 'BaseRemoteConstraintsProvider';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.logging);
 
   /// Initializes the [BaseRemoteLoggingConstraintProvider] by fetching
   /// the constraint from the endpoint initially and then
@@ -117,9 +121,10 @@ base class BaseRemoteLoggingConstraintProvider
           jsonEncode(fetchedConstraint.toJson()),
         );
       }
-    } on Exception catch (exception) {
+    } on Object catch (exception, st) {
       logger.error(
-        'Failed to fetch logging constraint from ${_config.endpoint}: $exception',
+        'Failed to fetch logging constraint from ${_config.endpoint}. exception: $exception, stack: $st',
+        st,
       );
     }
   }
@@ -191,6 +196,7 @@ final class DefaultRemoteLoggingConstraintProvider
     final signedRequest = await _signer.sign(
       baseRequest,
       credentialScope: scope,
+      serviceConfiguration: const ServiceConfiguration(signBody: false),
     );
 
     return signedRequest;

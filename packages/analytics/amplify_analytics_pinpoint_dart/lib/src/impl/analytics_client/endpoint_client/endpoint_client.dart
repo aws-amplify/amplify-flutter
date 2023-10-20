@@ -84,51 +84,41 @@ class EndpointClient {
   /// into a [EndpointUserBuilder] and [PublicEndpointBuilder].
   Future<void> setUser(
     String userId,
-    UserProfile userProfile,
+    UserProfile? userProfile,
   ) async {
     final newUserBuilder = EndpointUserBuilder()..userId = userId;
 
     // The [AnalyticsUserProfile] name, email, and plan fields are added as regular attributes to the local Endpoint
-    if (userProfile.name != null) {
-      await addAttribute('name', userProfile.name!);
+
+    if (userProfile?.name != null) {
+      await addAttribute('name', userProfile!.name ?? '');
     }
-    if (userProfile.email != null) {
-      await addAttribute('email', userProfile.email!);
+    if (userProfile?.email != null) {
+      await addAttribute('email', userProfile!.email ?? '');
     }
-    if (userProfile.plan != null) {
-      await addAttribute('plan', userProfile.plan!);
+    if (userProfile?.plan != null) {
+      await addAttribute('plan', userProfile!.plan ?? '');
     }
 
-    if (userProfile.location != null) {
-      final newLocation = userProfile.location!;
-      final locationBuilder = _endpointBuilder.location;
-
-      // Null check so we don't overwrite existing non null values
-      if (newLocation.latitude != null) {
-        locationBuilder.latitude = newLocation.latitude;
-      }
-      if (newLocation.longitude != null) {
-        locationBuilder.longitude = newLocation.longitude;
-      }
-      if (newLocation.postalCode != null) {
-        locationBuilder.postalCode = newLocation.postalCode;
-      }
-      if (newLocation.city != null) {
-        locationBuilder.city = newLocation.city;
-      }
-      if (newLocation.region != null) {
-        locationBuilder.region = newLocation.region;
-      }
-      if (newLocation.country != null) {
-        locationBuilder.country = newLocation.country;
-      }
+    if (userProfile?.location != null) {
+      final newLocation = userProfile!.location!;
+      _endpointBuilder.location
+        ..latitude = newLocation.latitude
+        ..longitude = newLocation.longitude
+        ..postalCode = newLocation.postalCode
+        ..city = newLocation.city
+        ..region = newLocation.region
+        ..country = newLocation.country;
+    } else {
+      _endpointBuilder.location = null;
     }
 
     // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes.
     // Instead of the [EndpointUserBuilder] object.
-    if (userProfile.customProperties != null) {
+    // TODO(kylechen): Analytics API provides no way to remove these attributes ...
+    if (userProfile?.customProperties != null) {
       await _globalFieldsManager
-          .addAttributes(userProfile.customProperties!.attributes);
+          .addAttributes(userProfile!.customProperties!.attributes);
       await _globalFieldsManager
           .addMetrics(userProfile.customProperties!.metrics);
     }

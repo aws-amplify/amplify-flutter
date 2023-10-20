@@ -252,6 +252,9 @@ class AmplifyDataStore extends DataStorePluginInterface
 
   @override
   String get runtimeTypeName => 'AmplifyDataStore';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.dataStore);
 }
 
 class _NativeAmplifyAuthCognito
@@ -296,6 +299,9 @@ class _NativeAmplifyAuthCognito
 
   @override
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.dataStore);
 }
 
 class _NativeAmplifyApi
@@ -325,4 +331,7 @@ class _NativeAmplifyApi
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.dataStore);
 }

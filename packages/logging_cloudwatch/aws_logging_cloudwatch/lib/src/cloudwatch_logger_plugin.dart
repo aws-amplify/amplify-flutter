@@ -47,7 +47,7 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
 class CloudWatchLoggerPlugin extends AWSLoggerPlugin
-    with AWSDebuggable, AWSLoggerMixin {
+    with AWSDebuggable, AmplifyLoggerMixin {
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
   CloudWatchLoggerPlugin({
     required AWSCredentialsProvider credentialsProvider,
@@ -98,7 +98,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
@@ -122,11 +126,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       if (event.type == AuthHubEventType.signedOut ||
           event.type == AuthHubEventType.userDeleted ||
           event.type == AuthHubEventType.sessionExpired) {
+        _userId = null;
         await _clearLogs();
+      }
+      if (event.type == AuthHubEventType.signedIn) {
+        _userId = event.payload?.userId;
       }
     });
   }
-
+  String? _userId;
   final CloudWatchPluginConfig _pluginConfig;
   final CloudWatchLogsClient _client;
   final CloudWatchLogStreamProvider _logStreamProvider;
@@ -211,7 +219,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
       } on Exception catch (e) {
         logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
-        _handleFullLogStoreAfterSync(
+        await _handleFullLogStoreAfterSync(
           retryTime: nextRetry,
         );
         _syncing = false;
@@ -219,11 +227,11 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
   }
 
-  void _handleFullLogStoreAfterSync({
+  Future<void> _handleFullLogStoreAfterSync({
     DateTime? retryTime,
-  }) {
+  }) async {
     final isLogStoreFull =
-        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+        await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
     if (!isLogStoreFull) {
       _retryCount = 0;
       _retryTime = null;
@@ -301,11 +309,35 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Whether a [logEntry] should be logged by this plugin.
   bool _isLoggable(LogEntry logEntry) {
-    if (!_enabled) {
-      return false;
-    }
+    if (!_enabled) return false;
+
     final loggingConstraint = _getLoggingConstraint();
-    return logEntry.level >= loggingConstraint.defaultLogLevel;
+    final hasUserLogLevel = loggingConstraint.userLogLevel.containsKey(_userId);
+    LogLevel? logLevel;
+
+    if (hasUserLogLevel) {
+      final userLogLevel = loggingConstraint.userLogLevel[_userId]!;
+      logLevel =
+          _getCategoryLogLevel(userLogLevel.categoryLogLevel, logEntry) ??
+              userLogLevel.defaultLogLevel;
+    } else {
+      logLevel =
+          _getCategoryLogLevel(loggingConstraint.categoryLogLevel, logEntry);
+    }
+
+    return logEntry.level >= (logLevel ?? loggingConstraint.defaultLogLevel);
+  }
+
+  LogLevel? _getCategoryLogLevel(
+    Map<String, LogLevel> categoryLogLevel,
+    LogEntry logEntry,
+  ) {
+    for (final entry in categoryLogLevel.entries) {
+      if (logEntry.loggerName.toLowerCase().contains(entry.key.toLowerCase())) {
+        return entry.value;
+      }
+    }
+    return null;
   }
 
   @override
@@ -315,7 +347,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
     final item = logEntry.toQueuedItem();
     final isLogStoreFull =
-        _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
+        await _logStore.isFull(_pluginConfig.localStoreMaxSizeInMB);
     final shouldEnableQueueRotation = isLogStoreFull && _retryTime != null;
 
     await _logStore.addItem(
@@ -369,6 +401,9 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   Future<void> _clearLogs() async {
     await _logStore.clear();
   }
+
+  @override
+  AmplifyLogger get logger => AmplifyLogger.category(Category.logging);
 }
 
 extension on QueuedItem {

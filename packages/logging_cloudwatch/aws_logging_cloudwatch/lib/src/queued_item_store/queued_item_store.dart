@@ -24,7 +24,7 @@ abstract interface class QueuedItemStore {
   FutureOr<Iterable<QueuedItem>> getAll();
 
   /// Whether the queue size is reached [maxSizeInMB].
-  bool isFull(int maxSizeInMB);
+  FutureOr<bool> isFull(int maxSizeInMB);
 
   /// Clear the queue of items.
   FutureOr<void> clear();

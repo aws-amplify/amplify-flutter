@@ -68,7 +68,7 @@ abstract class StateMachineManager<
         E extends StateMachineEvent,
         S extends StateMachineState,
         Manager extends StateMachineManager<E, S, Manager>>
-    with Dispatcher<E, S>, AWSDebuggable, AWSLoggerMixin
+    with Dispatcher<E, S>, AWSDebuggable, AmplifyLoggerMixin
     implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(

@@ -19,7 +19,29 @@ void main() {
   late CloudWatchLoggerPlugin plugin;
   late MockSmithyOperation<PutLogEventsResponse> mockPutLogEventsOperation;
 
-  const loggingConstraint = LoggingConstraints();
+  const loggingConstraint = LoggingConstraints(
+    defaultLogLevel: LogLevel.error,
+    categoryLogLevel: {
+      'Auth': LogLevel.warn,
+      'DataStore': LogLevel.debug,
+    },
+    userLogLevel: {
+      'mockUserId': UserLogLevel(
+        defaultLogLevel: LogLevel.warn,
+        categoryLogLevel: {
+          'Auth': LogLevel.debug,
+          'DataStore': LogLevel.info,
+        },
+      ),
+      'userId': UserLogLevel(
+        defaultLogLevel: LogLevel.error,
+        categoryLogLevel: {
+          'Auth': LogLevel.info,
+          'DataStore': LogLevel.warn,
+        },
+      ),
+    },
+  );
   const pluginConfig = CloudWatchPluginConfig(
     logGroupName: 'logGroupName',
     region: 'region',
@@ -36,6 +58,48 @@ void main() {
     level: LogLevel.warn,
     message: 'warning message',
     loggerName: 'loggerName',
+  );
+
+  final infoLog = LogEntry(
+    level: LogLevel.info,
+    message: 'info message',
+    loggerName: 'loggerName',
+  );
+
+  final datastoreDebugLog = LogEntry(
+    level: LogLevel.debug,
+    message: 'debug message',
+    loggerName: 'DataStore',
+  );
+
+  final datastoreInfoLog = LogEntry(
+    level: LogLevel.info,
+    message: 'debug message',
+    loggerName: 'DataStore',
+  );
+
+  final authWarnLog = LogEntry(
+    level: LogLevel.warn,
+    message: 'debug message',
+    loggerName: 'Auth',
+  );
+
+  final authDebugLog = LogEntry(
+    level: LogLevel.debug,
+    message: 'debug message',
+    loggerName: 'Auth',
+  );
+
+  final authInfoLog = LogEntry(
+    level: LogLevel.info,
+    message: 'info message',
+    loggerName: 'Auth',
+  );
+
+  final authVerboseLog = LogEntry(
+    level: LogLevel.verbose,
+    message: 'verbose message',
+    loggerName: 'Auth',
   );
 
   final queuedItems = <QueuedItem>[
@@ -62,6 +126,9 @@ void main() {
   ];
 
   group('enable/disable: ', () {
+    final hubEventController = StreamController<AuthHubEvent>.broadcast();
+    Amplify.Hub.addChannel(HubChannel.Auth, hubEventController.stream);
+
     setUp(() {
       mockCloudWatchLogsClient = MockCloudWatchLogsClient();
       mockQueuedItemStore = MockQueuedItemStore();
@@ -74,7 +141,11 @@ void main() {
       );
     });
 
-    test('when enabled, logs are added to the item store', () async {
+    tearDownAll(hubEventController.close);
+
+    test(
+        'when enabled, logs are added to the item store '
+        'if loggable at default log level', () async {
       when(
         () => mockQueuedItemStore.addItem(
           any(),
@@ -87,9 +158,13 @@ void main() {
           .thenReturn(false);
 
       plugin.enable();
-
       await expectLater(
         plugin.handleLogEntry(errorLog),
+        completes,
+      );
+      // should not log this because it is below default log level.
+      await expectLater(
+        plugin.handleLogEntry(warnLog),
         completes,
       );
 
@@ -100,20 +175,123 @@ void main() {
           enableQueueRotation: false,
         ),
       ).called(1);
-
       verify(
         () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
       ).called(1);
     });
 
-    test('when enabled,logs are not added to the log store if not loggable',
-        () async {
+    test(
+        'when enabled, logs are added to the item store '
+        'if loggable at category log level', () async {
+      when(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
       plugin.enable();
+      await expectLater(
+        plugin.handleLogEntry(authWarnLog),
+        completes,
+      );
+      await expectLater(
+        plugin.handleLogEntry(datastoreDebugLog),
+        completes,
+      );
+      // should not log this because it is below auth category log level.
+      await expectLater(
+        plugin.handleLogEntry(authInfoLog),
+        completes,
+      );
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).called(2);
+      verify(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).called(2);
+    });
+
+    test(
+        'when enabled, logs are added to the log store if'
+        ' loggable at user log level', () async {
+      when(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).thenAnswer((_) async => {});
+
+      when(() => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB))
+          .thenReturn(false);
+
+      plugin.enable();
+      hubEventController.add(AuthHubEvent.signedIn(MockAuthUser()));
+      await Future<void>.delayed(Duration.zero);
+
+      await expectLater(
+        plugin.handleLogEntry(authWarnLog),
+        completes,
+      );
+      await expectLater(
+        plugin.handleLogEntry(datastoreInfoLog),
+        completes,
+      );
       await expectLater(
         plugin.handleLogEntry(warnLog),
         completes,
       );
-      verifyZeroInteractions(mockQueuedItemStore);
+
+      // should not log these because they are below user log level.
+      await expectLater(
+        plugin.handleLogEntry(authVerboseLog),
+        completes,
+      );
+      await expectLater(
+        plugin.handleLogEntry(infoLog),
+        completes,
+      );
+
+      verify(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      ).called(3);
+      verify(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      ).called(3);
+
+      hubEventController.add(AuthHubEvent.signedOut());
+      await Future<void>.delayed(Duration.zero);
+
+      // should not log this because it is below auth category log level.
+      await expectLater(
+        plugin.handleLogEntry(authDebugLog),
+        completes,
+      );
+
+      verifyNever(
+        () => mockQueuedItemStore.addItem(
+          any(),
+          any(),
+          enableQueueRotation: false,
+        ),
+      );
+      verifyNever(
+        () => mockQueuedItemStore.isFull(pluginConfig.localStoreMaxSizeInMB),
+      );
     });
 
     test(
@@ -732,6 +910,7 @@ void main() {
       AuthHubEvent.signedOut,
       AuthHubEvent.userDeleted,
     ];
+
     Amplify.Hub.addChannel(HubChannel.Auth, hubEventController.stream);
     setUp(() {
       mockCloudWatchLogsClient = MockCloudWatchLogsClient();
@@ -798,7 +977,7 @@ void main() {
         plugin.handleLogEntry(errorLog),
         completes,
       );
-      hubEventController.add(AuthHubEvent.signedIn(MockAuhtUser()));
+      hubEventController.add(AuthHubEvent.signedIn(MockAuthUser()));
       await Future<void>.delayed(Duration.zero);
 
       verify(

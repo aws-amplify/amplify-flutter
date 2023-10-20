@@ -75,7 +75,7 @@ class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
   /// {@endtemplate}
   Future<void> identifyUser({
     required String userId,
-    required UserProfile userProfile,
+    UserProfile? userProfile,
   }) =>
       identifyCall(
         AnalyticsCategoryMethod.identifyUser,
