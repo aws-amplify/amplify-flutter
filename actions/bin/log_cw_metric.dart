@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:actions/actions.dart';
 import 'package:actions/src/githubJobs/github_jobs.dart';
 import 'package:actions/src/node/actions/github.dart';
-
 import 'package:actions/src/node/process_manager.dart';
 import 'package:collection/collection.dart';
 
@@ -45,14 +44,20 @@ Future<void> logMetric() async {
 
   core.info('Job identifier: $jobIdentifier');
 
+  final isFailed = jobStatus == 'failure';
+
+  /*
   final githubToken = core.getRequiredInput('github-token');
   final repo = '${github.context.repo.owner}/${github.context.repo.repo}';
   final runId = '${github.context.runId}';
 
-  final isFailed = jobStatus == 'failure';
+  // Temporarily disable.
+  // Cloudwatch metrics are identified uniquely by dimension key and value. 
+  // Since failingStep value can vary, it causes multiple metrics to be created from the same job, confusing our data.   
   final failingStep = isFailed
       ? await getFailingStep(jobIdentifier, githubToken, repo, runId)
       : '';
+  */
 
   // Inputs for Metric
   final metricName = core.getRequiredInput('metric-name');
@@ -99,18 +104,19 @@ Future<void> logMetric() async {
 
   final workflowName = '${github.context.workflow}/${github.context.job}';
 
-  final framework = core.getInput('framework');
+  final framework = core.getInput('framework', defaultValue: '');
   if (!['dart', 'flutter'].contains(framework)) {
     throw Exception(
       'framework input of $framework must be one of: dart, flutter',
     );
   }
-  final flutterDartChannel = core.getInput('flutter-dart-channel');
-  final dartVersion = core.getInput('dart-version');
-  final flutterVersion = core.getInput('flutter-version');
-  final dartCompiler = core.getInput('dart-compiler');
-  final platform = core.getInput('platform');
-  final platformVersion = core.getInput('platform-version');
+  final flutterDartChannel =
+      core.getInput('flutter-dart-channel', defaultValue: '');
+  final dartVersion = core.getInput('dart-version', defaultValue: '');
+  final flutterVersion = core.getInput('flutter-version', defaultValue: '');
+  final dartCompiler = core.getInput('dart-compiler', defaultValue: '');
+  final platform = core.getInput('platform', defaultValue: '');
+  final platformVersion = core.getInput('platform-version', defaultValue: '');
 
   final value = isFailed ? '1' : '0';
 
@@ -118,15 +124,14 @@ Future<void> logMetric() async {
     'test-type': testType,
     'category': category,
     'workflow-name': workflowName,
-    if (framework.isNotEmpty) 'framework': framework,
-    if (flutterDartChannel.isNotEmpty)
-      'flutter-dart-channel': flutterDartChannel,
-    if (dartVersion.isNotEmpty) 'dart-version': dartVersion,
-    if (flutterVersion.isNotEmpty) 'flutter-version': flutterVersion,
-    if (dartCompiler.isNotEmpty) 'dart-compiler': dartCompiler,
-    if (platform.isNotEmpty) 'platform': platform,
-    if (platformVersion.isNotEmpty) 'platform-version': platformVersion,
-    if (failingStep.isNotEmpty) 'failing-step': failingStep,
+    'framework': framework,
+    'flutter-dart-channel': flutterDartChannel,
+    'dart-version': dartVersion,
+    'flutter-version': flutterVersion,
+    'dart-compiler': dartCompiler,
+    'platform': platform,
+    'platform-version': platformVersion,
+    //if (failingStep.isNotEmpty) 'failing-step': failingStep,
   };
 
   final dimensionString =
@@ -181,9 +186,11 @@ Future<String> getFailingStep(
 
     final jobsList = GithubJobsList.fromJson(response);
     final matchingJob = jobsList.jobs.firstWhere(
-        (job) => job.name.toLowerCase().contains(jobIdentifier),
-        orElse: () => throw Exception(
-            'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.'));
+      (job) => job.name.toLowerCase().contains(jobIdentifier),
+      orElse: () => throw Exception(
+        'No job found matching <$jobIdentifier>.  Ensure full workflow path run name is unique.  Available jobs: ${jobsList.jobs.map((e) => e.name).join(', ')}.  Note that the "jobIdentifier" used to find the proper job uses the job id and not the job name, setting the "name" field in the workflow yaml will break this logic.  See comments for more context.',
+      ),
+    );
     final steps = matchingJob.steps;
 
     final failingStep = steps.firstWhere(
