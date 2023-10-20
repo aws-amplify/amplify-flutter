@@ -149,12 +149,12 @@ Future<ConfirmUserAttributeResult> confirmUserAttribute({
   );
 }
 
-Future<ResendUserAttributeConfirmationCodeResult>
-    resendUserAttributeConfirmationCode({
+Future<SendUserAttributeVerificationCodeResult>
+    sendUserAttributeVerificationCode({
   required AuthUserAttributeKey key,
-  ResendUserAttributeConfirmationCodeOptions? options,
+  SendUserAttributeVerificationCodeOptions? options,
 }) async {
-  return Amplify.Auth.resendUserAttributeConfirmationCode(
+  return Amplify.Auth.sendUserAttributeVerificationCode(
     userAttributeKey: key,
     options: options,
   );

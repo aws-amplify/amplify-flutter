@@ -16,7 +16,7 @@ on:
         type: boolean
 
 jobs:
-  e2e-test:
+  e2e-test-windows:
     runs-on:
       labels: amplify-flutter_windows-latest_8-core
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -52,3 +52,20 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           dart pub global run aft exec --include=${{ inputs.package-name }} -- flutter test integration_test/main_test.dart -d windows
+
+      - name: Log success/failure
+        if: always()
+        uses: ./.github/composite_actions/log_cw_metric_wrapper
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+          job-status: ${{ job.status }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          test-type: e2e
+          working-directory: ${{ inputs.working-directory }}
+
+          framework: flutter
+
+          platform: windows

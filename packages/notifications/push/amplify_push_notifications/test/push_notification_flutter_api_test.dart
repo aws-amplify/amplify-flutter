@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'package:os_detect/override.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'amplify_push_noitfications_impl_test.mocks.dart';
+import 'amplify_push_notifications_impl_test.mocks.dart';
 import 'test_data/fake_notification_messges.dart';
 import 'test_data/test_amplify_push_notifications_impl.dart';
 

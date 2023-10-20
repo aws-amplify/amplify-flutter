@@ -6,16 +6,16 @@ import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
-
 import 'package:amplify_analytics_pinpoint_example/amplifyconfiguration.dart';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 /// Static key/value storage for use in integration tests.
 ///
 /// Must be static to mimic the behavior of iOS/Android which persist keys
 /// between relaunches (e.g. between test groups).
-final SecureStorageInterface mockPersistedSecuredStorage = () {
+SecureStorageInterface setupAndCreateMockPersistedSecuredStorage({
+  String? endpointId,
+}) {
   final json = jsonDecode(amplifyconfig) as Map;
   final amplifyConfig = AmplifyConfig.fromJson(json.cast());
   final pinpointAppId =
@@ -25,11 +25,11 @@ final SecureStorageInterface mockPersistedSecuredStorage = () {
 
   EndpointStore(pinpointAppId, storage).write(
     key: EndpointStoreKey.endpointId.name,
-    value: mockEndpointId,
+    value: endpointId ?? mockEndpointId,
   );
 
   return storage;
-}();
+}
 
 final String mockEndpointId = uuid();
 

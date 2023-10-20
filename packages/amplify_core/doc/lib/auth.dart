@@ -437,10 +437,10 @@ Future<void> verifyAttributeUpdate() async {
 }
 // #enddocregion confirm-user-attribute
 
-// #docregion resend-user-attribute-code
+// #docregion send-user-attribute-verification-code
 Future<void> resendVerificationCode() async {
   try {
-    final result = await Amplify.Auth.resendUserAttributeConfirmationCode(
+    final result = await Amplify.Auth.sendUserAttributeVerificationCode(
       userAttributeKey: AuthUserAttributeKey.email,
     );
     _handleCodeDelivery(result.codeDeliveryDetails);
@@ -448,7 +448,7 @@ Future<void> resendVerificationCode() async {
     safePrint('Error resending code: ${e.message}');
   }
 }
-// #enddocregion resend-user-attribute-code
+// #enddocregion send-user-attribute-verification-code
 
 // #docregion remember-device
 Future<void> rememberCurrentDevice() async {
