@@ -14,7 +14,9 @@ import 'utils/mock_secure_storage.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('unathenticated access restricted', () {
+  group(
+      'Amplify.configure should complete even when unauthenticated access is disabled.',
+      () {
     tearDown(Amplify.reset);
 
     for (final environmentName in const [
@@ -34,7 +36,7 @@ void main() {
         ]);
         await expectLater(
           Amplify.configure(amplifyEnvironments[environmentName]!),
-          throwsA(isA<UnknownException>()),
+          completes,
         );
       });
     }
