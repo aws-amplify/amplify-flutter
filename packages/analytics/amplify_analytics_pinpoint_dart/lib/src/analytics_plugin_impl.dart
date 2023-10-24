@@ -128,7 +128,11 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     _endpointClient = analyticsClient.endpointClient;
     _eventClient = analyticsClient.eventClient;
 
-    await _endpointClient.updateEndpoint();
+    try {
+      await _endpointClient.updateEndpoint();
+    } on Exception catch (e) {
+      _logger.warn('Could not update endpoint: $e');
+    }
 
     _sessionManager = SessionManager(
       fixedEndpointId: _endpointClient.fixedEndpointId,
