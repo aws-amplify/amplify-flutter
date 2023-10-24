@@ -1,5 +1,8 @@
 ## 1.5.0
 
+### Feature
+- feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
+
 ### Fixes
 - fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
 
