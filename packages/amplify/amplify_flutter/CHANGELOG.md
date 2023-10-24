@@ -1,3 +1,8 @@
+## 1.5.0
+
+### Fixes
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 ### Fixes
