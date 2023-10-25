@@ -1,4 +1,4 @@
-## 1.5.0
+## 1.5.1
 
 ### Feature
 - feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
