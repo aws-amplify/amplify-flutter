@@ -1,4 +1,4 @@
-## 1.5.0
+## 1.5.1
 
 ### Fixes
 - fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
