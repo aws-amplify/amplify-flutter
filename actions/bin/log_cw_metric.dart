@@ -12,6 +12,8 @@ import 'package:collection/collection.dart';
 Future<void> main(List<String> args) => wrapMain(logMetric);
 
 Future<void> logMetric() async {
+  const defaultValue = 'none';
+
   // Inputs for Failing Step
   final jobStatus = core.getRequiredInput('job-status');
 
@@ -60,8 +62,8 @@ Future<void> logMetric() async {
   */
 
   // Inputs for Metric
-  final metricName = core.getRequiredInput('metric-name');
-  final testType = core.getRequiredInput('test-type');
+  final metricName = core.getRequiredInput('metric-name') ?? defaultValue;
+  final testType = core.getRequiredInput('test-type') ?? defaultValue;
   if (!['canary', 'e2e', 'unit'].contains(testType)) {
     throw Exception(
       'test-type input of $testType must be one of: canary, e2e, unit',
@@ -104,19 +106,22 @@ Future<void> logMetric() async {
 
   final workflowName = '${github.context.workflow}/${github.context.job}';
 
-  final framework = core.getInput('framework', defaultValue: '');
+  final framework = core.getInput('framework', defaultValue: defaultValue);
   if (!['dart', 'flutter'].contains(framework)) {
     throw Exception(
       'framework input of $framework must be one of: dart, flutter',
     );
   }
   final flutterDartChannel =
-      core.getInput('flutter-dart-channel', defaultValue: '');
-  final dartVersion = core.getInput('dart-version', defaultValue: '');
-  final flutterVersion = core.getInput('flutter-version', defaultValue: '');
-  final dartCompiler = core.getInput('dart-compiler', defaultValue: '');
-  final platform = core.getInput('platform', defaultValue: '');
-  final platformVersion = core.getInput('platform-version', defaultValue: '');
+      core.getInput('flutter-dart-channel', defaultValue: defaultValue);
+  final dartVersion = core.getInput('dart-version', defaultValue: defaultValue);
+  final flutterVersion =
+      core.getInput('flutter-version', defaultValue: defaultValue);
+  final dartCompiler =
+      core.getInput('dart-compiler', defaultValue: defaultValue);
+  final platform = core.getInput('platform', defaultValue: defaultValue);
+  final platformVersion =
+      core.getInput('platform-version', defaultValue: defaultValue);
 
   final value = isFailed ? '1' : '0';
 
