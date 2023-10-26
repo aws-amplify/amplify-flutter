@@ -1,3 +1,8 @@
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
 ## 1.5.0
 
 - Minor bug fixes and improvements

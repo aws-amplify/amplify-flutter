@@ -1,3 +1,10 @@
+## 1.5.0
+
+### Fixes
+- fix(authenticator): Beta channel fixes ([#3835](https://github.com/aws-amplify/amplify-flutter/pull/3835))
+- fix(authenticator): fix validate before trim bug ([#3809](https://github.com/aws-amplify/amplify-flutter/pull/3809))
+- fix(authenticator): use getCurrentUser to check sign in state
+
 ## 1.4.3
 
 - Minor bug fixes and improvements

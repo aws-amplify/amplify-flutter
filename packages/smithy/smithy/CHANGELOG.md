@@ -1,3 +1,11 @@
+## 0.6.0
+
+### Fixes
+- fix(smithy): defines Output type to fix beta tests ([#3963](https://github.com/aws-amplify/amplify-flutter/pull/3963))
+
+### Breaking Changes
+- fix(smithy_aws)!: do not sign optional requests
+
 ## 0.5.2
 
 - Minor bug fixes and improvements

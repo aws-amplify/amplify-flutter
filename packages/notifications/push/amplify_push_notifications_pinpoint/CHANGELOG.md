@@ -1,3 +1,8 @@
+## 1.6.0
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+
 ## 1.5.0
 
 - Minor bug fixes and improvements

@@ -1,3 +1,8 @@
+## 0.3.3
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+
 ## 0.3.2
 
 ### Fixes
