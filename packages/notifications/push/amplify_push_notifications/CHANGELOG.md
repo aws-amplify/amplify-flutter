@@ -1,3 +1,9 @@
+## 1.6.0
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+- fix: remove exception during token timeout ([#3939](https://github.com/aws-amplify/amplify-flutter/pull/3939))
+
 ## 1.5.0
 
 - Minor bug fixes and improvements

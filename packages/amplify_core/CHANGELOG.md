@@ -1,3 +1,13 @@
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+- fix(auth): use loadCredentials to check login state
+- fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
+
 ## 1.5.1
 
 ### Fixes

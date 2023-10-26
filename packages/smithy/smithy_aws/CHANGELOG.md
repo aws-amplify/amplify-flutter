@@ -1,3 +1,8 @@
+## 0.6.0
+
+### Breaking Changes
+- fix(smithy_aws)!: do not sign optional requests
+
 ## 0.5.1
 
 ### Features
