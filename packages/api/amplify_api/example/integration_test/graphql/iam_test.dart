@@ -129,6 +129,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.list<Blog>(
           Blog.classType,
           where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id),
+          limit: 100000,
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
