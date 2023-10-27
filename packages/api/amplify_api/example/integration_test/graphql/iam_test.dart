@@ -122,6 +122,7 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should LIST blogs with Model helper with query predicate',
           (WidgetTester tester) async {
+        // test
         final blogName = 'Integration Test Blog ${uuid()}';
         final blog = await addBlog(blogName);
 
