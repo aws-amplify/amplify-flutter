@@ -12,6 +12,14 @@ import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
+/// A limit to use in [ModelQueries.list] operations.
+///
+/// Tests that use [ModelQueries.list] and expect certain models in the response
+/// can fail if the DB has a large number of items in it. Models are cleaned up
+/// after tests complete, but during test execution the number of models can
+/// increase past the default limit.
+const _limit = 10000;
+
 void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -128,9 +136,7 @@ void main({bool useExistingTestUser = false}) {
         final req = ModelQueries.list<Blog>(
           Blog.classType,
           where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id),
-          // a high limit ensures that blogs created by other tests do not cause
-          // this test to fail.
-          limit: 5000,
+          limit: _limit,
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
@@ -148,8 +154,11 @@ void main({bool useExistingTestUser = false}) {
         const rating = 0;
         final createdPost = await addPostAndBlog(title, rating);
 
-        final req =
-            ModelQueries.list(Post.classType, where: Post.TITLE.eq(title));
+        final req = ModelQueries.list(
+          Post.classType,
+          where: Post.TITLE.eq(title),
+          limit: _limit,
+        );
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
@@ -165,8 +174,11 @@ void main({bool useExistingTestUser = false}) {
         final createdPost = await addPostAndBlog(title, rating);
         final blogId = createdPost.blog?.id;
 
-        final req =
-            ModelQueries.list(Post.classType, where: Post.BLOG.eq(blogId));
+        final req = ModelQueries.list(
+          Post.classType,
+          where: Post.BLOG.eq(blogId),
+          limit: _limit,
+        );
         final res = await Amplify.API.query(request: req).response;
         final postFromResponse = res.data?.items[0];
 
