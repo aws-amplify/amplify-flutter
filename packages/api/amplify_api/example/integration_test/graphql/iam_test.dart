@@ -122,14 +122,15 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should LIST blogs with Model helper with query predicate',
           (WidgetTester tester) async {
-        // test
         final blogName = 'Integration Test Blog ${uuid()}';
         final blog = await addBlog(blogName);
 
         final req = ModelQueries.list<Blog>(
           Blog.classType,
           where: Blog.NAME.eq(blogName) & Blog.ID.eq(blog.id),
-          limit: 100000,
+          // a high limit ensures that blogs created by other tests do not cause
+          // this test to fail.
+          limit: 5000,
         );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
