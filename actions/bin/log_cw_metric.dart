@@ -62,8 +62,8 @@ Future<void> logMetric() async {
   */
 
   // Inputs for Metric
-  final metricName = core.getRequiredInput('metric-name') ?? defaultValue;
-  final testType = core.getRequiredInput('test-type') ?? defaultValue;
+  final metricName = core.getRequiredInput('metric-name');
+  final testType = core.getRequiredInput('test-type');
   if (!['canary', 'e2e', 'unit'].contains(testType)) {
     throw Exception(
       'test-type input of $testType must be one of: canary, e2e, unit',
