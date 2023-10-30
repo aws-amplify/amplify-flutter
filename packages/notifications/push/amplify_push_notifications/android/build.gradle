@@ -74,7 +74,7 @@ dependencies {
     testImplementation 'io.mockk:mockk:1.13.5'
     // slf4j is logging facade package used by mockk internally
     testImplementation 'org.slf4j:slf4j-nop:2.0.7'
-    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'org.robolectric:robolectric:4.11'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
 
 }
