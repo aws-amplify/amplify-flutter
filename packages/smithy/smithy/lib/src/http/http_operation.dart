@@ -269,7 +269,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     try {
       final payload = await protocol.deserialize(response.split());
       output = switch (payload) {
-        Output _ => payload,
+        final Output p => p,
         _ => buildOutput(payload, response),
       };
       successCode = this.successCode(output);
