@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of amplify_interface;
+part of 'amplify_categories.dart';
 
 /// Interface for DataStore category. This expose all the APIs that
 /// are supported by this category's plugins. This class will accept plugins to

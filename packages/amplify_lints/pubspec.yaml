@@ -9,5 +9,5 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  flutter_lints: ^2.0.0
-  lints: ^2.1.0
+  flutter_lints: ^3.0.0
+  lints: ^3.0.0
