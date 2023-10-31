@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class ConfirmDeviceWorkerImpl extends ConfirmDeviceWorker {
   @override
   String get name => 'ConfirmDeviceWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }
