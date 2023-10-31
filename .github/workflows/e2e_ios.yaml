@@ -41,6 +41,8 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ inputs.channel }}
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
