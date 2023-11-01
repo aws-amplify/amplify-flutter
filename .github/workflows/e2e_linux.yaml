@@ -19,6 +19,9 @@ jobs:
   e2e-test-linux:
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
+    env:
+      IS_PR: ${{ github.event_name == 'pull_request' }}
+      IS_AUTH_PACKAGE: ${{ inputs.package-name == 'amplify_auth_cognito_test' || inputs.package-name == 'amplify_authenticator_test' }}
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false

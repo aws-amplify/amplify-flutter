@@ -19,7 +19,7 @@ jobs:
   e2e-test-ios:
     runs-on: macos-latest-xl
     env:
-      IS_PR: ${{ github.event_name == 'pull_request' && inputs.package-name }}
+      IS_PR: ${{ github.event_name == 'pull_request' }}
       IS_AUTH_PACKAGE: ${{ inputs.package-name == 'amplify_auth_cognito_test' || inputs.package-name == 'amplify_authenticator_test' }}
     strategy:
       # Allows other matrix items to run if one fails
