@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class ASFWorkerImpl extends ASFWorker {
   @override
   String get name => 'ASFWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }
