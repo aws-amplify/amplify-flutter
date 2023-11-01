@@ -76,7 +76,7 @@ class AuthRule {
       'groupClaim': groupClaim,
       'groups': groups,
       'groupsField': groupsField,
-      'provider': provider != null ? provider!.name : null,
+      'provider': provider?.name,
       'operations': operations?.map((op) => op.name).toList(),
     };
     return Map<String, dynamic>.from(map)
