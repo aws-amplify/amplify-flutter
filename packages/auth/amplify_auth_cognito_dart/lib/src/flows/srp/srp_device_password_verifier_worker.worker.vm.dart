@@ -26,6 +26,7 @@ class SrpDevicePasswordVerifierWorkerImpl
     extends SrpDevicePasswordVerifierWorker {
   @override
   String get name => 'SrpDevicePasswordVerifierWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }
