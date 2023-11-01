@@ -204,6 +204,11 @@ class EventClient implements Closeable {
       // Due to no internet or unable to reach server.
       // These exceptions are always retryable.
       eventsToDelete.clear();
+    } on AuthException {
+      // AuthException indicates request did not complete
+      // Due to Authentication error.
+      // These exceptions are always retryable.
+      eventsToDelete.clear();
     } on SmithyHttpException catch (e) {
       if (e.statusCode != null && _isRetryable(e.statusCode)) {
         eventsToDelete.removeWhere((eventId, _) {

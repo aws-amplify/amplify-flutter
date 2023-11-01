@@ -20,7 +20,7 @@ final _voidType = _typeOf<void>();
 /// {@endtemplate}
 abstract class WorkerBeeCommon<Request extends Object, Response>
     implements AWSLoggerPlugin, Closeable {
-  /// {@template worker_bee.worker_bee_common}
+  /// {@macro worker_bee.worker_bee_common}
   WorkerBeeCommon({
     Serializers? serializers,
   }) : serializers = serializers == null
