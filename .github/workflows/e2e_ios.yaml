@@ -26,8 +26,8 @@ jobs:
           - "beta"
           - "stable"
         # Skips 'beta' tests on PRs
-        # exclude:
-        #   - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
