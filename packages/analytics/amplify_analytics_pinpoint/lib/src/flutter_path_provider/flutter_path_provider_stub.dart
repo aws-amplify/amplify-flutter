@@ -4,7 +4,9 @@
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 
-/// {@macro amplify_analytics_pinpoint.flutter_path_provider}
+/// {@template amplify_analytics_pinpoint.flutter_path_provider}
+/// Provides device storage location.
+/// {@endtemplate}
 class FlutterPathProvider implements CachedEventsPathProvider {
   @override
   Future<String> getApplicationSupportPath() async {
