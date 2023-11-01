@@ -20,7 +20,7 @@ abstract class AmplifyPluginConfig with AWSSerializable {
 
 /// {@template amplify_core.unknown_plugin_config_factory}
 /// A plugin factory for unknown plugin configs.
-/// @{endtemplate}
+/// {@endtemplate}
 @internal
 class UnknownPluginConfigFactory
     extends AmplifyPluginConfigFactory<UnknownPluginConfig> {
