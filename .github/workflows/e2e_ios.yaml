@@ -18,6 +18,9 @@ on:
 jobs:
   e2e-test-ios:
     runs-on: macos-latest-xl
+    env:
+      IS_PR: ${{ github.event_name == 'pull_request' && inputs.package-name }}
+      IS_AUTH_PACKAGE: ${{ inputs.package-name == 'amplify_auth_cognito_test' || inputs.package-name == 'amplify_authenticator_test' }}
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false
@@ -25,9 +28,11 @@ jobs:
         channel:
           - "beta"
           - "stable"
-        # Skips 'beta' tests on PRs
+        # Skips tests against stable for auth packages, otherwise skips tests
+        # against beta for PRs, otherwise skips nothing.
+        # Todo(Jordan-Nelson): Update tests to run against stable once flutter 3.16.0 becomes stable.
         exclude:
-          - channel: ${{ (github.event_name == 'pull_request') && 'beta' || 'NONE' }}
+          - channel: ${{ ($IS_AUTH_PACKAGE && 'stable') || ($IS_PR && 'beta') || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
