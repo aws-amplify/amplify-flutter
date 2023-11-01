@@ -28,11 +28,10 @@ jobs:
         channel:
           - "beta"
           - "stable"
-        # Skips tests against stable for auth packages, otherwise skips tests
-        # against beta for PRs, otherwise skips nothing.
-        # Todo(Jordan-Nelson): Update tests to run against stable once flutter 3.16.0 becomes stable.
+        # Skips e2e tests against beta on PRs, except for auth/authenticator
+        # Todo(Jordan-Nelson): Update tests to skip beta for auth once flutter 3.16.0 becomes stable.
         exclude:
-          - channel: ${{ (env.IS_AUTH_PACKAGE && 'stable') || (env.IS_PR && 'beta') || 'NONE' }}
+          - channel: ${{ (env.IS_PR && !env.IS_AUTH_PACKAGE && 'beta') || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
