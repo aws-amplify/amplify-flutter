@@ -33,7 +33,7 @@ jobs:
         # against beta for PRs, otherwise skips nothing.
         # Todo(Jordan-Nelson): Update tests to run against stable once flutter 3.16.0 becomes stable.
         exclude:
-          - channel: ${{ ($IS_AUTH_PACKAGE && 'stable') || ($IS_PR && 'beta') || 'NONE' }}
+          - channel: ${{ (env.IS_AUTH_PACKAGE && 'stable') || (env.IS_PR && 'beta') || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
