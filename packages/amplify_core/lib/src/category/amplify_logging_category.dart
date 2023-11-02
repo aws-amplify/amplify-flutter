@@ -38,21 +38,27 @@ class LoggingCategory extends AmplifyCategory<LoggingPluginInterface> {
   }
 
   /// {@template amplify_core.amplify_logging_category.enable}
-  /// Starts recording logs emitted by [logger].
+  /// Starts recording logs emitted by [logger] to the local storage.
+  ///
+  /// Stored logs are sent to the output periodically or on-demand.
+  /// To send logs to the output on-demand call `flushLogs()`.
   /// {@endtemplate}
   void enable() {
     return defaultPlugin.enable();
   }
 
   /// {@template amplify_core.amplify_logging_category.disable}
-  /// Stops recording logs emitted by [logger].
+  /// Stops recording logs emitted by [logger] to the local storage and drop
+  /// logs from the local storage without sending them to the output.
+  /// If you want to send stored logs to the output call `flushLogs` before
+  /// calling `disable`.
   /// {@endtemplate}
   void disable() {
     return defaultPlugin.disable();
   }
 
   /// {@template amplify_core.amplify_logging_category.flushLogs}
-  /// Sends recorded logs to an output.
+  /// Sends recorded logs to the output and remove them from the local storage.
   /// {@endtemplate}
   void flushLogs() {
     return defaultPlugin.flushLogs();
