@@ -26,10 +26,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
-  late final StringBuffer _dependabotConfig = () {
-    final groupPubPackages =
-        repo.aftConfig.dependencies.keys.map(_dependabotGroup).join('\n');
-    return StringBuffer('''
+  final _dependabotConfig = StringBuffer('''
 # Generated with aft. To update, run: `aft generate workflows`
 version: 2
 enable-beta-ecosystems: true
@@ -65,22 +62,7 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
-  - package-ecosystem: "pub"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-$groupPubPackages
 ''');
-  }();
-
-  String _dependabotGroup(String pkg) {
-    return '''
-      $pkg:
-        patterns:
-          - "$pkg"''';
-  }
 
   /// Collects all dependencies (direct + transitive) for [package].
   List<PackageInfo> _collectDependencies(
@@ -98,37 +80,6 @@ $groupPubPackages
         dependentPackages.add(dependent);
       },
     );
-    _dependabotConfig.write('''
-  - package-ecosystem: "pub"
-    directory: "$repoRelativePath"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-''');
-    if (dependentPackages.isNotEmpty) {
-      _dependabotConfig.write('''
-      # Ignore all repo packages
-${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
-''');
-    }
-    final dependabotGroups = {
-      ...package.pubspecInfo.pubspec.dependencies.keys,
-      ...package.pubspecInfo.pubspec.devDependencies.keys,
-    }
-        .where(repo.aftConfig.dependencies.keys.contains)
-        .map(_dependabotGroup)
-        .toList();
-    if (dependabotGroups.isNotEmpty) {
-      _dependabotConfig.write('''
-    # Group dependencies which have a constraint set in the global "pubspec.yaml"
-    groups:
-${dependabotGroups.join('\n')}
-''');
-    }
     return dependentPackages;
   }
 
