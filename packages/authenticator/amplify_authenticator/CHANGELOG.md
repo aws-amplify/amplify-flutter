@@ -1,3 +1,7 @@
+## 1.5.1
+
+- Minor bug fixes and improvements
+
 ## 1.5.0
 
 ### Fixes
