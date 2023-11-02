@@ -7,6 +7,7 @@ import 'package:aws_common/aws_common.dart';
 class SrpInitWorkerImpl extends SrpInitWorker {
   @override
   String get name => 'SrpInitWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.
