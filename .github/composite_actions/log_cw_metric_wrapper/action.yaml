@@ -75,7 +75,7 @@ runs:
         job-status: ${{ inputs.job-status }}
         github-token: ${{ inputs.github-token }}
 
-        metric-name: "github_metric_2.0"
+        metric-name: "github_metric_3.0"
         test-type: ${{ inputs.test-type }}
         working-directory: ${{ inputs.working-directory }}
 
