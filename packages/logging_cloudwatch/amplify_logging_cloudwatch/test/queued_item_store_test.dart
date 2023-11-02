@@ -1,9 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
+import 'package:amplify_core/src/types/app_path_provider/app_path_provider.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:test/test.dart';
+
+class MyPathProvider implements AppPathProvider {
+  @override
+  Future<String> getApplicationSupportPath() {
+    return Future.value('/tmp');
+  }
+
+  @override
+  Future<String> getTemporaryPath() {
+    return Future.value('/tmp');
+  }
+}
 
 void main() {
   late DartQueuedItemStore db;
