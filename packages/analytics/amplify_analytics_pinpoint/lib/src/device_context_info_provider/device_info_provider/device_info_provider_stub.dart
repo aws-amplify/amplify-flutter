@@ -3,7 +3,11 @@
 
 import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/device_info_provider/device_info.dart';
 
-/// Retrieve DeviceInfo
+/// {@template amplify_analytics_pinpoint.device_info_provider}
+/// Multi platform class that provides DeviceInfo from Flutter -> Dart.
+/// Requires Flutter specific dependencies.
+/// {@endtemplate}
+
 Future<DeviceInfo> getDeviceInfo() async {
   throw UnsupportedError(
     'No suitable implementation was found on this platform.',

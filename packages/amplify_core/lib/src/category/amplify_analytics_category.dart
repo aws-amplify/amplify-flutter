@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of amplify_interface;
+part of 'amplify_categories.dart';
 
 class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
   @override
