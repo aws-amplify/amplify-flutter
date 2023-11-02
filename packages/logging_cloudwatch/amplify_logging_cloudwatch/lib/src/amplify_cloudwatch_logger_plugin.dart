@@ -1,7 +1,7 @@
 import 'package:amplify_logging_cloudwatch/src/amplify_log_stream_name_provider.dart';
 import 'package:amplify_logging_cloudwatch/src/path_provider/flutter_path_provider.dart';
-import 'package:amplify_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 
 /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
 class AmplifyCloudWatchLoggerPlugin extends CloudWatchLoggerPlugin {

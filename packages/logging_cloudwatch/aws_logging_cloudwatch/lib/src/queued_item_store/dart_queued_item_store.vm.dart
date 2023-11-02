@@ -3,23 +3,17 @@
 
 import 'dart:async';
 
-import 'package:amplify_logging_cloudwatch/src/queued_item_store/drift/drift_queued_item_store.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/drift/drift_queued_item_store.dart';
 // ignore: implementation_imports
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:meta/meta.dart';
-import 'package:path_provider/path_provider.dart';
 
 /// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
-  factory DartQueuedItemStore(String? storagePath) {
-    final FutureOr<String> path;
-    if (storagePath == null) {
-      path = getApplicationSupportDirectory().then((value) => value.path);
-    } else {
-      path = storagePath;
-    }
+  factory DartQueuedItemStore(AppPathProvider pathProvider) {
+    final FutureOr<String> path = pathProvider.getApplicationSupportPath();
     final database = DriftQueuedItemStore(path);
     return DartQueuedItemStore._(database);
   }
