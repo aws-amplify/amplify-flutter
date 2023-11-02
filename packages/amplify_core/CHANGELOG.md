@@ -1,3 +1,8 @@
+## 1.6.1
+
+### Fixes
+- fix(core): pub docs ([#4049](https://github.com/aws-amplify/amplify-flutter/pull/4049))
+
 ## 1.6.0
 
 ### Features
