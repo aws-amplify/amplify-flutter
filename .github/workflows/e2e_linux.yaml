@@ -19,20 +19,9 @@ jobs:
   e2e-test-linux:
     runs-on:
       labels: amplify-flutter_ubuntu-latest_4-core
-    env:
-      IS_PR: ${{ github.event_name == 'pull_request' }}
-      IS_AUTH_PACKAGE: ${{ inputs.package-name == 'amplify_auth_cognito_test' || inputs.package-name == 'amplify_authenticator_test' }}
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false
-      matrix:
-        channel:
-          - "beta"
-          - "stable"
-        # Skips e2e tests against beta on PRs, except for auth/authenticator
-        # Todo(Jordan-Nelson): Update tests to skip beta for auth once flutter 3.16.0 becomes stable.
-        exclude:
-          - channel: ${{ (env.IS_PR && !env.IS_AUTH_PACKAGE && 'beta') || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
