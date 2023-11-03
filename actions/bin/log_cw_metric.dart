@@ -136,6 +136,7 @@ Future<void> logMetric() async {
     'dart-compiler': dartCompiler,
     'platform': platform,
     'platform-version': platformVersion,
+    'event-name': github.context.eventName,
     //if (failingStep.isNotEmpty) 'failing-step': failingStep,
   };
 

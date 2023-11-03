@@ -8002,7 +8002,7 @@
               inputValue = A._asString(t2._as(t1.core).getInput("platform-version"));
               platformVersion = inputValue.length === 0 ? "none" : inputValue;
               value = jobStatus === "failure" ? "1" : "0";
-              cloudArgs = A._setArrayType(["cloudwatch", "put-metric-data", "--metric-name", metricName, "--namespace", "GithubCanaryApps", "--value", value, "--dimension", A.LinkedHashMap_LinkedHashMap$_literal(["test-type", testType, "category", category, "workflow-name", t5 + "/" + t6, "framework", framework, "flutter-dart-channel", flutterDartChannel, "dart-version", dartVersion, "flutter-version", flutterVersion, "dart-compiler", dartCompiler, "platform", platform, "platform-version", platformVersion], t4, t4).get$entries().map$1$1(0, new A.logMetric_closure(), t4).join$1(0, ",")], t3);
+              cloudArgs = A._setArrayType(["cloudwatch", "put-metric-data", "--metric-name", metricName, "--namespace", "GithubCanaryApps", "--value", value, "--dimension", A.LinkedHashMap_LinkedHashMap$_literal(["test-type", testType, "category", category, "workflow-name", t5 + "/" + t6, "framework", framework, "flutter-dart-channel", flutterDartChannel, "dart-version", dartVersion, "flutter-version", flutterVersion, "dart-compiler", dartCompiler, "platform", platform, "platform-version", platformVersion, "event-name", A._asString(t2._as(t2._as(t1.github).context).eventName)], t4, t4).get$entries().map$1$1(0, new A.logMetric_closure(), t4).join$1(0, ",")], t3);
               t4 = $.$get$processManager();
               t3 = A._setArrayType(["aws"], t3);
               B.JSArray_methods.addAll$1(t3, cloudArgs);
