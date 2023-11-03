@@ -7986,21 +7986,21 @@
               t5 = A._asString(t2._as(t2._as(t1.github).context).workflow);
               t6 = A._asString(t2._as(t2._as(t1.github).context).job);
               inputValue = A._asString(t2._as(t1.core).getInput("framework"));
-              framework = inputValue.length === 0 ? "" : inputValue;
+              framework = inputValue.length === 0 ? "none" : inputValue;
               if (!B.JSArray_methods.contains$1(A._setArrayType(["dart", "flutter"], t3), framework))
                 throw A.wrapException(A.Exception_Exception("framework input of " + framework + " must be one of: dart, flutter"));
               inputValue = A._asString(t2._as(t1.core).getInput("flutter-dart-channel"));
-              flutterDartChannel = inputValue.length === 0 ? "" : inputValue;
+              flutterDartChannel = inputValue.length === 0 ? "none" : inputValue;
               inputValue = A._asString(t2._as(t1.core).getInput("dart-version"));
-              dartVersion = inputValue.length === 0 ? "" : inputValue;
+              dartVersion = inputValue.length === 0 ? "none" : inputValue;
               inputValue = A._asString(t2._as(t1.core).getInput("flutter-version"));
-              flutterVersion = inputValue.length === 0 ? "" : inputValue;
+              flutterVersion = inputValue.length === 0 ? "none" : inputValue;
               inputValue = A._asString(t2._as(t1.core).getInput("dart-compiler"));
-              dartCompiler = inputValue.length === 0 ? "" : inputValue;
+              dartCompiler = inputValue.length === 0 ? "none" : inputValue;
               inputValue = A._asString(t2._as(t1.core).getInput("platform"));
-              platform = inputValue.length === 0 ? "" : inputValue;
+              platform = inputValue.length === 0 ? "none" : inputValue;
               inputValue = A._asString(t2._as(t1.core).getInput("platform-version"));
-              platformVersion = inputValue.length === 0 ? "" : inputValue;
+              platformVersion = inputValue.length === 0 ? "none" : inputValue;
               value = jobStatus === "failure" ? "1" : "0";
               cloudArgs = A._setArrayType(["cloudwatch", "put-metric-data", "--metric-name", metricName, "--namespace", "GithubCanaryApps", "--value", value, "--dimension", A.LinkedHashMap_LinkedHashMap$_literal(["test-type", testType, "category", category, "workflow-name", t5 + "/" + t6, "framework", framework, "flutter-dart-channel", flutterDartChannel, "dart-version", dartVersion, "flutter-version", flutterVersion, "dart-compiler", dartCompiler, "platform", platform, "platform-version", platformVersion], t4, t4).get$entries().map$1$1(0, new A.logMetric_closure(), t4).join$1(0, ",")], t3);
               t4 = $.$get$processManager();
