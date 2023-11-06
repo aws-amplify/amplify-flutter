@@ -4865,7 +4865,7 @@
     _HashMap: function _HashMap(t0) {
       var _ = this;
       _._collection$_length = 0;
-      _._keys = _._collection$_rest = _._collection$_nums = _._collection$_strings = null;
+      _._collection$_keys = _._collection$_rest = _._collection$_nums = _._collection$_strings = null;
       _.$ti = t0;
     },
     _HashMap_values_closure: function _HashMap_values_closure(t0) {
@@ -4874,7 +4874,7 @@
     _IdentityHashMap: function _IdentityHashMap(t0) {
       var _ = this;
       _._collection$_length = 0;
-      _._keys = _._collection$_rest = _._collection$_nums = _._collection$_strings = null;
+      _._collection$_keys = _._collection$_rest = _._collection$_nums = _._collection$_strings = null;
       _.$ti = t0;
     },
     _HashMapKeyIterable: function _HashMapKeyIterable(t0, t1) {
@@ -4884,7 +4884,7 @@
     _HashMapKeyIterator: function _HashMapKeyIterator(t0, t1, t2) {
       var _ = this;
       _._collection$_map = t0;
-      _._keys = t1;
+      _._collection$_keys = t1;
       _._offset = 0;
       _._collection$_current = null;
       _.$ti = t2;
@@ -4916,7 +4916,7 @@
     },
     _MapBaseValueIterator: function _MapBaseValueIterator(t0, t1, t2) {
       var _ = this;
-      _._keys = t0;
+      _._collection$_keys = t0;
       _._collection$_map = t1;
       _._collection$_current = null;
       _.$ti = t2;
@@ -8397,7 +8397,7 @@
               t2 = type$.nullable_Object;
               $async$temp1 = t1;
               $async$goto = 3;
-              return A._asyncAwait(A.promiseToFuture(t1._as(_this.getJson(requestUrl)), t2), $async$HttpClient_getJson);
+              return A._asyncAwait(A.promiseToFuture(t1._as(_this.getJson(requestUrl, t1._as(A.jsify(B.Map_empty)))), t2), $async$HttpClient_getJson);
             case 3:
               // returning from await.
               result = $async$temp1._as($async$result);
@@ -10106,7 +10106,7 @@
     get$length(_) {
       return this._values.length;
     },
-    get$__js_helper$_keys() {
+    get$_keys() {
       var keys = this.$keys;
       if (keys == null) {
         keys = Object.keys(this._jsIndex);
@@ -10129,13 +10129,13 @@
     forEach$1(_, f) {
       var keys, values, t1, i;
       this.$ti._eval$1("~(1,2)")._as(f);
-      keys = this.get$__js_helper$_keys();
+      keys = this.get$_keys();
       values = this._values;
       for (t1 = keys.length, i = 0; i < t1; ++i)
         f.call$2(keys[i], values[i]);
     },
     get$keys(_) {
-      return new A._KeysOrValues(this.get$__js_helper$_keys(), this.$ti._eval$1("_KeysOrValues<1>"));
+      return new A._KeysOrValues(this.get$_keys(), this.$ti._eval$1("_KeysOrValues<1>"));
     },
     get$values() {
       return new A._KeysOrValues(this._values, this.$ti._eval$1("_KeysOrValues<2>"));
@@ -10266,13 +10266,13 @@
     get$namedArguments() {
       var t1, namedArgumentCount, t2, namedArgumentsStartIndex, map, i, t3, t4, _this = this;
       if (_this.__js_helper$_kind !== 0)
-        return B.Map_empty;
+        return B.Map_empty0;
       t1 = _this._namedArgumentNames;
       namedArgumentCount = t1.length;
       t2 = _this._arguments;
       namedArgumentsStartIndex = t2.length - namedArgumentCount - _this._typeArgumentCount;
       if (namedArgumentCount === 0)
-        return B.Map_empty;
+        return B.Map_empty0;
       map = new A.JsLinkedHashMap(type$.JsLinkedHashMap_Symbol_dynamic);
       for (i = 0; i < namedArgumentCount; ++i) {
         if (!(i < t1.length))
@@ -13155,7 +13155,7 @@
       if (bucket == null) {
         A._HashMap__setTableEntry(rest, hash, [key, value]);
         ++_this._collection$_length;
-        _this._keys = null;
+        _this._collection$_keys = null;
       } else {
         index = _this._findBucketIndex$2(bucket, key);
         if (index >= 0)
@@ -13163,7 +13163,7 @@
         else {
           bucket.push(key, value);
           ++_this._collection$_length;
-          _this._keys = null;
+          _this._collection$_keys = null;
         }
       }
     },
@@ -13177,13 +13177,13 @@
         t2._as(key);
         t3 = _this.$index(0, key);
         action.call$2(key, t3 == null ? t1._as(t3) : t3);
-        if (keys !== _this._keys)
+        if (keys !== _this._collection$_keys)
           throw A.wrapException(A.ConcurrentModificationError$(_this));
       }
     },
     _computeKeys$0() {
       var strings, names, entries, index, i, nums, rest, bucket, $length, i0, _this = this,
-        result = _this._keys;
+        result = _this._collection$_keys;
       if (result != null)
         return result;
       result = A.List_List$filled(_this._collection$_length, null, false, type$.dynamic);
@@ -13219,7 +13219,7 @@
           }
         }
       }
-      return _this._keys = result;
+      return _this._collection$_keys = result;
     },
     _collection$_addHashTableEntry$3(table, key, value) {
       var t1 = A._instanceType(this);
@@ -13227,7 +13227,7 @@
       t1._rest[1]._as(value);
       if (table[key] == null) {
         ++this._collection$_length;
-        this._keys = null;
+        this._collection$_keys = null;
       }
       A._HashMap__setTableEntry(table, key, value);
     },
@@ -13298,10 +13298,10 @@
     },
     moveNext$0() {
       var _this = this,
-        keys = _this._keys,
+        keys = _this._collection$_keys,
         offset = _this._offset,
         t1 = _this._collection$_map;
-      if (keys !== t1._keys)
+      if (keys !== t1._collection$_keys)
         throw A.wrapException(A.ConcurrentModificationError$(t1));
       else if (offset >= keys.length) {
         _this.set$_collection$_current(null);
@@ -13489,7 +13489,7 @@
   A._MapBaseValueIterator.prototype = {
     moveNext$0() {
       var _this = this,
-        t1 = _this._keys;
+        t1 = _this._collection$_keys;
       if (t1.moveNext$0()) {
         _this.set$_collection$_current(_this._collection$_map.$index(0, t1.get$current()));
         return true;
@@ -19380,7 +19380,8 @@
     B.ChromePlatform_4 = new A.ChromePlatform("win64");
     B.Map_682bx = new A.GeneralConstantMap([B.ChromePlatform_0, "linux64", B.ChromePlatform_1, "mac-arm64", B.ChromePlatform_2, "mac-x64", B.ChromePlatform_3, "win32", B.ChromePlatform_4, "win64"], A.findType("GeneralConstantMap<ChromePlatform,String>"));
     B.Object_empty = {};
-    B.Map_empty = new A.ConstantStringMap(B.Object_empty, [], A.findType("ConstantStringMap<Symbol0,@>"));
+    B.Map_empty = new A.ConstantStringMap(B.Object_empty, [], A.findType("ConstantStringMap<String,String>"));
+    B.Map_empty0 = new A.ConstantStringMap(B.Object_empty, [], A.findType("ConstantStringMap<Symbol0,@>"));
     B.OS_0 = new A.OS("macOS");
     B.OS_1 = new A.OS("linux");
     B.ProcessStartMode_0 = new A.ProcessStartMode(0);
