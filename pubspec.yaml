@@ -17,8 +17,8 @@ dependencies:
   async: ^2.10.0
   build_runner: ^2.4.0
   build_web_compilers: ^4.0.0
-  built_value: ">=8.6.0 <8.7.0"
-  built_value_generator: 8.6.1
+  built_value: ">=8.6.0 <8.8.0"
+  built_value_generator: 8.7.0
   code_builder: 4.7.0
   connectivity_plus: ">=4.0.1 <6.0.0"
   # This must exactly match what's included in `dart format`
