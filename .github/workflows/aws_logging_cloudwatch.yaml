@@ -20,6 +20,8 @@ on:
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.dart'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.yaml'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*'
@@ -44,6 +46,8 @@ on:
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.dart'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/**/*.yaml'
       - 'packages/logging_cloudwatch/aws_logging_cloudwatch/lib/**/*'
@@ -53,12 +57,15 @@ on:
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
   schedule:
-    - cron: "0 6 * * *" # Every day at 06:00
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
 defaults:
   run:
     shell: bash
 
-permissions: read-all
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
 
 # Cancels in-progress job when there is another push to same ref.
 # https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
@@ -69,24 +76,28 @@ concurrency:
 jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
+    secrets: inherit
     with:
       package-name: aws_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
     with:
       package-name: aws_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
+    secrets: inherit
     with:
       package-name: aws_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
+    secrets: inherit
     with:
       package-name: aws_logging_cloudwatch
       working-directory: packages/logging_cloudwatch/aws_logging_cloudwatch
