@@ -17,7 +17,7 @@ class DartQueuedItemStore
     implements QueuedItemStore, Closeable {
   /// {@macro amplify_logging_cloudwatch.index_db_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
-  DartQueuedItemStore(String? storagePath);
+  DartQueuedItemStore(AppPathProvider appPathProvider);
 
   late final Future<QueuedItemStore> _database = () async {
     if (await IndexedDbAdapter.checkIsIndexedDBSupported()) {
