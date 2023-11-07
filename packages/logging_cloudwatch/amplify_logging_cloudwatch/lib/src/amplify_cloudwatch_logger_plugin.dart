@@ -17,7 +17,7 @@ class AmplifyCloudWatchLoggerPlugin extends CloudWatchLoggerPlugin {
             defaultLogStreamNameProvider:
                 AmplifyLogStreamNameProvider().defaultLogStreamName,
           ),
-          logStore: DartQueuedItemStore(null),
+          logStore: DartQueuedItemStore(FlutterPathProvider()),
           remoteLoggingConstraintProvider:
               pluginConfig.defaultRemoteConfiguration == null
                   ? null
