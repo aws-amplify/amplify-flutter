@@ -14,6 +14,7 @@ import 'package:meta/meta.dart';
 part 'amplify_analytics_category.dart';
 part 'amplify_api_category.dart';
 part 'amplify_datastore_category.dart';
+part 'amplify_logging_category.dart';
 part 'amplify_notifications_category.dart';
 part 'amplify_push_notifications_category.dart';
 part 'amplify_storage_category.dart';
