@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: await_only_futures
+
 import 'package:aws_logging_cloudwatch/src/path_provider/app_path_provider.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
@@ -234,14 +236,14 @@ void main() {
           await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
-        var result = db.isFull(capacityLimit);
+        var result = await db.isFull(capacityLimit);
         expect(result, isFalse);
 
         for (var i = 0; i < 100; i++) {
           await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
-        result = db.isFull(capacityLimit);
+        result = await db.isFull(capacityLimit);
         expect(result, isTrue);
       },
     );
