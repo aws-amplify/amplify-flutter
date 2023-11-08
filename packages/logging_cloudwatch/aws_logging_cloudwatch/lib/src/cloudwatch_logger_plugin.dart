@@ -8,7 +8,8 @@ import 'package:amplify_core/amplify_core.dart';
 // ignore: invalid_use_of_internal_member, implementation_imports
 import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
+import 'package:aws_logging_cloudwatch/src/path_provider/app_path_provider.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_logging_cloudwatch/src/stoppable_timer.dart';
@@ -54,8 +55,6 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     required CloudWatchPluginConfig pluginConfig,
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
     CloudWatchLogStreamProvider? logStreamProvider,
-    // TODO(nikahsn): remove after moving queued item store implementation from
-    // amplify_logging_cloudwath to aws_logging_cloudwatch
     @protected QueuedItemStore? logStore,
   })  : _enabled = pluginConfig.enable,
         _pluginConfig = pluginConfig,
@@ -71,10 +70,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
           region: pluginConfig.region,
           credentialsProvider: credentialsProvider,
         ),
-        // TODO(nikahsn): move queued item store implementation from
-        // amplify_logging_cloudwath to aws_logging_cloudwatch and use
-        // DartQueueItemStore instead of InMemoryQueuedItemStore
-        _logStore = logStore ?? InMemoryQueuedItemStore(),
+        _logStore = logStore ?? DartQueuedItemStore(const DartAppPathProvider()),
         _logStreamProvider = logStreamProvider ??
             DefaultCloudWatchLogStreamProvider(
               logGroupName: pluginConfig.logGroupName,
