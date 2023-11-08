@@ -70,7 +70,8 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
           region: pluginConfig.region,
           credentialsProvider: credentialsProvider,
         ),
-        _logStore = logStore ?? DartQueuedItemStore(const DartAppPathProvider()),
+        _logStore =
+            logStore ?? DartQueuedItemStore(const DartAppPathProvider()),
         _logStreamProvider = logStreamProvider ??
             DefaultCloudWatchLogStreamProvider(
               logGroupName: pluginConfig.logGroupName,
