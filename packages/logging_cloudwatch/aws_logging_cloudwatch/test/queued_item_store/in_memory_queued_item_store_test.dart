@@ -236,14 +236,14 @@ void main() {
           await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
-        var result = db.isFull(capacityLimit);
+        var result = await db.isFull(capacityLimit);
         expect(result, isFalse);
 
         for (var i = 0; i < 100; i++) {
           await db.addItem(largeItem, DateTime.now().toIso8601String());
         }
 
-        result = db.isFull(capacityLimit);
+        result = await db.isFull(capacityLimit);
         expect(result, isTrue);
       },
     );
