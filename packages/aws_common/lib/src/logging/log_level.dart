@@ -7,6 +7,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// The different levels of logging.
 enum LogLevel implements Comparable<LogLevel> {
+  /// Prevents any logs from being emitted.
+  @JsonValue('NONE')
+  none,
+
   /// Logs for showing behavior of particular components/flows.
   ///
   /// **Note**: May contain information inappropriate for emission into
@@ -31,11 +35,7 @@ enum LogLevel implements Comparable<LogLevel> {
 
   /// Logs when system is not operating as expected.
   @JsonValue('ERROR')
-  error,
-
-  /// Prevents any logs from being emitted.
-  @JsonValue('NONE')
-  none;
+  error;
 
   @override
   int compareTo(LogLevel other) {

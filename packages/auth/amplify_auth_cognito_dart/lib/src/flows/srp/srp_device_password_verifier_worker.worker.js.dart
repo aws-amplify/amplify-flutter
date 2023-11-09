@@ -8,6 +8,7 @@ class SrpDevicePasswordVerifierWorkerImpl
     extends SrpDevicePasswordVerifierWorker {
   @override
   String get name => 'SrpDevicePasswordVerifierWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.

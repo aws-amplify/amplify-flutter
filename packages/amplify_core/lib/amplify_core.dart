@@ -45,6 +45,7 @@ export 'src/plugin/amplify_analytics_plugin_interface.dart';
 export 'src/plugin/amplify_api_plugin_interface.dart';
 export 'src/plugin/amplify_auth_plugin_interface.dart';
 export 'src/plugin/amplify_datastore_plugin_interface.dart';
+export 'src/plugin/amplify_logging_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_interface.dart';
 export 'src/plugin/amplify_plugin_key.dart';
 export 'src/plugin/amplify_push_notifications_plugin_interface.dart';
@@ -87,6 +88,9 @@ export 'src/types/exception/error/amplify_error.dart';
 export 'src/types/exception/error/configuration_error.dart';
 export 'src/types/exception/error/plugin_error.dart';
 export 'src/types/exception/url_launcher_exception.dart';
+
+/// Logging
+export 'src/types/logging/logger.dart';
 
 /// Model-based types used in datastore and API
 export 'src/types/models/auth_rule.dart';
