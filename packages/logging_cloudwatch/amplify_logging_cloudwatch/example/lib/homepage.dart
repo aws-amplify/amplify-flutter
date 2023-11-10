@@ -1,5 +1,4 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_logging_cloudwatch/amplify_logging_cloudwatch.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,13 +17,13 @@ class LoggerInfo {
     this.logLevel = LogLevel.verbose,
   });
   final Category category;
-  final AmplifyLogger logger;
+  final Logger logger;
   final TextEditingController logMsgController;
   LogLevel? logLevel;
 
   LoggerInfo copyWith({
     Category? category,
-    AmplifyLogger? logger,
+    Logger? logger,
     TextEditingController? logMsgController,
     LogLevel? logLevel,
   }) {
@@ -48,13 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
     for (final category in Category.values) {
       _loggerMap[category] = LoggerInfo(
         category,
-        AmplifyLogger.category(category),
+        Amplify.Logging.logger(category.name),
         TextEditingController(),
       );
     }
   }
 
-  final _plugin = AmplifyLogger().getPlugin<AmplifyCloudWatchLoggerPlugin>()!;
   LogLevel? _customLogLevel;
   final TextEditingController _customLogMsgController = TextEditingController();
   final TextEditingController _customLoggerNameController =
@@ -122,15 +120,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _enableLogging() {
-    _plugin.enable();
+    Amplify.Logging.enable();
   }
 
   void _disableLogging() {
-    _plugin.disable();
+    Amplify.Logging.disable();
   }
 
   void _flushLogs() {
-    _plugin.flushLogs();
+    Amplify.Logging.flushLogs();
   }
 
   void _submitLogs() {

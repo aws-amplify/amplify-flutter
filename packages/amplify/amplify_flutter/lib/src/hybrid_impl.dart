@@ -55,6 +55,8 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
         );
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
+      } else if (plugin is LoggingPluginInterface) {
+        await Logging.addPlugin(plugin, authProviderRepo: authProviderRepo);
       } else if (plugin is PushNotificationsPluginInterface) {
         await Notifications.Push.addPlugin(
           plugin,

@@ -2,35 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
 part 'cloudwatch_logging_config.g.dart';
-
-/// {@template amplify_core.cloudwatch_plugin_config_factory}
-/// Configuration factory for [CloudWatchPluginConfig].
-/// {@endtemplate}
-@internal
-class CloudWatchPluginConfigFactory
-    extends AmplifyPluginConfigFactory<CloudWatchPluginConfig> {
-  /// {@macro amplify_core.cloudwatch_plugin_config_factory}
-  const CloudWatchPluginConfigFactory();
-
-  @override
-  CloudWatchPluginConfig build(Map<String, Object?> json) {
-    return CloudWatchPluginConfig.fromJson(json);
-  }
-
-  @override
-  String get name => CloudWatchPluginConfig.pluginKey;
-}
 
 /// {@template amplify_core.cloudwatch_plugin_config}
 /// The AWS CloudWatch plugin configuration.
 /// {@endtemplate}
 @zAmplifySerializable
 class CloudWatchPluginConfig
-    with AWSEquatable<CloudWatchPluginConfig>, AWSSerializable
-    implements AmplifyPluginConfig {
+    with
+        AWSEquatable<CloudWatchPluginConfig>,
+        AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.cloudwatch_plugin_config}
   const CloudWatchPluginConfig({
     this.enable = true,
@@ -45,9 +27,6 @@ class CloudWatchPluginConfig
   factory CloudWatchPluginConfig.fromJson(Map<String, Object?> json) =>
       _$CloudWatchPluginConfigFromJson(json);
 
-  /// The plugin's configuration key.
-  static const pluginKey = 'cloudWatchLoggerPluginConfiguration';
-
   final bool enable;
   final String logGroupName;
   final String region;
@@ -55,9 +34,6 @@ class CloudWatchPluginConfig
   final int flushIntervalInSeconds;
   final DefaultRemoteConfiguration? defaultRemoteConfiguration;
   final LoggingConstraints loggingConstraints;
-
-  @override
-  String get name => pluginKey;
 
   @override
   List<Object?> get props => [
