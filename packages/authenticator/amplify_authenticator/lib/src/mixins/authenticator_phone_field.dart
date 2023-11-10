@@ -47,7 +47,8 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
     return phoneNumber?.ensureStartsWith('+${state.dialCode.value}');
   }
 
-  String displayPhoneNumber(String phoneNumber) {
+  String displayPhoneNumber(String? phoneNumber) {
+    phoneNumber = phoneNumber ?? '';
     final prefix = '+${state.dialCode.value}';
     if (phoneNumber.startsWith(prefix)) {
       phoneNumber = phoneNumber.substring(prefix.length);
