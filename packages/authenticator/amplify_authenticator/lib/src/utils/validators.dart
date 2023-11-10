@@ -11,7 +11,13 @@ import 'package:flutter/material.dart';
 */
 final usernameRegex = RegExp(r'^\S+$');
 final emailRegex = RegExp(r'^\S+@\S+$');
-final phoneNumberRegex = RegExp(r'^\+\d+$');
+
+/// Regex for a valid phone number.
+///
+/// The "+" prefix is excluded since validation is performed against the number
+/// without the prefix. That is, if the full number is "+1-123-555-7890", the
+/// "+1" is dropped prior to validation.
+final phoneNumberRegex = RegExp(r'^\d+$');
 final _codeRegex = RegExp(r'^\d{6}$');
 final _uppercase = RegExp(r'[A-Z]');
 final _lowercase = RegExp(r'[a-z]');
@@ -156,8 +162,8 @@ FormFieldValidator<String> validatePhoneNumber({
         InputResolverKey.phoneNumberEmpty,
       );
     }
-    phoneNumber = phoneNumber.trim();
-    if (!phoneNumberRegex.hasMatch(phoneNumber)) {
+    final formattedNumber = phoneNumber.trim();
+    if (!phoneNumberRegex.hasMatch(formattedNumber)) {
       return inputResolver.resolve(context, InputResolverKey.phoneNumberFormat);
     }
     return null;
