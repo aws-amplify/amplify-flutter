@@ -17,7 +17,7 @@ final emailRegex = RegExp(r'^\S+@\S+$');
 /// The "+" prefix is excluded since validation is performed against the number
 /// without the prefix. That is, if the full number is "+1-123-555-7890", the
 /// "+1" is dropped prior to validation.
-final phoneNumberRegex = RegExp(r'^d+$');
+final phoneNumberRegex = RegExp(r'^\d+$');
 final _codeRegex = RegExp(r'^\d{6}$');
 final _uppercase = RegExp(r'[A-Z]');
 final _lowercase = RegExp(r'[a-z]');
