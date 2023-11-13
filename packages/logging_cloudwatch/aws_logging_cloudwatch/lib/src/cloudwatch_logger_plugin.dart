@@ -389,10 +389,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
 
   /// Sends logs on-demand to CloudWatch.
   Future<void> flushLogs() async {
-    await identifyCall(
-      LoggingCategoryMethod.flush,
-      _startSyncingIfNotInProgress,
-    );
+    await _startSyncingIfNotInProgress();
   }
 
   @override

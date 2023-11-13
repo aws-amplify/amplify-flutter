@@ -61,6 +61,6 @@ class LoggingCategory extends AmplifyCategory<LoggingPluginInterface> {
   /// Sends recorded logs to the output and remove them from the local storage.
   /// {@endtemplate}
   void flushLogs() {
-    return defaultPlugin.flushLogs();
+    return identifyCall(LoggingCategoryMethod.flush, () => defaultPlugin.flushLogs());
   }
 }
