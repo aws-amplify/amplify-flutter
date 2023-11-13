@@ -160,6 +160,114 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     }
   }
 
+  @override
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyDeviceSecretKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        final deviceKey = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.id],
+        );
+        final devicePassword = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.secret],
+        );
+        final deviceGroupKey = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.group],
+        );
+        if (deviceKey != null &&
+            devicePassword != null &&
+            deviceGroupKey != null) {
+          return LegacyDeviceDetails(
+            deviceKey: deviceKey,
+            deviceGroupKey: deviceGroupKey,
+            devicePassword: devicePassword,
+          );
+        }
+      }
+    }
+
+    return null;
+  }
+
+  @override
+  Future<void> deleteLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyDeviceSecretKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        await userPoolStorage.deleteMany([
+          keys[LegacyDeviceSecretKey.id],
+          keys[LegacyDeviceSecretKey.secret],
+          keys[LegacyDeviceSecretKey.group],
+        ]);
+      }
+    }
+  }
+
+  @override
+  Future<String?> fetchLegacyAsfDeviceId({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyAsfDeviceKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        final deviceKey = await userPoolStorage.read(
+          key: keys[LegacyAsfDeviceKey.id],
+        );
+        return deviceKey;
+      }
+    }
+
+    return null;
+  }
+
+  @override
+  Future<void> deleteLegacyAsfDeviceID({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyAsfDeviceKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        await userPoolStorage.delete(key: keys[LegacyAsfDeviceKey.id]);
+      }
+    }
+  }
+
   final _bundleIdMemoizer = AsyncMemoizer<String>();
 
   /// Gets the bundle ID.

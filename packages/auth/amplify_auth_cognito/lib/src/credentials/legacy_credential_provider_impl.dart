@@ -61,4 +61,44 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
       hostedUiConfig: hostedUiConfig,
     );
   }
+
+  @override
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (_instance == null) return null;
+    return _instance!.fetchLegacyDeviceSecrets(
+      userPoolConfig: userPoolConfig,
+    );
+  }
+
+  @override
+  Future<void> deleteLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (_instance == null) return;
+    return _instance!.deleteLegacyDeviceSecrets(
+      userPoolConfig: userPoolConfig,
+    );
+  }
+
+  @override
+  Future<String?> fetchLegacyAsfDeviceId({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (_instance == null) return null;
+    return _instance!.fetchLegacyAsfDeviceId(
+      userPoolConfig: userPoolConfig,
+    );
+  }
+
+  @override
+  Future<void> deleteLegacyAsfDeviceID({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (_instance == null) return;
+    return _instance!.deleteLegacyAsfDeviceID(
+      userPoolConfig: userPoolConfig,
+    );
+  }
 }

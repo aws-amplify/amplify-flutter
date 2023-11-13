@@ -7,9 +7,11 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
@@ -44,6 +46,8 @@ final class CredentialStoreStateMachine
   String get runtimeTypeName => 'CredentialStoreStateMachine';
 
   SecureStorageInterface get _secureStorage => getOrCreate();
+
+  DeviceMetadataRepository get _deviceRepository => getOrCreate();
 
   @override
   Future<void> resolve(CredentialStoreEvent event) async {
@@ -310,42 +314,110 @@ final class CredentialStoreStateMachine
     await _secureStorage.deleteMany(deletions);
   }
 
+  /// Migrates legacy credential store data, include AWS Credentials, User Pool
+  /// tokens, Device Info, and ASF Device ID.
   Future<void> _migrateLegacyCredentialStore() async {
     final version = await getVersion();
     if (version != CredentialStoreVersion.none) {
       return;
     }
-
     emit(const CredentialStoreState.migratingLegacyStore());
-    final legacyCredentialProvider = get<LegacyCredentialProvider>();
-    if (legacyCredentialProvider != null) {
-      final authConfig = expect<AuthConfiguration>();
+    final credentialData = await _migrateLegacyCredentials();
+    final username = credentialData?.userPoolTokens?.username;
+    if (username != null) {
+      await _migrateDeviceSecrets(username);
+    }
+    await _migrateAsfDeviceID();
+    await _updateVersion(CredentialStoreVersion.v1);
+  }
+
+  /// Migrates AWS Credentials and User Pool tokens.
+  Future<CredentialStoreData?> _migrateLegacyCredentials() async {
+    final provider = get<LegacyCredentialProvider>();
+    final authConfig = expect<AuthConfiguration>();
+    if (provider == null) return null;
+    CredentialStoreData? legacyData;
+    try {
+      legacyData = await provider.fetchLegacyCredentials(
+        userPoolConfig: authConfig.userPoolConfig,
+        identityPoolConfig: authConfig.identityPoolConfig,
+        hostedUiConfig: authConfig.hostedUiConfig,
+      );
+      if (legacyData != null) {
+        await _storeCredentials(legacyData);
+      }
+    } on Object catch (e, s) {
+      logger.error('Error migrating legacy credentials', e, s);
+    } finally {
       try {
-        final legacyData =
-            await legacyCredentialProvider.fetchLegacyCredentials(
+        await provider.deleteLegacyCredentials(
           userPoolConfig: authConfig.userPoolConfig,
           identityPoolConfig: authConfig.identityPoolConfig,
           hostedUiConfig: authConfig.hostedUiConfig,
         );
-        if (legacyData != null) {
-          await _storeCredentials(legacyData);
-        }
       } on Object catch (e, s) {
-        logger.error('Error migrating legacy credentials', e, s);
-      } finally {
-        try {
-          await legacyCredentialProvider.deleteLegacyCredentials(
-            userPoolConfig: authConfig.userPoolConfig,
-            identityPoolConfig: authConfig.identityPoolConfig,
-            hostedUiConfig: authConfig.hostedUiConfig,
-          );
-        } on Object catch (e, s) {
-          logger.error('Error clearing legacy credentials', e, s);
-        }
+        logger.error('Error clearing legacy credentials', e, s);
       }
     }
+    return legacyData;
+  }
 
-    await _updateVersion(CredentialStoreVersion.v1);
+  /// Migrates legacy device secrets.
+  Future<void> _migrateDeviceSecrets(String username) async {
+    final credentialProvider = get<LegacyCredentialProvider>();
+    final authConfig = expect<AuthConfiguration>();
+    if (credentialProvider == null) return;
+    try {
+      final legacySecrets = await credentialProvider.fetchLegacyDeviceSecrets(
+        userPoolConfig: authConfig.userPoolConfig,
+      );
+      if (legacySecrets != null) {
+        final secrets = CognitoDeviceSecrets.fromLegacyDeviceDetails(
+          legacySecrets,
+        );
+        await _deviceRepository.put(username, secrets);
+      }
+    } on Object catch (e, s) {
+      logger.error('Error migrating legacy device secrets', e, s);
+    } finally {
+      try {
+        await credentialProvider.deleteLegacyDeviceSecrets(
+          userPoolConfig: authConfig.userPoolConfig,
+        );
+      } on Object catch (e, s) {
+        logger.error('Error clearing legacy device secrets', e, s);
+      }
+    }
+  }
+
+  /// Migrates legacy device secrets.
+  Future<void> _migrateAsfDeviceID() async {
+    final credentialProvider = get<LegacyCredentialProvider>();
+    final authConfig = expect<AuthConfiguration>();
+    final userPoolConfig = authConfig.userPoolConfig;
+    if (credentialProvider == null || userPoolConfig == null) return;
+    final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
+    try {
+      final legacyDeviceId = await credentialProvider.fetchLegacyAsfDeviceId(
+        userPoolConfig: userPoolConfig,
+      );
+      if (legacyDeviceId != null) {
+        await _secureStorage.write(
+          key: userPoolKeys[CognitoUserPoolKey.asfDeviceId],
+          value: legacyDeviceId,
+        );
+      }
+    } on Object catch (e, s) {
+      logger.error('Error migrating legacy ASF device ID', e, s);
+    } finally {
+      try {
+        await _secureStorage.delete(
+          key: userPoolKeys[CognitoUserPoolKey.asfDeviceId],
+        );
+      } on Object catch (e, s) {
+        logger.error('Error clearing legacy ASF device ID', e, s);
+      }
+    }
   }
 
   /// State machine callback for the [CredentialStoreLoadCredentialStore] event.
