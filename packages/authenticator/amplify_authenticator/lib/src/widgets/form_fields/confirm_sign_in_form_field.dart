@@ -559,7 +559,7 @@ class _ConfirmSignInPhoneFieldState extends _ConfirmSignInTextFieldState
   @override
   FormFieldValidator<String> get validator {
     return (phoneNumber) {
-      phoneNumber = displayPhoneNumber(phoneNumber);
+      phoneNumber = formatPhoneNumber(phoneNumber);
       return validatePhoneNumber(
         inputResolver: stringResolver.inputs,
         context: context,

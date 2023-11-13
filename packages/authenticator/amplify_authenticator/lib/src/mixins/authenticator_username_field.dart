@@ -164,15 +164,6 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     }
   }
 
-  String displayPhoneNumber(String? phoneNumber) {
-    phoneNumber = phoneNumber ?? '';
-    final prefix = '+${state.dialCode.value}';
-    if (phoneNumber.startsWith(prefix)) {
-      phoneNumber = phoneNumber.substring(prefix.length);
-    }
-    return phoneNumber;
-  }
-
   @override
   FormFieldValidator<UsernameInput> get validator {
     switch (selectedUsernameType) {
@@ -192,7 +183,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
               isOptional: isOptional,
               context: context,
               inputResolver: stringResolver.inputs,
-            )(displayPhoneNumber(input?.username));
+            )(input?.username);
     }
   }
 
