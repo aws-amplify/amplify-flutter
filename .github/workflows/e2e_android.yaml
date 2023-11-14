@@ -29,6 +29,14 @@ jobs:
         api-level:
           - 24
           - 33
+        channel:
+          - beta
+          - stable
+        # Skips e2e tests against beta on PRs, except for auth
+        # Todo(Jordan-Nelson): Update tests to skip beta for auth once flutter 3.16.0 becomes stable.
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request' && inputs.package-name != 'amplify_auth_cognito_example' && 'beta') || 'NONE' }}
+
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
@@ -43,6 +51,8 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ matrix.channel }}
 
       - name: Pub Upgrade
         run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade

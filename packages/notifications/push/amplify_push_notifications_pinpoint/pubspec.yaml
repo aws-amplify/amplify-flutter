@@ -1,6 +1,6 @@
 name: amplify_push_notifications_pinpoint
 description: The Amplify Flutter Push Notifications category plugin using the AWS Pinpoint provider.
-version: 1.4.0
+version: 1.6.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
@@ -14,12 +14,12 @@ platforms:
   android:
 
 dependencies:
-  amplify_analytics_pinpoint: ">=1.4.0 <1.5.0"
-  amplify_analytics_pinpoint_dart: ">=0.3.0+5 <0.4.0"
-  amplify_auth_cognito: ">=1.4.0 <1.5.0"
-  amplify_core: ">=1.4.0 <1.5.0"
-  amplify_flutter: ">=1.4.0 <1.5.0"
-  amplify_push_notifications: ">=1.4.0 <1.5.0"
+  amplify_analytics_pinpoint: ">=1.6.0 <1.7.0"
+  amplify_analytics_pinpoint_dart: ">=0.3.3 <0.4.0"
+  amplify_auth_cognito: ">=1.6.0 <1.7.0"
+  amplify_core: ">=1.6.0 <1.7.0"
+  amplify_flutter: ">=1.6.0 <1.7.0"
+  amplify_push_notifications: ">=1.6.0 <1.7.0"
   amplify_secure_storage: ">=0.4.0+5 <0.5.0"
   flutter:
     sdk: flutter
@@ -33,7 +33,7 @@ dev_dependencies:
   aws_common: ">=0.6.0 <0.7.0"
   aws_signature_v4: ">=0.5.0 <0.6.0"
   build_runner: ^2.4.0
-  built_value_generator: 8.6.1
+  built_value_generator: 8.7.0
   flutter_test:
     sdk: flutter
   mockito: ^5.0.0

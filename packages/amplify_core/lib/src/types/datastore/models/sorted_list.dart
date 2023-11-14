@@ -25,10 +25,6 @@ class SortedList<E> with ListMixin<E> {
   })  : _items = items,
         _compare = compare;
 
-  SortedList.from(SortedList<E> list)
-      : _items = List.from(list._items),
-        _compare = list._compare;
-
   // Required for ListMixin
   @override
   set length(int newLength) {
@@ -77,6 +73,14 @@ class SortedList<E> with ListMixin<E> {
       removeAt(index);
       addSorted(item);
     }
+  }
+
+  /// Returns a copy of the object
+  SortedList<E> copy() {
+    return SortedList.fromPresortedList(
+      items: List.from(_items),
+      compare: _compare,
+    );
   }
 
   /// Finds the index to insert the [item] at
