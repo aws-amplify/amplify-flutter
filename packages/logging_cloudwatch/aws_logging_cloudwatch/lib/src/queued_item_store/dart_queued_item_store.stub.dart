@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:meta/meta.dart';
@@ -14,7 +14,7 @@ import 'package:meta/meta.dart';
 class DartQueuedItemStore implements QueuedItemStore, Closeable {
   /// {@macro amplify_logging_cloudwatch.dart_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
-  DartQueuedItemStore(String? storagePath) {
+  DartQueuedItemStore(AppPathProvider appPathProvider) {
     throw UnimplementedError('constructor has not been implemented.');
   }
 

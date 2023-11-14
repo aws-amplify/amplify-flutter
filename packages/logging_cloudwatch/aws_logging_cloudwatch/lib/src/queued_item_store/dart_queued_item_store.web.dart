@@ -6,8 +6,8 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_logging_cloudwatch/src/queued_item_store/index_db/indexed_db_adapter.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/index_db/indexed_db_adapter.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +17,7 @@ class DartQueuedItemStore
     implements QueuedItemStore, Closeable {
   /// {@macro amplify_logging_cloudwatch.index_db_queued_item_store}
   // ignore: avoid_unused_constructor_parameters
-  DartQueuedItemStore(String? storagePath);
+  DartQueuedItemStore(AppPathProvider appPathProvider);
 
   late final Future<QueuedItemStore> _database = () async {
     if (await IndexedDbAdapter.checkIsIndexedDBSupported()) {

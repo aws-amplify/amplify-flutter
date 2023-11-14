@@ -11,12 +11,9 @@ environment:
 
 dependencies:
   amplify_core: ">=1.4.0 <1.5.0"
-  amplify_db_common_dart: ">=0.3.0+1 <0.4.0"
   aws_common: ">=0.6.0 <0.7.0"
   aws_logging_cloudwatch: ^0.1.0
-  collection: ^1.15.0
   device_info_plus: ^9.0.0
-  drift: ">=2.12.0 <2.13.0"
   flutter:
     sdk: flutter
   intl: ">=0.18.0 <1.0.0"
