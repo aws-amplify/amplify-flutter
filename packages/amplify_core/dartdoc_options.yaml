@@ -1,7 +1,7 @@
 dartdoc:
   categories:
-    Auth:
-      markdown: doc/static/Auth.md
+    "Auth":
+      markdown: doc/static/auth.md
   categoryOrder:
     - Auth
   favicon: doc/static/favicon.png

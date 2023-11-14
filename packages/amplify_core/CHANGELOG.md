@@ -1,3 +1,25 @@
+## 1.6.1
+
+### Fixes
+- fix(core): pub docs ([#4049](https://github.com/aws-amplify/amplify-flutter/pull/4049))
+
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+- fix(auth): use loadCredentials to check login state
+- fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
+
+## 1.5.1
+
+### Fixes
+
+- fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 ### Fixes

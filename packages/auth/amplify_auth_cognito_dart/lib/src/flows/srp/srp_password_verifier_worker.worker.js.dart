@@ -7,6 +7,7 @@ import 'package:aws_common/aws_common.dart';
 class SrpPasswordVerifierWorkerImpl extends SrpPasswordVerifierWorker {
   @override
   String get name => 'SrpPasswordVerifierWorker';
+
   @override
   String get jsEntrypoint {
     // Flutter web release builds must use the bundled asset.

@@ -15,7 +15,7 @@ import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
 
 /// {@template amplify_storage_s3_dart.download_task}
 /// A task created to fulfill a download operation.
-/// {@template}
+/// {@endtemplate}
 @internal
 class S3DownloadTask {
   /// {@macro amplify_storage_s3_dart.download_task}

@@ -1,3 +1,19 @@
+## 0.10.7
+
+- Minor bug fixes and improvements
+
+## 0.10.6
+
+### Fixes
+- fix(auth): use loadCredentials to check login state
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+## 0.10.5
+
+- Minor bug fixes and improvements
+
 ## 0.10.4
 
 - Minor bug fixes and improvements

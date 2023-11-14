@@ -1,3 +1,24 @@
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+- fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
+- fix: remove exception during token timeout ([#3939](https://github.com/aws-amplify/amplify-flutter/pull/3939))
+
+## 1.5.0
+
+### Feature
+
+- feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
+
+### Fixes
+
+- fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 ### Fixes

@@ -341,12 +341,11 @@ abstract class AmplifyPushNotifications
   }
 
   Future<void> _registerDeviceWhenConfigure() async {
-    late String deviceToken;
-
     try {
       await _hostApi.requestInitialToken();
-      deviceToken =
+      final deviceToken =
           await _bufferedTokenStream.peek.timeout(const Duration(seconds: 5));
+      await _registerDevice(deviceToken);
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -355,17 +354,14 @@ abstract class AmplifyPushNotifications
         recoverySuggestion: 'Review the underlying exception.',
         underlyingException: error,
       );
-    } on TimeoutException catch (error) {
-      throw PushNotificationException(
-        'Timed out awaiting for device token.',
-        recoverySuggestion:
-            'This may happen when the native apps have not been correctly configured'
-            ' for push notifications, review push notification configurations'
-            ' of the native iOS and Android apps of your Flutter project.',
-        underlyingException: error,
+    } on TimeoutException {
+      _logger.error(
+        'Timed out awaiting for device token.'
+        ' This may happen when the native app has not been correctly configured'
+        ' for push notifications. Review push notification configurations'
+        ' of the native iOS and Android apps of your Flutter project.',
       );
     }
-    await _registerDevice(deviceToken);
   }
 
   void _foregroundNotificationListener(
