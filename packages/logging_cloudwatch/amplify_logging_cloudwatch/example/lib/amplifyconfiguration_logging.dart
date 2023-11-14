@@ -1,6 +1,4 @@
 const loggingconfig = '''{
-      "plugins": {
-        "cloudWatchLoggerPluginConfiguration": {
             "enable": true,
             "logGroupName": "<log-group>",
             "region": "<region>",
@@ -26,6 +24,4 @@ const loggingconfig = '''{
                     }
                 }
             }
-        }
-      }
 }''';

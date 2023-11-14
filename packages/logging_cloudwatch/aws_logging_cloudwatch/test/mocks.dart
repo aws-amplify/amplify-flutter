@@ -25,3 +25,9 @@ class MockAuthUser extends Mock implements AuthUser {
   @override
   final String username = 'mockUser';
 }
+
+class MockAuthProviderRepo extends Mock
+    implements AmplifyAuthProviderRepository {}
+
+class MockAWSIamAmplifyAuthProvider extends Mock
+    implements AWSIamAmplifyAuthProvider {}

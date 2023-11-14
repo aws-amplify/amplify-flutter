@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_logging_cloudwatch/amplify_logging_cloudwatch.dart';
 import 'package:amplify_logging_cloudwatch_example/amplifyconfiguration.dart';
 import 'package:amplify_logging_cloudwatch_example/amplifyconfiguration_logging.dart';
 import 'package:amplify_logging_cloudwatch_example/homepage.dart';
@@ -38,19 +39,13 @@ class _MyAppState extends State<MyApp> {
             MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
-    final amplifyConfigWithLogging = AmplifyConfig.fromJson(
-      jsonDecode(amplifyconfig) as Map<String, dynamic>,
-    ).copyWith(
-      logging: LoggingConfig.fromJson(
+    final loggingPlugin = AmplifyCloudWatchLoggerPlugin(
+      CloudWatchPluginConfig.fromJson(
         jsonDecode(loggingconfig) as Map<String, dynamic>,
       ),
     );
-
-    final amplifyConfig =
-        const JsonEncoder().convert(amplifyConfigWithLogging.toJson());
-
-    await Amplify.addPlugin(authPlugin);
-    await Amplify.configure(amplifyConfig);
+    await Amplify.addPlugins([authPlugin, loggingPlugin]);
+    await Amplify.configure(amplifyconfig);
   }
 
   @override

@@ -7,7 +7,7 @@ const _guestUserId = 'guest';
 /// {@template amplify_logging_cloudwatch.amplify_log_stream_name_provider}
 /// It uses {mm-dd-yyyy}.{deviceId}.{userId|guest} format for log stream name.
 ///
-/// It gets deviceId from platform inforamtion or uuid if it is `null`.
+/// It gets deviceId from platform information or uuid if it is `null`.
 /// It gets userId from `Amplify.Auth.getCurrentUser()).userId` or uses `guest`
 /// if userId is not available.
 /// {@endtemplate}
