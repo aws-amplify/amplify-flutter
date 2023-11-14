@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro aws_common.logging.aws_logger}
-class AmplifyLogger extends AWSLogger {
+class AmplifyLogger extends AWSLogger implements Logger {
   /// Creates a top-level [AmplifyLogger].
   ///
   /// {@macro aws_common.logging.aws_logger}

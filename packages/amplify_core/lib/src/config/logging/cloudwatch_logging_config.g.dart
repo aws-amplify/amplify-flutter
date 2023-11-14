@@ -90,12 +90,12 @@ Map<String, dynamic> _$LoggingConstraintsToJson(LoggingConstraints instance) =>
     };
 
 const _$LogLevelEnumMap = {
+  LogLevel.none: 'NONE',
   LogLevel.verbose: 'VERBOSE',
   LogLevel.debug: 'DEBUG',
   LogLevel.info: 'INFO',
   LogLevel.warn: 'WARN',
   LogLevel.error: 'ERROR',
-  LogLevel.none: 'NONE',
 };
 
 UserLogLevel _$UserLogLevelFromJson(Map<String, dynamic> json) => UserLogLevel(

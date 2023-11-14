@@ -1,31 +1,44 @@
+import 'dart:async';
+
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_logging_cloudwatch/src/amplify_log_stream_name_provider.dart';
 import 'package:amplify_logging_cloudwatch/src/path_provider/flutter_path_provider.dart';
-import 'package:amplify_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
 
 /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
 class AmplifyCloudWatchLoggerPlugin extends CloudWatchLoggerPlugin {
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
-  AmplifyCloudWatchLoggerPlugin({
-    required super.credentialsProvider,
-    required super.pluginConfig,
+  AmplifyCloudWatchLoggerPlugin(
+    super.pluginConfig, {
+    super.remoteLoggingConstraintProvider,
+    FutureOr<String> Function()? logStreamNameProvider,
   }) : super(
-          logStreamProvider: DefaultCloudWatchLogStreamProvider(
-            credentialsProvider: credentialsProvider,
-            region: pluginConfig.region,
-            logGroupName: pluginConfig.logGroupName,
-            defaultLogStreamNameProvider:
-                AmplifyLogStreamNameProvider().defaultLogStreamName,
-          ),
-          logStore: DartQueuedItemStore(null),
-          remoteLoggingConstraintProvider:
-              pluginConfig.defaultRemoteConfiguration == null
-                  ? null
-                  : DefaultRemoteLoggingConstraintProvider(
-                      config: pluginConfig.defaultRemoteConfiguration!,
-                      region: pluginConfig.region,
-                      credentialsProvider: credentialsProvider,
-                      fileStorage: FileStorage(FlutterPathProvider()),
-                    ),
+          logStreamNameProvider: logStreamNameProvider ??
+              AmplifyLogStreamNameProvider().defaultLogStreamName,
         );
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    // override the path provider dependency added by AmplifyStorageS3Dart
+    dependencies.addInstance<AppPathProvider>(FlutterPathProvider());
+    await super.configure(config: config, authProviderRepo: authProviderRepo);
+  }
+
+  /// {@template amplify_logging_cloudwatch.plugin_key}
+  /// A plugin key which can be used with `Amplify.Logging.getPlugin` to retrieve
+  /// a CloudWatch-specific Logging category interface.
+  /// {@endtemplate}
+  static const LoggingPluginKey<AmplifyCloudWatchLoggerPlugin> pluginKey =
+      _AmplifyCloudWatchLoggerPluginKey();
+}
+
+class _AmplifyCloudWatchLoggerPluginKey
+    extends LoggingPluginKey<AmplifyCloudWatchLoggerPlugin> {
+  const _AmplifyCloudWatchLoggerPluginKey();
+
+  @override
+  String get runtimeTypeName => 'AmplifyCloudWatchLoggerPluginKey';
 }

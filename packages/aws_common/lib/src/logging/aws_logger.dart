@@ -49,6 +49,7 @@ class AWSLogger with AWSDebuggable implements Closeable {
     if (_initialized) return;
     _initialized = true;
     hierarchicalLoggingEnabled = true;
+    rootLogger._logger.level = Level.ALL;
     rootLogger.registerPlugin(const SimpleLogPrinter());
   }
 
@@ -85,6 +86,11 @@ class AWSLogger with AWSDebuggable implements Closeable {
 
   /// The namespace of this logger.
   String get namespace => _logger.fullName;
+
+  /// Returns a stream of messages added to this [AWSLogger].
+  Stream<LogEntry> get onRecord {
+    return _logger.onRecord.map((record) => record.toLogEntry());
+  }
 
   /// Creates an [AWSLogger] with `this` as the parent.
   AWSLogger createChild(String name) {

@@ -8,7 +8,8 @@ import 'package:amplify_core/amplify_core.dart';
 // ignore: invalid_use_of_internal_member, implementation_imports
 import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:aws_logging_cloudwatch/aws_logging_cloudwatch.dart';
-import 'package:aws_logging_cloudwatch/src/queued_item_store/in_memory_queued_item_store.dart';
+import 'package:aws_logging_cloudwatch/src/path_provider/app_path_provider.dart';
+import 'package:aws_logging_cloudwatch/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/queued_item_store/queued_item_store.dart';
 import 'package:aws_logging_cloudwatch/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_logging_cloudwatch/src/stoppable_timer.dart';
@@ -46,44 +47,96 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 /// {@template aws_logging_cloudwatch.cloudwatch_logger_plugin}
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
-class CloudWatchLoggerPlugin extends AWSLoggerPlugin
-    with AWSDebuggable, AmplifyLoggerMixin {
+class CloudWatchLoggerPlugin extends LoggingPluginInterface with AWSDebuggable {
   /// {@macro aws_logging_cloudwatch.cloudwatch_logger_plugin}
-  CloudWatchLoggerPlugin({
-    required AWSCredentialsProvider credentialsProvider,
-    required CloudWatchPluginConfig pluginConfig,
+  CloudWatchLoggerPlugin(
+    CloudWatchPluginConfig pluginConfig, {
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
-    CloudWatchLogStreamProvider? logStreamProvider,
-    // TODO(nikahsn): remove after moving queued item store implementation from
-    // amplify_logging_cloudwath to aws_logging_cloudwatch
-    @protected QueuedItemStore? logStore,
-  })  : _enabled = pluginConfig.enable,
-        _pluginConfig = pluginConfig,
-        _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider ??
-            (pluginConfig.defaultRemoteConfiguration != null
-                ? DefaultRemoteLoggingConstraintProvider(
-                    config: pluginConfig.defaultRemoteConfiguration!,
-                    credentialsProvider: credentialsProvider,
-                    region: pluginConfig.region,
-                  )
-                : null),
-        _client = CloudWatchLogsClient(
-          region: pluginConfig.region,
+    FutureOr<String> Function()? logStreamNameProvider,
+    @visibleForTesting DependencyManager? dependencyManagerOverride,
+  })  : _pluginConfig = pluginConfig,
+        _logStreamNameProvider = logStreamNameProvider,
+        _dependencyManagerOverride = dependencyManagerOverride {
+    if (pluginConfig.defaultRemoteConfiguration != null &&
+        _remoteLoggingConstraintProvider != null) {
+      throw ConfigurationError(
+        'AmplifyLoggingCloudWatch is instantiated with'
+        ' optional remoteLoggingConstraintProvider constructor parameter. Logging'
+        ' configuration also has defaultRemoteConfiguration',
+        recoverySuggestion: 'Use either the optional'
+            ' remoteLoggingConstraintProvider constructor parameter or'
+            ' defaultRemoteConfiguration in the Logging configuration',
+      );
+    }
+    remoteLoggingConstraintProvider = remoteLoggingConstraintProvider;
+  }
+
+  final CloudWatchPluginConfig _pluginConfig;
+  final FutureOr<String> Function()? _logStreamNameProvider;
+  final DependencyManager? _dependencyManagerOverride;
+  RemoteLoggingConstraintProvider? _remoteLoggingConstraintProvider;
+
+  late final QueuedItemStore _logStore;
+  late final AppPathProvider _appPathProvider;
+  late final CloudWatchLogsClient _client;
+  late final CloudWatchLogStreamProvider _logStreamProvider;
+  late final StreamSubscription<LogEntry> _logSubscription;
+
+  String? _userId;
+  bool _syncing = false;
+  bool _enabled = false;
+  StoppableTimer? _timer;
+  int _retryCount = 0;
+  DateTime? _retryTime;
+  final _logger = AmplifyLogger.category(Category.logging);
+
+  @override
+  DependencyManager get dependencies =>
+      _dependencyManagerOverride ?? super.dependencies;
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    final credentialsProvider = authProviderRepo
+        .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
+    if (credentialsProvider == null) {
+      throw ConfigurationError(
+        'No credential provider found for CloudWatch Logging.',
+        recoverySuggestion:
+            "If you haven't already, please add amplify_auth_cognito plugin to your App.",
+      );
+    }
+    _appPathProvider =
+        dependencies.get<AppPathProvider>() ?? const DartAppPathProvider();
+    _logStore = dependencies.get<QueuedItemStore>() ??
+        DartQueuedItemStore(_appPathProvider);
+    _client = dependencies.get<CloudWatchLogsClient>() ??
+        CloudWatchLogsClient(
+          region: _pluginConfig.region,
           credentialsProvider: credentialsProvider,
-        ),
-        // TODO(nikahsn): move queued item store implementation from
-        // amplify_logging_cloudwath to aws_logging_cloudwatch and use
-        // DartQueueItemStore instead of InMemoryQueuedItemStore
-        _logStore = logStore ?? InMemoryQueuedItemStore(),
-        _logStreamProvider = logStreamProvider ??
-            DefaultCloudWatchLogStreamProvider(
-              logGroupName: pluginConfig.logGroupName,
-              region: pluginConfig.region,
-              credentialsProvider: credentialsProvider,
-            ) {
-    _timer = pluginConfig.flushIntervalInSeconds > 0
+        );
+    _logStreamProvider = dependencies.get<CloudWatchLogStreamProvider>() ??
+        DefaultCloudWatchLogStreamProvider(
+          logGroupName: _pluginConfig.logGroupName,
+          region: _pluginConfig.region,
+          credentialsProvider: credentialsProvider,
+          defaultLogStreamNameProvider: _logStreamNameProvider,
+        );
+    _remoteLoggingConstraintProvider ??=
+        (_pluginConfig.defaultRemoteConfiguration != null
+            ? DefaultRemoteLoggingConstraintProvider(
+                config: _pluginConfig.defaultRemoteConfiguration!,
+                credentialsProvider: credentialsProvider,
+                region: _pluginConfig.region,
+                fileStorage: FileStorage(_appPathProvider),
+              )
+            : null);
+    _enabled = _pluginConfig.enable;
+    _timer = _pluginConfig.flushIntervalInSeconds > 0
         ? StoppableTimer(
-            duration: Duration(seconds: pluginConfig.flushIntervalInSeconds),
+            duration: Duration(seconds: _pluginConfig.flushIntervalInSeconds),
             callback: identifyCall(
               LoggingCategoryMethod.batchSend,
               () => _startSyncingIfNotInProgress,
@@ -91,7 +144,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
             onError: _onTimerError,
           )
         : null;
-    if (!pluginConfig.enable) {
+    if (!_pluginConfig.enable) {
       _timer?.stop();
     }
     Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
@@ -105,55 +158,15 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
         _userId = event.payload?.userId;
       }
     });
+    _logSubscription = AWSLogger().onRecord.listen(_handleLogEntry);
   }
 
-  /// An [AWSLoggerPlugin] to use only for testing.
-  @protected
-  @visibleForTesting
-  CloudWatchLoggerPlugin.testPlugin({
-    required CloudWatchLogsClient client,
-    required CloudWatchPluginConfig pluginConfig,
-    required CloudWatchLogStreamProvider logStreamProvider,
-    required QueuedItemStore logStore,
-    RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
-  })  : _enabled = pluginConfig.enable,
-        _pluginConfig = pluginConfig,
-        _logStore = logStore,
-        _remoteLoggingConstraintProvider = remoteLoggingConstraintProvider,
-        _logStreamProvider = logStreamProvider,
-        _client = client {
-    Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) async {
-      if (event.type == AuthHubEventType.signedOut ||
-          event.type == AuthHubEventType.userDeleted ||
-          event.type == AuthHubEventType.sessionExpired) {
-        _userId = null;
-        await _clearLogs();
-      }
-      if (event.type == AuthHubEventType.signedIn) {
-        _userId = event.payload?.userId;
-      }
-    });
-  }
-  String? _userId;
-  final CloudWatchPluginConfig _pluginConfig;
-  final CloudWatchLogsClient _client;
-  final CloudWatchLogStreamProvider _logStreamProvider;
-  final QueuedItemStore _logStore;
-  bool _syncing = false;
-  bool _enabled;
-  StoppableTimer? _timer;
-  RemoteLoggingConstraintProvider? _remoteLoggingConstraintProvider;
-  int _retryCount = 0;
-  DateTime? _retryTime;
-  set remoteLoggingConstraintProvider(
-    RemoteLoggingConstraintProvider remoteProvider,
-  ) {
-    if (_remoteLoggingConstraintProvider != null) {
-      throw StateError(
-        'remoteLoggingConstraintProvider is already configured.',
-      );
-    }
-    _remoteLoggingConstraintProvider = remoteProvider;
+  @override
+  Future<void> reset() async {
+    _timer?.stop();
+    await _logSubscription.cancel();
+    await _logStore.close();
+    return super.reset();
   }
 
   Future<void> _startSyncingIfNotInProgress() async {
@@ -217,7 +230,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
           e.timeInMillisecondsSinceEpoch,
         ).add(_minusMaxLogEventTimeInFuture);
       } on Exception catch (e) {
-        logger.error('Failed to sync logs to CloudWatch.', e);
+        _logger.error('Failed to sync logs to CloudWatch.', e);
       } finally {
         await _handleFullLogStoreAfterSync(
           retryTime: nextRetry,
@@ -253,7 +266,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   }
 
   void _onTimerError(Object e) {
-    logger.error('Failed to sync logs to CloudWatch.', e);
+    _logger.error('Failed to sync logs to CloudWatch.', e);
   }
 
   LoggingConstraints _getLoggingConstraint() {
@@ -340,8 +353,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     return null;
   }
 
-  @override
-  Future<void> handleLogEntry(LogEntry logEntry) async {
+  Future<void> _handleLogEntry(LogEntry logEntry) async {
     if (!(_isLoggable(logEntry))) {
       return;
     }
@@ -364,7 +376,23 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
     }
   }
 
+  Future<void> _clearLogs() async {
+    await _logStore.clear();
+  }
+
+  @override
+  Logger logger(String namespace, {Category? category}) {
+    Logger logger;
+    if (category != null) {
+      logger = AmplifyLogger.category(category).createChild(namespace);
+    } else {
+      logger = AmplifyLogger(namespace);
+    }
+    return logger;
+  }
+
   /// Enables the plugin.
+  @override
   void enable() {
     if (!_enabled) {
       _enabled = true;
@@ -379,6 +407,7 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   ///
   /// To send cached logs to CloudWatch call `flushLogs()` before calling
   /// `disable()`.
+  @override
   Future<void> disable() async {
     _enabled = false;
     _timer?.stop();
@@ -388,22 +417,28 @@ class CloudWatchLoggerPlugin extends AWSLoggerPlugin
   }
 
   /// Sends logs on-demand to CloudWatch.
+  @override
   Future<void> flushLogs() async {
-    await identifyCall(
-      LoggingCategoryMethod.flush,
-      _startSyncingIfNotInProgress,
-    );
+    await _startSyncingIfNotInProgress();
   }
 
   @override
   String get runtimeTypeName => 'CloudWatchLoggerPlugin';
 
-  Future<void> _clearLogs() async {
-    await _logStore.clear();
-  }
+  /// {@template amplify_logging_cloudwatch_dart.plugin_key}
+  /// A plugin key which can be used with `Amplify.Logging.getPlugin` to retrieve
+  /// a CloudWatch-specific Logging category interface.
+  /// {@endtemplate}
+  static const LoggingPluginKey<CloudWatchLoggerPlugin> pluginKey =
+      _CloudWatchLoggerPluginKey();
+}
+
+class _CloudWatchLoggerPluginKey
+    extends LoggingPluginKey<CloudWatchLoggerPlugin> {
+  const _CloudWatchLoggerPluginKey();
 
   @override
-  AmplifyLogger get logger => AmplifyLogger.category(Category.logging);
+  String get runtimeTypeName => 'CloudWatchLoggerPluginPluginKey';
 }
 
 extension on QueuedItem {

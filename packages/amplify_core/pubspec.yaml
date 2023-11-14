@@ -11,7 +11,6 @@ environment:
 dependencies:
   async: ^2.10.0
   aws_common: ">=0.6.0 <0.7.0"
-  aws_logging_cloudwatch: ^0.1.0
   aws_signature_v4: ">=0.5.0 <0.6.0"
   collection: ^1.15.0
   graphs: ^2.1.0
