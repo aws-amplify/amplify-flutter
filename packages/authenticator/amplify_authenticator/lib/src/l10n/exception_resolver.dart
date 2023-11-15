@@ -18,6 +18,11 @@ class ExceptionResolver extends Resolver {
     return AuthenticatorLocalizations.exceptionOf(context).emailAlreadyExists;
   }
 
+  /// The exception that is thrown if the email provided on signup is already in use.
+  String userNotExists(BuildContext context) {
+    return AuthenticatorLocalizations.exceptionOf(context).userNotExists;
+  }
+
   @override
   String resolve(BuildContext context, dynamic key) {
     switch (key) {
@@ -25,6 +30,9 @@ class ExceptionResolver extends Resolver {
         return incorrectUsernamePassword(context);
       case 'An account with the given email already exists.':
         return emailAlreadyExists(context);
+      case 'User does not exist.':
+        return userNotExists(context);
+
       default:
         return key.toString();
     }

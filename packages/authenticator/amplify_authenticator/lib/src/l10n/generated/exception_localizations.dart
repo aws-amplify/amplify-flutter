@@ -108,6 +108,12 @@ abstract class AuthenticatorExceptionLocalizations {
   /// In en, this message translates to:
   /// **'An account with the given email already exists.'**
   String get emailAlreadyExists;
+
+  /// The error that is displayed after a user tries to log in with a username that does not exist
+  ///
+  /// In en, this message translates to:
+  /// **'User does not exist.'**
+  String get userNotExists;
 }
 
 class _AuthenticatorExceptionLocalizationsDelegate

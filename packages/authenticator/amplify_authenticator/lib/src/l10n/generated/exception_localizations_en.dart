@@ -14,4 +14,7 @@ class AuthenticatorExceptionLocalizationsEn
   @override
   String get emailAlreadyExists =>
       'An account with the given email already exists.';
+
+  @override
+  String get userNotExists => 'User does not exist.';
 }
