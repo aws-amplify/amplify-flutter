@@ -5,6 +5,8 @@ import 'package:amplify_authenticator/src/l10n/generated/button_localizations.da
 import 'package:amplify_authenticator/src/l10n/generated/button_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/country_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/country_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/exception_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/exception_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart';
 import 'package:amplify_authenticator/src/l10n/generated/instructions_localizations.dart';
@@ -29,6 +31,7 @@ abstract class AuthenticatorLocalizations {
     AuthenticatorTitleLocalizations.delegate,
     AuthenticatorInputLocalizations.delegate,
     AuthenticatorCountryLocalizations.delegate,
+    AuthenticatorExceptionLocalizations.delegate,
   ];
 
   static final _buttonsFallback = AuthenticatorButtonLocalizationsEn();
@@ -36,8 +39,8 @@ abstract class AuthenticatorLocalizations {
   static final _titlesFallback = AuthenticatorTitleLocalizationsEn();
   static final _messagesFallback = AuthenticatorMessageLocalizationsEn();
   static final _countriesFallback = AuthenticatorCountryLocalizationsEn();
-  static final _instructionsFallback =
-      AuthenticatorInstructionsLocalizationsEn();
+  static final _instructionsFallback = AuthenticatorInstructionsLocalizationsEn();
+  static final _exceptionFallback = AuthenticatorExceptionLocalizationsEn();
 
   /// Retrieves the [AuthenticatorButtonLocalizations] instance, falling back
   /// to English if unavailable for this locale.
@@ -74,7 +77,12 @@ abstract class AuthenticatorLocalizations {
   static AuthenticatorInstructionsLocalizations instructionsOf(
     BuildContext context,
   ) {
-    return AuthenticatorInstructionsLocalizations.of(context) ??
-        _instructionsFallback;
+    return AuthenticatorInstructionsLocalizations.of(context) ?? _instructionsFallback;
+  }
+
+  /// Retrieves the [AuthenticatorExceptionLocalizations] instance, falling back
+  /// to English if unavailable for this locale.
+  static AuthenticatorExceptionLocalizations exceptionOf(BuildContext context) {
+    return AuthenticatorExceptionLocalizations.of(context) ?? _exceptionFallback;
   }
 }

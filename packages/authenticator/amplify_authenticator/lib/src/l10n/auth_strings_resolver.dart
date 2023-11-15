@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 export 'button_resolver.dart';
 export 'dial_code_resolver.dart';
+export 'exception_resolver.dart';
 export 'input_resolver.dart';
 export 'message_resolver.dart';
 export 'title_resolver.dart';
@@ -29,12 +30,14 @@ class AuthStringResolver {
     MessageResolver? messages,
     TitleResolver? titles,
     InstructionsResolver? instructions,
+    ExceptionResolver? exceptions,
   })  : buttons = buttons ?? const ButtonResolver(),
         dialCodes = dialCodes ?? countries ?? const DialCodeResolver(),
         inputs = inputs ?? const InputResolver(),
         titles = titles ?? const TitleResolver(),
         messages = messages ?? const MessageResolver(),
-        instruction = instructions ?? const InstructionsResolver();
+        instruction = instructions ?? const InstructionsResolver(),
+        exceptions = exceptions ?? const ExceptionResolver();
 
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
@@ -58,14 +61,18 @@ class AuthStringResolver {
   /// The resolver class for instructions
   final InstructionsResolver instruction;
 
+  /// The resolver class for exceptions
+  final ExceptionResolver exceptions;
+
   @override
   bool operator ==(Object other) =>
       other is AuthStringResolver &&
       buttons == other.buttons &&
       dialCodes == other.dialCodes &&
       inputs == other.inputs &&
-      titles == other.titles;
+      titles == other.titles &&
+      exceptions == other.exceptions;
 
   @override
-  int get hashCode => Object.hash(buttons, inputs, titles);
+  int get hashCode => Object.hash(buttons, inputs, titles, exceptions);
 }

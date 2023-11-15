@@ -1,0 +1,12 @@
+{
+    "@@locale": "en",
+    "@@context": "amplify_authenticator:exceptions",
+    "incorrectUsernamePassword": "Incorrect username or password.",
+    "@incorrectUsernamePassword": {
+        "description": "The error that is displayed after a wrong username or password was supplied"
+    },
+    "emailAlreadyExists": "An account with the given email already exists.",
+    "@emailAlreadyExists": {
+        "description": "The error that is displayed after an email was used on signup that already exists"
+    }
+}
