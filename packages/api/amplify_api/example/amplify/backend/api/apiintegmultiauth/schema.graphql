@@ -67,3 +67,18 @@ type OwnerOnly @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
 } 
+
+type lowerCase
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: apiKey },
+      { allow: public, operations: [read], provider: iam },
+      { allow: private, operations: [read], provider: iam },
+      { allow: private, operations: [read], provider: userPools },
+      { allow: owner, operations: [create, read, update, delete] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+}

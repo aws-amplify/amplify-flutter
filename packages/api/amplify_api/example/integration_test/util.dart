@@ -19,6 +19,7 @@ TestUser? testUser;
 final blogCache = <Blog>[];
 final postCache = <Post>[];
 final ownerOnlyCache = <OwnerOnly>[];
+final lowerCaseCache = <lowerCase>[];
 final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
 final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
 final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
@@ -297,12 +298,25 @@ Future<OwnerOnly?> deleteOwnerOnly(OwnerOnly model) async {
   return res.data;
 }
 
+Future<lowerCase?> deleteLowerCase(lowerCase model) async {
+  final request = ModelMutations.deleteById(
+    lowerCase.classType,
+    model.modelIdentifier,
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  lowerCaseCache.removeWhere((modelFromCache) => modelFromCache.id == model.id);
+  return res.data;
+}
+
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
   await Future.wait(postCache.map(deletePost));
   await Future.wait(cpkExplicitChildCache.map(deleteCpkExplicitChild));
   await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
   await Future.wait(ownerOnlyCache.map(deleteOwnerOnly));
+  await Future.wait(lowerCaseCache.map(deleteLowerCase));
 }
 
 /// Wait for subscription established for given request.
