@@ -32,7 +32,6 @@ class ExceptionResolver extends Resolver {
         return emailAlreadyExists(context);
       case 'User does not exist.':
         return userNotExists(context);
-
       default:
         return key.toString();
     }
