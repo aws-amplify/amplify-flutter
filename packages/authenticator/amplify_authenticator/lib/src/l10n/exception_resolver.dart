@@ -23,6 +23,11 @@ class ExceptionResolver extends Resolver {
     return AuthenticatorLocalizations.exceptionOf(context).userNotExists;
   }
 
+  /// The exception that is thrown if no user exists for the user identifier provided on login.
+  String invalidVerificationCode(BuildContext context) {
+    return AuthenticatorLocalizations.exceptionOf(context).invalidVerificationCode;
+  }
+
   @override
   String resolve(BuildContext context, dynamic key) {
     switch (key) {
@@ -32,6 +37,8 @@ class ExceptionResolver extends Resolver {
         return emailAlreadyExists(context);
       case 'User does not exist.':
         return userNotExists(context);
+      case 'Invalid verification code provided, please try again.':
+        return invalidVerificationCode(context);
       default:
         return key.toString();
     }

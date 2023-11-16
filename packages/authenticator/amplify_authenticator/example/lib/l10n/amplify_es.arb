@@ -20,5 +20,6 @@
     "confirmSignInCustomAuth": "Título de formulario personalizado",
     "incorrectUsernamePassword": "Nombre de usuario o contraseña incorrectos.",
     "emailAlreadyExists": "Ya existe una cuenta con el correo electrónico indicado.",
-    "userNotExists": "El usuario no existe."
+    "userNotExists": "El usuario no existe.",
+    "invalidVerificationCode": "Código de verificación no válido, inténtelo de nuevo."
 }

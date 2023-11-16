@@ -114,6 +114,12 @@ abstract class AuthenticatorExceptionLocalizations {
   /// In en, this message translates to:
   /// **'User does not exist.'**
   String get userNotExists;
+
+  /// The error that is displayed after a user enters a wrong verification code during password reset
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid verification code provided, please try again.'**
+  String get invalidVerificationCode;
 }
 
 class _AuthenticatorExceptionLocalizationsDelegate

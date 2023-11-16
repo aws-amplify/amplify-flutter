@@ -12,5 +12,9 @@
     "userNotExists": "User does not exist.",
     "@userNotExists": {
         "description": "The error that is displayed after a user tries to log in with a username that does not exist"
+    },
+    "invalidVerificationCode": "Invalid verification code provided, please try again.",
+    "@invalidVerificationCode": {
+        "description": "The error that is displayed after a user enters a wrong verification code during password reset"
     }
 }

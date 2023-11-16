@@ -25,4 +25,10 @@ class LocalizedExceptionResolver extends ExceptionResolver {
   String userNotExists(BuildContext context) {
     return AppLocalizations.of(context).userNotExists;
   }
+
+  /// The exception that is thrown if no user exists for the user identifier provided on login.
+  @override
+  String invalidVerificationCode(BuildContext context) {
+    return AppLocalizations.of(context).invalidVerificationCode;
+  }
 }

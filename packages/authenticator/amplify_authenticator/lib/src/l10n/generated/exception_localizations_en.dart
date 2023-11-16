@@ -17,4 +17,8 @@ class AuthenticatorExceptionLocalizationsEn
 
   @override
   String get userNotExists => 'User does not exist.';
+
+  @override
+  String get invalidVerificationCode =>
+      'Invalid verification code provided, please try again.';
 }
