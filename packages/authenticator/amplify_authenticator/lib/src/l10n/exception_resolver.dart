@@ -18,7 +18,7 @@ class ExceptionResolver extends Resolver {
     return AuthenticatorLocalizations.exceptionOf(context).emailAlreadyExists;
   }
 
-  /// The exception that is thrown if the email provided on signup is already in use.
+  /// The exception that is thrown if no user exists for the user identifier provided on login.
   String userNotExists(BuildContext context) {
     return AuthenticatorLocalizations.exceptionOf(context).userNotExists;
   }

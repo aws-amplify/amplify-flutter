@@ -20,7 +20,7 @@ class LocalizedExceptionResolver extends ExceptionResolver {
     return AppLocalizations.of(context).emailAlreadyExists;
   }
 
-  /// The exception that is thrown if the email provided on signup is already in use.
+  /// The exception that is thrown if no user exists for the user identifier provided on login.
   @override
   String userNotExists(BuildContext context) {
     return AppLocalizations.of(context).userNotExists;
