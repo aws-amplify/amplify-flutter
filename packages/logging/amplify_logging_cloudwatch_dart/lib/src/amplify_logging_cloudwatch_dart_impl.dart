@@ -11,12 +11,7 @@ import 'package:amplify_logging_cloudwatch_dart/amplify_logging_cloudwatch_dart.
 import 'package:amplify_logging_cloudwatch_dart/src/path_provider/app_path_provider.dart';
 import 'package:amplify_logging_cloudwatch_dart/src/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_logging_cloudwatch_dart/src/queued_item_store/queued_item_store.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/cloud_watch_logs_client.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/input_log_event.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/rejected_log_events_info.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_not_found_exception.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/cloud_watch_logs.dart';
 import 'package:amplify_logging_cloudwatch_dart/src/stoppable_timer.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:meta/meta.dart';
@@ -52,7 +47,8 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 /// {@template amplify_logging_cloudwatch_dart_dart.cloudwatch_logger_plugin}
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
-class AmplifyLoggingCloudWatchDart extends LoggingPluginInterface with AWSDebuggable {
+class AmplifyLoggingCloudWatchDart extends LoggingPluginInterface
+    with AWSDebuggable {
   /// {@macro amplify_logging_cloudwatch_dart.cloudwatch_logger_plugin}
   AmplifyLoggingCloudWatchDart(
     CloudWatchPluginConfig pluginConfig, {
