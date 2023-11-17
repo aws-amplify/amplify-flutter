@@ -2,7 +2,7 @@ name: amplify_logging_cloudwatch_dart
 description: Implementation of AWS logger plugin with CloudWatch Logs.
 version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/aws_logging_cloudwatch
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_logging_cloudwatch_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
