@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
             MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
-    final loggingPlugin = AmplifyCloudWatchLoggerPlugin(
+    final loggingPlugin = AmplifyLoggingCloudwatch(
       CloudWatchPluginConfig.fromJson(
         jsonDecode(loggingconfig) as Map<String, dynamic>,
       ),

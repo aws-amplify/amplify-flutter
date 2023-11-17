@@ -16,7 +16,7 @@ void main() {
   late MockCloudWatchLogsClient mockCloudWatchLogsClient;
   late MockQueuedItemStore mockQueuedItemStore;
   late MockCloudWatchLogStreamProvider mockCloudWatchLogStreamProvider;
-  late CloudWatchLoggerPlugin plugin;
+  late AmplifyLoggingCloudWatchDart plugin;
   late MockSmithyOperation<PutLogEventsResponse> mockPutLogEventsOperation;
   late DependencyManager dependencyManagerOverride;
   late MockAuthProviderRepo mockAuthProviderRepo;
@@ -93,7 +93,7 @@ void main() {
             .getAuthProvider(APIAuthorizationType.iam.authProviderToken),
       ).thenReturn(mockIamAuthProvider);
 
-      plugin = CloudWatchLoggerPlugin(
+      plugin = AmplifyLoggingCloudWatchDart(
         pluginConfig,
         dependencyManagerOverride: dependencyManagerOverride,
       );

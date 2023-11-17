@@ -6,9 +6,9 @@ import 'package:amplify_logging_cloudwatch/src/path_provider/flutter_path_provid
 import 'package:amplify_logging_cloudwatch_dart/amplify_logging_cloudwatch_dart.dart';
 
 /// {@macro amplify_logging_cloudwatch_dart.cloudwatch_logger_plugin}
-class AmplifyCloudWatchLoggerPlugin extends CloudWatchLoggerPlugin {
+class AmplifyLoggingCloudwatch extends AmplifyLoggingCloudWatchDart {
   /// {@macro amplify_logging_cloudwatch_dart.cloudwatch_logger_plugin}
-  AmplifyCloudWatchLoggerPlugin(
+  AmplifyLoggingCloudwatch(
     super.pluginConfig, {
     super.remoteLoggingConstraintProvider,
     FutureOr<String> Function()? logStreamNameProvider,
@@ -31,14 +31,14 @@ class AmplifyCloudWatchLoggerPlugin extends CloudWatchLoggerPlugin {
   /// A plugin key which can be used with `Amplify.Logging.getPlugin` to retrieve
   /// a CloudWatch-specific Logging category interface.
   /// {@endtemplate}
-  static const LoggingPluginKey<AmplifyCloudWatchLoggerPlugin> pluginKey =
+  static const LoggingPluginKey<AmplifyLoggingCloudwatch> pluginKey =
       _AmplifyCloudWatchLoggerPluginKey();
 }
 
 class _AmplifyCloudWatchLoggerPluginKey
-    extends LoggingPluginKey<AmplifyCloudWatchLoggerPlugin> {
+    extends LoggingPluginKey<AmplifyLoggingCloudwatch> {
   const _AmplifyCloudWatchLoggerPluginKey();
 
   @override
-  String get runtimeTypeName => 'AmplifyCloudWatchLoggerPluginKey';
+  String get runtimeTypeName => 'AmplifyLoggingCloudwatchKey';
 }

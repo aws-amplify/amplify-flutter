@@ -52,9 +52,9 @@ typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 /// {@template amplify_logging_cloudwatch_dart_dart.cloudwatch_logger_plugin}
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
-class CloudWatchLoggerPlugin extends LoggingPluginInterface with AWSDebuggable {
+class AmplifyLoggingCloudWatchDart extends LoggingPluginInterface with AWSDebuggable {
   /// {@macro amplify_logging_cloudwatch_dart.cloudwatch_logger_plugin}
-  CloudWatchLoggerPlugin(
+  AmplifyLoggingCloudWatchDart(
     CloudWatchPluginConfig pluginConfig, {
     RemoteLoggingConstraintProvider? remoteLoggingConstraintProvider,
     FutureOr<String> Function()? logStreamNameProvider,
@@ -428,22 +428,22 @@ class CloudWatchLoggerPlugin extends LoggingPluginInterface with AWSDebuggable {
   }
 
   @override
-  String get runtimeTypeName => 'CloudWatchLoggerPlugin';
+  String get runtimeTypeName => 'AmplifyLoggingCloudWatchDart';
 
   /// {@template amplify_logging_cloudwatch_dart.plugin_key}
   /// A plugin key which can be used with `Amplify.Logging.getPlugin` to retrieve
   /// a CloudWatch-specific Logging category interface.
   /// {@endtemplate}
-  static const LoggingPluginKey<CloudWatchLoggerPlugin> pluginKey =
+  static const LoggingPluginKey<AmplifyLoggingCloudWatchDart> pluginKey =
       _CloudWatchLoggerPluginKey();
 }
 
 class _CloudWatchLoggerPluginKey
-    extends LoggingPluginKey<CloudWatchLoggerPlugin> {
+    extends LoggingPluginKey<AmplifyLoggingCloudWatchDart> {
   const _CloudWatchLoggerPluginKey();
 
   @override
-  String get runtimeTypeName => 'CloudWatchLoggerPluginPluginKey';
+  String get runtimeTypeName => 'AmplifyLoggingCloudWatchDartKey';
 }
 
 extension on QueuedItem {
