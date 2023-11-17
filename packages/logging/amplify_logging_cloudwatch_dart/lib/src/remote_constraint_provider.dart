@@ -9,7 +9,7 @@ import 'package:amplify_logging_cloudwatch_dart/src/file_storage/file_storage.da
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_logging_cloudwatch_dart_dart.remote_logging_constraint_provider}
+/// {@template amplify_logging_cloudwatch_dart.remote_logging_constraint_provider}
 /// An Interface to provide custom implementation for
 /// [RemoteLoggingConstraintProvider]
 /// It gets the [LoggingConstraints] from a remote location and cache it.
@@ -19,7 +19,7 @@ abstract class RemoteLoggingConstraintProvider {
   LoggingConstraints? get loggingConstraint;
 }
 
-/// {@template amplify_logging_cloudwatch_dart_dart.base_remote_constraints_provider}
+/// {@template amplify_logging_cloudwatch_dart.base_remote_constraints_provider}
 /// Base class for [RemoteLoggingConstraintProvider] to provide
 /// [LoggingConstraints] from a remote location and cache it.
 /// {@endtemplate}
@@ -160,7 +160,7 @@ base class BaseRemoteLoggingConstraintProvider
   }
 }
 
-/// {@template amplify_logging_cloudwatch_dart_dart.default_remote_logging_constraint_provider}
+/// {@template amplify_logging_cloudwatch_dart.default_remote_logging_constraint_provider}
 /// Default implementation of [RemoteLoggingConstraintProvider] to fetch
 /// [LoggingConstraints] from an http endpoint periodically.
 /// {@endtemplate}

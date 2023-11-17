@@ -5,7 +5,7 @@ import 'dart:collection';
 
 import 'package:amplify_logging_cloudwatch_dart/src/queued_item_store/queued_item_store.dart';
 
-/// {@template amplify_logging_cloudwatch_dart_dart.in_memory_queued_item_store}
+/// {@template amplify_logging_cloudwatch_dart.in_memory_queued_item_store}
 /// Stores string elements in device memory.
 /// {@endtemplate}
 class InMemoryQueuedItemStore implements QueuedItemStore {

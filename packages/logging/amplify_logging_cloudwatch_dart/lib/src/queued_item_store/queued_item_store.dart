@@ -33,7 +33,7 @@ abstract interface class QueuedItemStore {
   FutureOr<void> close();
 }
 
-/// {@template amplify_logging_cloudwatch_dart_dart.string_database_element}
+/// {@template amplify_logging_cloudwatch_dart.string_database_element}
 /// An item stored in the [QueuedItemStore].
 /// {@endtemplate}
 class QueuedItem {

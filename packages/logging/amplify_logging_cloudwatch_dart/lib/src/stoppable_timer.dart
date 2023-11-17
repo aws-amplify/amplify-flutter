@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-/// {@template amplify_logging_cloudwatch_dart_dart.stoppable_timer}
+/// {@template amplify_logging_cloudwatch_dart.stoppable_timer}
 /// A Timer that can be stopped and started again.
 ///
 /// The `callback` function is invoked repeatedly with [duration] intervals

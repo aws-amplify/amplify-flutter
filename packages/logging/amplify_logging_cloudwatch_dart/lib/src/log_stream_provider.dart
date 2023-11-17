@@ -3,13 +3,11 @@
 
 import 'dart:async';
 
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/cloud_watch_logs_client.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart';
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_already_exists_exception.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/cloud_watch_logs.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:intl/intl.dart';
 
-/// {@template amplify_logging_cloudwatch_dart_dart.cloudwatch_logstream_provider}
+/// {@template amplify_logging_cloudwatch_dart.cloudwatch_logstream_provider}
 /// An interface to provide custom implementation for
 /// [CloudWatchLogStreamProvider]
 /// {@endtemplate}

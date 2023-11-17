@@ -44,7 +44,7 @@ const Duration _baseRetryInterval = Duration(seconds: 10);
 
 typedef _LogBatch = (List<QueuedItem> logQueues, List<InputLogEvent> logEvents);
 
-/// {@template amplify_logging_cloudwatch_dart_dart.cloudwatch_logger_plugin}
+/// {@template amplify_logging_cloudwatch_dart.cloudwatch_logger_plugin}
 /// An [AWSLoggerPlugin] for sending logs to AWS CloudWatch Logs.
 /// {@endtemplate}
 class AmplifyLoggingCloudWatchDart extends LoggingPluginInterface

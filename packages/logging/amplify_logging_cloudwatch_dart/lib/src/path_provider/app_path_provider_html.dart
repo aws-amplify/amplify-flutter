@@ -3,7 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_logging_cloudwatch_dart_dart.app_path_provider}
+/// {@template amplify_logging_cloudwatch_dart.app_path_provider}
 /// Provides App paths for amplify_logging_cloudwatch_dart package.
 /// {@endtemplate}
 class DartAppPathProvider implements AppPathProvider {
