@@ -7,7 +7,7 @@ environment:
   sdk: "^3.0.0"
 
 dependencies:
-  aws_logging_cloudwatch:
+  amplify_logging_cloudwatch_dart:
     path: ../
 
 dev_dependencies:

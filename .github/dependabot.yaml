@@ -1961,7 +1961,14 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
+      - dependency-name: "amplify_logging_cloudwatch_dart"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       build_runner:
@@ -1980,7 +1987,14 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
+      - dependency-name: "amplify_logging_cloudwatch_dart"
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_db_common_dart"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       build_runner:
