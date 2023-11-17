@@ -45,7 +45,7 @@ void main() {
             'packages/common/amplify_db_common_dart/example',
             'packages/example_common/example',
             'packages/logging_cloudwatch/amplify_logging_cloudwatch/example',
-            'packages/logging_cloudwatch/aws_logging_cloudwatch/example',
+            'packages/logging_cloudwatch/amplify_logging_cloudwatch_dart/example',
             'packages/notifications/push/amplify_push_notifications/example',
             'packages/notifications/push/amplify_push_notifications_pinpoint/example',
             'packages/secure_storage/amplify_secure_storage/example',
