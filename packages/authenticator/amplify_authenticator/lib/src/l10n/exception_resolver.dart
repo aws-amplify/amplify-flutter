@@ -23,7 +23,7 @@ class ExceptionResolver extends Resolver {
     return AuthenticatorLocalizations.exceptionOf(context).userNotExists;
   }
 
-  /// The exception that is thrown if no user exists for the user identifier provided on login.
+  /// The exception that is thrown if the provided verification code was invalid.
   String invalidVerificationCode(BuildContext context) {
     return AuthenticatorLocalizations.exceptionOf(context).invalidVerificationCode;
   }
