@@ -13583,8 +13583,7 @@ class ObjCBlock3 extends _ObjCBlockBase {
   ObjCBlock3.fromFunctionPointer(
       NativeMacOsFramework lib,
       ffi.Pointer<
-              ffi
-              .NativeFunction<
+              ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ObjCObject> arg0,
                       ffi.UnsignedLong arg1, ffi.Pointer<ffi.Bool> arg2)>>
           ptr)
