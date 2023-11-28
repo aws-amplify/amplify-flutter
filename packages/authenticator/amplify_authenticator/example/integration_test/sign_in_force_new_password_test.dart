@@ -58,10 +58,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
@@ -95,10 +92,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password
@@ -148,10 +142,7 @@ void main() {
           ]),
         );
 
-        // When I select my country code with status "FORCE_CHANGE_PASSWORD"
-        await po.selectCountryCode();
-
-        // And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+        // When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
         await po.enterUsername(phoneNumber.withOutCountryCode());
 
         // And I type my password

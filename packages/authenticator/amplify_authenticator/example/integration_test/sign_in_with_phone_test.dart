@@ -43,10 +43,7 @@ void main() {
 
       final signInPage = SignInPage(tester: tester);
 
-      // When I select my country code
-      await signInPage.selectCountryCode();
-
-      // And I type my "phone number" with status "UNKNOWN"
+      // When I type my "phone number" with status "UNKNOWN"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password
@@ -91,9 +88,6 @@ void main() {
       final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
-
-      // When I select my country code
-      await signInPage.selectCountryCode();
 
       // When I type my "username" with status "unconfirmed"
       await signInPage.enterUsername(phoneNumber.withOutCountryCode());
