@@ -159,7 +159,7 @@ class GraphQLRequestFactory {
           upperOutput = r'($id: ID!)';
           lowerOutput = r'(id: $id)';
         }
-      case GraphQLRequestOperation.list:
+      case GraphQLRequestOperation.list || GraphQLRequestOperation.search:
         upperOutput =
             '(\$filter: Model${modelName}FilterInput, \$limit: Int, \$nextToken: String)';
         lowerOutput =
