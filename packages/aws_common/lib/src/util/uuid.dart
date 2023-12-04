@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:uuid/uuid.dart';
 
@@ -15,10 +16,14 @@ String uuid({bool secure = false}) => const Uuid().v4(
           ? null
           : const <String, Object>{
               'rng': _cryptoRNG,
+              'positionalArgs': [],
+              'namedArgs': <Symbol, dynamic>{},
             },
     );
 
 /// Creates 16 digit cryptographically secure random number.
-List<int> _cryptoRNG() {
-  return List<int>.generate(16, (i) => Random.secure().nextInt(256));
+Uint8List _cryptoRNG() {
+  return Uint8List.fromList(
+    List<int>.generate(16, (i) => Random.secure().nextInt(256)),
+  );
 }
