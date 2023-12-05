@@ -1,3 +1,8 @@
+## 0.3.4
+
+### Fixes
+- fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
+
 ## 0.3.3
 
 - Minor bug fixes and improvements
