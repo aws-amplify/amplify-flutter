@@ -23,7 +23,7 @@ dependencies:
   path: ^1.8.0
   smithy: ">=0.6.1 <0.7.0"
   smithy_aws: ">=0.6.0 <0.7.0"
-  uuid: ">=3.0.6 <=3.0.7"
+  uuid: ">=3.0.6 <5.0.0"
 
 dev_dependencies:
   amplify_lints: ">=3.0.0 <3.1.0"
