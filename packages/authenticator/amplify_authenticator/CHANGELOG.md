@@ -1,3 +1,8 @@
+## 1.5.2
+
+### Fixes
+- fix(authenticator): required phone number validator ([#4106](https://github.com/aws-amplify/amplify-flutter/pull/4106))
+
 ## 1.5.1
 
 - Minor bug fixes and improvements
