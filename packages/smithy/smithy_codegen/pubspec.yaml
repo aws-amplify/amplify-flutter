@@ -14,7 +14,7 @@ dependencies:
   build_cli_annotations: ^2.0.0
   built_collection: ^5.1.1
   built_value: ">=8.6.0 <8.8.0"
-  code_builder: 4.7.0
+  code_builder: 4.8.0
   collection: ^1.15.0
   crclib: ^3.0.0
   dart_style: 2.3.2
