@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    api "com.google.firebase:firebase-messaging:23.2.0"
+    api "com.google.firebase:firebase-messaging:23.4.0"
     // Import support library for Amplify push utils
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.13.0'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
