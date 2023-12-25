@@ -45,7 +45,7 @@ dev_dependencies:
   build_verify: ^3.0.0
   build_web_compilers: ^4.0.0
   built_value_generator: 8.7.0
-  ffigen: ^9.0.0
+  ffigen: ">=9.0.0 <11.0.0"
   json_serializable: 6.7.1
   mockito: ^5.0.0
   smithy_codegen:
