@@ -44,12 +44,16 @@ abstract class AbortMultipartUploadOutput
       serializers = [AbortMultipartUploadOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
   @override
   AbortMultipartUploadOutputPayload getPayload() =>
       AbortMultipartUploadOutputPayload();
+
   @override
   List<Object?> get props => [requestCharged];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AbortMultipartUploadOutput')
@@ -77,6 +81,7 @@ abstract class AbortMultipartUploadOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -97,6 +102,7 @@ class AbortMultipartUploadOutputRestXmlSerializer
         AbortMultipartUploadOutputPayload,
         _$AbortMultipartUploadOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -104,6 +110,7 @@ class AbortMultipartUploadOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   AbortMultipartUploadOutputPayload deserialize(
     Serializers serializers,

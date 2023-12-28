@@ -20,56 +20,62 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
     'DEEP_ARCHIVE',
   );
 
-  static const glacier = StorageClass._(
+  static const expressOnezone = StorageClass._(
     1,
+    'EXPRESS_ONEZONE',
+    'EXPRESS_ONEZONE',
+  );
+
+  static const glacier = StorageClass._(
+    2,
     'GLACIER',
     'GLACIER',
   );
 
   static const glacierIr = StorageClass._(
-    2,
+    3,
     'GLACIER_IR',
     'GLACIER_IR',
   );
 
   static const intelligentTiering = StorageClass._(
-    3,
+    4,
     'INTELLIGENT_TIERING',
     'INTELLIGENT_TIERING',
   );
 
   static const onezoneIa = StorageClass._(
-    4,
+    5,
     'ONEZONE_IA',
     'ONEZONE_IA',
   );
 
   static const outposts = StorageClass._(
-    5,
+    6,
     'OUTPOSTS',
     'OUTPOSTS',
   );
 
   static const reducedRedundancy = StorageClass._(
-    6,
+    7,
     'REDUCED_REDUNDANCY',
     'REDUCED_REDUNDANCY',
   );
 
   static const snow = StorageClass._(
-    7,
+    8,
     'SNOW',
     'SNOW',
   );
 
   static const standard = StorageClass._(
-    8,
+    9,
     'STANDARD',
     'STANDARD',
   );
 
   static const standardIa = StorageClass._(
-    9,
+    10,
     'STANDARD_IA',
     'STANDARD_IA',
   );
@@ -77,6 +83,7 @@ class StorageClass extends _i1.SmithyEnum<StorageClass> {
   /// All values of [StorageClass].
   static const values = <StorageClass>[
     StorageClass.deepArchive,
+    StorageClass.expressOnezone,
     StorageClass.glacier,
     StorageClass.glacierIr,
     StorageClass.intelligentTiering,
