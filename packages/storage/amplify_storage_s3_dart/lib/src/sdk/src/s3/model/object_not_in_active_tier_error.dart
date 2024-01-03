@@ -35,7 +35,6 @@ abstract class ObjectNotInActiveTierError
     _i1.AWSBaseHttpResponse response,
   ) =>
       payload.rebuild((b) {
-        b.statusCode = response.statusCode;
         b.headers = response.headers;
       });
 
@@ -47,20 +46,26 @@ abstract class ObjectNotInActiveTierError
         namespace: 'com.amazonaws.s3',
         shape: 'ObjectNotInActiveTierError',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
-  int? get statusCode;
+  int get statusCode => 403;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectNotInActiveTierError');
@@ -78,6 +83,7 @@ class ObjectNotInActiveTierErrorRestXmlSerializer
         ObjectNotInActiveTierError,
         _$ObjectNotInActiveTierError,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -85,6 +91,7 @@ class ObjectNotInActiveTierErrorRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ObjectNotInActiveTierError deserialize(
     Serializers serializers,
