@@ -51,6 +51,9 @@ abstract class Owner
   /// *   Europe (Ireland)
   ///
   /// *   South America (São Paulo)
+  ///
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get displayName;
 
   /// Container for the ID of the owner.
@@ -60,6 +63,7 @@ abstract class Owner
         displayName,
         id,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Owner')
@@ -83,6 +87,7 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
         Owner,
         _$Owner,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +95,7 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
           shape: 'restXml',
         )
       ];
+
   @override
   Owner deserialize(
     Serializers serializers,

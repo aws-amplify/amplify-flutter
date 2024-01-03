@@ -36,15 +36,20 @@ abstract class Initiator
   ];
 
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
+  ///
+  /// **Directory buckets** \- If the principal is an Amazon Web Services account, it provides the Amazon Web Services account ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
 
   /// Name of the Principal.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get displayName;
   @override
   List<Object?> get props => [
         id,
         displayName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Initiator')
@@ -69,6 +74,7 @@ class InitiatorRestXmlSerializer
         Initiator,
         _$Initiator,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +82,7 @@ class InitiatorRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   Initiator deserialize(
     Serializers serializers,

@@ -63,6 +63,8 @@ abstract class DeleteObjectsOutput
   _i3.BuiltList<DeletedObject>? get deleted;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
 
   /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
@@ -76,12 +78,14 @@ abstract class DeleteObjectsOutput
           b.errors.replace(errors!);
         }
       });
+
   @override
   List<Object?> get props => [
         deleted,
         requestCharged,
         errors,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectsOutput')
@@ -122,6 +126,7 @@ abstract class DeleteObjectsOutputPayload
         deleted,
         errors,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload')
@@ -148,6 +153,7 @@ class DeleteObjectsOutputRestXmlSerializer
         DeleteObjectsOutputPayload,
         _$DeleteObjectsOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -155,6 +161,7 @@ class DeleteObjectsOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectsOutputPayload deserialize(
     Serializers serializers,
