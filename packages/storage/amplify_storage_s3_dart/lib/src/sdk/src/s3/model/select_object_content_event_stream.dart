@@ -58,8 +58,10 @@ sealed class SelectObjectContentEventStream
 
   /// The End Event.
   EndEvent? get end => null;
+
   @override
   Object get value => (records ?? stats ?? progress ?? cont ?? end)!;
+
   @override
   String toString() {
     final helper =
@@ -181,6 +183,7 @@ class SelectObjectContentEventStreamRestXmlSerializer
         SelectObjectContentEventStreamCont$,
         SelectObjectContentEventStreamEnd$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -188,6 +191,7 @@ class SelectObjectContentEventStreamRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   SelectObjectContentEventStream deserialize(
     Serializers serializers,

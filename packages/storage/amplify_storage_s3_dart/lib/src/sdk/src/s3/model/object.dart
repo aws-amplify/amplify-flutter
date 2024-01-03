@@ -66,6 +66,9 @@ abstract class S3Object
   /// *   Objects created by the PUT Object, POST Object, or Copy operation, or through the Amazon Web Services Management Console, and are encrypted by SSE-C or SSE-KMS, have ETags that are not an MD5 digest of their object data.
   ///
   /// *   If an object is created by either the Multipart Upload or Part Copy operation, the ETag is not an MD5 digest, regardless of the method of encryption. If an object is larger than 16 MB, the Amazon Web Services Management Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest.
+  ///
+  ///
+  /// **Directory buckets** \- MD5 is not supported by directory buckets.
   String? get eTag;
 
   /// The algorithm that was used to create a checksum of the object.
@@ -75,12 +78,18 @@ abstract class S3Object
   _i2.Int64? get size;
 
   /// The class of storage used to store the object.
+  ///
+  /// **Directory buckets** \- Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   ObjectStorageClass? get storageClass;
 
   /// The owner of the object
+  ///
+  /// **Directory buckets** \- The bucket owner is returned as the object owner.
   Owner? get owner;
 
   /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   RestoreStatus? get restoreStatus;
   @override
   List<Object?> get props => [
@@ -93,6 +102,7 @@ abstract class S3Object
         owner,
         restoreStatus,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Object')
@@ -140,6 +150,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         S3Object,
         _$S3Object,
       ];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -147,6 +158,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
           shape: 'restXml',
         )
       ];
+
   @override
   S3Object deserialize(
     Serializers serializers,
