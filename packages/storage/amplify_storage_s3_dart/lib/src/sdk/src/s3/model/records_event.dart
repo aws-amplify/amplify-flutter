@@ -35,6 +35,7 @@ abstract class RecordsEvent
   _i2.Uint8List? get payload;
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecordsEvent')
@@ -55,6 +56,7 @@ class RecordsEventRestXmlSerializer
         RecordsEvent,
         _$RecordsEvent,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -62,6 +64,7 @@ class RecordsEventRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   RecordsEvent deserialize(
     Serializers serializers,

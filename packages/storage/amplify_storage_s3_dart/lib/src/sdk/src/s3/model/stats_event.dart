@@ -34,6 +34,7 @@ abstract class StatsEvent
   Stats? get details;
   @override
   List<Object?> get props => [details];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StatsEvent')
@@ -54,6 +55,7 @@ class StatsEventRestXmlSerializer
         StatsEvent,
         _$StatsEvent,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class StatsEventRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   StatsEvent deserialize(
     Serializers serializers,

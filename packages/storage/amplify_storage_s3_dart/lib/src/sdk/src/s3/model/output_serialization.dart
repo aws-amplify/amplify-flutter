@@ -48,6 +48,7 @@ abstract class OutputSerialization
         csv,
         json,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OutputSerialization')
@@ -72,6 +73,7 @@ class OutputSerializationRestXmlSerializer
         OutputSerialization,
         _$OutputSerialization,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -79,6 +81,7 @@ class OutputSerializationRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   OutputSerialization deserialize(
     Serializers serializers,
