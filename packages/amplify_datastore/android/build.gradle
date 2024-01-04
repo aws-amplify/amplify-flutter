@@ -32,8 +32,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 android {
-    namespace 'com.amazonaws.amplify.amplify_datastore'
-
     compileSdkVersion 33
 
     sourceSets {
@@ -67,6 +65,7 @@ android {
         }
     }
 
+    namespace 'com.amazonaws.amplify.amplify_datastore'
 }
 
 dependencies {
