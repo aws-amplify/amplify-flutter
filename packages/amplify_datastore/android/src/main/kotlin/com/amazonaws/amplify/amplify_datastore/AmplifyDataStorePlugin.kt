@@ -74,8 +74,12 @@ import kotlin.collections.HashMap
 typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
 
 /** AmplifyDataStorePlugin */
-class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBridge,
-    NativeAuthBridge, NativeApiBridge {
+class AmplifyDataStorePlugin :
+    FlutterPlugin,
+    MethodCallHandler,
+    NativeAmplifyBridge,
+    NativeAuthBridge,
+    NativeApiBridge {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var observeCancelable: Cancelable
@@ -179,7 +183,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    result, "DataStoreException",
+                    result,
+                    "DataStoreException",
                     createSerializedUnrecognizedError(e)
                 )
             }
@@ -206,12 +211,13 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         ) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    flutterResult, "DataStoreException",
+                    flutterResult,
+                    "DataStoreException",
                     createSerializedError(
                         ExceptionMessages.missingExceptionMessage,
                         ExceptionMessages.missingRecoverySuggestion,
                         "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
-                                " are not available. Request: " + request.toString()
+                            " are not available. Request: " + request.toString()
                     )
                 )
             }
@@ -243,7 +249,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    flutterResult, "DataStoreException",
+                    flutterResult,
+                    "DataStoreException",
                     createSerializedUnrecognizedError(e)
                 )
             }
@@ -285,7 +292,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    flutterResult, "DataStoreException",
+                    flutterResult,
+                    "DataStoreException",
                     createSerializedUnrecognizedError(e)
                 )
             }
@@ -308,7 +316,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 } catch (e: Exception) {
                     uiThreadHandler.post {
                         postExceptionToFlutterChannel(
-                            flutterResult, "DataStoreException",
+                            flutterResult,
+                            "DataStoreException",
                             createSerializedUnrecognizedError(e)
                         )
                     }
@@ -318,7 +327,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 LOG.error("Query operation failed.", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
+                        flutterResult,
+                        "DataStoreException",
                         createSerializedError(it)
                     )
                 }
@@ -345,7 +355,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    flutterResult, "DataStoreException",
+                    flutterResult,
+                    "DataStoreException",
                     createSerializedUnrecognizedError(e)
                 )
             }
@@ -373,7 +384,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 } else {
                     uiThreadHandler.post {
                         postExceptionToFlutterChannel(
-                            flutterResult, "DataStoreException",
+                            flutterResult,
+                            "DataStoreException",
                             createSerializedError(it)
                         )
                     }
@@ -401,7 +413,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
         } catch (e: Exception) {
             uiThreadHandler.post {
                 postExceptionToFlutterChannel(
-                    flutterResult, "DataStoreException",
+                    flutterResult,
+                    "DataStoreException",
                     createSerializedUnrecognizedError(e)
                 )
             }
@@ -426,7 +439,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 LOG.error("Save operation failed", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
+                        flutterResult,
+                        "DataStoreException",
                         createSerializedError(it)
                     )
                 }
@@ -446,7 +460,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 LOG.error("Failed to clear store with error: ", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
+                        flutterResult,
+                        "DataStoreException",
                         createSerializedError(it)
                     )
                 }
@@ -510,7 +525,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 LOG.error("Failed to start datastore with error: ", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
+                        flutterResult,
+                        "DataStoreException",
                         createSerializedError(it)
                     )
                 }
@@ -533,7 +549,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                 LOG.error("Failed to stop datastore with error: ", it)
                 uiThreadHandler.post {
                     postExceptionToFlutterChannel(
-                        flutterResult, "DataStoreException",
+                        flutterResult,
+                        "DataStoreException",
                         createSerializedError(it)
                     )
                 }
@@ -563,7 +580,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                     val latch = CountDownLatch(1)
                     uiThreadHandler.post {
                         channel.invokeMethod(
-                            "resolveQueryPredicate", id,
+                            "resolveQueryPredicate",
+                            id,
                             object : Result {
                                 override fun success(result: Any?) {
                                     try {
@@ -591,8 +609,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
                         latch.await()
                     } catch (e: InterruptedException) {
                         LOG.error(
-                            "Failed to resolve query predicate due to ${e}. Reverting to original query " +
-                                    "predicate."
+                            "Failed to resolve query predicate due to $e. Reverting to original query " +
+                                "predicate."
                         )
                     }
                     resolvedQueryPredicate
@@ -769,7 +787,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
     private fun createConflictHandler(request: Map<String, Any>): DataStoreConflictHandler {
         return if (request["hasConflictHandler"] as? Boolean? == true) {
             DataStoreConflictHandler { conflictData,
-                                       onDecision ->
+                onDecision ->
 
                 val modelName = conflictData.local.modelName
                 val args = mapOf(
@@ -780,7 +798,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
 
                 uiThreadHandler.post {
                     channel.invokeMethod(
-                        "conflictHandler", args,
+                        "conflictHandler",
+                        args,
                         object : Result {
                             override fun success(result: Any?) {
                                 val resultMap: Map<String, Any>? = result.safeCastToMap()
@@ -827,7 +846,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
             }
         } else {
             DataStoreConflictHandler { _,
-                                       onDecision ->
+                onDecision ->
                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
         }

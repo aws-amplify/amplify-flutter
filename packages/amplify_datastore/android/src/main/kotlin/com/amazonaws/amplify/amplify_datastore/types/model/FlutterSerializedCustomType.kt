@@ -28,9 +28,11 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
         serializedData: Map<String, Any>,
         customTypeSchema: CustomTypeSchema
     ): Map<String, Any?> {
-        if (serializedData.isEmpty()) throw Exception(
-            "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
-        )
+        if (serializedData.isEmpty()) {
+            throw Exception(
+                "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
+            )
+        }
 
         return serializedData.mapValues {
             val field = customTypeSchema.fields[it.key]!!

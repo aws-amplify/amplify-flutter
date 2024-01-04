@@ -60,7 +60,7 @@ class QueryPredicateBuilder {
                         is List<*> -> {
                             convertQueryByNestedModelIdentifierToPredicate(
                                 queryField,
-                                operand.cast<Map<String,  Serializable>>(),
+                                operand.cast<Map<String, Serializable>>(),
                                 true
                             )
                         }
@@ -70,7 +70,7 @@ class QueryPredicateBuilder {
                         is List<*> -> {
                             convertQueryByNestedModelIdentifierToPredicate(
                                 queryField,
-                                operand.cast<Map<String,  Serializable>>(),
+                                operand.cast<Map<String, Serializable>>(),
                                 false
                             )
                         }
@@ -136,7 +136,7 @@ class QueryPredicateBuilder {
                         if (predicates.isNotEmpty()) {
                             throw IllegalArgumentException(
                                 "More than one predicates added in the `not` queryPredicate operation." +
-                                        " Predicates Size: " + predicates.size
+                                    " Predicates Size: " + predicates.size
                             )
                         }
                         resultQueryPredicate =
@@ -195,10 +195,13 @@ class QueryPredicateBuilder {
         }
 
         @JvmStatic
-        fun convertQueryByIdentifierOperationToPredicate(modelName: String?, operands: List<Map<String, Any>>,
-                                                         isEqualOperator:
-        Boolean):
-                QueryPredicate {
+        fun convertQueryByIdentifierOperationToPredicate(
+            modelName: String?,
+            operands: List<Map<String, Any>>,
+            isEqualOperator:
+                Boolean
+        ):
+            QueryPredicate {
             var predicates = operands.map {
                 val operandEntry = it.entries.first()
                 when {
@@ -223,7 +226,8 @@ class QueryPredicateBuilder {
 
         @JvmStatic
         fun convertQueryByNestedModelIdentifierToPredicate(
-            queryField: QueryField, operands: List<Map<String, Serializable>>,
+            queryField: QueryField,
+            operands: List<Map<String, Serializable>>,
             isEqualOperator: Boolean
         ): QueryPredicate {
             val identifierFieldsValues = operands.map { it.values.first() }
