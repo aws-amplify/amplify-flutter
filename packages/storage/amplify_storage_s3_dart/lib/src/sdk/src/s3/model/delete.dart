@@ -37,15 +37,18 @@ abstract class Delete
   ];
 
   /// The object to delete.
+  ///
+  /// **Directory buckets** \- For directory buckets, an object that's composed entirely of whitespace characters is not supported by the `DeleteObjects` API operation. The request will receive a `400 Bad Request` error and none of the objects in the request will be deleted.
   _i2.BuiltList<ObjectIdentifier> get objects;
 
-  /// Element to enable quiet mode for the request. When you add this element, you must set its value to true.
+  /// Element to enable quiet mode for the request. When you add this element, you must set its value to `true`.
   bool? get quiet;
   @override
   List<Object?> get props => [
         objects,
         quiet,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Delete')
@@ -69,6 +72,7 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
         Delete,
         _$Delete,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -76,6 +80,7 @@ class DeleteRestXmlSerializer extends _i3.StructuredSmithySerializer<Delete> {
           shape: 'restXml',
         )
       ];
+
   @override
   Delete deserialize(
     Serializers serializers,
