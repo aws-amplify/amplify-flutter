@@ -30,6 +30,7 @@ abstract class ContinuationEvent
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ContinuationEvent');
@@ -46,6 +47,7 @@ class ContinuationEventRestXmlSerializer
         ContinuationEvent,
         _$ContinuationEvent,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -53,6 +55,7 @@ class ContinuationEventRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ContinuationEvent deserialize(
     Serializers serializers,
