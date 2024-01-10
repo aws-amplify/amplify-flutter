@@ -124,7 +124,7 @@ void main() {
       final previewPackage = await d
           .package(
             'preview_pkg',
-            sdkConstraint: '^3.2.0-0',
+            sdkConstraint: '^3.3.0-0',
           )
           .create();
       expect(
