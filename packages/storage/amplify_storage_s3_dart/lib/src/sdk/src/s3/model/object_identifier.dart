@@ -40,13 +40,16 @@ abstract class ObjectIdentifier
   /// Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see [XML related object key constraints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints).
   String get key;
 
-  /// VersionId for the specific version of the object to delete.
+  /// Version ID for the specific version of the object to delete.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
   @override
   List<Object?> get props => [
         key,
         versionId,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectIdentifier')
@@ -71,6 +74,7 @@ class ObjectIdentifierRestXmlSerializer
         ObjectIdentifier,
         _$ObjectIdentifier,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +82,7 @@ class ObjectIdentifierRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ObjectIdentifier deserialize(
     Serializers serializers,
