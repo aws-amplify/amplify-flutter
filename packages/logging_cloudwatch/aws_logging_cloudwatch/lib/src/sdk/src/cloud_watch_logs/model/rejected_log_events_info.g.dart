@@ -72,9 +72,7 @@ class RejectedLogEventsInfoBuilder
   set expiredLogEventEndIndex(int? expiredLogEventEndIndex) =>
       _$this._expiredLogEventEndIndex = expiredLogEventEndIndex;
 
-  RejectedLogEventsInfoBuilder() {
-    RejectedLogEventsInfo._init(this);
-  }
+  RejectedLogEventsInfoBuilder();
 
   RejectedLogEventsInfoBuilder get _$this {
     final $v = _$v;

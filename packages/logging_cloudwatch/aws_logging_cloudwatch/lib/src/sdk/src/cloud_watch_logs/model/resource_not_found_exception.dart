@@ -41,8 +41,6 @@ abstract class ResourceNotFoundException
   static const List<_i2.SmithySerializer<ResourceNotFoundException>>
       serializers = [ResourceNotFoundExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -50,8 +48,10 @@ abstract class ResourceNotFoundException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'ResourceNotFoundException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -60,8 +60,10 @@ abstract class ResourceNotFoundException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
@@ -83,6 +85,7 @@ class ResourceNotFoundExceptionAwsJson11Serializer
         ResourceNotFoundException,
         _$ResourceNotFoundException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +93,7 @@ class ResourceNotFoundExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ResourceNotFoundException deserialize(
     Serializers serializers,

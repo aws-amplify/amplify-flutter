@@ -41,9 +41,6 @@ abstract class CreateLogStreamRequest
   static const List<_i1.SmithySerializer<CreateLogStreamRequest>> serializers =
       [CreateLogStreamRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateLogStreamRequestBuilder b) {}
-
   /// The name of the log group.
   String get logGroupName;
 
@@ -51,11 +48,13 @@ abstract class CreateLogStreamRequest
   String get logStreamName;
   @override
   CreateLogStreamRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         logGroupName,
         logStreamName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateLogStreamRequest')
@@ -81,6 +80,7 @@ class CreateLogStreamRequestAwsJson11Serializer
         CreateLogStreamRequest,
         _$CreateLogStreamRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -88,6 +88,7 @@ class CreateLogStreamRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   CreateLogStreamRequest deserialize(
     Serializers serializers,

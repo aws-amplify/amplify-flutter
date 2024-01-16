@@ -4,11 +4,10 @@
 library aws_logging_cloudwatch.cloud_watch_logs.model.put_log_events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/rejected_log_events_info.dart'
-    as _i2;
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/rejected_log_events_info.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'put_log_events_response.g.dart';
 
@@ -17,7 +16,7 @@ abstract class PutLogEventsResponse
     implements Built<PutLogEventsResponse, PutLogEventsResponseBuilder> {
   factory PutLogEventsResponse({
     String? nextSequenceToken,
-    _i2.RejectedLogEventsInfo? rejectedLogEventsInfo,
+    RejectedLogEventsInfo? rejectedLogEventsInfo,
   }) {
     return _$PutLogEventsResponse._(
       nextSequenceToken: nextSequenceToken,
@@ -38,12 +37,9 @@ abstract class PutLogEventsResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PutLogEventsResponse>> serializers = [
+  static const List<_i2.SmithySerializer<PutLogEventsResponse>> serializers = [
     PutLogEventsResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutLogEventsResponseBuilder b) {}
 
   /// The next sequence token.
   ///
@@ -53,12 +49,13 @@ abstract class PutLogEventsResponse
   String? get nextSequenceToken;
 
   /// The rejected events.
-  _i2.RejectedLogEventsInfo? get rejectedLogEventsInfo;
+  RejectedLogEventsInfo? get rejectedLogEventsInfo;
   @override
   List<Object?> get props => [
         nextSequenceToken,
         rejectedLogEventsInfo,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutLogEventsResponse')
@@ -75,7 +72,7 @@ abstract class PutLogEventsResponse
 }
 
 class PutLogEventsResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<PutLogEventsResponse> {
+    extends _i2.StructuredSmithySerializer<PutLogEventsResponse> {
   const PutLogEventsResponseAwsJson11Serializer()
       : super('PutLogEventsResponse');
 
@@ -84,13 +81,15 @@ class PutLogEventsResponseAwsJson11Serializer
         PutLogEventsResponse,
         _$PutLogEventsResponse,
       ];
+
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PutLogEventsResponse deserialize(
     Serializers serializers,
@@ -115,8 +114,8 @@ class PutLogEventsResponseAwsJson11Serializer
         case 'rejectedLogEventsInfo':
           result.rejectedLogEventsInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RejectedLogEventsInfo),
-          ) as _i2.RejectedLogEventsInfo));
+            specifiedType: const FullType(RejectedLogEventsInfo),
+          ) as RejectedLogEventsInfo));
       }
     }
 
@@ -145,7 +144,7 @@ class PutLogEventsResponseAwsJson11Serializer
         ..add('rejectedLogEventsInfo')
         ..add(serializers.serialize(
           rejectedLogEventsInfo,
-          specifiedType: const FullType(_i2.RejectedLogEventsInfo),
+          specifiedType: const FullType(RejectedLogEventsInfo),
         ));
     }
     return result$;

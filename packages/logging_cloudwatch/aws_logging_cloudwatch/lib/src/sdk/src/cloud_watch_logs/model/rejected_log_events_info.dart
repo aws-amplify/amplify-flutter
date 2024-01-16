@@ -38,9 +38,6 @@ abstract class RejectedLogEventsInfo
     RejectedLogEventsInfoAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RejectedLogEventsInfoBuilder b) {}
-
   /// The log events that are too new.
   int? get tooNewLogEventStartIndex;
 
@@ -55,6 +52,7 @@ abstract class RejectedLogEventsInfo
         tooOldLogEventEndIndex,
         expiredLogEventEndIndex,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RejectedLogEventsInfo')
@@ -84,6 +82,7 @@ class RejectedLogEventsInfoAwsJson11Serializer
         RejectedLogEventsInfo,
         _$RejectedLogEventsInfo,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -91,6 +90,7 @@ class RejectedLogEventsInfoAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   RejectedLogEventsInfo deserialize(
     Serializers serializers,

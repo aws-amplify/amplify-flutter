@@ -12,7 +12,7 @@ class _$PutLogEventsRequest extends PutLogEventsRequest {
   @override
   final String logStreamName;
   @override
-  final _i4.BuiltList<_i3.InputLogEvent> logEvents;
+  final _i3.BuiltList<InputLogEvent> logEvents;
   @override
   final String? sequenceToken;
 
@@ -78,10 +78,10 @@ class PutLogEventsRequestBuilder
   set logStreamName(String? logStreamName) =>
       _$this._logStreamName = logStreamName;
 
-  _i4.ListBuilder<_i3.InputLogEvent>? _logEvents;
-  _i4.ListBuilder<_i3.InputLogEvent> get logEvents =>
-      _$this._logEvents ??= new _i4.ListBuilder<_i3.InputLogEvent>();
-  set logEvents(_i4.ListBuilder<_i3.InputLogEvent>? logEvents) =>
+  _i3.ListBuilder<InputLogEvent>? _logEvents;
+  _i3.ListBuilder<InputLogEvent> get logEvents =>
+      _$this._logEvents ??= new _i3.ListBuilder<InputLogEvent>();
+  set logEvents(_i3.ListBuilder<InputLogEvent>? logEvents) =>
       _$this._logEvents = logEvents;
 
   String? _sequenceToken;
@@ -89,9 +89,7 @@ class PutLogEventsRequestBuilder
   set sequenceToken(String? sequenceToken) =>
       _$this._sequenceToken = sequenceToken;
 
-  PutLogEventsRequestBuilder() {
-    PutLogEventsRequest._init(this);
-  }
+  PutLogEventsRequestBuilder();
 
   PutLogEventsRequestBuilder get _$this {
     final $v = _$v;

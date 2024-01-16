@@ -10,7 +10,7 @@ class _$PutLogEventsResponse extends PutLogEventsResponse {
   @override
   final String? nextSequenceToken;
   @override
-  final _i2.RejectedLogEventsInfo? rejectedLogEventsInfo;
+  final RejectedLogEventsInfo? rejectedLogEventsInfo;
 
   factory _$PutLogEventsResponse(
           [void Function(PutLogEventsResponseBuilder)? updates]) =>
@@ -55,16 +55,14 @@ class PutLogEventsResponseBuilder
   set nextSequenceToken(String? nextSequenceToken) =>
       _$this._nextSequenceToken = nextSequenceToken;
 
-  _i2.RejectedLogEventsInfoBuilder? _rejectedLogEventsInfo;
-  _i2.RejectedLogEventsInfoBuilder get rejectedLogEventsInfo =>
-      _$this._rejectedLogEventsInfo ??= new _i2.RejectedLogEventsInfoBuilder();
+  RejectedLogEventsInfoBuilder? _rejectedLogEventsInfo;
+  RejectedLogEventsInfoBuilder get rejectedLogEventsInfo =>
+      _$this._rejectedLogEventsInfo ??= new RejectedLogEventsInfoBuilder();
   set rejectedLogEventsInfo(
-          _i2.RejectedLogEventsInfoBuilder? rejectedLogEventsInfo) =>
+          RejectedLogEventsInfoBuilder? rejectedLogEventsInfo) =>
       _$this._rejectedLogEventsInfo = rejectedLogEventsInfo;
 
-  PutLogEventsResponseBuilder() {
-    PutLogEventsResponse._init(this);
-  }
+  PutLogEventsResponseBuilder();
 
   PutLogEventsResponseBuilder get _$this {
     final $v = _$v;

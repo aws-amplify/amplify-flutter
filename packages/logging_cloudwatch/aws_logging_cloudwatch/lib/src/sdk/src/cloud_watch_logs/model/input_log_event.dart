@@ -17,10 +17,9 @@ abstract class InputLogEvent
     implements Built<InputLogEvent, InputLogEventBuilder> {
   /// Represents a log event, which is a record of activity that was recorded by the application or resource being monitored.
   factory InputLogEvent({
-    _i2.Int64? timestamp,
+    required _i2.Int64 timestamp,
     required String message,
   }) {
-    timestamp ??= _i2.Int64.ZERO;
     return _$InputLogEvent._(
       timestamp: timestamp,
       message: message,
@@ -37,21 +36,17 @@ abstract class InputLogEvent
     InputLogEventAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputLogEventBuilder b) {
-    b.timestamp = _i2.Int64.ZERO;
-  }
-
   /// The time the event occurred, expressed as the number of milliseconds after `Jan 1, 1970 00:00:00 UTC`.
   _i2.Int64 get timestamp;
 
-  /// The raw event message.
+  /// The raw event message. Each log event can be no larger than 256 KB.
   String get message;
   @override
   List<Object?> get props => [
         timestamp,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InputLogEvent')
@@ -76,6 +71,7 @@ class InputLogEventAwsJson11Serializer
         InputLogEvent,
         _$InputLogEvent,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -83,6 +79,7 @@ class InputLogEventAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InputLogEvent deserialize(
     Serializers serializers,

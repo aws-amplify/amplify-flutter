@@ -41,8 +41,6 @@ abstract class ServiceUnavailableException
   static const List<_i2.SmithySerializer<ServiceUnavailableException>>
       serializers = [ServiceUnavailableExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceUnavailableExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -50,8 +48,10 @@ abstract class ServiceUnavailableException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'ServiceUnavailableException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -60,8 +60,10 @@ abstract class ServiceUnavailableException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ServiceUnavailableException')
@@ -83,6 +85,7 @@ class ServiceUnavailableExceptionAwsJson11Serializer
         ServiceUnavailableException,
         _$ServiceUnavailableException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +93,7 @@ class ServiceUnavailableExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ServiceUnavailableException deserialize(
     Serializers serializers,
