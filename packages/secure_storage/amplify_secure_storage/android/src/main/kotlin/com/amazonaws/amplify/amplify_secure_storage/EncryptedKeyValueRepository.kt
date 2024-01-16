@@ -63,7 +63,11 @@ open class EncryptedKeyValueRepository(
 
     @VisibleForTesting
     open fun removeSharedPreferencesFile() {
-        File("${context.filesDir.parent}/shared_prefs/$sharedPreferencesName.xml").delete()
+        val file = File("${context.filesDir.parent}/shared_prefs/$sharedPreferencesName.xml")
+        if (file.exists()) {
+            file.writeText("")
+            file.delete()
+        }
     }
 
     /**
