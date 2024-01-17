@@ -34,7 +34,7 @@ class ParameterLocation {
       ParameterLocation._(val & other.val);
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) || other is ParameterLocation && val == other.val;
 
   @override
