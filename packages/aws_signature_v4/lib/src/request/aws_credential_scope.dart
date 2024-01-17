@@ -4,7 +4,6 @@
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
-import 'package:aws_signature_v4/src/request/aws_date_time.dart';
 import 'package:aws_signature_v4/src/signer/aws_signer.dart';
 
 /// {@template aws_signature_v4.aws_credential_scope}

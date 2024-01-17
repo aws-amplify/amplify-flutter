@@ -22,6 +22,7 @@ export 'src/exception/cancellation_exception.dart';
 export 'src/exception/invalid_file_exception.dart';
 // HTTP
 export 'src/http/alpn_protocol.dart';
+export 'src/http/aws_date_time.dart';
 export 'src/http/aws_headers.dart';
 export 'src/http/aws_http_client.dart';
 export 'src/http/aws_http_method.dart';
