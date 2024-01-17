@@ -102,7 +102,7 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       final langCodepageArr = lpTranslate.value;
       final n = lenTranslate.value / sizeOf<_LANGANDCODEPAGE>();
       final langCodepages = [
-        // TODO(equartey): Use `(langCodepageArr + 1).ref` when Dart 3.30 is released.
+        // TODO(equartey): Use `(langCodepageArr + i).ref` when Dart 3.30 is released.
         // ignore: deprecated_member_use
         for (var i = 0; i < n; i++) langCodepageArr.elementAt(i).ref,
       ];
