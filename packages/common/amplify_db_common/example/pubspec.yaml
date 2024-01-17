@@ -8,13 +8,13 @@ environment:
 
 dependencies:
   amplify_db_common: ">=0.1.2+5 <0.2.0"
-  drift: ">=2.12.0 <2.13.0"
+  drift: ">=2.14.0 <2.15.0"
   flutter:
     sdk: flutter
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  drift_dev: ">=2.12.0 <2.13.0"
+  drift_dev: ">=2.14.0 <2.15.0"
   build_runner: ^2.4.0
   flutter_test:
     sdk: flutter
