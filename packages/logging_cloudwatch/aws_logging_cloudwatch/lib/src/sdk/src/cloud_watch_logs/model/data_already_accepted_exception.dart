@@ -55,8 +55,6 @@ abstract class DataAlreadyAcceptedException
   static const List<_i2.SmithySerializer<DataAlreadyAcceptedException>>
       serializers = [DataAlreadyAcceptedExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DataAlreadyAcceptedExceptionBuilder b) {}
   String? get expectedSequenceToken;
   @override
   String? get message;
@@ -65,8 +63,10 @@ abstract class DataAlreadyAcceptedException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'DataAlreadyAcceptedException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -75,11 +75,13 @@ abstract class DataAlreadyAcceptedException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         expectedSequenceToken,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DataAlreadyAcceptedException')
@@ -105,6 +107,7 @@ class DataAlreadyAcceptedExceptionAwsJson11Serializer
         DataAlreadyAcceptedException,
         _$DataAlreadyAcceptedException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -112,6 +115,7 @@ class DataAlreadyAcceptedExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DataAlreadyAcceptedException deserialize(
     Serializers serializers,

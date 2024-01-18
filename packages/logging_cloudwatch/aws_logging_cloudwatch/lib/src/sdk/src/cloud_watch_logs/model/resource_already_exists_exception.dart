@@ -43,8 +43,6 @@ abstract class ResourceAlreadyExistsException
   static const List<_i2.SmithySerializer<ResourceAlreadyExistsException>>
       serializers = [ResourceAlreadyExistsExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -52,8 +50,10 @@ abstract class ResourceAlreadyExistsException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'ResourceAlreadyExistsException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -62,8 +62,10 @@ abstract class ResourceAlreadyExistsException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceAlreadyExistsException')
@@ -85,6 +87,7 @@ class ResourceAlreadyExistsExceptionAwsJson11Serializer
         ResourceAlreadyExistsException,
         _$ResourceAlreadyExistsException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -92,6 +95,7 @@ class ResourceAlreadyExistsExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ResourceAlreadyExistsException deserialize(
     Serializers serializers,
