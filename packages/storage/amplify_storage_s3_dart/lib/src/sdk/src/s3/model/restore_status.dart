@@ -11,10 +11,14 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'restore_status.g.dart';
 
 /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
+///
+/// This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
 abstract class RestoreStatus
     with _i1.AWSEquatable<RestoreStatus>
     implements Built<RestoreStatus, RestoreStatusBuilder> {
   /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   factory RestoreStatus({
     bool? isRestoreInProgress,
     DateTime? restoreExpiryDate,
@@ -26,6 +30,8 @@ abstract class RestoreStatus
   }
 
   /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   factory RestoreStatus.build([void Function(RestoreStatusBuilder) updates]) =
       _$RestoreStatus;
 
@@ -55,6 +61,7 @@ abstract class RestoreStatus
         isRestoreInProgress,
         restoreExpiryDate,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestoreStatus')
@@ -79,6 +86,7 @@ class RestoreStatusRestXmlSerializer
         RestoreStatus,
         _$RestoreStatus,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -86,6 +94,7 @@ class RestoreStatusRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   RestoreStatus deserialize(
     Serializers serializers,

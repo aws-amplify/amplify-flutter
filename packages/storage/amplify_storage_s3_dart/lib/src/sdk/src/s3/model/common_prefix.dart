@@ -33,6 +33,7 @@ abstract class CommonPrefix
   String? get prefix;
   @override
   List<Object?> get props => [prefix];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CommonPrefix')
@@ -53,6 +54,7 @@ class CommonPrefixRestXmlSerializer
         CommonPrefix,
         _$CommonPrefix,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -60,6 +62,7 @@ class CommonPrefixRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CommonPrefix deserialize(
     Serializers serializers,

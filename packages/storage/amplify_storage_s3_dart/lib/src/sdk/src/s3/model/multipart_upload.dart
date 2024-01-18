@@ -59,9 +59,13 @@ abstract class MultipartUpload
   DateTime? get initiated;
 
   /// The class of storage used to store the object.
+  ///
+  /// **Directory buckets** \- Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   StorageClass? get storageClass;
 
   /// Specifies the owner of the object that is part of the multipart upload.
+  ///
+  /// **Directory buckets** \- The bucket owner is returned as the object owner for all the objects.
   Owner? get owner;
 
   /// Identifies who initiated the multipart upload.
@@ -79,6 +83,7 @@ abstract class MultipartUpload
         initiator,
         checksumAlgorithm,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MultipartUpload')
@@ -123,6 +128,7 @@ class MultipartUploadRestXmlSerializer
         MultipartUpload,
         _$MultipartUpload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -130,6 +136,7 @@ class MultipartUploadRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   MultipartUpload deserialize(
     Serializers serializers,

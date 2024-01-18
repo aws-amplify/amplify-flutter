@@ -254,12 +254,16 @@ abstract class HeadObjectOutput
       [HeadObjectOutputRestXmlSerializer()];
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get deleteMarker;
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
 
-  /// If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs providing object expiration information. The value of the `rule-id` is URL-encoded.
+  /// If the object expiration is configured (see [`PutBucketLifecycleConfiguration`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html) ), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs providing object expiration information. The value of the `rule-id` is URL-encoded.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get expiration;
 
   /// If the object is an archived object (an object whose storage class is GLACIER), the response includes this header if either the archive restoration is in progress (see [RestoreObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html) or an archive copy is already restored.
@@ -271,36 +275,44 @@ abstract class HeadObjectOutput
   /// If the object restoration is in progress, the header returns the value `ongoing-request="true"`.
   ///
   /// For more information about archiving objects, see [Transitioning Objects: General Considerations](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations).
+  ///
+  /// This functionality is not supported for directory buckets. Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   String? get restore;
 
   /// The archive state of the head object.
+  ///
+  /// This functionality is not supported for directory buckets.
   ArchiveStatus? get archiveStatus;
 
-  /// Creation date of the object.
+  /// Date and time when the object was last modified.
   DateTime? get lastModified;
 
   /// Size of the body in bytes.
   _i3.Int64? get contentLength;
 
-  /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
+  /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
 
-  /// The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
+  /// The base64-encoded, 32-bit CRC32C checksum of the object. This will only be present if it was uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32C;
 
-  /// The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
+  /// The base64-encoded, 160-bit SHA-1 digest of the object. This will only be present if it was uploaded with the object. When you use the API operation on an object that was uploaded using multipart uploads, this value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha1;
 
-  /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
+  /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. When you use an API operation on an object that was uploaded using multipart uploads, this value may not be a direct checksum value of the full object. Instead, it's a calculation based on the checksum values of each individual part. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
   /// An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
+  ///
+  /// This functionality is not supported for directory buckets.
   int? get missingMeta;
 
-  /// Version of the object.
+  /// Version ID of the object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
   /// Specifies caching behavior along the request/reply chain.
@@ -309,7 +321,7 @@ abstract class HeadObjectOutput
   /// Specifies presentational information for the object.
   String? get contentDisposition;
 
-  /// Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to obtain the media-type referenced by the Content-Type header field.
+  /// Indicates what content encodings have been applied to the object and thus what decoding mechanisms must be applied to obtain the media-type referenced by the Content-Type header field.
   String? get contentEncoding;
 
   /// The language the content is in.
@@ -322,32 +334,48 @@ abstract class HeadObjectOutput
   DateTime? get expires;
 
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get websiteRedirectLocation;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
+  /// The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
+  ///
+  /// For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
   ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
   _i4.BuiltMap<String, String>? get metadata;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to confirm the encryption algorithm that's used.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerAlgorithm;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide the round-trip message integrity verification of the customer-provided encryption key.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsKeyId;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   ///
   /// For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html).
+  ///
+  /// **Directory buckets** \- Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   StorageClass? get storageClass;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
 
   /// Amazon S3 can return this header if your request involves a bucket that is either a source or a destination in a replication rule.
@@ -364,21 +392,30 @@ abstract class HeadObjectOutput
   ///
   ///
   /// For more information, see [Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html).
+  ///
+  /// This functionality is not supported for directory buckets.
   ReplicationStatus? get replicationStatus;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
   int? get partsCount;
 
   /// The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see [Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
+  ///
+  /// This functionality is not supported for directory buckets.
   ObjectLockMode? get objectLockMode;
 
   /// The date and time when the Object Lock retention period expires. This header is only returned if the requester has the `s3:GetObjectRetention` permission.
+  ///
+  /// This functionality is not supported for directory buckets.
   DateTime? get objectLockRetainUntilDate;
 
   /// Specifies whether a legal hold is in effect for this object. This header is only returned if the requester has the `s3:GetObjectLegalHold` permission. This header is not returned if the specified version of this object has never had a legal hold applied. For more information about S3 Object Lock, see [Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
+  ///
+  /// This functionality is not supported for directory buckets.
   ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
   @override
   HeadObjectOutputPayload getPayload() => HeadObjectOutputPayload();
+
   @override
   List<Object?> get props => [
         deleteMarker,
@@ -416,6 +453,7 @@ abstract class HeadObjectOutput
         objectLockRetainUntilDate,
         objectLockLegalHoldStatus,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HeadObjectOutput')
@@ -573,6 +611,7 @@ abstract class HeadObjectOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HeadObjectOutputPayload');
@@ -591,6 +630,7 @@ class HeadObjectOutputRestXmlSerializer
         HeadObjectOutputPayload,
         _$HeadObjectOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -598,6 +638,7 @@ class HeadObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HeadObjectOutputPayload deserialize(
     Serializers serializers,

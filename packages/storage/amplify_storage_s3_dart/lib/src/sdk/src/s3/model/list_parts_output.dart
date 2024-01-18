@@ -109,9 +109,13 @@ abstract class ListPartsOutput
   /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, then the response includes this header indicating when the initiated multipart upload will become eligible for abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
   ///
   /// The response will also include the `x-amz-abort-rule-id` header that will provide the ID of the lifecycle configuration rule that defines this action.
+  ///
+  /// This functionality is not supported for directory buckets.
   DateTime? get abortDate;
 
   /// This header is returned along with the `x-amz-abort-date` header. It identifies applicable lifecycle configuration rule that defines the action to abort incomplete multipart uploads.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get abortRuleId;
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
@@ -142,12 +146,18 @@ abstract class ListPartsOutput
   Initiator? get initiator;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
+  ///
+  /// **Directory buckets** \- The bucket owner is returned as the object owner for all the parts.
   Owner? get owner;
 
-  /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
+  /// The class of storage used to store the uploaded object.
+  ///
+  /// **Directory buckets** \- Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   StorageClass? get storageClass;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
 
   /// The algorithm that was used to create a checksum of the object.
@@ -173,6 +183,7 @@ abstract class ListPartsOutput
         b.storageClass = storageClass;
         b.uploadId = uploadId;
       });
+
   @override
   List<Object?> get props => [
         abortDate,
@@ -191,6 +202,7 @@ abstract class ListPartsOutput
         requestCharged,
         checksumAlgorithm,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListPartsOutput')
@@ -290,6 +302,8 @@ abstract class ListPartsOutputPayload
   String? get nextPartNumberMarker;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
+  ///
+  /// **Directory buckets** \- The bucket owner is returned as the object owner for all the parts.
   Owner? get owner;
 
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
@@ -298,7 +312,9 @@ abstract class ListPartsOutputPayload
   /// Container for elements related to a particular part. A response can contain zero or more `Part` elements.
   _i3.BuiltList<Part>? get parts;
 
-  /// Class of storage (STANDARD or REDUCED_REDUNDANCY) used to store the uploaded object.
+  /// The class of storage used to store the uploaded object.
+  ///
+  /// **Directory buckets** \- Only the S3 Express One Zone storage class is supported by directory buckets to store objects.
   StorageClass? get storageClass;
 
   /// Upload ID identifying the multipart upload whose parts are being listed.
@@ -318,6 +334,7 @@ abstract class ListPartsOutputPayload
         storageClass,
         uploadId,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListPartsOutputPayload')
@@ -384,6 +401,7 @@ class ListPartsOutputRestXmlSerializer
         ListPartsOutputPayload,
         _$ListPartsOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -391,6 +409,7 @@ class ListPartsOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ListPartsOutputPayload deserialize(
     Serializers serializers,
