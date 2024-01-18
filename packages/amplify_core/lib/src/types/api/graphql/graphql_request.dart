@@ -74,4 +74,24 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
           'authorizationMode': authorizationMode!.name,
         if (decodePath != null) 'decodePath': decodePath,
       };
+
+  GraphQLRequest<T> copyWith({
+    String? document,
+    String? apiName,
+    Map<String, String>? headers,
+    APIAuthorizationType? authorizationMode,
+    Map<String, dynamic>? variables,
+    String? decodePath,
+    ModelType? modelType,
+  }) {
+    return GraphQLRequest<T>(
+      document: document ?? this.document,
+      apiName: apiName ?? this.apiName,
+      headers: headers ?? this.headers,
+      authorizationMode: authorizationMode ?? this.authorizationMode,
+      variables: variables ?? this.variables,
+      decodePath: decodePath ?? this.decodePath,
+      modelType: modelType ?? this.modelType,
+    );
+  }
 }
