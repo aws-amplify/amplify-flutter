@@ -22,13 +22,11 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the CpkOneToOneBidirectionalChildExplicitCD type in your schema. */
-class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
-  static const classType =
-      const _CpkOneToOneBidirectionalChildExplicitCDModelType();
+/** This is an auto generated class representing the lowerCase type in your schema. */
+class lowerCase extends amplify_core.Model {
+  static const classType = const _lowerCaseModelType();
   final String id;
   final String? _name;
-  final CpkOneToOneBidirectionalParentCD? _belongsToParent;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -40,18 +38,8 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   @override
   String getId() => id;
 
-  CpkOneToOneBidirectionalChildExplicitCDModelIdentifier get modelIdentifier {
-    try {
-      return CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
-          id: id, name: _name!);
-    } catch (e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+  lowerCaseModelIdentifier get modelIdentifier {
+    return lowerCaseModelIdentifier(id: id);
   }
 
   String get name {
@@ -67,10 +55,6 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
     }
   }
 
-  CpkOneToOneBidirectionalParentCD? get belongsToParent {
-    return _belongsToParent;
-  }
-
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -79,21 +63,15 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CpkOneToOneBidirectionalChildExplicitCD._internal(
-      {required this.id, required name, belongsToParent, createdAt, updatedAt})
+  const lowerCase._internal(
+      {required this.id, required name, createdAt, updatedAt})
       : _name = name,
-        _belongsToParent = belongsToParent,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory CpkOneToOneBidirectionalChildExplicitCD(
-      {String? id,
-      required String name,
-      CpkOneToOneBidirectionalParentCD? belongsToParent}) {
-    return CpkOneToOneBidirectionalChildExplicitCD._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        belongsToParent: belongsToParent);
+  factory lowerCase({String? id, required String name}) {
+    return lowerCase._internal(
+        id: id == null ? amplify_core.UUID.getUUID() : id, name: name);
   }
 
   bool equals(Object other) {
@@ -103,10 +81,7 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CpkOneToOneBidirectionalChildExplicitCD &&
-        id == other.id &&
-        _name == other._name &&
-        _belongsToParent == other._belongsToParent;
+    return other is lowerCase && id == other.id && _name == other._name;
   }
 
   @override
@@ -116,12 +91,9 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("CpkOneToOneBidirectionalChildExplicitCD {");
+    buffer.write("lowerCase {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("belongsToParent=" +
-        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
-        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -132,32 +104,18 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
     return buffer.toString();
   }
 
-  CpkOneToOneBidirectionalChildExplicitCD copyWith(
-      {CpkOneToOneBidirectionalParentCD? belongsToParent}) {
-    return CpkOneToOneBidirectionalChildExplicitCD._internal(
-        id: id,
-        name: name,
-        belongsToParent: belongsToParent ?? this.belongsToParent);
+  lowerCase copyWith({String? name}) {
+    return lowerCase._internal(id: id, name: name ?? this.name);
   }
 
-  CpkOneToOneBidirectionalChildExplicitCD copyWithModelFieldValues(
-      {ModelFieldValue<CpkOneToOneBidirectionalParentCD?>? belongsToParent}) {
-    return CpkOneToOneBidirectionalChildExplicitCD._internal(
-        id: id,
-        name: name,
-        belongsToParent: belongsToParent == null
-            ? this.belongsToParent
-            : belongsToParent.value);
+  lowerCase copyWithModelFieldValues({ModelFieldValue<String>? name}) {
+    return lowerCase._internal(
+        id: id, name: name == null ? this.name : name.value);
   }
 
-  CpkOneToOneBidirectionalChildExplicitCD.fromJson(Map<String, dynamic> json)
+  lowerCase.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _belongsToParent = json['belongsToParent']?['serializedData'] != null
-            ? CpkOneToOneBidirectionalParentCD.fromJson(
-                new Map<String, dynamic>.from(
-                    json['belongsToParent']['serializedData']))
-            : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -168,7 +126,6 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'belongsToParent': _belongsToParent?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -176,57 +133,57 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   Map<String, Object?> toMap() => {
         'id': id,
         'name': _name,
-        'belongsToParent': _belongsToParent,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          CpkOneToOneBidirectionalChildExplicitCDModelIdentifier>
-      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
-          CpkOneToOneBidirectionalChildExplicitCDModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<lowerCaseModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<lowerCaseModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
-  static final BELONGSTOPARENT = amplify_core.QueryField(
-      fieldName: "belongsToParent",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CpkOneToOneBidirectionalParentCD'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CpkOneToOneBidirectionalChildExplicitCD";
-    modelSchemaDefinition.pluralName =
-        "CpkOneToOneBidirectionalChildExplicitCDS";
+    modelSchemaDefinition.name = "lowerCase";
+    modelSchemaDefinition.pluralName = "lowerCases";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.PUBLIC,
+          provider: amplify_core.AuthRuleProvider.APIKEY,
+          operations: const [amplify_core.ModelOperation.READ]),
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.PUBLIC,
+          provider: amplify_core.AuthRuleProvider.IAM,
+          operations: const [amplify_core.ModelOperation.READ]),
+      amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           provider: amplify_core.AuthRuleProvider.IAM,
+          operations: const [amplify_core.ModelOperation.READ]),
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.PRIVATE,
+          provider: amplify_core.AuthRuleProvider.USERPOOLS,
+          operations: const [amplify_core.ModelOperation.READ]),
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.OWNER,
+          ownerField: "owner",
+          identityClaim: "cognito:username",
+          provider: amplify_core.AuthRuleProvider.USERPOOLS,
           operations: const [
             amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.READ,
             amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
+            amplify_core.ModelOperation.DELETE
           ])
-    ];
-
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id", "name"], name: null)
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CpkOneToOneBidirectionalChildExplicitCD.NAME,
+        key: lowerCase.NAME,
         isRequired: true,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: CpkOneToOneBidirectionalChildExplicitCD.BELONGSTOPARENT,
-        isRequired: false,
-        targetNames: ['belongsToParentID', 'belongsToParentName'],
-        ofModelName: 'CpkOneToOneBidirectionalParentCD'));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
@@ -246,42 +203,33 @@ class CpkOneToOneBidirectionalChildExplicitCD extends amplify_core.Model {
   });
 }
 
-class _CpkOneToOneBidirectionalChildExplicitCDModelType
-    extends amplify_core.ModelType<CpkOneToOneBidirectionalChildExplicitCD> {
-  const _CpkOneToOneBidirectionalChildExplicitCDModelType();
+class _lowerCaseModelType extends amplify_core.ModelType<lowerCase> {
+  const _lowerCaseModelType();
 
   @override
-  CpkOneToOneBidirectionalChildExplicitCD fromJson(
-      Map<String, dynamic> jsonData) {
-    return CpkOneToOneBidirectionalChildExplicitCD.fromJson(jsonData);
+  lowerCase fromJson(Map<String, dynamic> jsonData) {
+    return lowerCase.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'CpkOneToOneBidirectionalChildExplicitCD';
+    return 'lowerCase';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [CpkOneToOneBidirectionalChildExplicitCD] in your schema.
+ * of [lowerCase] in your schema.
  */
-class CpkOneToOneBidirectionalChildExplicitCDModelIdentifier
-    implements
-        amplify_core.ModelIdentifier<CpkOneToOneBidirectionalChildExplicitCD> {
+class lowerCaseModelIdentifier
+    implements amplify_core.ModelIdentifier<lowerCase> {
   final String id;
-  final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalChildExplicitCDModelIdentifier using [id] the primary key.
-   * And [name] the sort key.
-   */
-  const CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(
-      {required this.id, required this.name});
+  /** Create an instance of lowerCaseModelIdentifier using [id] the primary key. */
+  const lowerCaseModelIdentifier({required this.id});
 
   @override
-  Map<String, dynamic> serializeAsMap() =>
-      (<String, dynamic>{'id': id, 'name': name});
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -293,8 +241,7 @@ class CpkOneToOneBidirectionalChildExplicitCDModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() =>
-      'CpkOneToOneBidirectionalChildExplicitCDModelIdentifier(id: $id, name: $name)';
+  String toString() => 'lowerCaseModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -302,11 +249,9 @@ class CpkOneToOneBidirectionalChildExplicitCDModelIdentifier
       return true;
     }
 
-    return other is CpkOneToOneBidirectionalChildExplicitCDModelIdentifier &&
-        id == other.id &&
-        name == other.name;
+    return other is lowerCaseModelIdentifier && id == other.id;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode;
+  int get hashCode => id.hashCode;
 }

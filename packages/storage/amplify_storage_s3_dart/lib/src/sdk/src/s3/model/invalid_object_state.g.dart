@@ -12,16 +12,13 @@ class _$InvalidObjectState extends InvalidObjectState {
   @override
   final IntelligentTieringAccessTier? accessTier;
   @override
-  final int? statusCode;
-  @override
   final Map<String, String>? headers;
 
   factory _$InvalidObjectState(
           [void Function(InvalidObjectStateBuilder)? updates]) =>
       (new InvalidObjectStateBuilder()..update(updates))._build();
 
-  _$InvalidObjectState._(
-      {this.storageClass, this.accessTier, this.statusCode, this.headers})
+  _$InvalidObjectState._({this.storageClass, this.accessTier, this.headers})
       : super._();
 
   @override
@@ -65,10 +62,6 @@ class InvalidObjectStateBuilder
   set accessTier(IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
 
-  int? _statusCode;
-  int? get statusCode => _$this._statusCode;
-  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
-
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
@@ -80,7 +73,6 @@ class InvalidObjectStateBuilder
     if ($v != null) {
       _storageClass = $v.storageClass;
       _accessTier = $v.accessTier;
-      _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
     }
@@ -106,7 +98,6 @@ class InvalidObjectStateBuilder
         new _$InvalidObjectState._(
             storageClass: storageClass,
             accessTier: accessTier,
-            statusCode: statusCode,
             headers: headers);
     replace(_$result);
     return _$result;

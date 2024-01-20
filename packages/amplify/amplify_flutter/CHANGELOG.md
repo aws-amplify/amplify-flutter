@@ -1,3 +1,31 @@
+## 1.6.1
+
+### Fixes
+- fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
+- fix(core): pub docs ([#4049](https://github.com/aws-amplify/amplify-flutter/pull/4049))
+- fix(datastore): emit observeQuery snapshot when model create mutation results in an updated model ([#4084](https://github.com/aws-amplify/amplify-flutter/pull/4084))
+
+## 1.6.0
+
+### Features
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+### Fixes
+- fix(analytics): allow nullable userProfile
+- fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
+- fix: remove exception during token timeout ([#3939](https://github.com/aws-amplify/amplify-flutter/pull/3939))
+
+## 1.5.0
+
+### Feature
+
+- feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
+
+### Fixes
+
+- fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 ### Fixes

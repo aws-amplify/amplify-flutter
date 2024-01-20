@@ -126,7 +126,7 @@ class GraphQLRequestFactory {
   ) {
     var upperOutput = '';
     var lowerOutput = '';
-    final modelName = schema.name;
+    final modelName = _capitalize(schema.name);
 
     // build inputs based on request operation
     switch (operation) {
@@ -209,7 +209,7 @@ class GraphQLRequestFactory {
         getModelSchemaByModelName(modelType.modelName(), requestOperation);
 
     // e.g. "Blog" or "Blogs"
-    final name = _getName(schema, requestOperation);
+    final name = _capitalize(_getName(schema, requestOperation));
     // e.g. "query" or "mutation"
     final requestTypeVal = requestType.name;
     // e.g. "get" or "list"

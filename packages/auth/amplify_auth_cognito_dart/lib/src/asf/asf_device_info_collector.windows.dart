@@ -102,6 +102,8 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
       final langCodepageArr = lpTranslate.value;
       final n = lenTranslate.value / sizeOf<_LANGANDCODEPAGE>();
       final langCodepages = [
+        // TODO(equartey): `.elementAt(i)` is depreciated in Dart 3.3.0. Use `(langCodepageArr + i).ref` when min Dart version is 3.3.0 or higher
+        // ignore: deprecated_member_use
         for (var i = 0; i < n; i++) langCodepageArr.elementAt(i).ref,
       ];
       for (final _LANGANDCODEPAGE(:wLanguage, :wCodepage) in langCodepages) {

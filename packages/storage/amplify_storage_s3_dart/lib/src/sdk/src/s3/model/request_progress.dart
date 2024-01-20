@@ -33,6 +33,7 @@ abstract class RequestProgress
   bool? get enabled;
   @override
   List<Object?> get props => [enabled];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RequestProgress')
@@ -53,6 +54,7 @@ class RequestProgressRestXmlSerializer
         RequestProgress,
         _$RequestProgress,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -60,6 +62,7 @@ class RequestProgressRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   RequestProgress deserialize(
     Serializers serializers,

@@ -31,6 +31,7 @@ abstract class ParquetInput
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ParquetInput');
@@ -47,6 +48,7 @@ class ParquetInputRestXmlSerializer
         ParquetInput,
         _$ParquetInput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -54,6 +56,7 @@ class ParquetInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ParquetInput deserialize(
     Serializers serializers,

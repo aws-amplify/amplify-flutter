@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -59,6 +60,21 @@ void main() {
 
         var expectedItems = [1, 5, 3, 7, 1];
         expect(sortedList.toList(), orderedEquals(expectedItems));
+      });
+    });
+
+    group('copy()', () {
+      test('returns a copy of the current list', () {
+        final items = [1, 2, 3, 7, 10];
+        final sortedList = SortedList.fromPresortedList(items: items);
+        final copy = sortedList.copy();
+
+        expect(sortedList.equals(copy), isTrue);
+
+        copy.add(20);
+        expect(sortedList.equals(copy), isFalse);
+        expect(sortedList.length, items.length);
+        expect(copy.length, items.length + 1);
       });
     });
   });
