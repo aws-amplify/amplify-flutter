@@ -51,6 +51,7 @@ abstract class Progress
         bytesProcessed,
         bytesReturned,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Progress')
@@ -79,6 +80,7 @@ class ProgressRestXmlSerializer
         Progress,
         _$Progress,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -86,6 +88,7 @@ class ProgressRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   Progress deserialize(
     Serializers serializers,

@@ -42,6 +42,8 @@ abstract class Error
   String? get key;
 
   /// The version ID of the error.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
   /// The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type. The following is a list of Amazon S3 error codes. For more information, see [Error responses](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html).
@@ -760,6 +762,7 @@ abstract class Error
         code,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Error')
@@ -791,6 +794,7 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
         Error,
         _$Error,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -798,6 +802,7 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
           shape: 'restXml',
         )
       ];
+
   @override
   Error deserialize(
     Serializers serializers,

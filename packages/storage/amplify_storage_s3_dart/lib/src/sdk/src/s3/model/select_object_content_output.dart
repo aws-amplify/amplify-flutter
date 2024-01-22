@@ -41,8 +41,10 @@ abstract class SelectObjectContentOutput
   SelectObjectContentEventStream? get payload;
   @override
   SelectObjectContentEventStream? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectObjectContentOutput')

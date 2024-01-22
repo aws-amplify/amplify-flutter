@@ -39,6 +39,7 @@ abstract class CompletedMultipartUpload
   _i2.BuiltList<CompletedPart>? get parts;
   @override
   List<Object?> get props => [parts];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompletedMultipartUpload')
@@ -60,6 +61,7 @@ class CompletedMultipartUploadRestXmlSerializer
         CompletedMultipartUpload,
         _$CompletedMultipartUpload,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -67,6 +69,7 @@ class CompletedMultipartUploadRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CompletedMultipartUpload deserialize(
     Serializers serializers,

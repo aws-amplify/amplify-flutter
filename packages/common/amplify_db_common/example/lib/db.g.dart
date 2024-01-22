@@ -26,9 +26,10 @@ class $CountTableTable extends CountTable
   @override
   List<GeneratedColumn> get $columns => [id, count];
   @override
-  String get aliasedName => _alias ?? 'count_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'count_table';
+  String get actualTableName => $name;
+  static const String $name = 'count_table';
   @override
   VerificationContext validateIntegrity(Insertable<CountTableData> instance,
       {bool isInserting = false}) {

@@ -33,6 +33,7 @@ abstract class JsonOutput
   String? get recordDelimiter;
   @override
   List<Object?> get props => [recordDelimiter];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonOutput')
@@ -53,6 +54,7 @@ class JsonOutputRestXmlSerializer
         JsonOutput,
         _$JsonOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -60,6 +62,7 @@ class JsonOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   JsonOutput deserialize(
     Serializers serializers,
