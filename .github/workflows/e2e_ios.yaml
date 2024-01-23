@@ -25,10 +25,9 @@ jobs:
         channel:
           - beta
           - stable
-        # Skips e2e tests against beta on PRs, except for auth
-        # Todo(Jordan-Nelson): Update tests to skip beta for auth once flutter 3.16.0 becomes stable.
+        # Skips e2e tests against beta on PRs
         exclude:
-          - channel: ${{ (github.event_name == 'pull_request' && inputs.package-name != 'amplify_auth_cognito_example' && 'beta') || 'NONE' }}
+          - channel: ${{ (github.event_name == 'pull_request' && 'beta') || 'NONE' }}
 
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
