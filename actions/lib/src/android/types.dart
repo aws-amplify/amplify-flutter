@@ -49,7 +49,8 @@ enum AndroidApiLevel {
   api_27(27),
   api_26(26),
   api_25(25),
-  api_24(24); // The lowest API level we support.
+  api_24(24), // The lowest API level we support for most categories.
+  api_23(23); // The lowest API level we support for auth.
 
   const AndroidApiLevel(this.level);
 
