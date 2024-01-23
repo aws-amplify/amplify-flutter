@@ -41,8 +41,6 @@ abstract class UnrecognizedClientException
   static const List<_i2.SmithySerializer<UnrecognizedClientException>>
       serializers = [UnrecognizedClientExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UnrecognizedClientExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -50,8 +48,10 @@ abstract class UnrecognizedClientException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'UnrecognizedClientException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -60,8 +60,10 @@ abstract class UnrecognizedClientException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnrecognizedClientException')
@@ -83,6 +85,7 @@ class UnrecognizedClientExceptionAwsJson11Serializer
         UnrecognizedClientException,
         _$UnrecognizedClientException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +93,7 @@ class UnrecognizedClientExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UnrecognizedClientException deserialize(
     Serializers serializers,

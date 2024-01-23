@@ -4,9 +4,8 @@
 library aws_logging_cloudwatch.cloud_watch_logs.model.put_log_events_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/input_log_event.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/input_log_event.dart';
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -21,13 +20,13 @@ abstract class PutLogEventsRequest
   factory PutLogEventsRequest({
     required String logGroupName,
     required String logStreamName,
-    required List<_i3.InputLogEvent> logEvents,
+    required List<InputLogEvent> logEvents,
     String? sequenceToken,
   }) {
     return _$PutLogEventsRequest._(
       logGroupName: logGroupName,
       logStreamName: logStreamName,
-      logEvents: _i4.BuiltList(logEvents),
+      logEvents: _i3.BuiltList(logEvents),
       sequenceToken: sequenceToken,
     );
   }
@@ -49,9 +48,6 @@ abstract class PutLogEventsRequest
     PutLogEventsRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutLogEventsRequestBuilder b) {}
-
   /// The name of the log group.
   String get logGroupName;
 
@@ -59,7 +55,7 @@ abstract class PutLogEventsRequest
   String get logStreamName;
 
   /// The log events.
-  _i4.BuiltList<_i3.InputLogEvent> get logEvents;
+  _i3.BuiltList<InputLogEvent> get logEvents;
 
   /// The sequence token obtained from the response of the previous `PutLogEvents` call.
   ///
@@ -67,6 +63,7 @@ abstract class PutLogEventsRequest
   String? get sequenceToken;
   @override
   PutLogEventsRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         logGroupName,
@@ -74,6 +71,7 @@ abstract class PutLogEventsRequest
         logEvents,
         sequenceToken,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutLogEventsRequest')
@@ -106,6 +104,7 @@ class PutLogEventsRequestAwsJson11Serializer
         PutLogEventsRequest,
         _$PutLogEventsRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -113,6 +112,7 @@ class PutLogEventsRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PutLogEventsRequest deserialize(
     Serializers serializers,
@@ -143,10 +143,10 @@ class PutLogEventsRequestAwsJson11Serializer
           result.logEvents.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.InputLogEvent)],
+              _i3.BuiltList,
+              [FullType(InputLogEvent)],
             ),
-          ) as _i4.BuiltList<_i3.InputLogEvent>));
+          ) as _i3.BuiltList<InputLogEvent>));
         case 'sequenceToken':
           result.sequenceToken = (serializers.deserialize(
             value,
@@ -186,8 +186,8 @@ class PutLogEventsRequestAwsJson11Serializer
       serializers.serialize(
         logEvents,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.InputLogEvent)],
+          _i3.BuiltList,
+          [FullType(InputLogEvent)],
         ),
       ),
     ]);

@@ -4,16 +4,11 @@
 library aws_logging_cloudwatch.cloud_watch_logs.cloud_watch_logs_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart'
-    as _i4;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart'
-    as _i7;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart'
-    as _i6;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/operation/create_log_stream_operation.dart'
-    as _i5;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/operation/put_log_events_operation.dart'
-    as _i8;
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/operation/create_log_stream_operation.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/operation/put_log_events_operation.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
 
@@ -41,7 +36,7 @@ class CloudWatchLogsClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
@@ -75,11 +70,11 @@ class CloudWatchLogsClient {
   ///
   /// *   Don't use ':' (colon) or '*' (asterisk) characters.
   _i3.SmithyOperation<void> createLogStream(
-    _i4.CreateLogStreamRequest input, {
+    CreateLogStreamRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i5.CreateLogStreamOperation(
+    return CreateLogStreamOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -107,18 +102,20 @@ class CloudWatchLogsClient {
   ///
   /// *   A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
   ///
+  /// *   Each log event can be no larger than 256 KB.
+  ///
   /// *   The maximum number of log events in a batch is 10,000.
   ///
   /// *   The quota of five requests per second per log stream has been removed. Instead, `PutLogEvents` actions are throttled based on a per-second per-account quota. You can request an increase to the per-second throttling quota by using the Service Quotas service.
   ///
   ///
   /// If a call to `PutLogEvents` returns "UnrecognizedClientException" the most likely cause is a non-valid Amazon Web Services access key ID or secret key.
-  _i3.SmithyOperation<_i6.PutLogEventsResponse> putLogEvents(
-    _i7.PutLogEventsRequest input, {
+  _i3.SmithyOperation<PutLogEventsResponse> putLogEvents(
+    PutLogEventsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i8.PutLogEventsOperation(
+    return PutLogEventsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
