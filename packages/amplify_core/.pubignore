@@ -1,6 +1,1 @@
-# Ignore
-doc/*
-
-# Allow
-!doc/lib/*
-!doc/static/*
+doc/api/*
