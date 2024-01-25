@@ -103,6 +103,15 @@ open class AmplifyAuthCognitoPlugin :
     )
   }
 
+  /**
+   ASF Device Secrets Storage.
+   */
+  private val asfDeviceSecretsStore: LegacyKeyValueStore by lazy {
+    LegacyKeyValueStore(
+      applicationContext!!,
+      "AWS.Cognito.ContextData"
+    )
+
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     Log.d(TAG, "onAttachedToEngine")
     applicationContext = binding.applicationContext
@@ -271,6 +280,60 @@ open class AmplifyAuthCognitoPlugin :
     }
 
     callback(Result.success(data.build()))
+  }
+
+  /**
+   * Get Legacy Device Secrets
+   */
+  override fun fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<LegacyDeviceDetails>) -> Unit) {
+    val data = LegacyDeviceDetails.builder()
+
+    if (appClientId != null) {
+      val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+
+      val newLegacyDeviceSecretsStore = new LegacyKeyValueStore(
+        applicationContext!!,
+        "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
+      )
+
+      val deviceKey = newLegacyDeviceSecretsStore["DeviceKey"]
+      val deviceSecret = newLegacyDeviceSecretsStore["DeviceSecret"]
+      val deviceGroup = newLegacyDeviceSecretsStore["DeviceGroupKey"]
+
+      data.apply {
+        this.deviceKey = deviceKey
+        this.deviceSecret = deviceSecret
+        this.deviceGroupKey = deviceGroup
+      }
+
+    }
+
+    val asfDeviceId = asfDeviceSecretsStore["CognitoDeviceId"]
+    data.apply {
+      this.asfDeviceId = asfDeviceId
+    }
+
+    callback(Result.success(data.build()))
+  }
+
+  /**
+   * Delete Legacy Device Secrets
+   */
+  override fun deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<Unit>) -> Unit) {
+    if (appClientId != null) {
+      val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+
+      val legacyDeviceSecretsStore = new LegacyKeyValueStore(
+        applicationContext!!,
+        "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
+      )
+
+      legacyDeviceSecretsStore.clear()
+    }
+
+    asfDeviceSecretsStore.clear()
+
+    callback(Result.success(Unit))
   }
 
   /**
@@ -570,5 +633,21 @@ class LegacyCredentialStoreDataBuilder(
     accessToken,
     refreshToken,
     idToken,
+  )
+}
+
+fun LegacyDeviceDetails.Companion.builder() = LegacyDeviceDetailsBuilder()
+
+class LegacyDeviceDetailsBuilder(
+  var deviceKey: String? = null,
+  var deviceSecret: String? = null,
+  var deviceGroupKey: String? = null,
+  var asfDeviceId: String? = null,
+) {
+  fun build(): LegacyDeviceDetails = LegacyDeviceDetails(
+    deviceKey,
+    deviceSecret,
+    deviceGroupKey,
+    asfDeviceId,
   )
 }

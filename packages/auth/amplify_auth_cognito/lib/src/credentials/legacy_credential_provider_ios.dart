@@ -5,7 +5,8 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_ios_cognito_keys.dart';
 import 'package:amplify_auth_cognito/src/credentials/secure_storage_extension.dart';
-import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
+import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart'
+    as auth_cognito;
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
@@ -160,12 +161,80 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     }
   }
 
+  @override
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyDeviceSecretKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        final deviceKey = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.id],
+        );
+        final devicePassword = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.secret],
+        );
+        final deviceGroupKey = await userPoolStorage.read(
+          key: keys[LegacyDeviceSecretKey.group],
+        );
+        final asfDeviceId =
+            await userPoolStorage.read(key: keys[LegacyDeviceSecretKey.id]);
+
+        if (deviceKey != null &&
+            devicePassword != null &&
+            deviceGroupKey != null &&
+            asfDeviceId != null) {
+          return LegacyDeviceDetails(
+            deviceKey: deviceKey,
+            deviceGroupKey: deviceGroupKey,
+            devicePassword: devicePassword,
+            asfDeviceId: asfDeviceId,
+          );
+        }
+      }
+    }
+
+    return null;
+  }
+
+  @override
+  Future<void> deleteLegacyDeviceSecrets({
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    if (userPoolConfig != null) {
+      final userPoolStorage = await _getUserPoolStorage();
+      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final currentUserId = await userPoolStorage.read(
+        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+      );
+      if (currentUserId != null) {
+        final keys = LegacyDeviceSecretKeys(
+          currentUserId,
+          userPoolConfig,
+        );
+        await userPoolStorage.deleteMany([
+          keys[LegacyDeviceSecretKey.id],
+          keys[LegacyDeviceSecretKey.secret],
+          keys[LegacyDeviceSecretKey.group],
+        ]);
+      }
+    }
+  }
+
   final _bundleIdMemoizer = AsyncMemoizer<String>();
 
   /// Gets the bundle ID.
   FutureOr<String> _getBundleId() {
     return _bundleIdMemoizer.runOnce(() {
-      final bridge = _stateMachine.expect<NativeAuthBridge>();
+      final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
       return bridge.getBundleId();
     });
   }
