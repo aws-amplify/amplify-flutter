@@ -3,32 +3,22 @@
 
 library aws_logging_cloudwatch.cloud_watch_logs.operation.put_log_events_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/common/serializers.dart'
-    as _i6;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/data_already_accepted_exception.dart'
-    as _i9;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/invalid_parameter_exception.dart'
-    as _i10;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/invalid_sequence_token_exception.dart'
-    as _i11;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart'
-    as _i2;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart'
-    as _i3;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/resource_not_found_exception.dart'
-    as _i12;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/service_unavailable_exception.dart'
-    as _i13;
-import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/unrecognized_client_exception.dart'
-    as _i14;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/common/endpoint_resolver.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/common/serializers.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/data_already_accepted_exception.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/invalid_parameter_exception.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/invalid_sequence_token_exception.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/resource_not_found_exception.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/service_unavailable_exception.dart';
+import 'package:aws_logging_cloudwatch/src/sdk/src/cloud_watch_logs/model/unrecognized_client_exception.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Uploads a batch of log events to the specified log stream.
 ///
@@ -46,17 +36,16 @@ import 'package:smithy_aws/smithy_aws.dart' as _i5;
 ///
 /// *   A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
 ///
+/// *   Each log event can be no larger than 256 KB.
+///
 /// *   The maximum number of log events in a batch is 10,000.
 ///
 /// *   The quota of five requests per second per log stream has been removed. Instead, `PutLogEvents` actions are throttled based on a per-second per-account quota. You can request an increase to the per-second throttling quota by using the Service Quotas service.
 ///
 ///
 /// If a call to `PutLogEvents` returns "UnrecognizedClientException" the most likely cause is a non-valid Amazon Web Services access key ID or secret key.
-class PutLogEventsOperation extends _i1.HttpOperation<
-    _i2.PutLogEventsRequest,
-    _i2.PutLogEventsRequest,
-    _i3.PutLogEventsResponse,
-    _i3.PutLogEventsResponse> {
+class PutLogEventsOperation extends _i1.HttpOperation<PutLogEventsRequest,
+    PutLogEventsRequest, PutLogEventsResponse, PutLogEventsResponse> {
   /// Uploads a batch of log events to the specified log stream.
   ///
   /// The sequence token is now ignored in `PutLogEvents` actions. `PutLogEvents` actions are always accepted and never return `InvalidSequenceTokenException` or `DataAlreadyAcceptedException` even if the sequence token is not valid. You can use parallel `PutLogEvents` actions on the same log stream.
@@ -73,6 +62,8 @@ class PutLogEventsOperation extends _i1.HttpOperation<
   ///
   /// *   A batch of log events in a single request cannot span more than 24 hours. Otherwise, the operation fails.
   ///
+  /// *   Each log event can be no larger than 256 KB.
+  ///
   /// *   The maximum number of log events in a batch is 10,000.
   ///
   /// *   The quota of five requests per second per log stream has been removed. Instead, `PutLogEvents` actions are throttled based on a per-second per-account quota. You can request an increase to the per-second throttling quota by using the Service Quotas service.
@@ -82,8 +73,8 @@ class PutLogEventsOperation extends _i1.HttpOperation<
   PutLogEventsOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -94,11 +85,11 @@ class PutLogEventsOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.PutLogEventsRequest, _i2.PutLogEventsRequest,
-          _i3.PutLogEventsResponse, _i3.PutLogEventsResponse>> protocols = [
-    _i5.AwsJson1_1Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<PutLogEventsRequest, PutLogEventsRequest,
+          PutLogEventsResponse, PutLogEventsResponse>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -106,14 +97,14 @@ class PutLogEventsOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'Logs_20140328.PutLogEvents',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.cloudWatchLogs,
+              service: _i4.AWSService.cloudWatchLogs,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -121,8 +112,8 @@ class PutLogEventsOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -130,107 +121,113 @@ class PutLogEventsOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutLogEventsRequest input) =>
+  _i1.HttpRequest buildRequest(PutLogEventsRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
-  int successCode([_i3.PutLogEventsResponse? output]) => 200;
+  int successCode([PutLogEventsResponse? output]) => 200;
+
   @override
-  _i3.PutLogEventsResponse buildOutput(
-    _i3.PutLogEventsResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  PutLogEventsResponse buildOutput(
+    PutLogEventsResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.PutLogEventsResponse.fromResponse(
+      PutLogEventsResponse.fromResponse(
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.DataAlreadyAcceptedException,
-            _i9.DataAlreadyAcceptedException>(
+        _i1.SmithyError<DataAlreadyAcceptedException,
+            DataAlreadyAcceptedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'DataAlreadyAcceptedException',
           ),
           _i1.ErrorKind.client,
-          _i9.DataAlreadyAcceptedException,
-          builder: _i9.DataAlreadyAcceptedException.fromResponse,
+          DataAlreadyAcceptedException,
+          builder: DataAlreadyAcceptedException.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidParameterException,
-            _i10.InvalidParameterException>(
+        _i1.SmithyError<InvalidParameterException, InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'InvalidParameterException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidParameterException,
-          builder: _i10.InvalidParameterException.fromResponse,
+          InvalidParameterException,
+          builder: InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError<_i11.InvalidSequenceTokenException,
-            _i11.InvalidSequenceTokenException>(
+        _i1.SmithyError<InvalidSequenceTokenException,
+            InvalidSequenceTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'InvalidSequenceTokenException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidSequenceTokenException,
-          builder: _i11.InvalidSequenceTokenException.fromResponse,
+          InvalidSequenceTokenException,
+          builder: InvalidSequenceTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ResourceNotFoundException,
-            _i12.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i12.ResourceNotFoundException,
-          builder: _i12.ResourceNotFoundException.fromResponse,
+          ResourceNotFoundException,
+          builder: ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError<_i13.ServiceUnavailableException,
-            _i13.ServiceUnavailableException>(
+        _i1.SmithyError<ServiceUnavailableException,
+            ServiceUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'ServiceUnavailableException',
           ),
           _i1.ErrorKind.server,
-          _i13.ServiceUnavailableException,
-          builder: _i13.ServiceUnavailableException.fromResponse,
+          ServiceUnavailableException,
+          builder: ServiceUnavailableException.fromResponse,
         ),
-        _i1.SmithyError<_i14.UnrecognizedClientException,
-            _i14.UnrecognizedClientException>(
+        _i1.SmithyError<UnrecognizedClientException,
+            UnrecognizedClientException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudwatchlogs',
             shape: 'UnrecognizedClientException',
           ),
           _i1.ErrorKind.client,
-          _i14.UnrecognizedClientException,
-          builder: _i14.UnrecognizedClientException.fromResponse,
+          UnrecognizedClientException,
+          builder: UnrecognizedClientException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'PutLogEvents';
+
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
-  _i1.SmithyOperation<_i3.PutLogEventsResponse> run(
-    _i2.PutLogEventsRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<PutLogEventsResponse> run(
+    PutLogEventsRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -238,7 +235,7 @@ class PutLogEventsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

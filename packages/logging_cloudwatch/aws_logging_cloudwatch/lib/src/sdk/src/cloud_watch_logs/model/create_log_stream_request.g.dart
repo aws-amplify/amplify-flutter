@@ -65,9 +65,7 @@ class CreateLogStreamRequestBuilder
   set logStreamName(String? logStreamName) =>
       _$this._logStreamName = logStreamName;
 
-  CreateLogStreamRequestBuilder() {
-    CreateLogStreamRequest._init(this);
-  }
+  CreateLogStreamRequestBuilder();
 
   CreateLogStreamRequestBuilder get _$this {
     final $v = _$v;

@@ -59,9 +59,7 @@ class InputLogEventBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  InputLogEventBuilder() {
-    InputLogEvent._init(this);
-  }
+  InputLogEventBuilder();
 
   InputLogEventBuilder get _$this {
     final $v = _$v;

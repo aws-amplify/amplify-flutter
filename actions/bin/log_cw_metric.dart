@@ -81,6 +81,7 @@ Future<void> logMetric() async {
     'core',
     'datastore',
     'db_common',
+    'logging',
     'push',
     'secure_storage',
     'storage',

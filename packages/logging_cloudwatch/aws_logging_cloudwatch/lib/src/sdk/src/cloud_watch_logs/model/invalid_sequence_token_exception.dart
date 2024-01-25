@@ -55,8 +55,6 @@ abstract class InvalidSequenceTokenException
   static const List<_i2.SmithySerializer<InvalidSequenceTokenException>>
       serializers = [InvalidSequenceTokenExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidSequenceTokenExceptionBuilder b) {}
   String? get expectedSequenceToken;
   @override
   String? get message;
@@ -65,8 +63,10 @@ abstract class InvalidSequenceTokenException
         namespace: 'com.amazonaws.cloudwatchlogs',
         shape: 'InvalidSequenceTokenException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -75,11 +75,13 @@ abstract class InvalidSequenceTokenException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         expectedSequenceToken,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidSequenceTokenException')
@@ -105,6 +107,7 @@ class InvalidSequenceTokenExceptionAwsJson11Serializer
         InvalidSequenceTokenException,
         _$InvalidSequenceTokenException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -112,6 +115,7 @@ class InvalidSequenceTokenExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InvalidSequenceTokenException deserialize(
     Serializers serializers,
