@@ -1806,7 +1806,7 @@ updates:
         patterns:
           - "build_web_compilers"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch"
+    directory: "packages/logging/amplify_logging_cloudwatch"
     schedule:
       interval: "daily"
     ignore:
@@ -1819,7 +1819,7 @@ updates:
       - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
-      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "amplify_logging_cloudwatch_dart"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "smithy"
       - dependency-name: "smithy_aws"
@@ -1844,7 +1844,7 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
+    directory: "packages/logging/amplify_logging_cloudwatch/example"
     schedule:
       interval: "daily"
     ignore:
@@ -1873,9 +1873,9 @@ updates:
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_authenticator"
       - dependency-name: "amplify_logging_cloudwatch"
-      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "amplify_logging_cloudwatch_dart"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/amplify_logging_cloudwatch/example"
+    directory: "packages/logging/amplify_logging_cloudwatch/example"
     schedule:
       interval: "daily"
     ignore:
@@ -1904,9 +1904,9 @@ updates:
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_authenticator"
       - dependency-name: "amplify_logging_cloudwatch"
-      - dependency-name: "aws_logging_cloudwatch"
+      - dependency-name: "amplify_logging_cloudwatch_dart"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/aws_logging_cloudwatch"
+    directory: "packages/logging/amplify_logging_cloudwatch_dart"
     schedule:
       interval: "daily"
     ignore:
@@ -1952,7 +1952,7 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
+    directory: "packages/logging/amplify_logging_cloudwatch_dart/example"
     schedule:
       interval: "daily"
     ignore:
@@ -1961,14 +1961,7 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
-      - dependency-name: "aws_logging_cloudwatch"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       build_runner:
@@ -1978,7 +1971,7 @@ updates:
         patterns:
           - "build_web_compilers"
   - package-ecosystem: "pub"
-    directory: "packages/logging_cloudwatch/aws_logging_cloudwatch/example"
+    directory: "packages/logging/amplify_logging_cloudwatch_dart/example"
     schedule:
       interval: "daily"
     ignore:
@@ -1987,14 +1980,7 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
-      - dependency-name: "aws_logging_cloudwatch"
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
       - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-      - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       build_runner:
