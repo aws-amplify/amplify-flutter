@@ -111,6 +111,7 @@ open class AmplifyAuthCognitoPlugin :
       applicationContext!!,
       "AWS.Cognito.ContextData"
     )
+  }
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     Log.d(TAG, "onAttachedToEngine")
@@ -291,7 +292,7 @@ open class AmplifyAuthCognitoPlugin :
     if (appClientId != null) {
       val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
 
-      val newLegacyDeviceSecretsStore = new LegacyKeyValueStore(
+      val newLegacyDeviceSecretsStore = LegacyKeyValueStore(
         applicationContext!!,
         "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
       )
@@ -323,7 +324,7 @@ open class AmplifyAuthCognitoPlugin :
     if (appClientId != null) {
       val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
 
-      val legacyDeviceSecretsStore = new LegacyKeyValueStore(
+      val legacyDeviceSecretsStore = LegacyKeyValueStore(
         applicationContext!!,
         "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
       )

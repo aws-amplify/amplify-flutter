@@ -271,7 +271,7 @@ interface NativeAuthBridge {
   /** Clears the legacy credential store data. */
   fun clearLegacyCredentials(callback: (Result<Unit>) -> Unit)
   fun fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit)
-  fun deleteLegacyDeviceSecrets(userPoolConfig: CognitoUserPoolConfig?, callback: (Result<Unit>) -> Unit)
+  fun deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by NativeAuthBridge. */
