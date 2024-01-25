@@ -69,6 +69,17 @@ abstract class NativeAuthBridge {
   /// Clears the legacy credential store data.
   @async
   void clearLegacyCredentials();
+
+  /// Fetch legacy device secrets stored by native SDKs.
+  @async
+  LegacyDeviceDetailsSecret? fetchLegacyDeviceSecrets(
+    String? userPoolId,
+    String? appClientId,
+  );
+
+  /// Clears the legacy device secrets.
+  @async
+  void deleteLegacyDeviceSecrets(CognitoUserPoolConfig? userPoolConfig);
 }
 
 class NativeUserContextData {
@@ -92,4 +103,15 @@ class LegacyCredentialStoreData {
   String? accessToken;
   String? refreshToken;
   String? idToken;
+}
+
+class CognitoUserPoolConfig {
+  String? poolId;
+}
+
+class LegacyDeviceDetailsSecret {
+  String? deviceKey;
+  String? deviceGroupKey;
+  String? devicePassword;
+  String? asfDeviceId;
 }
