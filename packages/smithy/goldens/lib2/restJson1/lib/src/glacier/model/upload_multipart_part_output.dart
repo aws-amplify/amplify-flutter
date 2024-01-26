@@ -45,8 +45,10 @@ abstract class UploadMultipartPartOutput
   @override
   UploadMultipartPartOutputPayload getPayload() =>
       UploadMultipartPartOutputPayload();
+
   @override
   List<Object?> get props => [checksum];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadMultipartPartOutput')
@@ -74,6 +76,7 @@ abstract class UploadMultipartPartOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -94,6 +97,7 @@ class UploadMultipartPartOutputRestJson1Serializer
         UploadMultipartPartOutputPayload,
         _$UploadMultipartPartOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -101,6 +105,7 @@ class UploadMultipartPartOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   UploadMultipartPartOutputPayload deserialize(
     Serializers serializers,

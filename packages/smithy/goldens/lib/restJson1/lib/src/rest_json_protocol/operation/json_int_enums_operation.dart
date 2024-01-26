@@ -65,8 +65,10 @@ class JsonIntEnumsOperation extends _i1.HttpOperation<JsonIntEnumsInputOutput,
         b.method = 'PUT';
         b.path = r'/JsonIntEnums';
       });
+
   @override
   int successCode([JsonIntEnumsInputOutput? output]) => 200;
+
   @override
   JsonIntEnumsInputOutput buildOutput(
     JsonIntEnumsInputOutput payload,
@@ -76,16 +78,22 @@ class JsonIntEnumsOperation extends _i1.HttpOperation<JsonIntEnumsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'JsonIntEnums';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<JsonIntEnumsInputOutput> run(
     JsonIntEnumsInputOutput input, {

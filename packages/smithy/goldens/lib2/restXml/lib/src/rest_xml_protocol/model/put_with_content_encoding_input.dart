@@ -56,11 +56,13 @@ abstract class PutWithContentEncodingInput
       PutWithContentEncodingInputPayload((b) {
         b.data = data;
       });
+
   @override
   List<Object?> get props => [
         encoding,
         data,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutWithContentEncodingInput')
@@ -92,6 +94,7 @@ abstract class PutWithContentEncodingInputPayload
   String? get data;
   @override
   List<Object?> get props => [data];
+
   @override
   String toString() {
     final helper =
@@ -116,6 +119,7 @@ class PutWithContentEncodingInputRestXmlSerializer
         PutWithContentEncodingInputPayload,
         _$PutWithContentEncodingInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -123,6 +127,7 @@ class PutWithContentEncodingInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PutWithContentEncodingInputPayload deserialize(
     Serializers serializers,

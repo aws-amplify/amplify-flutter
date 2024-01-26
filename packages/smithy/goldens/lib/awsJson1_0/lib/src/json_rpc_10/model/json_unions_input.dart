@@ -38,8 +38,10 @@ abstract class JsonUnionsInput
   MyUnion? get contents;
   @override
   JsonUnionsInput getPayload() => this;
+
   @override
   List<Object?> get props => [contents];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonUnionsInput')
@@ -60,6 +62,7 @@ class JsonUnionsInputAwsJson10Serializer
         JsonUnionsInput,
         _$JsonUnionsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -67,6 +70,7 @@ class JsonUnionsInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   JsonUnionsInput deserialize(
     Serializers serializers,

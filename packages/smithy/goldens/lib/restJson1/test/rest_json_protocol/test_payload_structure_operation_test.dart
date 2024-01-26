@@ -151,6 +151,7 @@ class TestPayloadStructureInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [TestPayloadStructureInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -158,6 +159,7 @@ class TestPayloadStructureInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TestPayloadStructureInputOutput deserialize(
     Serializers serializers,
@@ -206,6 +208,7 @@ class PayloadConfigRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PayloadConfig];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -213,6 +216,7 @@ class PayloadConfigRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PayloadConfig deserialize(
     Serializers serializers,

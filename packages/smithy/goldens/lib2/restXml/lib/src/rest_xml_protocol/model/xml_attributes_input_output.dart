@@ -54,11 +54,13 @@ abstract class XmlAttributesInputOutput
   String? get attr;
   @override
   XmlAttributesInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         foo,
         attr,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput')
@@ -84,6 +86,7 @@ class XmlAttributesInputOutputRestXmlSerializer
         XmlAttributesInputOutput,
         _$XmlAttributesInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -91,6 +94,7 @@ class XmlAttributesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlAttributesInputOutput deserialize(
     Serializers serializers,

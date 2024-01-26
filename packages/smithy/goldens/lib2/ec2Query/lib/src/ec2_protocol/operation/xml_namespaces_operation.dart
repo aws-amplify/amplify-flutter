@@ -63,8 +63,10 @@ class XmlNamespacesOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([XmlNamespacesOutput? output]) => 200;
+
   @override
   XmlNamespacesOutput buildOutput(
     XmlNamespacesOutput payload,
@@ -74,16 +76,22 @@ class XmlNamespacesOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlNamespaces';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlNamespacesOutput> run(
     _i1.Unit input, {

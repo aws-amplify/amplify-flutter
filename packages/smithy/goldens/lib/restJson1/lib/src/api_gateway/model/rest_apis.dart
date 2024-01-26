@@ -47,6 +47,7 @@ abstract class RestApis
         items,
         position,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestApis')
@@ -71,6 +72,7 @@ class RestApisRestJson1Serializer
         RestApis,
         _$RestApis,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -78,6 +80,7 @@ class RestApisRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RestApis deserialize(
     Serializers serializers,

@@ -61,6 +61,7 @@ abstract class EnvironmentConfig
         awsSessionToken,
         awsProfile,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EnvironmentConfig')
@@ -101,6 +102,7 @@ class EnvironmentConfigRestJson1Serializer
         EnvironmentConfig,
         _$EnvironmentConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -108,6 +110,7 @@ class EnvironmentConfigRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,

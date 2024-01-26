@@ -100,6 +100,7 @@ class DatetimeOffsetsOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [DatetimeOffsetsOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -107,6 +108,7 @@ class DatetimeOffsetsOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DatetimeOffsetsOutput deserialize(
     Serializers serializers,

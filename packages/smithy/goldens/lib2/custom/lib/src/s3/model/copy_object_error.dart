@@ -43,20 +43,26 @@ abstract class CopyObjectError
         namespace: 'com.amazonaws.s3',
         shape: 'CopyObjectError',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 500;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectError');
@@ -73,6 +79,7 @@ class CopyObjectErrorRestXmlSerializer
         CopyObjectError,
         _$CopyObjectError,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -80,6 +87,7 @@ class CopyObjectErrorRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectError deserialize(
     Serializers serializers,

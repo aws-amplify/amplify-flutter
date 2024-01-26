@@ -75,12 +75,14 @@ abstract class CopyObjectRequest
 
   @override
   CopyObjectRequestPayload getPayload() => CopyObjectRequestPayload();
+
   @override
   List<Object?> get props => [
         bucket,
         copySource,
         key,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectRequest')
@@ -114,6 +116,7 @@ abstract class CopyObjectRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectRequestPayload');
@@ -132,6 +135,7 @@ class CopyObjectRequestRestXmlSerializer
         CopyObjectRequestPayload,
         _$CopyObjectRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -139,6 +143,7 @@ class CopyObjectRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectRequestPayload deserialize(
     Serializers serializers,

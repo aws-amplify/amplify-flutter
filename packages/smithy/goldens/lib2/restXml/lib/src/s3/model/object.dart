@@ -56,6 +56,7 @@ abstract class S3Object
         storageClass,
         owner,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Object')
@@ -95,6 +96,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         S3Object,
         _$S3Object,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -102,6 +104,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
           shape: 'restXml',
         )
       ];
+
   @override
   S3Object deserialize(
     Serializers serializers,
@@ -189,7 +192,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (owner != null) {
@@ -205,7 +208,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (storageClass != null) {
@@ -213,7 +216,7 @@ class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(ObjectStorageClass),
+          specifiedType: const FullType(ObjectStorageClass),
         ));
     }
     return result$;

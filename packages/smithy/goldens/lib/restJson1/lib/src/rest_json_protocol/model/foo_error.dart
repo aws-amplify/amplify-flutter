@@ -45,20 +45,26 @@ abstract class FooError
         namespace: 'aws.protocoltests.restjson',
         shape: 'FooError',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 500;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FooError');
@@ -75,6 +81,7 @@ class FooErrorRestJson1Serializer
         FooError,
         _$FooError,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -82,6 +89,7 @@ class FooErrorRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   FooError deserialize(
     Serializers serializers,

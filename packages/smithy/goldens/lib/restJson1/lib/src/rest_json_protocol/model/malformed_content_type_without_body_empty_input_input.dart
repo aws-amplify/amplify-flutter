@@ -52,8 +52,10 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayload getPayload() =>
       MalformedContentTypeWithoutBodyEmptyInputInputPayload();
+
   @override
   List<Object?> get props => [header];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -83,6 +85,7 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -104,6 +107,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer
         MalformedContentTypeWithoutBodyEmptyInputInputPayload,
         _$MalformedContentTypeWithoutBodyEmptyInputInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -111,6 +115,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayload deserialize(
     Serializers serializers,

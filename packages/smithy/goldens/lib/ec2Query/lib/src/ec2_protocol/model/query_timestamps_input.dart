@@ -49,12 +49,14 @@ abstract class QueryTimestampsInput
   DateTime? get epochTarget;
   @override
   QueryTimestampsInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         normalFormat,
         epochMember,
         epochTarget,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryTimestampsInput')
@@ -84,6 +86,7 @@ class QueryTimestampsInputEc2QuerySerializer
         QueryTimestampsInput,
         _$QueryTimestampsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -91,6 +94,7 @@ class QueryTimestampsInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryTimestampsInput deserialize(
     Serializers serializers,
@@ -147,7 +151,7 @@ class QueryTimestampsInputEc2QuerySerializer
         ..add(const _i1.XmlElementName('NormalFormat'))
         ..add(serializers.serialize(
           normalFormat,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (epochMember != null) {

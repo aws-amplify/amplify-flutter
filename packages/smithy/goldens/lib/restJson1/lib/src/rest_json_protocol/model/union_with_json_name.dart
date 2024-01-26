@@ -26,10 +26,14 @@ sealed class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
   ];
 
   String? get foo => null;
+
   String? get bar => null;
+
   String? get baz => null;
+
   @override
   Object get value => (foo ?? bar ?? baz)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'UnionWithJsonName');
@@ -109,6 +113,7 @@ class UnionWithJsonNameRestJson1Serializer
         UnionWithJsonNameBar$,
         UnionWithJsonNameBaz$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -116,6 +121,7 @@ class UnionWithJsonNameRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   UnionWithJsonName deserialize(
     Serializers serializers,

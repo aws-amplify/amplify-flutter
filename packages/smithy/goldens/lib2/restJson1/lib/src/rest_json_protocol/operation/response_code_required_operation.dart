@@ -63,9 +63,11 @@ class ResponseCodeRequiredOperation extends _i1.HttpOperation<_i1.Unit,
         b.method = 'GET';
         b.path = r'/responseCodeRequired';
       });
+
   @override
   int successCode([ResponseCodeRequiredOutput? output]) =>
       output?.responseCode ?? 200;
+
   @override
   ResponseCodeRequiredOutput buildOutput(
     ResponseCodeRequiredOutputPayload payload,
@@ -75,16 +77,22 @@ class ResponseCodeRequiredOperation extends _i1.HttpOperation<_i1.Unit,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'ResponseCodeRequired';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<ResponseCodeRequiredOutput> run(
     _i1.Unit input, {
