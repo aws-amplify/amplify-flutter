@@ -79,7 +79,10 @@ abstract class NativeAuthBridge {
 
   /// Clears the legacy device secrets.
   @async
-  void deleteLegacyDeviceSecrets(CognitoUserPoolConfig? userPoolConfig);
+  void deleteLegacyDeviceSecrets(
+    String? userPoolId,
+    String? appClientId,
+  );
 }
 
 class NativeUserContextData {

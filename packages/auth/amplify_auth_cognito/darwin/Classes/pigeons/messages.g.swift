@@ -138,24 +138,6 @@ struct LegacyCredentialStoreData {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct CognitoUserPoolConfig {
-  var poolId: String? = nil
-
-  static func fromList(_ list: [Any?]) -> CognitoUserPoolConfig? {
-    let poolId: String? = nilOrValue(list[0])
-
-    return CognitoUserPoolConfig(
-      poolId: poolId
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      poolId,
-    ]
-  }
-}
-
-/// Generated class from Pigeon that represents data sent in messages.
 struct LegacyDeviceDetailsSecret {
   var deviceKey: String? = nil
   var deviceGroupKey: String? = nil
@@ -205,12 +187,10 @@ private class NativeAuthBridgeCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
-        return CognitoUserPoolConfig.fromList(self.readValue() as! [Any?])
-      case 129:
         return LegacyCredentialStoreData.fromList(self.readValue() as! [Any?])
-      case 130:
+      case 129:
         return LegacyDeviceDetailsSecret.fromList(self.readValue() as! [Any?])
-      case 131:
+      case 130:
         return NativeUserContextData.fromList(self.readValue() as! [Any?])
       default:
         return super.readValue(ofType: type)
@@ -220,17 +200,14 @@ private class NativeAuthBridgeCodecReader: FlutterStandardReader {
 
 private class NativeAuthBridgeCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? CognitoUserPoolConfig {
+    if let value = value as? LegacyCredentialStoreData {
       super.writeByte(128)
       super.writeValue(value.toList())
-    } else if let value = value as? LegacyCredentialStoreData {
+    } else if let value = value as? LegacyDeviceDetailsSecret {
       super.writeByte(129)
       super.writeValue(value.toList())
-    } else if let value = value as? LegacyDeviceDetailsSecret {
-      super.writeByte(130)
-      super.writeValue(value.toList())
     } else if let value = value as? NativeUserContextData {
-      super.writeByte(131)
+      super.writeByte(130)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -271,8 +248,10 @@ protocol NativeAuthBridge {
   func getLegacyCredentials(identityPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyCredentialStoreData, Error>) -> Void)
   /// Clears the legacy credential store data.
   func clearLegacyCredentials(completion: @escaping (Result<Void, Error>) -> Void)
+  /// Fetch legacy device secrets stored by native SDKs.
   func fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void)
-  func deleteLegacyDeviceSecrets(userPoolConfig: CognitoUserPoolConfig?, completion: @escaping (Result<Void, Error>) -> Void)
+  /// Clears the legacy device secrets.
+  func deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -403,6 +382,7 @@ class NativeAuthBridgeSetup {
     } else {
       clearLegacyCredentialsChannel.setMessageHandler(nil)
     }
+    /// Fetch legacy device secrets stored by native SDKs.
     let fetchLegacyDeviceSecretsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.fetchLegacyDeviceSecrets", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       fetchLegacyDeviceSecretsChannel.setMessageHandler { message, reply in
@@ -421,12 +401,14 @@ class NativeAuthBridgeSetup {
     } else {
       fetchLegacyDeviceSecretsChannel.setMessageHandler(nil)
     }
+    /// Clears the legacy device secrets.
     let deleteLegacyDeviceSecretsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.deleteLegacyDeviceSecrets", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       deleteLegacyDeviceSecretsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let userPoolConfigArg: CognitoUserPoolConfig? = nilOrValue(args[0])
-        api.deleteLegacyDeviceSecrets(userPoolConfig: userPoolConfigArg) { result in
+        let userPoolIdArg: String? = nilOrValue(args[0])
+        let appClientIdArg: String? = nilOrValue(args[1])
+        api.deleteLegacyDeviceSecrets(userPoolId: userPoolIdArg, appClientId: appClientIdArg) { result in
           switch result {
             case .success:
               reply(wrapResult(nil))

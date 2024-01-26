@@ -130,25 +130,6 @@ data class LegacyCredentialStoreData (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class CognitoUserPoolConfig (
-  val poolId: String? = null
-
-) {
-  companion object {
-    @Suppress("UNCHECKED_CAST")
-    fun fromList(list: List<Any?>): CognitoUserPoolConfig {
-      val poolId = list[0] as String?
-      return CognitoUserPoolConfig(poolId)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf<Any?>(
-      poolId,
-    )
-  }
-}
-
-/** Generated class from Pigeon that represents data sent in messages. */
 data class LegacyDeviceDetailsSecret (
   val deviceKey: String? = null,
   val deviceGroupKey: String? = null,
@@ -203,20 +184,15 @@ private object NativeAuthBridgeCodec : StandardMessageCodec() {
     return when (type) {
       128.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CognitoUserPoolConfig.fromList(it)
+          LegacyCredentialStoreData.fromList(it)
         }
       }
       129.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          LegacyCredentialStoreData.fromList(it)
-        }
-      }
-      130.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           LegacyDeviceDetailsSecret.fromList(it)
         }
       }
-      131.toByte() -> {
+      130.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           NativeUserContextData.fromList(it)
         }
@@ -226,20 +202,16 @@ private object NativeAuthBridgeCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is CognitoUserPoolConfig -> {
+      is LegacyCredentialStoreData -> {
         stream.write(128)
         writeValue(stream, value.toList())
       }
-      is LegacyCredentialStoreData -> {
+      is LegacyDeviceDetailsSecret -> {
         stream.write(129)
         writeValue(stream, value.toList())
       }
-      is LegacyDeviceDetailsSecret -> {
-        stream.write(130)
-        writeValue(stream, value.toList())
-      }
       is NativeUserContextData -> {
-        stream.write(131)
+        stream.write(130)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -270,7 +242,9 @@ interface NativeAuthBridge {
   fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, callback: (Result<LegacyCredentialStoreData>) -> Unit)
   /** Clears the legacy credential store data. */
   fun clearLegacyCredentials(callback: (Result<Unit>) -> Unit)
+  /** Fetch legacy device secrets stored by native SDKs. */
   fun fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit)
+  /** Clears the legacy device secrets. */
   fun deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<Unit>) -> Unit)
 
   companion object {
@@ -438,8 +412,9 @@ interface NativeAuthBridge {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val userPoolConfigArg = args[0] as CognitoUserPoolConfig?
-            api.deleteLegacyDeviceSecrets(userPoolConfigArg) { result: Result<Unit> ->
+            val userPoolIdArg = args[0] as String?
+            val appClientIdArg = args[1] as String?
+            api.deleteLegacyDeviceSecrets(userPoolIdArg, appClientIdArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))
