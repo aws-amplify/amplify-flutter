@@ -73,8 +73,10 @@ class HttpPayloadWithXmlNamespaceOperation extends _i1.HttpOperation<
         b.method = 'PUT';
         b.path = r'/HttpPayloadWithXmlNamespace';
       });
+
   @override
   int successCode([HttpPayloadWithXmlNamespaceInputOutput? output]) => 200;
+
   @override
   HttpPayloadWithXmlNamespaceInputOutput buildOutput(
     PayloadWithXmlNamespace? payload,
@@ -84,16 +86,22 @@ class HttpPayloadWithXmlNamespaceOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpPayloadWithXmlNamespace';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpPayloadWithXmlNamespaceInputOutput> run(
     HttpPayloadWithXmlNamespaceInputOutput input, {

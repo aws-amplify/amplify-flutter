@@ -100,6 +100,7 @@ class PutWithContentEncodingInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [PutWithContentEncodingInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -107,6 +108,7 @@ class PutWithContentEncodingInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PutWithContentEncodingInput deserialize(
     Serializers serializers,

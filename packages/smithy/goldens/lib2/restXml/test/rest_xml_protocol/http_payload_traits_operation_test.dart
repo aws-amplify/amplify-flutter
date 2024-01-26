@@ -177,6 +177,7 @@ class HttpPayloadTraitsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [HttpPayloadTraitsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -184,6 +185,7 @@ class HttpPayloadTraitsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HttpPayloadTraitsInputOutput deserialize(
     Serializers serializers,

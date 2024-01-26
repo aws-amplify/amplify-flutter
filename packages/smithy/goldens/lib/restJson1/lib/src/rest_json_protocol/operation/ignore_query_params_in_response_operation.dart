@@ -68,8 +68,10 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
         b.method = 'GET';
         b.path = r'/IgnoreQueryParamsInResponse';
       });
+
   @override
   int successCode([IgnoreQueryParamsInResponseOutput? output]) => 200;
+
   @override
   IgnoreQueryParamsInResponseOutput buildOutput(
     IgnoreQueryParamsInResponseOutput payload,
@@ -79,16 +81,22 @@ class IgnoreQueryParamsInResponseOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'IgnoreQueryParamsInResponse';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<IgnoreQueryParamsInResponseOutput> run(
     _i1.Unit input, {

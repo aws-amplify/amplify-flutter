@@ -47,8 +47,10 @@ abstract class HttpChecksumRequiredInputOutput
   String? get foo;
   @override
   HttpChecksumRequiredInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [foo];
+
   @override
   String toString() {
     final helper =
@@ -71,6 +73,7 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
         HttpChecksumRequiredInputOutput,
         _$HttpChecksumRequiredInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -78,6 +81,7 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpChecksumRequiredInputOutput deserialize(
     Serializers serializers,

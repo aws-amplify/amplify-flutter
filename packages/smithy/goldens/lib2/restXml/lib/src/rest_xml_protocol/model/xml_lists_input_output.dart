@@ -111,6 +111,7 @@ abstract class XmlListsInputOutput
   _i3.BuiltList<StructureListMember>? get flattenedStructureList;
   @override
   XmlListsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         stringList,
@@ -129,6 +130,7 @@ abstract class XmlListsInputOutput
         structureList,
         flattenedStructureList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlListsInputOutput')
@@ -205,6 +207,7 @@ class XmlListsInputOutputRestXmlSerializer
         XmlListsInputOutput,
         _$XmlListsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -212,6 +215,7 @@ class XmlListsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlListsInputOutput deserialize(
     Serializers serializers,
@@ -394,7 +398,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           booleanList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(bool)],
           ),
@@ -406,7 +410,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           enumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(FooEnum)],
           ),
@@ -418,7 +422,7 @@ class XmlListsInputOutputRestXmlSerializer
               .serialize(
         serializers,
         flattenedList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -429,7 +433,7 @@ class XmlListsInputOutputRestXmlSerializer
           const _i1.XmlBuiltListSerializer(memberName: 'customName').serialize(
         serializers,
         flattenedList2,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -442,7 +446,7 @@ class XmlListsInputOutputRestXmlSerializer
       ).serialize(
         serializers,
         flattenedListWithMemberNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -454,7 +458,7 @@ class XmlListsInputOutputRestXmlSerializer
           .serialize(
         serializers,
         flattenedListWithNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -466,7 +470,7 @@ class XmlListsInputOutputRestXmlSerializer
               .serialize(
         serializers,
         flattenedStructureList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(StructureListMember)],
         ),
@@ -478,7 +482,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           intEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(IntegerEnum)],
           ),
@@ -490,7 +494,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           integerList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(int)],
           ),
@@ -502,7 +506,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           nestedStringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [
               FullType(
@@ -519,7 +523,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
           renamedListMembers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -531,7 +535,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           stringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -543,7 +547,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltSetSerializer().serialize(
           serializers,
           stringSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltSet,
             [FullType(String)],
           ),
@@ -555,7 +559,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'item').serialize(
           serializers,
           structureList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(StructureListMember)],
           ),
@@ -567,7 +571,7 @@ class XmlListsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltListSerializer().serialize(
           serializers,
           timestampList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(DateTime)],
           ),

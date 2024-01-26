@@ -56,22 +56,27 @@ abstract class MissingParameterValueException
         namespace: 'com.amazonaws.glacier',
         shape: 'MissingParameterValueException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         type,
         code,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MissingParameterValueException')
@@ -101,6 +106,7 @@ class MissingParameterValueExceptionRestJson1Serializer
         MissingParameterValueException,
         _$MissingParameterValueException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -108,6 +114,7 @@ class MissingParameterValueExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MissingParameterValueException deserialize(
     Serializers serializers,

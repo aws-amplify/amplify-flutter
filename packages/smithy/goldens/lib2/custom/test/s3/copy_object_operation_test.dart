@@ -117,6 +117,7 @@ class CopyObjectRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CopyObjectRequest];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -124,6 +125,7 @@ class CopyObjectRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectRequest deserialize(
     Serializers serializers,
@@ -177,6 +179,7 @@ class CopyObjectOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CopyObjectOutput];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -184,6 +187,7 @@ class CopyObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectOutput deserialize(
     Serializers serializers,
@@ -227,6 +231,7 @@ class CopyObjectResultRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CopyObjectResult];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -234,6 +239,7 @@ class CopyObjectResultRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectResult deserialize(
     Serializers serializers,
@@ -277,6 +283,7 @@ class CopyObjectErrorRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CopyObjectError];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -284,6 +291,7 @@ class CopyObjectErrorRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectError deserialize(
     Serializers serializers,

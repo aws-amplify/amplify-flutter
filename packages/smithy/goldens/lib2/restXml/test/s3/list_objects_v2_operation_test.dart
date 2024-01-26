@@ -660,6 +660,7 @@ class ListObjectsV2RequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ListObjectsV2Request];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -667,6 +668,7 @@ class ListObjectsV2RequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ListObjectsV2Request deserialize(
     Serializers serializers,
@@ -755,6 +757,7 @@ class ListObjectsV2OutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ListObjectsV2Output];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -762,6 +765,7 @@ class ListObjectsV2OutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ListObjectsV2Output deserialize(
     Serializers serializers,
@@ -865,6 +869,7 @@ class ObjectRestXmlSerializer extends _i5.StructuredSmithySerializer<S3Object> {
 
   @override
   Iterable<Type> get types => const [S3Object];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -872,6 +877,7 @@ class ObjectRestXmlSerializer extends _i5.StructuredSmithySerializer<S3Object> {
           shape: 'restXml',
         )
       ];
+
   @override
   S3Object deserialize(
     Serializers serializers,
@@ -940,6 +946,7 @@ class OwnerRestXmlSerializer extends _i5.StructuredSmithySerializer<Owner> {
 
   @override
   Iterable<Type> get types => const [Owner];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -947,6 +954,7 @@ class OwnerRestXmlSerializer extends _i5.StructuredSmithySerializer<Owner> {
           shape: 'restXml',
         )
       ];
+
   @override
   Owner deserialize(
     Serializers serializers,
@@ -995,6 +1003,7 @@ class CommonPrefixRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [CommonPrefix];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1002,6 +1011,7 @@ class CommonPrefixRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CommonPrefix deserialize(
     Serializers serializers,
@@ -1045,6 +1055,7 @@ class NoSuchBucketRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [NoSuchBucket];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1052,6 +1063,7 @@ class NoSuchBucketRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NoSuchBucket deserialize(
     Serializers serializers,
@@ -1076,6 +1088,7 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
 
   @override
   Iterable<Type> get types => const [AwsConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1083,6 +1096,7 @@ class AwsConfigSerializer extends _i5.StructuredSmithySerializer<AwsConfig> {
           shape: 'genericProtocol',
         )
       ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,
@@ -1131,6 +1145,7 @@ class ScopedConfigSerializer
 
   @override
   Iterable<Type> get types => const [ScopedConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1138,6 +1153,7 @@ class ScopedConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -1213,6 +1229,7 @@ class EnvironmentConfigSerializer
 
   @override
   Iterable<Type> get types => const [EnvironmentConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1220,6 +1237,7 @@ class EnvironmentConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   EnvironmentConfig deserialize(
     Serializers serializers,
@@ -1288,6 +1306,7 @@ class FileConfigSettingsSerializer
 
   @override
   Iterable<Type> get types => const [FileConfigSettings];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1295,6 +1314,7 @@ class FileConfigSettingsSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   FileConfigSettings deserialize(
     Serializers serializers,
@@ -1367,6 +1387,7 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
 
   @override
   Iterable<Type> get types => const [S3Config];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1374,6 +1395,7 @@ class S3ConfigSerializer extends _i5.StructuredSmithySerializer<S3Config> {
           shape: 'genericProtocol',
         )
       ];
+
   @override
   S3Config deserialize(
     Serializers serializers,
@@ -1427,6 +1449,7 @@ class ClientConfigSerializer
 
   @override
   Iterable<Type> get types => const [ClientConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1434,6 +1457,7 @@ class ClientConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   ClientConfig deserialize(
     Serializers serializers,
@@ -1507,6 +1531,7 @@ class RetryConfigSerializer
 
   @override
   Iterable<Type> get types => const [RetryConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1514,6 +1539,7 @@ class RetryConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,
@@ -1562,6 +1588,7 @@ class OperationConfigSerializer
 
   @override
   Iterable<Type> get types => const [OperationConfig];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -1569,6 +1596,7 @@ class OperationConfigSerializer
           shape: 'genericProtocol',
         )
       ];
+
   @override
   OperationConfig deserialize(
     Serializers serializers,

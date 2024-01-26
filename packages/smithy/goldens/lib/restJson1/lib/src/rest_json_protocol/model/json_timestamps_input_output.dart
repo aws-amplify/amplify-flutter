@@ -68,6 +68,7 @@ abstract class JsonTimestampsInputOutput
   DateTime? get httpDateOnTarget;
   @override
   JsonTimestampsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         normal,
@@ -78,6 +79,7 @@ abstract class JsonTimestampsInputOutput
         httpDate,
         httpDateOnTarget,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput')
@@ -123,6 +125,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
         JsonTimestampsInputOutput,
         _$JsonTimestampsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -130,6 +133,7 @@ class JsonTimestampsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonTimestampsInputOutput deserialize(
     Serializers serializers,

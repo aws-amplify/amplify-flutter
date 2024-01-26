@@ -37,6 +37,7 @@ abstract class DatetimeOffsetsOutput
   DateTime? get datetime;
   @override
   List<Object?> get props => [datetime];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput')
@@ -58,6 +59,7 @@ class DatetimeOffsetsOutputAwsJson11Serializer
         DatetimeOffsetsOutput,
         _$DatetimeOffsetsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class DatetimeOffsetsOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DatetimeOffsetsOutput deserialize(
     Serializers serializers,

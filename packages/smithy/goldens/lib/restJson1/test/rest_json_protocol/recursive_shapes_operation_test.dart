@@ -125,6 +125,7 @@ class RecursiveShapesInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RecursiveShapesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -132,6 +133,7 @@ class RecursiveShapesInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveShapesInputOutput deserialize(
     Serializers serializers,
@@ -176,6 +178,7 @@ class RecursiveShapesInputOutputNested1RestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RecursiveShapesInputOutputNested1];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -183,6 +186,7 @@ class RecursiveShapesInputOutputNested1RestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveShapesInputOutputNested1 deserialize(
     Serializers serializers,
@@ -232,6 +236,7 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RecursiveShapesInputOutputNested2];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -239,6 +244,7 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveShapesInputOutputNested2 deserialize(
     Serializers serializers,

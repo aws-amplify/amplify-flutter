@@ -377,6 +377,7 @@ class AllQueryStringTypesInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [AllQueryStringTypesInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -384,6 +385,7 @@ class AllQueryStringTypesInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   AllQueryStringTypesInput deserialize(
     Serializers serializers,
