@@ -81,6 +81,7 @@ abstract class MalformedLongInput
   MalformedLongInputPayload getPayload() => MalformedLongInputPayload((b) {
         b.longInBody = longInBody;
       });
+
   @override
   List<Object?> get props => [
         longInBody,
@@ -88,6 +89,7 @@ abstract class MalformedLongInput
         longInQuery,
         longInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInput')
@@ -125,6 +127,7 @@ abstract class MalformedLongInputPayload
   _i3.Int64? get longInBody;
   @override
   List<Object?> get props => [longInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLongInputPayload')
@@ -147,6 +150,7 @@ class MalformedLongInputRestJson1Serializer
         MalformedLongInputPayload,
         _$MalformedLongInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -154,6 +158,7 @@ class MalformedLongInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedLongInputPayload deserialize(
     Serializers serializers,

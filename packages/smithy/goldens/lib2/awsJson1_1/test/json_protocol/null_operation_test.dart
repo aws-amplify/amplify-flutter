@@ -286,6 +286,7 @@ class NullOperationInputOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [NullOperationInputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -293,6 +294,7 @@ class NullOperationInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   NullOperationInputOutput deserialize(
     Serializers serializers,

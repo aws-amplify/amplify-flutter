@@ -89,6 +89,7 @@ abstract class JsonMapsInputOutput
   _i3.BuiltSetMultimap<String, String>? get sparseSetMap;
   @override
   JsonMapsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         denseStructMap,
@@ -102,6 +103,7 @@ abstract class JsonMapsInputOutput
         denseSetMap,
         sparseSetMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonMapsInputOutput')
@@ -158,6 +160,7 @@ class JsonMapsInputOutputRestJson1Serializer
         JsonMapsInputOutput,
         _$JsonMapsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -165,6 +168,7 @@ class JsonMapsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonMapsInputOutput deserialize(
     Serializers serializers,

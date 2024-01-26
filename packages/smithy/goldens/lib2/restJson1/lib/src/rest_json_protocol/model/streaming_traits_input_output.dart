@@ -73,11 +73,13 @@ abstract class StreamingTraitsInputOutput
   _i2.Stream<List<int>> get blob;
   @override
   _i2.Stream<List<int>> getPayload() => blob;
+
   @override
   List<Object?> get props => [
         foo,
         blob,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StreamingTraitsInputOutput')
@@ -103,6 +105,7 @@ class StreamingTraitsInputOutputRestJson1Serializer
         StreamingTraitsInputOutput,
         _$StreamingTraitsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -110,6 +113,7 @@ class StreamingTraitsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Stream<List<int>> deserialize(
     Serializers serializers,

@@ -57,26 +57,32 @@ abstract class TooManyRequestsException
       TooManyRequestsExceptionPayload((b) {
         b.message = message;
       });
+
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.apigateway',
         shape: 'TooManyRequestsException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 429;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         retryAfterSeconds,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException')
@@ -108,6 +114,7 @@ abstract class TooManyRequestsExceptionPayload
   String? get message;
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper =
@@ -132,6 +139,7 @@ class TooManyRequestsExceptionRestJson1Serializer
         TooManyRequestsExceptionPayload,
         _$TooManyRequestsExceptionPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -139,6 +147,7 @@ class TooManyRequestsExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TooManyRequestsExceptionPayload deserialize(
     Serializers serializers,

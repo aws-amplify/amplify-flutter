@@ -69,6 +69,7 @@ abstract class ScopedConfig
         client,
         operation,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScopedConfig')
@@ -105,6 +106,7 @@ class ScopedConfigAwsJson11Serializer
         ScopedConfig,
         _$ScopedConfig,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +114,7 @@ class ScopedConfigAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,

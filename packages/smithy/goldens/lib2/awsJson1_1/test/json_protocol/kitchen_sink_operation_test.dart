@@ -2619,6 +2619,7 @@ class KitchenSinkAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [KitchenSink];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -2626,6 +2627,7 @@ class KitchenSinkAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   KitchenSink deserialize(
     Serializers serializers,
@@ -2861,6 +2863,7 @@ class EmptyStructAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [EmptyStruct];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -2868,6 +2871,7 @@ class EmptyStructAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   EmptyStruct deserialize(
     Serializers serializers,
@@ -2893,6 +2897,7 @@ class SimpleStructAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [SimpleStruct];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -2900,6 +2905,7 @@ class SimpleStructAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SimpleStruct deserialize(
     Serializers serializers,
@@ -2943,6 +2949,7 @@ class StructWithJsonNameAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [StructWithJsonName];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -2950,6 +2957,7 @@ class StructWithJsonNameAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   StructWithJsonName deserialize(
     Serializers serializers,
@@ -2993,6 +3001,7 @@ class ErrorWithMembersAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [ErrorWithMembers];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -3000,6 +3009,7 @@ class ErrorWithMembersAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ErrorWithMembers deserialize(
     Serializers serializers,
@@ -3082,6 +3092,7 @@ class ErrorWithoutMembersAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [ErrorWithoutMembers];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -3089,6 +3100,7 @@ class ErrorWithoutMembersAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ErrorWithoutMembers deserialize(
     Serializers serializers,

@@ -64,12 +64,14 @@ abstract class GetObjectOutput
   String? get contentRange;
   @override
   _i3.Stream<List<int>> getPayload() => body;
+
   @override
   List<Object?> get props => [
         body,
         contentLength,
         contentRange,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectOutput')
@@ -98,6 +100,7 @@ class GetObjectOutputRestXmlSerializer
         GetObjectOutput,
         _$GetObjectOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -105,6 +108,7 @@ class GetObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   _i3.Stream<List<int>> deserialize(
     Serializers serializers,

@@ -28,9 +28,12 @@ sealed class RecursiveUnionTwo extends _i1.SmithyUnion<RecursiveUnionTwo> {
   ];
 
   RecursiveEnumString? get string => null;
+
   RecursiveUnionOne? get union => null;
+
   @override
   Object get value => (string ?? union)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'RecursiveUnionTwo');
@@ -93,6 +96,7 @@ class RecursiveUnionTwoRestJson1Serializer
         RecursiveUnionTwoString$,
         RecursiveUnionTwoUnion$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -100,6 +104,7 @@ class RecursiveUnionTwoRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveUnionTwo deserialize(
     Serializers serializers,

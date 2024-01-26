@@ -48,8 +48,10 @@ abstract class JsonBlobsInputOutput
   _i3.Uint8List? get data;
   @override
   JsonBlobsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [data];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonBlobsInputOutput')
@@ -71,6 +73,7 @@ class JsonBlobsInputOutputRestJson1Serializer
         JsonBlobsInputOutput,
         _$JsonBlobsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -78,6 +81,7 @@ class JsonBlobsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonBlobsInputOutput deserialize(
     Serializers serializers,

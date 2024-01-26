@@ -62,6 +62,7 @@ class ConstantQueryStringInputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [ConstantQueryStringInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -69,6 +70,7 @@ class ConstantQueryStringInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ConstantQueryStringInput deserialize(
     Serializers serializers,

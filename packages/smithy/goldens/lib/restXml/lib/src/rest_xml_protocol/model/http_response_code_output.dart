@@ -42,8 +42,10 @@ abstract class HttpResponseCodeOutput
   int? get status;
   @override
   HttpResponseCodeOutputPayload getPayload() => HttpResponseCodeOutputPayload();
+
   @override
   List<Object?> get props => [status];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpResponseCodeOutput')
@@ -71,6 +73,7 @@ abstract class HttpResponseCodeOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpResponseCodeOutputPayload');
@@ -90,6 +93,7 @@ class HttpResponseCodeOutputRestXmlSerializer
         HttpResponseCodeOutputPayload,
         _$HttpResponseCodeOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -97,6 +101,7 @@ class HttpResponseCodeOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HttpResponseCodeOutputPayload deserialize(
     Serializers serializers,

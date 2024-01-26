@@ -45,8 +45,10 @@ abstract class HttpChecksumRequiredInput
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;
+
   @override
   List<Object?> get props => [content];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput')
@@ -68,6 +70,7 @@ class HttpChecksumRequiredInputRestJson1Serializer
         HttpChecksumRequiredInput,
         _$HttpChecksumRequiredInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -75,6 +78,7 @@ class HttpChecksumRequiredInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

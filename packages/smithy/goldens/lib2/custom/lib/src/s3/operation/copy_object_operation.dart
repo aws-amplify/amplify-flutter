@@ -90,8 +90,10 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
           b.headers['x-amz-copy-source'] = input.copySource;
         }
       });
+
   @override
   int successCode([CopyObjectOutput? output]) => 200;
+
   @override
   CopyObjectOutput buildOutput(
     CopyObjectResult? payload,
@@ -101,6 +103,7 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<CopyObjectError, CopyObjectError>(
@@ -114,10 +117,13 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
           builder: CopyObjectError.fromResponse,
         )
       ];
+
   @override
   String get runtimeTypeName => 'CopyObject';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -138,6 +144,7 @@ class CopyObjectOperation extends _i1.HttpOperation<CopyObjectRequestPayload,
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<CopyObjectOutput> run(
     CopyObjectRequest input, {

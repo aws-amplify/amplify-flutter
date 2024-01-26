@@ -24,9 +24,12 @@ sealed class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
   ];
 
   String? get first => null;
+
   String? get second => null;
+
   @override
   Object get value => (first ?? second)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PatternUnion');
@@ -89,6 +92,7 @@ class PatternUnionRestJson1Serializer
         PatternUnionFirst$,
         PatternUnionSecond$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -96,6 +100,7 @@ class PatternUnionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PatternUnion deserialize(
     Serializers serializers,
