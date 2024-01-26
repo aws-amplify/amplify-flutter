@@ -69,6 +69,7 @@ abstract class FileConfigSettings
         retryMode,
         maxAttempts,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FileConfigSettings')
@@ -113,6 +114,7 @@ class FileConfigSettingsEc2QuerySerializer
         FileConfigSettings,
         _$FileConfigSettings,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -120,6 +122,7 @@ class FileConfigSettingsEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   FileConfigSettings deserialize(
     Serializers serializers,
@@ -243,7 +246,7 @@ class FileConfigSettingsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Retry_mode'))
         ..add(serializers.serialize(
           retryMode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (maxAttempts != null) {
@@ -251,7 +254,7 @@ class FileConfigSettingsEc2QuerySerializer
         ..add(const _i2.XmlElementName('Max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

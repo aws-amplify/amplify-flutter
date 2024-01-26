@@ -44,6 +44,7 @@ abstract class RetryConfig
         mode,
         maxAttempts,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig')
@@ -68,6 +69,7 @@ class RetryConfigAwsJson11Serializer
         RetryConfig,
         _$RetryConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -75,6 +77,7 @@ class RetryConfigAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,

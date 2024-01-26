@@ -39,6 +39,7 @@ abstract class NestedPayload
         greeting,
         name,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedPayload')
@@ -63,6 +64,7 @@ class NestedPayloadRestXmlSerializer
         NestedPayload,
         _$NestedPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -70,6 +72,7 @@ class NestedPayloadRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedPayload deserialize(
     Serializers serializers,

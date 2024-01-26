@@ -45,10 +45,13 @@ abstract class ErrorWithoutMembers
         namespace: 'aws.protocoltests.json',
         shape: 'ErrorWithoutMembers',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -57,8 +60,10 @@ abstract class ErrorWithoutMembers
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ErrorWithoutMembers');
@@ -75,6 +80,7 @@ class ErrorWithoutMembersAwsJson11Serializer
         ErrorWithoutMembers,
         _$ErrorWithoutMembers,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -82,6 +88,7 @@ class ErrorWithoutMembersAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ErrorWithoutMembers deserialize(
     Serializers serializers,

@@ -50,8 +50,10 @@ abstract class StringPayloadInput
   String? get payload;
   @override
   String? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StringPayloadInput')
@@ -72,6 +74,7 @@ class StringPayloadInputRestJson1Serializer
         StringPayloadInput,
         _$StringPayloadInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -79,6 +82,7 @@ class StringPayloadInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   String deserialize(
     Serializers serializers,

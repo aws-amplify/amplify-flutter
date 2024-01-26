@@ -117,6 +117,7 @@ class XmlNamespacesInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlNamespacesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -124,6 +125,7 @@ class XmlNamespacesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlNamespacesInputOutput deserialize(
     Serializers serializers,
@@ -167,6 +169,7 @@ class XmlNamespaceNestedRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlNamespaceNested];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -174,6 +177,7 @@ class XmlNamespaceNestedRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlNamespaceNested deserialize(
     Serializers serializers,

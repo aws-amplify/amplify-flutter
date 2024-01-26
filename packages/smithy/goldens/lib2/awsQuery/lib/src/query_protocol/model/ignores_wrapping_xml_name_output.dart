@@ -39,6 +39,7 @@ abstract class IgnoresWrappingXmlNameOutput
   String? get foo;
   @override
   List<Object?> get props => [foo];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('IgnoresWrappingXmlNameOutput')
@@ -60,6 +61,7 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
         IgnoresWrappingXmlNameOutput,
         _$IgnoresWrappingXmlNameOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -67,6 +69,7 @@ class IgnoresWrappingXmlNameOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   IgnoresWrappingXmlNameOutput deserialize(
     Serializers serializers,

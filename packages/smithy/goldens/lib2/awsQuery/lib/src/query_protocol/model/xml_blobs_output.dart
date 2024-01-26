@@ -38,6 +38,7 @@ abstract class XmlBlobsOutput
   _i2.Uint8List? get data;
   @override
   List<Object?> get props => [data];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlBlobsOutput')
@@ -58,6 +59,7 @@ class XmlBlobsOutputAwsQuerySerializer
         XmlBlobsOutput,
         _$XmlBlobsOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -65,6 +67,7 @@ class XmlBlobsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlBlobsOutput deserialize(
     Serializers serializers,
@@ -118,7 +121,7 @@ class XmlBlobsOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('data'))
         ..add(serializers.serialize(
           data,
-          specifiedType: const FullType.nullable(_i2.Uint8List),
+          specifiedType: const FullType(_i2.Uint8List),
         ));
     }
     return result$;

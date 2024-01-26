@@ -29,6 +29,7 @@ abstract class CopyObjectResult
   String? get eTag;
   @override
   List<Object?> get props => [eTag];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectResult')
@@ -49,6 +50,7 @@ class CopyObjectResultRestXmlSerializer
         CopyObjectResult,
         _$CopyObjectResult,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -56,6 +58,7 @@ class CopyObjectResultRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectResult deserialize(
     Serializers serializers,

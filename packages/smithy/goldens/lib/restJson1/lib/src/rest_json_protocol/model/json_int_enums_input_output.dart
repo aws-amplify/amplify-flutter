@@ -68,6 +68,7 @@ abstract class JsonIntEnumsInputOutput
   _i3.BuiltMap<String, int>? get integerEnumMap;
   @override
   JsonIntEnumsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         integerEnum1,
@@ -77,6 +78,7 @@ abstract class JsonIntEnumsInputOutput
         integerEnumSet,
         integerEnumMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonIntEnumsInputOutput')
@@ -118,6 +120,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
         JsonIntEnumsInputOutput,
         _$JsonIntEnumsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -125,6 +128,7 @@ class JsonIntEnumsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonIntEnumsInputOutput deserialize(
     Serializers serializers,

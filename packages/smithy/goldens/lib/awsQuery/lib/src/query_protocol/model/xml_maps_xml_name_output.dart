@@ -40,6 +40,7 @@ abstract class XmlMapsXmlNameOutput
   _i2.BuiltMap<String, GreetingStruct>? get myMap;
   @override
   List<Object?> get props => [myMap];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsXmlNameOutput')
@@ -61,6 +62,7 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
         XmlMapsXmlNameOutput,
         _$XmlMapsXmlNameOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -68,6 +70,7 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlMapsXmlNameOutput deserialize(
     Serializers serializers,
@@ -137,7 +140,7 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
         ).serialize(
           serializers,
           myMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

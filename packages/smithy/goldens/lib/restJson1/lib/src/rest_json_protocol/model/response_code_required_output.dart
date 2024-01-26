@@ -43,8 +43,10 @@ abstract class ResponseCodeRequiredOutput
   @override
   ResponseCodeRequiredOutputPayload getPayload() =>
       ResponseCodeRequiredOutputPayload();
+
   @override
   List<Object?> get props => [responseCode];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResponseCodeRequiredOutput')
@@ -72,6 +74,7 @@ abstract class ResponseCodeRequiredOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -92,6 +95,7 @@ class ResponseCodeRequiredOutputRestJson1Serializer
         ResponseCodeRequiredOutputPayload,
         _$ResponseCodeRequiredOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -99,6 +103,7 @@ class ResponseCodeRequiredOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ResponseCodeRequiredOutputPayload deserialize(
     Serializers serializers,

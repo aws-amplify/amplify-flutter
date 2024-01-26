@@ -82,6 +82,7 @@ abstract class SimpleScalarXmlPropertiesOutput
         floatValue,
         doubleValue,
       ];
+
   @override
   String toString() {
     final helper =
@@ -140,6 +141,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         SimpleScalarXmlPropertiesOutput,
         _$SimpleScalarXmlPropertiesOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -147,6 +149,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   SimpleScalarXmlPropertiesOutput deserialize(
     Serializers serializers,
@@ -272,7 +275,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('trueBooleanValue'))
         ..add(serializers.serialize(
           trueBooleanValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (falseBooleanValue != null) {
@@ -280,7 +283,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('falseBooleanValue'))
         ..add(serializers.serialize(
           falseBooleanValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (byteValue != null) {
@@ -288,7 +291,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('byteValue'))
         ..add(serializers.serialize(
           byteValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (shortValue != null) {
@@ -296,7 +299,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('shortValue'))
         ..add(serializers.serialize(
           shortValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (integerValue != null) {
@@ -304,7 +307,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('integerValue'))
         ..add(serializers.serialize(
           integerValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (longValue != null) {
@@ -312,7 +315,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('longValue'))
         ..add(serializers.serialize(
           longValue,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (floatValue != null) {
@@ -320,7 +323,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('floatValue'))
         ..add(serializers.serialize(
           floatValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (doubleValue != null) {
@@ -328,7 +331,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         ..add(const _i3.XmlElementName('DoubleDribble'))
         ..add(serializers.serialize(
           doubleValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     return result$;

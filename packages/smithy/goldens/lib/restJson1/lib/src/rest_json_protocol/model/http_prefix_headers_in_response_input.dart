@@ -40,8 +40,10 @@ abstract class HttpPrefixHeadersInResponseInput
 
   @override
   HttpPrefixHeadersInResponseInput getPayload() => this;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -60,6 +62,7 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer
         HttpPrefixHeadersInResponseInput,
         _$HttpPrefixHeadersInResponseInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -67,6 +70,7 @@ class HttpPrefixHeadersInResponseInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPrefixHeadersInResponseInput deserialize(
     Serializers serializers,
