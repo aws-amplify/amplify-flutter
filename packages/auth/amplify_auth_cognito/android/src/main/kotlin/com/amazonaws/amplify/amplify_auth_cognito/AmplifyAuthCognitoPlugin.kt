@@ -251,7 +251,7 @@ open class AmplifyAuthCognitoPlugin :
    *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
    */
   override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, callback: (Result<LegacyCredentialStoreData>) -> Unit) {
-    val data = LegacyCredentialStoreData.builder()
+    val data = LegacyCredentialStoreDataBuilder()
 
     if (appClientId != null) {
       val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
@@ -286,8 +286,12 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * Get Legacy Device Secrets
    */
-  override fun fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<LegacyDeviceDetails>) -> Unit) {
-    val data = LegacyDeviceDetails.builder()
+  override fun fetchLegacyDeviceSecrets(
+    userPoolId: String?,
+    appClientId: String?,
+    callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit
+  ) {
+    val data = LegacyDeviceDetailsBuilder()
 
     if (appClientId != null) {
       val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
@@ -637,7 +641,7 @@ class LegacyCredentialStoreDataBuilder(
   )
 }
 
-fun LegacyDeviceDetails.Companion.builder() = LegacyDeviceDetailsBuilder()
+fun LegacyDeviceDetailsSecret.Companion.builder() = LegacyDeviceDetailsBuilder()
 
 class LegacyDeviceDetailsBuilder(
   var deviceKey: String? = null,
@@ -645,7 +649,7 @@ class LegacyDeviceDetailsBuilder(
   var deviceGroupKey: String? = null,
   var asfDeviceId: String? = null,
 ) {
-  fun build(): LegacyDeviceDetails = LegacyDeviceDetails(
+  fun build(): LegacyDeviceDetailsSecret = LegacyDeviceDetailsSecret(
     deviceKey,
     deviceSecret,
     deviceGroupKey,

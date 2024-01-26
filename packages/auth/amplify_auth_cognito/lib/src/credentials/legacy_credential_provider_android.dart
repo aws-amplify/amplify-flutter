@@ -66,7 +66,8 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
   }) {
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
     return bridge.deleteLegacyDeviceSecrets(
-      userPoolConfig as auth_cognito.CognitoUserPoolConfig?,
+      userPoolConfig?.poolId,
+      userPoolConfig?.appClientId,
     );
   }
 }
