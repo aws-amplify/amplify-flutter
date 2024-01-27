@@ -5,22 +5,15 @@ library amplify_logging_cloudwatch_dart.cloud_watch_logs.operation.create_log_st
 
 import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/common/serializers.dart'
-    as _i5;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart'
-    as _i2;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/invalid_parameter_exception.dart'
-    as _i8;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_already_exists_exception.dart'
-    as _i9;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_not_found_exception.dart'
-    as _i10;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/service_unavailable_exception.dart'
-    as _i11;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/common/endpoint_resolver.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/common/serializers.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/invalid_parameter_exception.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_already_exists_exception.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/resource_not_found_exception.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/service_unavailable_exception.dart';
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 

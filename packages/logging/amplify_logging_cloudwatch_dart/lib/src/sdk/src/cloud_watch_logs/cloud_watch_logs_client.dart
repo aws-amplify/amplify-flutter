@@ -3,17 +3,12 @@
 
 library amplify_logging_cloudwatch_dart.cloud_watch_logs.cloud_watch_logs_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/operation/create_log_stream_operation.dart';
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/operation/put_log_events_operation.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/create_log_stream_request.dart'
-    as _i4;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_request.dart'
-    as _i7;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/put_log_events_response.dart'
-    as _i6;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/operation/create_log_stream_operation.dart'
-    as _i5;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/operation/put_log_events_operation.dart'
-    as _i8;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
 

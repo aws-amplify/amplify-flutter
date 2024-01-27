@@ -3,9 +3,8 @@
 
 library amplify_logging_cloudwatch_dart.cloud_watch_logs.model.put_log_events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/rejected_log_events_info.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:amplify_logging_cloudwatch_dart/src/sdk/src/cloud_watch_logs/model/rejected_log_events_info.dart'
-    as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
