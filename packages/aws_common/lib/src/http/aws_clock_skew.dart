@@ -4,7 +4,7 @@ import 'package:aws_common/aws_common.dart';
 class AWSClockSkew {
   final _skewWindow = const Duration(minutes: 5);
 
-  /// Updates the clock skew of the given [request] based on the [serverTime].
+  /// Updates the clock skew of the given [request] based on the [clockSkewOffsetInMs].
   /// Returns the updated [request] with the corrected date header.
   AWSBaseHttpRequest updateClockSkew(
     AWSBaseHttpRequest request,
@@ -27,7 +27,7 @@ class AWSClockSkew {
     return newDate.formatFull();
   }
 
-  /// Calculates and returns the updated system clock offset based on the [clockTime]
+  /// Calculates and returns the updated system clock offset based on the [offsetInMs]
   /// received from the server and the [offsetInMs].
   int getUpdatedSystemClockOffset(
     String serverHeader,

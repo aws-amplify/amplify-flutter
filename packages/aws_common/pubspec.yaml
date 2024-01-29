@@ -14,7 +14,7 @@ dependencies:
   built_value: ">=8.6.0 <8.9.0"
   collection: ^1.15.0
   http2: ^2.0.0
-  intl: ^0.18.1 # todo: update to 19.0 before merge -- requires project wide bump
+  intl: ">=0.18.0 <1.0.0"
   js: ^0.6.4
   json_annotation: ">=4.8.1 <4.9.0"
   logging: ^1.0.0
@@ -22,10 +22,10 @@ dependencies:
   mime: ^1.0.0
   os_detect: ^2.0.0
   path: ">=1.8.0 <2.0.0"
-  stream_transform: ^2.0.0
-  uuid: ">=3.0.6 <5.0.0"
   smithy: 0.6.2
   smithy_aws: 0.6.1
+  stream_transform: ^2.0.0
+  uuid: ">=3.0.6 <5.0.0"
 
 dev_dependencies:
   amplify_lints: ">=3.0.0 <3.1.0"

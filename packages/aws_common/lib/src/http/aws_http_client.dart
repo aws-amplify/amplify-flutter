@@ -179,7 +179,7 @@ abstract class AWSBaseHttpClient extends AWSCustomHttpClient {
             safePrint(e.message);
             return send(request).operation.value;
           }
-          throw e;
+          throw e as Exception;
         },
       ),
     );

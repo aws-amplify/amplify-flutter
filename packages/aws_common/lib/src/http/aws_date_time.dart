@@ -58,11 +58,9 @@ class AWSDateTime {
 
   /// Find the difference between two dates
   Duration difference(DateTime d) {
-    final years = dateTime.year - d.year;
     final days = dateTime.day - d.day;
     final hours = dateTime.hour - d.hour;
     final minutes = dateTime.minute - d.minute;
-    print('years: $years, days: $days, hours: $hours, minutes: $minutes');
 
     return Duration(days: days, hours: hours, minutes: minutes);
   }
