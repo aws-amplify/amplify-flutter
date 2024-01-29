@@ -130,7 +130,7 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "infra"
+    directory: "packages/af/fix/auth/device-migration-android/actions"
     schedule:
       interval: "daily"
     ignore:
@@ -139,22 +139,11 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
-      - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
-  - package-ecosystem: "pub"
-    directory: "actions"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       json_annotation:
@@ -173,7 +162,7 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "canaries"
+    directory: "packages/af/fix/auth/device-migration-android/canaries"
     schedule:
       interval: "daily"
     ignore:
@@ -186,14 +175,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -208,6 +197,123 @@ updates:
       - dependency-name: "amplify_storage_s3"
       - dependency-name: "amplify_storage_s3_dart"
   - package-ecosystem: "pub"
+    directory: "packages/af/fix/auth/device-migration-android/infra"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "smithy"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
+  - package-ecosystem: "pub"
+    directory: "packages/af/fix/auth/device-migration-android"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+    # Group dependencies which have a constraint set in the global "pubspec.yaml"
+    groups:
+      async:
+        patterns:
+          - "async"
+      build_runner:
+        patterns:
+          - "build_runner"
+      build_web_compilers:
+        patterns:
+          - "build_web_compilers"
+      built_value:
+        patterns:
+          - "built_value"
+      built_value_generator:
+        patterns:
+          - "built_value_generator"
+      code_builder:
+        patterns:
+          - "code_builder"
+      connectivity_plus:
+        patterns:
+          - "connectivity_plus"
+      dart_style:
+        patterns:
+          - "dart_style"
+      device_info_plus:
+        patterns:
+          - "device_info_plus"
+      drift:
+        patterns:
+          - "drift"
+      drift_dev:
+        patterns:
+          - "drift_dev"
+      ffigen:
+        patterns:
+          - "ffigen"
+      file:
+        patterns:
+          - "file"
+      flutter_plugin_android_lifecycle:
+        patterns:
+          - "flutter_plugin_android_lifecycle"
+      graphs:
+        patterns:
+          - "graphs"
+      http:
+        patterns:
+          - "http"
+      intl:
+        patterns:
+          - "intl"
+      json_annotation:
+        patterns:
+          - "json_annotation"
+      json_serializable:
+        patterns:
+          - "json_serializable"
+      mime:
+        patterns:
+          - "mime"
+      oauth2:
+        patterns:
+          - "oauth2"
+      package_info_plus:
+        patterns:
+          - "package_info_plus"
+      pigeon:
+        patterns:
+          - "pigeon"
+      sqlite3:
+        patterns:
+          - "sqlite3"
+      source_gen:
+        patterns:
+          - "source_gen"
+      stack_trace:
+        patterns:
+          - "stack_trace"
+      uuid:
+        patterns:
+          - "uuid"
+      win32:
+        patterns:
+          - "win32"
+      xml:
+        patterns:
+          - "xml"
+      test:
+        patterns:
+          - "test"
+  - package-ecosystem: "pub"
     directory: "packages/aft"
     schedule:
       interval: "daily"
@@ -218,12 +324,12 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "pub_server"
       - dependency-name: "smithy"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "pub_server"
+      - dependency-name: "smithy_codegen"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -268,7 +374,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
@@ -296,14 +404,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -330,14 +438,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -361,7 +469,9 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -409,14 +519,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -450,7 +560,9 @@ updates:
       - dependency-name: "amplify_datastore_plugin_interface"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -496,7 +608,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -508,8 +622,6 @@ updates:
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
   - package-ecosystem: "pub"
     directory: "packages/amplify_datastore/example"
@@ -525,7 +637,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -537,8 +651,6 @@ updates:
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
   - package-ecosystem: "pub"
     directory: "packages/amplify_datastore_plugin_interface"
@@ -552,7 +664,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
     directory: "packages/amplify_lints"
@@ -614,6 +728,9 @@ updates:
       - dependency-name: "amplify_native_legacy_wrapper"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
     directory: "packages/amplify_native_legacy_wrapper/example"
     schedule:
@@ -627,6 +744,9 @@ updates:
       - dependency-name: "amplify_native_legacy_wrapper"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
     directory: "packages/analytics/amplify_analytics_pinpoint"
     schedule:
@@ -640,14 +760,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -697,14 +817,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -741,14 +861,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_api"
@@ -783,14 +903,14 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -833,7 +953,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -862,7 +984,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -873,8 +997,6 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
@@ -898,7 +1020,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -909,8 +1033,6 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
@@ -932,7 +1054,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -965,14 +1089,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1022,7 +1146,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -1033,8 +1159,6 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
@@ -1068,7 +1192,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -1079,8 +1205,6 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
@@ -1113,14 +1237,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1180,14 +1304,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
       - dependency-name: "example_common"
       - dependency-name: "amplify_api_dart"
@@ -1219,14 +1343,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
       - dependency-name: "example_common"
       - dependency-name: "amplify_api_dart"
@@ -1257,14 +1381,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -1302,14 +1426,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1344,14 +1468,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1380,14 +1504,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1417,14 +1541,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1446,14 +1570,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1469,7 +1593,10 @@ updates:
         update-types:
           - "version-update:semver-patch"
       # Ignore all repo packages
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -1478,6 +1605,9 @@ updates:
       built_value:
         patterns:
           - "built_value"
+      intl:
+        patterns:
+          - "intl"
       json_annotation:
         patterns:
           - "json_annotation"
@@ -1513,7 +1643,9 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -1545,7 +1677,9 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1566,7 +1700,9 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1589,7 +1725,9 @@ updates:
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1632,7 +1770,9 @@ updates:
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1659,7 +1799,9 @@ updates:
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1684,7 +1826,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -1722,7 +1866,9 @@ updates:
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "example_common"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -1752,7 +1898,9 @@ updates:
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "example_common"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -1817,7 +1965,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
@@ -1875,7 +2025,9 @@ updates:
       - dependency-name: "amplify_push_notifications"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
@@ -1894,7 +2046,9 @@ updates:
       - dependency-name: "amplify_push_notifications"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
@@ -1914,14 +2068,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito"
@@ -1955,14 +2109,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -1985,14 +2139,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -2012,7 +2166,10 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -2061,7 +2218,10 @@ updates:
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
   - package-ecosystem: "pub"
@@ -2077,7 +2237,10 @@ updates:
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
   - package-ecosystem: "pub"
@@ -2091,7 +2254,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -2135,7 +2301,10 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
       - dependency-name: "example_common"
@@ -2159,7 +2328,10 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
       - dependency-name: "example_common"
@@ -2183,7 +2355,10 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -2214,11 +2389,11 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy"
-      - dependency-name: "smithy_codegen"
-      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "smithy_codegen"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       file:
@@ -2239,9 +2414,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2271,9 +2446,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2303,9 +2478,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2335,9 +2510,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2367,9 +2542,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2399,9 +2574,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2434,9 +2609,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2469,9 +2644,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2501,9 +2676,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2533,9 +2708,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2565,9 +2740,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2597,9 +2772,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2629,9 +2804,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2661,9 +2836,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2696,9 +2871,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "smithy"
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
+      - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2730,6 +2905,8 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_lints"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -2774,9 +2951,9 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_signature_v4"
-      - dependency-name: "smithy"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2817,10 +2994,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy"
+      - dependency-name: "amplify_lints"
       - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       built_value:
@@ -2861,9 +3038,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
       - dependency-name: "smithy"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -2890,13 +3068,13 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_storage_s3_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
   - package-ecosystem: "pub"
     directory: "packages/storage/amplify_storage_s3/example"
     schedule:
@@ -2912,14 +3090,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -2957,14 +3135,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_secure_storage"
       - dependency-name: "amplify_auth_cognito_dart"
@@ -2999,11 +3177,11 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -3047,14 +3225,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
       - dependency-name: "amplify_storage_s3_dart"
       - dependency-name: "example_common"
@@ -3080,14 +3258,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
       - dependency-name: "amplify_storage_s3_dart"
       - dependency-name: "example_common"
@@ -3113,7 +3291,9 @@ updates:
       - dependency-name: "amplify_api_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_flutter"
       - dependency-name: "amplify_secure_storage"
@@ -3124,8 +3304,6 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint"
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_db_common_dart"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "amplify_db_common"
       - dependency-name: "amplify_auth_cognito_dart"
       - dependency-name: "smithy_codegen"
@@ -3151,14 +3329,14 @@ updates:
       - dependency-name: "amplify_analytics_pinpoint_dart"
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
       - dependency-name: "amplify_db_common_dart"
       - dependency-name: "amplify_secure_storage_dart"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
-      - dependency-name: "smithy"
-      - dependency-name: "smithy_aws"
       - dependency-name: "smithy_codegen"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
@@ -3189,7 +3367,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_core"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
     directory: "packages/test/pub_server"
@@ -3202,7 +3382,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -3243,7 +3426,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -3274,7 +3460,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
   - package-ecosystem: "pub"
@@ -3289,6 +3478,9 @@ updates:
       # Ignore all repo packages
       - dependency-name: "amplify_lints"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
       - dependency-name: "worker_bee"
       - dependency-name: "worker_bee_builder"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
@@ -3319,7 +3511,10 @@ updates:
           - "version-update:semver-patch"
       # Ignore all repo packages
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
@@ -3352,7 +3547,10 @@ updates:
       # Ignore all repo packages
       - dependency-name: "worker_bee"
       - dependency-name: "aws_common"
+      - dependency-name: "smithy"
       - dependency-name: "amplify_lints"
+      - dependency-name: "smithy_aws"
+      - dependency-name: "aws_signature_v4"
     # Group dependencies which have a constraint set in the global "pubspec.yaml"
     groups:
       async:
