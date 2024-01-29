@@ -68,11 +68,13 @@ abstract class HttpPayloadTraitsInputOutput
   _i2.Uint8List? get blob;
   @override
   _i2.Uint8List? getPayload() => blob;
+
   @override
   List<Object?> get props => [
         foo,
         blob,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput')
@@ -98,6 +100,7 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
         HttpPayloadTraitsInputOutput,
         _$HttpPayloadTraitsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -105,6 +108,7 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

@@ -824,6 +824,7 @@ class JsonUnionsInputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [JsonUnionsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -831,6 +832,7 @@ class JsonUnionsInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   JsonUnionsInput deserialize(
     Serializers serializers,
@@ -874,6 +876,7 @@ class JsonUnionsOutputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [JsonUnionsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -881,6 +884,7 @@ class JsonUnionsOutputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   JsonUnionsOutput deserialize(
     Serializers serializers,

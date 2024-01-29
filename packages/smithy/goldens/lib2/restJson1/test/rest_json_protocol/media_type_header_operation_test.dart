@@ -94,6 +94,7 @@ class MediaTypeHeaderInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [MediaTypeHeaderInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -101,6 +102,7 @@ class MediaTypeHeaderInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MediaTypeHeaderInput deserialize(
     Serializers serializers,
@@ -145,6 +147,7 @@ class MediaTypeHeaderOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [MediaTypeHeaderOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -152,6 +155,7 @@ class MediaTypeHeaderOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MediaTypeHeaderOutput deserialize(
     Serializers serializers,

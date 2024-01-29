@@ -39,6 +39,7 @@ abstract class EmptyInputAndEmptyOutputOutput
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -57,6 +58,7 @@ class EmptyInputAndEmptyOutputOutputAwsQuerySerializer
         EmptyInputAndEmptyOutputOutput,
         _$EmptyInputAndEmptyOutputOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -64,6 +66,7 @@ class EmptyInputAndEmptyOutputOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,

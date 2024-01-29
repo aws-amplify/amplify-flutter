@@ -38,6 +38,7 @@ abstract class Owner
         displayName,
         id,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Owner')
@@ -61,6 +62,7 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
         Owner,
         _$Owner,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -68,6 +70,7 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
           shape: 'restXml',
         )
       ];
+
   @override
   Owner deserialize(
     Serializers serializers,

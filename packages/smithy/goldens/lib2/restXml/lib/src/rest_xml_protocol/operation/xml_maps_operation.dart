@@ -66,8 +66,10 @@ class XmlMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
         b.method = 'POST';
         b.path = r'/XmlMaps';
       });
+
   @override
   int successCode([XmlMapsInputOutput? output]) => 200;
+
   @override
   XmlMapsInputOutput buildOutput(
     XmlMapsInputOutput payload,
@@ -77,16 +79,22 @@ class XmlMapsOperation extends _i1.HttpOperation<XmlMapsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlMaps';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlMapsInputOutput> run(
     XmlMapsInputOutput input, {

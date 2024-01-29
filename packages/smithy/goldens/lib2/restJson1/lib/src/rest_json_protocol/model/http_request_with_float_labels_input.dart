@@ -73,11 +73,13 @@ abstract class HttpRequestWithFloatLabelsInput
   @override
   HttpRequestWithFloatLabelsInputPayload getPayload() =>
       HttpRequestWithFloatLabelsInputPayload();
+
   @override
   List<Object?> get props => [
         float,
         double_,
       ];
+
   @override
   String toString() {
     final helper =
@@ -110,6 +112,7 @@ abstract class HttpRequestWithFloatLabelsInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -130,6 +133,7 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer extends _i1
         HttpRequestWithFloatLabelsInputPayload,
         _$HttpRequestWithFloatLabelsInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -137,6 +141,7 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithFloatLabelsInputPayload deserialize(
     Serializers serializers,

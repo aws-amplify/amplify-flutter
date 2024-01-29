@@ -62,11 +62,13 @@ abstract class HttpPrefixHeadersOutput
   @override
   HttpPrefixHeadersOutputPayload getPayload() =>
       HttpPrefixHeadersOutputPayload();
+
   @override
   List<Object?> get props => [
         foo,
         fooMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpPrefixHeadersOutput')
@@ -98,6 +100,7 @@ abstract class HttpPrefixHeadersOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -118,6 +121,7 @@ class HttpPrefixHeadersOutputRestJson1Serializer
         HttpPrefixHeadersOutputPayload,
         _$HttpPrefixHeadersOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -125,6 +129,7 @@ class HttpPrefixHeadersOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPrefixHeadersOutputPayload deserialize(
     Serializers serializers,

@@ -508,6 +508,7 @@ class GreetingWithErrorsOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -515,6 +516,7 @@ class GreetingWithErrorsOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GreetingWithErrorsOutput deserialize(
     Serializers serializers,
@@ -558,6 +560,7 @@ class ComplexErrorAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [ComplexError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -565,6 +568,7 @@ class ComplexErrorAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -614,6 +618,7 @@ class ComplexNestedErrorDataAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -621,6 +626,7 @@ class ComplexNestedErrorDataAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,
@@ -664,6 +670,7 @@ class FooErrorAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [FooError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -671,6 +678,7 @@ class FooErrorAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   FooError deserialize(
     Serializers serializers,
@@ -696,6 +704,7 @@ class InvalidGreetingAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [InvalidGreeting];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -703,6 +712,7 @@ class InvalidGreetingAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

@@ -131,6 +131,7 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlEmptyStringsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -138,6 +139,7 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlEmptyStringsInputOutput deserialize(
     Serializers serializers,

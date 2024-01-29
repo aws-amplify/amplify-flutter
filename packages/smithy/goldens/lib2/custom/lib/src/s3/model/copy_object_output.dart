@@ -43,8 +43,10 @@ abstract class CopyObjectOutput
   CopyObjectResult? get copyObjectResult;
   @override
   CopyObjectResult? getPayload() => copyObjectResult ?? CopyObjectResult();
+
   @override
   List<Object?> get props => [copyObjectResult];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectOutput')
@@ -65,6 +67,7 @@ class CopyObjectOutputRestXmlSerializer
         CopyObjectOutput,
         _$CopyObjectOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -72,6 +75,7 @@ class CopyObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectResult deserialize(
     Serializers serializers,

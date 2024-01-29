@@ -75,12 +75,14 @@ abstract class GetObjectRequest
 
   @override
   GetObjectRequestPayload getPayload() => GetObjectRequestPayload();
+
   @override
   List<Object?> get props => [
         bucket,
         key,
         range,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequest')
@@ -114,6 +116,7 @@ abstract class GetObjectRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequestPayload');
@@ -132,6 +135,7 @@ class GetObjectRequestRestXmlSerializer
         GetObjectRequestPayload,
         _$GetObjectRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -139,6 +143,7 @@ class GetObjectRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetObjectRequestPayload deserialize(
     Serializers serializers,
