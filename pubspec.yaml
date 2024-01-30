@@ -23,7 +23,7 @@ dependencies:
   connectivity_plus: ">=4.0.1 <6.0.0"
   # This must exactly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
-  dart_style: 2.3.2
+  dart_style: ^2.3.2
   device_info_plus: ^9.0.0
   drift: ">=2.14.0 <2.15.0"
   drift_dev: ">=2.14.0 <2.15.0"
