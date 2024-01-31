@@ -1,5 +1,5 @@
 # Generated with aft. To update, run: `aft generate workflows`
-name: amplify_logging_cloudwatch
+name: amplify_logging_cloudwatch_dart
 on:
   push:
     branches:
@@ -7,10 +7,11 @@ on:
       - stable
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
-      - '.github/workflows/amplify_logging_cloudwatch.yaml'
+      - '.github/workflows/amplify_logging_cloudwatch_dart.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/dart_ddc.yaml'
-      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -21,12 +22,10 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/logging/amplify_logging_cloudwatch/**/*.dart'
-      - 'packages/logging/amplify_logging_cloudwatch/**/*.yaml'
-      - 'packages/logging/amplify_logging_cloudwatch/lib/**/*'
-      - 'packages/logging/amplify_logging_cloudwatch/test/**/*'
-      - 'packages/logging/amplify_logging_cloudwatch_dart/lib/**/*.dart'
-      - 'packages/logging/amplify_logging_cloudwatch_dart/pubspec.yaml'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/**/*.dart'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/**/*.yaml'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/lib/**/*'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/test/**/*'
       - 'packages/smithy/smithy/lib/**/*.dart'
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
@@ -34,10 +33,11 @@ on:
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
-      - '.github/workflows/amplify_logging_cloudwatch.yaml'
+      - '.github/workflows/amplify_logging_cloudwatch_dart.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/dart_ddc.yaml'
-      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/amplify_core/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
@@ -48,12 +48,10 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
       - 'packages/common/amplify_db_common_dart/pubspec.yaml'
-      - 'packages/logging/amplify_logging_cloudwatch/**/*.dart'
-      - 'packages/logging/amplify_logging_cloudwatch/**/*.yaml'
-      - 'packages/logging/amplify_logging_cloudwatch/lib/**/*'
-      - 'packages/logging/amplify_logging_cloudwatch/test/**/*'
-      - 'packages/logging/amplify_logging_cloudwatch_dart/lib/**/*.dart'
-      - 'packages/logging/amplify_logging_cloudwatch_dart/pubspec.yaml'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/**/*.dart'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/**/*.yaml'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/lib/**/*'
+      - 'packages/logging/amplify_logging_cloudwatch_dart/test/**/*'
       - 'packages/smithy/smithy/lib/**/*.dart'
       - 'packages/smithy/smithy/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
@@ -77,9 +75,29 @@ concurrency:
 
 jobs:
   test:
-    uses: ./.github/workflows/flutter_vm.yaml
+    uses: ./.github/workflows/dart_vm.yaml
     secrets: inherit
     with:
-      package-name: amplify_logging_cloudwatch
-      working-directory: packages/logging/amplify_logging_cloudwatch
-      has-goldens: false
+      package-name: amplify_logging_cloudwatch_dart
+      working-directory: packages/logging/amplify_logging_cloudwatch_dart
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    secrets: inherit 
+    with:
+      package-name: amplify_logging_cloudwatch_dart
+      working-directory: packages/logging/amplify_logging_cloudwatch_dart
+  ddc_test:
+    needs: test
+    uses: ./.github/workflows/dart_ddc.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_logging_cloudwatch_dart
+      working-directory: packages/logging/amplify_logging_cloudwatch_dart
+  dart2js_test:
+    needs: test
+    uses: ./.github/workflows/dart_dart2js.yaml
+    secrets: inherit
+    with:
+      package-name: amplify_logging_cloudwatch_dart
+      working-directory: packages/logging/amplify_logging_cloudwatch_dart
