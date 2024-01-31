@@ -6,6 +6,7 @@ library aws_signature_v4;
 
 export 'package:aws_common/src/credentials/aws_credentials.dart';
 export 'package:aws_common/src/credentials/aws_credentials_provider.dart';
+export 'package:aws_common/src/http/aws_date_time.dart';
 
 export 'src/configuration/service_configuration.dart';
 export 'src/configuration/services/s3.dart';
