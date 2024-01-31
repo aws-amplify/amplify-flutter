@@ -1,3 +1,8 @@
+## 1.6.2
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 1.6.1
 
 - Minor bug fixes and improvements

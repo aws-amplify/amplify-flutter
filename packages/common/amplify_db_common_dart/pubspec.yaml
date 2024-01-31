@@ -1,6 +1,6 @@
 name: amplify_db_common_dart
 description: Common utilities for working with databases such as sqlite. Used throughout Amplify packages.
-version: 0.3.4
+version: 0.3.5
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/common/amplify_db_common_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -11,7 +11,7 @@ environment:
 dependencies:
   amplify_core: ">=1.6.0 <1.7.0"
   async: ^2.10.0
-  aws_common: ">=0.6.0 <0.7.0"
+  aws_common: ">=0.6.3 <0.7.0"
   drift: ">=2.14.0 <2.15.0"
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"

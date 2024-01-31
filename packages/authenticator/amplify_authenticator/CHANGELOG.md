@@ -1,3 +1,8 @@
+## 1.5.3
+
+### Fixes
+- fix: Bumped package_info_plus to ">=4.0.1 <=6.0.0"
+
 ## 1.5.2
 
 ### Fixes

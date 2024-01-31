@@ -1,3 +1,9 @@
+## 1.6.3
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped package_info_plus to ">=4.0.1 <=6.0.0"
+
 ## 1.6.2
 
 - Minor bug fixes and improvements
