@@ -1,3 +1,8 @@
+## 1.6.2
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+
 ## 1.6.1
 
 - Minor bug fixes and improvements

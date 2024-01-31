@@ -1,3 +1,8 @@
+## 0.5.1
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.5.0
 
 ### Breaking Changes
