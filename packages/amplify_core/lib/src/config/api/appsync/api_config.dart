@@ -13,6 +13,7 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
     required this.region,
     required this.authorizationType,
     this.apiKey,
+    this.DangerouslyConnectToHTTPEndpointForTesting,
   });
 
   factory AWSApiConfig.fromJson(Map<String, Object?> json) =>
@@ -22,6 +23,9 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
   final String region;
   final APIAuthorizationType authorizationType;
   final String? apiKey;
+  final bool? DangerouslyConnectToHTTPEndpointForTesting;
+
+  bool get allowHttp => DangerouslyConnectToHTTPEndpointForTesting ?? false;
 
   @override
   List<Object?> get props => [
@@ -30,6 +34,7 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
         region,
         authorizationType,
         apiKey,
+        DangerouslyConnectToHTTPEndpointForTesting,
       ];
 
   AWSApiConfig copyWith({
@@ -38,6 +43,7 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
     String? region,
     APIAuthorizationType? authorizationType,
     String? apiKey,
+    bool? dangerouslyConnectToHTTPEndpointForTesting,
   }) {
     return AWSApiConfig(
       endpointType: endpointType ?? this.endpointType,
@@ -45,6 +51,9 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
       region: region ?? this.region,
       authorizationType: authorizationType ?? this.authorizationType,
       apiKey: apiKey ?? this.apiKey,
+      DangerouslyConnectToHTTPEndpointForTesting:
+          dangerouslyConnectToHTTPEndpointForTesting ??
+              DangerouslyConnectToHTTPEndpointForTesting,
     );
   }
 
