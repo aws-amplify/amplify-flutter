@@ -14,7 +14,8 @@ enum QueryFieldOperatorType {
   greater_than,
   contains,
   between,
-  begins_with
+  begins_with,
+  match_phrase_prefix,
 }
 
 extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
@@ -379,4 +380,30 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
 
   @override
   bool evaluateSerialized(String? other) => evaluate(other);
+}
+
+class MatchPhrasePrefixWithQueryOperator
+    extends QueryFieldOperatorSingleValue<String> {
+  const MatchPhrasePrefixWithQueryOperator(String value)
+      : super(value, QueryFieldOperatorType.match_phrase_prefix);
+
+  @override
+  bool evaluate(String? other) {
+    if (other == null) {
+      return false;
+    }
+    return other == value;
+  }
+
+  @override
+  bool evaluateSerialized(String? other) => evaluate(other);
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'operatorName':
+          QueryFieldOperatorType.match_phrase_prefix.toShortString(),
+      'value': serializeDynamicValue(value),
+    };
+  }
 }

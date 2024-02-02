@@ -58,4 +58,28 @@ class ModelQueriesFactory {
       headers: headers,
     );
   }
+
+  GraphQLRequest<PaginatedResult<T>> search<T extends Model>(
+    ModelType<T> modelType, {
+    int? limit,
+    QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    final filter = GraphQLRequestFactory.instance
+        .queryPredicateToGraphQLFilter(where, modelType);
+    final variables = GraphQLRequestFactory.instance
+        .buildVariablesForListRequest(limit: limit, filter: filter);
+
+    return GraphQLRequestFactory.instance.buildRequest<PaginatedResult<T>>(
+      modelType: PaginatedModelType(modelType),
+      variables: variables,
+      requestType: GraphQLRequestType.query,
+      requestOperation: GraphQLRequestOperation.search,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
+  }
 }
