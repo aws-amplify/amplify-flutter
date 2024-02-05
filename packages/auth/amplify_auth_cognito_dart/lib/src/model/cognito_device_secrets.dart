@@ -26,7 +26,7 @@ abstract class CognitoDeviceSecrets
   ) {
     return CognitoDeviceSecrets((b) {
       b
-        ..devicePassword = details.devicePassword
+        ..deviceKey = details.deviceKey
         ..deviceGroupKey = details.deviceGroupKey
         ..devicePassword = details.devicePassword;
     });
