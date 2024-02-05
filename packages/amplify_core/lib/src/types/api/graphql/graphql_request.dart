@@ -80,7 +80,7 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
   ///
   /// ```dart
   /// final original = ModelQueries.list(
-  ///   Todo.classType,
+  ///   Blog.classType,
   /// );
   /// final modified = original.copyWith(
   ///   document: yourCustomQuery,

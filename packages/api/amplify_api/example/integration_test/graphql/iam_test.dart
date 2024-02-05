@@ -188,6 +188,37 @@ void main({bool useExistingTestUser = false}) {
         expect(postFromResponse?.title, title);
       });
 
+      testWidgets('should copyWith request', (WidgetTester tester) async {
+        final title = 'Lorem Ipsum Test Post: ${uuid()}';
+        final title2 = 'Lorem Ipsum Test Post copied: ${uuid()}';
+        const rating = 0;
+        final createdPost = await addPostAndBlog(title, rating);
+        final createdPost2 = await addPostAndBlog(title2, rating);
+        final blogId = createdPost.blog?.id;
+        final blogId2 = createdPost2.blog?.id;
+
+        // Original request with blog 1
+        final req = ModelQueries.list(
+          Post.classType,
+          where: Post.BLOG.eq(blogId),
+          limit: _limit,
+        );
+
+        // Copy request with blog 2
+        final copiedRequest = req.copyWith(
+          variables: {
+            'blogId': blogId2,
+          },
+        );
+        final res = await Amplify.API.query(request: copiedRequest).response;
+        final postFromResponse = res.data?.items[0];
+
+        expect(res, hasNoGraphQLErrors);
+        expect(postFromResponse?.blog?.id, isNotNull);
+        expect(postFromResponse?.blog?.id, blogId2);
+        expect(postFromResponse?.title, title2);
+      });
+
       testWidgets('should decode a custom list request',
           (WidgetTester tester) async {
         final name = 'Lorem Ipsum Test Blog: ${uuid()}';
