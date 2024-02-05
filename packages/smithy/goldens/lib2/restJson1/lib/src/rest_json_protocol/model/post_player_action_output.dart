@@ -37,6 +37,7 @@ abstract class PostPlayerActionOutput
   PlayerAction get action;
   @override
   List<Object?> get props => [action];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostPlayerActionOutput')
@@ -58,6 +59,7 @@ class PostPlayerActionOutputRestJson1Serializer
         PostPlayerActionOutput,
         _$PostPlayerActionOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class PostPlayerActionOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostPlayerActionOutput deserialize(
     Serializers serializers,

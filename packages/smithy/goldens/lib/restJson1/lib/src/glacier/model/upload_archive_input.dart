@@ -86,6 +86,7 @@ abstract class UploadArchiveInput
 
   @override
   _i2.Stream<List<int>>? getPayload() => body;
+
   @override
   List<Object?> get props => [
         vaultName,
@@ -94,6 +95,7 @@ abstract class UploadArchiveInput
         checksum,
         body,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadArchiveInput')
@@ -130,6 +132,7 @@ class UploadArchiveInputRestJson1Serializer
         UploadArchiveInput,
         _$UploadArchiveInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -137,6 +140,7 @@ class UploadArchiveInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Stream<List<int>> deserialize(
     Serializers serializers,

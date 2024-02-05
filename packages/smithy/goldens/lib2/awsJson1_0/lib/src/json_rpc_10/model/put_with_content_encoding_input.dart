@@ -46,11 +46,13 @@ abstract class PutWithContentEncodingInput
   String? get data;
   @override
   PutWithContentEncodingInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         encoding,
         data,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutWithContentEncodingInput')
@@ -76,6 +78,7 @@ class PutWithContentEncodingInputAwsJson10Serializer
         PutWithContentEncodingInput,
         _$PutWithContentEncodingInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -83,6 +86,7 @@ class PutWithContentEncodingInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   PutWithContentEncodingInput deserialize(
     Serializers serializers,

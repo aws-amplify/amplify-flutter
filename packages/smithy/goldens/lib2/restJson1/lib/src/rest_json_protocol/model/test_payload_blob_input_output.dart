@@ -67,11 +67,13 @@ abstract class TestPayloadBlobInputOutput
   _i2.Uint8List? get data;
   @override
   _i2.Uint8List? getPayload() => data;
+
   @override
   List<Object?> get props => [
         contentType,
         data,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestPayloadBlobInputOutput')
@@ -97,6 +99,7 @@ class TestPayloadBlobInputOutputRestJson1Serializer
         TestPayloadBlobInputOutput,
         _$TestPayloadBlobInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -104,6 +107,7 @@ class TestPayloadBlobInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

@@ -67,6 +67,7 @@ abstract class XmlTimestampsOutput
         httpDate,
         httpDateOnTarget,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlTimestampsOutput')
@@ -111,6 +112,7 @@ class XmlTimestampsOutputEc2QuerySerializer
         XmlTimestampsOutput,
         _$XmlTimestampsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -118,6 +120,7 @@ class XmlTimestampsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlTimestampsOutput deserialize(
     Serializers serializers,
@@ -205,7 +208,7 @@ class XmlTimestampsOutputEc2QuerySerializer
         ..add(const _i2.XmlElementName('Normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (dateTime != null) {

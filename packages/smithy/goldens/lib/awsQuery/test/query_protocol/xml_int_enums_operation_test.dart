@@ -70,6 +70,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlIntEnumsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -77,6 +78,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlIntEnumsOutput deserialize(
     Serializers serializers,

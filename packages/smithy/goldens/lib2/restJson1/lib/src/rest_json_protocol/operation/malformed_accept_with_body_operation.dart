@@ -63,8 +63,10 @@ class MalformedAcceptWithBodyOperation extends _i1
         b.method = 'POST';
         b.path = r'/MalformedAcceptWithBody';
       });
+
   @override
   int successCode([GreetingStruct? output]) => 200;
+
   @override
   GreetingStruct buildOutput(
     GreetingStruct payload,
@@ -74,16 +76,22 @@ class MalformedAcceptWithBodyOperation extends _i1
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'MalformedAcceptWithBody';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GreetingStruct> run(
     _i1.Unit input, {

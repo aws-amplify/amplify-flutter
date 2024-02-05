@@ -32,6 +32,7 @@ abstract class NestedStructWithList
   _i2.BuiltList<String>? get listArg;
   @override
   List<Object?> get props => [listArg];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructWithList')
@@ -53,6 +54,7 @@ class NestedStructWithListAwsQuerySerializer
         NestedStructWithList,
         _$NestedStructWithList,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -60,6 +62,7 @@ class NestedStructWithListAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NestedStructWithList deserialize(
     Serializers serializers,
@@ -122,7 +125,7 @@ class NestedStructWithListAwsQuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),

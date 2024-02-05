@@ -48,8 +48,10 @@ abstract class RecursiveShapesInputOutput
   RecursiveShapesInputOutputNested1? get nested;
   @override
   RecursiveShapesInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecursiveShapesInputOutput')
@@ -71,6 +73,7 @@ class RecursiveShapesInputOutputRestJson1Serializer
         RecursiveShapesInputOutput,
         _$RecursiveShapesInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -78,6 +81,7 @@ class RecursiveShapesInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveShapesInputOutput deserialize(
     Serializers serializers,
