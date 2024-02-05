@@ -256,6 +256,7 @@ class XmlTimestampsOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlTimestampsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -263,6 +264,7 @@ class XmlTimestampsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlTimestampsOutput deserialize(
     Serializers serializers,

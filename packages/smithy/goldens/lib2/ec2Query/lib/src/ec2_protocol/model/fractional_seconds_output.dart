@@ -46,6 +46,7 @@ abstract class FractionalSecondsOutput
         datetime,
         httpdate,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
@@ -71,6 +72,7 @@ class FractionalSecondsOutputEc2QuerySerializer
         FractionalSecondsOutput,
         _$FractionalSecondsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +80,7 @@ class FractionalSecondsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   FractionalSecondsOutput deserialize(
     Serializers serializers,

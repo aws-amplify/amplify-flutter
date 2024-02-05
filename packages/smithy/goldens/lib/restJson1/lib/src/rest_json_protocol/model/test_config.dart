@@ -29,6 +29,7 @@ abstract class TestConfig
   int? get timeout;
   @override
   List<Object?> get props => [timeout];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestConfig')
@@ -49,6 +50,7 @@ class TestConfigRestJson1Serializer
         TestConfig,
         _$TestConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -56,6 +58,7 @@ class TestConfigRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TestConfig deserialize(
     Serializers serializers,

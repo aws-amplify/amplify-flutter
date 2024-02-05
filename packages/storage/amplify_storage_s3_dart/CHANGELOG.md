@@ -1,3 +1,10 @@
+## 0.3.9
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped drift to ">=2.14.0 <2.15.0" and drift_dev to ">=2.14.0 <2.15.0".
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.3.8
 
 - Minor bug fixes and improvements

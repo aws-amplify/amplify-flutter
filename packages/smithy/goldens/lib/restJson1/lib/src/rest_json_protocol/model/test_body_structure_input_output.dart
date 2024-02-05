@@ -76,11 +76,13 @@ abstract class TestBodyStructureInputOutput
           b.testConfig.replace(testConfig!);
         }
       });
+
   @override
   List<Object?> get props => [
         testId,
         testConfig,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput')
@@ -112,6 +114,7 @@ abstract class TestBodyStructureInputOutputPayload
   TestConfig? get testConfig;
   @override
   List<Object?> get props => [testConfig];
+
   @override
   String toString() {
     final helper =
@@ -136,6 +139,7 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
         TestBodyStructureInputOutputPayload,
         _$TestBodyStructureInputOutputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -143,6 +147,7 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   TestBodyStructureInputOutputPayload deserialize(
     Serializers serializers,

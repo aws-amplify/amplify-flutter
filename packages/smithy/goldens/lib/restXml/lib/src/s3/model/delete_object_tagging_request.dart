@@ -84,6 +84,7 @@ abstract class DeleteObjectTaggingRequest
   @override
   DeleteObjectTaggingRequestPayload getPayload() =>
       DeleteObjectTaggingRequestPayload();
+
   @override
   List<Object?> get props => [
         bucket,
@@ -91,6 +92,7 @@ abstract class DeleteObjectTaggingRequest
         versionId,
         expectedBucketOwner,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectTaggingRequest')
@@ -130,6 +132,7 @@ abstract class DeleteObjectTaggingRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -150,6 +153,7 @@ class DeleteObjectTaggingRequestRestXmlSerializer
         DeleteObjectTaggingRequestPayload,
         _$DeleteObjectTaggingRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -157,6 +161,7 @@ class DeleteObjectTaggingRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectTaggingRequestPayload deserialize(
     Serializers serializers,

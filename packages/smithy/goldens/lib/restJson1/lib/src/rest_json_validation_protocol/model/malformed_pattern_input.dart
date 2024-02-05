@@ -57,6 +57,7 @@ abstract class MalformedPatternInput
   PatternUnion? get union;
   @override
   MalformedPatternInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         string,
@@ -65,6 +66,7 @@ abstract class MalformedPatternInput
         map,
         union,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedPatternInput')
@@ -102,6 +104,7 @@ class MalformedPatternInputRestJson1Serializer
         MalformedPatternInput,
         _$MalformedPatternInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -109,6 +112,7 @@ class MalformedPatternInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedPatternInput deserialize(
     Serializers serializers,

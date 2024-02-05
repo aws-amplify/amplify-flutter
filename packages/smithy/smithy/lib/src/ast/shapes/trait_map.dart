@@ -27,7 +27,7 @@ class TraitMap extends DelegatingMap<ShapeId, Trait> {
   T expectTrait<T extends Trait>() => values.firstWhere((t) => t is T) as T;
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is TraitMap &&
           const MapEquality<ShapeId, Trait>().equals(this, other);

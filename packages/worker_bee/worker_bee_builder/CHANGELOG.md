@@ -1,3 +1,8 @@
+## 0.2.3
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.2.2
 
 - Minor bug fixes and improvements

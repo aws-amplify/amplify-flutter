@@ -1,6 +1,6 @@
 name: amplify_storage_s3
 description: The Amplify Flutter Storage category plugin using the AWS S3 provider.
-version: 1.6.1
+version: 1.6.2
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/storage/amplify_storage_s3
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -20,8 +20,8 @@ platforms:
 
 dependencies:
   amplify_core: ">=1.6.0 <1.7.0"
-  amplify_db_common: ">=0.3.4 <0.4.0"
-  amplify_storage_s3_dart: ">=0.3.8 <0.4.0"
+  amplify_db_common: ">=0.3.5 <0.4.0"
+  amplify_storage_s3_dart: ">=0.3.9 <0.4.0"
   aws_common: ">=0.6.0 <0.7.0"
   flutter:
     sdk: flutter

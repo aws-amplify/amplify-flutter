@@ -61,8 +61,10 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
   @override
   PayloadWithXmlNamespaceAndPrefix? getPayload() =>
       nested ?? PayloadWithXmlNamespaceAndPrefix();
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -85,6 +87,7 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
         HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
         _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -92,6 +95,7 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PayloadWithXmlNamespaceAndPrefix deserialize(
     Serializers serializers,

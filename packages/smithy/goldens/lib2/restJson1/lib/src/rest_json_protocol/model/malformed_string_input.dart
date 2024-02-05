@@ -51,8 +51,10 @@ abstract class MalformedStringInput
   _i3.JsonObject? get blob;
   @override
   MalformedStringInputPayload getPayload() => MalformedStringInputPayload();
+
   @override
   List<Object?> get props => [blob];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedStringInput')
@@ -78,6 +80,7 @@ abstract class MalformedStringInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedStringInputPayload');
@@ -97,6 +100,7 @@ class MalformedStringInputRestJson1Serializer
         MalformedStringInputPayload,
         _$MalformedStringInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -104,6 +108,7 @@ class MalformedStringInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedStringInputPayload deserialize(
     Serializers serializers,

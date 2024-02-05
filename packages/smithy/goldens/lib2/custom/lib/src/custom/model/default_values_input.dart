@@ -127,6 +127,7 @@ abstract class DefaultValuesInput
   bool? get nullifiedDefaultBool;
   @override
   DefaultValuesInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         requiredDefaultInt,
@@ -148,6 +149,7 @@ abstract class DefaultValuesInput
         optionalDefaultBool,
         nullifiedDefaultBool,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultValuesInput')
@@ -236,6 +238,7 @@ class DefaultValuesInputRestJson1Serializer
         DefaultValuesInput,
         _$DefaultValuesInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -243,6 +246,7 @@ class DefaultValuesInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   DefaultValuesInput deserialize(
     Serializers serializers,

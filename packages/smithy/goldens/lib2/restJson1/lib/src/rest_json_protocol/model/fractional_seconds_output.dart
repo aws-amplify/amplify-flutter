@@ -36,6 +36,7 @@ abstract class FractionalSecondsOutput
   DateTime? get datetime;
   @override
   List<Object?> get props => [datetime];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FractionalSecondsOutput')
@@ -57,6 +58,7 @@ class FractionalSecondsOutputRestJson1Serializer
         FractionalSecondsOutput,
         _$FractionalSecondsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -64,6 +66,7 @@ class FractionalSecondsOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   FractionalSecondsOutput deserialize(
     Serializers serializers,

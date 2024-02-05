@@ -720,6 +720,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -727,6 +728,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,

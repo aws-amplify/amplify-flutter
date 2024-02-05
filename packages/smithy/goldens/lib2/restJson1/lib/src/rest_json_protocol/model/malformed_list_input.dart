@@ -39,8 +39,10 @@ abstract class MalformedListInput
   _i3.BuiltList<String>? get bodyList;
   @override
   MalformedListInput getPayload() => this;
+
   @override
   List<Object?> get props => [bodyList];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedListInput')
@@ -61,6 +63,7 @@ class MalformedListInputRestJson1Serializer
         MalformedListInput,
         _$MalformedListInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -68,6 +71,7 @@ class MalformedListInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedListInput deserialize(
     Serializers serializers,

@@ -114,6 +114,7 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i4
 
   @override
   Iterable<Type> get types => const [PutAndGetInlineDocumentsInputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -121,6 +122,7 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i4
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PutAndGetInlineDocumentsInputOutput deserialize(
     Serializers serializers,

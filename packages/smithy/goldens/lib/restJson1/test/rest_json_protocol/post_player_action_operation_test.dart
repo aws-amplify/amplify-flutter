@@ -99,6 +99,7 @@ class PostPlayerActionInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PostPlayerActionInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -106,6 +107,7 @@ class PostPlayerActionInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostPlayerActionInput deserialize(
     Serializers serializers,
@@ -150,6 +152,7 @@ class PostPlayerActionOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PostPlayerActionOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -157,6 +160,7 @@ class PostPlayerActionOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostPlayerActionOutput deserialize(
     Serializers serializers,

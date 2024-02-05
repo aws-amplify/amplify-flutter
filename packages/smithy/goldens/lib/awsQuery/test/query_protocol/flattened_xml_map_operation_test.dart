@@ -61,6 +61,7 @@ class FlattenedXmlMapOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [FlattenedXmlMapOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -68,6 +69,7 @@ class FlattenedXmlMapOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   FlattenedXmlMapOutput deserialize(
     Serializers serializers,

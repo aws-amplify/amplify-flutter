@@ -1,3 +1,10 @@
+## 0.6.3
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+- fix: uncaught exception in smithy code ([#4369](https://github.com/aws-amplify/amplify-flutter/pull/4369))
+
 ## 0.6.2
 
 - Minor bug fixes and improvements
