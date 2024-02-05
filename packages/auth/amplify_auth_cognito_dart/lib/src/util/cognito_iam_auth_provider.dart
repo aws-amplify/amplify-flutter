@@ -55,12 +55,6 @@ final class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     required AWSCredentials credentials,
     ServiceConfiguration? serviceConfiguration,
   }) {
-    final headers = Map.of(request.headers);
-    // check if date header is already set and parse it.
-    final dateTime = headers[AWSHeaders.date] != null
-        ? AWSDateTime.parse(request.headers[AWSHeaders.date]!)
-        : null;
-
     // Create signer helper params.
     final signer = AWSSigV4Signer(
       credentialsProvider: AWSCredentialsProvider(credentials),
@@ -68,7 +62,6 @@ final class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     final scope = AWSCredentialScope(
       region: region,
       service: service,
-      dateTime: dateTime,
     );
 
     // Finally, create and sign canonical request.

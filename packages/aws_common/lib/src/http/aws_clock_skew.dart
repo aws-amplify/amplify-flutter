@@ -12,7 +12,7 @@ class AWSClockSkew {
   ) {
     final correctedDate = getSkewCorrectedDate(clockSkewOffsetInMs);
 
-    request.headers[AWSHeaders.date] = correctedDate;
+    request.clockSkewDate = AWSDateTime.parse(correctedDate);
 
     return request;
   }

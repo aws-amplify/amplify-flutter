@@ -60,4 +60,16 @@ class AWSCredentialScope {
   @override
   String toString() =>
       '${dateTime.formatDate()}/$region/$service/${AWSSigV4Signer.terminationString}';
+
+  /// Copy this scope with new values.
+  AWSCredentialScope copyWith({
+    AWSDateTime? dateTime,
+    String? region,
+    String? service,
+  }) =>
+      AWSCredentialScope.raw(
+        dateTime: dateTime ?? this.dateTime,
+        region: region ?? _region,
+        service: service ?? _service,
+      );
 }
