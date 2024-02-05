@@ -75,6 +75,21 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
         if (decodePath != null) 'decodePath': decodePath,
       };
 
+  /// Creates a copy of this request with the given fields replaced with the new values.
+  /// If no new value is given, the old value is used.
+  ///
+  /// ```dart
+  /// final original = ModelQueries.list(
+  ///   Todo.classType,
+  /// );
+  /// final modified = original.copyWith(
+  ///   document: yourCustomQuery,
+  /// );
+  /// ```
+  ///
+  /// Useful in advanced scenarios where you want to modify the request before sending it.
+  ///
+  /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   GraphQLRequest<T> copyWith({
     String? document,
     String? apiName,
