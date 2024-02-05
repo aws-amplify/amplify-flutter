@@ -81,7 +81,7 @@ sealed class AWSBaseHttpRequest
   /// If `false`, calling [contentLength] will require reading the body.
   bool get hasContentLength;
 
-  late final AWSDateTime? _clockSkewDate;
+  late AWSDateTime? _clockSkewDate;
 
   /// Set the adjusted clock skew date for the request.
   @internal
