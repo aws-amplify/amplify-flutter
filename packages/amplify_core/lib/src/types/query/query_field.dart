@@ -256,6 +256,27 @@ class QueryField<T> {
   QueryPredicateOperation beginsWith(String value) =>
       QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
 
+  /// An **attribute exists** operation.
+  ///
+  /// Matches models whether the given field exists or not.
+  ///
+  /// ### Example:
+  /// The example returns Blog where the title attribute is not exists.
+  ///
+  /// ```dart
+  /// ModelQueries.list(
+  ///  Post.classType,
+  ///  where: Post.BLOG.attributeExists(value: true),
+  /// );
+  /// ```
+  QueryPredicateOperation attributeExists({bool? value}) =>
+      QueryPredicateOperation(
+        fieldName,
+        AttributeExistsQueryOperator(
+          value ?? false,
+        ),
+      );
+
   /// Sorts models by the given field in ascending order
   ///
   /// ### Example:
