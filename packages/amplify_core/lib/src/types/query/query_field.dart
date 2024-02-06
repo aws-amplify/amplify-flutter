@@ -261,7 +261,7 @@ class QueryField<T> {
   /// Matches models whether the given field exists or not.
   ///
   /// ### Example:
-  /// The example returns Blog where the title attribute is not exists.
+  /// The example returns Post where the Blog attribute is not exists.
   ///
   /// ```dart
   /// ModelQueries.list(
