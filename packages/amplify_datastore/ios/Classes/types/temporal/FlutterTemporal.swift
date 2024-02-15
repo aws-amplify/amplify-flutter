@@ -12,7 +12,7 @@ struct FlutterTemporal: TemporalSpec {
     init(iso8601String: String) {
         self.iso8601 = iso8601String
         self.foundationDate = Date()
-        self.timeZone = timeZone
+        self.timeZone = TimeZone.current
     }
 
     var iso8601String: String {
