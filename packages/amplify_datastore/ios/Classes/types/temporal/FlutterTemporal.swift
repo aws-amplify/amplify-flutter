@@ -23,7 +23,7 @@ struct FlutterTemporal: TemporalSpec {
     // In order to properly adhere to "TemporalSpec" these functions must be implemented
     // This class is solely for transmitting a ISO 8601 Date String to Appsync so these other functions are not needed
     var foundationDate: Date
-    init(_ date: Date) {
+    init(_ date: Date, timeZone: TimeZone? = TimeZone.current) {
         self.iso8601 = ""
         self.foundationDate = date
         self.timeZone = timeZone
