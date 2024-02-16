@@ -25,7 +25,9 @@ cp $ROOT_DIR/build-support/dummy_amplifyconfiguration.dart lib/amplifyconfigurat
 
 # Android
 sed -i '' -e "s/ext.kotlin_version = .*/ext.kotlin_version = \"1.8.21\"/" ./android/build.gradle
+# TODO(khatruong2009): remove this line after the next stable release (3.22.0 or 4.0)
 sed -i '' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle
+sed -i '' -e "s/minSdk .*/minSdk 24/" ./android/app/build.gradle
 sed -i '' -e "s/compileSdkVersion .*/compileSdkVersion 33/" ./android/app/build.gradle
 cat ./android/app/build.gradle
 # iOS
