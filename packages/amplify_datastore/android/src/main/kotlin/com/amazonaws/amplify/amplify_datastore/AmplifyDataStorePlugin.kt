@@ -130,7 +130,7 @@ class AmplifyDataStorePlugin :
     }
 
     override fun onAttachedToEngine(
-        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
+        flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     ) {
         context = flutterPluginBinding.applicationContext
         channel = MethodChannel(
@@ -161,7 +161,7 @@ class AmplifyDataStorePlugin :
         LOG.info("Initiated DataStore plugin")
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
 
         nativeAuthPlugin = null
@@ -173,7 +173,7 @@ class AmplifyDataStorePlugin :
         NativeAmplifyBridge.setUp(binding.binaryMessenger, null)
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+    override fun onMethodCall(call: MethodCall, _result: Result) {
         val result = AtomicResult(_result, call.method)
         var data: Map<String, Any> = HashMap()
         try {
@@ -558,7 +558,7 @@ class AmplifyDataStorePlugin :
         )
     }
 
-    private fun checkArguments(@NonNull args: Any): Map<String, Any> {
+    private fun checkArguments(args: Any): Map<String, Any> {
         if (args !is Map<*, *>) {
             throw java.lang.Exception("Flutter method call arguments are not a map.")
         }
@@ -566,8 +566,8 @@ class AmplifyDataStorePlugin :
     }
 
     private fun buildSyncExpressions(
-        @NonNull syncExpressions: List<Map<String, Any>>,
-        @NonNull dataStoreConfigurationBuilder: DataStoreConfiguration.Builder
+        syncExpressions: List<Map<String, Any>>,
+        dataStoreConfigurationBuilder: DataStoreConfiguration.Builder
     ) {
         syncExpressions.forEach {
             try {
