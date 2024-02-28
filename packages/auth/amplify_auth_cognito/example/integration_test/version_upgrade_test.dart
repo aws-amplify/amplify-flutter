@@ -15,7 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
-final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
+final usernameConfig = amplifyEnvironments['sign-in-with-username'];
+final mfaConfig = amplifyEnvironments['mfa-required-sms'];
 
 AmplifyAuthCognito get plugin =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
@@ -67,6 +68,70 @@ void main() {
           isValidAWSCognitoUserPoolTokens(session2.userPoolTokensResult.value),
           isTrue,
         );
+
+        final currentUser = await plugin.getCurrentUser();
+        expect(currentUser.username, cognitoUsername);
+        expect(isValidUserSub(currentUser.userId), isTrue);
+      });
+    },
+  );
+
+  group(
+    'should migrate a device key from the legacy plugin',
+    skip: zIsWeb || !(Platform.isIOS || Platform.isAndroid),
+    () {
+      final legacyPlugin = AmplifyNativeLegacyWrapper();
+
+      late String username;
+      late String cognitoUsername;
+      late String password;
+
+      setUp(() async {
+        // configure Amplify and legacy plugin, and ensure no users are signed in.
+        await configureAmplify(mfaConfig);
+        await legacyPlugin.configure(mfaConfig);
+        await tryAsync(Amplify.Auth.signOut);
+        await tryAsync(legacyPlugin.signOut);
+
+        // create new user.
+        username = generateUsername();
+        password = generatePassword();
+        cognitoUsername = await createUser(username, password);
+      });
+
+      asyncTest('sign in with username', (_) async {
+        // assert no user is signed in.
+        final session1 = await plugin.fetchAuthSession();
+        expect(session1.isSignedIn, isFalse);
+
+        final otpResult = await getOtpCode(UserAttribute.username(username));
+
+        // sign a user in with the legacy plugin.
+        await legacyPlugin.signIn(username, password);
+
+        await legacyPlugin.confirmSignIn(await otpResult.code);
+
+        // reconfigure Amplify to trigger credential migration.
+        await configureAmplify(usernameConfig);
+
+        // assert a user is signed in and tokens have been migrated.
+        final session2 = await plugin.fetchAuthSession();
+        expect(session2.isSignedIn, isTrue);
+        expect(isValidUserSub(session2.userSubResult.value), isTrue);
+        expect(isValidIdentityId(session2.identityIdResult.value), isTrue);
+        expect(isValidAWSCredentials(session2.credentialsResult.value), isTrue);
+        expect(
+          isValidAWSCognitoUserPoolTokens(session2.userPoolTokensResult.value),
+          isTrue,
+        );
+
+        // confirm tokens can be refreshed
+        final session3 = await plugin.fetchAuthSession(
+          options: const FetchAuthSessionOptions(
+            forceRefresh: true,
+          ),
+        );
+        expect(session3.isSignedIn, isTrue);
 
         final currentUser = await plugin.getCurrentUser();
         expect(currentUser.username, cognitoUsername);
