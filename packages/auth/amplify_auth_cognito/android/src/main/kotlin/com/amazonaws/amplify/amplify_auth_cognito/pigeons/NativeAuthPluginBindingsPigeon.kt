@@ -243,9 +243,9 @@ interface NativeAuthBridge {
   /** Clears the legacy credential store data. */
   fun clearLegacyCredentials(callback: (Result<Unit>) -> Unit)
   /** Fetch legacy device secrets stored by native SDKs. */
-  fun fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit)
+  fun fetchLegacyDeviceSecrets(username: String, userPoolId: String, callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit)
   /** Clears the legacy device secrets. */
-  fun deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<Unit>) -> Unit)
+  fun deleteLegacyDeviceSecrets(username: String, userPoolId: String, callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by NativeAuthBridge. */
@@ -391,9 +391,9 @@ interface NativeAuthBridge {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val userPoolIdArg = args[0] as String?
-            val appClientIdArg = args[1] as String?
-            api.fetchLegacyDeviceSecrets(userPoolIdArg, appClientIdArg) { result: Result<LegacyDeviceDetailsSecret?> ->
+            val usernameArg = args[0] as String
+            val userPoolIdArg = args[1] as String
+            api.fetchLegacyDeviceSecrets(usernameArg, userPoolIdArg) { result: Result<LegacyDeviceDetailsSecret?> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))
@@ -412,9 +412,9 @@ interface NativeAuthBridge {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val userPoolIdArg = args[0] as String?
-            val appClientIdArg = args[1] as String?
-            api.deleteLegacyDeviceSecrets(userPoolIdArg, appClientIdArg) { result: Result<Unit> ->
+            val usernameArg = args[0] as String
+            val userPoolIdArg = args[1] as String
+            api.deleteLegacyDeviceSecrets(usernameArg, userPoolIdArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

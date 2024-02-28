@@ -287,30 +287,25 @@ open class AmplifyAuthCognitoPlugin :
    * Get Legacy Device Secrets
    */
   override fun fetchLegacyDeviceSecrets(
-    userPoolId: String?,
-    appClientId: String?,
+    username: String,
+    userPoolId: String,
     callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit
   ) {
     val data = LegacyDeviceDetailsBuilder()
 
-    if (appClientId != null) {
-      val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
+    val newLegacyDeviceSecretsStore = LegacyKeyValueStore(
+      applicationContext!!,
+      "CognitoIdentityProviderDeviceCache.$userPoolId.$username"
+    )
 
-      val newLegacyDeviceSecretsStore = LegacyKeyValueStore(
-        applicationContext!!,
-        "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
-      )
+    val deviceKey = newLegacyDeviceSecretsStore["DeviceKey"]
+    val deviceSecret = newLegacyDeviceSecretsStore["DeviceSecret"]
+    val deviceGroup = newLegacyDeviceSecretsStore["DeviceGroupKey"]
 
-      val deviceKey = newLegacyDeviceSecretsStore["DeviceKey"]
-      val deviceSecret = newLegacyDeviceSecretsStore["DeviceSecret"]
-      val deviceGroup = newLegacyDeviceSecretsStore["DeviceGroupKey"]
-
-      data.apply {
-        this.deviceKey = deviceKey
-        this.deviceSecret = deviceSecret
-        this.deviceGroupKey = deviceGroup
-      }
-
+    data.apply {
+      this.deviceKey = deviceKey
+      this.deviceSecret = deviceSecret
+      this.deviceGroupKey = deviceGroup
     }
 
     val asfDeviceId = asfDeviceSecretsStore["CognitoDeviceId"]
@@ -324,20 +319,13 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * Delete Legacy Device Secrets
    */
-  override fun deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, callback: (Result<Unit>) -> Unit) {
-    if (appClientId != null) {
-      val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
-
-      val legacyDeviceSecretsStore = LegacyKeyValueStore(
-        applicationContext!!,
-        "CognitoIdentityProviderDeviceCache.$userPoolId.$lastAuthUser"
-      )
-
-      legacyDeviceSecretsStore.clear()
-    }
-
+  override fun deleteLegacyDeviceSecrets(username: String, userPoolId: String, callback: (Result<Unit>) -> Unit) {
+    val legacyDeviceSecretsStore = LegacyKeyValueStore(
+      applicationContext!!,
+      "CognitoIdentityProviderDeviceCache.$userPoolId.$username"
+    )
+    legacyDeviceSecretsStore.clear()
     asfDeviceSecretsStore.clear()
-
     callback(Result.success(Unit))
   }
 
@@ -645,14 +633,14 @@ fun LegacyDeviceDetailsSecret.Companion.builder() = LegacyDeviceDetailsBuilder()
 
 class LegacyDeviceDetailsBuilder(
   var deviceKey: String? = null,
-  var deviceSecret: String? = null,
   var deviceGroupKey: String? = null,
+  var deviceSecret: String? = null,
   var asfDeviceId: String? = null,
 ) {
   fun build(): LegacyDeviceDetailsSecret = LegacyDeviceDetailsSecret(
     deviceKey,
-    deviceSecret,
     deviceGroupKey,
+    deviceSecret,
     asfDeviceId,
   )
 }

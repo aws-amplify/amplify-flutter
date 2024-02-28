@@ -73,15 +73,15 @@ abstract class NativeAuthBridge {
   /// Fetch legacy device secrets stored by native SDKs.
   @async
   LegacyDeviceDetailsSecret? fetchLegacyDeviceSecrets(
-    String? userPoolId,
-    String? appClientId,
+    String username,
+    String userPoolId,
   );
 
   /// Clears the legacy device secrets.
   @async
   void deleteLegacyDeviceSecrets(
-    String? userPoolId,
-    String? appClientId,
+    String username,
+    String userPoolId,
   );
 }
 

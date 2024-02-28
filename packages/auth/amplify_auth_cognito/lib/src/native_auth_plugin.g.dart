@@ -448,13 +448,13 @@ class NativeAuthBridge {
 
   /// Fetch legacy device secrets stored by native SDKs.
   Future<LegacyDeviceDetailsSecret?> fetchLegacyDeviceSecrets(
-      String? arg_userPoolId, String? arg_appClientId) async {
+      String arg_username, String arg_userPoolId) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.fetchLegacyDeviceSecrets',
         codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList = await channel
-        .send(<Object?>[arg_userPoolId, arg_appClientId]) as List<Object?>?;
+        .send(<Object?>[arg_username, arg_userPoolId]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -473,13 +473,13 @@ class NativeAuthBridge {
 
   /// Clears the legacy device secrets.
   Future<void> deleteLegacyDeviceSecrets(
-      String? arg_userPoolId, String? arg_appClientId) async {
+      String arg_username, String arg_userPoolId) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.amplify_auth_cognito.NativeAuthBridge.deleteLegacyDeviceSecrets',
         codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList = await channel
-        .send(<Object?>[arg_userPoolId, arg_appClientId]) as List<Object?>?;
+        .send(<Object?>[arg_username, arg_userPoolId]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',

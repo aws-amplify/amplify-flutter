@@ -20,6 +20,7 @@ abstract interface class LegacyCredentialProvider {
 
   /// Fetches legacy device secrets if they are present.
   Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   });
 
@@ -32,6 +33,7 @@ abstract interface class LegacyCredentialProvider {
 
   /// Deletes legacy device secrets if they are present.
   Future<void> deleteLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   });
 }

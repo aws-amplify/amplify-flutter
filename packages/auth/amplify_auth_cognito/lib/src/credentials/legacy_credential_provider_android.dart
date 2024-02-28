@@ -50,24 +50,29 @@ class LegacyCredentialProviderAndroid implements LegacyCredentialProvider {
 
   @override
   Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
+    if (userPoolConfig == null) return null;
     final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
     final device = await bridge.fetchLegacyDeviceSecrets(
-      userPoolConfig?.poolId,
-      userPoolConfig?.appClientId,
+      username,
+      userPoolConfig.poolId,
     );
     return device?.toLegacyDeviceDetails();
   }
 
   @override
   Future<void> deleteLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
-  }) {
-    final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
-    return bridge.deleteLegacyDeviceSecrets(
-      userPoolConfig?.poolId,
-      userPoolConfig?.appClientId,
-    );
+  }) async {
+    if (userPoolConfig != null) {
+      final bridge = _stateMachine.expect<auth_cognito.NativeAuthBridge>();
+      return bridge.deleteLegacyDeviceSecrets(
+        username,
+        userPoolConfig.poolId,
+      );
+    }
   }
 }
