@@ -172,34 +172,12 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
         preconditionFailure("clearing legacy credentials via method channel is not supported in iOS/macOS")
     }
 
-    func fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void) {
-        guard let appClientId = appClientId else {
-            completion(.failure(FlutterError(code: "AmplifyException", message: "appClientId is required", details: nil)))
-            return
-        }
-
-        let userDefaults = UserDefaults.standard
-        let deviceSecrets = LegacyDeviceDetailsSecret(
-            deviceKey: userDefaults.string(forKey: "\(appClientId).deviceKey"),
-            deviceGroupKey: userDefaults.string(forKey: "\(appClientId).deviceGroupKey"),
-            devicePassword: userDefaults.string(forKey: "\(appClientId).devicePasswrd"),
-            asfDeviceId: userDefaults.string(forKey: "\(appClientId).asfDeviceId")
-        )
-        completion(.success(deviceSecrets))
+    func fetchLegacyDeviceSecrets(username:  String, userPoolId: String, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void) {
+        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS/macOS")
     }
     
-    func deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let appClientId = appClientId else {
-            completion(.failure(FlutterError(code: "AmplifyException", message: "appClientId is required", details: nil)))
-            return
-        }
-
-        let userDefaults = UserDefaults.standard
-        userDefaults.removeObject(forKey: "\(appClientId).deviceGroupKey")
-        userDefaults.removeObject(forKey: "\(appClientId).deviceKey")
-        userDefaults.removeObject(forKey: "\(appClientId).devicePassword")
-        userDefaults.removeObject(forKey: "\(appClientId).asfDeviceId")
-        completion(.success(()))
+    func deleteLegacyDeviceSecrets(username: String, userPoolId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS/macOS")
     }
     
 }

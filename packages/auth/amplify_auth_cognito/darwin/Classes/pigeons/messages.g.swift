@@ -249,9 +249,9 @@ protocol NativeAuthBridge {
   /// Clears the legacy credential store data.
   func clearLegacyCredentials(completion: @escaping (Result<Void, Error>) -> Void)
   /// Fetch legacy device secrets stored by native SDKs.
-  func fetchLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void)
+  func fetchLegacyDeviceSecrets(username: String, userPoolId: String, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void)
   /// Clears the legacy device secrets.
-  func deleteLegacyDeviceSecrets(userPoolId: String?, appClientId: String?, completion: @escaping (Result<Void, Error>) -> Void)
+  func deleteLegacyDeviceSecrets(username: String, userPoolId: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -387,9 +387,9 @@ class NativeAuthBridgeSetup {
     if let api = api {
       fetchLegacyDeviceSecretsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let userPoolIdArg: String? = nilOrValue(args[0])
-        let appClientIdArg: String? = nilOrValue(args[1])
-        api.fetchLegacyDeviceSecrets(userPoolId: userPoolIdArg, appClientId: appClientIdArg) { result in
+        let usernameArg = args[0] as! String
+        let userPoolIdArg = args[1] as! String
+        api.fetchLegacyDeviceSecrets(username: usernameArg, userPoolId: userPoolIdArg) { result in
           switch result {
             case .success(let res):
               reply(wrapResult(res))
@@ -406,9 +406,9 @@ class NativeAuthBridgeSetup {
     if let api = api {
       deleteLegacyDeviceSecretsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let userPoolIdArg: String? = nilOrValue(args[0])
-        let appClientIdArg: String? = nilOrValue(args[1])
-        api.deleteLegacyDeviceSecrets(userPoolId: userPoolIdArg, appClientId: appClientIdArg) { result in
+        let usernameArg = args[0] as! String
+        let userPoolIdArg = args[1] as! String
+        api.deleteLegacyDeviceSecrets(username: usernameArg, userPoolId: userPoolIdArg) { result in
           switch result {
             case .success:
               reply(wrapResult(nil))

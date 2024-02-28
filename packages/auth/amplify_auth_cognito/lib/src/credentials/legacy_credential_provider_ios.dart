@@ -163,6 +163,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
 
   @override
   Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
     if (userPoolConfig != null) {
@@ -185,12 +186,15 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
         final deviceGroupKey = await userPoolStorage.read(
           key: keys[LegacyDeviceSecretKey.group],
         );
-        final asfDeviceId =
-            await userPoolStorage.read(key: keys[LegacyDeviceSecretKey.id]);
 
-        if (deviceKey != null &&
-            devicePassword != null &&
-            deviceGroupKey != null &&
+        final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
+        final asfDeviceId = await userPoolStorage.read(
+          key: asfKeys[LegacyAsfDeviceKey.id],
+        );
+
+        if (deviceKey != null ||
+            devicePassword != null ||
+            deviceGroupKey != null ||
             asfDeviceId != null) {
           return LegacyDeviceDetails(
             deviceKey: deviceKey,
@@ -207,6 +211,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
 
   @override
   Future<void> deleteLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
     if (userPoolConfig != null) {

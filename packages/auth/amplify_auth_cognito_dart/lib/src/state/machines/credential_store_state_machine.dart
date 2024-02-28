@@ -348,7 +348,7 @@ final class CredentialStoreStateMachine
       }
     } on Object catch (e, s) {
       logger.error('Error migrating legacy credentials', e, s);
-    } 
+    }
     return legacyData;
   }
 
@@ -360,6 +360,7 @@ final class CredentialStoreStateMachine
     if (credentialProvider == null) return;
     try {
       final legacySecrets = await credentialProvider.fetchLegacyDeviceSecrets(
+        username: username,
         userPoolConfig: authConfig.userPoolConfig,
       );
       if (legacySecrets != null) {
@@ -382,6 +383,7 @@ final class CredentialStoreStateMachine
     } finally {
       try {
         await credentialProvider.deleteLegacyDeviceSecrets(
+          username: username,
           userPoolConfig: authConfig.userPoolConfig,
         );
       } on Object catch (e, s) {
@@ -392,19 +394,19 @@ final class CredentialStoreStateMachine
 
   /// Deletes legacy credentials.
   Future<void> _deleteLegacyCredentials() async {
-  final provider = get<LegacyCredentialProvider>();
-  final authConfig = expect<AuthConfiguration>();
-  if (provider == null) return;
-  try {
-    await provider.deleteLegacyCredentials(
-      userPoolConfig: authConfig.userPoolConfig,
-      identityPoolConfig: authConfig.identityPoolConfig,
-      hostedUiConfig: authConfig.hostedUiConfig,
-    );
-  } on Object catch (e, s) {
-    logger.error('Error clearing legacy credentials', e, s);
+    final provider = get<LegacyCredentialProvider>();
+    final authConfig = expect<AuthConfiguration>();
+    if (provider == null) return;
+    try {
+      await provider.deleteLegacyCredentials(
+        userPoolConfig: authConfig.userPoolConfig,
+        identityPoolConfig: authConfig.identityPoolConfig,
+        hostedUiConfig: authConfig.hostedUiConfig,
+      );
+    } on Object catch (e, s) {
+      logger.error('Error clearing legacy credentials', e, s);
+    }
   }
-}
 
   /// State machine callback for the [CredentialStoreLoadCredentialStore] event.
   Future<void> onLoadCredentialStore(
