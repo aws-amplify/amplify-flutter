@@ -144,7 +144,7 @@ void main() {
             because: 'Sign out should succeed even if user is deleted',
             cognitoPlugin.signOut(),
           ).completes(
-            it()
+            (it) => it
               ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
           );
         });
@@ -178,8 +178,9 @@ void main() {
                 'credentials are expired',
             cognitoPlugin.signOut(),
           ).completes(
-            it()
-              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
+            (it) => it
+                .has((res) => res.signedOutLocally, 'signedOutLocally')
+                .isTrue(),
           );
         });
       });
