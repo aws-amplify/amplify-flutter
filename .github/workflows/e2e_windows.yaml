@@ -17,8 +17,7 @@ on:
 
 jobs:
   e2e-test-windows:
-    runs-on:
-      labels: amplify-flutter_windows-latest_8-core
+    runs-on: windows-latest
     strategy:
       # Allows other matrix items to run if one fails
       fail-fast: false
