@@ -17,8 +17,7 @@ on:
 
 jobs:
   e2e-test-android:
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write

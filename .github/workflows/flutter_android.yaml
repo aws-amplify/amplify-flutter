@@ -18,8 +18,7 @@ on:
 
 jobs:
   flutter-android-build-and-test:
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       # Allows other matrix items to run if one fails
