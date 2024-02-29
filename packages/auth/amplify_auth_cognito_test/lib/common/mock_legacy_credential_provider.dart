@@ -32,16 +32,18 @@ class MockLegacyCredentialProvider implements LegacyCredentialProvider {
   }
 
   @override
-  Future<void> deleteLegacyDeviceSecrets({
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
-    return;
-  }
-
-  @override
   Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
     return null;
+  }
+
+  @override
+  Future<void> deleteLegacyDeviceSecrets({
+    required String username,
+    CognitoUserPoolConfig? userPoolConfig,
+  }) async {
+    return;
   }
 }
