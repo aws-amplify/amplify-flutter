@@ -29,4 +29,7 @@ abstract class LegacyNativePlugin {
 
   @async
   void signIn(String username, String password);
+
+  @async
+  void confirmSignIn(String value);
 }

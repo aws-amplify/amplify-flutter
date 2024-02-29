@@ -41,6 +41,17 @@ public class AmplifyNativeLegacyWrapperPlugin: NSObject, FlutterPlugin, LegacyNa
         }
     }
     
+    func confirmSignIn(value: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        _ = authPlugin.confirmSignIn(challengeResponse: value, options: nil) { response in
+            switch response {
+            case .success(_):
+                return completion(.success(()))
+            case .failure(let error):
+                return completion(.failure("Failed to confirm sign in: \(error)"))
+            }
+        }
+    }
+    
     func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
         _ = authPlugin.signOut(options: nil) { response in
             switch response {

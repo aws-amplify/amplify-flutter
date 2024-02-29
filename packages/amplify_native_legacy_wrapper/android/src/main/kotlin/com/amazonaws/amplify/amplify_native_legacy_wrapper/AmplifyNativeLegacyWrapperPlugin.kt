@@ -40,6 +40,19 @@ class AmplifyNativeLegacyWrapperPlugin: FlutterPlugin, LegacyNativePluginPigeon.
     awsMobileClient.signOut(null, ResultCallback(result))
   }
 
+  override fun confirmSignIn(
+    value: String,
+    result: LegacyNativePluginPigeon.Result<Void>
+  ) {
+    runBlocking {
+      awsMobileClient.confirmSignIn(
+        value,
+        HashMap(),
+        ResultCallback(result)
+      )
+    }
+  }
+
   override fun signIn(
     username: String,
     password: String,
