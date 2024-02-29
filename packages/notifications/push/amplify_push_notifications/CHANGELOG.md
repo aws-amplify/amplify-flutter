@@ -1,3 +1,7 @@
+## 1.7.0
+
+- Minor bug fixes and improvements
+
 ## 1.6.0
 
 ### Fixes
