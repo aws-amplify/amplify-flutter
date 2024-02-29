@@ -1,3 +1,9 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,13 +27,6 @@ if (flutterVersionName == null) {
 // apply plugin: 'kotlin-android'
 // apply plugin: 'kotlin-parcelize'
 // apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
-}
-
 
 android {
     // TODO(dnys1): Replace with `flutter.compileSdkVersion` when bumping min Flutter version
