@@ -1,6 +1,21 @@
+## 1.7.0
+
+### Features
+
+- feat(api): add copyWith to GraphQLRequest ([#4365](https://github.com/aws-amplify/amplify-flutter/pull/4365))
+
+### Fixes
+
+- fix: `google.crypto.tink` version constraint ([#4434](https://github.com/aws-amplify/amplify-flutter/pull/4434))
+
+### Chores
+
+- chore(datastore): Amplify Swift version bump to 1.30.7 ([#4454](https://github.com/aws-amplify/amplify-flutter/pull/4454))
+
 ## 1.6.1
 
 ### Fixes
+
 - fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
 - fix(core): pub docs ([#4049](https://github.com/aws-amplify/amplify-flutter/pull/4049))
 - fix(datastore): emit observeQuery snapshot when model create mutation results in an updated model ([#4084](https://github.com/aws-amplify/amplify-flutter/pull/4084))
@@ -8,9 +23,11 @@
 ## 1.6.0
 
 ### Features
+
 - feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
 
 ### Fixes
+
 - fix(analytics): allow nullable userProfile
 - fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
 - fix: remove exception during token timeout ([#3939](https://github.com/aws-amplify/amplify-flutter/pull/3939))
