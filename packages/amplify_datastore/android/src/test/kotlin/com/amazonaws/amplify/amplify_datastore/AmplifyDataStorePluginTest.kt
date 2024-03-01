@@ -35,7 +35,6 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.RETURNS_SELF
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.mockStatic
@@ -43,6 +42,7 @@ import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoInteractions
+import org.mockito.Mockito.`when`
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
 import java.lang.reflect.Field
@@ -268,7 +268,8 @@ class AmplifyDataStorePluginTest {
             )
             null
         }.`when`(mockAmplifyDataStorePlugin).query(
-            anyString(), any(QueryOptions::class.java),
+            anyString(),
+            any(QueryOptions::class.java),
             any<Consumer<Iterator<Model>>>(),
             any<Consumer<DataStoreException>>()
         )
@@ -293,10 +294,10 @@ class AmplifyDataStorePluginTest {
     fun test_query_with_predicates_success_zero_result() {
         val queryOptions =
             Where.matches(
-                field("Post","id").eq("123").or(
-                    field("Post","rating").ge(4).and(
+                field("Post", "id").eq("123").or(
+                    field("Post", "rating").ge(4).and(
                         not(
-                            field("Post","created").eq("2020-02-20T20:20:20-08:00")
+                            field("Post", "created").eq("2020-02-20T20:20:20-08:00")
                         )
                     )
                 )
@@ -331,12 +332,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_query_api_error() {
         val testRequest: HashMap<String, Any> = (
-                readMapFromFile(
-                    "query_api",
-                    "request/only_model_name.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "query_api",
+                "request/only_model_name.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         doAnswer { invocation: InvocationOnMock ->
             assertEquals("Post", invocation.arguments[0])
@@ -385,12 +386,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_delete_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (
-                readMapFromFile(
-                    "delete_api",
-                    "request/instance_no_predicate.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "delete_api",
+                "request/instance_no_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -427,14 +428,13 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_delete_api_error() {
-
         val testRequest: HashMap<String, Any> = (
-                readMapFromFile(
-                    "delete_api",
-                    "request/instance_no_predicate.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "delete_api",
+                "request/instance_no_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -490,12 +490,12 @@ class AmplifyDataStorePluginTest {
     @Test
     fun test_save_success_result_no_predicates() {
         val testRequest: HashMap<String, Any> = (
-                readMapFromFile(
-                    "save_api",
-                    "request/instance_without_predicate.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "save_api",
+                "request/instance_without_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -533,14 +533,13 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_save_api_error() {
-
         val testRequest: HashMap<String, Any> = (
-                readMapFromFile(
-                    "save_api",
-                    "request/instance_without_predicate.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "save_api",
+                "request/instance_without_predicate.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
 
         val serializedModelData: HashMap<String, Any> =
             testRequest["serializedModel"] as HashMap<String, Any>
@@ -649,12 +648,12 @@ class AmplifyDataStorePluginTest {
             hubEventHandler = mockHubHandler
         )
         val eventData: HashMap<String, Any> = (
-                readMapFromFile(
-                    "observe_api",
-                    "post_type_success_event.json",
-                    HashMap::class.java
-                ) as HashMap<String, Any>
-                )
+            readMapFromFile(
+                "observe_api",
+                "post_type_success_event.json",
+                HashMap::class.java
+            ) as HashMap<String, Any>
+            )
         val modelData = mapOf(
             "id" to "43036c6b-8044-4309-bddc-262b6c686026",
             "title" to "Title 2",

@@ -6,7 +6,6 @@ package com.amazonaws.amplify.amplify_datastore
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.createSerializedError

@@ -16,7 +16,8 @@ class QueryPaginationBuilderTest {
             Where.paginated(Page.startingAt(3).withLimit(200)).paginationInput,
             QueryPaginationBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_pagination", "custom_page_and_limit.json",
+                    "query_pagination",
+                    "custom_page_and_limit.json",
                     HashMap::class.java
                 ) as HashMap<String, Any>
             )
@@ -29,7 +30,8 @@ class QueryPaginationBuilderTest {
             Where.paginated(Page.firstPage()).paginationInput,
             QueryPaginationBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_pagination", "first_page.json",
+                    "query_pagination",
+                    "first_page.json",
                     HashMap::class.java
                 ) as HashMap<String, Any>
             )
@@ -42,7 +44,8 @@ class QueryPaginationBuilderTest {
             Where.paginated(Page.firstResult()).paginationInput,
             QueryPaginationBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_pagination", "first_result.json",
+                    "query_pagination",
+                    "first_result.json",
                     HashMap::class.java
                 ) as HashMap<String, Any>
             )
