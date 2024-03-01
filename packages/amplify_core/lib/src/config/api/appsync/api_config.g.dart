@@ -15,6 +15,8 @@ AWSApiConfig _$AWSApiConfigFromJson(Map<String, dynamic> json) => AWSApiConfig(
       authorizationType:
           $enumDecode(_$APIAuthorizationTypeEnumMap, json['authorizationType']),
       apiKey: json['apiKey'] as String?,
+      DangerouslyConnectToHTTPEndpointForTesting:
+          json['DangerouslyConnectToHTTPEndpointForTesting'] as bool?,
     );
 
 Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
@@ -33,6 +35,8 @@ Map<String, dynamic> _$AWSApiConfigToJson(AWSApiConfig instance) {
   }
 
   writeNotNull('apiKey', instance.apiKey);
+  writeNotNull('DangerouslyConnectToHTTPEndpointForTesting',
+      instance.DangerouslyConnectToHTTPEndpointForTesting);
   return val;
 }
 
