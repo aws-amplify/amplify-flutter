@@ -471,6 +471,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
     QueryFieldOperatorType.between: 'between',
     QueryFieldOperatorType.contains: 'contains',
     QueryFieldOperatorType.begins_with: 'beginsWith',
+    QueryFieldOperatorType.attribute_exists: 'attributeExists',
   };
   final result = dictionary[operatorType];
   if (result == null) {

@@ -62,6 +62,38 @@ void main({bool useExistingTestUser = false}) {
         expect(data[listBlogs][items], hasLength(greaterThanOrEqualTo(0)));
       });
 
+      testWidgets('should attributeExists request',
+          (WidgetTester tester) async {
+        final title = 'Lorem Ipsum Test Post: ${uuid()}';
+        const rating = 0;
+        final createdPost = await addPostAndBlog(title, rating);
+        final blogId = createdPost.blog?.id;
+
+        // Original request with mock id
+        final req = ModelQueries.list(
+          Post.classType,
+          where: Post.BLOG.attributeExists(value: true),
+          limit: _limit,
+        );
+
+        // Copy request with actual blog id
+        final copiedRequest = req.copyWith(
+          variables: {
+            ...req.variables,
+            'filter': {
+              'blogID': {'attributeExists': true},
+            },
+          },
+        );
+        final res = await Amplify.API.query(request: copiedRequest).response;
+        final postFromResponse = res.data?.items[0];
+
+        expect(res, hasNoGraphQLErrors);
+        expect(postFromResponse?.blog?.id, isNotNull);
+        expect(postFromResponse?.blog?.id, blogId);
+        expect(postFromResponse?.title, title);
+      });
+
       testWidgets('should fetch when document string contains tabs',
           (WidgetTester tester) async {
         const listBlogs = 'listBlogs';
