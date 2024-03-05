@@ -6,6 +6,7 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
@@ -106,11 +107,8 @@ open class AmplifyAuthCognitoPlugin :
   /**
    ASF Device Secrets Storage.
    */
-  private val asfDeviceSecretsStore: LegacyKeyValueStore by lazy {
-    LegacyKeyValueStore(
-      applicationContext!!,
-      "AWS.Cognito.ContextData"
-    )
+  private val asfDeviceSecretsStore: SharedPreferences by lazy {
+    applicationContext!!.getSharedPreferences("AWS.Cognito.ContextData", Context.MODE_PRIVATE)
   }
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -308,7 +306,7 @@ open class AmplifyAuthCognitoPlugin :
       this.deviceGroupKey = deviceGroup
     }
 
-    val asfDeviceId = asfDeviceSecretsStore["CognitoDeviceId"]
+    val asfDeviceId = asfDeviceSecretsStore.getString("CognitoDeviceId", null)
     data.apply {
       this.asfDeviceId = asfDeviceId
     }
@@ -325,7 +323,7 @@ open class AmplifyAuthCognitoPlugin :
       "CognitoIdentityProviderDeviceCache.$userPoolId.$username"
     )
     legacyDeviceSecretsStore.clear()
-    asfDeviceSecretsStore.clear()
+    asfDeviceSecretsStore.edit().clear().apply()
     callback(Result.success(Unit))
   }
 
