@@ -13,9 +13,6 @@ import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_prov
 extension LegacyDeviceDetailsX on LegacyDeviceDetailsSecret {
   /// {@macro amplify_auth_cognito.legacy_device_details}
   LegacyDeviceDetails? toLegacyDeviceDetails() {
-    if (deviceKey == null || deviceGroupKey == null || devicePassword == null) {
-      return null;
-    }
     return LegacyDeviceDetails(
       deviceKey: deviceKey,
       deviceGroupKey: deviceGroupKey,
