@@ -57,8 +57,8 @@ public class AmplifyNativeLegacyWrapperPlugin: NSObject, FlutterPlugin, LegacyNa
             switch response {
             case .success(_):
                 return completion(.success(()))
-            case .failure(let signOutError):
-                return completion(.failure("Failed to remember device: \(signOutError)"))
+            case .failure(let error):
+                return completion(.failure("Failed to remember device: \(error)"))
             }
         }
     }
