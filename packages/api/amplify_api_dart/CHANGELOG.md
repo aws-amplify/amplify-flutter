@@ -1,3 +1,8 @@
+## 0.4.0
+
+### Features
+- feat(api): add copyWith to GraphQLRequest ([#4365](https://github.com/aws-amplify/amplify-flutter/pull/4365))
+
 ## 0.3.4
 
 ### Fixes

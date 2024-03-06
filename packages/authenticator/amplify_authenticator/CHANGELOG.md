@@ -1,3 +1,7 @@
+## 1.5.4
+
+- Minor bug fixes and improvements## 1.5.3
+
 ## 1.5.3
 
 ### Fixes
