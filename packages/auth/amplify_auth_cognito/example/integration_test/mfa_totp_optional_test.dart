@@ -93,6 +93,69 @@ void main() {
           'w/ device name',
           (_) => runTest(friendlyDeviceName: friendlyDeviceName),
         );
+
+        asyncTest('verifyTotpSetup allows retries', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+
+          await adminCreateUser(
+            username,
+            password,
+            verifyAttributes: true,
+            autoConfirm: true,
+          );
+
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+
+          check(
+            because: 'TOTP is optional',
+            signInRes.nextStep.signInStep,
+          ).equals(AuthSignInStep.done);
+
+          final totpSetupResult = await Amplify.Auth.setUpTotp();
+
+          await Amplify.Auth.verifyTotpSetup(
+            '555555',
+          );
+
+          check(
+            await cognitoPlugin.fetchMfaPreference(),
+            because: 'TOTP should not be enabled',
+          ).equals(
+            const UserMfaPreference(
+              enabled: {},
+              preferred: null,
+            ),
+          );
+
+          await Amplify.Auth.verifyTotpSetup(
+            '555555',
+          );
+
+          check(
+            await cognitoPlugin.fetchMfaPreference(),
+            because: 'TOTP should not be enabled',
+          ).equals(
+            const UserMfaPreference(
+              enabled: {},
+              preferred: null,
+            ),
+          );
+
+          await Amplify.Auth.verifyTotpSetup(
+            await generateTotpCode(totpSetupResult.sharedSecret),
+          );
+
+          check(await cognitoPlugin.fetchMfaPreference()).equals(
+            const UserMfaPreference(
+              enabled: {MfaType.totp},
+              preferred: MfaType.totp,
+            ),
+          );
+        });
       });
     });
   });
