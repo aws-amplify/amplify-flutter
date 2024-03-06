@@ -9,7 +9,7 @@ extension AuthDeviceX on AuthDevice {
   /// Returns this device as a [CognitoDevice].
   CognitoDevice get asCognitoDevice => this is CognitoDevice
       ? this as CognitoDevice
-      : CognitoDevice(id: id, name: name);
+      : CognitoDevice(id: id, name: name, current: current);
 }
 
 /// {@template amplify_auth_cognito.cognito_device}
@@ -21,11 +21,13 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
   const CognitoDevice({
     required this.id,
     String? name,
+    bool? current,
     this.attributes,
     this.createdDate,
     this.lastAuthenticatedDate,
     this.lastModifiedDate,
-  }) : _name = name;
+  })  : _name = name,
+        _current = current;
 
   /// {@macro amplify_auth_cognito.cognito_device}
   factory CognitoDevice.fromJson(Map<String, Object?> json) {
@@ -35,6 +37,7 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
     final lastModifiedDate = json['lastModifiedDate'] as int?;
     return CognitoDevice(
       id: json['id'] as String,
+      current: json['current'] as bool?,
       name: json['name'] as String?,
       attributes:
           attributes == null ? null : Map<String, String>.from(attributes),
@@ -59,8 +62,14 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
   /// Optional override of attribute value.
   final String? _name;
 
+  /// Local device.
+  final bool? _current;
+
   @override
   String? get name => _name ?? attributes?[deviceNameKey];
+
+  @override
+  bool? get current => _current ?? false;
 
   /// Device attributes.
   final Map<String, String>? attributes;
@@ -77,6 +86,7 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
   @override
   Map<String, Object?> toJson() => {
         'id': id,
+        'current': current,
         'name': name,
         if (attributes != null) 'attributes': attributes,
         if (createdDate != null)
@@ -91,6 +101,7 @@ class CognitoDevice extends AuthDevice with AWSEquatable<CognitoDevice> {
   @override
   List<Object?> get props => [
         id,
+        current,
         name,
         attributes,
         createdDate,
