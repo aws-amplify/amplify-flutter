@@ -5,6 +5,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_dial_code_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_exception_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -86,6 +87,7 @@ class _MyAppState extends State<MyApp> {
       dialCodes: LocalizedDialResolver(),
       titles: LocalizedTitleResolver(),
       inputs: LocalizedInputResolver(),
+      exceptions: LocalizedExceptionResolver(),
     );
 
     // We wrap our MaterialApp in an Authenticator component. This component

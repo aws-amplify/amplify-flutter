@@ -536,17 +536,20 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   void _subscribeToExceptions() {
+    final resolver = widget.stringResolver.exceptions;
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
+      final context = scaffoldMessengerKey.currentContext;
       final onException = widget.onException;
       if (onException != null) {
         onException(exception);
       } else {
         _logger.error('Error in AuthBloc', exception);
       }
-      if (mounted && exception.showBanner) {
+      if (mounted && context != null && exception.showBanner) {
+        final message = resolver.resolve(context, exception.message);
         _showExceptionBanner(
           type: StatusType.error,
-          message: exception.message,
+          message: message,
         );
       }
     });
