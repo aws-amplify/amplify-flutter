@@ -1,3 +1,8 @@
+## 0.4.2
+
+### Fixes
+- fix: `google.crypto.tink` version constraint ([#4434](https://github.com/aws-amplify/amplify-flutter/pull/4434))
+
 ## 0.4.1
 
 ### Fixes
