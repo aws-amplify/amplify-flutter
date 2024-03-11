@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
     as endpoint_resolver;
@@ -32,6 +33,7 @@ class StorageS3Service {
   factory StorageS3Service({
     required S3PluginConfig s3PluginConfig,
     required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
@@ -57,6 +59,7 @@ class StorageS3Service {
       s3PluginConfig: s3PluginConfig,
       s3ClientConfig: s3ClientConfig,
       prefixResolver: prefixResolver,
+      pathResolver: pathResolver,
       credentialsProvider: credentialsProvider,
       logger: logger,
       dependencyManager: dependencyManager,
@@ -68,6 +71,7 @@ class StorageS3Service {
     required S3PluginConfig s3PluginConfig,
     required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
@@ -85,6 +89,7 @@ class StorageS3Service {
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
         _prefixResolver = prefixResolver,
+        _pathResolver = pathResolver,
         _logger = logger,
         // dependencyManager.get() => sigv4.AWSSigV4Signer is used for unit tests
         _awsSigV4Signer = dependencyManager.get() ??
@@ -102,6 +107,7 @@ class StorageS3Service {
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
+  final S3PathResolver _pathResolver;
   final AWSLogger _logger;
   final sigv4.AWSSigV4Signer _awsSigV4Signer;
   final DependencyManager _dependencyManager;
@@ -205,30 +211,33 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetPropertiesResult> getProperties({
-    required String key,
+    String? key,
+    StoragePath? path,
     required StorageGetPropertiesOptions options,
   }) async {
+    assert(key != null || path != null, '"key" or "path" must be provided');
     final s3PluginOptions =
         options.pluginOptions as S3GetPropertiesPluginOptions? ??
             const S3GetPropertiesPluginOptions();
 
-    final resolvedPrefix = await getResolvedPrefix(
+    final fullPath = await getResolvedPath(
+      pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
       logger: _logger,
+      path: path,
+      key: key,
       accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
       identityId: s3PluginOptions.targetIdentityId,
     );
-
-    final keyToGetProperties = '$resolvedPrefix$key';
 
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
           bucket: _s3PluginConfig.bucket,
-          key: keyToGetProperties,
+          key: fullPath,
         ),
-        key: key,
+        key: key ?? fullPath.split('/').last,
       ),
     );
   }
@@ -239,7 +248,8 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetUrlResult> getUrl({
-    required String key,
+    String? key,
+    StoragePath? path,
     required StorageGetUrlOptions options,
   }) async {
     final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
@@ -265,18 +275,22 @@ class StorageS3Service {
                   S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
             );
       await getProperties(
+        path: path,
         key: key,
         options: getPropertiesOptions,
       );
     }
 
-    final resolvedPrefix = await getResolvedPrefix(
+    final fullPath = await getResolvedPath(
+      pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
       logger: _logger,
+      path: path,
+      key: key,
       accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
       identityId: s3PluginOptions.targetIdentityId,
     );
-    var keyToGetUrl = '$resolvedPrefix$key';
+    var keyToGetUrl = fullPath;
     if (!keyToGetUrl.startsWith('/')) {
       keyToGetUrl = '/$keyToGetUrl';
     }
@@ -373,6 +387,7 @@ class StorageS3Service {
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: options,
+      pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
       logger: _logger,
       onProgress: onProgress,
@@ -413,6 +428,7 @@ class StorageS3Service {
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: uploadDataOptions,
+      pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
       logger: _logger,
       onProgress: onProgress,
@@ -722,6 +738,34 @@ class StorageS3Service {
         underlyingException: error,
       );
     }
+  }
+
+  /// Resolve a client object key to a "full" object key with proper prefix.
+  ///
+  /// This API is only used internally.
+  @internal
+  static Future<String> getResolvedPath({
+    required S3PathResolver pathResolver,
+    required S3PrefixResolver prefixResolver,
+    required AWSLogger logger,
+    StoragePath? path,
+    String? key,
+    required StorageAccessLevel accessLevel,
+    String? identityId,
+  }) async {
+    final String fullPath;
+    if (path != null) {
+      fullPath = await pathResolver.resolvePath(path: path);
+    } else {
+      final resolvedPrefix = await getResolvedPrefix(
+        prefixResolver: prefixResolver,
+        logger: logger,
+        accessLevel: accessLevel,
+        identityId: identityId,
+      );
+      fullPath = '$resolvedPrefix$key';
+    }
+    return fullPath;
   }
 
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then

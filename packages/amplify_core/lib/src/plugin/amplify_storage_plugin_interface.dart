@@ -24,7 +24,8 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_properties}
   StorageGetPropertiesOperation getProperties({
-    required String key,
+    @Deprecated('Use `path` instead') String? key,
+    StoragePath? path,
     StorageGetPropertiesOptions? options,
   }) {
     throw UnimplementedError('getProperties() has not been implemented.');
@@ -32,7 +33,8 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
   StorageGetUrlOperation getUrl({
-    required String key,
+    @Deprecated('Use `path` instead') String? key,
+    StoragePath? path,
     StorageGetUrlOptions? options,
   }) {
     throw UnimplementedError('getUrl() has not been implemented.');
