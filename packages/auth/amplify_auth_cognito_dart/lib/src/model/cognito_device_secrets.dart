@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -18,6 +19,18 @@ abstract class CognitoDeviceSecrets
   factory CognitoDeviceSecrets([
     void Function(CognitoDeviceSecretsBuilder) updates,
   ]) = _$CognitoDeviceSecrets;
+
+  /// Creates a [CognitoDeviceSecrets] from a [LegacyDeviceDetails].
+  factory CognitoDeviceSecrets.fromLegacyDeviceDetails(
+    LegacyDeviceDetails details,
+  ) {
+    return CognitoDeviceSecrets((b) {
+      b
+        ..deviceKey = details.deviceKey
+        ..deviceGroupKey = details.deviceGroupKey
+        ..devicePassword = details.devicePassword;
+    });
+  }
   CognitoDeviceSecrets._();
 
   @BuiltValueHook(finalizeBuilder: true)
