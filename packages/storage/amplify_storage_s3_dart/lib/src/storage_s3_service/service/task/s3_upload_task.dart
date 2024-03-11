@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/part_size_util.dart'
     as part_size_util;
@@ -49,6 +50,7 @@ class S3UploadTask {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
     required String key,
@@ -60,6 +62,7 @@ class S3UploadTask {
     required transfer.TransferDatabase transferDatabase,
   })  : _s3Client = s3Client,
         _defaultS3ClientConfig = defaultS3ClientConfig,
+        _pathResolver = pathResolver,
         _prefixResolver = prefixResolver,
         _bucket = bucket,
         _defaultAccessLevel = defaultAccessLevel,
@@ -84,6 +87,7 @@ class S3UploadTask {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
     required String key,
@@ -94,6 +98,7 @@ class S3UploadTask {
   }) : this._(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
+          pathResolver: pathResolver,
           prefixResolver: prefixResolver,
           bucket: bucket,
           defaultAccessLevel: defaultAccessLevel,
@@ -113,6 +118,7 @@ class S3UploadTask {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
     required String key,
@@ -124,6 +130,7 @@ class S3UploadTask {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: prefixResolver,
+          pathResolver: pathResolver,
           bucket: bucket,
           defaultAccessLevel: defaultAccessLevel,
           key: key,
@@ -142,6 +149,7 @@ class S3UploadTask {
   final s3.S3Client _s3Client;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final S3PrefixResolver _prefixResolver;
+  final S3PathResolver _pathResolver;
   final String _bucket;
   final StorageAccessLevel _defaultAccessLevel;
   final String _key;
@@ -314,13 +322,13 @@ class S3UploadTask {
   }
 
   Future<void> _setResolvedKey() async {
-    final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
+    _resolvedKey = await StorageS3Service.getResolvedPath(
+      pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
       logger: _logger,
       accessLevel: _options.accessLevel ?? _defaultAccessLevel,
+      key: _key,
     );
-
-    _resolvedKey = '$resolvedPrefix$_key';
   }
 
   Future<void> _startPutObject(S3DataPayload body) async {
