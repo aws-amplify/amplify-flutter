@@ -52,6 +52,17 @@ public class AmplifyNativeLegacyWrapperPlugin: NSObject, FlutterPlugin, LegacyNa
         }
     }
     
+    func rememberDevice(completion: @escaping (Result<Void, Error>) -> Void) {
+        _ = authPlugin.rememberDevice(options: nil) { response in
+            switch response {
+            case .success(_):
+                return completion(.success(()))
+            case .failure(let error):
+                return completion(.failure("Failed to remember device: \(error)"))
+            }
+        }
+    }
+    
 }
 
 extension String: Error {}

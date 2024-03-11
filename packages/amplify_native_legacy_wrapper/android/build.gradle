@@ -47,6 +47,7 @@ android {
     namespace 'com.amazonaws.amplify.amplify_native_legacy_wrapper'
 }
 dependencies {
-    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.73.0'
-    implementation 'com.amazonaws:aws-android-sdk-cognitoauth:2.73.0'
+    implementation 'com.amplifyframework:core:1.38.6'
+    implementation 'com.amplifyframework:core-kotlin:0.22.8'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.38.6'
 }

@@ -171,5 +171,13 @@ public class AmplifyAuthCognitoPlugin: NSObject, FlutterPlugin, NativeAuthBridge
     func clearLegacyCredentials(completion: @escaping (Result<Void, Error>) -> Void) {
         preconditionFailure("clearing legacy credentials via method channel is not supported in iOS/macOS")
     }
+
+    func fetchLegacyDeviceSecrets(username:  String, userPoolId: String, completion: @escaping (Result<LegacyDeviceDetailsSecret?, Error>) -> Void) {
+        preconditionFailure("fetching legacy credentials via method channel is not supported in iOS/macOS")
+    }
+    
+    func deleteLegacyDeviceSecrets(username: String, userPoolId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        preconditionFailure("clearing legacy credentials via method channel is not supported in iOS/macOS")
+    }
     
 }
