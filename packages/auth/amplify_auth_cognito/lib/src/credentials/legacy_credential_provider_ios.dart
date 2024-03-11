@@ -166,47 +166,38 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
-    if (userPoolConfig != null) {
-      final userPoolStorage = await _getUserPoolStorage();
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
-      final currentUserId = await userPoolStorage.read(
-        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
-      );
-      if (currentUserId != null) {
-        final keys = LegacyDeviceSecretKeys(
-          currentUserId,
-          userPoolConfig,
-        );
-        final deviceKey = await userPoolStorage.read(
-          key: keys[LegacyDeviceSecretKey.id],
-        );
-        final devicePassword = await userPoolStorage.read(
-          key: keys[LegacyDeviceSecretKey.secret],
-        );
-        final deviceGroupKey = await userPoolStorage.read(
-          key: keys[LegacyDeviceSecretKey.group],
-        );
+    if (userPoolConfig == null) return null;
+    final userPoolStorage = await _getUserPoolStorage();
+    final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+    final currentUserId = await userPoolStorage.read(
+      key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+    );
+    if (currentUserId == null) return null;
+    final keys = LegacyDeviceSecretKeys(
+      currentUserId,
+      userPoolConfig,
+    );
+    final deviceKey = await userPoolStorage.read(
+      key: keys[LegacyDeviceSecretKey.id],
+    );
+    final devicePassword = await userPoolStorage.read(
+      key: keys[LegacyDeviceSecretKey.secret],
+    );
+    final deviceGroupKey = await userPoolStorage.read(
+      key: keys[LegacyDeviceSecretKey.group],
+    );
 
-        final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
-        final asfDeviceId = await userPoolStorage.read(
-          key: asfKeys[LegacyAsfDeviceKey.id],
-        );
+    final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
+    final asfDeviceId = await userPoolStorage.read(
+      key: asfKeys[LegacyAsfDeviceKey.id],
+    );
 
-        if (deviceKey != null ||
-            devicePassword != null ||
-            deviceGroupKey != null ||
-            asfDeviceId != null) {
-          return LegacyDeviceDetails(
-            deviceKey: deviceKey,
-            deviceGroupKey: deviceGroupKey,
-            devicePassword: devicePassword,
-            asfDeviceId: asfDeviceId,
-          );
-        }
-      }
-    }
-
-    return null;
+    return LegacyDeviceDetails(
+      deviceKey: deviceKey,
+      deviceGroupKey: deviceGroupKey,
+      devicePassword: devicePassword,
+      asfDeviceId: asfDeviceId,
+    );
   }
 
   @override
@@ -214,24 +205,21 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
     required String username,
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
-    if (userPoolConfig != null) {
-      final userPoolStorage = await _getUserPoolStorage();
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
-      final currentUserId = await userPoolStorage.read(
-        key: cognitoUserKeys[LegacyCognitoKey.currentUser],
-      );
-      if (currentUserId != null) {
-        final keys = LegacyDeviceSecretKeys(
-          currentUserId,
-          userPoolConfig,
-        );
-        await userPoolStorage.deleteMany([
-          keys[LegacyDeviceSecretKey.id],
-          keys[LegacyDeviceSecretKey.secret],
-          keys[LegacyDeviceSecretKey.group],
-        ]);
-      }
-    }
+    if (userPoolConfig == null) return;
+    final userPoolStorage = await _getUserPoolStorage();
+    final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+    final currentUserId = await userPoolStorage.read(
+      key: cognitoUserKeys[LegacyCognitoKey.currentUser],
+    );
+    if (currentUserId == null) return;
+    final keys = LegacyDeviceSecretKeys(currentUserId, userPoolConfig);
+    final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
+    await userPoolStorage.deleteMany([
+      keys[LegacyDeviceSecretKey.id],
+      keys[LegacyDeviceSecretKey.secret],
+      keys[LegacyDeviceSecretKey.group],
+      asfKeys[LegacyAsfDeviceKey.id],
+    ]);
   }
 
   final _bundleIdMemoizer = AsyncMemoizer<String>();
