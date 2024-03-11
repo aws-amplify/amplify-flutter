@@ -88,9 +88,16 @@ final class TotpSetupStateMachine
           )
           .result;
     } on Exception catch (e, st) {
-      if (e is EnableSoftwareTokenMfaException && _details != null) {
+      // Handle mismatch code exception that may occur during TOTP verification.
+      // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html#API_VerifySoftwareToken_Errors
+      // TODO(equartey): Investigate when CodeMismatchException is thrown and handle accordingly.
+      if (e is EnableSoftwareTokenMfaException) {
+        assert(
+          _details != null,
+          'TotpSetupDetails should not be null. Please report this issue.',
+        );
         logger.verbose(
-          'Failed to verify setup TOTP code. Retrying...',
+          'Failed to verify TOTP code. Retrying...',
           e,
         );
         emit(
@@ -101,11 +108,11 @@ final class TotpSetupStateMachine
         return;
       }
       logger.error(
-        'Failed to verify setup TOTP code. '
-        'Please try again. If the problem persists, contact support.',
+        'Failed to verify TOTP code. Please try again. If the problem persists, contact support.',
         e,
         st,
       );
+      emit(TotpSetupState.failure(e, st));
     }
 
     try {
