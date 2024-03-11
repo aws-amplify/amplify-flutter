@@ -108,10 +108,6 @@ class LegacyCredentialStoreData {
   String? idToken;
 }
 
-class CognitoUserPoolConfig {
-  String? poolId;
-}
-
 class LegacyDeviceDetailsSecret {
   String? deviceKey;
   String? deviceGroupKey;
