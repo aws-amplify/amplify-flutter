@@ -58,13 +58,16 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// was uploaded.
   /// {@endtemplate}
   StorageGetPropertiesOperation getProperties({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     StorageGetPropertiesOptions? options,
   }) {
+    assert(key != null || path != null, 'key or path must be defined.');
     return identifyCall(
       StorageCategoryMethod.getProperties,
       () => defaultPlugin.getProperties(
         key: key,
+        path: path,
         options: options,
       ),
     );
@@ -78,13 +81,16 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// `https`.
   /// {@endtemplate}
   StorageGetUrlOperation getUrl({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     StorageGetUrlOptions? options,
   }) {
+    assert(key != null || path != null, 'key or path must be defined.');
     return identifyCall(
       StorageCategoryMethod.getUrl,
       () => defaultPlugin.getUrl(
         key: key,
+        path: path,
         options: options,
       ),
     );

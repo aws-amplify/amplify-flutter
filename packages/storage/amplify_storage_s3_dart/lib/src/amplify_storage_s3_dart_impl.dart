@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart'
     as download_file_impl;
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
@@ -58,6 +59,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   S3PrefixResolver? _prefixResolver;
 
+  late S3PathResolver _pathResolver;
+
   /// Gets prefix resolver for testing
   @visibleForTesting
   S3PrefixResolver? get prefixResolver => _prefixResolver;
@@ -96,6 +99,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       identityProvider: identityProvider,
     );
 
+    _pathResolver = S3PathResolver(
+      identityProvider: identityProvider,
+    );
+
     final credentialsProvider = authProviderRepo
         .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
@@ -117,6 +124,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
           s3PluginConfig: s3PluginConfig,
           delimiter: _delimiter,
           prefixResolver: _prefixResolver!,
+          pathResolver: _pathResolver,
           logger: logger,
           dependencyManager: dependencies,
         ),
@@ -161,7 +169,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3GetPropertiesOperation getProperties({
-    required String key,
+    String? key,
+    StoragePath? path,
     StorageGetPropertiesOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -181,6 +190,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       ),
       result: storageS3Service.getProperties(
         key: key,
+        path: path,
         options: s3Options,
       ),
     );
@@ -188,7 +198,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3GetUrlOperation getUrl({
-    required String key,
+    String? key,
+    StoragePath? path,
     StorageGetUrlOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -204,10 +215,12 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     return S3GetUrlOperation(
       request: StorageGetUrlRequest(
         key: key,
+        path: path,
         options: options,
       ),
       result: storageS3Service.getUrl(
         key: key,
+        path: path,
         options: s3Options,
       ),
     );
