@@ -90,7 +90,6 @@ final class TotpSetupStateMachine
     } on Exception catch (e, st) {
       // Handle mismatch code exception that may occur during TOTP verification.
       // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html#API_VerifySoftwareToken_Errors
-      // TODO(equartey): Investigate when CodeMismatchException is thrown and handle accordingly.
       if (e is EnableSoftwareTokenMfaException) {
         assert(
           _details != null,
@@ -108,7 +107,7 @@ final class TotpSetupStateMachine
         return;
       }
       logger.error(
-        'Failed to verify TOTP code. Please try again. If the problem persists, contact support.',
+        'Failed to verify TOTP code. Please try again.',
         e,
         st,
       );

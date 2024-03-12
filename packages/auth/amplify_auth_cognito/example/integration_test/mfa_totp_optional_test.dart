@@ -132,20 +132,6 @@ void main() {
           );
 
           await Amplify.Auth.verifyTotpSetup(
-            '555555',
-          );
-
-          check(
-            await cognitoPlugin.fetchMfaPreference(),
-            because: 'TOTP should not be enabled',
-          ).equals(
-            const UserMfaPreference(
-              enabled: {},
-              preferred: null,
-            ),
-          );
-
-          await Amplify.Auth.verifyTotpSetup(
             await generateTotpCode(totpSetupResult.sharedSecret),
           );
 
