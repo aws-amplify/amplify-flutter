@@ -237,7 +237,8 @@ class StorageS3Service {
           bucket: _s3PluginConfig.bucket,
           key: fullPath,
         ),
-        key: key ?? fullPath.split('/').last,
+        key: key ?? fullPath,
+        path: fullPath,
       ),
     );
   }
@@ -372,7 +373,8 @@ class StorageS3Service {
   /// a [S3UploadTask], to start the upload process, then returns the
   /// [S3UploadTask].
   S3UploadTask uploadData({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required S3DataPayload dataPayload,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -386,6 +388,7 @@ class StorageS3Service {
       bucket: _s3PluginConfig.bucket,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
+      path: path,
       options: options,
       pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
@@ -403,7 +406,8 @@ class StorageS3Service {
   /// a [S3UploadTask], to start the upload process, then returns the
   /// [S3UploadTask].
   S3UploadTask uploadFile({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required AWSFile localFile,
     required StorageUploadFileOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -427,6 +431,7 @@ class StorageS3Service {
       bucket: _s3PluginConfig.bucket,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
+      path: path,
       options: uploadDataOptions,
       pathResolver: _pathResolver,
       prefixResolver: _prefixResolver,
@@ -504,8 +509,9 @@ class StorageS3Service {
                 key: destinationKey,
               ),
               key: destination.storageItem.key,
+              path: destination.storageItem.path,
             )
-          : S3Item(key: destination.storageItem.key),
+          : S3Item(key: destination.storageItem.key, path: destination.storageItem.path),
     );
   }
 
@@ -606,7 +612,7 @@ class StorageS3Service {
     );
 
     return S3RemoveResult(
-      removedItem: S3Item(key: key),
+      removedItem: S3Item(key: key, path: key),
     );
   }
 

@@ -53,7 +53,8 @@ class S3UploadTask {
     required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
     AWSFile? localFile,
@@ -67,6 +68,7 @@ class S3UploadTask {
         _bucket = bucket,
         _defaultAccessLevel = defaultAccessLevel,
         _key = key,
+        _path = path,
         _options = options,
         _dataPayload = dataPayload,
         _localFile = localFile,
@@ -90,7 +92,8 @@ class S3UploadTask {
     required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
@@ -103,6 +106,7 @@ class S3UploadTask {
           bucket: bucket,
           defaultAccessLevel: defaultAccessLevel,
           key: key,
+          path: path,
           dataPayload: dataPayload,
           options: options,
           onProgress: onProgress,
@@ -121,7 +125,8 @@ class S3UploadTask {
     required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    final String? key,
+    final StoragePath? path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
@@ -134,6 +139,7 @@ class S3UploadTask {
           bucket: bucket,
           defaultAccessLevel: defaultAccessLevel,
           key: key,
+          path: path,
           localFile: localFile,
           options: options,
           onProgress: onProgress,
@@ -152,7 +158,8 @@ class S3UploadTask {
   final S3PathResolver _pathResolver;
   final String _bucket;
   final StorageAccessLevel _defaultAccessLevel;
-  final String _key;
+  final String? _key;
+  final StoragePath? _path;
   final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
   final AWSLogger _logger;
@@ -328,6 +335,7 @@ class S3UploadTask {
       logger: _logger,
       accessLevel: _options.accessLevel ?? _defaultAccessLevel,
       key: _key,
+      path: _path,
     );
   }
 
@@ -367,9 +375,10 @@ class S3UploadTask {
                   bucket: _bucket,
                   key: _resolvedKey,
                 ),
-                key: _key,
+                key: _key ?? _resolvedKey,
+                path: _resolvedKey,
               )
-            : S3Item(key: _key),
+            : S3Item(key: _key ?? _resolvedKey, path: _resolvedKey),
       );
 
       _state = StorageTransferState.success;
@@ -476,9 +485,10 @@ class S3UploadTask {
                           bucket: _bucket,
                           key: _resolvedKey,
                         ),
-                        key: _key,
+                        key: _key ?? _resolvedKey,
+                        path: _resolvedKey,
                       )
-                    : S3Item(key: _key),
+                    : S3Item(key: _key ?? _resolvedKey, path: _resolvedKey),
               );
               _state = StorageTransferState.success;
               _emitTransferProgress();
