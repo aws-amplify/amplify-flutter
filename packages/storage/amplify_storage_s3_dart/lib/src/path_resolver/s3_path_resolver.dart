@@ -20,18 +20,22 @@ class S3PathResolver {
   Future<String> resolvePath({
     required StoragePath path,
   }) async {
-    switch (path) {
+    final resolvedPath = await switch (path) {
       // ignore: invalid_use_of_internal_member
-      case final StoragePathFromString p:
-        return p.resolvePath();
+      final StoragePathFromString p => p.resolvePath(),
       // ignore: invalid_use_of_internal_member
-      case final StoragePathWithIdentityId p:
-        final id = await _identityProvider.getIdentityId();
-        return p.resolvePath(id: id);
-      default:
-        throw UnknownException(
+      final StoragePathWithIdentityId p =>
+        p.resolvePath(id: await _identityProvider.getIdentityId()),
+      _ => throw UnknownException(
           'Unhandled StoragePath type: ${path.runtimeType}',
-        );
+        )
+    };
+    if (!resolvedPath.startsWith('/')) {
+      throw const StoragePathValidationException(
+        'StoragePath must start with a leading "/"',
+        recoverySuggestion: 'Update the provided path to include a leading "/"',
+      );
     }
+    return resolvedPath;
   }
 }
