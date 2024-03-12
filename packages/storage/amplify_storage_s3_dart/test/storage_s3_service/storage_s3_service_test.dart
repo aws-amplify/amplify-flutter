@@ -15,6 +15,7 @@ import 'package:test/test.dart';
 
 import '../test_utils/custom_matchers.dart';
 import '../test_utils/mocks.dart';
+import '../test_utils/test_path_resolver.dart';
 import '../test_utils/test_token_provider.dart';
 
 const testDelimiter = '#';
@@ -41,6 +42,7 @@ void main() {
         S3PluginConfig(bucket: testBucket, region: testRegion);
 
     final testPrefixResolver = TestPrefixResolver();
+    final pathResolver = TestPathResolver();
     late DependencyManager dependencyManager;
     late S3Client s3Client;
     late StorageS3Service storageS3Service;
@@ -57,6 +59,7 @@ void main() {
       storageS3Service = StorageS3Service(
         s3PluginConfig: s3PluginConfig,
         prefixResolver: testPrefixResolver,
+        pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
         dependencyManager: dependencyManager,
@@ -70,6 +73,7 @@ void main() {
           region: 'us-west-2',
         ),
         prefixResolver: testPrefixResolver,
+        pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
         dependencyManager: dependencyManager,
@@ -868,6 +872,7 @@ void main() {
           pathStyleStorageS3Service = StorageS3Service(
             s3PluginConfig: pathStyleS3PluginConfig,
             prefixResolver: testPrefixResolver,
+            pathResolver: pathResolver,
             credentialsProvider: TestIamAuthProvider(),
             logger: MockAWSLogger(),
             dependencyManager: dependencyManager,
