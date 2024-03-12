@@ -16,10 +16,6 @@ class S3PathResolver {
 
   final TokenIdentityAmplifyAuthProvider _identityProvider;
 
-  /// Get the identityProvider
-  @visibleForTesting
-  TokenAmplifyAuthProvider get identityProvider => _identityProvider;
-
   /// Resolve the full path.
   Future<String> resolvePath({
     required StoragePath path,
