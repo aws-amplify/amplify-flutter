@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -296,7 +298,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @override
   S3UploadDataOperation uploadData({
     required StorageDataPayload data,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     void Function(S3TransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
@@ -313,6 +316,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final uploadTask = storageS3Service.uploadData(
       key: key,
+      path: path,
       dataPayload: data,
       options: s3Options,
       onProgress: onProgress,
@@ -321,7 +325,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     return S3UploadDataOperation(
       request: StorageUploadDataRequest(
         data: data,
-        key: key,
+        key: key ?? '',
         options: options,
       ),
       result: uploadTask.result.then(
@@ -334,7 +338,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @override
   S3UploadFileOperation uploadFile({
     required AWSFile localFile,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     void Function(S3TransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
@@ -351,6 +356,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     final uploadTask = storageS3Service.uploadFile(
       key: key,
+      path: path,
       localFile: localFile,
       options: s3Options,
       onProgress: onProgress,
@@ -359,7 +365,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     return S3UploadFileOperation(
       request: StorageUploadFileRequest(
         localFile: localFile,
-        key: key,
+        key: key ?? '',
         options: options,
       ),
       result: uploadTask.result.then(

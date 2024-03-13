@@ -176,7 +176,7 @@ class S3DownloadTask {
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
       _downloadedS3Item =
-          S3Item.fromGetObjectOutput(getObjectOutput, key: _key);
+          S3Item.fromGetObjectOutput(getObjectOutput, key: _key, path: _resolvedKey);
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }

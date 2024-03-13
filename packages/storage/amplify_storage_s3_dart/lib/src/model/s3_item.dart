@@ -20,6 +20,7 @@ class S3Item extends StorageItem
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
   S3Item({
     required super.key,
+    super.path,
     super.size,
     super.lastModified,
     super.eTag,
@@ -34,6 +35,7 @@ class S3Item extends StorageItem
         ? storageItem
         : S3Item(
             key: storageItem.key,
+            path: storageItem.path,
             size: storageItem.size,
             lastModified: storageItem.lastModified,
             eTag: storageItem.eTag,
@@ -68,6 +70,7 @@ class S3Item extends StorageItem
 
     return S3Item(
       key: keyDroppedPrefix,
+      path: key,
       size: object.size?.toInt(),
       lastModified: object.lastModified,
       eTag: object.eTag,
@@ -80,9 +83,11 @@ class S3Item extends StorageItem
   factory S3Item.fromHeadObjectOutput(
     s3.HeadObjectOutput headObjectOutput, {
     required String key,
+    required String path,
   }) {
     return S3Item(
       key: key,
+      path: path,
       lastModified: headObjectOutput.lastModified,
       eTag: headObjectOutput.eTag,
       metadata: headObjectOutput.metadata?.toMap() ?? const {},
@@ -98,9 +103,11 @@ class S3Item extends StorageItem
   factory S3Item.fromGetObjectOutput(
     s3.GetObjectOutput getObjectOutput, {
     required String key,
+    required String path,
   }) {
     return S3Item(
       key: key,
+      path: path,
       lastModified: getObjectOutput.lastModified,
       eTag: getObjectOutput.eTag,
       metadata: getObjectOutput.metadata?.toMap() ?? const {},
@@ -128,6 +135,7 @@ class S3Item extends StorageItem
   @override
   List<Object?> get props => [
         key,
+        path,
         size,
         lastModified,
         eTag,
