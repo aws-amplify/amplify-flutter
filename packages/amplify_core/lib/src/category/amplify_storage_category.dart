@@ -63,6 +63,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StorageGetPropertiesOptions? options,
   }) {
     assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getProperties,
       () => defaultPlugin.getProperties(
@@ -86,6 +87,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StorageGetUrlOptions? options,
   }) {
     assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getUrl,
       () => defaultPlugin.getUrl(
@@ -156,6 +158,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StorageUploadDataOptions? options,
   }) {
     assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.uploadData,
       () => defaultPlugin.uploadData(
