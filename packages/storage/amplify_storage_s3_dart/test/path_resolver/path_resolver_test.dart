@@ -31,7 +31,7 @@ void main() {
     );
 
     test('should resolve static strings', () async {
-      final path = StoragePath.fromString('/foo/bar/picture.png');
+      const path = StoragePath.fromString('/foo/bar/picture.png');
       expect(
         await pathResolver.resolvePath(path: path),
         '/foo/bar/picture.png',
@@ -48,7 +48,7 @@ void main() {
 
     test('should throw if the path does not start with a leading "/"',
         () async {
-      final path = StoragePath.fromString('foo/bar/picture.png');
+      const path = StoragePath.fromString('foo/bar/picture.png');
       expect(
         () => pathResolver.resolvePath(path: path),
         throwsA(isA<StoragePathValidationException>()),
