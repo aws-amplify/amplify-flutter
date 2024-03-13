@@ -19,7 +19,8 @@ class S3Item extends StorageItem
         AWSDebuggable {
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
   S3Item({
-    required super.key,
+    super.key,
+    // TODO[Jordan-Nelson]: make required
     super.path,
     super.size,
     super.lastModified,
@@ -82,7 +83,8 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromHeadObjectOutput(
     s3.HeadObjectOutput headObjectOutput, {
-    required String key,
+    // TODO: remove
+    String? key,
     required String path,
   }) {
     return S3Item(
@@ -102,7 +104,8 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromGetObjectOutput(
     s3.GetObjectOutput getObjectOutput, {
-    required String key,
+    // TODO: remove
+    String? key,
     required String path,
   }) {
     return S3Item(

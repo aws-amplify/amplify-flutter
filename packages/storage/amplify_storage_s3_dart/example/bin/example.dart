@@ -155,7 +155,7 @@ Future<void> getPropertiesOperation() async {
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getPropertiesOperation = s3Plugin.getProperties(
-    key: key,
+    path: StoragePath.fromString(key),
     options: StorageGetPropertiesOptions(
       accessLevel: accessLevel,
     ),
@@ -173,16 +173,13 @@ Future<void> getPropertiesOperation() async {
 
 Future<void> getUrlOperation() async {
   final key = prompt('Enter the object key to get url for: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
+
   final useAccelerateEndpoint = promptUseAcceleration();
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getUrlOperation = s3Plugin.getUrl(
-    key: key,
+    path: StoragePath.fromString(key),
     options: StorageGetUrlOptions(
-      accessLevel: accessLevel,
       pluginOptions: S3GetUrlPluginOptions(
         expiresIn: const Duration(
           minutes: 10,
@@ -292,17 +289,13 @@ Future<void> downloadFileOperation() async {
 Future<void> uploadDataUrlOperation() async {
   final dataUrl = prompt('Enter the data url to upload: ');
   final key = prompt('Enter the object key to upload the data url to: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object to upload: ',
-  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final uploadDataOperation = s3Plugin.uploadData(
     data: S3DataPayload.dataUrl(dataUrl),
-    key: key,
-    options: StorageUploadDataOptions(
-      accessLevel: accessLevel,
-      pluginOptions: const S3UploadDataPluginOptions(
+    path: StoragePath.fromString(key),
+    options: const StorageUploadDataOptions(
+      pluginOptions: S3UploadDataPluginOptions(
         getProperties: true,
       ),
     ),
@@ -327,9 +320,6 @@ Future<void> uploadDataUrlOperation() async {
 Future<void> uploadFileOperation() async {
   final filePath = prompt('Enter the path of the file to be uploaded: ');
   final key = prompt('Enter the object key to upload the file to: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object to upload: ',
-  );
   final nameTag = prompt('Enter value of the name tag for this file: ');
   final file = AWSFile.fromPath(filePath);
 
@@ -344,10 +334,9 @@ Future<void> uploadFileOperation() async {
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final uploadFileOperation = s3Plugin.uploadFile(
     localFile: file,
-    key: key,
+    path: StoragePath.fromString(key),
     onProgress: onTransferProgress,
     options: StorageUploadFileOptions(
-      accessLevel: accessLevel,
       metadata: {
         'nameTag': nameTag,
       },

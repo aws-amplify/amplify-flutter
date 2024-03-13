@@ -156,9 +156,8 @@ void main() {
                   testBytes,
                   contentType: testContentType,
                 ),
-                key: testObjectKey1,
+                path: StoragePath.fromString('/public/$testObjectKey1'),
                 options: const StorageUploadDataOptions(
-                  accessLevel: StorageAccessLevel.guest,
                   metadata: {
                     'filename': testObjectFileName1,
                   },
@@ -206,9 +205,8 @@ void main() {
           final result = await s3Plugin
               .uploadData(
                 data: S3DataPayload.dataUrl(testDataUrl),
-                key: testObjectKey2,
+                path: StoragePath.fromString('/protected/$testObjectKey2'),
                 options: const StorageUploadDataOptions(
-                  accessLevel: StorageAccessLevel.protected,
                   metadata: {
                     'filename': testObjectFileName2,
                   },
@@ -244,9 +242,8 @@ void main() {
           final result = await s3Plugin
               .uploadFile(
                 localFile: AWSFile.fromData(testLargeFileBytes),
-                key: testObjectKey3,
+                path: StoragePath.fromString('/private/$testObjectKey3'),
                 options: const StorageUploadFileOptions(
-                  accessLevel: StorageAccessLevel.private,
                   metadata: {
                     'filename': testObjectFileName3,
                   },
@@ -279,9 +276,8 @@ void main() {
             'generate downloadable url with access level private for the'
             ' currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.getUrl(
-            key: testObjectKey3,
+            path: StoragePath.fromString('/private/$testObjectKey3'),
             options: const StorageGetUrlOptions(
-              accessLevel: StorageAccessLevel.private,
               pluginOptions: S3GetUrlPluginOptions(
                 validateObjectExistence: true,
                 expiresIn: Duration(minutes: 5),
@@ -296,9 +292,10 @@ void main() {
             'should throw generating downloadable url of a non-existent object',
             (WidgetTester tester) async {
           final result = Amplify.Storage.getUrl(
-            key: 'random/non-existent/object.png',
+            path: const StoragePath.fromString(
+              'random/non-existent/object.png',
+            ),
             options: const StorageGetUrlOptions(
-              accessLevel: StorageAccessLevel.private,
               pluginOptions: S3GetUrlPluginOptions(
                 validateObjectExistence: true,
                 expiresIn: Duration(minutes: 5),

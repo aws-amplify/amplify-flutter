@@ -9,7 +9,8 @@ import 'package:amplify_core/src/types/storage/access_level.dart';
 class StorageItem {
   /// {@macro amplify_core.storage.storage_item}
   const StorageItem({
-    required this.key,
+    this.key,
+    // TODO[Jordan-Nelson]: make required
     this.path = '',
     this.size,
     this.lastModified,
@@ -17,7 +18,8 @@ class StorageItem {
     this.metadata = const <String, String>{},
   });
 
-  final String key;
+  // TODO[Jordan-Nelson]: Remove key
+  final String? key;
   final String path;
   final int? size;
   final DateTime? lastModified;

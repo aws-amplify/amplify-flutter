@@ -52,7 +52,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.get_properties}
-  /// Retrieves properties of the object specified by [key] with optional
+  /// Retrieves properties of the object specified by [path] with optional
   /// [StorageGetPropertiesOptions]. And returns a
   /// [StorageGetPropertiesOperation].
   ///
@@ -60,16 +60,12 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// was uploaded.
   /// {@endtemplate}
   StorageGetPropertiesOperation getProperties({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetPropertiesOptions? options,
   }) {
-    assert(key != null || path != null, 'key or path must be defined.');
-    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getProperties,
       () => defaultPlugin.getProperties(
-        key: key,
         path: path,
         options: options,
       ),
@@ -77,23 +73,19 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.get_url}
-  /// Generates a downloadable url for the object specified by [key] with
+  /// Generates a downloadable url for the object specified by [path] with
   /// [StorageGetUrlOptions], and returns a [StorageGetUrlOperation].
   ///
   /// The url is presigned by the aws_signature_v4, and is enforced with scheme
   /// `https`.
   /// {@endtemplate}
   StorageGetUrlOperation getUrl({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetUrlOptions? options,
   }) {
-    assert(key != null || path != null, 'key or path must be defined.');
-    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getUrl,
       () => defaultPlugin.getUrl(
-        key: key,
         path: path,
         options: options,
       ),
@@ -154,17 +146,13 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   StorageUploadDataOperation uploadData({
     required StorageDataPayload data,
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
-    assert(key != null || path != null, 'key or path must be defined.');
-    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.uploadData,
       () => defaultPlugin.uploadData(
-        key: key,
         path: path,
         data: data,
         onProgress: onProgress,
@@ -183,15 +171,13 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   StorageUploadFileOperation uploadFile({
     required AWSFile localFile,
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.uploadFile,
       () => defaultPlugin.uploadFile(
-        key: key,
         path: path,
         localFile: localFile,
         onProgress: onProgress,
