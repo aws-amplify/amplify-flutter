@@ -10,6 +10,7 @@ class StorageItem {
   /// {@macro amplify_core.storage.storage_item}
   const StorageItem({
     required this.key,
+    this.path = '',
     this.size,
     this.lastModified,
     this.eTag,
@@ -17,6 +18,7 @@ class StorageItem {
   });
 
   final String key;
+  final String path;
   final int? size;
   final DateTime? lastModified;
   final String? eTag;
