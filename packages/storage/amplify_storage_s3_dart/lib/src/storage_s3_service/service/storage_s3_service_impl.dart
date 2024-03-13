@@ -213,24 +213,10 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetPropertiesResult> getProperties({
-    String? key,
-    StoragePath? path,
+    required StoragePath path,
     required StorageGetPropertiesOptions options,
   }) async {
-    assert(key != null || path != null, '"key" or "path" must be provided');
-    final s3PluginOptions =
-        options.pluginOptions as S3GetPropertiesPluginOptions? ??
-            const S3GetPropertiesPluginOptions();
-
-    final fullPath = await getResolvedPath(
-      pathResolver: _pathResolver,
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      path: path,
-      key: key,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-      identityId: s3PluginOptions.targetIdentityId,
-    );
+    final fullPath = await _pathResolver.resolvePath(path: path);
 
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
@@ -239,7 +225,6 @@ class StorageS3Service {
           bucket: _s3PluginConfig.bucket,
           key: fullPath,
         ),
-        key: key ?? fullPath,
         path: fullPath,
       ),
     );
@@ -251,8 +236,7 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetUrlResult> getUrl({
-    String? key,
-    StoragePath? path,
+    required StoragePath path,
     required StorageGetUrlOptions options,
   }) async {
     final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
@@ -279,20 +263,11 @@ class StorageS3Service {
             );
       await getProperties(
         path: path,
-        key: key,
         options: getPropertiesOptions,
       );
     }
 
-    final fullPath = await getResolvedPath(
-      pathResolver: _pathResolver,
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      path: path,
-      key: key,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-      identityId: s3PluginOptions.targetIdentityId,
-    );
+    final fullPath = await _pathResolver.resolvePath(path: path);
     var keyToGetUrl = fullPath;
     if (!keyToGetUrl.startsWith('/')) {
       keyToGetUrl = '/$keyToGetUrl';
@@ -375,8 +350,7 @@ class StorageS3Service {
   /// a [S3UploadTask], to start the upload process, then returns the
   /// [S3UploadTask].
   S3UploadTask uploadData({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     required S3DataPayload dataPayload,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -389,7 +363,6 @@ class StorageS3Service {
       defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _s3PluginConfig.bucket,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
-      key: key,
       path: path,
       options: options,
       pathResolver: _pathResolver,
@@ -408,8 +381,7 @@ class StorageS3Service {
   /// a [S3UploadTask], to start the upload process, then returns the
   /// [S3UploadTask].
   S3UploadTask uploadFile({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     required AWSFile localFile,
     required StorageUploadFileOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -420,7 +392,6 @@ class StorageS3Service {
         options.pluginOptions as S3UploadFilePluginOptions? ??
             const S3UploadFilePluginOptions();
     final uploadDataOptions = StorageUploadDataOptions(
-      accessLevel: options.accessLevel,
       metadata: options.metadata,
       pluginOptions: S3UploadDataPluginOptions(
         getProperties: s3PluginOptions.getProperties,
@@ -432,7 +403,6 @@ class StorageS3Service {
       defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _s3PluginConfig.bucket,
       defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
-      key: key,
       path: path,
       options: uploadDataOptions,
       pathResolver: _pathResolver,
@@ -513,7 +483,10 @@ class StorageS3Service {
               key: destination.storageItem.key,
               path: destination.storageItem.path,
             )
-          : S3Item(key: destination.storageItem.key, path: destination.storageItem.path),
+          : S3Item(
+              key: destination.storageItem.key,
+              path: destination.storageItem.path,
+            ),
     );
   }
 
@@ -754,26 +727,9 @@ class StorageS3Service {
   @internal
   static Future<String> getResolvedPath({
     required S3PathResolver pathResolver,
-    required S3PrefixResolver prefixResolver,
-    required AWSLogger logger,
-    StoragePath? path,
-    String? key,
-    required StorageAccessLevel accessLevel,
-    String? identityId,
+    required StoragePath path,
   }) async {
-    final String fullPath;
-    if (path != null) {
-      fullPath = await pathResolver.resolvePath(path: path);
-    } else {
-      final resolvedPrefix = await getResolvedPrefix(
-        prefixResolver: prefixResolver,
-        logger: logger,
-        accessLevel: accessLevel,
-        identityId: identityId,
-      );
-      fullPath = '$resolvedPrefix$key';
-    }
-    return fullPath;
+    return pathResolver.resolvePath(path: path);
   }
 
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then

@@ -16,7 +16,6 @@ class S3UploadFileOptions extends StorageUploadFileOptions {
     'use StorageUploadFileOptions(pluginOptions: S3UploadFilePluginOptions(...)) instead.',
   )
   const S3UploadFileOptions({
-    super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
     super.metadata,
     this.useAccelerateEndpoint = false,

@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        key: platformFile.name,
+        path: StoragePath.fromString('/public/${platformFile.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -229,15 +229,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // get the url of a file in the S3 bucket
   Future<String> getUrl({
-    required String key,
-    required StorageAccessLevel accessLevel,
+    required String path,
   }) async {
     try {
       final result = await Amplify.Storage.getUrl(
-        key: key,
-        options: StorageGetUrlOptions(
-          accessLevel: accessLevel,
-          pluginOptions: const S3GetUrlPluginOptions(
+        path: StoragePath.fromString(path),
+        options: const StorageGetUrlOptions(
+          pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,
             expiresIn: Duration(minutes: 1),
           ),
@@ -270,17 +268,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   final item = list[index];
                   return ListTile(
                     onTap: () {
-                      getUrl(
-                        key: item.key,
-                        accessLevel: StorageAccessLevel.guest,
-                      );
+                      getUrl(path: item.path);
                     },
-                    title: Text(item.key),
+                    title: Text(item.path),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
                         removeFile(
-                          key: item.key,
+                          key: item.path,
                           accessLevel: StorageAccessLevel.guest,
                         );
                       },
@@ -290,8 +285,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.download),
                       onPressed: () {
                         zIsWeb
-                            ? downloadFileWeb(item.key)
-                            : downloadFileMobile(item.key);
+                            ? downloadFileWeb(item.path)
+                            : downloadFileMobile(item.path);
                       },
                     ),
                   );

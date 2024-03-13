@@ -12,6 +12,8 @@ import 'test_utils/mocks.dart';
 import 'test_utils/test_custom_prefix_resolver.dart';
 import 'test_utils/test_token_provider.dart';
 
+const testPath = StoragePath.fromString('/some/path.txt');
+
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
   const testAccessLevelProtected = StorageAccessLevel.protected;
@@ -257,7 +259,7 @@ void main() {
 
         when(
           () => storageS3Service.getProperties(
-            key: testKey,
+            path: testPath,
             options: defaultOptions,
           ),
         ).thenAnswer(
@@ -265,11 +267,11 @@ void main() {
         );
 
         final getPropertiesOperation =
-            storageS3Plugin.getProperties(key: testKey);
+            storageS3Plugin.getProperties(path: testPath);
 
         final capturedOptions = verify(
           () => storageS3Service.getProperties(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageGetPropertiesOptions>(
               named: 'options',
             ),
@@ -299,7 +301,7 @@ void main() {
 
         when(
           () => storageS3Service.getProperties(
-            key: testKey,
+            path: testPath,
             options: testOptions,
           ),
         ).thenAnswer(
@@ -307,13 +309,13 @@ void main() {
         );
 
         final getPropertiesOperation = storageS3Plugin.getProperties(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.getProperties(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageGetPropertiesOptions>(
               named: 'options',
             ),
@@ -354,18 +356,20 @@ void main() {
 
         when(
           () => storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: defaultOptions,
           ),
         ).thenAnswer(
           (_) async => testResult,
         );
 
-        final getUrlOperation = storageS3Plugin.getUrl(key: testKey);
+        final getUrlOperation = storageS3Plugin.getUrl(
+          path: testPath,
+        );
 
         final capturedOptions = verify(
           () => storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageGetUrlOptions>(
               named: 'options',
             ),
@@ -386,7 +390,6 @@ void main() {
 
       test('should forward options to StorageS3Service.getUrl() API', () async {
         const testOptions = StorageGetUrlOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,
             expiresIn: Duration(minutes: 10),
@@ -396,7 +399,7 @@ void main() {
 
         when(
           () => storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: testOptions,
           ),
         ).thenAnswer(
@@ -404,13 +407,13 @@ void main() {
         );
 
         final getUrlOperation = storageS3Plugin.getUrl(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageGetUrlOptions>(
               named: 'options',
             ),
@@ -587,7 +590,7 @@ void main() {
 
         when(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: any(named: 'dataPayload'),
             options: defaultOptions,
             onProgress: any(named: 'onProgress'),
@@ -598,12 +601,14 @@ void main() {
 
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
 
-        final uploadDataOperation =
-            storageS3Plugin.uploadData(data: testData, key: testKey);
+        final uploadDataOperation = storageS3Plugin.uploadData(
+          data: testData,
+          path: testPath,
+        );
 
         final capturedParams = verify(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: captureAny<S3DataPayload>(named: 'dataPayload'),
             options: captureAny<StorageUploadDataOptions>(
               named: 'options',
@@ -636,7 +641,6 @@ void main() {
       test('should forward options to StorageS3Service.uploadData API',
           () async {
         const testOptions = StorageUploadDataOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
             useAccelerateEndpoint: true,
@@ -645,7 +649,7 @@ void main() {
 
         when(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: any(named: 'dataPayload'),
             options: testOptions,
           ),
@@ -654,12 +658,12 @@ void main() {
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
         uploadDataOperation = storageS3Plugin.uploadData(
           data: testData,
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
         final capturedOptions = verify(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: any(named: 'dataPayload'),
             options: captureAny<StorageUploadDataOptions>(
               named: 'options',
@@ -679,13 +683,12 @@ void main() {
           'filename': '123',
         };
         const testOptions = StorageUploadDataOptions(
-          accessLevel: testAccessLevelProtected,
           metadata: testMetadata,
         );
 
         when(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: any(named: 'dataPayload'),
             options: any(named: 'options'),
           ),
@@ -694,12 +697,12 @@ void main() {
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
         uploadDataOperation = storageS3Plugin.uploadData(
           data: testData,
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
         final capturedOptions = verify(
           () => storageS3Service.uploadData(
-            key: testKey,
+            path: testPath,
             dataPayload: any(named: 'dataPayload'),
             options: captureAny<StorageUploadDataOptions>(
               named: 'options',
@@ -760,7 +763,7 @@ void main() {
 
         when(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: any(named: 'localFile'),
             options: defaultOptions,
             onProgress: any(named: 'onProgress'),
@@ -772,13 +775,13 @@ void main() {
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
 
         uploadFileOperation = storageS3Plugin.uploadFile(
-          key: testKey,
+          path: testPath,
           localFile: testLocalFile,
         );
 
         final capturedParams = verify(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: captureAny<AWSFile>(named: 'localFile'),
             options: captureAny<StorageUploadFileOptions>(
               named: 'options',
@@ -809,7 +812,6 @@ void main() {
       test('should forward options to StorageS3Service.uploadFile API',
           () async {
         const testOptions = StorageUploadFileOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3UploadFilePluginOptions(
             getProperties: true,
             useAccelerateEndpoint: true,
@@ -818,7 +820,7 @@ void main() {
 
         when(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: any(named: 'localFile'),
             options: testOptions,
           ),
@@ -827,14 +829,14 @@ void main() {
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
 
         uploadFileOperation = storageS3Plugin.uploadFile(
-          key: testKey,
+          path: testPath,
           localFile: testLocalFile,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: any(named: 'localFile'),
             options: captureAny<StorageUploadFileOptions>(
               named: 'options',
@@ -854,13 +856,12 @@ void main() {
           'filename': '123',
         };
         const testOptions = StorageUploadFileOptions(
-          accessLevel: testAccessLevelProtected,
           metadata: testMetadata,
         );
 
         when(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: any(named: 'localFile'),
             options: any(named: 'options'),
           ),
@@ -869,14 +870,14 @@ void main() {
         when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
 
         uploadFileOperation = storageS3Plugin.uploadFile(
-          key: testKey,
+          path: testPath,
           localFile: testLocalFile,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.uploadFile(
-            key: testKey,
+            path: testPath,
             localFile: any(named: 'localFile'),
             options: captureAny<StorageUploadFileOptions>(
               named: 'options',

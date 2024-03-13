@@ -24,8 +24,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_properties}
   StorageGetPropertiesOperation getProperties({
-    @Deprecated('Use `path` instead') String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetPropertiesOptions? options,
   }) {
     throw UnimplementedError('getProperties() has not been implemented.');
@@ -33,8 +32,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
   StorageGetUrlOperation getUrl({
-    @Deprecated('Use `path` instead') String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetUrlOptions? options,
   }) {
     throw UnimplementedError('getUrl() has not been implemented.');
@@ -61,8 +59,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_data}
   StorageUploadDataOperation uploadData({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     required StorageDataPayload data,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
@@ -72,8 +69,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_file}
   StorageUploadFileOperation uploadFile({
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
