@@ -61,7 +61,8 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_data}
   StorageUploadDataOperation uploadData({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required StorageDataPayload data,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
@@ -71,7 +72,8 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_file}
   StorageUploadFileOperation uploadFile({
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,

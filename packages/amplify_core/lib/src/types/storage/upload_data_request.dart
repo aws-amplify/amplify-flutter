@@ -10,12 +10,12 @@ class StorageUploadDataRequest {
   /// {@macro amplify_core.storage.upload_data_request}
   const StorageUploadDataRequest({
     required this.data,
-    required this.key,
+    @Deprecated('Use StorageUploadDataResult.uploadedItem.path instead') required this.key,
     this.options,
   });
 
   /// The key of the object upload to.
-  final String key;
+  @Deprecated('Use StorageUploadDataResult.uploadedItem.path instead') final String key;
 
   /// The data payload to upload.
   final StorageDataPayload data;

@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 part of 'amplify_categories.dart';
 
 /// {@template amplify_core.amplify_storage_category}
@@ -63,6 +65,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StorageGetPropertiesOptions? options,
   }) {
     assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getProperties,
       () => defaultPlugin.getProperties(
@@ -86,6 +89,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     StorageGetUrlOptions? options,
   }) {
     assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.getUrl,
       () => defaultPlugin.getUrl(
@@ -150,14 +154,18 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   StorageUploadDataOperation uploadData({
     required StorageDataPayload data,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
+    assert(key != null || path != null, 'key or path must be defined.');
+    assert(key != null && path != null, 'only key OR path must be defined, not both.');
     return identifyCall(
       StorageCategoryMethod.uploadData,
       () => defaultPlugin.uploadData(
         key: key,
+        path: path,
         data: data,
         onProgress: onProgress,
         options: options,
@@ -175,7 +183,8 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   StorageUploadFileOperation uploadFile({
     required AWSFile localFile,
-    required String key,
+    @Deprecated('use `path` instead.') String? key,
+    StoragePath? path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
@@ -183,6 +192,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
       StorageCategoryMethod.uploadFile,
       () => defaultPlugin.uploadFile(
         key: key,
+        path: path,
         localFile: localFile,
         onProgress: onProgress,
         options: options,
