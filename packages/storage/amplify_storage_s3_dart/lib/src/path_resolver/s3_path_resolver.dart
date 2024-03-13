@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.path_resolver}
@@ -20,15 +22,11 @@ class S3PathResolver {
   Future<String> resolvePath({
     required StoragePath path,
   }) async {
-    final resolvedPath = await switch (path) {
-      // ignore: invalid_use_of_internal_member
-      final StoragePathFromString p => p.resolvePath(),
-      // ignore: invalid_use_of_internal_member
+    final resolvedPath = switch (path) {
       final StoragePathWithIdentityId p =>
-        p.resolvePath(id: await _identityProvider.getIdentityId()),
-      _ => throw UnknownException(
-          'Unhandled StoragePath type: ${path.runtimeType}',
-        )
+        p.resolvePath(identityId: await _identityProvider.getIdentityId()),
+      // ignore: invalid_use_of_internal_member
+      _ => path.resolvePath()
     };
     if (!resolvedPath.startsWith('/')) {
       throw const StoragePathValidationException(
