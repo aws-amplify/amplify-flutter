@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:math';
 

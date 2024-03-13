@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -471,8 +473,7 @@ void main() {
           pathResolver: pathResolver,
           bucket: testBucket,
           defaultAccessLevel: testDefaultAccessLevel,
-          path: StoragePath.fromString(testPath),
-          // key: testPath,
+          key: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
