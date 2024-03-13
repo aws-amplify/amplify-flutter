@@ -9,13 +9,9 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageGetUrlRequest {
   /// {@macro amplify_core.storage.get_url_request}
   const StorageGetUrlRequest({
-    this.key,
     this.path,
     this.options,
   });
-
-  /// Key of the object to get url for.
-  final String? key;
 
   final StoragePath? path;
 

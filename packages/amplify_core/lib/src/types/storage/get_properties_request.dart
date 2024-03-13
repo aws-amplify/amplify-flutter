@@ -9,15 +9,11 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageGetPropertiesRequest {
   /// {@macro amplify_core.storage.get_properties_request}
   const StorageGetPropertiesRequest({
-    this.key,
-    this.path,
+    required this.path,
     this.options,
   });
 
-  /// Key of the object to get properties for.
-  final String? key;
-
-  final StoragePath? path;
+  final StoragePath path;
 
   /// Configurable options of the [StorageGetPropertiesRequest].
   final StorageGetPropertiesOptions? options;

@@ -10,12 +10,8 @@ class StorageUploadFileRequest {
   /// {@macro amplify_core.storage.upload_file_request}
   const StorageUploadFileRequest({
     required this.localFile,
-    required this.key,
     this.options,
   });
-
-  /// The key of the object upload to.
-  final String key;
 
   /// The local file to upload.
   final AWSFile localFile;

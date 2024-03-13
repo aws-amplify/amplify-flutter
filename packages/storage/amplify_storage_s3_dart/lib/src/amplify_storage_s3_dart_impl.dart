@@ -171,8 +171,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3GetPropertiesOperation getProperties({
-    String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetPropertiesOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -187,11 +186,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3GetPropertiesOperation(
       request: StorageGetPropertiesRequest(
-        key: key,
+        path: path,
         options: options,
       ),
       result: storageS3Service.getProperties(
-        key: key,
         path: path,
         options: s3Options,
       ),
@@ -200,8 +198,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3GetUrlOperation getUrl({
-    String? key,
-    StoragePath? path,
+    required StoragePath path,
     StorageGetUrlOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -210,18 +207,15 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageGetUrlOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
     return S3GetUrlOperation(
       request: StorageGetUrlRequest(
-        key: key,
         path: path,
         options: options,
       ),
       result: storageS3Service.getUrl(
-        key: key,
         path: path,
         options: s3Options,
       ),
@@ -298,8 +292,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @override
   S3UploadDataOperation uploadData({
     required StorageDataPayload data,
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     void Function(S3TransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
@@ -309,13 +302,11 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageUploadDataOptions(
-      accessLevel: options?.accessLevel,
       metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
     );
 
     final uploadTask = storageS3Service.uploadData(
-      key: key,
       path: path,
       dataPayload: data,
       options: s3Options,
@@ -325,7 +316,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     return S3UploadDataOperation(
       request: StorageUploadDataRequest(
         data: data,
-        key: key ?? '',
         options: options,
       ),
       result: uploadTask.result.then(
@@ -338,8 +328,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @override
   S3UploadFileOperation uploadFile({
     required AWSFile localFile,
-    @Deprecated('use `path` instead.') String? key,
-    StoragePath? path,
+    required StoragePath path,
     void Function(S3TransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
@@ -349,13 +338,11 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageUploadFileOptions(
-      accessLevel: options?.accessLevel,
       metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
     );
 
     final uploadTask = storageS3Service.uploadFile(
-      key: key,
       path: path,
       localFile: localFile,
       options: s3Options,
@@ -365,7 +352,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     return S3UploadFileOperation(
       request: StorageUploadFileRequest(
         localFile: localFile,
-        key: key ?? '',
         options: options,
       ),
       result: uploadTask.result.then(

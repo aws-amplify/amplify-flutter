@@ -16,7 +16,6 @@ class StorageGetUrlOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.get_url_options}
   const StorageGetUrlOptions({
-    @Deprecated('Use `path` to create the full file path') super.accessLevel,
     this.pluginOptions,
   });
 

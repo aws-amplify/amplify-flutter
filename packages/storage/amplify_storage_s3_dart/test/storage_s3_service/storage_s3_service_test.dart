@@ -19,6 +19,7 @@ import '../test_utils/test_path_resolver.dart';
 import '../test_utils/test_token_provider.dart';
 
 const testDelimiter = '#';
+const testPath = StoragePath.fromString('/some/path.txt');
 
 class TestPrefixResolver implements S3PrefixResolver {
   @override
@@ -455,7 +456,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         getPropertiesResult = await storageS3Service.getProperties(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
@@ -468,12 +469,7 @@ void main() {
 
         final request = capturedRequest as HeadObjectRequest;
         expect(request.bucket, testBucket);
-        expect(
-          request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: s3PluginConfig.defaultAccessLevel,
-          )}$testKey',
-        );
+        expect(request.key, TestPathResolver.path);
       });
 
       test('should invoke S3Client.headObject with expected parameters',
@@ -502,7 +498,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         getPropertiesResult = await storageS3Service.getProperties(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
@@ -515,18 +511,11 @@ void main() {
 
         final request = capturedRequest as HeadObjectRequest;
         expect(request.bucket, testBucket);
-        expect(
-          request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testOptions.accessLevel!,
-            identityId: testTargetIdentityId,
-          )}$testKey',
-        );
+        expect(request.key, TestPathResolver.path);
       });
 
       test('should return correct S3GetProperties result', () async {
         final storageItem = getPropertiesResult.storageItem;
-        expect(storageItem.key, testKey);
         expect(storageItem.metadata, testMetadata);
         expect(storageItem.eTag, testETag);
         expect(storageItem.size, testSize);
@@ -549,7 +538,7 @@ void main() {
 
         expect(
           storageS3Service.getProperties(
-            key: 'a key',
+            path: const StoragePath.fromString('/a key'),
             options: testOptions,
           ),
           throwsA(isA<StorageKeyNotFoundException>()),
@@ -569,7 +558,7 @@ void main() {
 
         expect(
           storageS3Service.getProperties(
-            key: 'a key',
+            path: const StoragePath.fromString('/a key'),
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),
@@ -626,7 +615,7 @@ void main() {
             ).thenAnswer((_) async => testUrl);
 
             getUrlResult = await storageS3Service.getUrl(
-              key: testKey,
+              path: testPath,
               options: testOptions,
             );
             final capturedParams = verify(
@@ -645,12 +634,7 @@ void main() {
             final requestParam = capturedParams.first as AWSHttpRequest;
             expect(
               requestParam.uri.toString(),
-              endsWith(
-                Uri.encodeComponent('${await testPrefixResolver.resolvePrefix(
-                  accessLevel: s3PluginConfig.defaultAccessLevel,
-                  identityId: testTargetIdentityId,
-                )}$testKey'),
-              ),
+              endsWith(TestPathResolver.path),
             );
 
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
@@ -685,7 +669,7 @@ void main() {
         ).thenAnswer((_) async => testUrl);
 
         getUrlResult = await storageS3Service.getUrl(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
         final capturedSignerScope1 = verify(
@@ -702,7 +686,7 @@ void main() {
         expect(capturedSignerScope1, isA<AWSCredentialScope>());
 
         getUrlResult = await storageS3Service.getUrl(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
         final capturedSignerScope2 = verify(
@@ -725,7 +709,6 @@ void main() {
           'should invoke s3Client.headObject when validateObjectExistence option is set to true',
           () async {
         const testOptions = StorageGetUrlOptions(
-          accessLevel: StorageAccessLevel.private,
           pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,
           ),
@@ -743,7 +726,7 @@ void main() {
 
         await expectLater(
           storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: testOptions,
           ),
           throwsA(isA<StorageKeyNotFoundException>()),
@@ -757,9 +740,7 @@ void main() {
 
         expect(
           capturedRequest.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
       });
 
@@ -768,7 +749,6 @@ void main() {
           ' set to true and specified targetIdentityId', () async {
         const testTargetIdentityId = 'some-else-id';
         const testOptions = StorageGetUrlOptions(
-          accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3GetUrlPluginOptions.forIdentity(
             testTargetIdentityId,
             validateObjectExistence: true,
@@ -787,7 +767,7 @@ void main() {
 
         await expectLater(
           storageS3Service.getUrl(
-            key: testKey,
+            path: testPath,
             options: testOptions,
           ),
           throwsA(isA<StorageKeyNotFoundException>()),
@@ -801,10 +781,7 @@ void main() {
 
         expect(
           capturedRequest.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testOptions.accessLevel!,
-            identityId: testTargetIdentityId,
-          )}$testKey',
+          TestPathResolver.path,
         );
       });
 
@@ -825,7 +802,7 @@ void main() {
         ).thenAnswer((_) async => testUrl);
 
         await storageS3Service.getUrl(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
@@ -894,7 +871,7 @@ void main() {
             ).thenAnswer((_) async => pathStyleURL);
 
             getUrlResult = await pathStyleStorageS3Service.getUrl(
-              key: testKey,
+              path: testPath,
               options: testOptions,
             );
 
@@ -920,7 +897,7 @@ void main() {
                   .having(
                     (o) => o.path,
                     'path',
-                    '/bucket.name.has.dots.com/public#some-object',
+                    '/bucket.name.has.dots.com${TestPathResolver.path}',
                   ),
             );
           },
@@ -937,7 +914,7 @@ void main() {
 
             expect(
               pathStyleStorageS3Service.getUrl(
-                key: testKey,
+                path: testPath,
                 options: testOptions,
               ),
               throwsA(
