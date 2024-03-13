@@ -125,7 +125,7 @@ class S3UploadTask {
     required S3PathResolver pathResolver,
     required String bucket,
     required StorageAccessLevel defaultAccessLevel,
-    final String? key,
+    @Deprecated('use `path` instead.') String? key,
     final StoragePath? path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
