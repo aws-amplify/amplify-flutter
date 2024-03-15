@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 import 'package:amplify_core/src/types/storage/base/storage_operation_options.dart';
 import 'package:aws_common/aws_common.dart';
 

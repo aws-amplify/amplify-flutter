@@ -4,7 +4,7 @@
 part of '../amplify_exception.dart';
 
 /// {@template amplify_core.storage.path_validation_exception}
-/// Exception thrown when the service request receives access denied error.
+/// Exception thrown when the [StoragePath] is invalid.
 /// {@endtemplate}
 class StoragePathValidationException extends StorageException {
   /// {@macro amplify_core.storage.path_validation_exception}

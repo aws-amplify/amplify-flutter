@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 import 'dart:math';
 
@@ -360,11 +358,9 @@ class StorageS3Service {
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _s3PluginConfig.bucket,
-      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       path: path,
       options: options,
       pathResolver: _pathResolver,
-      prefixResolver: _prefixResolver,
       logger: _logger,
       onProgress: onProgress,
       transferDatabase: _transferDatabase,
@@ -400,11 +396,9 @@ class StorageS3Service {
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _s3PluginConfig.bucket,
-      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       path: path,
       options: uploadDataOptions,
       pathResolver: _pathResolver,
-      prefixResolver: _prefixResolver,
       logger: _logger,
       onProgress: onProgress,
       transferDatabase: _transferDatabase,
@@ -717,17 +711,6 @@ class StorageS3Service {
         underlyingException: error,
       );
     }
-  }
-
-  /// Resolve a client object key to a "full" object key with proper prefix.
-  ///
-  /// This API is only used internally.
-  @internal
-  static Future<String> getResolvedPath({
-    required S3PathResolver pathResolver,
-    required StoragePath path,
-  }) async {
-    return pathResolver.resolvePath(path: path);
   }
 
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then

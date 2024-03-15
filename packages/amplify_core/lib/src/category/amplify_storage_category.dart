@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 part of 'amplify_categories.dart';
 
 /// {@template amplify_core.amplify_storage_category}
@@ -139,7 +137,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
 
   /// {@template amplify_core.amplify_storage_category.upload_data}
   /// Uploads [data] as a [StorageDataPayload] with optional
-  /// [onProgress] and [StorageUploadDataOptions] to object specified by [key],
+  /// [onProgress] and [StorageUploadDataOptions] to object specified by [path],
   /// and returns a [StorageUploadDataOperation].
   ///
   /// See [StorageDataPayload] for supported data formats.
@@ -163,7 +161,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
 
   /// {@template amplify_core.amplify_storage_category.upload_file}
   /// Uploads data from [localFile] with optional [onProgress] and
-  /// [StorageUploadFileOptions] to object specified by [key], and returns a
+  /// [StorageUploadFileOptions] to object specified by [path], and returns a
   /// [StorageUploadFileOperation].
   ///
   /// [AWSFile] provides various adapters to read file content from file

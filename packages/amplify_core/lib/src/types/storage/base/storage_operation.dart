@@ -10,7 +10,7 @@ abstract class StorageOperation<Request, Result> {
     required this.result,
   }) : operationId = uuid();
 
-  // TODO[Jordan-Nelson]: determine if this should be private.
+  // TODO(Jordan-Nelson): determine if this should be private.
   @internal
   final Request request;
   final String operationId;

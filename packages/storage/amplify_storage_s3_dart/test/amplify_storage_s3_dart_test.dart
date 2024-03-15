@@ -333,7 +333,6 @@ void main() {
     });
 
     group('getUrl() API', () {
-      const testKey = 'some-object-key';
       final testResult = S3GetUrlResult(
         url: Uri(
           host: 's3.amazon.aws',
