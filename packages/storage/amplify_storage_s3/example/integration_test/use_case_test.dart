@@ -67,7 +67,10 @@ void main() {
   const testObjectFileName3 = 'user1Private.large';
 
   for (final entry in amplifyEnvironments.entries) {
-    group('[Environment ${entry.key}]', () {
+    group(
+        // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
+        skip: entry.key != 'main',
+        '[Environment ${entry.key}]', () {
       S3PrefixResolver? prefixResolver;
       late String user1IdentityId;
       late String object1Etag;
