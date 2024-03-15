@@ -51,7 +51,9 @@ void testContentTypeInferTest({
           final result = await s3Plugin
               .uploadFile(
                 localFile: file,
-                path: StoragePath.fromString('/private/${testUploadKeys[index]}'),
+                path: StoragePath.fromString(
+                  '/private/${testUploadKeys[index]}',
+                ),
                 options: const StorageUploadFileOptions(
                   pluginOptions: S3UploadFilePluginOptions(
                     getProperties: true,
