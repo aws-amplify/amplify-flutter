@@ -20,7 +20,7 @@ class S3Item extends StorageItem
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
   S3Item({
     super.key,
-    // TODO[Jordan-Nelson]: make required
+    // TODO(Jordan-Nelson): make required
     super.path,
     super.size,
     super.lastModified,
@@ -83,7 +83,7 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromHeadObjectOutput(
     s3.HeadObjectOutput headObjectOutput, {
-    // TODO: remove
+    // TODO(Jordan-Nelson): remove key
     String? key,
     required String path,
   }) {
@@ -104,7 +104,7 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromGetObjectOutput(
     s3.GetObjectOutput getObjectOutput, {
-    // TODO: remove
+    // TODO(Jordan-Nelson): remove key
     String? key,
     required String path,
   }) {

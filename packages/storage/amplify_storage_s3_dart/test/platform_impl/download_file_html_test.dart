@@ -28,7 +28,7 @@ class DummyPathProvider implements AppPathProvider {
 
 void main() {
   group('downloadFile() html implementation',
-      // TODO: remove skip
+      // TODO(Jordan-Nelson): remove skip
       skip: true, () {
     late StorageS3Service storageS3Service;
     const testKey = 'upload-key.text';
@@ -72,7 +72,7 @@ void main() {
 
       when(
         () => storageS3Service.getProperties(
-          // TODO[Jordan-Nelson]: update
+          // TODO(Jordan-Nelson): update
           path: const StoragePath.fromString('key'),
           options: any(named: 'options'),
         ),
@@ -80,7 +80,7 @@ void main() {
 
       when(
         () => storageS3Service.getUrl(
-          // TODO[Jordan-Nelson]: update
+          // TODO(Jordan-Nelson): update
           path: const StoragePath.fromString('key'),
           options: any(named: 'options'),
         ),
@@ -108,7 +108,7 @@ void main() {
 
       final capturedGetPropertiesOptions = verify(
         () => storageS3Service.getProperties(
-          // TODO[Jordan-Nelson]: update
+          // TODO(Jordan-Nelson): update
           path: const StoragePath.fromString('key'),
           options: captureAny<StorageGetPropertiesOptions>(
             named: 'options',
@@ -134,7 +134,7 @@ void main() {
 
       final capturedUrlOptions = verify(
         () => storageS3Service.getUrl(
-          // TODO[Jordan-Nelson]: update
+          // TODO(Jordan-Nelson): update
           path: const StoragePath.fromString('key'),
           options: captureAny<StorageGetUrlOptions>(
             named: 'options',

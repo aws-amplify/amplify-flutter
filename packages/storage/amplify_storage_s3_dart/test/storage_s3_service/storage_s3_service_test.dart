@@ -417,7 +417,6 @@ void main() {
 
     group('getProperties() API', () {
       late S3GetPropertiesResult getPropertiesResult;
-      const testKey = 'some-object';
       const testMetadata = {
         'filename': 'hello.jpg',
         'uploader': '123',
@@ -569,7 +568,6 @@ void main() {
     group('getUrl() API', () {
       late S3GetUrlResult getUrlResult;
       const testExpiresIn = Duration(days: 1);
-      const testKey = 'some-object';
       final testUrl = Uri(
         host: 's3.amazon.aws',
         path: 'album/1.jpg',

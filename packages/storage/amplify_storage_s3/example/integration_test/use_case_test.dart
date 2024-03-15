@@ -211,7 +211,9 @@ void main() {
           final result = await s3Plugin
               .uploadData(
                 data: S3DataPayload.dataUrl(testDataUrl),
-                path: StoragePath.withIdentityId((identityId) => '/protected/$identityId/$testObjectKey2'),
+                path: StoragePath.withIdentityId(
+                  (identityId) => '/protected/$identityId/$testObjectKey2',
+                ),
                 options: const StorageUploadDataOptions(
                   metadata: {
                     'filename': testObjectFileName2,
@@ -248,7 +250,9 @@ void main() {
           final result = await s3Plugin
               .uploadFile(
                 localFile: AWSFile.fromData(testLargeFileBytes),
-                path: StoragePath.withIdentityId( (identityId) => '/private/$identityId/$testObjectKey3'),
+                path: StoragePath.withIdentityId(
+                  (identityId) => '/private/$identityId/$testObjectKey3',
+                ),
                 options: const StorageUploadFileOptions(
                   metadata: {
                     'filename': testObjectFileName3,
@@ -282,7 +286,9 @@ void main() {
             'generate downloadable url with access level private for the'
             ' currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.getUrl(
-            path: StoragePath.withIdentityId( (identityId) => '/private/$identityId/$testObjectKey3'),
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testObjectKey3',
+            ),
             options: const StorageGetUrlOptions(
               pluginOptions: S3GetUrlPluginOptions(
                 validateObjectExistence: true,
@@ -465,9 +471,7 @@ void main() {
           expect(result.removedItem.key, testObject3CopyMoveKey);
         });
 
-        group(
-          skip: true,
-          'content type infer', () {
+        group(skip: true, 'content type infer', () {
           testContentTypeInferTest(
             smallFileBytes: testBytes,
             largeFileBytes: testLargeFileBytes,
@@ -475,9 +479,7 @@ void main() {
         });
 
         if (shouldTestTransferAcceleration) {
-          group(
-            skip: true, 
-            'transfer acceleration', () {
+          group(skip: true, 'transfer acceleration', () {
             testTransferAcceleration(
               dataPayloads: [
                 TestTransferAccelerationConfig(
@@ -566,8 +568,9 @@ void main() {
 
           testWidgets('get properties of object with access level guest',
               (WidgetTester tester) async {
-            final result =
-                await Amplify.Storage.getProperties(path: StoragePath.fromString('/public/$testObjectKey1')).result;
+            final result = await Amplify.Storage.getProperties(
+              path: StoragePath.fromString('/public/$testObjectKey1'),
+            ).result;
 
             expect(result.storageItem.eTag, object1Etag);
           });
@@ -576,7 +579,9 @@ void main() {
               'get properties of object with access level protected and a target identity id',
               (WidgetTester tester) async {
             final result = await Amplify.Storage.getProperties(
-              path: StoragePath.fromString('/protected/$user1IdentityId/$testObjectKey2'),
+              path: StoragePath.fromString(
+                '/protected/$user1IdentityId/$testObjectKey2',
+              ),
             ).result;
 
             expect(result.storageItem.eTag, object2Etag);
@@ -587,7 +592,9 @@ void main() {
               ' private for the currently signed user throws exception',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getProperties(
-              path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testObjectKey3'),
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/$testObjectKey3',
+              ),
             );
 
             await expectLater(
@@ -614,7 +621,9 @@ void main() {
               'get url of object with access level protected and a target identity id',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
-              path: StoragePath.withIdentityId((identityId) => '/protected/$identityId/$testObjectKey2'),
+              path: StoragePath.withIdentityId(
+                (identityId) => '/protected/$identityId/$testObjectKey2',
+              ),
               options: const StorageGetUrlOptions(
                 pluginOptions: S3GetUrlPluginOptions(),
               ),
@@ -628,7 +637,9 @@ void main() {
               ' private for the currently signed user throws exception',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
-              path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testObjectKey3'),
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/$testObjectKey3',
+              ),
               options: const StorageGetUrlOptions(
                 pluginOptions: S3GetUrlPluginOptions(
                   validateObjectExistence: true,
@@ -728,9 +739,8 @@ void main() {
             expect(result.copiedItem.eTag, isNotEmpty);
           });
 
-          testWidgets(
-            skip: true,
-            'list respects pageSize', (WidgetTester tester) async {
+          testWidgets(skip: true, 'list respects pageSize',
+              (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
             const accessLevel = StorageAccessLevel.private;
@@ -863,7 +873,9 @@ void main() {
           await Amplify.Auth.signOut();
         });
 
-        testWidgets(skip: true, 'move object with access level protected as object owner',
+        testWidgets(
+            skip: true,
+            'move object with access level protected as object owner',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.move(
             source: S3ItemWithAccessLevel.forIdentity(
@@ -883,8 +895,8 @@ void main() {
         });
 
         testWidgets(
-          skip: true,
-          'remove many objects belongs to the currently signed user',
+            skip: true,
+            'remove many objects belongs to the currently signed user',
             (WidgetTester tester) async {
           final listedObjects = await Amplify.Storage.list(
             options: const StorageListOptions(
