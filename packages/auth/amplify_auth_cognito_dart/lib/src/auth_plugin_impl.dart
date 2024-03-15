@@ -941,6 +941,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
     switch (state) {
       case TotpSetupRequiresVerification _:
+        // TODO(equartey): Change to `CodeMismatchException` in next major version as breaking change
         throw const EnableSoftwareTokenMfaException(
           'The code provided was incorrect, try again',
         );
