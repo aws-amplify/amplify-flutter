@@ -932,12 +932,21 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       defaultPluginOptions: const CognitoVerifyTotpSetupPluginOptions(),
     );
     final machine = _stateMachine.getOrCreate(TotpSetupStateMachine.type);
-    await machine.dispatchAndComplete<TotpSetupState>(
+    final state = await machine.dispatchAndComplete<TotpSetupState>(
       TotpSetupEvent.verify(
         code: totpCode,
         friendlyDeviceName: pluginOptions.friendlyDeviceName,
       ),
     );
+
+    switch (state) {
+      case TotpSetupRequiresVerification _:
+        throw const CodeMismatchException('The code provided was incorrect');
+      case TotpSetupFailure(:final exception, :final stackTrace):
+        Error.throwWithStackTrace(exception, stackTrace);
+      default:
+        return;
+    }
   }
 
   @override
