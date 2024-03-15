@@ -7,7 +7,7 @@ import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dar
 import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.path_resolver}
-/// Defines the interface of a S3 path resolver.
+/// A class which resolves the full path of the S3 Object.
 /// {@endtemplate}
 @internal
 class S3PathResolver {
