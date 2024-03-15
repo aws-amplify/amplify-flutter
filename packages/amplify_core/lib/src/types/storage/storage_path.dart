@@ -13,7 +13,6 @@ import 'package:meta/meta.dart';
 ///
 /// #### Dynamic Path with the current user's IdentityId
 /// {@macro amplify_core.storage.storage_path.with_identity_id.example}
-
 class StoragePath {
   /// Creates a [StoragePath] from a static string.
   ///
