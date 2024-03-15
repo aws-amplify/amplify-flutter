@@ -464,6 +464,7 @@ void main() {
         when(
           () => storageS3Service.downloadData(
             path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('/public/$testKey'),
             options: defaultOptions,
             preStart: any(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -475,6 +476,7 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
+          path: const StoragePath.fromString('/public/$testKey'),
           path: const StoragePath.fromString('/public/$testKey'),
         );
 
