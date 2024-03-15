@@ -56,7 +56,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // Exception thrown from the getProperties will be thrown as download
   // operation.
   final downloadedItem = (await storageS3Service.getProperties(
-    // TODO[Jordan-Nelson]: update to use path from customer
+    // TODO(Jordan-Nelson): update to use path from customer
     path: StoragePath.fromString(key),
     options: targetIdentityId == null
         ? StorageGetPropertiesOptions(
@@ -74,7 +74,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // We are not setting validateObjectExistence to true here as we are not
   // able to directly get the result of underlying HeadObject result.
   final url = (await storageS3Service.getUrl(
-    // TODO[Jordan-Nelson]: update to use path from customer
+    // TODO(Jordan-Nelson): update to use path from customer
     path: StoragePath.fromString(key),
     options: targetIdentityId == null
         ? StorageGetUrlOptions(

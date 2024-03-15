@@ -30,7 +30,6 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   const S3GetUrlOptions._({
     this.expiresIn = const Duration(minutes: 15),
     this.validateObjectExistence = false,
-    this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
 
@@ -40,11 +39,6 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   /// Specifies if check object existence in the S3 bucket before generating
   /// a presigned url.
   final bool validateObjectExistence;
-
-  /// The identity ID of another user who uploaded the object.
-  ///
-  /// This can be set by using [S3GetUrlOptions.forIdentity].
-  final String? targetIdentityId;
 
   /// {@macro storage.amplify_storage_s3.transfer_acceleration}
   final bool useAccelerateEndpoint;

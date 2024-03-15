@@ -44,7 +44,9 @@ void main() {
       path: StoragePath.fromString('public/$key'),
     ).result;
 
-    final getUrlResult = await Amplify.Storage.getUrl(path: StoragePath.fromString('/public/$key')).result;
+    final getUrlResult = await Amplify.Storage.getUrl(
+      path: StoragePath.fromString('/public/$key'),
+    ).result;
     final uri = getUrlResult.url;
 
     final client = AWSHttpClient()

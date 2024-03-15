@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package
-
 import 'dart:async';
 import 'dart:math';
 
@@ -51,10 +49,8 @@ class S3UploadTask {
   S3UploadTask._({
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
     required StoragePath path,
     required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
@@ -65,9 +61,7 @@ class S3UploadTask {
   })  : _s3Client = s3Client,
         _defaultS3ClientConfig = defaultS3ClientConfig,
         _pathResolver = pathResolver,
-        _prefixResolver = prefixResolver,
         _bucket = bucket,
-        _defaultAccessLevel = defaultAccessLevel,
         _path = path,
         _options = options,
         _dataPayload = dataPayload,
@@ -88,10 +82,8 @@ class S3UploadTask {
     S3DataPayload dataPayload, {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
     required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -101,9 +93,7 @@ class S3UploadTask {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
-          prefixResolver: prefixResolver,
           bucket: bucket,
-          defaultAccessLevel: defaultAccessLevel,
           path: path,
           dataPayload: dataPayload,
           options: options,
@@ -119,10 +109,8 @@ class S3UploadTask {
     AWSFile localFile, {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
     required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -131,10 +119,8 @@ class S3UploadTask {
   }) : this._(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: prefixResolver,
           pathResolver: pathResolver,
           bucket: bucket,
-          defaultAccessLevel: defaultAccessLevel,
           path: path,
           localFile: localFile,
           options: options,
@@ -150,10 +136,8 @@ class S3UploadTask {
 
   final s3.S3Client _s3Client;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
-  final S3PrefixResolver _prefixResolver;
   final S3PathResolver _pathResolver;
   final String _bucket;
-  final StorageAccessLevel _defaultAccessLevel;
   final StoragePath _path;
   final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
