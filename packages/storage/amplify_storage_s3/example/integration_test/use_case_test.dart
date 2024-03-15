@@ -324,7 +324,8 @@ void main() {
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',),
+              (identityId) => '/private/$identityId/$testObjectKey3',
+            ),
             options: const StorageDownloadDataOptions(
               pluginOptions: S3DownloadDataPluginOptions(
                 getProperties: true,
@@ -344,7 +345,8 @@ void main() {
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',),
+              (identityId) => '/private/$identityId/$testObjectKey3',
+            ),
             options: StorageDownloadDataOptions(
               accessLevel: StorageAccessLevel.private,
               pluginOptions: S3DownloadDataPluginOptions(
@@ -378,7 +380,8 @@ void main() {
             final result = await s3Plugin
                 .downloadFile(
                   path: StoragePath.withIdentityId(
-                      (identityId) => '/private/$identityId/$testObjectKey3',),
+                    (identityId) => '/private/$identityId/$testObjectKey3',
+                  ),
                   localFile: localFile,
                   options: const StorageDownloadFileOptions(
                     pluginOptions: S3DownloadFilePluginOptions(
@@ -661,7 +664,8 @@ void main() {
               (WidgetTester tester) async {
             final result = await Amplify.Storage.downloadData(
               path: StoragePath.withIdentityId(
-                  (identityId) => '/protected/$identityId/$testObjectKey2',),
+                (identityId) => '/protected/$identityId/$testObjectKey2',
+              ),
               options: StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions.forIdentity(
                   user1IdentityId,
@@ -680,7 +684,8 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
               path: StoragePath.withIdentityId(
-                  (identityId) => '/private/$identityId/$testObjectKey3',),
+                (identityId) => '/private/$identityId/$testObjectKey3',
+              ),
               options: const StorageDownloadDataOptions(
                 accessLevel: StorageAccessLevel.private,
                 pluginOptions: S3DownloadDataPluginOptions(
