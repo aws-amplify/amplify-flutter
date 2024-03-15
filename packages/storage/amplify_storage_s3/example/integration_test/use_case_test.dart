@@ -56,9 +56,7 @@ void main() {
   testLargeFileBytes[0] = 101;
   testLargeFileBytes[5 * 1024] = 102;
   final testObjectKey1 = 'user1-guest-object-${uuid()}';
-  final testObject1MoveKey = 'user1-guest-object-move-${uuid()}';
   final testObjectKey2 = 'user1-protected-object-${uuid()}';
-  final testObject2MoveKey = 'user1-protected-object-move-${uuid()}';
   final testObjectKey3 = 'user1-private-object-${uuid()}';
   final testObject3CopyKey = 'user1-private-object-copy-${uuid()}';
   final testObject3CopyMoveKey = 'user1-private-object-copy-move-${uuid()}';
@@ -407,13 +405,11 @@ void main() {
             'copy object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.copy(
-            source: S3ItemWithAccessLevel(
-              storageItem: S3Item(key: testObjectKey3),
-              accessLevel: StorageAccessLevel.private,
+            source: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testObjectKey3',
             ),
-            destination: S3ItemWithAccessLevel(
-              storageItem: S3Item(key: testObject3CopyKey),
-              accessLevel: StorageAccessLevel.private,
+            destination: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testObject3CopyKey',
             ),
             options: const StorageCopyOptions(
               pluginOptions: S3CopyPluginOptions(
@@ -424,41 +420,6 @@ void main() {
 
           expect(result.copiedItem.key, testObject3CopyKey);
           expect(result.copiedItem.eTag, isNotEmpty);
-        });
-
-        testWidgets(
-            skip: true,
-            'move object with access level private for the currently signed in user',
-            (WidgetTester tester) async {
-          final result = await Amplify.Storage.move(
-            source: S3ItemWithAccessLevel(
-              storageItem: S3Item(key: testObject3CopyKey),
-              accessLevel: StorageAccessLevel.private,
-            ),
-            destination: S3ItemWithAccessLevel(
-              storageItem: S3Item(key: testObject3CopyMoveKey),
-              accessLevel: StorageAccessLevel.private,
-            ),
-            options: const StorageMoveOptions(
-              pluginOptions: S3MovePluginOptions(getProperties: true),
-            ),
-          ).result;
-
-          expect(result.movedItem.key, testObject3CopyMoveKey);
-          expect(result.movedItem.eTag, isNotEmpty);
-
-          final listedObjects = await Amplify.Storage.list(
-            options: const StorageListOptions(
-              accessLevel: StorageAccessLevel.private,
-            ),
-          ).result;
-
-          expect(
-            listedObjects.items.map((item) => item.key),
-            isNot(
-              contains(testObject3CopyKey),
-            ),
-          );
         });
 
         testWidgets(
@@ -696,52 +657,6 @@ void main() {
             );
           });
 
-          testWidgets(
-              skip: true,
-              'move object with access level guest for the currently signed in user',
-              (WidgetTester tester) async {
-            final result = await Amplify.Storage.move(
-              source: S3ItemWithAccessLevel(
-                storageItem: S3Item(key: testObjectKey1),
-                accessLevel: StorageAccessLevel.guest,
-              ),
-              destination: S3ItemWithAccessLevel(
-                storageItem: S3Item(key: testObject1MoveKey),
-                accessLevel: StorageAccessLevel.private,
-              ),
-              options: const StorageMoveOptions(
-                pluginOptions: S3MovePluginOptions(
-                  getProperties: true,
-                ),
-              ),
-            ).result;
-
-            expect(result.movedItem.eTag, isNotEmpty);
-          });
-
-          testWidgets(
-              skip: true,
-              'copy object (belongs to other user) with access level protected'
-              ' for the currently signed in user', (WidgetTester tester) async {
-            final result = await Amplify.Storage.copy(
-              source: S3ItemWithAccessLevel.forIdentity(
-                user1IdentityId,
-                storageItem: S3Item(key: testObjectKey2),
-              ),
-              destination: S3ItemWithAccessLevel(
-                storageItem: S3Item(key: testObject2MoveKey),
-                accessLevel: StorageAccessLevel.private,
-              ),
-              options: const StorageCopyOptions(
-                pluginOptions: S3CopyPluginOptions(
-                  getProperties: true,
-                ),
-              ),
-            ).result;
-
-            expect(result.copiedItem.eTag, isNotEmpty);
-          });
-
           testWidgets(skip: true, 'list respects pageSize',
               (WidgetTester tester) async {
             const filesToUpload = 2;
@@ -874,27 +789,6 @@ void main() {
 
         tearDownAll(() async {
           await Amplify.Auth.signOut();
-        });
-
-        testWidgets(
-            skip: true,
-            'move object with access level protected as object owner',
-            (WidgetTester tester) async {
-          final result = await Amplify.Storage.move(
-            source: S3ItemWithAccessLevel.forIdentity(
-              user1IdentityId,
-              storageItem: S3Item(key: testObjectKey2),
-            ),
-            destination: S3ItemWithAccessLevel(
-              storageItem: S3Item(key: testObject2MoveKey),
-              accessLevel: StorageAccessLevel.private,
-            ),
-            options: const StorageMoveOptions(
-              pluginOptions: S3MovePluginOptions(getProperties: true),
-            ),
-          ).result;
-
-          expect(result.movedItem.eTag, isNotEmpty);
         });
 
         testWidgets(
