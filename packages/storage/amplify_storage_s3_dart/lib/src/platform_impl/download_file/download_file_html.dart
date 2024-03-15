@@ -20,7 +20,8 @@ S3DownloadFileOperation downloadFile({
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: key,
+      // TODO[khatruong2009]: update to use path from customer
+      path: StoragePath.fromString(key),
       localFile: localFile,
       options: options,
     ),

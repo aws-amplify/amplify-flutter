@@ -40,7 +40,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.download_data}
   StorageDownloadDataOperation downloadData({
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadDataOptions? options,
   }) {
@@ -49,7 +49,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.download_file}
   StorageDownloadFileOperation downloadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadFileOptions? options,

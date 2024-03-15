@@ -93,7 +93,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.download_data}
-  /// Downloads bytes of object specified by [key] into memory with optional
+  /// Downloads bytes of object specified by [path] into memory with optional
   /// [onProgress] and [StorageDownloadDataOptions], and returns a
   /// [StorageDownloadDataOperation].
   ///
@@ -101,14 +101,14 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// memory leaks.
   /// {@endtemplate}
   StorageDownloadDataOperation downloadData({
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadDataOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.downloadData,
       () => defaultPlugin.downloadData(
-        key: key,
+        path: path,
         onProgress: onProgress,
         options: options,
       ),
@@ -116,12 +116,12 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.download_file}
-  /// Downloads the object specified by [key] to [localFile] with optional
+  /// Downloads the object specified by [path] to [localFile] with optional
   /// [onProgress] and [StorageDownloadFileOptions], and returns a
   /// [StorageDownloadFileOperation].
   /// {@endtemplate}
   StorageDownloadFileOperation downloadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
@@ -129,7 +129,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     return identifyCall(
       StorageCategoryMethod.downloadFile,
       () => defaultPlugin.downloadFile(
-        key: key,
+        path: path,
         localFile: localFile,
         onProgress: onProgress,
         options: options,

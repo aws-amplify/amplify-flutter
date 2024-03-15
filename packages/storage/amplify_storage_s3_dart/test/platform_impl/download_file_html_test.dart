@@ -92,12 +92,11 @@ void main() {
         () async {
       const testTargetIdentity = 'someone-else';
       final operation = downloadFile(
-        key: testKey,
+        path: const StoragePath.fromString('/public/$testKey'),
         localFile: AWSFile.fromPath('file_name.jpg'),
-        options: StorageDownloadFileOptions(
-          accessLevel: testS3pluginConfig.defaultAccessLevel,
+        options: const StorageDownloadFileOptions(
           pluginOptions:
-              const S3DownloadFilePluginOptions.forIdentity(testTargetIdentity),
+              S3DownloadFilePluginOptions.forIdentity(testTargetIdentity),
         ),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
@@ -163,13 +162,12 @@ void main() {
         'download result should include metadata when options.getProperties is set to true',
         () async {
       const options = StorageDownloadFileOptions(
-        accessLevel: StorageAccessLevel.private,
         pluginOptions: S3DownloadFilePluginOptions(
           getProperties: true,
         ),
       );
       final result = await downloadFile(
-        key: testKey,
+        path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testKey'),
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,
         s3pluginConfig: testS3pluginConfig,
