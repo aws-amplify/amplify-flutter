@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 part of 'amplify_categories.dart';
 
 /// {@template amplify_core.amplify_storage_category}
