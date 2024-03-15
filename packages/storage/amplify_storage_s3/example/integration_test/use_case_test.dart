@@ -305,7 +305,7 @@ void main() {
             (WidgetTester tester) async {
           final result = Amplify.Storage.getUrl(
             path: const StoragePath.fromString(
-              '/random/non-existent/object.png',
+              '/public/random/non-existent/object.png',
             ),
             options: const StorageGetUrlOptions(
               pluginOptions: S3GetUrlPluginOptions(
