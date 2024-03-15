@@ -71,7 +71,8 @@ void main() {
         ),
       );
       final downloadFileOperation = downloadFile(
-        path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testKey'),
+        path: StoragePath.withIdentityId(
+            (identityId) => '/private/$identityId/$testKey',),
         localFile: AWSFile.fromPath(testDestinationPath),
         options: options,
         s3pluginConfig: testS3pluginConfig,
@@ -84,7 +85,8 @@ void main() {
 
       final captureParams = verify(
         () => storageS3Service.downloadData(
-          path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testKey'),
+          path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testKey',),
           options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
@@ -201,7 +203,8 @@ void main() {
       const testTargetIdentity = 'someone-else';
       const testAccessLevel = StorageAccessLevel.protected;
       downloadFile(
-        path: StoragePath.withIdentityId((identityId) => '/protected/$identityId/$testKey'),
+        path: StoragePath.withIdentityId(
+            (identityId) => '/protected/$identityId/$testKey',),
         localFile: AWSFile.fromPath('path'),
         options: const StorageDownloadFileOptions(
           pluginOptions: S3DownloadFilePluginOptions.forIdentity(
@@ -218,7 +221,8 @@ void main() {
 
       final capturedOptions = verify(
         () => storageS3Service.downloadData(
-          path: StoragePath.withIdentityId((identityId) => '/protected/$identityId/$testKey'),
+          path: StoragePath.withIdentityId(
+              (identityId) => '/protected/$identityId/$testKey',),
           options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),

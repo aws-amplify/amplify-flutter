@@ -167,7 +167,8 @@ void main() {
         ),
       );
       final result = await downloadFile(
-        path: StoragePath.withIdentityId((identityId) => '/private/$identityId/$testKey'),
+        path: StoragePath.withIdentityId(
+            (identityId) => '/private/$identityId/$testKey',),
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,
         s3pluginConfig: testS3pluginConfig,

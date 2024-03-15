@@ -73,7 +73,8 @@ void testTransferAcceleration({
               final dataPayload = entry.value;
               final result = await Amplify.Storage.downloadData(
                 path: StoragePath.fromString(
-                    '/${dataPayload.targetAccessLevel}/${dataPayload.targetKey}',),
+                  '/${dataPayload.targetAccessLevel}/${dataPayload.targetKey}',
+                ),
                 options: const StorageDownloadDataOptions(
                   pluginOptions: S3DownloadDataPluginOptions(
                     useAccelerateEndpoint: true,
@@ -157,7 +158,8 @@ void testTransferAcceleration({
               final awsFile = entry.value;
               final result = await Amplify.Storage.downloadData(
                 path: StoragePath.fromString(
-                    '${awsFile.targetAccessLevel}/${awsFile.targetKey}',),
+                  '${awsFile.targetAccessLevel}/${awsFile.targetKey}',
+                ),
                 options: StorageDownloadDataOptions(
                   pluginOptions: S3DownloadDataPluginOptions(
                     useAccelerateEndpoint: true,
