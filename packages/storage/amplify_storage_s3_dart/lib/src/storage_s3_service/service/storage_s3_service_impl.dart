@@ -715,17 +715,6 @@ class StorageS3Service {
     }
   }
 
-  /// Resolve a client object key to a "full" object key with proper prefix.
-  ///
-  /// This API is only used internally.
-  @internal
-  static Future<String> getResolvedPath({
-    required S3PathResolver pathResolver,
-    required StoragePath path,
-  }) async {
-    return pathResolver.resolvePath(path: path);
-  }
-
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then
   /// returns a [s3.HeadObjectOutput].
   ///
