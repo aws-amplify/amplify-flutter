@@ -512,7 +512,8 @@ void main() {
         when(
           () => storageS3Service.downloadData(
             path: StoragePath.withIdentityId(
-                (identityId) => '/protected/$identityId/$testKey',),
+              (identityId) => '/protected/$identityId/$testKey',
+            ),
             options: any(named: 'options'),
             onData: any(named: 'onData'),
           ),
@@ -522,14 +523,16 @@ void main() {
 
         downloadDataOperation = storageS3Plugin.downloadData(
           path: StoragePath.withIdentityId(
-              (identityId) => '/protected/$identityId/$testKey',),
+            (identityId) => '/protected/$identityId/$testKey',
+          ),
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
             path: StoragePath.withIdentityId(
-                (identityId) => '/protected/$identityId/$testKey',),
+              (identityId) => '/protected/$identityId/$testKey',
+            ),
             onData: any(named: 'onData'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',
