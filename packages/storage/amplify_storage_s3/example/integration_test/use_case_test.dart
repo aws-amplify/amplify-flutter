@@ -351,7 +351,6 @@ void main() {
               (identityId) => '/private/$identityId/$testObjectKey3',
             ),
             options: StorageDownloadDataOptions(
-              accessLevel: StorageAccessLevel.private,
               pluginOptions: S3DownloadDataPluginOptions(
                 getProperties: true,
                 bytesRange: S3DataBytesRange(
@@ -690,7 +689,6 @@ void main() {
                 (identityId) => '/private/$identityId/$testObjectKey3',
               ),
               options: const StorageDownloadDataOptions(
-                accessLevel: StorageAccessLevel.private,
                 pluginOptions: S3DownloadDataPluginOptions(
                   getProperties: true,
                 ),
