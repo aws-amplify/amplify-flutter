@@ -7,7 +7,8 @@ part of 's3_item.dart';
 // **************************************************************************
 
 S3Item _$S3ItemFromJson(Map<String, dynamic> json) => S3Item(
-      key: json['key'] as String,
+      key: json['key'] as String?,
+      path: json['path'] as String? ?? '',
       size: json['size'] as int?,
       lastModified: json['lastModified'] == null
           ? null
@@ -22,9 +23,7 @@ S3Item _$S3ItemFromJson(Map<String, dynamic> json) => S3Item(
     );
 
 Map<String, dynamic> _$S3ItemToJson(S3Item instance) {
-  final val = <String, dynamic>{
-    'key': instance.key,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -32,6 +31,8 @@ Map<String, dynamic> _$S3ItemToJson(S3Item instance) {
     }
   }
 
+  writeNotNull('key', instance.key);
+  val['path'] = instance.path;
   writeNotNull('size', instance.size);
   writeNotNull('lastModified', instance.lastModified?.toIso8601String());
   writeNotNull('eTag', instance.eTag);
