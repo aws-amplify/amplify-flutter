@@ -99,6 +99,7 @@ body:
       options:
         - Amplify CLI
         - Amplify CLI + Custom Pipeline
+        - AWS CDK
         - Custom Pipeline
     validations:
       required: true
