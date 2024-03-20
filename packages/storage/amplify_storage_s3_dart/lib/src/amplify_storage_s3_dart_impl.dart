@@ -367,9 +367,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     required StoragePath destination,
     StorageCopyOptions? options,
   }) {
-    // final s3Source = S3ItemWithAccessLevel.from(source);
-    // final s3Destination = S3ItemWithAccessLevel.from(destination);
-
     final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3CopyPluginOptions(),
