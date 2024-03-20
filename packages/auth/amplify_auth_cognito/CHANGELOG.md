@@ -1,3 +1,14 @@
+## 1.7.2
+
+### Fixes
+- fix(auth): Allow retries with verifyTotpSetup() ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+- fix(auth): device metadata migration ([#4503](https://github.com/aws-amplify/amplify-flutter/pull/4503))
+- fix(auth): verifyTotp throw EnableSoftwareTokenMfaException ([#4558](https://github.com/aws-amplify/amplify-flutter/pull/4558))
+
+## 1.7.1
+
+- This version was retracted to avoid a breaking change introduced in ([#4532](https://github.com/aws-amplify/amplify-flutter/pull/4532))
+
 ## 1.7.0
 
 - Minor bug fixes and improvements
