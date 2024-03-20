@@ -657,6 +657,27 @@ void main() {
             );
           });
 
+          testWidgets(
+              skip: true,
+              'copy object (belongs to other user) with access level protected'
+              ' for the currently signed in user', (WidgetTester tester) async {
+            final result = await Amplify.Storage.copy(
+              source: StoragePath.fromString(
+                '/protected/$user1IdentityId/$testObjectKey2',
+              ),
+              destination: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/$testObjectKey2',
+              ),
+              options: const StorageCopyOptions(
+                pluginOptions: S3CopyPluginOptions(
+                  getProperties: true,
+                ),
+              ),
+            ).result;
+
+            expect(result.copiedItem.eTag, isNotEmpty);
+          });
+
           testWidgets(skip: true, 'list respects pageSize',
               (WidgetTester tester) async {
             const filesToUpload = 2;
