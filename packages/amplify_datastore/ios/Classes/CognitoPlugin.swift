@@ -4,14 +4,139 @@
 import Flutter
 import UIKit
 import Amplify
-import AWSPluginsCore
+
 
 extension NativeAuthUser: AuthUser { }
 
 extension FlutterError: Error { }
 
 public class CognitoPlugin: AuthCategoryPlugin {
+    public var key: PluginKey = "awsCognitoAuthPlugin"
+    private let nativeAuthPlugin: NativeAuthPlugin
+    var currentUser: AuthUser?
     
+    init(nativeAuthPlugin: NativeAuthPlugin) {
+        self.nativeAuthPlugin = nativeAuthPlugin
+    }
+    
+    
+    public func configure(using configuration: Any?) throws {
+    }
+
+    public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> AuthSession {
+//        let operation = NativeAuthFetchSessionOperation(
+//            categoryType: .auth,
+//            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
+//            request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
+//            resultListener: listener
+//        )
+//        DispatchQueue.main.async {
+//            self.nativeAuthPlugin.fetchAuthSession { session in
+//                let result = NativeAWSAuthCognitoSession(from: session)
+//                operation.dispatch(result: .success(result))
+//            }
+//        }
+//        return operation
+        fatalError()
+    }
+    
+    public func signUp(username: String, password: String?, options: AuthSignUpRequest.Options?) async throws -> AuthSignUpResult {
+        fatalError()
+    }
+    
+    public func confirmSignUp(for username: String, confirmationCode: String, options: AuthConfirmSignUpRequest.Options?) async throws -> AuthSignUpResult {
+        fatalError()
+    }
+    
+    public func resendSignUpCode(for username: String, options: AuthResendSignUpCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        fatalError()
+    }
+    
+    public func signIn(username: String?, password: String?, options: AuthSignInRequest.Options?) async throws -> AuthSignInResult {
+        fatalError()
+    }
+    
+    public func signInWithWebUI(presentationAnchor: AuthUIPresentationAnchor?, options: AuthWebUISignInRequest.Options?) async throws -> AuthSignInResult {
+        fatalError()
+    }
+    
+    public func signInWithWebUI(for authProvider: AuthProvider, presentationAnchor: AuthUIPresentationAnchor?, options: AuthWebUISignInRequest.Options?) async throws -> AuthSignInResult {
+        fatalError()
+    }
+    
+    public func confirmSignIn(challengeResponse: String, options: AuthConfirmSignInRequest.Options?) async throws -> AuthSignInResult {
+        fatalError()
+    }
+    
+    public func signOut(options: AuthSignOutRequest.Options?) async -> AuthSignOutResult {
+        fatalError()
+    }
+    
+    public func deleteUser() async throws {
+        fatalError()
+    }
+    
+    public func resetPassword(for username: String, options: AuthResetPasswordRequest.Options?) async throws -> AuthResetPasswordResult {
+        fatalError()
+    }
+    
+    public func confirmResetPassword(for username: String, with newPassword: String, confirmationCode: String, options: AuthConfirmResetPasswordRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    public func setUpTOTP() async throws -> TOTPSetupDetails {
+        fatalError()
+    }
+    
+    public func verifyTOTPSetup(code: String, options: VerifyTOTPSetupRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    public func getCurrentUser() async throws -> AuthUser {
+        fatalError()
+    }
+    
+    public func fetchUserAttributes(options: AuthFetchUserAttributesRequest.Options?) async throws -> [AuthUserAttribute] {
+        fatalError()
+    }
+    
+    public func update(userAttribute: AuthUserAttribute, options: AuthUpdateUserAttributeRequest.Options?) async throws -> AuthUpdateAttributeResult {
+        fatalError()
+    }
+    
+    public func update(userAttributes: [AuthUserAttribute], options: AuthUpdateUserAttributesRequest.Options?) async throws -> [AuthUserAttributeKey : AuthUpdateAttributeResult] {
+        fatalError()
+    }
+    
+    public func resendConfirmationCode(forUserAttributeKey userAttributeKey: AuthUserAttributeKey, options: AuthAttributeResendConfirmationCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        fatalError()
+    }
+    
+    public func sendVerificationCode(forUserAttributeKey userAttributeKey: AuthUserAttributeKey, options: AuthSendUserAttributeVerificationCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        fatalError()
+    }
+    
+    public func confirm(userAttribute: AuthUserAttributeKey, confirmationCode: String, options: AuthConfirmUserAttributeRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    public func update(oldPassword: String, to newPassword: String, options: AuthChangePasswordRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    public func fetchDevices(options: AuthFetchDevicesRequest.Options?) async throws -> [AuthDevice] {
+        fatalError()
+    }
+    
+    public func forgetDevice(_ device: AuthDevice?, options: AuthForgetDeviceRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    public func rememberDevice(options: AuthRememberDeviceRequest.Options?) async throws {
+        fatalError()
+    }
+    
+    /*
     /// Shim for [AuthCategoryPlugin] to allow Dart Auth to fulfill the contract of the native Auth plugin in
     /// other categories like API/Storage. For the subset of methods needed to fulfill the requirements
     /// of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
@@ -276,5 +401,5 @@ public class CognitoPlugin: AuthCategoryPlugin {
     ) -> AuthConfirmResetPasswordOperation {
         preconditionFailure("resetPassword is not supported")
     }
-    
+    */
 }

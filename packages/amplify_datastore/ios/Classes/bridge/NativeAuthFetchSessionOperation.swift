@@ -4,6 +4,9 @@
 import Foundation
 import Amplify
 
+// TODO: Migrate to v2
+public protocol AuthFetchSessionOperation: AmplifyOperation<AuthFetchSessionRequest, AuthSession, AuthError> {}
+
 class NativeAuthFetchSessionOperation: AmplifyOperation<AuthFetchSessionRequest,
                                                         AuthSession,
                                                         AuthError>,

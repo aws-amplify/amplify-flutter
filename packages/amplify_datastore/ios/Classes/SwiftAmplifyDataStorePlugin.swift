@@ -4,7 +4,7 @@
 import Flutter
 import UIKit
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 import AWSPluginsCore
 import AWSCore
 import Combine
@@ -93,7 +93,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                     apiAuthProviderFactory: FlutterAuthProviders(
                         authProviders: authProviders,
                         nativeApiPlugin: nativeApiPlugin
-                    )
+                    ), nativeApiPlugin: nativeApiPlugin
                 )
             )
             return completion(.success(()))
@@ -146,7 +146,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
                                                                 from: data)
-            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
+//            TODO: Migrate to v2
+//            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
             try Amplify.configure(amplifyConfiguration)
             return completion(.success(()))
         } catch let error as ConfigurationError {

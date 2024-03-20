@@ -11,7 +11,7 @@ struct NativeAWSAuthCognitoSession: AuthSession,
                                        AuthCognitoIdentityProvider {
     let isSignedIn: Bool
     let identityIdResult: Result<String, AuthError>
-    let awsCredentialsResult: Result<AuthAWSCredentials, AuthError>
+    let awsCredentialsResult: Result<AWSCredentials, AuthError>
     let userSubResult: Result<String, AuthError>
     let cognitoTokensResult: Result<AuthCognitoTokens, AuthError>
     
@@ -27,11 +27,11 @@ struct NativeAWSAuthCognitoSession: AuthSession,
             .success(session.userPoolTokens!) :
             .failure(.unknown("Could not retrieve user pool tokens", nil))
         self.awsCredentialsResult = session.awsCredentials != nil ?
-            .success(session.awsCredentials!.asAuthAWSCredentials) :
+            .success(session.awsCredentials!.asAWSCredentials) :
             .failure(.unknown("Could not retrieve AWS credentials", nil))
     }
     
-    public func getAWSCredentials() -> Result<AuthAWSCredentials, AuthError> {
+    public func getAWSCredentials() -> Result<AWSCredentials, AuthError> {
         awsCredentialsResult
     }
     
