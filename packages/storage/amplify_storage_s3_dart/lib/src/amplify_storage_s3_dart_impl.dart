@@ -417,7 +417,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3RemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -432,11 +432,11 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3RemoveManyOperation(
       request: StorageRemoveManyRequest(
-        keys: keys,
+        paths: paths,
         options: options,
       ),
       result: storageS3Service.removeMany(
-        keys: keys,
+        paths: paths,
         options: s3Options,
       ),
     );

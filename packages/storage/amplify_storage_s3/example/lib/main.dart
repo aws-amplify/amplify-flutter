@@ -129,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // upload a file to the S3 bucket
   Future<void> _uploadFile() async {
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png'],
+      type: FileType.image,
       withReadStream: true,
       withData: false,
     );
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        path: StoragePath.fromString('/public/${platformFile.name}'),
+        path: const StoragePath.fromString('//public/foo.png'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -213,10 +212,13 @@ class _HomeScreenState extends State<HomeScreen> {
     required StorageAccessLevel accessLevel,
   }) async {
     try {
-      await Amplify.Storage.remove(
-        key: key,
-        options: StorageRemoveOptions(accessLevel: accessLevel),
+      final res = await Amplify.Storage.removeMany(
+        paths: [
+          const StoragePath.fromString('/public/foo.png'),
+        ],
       ).result;
+      print(res.removedItems);
+      print((res as S3RemoveManyResult).removeErrors);
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
         imageUrl = '';

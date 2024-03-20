@@ -96,7 +96,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.remove_many}
   StorageRemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     throw UnimplementedError('removeMany() has not been implemented.');
