@@ -41,8 +41,7 @@ Future<void> main() async {
  3. getUrl            4. download data
  5. download file     6. upload data url
  7. upload file       8. copy
- 9. move             10. remove
- 0. exit
+ 9. remove            0. exit
 ''');
     final operationNum = int.tryParse(operation);
 
@@ -64,8 +63,6 @@ Future<void> main() async {
       case 8:
         await copyOperation();
       case 9:
-        await moveOperation();
-      case 10:
         await removeOperation();
       case null:
         break;
@@ -369,24 +366,12 @@ Future<void> uploadFileOperation() async {
 
 Future<void> copyOperation() async {
   final sourceKey = prompt('Enter the key of the source object: ');
-  final sourceStorageAccessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the source object: ',
-  );
   final destinationKey = prompt('Enter the key of the destination object: ');
-  final destinationStorageAccessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the destination object: ',
-  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final copyOperation = s3Plugin.copy(
-    source: S3ItemWithAccessLevel(
-      storageItem: S3Item(key: sourceKey),
-      accessLevel: sourceStorageAccessLevel,
-    ),
-    destination: S3ItemWithAccessLevel(
-      storageItem: S3Item(key: destinationKey),
-      accessLevel: destinationStorageAccessLevel,
-    ),
+    source: StoragePath.fromString(sourceKey),
+    destination: StoragePath.fromString(destinationKey),
     options: const StorageCopyOptions(
       pluginOptions: S3CopyPluginOptions(getProperties: true),
     ),
@@ -401,47 +386,6 @@ Future<void> copyOperation() async {
       ..writeln('lastModified: ${result.copiedItem.lastModified}')
       ..writeln('eTag: ${result.copiedItem.eTag}')
       ..writeln('metadata: ${result.copiedItem.metadata}');
-  } on Exception catch (error) {
-    stderr
-      ..writeln('Something went wrong...')
-      ..writeln(error);
-  }
-}
-
-Future<void> moveOperation() async {
-  final sourceKey = prompt('Enter the key of the source object: ');
-  final sourceStorageAccessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the source object: ',
-  );
-  final destinationKey = prompt('Enter the key of the destination object: ');
-  final destinationStorageAccessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the destination object: ',
-  );
-
-  final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
-  final moveOperation = s3Plugin.move(
-    source: S3ItemWithAccessLevel(
-      storageItem: S3Item(key: sourceKey),
-      accessLevel: sourceStorageAccessLevel,
-    ),
-    destination: S3ItemWithAccessLevel(
-      storageItem: S3Item(key: destinationKey),
-      accessLevel: destinationStorageAccessLevel,
-    ),
-    options: const StorageMoveOptions(
-      pluginOptions: S3MovePluginOptions(getProperties: true),
-    ),
-  );
-
-  try {
-    final result = await moveOperation.result;
-    stdout
-      ..writeln('Copied object: ')
-      ..writeln('key: ${result.movedItem.key}')
-      ..writeln('size: ${result.movedItem.size}')
-      ..writeln('lastModified: ${result.movedItem.lastModified}')
-      ..writeln('eTag: ${result.movedItem.eTag}')
-      ..writeln('metadata: ${result.movedItem.metadata}');
   } on Exception catch (error) {
     stderr
       ..writeln('Something went wrong...')

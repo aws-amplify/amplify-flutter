@@ -424,36 +424,21 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3CopyResult> copy({
-    required S3ItemWithAccessLevel source,
-    required S3ItemWithAccessLevel destination,
+    required StoragePath source,
+    required StoragePath destination,
     required StorageCopyOptions options,
   }) async {
     final s3PluginOptions = options.pluginOptions as S3CopyPluginOptions? ??
         const S3CopyPluginOptions();
 
-    final resolvedPrefixes = await Future.wait([
-      getResolvedPrefix(
-        prefixResolver: _prefixResolver,
-        logger: _logger,
-        accessLevel: source.accessLevel,
-        identityId: source.targetIdentityId,
-      ),
-      getResolvedPrefix(
-        prefixResolver: _prefixResolver,
-        logger: _logger,
-        accessLevel: destination.accessLevel,
-        identityId: destination.targetIdentityId,
-      ),
-    ]);
-    final sourceKey = '${resolvedPrefixes[0]}${source.storageItem.key}';
-    final destinationKey =
-        '${resolvedPrefixes[1]}${destination.storageItem.key}';
+    final sourcePath = await _pathResolver.resolvePath(path: source);
+    final destinationPath = await _pathResolver.resolvePath(path: destination);
 
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
         ..bucket = _s3PluginConfig.bucket
-        ..copySource = '${_s3PluginConfig.bucket}/$sourceKey'
-        ..key = destinationKey
+        ..copySource = '${_s3PluginConfig.bucket}$sourcePath'
+        ..key = destinationPath
         ..metadataDirective = s3.MetadataDirective.copy;
     });
 
@@ -472,89 +457,14 @@ class StorageS3Service {
               await headObject(
                 s3client: _defaultS3Client,
                 bucket: _s3PluginConfig.bucket,
-                key: destinationKey,
+                key: destinationPath,
               ),
-              key: destination.storageItem.key,
-              path: destination.storageItem.path,
+              path: sourcePath,
             )
           : S3Item(
-              key: destination.storageItem.key,
-              path: destination.storageItem.path,
+              path: destinationPath,
             ),
     );
-  }
-
-  /// Takes in input from [AmplifyStorageS3Dart.move] API to compose a
-  /// [s3.CopyObjectRequest] and send to S3 service to copy `source` to
-  /// `destination`, followed by a [s3.DeleteObjectRequest] to delete the
-  /// `source`, then returns a [S3MoveResult] based on the `key` of
-  /// `destination`.
-  ///
-  /// When [S3CopyPluginOptions.getProperties] is set to `true`, when both
-  /// [s3.CopyObjectRequest] and [s3.DeleteObjectRequest] succeed, the API
-  /// creates a [s3.HeadObjectRequest] with the `key` of the `destination`,
-  /// and sends to S3 Service, then returns a [S3CopyResult] based on
-  /// the [s3.HeadObjectOutput] returned by [s3.S3Client.headObject] API.
-  ///
-  /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
-  Future<S3MoveResult> move({
-    required S3ItemWithAccessLevel source,
-    required S3ItemWithAccessLevel destination,
-    required StorageMoveOptions options,
-  }) async {
-    final s3PluginOptions = options.pluginOptions as S3MovePluginOptions? ??
-        const S3MovePluginOptions();
-
-    late S3CopyResult copyResult;
-
-    try {
-      copyResult = await copy(
-        source: source,
-        destination: destination,
-        options: StorageCopyOptions(
-          pluginOptions: options.pluginOptions != null
-              ? S3CopyPluginOptions(
-                  getProperties: s3PluginOptions.getProperties,
-                )
-              : const S3CopyPluginOptions(),
-        ),
-      );
-    } on StorageException catch (error) {
-      // Normally copy should not fail during moving, if it fails it's a
-      // "unknown" failure wrapping the underlying exception.
-      throw UnknownException(
-        'Copying the source object failed during the move operation.',
-        recoverySuggestion: 'Review the underlying exception.',
-        underlyingException: error,
-      );
-    }
-
-    final resolvedSourcePrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: source.accessLevel,
-      identityId: source.targetIdentityId,
-    );
-
-    final keyToRemove = '$resolvedSourcePrefix${source.storageItem.key}';
-
-    try {
-      await _deleteObject(
-        s3client: _defaultS3Client,
-        bucket: _s3PluginConfig.bucket,
-        key: keyToRemove,
-      );
-    } on StorageException catch (error) {
-      // Normally delete should not fail during moving, if it fails it's a
-      // "unknown" failure wrapping the underlying exception.
-      throw UnknownException(
-        'Deleting the source object failed during the move operation.',
-        recoverySuggestion: 'Review the underlying exception.',
-        underlyingException: error,
-      );
-    }
-
-    return S3MoveResult(movedItem: copyResult.copiedItem);
   }
 
   /// Takes in input from [AmplifyStorageS3Dart.remove] API to compose a
