@@ -1,3 +1,8 @@
+## 1.5.5
+
+### Fixes
+- fix: correct `package_info_plus` version constraint ([#4583](https://github.com/aws-amplify/amplify-flutter/pull/4583))
+
 ## 1.5.4
 
 - Minor bug fixes and improvements## 1.5.3
