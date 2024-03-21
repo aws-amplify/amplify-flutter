@@ -363,13 +363,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3CopyOperation copy({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
+    required StoragePath source,
+    required StoragePath destination,
     StorageCopyOptions? options,
   }) {
-    final s3Source = S3ItemWithAccessLevel.from(source);
-    final s3Destination = S3ItemWithAccessLevel.from(destination);
-
     final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3CopyPluginOptions(),
@@ -381,45 +378,13 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3CopyOperation(
       request: StorageCopyRequest(
-        source: s3Source,
-        destination: s3Destination,
+        source: source,
+        destination: destination,
         options: options,
       ),
       result: storageS3Service.copy(
-        source: s3Source,
-        destination: s3Destination,
-        options: s3Options,
-      ),
-    );
-  }
-
-  @override
-  S3MoveOperation move({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
-    StorageMoveOptions? options,
-  }) {
-    final s3PluginOptions = reifyPluginOptions(
-      pluginOptions: options?.pluginOptions,
-      defaultPluginOptions: const S3MovePluginOptions(),
-    );
-
-    final s3Options = StorageMoveOptions(
-      pluginOptions: s3PluginOptions,
-    );
-
-    final s3Source = S3ItemWithAccessLevel.from(source);
-    final s3Destination = S3ItemWithAccessLevel.from(destination);
-
-    return S3MoveOperation(
-      request: StorageMoveRequest(
-        source: s3Source,
-        destination: s3Destination,
-        options: options,
-      ),
-      result: storageS3Service.move(
-        source: s3Source,
-        destination: s3Destination,
+        source: source,
+        destination: destination,
         options: s3Options,
       ),
     );
