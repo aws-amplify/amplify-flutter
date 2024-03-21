@@ -79,20 +79,11 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.copy}
   StorageCopyOperation copy({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
+    required StoragePath source,
+    required StoragePath destination,
     StorageCopyOptions? options,
   }) {
     throw UnimplementedError('copy() has not been implemented.');
-  }
-
-  /// {@macro amplify_core.amplify_storage_category.move}
-  StorageMoveOperation move({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
-    StorageMoveOptions? options,
-  }) {
-    throw UnimplementedError('move() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove}

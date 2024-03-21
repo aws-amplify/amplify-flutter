@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 
 import 'test_utils/mocks.dart';
 import 'test_utils/test_custom_prefix_resolver.dart';
+import 'test_utils/test_path_resolver.dart';
 import 'test_utils/test_token_provider.dart';
 
 const testPath = StoragePath.fromString('/some/path.txt');
@@ -917,26 +918,19 @@ void main() {
     });
 
     group('copy() API', () {
-      const sourceKey = 'source-key';
-      const destinationKey = 'destination-key';
-
-      const testSource = StorageItemWithAccessLevel(
-        storageItem: StorageItem(key: sourceKey),
-        accessLevel: StorageAccessLevel.guest,
-      );
-      const testDestination = StorageItemWithAccessLevel(
-        storageItem: StorageItem(key: destinationKey),
-        accessLevel: StorageAccessLevel.protected,
+      const testSource = StoragePath.fromString('/public/source-key');
+      final testDestination = StoragePath.withIdentityId(
+        (identityId) => '/protected/$identityId/destination-key',
       );
 
-      final testResult = S3CopyResult(copiedItem: S3Item(key: destinationKey));
+      final testResult = S3CopyResult(
+        copiedItem: S3Item(path: TestPathResolver.path),
+      );
 
       setUpAll(() {
         registerFallbackValue(const StorageCopyOptions());
         registerFallbackValue(
-          S3ItemWithAccessLevel(
-            storageItem: S3Item(key: 'some-key'),
-          ),
+          const StoragePath.fromString('/public/source-key'),
         );
       });
 
@@ -961,9 +955,8 @@ void main() {
 
         final captured = verify(
           () => storageS3Service.copy(
-            source: captureAny<S3ItemWithAccessLevel>(named: 'source'),
-            destination:
-                captureAny<S3ItemWithAccessLevel>(named: 'destination'),
+            source: captureAny<StoragePath>(named: 'source'),
+            destination: captureAny<StoragePath>(named: 'destination'),
             options: captureAny<StorageCopyOptions>(
               named: 'options',
             ),
@@ -973,34 +966,8 @@ void main() {
         final capturedDestination = captured[1];
         final capturedOptions = captured[2];
 
-        expect(
-          capturedSource,
-          isA<S3ItemWithAccessLevel>()
-              .having(
-                (i) => i.accessLevel,
-                'accessLevel',
-                testSource.accessLevel,
-              )
-              .having(
-                (i) => i.storageItem.key,
-                'key',
-                testSource.storageItem.key,
-              ),
-        );
-        expect(
-          capturedDestination,
-          isA<S3ItemWithAccessLevel>()
-              .having(
-                (o) => o.accessLevel,
-                'accessLevel',
-                testDestination.accessLevel,
-              )
-              .having(
-                (i) => i.storageItem.key,
-                'key',
-                testDestination.storageItem.key,
-              ),
-        );
+        expect(capturedSource, testSource);
+        expect(capturedDestination, testDestination);
 
         expect(
           capturedOptions,
@@ -1018,102 +985,6 @@ void main() {
         );
 
         final result = await copyOperation.result;
-        expect(result, testResult);
-      });
-    });
-
-    group('move() API', () {
-      const sourceKey = 'source-key';
-      const destinationKey = 'destination-key';
-
-      const testSource = StorageItemWithAccessLevel(
-        storageItem: StorageItem(key: sourceKey),
-        accessLevel: StorageAccessLevel.guest,
-      );
-
-      const testDestination = StorageItemWithAccessLevel(
-        storageItem: StorageItem(key: destinationKey),
-        accessLevel: StorageAccessLevel.protected,
-      );
-
-      final testResult = S3MoveResult(movedItem: S3Item(key: destinationKey));
-
-      setUpAll(() {
-        registerFallbackValue(const StorageMoveOptions());
-        registerFallbackValue(
-          S3ItemWithAccessLevel(
-            storageItem: S3Item(key: 'some-key'),
-          ),
-        );
-      });
-
-      test(
-          'should forward options with default getProperties value to StorageS3Service.move() API',
-          () async {
-        when(
-          () => storageS3Service.move(
-            source: any(named: 'source'),
-            destination: any(named: 'destination'),
-            options: any(named: 'options'),
-          ),
-        ).thenAnswer((_) async => testResult);
-
-        final moveOperation = storageS3Plugin.move(
-          source: testSource,
-          destination: testDestination,
-        );
-
-        final captured = verify(
-          () => storageS3Service.move(
-            source: captureAny<S3ItemWithAccessLevel>(named: 'source'),
-            destination:
-                captureAny<S3ItemWithAccessLevel>(named: 'destination'),
-            options: captureAny<StorageMoveOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured;
-        final capturedSource = captured[0];
-        final capturedDestination = captured[1];
-        final capturedOptions = captured[2];
-        expect(
-          capturedSource,
-          isA<S3ItemWithAccessLevel>()
-              .having(
-                (i) => i.accessLevel,
-                'accessLevel',
-                testSource.accessLevel,
-              )
-              .having(
-                (i) => i.storageItem.key,
-                'key',
-                testSource.storageItem.key,
-              ),
-        );
-        expect(
-          capturedDestination,
-          isA<S3ItemWithAccessLevel>()
-              .having(
-                (o) => o.accessLevel,
-                'accessLevel',
-                testDestination.accessLevel,
-              )
-              .having(
-                (i) => i.storageItem.key,
-                'key',
-                testDestination.storageItem.key,
-              ),
-        );
-        expect(
-          capturedOptions,
-          isA<StorageMoveOptions>().having(
-            (o) => (o.pluginOptions! as S3MovePluginOptions).getProperties,
-            'getProperties',
-            false,
-          ),
-        );
-
-        final result = await moveOperation.result;
         expect(result, testResult);
       });
     });

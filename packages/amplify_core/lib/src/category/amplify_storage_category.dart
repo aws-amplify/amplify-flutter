@@ -194,38 +194,13 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// corresponding [StorageAccessLevel].
   /// {@endtemplate}
   StorageCopyOperation copy({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
+    required StoragePath source,
+    required StoragePath destination,
     StorageCopyOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.copy,
       () => defaultPlugin.copy(
-        source: source,
-        destination: destination,
-        options: options,
-      ),
-    );
-  }
-
-  /// {@template amplify_core.amplify_storage_category.move}
-  /// Moves [source] to [destination] with optional [StorageMoveOptions],
-  /// and returns a [StorageMoveOperation].
-  ///
-  /// This API performs two consecutive S3 service calls:
-  ///   1. copy the source object to destination objection
-  ///   2. delete the source object
-  ///
-  /// {@macro amplify_core.amplify_storage_category.copy_source}
-  /// {@endtemplate}
-  StorageMoveOperation move({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
-    StorageMoveOptions? options,
-  }) {
-    return identifyCall(
-      StorageCategoryMethod.move,
-      () => defaultPlugin.move(
         source: source,
         destination: destination,
         options: options,
