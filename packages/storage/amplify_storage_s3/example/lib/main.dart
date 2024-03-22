@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        path: const StoragePath.fromString('//public/foo.png'),
+        path: StoragePath.fromString('/public/${platformFile.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -209,16 +209,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // delete file from S3 bucket
   Future<void> removeFile({
     required String key,
-    required StorageAccessLevel accessLevel,
   }) async {
     try {
-      final res = await Amplify.Storage.removeMany(
-        paths: [
-          const StoragePath.fromString('/public/foo.png'),
-        ],
+      await Amplify.Storage.remove(
+        path: StoragePath.fromString('/public/$key'),
       ).result;
-      print(res.removedItems);
-      print((res as S3RemoveManyResult).removeErrors);
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
         imageUrl = '';
@@ -278,7 +273,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         removeFile(
                           key: item.path,
-                          accessLevel: StorageAccessLevel.guest,
                         );
                       },
                       color: Colors.red,
