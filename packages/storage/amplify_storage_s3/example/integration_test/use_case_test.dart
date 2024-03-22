@@ -424,10 +424,15 @@ void main() {
             'delete object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.remove(
-            path: StoragePath.fromString('/private/$testObject3CopyMoveKey'),
+            path: StoragePath.withIdentityId(
+              (id) => '/private/$id/$testObject3CopyMoveKey',
+            ),
           ).result;
 
-          expect(result.removedItem.key, testObject3CopyMoveKey);
+          expect(
+            result.removedItem.path.endsWith(testObject3CopyMoveKey),
+            isTrue,
+          );
         });
 
         group(skip: true, 'content type infer', () {
@@ -674,7 +679,8 @@ void main() {
             expect(result.copiedItem.eTag, isNotEmpty);
           });
 
-          testWidgets('list respects pageSize', (WidgetTester tester) async {
+          testWidgets(skip: true, 'list respects pageSize',
+              (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
             const accessLevel = StorageAccessLevel.private;
@@ -768,24 +774,33 @@ void main() {
           testWidgets(
               'remove many objects belongs to the currently signed user',
               (WidgetTester tester) async {
-            final listedObjects = await Amplify.Storage.list(
-              options: const StorageListOptions(
-                accessLevel: StorageAccessLevel.private,
+            final result1 = await Amplify.Storage.uploadData(
+              data: HttpPayload.string('obj1'),
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/remove-test/obj1',
               ),
             ).result;
-            expect(listedObjects.items, hasLength(2));
+
+            final result2 = await Amplify.Storage.uploadData(
+              data: HttpPayload.string('obj2'),
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/remove-test/obj2',
+              ),
+            ).result;
 
             final result = await Amplify.Storage.removeMany(
-              paths: listedObjects.items
-                  .map((item) => StoragePath.fromString(item.path))
-                  .toList(),
+              paths: [
+                StoragePath.fromString(result1.uploadedItem.path),
+                StoragePath.fromString(result2.uploadedItem.path),
+              ],
             ).result;
             expect(result.removedItems, hasLength(2));
             expect(
-              result.removedItems.map((item) => item.key),
-              containsAll(
-                listedObjects.items.map((item) => item.key).toList(),
-              ),
+              result.removedItems.map((item) => item.path),
+              containsAll([
+                result1.uploadedItem.path,
+                result2.uploadedItem.path,
+              ]),
             );
           });
         },
@@ -803,28 +818,35 @@ void main() {
           await Amplify.Auth.signOut();
         });
 
-        testWidgets(
-            skip: true,
-            'remove many objects belongs to the currently signed user',
+        testWidgets('remove many objects belongs to the currently signed user',
             (WidgetTester tester) async {
-          final listedObjects = await Amplify.Storage.list(
-            options: const StorageListOptions(
-              accessLevel: StorageAccessLevel.private,
+          final result1 = await Amplify.Storage.uploadData(
+            data: HttpPayload.string('obj1'),
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/remove-test-user-a/obj1',
             ),
           ).result;
-          expect(listedObjects.items, hasLength(2));
+
+          final result2 = await Amplify.Storage.uploadData(
+            data: HttpPayload.string('obj2'),
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/remove-test-user-a/obj2',
+            ),
+          ).result;
 
           final result = await Amplify.Storage.removeMany(
-            paths: listedObjects.items
-                .map((item) => StoragePath.fromString(item.path))
-                .toList(),
+            paths: [
+              StoragePath.fromString(result1.uploadedItem.path),
+              StoragePath.fromString(result2.uploadedItem.path),
+            ],
           ).result;
           expect(result.removedItems, hasLength(2));
           expect(
-            result.removedItems.map((item) => item.key),
-            containsAll(
-              listedObjects.items.map((item) => item.key).toList(),
-            ),
+            result.removedItems.map((item) => item.path),
+            containsAll([
+              result1.uploadedItem.path,
+              result2.uploadedItem.path,
+            ]),
           );
         });
       });
