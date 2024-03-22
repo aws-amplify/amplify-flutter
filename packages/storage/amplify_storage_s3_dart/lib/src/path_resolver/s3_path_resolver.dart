@@ -39,6 +39,7 @@ class S3PathResolver {
     return resolvedPath;
   }
 
+  /// Resolve multiple [StoragePath] objects.
   Future<List<String>> resolvePaths({
     required List<StoragePath> paths,
   }) async {
