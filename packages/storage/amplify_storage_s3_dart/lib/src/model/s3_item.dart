@@ -71,7 +71,8 @@ class S3Item extends StorageItem
 
     return S3Item(
       key: keyDroppedPrefix,
-      path: key,
+      // TODO(Jordan-Nelson): remove when path validation logic is updated
+      path: '/$key',
       size: object.size?.toInt(),
       lastModified: object.lastModified,
       eTag: object.eTag,

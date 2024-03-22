@@ -46,27 +46,16 @@ class S3PathResolver {
         paths.whereType<StoragePathWithIdentityId>().isNotEmpty;
     final identityId =
         requiredIdentityId ? await _identityProvider.getIdentityId() : null;
-    return Future.wait(
+    return (await Future.wait(
       paths.map(
         (path) => resolvePath(
           path: path,
           identityId: identityId,
         ),
       ),
-    );
-
-    // final resolvedPath = switch (path) {
-    //   final StoragePathWithIdentityId p =>
-    //     p.resolvePath(identityId: await _identityProvider.getIdentityId()),
-    //   // ignore: invalid_use_of_internal_member
-    //   _ => path.resolvePath()
-    // };
-    // if (!resolvedPath.startsWith('/')) {
-    //   throw const StoragePathValidationException(
-    //     'StoragePath must start with a leading "/"',
-    //     recoverySuggestion: 'Update the provided path to include a leading "/"',
-    //   );
-    // }
-    // return resolvedPath;
+    ))
+        // TODO(Jordan-Nelson): remove once path validation logic is updated.
+        .map((path) => path.substring(1))
+        .toList();
   }
 }
