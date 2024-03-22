@@ -321,7 +321,6 @@ void main() {
 
         testWidgets(
             // skip: true,
-            // skip: true,
             'download object as bytes data in memory with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
@@ -340,7 +339,6 @@ void main() {
         });
 
         testWidgets(
-            // skip: true,
             // skip: true,
             'download a range of bytes of an object with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
@@ -370,7 +368,6 @@ void main() {
         });
 
         testWidgets(
-          // skip: true,
           // skip: true,
           'download file with access level private for the currently signed in user',
           (WidgetTester tester) async {
@@ -624,7 +621,6 @@ void main() {
           });
 
           testWidgets(
-              // skip: true,
               // skip: true,
               'download data of object with access level protected and a target'
               ' identity id for the currently signed user',
