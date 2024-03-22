@@ -209,7 +209,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.remove}
-  /// Removes an object specified by [key] with optional [StorageRemoveOptions],
+  /// Removes an object specified by [path] with optional [StorageRemoveOptions],
   /// and returns a [StorageRemoveOperation].
   /// {@endtemplate}
   StorageRemoveOperation remove({
