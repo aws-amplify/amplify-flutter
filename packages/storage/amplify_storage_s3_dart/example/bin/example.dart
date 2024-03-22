@@ -207,7 +207,6 @@ Future<void> downloadDataOperation() async {
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final downloadDataOperation = s3Plugin.downloadData(
-    // key: key,
     path: StoragePath.fromString(key),
     options: StorageDownloadDataOptions(
       accessLevel: accessLevel,
@@ -252,7 +251,6 @@ Future<void> downloadFileOperation() async {
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final downloadFileOperation = s3Plugin.downloadFile(
-    // key: key,
     path: StoragePath.fromString(key),
     localFile: localFile,
     options: StorageDownloadFileOptions(
