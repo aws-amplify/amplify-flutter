@@ -38,10 +38,9 @@ void testContentTypeInferTest({
   group('content type inferring within upload', () {
     tearDownAll(() async {
       await Amplify.Storage.removeMany(
-        keys: testUploadKeys,
-        options: const StorageRemoveManyOptions(
-          accessLevel: StorageAccessLevel.private,
-        ),
+        paths: testUploadKeys
+            .map((key) => StoragePath.fromString('/private/$key'))
+            .toList(),
       ).result;
     });
 

@@ -471,25 +471,19 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3RemoveResult> remove({
-    required String key,
+    required StoragePath path,
     required StorageRemoveOptions options,
   }) async {
-    final resolvedPrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-    );
-
-    final keyToRemove = '$resolvedPrefix$key';
+    final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     await _deleteObject(
       s3client: _defaultS3Client,
       bucket: _s3PluginConfig.bucket,
-      key: keyToRemove,
+      key: resolvedPath,
     );
 
     return S3RemoveResult(
-      removedItem: S3Item(key: key, path: key),
+      removedItem: S3Item(path: resolvedPath),
     );
   }
 

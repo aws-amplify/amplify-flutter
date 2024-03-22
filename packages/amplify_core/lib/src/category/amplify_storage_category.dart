@@ -213,12 +213,12 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// and returns a [StorageRemoveOperation].
   /// {@endtemplate}
   StorageRemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.remove,
-      () => defaultPlugin.remove(key: key, options: options),
+      () => defaultPlugin.remove(path: path, options: options),
     );
   }
 

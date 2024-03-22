@@ -1079,7 +1079,7 @@ void main() {
 
     group('remove() API', () {
       late S3RemoveResult removeResult;
-      const testKey = 'object-to-remove';
+      const testPath = StoragePath.fromString('/object-to-remove');
 
       setUpAll(() {
         registerFallbackValue(
@@ -1105,7 +1105,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         removeResult = await storageS3Service.remove(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
@@ -1120,17 +1120,13 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: s3PluginConfig.defaultAccessLevel,
-          )}$testKey',
+          TestPathResolver.path,
         );
       });
 
       test('should invoke S3Client.deleteObject with expected parameters',
           () async {
-        const testOptions = StorageRemoveOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
+        const testOptions = StorageRemoveOptions();
         final testDeleteObjectOutput = DeleteObjectOutput();
         final smithyOperation = MockSmithyOperation<DeleteObjectOutput>();
 
@@ -1143,7 +1139,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         removeResult = await storageS3Service.remove(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
@@ -1158,14 +1154,12 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
       });
 
       test('should return correct S3RemoveResult', () {
-        expect(removeResult.removedItem.key, testKey);
+        expect(removeResult.removedItem.path, TestPathResolver.path);
       });
 
       test(
@@ -1183,7 +1177,7 @@ void main() {
 
         expect(
           storageS3Service.remove(
-            key: 'a key',
+            path: const StoragePath.fromString('a key'),
             options: testOptions,
           ),
           throwsA(isA<StorageAccessDeniedException>()),
@@ -1192,8 +1186,7 @@ void main() {
 
       test('should handle AWSHttpException and throw NetworkException',
           () async {
-        const testOptions =
-            StorageRemoveOptions(accessLevel: StorageAccessLevel.guest);
+        const testOptions = StorageRemoveOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.delete, uri: Uri()),
         );
@@ -1204,7 +1197,7 @@ void main() {
 
         expect(
           storageS3Service.remove(
-            key: 'a key',
+            path: const StoragePath.fromString('a key'),
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),
@@ -1216,12 +1209,16 @@ void main() {
       late S3RemoveManyResult removeManyResult;
       const testNumOfRemovedItems = 955;
       const testNumOfRemoveErrors = 50;
-      final testKeys = List.generate(
+      final testPaths = List.generate(
         1005,
         (index) => 'object-to-remove-${index + 1}',
-      ).toList();
+      ).map(StoragePath.fromString).toList();
+      late List<String> resolvedPaths;
 
-      setUpAll(() {
+      setUpAll(() async {
+        resolvedPaths = await pathResolver.resolvePaths(
+          paths: testPaths,
+        );
         registerFallbackValue(
           DeleteObjectsRequest(
             bucket: 'fake bucket',
@@ -1233,12 +1230,10 @@ void main() {
       test('should invoke S3Client.deleteObjects with default access level',
           () async {
         const testOptions = StorageRemoveManyOptions();
-        final testPrefix =
-            '${s3PluginConfig.defaultAccessLevel.defaultPrefix}$testDelimiter';
         final testDeleteObjectsOutput = DeleteObjectsOutput(
-          deleted: testKeys
+          deleted: resolvedPaths
               .take(2)
-              .map((key) => DeletedObject(key: '$testPrefix$key'))
+              .map((path) => DeletedObject(key: path))
               .toList(),
         );
 
@@ -1255,7 +1250,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation);
 
         removeManyResult = await storageS3Service.removeMany(
-          keys: testKeys.take(2).toList(),
+          paths: testPaths.take(2).toList(),
           options: testOptions,
         );
 
@@ -1270,13 +1265,7 @@ void main() {
         expect(capturedRequest is DeleteObjectsRequest, isTrue);
 
         final request = capturedRequest as DeleteObjectsRequest;
-        final expectedKeysForRequest = await Future.wait(
-          testKeys.take(2).map(
-                (key) async => '${await testPrefixResolver.resolvePrefix(
-                  accessLevel: s3PluginConfig.defaultAccessLevel,
-                )}$key',
-              ),
-        );
+        final expectedKeysForRequest = resolvedPaths.take(2).toList();
 
         expect(
           request.delete.objects.map((object) => object.key),
@@ -1286,33 +1275,25 @@ void main() {
 
       test('should invoke S3Client.deleteObjects with expected parameters',
           () async {
-        const testOptions = StorageRemoveManyOptions(
-          accessLevel: StorageAccessLevel.protected,
-        );
-        final testPrefix =
-            '${testOptions.accessLevel!.defaultPrefix}$testDelimiter';
+        const testOptions = StorageRemoveManyOptions();
         final testDeleteObjectsOutput1 = DeleteObjectsOutput(
-          deleted: testKeys
-              .take(1000 - testNumOfRemoveErrors)
-              .map((key) => DeletedObject(key: '$testPrefix$key'))
-              .toList(),
-          errors: testKeys
-              .skip(1000 - testNumOfRemoveErrors)
-              .take(testNumOfRemoveErrors)
-              .map(
-                (key) => Error(
-                  key: '$testPrefix$key',
-                  message: 'some error',
-                ),
-              )
-              .toList(),
+          deleted: List.generate(
+            1000 - testNumOfRemoveErrors,
+            (index) => DeletedObject(key: resolvedPaths[index]),
+          ),
+          errors: List.generate(
+            testNumOfRemoveErrors,
+            (index) => Error(
+              key: resolvedPaths[index],
+              message: 'some error',
+            ),
+          ),
         );
         final testDeleteObjectsOutput2 = DeleteObjectsOutput(
-          deleted: testKeys
-              .skip(1000)
-              .take(5)
-              .map((key) => DeletedObject(key: '$testPrefix$key'))
-              .toList(),
+          deleted: List.generate(
+            5,
+            (index) => DeletedObject(key: resolvedPaths[1000 + index]),
+          ),
         );
 
         final smithyOperation1 = MockSmithyOperation<DeleteObjectsOutput>();
@@ -1341,7 +1322,7 @@ void main() {
         ).thenAnswer((_) => smithyOperation2);
 
         removeManyResult = await storageS3Service.removeMany(
-          keys: testKeys,
+          paths: testPaths,
           options: testOptions,
         );
 
@@ -1362,19 +1343,12 @@ void main() {
         final request1 = capturedRequest1 as DeleteObjectsRequest;
         final request2 = capturedRequest2 as DeleteObjectsRequest;
 
-        final expectedKeysForRequest1 = await Future.wait(
-          testKeys.take(1000).map(
-                (key) async => '${await testPrefixResolver.resolvePrefix(
-                  accessLevel: testOptions.accessLevel!,
-                )}$key',
-              ),
+        final expectedKeysForRequest1 = await pathResolver.resolvePaths(
+          paths: testPaths.take(1000).toList(),
         );
-        final expectedKeysForRequest2 = await Future.wait(
-          testKeys.skip(1000).map(
-                (key) async => '${await testPrefixResolver.resolvePrefix(
-                  accessLevel: testOptions.accessLevel!,
-                )}$key',
-              ),
+
+        final expectedKeysForRequest2 = await pathResolver.resolvePaths(
+          paths: testPaths.skip(1000).toList(),
         );
 
         expect(
@@ -1386,9 +1360,6 @@ void main() {
           request2.delete.objects.map((object) => object.key),
           containsAllInOrder(expectedKeysForRequest2),
         );
-      });
-
-      test('should return correct S3RemoveManyResult', () {
         final removedItems = removeManyResult.removedItems;
         final removeErrors = removeManyResult.removeErrors;
 
@@ -1398,7 +1369,7 @@ void main() {
         removedItems.asMap().forEach((index, item) {
           final lookupIndex =
               index < 950 ? index : index + testNumOfRemoveErrors;
-          expect(item.key, testKeys[lookupIndex]);
+          expect(item.path, resolvedPaths[lookupIndex]);
         });
       });
 
@@ -1417,7 +1388,7 @@ void main() {
 
         expect(
           storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: testOptions,
           ),
           throwsA(isA<StorageAccessDeniedException>()),
@@ -1425,8 +1396,7 @@ void main() {
       });
 
       test('should handle AWSHttpRequest and throw NetworkException', () async {
-        const testOptions =
-            StorageRemoveManyOptions(accessLevel: StorageAccessLevel.guest);
+        const testOptions = StorageRemoveManyOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.delete, uri: Uri()),
         );
@@ -1437,7 +1407,7 @@ void main() {
 
         expect(
           storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),

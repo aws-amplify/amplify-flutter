@@ -424,10 +424,7 @@ void main() {
             'delete object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.remove(
-            key: testObject3CopyMoveKey,
-            options: const StorageRemoveOptions(
-              accessLevel: StorageAccessLevel.private,
-            ),
+            path: StoragePath.fromString('/private/$testObject3CopyMoveKey'),
           ).result;
 
           expect(result.removedItem.key, testObject3CopyMoveKey);
@@ -510,7 +507,9 @@ void main() {
 
           expect(metadata, equals(testMetadata));
 
-          await s3Plugin.remove(key: objectKey).result;
+          await s3Plugin
+              .remove(path: StoragePath.fromString('/public/$objectKey'))
+              .result;
         });
       });
 
@@ -675,8 +674,7 @@ void main() {
             expect(result.copiedItem.eTag, isNotEmpty);
           });
 
-          testWidgets(skip: true, 'list respects pageSize',
-              (WidgetTester tester) async {
+          testWidgets('list respects pageSize', (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
             const accessLevel = StorageAccessLevel.private;
@@ -711,10 +709,9 @@ void main() {
             expect(listResult.items.length, filesToList);
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
-              keys: uploadedKeys,
-              options: const StorageRemoveManyOptions(
-                accessLevel: accessLevel,
-              ),
+              paths: uploadedKeys
+                  .map((key) => StoragePath.fromString('/private/$key'))
+                  .toList(),
             ).result;
           });
 
@@ -762,15 +759,13 @@ void main() {
             expect(timesCalled, equals(filesToUpload));
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
-              keys: uploadedKeys,
-              options: const StorageRemoveManyOptions(
-                accessLevel: accessLevel,
-              ),
+              paths: uploadedKeys
+                  .map((key) => StoragePath.fromString('/private/$key'))
+                  .toList(),
             ).result;
           });
 
           testWidgets(
-              skip: true,
               'remove many objects belongs to the currently signed user',
               (WidgetTester tester) async {
             final listedObjects = await Amplify.Storage.list(
@@ -781,10 +776,9 @@ void main() {
             expect(listedObjects.items, hasLength(2));
 
             final result = await Amplify.Storage.removeMany(
-              keys: listedObjects.items.map((item) => item.path).toList(),
-              options: const StorageRemoveManyOptions(
-                accessLevel: StorageAccessLevel.private,
-              ),
+              paths: listedObjects.items
+                  .map((item) => StoragePath.fromString(item.path))
+                  .toList(),
             ).result;
             expect(result.removedItems, hasLength(2));
             expect(
@@ -821,10 +815,9 @@ void main() {
           expect(listedObjects.items, hasLength(2));
 
           final result = await Amplify.Storage.removeMany(
-            keys: listedObjects.items.map((item) => item.path).toList(),
-            options: const StorageRemoveManyOptions(
-              accessLevel: StorageAccessLevel.private,
-            ),
+            paths: listedObjects.items
+                .map((item) => StoragePath.fromString(item.path))
+                .toList(),
           ).result;
           expect(result.removedItems, hasLength(2));
           expect(

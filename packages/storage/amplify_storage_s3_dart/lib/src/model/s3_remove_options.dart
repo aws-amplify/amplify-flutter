@@ -15,7 +15,5 @@ class S3RemoveOptions extends StorageRemoveOptions {
   @Deprecated(
     'use StorageRemoveOptions(pluginOptions: S3RemovePluginOptions(...)) instead.',
   )
-  const S3RemoveOptions({
-    super.accessLevel = StorageAccessLevel.guest,
-  });
+  const S3RemoveOptions();
 }

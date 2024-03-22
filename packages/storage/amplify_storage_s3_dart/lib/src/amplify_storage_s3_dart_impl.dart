@@ -390,7 +390,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3RemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -399,17 +399,16 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageRemoveOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
     return S3RemoveOperation(
       request: StorageRemoveRequest(
-        key: key,
+        path: path,
         options: options,
       ),
       result: storageS3Service.remove(
-        key: key,
+        path: path,
         options: s3Options,
       ),
     );
@@ -426,7 +425,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageRemoveManyOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 

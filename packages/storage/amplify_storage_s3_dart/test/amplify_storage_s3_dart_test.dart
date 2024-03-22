@@ -1013,16 +1013,16 @@ void main() {
         );
         when(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: defaultOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeOperation = storageS3Plugin.remove(key: testKey);
+        final removeOperation = storageS3Plugin.remove(path: testPath);
 
         final capturedOptions = verify(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageRemoveOptions>(
               named: 'options',
             ),
@@ -1043,25 +1043,24 @@ void main() {
 
       test('should forward options to StorageS3Service.remove() API', () async {
         const testOptions = StorageRemoveOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3RemovePluginOptions(),
         );
 
         when(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: any(named: 'options'),
           ),
         ).thenAnswer((_) async => testResult);
 
         final removeOperation = storageS3Plugin.remove(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageRemoveOptions>(
               named: 'options',
             ),
@@ -1086,6 +1085,7 @@ void main() {
         20,
         (index) => 'object-to-remove-${index + 1}',
       );
+      final testPaths = testKeys.map(StoragePath.fromString).toList();
       final resultRemoveItems =
           testKeys.map((key) => S3Item(key: key)).toList();
       final testResult = S3RemoveManyResult(
@@ -1107,16 +1107,17 @@ void main() {
 
         when(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: defaultOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeManyOperation = storageS3Plugin.removeMany(keys: testKeys);
+        final removeManyOperation =
+            storageS3Plugin.removeMany(paths: testPaths);
 
         final capturedOptions = verify(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: captureAny(named: 'options'),
           ),
         ).captured.last;
@@ -1136,25 +1137,24 @@ void main() {
       test('should forward options to StorageS3Service.removeMany() API',
           () async {
         const testOptions = StorageRemoveManyOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3RemoveManyPluginOptions(),
         );
 
         when(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: testOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
         final removeManyOperation = storageS3Plugin.removeMany(
-          keys: testKeys,
+          paths: testPaths,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: captureAny(named: 'options'),
           ),
         ).captured.last;
