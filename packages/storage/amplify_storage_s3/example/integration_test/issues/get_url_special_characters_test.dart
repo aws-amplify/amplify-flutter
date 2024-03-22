@@ -41,11 +41,11 @@ void main() {
     final key = 'Test - ${DateTime.now()}';
     await Amplify.Storage.uploadData(
       data: S3DataPayload.bytes('hello'.codeUnits),
-      path: StoragePath.fromString('/public/$key'),
+      path: StoragePath.fromString('public/$key'),
     ).result;
 
     final getUrlResult = await Amplify.Storage.getUrl(
-      path: StoragePath.fromString('/public/$key'),
+      path: StoragePath.fromString('public/$key'),
     ).result;
     final uri = getUrlResult.url;
 

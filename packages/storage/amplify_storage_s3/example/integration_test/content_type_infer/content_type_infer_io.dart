@@ -35,7 +35,7 @@ void testContentTypeInferTest({
     tearDownAll(() async {
       await Amplify.Storage.removeMany(
         paths: testUploadKeys
-            .map((key) => StoragePath.fromString('/private/$key'))
+            .map((key) => StoragePath.fromString('private/$key'))
             .toList(),
       ).result;
     });

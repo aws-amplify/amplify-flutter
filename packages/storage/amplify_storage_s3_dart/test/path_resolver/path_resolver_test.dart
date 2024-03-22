@@ -31,24 +31,23 @@ void main() {
     );
 
     test('should resolve static strings', () async {
-      const path = StoragePath.fromString('/foo/bar/picture.png');
+      const path = StoragePath.fromString('foo/bar/picture.png');
       expect(
         await pathResolver.resolvePath(path: path),
-        '/foo/bar/picture.png',
+        'foo/bar/picture.png',
       );
     });
 
     test('should resolve path with identity Id', () async {
-      final path = StoragePath.withIdentityId((id) => '/foo/$id/picture.png');
+      final path = StoragePath.withIdentityId((id) => 'foo/$id/picture.png');
       expect(
         await pathResolver.resolvePath(path: path),
-        '/foo/mock-id/picture.png',
+        'foo/mock-id/picture.png',
       );
     });
 
-    test('should throw if the path does not start with a leading "/"',
-        () async {
-      const path = StoragePath.fromString('foo/bar/picture.png');
+    test('should throw if the path starts with a leading "/"', () async {
+      const path = StoragePath.fromString('/foo/bar/picture.png');
       expect(
         () => pathResolver.resolvePath(path: path),
         throwsA(isA<StoragePathValidationException>()),

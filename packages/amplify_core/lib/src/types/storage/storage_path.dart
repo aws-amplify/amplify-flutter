@@ -22,7 +22,7 @@ class StoragePath {
   /// ### Example
   /// {@template amplify_core.storage.storage_path.from_string.example}
   /// ```
-  /// const p = StoragePath.fromString('/path/to/object.png');
+  /// const p = StoragePath.fromString('path/to/object.png');
   /// ```
   /// {@endtemplate}
   const StoragePath.fromString(String path) : _path = path;
@@ -32,7 +32,7 @@ class StoragePath {
   /// ### Example
   /// {@template amplify_core.storage.storage_path.with_identity_id.example}
   /// ```
-  /// const p = StoragePath.withIdentityId((String identityId) => '/users/$identityId/object.png');
+  /// const p = StoragePath.withIdentityId((String identityId) => 'users/$identityId/object.png');
   /// ```
   /// {@endtemplate}
   factory StoragePath.withIdentityId(

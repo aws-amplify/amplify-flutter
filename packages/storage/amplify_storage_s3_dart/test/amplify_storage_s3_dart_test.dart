@@ -14,7 +14,7 @@ import 'test_utils/test_custom_prefix_resolver.dart';
 import 'test_utils/test_path_resolver.dart';
 import 'test_utils/test_token_provider.dart';
 
-const testPath = StoragePath.fromString('/some/path.txt');
+const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
@@ -921,9 +921,9 @@ void main() {
     });
 
     group('copy() API', () {
-      const testSource = StoragePath.fromString('/public/source-key');
+      const testSource = StoragePath.fromString('public/source-key');
       final testDestination = StoragePath.withIdentityId(
-        (identityId) => '/protected/$identityId/destination-key',
+        (identityId) => 'protected/$identityId/destination-key',
       );
 
       final testResult = S3CopyResult(
@@ -933,7 +933,7 @@ void main() {
       setUpAll(() {
         registerFallbackValue(const StorageCopyOptions());
         registerFallbackValue(
-          const StoragePath.fromString('/public/source-key'),
+          const StoragePath.fromString('public/source-key'),
         );
       });
 

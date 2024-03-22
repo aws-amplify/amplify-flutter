@@ -19,7 +19,7 @@ import '../test_utils/test_path_resolver.dart';
 import '../test_utils/test_token_provider.dart';
 
 const testDelimiter = '#';
-const testPath = StoragePath.fromString('/some/path.txt');
+const testPath = StoragePath.fromString('some/path.txt');
 
 class TestPrefixResolver implements S3PrefixResolver {
   @override
@@ -537,7 +537,7 @@ void main() {
 
         expect(
           storageS3Service.getProperties(
-            path: const StoragePath.fromString('/a key'),
+            path: const StoragePath.fromString('a key'),
             options: testOptions,
           ),
           throwsA(isA<StorageKeyNotFoundException>()),
@@ -557,7 +557,7 @@ void main() {
 
         expect(
           storageS3Service.getProperties(
-            path: const StoragePath.fromString('/a key'),
+            path: const StoragePath.fromString('a key'),
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),
@@ -930,8 +930,8 @@ void main() {
 
     group('copy() API', () {
       late S3CopyResult copyResult;
-      const testSource = StoragePath.fromString('/public/source');
-      const testDestination = StoragePath.fromString('/public/destination');
+      const testSource = StoragePath.fromString('public/source');
+      const testDestination = StoragePath.fromString('public/destination');
 
       setUpAll(() {
         registerFallbackValue(
@@ -1079,7 +1079,7 @@ void main() {
 
     group('remove() API', () {
       late S3RemoveResult removeResult;
-      const testPath = StoragePath.fromString('/object-to-remove');
+      const testPath = StoragePath.fromString('object-to-remove');
 
       setUpAll(() {
         registerFallbackValue(

@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        path: StoragePath.fromString('/public/${platformFile.name}'),
+        path: StoragePath.fromString('public/${platformFile.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }) async {
     try {
       await Amplify.Storage.remove(
-        path: StoragePath.fromString('/public/$key'),
+        path: StoragePath.fromString('public/$key'),
       ).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
