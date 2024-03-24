@@ -24,18 +24,11 @@ S3DownloadFileOperation downloadFile({
   late final File tempFile;
 
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
-  final targetIdentityId = s3PluginOptions.targetIdentityId;
   final downloadDataOptions = StorageDownloadDataOptions(
-    pluginOptions: targetIdentityId == null
-        ? S3DownloadDataPluginOptions(
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          )
-        : S3DownloadDataPluginOptions.forIdentity(
-            targetIdentityId,
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          ),
+    pluginOptions: S3DownloadDataPluginOptions(
+      getProperties: s3PluginOptions.getProperties,
+      useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+    ),
   );
 
   final downloadDataTask = storageS3Service.downloadData(

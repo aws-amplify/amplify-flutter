@@ -111,18 +111,12 @@ void main() {
 
       expect(
         capturedOptions,
-        isA<StorageDownloadDataOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              options.accessLevel,
-            )
-            .having(
-              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
-                  .getProperties,
-              'getProperties',
-              isTrue,
-            ),
+        isA<StorageDownloadDataOptions>().having(
+          (o) =>
+              (o.pluginOptions! as S3DownloadDataPluginOptions).getProperties,
+          'getProperties',
+          isTrue,
+        ),
       );
 
       expect(captureParams[2] is Function, true);
@@ -161,115 +155,6 @@ void main() {
       final downloadedFile = File(testDestinationPath);
       expect(await downloadedFile.readAsString(), testFileContent);
       await downloadedFile.delete();
-    });
-
-    test(
-        skip: true,
-        'should correctly create S3DownloadDataOptions with default storage access level',
-        () {
-      downloadFile(
-        path: const StoragePath.fromString('/public/$testKey'),
-        localFile: AWSFile.fromPath('path'),
-        options: const StorageDownloadFileOptions(
-          pluginOptions: S3DownloadFilePluginOptions(),
-        ),
-        s3pluginConfig: testS3pluginConfig,
-        storageS3Service: storageS3Service,
-        appPathProvider: appPathProvider,
-        onProgress: (progress) {
-          expectedProgress = progress;
-        },
-      );
-
-      final capturedOptions = verify(
-        () => storageS3Service.downloadData(
-          path: const StoragePath.fromString('/public/$testKey'),
-          options: captureAny<StorageDownloadDataOptions>(
-            named: 'options',
-          ),
-          preStart: any(named: 'preStart'),
-          onProgress: any(named: 'onProgress'),
-          onData: any(named: 'onData'),
-          onDone: any(named: 'onDone'),
-          onError: any(named: 'onError'),
-        ),
-      ).captured.last;
-
-      expect(
-        capturedOptions,
-        isA<StorageDownloadDataOptions>().having(
-          (o) => o.accessLevel,
-          'accessLevel',
-          testS3pluginConfig.defaultAccessLevel,
-        ),
-      );
-    });
-
-    test(
-        skip: true,
-        'should correctly create S3DownloadDataOptions with correct targetIdentityId',
-        () {
-      const testTargetIdentity = 'someone-else';
-      const testAccessLevel = StorageAccessLevel.protected;
-      downloadFile(
-        path: StoragePath.withIdentityId(
-          (identityId) => '/protected/$identityId/$testKey',
-        ),
-        localFile: AWSFile.fromPath('path'),
-        options: const StorageDownloadFileOptions(
-          pluginOptions: S3DownloadFilePluginOptions.forIdentity(
-            testTargetIdentity,
-          ),
-        ),
-        s3pluginConfig: testS3pluginConfig,
-        storageS3Service: storageS3Service,
-        appPathProvider: appPathProvider,
-        onProgress: (progress) {
-          expectedProgress = progress;
-        },
-      );
-
-      final capturedOptions = verify(
-        () => storageS3Service.downloadData(
-          path: StoragePath.withIdentityId(
-            (identityId) => '/protected/$identityId/$testKey',
-          ),
-          options: captureAny<StorageDownloadDataOptions>(
-            named: 'options',
-          ),
-          preStart: any(named: 'preStart'),
-          onProgress: any(named: 'onProgress'),
-          onData: any(named: 'onData'),
-          onDone: any(named: 'onDone'),
-          onError: any(named: 'onError'),
-        ),
-      ).captured.last;
-
-      expect(
-        capturedOptions,
-        isA<StorageDownloadDataOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              testAccessLevel,
-            )
-            .having(
-              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
-                  .targetIdentityId,
-              'targetIdentityId',
-              testTargetIdentity,
-            ),
-      );
-
-      expect(
-        capturedOptions,
-        isA<StorageDownloadDataOptions>().having(
-          (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
-              .targetIdentityId,
-          'targetIdentityId',
-          testTargetIdentity,
-        ),
-      );
     });
 
     group('preStart callback should throw exceptions', () {

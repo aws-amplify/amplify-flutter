@@ -27,9 +27,7 @@ class DummyPathProvider implements AppPathProvider {
 }
 
 void main() {
-  group('downloadFile() html implementation',
-      // TODO(Jordan-Nelson): remove skip
-      skip: true, () {
+  group('downloadFile() html implementation', () {
     late StorageS3Service storageS3Service;
     const testKey = 'upload-key.text';
     const testS3pluginConfig = S3PluginConfig(
@@ -65,23 +63,21 @@ void main() {
       );
 
       registerFallbackValue(
-        StorageGetPropertiesOptions(
-          accessLevel: testS3pluginConfig.defaultAccessLevel,
-        ),
+        const StorageGetPropertiesOptions(),
       );
+
+      registerFallbackValue(const StoragePath.fromString(testKey));
 
       when(
         () => storageS3Service.getProperties(
-          // TODO(Jordan-Nelson): update
-          path: const StoragePath.fromString('key'),
+          path: any<StoragePath>(named: 'path'),
           options: any(named: 'options'),
         ),
       ).thenAnswer((_) async => testGetPropertiesResult);
 
       when(
         () => storageS3Service.getUrl(
-          // TODO(Jordan-Nelson): update
-          path: const StoragePath.fromString('key'),
+          path: any<StoragePath>(named: 'path'),
           options: any(named: 'options'),
         ),
       ).thenAnswer((_) async => testGetUrlResult);
@@ -90,72 +86,33 @@ void main() {
     test(
         'should invoke StorageS3Service.getUrl with converted S3DownloadFilePluginOptions',
         () async {
-      const testTargetIdentity = 'someone-else';
       final operation = downloadFile(
         path: const StoragePath.fromString('/public/$testKey'),
         localFile: AWSFile.fromPath('file_name.jpg'),
-        options: const StorageDownloadFileOptions(
-          pluginOptions:
-              S3DownloadFilePluginOptions.forIdentity(testTargetIdentity),
-        ),
+        options: const StorageDownloadFileOptions(),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       );
 
       await operation.result;
-
-      final capturedGetPropertiesOptions = verify(
+      verify(
         () => storageS3Service.getProperties(
-          // TODO(Jordan-Nelson): update
-          path: const StoragePath.fromString('key'),
+          path: any<StoragePath>(named: 'path'),
           options: captureAny<StorageGetPropertiesOptions>(
             named: 'options',
           ),
         ),
       ).captured.last;
 
-      expect(
-        capturedGetPropertiesOptions,
-        isA<StorageGetPropertiesOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              testS3pluginConfig.defaultAccessLevel,
-            )
-            .having(
-              (o) => (o.pluginOptions! as S3GetPropertiesPluginOptions)
-                  .targetIdentityId,
-              'targetIdentityId',
-              testTargetIdentity,
-            ),
-      );
-
-      final capturedUrlOptions = verify(
+      verify(
         () => storageS3Service.getUrl(
-          // TODO(Jordan-Nelson): update
-          path: const StoragePath.fromString('key'),
+          path: any<StoragePath>(named: 'path'),
           options: captureAny<StorageGetUrlOptions>(
             named: 'options',
           ),
         ),
       ).captured.last;
-
-      expect(
-        capturedUrlOptions,
-        isA<StorageGetUrlOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              testS3pluginConfig.defaultAccessLevel,
-            )
-            .having(
-              (o) =>
-                  (o.pluginOptions! as S3GetUrlPluginOptions).targetIdentityId,
-              'targetIdentityId',
-              testTargetIdentity,
-            ),
-      );
     });
 
     test(

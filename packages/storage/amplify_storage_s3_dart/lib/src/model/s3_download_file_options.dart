@@ -15,11 +15,9 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
     'use StorageDownloadFileOptions(pluginOptions:S3DownloadFilePluginOptions(...)) instead.',
   )
   const S3DownloadFileOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     bool getProperties = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: accessLevel,
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
@@ -28,7 +26,6 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
     'use StorageDownloadFileOptions(pluginOptions:S3DownloadFilePluginOptions(...)) instead.',
   )
   const S3DownloadFileOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
@@ -47,7 +44,6 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
     bool getProperties = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: StorageAccessLevel.protected,
           targetIdentityId: targetIdentityId,
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,

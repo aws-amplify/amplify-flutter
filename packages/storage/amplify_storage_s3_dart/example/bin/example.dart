@@ -239,9 +239,6 @@ Future<void> downloadDataOperation() async {
 
 Future<void> downloadFileOperation() async {
   final key = prompt('Enter the key of the object to download: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
   final destinationPath = prompt(
     'Enter the destination file path (ensure the file path is writable): ',
   );
@@ -254,7 +251,6 @@ Future<void> downloadFileOperation() async {
     path: StoragePath.fromString(key),
     localFile: localFile,
     options: StorageDownloadFileOptions(
-      accessLevel: accessLevel,
       pluginOptions: S3DownloadFilePluginOptions(
         getProperties: true,
         useAccelerateEndpoint: useAccelerateEndpoint,
