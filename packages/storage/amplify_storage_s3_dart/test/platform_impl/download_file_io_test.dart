@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -45,10 +46,16 @@ void main() {
       registerFallbackValue(
         const StorageDownloadDataOptions(),
       );
+      registerFallbackValue(const StoragePath.fromString('/public/$testKey'));
+      registerFallbackValue(
+        StoragePathWithIdentityId(
+          (identityId) => '/private/$identityId/$testKey',
+        ),
+      );
 
       when(
         () => storageS3Service.downloadData(
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: any(named: 'path'),
           options: any(named: 'options'),
           preStart: any(named: 'preStart'),
           onProgress: any(named: 'onProgress'),
@@ -86,9 +93,7 @@ void main() {
 
       final captureParams = verify(
         () => storageS3Service.downloadData(
-          path: StoragePath.withIdentityId(
-            (identityId) => '/private/$identityId/$testKey',
-          ),
+          path: captureAny<StoragePathWithIdentityId>(named: 'path'),
           options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
@@ -102,8 +107,10 @@ void main() {
         ),
       ).captured;
 
+      final capturedOptions = captureParams[1];
+
       expect(
-        captureParams[0],
+        capturedOptions,
         isA<StorageDownloadDataOptions>()
             .having(
               (o) => o.accessLevel,
@@ -118,14 +125,14 @@ void main() {
             ),
       );
 
-      expect(captureParams[1] is Function, true);
-      preStart = captureParams[1] as FutureOr<void> Function();
       expect(captureParams[2] is Function, true);
-      onProgress = captureParams[2] as void Function(S3TransferProgress);
+      preStart = captureParams[2] as FutureOr<void> Function();
       expect(captureParams[3] is Function, true);
-      onData = captureParams[3] as void Function(List<int>);
+      onProgress = captureParams[3] as void Function(S3TransferProgress);
       expect(captureParams[4] is Function, true);
-      onDone = captureParams[4] as FutureOr<void> Function();
+      onData = captureParams[4] as void Function(List<int>);
+      expect(captureParams[5] is Function, true);
+      onDone = captureParams[5] as FutureOr<void> Function();
 
       final result = await downloadFileOperation.result;
       expect(result.downloadedItem, testItem);
