@@ -33,38 +33,11 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
     super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
     this.bytesRange,
-    this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
 
-  /// {@macro storage.amplify_storage_s3.download_data_options}
-  ///
-  /// Use this when calling `downloadData` on an object that belongs to another
-  /// user (identified by [targetIdentityId]) rather than the currently
-  /// signed-in user.
-  @Deprecated(
-    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
-  )
-  const S3DownloadDataOptions.forIdentity(
-    String targetIdentityId, {
-    bool getProperties = false,
-    S3DataBytesRange? bytesRange,
-    bool useAccelerateEndpoint = false,
-  }) : this._(
-          accessLevel: StorageAccessLevel.protected,
-          targetIdentityId: targetIdentityId,
-          getProperties: getProperties,
-          bytesRange: bytesRange,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
-
   /// The byte range to download from the object.
   final S3DataBytesRange? bytesRange;
-
-  /// The identity ID of another user who uploaded the object.
-  ///
-  /// This can be set by using [S3DownloadDataOptions.forIdentity].
-  final String? targetIdentityId;
 
   /// Whether to retrieve properties for the downloaded object using the
   /// `getProperties` API.

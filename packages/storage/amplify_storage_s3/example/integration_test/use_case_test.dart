@@ -625,9 +625,8 @@ void main() {
               path: StoragePath.withIdentityId(
                 (identityId) => '/protected/$identityId/$testObjectKey2',
               ),
-              options: StorageDownloadDataOptions(
-                pluginOptions: S3DownloadDataPluginOptions.forIdentity(
-                  user1IdentityId,
+              options: const StorageDownloadDataOptions(
+                pluginOptions: S3DownloadDataPluginOptions(
                   getProperties: true,
                 ),
               ),
