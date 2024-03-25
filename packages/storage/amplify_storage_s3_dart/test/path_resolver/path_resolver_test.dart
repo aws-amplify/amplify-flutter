@@ -47,7 +47,7 @@ void main() {
     });
 
     test('should throw if the path starts with a leading "/"', () async {
-      const path = StoragePath.fromString('/foo/bar/picture.png');
+      const path = StoragePath.fromString('foo/bar/picture.png');
       expect(
         () => pathResolver.resolvePath(path: path),
         throwsA(isA<StoragePathValidationException>()),

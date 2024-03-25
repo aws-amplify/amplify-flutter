@@ -87,7 +87,7 @@ void main() {
         'should invoke StorageS3Service.getUrl with converted S3DownloadFilePluginOptions',
         () async {
       final operation = downloadFile(
-        path: const StoragePath.fromString('/public/$testKey'),
+        path: const StoragePath.fromString('public/$testKey'),
         localFile: AWSFile.fromPath('file_name.jpg'),
         options: const StorageDownloadFileOptions(),
         s3pluginConfig: testS3pluginConfig,
@@ -125,7 +125,7 @@ void main() {
       );
       final result = await downloadFile(
         path: StoragePath.withIdentityId(
-          (identityId) => '/private/$identityId/$testKey',
+          (identityId) => 'private/$identityId/$testKey',
         ),
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,

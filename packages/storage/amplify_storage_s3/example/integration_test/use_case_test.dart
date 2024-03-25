@@ -323,7 +323,7 @@ void main() {
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: const StorageDownloadDataOptions(
               pluginOptions: S3DownloadDataPluginOptions(
@@ -343,7 +343,7 @@ void main() {
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: StorageDownloadDataOptions(
               pluginOptions: S3DownloadDataPluginOptions(
@@ -376,7 +376,7 @@ void main() {
             final result = await s3Plugin
                 .downloadFile(
                   path: StoragePath.withIdentityId(
-                    (identityId) => '/private/$identityId/$testObjectKey3',
+                    (identityId) => 'private/$identityId/$testObjectKey3',
                   ),
                   localFile: localFile,
                   options: const StorageDownloadFileOptions(
@@ -643,7 +643,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
               path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',
+                (identityId) => 'private/$identityId/$testObjectKey3',
               ),
               options: const StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions(
@@ -664,7 +664,7 @@ void main() {
               ' for the currently signed in user', (WidgetTester tester) async {
             final result = await Amplify.Storage.copy(
               source: StoragePath.fromString(
-                '/protected/$user1IdentityId/$testObjectKey2',
+                'protected/$user1IdentityId/$testObjectKey2',
               ),
               destination: StoragePath.withIdentityId(
                 (identityId) => 'private/$identityId/$testObjectKey2',

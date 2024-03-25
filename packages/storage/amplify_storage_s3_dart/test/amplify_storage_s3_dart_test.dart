@@ -453,7 +453,7 @@ void main() {
         registerFallbackValue(
           const StorageDownloadDataOptions(),
         );
-        registerFallbackValue(const StoragePath.fromString('/public/$testKey'));
+        registerFallbackValue(const StoragePath.fromString('public/$testKey'));
         registerFallbackValue(
           StoragePathWithIdentityId(
             (identityId) => '/private/$identityId/$testKey',
@@ -470,7 +470,7 @@ void main() {
 
         when(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: defaultOptions,
             preStart: any(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -482,12 +482,12 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
         );
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',
             ),
@@ -529,7 +529,7 @@ void main() {
 
         downloadDataOperation = storageS3Plugin.downloadData(
           path: StoragePath.withIdentityId(
-            (identityId) => '/protected/$identityId/$testKey',
+            (identityId) => 'protected/$identityId/$testKey',
           ),
           options: testOptions,
         );

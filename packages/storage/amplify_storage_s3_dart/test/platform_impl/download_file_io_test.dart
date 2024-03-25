@@ -46,7 +46,7 @@ void main() {
       registerFallbackValue(
         const StorageDownloadDataOptions(),
       );
-      registerFallbackValue(const StoragePath.fromString('/public/$testKey'));
+      registerFallbackValue(const StoragePath.fromString('public/$testKey'));
       registerFallbackValue(
         StoragePathWithIdentityId(
           (identityId) => '/private/$identityId/$testKey',
@@ -79,7 +79,7 @@ void main() {
       );
       final downloadFileOperation = downloadFile(
         path: StoragePath.withIdentityId(
-          (identityId) => '/private/$identityId/$testKey',
+          (identityId) => 'private/$identityId/$testKey',
         ),
         localFile: AWSFile.fromPath(testDestinationPath),
         options: options,
@@ -162,7 +162,7 @@ void main() {
           'when destination path is null is throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           localFile: AWSFile.fromData([101]),
           options: const StorageDownloadFileOptions(
             pluginOptions: S3DownloadFilePluginOptions(),
@@ -177,7 +177,7 @@ void main() {
 
         final capturedPreStart = verify(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: any(named: 'options'),
             preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -194,7 +194,7 @@ void main() {
           'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           localFile: AWSFile.fromPath(Directory.systemTemp.path),
           options: const StorageDownloadFileOptions(
             pluginOptions: S3DownloadFilePluginOptions(),
@@ -209,7 +209,7 @@ void main() {
 
         final capturedPreStart = verify(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: any(named: 'options'),
             preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -232,7 +232,7 @@ void main() {
       when(downloadTask.cancel).thenAnswer((_) async {});
 
       final downloadFileOperation = downloadFile(
-        path: const StoragePath.fromString('/public/$testKey'),
+        path: const StoragePath.fromString('public/$testKey'),
         localFile: AWSFile.fromPath('path'),
         options: const StorageDownloadFileOptions(
           pluginOptions: S3DownloadFilePluginOptions(),
