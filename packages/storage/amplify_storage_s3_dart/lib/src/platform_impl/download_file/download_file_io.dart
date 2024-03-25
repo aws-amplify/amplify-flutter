@@ -7,6 +7,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 
 /// The io implementation of `downloadFile` API.
 @internal
@@ -39,7 +40,10 @@ S3DownloadFileOperation downloadFile({
     preStart: () async {
       destinationPath = await _ensureDestinationWritable(localFile);
       tempFile = File(
-        uuid(),
+        p.join(
+          await appPathProvider.getTemporaryPath(),
+          'amplify_storage_s3_temp_${uuid()}',
+        ),
       );
       sink = tempFile.openWrite(mode: FileMode.append);
     },
