@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -452,6 +453,12 @@ void main() {
         registerFallbackValue(
           const StorageDownloadDataOptions(),
         );
+        registerFallbackValue(const StoragePath.fromString('/public/$testKey'));
+        registerFallbackValue(
+          StoragePathWithIdentityId(
+            (identityId) => '/private/$identityId/$testKey',
+          ),
+        );
       });
 
       test(
@@ -463,7 +470,7 @@ void main() {
 
         when(
           () => storageS3Service.downloadData(
-            key: testKey,
+            path: const StoragePath.fromString('/public/$testKey'),
             options: defaultOptions,
             preStart: any(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -475,12 +482,12 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
-          key: testKey,
+          path: const StoragePath.fromString('/public/$testKey'),
         );
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
-            key: testKey,
+            path: const StoragePath.fromString('/public/$testKey'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',
             ),
@@ -504,7 +511,6 @@ void main() {
       test('should forward options to StorageS3Service.downloadData API',
           () async {
         const testOptions = StorageDownloadDataOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3DownloadDataPluginOptions(
             useAccelerateEndpoint: true,
             getProperties: true,
@@ -513,7 +519,7 @@ void main() {
 
         when(
           () => storageS3Service.downloadData(
-            key: testKey,
+            path: any<StoragePathWithIdentityId>(named: 'path'),
             options: any(named: 'options'),
             onData: any(named: 'onData'),
           ),
@@ -522,13 +528,15 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
-          key: testKey,
+          path: StoragePath.withIdentityId(
+            (identityId) => '/protected/$identityId/$testKey',
+          ),
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
-            key: testKey,
+            path: any<StoragePathWithIdentityId>(named: 'path'),
             onData: any(named: 'onData'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',

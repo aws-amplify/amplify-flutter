@@ -9,12 +9,12 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageDownloadDataRequest {
   /// {@macro amplify_core.storage.download_data_request}
   const StorageDownloadDataRequest({
-    required this.key,
+    required this.path,
     this.options,
   });
 
-  /// Key of the object to download.
-  final String key;
+  /// Path of the object to download.
+  final StoragePath path;
 
   /// Configurable options of the [StorageDownloadDataRequest].
   final StorageDownloadDataOptions? options;

@@ -315,7 +315,7 @@ class StorageS3Service {
   ///
   /// {@macro amplify_storage_s3_dart.download_task.on_done}
   S3DownloadTask downloadData({
-    required String key,
+    required StoragePath path,
     required StorageDownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
@@ -327,11 +327,9 @@ class StorageS3Service {
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
       bucket: _s3PluginConfig.bucket,
-      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
-      key: key,
+      path: path,
       options: options,
-      prefixResolver: _prefixResolver,
-      logger: _logger,
+      pathResolver: _pathResolver,
       onProgress: onProgress,
       onData: onData,
       preStart: preStart,

@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final filepath = '${documentsDir.path}/$key';
     try {
       await Amplify.Storage.downloadFile(
-        key: key,
+        path: StoragePath.fromString(key),
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> downloadFileWeb(String key) async {
     try {
       await Amplify.Storage.downloadFile(
-        key: key,
+        path: StoragePath.fromString(key),
         localFile: AWSFile.fromPath(key),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),

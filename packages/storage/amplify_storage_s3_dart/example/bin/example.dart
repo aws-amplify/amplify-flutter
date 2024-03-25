@@ -207,7 +207,7 @@ Future<void> downloadDataOperation() async {
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final downloadDataOperation = s3Plugin.downloadData(
-    key: key,
+    path: StoragePath.fromString(key),
     options: StorageDownloadDataOptions(
       accessLevel: accessLevel,
       pluginOptions: const S3DownloadDataPluginOptions(
@@ -239,9 +239,6 @@ Future<void> downloadDataOperation() async {
 
 Future<void> downloadFileOperation() async {
   final key = prompt('Enter the key of the object to download: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
   final destinationPath = prompt(
     'Enter the destination file path (ensure the file path is writable): ',
   );
@@ -251,10 +248,9 @@ Future<void> downloadFileOperation() async {
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final downloadFileOperation = s3Plugin.downloadFile(
-    key: key,
+    path: StoragePath.fromString(key),
     localFile: localFile,
     options: StorageDownloadFileOptions(
-      accessLevel: accessLevel,
       pluginOptions: S3DownloadFilePluginOptions(
         getProperties: true,
         useAccelerateEndpoint: useAccelerateEndpoint,

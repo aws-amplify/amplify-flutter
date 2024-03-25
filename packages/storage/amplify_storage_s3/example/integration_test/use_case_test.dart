@@ -64,11 +64,10 @@ void main() {
   const testObjectFileName2 = 'user1Protected.jpg';
   const testObjectFileName3 = 'user1Private.large';
 
-  for (final entry in amplifyEnvironments.entries) {
-    group(
-        // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
-        skip: entry.key != 'main',
-        '[Environment ${entry.key}]', () {
+  // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
+  for (final entry in amplifyEnvironments.entries
+      .where((element) => element.key == 'main')) {
+    group('[Environment ${entry.key}]', () {
       S3PrefixResolver? prefixResolver;
       late String user1IdentityId;
       late String object1Etag;
@@ -320,13 +319,13 @@ void main() {
         });
 
         testWidgets(
-            skip: true,
             'download object as bytes data in memory with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
-            key: testObjectKey3,
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testObjectKey3',
+            ),
             options: const StorageDownloadDataOptions(
-              accessLevel: StorageAccessLevel.private,
               pluginOptions: S3DownloadDataPluginOptions(
                 getProperties: true,
               ),
@@ -338,15 +337,15 @@ void main() {
         });
 
         testWidgets(
-            skip: true,
             'download a range of bytes of an object with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
           const start = 5 * 1024;
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
-            key: testObjectKey3,
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/$testObjectKey3',
+            ),
             options: StorageDownloadDataOptions(
-              accessLevel: StorageAccessLevel.private,
               pluginOptions: S3DownloadDataPluginOptions(
                 getProperties: true,
                 bytesRange: S3DataBytesRange(
@@ -366,7 +365,6 @@ void main() {
         });
 
         testWidgets(
-          skip: true,
           'download file with access level private for the currently signed in user',
           (WidgetTester tester) async {
             final s3Plugin =
@@ -377,10 +375,11 @@ void main() {
 
             final result = await s3Plugin
                 .downloadFile(
-                  key: testObjectKey3,
+                  path: StoragePath.withIdentityId(
+                    (identityId) => '/private/$identityId/$testObjectKey3',
+                  ),
                   localFile: localFile,
                   options: const StorageDownloadFileOptions(
-                    accessLevel: StorageAccessLevel.private,
                     pluginOptions: S3DownloadFilePluginOptions(
                       getProperties: true,
                     ),
@@ -396,8 +395,7 @@ void main() {
           },
           // Web download relies on getUrl which has been covered in the getUrl
           // integration test run.
-          // TODO(khatruong2009): Re-enable this test after download apis completed.
-          // skip: zIsWeb,
+          skip: zIsWeb,
         );
 
         testWidgets(
@@ -618,16 +616,15 @@ void main() {
           });
 
           testWidgets(
-              skip: true,
               'download data of object with access level protected and a target'
               ' identity id for the currently signed user',
               (WidgetTester tester) async {
             final result = await Amplify.Storage.downloadData(
-              key: testObjectKey2,
-              options: StorageDownloadDataOptions(
-                accessLevel: StorageAccessLevel.protected,
-                pluginOptions: S3DownloadDataPluginOptions.forIdentity(
-                  user1IdentityId,
+              path: StoragePath.fromString(
+                '/protected/$user1IdentityId/$testObjectKey2',
+              ),
+              options: const StorageDownloadDataOptions(
+                pluginOptions: S3DownloadDataPluginOptions(
                   getProperties: true,
                 ),
               ),
@@ -637,14 +634,14 @@ void main() {
           });
 
           testWidgets(
-              skip: true,
               'download data of object (belongs to other user) with access level'
               ' private for the currently signed user',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
-              key: testObjectKey3,
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/$testObjectKey3',
+              ),
               options: const StorageDownloadDataOptions(
-                accessLevel: StorageAccessLevel.private,
                 pluginOptions: S3DownloadDataPluginOptions(
                   getProperties: true,
                 ),
