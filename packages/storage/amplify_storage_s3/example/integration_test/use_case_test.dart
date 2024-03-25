@@ -622,8 +622,8 @@ void main() {
               ' identity id for the currently signed user',
               (WidgetTester tester) async {
             final result = await Amplify.Storage.downloadData(
-              path: StoragePath.withIdentityId(
-                (identityId) => '/protected/$identityId/$testObjectKey2',
+              path: StoragePath.fromString(
+                '/protected/$user1IdentityId/$testObjectKey2',
               ),
               options: const StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions(
