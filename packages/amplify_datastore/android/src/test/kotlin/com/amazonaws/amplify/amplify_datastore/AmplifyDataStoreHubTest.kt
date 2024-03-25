@@ -64,8 +64,6 @@ class AmplifyDataStoreHubTest {
         val modelProvider = FlutterModelProvider.instance
         modelProvider.addModelSchema("Post", postSchema)
         modelSchema = flutterPlugin.modelProvider.modelSchemas()["Post"]!!
-        setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
-        `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
     }
 
     @Test

@@ -50,6 +50,7 @@ import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreConflictHandler
 import com.amplifyframework.datastore.DataStoreErrorHandler
 import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.datastore.DataStorePlugin
 import com.amplifyframework.util.UserAgent
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
@@ -86,7 +87,7 @@ class AmplifyDataStorePlugin :
 
     private val dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler
     private val dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler
-    private val uiThreadHandler = Handler(Looper.getMainLooper())
+    private val uiThreadHandler: Handler
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     private var isSettingUpObserve = AtomicBoolean()
     private var nativeAuthPlugin: NativeAuthPlugin? = null
@@ -113,10 +114,15 @@ class AmplifyDataStorePlugin :
     }
 
     val modelProvider = FlutterModelProvider.instance
+    val _injectedPlugin: AWSDataStorePlugin?
+    val dataStorePlugin: AWSDataStorePlugin
+        get() = _injectedPlugin ?: Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
 
     constructor() {
         dataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler()
         dataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler()
+        _injectedPlugin = null
+        uiThreadHandler = Handler(Looper.getMainLooper())
     }
 
     @VisibleForTesting
@@ -126,6 +132,19 @@ class AmplifyDataStorePlugin :
     ) {
         dataStoreObserveEventStreamHandler = eventHandler
         dataStoreHubEventStreamHandler = hubEventHandler
+        _injectedPlugin = null
+        uiThreadHandler = Handler(Looper.getMainLooper())
+    }
+    internal constructor(
+        dataStorePlugin: AWSDataStorePlugin,
+        uiThreadHandler: Handler,
+        eventHandler: DataStoreObserveEventStreamHandler,
+        hubEventHandler: DataStoreHubEventStreamHandler
+    ) {
+        dataStoreObserveEventStreamHandler = eventHandler
+        dataStoreHubEventStreamHandler = hubEventHandler
+        this._injectedPlugin = dataStorePlugin
+        this.uiThreadHandler = uiThreadHandler
     }
 
     override fun onAttachedToEngine(
@@ -299,7 +318,7 @@ class AmplifyDataStorePlugin :
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
         plugin.query(
             modelName,
             queryOptions,
@@ -312,6 +331,7 @@ class AmplifyDataStorePlugin :
                     LOG.debug("Number of items received " + results.size)
 
                     uiThreadHandler.post { flutterResult.success(results) }
+//                    flutterResult.success(results)
                 } catch (e: Exception) {
                     uiThreadHandler.post {
                         postExceptionToFlutterChannel(
@@ -362,7 +382,7 @@ class AmplifyDataStorePlugin :
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
 
         val instance = SerializedModel.builder()
             .modelSchema(schema)
@@ -420,7 +440,7 @@ class AmplifyDataStorePlugin :
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
 
         val serializedModel = SerializedModel.builder()
             .modelSchema(schema)
@@ -448,7 +468,7 @@ class AmplifyDataStorePlugin :
     }
 
     fun onClear(flutterResult: Result) {
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
 
         plugin.clear(
             {
@@ -474,7 +494,7 @@ class AmplifyDataStorePlugin :
             return
         }
 
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
         plugin.observe(
             { cancelable ->
                 LOG.info("Established a new stream form flutter $cancelable")
@@ -511,7 +531,7 @@ class AmplifyDataStorePlugin :
 
     @VisibleForTesting
     fun onStart(flutterResult: Result) {
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
 
         plugin.start(
             {
@@ -535,7 +555,7 @@ class AmplifyDataStorePlugin :
 
     @VisibleForTesting
     fun onStop(flutterResult: Result) {
-        val plugin = Amplify.DataStore.getPlugin("awsDataStorePlugin") as AWSDataStorePlugin
+        val plugin = dataStorePlugin
 
         plugin.stop(
             {

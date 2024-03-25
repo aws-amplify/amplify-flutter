@@ -3,6 +3,8 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import android.os.Handler
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.api.aws.AuthModeStrategyType
@@ -29,6 +31,7 @@ import com.amplifyframework.datastore.DataStoreItemChange
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
@@ -45,17 +48,21 @@ import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var flutterPlugin: AmplifyDataStorePlugin
     private lateinit var modelSchema: ModelSchema
     private lateinit var amplifySuccessResults: MutableList<SerializedModel>
 
     private var mockDataStore = mock(DataStoreCategory::class.java)
+    private var mockThreadHandler = mock(Handler::class.java)
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockStreamHandler: DataStoreObserveEventStreamHandler =
@@ -64,7 +71,8 @@ class AmplifyDataStorePluginTest {
         mock(DataStoreHubEventStreamHandler::class.java)
     private val dataStoreException =
         DataStoreException("Some useful exception message", "Some useful recovery message")
-    private val dataStoreObserveStartFailure = DataStoreException("Failed to start DataStore.", "Retry")
+    private val dataStoreObserveStartFailure =
+        DataStoreException("Failed to start DataStore.", "Retry")
     private val mockModelSchemas = mutableListOf(
         mapOf(
             "name" to "Post",
@@ -84,14 +92,15 @@ class AmplifyDataStorePluginTest {
         )
     )
 
-    private val mockDataStorePluginBuilder = mock(AWSDataStorePlugin.Builder::class.java, RETURNS_SELF)
+    private val mockDataStorePluginBuilder =
+        mock(AWSDataStorePlugin.Builder::class.java, RETURNS_SELF)
     private val defaultDataStoreConfiguration = DataStoreConfiguration.defaults()
     private val mockDataStoreConfigurationBuilder =
         mock(DataStoreConfiguration.Builder::class.java, RETURNS_SELF)
 
     @Before
     fun setup() {
-        flutterPlugin = AmplifyDataStorePlugin()
+        flutterPlugin = AmplifyDataStorePlugin(mockAmplifyDataStorePlugin, mockThreadHandler, mockStreamHandler, mockHubHandler)
         val modelProvider = FlutterModelProvider.instance
         modelProvider.addModelSchema("Post", postSchema)
         modelProvider.addModelSchema("Blog", blogSchema)
@@ -127,8 +136,10 @@ class AmplifyDataStorePluginTest {
                 )
                 .build()
         )
-        setFinalStatic(Amplify::class.java.getDeclaredField("DataStore"), mockDataStore)
-        `when`(mockDataStore.getPlugin("awsDataStorePlugin")).thenReturn(mockAmplifyDataStorePlugin)
+        `when`(mockThreadHandler.post(any(Runnable::class.java))).thenAnswer {
+            (it.arguments[0] as Runnable).run()
+            true
+        }
     }
 
     @Test
@@ -160,7 +171,10 @@ class AmplifyDataStorePluginTest {
             verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(
                 defaultDataStoreConfiguration.syncPageSize
             )
-            verify(mockDataStoreConfigurationBuilder, never()).syncExpression(anyString(), any())
+            verify(mockDataStoreConfigurationBuilder, never()).syncExpression(
+                anyString(),
+                any()
+            )
             verify(mockDataStorePluginBuilder, times(1)).authModeStrategy(authModeStrategy)
         }
         mockDataStorePlugin.close()
@@ -195,7 +209,9 @@ class AmplifyDataStorePluginTest {
                 mockDataStoreConfigurationBuilder,
                 times(1)
             ).syncInterval(mockSyncInterval.toLong(), TimeUnit.MINUTES)
-            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(mockSyncMaxRecords)
+            verify(mockDataStoreConfigurationBuilder, times(1)).syncMaxRecords(
+                mockSyncMaxRecords
+            )
             verify(mockDataStoreConfigurationBuilder, times(1)).syncPageSize(mockSyncPageSize)
             verify(mockDataStorePluginBuilder, times(1)).authModeStrategy(authModeStrategy)
         }
@@ -281,7 +297,7 @@ class AmplifyDataStorePluginTest {
                 HashMap::class.java
             ) as HashMap<String, Any>
         )
-        verify(mockResult, times(1)).success(
+        verify(mockResult).success(
             readMapFromFile(
                 "query_api",
                 "response/2_results.json",
@@ -595,11 +611,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_set_up_success() {
-        flutterPlugin = AmplifyDataStorePlugin(
-            eventHandler = mockStreamHandler,
-            hubEventHandler = mockHubHandler
-        )
-
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[0] as Consumer<Cancelable>).accept(
                 Cancelable { }
@@ -619,11 +630,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_set_up_failure() {
-        flutterPlugin = AmplifyDataStorePlugin(
-            eventHandler = mockStreamHandler,
-            hubEventHandler = mockHubHandler
-        )
-
         doAnswer { invocation: InvocationOnMock ->
             (invocation.arguments[2] as Consumer<DataStoreException>).accept(
                 dataStoreObserveStartFailure
@@ -643,10 +649,6 @@ class AmplifyDataStorePluginTest {
 
     @Test
     fun test_observe_success_event() {
-        flutterPlugin = AmplifyDataStorePlugin(
-            eventHandler = mockStreamHandler,
-            hubEventHandler = mockHubHandler
-        )
         val eventData: HashMap<String, Any> = (
             readMapFromFile(
                 "observe_api",
@@ -835,29 +837,40 @@ class AmplifyDataStorePluginTest {
             )
         )
 
-        val deserializedResult = flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema)
+        val deserializedResult =
+            flutterPlugin.deserializeNestedModel(serializedPersonData, personSchema)
         assertEquals(deserializedResult["id"], serializedPersonData["id"])
         assertEquals(deserializedResult["name"], serializedPersonData["name"])
 
         assert(deserializedResult["contact"] is SerializedCustomType)
         val serializedContactData = serializedPersonData["contact"] as Map<*, *>
-        val deserializedContactData = (deserializedResult["contact"] as SerializedCustomType).serializedData
+        val deserializedContactData =
+            (deserializedResult["contact"] as SerializedCustomType).serializedData
         assertEquals(deserializedContactData["email"], serializedContactData["email"])
         assert(deserializedContactData["phone"] is SerializedCustomType)
         val serializedPhoneData = serializedContactData["phone"] as Map<*, *>
-        val deserializedPhoneData = (deserializedContactData["phone"] as SerializedCustomType).serializedData
+        val deserializedPhoneData =
+            (deserializedContactData["phone"] as SerializedCustomType).serializedData
         assertEquals(deserializedPhoneData, serializedPhoneData)
         assert(deserializedContactData["mailingAddresses"] is List<*>)
-        val serializedMailingAddressesData = serializedContactData["mailingAddresses"] as List<Map<*, *>>
-        val deserializedMailingAddressesData = deserializedContactData["mailingAddresses"] as List<SerializedCustomType>
-        val flatDeserializedMailingAddressesData = deserializedMailingAddressesData.map { it.serializedData }
-        assertEquals(flatDeserializedMailingAddressesData as List<*>, serializedMailingAddressesData as List<*>)
+        val serializedMailingAddressesData =
+            serializedContactData["mailingAddresses"] as List<Map<*, *>>
+        val deserializedMailingAddressesData =
+            deserializedContactData["mailingAddresses"] as List<SerializedCustomType>
+        val flatDeserializedMailingAddressesData =
+            deserializedMailingAddressesData.map { it.serializedData }
+        assertEquals(
+            flatDeserializedMailingAddressesData as List<*>,
+            serializedMailingAddressesData as List<*>
+        )
 
         assert(deserializedResult["propertiesAddresses"] is List<*>)
-        val serializedPropertiesAddressesData = serializedPersonData["propertiesAddresses"] as List<Map<*, *>>
+        val serializedPropertiesAddressesData =
+            serializedPersonData["propertiesAddresses"] as List<Map<*, *>>
         val deserializedPropertiesAddressesData =
             deserializedResult["propertiesAddresses"] as List<SerializedCustomType>
-        val flatDeserializedPropertiesAddressesData = deserializedPropertiesAddressesData.map { it.serializedData }
+        val flatDeserializedPropertiesAddressesData =
+            deserializedPropertiesAddressesData.map { it.serializedData }
         assertEquals(flatDeserializedPropertiesAddressesData, serializedPropertiesAddressesData)
     }
 
@@ -929,13 +942,5 @@ class AmplifyDataStorePluginTest {
                 "recoverySuggestion" to "Some useful recovery message"
             )
         )
-    }
-
-    private fun setFinalStatic(field: Field, newValue: Any?) {
-        field.isAccessible = true
-        val modifiersField: Field = Field::class.java.getDeclaredField("modifiers")
-        modifiersField.isAccessible = true
-        modifiersField.setInt(field, field.modifiers and Modifier.FINAL.inv())
-        field.set(null, newValue)
     }
 }
