@@ -64,11 +64,10 @@ void main() {
   const testObjectFileName2 = 'user1Protected.jpg';
   const testObjectFileName3 = 'user1Private.large';
 
-  for (final entry in amplifyEnvironments.entries) {
-    group(
-        // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
-        skip: entry.key != 'main',
-        '[Environment ${entry.key}]', () {
+  // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
+  for (final entry in amplifyEnvironments.entries
+      .where((element) => element.key == 'main')) {
+    group('[Environment ${entry.key}]', () {
       S3PrefixResolver? prefixResolver;
       late String user1IdentityId;
       late String object1Etag;
