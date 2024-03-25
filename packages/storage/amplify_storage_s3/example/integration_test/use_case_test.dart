@@ -396,8 +396,7 @@ void main() {
           },
           // Web download relies on getUrl which has been covered in the getUrl
           // integration test run.
-          // TODO(khatruong2009): Re-enable this test after download apis completed.
-          // skip: zIsWeb,
+          skip: zIsWeb,
         );
 
         testWidgets(
