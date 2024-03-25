@@ -766,7 +766,11 @@ void main() {
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
               paths: uploadedKeys
-                  .map((key) => StoragePath.fromString('private/$key'))
+                  .map(
+                    (key) => StoragePath.withIdentityId(
+                      (identityId) => 'private/$identityId/$key',
+                    ),
+                  )
                   .toList(),
             ).result;
           });

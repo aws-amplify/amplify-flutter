@@ -39,7 +39,11 @@ void testContentTypeInferTest({
     tearDownAll(() async {
       await Amplify.Storage.removeMany(
         paths: testUploadKeys
-            .map((key) => StoragePath.fromString('private/$key'))
+            .map(
+              (key) => StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/$key',
+              ),
+            )
             .toList(),
       ).result;
     });
@@ -53,7 +57,9 @@ void testContentTypeInferTest({
         final result = await s3Plugin
             .uploadFile(
               localFile: file,
-              path: StoragePath.fromString('private/${testUploadKeys[index]}'),
+              path: StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/${testUploadKeys[index]}',
+              ),
               options: const StorageUploadFileOptions(
                 pluginOptions: S3UploadFilePluginOptions(
                   getProperties: true,

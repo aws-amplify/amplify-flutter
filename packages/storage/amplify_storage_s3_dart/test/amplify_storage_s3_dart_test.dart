@@ -456,7 +456,7 @@ void main() {
         registerFallbackValue(const StoragePath.fromString('public/$testKey'));
         registerFallbackValue(
           StoragePathWithIdentityId(
-            (identityId) => '/private/$identityId/$testKey',
+            (identityId) => 'private/$identityId/$testKey',
           ),
         );
       });
