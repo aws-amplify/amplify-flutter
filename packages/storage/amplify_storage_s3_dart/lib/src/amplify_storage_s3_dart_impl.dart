@@ -222,7 +222,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3DownloadDataOperation downloadData({
-    required String key,
+    required StoragePath path,
     StorageDownloadDataOptions? options,
     void Function(S3TransferProgress)? onProgress,
   }) {
@@ -232,13 +232,12 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageDownloadDataOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
     final bytes = BytesBuilder();
     final downloadTask = storageS3Service.downloadData(
-      key: key,
+      path: path,
       options: s3Options,
       onProgress: onProgress,
       onData: bytes.add,
@@ -246,7 +245,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3DownloadDataOperation(
       request: StorageDownloadDataRequest(
-        key: key,
+        path: path,
         options: options,
       ),
       result: downloadTask.result.then(
@@ -263,7 +262,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3DownloadFileOperation downloadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(S3TransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
@@ -273,11 +272,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       defaultPluginOptions: const S3DownloadFilePluginOptions(),
     );
     options = StorageDownloadFileOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
     return download_file_impl.downloadFile(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
       s3pluginConfig: s3pluginConfig,

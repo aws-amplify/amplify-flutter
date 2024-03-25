@@ -9,13 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageDownloadFileRequest {
   /// {@macro amplify_core.storage.download_file_request}
   const StorageDownloadFileRequest({
-    required this.key,
+    required this.path,
     required this.localFile,
     this.options,
   });
 
-  /// Key of the object to download.
-  final String key;
+  /// Path of the object to download.
+  final StoragePath path;
 
   /// Reference to the local file that download the object to.
   final AWSFile localFile;

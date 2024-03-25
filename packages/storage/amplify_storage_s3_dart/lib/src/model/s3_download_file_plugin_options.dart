@@ -21,33 +21,12 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
 
   const S3DownloadFilePluginOptions._({
     this.getProperties = false,
-    this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
 
   /// {@macro storage.amplify_storage_s3.download_file_plugin_options}
-  ///
-  /// Use this when calling `downloadFile` on an object that belongs to other
-  /// user (identified by [targetIdentityId]) rather than the currently signed
-  /// user.
-  const S3DownloadFilePluginOptions.forIdentity(
-    String targetIdentityId, {
-    bool getProperties = false,
-    bool useAccelerateEndpoint = false,
-  }) : this._(
-          targetIdentityId: targetIdentityId,
-          getProperties: getProperties,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
-
-  /// {@macro storage.amplify_storage_s3.download_file_plugin_options}
   factory S3DownloadFilePluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3DownloadFilePluginOptionsFromJson(json);
-
-  /// The identity ID of the user who uploaded the object.
-  ///
-  /// This can be set by using [S3DownloadFilePluginOptions.forIdentity].
-  final String? targetIdentityId;
 
   /// Whether to retrieve properties for the downloaded object using the
   /// `getProperties` API.
@@ -60,7 +39,6 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
   List<Object?> get props => [
         getProperties,
         useAccelerateEndpoint,
-        targetIdentityId,
       ];
 
   @override
