@@ -14,7 +14,7 @@ import 'test_utils/test_custom_prefix_resolver.dart';
 import 'test_utils/test_path_resolver.dart';
 import 'test_utils/test_token_provider.dart';
 
-const testPath = StoragePath.fromString('/some/path.txt');
+const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
@@ -453,10 +453,10 @@ void main() {
         registerFallbackValue(
           const StorageDownloadDataOptions(),
         );
-        registerFallbackValue(const StoragePath.fromString('/public/$testKey'));
+        registerFallbackValue(const StoragePath.fromString('public/$testKey'));
         registerFallbackValue(
           StoragePathWithIdentityId(
-            (identityId) => '/private/$identityId/$testKey',
+            (identityId) => 'private/$identityId/$testKey',
           ),
         );
       });
@@ -470,7 +470,7 @@ void main() {
 
         when(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: defaultOptions,
             preStart: any(named: 'preStart'),
             onProgress: any(named: 'onProgress'),
@@ -482,12 +482,12 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
         );
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',
             ),
@@ -529,7 +529,7 @@ void main() {
 
         downloadDataOperation = storageS3Plugin.downloadData(
           path: StoragePath.withIdentityId(
-            (identityId) => '/protected/$identityId/$testKey',
+            (identityId) => 'protected/$identityId/$testKey',
           ),
           options: testOptions,
         );
@@ -921,9 +921,9 @@ void main() {
     });
 
     group('copy() API', () {
-      const testSource = StoragePath.fromString('/public/source-key');
+      const testSource = StoragePath.fromString('public/source-key');
       final testDestination = StoragePath.withIdentityId(
-        (identityId) => '/protected/$identityId/destination-key',
+        (identityId) => 'protected/$identityId/destination-key',
       );
 
       final testResult = S3CopyResult(
@@ -933,7 +933,7 @@ void main() {
       setUpAll(() {
         registerFallbackValue(const StorageCopyOptions());
         registerFallbackValue(
-          const StoragePath.fromString('/public/source-key'),
+          const StoragePath.fromString('public/source-key'),
         );
       });
 
@@ -1013,16 +1013,16 @@ void main() {
         );
         when(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: defaultOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeOperation = storageS3Plugin.remove(key: testKey);
+        final removeOperation = storageS3Plugin.remove(path: testPath);
 
         final capturedOptions = verify(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageRemoveOptions>(
               named: 'options',
             ),
@@ -1043,25 +1043,24 @@ void main() {
 
       test('should forward options to StorageS3Service.remove() API', () async {
         const testOptions = StorageRemoveOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3RemovePluginOptions(),
         );
 
         when(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: any(named: 'options'),
           ),
         ).thenAnswer((_) async => testResult);
 
         final removeOperation = storageS3Plugin.remove(
-          key: testKey,
+          path: testPath,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.remove(
-            key: testKey,
+            path: testPath,
             options: captureAny<StorageRemoveOptions>(
               named: 'options',
             ),
@@ -1086,6 +1085,7 @@ void main() {
         20,
         (index) => 'object-to-remove-${index + 1}',
       );
+      final testPaths = testKeys.map(StoragePath.fromString).toList();
       final resultRemoveItems =
           testKeys.map((key) => S3Item(key: key)).toList();
       final testResult = S3RemoveManyResult(
@@ -1107,16 +1107,17 @@ void main() {
 
         when(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: defaultOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
-        final removeManyOperation = storageS3Plugin.removeMany(keys: testKeys);
+        final removeManyOperation =
+            storageS3Plugin.removeMany(paths: testPaths);
 
         final capturedOptions = verify(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: captureAny(named: 'options'),
           ),
         ).captured.last;
@@ -1136,25 +1137,24 @@ void main() {
       test('should forward options to StorageS3Service.removeMany() API',
           () async {
         const testOptions = StorageRemoveManyOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3RemoveManyPluginOptions(),
         );
 
         when(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: testOptions,
           ),
         ).thenAnswer((_) async => testResult);
 
         final removeManyOperation = storageS3Plugin.removeMany(
-          keys: testKeys,
+          paths: testPaths,
           options: testOptions,
         );
 
         final capturedOptions = verify(
           () => storageS3Service.removeMany(
-            keys: testKeys,
+            paths: testPaths,
             options: captureAny(named: 'options'),
           ),
         ).captured.last;

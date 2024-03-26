@@ -162,7 +162,7 @@ void main() {
                   testBytes,
                   contentType: testContentType,
                 ),
-                path: StoragePath.fromString('/public/$testObjectKey1'),
+                path: StoragePath.fromString('public/$testObjectKey1'),
                 options: const StorageUploadDataOptions(
                   metadata: {
                     'filename': testObjectFileName1,
@@ -212,7 +212,7 @@ void main() {
               .uploadData(
                 data: S3DataPayload.dataUrl(testDataUrl),
                 path: StoragePath.withIdentityId(
-                  (identityId) => '/protected/$identityId/$testObjectKey2',
+                  (identityId) => 'protected/$identityId/$testObjectKey2',
                 ),
                 options: const StorageUploadDataOptions(
                   metadata: {
@@ -251,7 +251,7 @@ void main() {
               .uploadFile(
                 localFile: AWSFile.fromData(testLargeFileBytes),
                 path: StoragePath.withIdentityId(
-                  (identityId) => '/private/$identityId/$testObjectKey3',
+                  (identityId) => 'private/$identityId/$testObjectKey3',
                 ),
                 options: const StorageUploadFileOptions(
                   metadata: {
@@ -287,7 +287,7 @@ void main() {
             ' currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.getUrl(
             path: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: const StorageGetUrlOptions(
               pluginOptions: S3GetUrlPluginOptions(
@@ -305,7 +305,7 @@ void main() {
             (WidgetTester tester) async {
           final result = Amplify.Storage.getUrl(
             path: const StoragePath.fromString(
-              '/public/random/non-existent/object.png',
+              'public/random/non-existent/object.png',
             ),
             options: const StorageGetUrlOptions(
               pluginOptions: S3GetUrlPluginOptions(
@@ -323,7 +323,7 @@ void main() {
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: const StorageDownloadDataOptions(
               pluginOptions: S3DownloadDataPluginOptions(
@@ -343,7 +343,7 @@ void main() {
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
             path: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: StorageDownloadDataOptions(
               pluginOptions: S3DownloadDataPluginOptions(
@@ -376,7 +376,7 @@ void main() {
             final result = await s3Plugin
                 .downloadFile(
                   path: StoragePath.withIdentityId(
-                    (identityId) => '/private/$identityId/$testObjectKey3',
+                    (identityId) => 'private/$identityId/$testObjectKey3',
                   ),
                   localFile: localFile,
                   options: const StorageDownloadFileOptions(
@@ -404,10 +404,10 @@ void main() {
             (WidgetTester tester) async {
           final result = await Amplify.Storage.copy(
             source: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObjectKey3',
+              (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             destination: StoragePath.withIdentityId(
-              (identityId) => '/private/$identityId/$testObject3CopyKey',
+              (identityId) => 'private/$identityId/$testObject3CopyKey',
             ),
             options: const StorageCopyOptions(
               pluginOptions: S3CopyPluginOptions(
@@ -424,13 +424,15 @@ void main() {
             'delete object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.remove(
-            key: testObject3CopyMoveKey,
-            options: const StorageRemoveOptions(
-              accessLevel: StorageAccessLevel.private,
+            path: StoragePath.withIdentityId(
+              (id) => 'private/$id/$testObject3CopyMoveKey',
             ),
           ).result;
 
-          expect(result.removedItem.key, testObject3CopyMoveKey);
+          expect(
+            result.removedItem.path.endsWith(testObject3CopyMoveKey),
+            isTrue,
+          );
         });
 
         group(skip: true, 'content type infer', () {
@@ -483,7 +485,7 @@ void main() {
                   testBytes,
                   contentType: testContentType,
                 ),
-                path: StoragePath.fromString('/public/$objectKey'),
+                path: StoragePath.fromString('public/$objectKey'),
                 options: StorageUploadDataOptions(
                   metadata: testMetadata,
                   pluginOptions: const S3UploadDataPluginOptions(
@@ -510,7 +512,9 @@ void main() {
 
           expect(metadata, equals(testMetadata));
 
-          await s3Plugin.remove(key: objectKey).result;
+          await s3Plugin
+              .remove(path: StoragePath.fromString('public/$objectKey'))
+              .result;
         });
       });
 
@@ -531,7 +535,7 @@ void main() {
           testWidgets('get properties of object with access level guest',
               (WidgetTester tester) async {
             final result = await Amplify.Storage.getProperties(
-              path: StoragePath.fromString('/public/$testObjectKey1'),
+              path: StoragePath.fromString('public/$testObjectKey1'),
             ).result;
 
             expect(result.storageItem.eTag, object1Etag);
@@ -542,7 +546,7 @@ void main() {
               (WidgetTester tester) async {
             final result = await Amplify.Storage.getProperties(
               path: StoragePath.fromString(
-                '/protected/$user1IdentityId/$testObjectKey2',
+                'protected/$user1IdentityId/$testObjectKey2',
               ),
             ).result;
 
@@ -555,7 +559,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getProperties(
               path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',
+                (identityId) => 'private/$identityId/$testObjectKey3',
               ),
             );
 
@@ -568,7 +572,7 @@ void main() {
           testWidgets('get url of object with access level guest',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
-              path: StoragePath.fromString('/public/$testObjectKey1'),
+              path: StoragePath.fromString('public/$testObjectKey1'),
               options: const StorageGetUrlOptions(
                 pluginOptions: S3GetUrlPluginOptions(
                   validateObjectExistence: true,
@@ -584,7 +588,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
               path: StoragePath.withIdentityId(
-                (identityId) => '/protected/$identityId/$testObjectKey2',
+                (identityId) => 'protected/$identityId/$testObjectKey2',
               ),
               options: const StorageGetUrlOptions(
                 pluginOptions: S3GetUrlPluginOptions(),
@@ -600,7 +604,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
               path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',
+                (identityId) => 'private/$identityId/$testObjectKey3',
               ),
               options: const StorageGetUrlOptions(
                 pluginOptions: S3GetUrlPluginOptions(
@@ -621,7 +625,7 @@ void main() {
               (WidgetTester tester) async {
             final result = await Amplify.Storage.downloadData(
               path: StoragePath.fromString(
-                '/protected/$user1IdentityId/$testObjectKey2',
+                'protected/$user1IdentityId/$testObjectKey2',
               ),
               options: const StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions(
@@ -639,7 +643,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
               path: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey3',
+                (identityId) => 'private/$identityId/$testObjectKey3',
               ),
               options: const StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions(
@@ -660,10 +664,10 @@ void main() {
               ' for the currently signed in user', (WidgetTester tester) async {
             final result = await Amplify.Storage.copy(
               source: StoragePath.fromString(
-                '/protected/$user1IdentityId/$testObjectKey2',
+                'protected/$user1IdentityId/$testObjectKey2',
               ),
               destination: StoragePath.withIdentityId(
-                (identityId) => '/private/$identityId/$testObjectKey2',
+                (identityId) => 'private/$identityId/$testObjectKey2',
               ),
               options: const StorageCopyOptions(
                 pluginOptions: S3CopyPluginOptions(
@@ -691,7 +695,7 @@ void main() {
                   testBytes,
                   contentType: 'text/plain',
                 ),
-                path: StoragePath.fromString('/private/$fileKey'),
+                path: StoragePath.fromString('private/$fileKey'),
                 options: StorageUploadDataOptions(
                   metadata: {
                     'filename': fileNameTemp,
@@ -711,10 +715,13 @@ void main() {
             expect(listResult.items.length, filesToList);
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
-              keys: uploadedKeys,
-              options: const StorageRemoveManyOptions(
-                accessLevel: accessLevel,
-              ),
+              paths: uploadedKeys
+                  .map(
+                    (key) => StoragePath.withIdentityId(
+                      (identityId) => 'private/$identityId/$key',
+                    ),
+                  )
+                  .toList(),
             ).result;
           });
 
@@ -735,7 +742,9 @@ void main() {
                   testBytes,
                   contentType: 'text/plain',
                 ),
-                path: StoragePath.fromString('/private/$fileKey'),
+                path: StoragePath.withIdentityId(
+                  (identityId) => 'private/$identityId/$fileKey',
+                ),
                 options: StorageUploadDataOptions(
                   metadata: {
                     'filename': fileNameTemp,
@@ -762,36 +771,46 @@ void main() {
             expect(timesCalled, equals(filesToUpload));
             // Clean up files from this test.
             await Amplify.Storage.removeMany(
-              keys: uploadedKeys,
-              options: const StorageRemoveManyOptions(
-                accessLevel: accessLevel,
-              ),
+              paths: uploadedKeys
+                  .map(
+                    (key) => StoragePath.withIdentityId(
+                      (identityId) => 'private/$identityId/$key',
+                    ),
+                  )
+                  .toList(),
             ).result;
           });
 
           testWidgets(
-              skip: true,
               'remove many objects belongs to the currently signed user',
               (WidgetTester tester) async {
-            final listedObjects = await Amplify.Storage.list(
-              options: const StorageListOptions(
-                accessLevel: StorageAccessLevel.private,
+            final result1 = await Amplify.Storage.uploadData(
+              data: HttpPayload.string('obj1'),
+              path: StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/remove-test/obj1',
               ),
             ).result;
-            expect(listedObjects.items, hasLength(2));
+
+            final result2 = await Amplify.Storage.uploadData(
+              data: HttpPayload.string('obj2'),
+              path: StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/remove-test/obj2',
+              ),
+            ).result;
 
             final result = await Amplify.Storage.removeMany(
-              keys: listedObjects.items.map((item) => item.path).toList(),
-              options: const StorageRemoveManyOptions(
-                accessLevel: StorageAccessLevel.private,
-              ),
+              paths: [
+                StoragePath.fromString(result1.uploadedItem.path),
+                StoragePath.fromString(result2.uploadedItem.path),
+              ],
             ).result;
             expect(result.removedItems, hasLength(2));
             expect(
-              result.removedItems.map((item) => item.key),
-              containsAll(
-                listedObjects.items.map((item) => item.key).toList(),
-              ),
+              result.removedItems.map((item) => item.path),
+              containsAll([
+                result1.uploadedItem.path,
+                result2.uploadedItem.path,
+              ]),
             );
           });
         },
@@ -809,29 +828,35 @@ void main() {
           await Amplify.Auth.signOut();
         });
 
-        testWidgets(
-            skip: true,
-            'remove many objects belongs to the currently signed user',
+        testWidgets('remove many objects belongs to the currently signed user',
             (WidgetTester tester) async {
-          final listedObjects = await Amplify.Storage.list(
-            options: const StorageListOptions(
-              accessLevel: StorageAccessLevel.private,
+          final result1 = await Amplify.Storage.uploadData(
+            data: HttpPayload.string('obj1'),
+            path: StoragePath.withIdentityId(
+              (identityId) => 'private/$identityId/remove-test-user-a/obj1',
             ),
           ).result;
-          expect(listedObjects.items, hasLength(2));
+
+          final result2 = await Amplify.Storage.uploadData(
+            data: HttpPayload.string('obj2'),
+            path: StoragePath.withIdentityId(
+              (identityId) => 'private/$identityId/remove-test-user-a/obj2',
+            ),
+          ).result;
 
           final result = await Amplify.Storage.removeMany(
-            keys: listedObjects.items.map((item) => item.path).toList(),
-            options: const StorageRemoveManyOptions(
-              accessLevel: StorageAccessLevel.private,
-            ),
+            paths: [
+              StoragePath.fromString(result1.uploadedItem.path),
+              StoragePath.fromString(result2.uploadedItem.path),
+            ],
           ).result;
           expect(result.removedItems, hasLength(2));
           expect(
-            result.removedItems.map((item) => item.key),
-            containsAll(
-              listedObjects.items.map((item) => item.key).toList(),
-            ),
+            result.removedItems.map((item) => item.path),
+            containsAll([
+              result1.uploadedItem.path,
+              result2.uploadedItem.path,
+            ]),
           );
         });
       });

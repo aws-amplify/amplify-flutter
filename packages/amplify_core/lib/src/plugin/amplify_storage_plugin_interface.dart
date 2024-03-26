@@ -88,7 +88,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.remove}
   StorageRemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     throw UnimplementedError('remove() has not been implemented.');
@@ -96,7 +96,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.remove_many}
   StorageRemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     throw UnimplementedError('removeMany() has not been implemented.');

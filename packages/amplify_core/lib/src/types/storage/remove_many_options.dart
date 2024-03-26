@@ -14,7 +14,6 @@ class StorageRemoveManyOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.remove_many_options}
   const StorageRemoveManyOptions({
-    super.accessLevel,
     this.pluginOptions,
   });
 
@@ -22,14 +21,13 @@ class StorageRemoveManyOptions extends StorageOperationOptions
   final StorageRemoveManyPluginOptions? pluginOptions;
 
   @override
-  List<Object?> get props => [accessLevel, pluginOptions];
+  List<Object?> get props => [pluginOptions];
 
   @override
   String get runtimeTypeName => 'StorageRemoveManyOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }

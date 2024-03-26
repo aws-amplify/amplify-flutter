@@ -16,9 +16,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final dataPayload in dataPayloads) {
         await Amplify.Storage.remove(
-          key: dataPayload.targetKey,
-          options:
-              StorageRemoveOptions(accessLevel: dataPayload.targetAccessLevel),
+          path: StoragePath.fromString(dataPayload.targetKey),
         ).result;
       }
     });
@@ -94,8 +92,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final awsFile in awsFiles) {
         await Amplify.Storage.remove(
-          key: awsFile.targetKey,
-          options: StorageRemoveOptions(accessLevel: awsFile.targetAccessLevel),
+          path: StoragePath.fromString(awsFile.targetKey),
         ).result;
       }
     });

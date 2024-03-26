@@ -38,10 +38,13 @@ void testContentTypeInferTest({
   group('content type inferring within upload', () {
     tearDownAll(() async {
       await Amplify.Storage.removeMany(
-        keys: testUploadKeys,
-        options: const StorageRemoveManyOptions(
-          accessLevel: StorageAccessLevel.private,
-        ),
+        paths: testUploadKeys
+            .map(
+              (key) => StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/$key',
+              ),
+            )
+            .toList(),
       ).result;
     });
 
@@ -54,7 +57,9 @@ void testContentTypeInferTest({
         final result = await s3Plugin
             .uploadFile(
               localFile: file,
-              path: StoragePath.fromString('/private/${testUploadKeys[index]}'),
+              path: StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/${testUploadKeys[index]}',
+              ),
               options: const StorageUploadFileOptions(
                 pluginOptions: S3UploadFilePluginOptions(
                   getProperties: true,
