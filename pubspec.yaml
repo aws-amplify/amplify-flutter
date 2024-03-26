@@ -20,7 +20,7 @@ dependencies:
   built_value: ">=8.6.0 <8.9.0"
   built_value_generator: 8.8.1
   code_builder: 4.10.0
-  connectivity_plus: ">=4.0.1 <7.0.0"
+  connectivity_plus: "^6.0.1"
   # This must roughly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
   dart_style: ^2.3.2
