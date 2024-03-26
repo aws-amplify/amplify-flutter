@@ -765,7 +765,6 @@ void main() {
                   pageSize: filesToList,
                   nextToken: lastNextToken,
                 ),
-                // path: keyPrefix,
               ).result;
               lastNextToken = listResult.nextToken;
               timesCalled++;

@@ -136,7 +136,7 @@ void main() {
               ),
             )
             .toList();
-        const testPath = StoragePath.fromString('/album');
+        const testPath = StoragePath.fromString('album');
         const testTargetIdentityId = 'someone-else-id';
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
