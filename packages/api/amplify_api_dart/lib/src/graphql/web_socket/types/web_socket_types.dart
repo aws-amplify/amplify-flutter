@@ -61,6 +61,7 @@ abstract class WebSocketMessagePayload {
     MessageType.connectionAck: ConnectionAckMessagePayload.fromJson,
     MessageType.data: SubscriptionDataPayload.fromJson,
     MessageType.error: WebSocketError.fromJson,
+    MessageType.connectionError: WebSocketError.fromJson,
   };
 
   static WebSocketMessagePayload? fromJson(

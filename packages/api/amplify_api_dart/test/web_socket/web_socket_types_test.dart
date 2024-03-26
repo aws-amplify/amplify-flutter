@@ -65,6 +65,21 @@ void main() {
       },
       MessageType.error,
     ),
+    MessageTypeTestEntry(
+      {
+        'id': 'abc-456',
+        'type': 'connection_error',
+        'payload': {
+          'errors': [
+            {
+              'errorType': 'UnknownConnectionError',
+              'message': 'Unknown connection id abc-456',
+            }
+          ],
+        },
+      },
+      MessageType.connectionError,
+    ),
   ];
 
   group('WebSocketMessage should create expected messages from JSON', () {
