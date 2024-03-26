@@ -14,7 +14,7 @@ class TestPathResolver extends Mock implements S3PathResolver {
     return TestPathResolver.path;
   }
 
-  static String path = '/mock/path';
+  static String path = 'mock/path';
 
   @override
   Future<List<String>> resolvePaths({required List<StoragePath> paths}) async {

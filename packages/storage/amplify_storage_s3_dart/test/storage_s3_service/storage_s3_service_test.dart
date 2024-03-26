@@ -886,7 +886,7 @@ void main() {
                   .having(
                     (o) => o.path,
                     'path',
-                    '/bucket.name.has.dots.com${TestPathResolver.path}',
+                    '/bucket.name.has.dots.com/${TestPathResolver.path}',
                   ),
             );
           },
