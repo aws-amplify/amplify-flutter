@@ -134,7 +134,7 @@ void main() {
     });
 
     group('list()', () {
-      const testPath = StoragePath.fromString('/some/path');
+      const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
         <S3Item>[],
         hasNextPage: false,

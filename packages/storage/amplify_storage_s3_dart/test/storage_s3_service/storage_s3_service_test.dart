@@ -98,7 +98,7 @@ void main() {
 
         await expectLater(
           storageS3Service.list(
-            path: const StoragePath.fromString('/a path'),
+            path: const StoragePath.fromString('a path'),
             options: testOptions,
           ),
           throwsA(isA<StorageException>()),
