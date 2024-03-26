@@ -88,7 +88,6 @@ class StorageS3Service {
               client: AmplifyHttpClient(dependencyManager)
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
-        _prefixResolver = prefixResolver,
         _pathResolver = pathResolver,
         _logger = logger,
         // dependencyManager.get() => sigv4.AWSSigV4Signer is used for unit tests
@@ -106,7 +105,6 @@ class StorageS3Service {
   final String _delimiter;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
-  final S3PrefixResolver _prefixResolver;
   final S3PathResolver _pathResolver;
   final AWSLogger _logger;
   final sigv4.AWSSigV4Signer _awsSigV4Signer;
