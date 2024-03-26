@@ -702,8 +702,8 @@ void main() {
 
             // Call list() and ensure length of result matches pageSize.
             final listResult = await Amplify.Storage.list(
+              path: StoragePath.withIdentityId((identityId) => '/private/$identityId/'),
               options: const StorageListOptions(
-                accessLevel: accessLevel,
                 pageSize: filesToList,
               ),
             ).result;
@@ -749,12 +749,15 @@ void main() {
             do {
               // Call list() until nextToken is null and ensure we paginated expected times.
               final listResult = await Amplify.Storage.list(
+                path: StoragePath.withIdentityId(
+                  (identityId) => '/private/$identityId/',
+                ),
                 options: StorageListOptions(
                   accessLevel: accessLevel,
                   pageSize: filesToList,
                   nextToken: lastNextToken,
                 ),
-                path: keyPrefix,
+                // path: keyPrefix,
               ).result;
               lastNextToken = listResult.nextToken;
               timesCalled++;
@@ -774,9 +777,10 @@ void main() {
               'remove many objects belongs to the currently signed user',
               (WidgetTester tester) async {
             final listedObjects = await Amplify.Storage.list(
-              options: const StorageListOptions(
-                accessLevel: StorageAccessLevel.private,
+              path: StoragePath.withIdentityId(
+                (identityId) => '/private/$identityId/',
               ),
+              options: const StorageListOptions(),
             ).result;
             expect(listedObjects.items, hasLength(2));
 
@@ -814,9 +818,10 @@ void main() {
             'remove many objects belongs to the currently signed user',
             (WidgetTester tester) async {
           final listedObjects = await Amplify.Storage.list(
-            options: const StorageListOptions(
-              accessLevel: StorageAccessLevel.private,
+            path: StoragePath.withIdentityId(
+              (identityId) => '/private/$identityId/',
             ),
+            options: const StorageListOptions(),
           ).result;
           expect(listedObjects.items, hasLength(2));
 

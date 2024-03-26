@@ -37,7 +37,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// returns a [StorageListOperation].
   /// {@endtemplate}
   StorageListOperation list({
-    String? path,
+    required StoragePath path,
     StorageListOptions? options,
   }) {
     return identifyCall(

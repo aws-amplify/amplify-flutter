@@ -141,7 +141,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   S3ListOperation list({
-    String? path,
+    required StoragePath path,
     StorageListOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
@@ -149,7 +149,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       defaultPluginOptions: const S3ListPluginOptions(),
     );
     final s3Options = StorageListOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
       nextToken: options?.nextToken,
       pageSize: options?.pageSize ?? 1000,

@@ -95,7 +95,7 @@ Future<void> listOperation() async {
           pageSize: pageSize,
         );
   final operation = s3Plugin.list(
-    path: path,
+    path: StoragePath.fromString(path),
     options: options,
   );
 
@@ -133,7 +133,7 @@ Future<void> listOperation() async {
 
     result = await s3Plugin
         .list(
-          path: path,
+          path: StoragePath.fromString(path),
           options: StorageListOptions(
             accessLevel: accessLevel,
             pageSize: pageSize,

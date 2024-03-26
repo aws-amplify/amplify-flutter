@@ -131,7 +131,7 @@ class StorageS3Service {
   /// service returned [smithy.UnknownSmithyHttpException] if any.
   /// {@endtemplate}
   Future<S3ListResult> list({
-    String? path,
+    required StoragePath path,
     required StorageListOptions options,
   }) async {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??

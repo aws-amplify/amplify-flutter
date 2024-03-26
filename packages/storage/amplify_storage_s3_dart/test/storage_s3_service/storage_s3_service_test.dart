@@ -97,7 +97,7 @@ void main() {
         //StorageListOption<>(S3ListOptions.forIdentity('throw exception for me');
 
         await expectLater(
-          storageS3Service.list(path: 'a path', options: testOptions),
+          storageS3Service.list(path: const StoragePath.fromString('/a path'), options: testOptions),
           throwsA(isA<StorageException>()),
         );
 
@@ -133,7 +133,7 @@ void main() {
               ),
             )
             .toList();
-        const testPath = 'album';
+        const testPath = StoragePath.fromString('/album');
         const testTargetIdentityId = 'someone-else-id';
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
@@ -211,7 +211,7 @@ void main() {
               ),
             )
             .toList();
-        const testPath = 'album';
+        const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           accessLevel: testStorageAccessLevel,
           pageSize: testPageSize,
@@ -278,7 +278,7 @@ void main() {
 
         expect(
           storageS3Service.list(
-            path: 'a path',
+            path: const StoragePath.fromString('apath'),
             options: testOptions,
           ),
           throwsA(isA<StorageAccessDeniedException>()),
@@ -297,7 +297,7 @@ void main() {
               ),
             )
             .toList();
-        const testPath = 'album';
+        const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           accessLevel: StorageAccessLevel.private,
           pageSize: testPageSize,
@@ -407,7 +407,7 @@ void main() {
 
         expect(
           storageS3Service.list(
-            path: 'a path',
+            path: const StoragePath.fromString('apath'),
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),

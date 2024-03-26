@@ -9,12 +9,12 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageListRequest {
   /// {@macro amplify_core.storage.list_request}
   const StorageListRequest({
-    this.path,
+    required this.path,
     this.options,
   });
 
   /// Path to list objects under.
-  final String? path;
+  final StoragePath path;
 
   /// Configurable options of the [StorageListRequest].
   final StorageListOptions? options;

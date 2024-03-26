@@ -134,7 +134,7 @@ void main() {
     });
 
     group('list()', () {
-      const testPath = 'some/path';
+      const testPath = StoragePath.fromString('/some/path');
       final testResult = S3ListResult(
         <S3Item>[],
         hasNextPage: false,
@@ -189,7 +189,6 @@ void main() {
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          accessLevel: testAccessLevelProtected,
           pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
           nextToken: 'next-token-123',
           pageSize: 2,
