@@ -21,19 +21,39 @@ class S3PathResolver {
   /// Resolve the full path.
   Future<String> resolvePath({
     required StoragePath path,
+    String? identityId,
   }) async {
     final resolvedPath = switch (path) {
-      final StoragePathWithIdentityId p =>
-        p.resolvePath(identityId: await _identityProvider.getIdentityId()),
+      final StoragePathWithIdentityId p => p.resolvePath(
+          identityId: identityId ?? await _identityProvider.getIdentityId(),
+        ),
       // ignore: invalid_use_of_internal_member
       _ => path.resolvePath()
     };
-    if (!resolvedPath.startsWith('/')) {
+    if (resolvedPath.startsWith('/')) {
       throw const StoragePathValidationException(
-        'StoragePath must start with a leading "/"',
-        recoverySuggestion: 'Update the provided path to include a leading "/"',
+        'StoragePath cannot start with a leading "/"',
+        recoverySuggestion: 'Remove the leading "/" from the StoragePath',
       );
     }
     return resolvedPath;
+  }
+
+  /// Resolve multiple [StoragePath] objects.
+  Future<List<String>> resolvePaths({
+    required List<StoragePath> paths,
+  }) async {
+    final requiredIdentityId =
+        paths.whereType<StoragePathWithIdentityId>().isNotEmpty;
+    final identityId =
+        requiredIdentityId ? await _identityProvider.getIdentityId() : null;
+    return Future.wait(
+      paths.map(
+        (path) => resolvePath(
+          path: path,
+          identityId: identityId,
+        ),
+      ),
+    );
   }
 }
