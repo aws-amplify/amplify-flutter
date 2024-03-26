@@ -683,7 +683,6 @@ void main() {
               (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
-            const accessLevel = StorageAccessLevel.private;
             final uploadedKeys = <String>[];
             // Upload some files to test.
             for (var i = filesToUpload; i > 0; i--) {
@@ -707,7 +706,8 @@ void main() {
             // Call list() and ensure length of result matches pageSize.
             final listResult = await Amplify.Storage.list(
               path: StoragePath.withIdentityId(
-                  (identityId) => 'private/$identityId/',),
+                (identityId) => 'private/$identityId/',
+              ),
               options: const StorageListOptions(
                 pageSize: filesToList,
               ),
@@ -730,7 +730,6 @@ void main() {
               (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
-            const accessLevel = StorageAccessLevel.private;
             final keyPrefix = 'testObjectList${uuid()}';
             final uploadedKeys = <String>[];
             // Upload some files to test.
@@ -763,7 +762,6 @@ void main() {
                   (identityId) => 'private/$identityId/',
                 ),
                 options: StorageListOptions(
-                  accessLevel: accessLevel,
                   pageSize: filesToList,
                   nextToken: lastNextToken,
                 ),
@@ -793,7 +791,6 @@ void main() {
               path: StoragePath.withIdentityId(
                 (identityId) => 'private/$identityId/remove-test/obj1',
               ),
-              options: const StorageListOptions(),
             ).result;
 
             final result2 = await Amplify.Storage.uploadData(
@@ -840,7 +837,6 @@ void main() {
             path: StoragePath.withIdentityId(
               (identityId) => 'private/$identityId/remove-test-user-a/obj1',
             ),
-            options: const StorageListOptions(),
           ).result;
 
           final result2 = await Amplify.Storage.uploadData(
