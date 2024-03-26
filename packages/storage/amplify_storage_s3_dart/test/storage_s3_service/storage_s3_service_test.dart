@@ -97,7 +97,9 @@ void main() {
         //StorageListOption<>(S3ListOptions.forIdentity('throw exception for me');
 
         await expectLater(
-          storageS3Service.list(path: const StoragePath.fromString('/a path'), options: testOptions),
+          storageS3Service.list(
+              path: const StoragePath.fromString('/a path'),
+              options: testOptions,),
           throwsA(isA<StorageException>()),
         );
 

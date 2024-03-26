@@ -702,7 +702,8 @@ void main() {
 
             // Call list() and ensure length of result matches pageSize.
             final listResult = await Amplify.Storage.list(
-              path: StoragePath.withIdentityId((identityId) => 'private/$identityId/'),
+              path: StoragePath.withIdentityId(
+                  (identityId) => 'private/$identityId/',),
               options: const StorageListOptions(
                 pageSize: filesToList,
               ),

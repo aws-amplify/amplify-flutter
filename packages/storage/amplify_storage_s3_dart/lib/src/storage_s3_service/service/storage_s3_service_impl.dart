@@ -143,7 +143,7 @@ class StorageS3Service {
       identityId: s3PluginOptions.targetIdentityId,
     );
 
-    final listTargetPrefix = '$resolvedPrefix${path ?? ''}';
+    final listTargetPrefix = '$resolvedPrefix$path';
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
