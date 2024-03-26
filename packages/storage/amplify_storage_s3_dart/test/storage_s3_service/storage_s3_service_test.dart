@@ -216,7 +216,6 @@ void main() {
             .toList();
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
-          accessLevel: testStorageAccessLevel,
           pageSize: testPageSize,
           pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
         );
@@ -302,7 +301,6 @@ void main() {
             .toList();
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
-          accessLevel: StorageAccessLevel.private,
           pageSize: testPageSize,
           pluginOptions: S3ListPluginOptions.listAll(),
         );
@@ -399,7 +397,7 @@ void main() {
 
       test('should handle AWSHttpException and throw NetworkException', () {
         const testOptions =
-            StorageListOptions(accessLevel: StorageAccessLevel.guest);
+            StorageListOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.get, uri: Uri()),
         );

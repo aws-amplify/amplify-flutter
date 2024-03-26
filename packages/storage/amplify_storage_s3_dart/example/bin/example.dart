@@ -86,12 +86,10 @@ Future<void> listOperation() async {
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final options = listAll
-      ? StorageListOptions(
-          accessLevel: accessLevel,
-          pluginOptions: const S3ListPluginOptions.listAll(),
+      ? const StorageListOptions(
+          pluginOptions: S3ListPluginOptions.listAll(),
         )
-      : StorageListOptions(
-          accessLevel: accessLevel,
+      : const StorageListOptions(
           pageSize: pageSize,
         );
   final operation = s3Plugin.list(
@@ -135,7 +133,6 @@ Future<void> listOperation() async {
         .list(
           path: StoragePath.fromString(path),
           options: StorageListOptions(
-            accessLevel: accessLevel,
             pageSize: pageSize,
             nextToken: result.nextToken,
           ),
