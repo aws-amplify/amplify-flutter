@@ -391,16 +391,10 @@ Future<void> copyOperation() async {
 
 Future<void> removeOperation() async {
   final key = prompt('Enter the object key to remove: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final removeOperation = s3Plugin.remove(
-    key: key,
-    options: StorageRemoveOptions(
-      accessLevel: accessLevel,
-    ),
+    path: StoragePath.fromString(key),
   );
 
   try {

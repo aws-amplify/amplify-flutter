@@ -471,25 +471,19 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3RemoveResult> remove({
-    required String key,
+    required StoragePath path,
     required StorageRemoveOptions options,
   }) async {
-    final resolvedPrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-    );
-
-    final keyToRemove = '$resolvedPrefix$key';
+    final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     await _deleteObject(
       s3client: _defaultS3Client,
       bucket: _s3PluginConfig.bucket,
-      key: keyToRemove,
+      key: resolvedPath,
     );
 
     return S3RemoveResult(
-      removedItem: S3Item(key: key, path: key),
+      removedItem: S3Item(path: resolvedPath),
     );
   }
 
@@ -500,21 +494,17 @@ class StorageS3Service {
   ///
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3RemoveManyResult> removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     required StorageRemoveManyOptions options,
   }) async {
     // Each request can contain up to 1000 objects to remove
     // https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
     const defaultBatchSize = 1000;
-    final resolvedPrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-    );
 
-    final objectIdentifiersToRemove = keys
-        .map((key) => s3.ObjectIdentifier(key: '$resolvedPrefix$key'))
-        .toList();
+    final resolvedPaths = await _pathResolver.resolvePaths(paths: paths);
+
+    final objectIdentifiersToRemove =
+        resolvedPaths.map((path) => s3.ObjectIdentifier(key: path)).toList();
 
     final removedItems = <S3Item>[];
     final removedErrors = <s3.Error>[];
@@ -541,7 +531,7 @@ class StorageS3Service {
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
                       s3.S3Object(key: removedObject.key),
-                      prefixToDrop: resolvedPrefix,
+                      prefixToDrop: '',
                     ),
                   ) ??
               [],

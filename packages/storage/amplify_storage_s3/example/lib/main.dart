@@ -129,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // upload a file to the S3 bucket
   Future<void> _uploadFile() async {
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png'],
+      type: FileType.image,
       withReadStream: true,
       withData: false,
     );
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        path: StoragePath.fromString('/public/${platformFile.name}'),
+        path: StoragePath.fromString('public/${platformFile.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -210,12 +209,10 @@ class _HomeScreenState extends State<HomeScreen> {
   // delete file from S3 bucket
   Future<void> removeFile({
     required String key,
-    required StorageAccessLevel accessLevel,
   }) async {
     try {
       await Amplify.Storage.remove(
-        key: key,
-        options: StorageRemoveOptions(accessLevel: accessLevel),
+        path: StoragePath.fromString('public/$key'),
       ).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
@@ -276,7 +273,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         removeFile(
                           key: item.path,
-                          accessLevel: StorageAccessLevel.guest,
                         );
                       },
                       color: Colors.red,

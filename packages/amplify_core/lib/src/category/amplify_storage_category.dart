@@ -209,31 +209,31 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.remove}
-  /// Removes an object specified by [key] with optional [StorageRemoveOptions],
+  /// Removes an object specified by [path] with optional [StorageRemoveOptions],
   /// and returns a [StorageRemoveOperation].
   /// {@endtemplate}
   StorageRemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.remove,
-      () => defaultPlugin.remove(key: key, options: options),
+      () => defaultPlugin.remove(path: path, options: options),
     );
   }
 
   /// {@template amplify_core.amplify_storage_category.remove_many}
-  /// Removes multiple objects specified by [keys] with optional
+  /// Removes multiple objects specified by [paths] with optional
   /// [StorageRemoveManyOptions], and returns a [StorageRemoveManyOperation].
   /// {@endtemplate}
   StorageRemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.removeMany,
       () => defaultPlugin.removeMany(
-        keys: keys,
+        paths: paths,
         options: options,
       ),
     );

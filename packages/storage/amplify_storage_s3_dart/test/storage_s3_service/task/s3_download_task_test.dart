@@ -232,7 +232,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: const S3ClientConfig(usePathStyle: true),
           bucket: 'bucket.name.has.dots.com',
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: const StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
@@ -281,7 +281,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
           onProgress: (progress) {
@@ -326,7 +326,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
           onProgress: (progress) {
@@ -395,7 +395,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
           onProgress: (progress) {
@@ -466,7 +466,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
         );
@@ -483,7 +483,7 @@ void main() {
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
             bucket: testBucket,
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             pathResolver: TestPathResolver(),
             options: defaultTestOptions,
           );
@@ -534,7 +534,7 @@ void main() {
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
             bucket: testBucket,
-            path: const StoragePath.fromString('/public/$testKey'),
+            path: const StoragePath.fromString('public/$testKey'),
             pathResolver: TestPathResolver(),
             options: defaultTestOptions,
           );
@@ -587,7 +587,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
           onProgress: (progress) {
@@ -629,7 +629,7 @@ void main() {
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
           bucket: testBucket,
-          path: const StoragePath.fromString('/public/$testKey'),
+          path: const StoragePath.fromString('public/$testKey'),
           pathResolver: TestPathResolver(),
           options: defaultTestOptions,
           onDone: () async {
@@ -695,7 +695,7 @@ void main() {
               s3Client: s3Client,
               defaultS3ClientConfig: defaultS3ClientConfig,
               bucket: testBucket,
-              path: const StoragePath.fromString('/public/$testKey'),
+              path: const StoragePath.fromString('public/$testKey'),
               pathResolver: TestPathResolver(),
               options: StorageDownloadDataOptions(
                 pluginOptions: S3DownloadDataPluginOptions(
