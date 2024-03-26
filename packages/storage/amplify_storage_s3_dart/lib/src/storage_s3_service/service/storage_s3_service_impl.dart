@@ -260,7 +260,7 @@ class StorageS3Service {
         '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
     if (_defaultS3ClientConfig.usePathStyle) {
       host = host.replaceFirst('${_s3PluginConfig.bucket}.', '');
-      resolvedPath = '/${_s3PluginConfig.bucket}/$resolvedPath';
+      resolvedPath = '${_s3PluginConfig.bucket}/$resolvedPath';
     } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
@@ -271,7 +271,7 @@ class StorageS3Service {
     final urlRequest = AWSHttpRequest.raw(
       method: AWSHttpMethod.get,
       host: host,
-      path: resolvedPath,
+      path: '/$resolvedPath',
     );
 
     return S3GetUrlResult(
