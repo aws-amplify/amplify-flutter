@@ -214,16 +214,16 @@ class StorageS3Service {
     required StoragePath path,
     required StorageGetPropertiesOptions options,
   }) async {
-    final fullPath = await _pathResolver.resolvePath(path: path);
+    final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     return S3GetPropertiesResult(
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
           bucket: _s3PluginConfig.bucket,
-          key: fullPath,
+          key: resolvedPath,
         ),
-        path: fullPath,
+        path: resolvedPath,
       ),
     );
   }
@@ -255,18 +255,12 @@ class StorageS3Service {
       );
     }
 
-    final fullPath = await _pathResolver.resolvePath(path: path);
-    var keyToGetUrl = fullPath;
-    if (!keyToGetUrl.startsWith('/')) {
-      keyToGetUrl = '/$keyToGetUrl';
-    }
-
+    var resolvedPath = await _pathResolver.resolvePath(path: path);
     var host =
         '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
-
     if (_defaultS3ClientConfig.usePathStyle) {
       host = host.replaceFirst('${_s3PluginConfig.bucket}.', '');
-      keyToGetUrl = '/${_s3PluginConfig.bucket}$keyToGetUrl';
+      resolvedPath = '/${_s3PluginConfig.bucket}/$resolvedPath';
     } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
@@ -277,7 +271,7 @@ class StorageS3Service {
     final urlRequest = AWSHttpRequest.raw(
       method: AWSHttpMethod.get,
       host: host,
-      path: keyToGetUrl,
+      path: resolvedPath,
     );
 
     return S3GetUrlResult(
