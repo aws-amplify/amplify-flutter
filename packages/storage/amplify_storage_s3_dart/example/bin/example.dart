@@ -146,16 +146,10 @@ Future<void> listOperation() async {
 
 Future<void> getPropertiesOperation() async {
   final key = prompt('Enter the object to get properties for: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final getPropertiesOperation = s3Plugin.getProperties(
     path: StoragePath.fromString(key),
-    options: StorageGetPropertiesOptions(
-      accessLevel: accessLevel,
-    ),
   );
   final result = await getPropertiesOperation.result;
 
@@ -201,16 +195,12 @@ Future<void> getUrlOperation() async {
 
 Future<void> downloadDataOperation() async {
   final key = prompt('Enter the key of the object to download: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the object: ',
-  );
 
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final downloadDataOperation = s3Plugin.downloadData(
     path: StoragePath.fromString(key),
-    options: StorageDownloadDataOptions(
-      accessLevel: accessLevel,
-      pluginOptions: const S3DownloadDataPluginOptions(
+    options: const StorageDownloadDataOptions(
+      pluginOptions: S3DownloadDataPluginOptions(
         getProperties: true,
       ),
     ),

@@ -249,19 +249,9 @@ class StorageS3Service {
       // make a HeadObject call for validating object existence
       // the validation may throw exceptions that are thrown from
       // the `getProperties` API (i.e. HeadObject)
-      final targetIdentityId = s3PluginOptions.targetIdentityId;
-      final getPropertiesOptions = targetIdentityId == null
-          ? StorageGetPropertiesOptions(
-              accessLevel: options.accessLevel,
-            )
-          : StorageGetPropertiesOptions(
-              accessLevel: options.accessLevel,
-              pluginOptions:
-                  S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
-            );
       await getProperties(
         path: path,
-        options: getPropertiesOptions,
+        options: const StorageGetPropertiesOptions(),
       );
     }
 

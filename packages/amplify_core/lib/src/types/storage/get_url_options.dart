@@ -21,14 +21,13 @@ class StorageGetUrlOptions extends StorageOperationOptions
   final StorageGetUrlPluginOptions? pluginOptions;
 
   @override
-  List<Object?> get props => [accessLevel, pluginOptions];
+  List<Object?> get props => [pluginOptions];
 
   @override
   String get runtimeTypeName => 'StorageGetUrlOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }
