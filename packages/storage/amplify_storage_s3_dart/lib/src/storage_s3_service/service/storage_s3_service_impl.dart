@@ -136,20 +136,14 @@ class StorageS3Service {
   }) async {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
-    final resolvedPrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-      identityId: s3PluginOptions.targetIdentityId,
-    );
 
-    final listTargetPrefix = '$resolvedPrefix$path';
+    final fullPath = await _pathResolver.resolvePath(path: path);
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = listTargetPrefix
+          ..prefix = fullPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
@@ -158,7 +152,7 @@ class StorageS3Service {
       try {
         return S3ListResult.fromPaginatedResult(
           await _defaultS3Client.listObjectsV2(request).result,
-          prefixToDrop: resolvedPrefix,
+          prefixToDrop: fullPath,
         );
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
@@ -175,14 +169,14 @@ class StorageS3Service {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = listTargetPrefix
+          ..prefix = fullPath
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;
       recursiveResult = S3ListResult.fromPaginatedResult(
         listResult,
-        prefixToDrop: resolvedPrefix,
+        prefixToDrop: fullPath,
       );
 
       while (listResult.hasNext) {
@@ -190,7 +184,7 @@ class StorageS3Service {
         recursiveResult = recursiveResult.merge(
           S3ListResult.fromPaginatedResult(
             listResult,
-            prefixToDrop: resolvedPrefix,
+            prefixToDrop: fullPath,
           ),
         );
       }

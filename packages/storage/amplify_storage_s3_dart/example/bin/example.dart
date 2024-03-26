@@ -76,9 +76,6 @@ Future<void> main() async {
 
 Future<void> listOperation() async {
   final path = prompt('Enter a path to list objects for: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the path: ',
-  );
   final listAll = prompt('List with pagination? (Y/n): ').toLowerCase() == 'n';
 
   const pageSize = 5;
