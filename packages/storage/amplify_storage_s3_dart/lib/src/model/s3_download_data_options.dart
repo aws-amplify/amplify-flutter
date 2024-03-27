@@ -16,12 +16,10 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
     'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
   )
   const S3DownloadDataOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     bool getProperties = false,
     S3DataBytesRange? bytesRange,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: accessLevel,
           bytesRange: bytesRange,
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
@@ -30,7 +28,6 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
     'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
   )
   const S3DownloadDataOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
     this.bytesRange,
     this.useAccelerateEndpoint = false,
