@@ -21,9 +21,7 @@ void main() {
   group('S3DownloadTask', () {
     const testBucket = 'bucket1';
     const testKey = 'some-object';
-    const defaultTestOptions = StorageDownloadDataOptions(
-      accessLevel: StorageAccessLevel.private,
-    );
+    const defaultTestOptions = StorageDownloadDataOptions();
     const defaultS3ClientConfig = S3ClientConfig();
     late S3Client s3Client;
 
@@ -133,7 +131,6 @@ void main() {
           () async {
         const testUseAccelerateEndpoint = true;
         const testOptions = StorageDownloadDataOptions(
-          accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3DownloadDataPluginOptions(
             useAccelerateEndpoint: testUseAccelerateEndpoint,
           ),

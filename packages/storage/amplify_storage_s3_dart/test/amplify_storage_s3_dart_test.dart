@@ -295,9 +295,7 @@ void main() {
       test('should forward options to StorageS3Service.getProperties() API',
           () async {
         const testOptions = StorageGetPropertiesOptions(
-          accessLevel: testAccessLevelProtected,
-          pluginOptions:
-              S3GetPropertiesPluginOptions.forIdentity('target-identity-id'),
+          pluginOptions: S3GetPropertiesPluginOptions(),
         );
 
         when(

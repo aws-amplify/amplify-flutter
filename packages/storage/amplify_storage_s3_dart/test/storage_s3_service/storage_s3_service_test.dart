@@ -474,12 +474,8 @@ void main() {
 
       test('should invoke S3Client.headObject with expected parameters',
           () async {
-        const testTargetIdentityId = 'someone-else-id';
         const testOptions = StorageGetPropertiesOptions(
-          accessLevel: StorageAccessLevel.protected,
-          pluginOptions: S3GetPropertiesPluginOptions.forIdentity(
-            testTargetIdentityId,
-          ),
+          pluginOptions: S3GetPropertiesPluginOptions(),
         );
         final testHeadObjectOutput = HeadObjectOutput(
           eTag: testETag,
@@ -546,8 +542,7 @@ void main() {
       });
 
       test('should handle AWSHttpException and throw NetworkException', () {
-        const testOptions =
-            StorageGetPropertiesOptions(accessLevel: StorageAccessLevel.guest);
+        const testOptions = StorageGetPropertiesOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.head, uri: Uri()),
         );
@@ -596,10 +591,8 @@ void main() {
       test('should invoke AWSSigV4Signer.presign with correct parameters', () {
         runZoned(
           () async {
-            const testTargetIdentityId = 'someone-else-id';
             const testOptions = StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions.forIdentity(
-                testTargetIdentityId,
+              pluginOptions: S3GetUrlPluginOptions(
                 expiresIn: testExpiresIn,
               ),
             );
@@ -746,10 +739,8 @@ void main() {
       test(
           'should invoke s3Client.headObject when validateObjectExistence option is'
           ' set to true and specified targetIdentityId', () async {
-        const testTargetIdentityId = 'some-else-id';
         const testOptions = StorageGetUrlOptions(
-          pluginOptions: S3GetUrlPluginOptions.forIdentity(
-            testTargetIdentityId,
+          pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,
           ),
         );
@@ -896,7 +887,7 @@ void main() {
                   .having(
                     (o) => o.path,
                     'path',
-                    '/bucket.name.has.dots.com${TestPathResolver.path}',
+                    '/bucket.name.has.dots.com/${TestPathResolver.path}',
                   ),
             );
           },
