@@ -161,18 +161,36 @@ struct NativeAWSCredentials {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct NativeGraphQLOperation {
-  var placeholder: String? = nil
+  var response: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLOperation? {
-    let placeholder: String? = nilOrValue(list[0])
+    let response: String? = nilOrValue(list[0])
 
     return NativeGraphQLOperation(
-      placeholder: placeholder
+      response: response
     )
   }
   func toList() -> [Any?] {
     return [
-      placeholder,
+      response,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct NativeGraphQLSubscriptionResponse {
+  var subscriptionId: String? = nil
+
+  static func fromList(_ list: [Any?]) -> NativeGraphQLSubscriptionResponse? {
+    let subscriptionId: String? = nilOrValue(list[0])
+
+    return NativeGraphQLSubscriptionResponse(
+      subscriptionId: subscriptionId
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      subscriptionId,
     ]
   }
 }
@@ -285,6 +303,8 @@ private class NativeApiPluginCodecReader: FlutterStandardReader {
         return NativeGraphQLOperation.fromList(self.readValue() as! [Any?])
       case 129:
         return NativeGraphQLRequest.fromList(self.readValue() as! [Any?])
+      case 130:
+        return NativeGraphQLSubscriptionResponse.fromList(self.readValue() as! [Any?])
       default:
         return super.readValue(ofType: type)
     }
@@ -298,6 +318,9 @@ private class NativeApiPluginCodecWriter: FlutterStandardWriter {
       super.writeValue(value.toList())
     } else if let value = value as? NativeGraphQLRequest {
       super.writeByte(129)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeGraphQLSubscriptionResponse {
+      super.writeByte(130)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -342,10 +365,10 @@ class NativeApiPlugin {
       completion(result)
     }
   }
-  func subscribe(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLOperation) -> Void) {
+  func subscribe(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLSubscriptionResponse) -> Void) {
     let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([requestArg] as [Any?]) { response in
-      let result = response as! NativeGraphQLOperation
+      let result = response as! NativeGraphQLSubscriptionResponse
       completion(result)
     }
   }
@@ -460,17 +483,85 @@ class NativeAuthBridgeSetup {
     }
   }
 }
+private class NativeApiBridgeCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return NativeAWSCredentials.fromList(self.readValue() as! [Any?])
+      case 129:
+        return NativeAuthSession.fromList(self.readValue() as! [Any?])
+      case 130:
+        return NativeAuthUser.fromList(self.readValue() as! [Any?])
+      case 131:
+        return NativeGraphQLOperation.fromList(self.readValue() as! [Any?])
+      case 132:
+        return NativeGraphQLRequest.fromList(self.readValue() as! [Any?])
+      case 133:
+        return NativeGraphQLSubscriptionResponse.fromList(self.readValue() as! [Any?])
+      case 134:
+        return NativeUserPoolTokens.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class NativeApiBridgeCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? NativeAWSCredentials {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeAuthSession {
+      super.writeByte(129)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeAuthUser {
+      super.writeByte(130)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeGraphQLOperation {
+      super.writeByte(131)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeGraphQLRequest {
+      super.writeByte(132)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeGraphQLSubscriptionResponse {
+      super.writeByte(133)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeUserPoolTokens {
+      super.writeByte(134)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class NativeApiBridgeCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return NativeApiBridgeCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return NativeApiBridgeCodecWriter(data: data)
+  }
+}
+
+class NativeApiBridgeCodec: FlutterStandardMessageCodec {
+  static let shared = NativeApiBridgeCodec(readerWriter: NativeApiBridgeCodecReaderWriter())
+}
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NativeApiBridge {
   func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void)
+  func sendSubscriptionEvent(event: [String: [String: Any]], completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class NativeApiBridgeSetup {
   /// The codec used by NativeApiBridge.
+  static var codec: FlutterStandardMessageCodec { NativeApiBridgeCodec.shared }
   /// Sets up an instance of `NativeApiBridge` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: NativeApiBridge?) {
-    let addApiPluginChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiBridge.addApiPlugin", binaryMessenger: binaryMessenger)
+    let addApiPluginChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiBridge.addApiPlugin", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addApiPluginChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -486,6 +577,23 @@ class NativeApiBridgeSetup {
       }
     } else {
       addApiPluginChannel.setMessageHandler(nil)
+    }
+    let sendSubscriptionEventChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiBridge.sendSubscriptionEvent", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      sendSubscriptionEventChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let eventArg = args[0] as! [String: [String: Any]]
+        api.sendSubscriptionEvent(event: eventArg) { result in
+          switch result {
+            case .success:
+              reply(wrapResult(nil))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      sendSubscriptionEventChannel.setMessageHandler(nil)
     }
   }
 }

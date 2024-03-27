@@ -27,6 +27,12 @@ abstract class NativeAuthPlugin {
 abstract class NativeApiPlugin {
   @async
   String? getLatestAuthToken(String providerName);
+
+  @async
+  NativeGraphQLOperation mutate(NativeGraphQLRequest request);
+
+  @async
+  NativeGraphQLSubscriptionResponse subscribe(NativeGraphQLRequest request);
 }
 
 @HostApi()
@@ -47,6 +53,9 @@ abstract class NativeAuthBridge {
 abstract class NativeApiBridge {
   @async
   void addApiPlugin(List<String> authProvidersList);
+
+  @async
+  void sendSubscriptionEvent(Map<String, Map<String, Object>> event);
 }
 
 class NativeAuthSession {
@@ -86,4 +95,21 @@ class LegacyCredentialStoreData {
   String? accessToken;
   String? refreshToken;
   String? idToken;
+}
+
+class NativeGraphQLOperation {
+  String? response;
+}
+
+class NativeGraphQLSubscriptionResponse {
+  String? subscriptionId;
+}
+
+class NativeGraphQLRequest {
+  String? apiName;
+  String? document;
+  Map<String?, String?>? variables;
+  String? responseType; // needs proper typing
+  String? decodePath;
+  Map<String?, String?>? options; // needs proper typing
 }

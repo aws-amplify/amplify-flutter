@@ -158,19 +158,38 @@ data class NativeAWSCredentials (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class NativeGraphQLOperation (
-  val placeholder: String? = null
+  val response: String? = null
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): NativeGraphQLOperation {
-      val placeholder = list[0] as String?
-      return NativeGraphQLOperation(placeholder)
+      val response = list[0] as String?
+      return NativeGraphQLOperation(response)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
-      placeholder,
+      response,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class NativeGraphQLSubscriptionResponse (
+  val subscriptionId: String? = null
+
+) {
+  companion object {
+    @Suppress("UNCHECKED_CAST")
+    fun fromList(list: List<Any?>): NativeGraphQLSubscriptionResponse {
+      val subscriptionId = list[0] as String?
+      return NativeGraphQLSubscriptionResponse(subscriptionId)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf<Any?>(
+      subscriptionId,
     )
   }
 }
@@ -281,6 +300,11 @@ private object NativeApiPluginCodec : StandardMessageCodec() {
           NativeGraphQLRequest.fromList(it)
         }
       }
+      130.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeGraphQLSubscriptionResponse.fromList(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -292,6 +316,10 @@ private object NativeApiPluginCodec : StandardMessageCodec() {
       }
       is NativeGraphQLRequest -> {
         stream.write(129)
+        writeValue(stream, value.toList())
+      }
+      is NativeGraphQLSubscriptionResponse -> {
+        stream.write(130)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -322,10 +350,10 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback(result)
     }
   }
-  fun subscribe(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLOperation) -> Unit) {
+  fun subscribe(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLSubscriptionResponse) -> Unit) {
     val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.subscribe", codec)
     channel.send(listOf(requestArg)) {
-      val result = it as NativeGraphQLOperation
+      val result = it as NativeGraphQLSubscriptionResponse
       callback(result)
     }
   }
@@ -440,14 +468,92 @@ interface NativeAuthBridge {
     }
   }
 }
+@Suppress("UNCHECKED_CAST")
+private object NativeApiBridgeCodec : StandardMessageCodec() {
+  override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
+    return when (type) {
+      128.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeAWSCredentials.fromList(it)
+        }
+      }
+      129.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeAuthSession.fromList(it)
+        }
+      }
+      130.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeAuthUser.fromList(it)
+        }
+      }
+      131.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeGraphQLOperation.fromList(it)
+        }
+      }
+      132.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeGraphQLRequest.fromList(it)
+        }
+      }
+      133.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeGraphQLSubscriptionResponse.fromList(it)
+        }
+      }
+      134.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          NativeUserPoolTokens.fromList(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
+  }
+  override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
+    when (value) {
+      is NativeAWSCredentials -> {
+        stream.write(128)
+        writeValue(stream, value.toList())
+      }
+      is NativeAuthSession -> {
+        stream.write(129)
+        writeValue(stream, value.toList())
+      }
+      is NativeAuthUser -> {
+        stream.write(130)
+        writeValue(stream, value.toList())
+      }
+      is NativeGraphQLOperation -> {
+        stream.write(131)
+        writeValue(stream, value.toList())
+      }
+      is NativeGraphQLRequest -> {
+        stream.write(132)
+        writeValue(stream, value.toList())
+      }
+      is NativeGraphQLSubscriptionResponse -> {
+        stream.write(133)
+        writeValue(stream, value.toList())
+      }
+      is NativeUserPoolTokens -> {
+        stream.write(134)
+        writeValue(stream, value.toList())
+      }
+      else -> super.writeValue(stream, value)
+    }
+  }
+}
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface NativeApiBridge {
   fun addApiPlugin(authProvidersList: List<String>, callback: (Result<Unit>) -> Unit)
+  fun sendSubscriptionEvent(event: Map<String, Map<String, Any>>, callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by NativeApiBridge. */
     val codec: MessageCodec<Any?> by lazy {
-      StandardMessageCodec()
+      NativeApiBridgeCodec
     }
     /** Sets up an instance of `NativeApiBridge` to handle messages through the `binaryMessenger`. */
     @Suppress("UNCHECKED_CAST")
@@ -459,6 +565,25 @@ interface NativeApiBridge {
             val args = message as List<Any?>
             val authProvidersListArg = args[0] as List<String>
             api.addApiPlugin(authProvidersListArg) { result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                reply.reply(wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiBridge.sendSubscriptionEvent", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val eventArg = args[0] as Map<String, Map<String, Any>>
+            api.sendSubscriptionEvent(eventArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

@@ -24,6 +24,7 @@ public class CognitoPlugin: AuthCategoryPlugin {
     }
 
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> AuthSession {
+//        TODO: Migrate to async V2
 //        let operation = NativeAuthFetchSessionOperation(
 //            categoryType: .auth,
 //            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
@@ -37,7 +38,7 @@ public class CognitoPlugin: AuthCategoryPlugin {
 //            }
 //        }
 //        return operation
-        fatalError()
+        fatalError("To implement")
     }
     
     public func signUp(username: String, password: String?, options: AuthSignUpRequest.Options?) async throws -> AuthSignUpResult {
