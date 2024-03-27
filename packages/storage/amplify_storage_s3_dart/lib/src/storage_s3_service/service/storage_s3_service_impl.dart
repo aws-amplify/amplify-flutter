@@ -132,13 +132,13 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
 
-    final fullPath = await _pathResolver.resolvePath(path: path);
+    final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = fullPath
+          ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
@@ -163,7 +163,7 @@ class StorageS3Service {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = fullPath
+          ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
 
