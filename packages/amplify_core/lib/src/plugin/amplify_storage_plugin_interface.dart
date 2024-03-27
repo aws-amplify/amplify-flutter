@@ -16,7 +16,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.list}
   StorageListOperation list({
-    String? path,
+    required StoragePath path,
     StorageListOptions? options,
   }) {
     throw UnimplementedError('list() has not been implemented.');

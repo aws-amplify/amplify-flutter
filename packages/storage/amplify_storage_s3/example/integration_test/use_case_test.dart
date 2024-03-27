@@ -416,7 +416,7 @@ void main() {
             ),
           ).result;
 
-          expect(result.copiedItem.key, testObject3CopyKey);
+          expect(result.copiedItem.path, testObject3CopyKey);
           expect(result.copiedItem.eTag, isNotEmpty);
         });
 
@@ -683,7 +683,6 @@ void main() {
               (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
-            const accessLevel = StorageAccessLevel.private;
             final uploadedKeys = <String>[];
             // Upload some files to test.
             for (var i = filesToUpload; i > 0; i--) {
@@ -706,8 +705,10 @@ void main() {
 
             // Call list() and ensure length of result matches pageSize.
             final listResult = await Amplify.Storage.list(
+              path: StoragePath.withIdentityId(
+                (identityId) => 'private/$identityId/',
+              ),
               options: const StorageListOptions(
-                accessLevel: accessLevel,
                 pageSize: filesToList,
               ),
             ).result;
@@ -729,7 +730,6 @@ void main() {
               (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
-            const accessLevel = StorageAccessLevel.private;
             final keyPrefix = 'testObjectList${uuid()}';
             final uploadedKeys = <String>[];
             // Upload some files to test.
@@ -758,12 +758,13 @@ void main() {
             do {
               // Call list() until nextToken is null and ensure we paginated expected times.
               final listResult = await Amplify.Storage.list(
+                path: StoragePath.withIdentityId(
+                  (identityId) => 'private/$identityId/',
+                ),
                 options: StorageListOptions(
-                  accessLevel: accessLevel,
                   pageSize: filesToList,
                   nextToken: lastNextToken,
                 ),
-                path: keyPrefix,
               ).result;
               lastNextToken = listResult.nextToken;
               timesCalled++;

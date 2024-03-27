@@ -23,21 +23,19 @@ class S3ListResult extends StorageListResult<S3Item> {
   /// smithy. This named constructor should be used internally only.
   @internal
   factory S3ListResult.fromPaginatedResult(
-    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult, {
-    required String prefixToDrop,
-  }) {
+    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
+  ) {
     final output = paginatedResult.items;
-    final metadata = S3ListMetadata.fromS3CommonPrefixes(
-      prefixToDrop: prefixToDrop,
-      commonPrefixes: output.commonPrefixes?.toList(),
+    final metadata = S3ListMetadata(
+      subPaths: output.commonPrefixes
+          ?.map((commonPrefix) => commonPrefix.prefix)
+          .whereType<String>()
+          .toList(),
       delimiter: output.delimiter,
     );
     final items = output.contents
             ?.map(
-              (s3.S3Object item) => S3Item.fromS3Object(
-                item,
-                prefixToDrop: prefixToDrop,
-              ),
+              S3Item.fromS3Object,
             )
             .toList() ??
         const <S3Item>[];
@@ -70,34 +68,8 @@ class S3ListResult extends StorageListResult<S3Item> {
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
-  factory S3ListMetadata.fromS3CommonPrefixes({
-    required String prefixToDrop,
-    List<s3.CommonPrefix>? commonPrefixes,
-    String? delimiter,
-  }) {
-    final extractedSubPath = <String>[];
-
-    if (commonPrefixes != null) {
-      for (final commonPrefix in commonPrefixes) {
-        final prefix = commonPrefix.prefix;
-        if (prefix != null) {
-          extractedSubPath.add(
-            S3Item.dropPrefixFromKey(
-              prefixToDrop: prefixToDrop,
-              key: prefix,
-            ),
-          );
-        }
-      }
-    }
-
-    return S3ListMetadata._(
-      subPaths: extractedSubPath,
-      delimiter: delimiter,
-    );
-  }
-
-  S3ListMetadata._({
+  @visibleForTesting
+  S3ListMetadata({
     List<String>? subPaths,
     this.delimiter,
   }) : subPaths = subPaths ?? const [];
@@ -105,7 +77,7 @@ class S3ListMetadata {
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {
     final subPaths = <String>[...this.subPaths, ...other.subPaths];
-    return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
+    return S3ListMetadata(subPaths: subPaths, delimiter: other.delimiter);
   }
 
   /// Sub paths under the `path` parameter calling the `list` API.

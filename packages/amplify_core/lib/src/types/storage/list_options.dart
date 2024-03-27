@@ -14,7 +14,6 @@ class StorageListOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.list_options}
   const StorageListOptions({
-    super.accessLevel,
     this.pageSize = 1000,
     this.nextToken,
     this.pluginOptions,
@@ -30,14 +29,13 @@ class StorageListOptions extends StorageOperationOptions
   final StorageListPluginOptions? pluginOptions;
 
   @override
-  List<Object?> get props => [accessLevel, pageSize, nextToken, pluginOptions];
+  List<Object?> get props => [pageSize, nextToken, pluginOptions];
 
   @override
   String get runtimeTypeName => 'StorageListOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel?.name,
         'pageSize': pageSize,
         'nextToken': nextToken,
         'pluginOptions': pluginOptions?.toJson(),

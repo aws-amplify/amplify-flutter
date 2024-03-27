@@ -32,7 +32,6 @@ class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   factory StorageS3Service({
     required S3PluginConfig s3PluginConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
@@ -58,7 +57,6 @@ class StorageS3Service {
     return StorageS3Service._(
       s3PluginConfig: s3PluginConfig,
       s3ClientConfig: s3ClientConfig,
-      prefixResolver: prefixResolver,
       pathResolver: pathResolver,
       credentialsProvider: credentialsProvider,
       logger: logger,
@@ -70,7 +68,6 @@ class StorageS3Service {
   StorageS3Service._({
     required S3PluginConfig s3PluginConfig,
     required smithy_aws.S3ClientConfig s3ClientConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
@@ -88,7 +85,6 @@ class StorageS3Service {
               client: AmplifyHttpClient(dependencyManager)
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
-        _prefixResolver = prefixResolver,
         _pathResolver = pathResolver,
         _logger = logger,
         // dependencyManager.get() => sigv4.AWSSigV4Signer is used for unit tests
@@ -106,7 +102,6 @@ class StorageS3Service {
   final String _delimiter;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
-  final S3PrefixResolver _prefixResolver;
   final S3PathResolver _pathResolver;
   final AWSLogger _logger;
   final sigv4.AWSSigV4Signer _awsSigV4Signer;
@@ -131,25 +126,19 @@ class StorageS3Service {
   /// service returned [smithy.UnknownSmithyHttpException] if any.
   /// {@endtemplate}
   Future<S3ListResult> list({
-    String? path,
+    required StoragePath path,
     required StorageListOptions options,
   }) async {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
-    final resolvedPrefix = await getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
-      identityId: s3PluginOptions.targetIdentityId,
-    );
 
-    final listTargetPrefix = '$resolvedPrefix${path ?? ''}';
+    final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = listTargetPrefix
+          ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
@@ -158,7 +147,6 @@ class StorageS3Service {
       try {
         return S3ListResult.fromPaginatedResult(
           await _defaultS3Client.listObjectsV2(request).result,
-          prefixToDrop: resolvedPrefix,
         );
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
@@ -175,14 +163,13 @@ class StorageS3Service {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _s3PluginConfig.bucket
-          ..prefix = listTargetPrefix
+          ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;
       recursiveResult = S3ListResult.fromPaginatedResult(
         listResult,
-        prefixToDrop: resolvedPrefix,
       );
 
       while (listResult.hasNext) {
@@ -190,7 +177,6 @@ class StorageS3Service {
         recursiveResult = recursiveResult.merge(
           S3ListResult.fromPaginatedResult(
             listResult,
-            prefixToDrop: resolvedPrefix,
           ),
         );
       }
@@ -515,7 +501,6 @@ class StorageS3Service {
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
                       s3.S3Object(key: removedObject.key),
-                      prefixToDrop: '',
                     ),
                   ) ??
               [],
