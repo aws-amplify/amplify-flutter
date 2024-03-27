@@ -24,8 +24,6 @@ class S3ListPluginOptions extends StorageListPluginOptions {
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
-  /// This can be set by using [S3ListPluginOptions.listAll].
-  ///
   /// Use this to list all objects without pagination.
   const S3ListPluginOptions.listAll({
     bool excludeSubPaths = false,
@@ -44,6 +42,8 @@ class S3ListPluginOptions extends StorageListPluginOptions {
 
   /// Whether to list all objects under a given path without pagination. The
   /// default value is `false`.
+  /// 
+  /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
   final bool listAll;
