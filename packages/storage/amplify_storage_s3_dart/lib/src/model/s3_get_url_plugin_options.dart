@@ -25,25 +25,8 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   const S3GetUrlPluginOptions._({
     this.expiresIn = const Duration(minutes: 15),
     this.validateObjectExistence = false,
-    this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
-
-  /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
-  ///
-  /// Use this when calling `getUrl` on an object that belongs to other user
-  /// (identified by [targetIdentityId]) rather than the currently signed user.
-  const S3GetUrlPluginOptions.forIdentity(
-    String targetIdentityId, {
-    Duration expiresIn = const Duration(minutes: 15),
-    bool validateObjectExistence = false,
-    bool useAccelerateEndpoint = false,
-  }) : this._(
-          expiresIn: expiresIn,
-          validateObjectExistence: validateObjectExistence,
-          targetIdentityId: targetIdentityId,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
 
   /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
   factory S3GetUrlPluginOptions.fromJson(Map<String, Object?> json) =>
@@ -56,11 +39,6 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   /// a presigned url.
   final bool validateObjectExistence;
 
-  /// The identity ID of another user who uploaded the object.
-  ///
-  /// This can be set by using [S3GetUrlPluginOptions.forIdentity].
-  final String? targetIdentityId;
-
   /// {@macro storage.amplify_storage_s3.transfer_acceleration}
   final bool useAccelerateEndpoint;
 
@@ -69,7 +47,6 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
         expiresIn,
         validateObjectExistence,
         useAccelerateEndpoint,
-        targetIdentityId,
       ];
 
   @override

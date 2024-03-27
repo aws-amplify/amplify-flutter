@@ -15,10 +15,10 @@ class StorageCopyRequest<Item extends StorageItem> {
   });
 
   /// Copy source.
-  final StorageItemWithAccessLevel<Item> source;
+  final StoragePath source;
 
   /// Copy destination.
-  final StorageItemWithAccessLevel<Item> destination;
+  final StoragePath destination;
 
   /// Configurable options of the [StorageCopyRequest].
   final StorageCopyOptions? options;

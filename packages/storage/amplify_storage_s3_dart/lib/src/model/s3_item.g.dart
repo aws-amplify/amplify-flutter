@@ -7,7 +7,7 @@ part of 's3_item.dart';
 // **************************************************************************
 
 S3Item _$S3ItemFromJson(Map<String, dynamic> json) => S3Item(
-      key: json['key'] as String,
+      path: json['path'] as String,
       size: json['size'] as int?,
       lastModified: json['lastModified'] == null
           ? null
@@ -23,7 +23,7 @@ S3Item _$S3ItemFromJson(Map<String, dynamic> json) => S3Item(
 
 Map<String, dynamic> _$S3ItemToJson(S3Item instance) {
   final val = <String, dynamic>{
-    'key': instance.key,
+    'path': instance.path,
   };
 
   void writeNotNull(String key, dynamic value) {

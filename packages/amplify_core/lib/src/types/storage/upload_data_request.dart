@@ -9,13 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageUploadDataRequest {
   /// {@macro amplify_core.storage.upload_data_request}
   const StorageUploadDataRequest({
+    required this.path,
     required this.data,
-    required this.key,
     this.options,
   });
 
-  /// The key of the object upload to.
-  final String key;
+  /// Path to upload the data to.
+  final StoragePath path;
 
   /// The data payload to upload.
   final StorageDataPayload data;

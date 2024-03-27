@@ -16,7 +16,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.list}
   StorageListOperation list({
-    String? path,
+    required StoragePath path,
     StorageListOptions? options,
   }) {
     throw UnimplementedError('list() has not been implemented.');
@@ -24,7 +24,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_properties}
   StorageGetPropertiesOperation getProperties({
-    required String key,
+    required StoragePath path,
     StorageGetPropertiesOptions? options,
   }) {
     throw UnimplementedError('getProperties() has not been implemented.');
@@ -32,7 +32,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
   StorageGetUrlOperation getUrl({
-    required String key,
+    required StoragePath path,
     StorageGetUrlOptions? options,
   }) {
     throw UnimplementedError('getUrl() has not been implemented.');
@@ -40,7 +40,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.download_data}
   StorageDownloadDataOperation downloadData({
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadDataOptions? options,
   }) {
@@ -49,7 +49,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.download_file}
   StorageDownloadFileOperation downloadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
@@ -59,7 +59,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_data}
   StorageUploadDataOperation uploadData({
-    required String key,
+    required StoragePath path,
     required StorageDataPayload data,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
@@ -69,7 +69,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.upload_file}
   StorageUploadFileOperation uploadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
@@ -79,25 +79,16 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.copy}
   StorageCopyOperation copy({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
+    required StoragePath source,
+    required StoragePath destination,
     StorageCopyOptions? options,
   }) {
     throw UnimplementedError('copy() has not been implemented.');
   }
 
-  /// {@macro amplify_core.amplify_storage_category.move}
-  StorageMoveOperation move({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
-    StorageMoveOptions? options,
-  }) {
-    throw UnimplementedError('move() has not been implemented.');
-  }
-
   /// {@macro amplify_core.amplify_storage_category.remove}
   StorageRemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     throw UnimplementedError('remove() has not been implemented.');
@@ -105,7 +96,7 @@ abstract class StoragePluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_storage_category.remove_many}
   StorageRemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     throw UnimplementedError('removeMany() has not been implemented.');

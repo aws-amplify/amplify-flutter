@@ -129,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // upload a file to the S3 bucket
   Future<void> _uploadFile() async {
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png'],
+      type: FileType.image,
       withReadStream: true,
       withData: false,
     );
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           platformFile.readStream!,
           size: platformFile.size,
         ),
-        key: platformFile.name,
+        path: StoragePath.fromString('public/${platformFile.name}'),
         onProgress: (p) =>
             _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
       ).result;
@@ -162,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _listAllPublicFiles() async {
     try {
       final result = await Amplify.Storage.list(
+        path: const StoragePath.fromString('public'),
         options: const StorageListOptions(
-          accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3ListPluginOptions.listAll(),
         ),
       ).result;
@@ -181,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final filepath = '${documentsDir.path}/$key';
     try {
       await Amplify.Storage.downloadFile(
-        key: key,
+        path: StoragePath.fromString(key),
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
@@ -196,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> downloadFileWeb(String key) async {
     try {
       await Amplify.Storage.downloadFile(
-        key: key,
+        path: StoragePath.fromString(key),
         localFile: AWSFile.fromPath(key),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
@@ -210,12 +209,10 @@ class _HomeScreenState extends State<HomeScreen> {
   // delete file from S3 bucket
   Future<void> removeFile({
     required String key,
-    required StorageAccessLevel accessLevel,
   }) async {
     try {
       await Amplify.Storage.remove(
-        key: key,
-        options: StorageRemoveOptions(accessLevel: accessLevel),
+        path: StoragePath.fromString('public/$key'),
       ).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
@@ -229,15 +226,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // get the url of a file in the S3 bucket
   Future<String> getUrl({
-    required String key,
-    required StorageAccessLevel accessLevel,
+    required String path,
   }) async {
     try {
       final result = await Amplify.Storage.getUrl(
-        key: key,
-        options: StorageGetUrlOptions(
-          accessLevel: accessLevel,
-          pluginOptions: const S3GetUrlPluginOptions(
+        path: StoragePath.fromString(path),
+        options: const StorageGetUrlOptions(
+          pluginOptions: S3GetUrlPluginOptions(
             validateObjectExistence: true,
             expiresIn: Duration(minutes: 1),
           ),
@@ -270,18 +265,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   final item = list[index];
                   return ListTile(
                     onTap: () {
-                      getUrl(
-                        key: item.key,
-                        accessLevel: StorageAccessLevel.guest,
-                      );
+                      getUrl(path: item.path);
                     },
-                    title: Text(item.key),
+                    title: Text(item.path),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
                         removeFile(
-                          key: item.key,
-                          accessLevel: StorageAccessLevel.guest,
+                          key: item.path,
                         );
                       },
                       color: Colors.red,
@@ -290,8 +281,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.download),
                       onPressed: () {
                         zIsWeb
-                            ? downloadFileWeb(item.key)
-                            : downloadFileMobile(item.key);
+                            ? downloadFileWeb(item.path)
+                            : downloadFileMobile(item.path);
                       },
                     ),
                   );

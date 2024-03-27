@@ -14,7 +14,6 @@ class StorageUploadDataOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.upload_data_options}
   const StorageUploadDataOptions({
-    super.accessLevel,
     this.metadata = const {},
     this.pluginOptions,
   });
@@ -26,14 +25,13 @@ class StorageUploadDataOptions extends StorageOperationOptions
   final StorageUploadDataPluginOptions? pluginOptions;
 
   @override
-  List<Object?> get props => [accessLevel, metadata, pluginOptions];
+  List<Object?> get props => [metadata, pluginOptions];
 
   @override
   String get runtimeTypeName => 'StorageUploadDataOptions';
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel?.name,
         'metadata': metadata,
         'pluginOptions': pluginOptions?.toJson(),
       };

@@ -41,10 +41,12 @@ void main() {
     final key = 'Test - ${DateTime.now()}';
     await Amplify.Storage.uploadData(
       data: S3DataPayload.bytes('hello'.codeUnits),
-      key: key,
+      path: StoragePath.fromString('public/$key'),
     ).result;
 
-    final getUrlResult = await Amplify.Storage.getUrl(key: key).result;
+    final getUrlResult = await Amplify.Storage.getUrl(
+      path: StoragePath.fromString('public/$key'),
+    ).result;
     final uri = getUrlResult.url;
 
     final client = AWSHttpClient()

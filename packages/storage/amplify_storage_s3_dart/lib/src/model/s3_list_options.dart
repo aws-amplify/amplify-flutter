@@ -15,12 +15,10 @@ class S3ListOptions extends StorageListOptions {
     'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
   )
   const S3ListOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     int pageSize = 1000,
     bool excludeSubPaths = false,
     String? nextToken,
   }) : this._(
-          accessLevel: accessLevel,
           pageSize: pageSize,
           nextToken: nextToken,
           excludeSubPaths: excludeSubPaths,
@@ -30,7 +28,6 @@ class S3ListOptions extends StorageListOptions {
     'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
   )
   const S3ListOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
     super.pageSize = 1000,
     super.nextToken,
     this.targetIdentityId,
@@ -51,7 +48,6 @@ class S3ListOptions extends StorageListOptions {
     bool excludeSubPaths = false,
     String? nextToken,
   }) : this._(
-          accessLevel: StorageAccessLevel.protected,
           pageSize: pageSize,
           targetIdentityId: targetIdentityId,
           nextToken: nextToken,
@@ -65,10 +61,8 @@ class S3ListOptions extends StorageListOptions {
     'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
   )
   const S3ListOptions.listAll({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     bool excludeSubPaths = false,
   }) : this._(
-          accessLevel: accessLevel,
           excludeSubPaths: excludeSubPaths,
           listAll: true,
         );
@@ -85,7 +79,6 @@ class S3ListOptions extends StorageListOptions {
     String targetIdentityId, {
     bool excludeSubPaths = false,
   }) : this._(
-          accessLevel: StorageAccessLevel.protected,
           targetIdentityId: targetIdentityId,
           excludeSubPaths: excludeSubPaths,
         );
