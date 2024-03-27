@@ -150,7 +150,7 @@ class S3UploadTask {
   bool _isMultipartUpload = false;
 
   late StorageTransferState _state;
-  late final String _resolvedKey;
+  late final String _resolvedPath;
 
   // fields used to manage the single upload process
   smithy.SmithyOperation<s3.PutObjectOutput>? _putObjectOperation;
@@ -200,7 +200,7 @@ class S3UploadTask {
     }
 
     try {
-      await _setResolvedKey();
+      await _setResolvedPath();
     } on Exception catch (error, stackTrace) {
       _completeUploadWithError(error, stackTrace);
       return;
@@ -307,8 +307,8 @@ class S3UploadTask {
     }
   }
 
-  Future<void> _setResolvedKey() async {
-    _resolvedKey = await _pathResolver.resolvePath(path: _path);
+  Future<void> _setResolvedPath() async {
+    _resolvedPath = await _pathResolver.resolvePath(path: _path);
   }
 
   Future<void> _startPutObject(S3DataPayload body) async {
@@ -320,7 +320,7 @@ class S3UploadTask {
         ..bucket = _bucket
         ..body = body
         ..contentType = body.contentType ?? fallbackContentType
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..metadata.addAll(_metadata);
     });
 
@@ -345,11 +345,11 @@ class S3UploadTask {
                 await StorageS3Service.headObject(
                   s3client: _s3Client,
                   bucket: _bucket,
-                  key: _resolvedKey,
+                  key: _resolvedPath,
                 ),
-                path: _resolvedKey,
+                path: _resolvedPath,
               )
-            : S3Item(path: _resolvedKey),
+            : S3Item(path: _resolvedPath),
       );
 
       _state = StorageTransferState.success;
@@ -454,11 +454,11 @@ class S3UploadTask {
                         await StorageS3Service.headObject(
                           s3client: _s3Client,
                           bucket: _bucket,
-                          key: _resolvedKey,
+                          key: _resolvedPath,
                         ),
-                        path: _resolvedKey,
+                        path: _resolvedPath,
                       )
-                    : S3Item(path: _resolvedKey),
+                    : S3Item(path: _resolvedPath),
               );
               _state = StorageTransferState.success;
               _emitTransferProgress();
@@ -474,7 +474,7 @@ class S3UploadTask {
       builder
         ..bucket = _bucket
         ..contentType = contentType ?? fallbackContentType
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..metadata.addAll(_metadata);
     });
 
@@ -491,7 +491,7 @@ class S3UploadTask {
         await _transferDatabase.insertTransferRecord(
           TransferRecord(
             uploadId: uploadId,
-            objectKey: _resolvedKey,
+            objectKey: _resolvedPath,
             createdAt: DateTime.now(),
           ),
         );
@@ -518,7 +518,7 @@ class S3UploadTask {
     final request = s3.CompleteMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..uploadId = _multipartUploadId
         ..multipartUpload = s3.CompletedMultipartUpload(
           parts: (_completedSubtasks
@@ -638,7 +638,7 @@ class S3UploadTask {
       builder
         ..bucket = _bucket
         ..body = partBody
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..partNumber = partNumber
         ..uploadId = _multipartUploadId;
     });
@@ -729,7 +729,7 @@ class S3UploadTask {
     final request = s3.AbortMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..uploadId = _multipartUploadId;
     });
 

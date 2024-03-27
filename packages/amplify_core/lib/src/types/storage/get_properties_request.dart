@@ -13,6 +13,7 @@ class StorageGetPropertiesRequest {
     this.options,
   });
 
+  // Path of the object to get properties of.
   final StoragePath path;
 
   /// Configurable options of the [StorageGetPropertiesRequest].

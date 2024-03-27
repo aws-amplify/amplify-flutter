@@ -86,7 +86,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   return S3DownloadFileResult(
     downloadedItem: s3PluginOptions != null && s3PluginOptions.getProperties
         ? downloadedItem
-        : S3Item(key: downloadedItem.key),
+        : S3Item(path: downloadedItem.path),
     localFile: localFile,
   );
 }

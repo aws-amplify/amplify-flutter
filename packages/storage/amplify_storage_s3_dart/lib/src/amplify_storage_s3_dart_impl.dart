@@ -178,7 +178,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
 
     final s3Options = StorageGetPropertiesOptions(
-      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -311,6 +310,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3UploadDataOperation(
       request: StorageUploadDataRequest(
+        path: path,
         data: data,
         options: options,
       ),
@@ -347,6 +347,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
     return S3UploadFileOperation(
       request: StorageUploadFileRequest(
+        path: path,
         localFile: localFile,
         options: options,
       ),
