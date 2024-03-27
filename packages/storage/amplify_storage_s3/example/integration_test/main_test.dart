@@ -6,6 +6,8 @@ import 'package:integration_test/integration_test.dart';
 
 import 'issues/get_url_special_characters_test.dart'
     as get_url_special_characters_tests;
+import 'upload_data_test.dart' as upload_data_test;
+import 'upload_file_test.dart' as upload_file_test;
 import 'use_case_test.dart' as use_case_tests;
 
 void main() {
@@ -14,5 +16,7 @@ void main() {
   group('amplify_storage_s3', () {
     get_url_special_characters_tests.main();
     use_case_tests.main();
+    upload_file_test.main();
+    upload_data_test.main();
   });
 }
