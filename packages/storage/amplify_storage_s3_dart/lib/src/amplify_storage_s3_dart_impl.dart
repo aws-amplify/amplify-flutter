@@ -123,7 +123,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
           credentialsProvider: credentialsProvider,
           s3PluginConfig: s3PluginConfig,
           delimiter: _delimiter,
-          prefixResolver: _prefixResolver!,
           pathResolver: _pathResolver,
           logger: logger,
           dependencyManager: dependencies,

@@ -296,7 +296,7 @@ class S3DownloadTask {
               // is set to `false`.
               _s3PluginOptions.getProperties
                   ? _downloadedS3Item
-                  : S3Item(key: _downloadedS3Item.key),
+                  : S3Item(path: _downloadedS3Item.path),
             );
           } on Exception catch (error, stackTrace) {
             await _completeDownloadWithError(error, stackTrace);

@@ -42,7 +42,6 @@ void main() {
     const s3PluginConfig =
         S3PluginConfig(bucket: testBucket, region: testRegion);
 
-    final testPrefixResolver = TestPrefixResolver();
     final pathResolver = TestPathResolver();
     late DependencyManager dependencyManager;
     late S3Client s3Client;
@@ -59,7 +58,6 @@ void main() {
         ..addInstance<AWSSigV4Signer>(awsSigV4Signer);
       storageS3Service = StorageS3Service(
         s3PluginConfig: s3PluginConfig,
-        prefixResolver: testPrefixResolver,
         pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
@@ -73,7 +71,6 @@ void main() {
           bucket: 'bucket.name.has.dots.com',
           region: 'us-west-2',
         ),
-        prefixResolver: testPrefixResolver,
         pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
@@ -85,38 +82,14 @@ void main() {
       expect(message, contains('Since your bucket name contains dots'));
     });
 
-    group('_getResolvedPrefix()', () {
-      test(
-          'should throw a StorageException if supplied prefix resolver throws an exception',
-          () async {
-        const testOptions = StorageListOptions(
-          pageSize: 1000,
-          pluginOptions:
-              S3ListPluginOptions.forIdentity('throw exception for me'),
-        );
-        //StorageListOption<>(S3ListOptions.forIdentity('throw exception for me');
-
-        await expectLater(
-          storageS3Service.list(
-            path: const StoragePath.fromString('a path'),
-            options: testOptions,
-          ),
-          throwsA(isA<StorageException>()),
-        );
-
-        verify(() => logger.error(any(), any(), any())).called(1);
-      });
-    });
-
     group('list() API', () {
       late S3ListResult listResult;
       const testNextContinuationToken = 'get-next-page';
       const testPageSize = 100;
       const testBucketName = 'a-bucket';
-      const testStorageAccessLevel = StorageAccessLevel.protected;
-      final testPrefixToDrop =
-          '${testStorageAccessLevel.defaultPrefix}$testDelimiter';
-      final testCommonPrefix = CommonPrefix(prefix: testPrefixToDrop);
+      const testPrefix =
+          'public$testDelimiter';
+      final testCommonPrefix = CommonPrefix(prefix: testPrefix);
 
       setUpAll(() {
         registerFallbackValue(ListObjectsV2Request(bucket: 'fake bucket'));
@@ -124,25 +97,20 @@ void main() {
 
       test('should invoke S3Client.listObjectsV2 with expected parameters',
           () async {
-        final testPrefixToDrop =
-            '${s3PluginConfig.defaultAccessLevel.defaultPrefix}$testDelimiter';
-        final testCommonPrefix = CommonPrefix(prefix: testPrefixToDrop);
+        final testCommonPrefix = CommonPrefix(prefix: testPrefix);
         final testS3Objects = [1, 2, 3, 4, 5]
             .map(
               (e) => S3Object(
-                key: '${testPrefixToDrop}object-$e',
+                key: '${testPrefix}object-$e',
                 size: Int64(100 * 4),
                 eTag: 'object-$e-eTag',
               ),
             )
             .toList();
         const testPath = StoragePath.fromString('album');
-        const testTargetIdentityId = 'someone-else-id';
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          pluginOptions: S3ListPluginOptions.forIdentity(
-            testTargetIdentityId,
-          ),
+          pluginOptions: S3ListPluginOptions(),
         );
 
         final testPaginatedResult =
@@ -185,18 +153,14 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.prefix,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: s3PluginConfig.defaultAccessLevel,
-            identityId: testTargetIdentityId,
-          )}$testPath',
+          TestPathResolver.path,
         );
         expect(request.maxKeys, testPageSize);
       });
 
       test('should return correct StorageS3ListResult', () async {
         listResult.items.asMap().forEach((index, item) {
-          expect(item.key, isNot(contains(testPrefixToDrop)));
-          expect(item.key, 'object-${index + 1}');
+          expect(item.path, '${testPrefix}object-${index + 1}');
         });
         expect(listResult.hasNextPage, true);
         expect(listResult.nextToken, testNextContinuationToken);
@@ -208,7 +172,7 @@ void main() {
         final testS3Objects = [1, 2, 3, 4, 5]
             .map(
               (e) => S3Object(
-                key: '${testPrefixToDrop}object-$e',
+                key: '${testPrefix}object-$e',
                 size: Int64(100 * 4),
                 eTag: 'object-$e-eTag',
               ),
@@ -229,10 +193,10 @@ void main() {
           ListObjectsV2Output(
             contents: testS3Objects,
             commonPrefixes: [
-              CommonPrefix(prefix: '$testPrefixToDrop${testSubPaths[0]}'),
-              CommonPrefix(prefix: '$testPrefixToDrop${testSubPaths[1]}'),
+              CommonPrefix(prefix: testSubPaths[0]),
+              CommonPrefix(prefix: testSubPaths[1]),
               CommonPrefix(
-                prefix: '$testPrefixToDrop${testSubPaths[2]}',
+                prefix: testSubPaths[2],
               ),
             ],
             delimiter: testDelimiter,
@@ -293,7 +257,7 @@ void main() {
         final testS3Objects = List.generate(2001, (index) => '$index')
             .map(
               (e) => S3Object(
-                key: '${testPrefixToDrop}object-$e',
+                key: '${testPrefix}object-$e',
                 size: Int64(100 * 4),
                 eTag: 'object-$e-eTag',
               ),
@@ -381,9 +345,8 @@ void main() {
           isA<ListObjectsV2Request>().having(
               (o) => o.prefix,
               'prefix',
-              '${await testPrefixResolver.resolvePrefix(
-                accessLevel: testOptions.accessLevel!,
-              )}$testPath'),
+              TestPathResolver.path,
+          ),
         );
 
         expect(listResult.hasNextPage, false);
@@ -396,8 +359,7 @@ void main() {
       });
 
       test('should handle AWSHttpException and throw NetworkException', () {
-        const testOptions =
-            StorageListOptions();
+        const testOptions = StorageListOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.get, uri: Uri()),
         );
@@ -838,7 +800,6 @@ void main() {
             ..addInstance<AWSSigV4Signer>(pathStyleAwsSigV4Signer);
           pathStyleStorageS3Service = StorageS3Service(
             s3PluginConfig: pathStyleS3PluginConfig,
-            prefixResolver: testPrefixResolver,
             pathResolver: pathResolver,
             credentialsProvider: TestIamAuthProvider(),
             logger: MockAWSLogger(),

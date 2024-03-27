@@ -25,13 +25,12 @@ void main() {
 
       final storageS3Item = S3Item.fromS3Object(
         testS3Object,
-        prefixToDrop: testPrefixToDrop,
       );
 
       expect(storageS3Item.eTag, testETag);
       expect(
-        storageS3Item.key,
-        testKey.replaceRange(0, testPrefixToDrop.length, ''),
+        storageS3Item.path,
+        testKey,
       );
       expect(storageS3Item.lastModified, testLastModified);
       expect(storageS3Item.size, testSize.toInt());
@@ -47,7 +46,6 @@ void main() {
       try {
         S3Item.fromS3Object(
           testS3Object,
-          prefixToDrop: testPrefixToDrop,
         );
         fail("Expected exception wasn't thrown.");
       } on StorageException catch (error) {

@@ -416,7 +416,7 @@ void main() {
             ),
           ).result;
 
-          expect(result.copiedItem.key, testObject3CopyKey);
+          expect(result.copiedItem.path, testObject3CopyKey);
           expect(result.copiedItem.eTag, isNotEmpty);
         });
 

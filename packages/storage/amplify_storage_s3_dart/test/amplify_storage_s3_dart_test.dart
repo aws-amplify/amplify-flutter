@@ -18,7 +18,6 @@ const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
   const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
-  const testAccessLevelProtected = StorageAccessLevel.protected;
   const testConfig = AmplifyConfig(
     storage: StorageConfig(
       plugins: {
@@ -138,9 +137,8 @@ void main() {
       final testResult = S3ListResult(
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromS3CommonPrefixes(
-          commonPrefixes: [],
-          prefixToDrop: 'prefix',
+        metadata: S3ListMetadata(
+          subPaths: [],
         ),
       );
 
@@ -234,7 +232,7 @@ void main() {
       const testKey = 'some-object-key';
       final testResult = S3GetPropertiesResult(
         storageItem: S3Item(
-          key: testKey,
+          path: testKey,
           lastModified: DateTime(2022, 9, 19),
           eTag: '12345',
           size: 1024,
@@ -434,7 +432,7 @@ void main() {
     group('downloadData() API', () {
       const testKey = 'some-object-key';
       final testItem = S3Item(
-        key: testKey,
+        path: testKey,
         lastModified: DateTime(2022, 9, 19),
         eTag: '12345',
         size: 1024,
@@ -568,7 +566,7 @@ void main() {
       const testKey = 'object-upload-to';
       final testData = S3DataPayload.string('Hello S3.');
       final testItem = S3Item(
-        key: testKey,
+        path: testKey,
         lastModified: DateTime(2022, 10, 14),
         eTag: '12345',
         size: 1024,
@@ -740,7 +738,7 @@ void main() {
       const testKey = 'object-upload-to';
       final testLocalFile = AWSFile.fromData([101]);
       final testItem = S3Item(
-        key: testKey,
+        path: testKey,
         lastModified: DateTime(2022, 10, 14),
         eTag: '12345',
         size: 1024,
@@ -993,7 +991,7 @@ void main() {
       const testKey = 'object-to-remove';
       final testResult = S3RemoveResult(
         removedItem: S3Item(
-          key: testKey,
+          path: testKey,
         ),
       );
 
@@ -1084,7 +1082,7 @@ void main() {
       );
       final testPaths = testKeys.map(StoragePath.fromString).toList();
       final resultRemoveItems =
-          testKeys.map((key) => S3Item(key: key)).toList();
+          testKeys.map((key) => S3Item(path: key)).toList();
       final testResult = S3RemoveManyResult(
         removedItems: resultRemoveItems,
       );

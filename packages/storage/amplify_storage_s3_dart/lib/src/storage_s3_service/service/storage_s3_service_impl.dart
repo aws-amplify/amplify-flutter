@@ -32,7 +32,6 @@ class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   factory StorageS3Service({
     required S3PluginConfig s3PluginConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
@@ -58,7 +57,6 @@ class StorageS3Service {
     return StorageS3Service._(
       s3PluginConfig: s3PluginConfig,
       s3ClientConfig: s3ClientConfig,
-      prefixResolver: prefixResolver,
       pathResolver: pathResolver,
       credentialsProvider: credentialsProvider,
       logger: logger,
@@ -70,7 +68,6 @@ class StorageS3Service {
   StorageS3Service._({
     required S3PluginConfig s3PluginConfig,
     required smithy_aws.S3ClientConfig s3ClientConfig,
-    required S3PrefixResolver prefixResolver,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
@@ -150,7 +147,6 @@ class StorageS3Service {
       try {
         return S3ListResult.fromPaginatedResult(
           await _defaultS3Client.listObjectsV2(request).result,
-          prefixToDrop: fullPath,
         );
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
@@ -174,7 +170,6 @@ class StorageS3Service {
       listResult = await _defaultS3Client.listObjectsV2(request).result;
       recursiveResult = S3ListResult.fromPaginatedResult(
         listResult,
-        prefixToDrop: fullPath,
       );
 
       while (listResult.hasNext) {
@@ -182,7 +177,6 @@ class StorageS3Service {
         recursiveResult = recursiveResult.merge(
           S3ListResult.fromPaginatedResult(
             listResult,
-            prefixToDrop: fullPath,
           ),
         );
       }
@@ -507,7 +501,6 @@ class StorageS3Service {
           output.deleted?.toList().map(
                     (removedObject) => S3Item.fromS3Object(
                       s3.S3Object(key: removedObject.key),
-                      prefixToDrop: '',
                     ),
                   ) ??
               [],
