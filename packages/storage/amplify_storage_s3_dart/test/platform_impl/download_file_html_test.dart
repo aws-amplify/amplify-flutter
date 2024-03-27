@@ -35,7 +35,7 @@ void main() {
       region: 'west-2',
     );
     final testItem = S3Item(
-      key: testKey,
+      path: testKey,
       lastModified: DateTime(2022, 9, 19),
       eTag: '12345',
       size: 1024,

@@ -35,7 +35,7 @@ void main() {
     );
     const testKey = 'upload-key.text';
     const testFileContent = 'Hello world!';
-    final testItem = S3Item(key: testKey);
+    final testItem = S3Item(path: testKey);
     final testFileBytes = utf8.encode(testFileContent);
 
     late S3TransferProgress expectedProgress;

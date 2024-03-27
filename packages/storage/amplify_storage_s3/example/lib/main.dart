@@ -161,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _listAllPublicFiles() async {
     try {
       final result = await Amplify.Storage.list(
+        path: const StoragePath.fromString('public'),
         options: const StorageListOptions(
-          accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3ListPluginOptions.listAll(),
         ),
       ).result;

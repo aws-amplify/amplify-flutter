@@ -76,9 +76,6 @@ Future<void> main() async {
 
 Future<void> listOperation() async {
   final path = prompt('Enter a path to list objects for: ');
-  final accessLevel = promptStorageAccessLevel(
-    'Choose the storage access level associated with the path: ',
-  );
   final listAll = prompt('List with pagination? (Y/n): ').toLowerCase() == 'n';
 
   const pageSize = 5;
@@ -86,16 +83,14 @@ Future<void> listOperation() async {
   // get plugin with plugin key to gain S3 specific interface
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final options = listAll
-      ? StorageListOptions(
-          accessLevel: accessLevel,
-          pluginOptions: const S3ListPluginOptions.listAll(),
+      ? const StorageListOptions(
+          pluginOptions: S3ListPluginOptions.listAll(),
         )
-      : StorageListOptions(
-          accessLevel: accessLevel,
+      : const StorageListOptions(
           pageSize: pageSize,
         );
   final operation = s3Plugin.list(
-    path: path,
+    path: StoragePath.fromString(path),
     options: options,
   );
 
@@ -116,7 +111,7 @@ Future<void> listOperation() async {
     stdout.writeln('Listed ${result.items.length} objects.');
     stdout.writeln('Sub directories: ${result.metadata.subPaths}');
     result.items.asMap().forEach((index, item) {
-      stdout.writeln('$index. key: ${item.key} | size: ${item.size}');
+      stdout.writeln('$index. path: ${item.path} | size: ${item.size}');
     });
 
     if (!result.hasNextPage) {
@@ -133,9 +128,8 @@ Future<void> listOperation() async {
 
     result = await s3Plugin
         .list(
-          path: path,
+          path: StoragePath.fromString(path),
           options: StorageListOptions(
-            accessLevel: accessLevel,
             pageSize: pageSize,
             nextToken: result.nextToken,
           ),
@@ -155,7 +149,7 @@ Future<void> getPropertiesOperation() async {
 
   stdout
     ..writeln('Got properties: ')
-    ..writeln('key: ${result.storageItem.key}')
+    ..writeln('path: ${result.storageItem.path}')
     ..writeln('size: ${result.storageItem.size}')
     ..writeln('lastModified: ${result.storageItem.lastModified}')
     ..writeln('eTag: ${result.storageItem.eTag}')
@@ -289,7 +283,7 @@ Future<void> uploadDataUrlOperation() async {
     final result = await uploadDataOperation.result;
     stdout
       ..writeln('Uploaded data url: ')
-      ..writeln('key: ${result.uploadedItem.key}')
+      ..writeln('path: ${result.uploadedItem.path}')
       ..writeln('size: ${result.uploadedItem.size}')
       ..writeln('lastModified: ${result.uploadedItem.lastModified}')
       ..writeln('eTag: ${result.uploadedItem.eTag}');
@@ -367,7 +361,7 @@ Future<void> copyOperation() async {
     final result = await copyOperation.result;
     stdout
       ..writeln('Copied object: ')
-      ..writeln('key: ${result.copiedItem.key}')
+      ..writeln('path: ${result.copiedItem.path}')
       ..writeln('size: ${result.copiedItem.size}')
       ..writeln('lastModified: ${result.copiedItem.lastModified}')
       ..writeln('eTag: ${result.copiedItem.eTag}')
@@ -391,7 +385,7 @@ Future<void> removeOperation() async {
     final result = await removeOperation.result;
     stdout
       ..writeln('Remove completed.')
-      ..writeln('Removed object: ${result.removedItem.key}');
+      ..writeln('Removed object: ${result.removedItem.path}');
   } on Exception catch (error) {
     stderr
       ..writeln('Something went wrong...')

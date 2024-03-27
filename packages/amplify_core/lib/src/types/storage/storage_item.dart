@@ -7,17 +7,13 @@
 class StorageItem {
   /// {@macro amplify_core.storage.storage_item}
   const StorageItem({
-    this.key,
-    // TODO(Jordan-Nelson): make required
-    this.path = '',
+    required this.path,
     this.size,
     this.lastModified,
     this.eTag,
     this.metadata = const <String, String>{},
   });
 
-  // TODO(Jordan-Nelson): Remove key
-  final String? key;
   final String path;
   final int? size;
   final DateTime? lastModified;
