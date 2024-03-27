@@ -23,10 +23,14 @@ class S3ListResult extends StorageListResult<S3Item> {
   /// smithy. This named constructor should be used internally only.
   @internal
   factory S3ListResult.fromPaginatedResult(
-    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,) {
+    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
+  ) {
     final output = paginatedResult.items;
     final metadata = S3ListMetadata(
-      subPaths: output.commonPrefixes?.map((commonPrefix) => commonPrefix.prefix).whereType<String>().toList(),
+      subPaths: output.commonPrefixes
+          ?.map((commonPrefix) => commonPrefix.prefix)
+          .whereType<String>()
+          .toList(),
       delimiter: output.delimiter,
     );
     final items = output.contents

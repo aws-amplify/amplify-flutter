@@ -87,8 +87,7 @@ void main() {
       const testNextContinuationToken = 'get-next-page';
       const testPageSize = 100;
       const testBucketName = 'a-bucket';
-      const testPrefix =
-          'public$testDelimiter';
+      const testPrefix = 'public$testDelimiter';
       final testCommonPrefix = CommonPrefix(prefix: testPrefix);
 
       setUpAll(() {
@@ -343,9 +342,9 @@ void main() {
         expect(
           capturedRequest,
           isA<ListObjectsV2Request>().having(
-              (o) => o.prefix,
-              'prefix',
-              TestPathResolver.path,
+            (o) => o.prefix,
+            'prefix',
+            TestPathResolver.path,
           ),
         );
 
