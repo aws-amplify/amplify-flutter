@@ -13,12 +13,12 @@ import org.robolectric.RobolectricTestRunner
 class AmplifySerializedModelTest {
 
     private var serializedModelMaps: Map<String, Any> = (
-            readMapFromFile(
-                "model_schema",
-                "serialized_model_maps.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+        readMapFromFile(
+            "model_schema",
+            "serialized_model_maps.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>
+        )
 
     @Test
     fun test_schema_blog_with_hasMany() {

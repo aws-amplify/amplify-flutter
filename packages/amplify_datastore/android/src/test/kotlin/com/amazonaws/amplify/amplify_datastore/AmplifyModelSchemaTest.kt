@@ -15,12 +15,12 @@ import org.robolectric.RobolectricTestRunner
 class AmplifyModelSchemaTest {
 
     private var schemasMap: Map<String, Any> = (
-            readMapFromFile(
-                "model_schema",
-                "model_schema_maps.json",
-                HashMap::class.java
-            ) as HashMap<String, Any>
-            )
+        readMapFromFile(
+            "model_schema",
+            "model_schema_maps.json",
+            HashMap::class.java
+        ) as HashMap<String, Any>
+        )
 
     @Test
     fun test_schema_blog_with_hasMany() {

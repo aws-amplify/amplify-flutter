@@ -32,8 +32,10 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
         if (rawIndexes is List<*>) {
             parsedIndexes.putAll(
                 (rawIndexes.cast<Map<String, Any>>()).associate {
-                    (it["name"] as String?
-                        ?: FlutterModelIndex.unnamedIndexKey) to FlutterModelIndex(it).convertToNativeModelIndex()
+                    (
+                        it["name"] as String?
+                            ?: FlutterModelIndex.unnamedIndexKey
+                        ) to FlutterModelIndex(it).convertToNativeModelIndex()
                 }.toMap()
             )
         }
@@ -54,6 +56,6 @@ data class FlutterModelSchema(val map: Map<String, Any>) {
             // to allow amplify-android correctly interpret custom primary key
             // schema version needs to be >= 1
             .version(1)
-            .build();
+            .build()
     }
 }

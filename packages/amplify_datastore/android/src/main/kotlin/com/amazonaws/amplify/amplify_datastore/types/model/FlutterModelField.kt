@@ -38,8 +38,11 @@ data class FlutterModelField(val map: Map<String, Any>) {
 
     // Association (if any) of the model
     private val flutterModelAssociation: FlutterModelAssociation? =
-        if (map["association"] == null) null
-        else FlutterModelAssociation(map["association"] as Map<String, Any>)
+        if (map["association"] == null) {
+            null
+        } else {
+            FlutterModelAssociation(map["association"] as Map<String, Any>)
+        }
 
     fun getModelAssociation(): FlutterModelAssociation? {
         return flutterModelAssociation
