@@ -13,21 +13,21 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 // some utilities for mocking Connectivity Plus
 
-const kCheckConnectivityResult = ConnectivityResult.wifi;
+const kCheckConnectivityResult = [ConnectivityResult.wifi];
 
 class MockConnectivityPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements ConnectivityPlatform {
   // ignore: close_sinks
-  final controller = StreamController<ConnectivityResult>.broadcast();
+  final controller = StreamController<List<ConnectivityResult>>.broadcast();
 
   @override
-  Future<ConnectivityResult> checkConnectivity() async {
+  Future<List<ConnectivityResult>> checkConnectivity() async {
     return kCheckConnectivityResult;
   }
 
   @override
-  Stream<ConnectivityResult> get onConnectivityChanged {
+  Stream<List<ConnectivityResult>> get onConnectivityChanged {
     return controller.stream;
   }
 }
@@ -54,7 +54,7 @@ void main() {
           emits(ConnectivityStatus.connected),
         );
         stream.listen(null);
-        fakePlatform.controller.sink.add(ConnectivityResult.wifi);
+        fakePlatform.controller.sink.add([ConnectivityResult.wifi]);
       },
     );
 
@@ -66,7 +66,7 @@ void main() {
           emits(ConnectivityStatus.disconnected),
         );
         stream.listen(null);
-        fakePlatform.controller.sink.add(ConnectivityResult.none);
+        fakePlatform.controller.sink.add([ConnectivityResult.none]);
       },
     );
 
@@ -83,10 +83,27 @@ void main() {
           ]),
         );
         stream.listen(null);
-        fakePlatform.controller.sink.add(ConnectivityResult.wifi);
-        fakePlatform.controller.sink.add(ConnectivityResult.vpn);
-        fakePlatform.controller.sink.add(ConnectivityResult.none);
-        fakePlatform.controller.sink.add(ConnectivityResult.mobile);
+        fakePlatform.controller.sink.add([ConnectivityResult.wifi]);
+        fakePlatform.controller.sink.add([ConnectivityResult.vpn]);
+        fakePlatform.controller.sink.add([ConnectivityResult.none]);
+        fakePlatform.controller.sink.add([ConnectivityResult.mobile]);
+      },
+    );
+
+    test(
+      'returns connected when ConnectivityPlus returns multiple type of connection.',
+      () {
+        expect(
+          stream,
+          emitsInOrder([
+            ConnectivityStatus.connected,
+          ]),
+        );
+        stream.listen(null);
+        fakePlatform.controller.sink.add([
+          ConnectivityResult.wifi,
+          ConnectivityResult.vpn,
+        ]);
       },
     );
   });
