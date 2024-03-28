@@ -399,7 +399,6 @@ void main() {
         );
 
         testWidgets(
-            skip: true,
             'copy object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.copy(
@@ -416,7 +415,7 @@ void main() {
             ),
           ).result;
 
-          expect(result.copiedItem.path, testObject3CopyKey);
+          expect(result.copiedItem.path.endsWith(testObject3CopyKey), isTrue);
           expect(result.copiedItem.eTag, isNotEmpty);
         });
 
@@ -664,7 +663,6 @@ void main() {
           });
 
           testWidgets(
-              skip: true,
               'copy object (belongs to other user) with access level protected'
               ' for the currently signed in user', (WidgetTester tester) async {
             final result = await Amplify.Storage.copy(
@@ -684,8 +682,7 @@ void main() {
             expect(result.copiedItem.eTag, isNotEmpty);
           });
 
-          testWidgets(skip: true, 'list respects pageSize',
-              (WidgetTester tester) async {
+          testWidgets('list respects pageSize', (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
             final uploadedKeys = <String>[];
@@ -699,7 +696,9 @@ void main() {
                   testBytes,
                   contentType: 'text/plain',
                 ),
-                path: StoragePath.fromString('private/$fileKey'),
+                path: StoragePath.withIdentityId(
+                  (identityId) => 'private/$identityId/$fileKey',
+                ),
                 options: StorageUploadDataOptions(
                   metadata: {
                     'filename': fileNameTemp,
@@ -731,7 +730,7 @@ void main() {
             ).result;
           });
 
-          testWidgets(skip: true, 'list uses nextToken for pagination',
+          testWidgets('list uses nextToken for pagination',
               (WidgetTester tester) async {
             const filesToUpload = 2;
             const filesToList = 1;
@@ -764,7 +763,7 @@ void main() {
               // Call list() until nextToken is null and ensure we paginated expected times.
               final listResult = await Amplify.Storage.list(
                 path: StoragePath.withIdentityId(
-                  (identityId) => 'private/$identityId/',
+                  (identityId) => 'private/$identityId/$keyPrefix',
                 ),
                 options: StorageListOptions(
                   pageSize: filesToList,
