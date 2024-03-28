@@ -929,7 +929,7 @@ void main() {
         final request = capturedRequest as CopyObjectRequest;
 
         expect(request.bucket, testBucket);
-        expect(request.copySource, testBucket + TestPathResolver.path);
+        expect(request.copySource, '$testBucket/${TestPathResolver.path}');
       });
 
       test('should return correct S3CopyResult', () {

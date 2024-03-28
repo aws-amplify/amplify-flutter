@@ -1,13 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/src/types/storage/base/storage_operation_options.dart';
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.storage.list_options}
 /// Configurable options for `Amplify.Storage.list`.
 /// {@endtemplate}
-class StorageListOptions extends StorageOperationOptions
+class StorageListOptions
     with
         AWSEquatable<StorageListOptions>,
         AWSSerializable<Map<String, Object?>>,
