@@ -89,6 +89,7 @@ void main() {
         await Amplify.addPlugins([authPlugin, storagePlugin]);
         await Amplify.configure(amplifyEnvironments[entry.key]!);
 
+        // confirm no user is signed in before starting tests
         try {
           await Amplify.Auth.signOut();
         } on Exception {
