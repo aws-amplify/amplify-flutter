@@ -231,7 +231,11 @@ void main() {
           () async {
         const limit = 2;
         final GraphQLRequest<PaginatedResult<Blog>> req =
-            ModelQueries.list<Blog>(Blog.classType, limit: limit);
+            ModelQueries.list<Blog>(
+          Blog.classType,
+          limit: limit,
+          authorizationMode: APIAuthorizationType.iam,
+        );
 
         const data = '''{
           "listBlogs": {
@@ -263,6 +267,8 @@ void main() {
           response.data?.nextToken,
         );
         expect(resultRequest?.variables['limit'], limit);
+        expect(resultRequest?.authorizationMode, req.authorizationMode);
+        expect(resultRequest?.apiName, req.apiName);
       });
 
       test(
