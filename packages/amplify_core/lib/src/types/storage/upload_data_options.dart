@@ -1,13 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/src/types/storage/base/storage_operation_options.dart';
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.storage.upload_data_options}
 /// Configurable options for `Amplify.Storage.uploadData`.
 /// {@endtemplate}
-class StorageUploadDataOptions extends StorageOperationOptions
+class StorageUploadDataOptions
     with
         AWSEquatable<StorageUploadDataOptions>,
         AWSSerializable<Map<String, Object?>>,

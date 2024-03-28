@@ -405,7 +405,7 @@ class StorageS3Service {
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
         ..bucket = _s3PluginConfig.bucket
-        ..copySource = '${_s3PluginConfig.bucket}$sourcePath'
+        ..copySource = '${_s3PluginConfig.bucket}/$sourcePath'
         ..key = destinationPath
         ..metadataDirective = s3.MetadataDirective.copy;
     });
@@ -427,7 +427,7 @@ class StorageS3Service {
                 bucket: _s3PluginConfig.bucket,
                 key: destinationPath,
               ),
-              path: sourcePath,
+              path: destinationPath,
             )
           : S3Item(
               path: destinationPath,

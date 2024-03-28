@@ -98,7 +98,6 @@ Future<void> listOperation() async {
   // final operation = Amplify.Storage.list(
   //   path: path,
   //   options: StorageS3ListOptions(
-  //     accessLevel: accessLevel,
   //     pageSize: 5,
   //   ),
   // );
@@ -400,32 +399,6 @@ String prompt(String prompt) {
     value = stdin.readLineSync(encoding: utf8);
   }
   return value;
-}
-
-StorageAccessLevel promptStorageAccessLevel(String message) {
-  int? value;
-  bool valueInRange(int? value) {
-    return [1, 2, 3].contains(value);
-  }
-
-  while (value == null || !valueInRange(value)) {
-    stdout.write('''$message:
-1. guest
-2. protected
-3. private
-''');
-    final input = stdin.readLineSync(encoding: utf8);
-    value = int.tryParse(input ?? '');
-  }
-
-  var accessLevel = StorageAccessLevel.guest;
-  if (value == 2) {
-    accessLevel = StorageAccessLevel.protected;
-  } else if (value == 3) {
-    accessLevel = StorageAccessLevel.private;
-  }
-
-  return accessLevel;
 }
 
 bool promptUseAcceleration() {

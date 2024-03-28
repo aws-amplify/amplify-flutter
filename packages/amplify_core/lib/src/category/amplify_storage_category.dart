@@ -190,8 +190,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   ///
   /// {@template amplify_core.amplify_storage_category.copy_source}
-  /// The `source` should be readable to the API call originator following
-  /// corresponding [StorageAccessLevel].
+  /// The `source` should be readable to the API call originator.
   /// {@endtemplate}
   StorageCopyOperation copy({
     required StoragePath source,

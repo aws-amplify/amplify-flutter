@@ -5,14 +5,12 @@ import 'package:amplify_core/amplify_core.dart';
 
 class TestTransferAccelerationConfig<T> {
   const TestTransferAccelerationConfig({
-    required this.targetKey,
-    required this.targetAccessLevel,
+    required this.targetPath,
     required this.uploadSource,
     required this.referenceBytes,
   });
 
-  final String targetKey;
-  final StorageAccessLevel targetAccessLevel;
+  final StoragePath targetPath;
   final T uploadSource;
   final List<int> referenceBytes;
 }
