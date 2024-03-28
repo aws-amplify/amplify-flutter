@@ -16,7 +16,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final dataPayload in dataPayloads) {
         await Amplify.Storage.remove(
-          path: StoragePath.fromString(dataPayload.targetKey),
+          path: dataPayload.targetPath,
         ).result;
       }
     });
@@ -27,9 +27,7 @@ void testTransferAcceleration({
           final dataPayload = entry.value;
           final operation = Amplify.Storage.uploadData(
             data: dataPayload.uploadSource,
-            path: StoragePath.fromString(
-              '/${dataPayload.targetAccessLevel}/${dataPayload.targetKey}',
-            ),
+            path: dataPayload.targetPath,
             options: const StorageUploadDataOptions(
               pluginOptions:
                   S3UploadDataPluginOptions(useAccelerateEndpoint: true),
@@ -49,9 +47,7 @@ void testTransferAcceleration({
             test('S3DataPayload ${entry.key}', () async {
               final dataPayload = entry.value;
               final result = await Amplify.Storage.getUrl(
-                path: StoragePath.fromString(
-                  '/${dataPayload.targetAccessLevel}/${dataPayload.targetKey}',
-                ),
+                path: dataPayload.targetPath,
                 options: const StorageGetUrlOptions(
                   pluginOptions: S3GetUrlPluginOptions(
                     expiresIn: Duration(minutes: 5),
@@ -70,9 +66,7 @@ void testTransferAcceleration({
             test('S3DataPayload ${entry.key}', () async {
               final dataPayload = entry.value;
               final result = await Amplify.Storage.downloadData(
-                path: StoragePath.fromString(
-                  '/${dataPayload.targetAccessLevel}/${dataPayload.targetKey}',
-                ),
+                path: dataPayload.targetPath,
                 options: const StorageDownloadDataOptions(
                   pluginOptions: S3DownloadDataPluginOptions(
                     useAccelerateEndpoint: true,
@@ -92,7 +86,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final awsFile in awsFiles) {
         await Amplify.Storage.remove(
-          path: StoragePath.fromString(awsFile.targetKey),
+          path: awsFile.targetPath,
         ).result;
       }
     });
@@ -103,9 +97,7 @@ void testTransferAcceleration({
           final awsFile = entry.value;
           final operation = Amplify.Storage.uploadFile(
             localFile: awsFile.uploadSource,
-            path: StoragePath.fromString(
-              '${awsFile.targetAccessLevel}/${awsFile.targetKey}',
-            ),
+            path: awsFile.targetPath,
             options: const StorageUploadFileOptions(
               pluginOptions: S3UploadFilePluginOptions(
                 useAccelerateEndpoint: true,
@@ -128,9 +120,7 @@ void testTransferAcceleration({
               () async {
                 final awsFile = entry.value;
                 final result = await Amplify.Storage.getUrl(
-                  path: StoragePath.fromString(
-                    '${awsFile.targetAccessLevel}/${awsFile.targetKey}',
-                  ),
+                  path: awsFile.targetPath,
                   options: const StorageGetUrlOptions(
                     pluginOptions: S3GetUrlPluginOptions(
                       expiresIn: Duration(minutes: 5),
@@ -153,22 +143,25 @@ void testTransferAcceleration({
               const start = 5 * 1024;
               const end = 5 * 1024 + 12;
               final awsFile = entry.value;
-              final result = await Amplify.Storage.downloadData(
-                path: StoragePath.fromString(
-                  '${awsFile.targetAccessLevel}/${awsFile.targetKey}',
-                ),
-                options: StorageDownloadDataOptions(
-                  pluginOptions: S3DownloadDataPluginOptions(
-                    useAccelerateEndpoint: true,
-                    bytesRange: S3DataBytesRange(start: start, end: end),
+              try {
+                final result = await Amplify.Storage.downloadData(
+                  path: awsFile.targetPath,
+                  options: StorageDownloadDataOptions(
+                    pluginOptions: S3DownloadDataPluginOptions(
+                      useAccelerateEndpoint: true,
+                      bytesRange: S3DataBytesRange(start: start, end: end),
+                    ),
                   ),
-                ),
-              ).result;
+                ).result;
 
-              expect(
-                result.bytes,
-                equals(awsFile.referenceBytes.sublist(start, end + 1)),
-              );
+                expect(
+                  result.bytes,
+                  equals(awsFile.referenceBytes.sublist(start, end + 1)),
+                );
+              } on Exception catch (e) {
+                print('failed');
+                rethrow;
+              }
             });
           }
         });
