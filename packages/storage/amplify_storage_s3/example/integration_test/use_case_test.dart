@@ -64,9 +64,8 @@ void main() {
   const testObjectFileName2 = 'user1Protected.jpg';
   const testObjectFileName3 = 'user1Private.large';
 
-  // TODO(Jordan-Nelson): enable dots-in-name, remove custom-prefix
   for (final entry in amplifyEnvironments.entries
-      .where((element) => element.key == 'main')) {
+      .where((element) => element.key != 'custom-prefix')) {
     group('[Environment ${entry.key}]', () {
       S3PrefixResolver? prefixResolver;
       late String user1IdentityId;
