@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 public enum FlutterDataStoreRequestUtils {
     static func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {

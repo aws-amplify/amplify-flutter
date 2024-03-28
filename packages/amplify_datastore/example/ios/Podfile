@@ -31,6 +31,10 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  pod 'Amplify', path: '../../ios/internal/'
+  pod 'AWSPluginsCore', path: '../../ios/internal/'
+  pod 'AWSDataStorePlugin', path: '../../ios/internal/'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 

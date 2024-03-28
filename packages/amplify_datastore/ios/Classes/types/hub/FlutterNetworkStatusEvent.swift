@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 struct FlutterNetworkStatusEvent: FlutterHubEvent {
     var eventName: String

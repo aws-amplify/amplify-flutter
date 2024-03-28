@@ -5,7 +5,9 @@ library sample_app;
 
 import 'dart:async';
 
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_datastore_example/amplifyconfiguration.dart';
 // Uncomment the below line to enable online sync
 // import 'package:amplify_api/amplify_api.dart';
 
@@ -20,6 +22,7 @@ part 'queries_display_widgets.dart';
 part 'save_model_widgets.dart';
 
 void main() {
+  // AWSLogger().logLevel = LogLevel.verbose;
   runApp(MyApp());
 }
 
@@ -76,20 +79,22 @@ class _MyAppState extends State<MyApp> {
         errorHandler: ((error) =>
             {print("Custom ErrorHandler received: " + error.toString())}),
       );
+      await Amplify.addPlugin(
+          AmplifyAPI(modelProvider: ModelProvider.instance));
       await Amplify.addPlugin(datastorePlugin);
 
       // Configure
 
       // Uncomment the below lines to enable online sync.
-      // await Amplify.addPlugin(AmplifyAPI());
-      // await Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyconfig);
 
       // Remove this line when using the lines above for online sync
-      await Amplify.configure("{}");
+      // await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
     }
+    Amplify.DataStore.start();
     listenToHub();
 
     Amplify.DataStore.observeQuery(
@@ -255,6 +260,26 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void subExample() {
+    final req = ModelSubscriptions.onCreate(
+      Blog.classType,
+      authorizationMode: APIAuthorizationType.apiKey,
+    );
+    final sub = Amplify.API.subscribe(req);
+
+    sub.listen((event) {
+      print(event);
+    });
+  }
+
+  void start() {
+    Amplify.DataStore.start();
+  }
+
+  void stop() {
+    Amplify.DataStore.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     executeAfterBuild();
@@ -310,6 +335,15 @@ class _MyAppState extends State<MyApp> {
                 updateSelectedPostForNewComment),
 
             Padding(padding: EdgeInsets.all(10.0)),
+
+            Row(
+              children: [
+                ElevatedButton(onPressed: start, child: const Text('Start')),
+                ElevatedButton(onPressed: stop, child: const Text('Stop')),
+                ElevatedButton(
+                    onPressed: subExample, child: const Text('Subscribe')),
+              ],
+            ),
 
             // Row for query buttons
             displayQueryButtons(

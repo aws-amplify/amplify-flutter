@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 class FlutterDataStoreErrorHandler {
     static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult) {
