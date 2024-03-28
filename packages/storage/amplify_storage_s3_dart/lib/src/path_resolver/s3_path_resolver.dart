@@ -18,7 +18,12 @@ class S3PathResolver {
 
   final TokenIdentityAmplifyAuthProvider _identityProvider;
 
-  /// Resolve the full path.
+  /// Resolve the given [path].
+  ///
+  /// Returns a string which is the S3 Object Key.
+  ///
+  /// When [path] is a [StoragePathWithIdentityId], the current user's identity
+  /// Id will be fetched in order to build the path.
   Future<String> resolvePath({
     required StoragePath path,
     String? identityId,
@@ -40,6 +45,8 @@ class S3PathResolver {
   }
 
   /// Resolve multiple [StoragePath] objects.
+  ///
+  /// This method will only fetch the current user's identityId one time.
   Future<List<String>> resolvePaths({
     required List<StoragePath> paths,
   }) async {
