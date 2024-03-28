@@ -143,25 +143,20 @@ void testTransferAcceleration({
               const start = 5 * 1024;
               const end = 5 * 1024 + 12;
               final awsFile = entry.value;
-              try {
-                final result = await Amplify.Storage.downloadData(
-                  path: awsFile.targetPath,
-                  options: StorageDownloadDataOptions(
-                    pluginOptions: S3DownloadDataPluginOptions(
-                      useAccelerateEndpoint: true,
-                      bytesRange: S3DataBytesRange(start: start, end: end),
-                    ),
+              final result = await Amplify.Storage.downloadData(
+                path: awsFile.targetPath,
+                options: StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
+                    useAccelerateEndpoint: true,
+                    bytesRange: S3DataBytesRange(start: start, end: end),
                   ),
-                ).result;
+                ),
+              ).result;
 
-                expect(
-                  result.bytes,
-                  equals(awsFile.referenceBytes.sublist(start, end + 1)),
-                );
-              } on Exception catch (e) {
-                print('failed');
-                rethrow;
-              }
+              expect(
+                result.bytes,
+                equals(awsFile.referenceBytes.sublist(start, end + 1)),
+              );
             });
           }
         });
