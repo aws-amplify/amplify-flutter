@@ -180,17 +180,25 @@ struct NativeGraphQLOperation {
 /// Generated class from Pigeon that represents data sent in messages.
 struct NativeGraphQLSubscriptionResponse {
   var subscriptionId: String? = nil
+  var payloadJson: String? = nil
+  var type: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLSubscriptionResponse? {
     let subscriptionId: String? = nilOrValue(list[0])
+    let payloadJson: String? = nilOrValue(list[1])
+    let type: String? = nilOrValue(list[2])
 
     return NativeGraphQLSubscriptionResponse(
-      subscriptionId: subscriptionId
+      subscriptionId: subscriptionId,
+      payloadJson: payloadJson,
+      type: type
     )
   }
   func toList() -> [Any?] {
     return [
       subscriptionId,
+      payloadJson,
+      type,
     ]
   }
 }
@@ -487,19 +495,7 @@ private class NativeApiBridgeCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
-        return NativeAWSCredentials.fromList(self.readValue() as! [Any?])
-      case 129:
-        return NativeAuthSession.fromList(self.readValue() as! [Any?])
-      case 130:
-        return NativeAuthUser.fromList(self.readValue() as! [Any?])
-      case 131:
-        return NativeGraphQLOperation.fromList(self.readValue() as! [Any?])
-      case 132:
-        return NativeGraphQLRequest.fromList(self.readValue() as! [Any?])
-      case 133:
         return NativeGraphQLSubscriptionResponse.fromList(self.readValue() as! [Any?])
-      case 134:
-        return NativeUserPoolTokens.fromList(self.readValue() as! [Any?])
       default:
         return super.readValue(ofType: type)
     }
@@ -508,26 +504,8 @@ private class NativeApiBridgeCodecReader: FlutterStandardReader {
 
 private class NativeApiBridgeCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? NativeAWSCredentials {
+    if let value = value as? NativeGraphQLSubscriptionResponse {
       super.writeByte(128)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeAuthSession {
-      super.writeByte(129)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeAuthUser {
-      super.writeByte(130)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeGraphQLOperation {
-      super.writeByte(131)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeGraphQLRequest {
-      super.writeByte(132)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeGraphQLSubscriptionResponse {
-      super.writeByte(133)
-      super.writeValue(value.toList())
-    } else if let value = value as? NativeUserPoolTokens {
-      super.writeByte(134)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -552,7 +530,7 @@ class NativeApiBridgeCodec: FlutterStandardMessageCodec {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NativeApiBridge {
   func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void)
-  func sendSubscriptionEvent(event: [String: [String: Any]], completion: @escaping (Result<Void, Error>) -> Void)
+  func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -582,7 +560,7 @@ class NativeApiBridgeSetup {
     if let api = api {
       sendSubscriptionEventChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let eventArg = args[0] as! [String: [String: Any]]
+        let eventArg = args[0] as! NativeGraphQLSubscriptionResponse
         api.sendSubscriptionEvent(event: eventArg) { result in
           switch result {
             case .success:

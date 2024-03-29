@@ -177,19 +177,25 @@ data class NativeGraphQLOperation (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class NativeGraphQLSubscriptionResponse (
-  val subscriptionId: String? = null
+  val subscriptionId: String? = null,
+  val payloadJson: String? = null,
+  val type: String? = null
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): NativeGraphQLSubscriptionResponse {
       val subscriptionId = list[0] as String?
-      return NativeGraphQLSubscriptionResponse(subscriptionId)
+      val payloadJson = list[1] as String?
+      val type = list[2] as String?
+      return NativeGraphQLSubscriptionResponse(subscriptionId, payloadJson, type)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
       subscriptionId,
+      payloadJson,
+      type,
     )
   }
 }
@@ -474,37 +480,7 @@ private object NativeApiBridgeCodec : StandardMessageCodec() {
     return when (type) {
       128.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          NativeAWSCredentials.fromList(it)
-        }
-      }
-      129.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          NativeAuthSession.fromList(it)
-        }
-      }
-      130.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          NativeAuthUser.fromList(it)
-        }
-      }
-      131.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          NativeGraphQLOperation.fromList(it)
-        }
-      }
-      132.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          NativeGraphQLRequest.fromList(it)
-        }
-      }
-      133.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           NativeGraphQLSubscriptionResponse.fromList(it)
-        }
-      }
-      134.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          NativeUserPoolTokens.fromList(it)
         }
       }
       else -> super.readValueOfType(type, buffer)
@@ -512,32 +488,8 @@ private object NativeApiBridgeCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is NativeAWSCredentials -> {
-        stream.write(128)
-        writeValue(stream, value.toList())
-      }
-      is NativeAuthSession -> {
-        stream.write(129)
-        writeValue(stream, value.toList())
-      }
-      is NativeAuthUser -> {
-        stream.write(130)
-        writeValue(stream, value.toList())
-      }
-      is NativeGraphQLOperation -> {
-        stream.write(131)
-        writeValue(stream, value.toList())
-      }
-      is NativeGraphQLRequest -> {
-        stream.write(132)
-        writeValue(stream, value.toList())
-      }
       is NativeGraphQLSubscriptionResponse -> {
-        stream.write(133)
-        writeValue(stream, value.toList())
-      }
-      is NativeUserPoolTokens -> {
-        stream.write(134)
+        stream.write(128)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -548,7 +500,7 @@ private object NativeApiBridgeCodec : StandardMessageCodec() {
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface NativeApiBridge {
   fun addApiPlugin(authProvidersList: List<String>, callback: (Result<Unit>) -> Unit)
-  fun sendSubscriptionEvent(event: Map<String, Map<String, Any>>, callback: (Result<Unit>) -> Unit)
+  fun sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by NativeApiBridge. */
@@ -582,7 +534,7 @@ interface NativeApiBridge {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val eventArg = args[0] as Map<String, Map<String, Any>>
+            val eventArg = args[0] as NativeGraphQLSubscriptionResponse
             api.sendSubscriptionEvent(eventArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {

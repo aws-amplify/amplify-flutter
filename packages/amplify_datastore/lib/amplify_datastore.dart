@@ -346,34 +346,39 @@ class _NativeAmplifyApi
       NativeGraphQLRequest request) async {
     print('Flutter subscribe:: ${request.document}');
 
-    final flutterRequest = GraphQLRequest(
+    final flutterRequest = GraphQLRequest<String>(
       document: request.document!,
       variables: (request.variables ?? {}).cast<String, dynamic>(),
       apiName: request.apiName,
-      decodePath: request.decodePath,
+      // decodePath: request.decodePath,
     );
 
     final subscription = Amplify.API.subscribe(flutterRequest);
 
-    subscription.listen((GraphQLResponse event) {
-      print('Flutter subscription event:: $event');
-      final json = jsonEncode(event.data);
-      final arg_event = {
-        flutterRequest.id: {"data": json}
-      };
-      NativeApiBridge().sendSubscriptionEvent(arg_event);
+    subscription.listen((GraphQLResponse<String> event) {
+      print('Flutter subscription event:: ${event.data}');
+      // final json = jsonEncode(event.data);
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        payloadJson: event.data,
+        type: "data",
+      );
+
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     }, onError: (error) {
-      final arg_event = {
-        flutterRequest.id: {error: error},
-      };
-      NativeApiBridge().sendSubscriptionEvent(
-          arg_event.cast<String?, Map<String?, dynamic>?>());
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        payloadJson: error,
+        type: "error",
+      );
+
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     }, onDone: () {
-      final arg_event = {
-        flutterRequest.id: 'done',
-      };
-      NativeApiBridge().sendSubscriptionEvent(
-          arg_event.cast<String?, Map<String?, dynamic>?>());
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        type: "done",
+      );
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     });
 
     return NativeGraphQLSubscriptionResponse(subscriptionId: flutterRequest.id);

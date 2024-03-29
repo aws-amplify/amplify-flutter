@@ -54,13 +54,15 @@ public class ApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
-    public  let nativeSubscriptionEvents: PassthroughSubject<[String: [String: Any]], Never>
+    private  let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = Set<AnyCancellable>()
+    private var modelSchemaRegistry: FlutterSchemaRegistry
     
-    init(apiAuthProviderFactory: APIAuthProviderFactory, nativeApiPlugin: NativeApiPlugin, subscriptionEventBus: PassthroughSubject<[String: [String: Any]], Never>) {
+    init(apiAuthProviderFactory: APIAuthProviderFactory, nativeApiPlugin: NativeApiPlugin, modelSchemaRegistry: FlutterSchemaRegistry, subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>) {
         self.apiAuthFactory = apiAuthProviderFactory
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
+        self.modelSchemaRegistry = modelSchemaRegistry
     }
     
     public func apiAuthProviderFactory() -> APIAuthProviderFactory {
@@ -84,25 +86,39 @@ public class ApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
         }
         
         let amplifySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
-            
-            nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0[subscriptionId!] != nil}.sink(receiveValue: { event in
-                do {
-                    // WIP: Decode response and type into a model/graphql response
-                    print("Swift:: subscriptionEvent: \(event)")
-                    
-                    let jsonString = event[subscriptionId!]!["data"]
-                    
-                    let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(jsonString as! [String : Any]), modelName: "Blog")
-
-                    let response = GraphQLResponse.success(serializedModel)
-                    let subEvent = GraphQLSubscriptionEvent.data(response)
-                    amplifySequence.send(.data(.success(subEvent as! R)))
-                } catch {
-                    print("Failed to decode JSON: \(error.localizedDescription)")
+        
+        nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0 != nil}.sink(receiveValue: { event in
+            do {
+                // WIP: Decode response and type into a model/graphql response
+                print("Swift:: subscriptionEvent: \(event)")
+                
+                //                    let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
+                //                        modelSchemaRegistry: self.modelSchemaRegistry,
+                //                        modelName: "Blog"
+                //                    )
+                
+                guard let jsonData = event.payloadJson?.data(using: .utf8) else {
+                    throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
                 }
                 
-            }).store(in: &cancellables)
-
+                guard let jsonValue = try? JSONDecoder().decode([String: JSONValue].self, from: jsonData) else {
+                    throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
+                }
+                
+                print("Swift:: subscription payload JSON: \(jsonValue)")
+                
+                // TODO: Decode jsonValue to Swift model
+                // The value of <R> in this function is: AWSPluginsCore.MutationSync<AWSPluginsCore.AnyModel>
+                // The Model should then be converted into this <R> type and passed back to the sequence
+                
+                
+                let response = GraphQLResponse.success(jsonValue)
+                let subEvent = GraphQLSubscriptionEvent.data(response)
+                amplifySequence.send(.data(.success(subEvent as! R)))
+            } catch {
+                print("Failed to decode JSON: \(error.localizedDescription)")
+            }
+        }).store(in: &cancellables)
         return amplifySequence
     }
     
@@ -151,19 +167,4 @@ public class ApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {
         return nil
     }
-}
-
-
-struct SubscriptionEventBlog: Decodable {
-    var onCreateBlog: Blog
-}
-struct Blog: Decodable {
-    var id: String
-    var name: String
-    var createdAt: String
-    var _lastChangedAt: String
-    var _deleted: String
-    var updatedAt: String
-    var _version: String
-    var __typename: String
 }

@@ -55,7 +55,7 @@ abstract class NativeApiBridge {
   void addApiPlugin(List<String> authProvidersList);
 
   @async
-  void sendSubscriptionEvent(Map<String, Map<String, Object>> event);
+  void sendSubscriptionEvent(NativeGraphQLSubscriptionResponse event);
 }
 
 class NativeAuthSession {
@@ -103,6 +103,8 @@ class NativeGraphQLOperation {
 
 class NativeGraphQLSubscriptionResponse {
   String? subscriptionId;
+  String? payloadJson;
+  String? type;
 }
 
 class NativeGraphQLRequest {

@@ -173,13 +173,21 @@ class NativeGraphQLOperation {
 class NativeGraphQLSubscriptionResponse {
   NativeGraphQLSubscriptionResponse({
     this.subscriptionId,
+    this.payloadJson,
+    this.type,
   });
 
   String? subscriptionId;
 
+  String? payloadJson;
+
+  String? type;
+
   Object encode() {
     return <Object?>[
       subscriptionId,
+      payloadJson,
+      type,
     ];
   }
 
@@ -187,6 +195,8 @@ class NativeGraphQLSubscriptionResponse {
     result as List<Object?>;
     return NativeGraphQLSubscriptionResponse(
       subscriptionId: result[0] as String?,
+      payloadJson: result[1] as String?,
+      type: result[2] as String?,
     );
   }
 }
@@ -522,26 +532,8 @@ class _NativeApiBridgeCodec extends StandardMessageCodec {
   const _NativeApiBridgeCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is NativeAWSCredentials) {
+    if (value is NativeGraphQLSubscriptionResponse) {
       buffer.putUint8(128);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeAuthSession) {
-      buffer.putUint8(129);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeAuthUser) {
-      buffer.putUint8(130);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeGraphQLOperation) {
-      buffer.putUint8(131);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeGraphQLRequest) {
-      buffer.putUint8(132);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeGraphQLSubscriptionResponse) {
-      buffer.putUint8(133);
-      writeValue(buffer, value.encode());
-    } else if (value is NativeUserPoolTokens) {
-      buffer.putUint8(134);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -552,19 +544,7 @@ class _NativeApiBridgeCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128:
-        return NativeAWSCredentials.decode(readValue(buffer)!);
-      case 129:
-        return NativeAuthSession.decode(readValue(buffer)!);
-      case 130:
-        return NativeAuthUser.decode(readValue(buffer)!);
-      case 131:
-        return NativeGraphQLOperation.decode(readValue(buffer)!);
-      case 132:
-        return NativeGraphQLRequest.decode(readValue(buffer)!);
-      case 133:
         return NativeGraphQLSubscriptionResponse.decode(readValue(buffer)!);
-      case 134:
-        return NativeUserPoolTokens.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -605,7 +585,7 @@ class NativeApiBridge {
   }
 
   Future<void> sendSubscriptionEvent(
-      Map<String?, Map<String?, Object?>?> arg_event) async {
+      NativeGraphQLSubscriptionResponse arg_event) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.amplify_datastore.NativeApiBridge.sendSubscriptionEvent',
         codec,

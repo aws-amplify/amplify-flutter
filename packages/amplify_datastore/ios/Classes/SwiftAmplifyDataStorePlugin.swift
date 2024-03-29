@@ -20,7 +20,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let nativeAuthPlugin: NativeAuthPlugin
     private let nativeApiPlugin: NativeApiPlugin
     private let cognitoPlugin: CognitoPlugin
-    private let nativeSubscriptionEventBus = PassthroughSubject<[String: [String: Any]], Never>()
+    private let nativeSubscriptionEventBus = PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>()
     
 
     init(bridge: DataStoreBridge = DataStoreBridge(),
@@ -94,7 +94,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                     apiAuthProviderFactory: FlutterAuthProviders(
                         authProviders: authProviders,
                         nativeApiPlugin: nativeApiPlugin
-                    ), nativeApiPlugin: nativeApiPlugin,
+                    ), 
+                    nativeApiPlugin: nativeApiPlugin,
+                    modelSchemaRegistry: modelSchemaRegistry,
                     subscriptionEventBus: nativeSubscriptionEventBus
                 )
             )
@@ -138,7 +140,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
         }
     }
     
-    func sendSubscriptionEvent(event: [String: [String: Any]], completion: @escaping (Result<Void, Error>) -> Void) {
+    func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, any Error>) -> Void) {
             nativeSubscriptionEventBus.send(event)
     }
     
