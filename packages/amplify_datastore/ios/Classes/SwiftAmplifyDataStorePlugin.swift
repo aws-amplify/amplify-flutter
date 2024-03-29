@@ -90,7 +90,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                 AWSAuthorizationType(rawValue: $0)
             }
             try Amplify.add(
-                plugin: ApiPlugin(
+                plugin: FlutterApiPlugin(
                     apiAuthProviderFactory: FlutterAuthProviders(
                         authProviders: authProviders,
                         nativeApiPlugin: nativeApiPlugin

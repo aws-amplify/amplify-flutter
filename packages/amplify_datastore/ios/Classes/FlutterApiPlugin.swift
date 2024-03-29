@@ -13,7 +13,7 @@ import Combine
 
 
 
-public class ApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
+public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
 {
     public func query<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
         fatalError("To be implmented")
