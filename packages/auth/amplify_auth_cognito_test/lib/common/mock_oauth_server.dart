@@ -148,7 +148,7 @@ class MockOAuthServer {
   final MockClientHandler? _authorizeHandler;
   Future<Response> authorizeHandler(Request request) async {
     if (_authorizeHandler != null) {
-      return _authorizeHandler!(request);
+      return _authorizeHandler(request);
     }
 
     final query = request.url.queryParameters;

@@ -4,7 +4,6 @@
 import 'dart:convert';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
@@ -41,7 +40,7 @@ void main() {
       'User Pools',
       skip: testRunner.shouldSkip(userPoolEnv),
       () {
-        final configJson = amplifyEnvironments[userPoolEnv]!;
+        final configJson = amplifyEnvironments[userPoolEnv];
         final config = AmplifyConfig.fromJson(
           jsonDecode(configJson) as Map<String, Object?>,
         );

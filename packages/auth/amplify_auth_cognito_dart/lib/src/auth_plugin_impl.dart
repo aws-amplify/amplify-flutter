@@ -164,10 +164,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       )
       ..addInstance<AmplifyLogger>(logger);
     if (_hostedUiPlatformFactory != null) {
-      _stateMachine.addBuilder<HostedUiPlatform>(_hostedUiPlatformFactory!);
+      _stateMachine.addBuilder<HostedUiPlatform>(_hostedUiPlatformFactory);
     }
     if (_initialParameters != null) {
-      _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
+      _stateMachine.addInstance<OAuthParameters>(_initialParameters);
     }
     _stateMachineSubscription = _stateMachine.stream.listen(
       (state) {

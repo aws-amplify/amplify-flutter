@@ -166,10 +166,10 @@ class TemporalTime implements Comparable<TemporalTime> {
     }
 
     if (_offset != null) {
-      if (_offset!.inSeconds == 0) {
+      if (_offset.inSeconds == 0) {
         buffer.write('Z');
       } else {
-        buffer.write(Temporal.durationToOffset(_offset!));
+        buffer.write(Temporal.durationToOffset(_offset));
       }
     }
 

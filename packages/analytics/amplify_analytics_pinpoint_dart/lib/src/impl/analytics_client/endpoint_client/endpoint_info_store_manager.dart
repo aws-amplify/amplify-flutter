@@ -61,7 +61,7 @@ class EndpointInfoStoreManager {
     if (storeVersion == null) {
       if (_legacyNativeDataProvider != null) {
         final legacyEndpointId =
-            await _legacyNativeDataProvider!.getEndpointId(_pinpointAppId);
+            await _legacyNativeDataProvider.getEndpointId(_pinpointAppId);
         if (legacyEndpointId != null) {
           await _endpointStore.write(
             key: EndpointStoreKey.endpointId.name,

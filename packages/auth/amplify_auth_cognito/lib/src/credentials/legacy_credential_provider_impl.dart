@@ -41,7 +41,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return null;
-    return _instance!.fetchLegacyCredentials(
+    return _instance.fetchLegacyCredentials(
       userPoolConfig: userPoolConfig,
       identityPoolConfig: identityPoolConfig,
       hostedUiConfig: hostedUiConfig,
@@ -55,7 +55,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     CognitoOAuthConfig? hostedUiConfig,
   }) async {
     if (_instance == null) return;
-    return _instance!.deleteLegacyCredentials(
+    return _instance.deleteLegacyCredentials(
       userPoolConfig: userPoolConfig,
       identityPoolConfig: identityPoolConfig,
       hostedUiConfig: hostedUiConfig,
@@ -68,7 +68,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
     if (_instance == null) return null;
-    return _instance!.fetchLegacyDeviceSecrets(
+    return _instance.fetchLegacyDeviceSecrets(
       username: username,
       userPoolConfig: userPoolConfig,
     );
@@ -80,7 +80,7 @@ class LegacyCredentialProviderImpl implements LegacyCredentialProvider {
     CognitoUserPoolConfig? userPoolConfig,
   }) async {
     if (_instance == null) return;
-    return _instance!.deleteLegacyDeviceSecrets(
+    return _instance.deleteLegacyDeviceSecrets(
       username: username,
       userPoolConfig: userPoolConfig,
     );

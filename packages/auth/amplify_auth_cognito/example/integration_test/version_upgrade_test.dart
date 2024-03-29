@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
@@ -15,7 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
-final config = amplifyEnvironments['device-tracking-always']!;
+final config = amplifyEnvironments['device-tracking-always'];
 
 AmplifyAuthCognito get plugin =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);

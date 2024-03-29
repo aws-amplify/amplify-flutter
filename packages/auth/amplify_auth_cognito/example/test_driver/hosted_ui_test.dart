@@ -4,7 +4,6 @@
 @TestOn('windows || mac-os || linux')
 
 import 'package:amplify_api_dart/amplify_api_dart.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -37,7 +36,7 @@ void main() {
       );
       addTearDown(chromedriver.kill);
 
-      final config = amplifyEnvironments['hosted-ui']!;
+      final config = amplifyEnvironments['hosted-ui'];
       application = await HostedUiClient.connect(config);
       addTearDown(application.close);
 

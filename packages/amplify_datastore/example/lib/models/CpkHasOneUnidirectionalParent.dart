@@ -180,10 +180,10 @@ class CpkHasOneUnidirectionalParent extends amplify_core.Model {
     buffer.write("explicitChildID=" + "$_explicitChildID" + ", ");
     buffer.write("explicitChildName=" + "$_explicitChildName" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write("updatedAt=" +
-        (_updatedAt != null ? _updatedAt!.format() : "null") +
+        (_updatedAt != null ? _updatedAt.format() : "null") +
         ", ");
     buffer.write("cpkHasOneUnidirectionalParentImplicitChildId=" +
         "$_cpkHasOneUnidirectionalParentImplicitChildId" +

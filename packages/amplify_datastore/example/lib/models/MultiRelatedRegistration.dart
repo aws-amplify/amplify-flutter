@@ -121,15 +121,15 @@ class MultiRelatedRegistration extends amplify_core.Model {
     buffer.write("MultiRelatedRegistration {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write(
-        "meeting=" + (_meeting != null ? _meeting!.toString() : "null") + ", ");
+        "meeting=" + (_meeting != null ? _meeting.toString() : "null") + ", ");
     buffer.write("attendee=" +
-        (_attendee != null ? _attendee!.toString() : "null") +
+        (_attendee != null ? _attendee.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

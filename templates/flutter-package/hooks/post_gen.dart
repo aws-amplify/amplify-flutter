@@ -10,7 +10,7 @@ Future<void> _runCommand(String command, [List<String> args = const []]) async {
     stdoutEncoding: utf8,
     stderrEncoding: utf8,
   );
-  if (await result.exitCode != 0) {
+  if (result.exitCode != 0) {
     throw Exception(
       'Error running `$command ${args.join()}`:\n'
       '${result.stdout}\n${result.stderr}',

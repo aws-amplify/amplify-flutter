@@ -97,7 +97,7 @@ class AmplifySecureStorageLinux extends AmplifySecureStorageInterface {
 
   /// The ID of the package, such as com.example.app
   Future<String> _getPackageId() async {
-    if (_packageId != null) return _packageId!;
+    if (_packageId != null) return _packageId;
     return _packageIdMemo.runOnce(getApplicationId);
   }
 

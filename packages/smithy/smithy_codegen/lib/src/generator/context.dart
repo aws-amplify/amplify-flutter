@@ -92,7 +92,7 @@ class CodegenContext {
   /// The name of the service being generated.
   String get serviceName {
     if (_serviceName != null) {
-      return _serviceName!;
+      return _serviceName;
     }
     final sdkId = service?.getTrait<ServiceTrait>()?.sdkId;
     if (sdkId != null) {

@@ -109,10 +109,10 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
