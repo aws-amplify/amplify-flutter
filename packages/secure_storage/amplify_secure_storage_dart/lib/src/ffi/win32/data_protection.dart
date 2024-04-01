@@ -10,8 +10,8 @@ import 'package:win32/win32.dart'
         CryptUnprotectData,
         CRYPT_INTEGER_BLOB,
         GetLastError,
-        // TODO(Jordan-Nelson): Use SYSTEM_METRICS_INDEX enum when min win32
-        // version is v5.4.0 or higher
+        // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+        // higher
         // ignore: deprecated_member_use
         ERROR_SUCCESS;
 
@@ -45,8 +45,8 @@ Uint8List encrypt(Uint8List list) {
       encryptedPtr,
     );
     final errorCode = GetLastError();
-    // TODO(Jordan-Nelson): Use SYSTEM_METRICS_INDEX enum when min win32
-    // version is v5.4.0 or higher
+    // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+    // higher
     // ignore: deprecated_member_use
     if (errorCode != ERROR_SUCCESS) {
       throw getExceptionFromErrorCode(errorCode);
@@ -74,8 +74,8 @@ Uint8List decrypt(Uint8List list) {
       unencryptedPtr,
     );
     final errorCode = GetLastError();
-    // TODO(Jordan-Nelson): Use SYSTEM_METRICS_INDEX enum when min win32
-    // version is v5.4.0 or higher
+    // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+    // higher
     // ignore: deprecated_member_use
     if (errorCode != ERROR_SUCCESS) {
       throw getExceptionFromErrorCode(errorCode);
