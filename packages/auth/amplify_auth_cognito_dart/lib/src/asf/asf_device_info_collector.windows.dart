@@ -214,10 +214,14 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   });
 
   @override
-  Future<int?> get screenHeightPixels async => GetSystemMetrics(SM_CYSCREEN);
+  Future<int?> get screenHeightPixels async => GetSystemMetrics(
+        SYSTEM_METRICS_INDEX.SM_CYSCREEN,
+      );
 
   @override
-  Future<int?> get screenWidthPixels async => GetSystemMetrics(SM_CXSCREEN);
+  Future<int?> get screenWidthPixels async => GetSystemMetrics(
+        SYSTEM_METRICS_INDEX.SM_CXSCREEN,
+      );
 
   @override
   Future<String?> get thirdPartyDeviceId async => _systemInfo.deviceId;
