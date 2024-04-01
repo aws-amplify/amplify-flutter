@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/commands/generate/generate_amplify_swift_command.dart';
 import 'package:aft/src/commands/generate/generate_goldens_command.dart';
 import 'package:aft/src/commands/generate/generate_sdk_command.dart';
 import 'package:aft/src/commands/generate/generate_workflows_command.dart';
@@ -12,6 +13,7 @@ class GenerateCommand extends AmplifyCommand {
     addSubcommand(GenerateSdkCommand());
     addSubcommand(GenerateWorkflowsCommand());
     addSubcommand(GenerateGoldensCommand());
+    addSubcommand(GenerateAmplifySwiftCommand());
   }
 
   @override

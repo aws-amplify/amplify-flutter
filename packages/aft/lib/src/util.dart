@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:graphs/graphs.dart';
+import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
 
 String? getEnv(String envName) {
@@ -114,4 +115,35 @@ void sortPackagesTopologically<T>(
         .indexOf(getPubspec(b).name)
         .compareTo(ordered.indexOf(getPubspec(a).name));
   });
+}
+
+// Copyright 2017, the Dart project authors.
+// Copied from io.dart https://pub.dev/documentation/io/latest/io/copyPath.html
+bool _doNothing(String from, String to) {
+  if (p.canonicalize(from) == p.canonicalize(to)) {
+    return true;
+  }
+  if (p.isWithin(from, to)) {
+    throw ArgumentError('Cannot copy from $from to $to');
+  }
+  return false;
+}
+
+// Copyright 2017, the Dart project authors.
+// Copied from io.dart https://pub.dev/documentation/io/latest/io/copyPath.html
+Future<void> copyPath(String from, String to) async {
+  if (_doNothing(from, to)) {
+    return;
+  }
+  await Directory(to).create(recursive: true);
+  await for (final file in Directory(from).list(recursive: true)) {
+    final copyTo = p.join(to, p.relative(file.path, from: from));
+    if (file is Directory) {
+      await Directory(copyTo).create(recursive: true);
+    } else if (file is File) {
+      await File(file.path).copy(copyTo);
+    } else if (file is Link) {
+      await Link(copyTo).create(await file.target(), recursive: true);
+    }
+  }
 }
