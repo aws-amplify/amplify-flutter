@@ -11,7 +11,6 @@ export '../exception/amplify_exception.dart'
         StorageOperationCanceledException,
         NetworkException,
         UnknownException;
-export 'access_level.dart';
 export 'copy_operation.dart';
 export 'copy_options.dart';
 export 'copy_request.dart';

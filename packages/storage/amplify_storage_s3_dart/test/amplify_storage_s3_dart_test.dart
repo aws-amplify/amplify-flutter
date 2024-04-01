@@ -15,14 +15,12 @@ import 'test_utils/test_token_provider.dart';
 const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
-  const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
   const testConfig = AmplifyConfig(
     storage: StorageConfig(
       plugins: {
         S3PluginConfig.pluginKey: S3PluginConfig(
           bucket: '123',
           region: 'west-2',
-          defaultAccessLevel: testDefaultStorageAccessLevel,
         ),
       },
     ),

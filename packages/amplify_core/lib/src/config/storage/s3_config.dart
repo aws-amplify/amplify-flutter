@@ -34,7 +34,6 @@ class S3PluginConfig
   const S3PluginConfig({
     required this.bucket,
     required this.region,
-    this.defaultAccessLevel = StorageAccessLevel.guest,
   });
 
   factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
@@ -48,24 +47,20 @@ class S3PluginConfig
 
   final String bucket;
   final String region;
-  final StorageAccessLevel defaultAccessLevel;
 
   @override
   List<Object?> get props => [
         bucket,
         region,
-        defaultAccessLevel,
       ];
 
   S3PluginConfig copyWith({
     String? bucket,
     String? region,
-    StorageAccessLevel? defaultAccessLevel,
   }) {
     return S3PluginConfig(
       bucket: bucket ?? this.bucket,
       region: region ?? this.region,
-      defaultAccessLevel: defaultAccessLevel ?? this.defaultAccessLevel,
     );
   }
 
