@@ -214,9 +214,15 @@ final class ASFDeviceInfoWindows extends ASFDeviceInfoPlatform {
   });
 
   @override
+  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+  // higher
+  // ignore: deprecated_member_use
   Future<int?> get screenHeightPixels async => GetSystemMetrics(SM_CYSCREEN);
 
   @override
+  // TODO(Jordan-Nelson): Use new enums when min win32 version is v5.4.0 or
+  // higher
+  // ignore: deprecated_member_use
   Future<int?> get screenWidthPixels async => GetSystemMetrics(SM_CXSCREEN);
 
   @override
