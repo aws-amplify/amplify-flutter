@@ -15,7 +15,7 @@ dependencies:
   aws_common: ">=0.6.3 <0.7.0"
   aws_signature_v4: ">=0.5.1 <0.6.0"
   built_collection: ^5.0.0
-  built_value: ">=8.6.0 <8.9.0"
+  built_value: ^8.6.0
   drift: ">=2.14.0 <2.15.0"
   fixnum: ^1.0.0
   json_annotation: ">=4.8.1 <4.9.0"
