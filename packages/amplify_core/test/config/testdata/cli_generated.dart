@@ -191,8 +191,7 @@ const _v4storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION",
-        "defaultAccessLevel": "guest"
+        "region": "$REGION"
       }
     }
   }
@@ -379,8 +378,7 @@ const _v5storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION",
-        "defaultAccessLevel": "guest"
+        "region": "$REGION"
       }
     }
   }
@@ -567,8 +565,7 @@ const _v6storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION",
-        "defaultAccessLevel": "guest"
+        "region": "$REGION"
       }
     }
   }
@@ -755,8 +752,7 @@ const _v7storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION",
-        "defaultAccessLevel": "guest"
+        "region": "$REGION"
       }
     }
   }
@@ -943,8 +939,7 @@ const _vlateststorage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION",
-        "defaultAccessLevel": "guest"
+        "region": "$REGION"
       }
     }
   }
