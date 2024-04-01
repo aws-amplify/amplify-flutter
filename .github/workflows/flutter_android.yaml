@@ -49,6 +49,12 @@ jobs:
           cache: true
           channel: ${{ matrix.channel }}
 
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "17"
+
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft
 
