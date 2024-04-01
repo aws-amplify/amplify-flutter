@@ -43,11 +43,10 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
+      - uses: actions/setup-java@v3
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
+          java-version: "17"
 
       - name: Build Canary (iOS)
         run: build-support/build_canary.sh ios --no-codesign
@@ -101,11 +100,10 @@ jobs:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
 
-      # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
+      - uses: actions/setup-java@v3
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
-          java-version: "11"
+          java-version: "17"
 
       # Must be run before `fetch_backends` so that `pubspec.lock` is present.
       - name: Pub Upgrade
