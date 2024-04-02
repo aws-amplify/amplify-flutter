@@ -369,7 +369,7 @@ void main() {
 
         expect(
           storageS3Service.list(
-            path: const StoragePath.fromString('apath'),
+            path: const StoragePath.fromString('a path'),
             options: testOptions,
           ),
           throwsA(isA<NetworkException>()),
