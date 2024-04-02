@@ -8,15 +8,8 @@ import 'package:aft/aft.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:async/async.dart';
 import 'package:git/git.dart';
+import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
-
-enum PermissionScope {
-  readExecuteWrite('777'),
-  readExecute('555');
-
-  const PermissionScope(this.value);
-  final String value;
-}
 
 class PluginConfig {
   const PluginConfig({
@@ -144,11 +137,11 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     if (_repoCache[branchTarget] != null) {
       return;
     }
-    Directory repoDir;
-    repoDir = await _downloadRepository();
-    repoDir = await _checkoutRepositoryRef(repoDir, branchTarget);
 
-    _repoCache[branchTarget] = repoDir;
+    final repoDir = await _downloadRepository();
+    final repoRef = await _checkoutRepositoryRef(repoDir, branchTarget);
+
+    _repoCache[branchTarget] = repoRef;
   }
 
   /// Returns the directory for the plugin at [path].
@@ -174,10 +167,9 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     // Clear out the directory if it already exists.
     // This is to ensure that we don't have any stale files.
     if (await outputDir.exists()) {
-      logger.verbose(
-        'Clearing out existing plugin directory for ${plugin.name}...',
+      logger.info(
+        'Deleting existing plugin directory for ${plugin.name}...',
       );
-      await _setPermissions(outputDir.path, PermissionScope.readExecuteWrite);
       await outputDir.delete(recursive: true);
     }
     await outputDir.create(recursive: true);
@@ -187,14 +179,11 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       ..info('Copying plugin files for ${plugin.name}...')
       ..verbose('From $repoDir to $outputDir');
     await copyPath(repoDir.path, outputDir.path);
-    await _setPermissions(outputDir.path, PermissionScope.readExecute);
   }
 
   Future<void> checkDiff(PluginConfig plugin) async {
     logger.info('Checking diff for ${plugin.name}...');
     final incoming = (await _pluginDirForPath(plugin.remotePathToSource)).path;
-    // Set the permissions of the incoming files to readExecute (fails otherwise)
-    await _setPermissions(incoming, PermissionScope.readExecute);
     final current = '$outputPath/${plugin.name}';
     final diffCmd = await Process.start(
       'git',
@@ -216,25 +205,6 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     logger.info(
       'No differences between incoming and current for ${plugin.name}.',
     );
-  }
-
-  /// Sets the permissions of all files in [path]  to
-  Future<void> _setPermissions(String path, PermissionScope scope) async {
-    const scope = '777';
-    logger.verbose('Setting files in $path to $scope...');
-    final readOnlyCmd = await Process.start(
-      'chmod',
-      [
-        '-R',
-        scope,
-        path,
-      ],
-      mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
-    );
-    final exitCode = await readOnlyCmd.exitCode;
-    if (exitCode != 0) {
-      exitError('`pod install` failed: $exitCode.');
-    }
   }
 
   /// Runs pod install after copying files to the plugin directory.
