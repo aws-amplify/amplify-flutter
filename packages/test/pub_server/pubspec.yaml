@@ -33,7 +33,7 @@ dev_dependencies:
   build_runner: ^2.4.0
   drift_dev: ">=2.14.0 <2.15.0"
   json_serializable: 6.7.1
-  pub_api_client: ^2.4.0
+  pub_api_client: ">=2.4.0 <2.7.0" # v2.7.0 introduces a new required field - archive_sha256
   shelf_router_generator: ^1.0.5
   test: ^1.22.1
   yaml_edit: ^2.1.0
