@@ -88,7 +88,7 @@ void main() {
     group('Uploading S3DataPayload', () {
       final testDataPayload = S3DataPayload.string('Upload me please!');
       final testDataPayloadBytes = S3DataPayload.bytes([101, 102]);
-      const testPath = '/object-upload-to';
+      const testPath = StoragePath.fromString('object-upload-to');
 
       test(
           'should invoke S3Client.putObject API with expected parameters and default access level',
@@ -115,7 +115,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: const StorageUploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
@@ -174,7 +174,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -224,7 +224,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             pathResolver: pathResolver,
             bucket: testBucket,
-            path: const StoragePath.fromString(testPath),
+            path: testPath,
             options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
@@ -293,7 +293,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -336,7 +336,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -371,7 +371,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -416,7 +416,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           pathResolver: pathResolver,
           bucket: testBucket,
-          path: const StoragePath.fromString(testPath),
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
