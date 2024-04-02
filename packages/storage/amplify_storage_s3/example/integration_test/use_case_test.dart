@@ -412,6 +412,7 @@ void main() {
         testWidgets(
             'move object with access level private for the currently signed in user',
             (WidgetTester tester) async {
+          // ignore: deprecated_member_use
           final result = await Amplify.Storage.move(
             source: S3ItemWithAccessLevel(
               storageItem: S3Item(key: testObject3CopyKey),
@@ -685,6 +686,7 @@ void main() {
           testWidgets(
               'move object with access level guest for the currently signed in user',
               (WidgetTester tester) async {
+            // ignore: deprecated_member_use
             final result = await Amplify.Storage.move(
               source: S3ItemWithAccessLevel(
                 storageItem: S3Item(key: testObjectKey1),
@@ -862,6 +864,7 @@ void main() {
 
         testWidgets('move object with access level protected as object owner',
             (WidgetTester tester) async {
+          // ignore: deprecated_member_use
           final result = await Amplify.Storage.move(
             source: S3ItemWithAccessLevel.forIdentity(
               user1IdentityId,
