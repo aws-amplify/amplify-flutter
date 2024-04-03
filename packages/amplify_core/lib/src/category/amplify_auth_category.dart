@@ -1449,6 +1449,29 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
         () => defaultPlugin.fetchDevices(),
       );
 
+  /// {@template amplify_core.amplify_auth_category.get_device}
+  /// Retrieves the current device of the current user.
+  ///
+  /// ## Examples
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
+  /// ```dart
+  /// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+  /// import 'package:amplify_flutter/amplify_flutter.dart';
+  /// ```
+  ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="fetch-devices"?>
+  /// ```dart
+  /// Future<void> getDevice() async {
+  ///   try {
+  ///     final AuthDevice authDevice = await Amplify.Auth.getDevice();
+  ///     safePrint('The current device is: $authDevice');
+  ///   } catch (e) {
+  ///     safePrint('Get device failed with error: $e');
+  ///   }
+  /// }
+  /// ```
+  /// {@endtemplate}
   Future<AuthDevice> getDevice() => identifyCall(
         AuthCategoryMethod.getDevice,
         () => defaultPlugin.getDevice(),
