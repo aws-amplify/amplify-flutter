@@ -35,6 +35,11 @@ class S3PathResolver {
       // ignore: invalid_use_of_internal_member
       _ => path.resolvePath()
     };
+    if (resolvedPath.isEmpty) {
+      throw const StoragePathValidationException(
+        'StoragePath cannot be empty',
+      );
+    }
     if (resolvedPath.startsWith('/')) {
       throw const StoragePathValidationException(
         'StoragePath cannot start with a leading "/"',
