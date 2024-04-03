@@ -13,7 +13,7 @@ dependencies:
   aws_signature_v4: any
   build_cli_annotations: ^2.0.0
   built_collection: ^5.1.1
-  built_value: ">=8.6.0 <8.9.0"
+  built_value: ^8.6.0
   code_builder: 4.10.0
   collection: ^1.15.0
   crclib: ^3.0.0
