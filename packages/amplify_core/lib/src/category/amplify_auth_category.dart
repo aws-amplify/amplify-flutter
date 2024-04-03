@@ -1449,6 +1449,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
         () => defaultPlugin.fetchDevices(),
       );
 
+  Future<AuthDevice> getDevice() => identifyCall(
+        AuthCategoryMethod.getDevice,
+        () => defaultPlugin.getDevice(),
+      );
+
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
   ///

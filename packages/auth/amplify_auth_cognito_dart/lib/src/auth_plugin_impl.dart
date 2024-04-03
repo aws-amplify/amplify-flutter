@@ -36,6 +36,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         UserContextDataType,
         UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
+        GetDeviceRequest,
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
@@ -1004,6 +1005,38 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           ),
         )
         .result;
+  }
+
+  @override
+  Future<CognitoDevice> getDevice() async {
+    final tokens = await stateMachine.getUserPoolTokens();
+    final username = tokens.username;
+    final deviceSecrets = await _deviceRepo.get(username);
+    final deviceKey = deviceSecrets?.deviceKey;
+    if (deviceSecrets == null || deviceKey == null) {
+      throw const DeviceNotTrackedException();
+    }
+    final getDeviceResponse = await _cognitoIdp
+        .getDevice(
+          cognito.GetDeviceRequest(
+            deviceKey: deviceKey,
+            accessToken: tokens.accessToken.raw,
+          ),
+        )
+        .result;
+    final device = getDeviceResponse.device;
+    final attributes =
+        device.deviceAttributes ?? const <cognito.AttributeType>[];
+    return CognitoDevice(
+      id: deviceKey,
+      attributes: {
+        for (final attribute in attributes)
+          attribute.name: attribute.value ?? '',
+      },
+      createdDate: device.deviceCreateDate,
+      lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+      lastModifiedDate: device.deviceLastModifiedDate,
+    );
   }
 
   @override

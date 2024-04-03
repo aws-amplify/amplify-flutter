@@ -56,6 +56,7 @@ abstract class UpdateDeviceStatusRequest
 
   /// The status of whether a device is remembered.
   DeviceRememberedStatusType? get deviceRememberedStatus;
+
   @override
   UpdateDeviceStatusRequest getPayload() => this;
   @override
