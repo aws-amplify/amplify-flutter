@@ -218,6 +218,14 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   ///
   /// {@macro amplify_core.amplify_storage_category.copy_source}
   /// {@endtemplate}
+  @Deprecated(
+    'This API will be removed in the next major version. '
+    'This API calls Amplify.Storage.copy() to create a copy of the file in the '
+    'destination directory and then calls Amplify.Storage.remove() to remove '
+    'the source file. '
+    'Please use Amplify.Storage.copy() and Amplify.Storage.remove() directly '
+    'instead.',
+  )
   StorageMoveOperation move({
     required StorageItemWithAccessLevel<StorageItem> source,
     required StorageItemWithAccessLevel<StorageItem> destination,
