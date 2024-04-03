@@ -3,7 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
-import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
+import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.path_resolver}
@@ -22,14 +22,14 @@ class S3PathResolver {
   ///
   /// Returns a string which is the S3 Object Key.
   ///
-  /// When [path] is a [StoragePathWithIdentityId], the current user's identity
+  /// When [path] is a [StoragePathFromIdentityId], the current user's identity
   /// Id will be fetched in order to build the path.
   Future<String> resolvePath({
     required StoragePath path,
     String? identityId,
   }) async {
     final resolvedPath = switch (path) {
-      final StoragePathWithIdentityId p => p.resolvePath(
+      final StoragePathFromIdentityId p => p.resolvePath(
           identityId: identityId ?? await _identityProvider.getIdentityId(),
         ),
       // ignore: invalid_use_of_internal_member
@@ -51,7 +51,7 @@ class S3PathResolver {
     required List<StoragePath> paths,
   }) async {
     final requiredIdentityId =
-        paths.whereType<StoragePathWithIdentityId>().isNotEmpty;
+        paths.whereType<StoragePathFromIdentityId>().isNotEmpty;
     final identityId =
         requiredIdentityId ? await _identityProvider.getIdentityId() : null;
     return Future.wait(

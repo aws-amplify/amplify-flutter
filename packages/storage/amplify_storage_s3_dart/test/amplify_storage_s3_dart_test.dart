@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
+import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -450,7 +450,7 @@ void main() {
         );
         registerFallbackValue(const StoragePath.fromString('public/$testKey'));
         registerFallbackValue(
-          StoragePathWithIdentityId(
+          StoragePathFromIdentityId(
             (identityId) => 'private/$identityId/$testKey',
           ),
         );
@@ -514,7 +514,7 @@ void main() {
 
         when(
           () => storageS3Service.downloadData(
-            path: any<StoragePathWithIdentityId>(named: 'path'),
+            path: any<StoragePathFromIdentityId>(named: 'path'),
             options: any(named: 'options'),
             onData: any(named: 'onData'),
           ),
@@ -523,7 +523,7 @@ void main() {
         when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
 
         downloadDataOperation = storageS3Plugin.downloadData(
-          path: StoragePath.withIdentityId(
+          path: StoragePath.fromIdentityId(
             (identityId) => 'protected/$identityId/$testKey',
           ),
           options: testOptions,
@@ -531,7 +531,7 @@ void main() {
 
         final capturedOptions = verify(
           () => storageS3Service.downloadData(
-            path: any<StoragePathWithIdentityId>(named: 'path'),
+            path: any<StoragePathFromIdentityId>(named: 'path'),
             onData: any(named: 'onData'),
             options: captureAny<StorageDownloadDataOptions>(
               named: 'options',
@@ -917,7 +917,7 @@ void main() {
 
     group('copy() API', () {
       const testSource = StoragePath.fromString('public/source-key');
-      final testDestination = StoragePath.withIdentityId(
+      final testDestination = StoragePath.fromIdentityId(
         (identityId) => 'protected/$identityId/destination-key',
       );
 

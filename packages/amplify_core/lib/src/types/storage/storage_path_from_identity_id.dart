@@ -3,12 +3,12 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.storage_path_with_identity_id}
-/// Creates a [StoragePath] with the current user's identityId.
+/// {@template amplify_core.storage.storage_path_from_identity_id}
+/// Creates a [StoragePath] from the current user's identityId.
 /// {@endtemplate}
-class StoragePathWithIdentityId implements StoragePath {
-  /// {@macro amplify_core.storage.storage_path_with_identity_id}
-  const StoragePathWithIdentityId(this._pathBuilder);
+class StoragePathFromIdentityId implements StoragePath {
+  /// {@macro amplify_core.storage.storage_path_from_identity_id}
+  const StoragePathFromIdentityId(this._pathBuilder);
   final String Function(String identityId) _pathBuilder;
   @override
   String resolvePath({

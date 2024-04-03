@@ -70,7 +70,7 @@ void main() {
     // Upload data to Storage
     await Amplify.Storage.uploadData(
       data: HttpPayload.string(data),
-      path: StoragePath.withIdentityId(
+      path: StoragePath.fromIdentityId(
         (String identityId) => 'private/$identityId/hello',
       ),
     ).result;

@@ -124,7 +124,7 @@ void main() {
         ),
       );
       final result = await downloadFile(
-        path: StoragePath.withIdentityId(
+        path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$testKey',
         ),
         localFile: AWSFile.fromPath('download.jpg'),

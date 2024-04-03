@@ -39,7 +39,7 @@ void main() {
     });
 
     test('should resolve path with identity Id', () async {
-      final path = StoragePath.withIdentityId((id) => 'foo/$id/picture.png');
+      final path = StoragePath.fromIdentityId((id) => 'foo/$id/picture.png');
       expect(
         await pathResolver.resolvePath(path: path),
         'foo/mock-id/picture.png',
