@@ -9,9 +9,6 @@ part of 'amplify_categories.dart';
 ///
 /// It comes with default, built-in support for Amazon S3 service
 /// leveraging Amplify Auth Category for authorization.
-///
-/// The Amplify CLI helps you to create and configure the storage category
-/// and auth category.
 /// {@endtemplate}
 class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   @override
