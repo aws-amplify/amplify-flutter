@@ -16,7 +16,11 @@ class PluginConfig {
     required this.name,
     required this.remotePathToSource,
   });
+
+  /// The name of the plugin.
   final String name;
+
+  /// The path to the plugin source files in the Amplify Swift repo.
   final String remotePathToSource;
 }
 
@@ -160,7 +164,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
   Future<void> _generatePlugin(PluginConfig plugin) async {
     logger.info('Selecting source files for ${plugin.name}...');
 
-    final repoDir = await _pluginDirForPath(plugin.remotePathToSource);
+    final remotePluginDir = await _pluginDirForPath(plugin.remotePathToSource);
 
     final outputDir = Directory(p.join(outputPath, plugin.name));
 
@@ -177,8 +181,8 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     // Copy the files from the repo to the plugin directory.
     logger
       ..info('Copying plugin files for ${plugin.name}...')
-      ..verbose('From $repoDir to $outputDir');
-    await copyPath(repoDir.path, outputDir.path);
+      ..verbose('From $remotePluginDir to $outputDir');
+    await copyPath(remotePluginDir.path, outputDir.path);
   }
 
   Future<void> checkDiff(PluginConfig plugin) async {
