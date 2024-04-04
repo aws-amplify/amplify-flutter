@@ -17,7 +17,6 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('downloadFile()', () {
-    late StorageUploadFileResult uploadResult;
     late String filePath;
     late List<int> data;
 
@@ -25,7 +24,7 @@ void main() {
       await configure(amplifyEnvironments['key']!);
       filePath = 'public/download-file-from-data-${uuid()}';
       data = 'test data'.codeUnits;
-      uploadResult = await Amplify.Storage.uploadFile(
+      await Amplify.Storage.uploadFile(
         localFile: AWSFile.fromData(data),
         path: StoragePath.fromString(filePath),
       ).result;
@@ -48,7 +47,6 @@ void main() {
         final downloadedFile = File(downloadFilePath);
         expect(await downloadedFile.readAsBytes(), data);
       });
-
     });
 
     test('with identity ID', () async {
@@ -85,7 +83,8 @@ void main() {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-        addTearDown(() => Amplify.Storage.remove(path: StoragePath.fromString(filePath)));
+        addTearDown(() =>
+            Amplify.Storage.remove(path: StoragePath.fromString(filePath)),);
 
         await Amplify.Storage.downloadFile(
           path: StoragePath.fromString(filePath),
@@ -93,10 +92,10 @@ void main() {
             pluginOptions: S3DownloadFilePluginOptions(
               useAccelerateEndpoint: true,
             ),
-          ), 
+          ),
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
-        
+
         final downloadedFile = File(downloadFilePath);
         expect(await downloadedFile.readAsBytes(), data);
       });
@@ -106,7 +105,8 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
         final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
 
-        addTearDown(() => Amplify.Storage.remove(path: StoragePath.fromString(filePath)));
+        addTearDown(() =>
+            Amplify.Storage.remove(path: StoragePath.fromString(filePath)),);
 
         const metadata = {'foo': 'bar'};
 
