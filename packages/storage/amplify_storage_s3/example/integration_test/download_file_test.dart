@@ -83,8 +83,9 @@ void main() {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(filePath)),);
+        addTearDown(
+          () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+        );
 
         await Amplify.Storage.downloadFile(
           path: StoragePath.fromString(filePath),
@@ -105,8 +106,9 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
         final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(filePath)),);
+        addTearDown(
+          () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+        );
 
         const metadata = {'foo': 'bar'};
 
