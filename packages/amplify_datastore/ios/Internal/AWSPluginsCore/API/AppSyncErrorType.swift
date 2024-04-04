@@ -36,7 +36,7 @@ public enum AppSyncErrorType: Equatable {
             self = .conditionalCheck
         case AppSyncErrorType.conflictUnhandledErrorString:
             self = .conflictUnhandled
-        case AppSyncErrorType.unauthorizedErrorString:
+        case _ where value.contains(AppSyncErrorType.unauthorizedErrorString):
             self = .unauthorized
         case AppSyncErrorType.operationDisabledErrorString:
             self = .operationDisabled

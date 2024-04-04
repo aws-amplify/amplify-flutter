@@ -29,7 +29,10 @@ abstract class NativeApiPlugin {
   String? getLatestAuthToken(String providerName);
 
   @async
-  NativeGraphQLOperation mutate(NativeGraphQLRequest request);
+  NativeGraphQLResponse mutate(NativeGraphQLRequest request);
+
+  @async
+  NativeGraphQLResponse query(NativeGraphQLRequest request);
 
   @async
   NativeGraphQLSubscriptionResponse subscribe(NativeGraphQLRequest request);
@@ -97,8 +100,9 @@ class LegacyCredentialStoreData {
   String? idToken;
 }
 
-class NativeGraphQLOperation {
-  String? response;
+class NativeGraphQLResponse {
+  String? payloadJson;
+  String? errorsJson;
 }
 
 class NativeGraphQLSubscriptionResponse {

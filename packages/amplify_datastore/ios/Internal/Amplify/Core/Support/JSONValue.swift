@@ -8,6 +8,7 @@
 import Foundation
 
 /// A utility type that allows us to represent an arbitrary JSON structure
+@dynamicMemberLookup
 public enum JSONValue {
     case array([JSONValue])
     case boolean(Bool)
@@ -103,5 +104,64 @@ extension JSONValue: ExpressibleByNilLiteral {
 extension JSONValue: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self = .string(value)
+    }
+}
+
+extension JSONValue {
+
+    public var asObject: [String: JSONValue]? {
+        if case .object(let object) = self {
+            return object
+        }
+
+        return nil
+    }
+
+    public var asArray: [JSONValue]? {
+        if case .array(let array) = self {
+            return array
+        }
+
+        return nil
+    }
+
+    public var stringValue: String? {
+        if case .string(let string) = self {
+            return string
+        }
+
+        return nil
+    }
+
+    public var intValue: Int? {
+        if case .number(let double) = self,
+           double < Double(Int.max) && double >= Double(Int.min) {
+            return Int(double)
+        }
+        return nil
+    }
+
+    public var doubleValue: Double? {
+        if case .number(let double) = self {
+            return double
+        }
+
+        return nil
+    }
+
+    public var booleanValue: Bool? {
+        if case .boolean(let bool) = self {
+            return bool
+        }
+
+        return nil
+    }
+
+    public var isNull: Bool {
+        if case .null = self {
+            return true
+        }
+
+        return false
     }
 }

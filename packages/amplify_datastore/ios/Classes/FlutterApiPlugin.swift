@@ -15,21 +15,17 @@ import Combine
 
 public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
 {
+    
     public func query<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
+        
         fatalError("To be implmented")
     }
     
     public func mutate<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
         
-        let variables = request.variables?.compactMapValues { $0 as? String }
-        
-        // Call into flutter by passing a request over flutter platform channel
-        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: "foo", decodePath: request.decodePath)
-        print("Swift mutation:: Starting...")
-        nativeApiPlugin.mutate(request: nativeRequest) { operation in
-            print("Swift mutation:: Completed")
-            print(operation)
-        }
+//        _ = try await self.mutate(request: request) else {
+//            print("Swift:: Mutate error")
+//        }
         
         fatalError("TODO: implmenet return transform")
     }
@@ -38,7 +34,7 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
         
         // A hacky way to call the old subscribe API
         // Currently does not return any thing
-        let task = subscribe(request: request)
+        _ = subscribe(request: request)
         
         
         // This is a placeholder return type.
@@ -69,52 +65,63 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
         return self.apiAuthFactory // might not need
     }
     
-    public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
+    private func getNativeGraphQLRequest<R>(request: GraphQLRequest<R>) -> NativeGraphQLRequest {
+        let variables = request.variables?.compactMapValues { $0 as? String }
+        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: "foo", decodePath: request.decodePath)
+        return nativeRequest
+    }
+    
+    public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
+        print("Swift:: <R> is \(R.self)")
+        
+        let nativeRequest = getNativeGraphQLRequest(request: request)
+        
+        nativeApiPlugin.query(request: nativeRequest) { response in
+                print("Swift:: query response: \(response)")
+        }
+        
         fatalError("operation not supported")
     }
     
-    public func subscribe<R>(request: GraphQLRequest<R>) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
-        let variables = request.variables?.compactMapValues { $0 as? String }
-        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: "foo", decodePath: request.decodePath)
-        print("Swift:: responseType: \(request.responseType)")
+    
+    public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
+        print("Swift:: <R> is \(R.self)")
         
-        var subscriptionId: String? = ""
+        let nativeRequest = getNativeGraphQLRequest(request: request)
         
-        self.nativeApiPlugin.subscribe(request: nativeRequest) { response in
-            print("Swift:: nativeApiPlugin.subscribe \(String(describing: response.subscriptionId))")
-            subscriptionId = response.subscriptionId
+        nativeApiPlugin.mutate(request: nativeRequest) { response in
+                print("Swift:: mutate response: \(response)")
         }
         
+        fatalError("operation not supported")
+    }
+
+    public func subscribe<R: Decodable>(request: GraphQLRequest<R>) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
+        let nativeRequest = getNativeGraphQLRequest(request: request)
+        
+        var subscriptionId: String? = ""
+        DispatchQueue.main.async {
+            self.nativeApiPlugin.subscribe(request: nativeRequest) { response in
+                subscriptionId = response.subscriptionId
+            }
+        }
         let amplifySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
         
-        nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0 != nil}.sink(receiveValue: { event in
+        nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
             do {
-                // WIP: Decode response and type into a model/graphql response
                 print("Swift:: subscriptionEvent: \(event)")
-                
-                //                    let modelSchema = try FlutterDataStoreRequestUtils.getModelSchema(
-                //                        modelSchemaRegistry: self.modelSchemaRegistry,
-                //                        modelName: "Blog"
-                //                    )
                 
                 guard let jsonData = event.payloadJson?.data(using: .utf8) else {
                     throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
                 }
+
+                let response: GraphQLResponse<R> = .fromAppSyncResponse(
+                    data: jsonData,
+                    decodePath: request.decodePath,
+                    modelName: "Blog"
+                )    
                 
-                guard let jsonValue = try? JSONDecoder().decode([String: JSONValue].self, from: jsonData) else {
-                    throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
-                }
-                
-                print("Swift:: subscription payload JSON: \(jsonValue)")
-                
-                // TODO: Decode jsonValue to Swift model
-                // The value of <R> in this function is: AWSPluginsCore.MutationSync<AWSPluginsCore.AnyModel>
-                // The Model should then be converted into this <R> type and passed back to the sequence
-                
-                
-                let response = GraphQLResponse.success(jsonValue)
-                let subEvent = GraphQLSubscriptionEvent.data(response)
-                amplifySequence.send(.data(.success(subEvent as! R)))
+                amplifySequence.send(.data(response))
             } catch {
                 print("Failed to decode JSON: \(error.localizedDescription)")
             }
@@ -125,11 +132,6 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
     public func configure(using configuration: Any?) throws {
         print("Configuring Flutter Bridged API Plugin...")
     }
-    
-    public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        fatalError("operation not supported")
-    }
-    
     
     public func add(interceptor: URLRequestInterceptor, for apiName: String) throws {
         fatalError("operation not supported")

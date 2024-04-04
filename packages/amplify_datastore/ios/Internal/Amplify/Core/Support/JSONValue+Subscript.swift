@@ -26,4 +26,8 @@ public extension JSONValue {
             return nil
         }
     }
+
+    subscript(dynamicMember member: String) -> JSONValue? {
+        self[member]
+    }
 }

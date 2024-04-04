@@ -326,38 +326,56 @@ class _NativeAmplifyApi
   String get runtimeTypeName => '_NativeAmplifyApi';
 
   @override
-  Future<NativeGraphQLOperation> mutate(NativeGraphQLRequest request) async {
+  Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
     print('Flutter mutate:: $request');
-
-    final flutterRequest = GraphQLRequest(
-      document: request.document!,
-      variables: (request.variables ?? {}).cast<String, dynamic>(),
-      apiName: request.apiName,
-      decodePath: request.decodePath,
-    );
-
-    final response = await Amplify.API.mutate(request: flutterRequest).response;
-
-    return NativeGraphQLOperation(response: jsonEncode(response));
-  }
-
-  @override
-  Future<NativeGraphQLSubscriptionResponse> subscribe(
-      NativeGraphQLRequest request) async {
-    print('Flutter subscribe:: ${request.document}');
 
     final flutterRequest = GraphQLRequest<String>(
       document: request.document!,
       variables: (request.variables ?? {}).cast<String, dynamic>(),
       apiName: request.apiName,
-      // decodePath: request.decodePath,
+    );
+
+    final response = await Amplify.API.mutate(request: flutterRequest).response;
+
+    return NativeGraphQLResponse(
+      payloadJson: response.data,
+      errorsJson: response.errors.toString(),
+    );
+  }
+
+  @override
+  Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
+    print('Flutter mutate:: $request');
+
+    final flutterRequest = GraphQLRequest<String>(
+      document: request.document!,
+      variables: (request.variables ?? {}).cast<String, dynamic>(),
+      apiName: request.apiName,
+    );
+
+    final response = await Amplify.API.query(request: flutterRequest).response;
+
+    return NativeGraphQLResponse(
+      payloadJson: response.data,
+      errorsJson: response.errors.toString(),
+    );
+  }
+
+  @override
+  Future<NativeGraphQLSubscriptionResponse> subscribe(
+      NativeGraphQLRequest request) async {
+    // print('Flutter subscribe:: ${request.document}');
+
+    final flutterRequest = GraphQLRequest<String>(
+      document: request.document!,
+      variables: (request.variables ?? {}).cast<String, dynamic>(),
+      apiName: request.apiName,
     );
 
     final subscription = Amplify.API.subscribe(flutterRequest);
 
     subscription.listen((GraphQLResponse<String> event) {
       print('Flutter subscription event:: ${event.data}');
-      // final json = jsonEncode(event.data);
       final nativeResponse = NativeGraphQLSubscriptionResponse(
         subscriptionId: flutterRequest.id,
         payloadJson: event.data,

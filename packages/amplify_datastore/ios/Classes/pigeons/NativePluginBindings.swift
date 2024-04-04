@@ -160,19 +160,23 @@ struct NativeAWSCredentials {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct NativeGraphQLOperation {
-  var response: String? = nil
+struct NativeGraphQLResponse {
+  var payloadJson: String? = nil
+  var errorsJson: String? = nil
 
-  static func fromList(_ list: [Any?]) -> NativeGraphQLOperation? {
-    let response: String? = nilOrValue(list[0])
+  static func fromList(_ list: [Any?]) -> NativeGraphQLResponse? {
+    let payloadJson: String? = nilOrValue(list[0])
+    let errorsJson: String? = nilOrValue(list[1])
 
-    return NativeGraphQLOperation(
-      response: response
+    return NativeGraphQLResponse(
+      payloadJson: payloadJson,
+      errorsJson: errorsJson
     )
   }
   func toList() -> [Any?] {
     return [
-      response,
+      payloadJson,
+      errorsJson,
     ]
   }
 }
@@ -308,9 +312,9 @@ private class NativeApiPluginCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
-        return NativeGraphQLOperation.fromList(self.readValue() as! [Any?])
-      case 129:
         return NativeGraphQLRequest.fromList(self.readValue() as! [Any?])
+      case 129:
+        return NativeGraphQLResponse.fromList(self.readValue() as! [Any?])
       case 130:
         return NativeGraphQLSubscriptionResponse.fromList(self.readValue() as! [Any?])
       default:
@@ -321,10 +325,10 @@ private class NativeApiPluginCodecReader: FlutterStandardReader {
 
 private class NativeApiPluginCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? NativeGraphQLOperation {
+    if let value = value as? NativeGraphQLRequest {
       super.writeByte(128)
       super.writeValue(value.toList())
-    } else if let value = value as? NativeGraphQLRequest {
+    } else if let value = value as? NativeGraphQLResponse {
       super.writeByte(129)
       super.writeValue(value.toList())
     } else if let value = value as? NativeGraphQLSubscriptionResponse {
@@ -366,10 +370,17 @@ class NativeApiPlugin {
       completion(result)
     }
   }
-  func mutate(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLOperation) -> Void) {
+  func mutate(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLResponse) -> Void) {
     let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([requestArg] as [Any?]) { response in
-      let result = response as! NativeGraphQLOperation
+      let result = response as! NativeGraphQLResponse
+      completion(result)
+    }
+  }
+  func query(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLResponse) -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([requestArg] as [Any?]) { response in
+      let result = response as! NativeGraphQLResponse
       completion(result)
     }
   }

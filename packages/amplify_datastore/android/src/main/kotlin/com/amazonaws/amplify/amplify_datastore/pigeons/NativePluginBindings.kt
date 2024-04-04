@@ -157,20 +157,23 @@ data class NativeAWSCredentials (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class NativeGraphQLOperation (
-  val response: String? = null
+data class NativeGraphQLResponse (
+  val payloadJson: String? = null,
+  val errorsJson: String? = null
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
-    fun fromList(list: List<Any?>): NativeGraphQLOperation {
-      val response = list[0] as String?
-      return NativeGraphQLOperation(response)
+    fun fromList(list: List<Any?>): NativeGraphQLResponse {
+      val payloadJson = list[0] as String?
+      val errorsJson = list[1] as String?
+      return NativeGraphQLResponse(payloadJson, errorsJson)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
-      response,
+      payloadJson,
+      errorsJson,
     )
   }
 }
@@ -298,12 +301,12 @@ private object NativeApiPluginCodec : StandardMessageCodec() {
     return when (type) {
       128.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          NativeGraphQLOperation.fromList(it)
+          NativeGraphQLRequest.fromList(it)
         }
       }
       129.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          NativeGraphQLRequest.fromList(it)
+          NativeGraphQLResponse.fromList(it)
         }
       }
       130.toByte() -> {
@@ -316,11 +319,11 @@ private object NativeApiPluginCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is NativeGraphQLOperation -> {
+      is NativeGraphQLRequest -> {
         stream.write(128)
         writeValue(stream, value.toList())
       }
-      is NativeGraphQLRequest -> {
+      is NativeGraphQLResponse -> {
         stream.write(129)
         writeValue(stream, value.toList())
       }
@@ -349,10 +352,17 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback(result)
     }
   }
-  fun mutate(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLOperation) -> Unit) {
+  fun mutate(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLResponse) -> Unit) {
     val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate", codec)
     channel.send(listOf(requestArg)) {
-      val result = it as NativeGraphQLOperation
+      val result = it as NativeGraphQLResponse
+      callback(result)
+    }
+  }
+  fun query(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLResponse) -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query", codec)
+    channel.send(listOf(requestArg)) {
+      val result = it as NativeGraphQLResponse
       callback(result)
     }
   }

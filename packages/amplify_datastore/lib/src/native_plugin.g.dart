@@ -149,23 +149,28 @@ class NativeAWSCredentials {
   }
 }
 
-class NativeGraphQLOperation {
-  NativeGraphQLOperation({
-    this.response,
+class NativeGraphQLResponse {
+  NativeGraphQLResponse({
+    this.payloadJson,
+    this.errorsJson,
   });
 
-  String? response;
+  String? payloadJson;
+
+  String? errorsJson;
 
   Object encode() {
     return <Object?>[
-      response,
+      payloadJson,
+      errorsJson,
     ];
   }
 
-  static NativeGraphQLOperation decode(Object result) {
+  static NativeGraphQLResponse decode(Object result) {
     result as List<Object?>;
-    return NativeGraphQLOperation(
-      response: result[0] as String?,
+    return NativeGraphQLResponse(
+      payloadJson: result[0] as String?,
+      errorsJson: result[1] as String?,
     );
   }
 }
@@ -309,10 +314,10 @@ class _NativeApiPluginCodec extends StandardMessageCodec {
   const _NativeApiPluginCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is NativeGraphQLOperation) {
+    if (value is NativeGraphQLRequest) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else if (value is NativeGraphQLRequest) {
+    } else if (value is NativeGraphQLResponse) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
     } else if (value is NativeGraphQLSubscriptionResponse) {
@@ -327,9 +332,9 @@ class _NativeApiPluginCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128:
-        return NativeGraphQLOperation.decode(readValue(buffer)!);
-      case 129:
         return NativeGraphQLRequest.decode(readValue(buffer)!);
+      case 129:
+        return NativeGraphQLResponse.decode(readValue(buffer)!);
       case 130:
         return NativeGraphQLSubscriptionResponse.decode(readValue(buffer)!);
       default:
@@ -343,7 +348,9 @@ abstract class NativeApiPlugin {
 
   Future<String?> getLatestAuthToken(String providerName);
 
-  Future<NativeGraphQLOperation> mutate(NativeGraphQLRequest request);
+  Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request);
+
+  Future<NativeGraphQLResponse> query(NativeGraphQLRequest request);
 
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request);
@@ -385,7 +392,27 @@ abstract class NativeApiPlugin {
               (args[0] as NativeGraphQLRequest?);
           assert(arg_request != null,
               'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate was null, expected non-null NativeGraphQLRequest.');
-          final NativeGraphQLOperation output = await api.mutate(arg_request!);
+          final NativeGraphQLResponse output = await api.mutate(arg_request!);
+          return output;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final NativeGraphQLRequest? arg_request =
+              (args[0] as NativeGraphQLRequest?);
+          assert(arg_request != null,
+              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.query was null, expected non-null NativeGraphQLRequest.');
+          final NativeGraphQLResponse output = await api.query(arg_request!);
           return output;
         });
       }
