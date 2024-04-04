@@ -21,7 +21,7 @@ void main() {
 
   group('downloadData()', () {
     setUpAll(() async {
-      await configure(amplifyEnvironments['key']!);
+      await configure(amplifyEnvironments['main']!);
 
       bytesPath = 'public/download-data-${uuid()}';
       bytesData = 'test data'.codeUnits;
