@@ -137,8 +137,8 @@ void main() {
       final testResult = S3ListResult(
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata(
-          subPaths: [],
+        metadata: S3ListMetadata.fromS3CommonPrefixes(
+          commonPrefixes: [],
         ),
       );
 
