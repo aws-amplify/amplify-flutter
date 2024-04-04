@@ -56,8 +56,10 @@ void main() {
           data: HttpPayload.dataUrl(dataUrl),
         ).result;
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(dataUrlPath)),);
+        addTearDown(
+          () =>
+              Amplify.Storage.remove(path: StoragePath.fromString(dataUrlPath)),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(dataUrlPath),
@@ -75,8 +77,9 @@ void main() {
           data: HttpPayload.json(json),
         ).result;
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(jsonPath)),);
+        addTearDown(
+          () => Amplify.Storage.remove(path: StoragePath.fromString(jsonPath)),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(jsonPath),
@@ -95,8 +98,11 @@ void main() {
           data: HttpPayload.formFields({key: value}),
         ).result;
 
-        addTearDown(() => Amplify.Storage.remove(
-            path: StoragePath.fromString(formFieldsPath),),);
+        addTearDown(
+          () => Amplify.Storage.remove(
+            path: StoragePath.fromString(formFieldsPath),
+          ),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(formFieldsPath),
@@ -114,8 +120,10 @@ void main() {
           data: HttpPayload.string(string),
         ).result;
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(stringPath)),);
+        addTearDown(
+          () =>
+              Amplify.Storage.remove(path: StoragePath.fromString(stringPath)),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(stringPath),
@@ -131,8 +139,9 @@ void main() {
           data: const HttpPayload.empty(),
         ).result;
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(emptyPath)),);
+        addTearDown(
+          () => Amplify.Storage.remove(path: StoragePath.fromString(emptyPath)),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(emptyPath),
@@ -151,8 +160,10 @@ void main() {
           data: HttpPayload.streaming(stream),
         ).result;
 
-        addTearDown(() =>
-            Amplify.Storage.remove(path: StoragePath.fromString(streamPath)),);
+        addTearDown(
+          () =>
+              Amplify.Storage.remove(path: StoragePath.fromString(streamPath)),
+        );
 
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(streamPath),
@@ -186,9 +197,7 @@ void main() {
     });
 
     group('with options', () {
-
       test('getProperties', () async {
-
         // Upload a file with properties
         final path = 'public/download-data-get-properties-${uuid()}';
 
@@ -219,7 +228,6 @@ void main() {
       });
 
       test('useAccelerateEndpoint', () async {
-
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(bytesPath),
           options: const StorageDownloadDataOptions(
@@ -234,10 +242,10 @@ void main() {
       });
 
       test('bytes range for "data" in "test data"', () async {
-        final bytesRange = S3DataBytesRange(start: 5, end: 9); 
+        final bytesRange = S3DataBytesRange(start: 5, end: 9);
 
         final downloadResult = await Amplify.Storage.downloadData(
-          path: StoragePath.fromString(bytesPath), 
+          path: StoragePath.fromString(bytesPath),
           options: StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               bytesRange: bytesRange,
@@ -247,7 +255,6 @@ void main() {
 
         expect(utf8.decode(downloadResult.bytes), 'data');
       });
-
     });
   });
 }
