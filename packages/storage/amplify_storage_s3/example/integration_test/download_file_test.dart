@@ -21,7 +21,7 @@ void main() {
     late List<int> data;
 
     setUpAll(() async {
-      await configure(amplifyEnvironments['key']!);
+      await configure(amplifyEnvironments['main']!);
       filePath = 'public/download-file-from-data-${uuid()}';
       data = 'test data'.codeUnits;
       await Amplify.Storage.uploadFile(
