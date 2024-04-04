@@ -34,12 +34,6 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
         help: 'The branch of Amplify Swift to target',
         defaultsTo: 'release',
       )
-      ..addOption(
-        'output',
-        abbr: 'o',
-        help: 'The lib/-relative output directory for the plugins',
-        defaultsTo: 'packages/amplify_datastore/ios/internal',
-      )
       ..addFlag(
         'diff',
         abbr: 'd',
@@ -62,15 +56,17 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
   /// The branch of Amplify Swift to target.
   ///
   /// If not provided, defaults to `release`.
-  late final branchTarget = argResults!['branch'] as String? ?? 'release';
+  late final branchTarget = argResults!['branch'] as String;
 
-  /// The lib/-relative output path for the generated plugins.
-  late final outputPath = argResults!['output'] as String? ??
-      'packages/amplify_datastore/ios/internal';
+  late final _dataStoreRootDir =
+      p.join(rootDir.path, 'packages/amplify_datastore');
+
+  final _pluginOutputDir = 'ios/internal';
+  final _exampleOutputDir = 'example/ios';
 
   /// Whether to check the diff of the generated files.
   /// If not provided, defaults to `false`.
-  late final isDiff = argResults!['diff'] as bool? ?? false;
+  late final isDiff = argResults!['diff'] as bool;
 
   /// Cache of repos by git ref.
   final _repoCache = <String, Directory>{};
@@ -164,9 +160,13 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
   Future<void> _generatePlugin(PluginConfig plugin) async {
     logger.info('Selecting source files for ${plugin.name}...');
 
+    // The directory in the Amplify Swift repo where the plugin source files are.
     final remotePluginDir = await _pluginDirForPath(plugin.remotePathToSource);
 
-    final outputDir = Directory(p.join(outputPath, plugin.name));
+    // The local directory to copy the plugin files to.
+    final outputDir = Directory(
+      p.join(_dataStoreRootDir, _pluginOutputDir, plugin.name),
+    );
 
     // Clear out the directory if it already exists.
     // This is to ensure that we don't have any stale files.
@@ -188,7 +188,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
   Future<void> checkDiff(PluginConfig plugin) async {
     logger.info('Checking diff for ${plugin.name}...');
     final incoming = (await _pluginDirForPath(plugin.remotePathToSource)).path;
-    final current = '$outputPath/${plugin.name}';
+    final current = p.join(_dataStoreRootDir, _pluginOutputDir, plugin.name);
     final diffCmd = await Process.start(
       'git',
       [
@@ -213,7 +213,8 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
 
   /// Runs pod install after copying files to the plugin directory.
   Future<void> _podInstall() async {
-    logger.info('Running pod install in datastore/example/ios...');
+    final podFilePath = p.join(_dataStoreRootDir, _exampleOutputDir);
+    logger.verbose('Running pod install in $podFilePath...');
 
     final podInstallCmd = await Process.start(
       'pod',
@@ -221,7 +222,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
         'install',
       ],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
-      workingDirectory: 'packages/amplify_datastore/example/ios',
+      workingDirectory: podFilePath,
     );
     final exitCode = await podInstallCmd.exitCode;
     if (exitCode != 0) {
