@@ -132,11 +132,10 @@ class Blog extends amplify_core.Model {
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+        _posts = json['posts'] != null
+            ? (json['posts']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null

@@ -131,9 +131,8 @@ class Comment extends amplify_core.Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+        _post = json['post'] != null
+            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null

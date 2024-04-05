@@ -114,11 +114,11 @@ class MultiRelatedAttendee extends amplify_core.Model {
 
   MultiRelatedAttendee.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _meetings = json['meetings'] is List
-            ? (json['meetings'] as List)
-                .where((e) => e?['serializedData'] != null)
+        _meetings = json['meetings'] != null
+            ? (json['meetings']['items'] as List)
+                .where((e) => e != null)
                 .map((e) => MultiRelatedRegistration.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null

@@ -166,11 +166,11 @@ class CpkHasManyParentBidirectionalImplicit extends amplify_core.Model {
       : id = json['id'],
         _name = json['name'],
         _bidirectionalImplicitChildren =
-            json['bidirectionalImplicitChildren'] is List
-                ? (json['bidirectionalImplicitChildren'] as List)
-                    .where((e) => e?['serializedData'] != null)
+            json['bidirectionalImplicitChildren'] != null
+                ? (json['bidirectionalImplicitChildren']['items'] as List)
+                    .where((e) => e != null)
                     .map((e) => CpkHasManyChildBidirectionalImplicit.fromJson(
-                        new Map<String, dynamic>.from(e['serializedData'])))
+                        new Map<String, dynamic>.from(e)))
                     .toList()
                 : null,
         _createdAt = json['createdAt'] != null

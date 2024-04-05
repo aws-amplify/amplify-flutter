@@ -180,18 +180,18 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
   CpkHasManyUnidirectionalParent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _implicitChildren = json['implicitChildren'] is List
-            ? (json['implicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
+        _implicitChildren = json['implicitChildren'] != null
+            ? (json['implicitChildren']['items'] as List)
+                .where((e) => e != null)
                 .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
-        _explicitChildren = json['explicitChildren'] is List
-            ? (json['explicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
+        _explicitChildren = json['explicitChildren'] != null
+            ? (json['explicitChildren']['items'] as List)
+                .where((e) => e != null)
                 .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
