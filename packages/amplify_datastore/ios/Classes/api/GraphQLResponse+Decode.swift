@@ -23,11 +23,11 @@ extension GraphQLResponse {
 
     public static func fromAppSyncResponse<R: Decodable>(
         data: Data,
-        decodePath: String?,
-        modelName: String?
+        decodePath: String
     ) -> GraphQLResponse<R> {
         toJson(data: data)
-            .flatMap { fromAppSyncResponse(json: $0, decodePath: decodePath, modelName: modelName) }
+            .flatMap {
+                fromAppSyncResponse(json: $0, decodePath: decodePath) }
             .mapError {
                 if let response = String(data: data, encoding: .utf8) {
                     return .transformationError(response, $0)
@@ -40,19 +40,20 @@ extension GraphQLResponse {
 
     static func fromAppSyncResponse<R: Decodable>(
         json: JSONValue,
-        decodePath: String?,
-        modelName: String?
+        decodePath: String
     ) -> Result<R, APIError> {
-        if let decodePath {
+//        if let decodePath {
             if let payload = json.value(at: decodePath) {
+                let modelName = payload.value(at: "__typename")?.stringValue
                 return decodeDataPayload(payload, modelName: modelName)
             } else {
                 return .failure(.operationError("Empty data on decode path \(decodePath)", "", nil))
             }
 
-        } else {
-            return decodeDataPayload(json, modelName: modelName)
-        }
+//        } 
+//        else {
+//            return decodeDataPayload(json, modelName: modelName)
+//        }
     }
 
     static func decodeDataPayload<R: Decodable>(

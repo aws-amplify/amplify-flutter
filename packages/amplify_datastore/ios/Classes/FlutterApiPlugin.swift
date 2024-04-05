@@ -23,10 +23,6 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
     
     public func mutate<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
         
-//        _ = try await self.mutate(request: request) else {
-//            print("Swift:: Mutate error")
-//        }
-        
         fatalError("TODO: implmenet return transform")
     }
     
@@ -67,32 +63,73 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
     
     private func getNativeGraphQLRequest<R>(request: GraphQLRequest<R>) -> NativeGraphQLRequest {
         let variables = request.variables?.compactMapValues { $0 as? String }
-        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: "foo", decodePath: request.decodePath)
+        
+        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: String(describing: request.responseType), decodePath: request.decodePath)
         return nativeRequest
     }
     
+    private func decodeResponse<R>(request: GraphQLRequest<R>, response: NativeGraphQLResponse) throws ->
+    GraphQLResponse<R> {
+        return try decodePayloadJson(request: request, payload: response.payloadJson)
+    }
+    
+    private func decodeResponse<R>(request: GraphQLRequest<R>, response: NativeGraphQLSubscriptionResponse) throws ->
+    GraphQLResponse<R> {
+        return try decodePayloadJson(request: request, payload: response.payloadJson)
+    }
+    
+    private func decodePayloadJson<R>(request: GraphQLRequest<R>, payload: String?) throws -> GraphQLResponse<R>{
+        guard let jsonData = payload?.data(using: .utf8) else {
+            throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
+        }
+        if (request.decodePath == nil) {
+            throw DataStoreError.decodingError("No decodePath found", "Please provide a valid decodePath to the request")
+        }
+        let response: GraphQLResponse<R> = .fromAppSyncResponse(
+            data: jsonData,
+            decodePath: request.decodePath!
+        )
+        return response
+    }
+    
+    
+    func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
+        await withCheckedContinuation { continuation in
+            nativeApiPlugin.query(request: nativeRequest) { response in
+                print("Swift:: query response: \(response)")
+                continuation.resume(returning: response)
+            }
+        }
+    }
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        print("Swift:: <R> is \(R.self)")
-        
         let nativeRequest = getNativeGraphQLRequest(request: request)
         
-        nativeApiPlugin.query(request: nativeRequest) { response in
-                print("Swift:: query response: \(response)")
-        }
+        let response = await asyncQuery(nativeRequest: nativeRequest)
+            
+        let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
         
+        // Return GraphQLTask
         fatalError("operation not supported")
+    }
+    
+    func asyncMutate(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
+        await withCheckedContinuation { continuation in
+            nativeApiPlugin.mutate(request: nativeRequest) { response in
+                print("Swift:: mutate response: \(response)")
+                continuation.resume(returning: response)
+            }
+        }
     }
     
     
     public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        print("Swift:: <R> is \(R.self)")
-        
         let nativeRequest = getNativeGraphQLRequest(request: request)
         
-        nativeApiPlugin.mutate(request: nativeRequest) { response in
-                print("Swift:: mutate response: \(response)")
-        }
+        let response = await asyncMutate(nativeRequest: nativeRequest)
+            
+        let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
         
+        // Return GraphQLTask
         fatalError("operation not supported")
     }
 
@@ -109,19 +146,9 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
         
         nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
             do {
-                print("Swift:: subscriptionEvent: \(event)")
+                let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
                 
-                guard let jsonData = event.payloadJson?.data(using: .utf8) else {
-                    throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
-                }
-
-                let response: GraphQLResponse<R> = .fromAppSyncResponse(
-                    data: jsonData,
-                    decodePath: request.decodePath,
-                    modelName: "Blog"
-                )    
-                
-                amplifySequence.send(.data(response))
+                amplifySequence.send(.data(responseDecoded))
             } catch {
                 print("Failed to decode JSON: \(error.localizedDescription)")
             }
