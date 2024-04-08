@@ -28,10 +28,9 @@ void main() {
         localFile: AWSFile.fromData(data),
         path: StoragePath.fromString(filePath),
       ).result;
-    });
-
-    tearDownAll(() {
-      Amplify.Storage.remove(path: StoragePath.fromString(filePath));
+      addTearDown(
+        () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+      );
     });
 
     group('for file type', () {
