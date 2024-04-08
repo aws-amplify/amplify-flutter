@@ -4,6 +4,7 @@
 package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
+import android.os.Looper
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
@@ -63,6 +64,7 @@ class AmplifyDataStorePluginTest {
 
     private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockThreadHandler = mock(Handler::class.java)
+    private var threadHandler = Handler(Looper.getMainLooper())
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockStreamHandler: DataStoreObserveEventStreamHandler =
@@ -695,7 +697,9 @@ class AmplifyDataStorePluginTest {
     fun test_observe_receive_error_event() {
         flutterPlugin = AmplifyDataStorePlugin(
             eventHandler = mockStreamHandler,
-            hubEventHandler = mockHubHandler
+            hubEventHandler = mockHubHandler,
+            uiThreadHandler = mockThreadHandler,
+            dataStorePlugin = mockAmplifyDataStorePlugin,
         )
 
         doAnswer { invocation: InvocationOnMock ->

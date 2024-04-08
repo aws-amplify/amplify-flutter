@@ -203,7 +203,8 @@ class AmplifyDataStorePlugin :
                 postExceptionToFlutterChannel(
                     result,
                     "DataStoreException",
-                    createSerializedUnrecognizedError(e)
+                    createSerializedUnrecognizedError(e),
+                    uiThreadHandler
                 )
             }
             return
@@ -236,7 +237,8 @@ class AmplifyDataStorePlugin :
                         ExceptionMessages.missingRecoverySuggestion,
                         "Received invalid request from Dart, modelSchemas and/or modelProviderVersion" +
                             " are not available. Request: " + request.toString()
-                    )
+                    ),
+                    uiThreadHandler
                 )
             }
             return
@@ -269,7 +271,8 @@ class AmplifyDataStorePlugin :
                 postExceptionToFlutterChannel(
                     flutterResult,
                     "DataStoreException",
-                    createSerializedUnrecognizedError(e)
+                    createSerializedUnrecognizedError(e),
+                    uiThreadHandler
                 )
             }
         }
@@ -293,7 +296,7 @@ class AmplifyDataStorePlugin :
         try {
             Amplify.addPlugin(dataStorePlugin)
         } catch (e: Exception) {
-            handleAddPluginException("Datastore", e, flutterResult)
+            handleAddPluginException("Datastore", e, flutterResult, uiThreadHandler)
             return
         }
         flutterResult.success(null)
@@ -312,7 +315,8 @@ class AmplifyDataStorePlugin :
                 postExceptionToFlutterChannel(
                     flutterResult,
                     "DataStoreException",
-                    createSerializedUnrecognizedError(e)
+                    createSerializedUnrecognizedError(e),
+                    uiThreadHandler
                 )
             }
             return
@@ -331,13 +335,13 @@ class AmplifyDataStorePlugin :
                     LOG.debug("Number of items received " + results.size)
 
                     uiThreadHandler.post { flutterResult.success(results) }
-//                    flutterResult.success(results)
                 } catch (e: Exception) {
                     uiThreadHandler.post {
                         postExceptionToFlutterChannel(
                             flutterResult,
                             "DataStoreException",
-                            createSerializedUnrecognizedError(e)
+                            createSerializedUnrecognizedError(e),
+                            uiThreadHandler
                         )
                     }
                 }
@@ -348,7 +352,8 @@ class AmplifyDataStorePlugin :
                     postExceptionToFlutterChannel(
                         flutterResult,
                         "DataStoreException",
-                        createSerializedError(it)
+                        createSerializedError(it),
+                        uiThreadHandler
                     )
                 }
             }
@@ -376,7 +381,8 @@ class AmplifyDataStorePlugin :
                 postExceptionToFlutterChannel(
                     flutterResult,
                     "DataStoreException",
-                    createSerializedUnrecognizedError(e)
+                    createSerializedUnrecognizedError(e),
+                    uiThreadHandler
                 )
             }
             return
@@ -405,7 +411,8 @@ class AmplifyDataStorePlugin :
                         postExceptionToFlutterChannel(
                             flutterResult,
                             "DataStoreException",
-                            createSerializedError(it)
+                            createSerializedError(it),
+                            uiThreadHandler
                         )
                     }
                 }
@@ -434,7 +441,8 @@ class AmplifyDataStorePlugin :
                 postExceptionToFlutterChannel(
                     flutterResult,
                     "DataStoreException",
-                    createSerializedUnrecognizedError(e)
+                    createSerializedUnrecognizedError(e),
+                    uiThreadHandler
                 )
             }
             return
@@ -460,7 +468,8 @@ class AmplifyDataStorePlugin :
                     postExceptionToFlutterChannel(
                         flutterResult,
                         "DataStoreException",
-                        createSerializedError(it)
+                        createSerializedError(it),
+                        uiThreadHandler
                     )
                 }
             }
@@ -481,7 +490,8 @@ class AmplifyDataStorePlugin :
                     postExceptionToFlutterChannel(
                         flutterResult,
                         "DataStoreException",
-                        createSerializedError(it)
+                        createSerializedError(it),
+                        uiThreadHandler
                     )
                 }
             }
@@ -546,7 +556,8 @@ class AmplifyDataStorePlugin :
                     postExceptionToFlutterChannel(
                         flutterResult,
                         "DataStoreException",
-                        createSerializedError(it)
+                        createSerializedError(it),
+                        uiThreadHandler
                     )
                 }
             }
@@ -570,7 +581,8 @@ class AmplifyDataStorePlugin :
                     postExceptionToFlutterChannel(
                         flutterResult,
                         "DataStoreException",
-                        createSerializedError(it)
+                        createSerializedError(it),
+                        uiThreadHandler
                     )
                 }
             }

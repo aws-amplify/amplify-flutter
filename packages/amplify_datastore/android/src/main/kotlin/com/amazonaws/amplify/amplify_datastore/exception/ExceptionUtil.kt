@@ -7,11 +7,14 @@ import android.os.Handler
 import android.os.Looper
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import com.google.gson.reflect.TypeToken
 import io.flutter.plugin.common.MethodChannel.Result
 import java.lang.reflect.Type
 
@@ -21,9 +24,10 @@ class ExceptionUtil {
         fun postExceptionToFlutterChannel(
             result: Result,
             errorCode: String,
-            details: Map<String, Any?>
+            details: Map<String, Any?>,
+            threadHandler: Handler
         ) {
-            Handler(Looper.getMainLooper()).post {
+            threadHandler.post {
                 result.error(
                     errorCode,
                     ExceptionMessages.defaultFallbackExceptionMessage,
@@ -35,7 +39,7 @@ class ExceptionUtil {
         @JvmStatic
         fun createSerializedError(e: AmplifyException): Map<String, Any?> {
             val gsonBuilder = GsonBuilder()
-            gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
+            gsonBuilder.registerTypeHierarchyAdapter(AmplifyException::class.java, AmplifyExceptionSerializer())
             val gson = gsonBuilder.create()
             val serializedJsonException = gson.toJson(e)
 
@@ -78,7 +82,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun handleAddPluginException(pluginName: String, e: Exception, flutterResult: Result) {
+        fun handleAddPluginException(pluginName: String, e: Exception, flutterResult: Result, threadHandler: Handler) {
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
                 errorCode = "AmplifyAlreadyConfiguredException"
@@ -87,17 +91,18 @@ class ExceptionUtil {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }
-            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails)
+            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails, threadHandler)
         }
     }
 }
 
-class ThrowableSerializer : JsonSerializer<Throwable> {
-    override fun serialize(
-        src: Throwable?,
-        typeOfSrc: Type?,
-        context: JsonSerializationContext?
-    ): JsonElement {
-        return JsonPrimitive(src.toString())
+class AmplifyExceptionSerializer : JsonSerializer<AmplifyException> {
+    override fun serialize(src: AmplifyException?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+        val jsonObject = JsonObject()
+        src?.let {
+            jsonObject.addProperty("message", src.message)
+            jsonObject.addProperty("recoverySuggestion", src.recoverySuggestion)
+        }
+        return jsonObject
     }
 }
