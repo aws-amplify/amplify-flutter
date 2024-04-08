@@ -2,7 +2,7 @@ group 'com.amazonaws.amplify.amplify_secure_storage'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.23'
     repositories {
         google()
         mavenCentral()
