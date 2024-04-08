@@ -15,7 +15,7 @@ dependencies:
     path: ../../../../aws_signature_v4
   aws_common:
     path: ../../../../aws_common
-  built_value: ">=8.6.0 <8.9.0"
+  built_value: ^8.6.0
   meta: ^1.7.0
   built_collection: ^5.0.0
   shelf_router: ^1.1.0
