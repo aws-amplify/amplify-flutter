@@ -882,8 +882,10 @@ void main() {
 
     group('copy() API', () {
       late S3CopyResult copyResult;
-      const testSource = StoragePath.fromString('public/source');
-      const testDestination = StoragePath.fromString('public/destination');
+      const testSourcePath = 'public/source';
+      const testDestinationPath = 'public/destination';
+      const testSource = StoragePath.fromString(testSourcePath);
+      const testDestination = StoragePath.fromString(testDestinationPath);
 
       setUpAll(() {
         registerFallbackValue(
@@ -929,11 +931,9 @@ void main() {
         final request = capturedRequest as CopyObjectRequest;
 
         expect(request.bucket, testBucket);
-        expect(request.copySource, '$testBucket/${TestPathResolver.path}');
-      });
+        expect(request.copySource, '$testBucket/$testSourcePath');
 
-      test('should return correct S3CopyResult', () {
-        expect(copyResult.copiedItem.path, TestPathResolver.path);
+        expect(copyResult.copiedItem.path, testDestinationPath);
       });
 
       test(
@@ -1025,7 +1025,7 @@ void main() {
         final request = headObjectRequest as HeadObjectRequest;
 
         expect(request.bucket, testBucket);
-        expect(request.key, TestPathResolver.path);
+        expect(request.key, testDestinationPath);
       });
     });
 
