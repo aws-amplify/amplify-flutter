@@ -3,7 +3,7 @@
 
 import XCTest
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 @testable import amplify_datastore
 
 extension QueryPaginationInput: Equatable {

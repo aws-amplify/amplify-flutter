@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
     var eventName: String

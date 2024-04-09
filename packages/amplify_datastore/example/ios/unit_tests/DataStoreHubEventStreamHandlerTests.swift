@@ -4,7 +4,7 @@
 import XCTest
 import Amplify
 import Combine
-@testable import AmplifyPlugins
+@testable import AWSDataStorePlugin
 @testable import AWSPluginsCore
 @testable import amplify_datastore
 

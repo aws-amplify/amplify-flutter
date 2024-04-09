@@ -3,8 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
-import AWSCore
+import AWSDataStorePlugin
 import Combine
 
 struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {

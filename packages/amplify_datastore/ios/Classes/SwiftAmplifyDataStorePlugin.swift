@@ -4,9 +4,8 @@
 import Flutter
 import UIKit
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 import AWSPluginsCore
-import AWSCore
 import Combine
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
@@ -89,12 +88,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                 AWSAuthorizationType(rawValue: $0)
             }
             try Amplify.add(
-                plugin: AWSAPIPlugin(
-                    apiAuthProviderFactory: FlutterAuthProviders(
-                        authProviders: authProviders,
-                        nativeApiPlugin: nativeApiPlugin
-                    )
-                )
+                plugin: FlutterApiPlugin()
             )
             return completion(.success(()))
         } catch let apiError as APIError {
@@ -146,7 +140,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
                                                                 from: data)
-            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
+            // TODO: Migrate to Async Swift v2
+            //            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
             try Amplify.configure(amplifyConfiguration)
             return completion(.success(()))
         } catch let error as ConfigurationError {

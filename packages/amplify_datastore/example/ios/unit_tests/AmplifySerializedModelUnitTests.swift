@@ -3,7 +3,7 @@
 
 import XCTest
 import Amplify
-@testable import AmplifyPlugins
+@testable import AWSDataStorePlugin
 @testable import amplify_datastore
 
 class AmplifySerializedModelUnitTests: XCTestCase {

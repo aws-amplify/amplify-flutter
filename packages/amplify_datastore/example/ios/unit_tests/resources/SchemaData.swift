@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Amplify
-@testable import AmplifyPlugins
+@testable import AWSDataStorePlugin
 @testable import amplify_datastore
 
 struct SchemaData {

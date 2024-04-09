@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Flutter
-import AmplifyPlugins
+import AWSDataStorePlugin
 import AWSPluginsCore
 import Amplify
 import UIKit
