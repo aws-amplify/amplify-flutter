@@ -7,6 +7,11 @@ import 'package:test/test.dart';
 
 class MockTokenIdentityAmplifyAuthProvider
     implements TokenIdentityAmplifyAuthProvider {
+  MockTokenIdentityAmplifyAuthProvider({
+    this.getIdException,
+  });
+
+  Exception? getIdException;
   int getIdCount = 0;
 
   @override
@@ -20,6 +25,7 @@ class MockTokenIdentityAmplifyAuthProvider
   @override
   Future<String> getIdentityId() async {
     getIdCount++;
+    if (getIdException != null) throw getIdException!;
     return 'mock-id';
   }
 
@@ -85,6 +91,36 @@ void main() {
       expect(
         () => pathResolver.resolvePath(path: path),
         throwsA(isA<StoragePathValidationException>()),
+      );
+    });
+
+    test(
+        'should throw StorageAccessDeniedException if AuthProvider throws SessionExpiredException',
+        () async {
+      final tokenAmplifyAuthProvider = MockTokenIdentityAmplifyAuthProvider(
+        getIdException: const SessionExpiredException('Session Expired.'),
+      );
+      final pathResolver = S3PathResolver(
+        identityProvider: tokenAmplifyAuthProvider,
+      );
+      final path = StoragePath.fromIdentityId((id) => 'foo/$id/bar');
+      expect(
+        () => pathResolver.resolvePath(path: path),
+        throwsA(isA<StorageAccessDeniedException>()),
+      );
+    });
+
+    test('should throw UnknownException for any other exception', () async {
+      final tokenAmplifyAuthProvider = MockTokenIdentityAmplifyAuthProvider(
+        getIdException: Exception('Something went wrong.'),
+      );
+      final pathResolver = S3PathResolver(
+        identityProvider: tokenAmplifyAuthProvider,
+      );
+      final path = StoragePath.fromIdentityId((id) => 'foo/$id/bar');
+      expect(
+        () => pathResolver.resolvePath(path: path),
+        throwsA(isA<UnknownException>()),
       );
     });
   });

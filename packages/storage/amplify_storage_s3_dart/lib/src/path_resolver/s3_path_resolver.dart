@@ -18,6 +18,26 @@ class S3PathResolver {
 
   final TokenIdentityAmplifyAuthProvider _identityProvider;
 
+  Future<String> _getIdentityId() async {
+    try {
+      return await _identityProvider.getIdentityId();
+    } on Exception catch (e) {
+      if (e is SessionExpiredException || e is AuthNotAuthorizedException) {
+        throw StorageAccessDeniedException(
+          'Unable to fetch the identity Id. This can occur when a user is not '
+          'authenticated and the Identity Pool does not allow unauthenticated sessions. '
+          'See underlyingException for more info.',
+          underlyingException: e,
+        );
+      }
+      throw UnknownException(
+        'An unknown error occurred while fetching the identity Id. '
+        'See underlyingException for more info.',
+        underlyingException: e,
+      );
+    }
+  }
+
   /// Resolve the given [path].
   ///
   /// Returns a string which is the S3 Object Key.
@@ -29,8 +49,9 @@ class S3PathResolver {
     String? identityId,
   }) async {
     final resolvedPath = switch (path) {
+      // ignore: invalid_use_of_internal_member
       final StoragePathFromIdentityId p => p.resolvePath(
-          identityId: identityId ?? await _identityProvider.getIdentityId(),
+          identityId: identityId ?? await _getIdentityId(),
         ),
       // ignore: invalid_use_of_internal_member
       _ => path.resolvePath()
@@ -55,10 +76,9 @@ class S3PathResolver {
   Future<List<String>> resolvePaths({
     required List<StoragePath> paths,
   }) async {
-    final requiredIdentityId =
+    final requiresIdentityId =
         paths.whereType<StoragePathFromIdentityId>().isNotEmpty;
-    final identityId =
-        requiredIdentityId ? await _identityProvider.getIdentityId() : null;
+    final identityId = requiresIdentityId ? await _getIdentityId() : null;
     return Future.wait(
       paths.map(
         (path) => resolvePath(
