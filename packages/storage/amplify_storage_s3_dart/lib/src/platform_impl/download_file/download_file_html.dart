@@ -46,7 +46,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
-  final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions?;
+  final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
   // Calling the `getProperties` by default to verify the existence of the object
   // before downloading from the presigned URL, as the 404 or 403 should be
   // handled by the plugin but not be thrown to an end user in browser.
@@ -66,11 +66,9 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   final url = (await storageS3Service.getUrl(
     path: path,
     options: StorageGetUrlOptions(
-      pluginOptions: s3PluginOptions == null
-          ? null
-          : S3GetUrlPluginOptions(
-              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-            ),
+      pluginOptions: S3GetUrlPluginOptions(
+        useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+      ),
     ),
   ))
       .url;
@@ -84,7 +82,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   );
 
   return S3DownloadFileResult(
-    downloadedItem: s3PluginOptions != null && s3PluginOptions.getProperties
+    downloadedItem: s3PluginOptions.getProperties
         ? downloadedItem
         : S3Item(path: downloadedItem.path),
     localFile: localFile,
