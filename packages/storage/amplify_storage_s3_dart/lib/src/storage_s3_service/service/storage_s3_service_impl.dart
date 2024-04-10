@@ -399,7 +399,6 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3CopyPluginOptions? ??
         const S3CopyPluginOptions();
 
-    
     final [sourcePath, destinationPath] = await _pathResolver.resolvePaths(
       paths: [source, destination],
     );

@@ -21,7 +21,6 @@ import '../test_utils/test_token_provider.dart';
 const testDelimiter = '#';
 const testPath = StoragePath.fromString('some/path.txt');
 
-
 void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
