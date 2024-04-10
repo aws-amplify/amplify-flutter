@@ -211,7 +211,7 @@ void main() {
           final result = await s3Plugin
               .uploadData(
                 data: S3DataPayload.dataUrl(testDataUrl),
-                path: StoragePath.withIdentityId(
+                path: StoragePath.fromIdentityId(
                   (identityId) => 'protected/$identityId/$testObjectKey2',
                 ),
                 options: const StorageUploadDataOptions(
@@ -250,7 +250,7 @@ void main() {
           final result = await s3Plugin
               .uploadFile(
                 localFile: AWSFile.fromData(testLargeFileBytes),
-                path: StoragePath.withIdentityId(
+                path: StoragePath.fromIdentityId(
                   (identityId) => 'private/$identityId/$testObjectKey3',
                 ),
                 options: const StorageUploadFileOptions(
@@ -286,7 +286,7 @@ void main() {
             'generate downloadable url with access level private for the'
             ' currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.getUrl(
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: const StorageGetUrlOptions(
@@ -322,7 +322,7 @@ void main() {
             'download object as bytes data in memory with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: const StorageDownloadDataOptions(
@@ -342,7 +342,7 @@ void main() {
           const start = 5 * 1024;
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$testObjectKey3',
             ),
             options: StorageDownloadDataOptions(
@@ -375,7 +375,7 @@ void main() {
 
             final result = await s3Plugin
                 .downloadFile(
-                  path: StoragePath.withIdentityId(
+                  path: StoragePath.fromIdentityId(
                     (identityId) => 'private/$identityId/$testObjectKey3',
                   ),
                   localFile: localFile,
@@ -402,10 +402,10 @@ void main() {
             'copy object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.copy(
-            source: StoragePath.withIdentityId(
+            source: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$testObjectKey3',
             ),
-            destination: StoragePath.withIdentityId(
+            destination: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/$testObject3CopyKey',
             ),
             options: const StorageCopyOptions(
@@ -423,7 +423,7 @@ void main() {
             'delete object with access level private for the currently signed in user',
             (WidgetTester tester) async {
           final result = await Amplify.Storage.remove(
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (id) => 'private/$id/$testObject3CopyMoveKey',
             ),
           ).result;
@@ -459,7 +459,7 @@ void main() {
               ],
               awsFiles: [
                 TestTransferAccelerationConfig(
-                  targetPath: StoragePath.withIdentityId(
+                  targetPath: StoragePath.fromIdentityId(
                     (identityId) =>
                         'private/$identityId/transfer-acceleration-awsfile-$awsFileId',
                   ),
@@ -562,7 +562,7 @@ void main() {
               ' private for the currently signed user throws exception',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getProperties(
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/$testObjectKey3',
               ),
             );
@@ -591,7 +591,7 @@ void main() {
               'get url of object with access level protected and a target identity id',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'protected/$identityId/$testObjectKey2',
               ),
               options: const StorageGetUrlOptions(
@@ -607,7 +607,7 @@ void main() {
               ' private for the currently signed user throws exception',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/$testObjectKey3',
               ),
               options: const StorageGetUrlOptions(
@@ -646,7 +646,7 @@ void main() {
               ' private for the currently signed user',
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/$testObjectKey3',
               ),
               options: const StorageDownloadDataOptions(
@@ -669,7 +669,7 @@ void main() {
               source: StoragePath.fromString(
                 'protected/$user1IdentityId/$testObjectKey2',
               ),
-              destination: StoragePath.withIdentityId(
+              destination: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/$testObjectKey2',
               ),
               options: const StorageCopyOptions(
@@ -696,7 +696,7 @@ void main() {
                   testBytes,
                   contentType: 'text/plain',
                 ),
-                path: StoragePath.withIdentityId(
+                path: StoragePath.fromIdentityId(
                   (identityId) => 'private/$identityId/$fileKey',
                 ),
                 options: StorageUploadDataOptions(
@@ -709,7 +709,7 @@ void main() {
 
             // Call list() and ensure length of result matches pageSize.
             final listResult = await Amplify.Storage.list(
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/',
               ),
               options: const StorageListOptions(
@@ -722,7 +722,7 @@ void main() {
             await Amplify.Storage.removeMany(
               paths: uploadedKeys
                   .map(
-                    (key) => StoragePath.withIdentityId(
+                    (key) => StoragePath.fromIdentityId(
                       (identityId) => 'private/$identityId/$key',
                     ),
                   )
@@ -746,7 +746,7 @@ void main() {
                   testBytes,
                   contentType: 'text/plain',
                 ),
-                path: StoragePath.withIdentityId(
+                path: StoragePath.fromIdentityId(
                   (identityId) => 'private/$identityId/$fileKey',
                 ),
                 options: StorageUploadDataOptions(
@@ -762,7 +762,7 @@ void main() {
             do {
               // Call list() until nextToken is null and ensure we paginated expected times.
               final listResult = await Amplify.Storage.list(
-                path: StoragePath.withIdentityId(
+                path: StoragePath.fromIdentityId(
                   (identityId) => 'private/$identityId/$keyPrefix',
                 ),
                 options: StorageListOptions(
@@ -778,7 +778,7 @@ void main() {
             await Amplify.Storage.removeMany(
               paths: uploadedKeys
                   .map(
-                    (key) => StoragePath.withIdentityId(
+                    (key) => StoragePath.fromIdentityId(
                       (identityId) => 'private/$identityId/$key',
                     ),
                   )
@@ -791,14 +791,14 @@ void main() {
               (WidgetTester tester) async {
             final result1 = await Amplify.Storage.uploadData(
               data: HttpPayload.string('obj1'),
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/remove-test/obj1',
               ),
             ).result;
 
             final result2 = await Amplify.Storage.uploadData(
               data: HttpPayload.string('obj2'),
-              path: StoragePath.withIdentityId(
+              path: StoragePath.fromIdentityId(
                 (identityId) => 'private/$identityId/remove-test/obj2',
               ),
             ).result;
@@ -837,14 +837,14 @@ void main() {
             (WidgetTester tester) async {
           final result1 = await Amplify.Storage.uploadData(
             data: HttpPayload.string('obj1'),
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/remove-test-user-a/obj1',
             ),
           ).result;
 
           final result2 = await Amplify.Storage.uploadData(
             data: HttpPayload.string('obj2'),
-            path: StoragePath.withIdentityId(
+            path: StoragePath.fromIdentityId(
               (identityId) => 'private/$identityId/remove-test-user-a/obj2',
             ),
           ).result;

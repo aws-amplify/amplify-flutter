@@ -76,22 +76,24 @@ class EndpointGlobalFieldsManager {
 
   String _processKey(String key) {
     if (key.length > maxKeyLength) {
+      final trimmedKey = key.substring(0, maxKeyLength);
       _logger.warn(
-        'The key: "$key" ',
+        'The key beginning with: "$trimmedKey" ',
         'has been trimmed to a length of $maxKeyLength characters.',
       );
-      return key.substring(0, maxKeyLength);
+      return trimmedKey;
     }
     return key;
   }
 
   String _processAttributeValue(String value) {
     if (value.length > maxAttributeValueLength) {
+      final trimmedValue = value.substring(0, maxAttributeValueLength);
       _logger.warn(
-        'The attribute value: "$value" ',
+        'The attribute value beginning with: "$trimmedValue" ',
         'has been trimmed to a length of $maxAttributeValueLength characters.',
       );
-      return value.substring(0, maxAttributeValueLength);
+      return trimmedValue;
     }
     return value;
   }

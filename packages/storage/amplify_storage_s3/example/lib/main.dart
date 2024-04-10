@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _listAllPublicFiles() async {
     try {
       final result = await Amplify.Storage.list(
-        path: const StoragePath.fromString('public'),
+        path: const StoragePath.fromString('public/'),
         options: const StorageListOptions(
           pluginOptions: S3ListPluginOptions.listAll(),
         ),
@@ -175,12 +175,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // download file on mobile
-  Future<void> downloadFileMobile(String key) async {
+  Future<void> downloadFileMobile(String path) async {
     final documentsDir = await getApplicationDocumentsDirectory();
-    final filepath = '${documentsDir.path}/$key';
+    final filepath = '${documentsDir.path}/$path';
     try {
       await Amplify.Storage.downloadFile(
-        path: StoragePath.fromString(key),
+        path: StoragePath.fromString(path),
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
@@ -192,11 +192,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // download file on web
-  Future<void> downloadFileWeb(String key) async {
+  Future<void> downloadFileWeb(String path) async {
     try {
       await Amplify.Storage.downloadFile(
-        path: StoragePath.fromString(key),
-        localFile: AWSFile.fromPath(key),
+        path: StoragePath.fromString(path),
+        localFile: AWSFile.fromPath(path),
         onProgress: (p0) => _logger
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
       ).result;
@@ -207,12 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // delete file from S3 bucket
-  Future<void> removeFile({
-    required String key,
-  }) async {
+  Future<void> removeFile(String path) async {
     try {
       await Amplify.Storage.remove(
-        path: StoragePath.fromString('public/$key'),
+        path: StoragePath.fromString(path),
       ).result;
       setState(() {
         // set the imageUrl to empty if the deleted file is the one being displayed
@@ -225,9 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // get the url of a file in the S3 bucket
-  Future<String> getUrl({
-    required String path,
-  }) async {
+  Future<String> getUrl(String path) async {
     try {
       final result = await Amplify.Storage.getUrl(
         path: StoragePath.fromString(path),
@@ -265,15 +261,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   final item = list[index];
                   return ListTile(
                     onTap: () {
-                      getUrl(path: item.path);
+                      getUrl(item.path);
                     },
                     title: Text(item.path),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        removeFile(
-                          key: item.path,
-                        );
+                        removeFile(item.path);
                       },
                       color: Colors.red,
                     ),

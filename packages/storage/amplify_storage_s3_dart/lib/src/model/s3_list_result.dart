@@ -26,22 +26,14 @@ class S3ListResult extends StorageListResult<S3Item> {
     PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
   ) {
     final output = paginatedResult.items;
-    final metadata = S3ListMetadata(
-      subPaths: output.commonPrefixes
-          ?.map((commonPrefix) => commonPrefix.prefix)
-          .whereType<String>()
-          .toList(),
+    final metadata = S3ListMetadata.fromS3CommonPrefixes(
+      commonPrefixes: output.commonPrefixes?.toList(),
       delimiter: output.delimiter,
     );
-    final items = output.contents
-            ?.map(
-              S3Item.fromS3Object,
-            )
-            .toList() ??
-        const <S3Item>[];
+    final items = output.contents?.map(S3Item.fromS3Object).toList();
 
     return S3ListResult(
-      items,
+      items ?? const <S3Item>[],
       hasNextPage: paginatedResult.hasNext,
       nextToken: paginatedResult.nextContinuationToken,
       metadata: metadata,
@@ -68,8 +60,22 @@ class S3ListResult extends StorageListResult<S3Item> {
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
-  @visibleForTesting
-  S3ListMetadata({
+  factory S3ListMetadata.fromS3CommonPrefixes({
+    List<s3.CommonPrefix>? commonPrefixes,
+    String? delimiter,
+  }) {
+    final subPaths = commonPrefixes
+        ?.map((commonPrefix) => commonPrefix.prefix)
+        .whereType<String>()
+        .toList();
+
+    return S3ListMetadata._(
+      subPaths: subPaths,
+      delimiter: delimiter,
+    );
+  }
+
+  S3ListMetadata._({
     List<String>? subPaths,
     this.delimiter,
   }) : subPaths = subPaths ?? const [];

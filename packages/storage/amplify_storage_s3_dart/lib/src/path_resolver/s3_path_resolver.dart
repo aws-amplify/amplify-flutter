@@ -3,7 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
-import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
+import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_storage_s3_dart.path_resolver}
@@ -18,23 +18,49 @@ class S3PathResolver {
 
   final TokenIdentityAmplifyAuthProvider _identityProvider;
 
+  Future<String> _getIdentityId() async {
+    try {
+      return await _identityProvider.getIdentityId();
+    } on Exception catch (e) {
+      if (e is SessionExpiredException || e is AuthNotAuthorizedException) {
+        throw StorageAccessDeniedException(
+          'Unable to fetch the identity Id. This can occur when a user is not '
+          'authenticated and the Identity Pool does not allow unauthenticated sessions. '
+          'See underlyingException for more info.',
+          underlyingException: e,
+        );
+      }
+      throw UnknownException(
+        'An unknown error occurred while fetching the identity Id. '
+        'See underlyingException for more info.',
+        underlyingException: e,
+      );
+    }
+  }
+
   /// Resolve the given [path].
   ///
   /// Returns a string which is the S3 Object Key.
   ///
-  /// When [path] is a [StoragePathWithIdentityId], the current user's identity
+  /// When [path] is a [StoragePathFromIdentityId], the current user's identity
   /// Id will be fetched in order to build the path.
   Future<String> resolvePath({
     required StoragePath path,
     String? identityId,
   }) async {
     final resolvedPath = switch (path) {
-      final StoragePathWithIdentityId p => p.resolvePath(
-          identityId: identityId ?? await _identityProvider.getIdentityId(),
+      // ignore: invalid_use_of_internal_member
+      final StoragePathFromIdentityId p => p.resolvePath(
+          identityId: identityId ?? await _getIdentityId(),
         ),
       // ignore: invalid_use_of_internal_member
       _ => path.resolvePath()
     };
+    if (resolvedPath.isEmpty) {
+      throw const StoragePathValidationException(
+        'StoragePath cannot be empty',
+      );
+    }
     if (resolvedPath.startsWith('/')) {
       throw const StoragePathValidationException(
         'StoragePath cannot start with a leading "/"',
@@ -50,10 +76,9 @@ class S3PathResolver {
   Future<List<String>> resolvePaths({
     required List<StoragePath> paths,
   }) async {
-    final requiredIdentityId =
-        paths.whereType<StoragePathWithIdentityId>().isNotEmpty;
-    final identityId =
-        requiredIdentityId ? await _identityProvider.getIdentityId() : null;
+    final requiresIdentityId =
+        paths.whereType<StoragePathFromIdentityId>().isNotEmpty;
+    final identityId = requiresIdentityId ? await _getIdentityId() : null;
     return Future.wait(
       paths.map(
         (path) => resolvePath(

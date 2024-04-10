@@ -99,6 +99,8 @@ class GraphQLResponseDecoder {
           decodePath: request.decodePath,
           variables: variablesWithNextToken,
           modelType: request.modelType,
+          authorizationMode: request.authorizationMode,
+          apiName: request.apiName,
         );
       }
       decodedData = modelType.fromJson(
