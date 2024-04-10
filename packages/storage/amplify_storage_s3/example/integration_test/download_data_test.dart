@@ -26,7 +26,8 @@ void main() {
       bytesPath = 'public/download-data-${uuid()}';
       bytesData = 'test data'.codeUnits;
       addTearDown(
-        () => Amplify.Storage.remove(path: StoragePath.fromString(bytesPath)).result,
+        () => Amplify.Storage.remove(path: StoragePath.fromString(bytesPath))
+            .result,
       );
 
       bytesUploadResult = await Amplify.Storage.uploadData(
