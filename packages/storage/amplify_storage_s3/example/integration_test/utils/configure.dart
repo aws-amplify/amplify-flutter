@@ -18,5 +18,5 @@ Future<void> configure(String config) async {
   await Amplify.configure(config);
   addTearDown(() {
     return Amplify.reset();
-    });
+  });
 }

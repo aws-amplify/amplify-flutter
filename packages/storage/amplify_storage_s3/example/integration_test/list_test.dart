@@ -35,7 +35,8 @@ void main() {
 
       addTearDown(() async {
         for (final path in uploadedPaths) {
-          await Amplify.Storage.remove(path: StoragePath.fromString(path)).result;
+          await Amplify.Storage.remove(path: StoragePath.fromString(path))
+              .result;
         }
       });
     });
