@@ -7,8 +7,10 @@ import android.os.Handler
 import android.os.Looper
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.DataStoreException.GraphQLResponseException
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
@@ -40,6 +42,7 @@ class ExceptionUtil {
         fun createSerializedError(e: AmplifyException): Map<String, Any?> {
             val gsonBuilder = GsonBuilder()
             gsonBuilder.registerTypeHierarchyAdapter(AmplifyException::class.java, AmplifyExceptionSerializer())
+            gsonBuilder.registerTypeHierarchyAdapter(GraphQLResponseException::class.java, GraphQLExceptionSerializer())
             val gson = gsonBuilder.create()
             val serializedJsonException = gson.toJson(e)
 
@@ -102,6 +105,30 @@ class AmplifyExceptionSerializer : JsonSerializer<AmplifyException> {
         src?.let {
             jsonObject.addProperty("message", src.message)
             jsonObject.addProperty("recoverySuggestion", src.recoverySuggestion)
+            src.cause?.let { cause ->
+                jsonObject.addProperty("cause", src.cause.toString())
+            }
+        }
+        return jsonObject
+    }
+}
+
+class GraphQLExceptionSerializer : JsonSerializer<GraphQLResponseException> {
+    override fun serialize(src: GraphQLResponseException?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+        val jsonObject = JsonObject()
+        src?.let {
+            jsonObject.addProperty("message", src.message)
+            jsonObject.addProperty("recoverySuggestion", src.recoverySuggestion)
+            src.cause?.let { cause ->
+                jsonObject.addProperty("cause", src.cause.toString())
+            }
+            val array = JsonArray()
+            src.errors.forEach{e ->
+                val temp = JsonObject()
+                temp.addProperty("message", e.message)
+                array.add(temp)
+            }
+            jsonObject.add("errors", array)
         }
         return jsonObject
     }
