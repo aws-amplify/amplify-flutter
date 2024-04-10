@@ -29,7 +29,7 @@ void main() {
         path: StoragePath.fromString(filePath),
       ).result;
       addTearDown(
-        () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+        () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)).result,
       );
     });
 
