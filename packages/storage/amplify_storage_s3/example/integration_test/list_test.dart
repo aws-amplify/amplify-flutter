@@ -47,8 +47,10 @@ void main() {
         ).result;
 
         for (final uploadedPath in uploadedPaths) {
-          expect(listResult.items.any((item) => item.path == uploadedPath),
-              isTrue,);
+          expect(
+            listResult.items.any((item) => item.path == uploadedPath),
+            isTrue,
+          );
         }
       });
 
@@ -60,7 +62,6 @@ void main() {
         expect(listResult.items.length, 1);
         expect(listResult.items.first.path, contains('file3.txt'));
       });
-
     });
 
     group('list() with options', () {
@@ -111,7 +112,6 @@ void main() {
           expect(listResult.items.length, 1);
         }
       });
-
     });
   });
 }

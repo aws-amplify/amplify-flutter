@@ -184,7 +184,7 @@ void main() {
         );
         await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
-          path: StoragePath.withIdentityId(
+          path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$name',
           ),
         ).result;

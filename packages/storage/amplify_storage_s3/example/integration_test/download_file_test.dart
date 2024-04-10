@@ -56,7 +56,7 @@ void main() {
 
       await Amplify.Storage.uploadFile(
         localFile: AWSFile.fromData(data),
-        path: StoragePath.withIdentityId(
+        path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$name',
         ),
       ).result;
