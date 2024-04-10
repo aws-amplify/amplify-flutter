@@ -26,11 +26,11 @@ public class CognitoPlugin: AuthCategoryPlugin {
     
     public func configure(using configuration: Any?) throws {}
     
-// TODO: Migrate to Async Swift v2
-//    public func reset(onComplete: @escaping BasicClosure) {
-//        onComplete()
-//    }
+    public func reset() async {
+        // TODO: reset plugin -- used for testing
+    }
     
+// TODO: Migrate to Async Swift v2
 //    public func fetchAuthSession(
 //        options: AuthFetchSessionRequest.Options?,
 //        listener: ((AmplifyOperation<AuthFetchSessionRequest,
