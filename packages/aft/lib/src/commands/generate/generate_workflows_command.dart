@@ -272,7 +272,7 @@ ${dependabotGroups.join('\n')}
         '$repoRelativePath/lib/**/*.dart',
       ]);
 
-      // run e2e tests (if present) when a dependencies native resources change
+      // run e2e tests (if present) when native resources change in a dependency
       if (needsE2ETest) {
         const nativeDirectories = [
           'android',
