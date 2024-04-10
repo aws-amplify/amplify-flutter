@@ -54,13 +54,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @protected
   late final S3PluginConfig s3pluginConfig;
 
-  S3PrefixResolver? _prefixResolver;
-
   late S3PathResolver _pathResolver;
-
-  /// Gets prefix resolver for testing
-  @visibleForTesting
-  S3PrefixResolver? get prefixResolver => _prefixResolver;
 
   /// Gets the instance of dependent [StorageS3Service].
   @protected

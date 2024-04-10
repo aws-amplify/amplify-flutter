@@ -83,7 +83,7 @@ class S3ListMetadata {
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {
     final subPaths = <String>[...this.subPaths, ...other.subPaths];
-    return S3ListMetadata(subPaths: subPaths, delimiter: other.delimiter);
+    return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
   }
 
   /// Sub paths under the `path` parameter calling the `list` API.
