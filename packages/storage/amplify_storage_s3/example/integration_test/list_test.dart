@@ -17,7 +17,7 @@ void main() {
     late List<String> uploadedPaths;
 
     setUpAll(() async {
-      await configure(amplifyEnvironments['key']!);
+      await configure(amplifyEnvironments['main']!);
 
       uniquePrefix = 'public/test-list-${uuid()}/';
       uploadedPaths = [
@@ -35,7 +35,7 @@ void main() {
 
       addTearDown(() async {
         for (final path in uploadedPaths) {
-          Amplify.Storage.remove(path: StoragePath.fromString(path));
+          await Amplify.Storage.remove(path: StoragePath.fromString(path)).result;
         }
       });
     });
