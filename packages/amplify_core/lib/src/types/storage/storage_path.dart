@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
+import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:meta/meta.dart';
 
 /// And Object that represents the full remote path of a storage item.
@@ -16,8 +16,8 @@ import 'package:meta/meta.dart';
 class StoragePath {
   /// Creates a [StoragePath] from a static string.
   ///
-  /// To create a [StoragePath] with the current user's identity Id, see
-  /// [StoragePath.withIdentityId]
+  /// To create a [StoragePath] from the current user's identity Id, see
+  /// [StoragePath.fromIdentityId]
   ///
   /// ### Example
   /// {@template amplify_core.storage.storage_path.from_string.example}
@@ -27,18 +27,18 @@ class StoragePath {
   /// {@endtemplate}
   const StoragePath.fromString(String path) : _path = path;
 
-  /// {@macro amplify_core.storage.storage_path_with_identity_id}
+  /// {@macro amplify_core.storage.storage_path_from_identity_id}
   ///
   /// ### Example
   /// {@template amplify_core.storage.storage_path.with_identity_id.example}
   /// ```
-  /// const p = StoragePath.withIdentityId((String identityId) => 'users/$identityId/object.png');
+  /// const p = StoragePath.fromIdentityId((String identityId) => 'users/$identityId/object.png');
   /// ```
   /// {@endtemplate}
-  factory StoragePath.withIdentityId(
+  factory StoragePath.fromIdentityId(
     String Function(String identityId) pathBuilder,
   ) =>
-      StoragePathWithIdentityId(pathBuilder);
+      StoragePathFromIdentityId(pathBuilder);
 
   final String _path;
 

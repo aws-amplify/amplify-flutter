@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/storage/storage_path_with_identity_id.dart';
+import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -48,7 +48,7 @@ void main() {
       );
       registerFallbackValue(const StoragePath.fromString('public/$testKey'));
       registerFallbackValue(
-        StoragePathWithIdentityId(
+        StoragePathFromIdentityId(
           (identityId) => 'private/$identityId/$testKey',
         ),
       );
@@ -78,7 +78,7 @@ void main() {
         ),
       );
       final downloadFileOperation = downloadFile(
-        path: StoragePath.withIdentityId(
+        path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$testKey',
         ),
         localFile: AWSFile.fromPath(testDestinationPath),
@@ -93,7 +93,7 @@ void main() {
 
       final captureParams = verify(
         () => storageS3Service.downloadData(
-          path: captureAny<StoragePathWithIdentityId>(named: 'path'),
+          path: captureAny<StoragePathFromIdentityId>(named: 'path'),
           options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
