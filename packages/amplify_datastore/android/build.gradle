@@ -97,5 +97,4 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.12.4'
     testImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.4'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 }

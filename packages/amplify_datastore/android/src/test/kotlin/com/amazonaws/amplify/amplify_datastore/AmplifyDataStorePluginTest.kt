@@ -5,7 +5,6 @@ package com.amazonaws.amplify.amplify_datastore
 
 import android.os.Handler
 import android.os.Looper
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amplifyframework.api.aws.AuthModeStrategyType
@@ -32,7 +31,6 @@ import com.amplifyframework.datastore.DataStoreItemChange
 import io.flutter.plugin.common.MethodChannel
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
@@ -49,22 +47,15 @@ import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import org.mockito.invocation.InvocationOnMock
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 class AmplifyDataStorePluginTest {
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var flutterPlugin: AmplifyDataStorePlugin
     private lateinit var modelSchema: ModelSchema
     private lateinit var amplifySuccessResults: MutableList<SerializedModel>
 
-    private var mockDataStore = mock(DataStoreCategory::class.java)
     private var mockThreadHandler = mock(Handler::class.java)
-    private var threadHandler = Handler(Looper.getMainLooper())
     private var mockAmplifyDataStorePlugin = mock(AWSDataStorePlugin::class.java)
     private val mockResult: MethodChannel.Result = mock(MethodChannel.Result::class.java)
     private val mockStreamHandler: DataStoreObserveEventStreamHandler =
