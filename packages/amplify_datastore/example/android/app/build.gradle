@@ -23,13 +23,12 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     // TODO(dnys1): Replace with `flutter.compileSdkVersion` when bumping min Flutter version
     namespace 'com.amazonaws.amplify.amplify_datastore_example'
-    compileSdkVersion 34
+    compileSdk 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
