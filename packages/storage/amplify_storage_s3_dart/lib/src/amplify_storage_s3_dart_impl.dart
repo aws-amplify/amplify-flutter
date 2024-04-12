@@ -89,6 +89,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       identityProvider: identityProvider,
     );
 
+    _pathResolver = S3PathResolver(
+      identityProvider: identityProvider,
+    );
+
     final credentialsProvider = authProviderRepo
         .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
