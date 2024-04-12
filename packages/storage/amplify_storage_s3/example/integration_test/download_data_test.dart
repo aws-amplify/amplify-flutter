@@ -82,7 +82,7 @@ void main() {
         ).result;
         expect(downloadResult.bytes, identityData);
         expect(downloadResult.downloadedItem.path,
-            'private/$userIdentityId/$identityName');
+            'private/$userIdentityId/$identityName',);
       });
       test('getProperties', () async {
         final downloadResult = await Amplify.Storage.downloadData(

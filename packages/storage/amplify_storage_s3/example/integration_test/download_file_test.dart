@@ -19,6 +19,13 @@ void main() {
   group('downloadFile()', () {
     late String filePath;
     late List<int> data;
+    late String identityPath;
+    late Directory tempDir;
+    late String userIdentityId;
+    late String name;
+    late String metadaFilePath;
+    late String metadataDownloadFilePath;
+    late Map<String, String> metadata;
 
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
@@ -28,8 +35,41 @@ void main() {
         data: HttpPayload.bytes(data),
         path: StoragePath.fromString(filePath),
       ).result;
+
+      tempDir = await getTemporaryDirectory();
+      userIdentityId = await signInNewUser();
+      name = 'download-file-with-identity-id-${uuid()}';
+      identityPath = 'private/$userIdentityId/$name';
+
+      await Amplify.Storage.uploadData(
+        data: HttpPayload.bytes(data),
+        path: StoragePath.fromIdentityId(
+          (identityId) => 'private/$identityId/$name',
+        ),
+      ).result;
+
+        metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
+        metadaFilePath = 'public/download-file-get-properties-${uuid()}';
+
+        addTearDown(
+          () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+        );
+
+        metadata = {'foo': 'bar'};
+
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromString(metadaFilePath),
+          options: StorageUploadDataOptions(
+            pluginOptions: const S3UploadDataPluginOptions(
+              getProperties: true,
+            ),
+            metadata: metadata,
+          ),
+        ).result;
+
       addTearDown(
-        () => Amplify.Storage.remove(path: StoragePath.fromString(filePath))
+        () => Amplify.Storage.removeMany(paths: [StoragePath.fromString(filePath), StoragePath.fromString(metadaFilePath), StoragePath.fromString(identityPath)])
             .result,
       );
     });
@@ -46,36 +86,26 @@ void main() {
 
         final downloadedFile = File(downloadFilePath);
         expect(await downloadedFile.readAsBytes(), data);
+        expect(downloadedFile.path, contains(downloadFilePath));
       });
     });
 
     test('from identity ID', () async {
-      final tempDir = await getTemporaryDirectory();
-      final userIdentityId = await signInNewUser();
-      final name = 'download-file-with-identity-id-${uuid()}';
-      final expectedResolvedPath = 'private/$userIdentityId/$name';
-
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$name',
-        ),
-      ).result;
-
       addTearDown(
         () => Amplify.Storage.remove(
-          path: StoragePath.fromString(expectedResolvedPath),
+          path: StoragePath.fromString(identityPath),
         ),
       );
 
       final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
       await Amplify.Storage.downloadFile(
-        path: StoragePath.fromString(filePath),
+        path: StoragePath.fromIdentityId((identityId) => 'private/$identityId/$name'),
         localFile: AWSFile.fromPath(downloadFilePath),
       ).result;
 
       final downloadedFile = File(downloadFilePath);
       expect(await downloadedFile.readAsBytes(), data);
+      expect(downloadedFile.path, contains(downloadFilePath));
     });
 
     group('with options', () {
@@ -99,29 +129,10 @@ void main() {
 
         final downloadedFile = File(downloadFilePath);
         expect(await downloadedFile.readAsBytes(), data);
+        expect(downloadedFile.path, contains(downloadFilePath));
       });
 
       test('getProperties', () async {
-        final tempDir = await getTemporaryDirectory();
-        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
-        final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
-
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
-        );
-
-        const metadata = {'foo': 'bar'};
-
-        await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
-          path: StoragePath.fromString(metadaFilePath),
-          options: const StorageUploadDataOptions(
-            pluginOptions: S3UploadDataPluginOptions(
-              getProperties: true,
-            ),
-            metadata: metadata,
-          ),
-        ).result;
 
         final downloadResult = await Amplify.Storage.downloadFile(
           path: StoragePath.fromString(metadaFilePath),
@@ -130,12 +141,13 @@ void main() {
               getProperties: true,
             ),
           ),
-          localFile: AWSFile.fromPath(downloadFilePath),
+          localFile: AWSFile.fromPath(metadataDownloadFilePath),
         ).result;
 
-        final downloadedFile = File(downloadFilePath);
+        final downloadedFile = File(metadataDownloadFilePath);
         expect(await downloadedFile.readAsBytes(), data);
         expect(downloadResult.downloadedItem.metadata, metadata);
+        expect(downloadedFile.path, contains(metadataDownloadFilePath));
       });
     });
   });
