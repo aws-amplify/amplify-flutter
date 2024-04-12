@@ -35,6 +35,7 @@ void main() {
       expect(result.storageItem.metadata, metadata);
       expect(result.storageItem.eTag, isNotNull);
       expect(result.storageItem.size, data.length);
+      expect(true, isFalse);
     });
 
     test('with identity ID', () async {
