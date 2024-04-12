@@ -43,12 +43,19 @@ void main() {
       final data = 'with identity ID'.codeUnits;
       final expectedResolvedPath = 'private/$userIdentityId/$name';
       addTearDownPath(StoragePath.fromString(expectedResolvedPath));
+      await Amplify.Storage.uploadData(
+        data: HttpPayload.bytes(data),
+        path: StoragePath.fromIdentityId(
+          (identityId) => 'private/$identityId/$name',
+        ),
+        options: StorageUploadDataOptions(metadata: metadata),
+      ).result;
       final result = await Amplify.Storage.getProperties(
         path: StoragePath.fromIdentityId(
           ((identityId) => 'private/$identityId/$name'),
         ),
       ).result;
-      expect(result.storageItem.path, path);
+      expect(result.storageItem.path, expectedResolvedPath);
       expect(result.storageItem.metadata, metadata);
       expect(result.storageItem.eTag, isNotNull);
       expect(result.storageItem.size, data.length);
