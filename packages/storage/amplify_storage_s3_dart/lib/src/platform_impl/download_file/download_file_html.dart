@@ -8,7 +8,7 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 
 /// The html implementation of `downloadFile` API.
 S3DownloadFileOperation downloadFile({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
@@ -20,12 +20,12 @@ S3DownloadFileOperation downloadFile({
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
     ),
     result: _downloadFromUrl(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
       s3pluginConfig: s3pluginConfig,
@@ -40,14 +40,13 @@ S3DownloadFileOperation downloadFile({
 }
 
 Future<S3DownloadFileResult> _downloadFromUrl({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
-  final targetIdentityId = s3PluginOptions.targetIdentityId;
   // Calling the `getProperties` by default to verify the existence of the object
   // before downloading from the presigned URL, as the 404 or 403 should be
   // handled by the plugin but not be thrown to an end user in browser.
@@ -56,16 +55,8 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // Exception thrown from the getProperties will be thrown as download
   // operation.
   final downloadedItem = (await storageS3Service.getProperties(
-    key: key,
-    options: targetIdentityId == null
-        ? StorageGetPropertiesOptions(
-            accessLevel: options.accessLevel,
-          )
-        : StorageGetPropertiesOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions:
-                S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
-          ),
+    path: path,
+    options: const StorageGetPropertiesOptions(),
   ))
       .storageItem;
 
@@ -73,21 +64,12 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   // We are not setting validateObjectExistence to true here as we are not
   // able to directly get the result of underlying HeadObject result.
   final url = (await storageS3Service.getUrl(
-    key: key,
-    options: targetIdentityId == null
-        ? StorageGetUrlOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions: S3GetUrlPluginOptions(
-              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-            ),
-          )
-        : StorageGetUrlOptions(
-            accessLevel: options.accessLevel,
-            pluginOptions: S3GetUrlPluginOptions.forIdentity(
-              targetIdentityId,
-              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-            ),
-          ),
+    path: path,
+    options: StorageGetUrlOptions(
+      pluginOptions: S3GetUrlPluginOptions(
+        useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+      ),
+    ),
   ))
       .url;
 
@@ -100,8 +82,9 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   );
 
   return S3DownloadFileResult(
-    downloadedItem:
-        s3PluginOptions.getProperties ? downloadedItem : S3Item(key: key),
+    downloadedItem: s3PluginOptions.getProperties
+        ? downloadedItem
+        : S3Item(path: downloadedItem.path),
     localFile: localFile,
   );
 }

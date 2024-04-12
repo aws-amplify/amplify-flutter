@@ -16,9 +16,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final dataPayload in dataPayloads) {
         await Amplify.Storage.remove(
-          key: dataPayload.targetKey,
-          options:
-              StorageRemoveOptions(accessLevel: dataPayload.targetAccessLevel),
+          path: dataPayload.targetPath,
         ).result;
       }
     });
@@ -29,11 +27,10 @@ void testTransferAcceleration({
           final dataPayload = entry.value;
           final operation = Amplify.Storage.uploadData(
             data: dataPayload.uploadSource,
-            key: dataPayload.targetKey,
-            options: StorageUploadDataOptions(
-              accessLevel: dataPayload.targetAccessLevel,
+            path: dataPayload.targetPath,
+            options: const StorageUploadDataOptions(
               pluginOptions:
-                  const S3UploadDataPluginOptions(useAccelerateEndpoint: true),
+                  S3UploadDataPluginOptions(useAccelerateEndpoint: true),
             ),
           );
 
@@ -50,10 +47,9 @@ void testTransferAcceleration({
             test('S3DataPayload ${entry.key}', () async {
               final dataPayload = entry.value;
               final result = await Amplify.Storage.getUrl(
-                key: dataPayload.targetKey,
-                options: StorageGetUrlOptions(
-                  accessLevel: dataPayload.targetAccessLevel,
-                  pluginOptions: const S3GetUrlPluginOptions(
+                path: dataPayload.targetPath,
+                options: const StorageGetUrlOptions(
+                  pluginOptions: S3GetUrlPluginOptions(
                     expiresIn: Duration(minutes: 5),
                     useAccelerateEndpoint: true,
                   ),
@@ -70,10 +66,9 @@ void testTransferAcceleration({
             test('S3DataPayload ${entry.key}', () async {
               final dataPayload = entry.value;
               final result = await Amplify.Storage.downloadData(
-                key: dataPayload.targetKey,
-                options: StorageDownloadDataOptions(
-                  accessLevel: dataPayload.targetAccessLevel,
-                  pluginOptions: const S3DownloadDataPluginOptions(
+                path: dataPayload.targetPath,
+                options: const StorageDownloadDataOptions(
+                  pluginOptions: S3DownloadDataPluginOptions(
                     useAccelerateEndpoint: true,
                   ),
                 ),
@@ -91,8 +86,7 @@ void testTransferAcceleration({
     tearDownAll(() async {
       for (final awsFile in awsFiles) {
         await Amplify.Storage.remove(
-          key: awsFile.targetKey,
-          options: StorageRemoveOptions(accessLevel: awsFile.targetAccessLevel),
+          path: awsFile.targetPath,
         ).result;
       }
     });
@@ -103,10 +97,9 @@ void testTransferAcceleration({
           final awsFile = entry.value;
           final operation = Amplify.Storage.uploadFile(
             localFile: awsFile.uploadSource,
-            key: awsFile.targetKey,
-            options: StorageUploadFileOptions(
-              accessLevel: awsFile.targetAccessLevel,
-              pluginOptions: const S3UploadFilePluginOptions(
+            path: awsFile.targetPath,
+            options: const StorageUploadFileOptions(
+              pluginOptions: S3UploadFilePluginOptions(
                 useAccelerateEndpoint: true,
               ),
             ),
@@ -127,10 +120,9 @@ void testTransferAcceleration({
               () async {
                 final awsFile = entry.value;
                 final result = await Amplify.Storage.getUrl(
-                  key: awsFile.targetKey,
-                  options: StorageGetUrlOptions(
-                    accessLevel: awsFile.targetAccessLevel,
-                    pluginOptions: const S3GetUrlPluginOptions(
+                  path: awsFile.targetPath,
+                  options: const StorageGetUrlOptions(
+                    pluginOptions: S3GetUrlPluginOptions(
                       expiresIn: Duration(minutes: 5),
                       useAccelerateEndpoint: true,
                     ),
@@ -152,9 +144,8 @@ void testTransferAcceleration({
               const end = 5 * 1024 + 12;
               final awsFile = entry.value;
               final result = await Amplify.Storage.downloadData(
-                key: awsFile.targetKey,
+                path: awsFile.targetPath,
                 options: StorageDownloadDataOptions(
-                  accessLevel: awsFile.targetAccessLevel,
                   pluginOptions: S3DownloadDataPluginOptions(
                     useAccelerateEndpoint: true,
                     bytesRange: S3DataBytesRange(start: start, end: end),

@@ -14,37 +14,10 @@ class S3GetPropertiesOptions extends StorageGetPropertiesOptions {
   @Deprecated(
     'use StorageGetPropertiesOptions(pluginOptions: S3GetPropertiesPluginOptions(...)) instead.',
   )
-  const S3GetPropertiesOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-  }) : this._(
-          accessLevel: accessLevel,
-        );
+  const S3GetPropertiesOptions() : this._();
 
   @Deprecated(
     'use StorageGetPropertiesOptions(pluginOptions: S3GetPropertiesPluginOptions(...)) instead.',
   )
-  const S3GetPropertiesOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
-    this.targetIdentityId,
-  });
-
-  /// {@macro storage.amplify_storage_s3.get_properties_options}
-  ///
-  /// Use this when calling `getProperties` on an object that belongs to other
-  /// user (identified by [targetIdentityId]) rather than the currently signed
-  /// user.
-  @Deprecated(
-    'use StorageGetPropertiesOptions(pluginOptions: S3GetPropertiesPluginOptions.forIdentity(...)) instead.',
-  )
-  const S3GetPropertiesOptions.forIdentity(
-    String targetIdentityId,
-  ) : this._(
-          accessLevel: StorageAccessLevel.protected,
-          targetIdentityId: targetIdentityId,
-        );
-
-  /// The identity ID of another user who uploaded the object.
-  ///
-  /// This can be set by using [S3GetPropertiesOptions.forIdentity].
-  final String? targetIdentityId;
+  const S3GetPropertiesOptions._();
 }

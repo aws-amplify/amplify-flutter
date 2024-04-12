@@ -7,12 +7,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 
 /// The io implementation of `downloadFile` API.
 @internal
 S3DownloadFileOperation downloadFile({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
@@ -25,30 +25,22 @@ S3DownloadFileOperation downloadFile({
   late final File tempFile;
 
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
-  final targetIdentityId = s3PluginOptions.targetIdentityId;
   final downloadDataOptions = StorageDownloadDataOptions(
-    accessLevel: options.accessLevel,
-    pluginOptions: targetIdentityId == null
-        ? S3DownloadDataPluginOptions(
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          )
-        : S3DownloadDataPluginOptions.forIdentity(
-            targetIdentityId,
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          ),
+    pluginOptions: S3DownloadDataPluginOptions(
+      getProperties: s3PluginOptions.getProperties,
+      useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+    ),
   );
 
   final downloadDataTask = storageS3Service.downloadData(
-    key: key,
+    path: path,
     options: downloadDataOptions,
     // Ensure destination file is writable. Exception thrown in the check
     // will be forwarded to the Future, downloadDataTask.result below
     preStart: () async {
       destinationPath = await _ensureDestinationWritable(localFile);
       tempFile = File(
-        path.join(
+        p.join(
           await appPathProvider.getTemporaryPath(),
           'amplify_storage_s3_temp_${uuid()}',
         ),
@@ -78,7 +70,7 @@ S3DownloadFileOperation downloadFile({
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
     ),
