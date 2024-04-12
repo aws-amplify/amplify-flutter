@@ -290,7 +290,7 @@ class AmplifyDataStorePluginTest {
                 HashMap::class.java
             ) as HashMap<String, Any>
         )
-        verify(mockResult).success(
+        verify(mockResult, times(1)).success(
             readMapFromFile(
                 "query_api",
                 "response/2_results.json",
