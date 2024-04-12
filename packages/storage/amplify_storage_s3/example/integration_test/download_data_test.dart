@@ -38,7 +38,7 @@ void main() {
 
       identityData = 'with identity ID'.codeUnits;
       identityName = 'upload-data-with-identity-id-${uuid()}';
-      
+
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(identityData),
         path: StoragePath.fromIdentityId(
@@ -62,11 +62,14 @@ void main() {
       ).result;
 
       addTearDown(
-        () => Amplify.Storage.removeMany(paths: [
-          StoragePath.fromString(bytesPath),
-          StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',),
-        ],).result,
+        () => Amplify.Storage.removeMany(
+          paths: [
+            StoragePath.fromString(bytesPath),
+            StoragePath.fromIdentityId(
+              (identityId) => 'private/$identityId/$identityName',
+            ),
+          ],
+        ).result,
       );
     });
 
@@ -74,10 +77,12 @@ void main() {
       test('from identity ID', () async {
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',),
+            (identityId) => 'private/$identityId/$identityName',
+          ),
         ).result;
         expect(downloadResult.bytes, identityData);
-        expect(downloadResult.downloadedItem.path, 'private/$userIdentityId/$identityName');
+        expect(downloadResult.downloadedItem.path,
+            'private/$userIdentityId/$identityName');
       });
       test('getProperties', () async {
         final downloadResult = await Amplify.Storage.downloadData(
