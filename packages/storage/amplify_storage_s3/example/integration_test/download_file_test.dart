@@ -24,8 +24,8 @@ void main() {
       await configure(amplifyEnvironments['main']!);
       filePath = 'public/download-file-from-data-${uuid()}';
       data = 'test data'.codeUnits;
-      await Amplify.Storage.uploadFile(
-        localFile: AWSFile.fromData(data),
+      await Amplify.Storage.uploadData(
+        data: HttpPayload.bytes(data),
         path: StoragePath.fromString(filePath),
       ).result;
       addTearDown(
@@ -55,8 +55,8 @@ void main() {
       final name = 'download-file-with-identity-id-${uuid()}';
       final expectedResolvedPath = 'private/$userIdentityId/$name';
 
-      await Amplify.Storage.uploadFile(
-        localFile: AWSFile.fromData(data),
+      await Amplify.Storage.uploadData(
+        data: HttpPayload.bytes(data),
         path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$name',
         ),
@@ -112,11 +112,11 @@ void main() {
 
         const metadata = {'foo': 'bar'};
 
-        await Amplify.Storage.uploadFile(
-          localFile: AWSFile.fromData(data),
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
           path: StoragePath.fromString(metadaFilePath),
-          options: const StorageUploadFileOptions(
-            pluginOptions: S3UploadFilePluginOptions(
+          options: const StorageUploadDataOptions(
+            pluginOptions: S3UploadDataPluginOptions(
               getProperties: true,
             ),
             metadata: metadata,
