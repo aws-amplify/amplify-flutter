@@ -49,7 +49,7 @@ void main() {
       });
     });
 
-    test('with identity ID', () async {
+    test('from identity ID', () async {
       final tempDir = await getTemporaryDirectory();
       final userIdentityId = await signInNewUser();
       final name = 'download-file-with-identity-id-${uuid()}';
