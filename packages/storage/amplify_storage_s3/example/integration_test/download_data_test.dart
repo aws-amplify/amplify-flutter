@@ -17,13 +17,16 @@ void main() {
   late List<int> bytesData;
   late String identityName;
   late List<int> identityData;
+  late String userIdentityId;
+  late String metaDataPath;
+  late Map<String, String> metadata;
 
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('downloadData()', () {
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
-      final userIdentityId = await signInNewUser();
+      userIdentityId = await signInNewUser();
 
       bytesPath = 'public/download-data-${uuid()}';
       bytesData = 'test data'.codeUnits;
@@ -43,6 +46,21 @@ void main() {
         ),
       ).result;
 
+      metaDataPath = 'public/download-data-get-properties-${uuid()}';
+
+      metadata = {'foo': 'bar'};
+
+      await Amplify.Storage.uploadData(
+        path: StoragePath.fromString(metaDataPath),
+        data: HttpPayload.bytes('get properties'.codeUnits),
+        options: StorageUploadDataOptions(
+          pluginOptions: const S3UploadDataPluginOptions(
+            getProperties: true,
+          ),
+          metadata: metadata,
+        ),
+      ).result;
+
       addTearDown(
         () => Amplify.Storage.removeMany(paths: [
           StoragePath.fromString(bytesPath),
@@ -59,26 +77,11 @@ void main() {
               (identityId) => 'private/$identityId/$identityName',),
         ).result;
         expect(downloadResult.bytes, identityData);
+        expect(downloadResult.downloadedItem.path, 'private/$userIdentityId/$identityName');
       });
       test('getProperties', () async {
-        // Upload a file with properties
-        final path = 'public/download-data-get-properties-${uuid()}';
-
-        const metadata = {'foo': 'bar'};
-
-        await Amplify.Storage.uploadData(
-          path: StoragePath.fromString(path),
-          data: HttpPayload.bytes('get properties'.codeUnits),
-          options: const StorageUploadDataOptions(
-            pluginOptions: S3UploadDataPluginOptions(
-              getProperties: true,
-            ),
-            metadata: metadata,
-          ),
-        ).result;
-
         final downloadResult = await Amplify.Storage.downloadData(
-          path: StoragePath.fromString(path),
+          path: StoragePath.fromString(metaDataPath),
           options: const StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               getProperties: true,
@@ -86,7 +89,7 @@ void main() {
           ),
         ).result;
 
-        expect(downloadResult.downloadedItem.path, path);
+        expect(downloadResult.downloadedItem.path, metaDataPath);
         expect(downloadResult.downloadedItem.metadata, metadata);
       });
 
@@ -117,6 +120,7 @@ void main() {
         ).result;
 
         expect(utf8.decode(downloadResult.bytes), 'data');
+        expect(downloadResult.downloadedItem.path, bytesPath);
       });
     });
   });
