@@ -5,17 +5,13 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'tear_down.dart';
+
 /// Creates a new user and signs them in.
 ///
 /// Returns the users identityId.
 Future<String> signInNewUser() async {
-  addTearDown(() {
-    try {
-      return Amplify.Auth.deleteUser();
-    } on Exception {
-      // do nothing;
-    }
-  });
+  addTearDownCurrentUser();
   final username = 'test-user-1-${uuid()}';
   const password = 'TestUser1!';
   await Amplify.Auth.signUp(

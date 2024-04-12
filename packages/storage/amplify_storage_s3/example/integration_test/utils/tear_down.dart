@@ -4,6 +4,8 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+final _logger = AmplifyLogger().createChild('StorageTests');
+
 /// Adds a tear down to remove the object at [path].
 void addTearDownPath(StoragePath path) {
   addTearDown(
@@ -11,10 +13,18 @@ void addTearDownPath(StoragePath path) {
       try {
         return Amplify.Storage.remove(path: path).result;
       } on Exception catch (e) {
-        AmplifyLogger()
-            .createChild('StorageTests')
-            .warn('Failed to remove file after test', e);
+        _logger.warn('Failed to remove file after test', e);
       }
     },
   );
+}
+
+void addTearDownCurrentUser() {
+  addTearDown(() {
+    try {
+      return Amplify.Auth.deleteUser();
+    } on Exception catch (e) {
+      _logger.warn('Failed to delete user after test', e);
+    }
+  });
 }
