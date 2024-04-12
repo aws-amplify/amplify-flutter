@@ -12,6 +12,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('amplify_storage_s3', () {
+    test('should fail', () {
+      expect(true, isFalse);
+    });
     get_url_special_characters_tests.main();
     use_case_tests.main();
   });

@@ -16,6 +16,9 @@ void main() {
   AWSLogger().logLevel = LogLevel.debug;
 
   group('amplify_analytics_pinpoint', () {
+    test('should fail', () {
+      expect(true, isFalse);
+    });
     auto_session_tracking_tests.main();
     enable_disable_tests.main();
     events_tests.main();

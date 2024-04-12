@@ -24,6 +24,10 @@ void main() async {
       await deleteTestUser();
     });
 
+    test('should fail', () {
+      expect(true, isFalse);
+    });
+
     graph_api_key_test.main(useExistingTestUser: true);
     graph_iam_test.main(useExistingTestUser: true);
     graph_user_pools_test.main(useExistingTestUser: true);

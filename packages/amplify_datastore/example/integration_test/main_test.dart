@@ -19,6 +19,10 @@ void main() async {
       await configureDataStore();
     });
 
+    test('should fail', () {
+      expect(true, isFalse);
+    });
+
     query_test.main();
     model_type_tests.main();
     observe_tests.main();

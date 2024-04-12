@@ -33,6 +33,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Authenticator', () {
+    test('should fail', () {
+      expect(true, isFalse);
+    });
     confirm_sign_up_email_or_phone_tests.main();
     confirm_sign_up_tests.main();
     custom_ui_tests.main();

@@ -35,6 +35,9 @@ void main() async {
   testRunner.setupTests();
 
   group('amplify_auth_cognito', () {
+    test('should fail', () {
+      expect(true, isFalse);
+    });
     asf_tests.main();
     confirm_sign_in_tests.main();
     confirm_sign_up_tests.main();
