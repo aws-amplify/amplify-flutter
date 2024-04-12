@@ -158,6 +158,16 @@ void main() {
       expect(downloadResult.bytes, data);
     });
 
+    test('unauthorized path', () async {
+      expect(
+        () => Amplify.Storage.uploadData(
+          data: HttpPayload.bytes('unauthorized path'.codeUnits),
+          path: const StoragePath.fromString('unauthorized/path'),
+        ).result,
+        throwsA(isA<StorageAccessDeniedException>()),
+      );
+    });
+
     group('with options', () {
       test('metadata', () async {
         final path = 'public/upload-data-with-metadata-${uuid()}';

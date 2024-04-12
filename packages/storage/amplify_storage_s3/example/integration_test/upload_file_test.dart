@@ -91,6 +91,16 @@ void main() {
       expect(downloadResult.bytes, data);
     });
 
+    test('unauthorized path', () async {
+      expect(
+        () => Amplify.Storage.uploadFile(
+          localFile: AWSFile.fromData('unauthorized path'.codeUnits),
+          path: const StoragePath.fromString('unauthorized/path'),
+        ).result,
+        throwsA(isA<StorageAccessDeniedException>()),
+      );
+    });
+
     group('with options', () {
       test('metadata', () async {
         final path = 'public/upload-file-with-metadata-${uuid()}';
