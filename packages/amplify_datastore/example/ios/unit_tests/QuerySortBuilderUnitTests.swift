@@ -3,7 +3,7 @@
 
 import XCTest
 import Amplify
-@testable import AmplifyPlugins
+@testable import AWSDataStorePlugin
 @testable import amplify_datastore
 
 // Extending for simple assertions on the objects equality.

@@ -71,6 +71,9 @@
 ## Generated SDK files
 packages/**/lib/src/sdk/src/**              linguist-generated
 
+## Generated Swift Plugins
+packages/amplify_datastore/ios/internal/**  linguist-generated
+
 ## Smithy files
 packages/smithy/goldens/lib/**              linguist-generated
 packages/smithy/goldens/lib2/**             linguist-generated

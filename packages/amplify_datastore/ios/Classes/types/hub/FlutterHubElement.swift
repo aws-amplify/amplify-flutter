@@ -5,14 +5,14 @@ import Foundation
 import Flutter
 import UIKit
 import Amplify
-import AmplifyPlugins
-import AWSCore
+import AWSDataStorePlugin
 import Combine
 
 public struct FlutterHubElement {
     var model: [String: Any]
     var version: Int?
-    var lastChangedAt: Int?
+    // TODO: Migrate to Async Swift v2 -- Is this breaking?
+    var lastChangedAt: Int64?
     var deleted: Bool
 
     init(

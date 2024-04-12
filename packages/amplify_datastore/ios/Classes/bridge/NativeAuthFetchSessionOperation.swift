@@ -4,6 +4,9 @@
 import Foundation
 import Amplify
 
+// TODO: Mirgrate to Async Swift v2
+public protocol AuthFetchSessionOperation: AmplifyOperation<AuthFetchSessionRequest, AuthSession, AuthError> {}
+
 class NativeAuthFetchSessionOperation: AmplifyOperation<AuthFetchSessionRequest,
                                                         AuthSession,
                                                         AuthError>,

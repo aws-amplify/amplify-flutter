@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 public enum QuerySortBuilder {
     static func fromSerializedList(_ serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {

@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 struct FlutterSyncReceivedEvent: FlutterHubEvent {
     var eventName: String
