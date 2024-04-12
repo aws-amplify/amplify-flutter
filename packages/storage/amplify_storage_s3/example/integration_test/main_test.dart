@@ -4,6 +4,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'get_url_test.dart' as get_url_test;
 import 'issues/get_url_special_characters_test.dart'
     as get_url_special_characters_tests;
 import 'upload_data_test.dart' as upload_data_test;
@@ -16,6 +17,7 @@ void main() {
   group('amplify_storage_s3', () {
     get_url_special_characters_tests.main();
     use_case_tests.main();
+    get_url_test.main();
     upload_file_test.main();
     upload_data_test.main();
   });
