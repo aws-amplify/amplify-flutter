@@ -62,10 +62,14 @@ class AppComponent extends StatefulComponent {
     if (Amplify.isConfigured) return;
     try {
       await configure();
+      // TODO(nikahsn): remove after making the api internal in 2.0.0.
+      // ignore: deprecated_member_use
       config = await Amplify.asyncConfig;
 
       Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
         if (event.type == AuthHubEventType.signedIn) {
+          // TODO(nikahsn): remove after making the api internal in 2.0.0.
+          // ignore: deprecated_member_use
           Amplify.asyncConfig.then((_) {
             if (!appState.authState.isAuthenticatedRoute) {
               setState(

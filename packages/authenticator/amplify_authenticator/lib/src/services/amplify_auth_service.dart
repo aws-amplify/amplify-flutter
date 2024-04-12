@@ -332,6 +332,8 @@ class AmplifyAuthService
       );
     });
     try {
+      // TODO(nikahsn): remove after making the api internal in 2.0.0.
+      // ignore: deprecated_member_use
       return await Amplify.asyncConfig;
     } finally {
       timer.cancel();
