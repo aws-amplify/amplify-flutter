@@ -261,19 +261,19 @@ class QueryField<T> {
   /// Matches models whether the given field exists or not.
   ///
   /// ### Example:
-  /// The example returns Post where the Blog attribute is not exists.
+  /// The example returns Blog where the optional Author attribute exists.
   ///
   /// ```dart
   /// ModelQueries.list(
-  ///  Post.classType,
-  ///  where: Post.BLOG.attributeExists(value: true),
+  ///  Blog.classType,
+  ///  where: Blog.AUTHOR.attributeExists(),
   /// );
   /// ```
-  QueryPredicateOperation attributeExists({bool? value}) =>
+  QueryPredicateOperation attributeExists({bool exists = true}) =>
       QueryPredicateOperation(
         fieldName,
         AttributeExistsQueryOperator(
-          value ?? false,
+          exists: exists,
         ),
       );
 

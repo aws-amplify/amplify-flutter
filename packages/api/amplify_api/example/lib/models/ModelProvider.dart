@@ -27,6 +27,7 @@ import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
 import 'OwnerOnly.dart';
 import 'Post.dart';
+import 'Sample.dart';
 import 'lowerCase.dart';
 
 export 'Blog.dart';
@@ -36,11 +37,12 @@ export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
 export 'OwnerOnly.dart';
 export 'Post.dart';
+export 'Sample.dart';
 export 'lowerCase.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "76a7a7d8d3182c2fe17550068e585db7";
+  String version = "9b304310f45499a1a0cd1d36e4665dcd";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Blog.schema,
@@ -50,6 +52,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     CpkOneToOneBidirectionalParentCD.schema,
     OwnerOnly.schema,
     Post.schema,
+    Sample.schema,
     lowerCase.schema
   ];
   @override
@@ -74,6 +77,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return OwnerOnly.classType;
       case "Post":
         return Post.classType;
+      case "Sample":
+        return Sample.classType;
       case "lowerCase":
         return lowerCase.classType;
       default:

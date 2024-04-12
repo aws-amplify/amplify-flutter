@@ -23,6 +23,7 @@ final lowerCaseCache = <lowerCase>[];
 final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
 final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
 final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
+final sampleCache = <Sample>[];
 
 class TestUser {
   TestUser({
@@ -217,6 +218,34 @@ Future<Post> addPostAndBlog(
   return addPost(title, rating, createdBlog);
 }
 
+Future<Sample> addSamplePartial(String name, {int? number}) async {
+  const document = r'''
+    mutation CreatePartialSample($name: String, $number: Int) {
+      createSample(input: {name: $name, number: $number}) {
+        id
+        name
+        number
+      }
+    }
+  ''';
+  final variables = <String, dynamic>{'name': name};
+  if (number != null) {
+    variables['number'] = number;
+  }
+  final request = GraphQLRequest<Sample>(
+    document: document,
+    variables: variables,
+    authorizationMode: APIAuthorizationType.userPools,
+    decodePath: 'createSample',
+    modelType: Sample.classType,
+  );
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final sampleFromResponse = response.data!;
+  sampleCache.add(sampleFromResponse);
+  return sampleFromResponse;
+}
+
 Future<Blog?> deleteBlog(Blog blog) async {
   final request = ModelMutations.deleteById(
     Blog.classType,
@@ -310,6 +339,18 @@ Future<lowerCase?> deleteLowerCase(lowerCase model) async {
   return res.data;
 }
 
+Future<Sample> deleteSample(Sample sample) async {
+  final request = ModelMutations.deleteById(
+    Sample.classType,
+    sample.modelIdentifier,
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  sampleCache.removeWhere((sampleFromCache) => sampleFromCache.id == sample.id);
+  return sample;
+}
+
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
   await Future.wait(postCache.map(deletePost));
@@ -317,6 +358,7 @@ Future<void> deleteTestModels() async {
   await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
   await Future.wait(ownerOnlyCache.map(deleteOwnerOnly));
   await Future.wait(lowerCaseCache.map(deleteLowerCase));
+  await Future.wait(sampleCache.map(deleteSample));
 }
 
 /// Wait for subscription established for given request.

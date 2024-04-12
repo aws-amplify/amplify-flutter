@@ -383,8 +383,8 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
 }
 
 class AttributeExistsQueryOperator extends QueryFieldOperatorSingleValue<bool> {
-  const AttributeExistsQueryOperator(bool value)
-      : super(value, QueryFieldOperatorType.attribute_exists);
+  const AttributeExistsQueryOperator({bool exists = true})
+      : super(exists, QueryFieldOperatorType.attribute_exists);
 
   @override
   bool evaluate(bool? other) {
