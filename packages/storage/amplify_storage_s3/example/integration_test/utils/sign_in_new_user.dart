@@ -10,6 +10,8 @@ import 'tear_down.dart';
 /// Creates a new user and signs them in.
 ///
 /// Returns the users identityId.
+///
+/// A tear down will be added to delete the user after the test completes.
 Future<String> signInNewUser() async {
   addTearDownCurrentUser();
   final username = 'test-user-1-${uuid()}';

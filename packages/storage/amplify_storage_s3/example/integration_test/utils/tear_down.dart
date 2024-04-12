@@ -19,6 +19,7 @@ void addTearDownPath(StoragePath path) {
   );
 }
 
+/// Adds a tear down to delete the current user.
 void addTearDownCurrentUser() {
   addTearDown(() {
     try {
