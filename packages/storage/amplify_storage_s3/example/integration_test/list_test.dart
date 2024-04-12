@@ -101,17 +101,17 @@ void main() {
 
         expect(listResult.items.length, 1);
 
-        if (listResult.nextToken != null) {
-          listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString(uniquePrefix),
-            options: StorageListOptions(
-              pageSize: 1,
-              nextToken: listResult.nextToken,
-            ),
-          ).result;
+        expect(listResult.nextToken, isNotNull);
 
-          expect(listResult.items.length, 1);
-        }
+        listResult = await Amplify.Storage.list(
+          path: StoragePath.fromString(uniquePrefix),
+          options: StorageListOptions(
+            pageSize: 1,
+            nextToken: listResult.nextToken,
+          ),
+        ).result;
+
+        expect(listResult.items.length, 1);
       });
     });
   });
