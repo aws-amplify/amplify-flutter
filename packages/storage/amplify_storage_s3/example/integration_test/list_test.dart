@@ -19,11 +19,11 @@ void main() {
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
 
-      uniquePrefix = 'public/test-list-${uuid()}/';
+      uniquePrefix = 'public/test-list-${uuid()}';
       uploadedPaths = [
-        '${uniquePrefix}file1.txt',
-        '${uniquePrefix}file2.txt',
-        '${uniquePrefix}subdir/file3.txt',
+        '${uniquePrefix}/file1.txt',
+        '${uniquePrefix}/file2.txt',
+        '${uniquePrefix}/subdir/file3.txt',
       ];
 
       for (final path in uploadedPaths) {
