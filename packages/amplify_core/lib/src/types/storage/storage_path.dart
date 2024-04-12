@@ -4,7 +4,7 @@
 import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:meta/meta.dart';
 
-/// And Object that represents the full remote path of a storage item.
+/// The full remote path of a storage item.
 ///
 /// ### Examples
 /// #### Static Path
