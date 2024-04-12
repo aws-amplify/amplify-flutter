@@ -20,12 +20,10 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('getUrl()', () {
-    late String path;
-    late List<int> data;
+    final path = 'public/get-url-${uuid()}';
+    final data = 'get url data'.codeUnits;
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
-      path = 'public/get-url-${uuid()}';
-      data = 'get url data'.codeUnits;
       addTearDownPath(StoragePath.fromString(path));
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
