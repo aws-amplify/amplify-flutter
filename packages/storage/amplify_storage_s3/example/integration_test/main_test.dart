@@ -4,6 +4,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'get_properties_test.dart' as get_properties_test;
 import 'get_url_test.dart' as get_url_test;
 import 'issues/get_url_special_characters_test.dart'
     as get_url_special_characters_tests;
@@ -18,6 +19,7 @@ void main() {
     get_url_special_characters_tests.main();
     use_case_tests.main();
     get_url_test.main();
+    get_properties_test.main();
     upload_file_test.main();
     upload_data_test.main();
   });
