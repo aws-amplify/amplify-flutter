@@ -38,7 +38,7 @@ class S3PathResolver {
     }
   }
 
-  /// Resolve the given [path].
+  /// Resolves the given [path].
   ///
   /// Returns a string which is the S3 Object Key.
   ///
@@ -70,7 +70,7 @@ class S3PathResolver {
     return resolvedPath;
   }
 
-  /// Resolve multiple [StoragePath] objects.
+  /// Resolves multiple [StoragePath] objects.
   ///
   /// This method will only fetch the current user's identityId one time.
   Future<List<String>> resolvePaths({
