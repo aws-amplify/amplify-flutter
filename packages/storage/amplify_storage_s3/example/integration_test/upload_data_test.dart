@@ -11,6 +11,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
 import 'utils/sign_in_new_user.dart';
+import 'utils/tear_down.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +24,7 @@ void main() {
       test('bytes', () async {
         final path = 'public/upload-data-from-bytes-${uuid()}';
         final data = 'from bytes'.codeUnits;
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
           path: StoragePath.fromString(path),
@@ -43,10 +42,7 @@ void main() {
         final data = 'dataUrl'.codeUnits;
         final dataUrl =
             'data:text/plain;charset=utf-8;base64,${base64Encode(data)}';
-
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.dataUrl(dataUrl),
           path: StoragePath.fromString(path),
@@ -62,9 +58,7 @@ void main() {
       test('json', () async {
         final path = 'public/upload-data-from-stream-${uuid()}';
         final json = {'foo': 'bar'};
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.json(json),
           path: StoragePath.fromString(path),
@@ -81,9 +75,7 @@ void main() {
         final path = 'public/upload-data-form-fields-${uuid()}';
         const key = 'foo';
         const value = 'bar';
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.formFields({key: value}),
           path: StoragePath.fromString(path),
@@ -99,9 +91,7 @@ void main() {
       test('string', () async {
         final path = 'public/upload-data-string-${uuid()}';
         const data = 'string';
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.string(data),
           path: StoragePath.fromString(path),
@@ -116,9 +106,7 @@ void main() {
 
       test('empty', () async {
         final path = 'public/upload-data-empty-${uuid()}';
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: const HttpPayload.empty(),
           path: StoragePath.fromString(path),
@@ -135,9 +123,7 @@ void main() {
         final path = 'public/upload-data-stream-${uuid()}';
         final data = [1, 2, 3];
         final stream = Stream<List<int>>.value(data);
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.streaming(stream),
           path: StoragePath.fromString(path),
@@ -156,11 +142,7 @@ void main() {
       final name = 'upload-data-with-identity-id-${uuid()}';
       final data = 'with identity ID'.codeUnits;
       final expectedResolvedPath = 'private/$userIdentityId/$name';
-      addTearDown(
-        () => Amplify.Storage.remove(
-          path: StoragePath.fromString(expectedResolvedPath),
-        ),
-      );
+      addTearDownPath(StoragePath.fromString(expectedResolvedPath));
       final result = await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
         path: StoragePath.fromIdentityId(
@@ -181,9 +163,7 @@ void main() {
         final path = 'public/upload-data-with-metadata-${uuid()}';
         final data = 'metadata'.codeUnits;
         const metadata = {'foo': 'bar'};
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
           path: StoragePath.fromString(path),
@@ -201,9 +181,7 @@ void main() {
         final path = 'public/upload-data-get-properties-${uuid()}';
         final data = 'getProperties'.codeUnits;
         const metadata = {'foo': 'bar'};
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
           path: StoragePath.fromString(path),
@@ -219,9 +197,7 @@ void main() {
       test('useAccelerateEndpoint', () async {
         final path = 'public/upload-data-acceleration-${uuid()}';
         final data = 'useAccelerateEndpoint'.codeUnits;
-        addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(path)),
-        );
+        addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
           path: StoragePath.fromString(path),
