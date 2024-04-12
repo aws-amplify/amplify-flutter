@@ -100,10 +100,11 @@ struct FlutterModelSchema {
     }
 }
 
+// TODO: Migrate to Async Swift v2
 // This enables custom selection set behavior within Amplify-Swift v1.
-// Which allows models to be decoded when created on Android and received to iOS 
-extension FlutterModelSchema: SubscriptionSelectionSetBehavior {
-    public var includePrimaryKeysOnly: Bool {
-        return true
-    }    
-}
+// Which allows models to be decoded when created on Android and received to iOS
+//extension FlutterModelSchema: SubscriptionSelectionSetBehavior {
+//    public var includePrimaryKeysOnly: Bool {
+//        return true
+//    }    
+//}

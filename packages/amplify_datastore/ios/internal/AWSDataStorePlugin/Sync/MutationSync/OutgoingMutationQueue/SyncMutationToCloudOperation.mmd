@@ -1,0 +1,56 @@
+%% SyncToCloudOperation
+sequenceDiagram
+    participant OutgoingMutationQueue
+    participant StorageAdapter
+    participant ProcessMutationErrorFromCloudOperation
+    participant SyncToCloudOperation
+    participant API
+    participant RequestRetryablePolicy
+    participant NetworkReachability
+    participant MutationRetryNotifier
+    participant Hub
+    
+    OutgoingMutationQueue->>SyncToCloudOperation: Add SyncToCloudOperation(MutationEvent, authType)
+    SyncToCloudOperation->>SyncToCloudOperation: Create GraphQL request (mutationType, authType)
+    SyncToCloudOperation->>API: API.mutate(request)
+    
+    alt Success
+        API->>SyncToCloudOperation: GraphQL response
+        SyncToCloudOperation->>OutgoingMutationQueue: finish
+        OutgoingMutationQueue->>StorageAdapter: delete MutationEvent
+    else Failure
+        loop while shouldRetry=true
+            API->>SyncToCloudOperation: GraphQL response
+            SyncToCloudOperation->>RequestRetryablePolicy: getRetryAdviceIfRetryable  
+            alt NetworkError (notConnected, dnsLookupFailed, cannotConnectToHost, cannotFindHost, timedOut, etc.), HttpStatusError (Retry-After header, 500-599, 429)
+                RequestRetryablePolicy->>RequestRetryablePolicy: retryInterval = 2^attempt * 100 + jitter
+                RequestRetryablePolicy->>SyncToCloudOperation: retryAdvice=(shouldRetry=true, retryInterval)
+                SyncToCloudOperation->>MutationRetryNotifier: schedule next mutation (retryInterval)
+                MutationRetryNotifier->>NetworkReachability: get last network status
+                alt NetworkReachability(isOnline=true)
+                    NetworkReachability->>MutationRetryNotifier: immediately perform next mutation
+                end
+                MutationRetryNotifier->>SyncToCloudOperation: perform next mutation
+                SyncToCloudOperation->>API: API.mutate(request)
+            else HttpStatusError (401) / OperationError (AuthError)
+                RequestRetryablePolicy->>SyncToCloudOperation: retry with next auth type immediately 
+                SyncToCloudOperation->>API: API.mutate(request, authType[+1])
+            else
+                RequestRetryablePolicy->>SyncToCloudOperation: retryAdvice=false
+                SyncToCloudOperation->>OutgoingMutationQueue: finish(result)
+            end
+        end
+    end
+
+    alt SyncToCloudOperation finish with AppSync error
+        OutgoingMutationQueue->>ProcessMutationErrorFromCloudOperation: process AppSync error
+        alt conditional check failed
+            ProcessMutationErrorFromCloudOperation->>Hub: Event: conditionSaveFailed
+            ProcessMutationErrorFromCloudOperation->>OutgoingMutationQueue: finish
+        else conflict unhandled
+            ProcessMutationErrorFromCloudOperation->>ProcessMutationErrorFromCloudOperation: ProcessConflictUnhandled()
+        else unauthorized, operation disabled, unhandled errorType, unknown
+            ProcessMutationErrorFromCloudOperation->>OutgoingMutationQueue: finish
+        end
+    end
+    
