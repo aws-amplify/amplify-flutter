@@ -69,11 +69,13 @@ void main() {
       ).result;
 
       addTearDown(
-        () => Amplify.Storage.removeMany(paths: [
-          StoragePath.fromString(filePath),
-          StoragePath.fromString(metadaFilePath),
-          StoragePath.fromString(identityPath),
-        ],).result,
+        () => Amplify.Storage.removeMany(
+          paths: [
+            StoragePath.fromString(filePath),
+            StoragePath.fromString(metadaFilePath),
+            StoragePath.fromString(identityPath),
+          ],
+        ).result,
       );
     });
 
@@ -105,7 +107,8 @@ void main() {
       final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
       final result = await Amplify.Storage.downloadFile(
         path: StoragePath.fromIdentityId(
-            (identityId) => 'private/$identityId/$name',),
+          (identityId) => 'private/$identityId/$name',
+        ),
         localFile: AWSFile.fromPath(downloadFilePath),
       ).result;
 
