@@ -95,6 +95,38 @@ void main() {
         expect(result.localFile.path, downloadFilePath);
         expect(result.downloadedItem.path, filePath);
       });
+      
+      testWidgets('to file fromString', (_) async {
+        final tempDir = await getTemporaryDirectory();
+        final downloadFilePath = '${tempDir.path}/downloaded-file1.txt';
+
+        final result = await Amplify.Storage.downloadFile(
+          path: StoragePath.fromString(filePath),
+          localFile: AWSFile.fromPath(downloadFilePath),
+        ).result;
+
+        final downloadedFile = File(downloadFilePath);
+        expect(await downloadedFile.readAsBytes(), data);
+        expect(downloadedFile.path, contains(downloadFilePath));
+        expect(result.localFile.path, downloadFilePath);
+        expect(result.downloadedItem.path, filePath);
+      });
+
+      testWidgets('to file fromData', (_) async {
+        final tempDir = await getTemporaryDirectory();
+        final downloadFilePath = '${tempDir.path}/downloaded-file2.txt';
+
+        final result = await Amplify.Storage.downloadFile(
+          path: StoragePath.fromString(filePath),
+          localFile: AWSFile.fromPath(downloadFilePath),
+        ).result;
+
+        final downloadedFile = File(downloadFilePath);
+        expect(await downloadedFile.readAsBytes(), data);
+        expect(downloadedFile.path, contains(downloadFilePath));
+        expect(result.localFile.path, downloadFilePath);
+        expect(result.downloadedItem.path, filePath);
+      });
     });
 
     testWidgets('from identity ID', (_) async {
