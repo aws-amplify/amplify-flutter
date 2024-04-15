@@ -118,7 +118,6 @@ void main() {
       });
 
       test('listAll', () async {
-
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString(uniquePrefix),
           options: const StorageListOptions(
@@ -128,7 +127,6 @@ void main() {
 
         expect(listResult.items.length, 3);
         expect(listResult.nextToken, isNull);
-
       });
     });
   });
