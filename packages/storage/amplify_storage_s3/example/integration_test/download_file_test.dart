@@ -80,7 +80,7 @@ void main() {
     });
 
     group('for file type', () {
-      test('to file', () async {
+      testWidgets('to file', (_) async {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
@@ -97,7 +97,7 @@ void main() {
       });
     });
 
-    test('from identity ID', () async {
+    testWidgets('from identity ID', (_) async {
       addTearDown(
         () => Amplify.Storage.remove(
           path: StoragePath.fromString(identityPath),
@@ -120,7 +120,7 @@ void main() {
     });
 
     group('with options', () {
-      test('useAccelerateEndpoint', () async {
+      testWidgets('useAccelerateEndpoint', (_) async {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
@@ -145,7 +145,7 @@ void main() {
         expect(result.downloadedItem.path, filePath);
       });
 
-      test('getProperties', () async {
+      testWidgets('getProperties', (_) async {
         final downloadResult = await Amplify.Storage.downloadFile(
           path: StoragePath.fromString(metadaFilePath),
           options: const StorageDownloadFileOptions(

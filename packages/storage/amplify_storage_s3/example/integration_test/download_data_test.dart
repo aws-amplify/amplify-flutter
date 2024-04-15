@@ -74,7 +74,7 @@ void main() {
     });
 
     group('with options', () {
-      test('from identity ID', () async {
+      testWidgets('from identity ID', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$identityName',
@@ -86,7 +86,7 @@ void main() {
           'private/$userIdentityId/$identityName',
         );
       });
-      test('getProperties', () async {
+      testWidgets('getProperties', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(metaDataPath),
           options: const StorageDownloadDataOptions(
@@ -100,7 +100,7 @@ void main() {
         expect(downloadResult.downloadedItem.metadata, metadata);
       });
 
-      test('useAccelerateEndpoint', () async {
+      testWidgets('useAccelerateEndpoint', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromString(bytesPath),
           options: const StorageDownloadDataOptions(
@@ -114,7 +114,7 @@ void main() {
         expect(downloadResult.bytes, bytesData);
       });
 
-      test('bytes range for "data" in "test data"', () async {
+      testWidgets('bytes range for "data" in "test data"', (_) async {
         final bytesRange = S3DataBytesRange(start: 5, end: 9);
 
         final downloadResult = await Amplify.Storage.downloadData(

@@ -42,7 +42,7 @@ void main() {
     });
 
     group('list() without options', () {
-      test('should list all files with unique prefix', () async {
+      testWidgets('should list all files with unique prefix', (_) async {
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString(uniquePrefix),
         ).result;
@@ -55,7 +55,7 @@ void main() {
         }
       });
 
-      test('should list files within a subdirectory', () async {
+      testWidgets('should list files within a subdirectory', (_) async {
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString('$uniquePrefix/subdir/'),
         ).result;
@@ -66,8 +66,8 @@ void main() {
     });
 
     group('list() with options', () {
-      test('should list all files with unique prefix excluding subPaths',
-          () async {
+      testWidgets('should list all files with unique prefix excluding subPaths',
+          (_) async {
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString('$uniquePrefix/'),
           options: const StorageListOptions(
@@ -81,7 +81,7 @@ void main() {
         expect(listResult.items.first.path, contains('file1.txt'));
       });
 
-      test('should respect pageSize limitation', () async {
+      testWidgets('should respect pageSize limitation', (_) async {
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString(uniquePrefix),
           options: const StorageListOptions(
@@ -93,7 +93,7 @@ void main() {
         expect(listResult.items.first.path, contains('file1.txt'));
       });
 
-      test('should list files with pagination', () async {
+      testWidgets('should list files with pagination', (_) async {
         var listResult = await Amplify.Storage.list(
           path: StoragePath.fromString(uniquePrefix),
           options: const StorageListOptions(
@@ -117,7 +117,7 @@ void main() {
         expect(listResult.items.first.path, contains('file2.txt'));
       });
 
-      test('listAll', () async {
+      testWidgets('listAll', (_) async {
         final listResult = await Amplify.Storage.list(
           path: StoragePath.fromString(uniquePrefix),
           options: const StorageListOptions(
