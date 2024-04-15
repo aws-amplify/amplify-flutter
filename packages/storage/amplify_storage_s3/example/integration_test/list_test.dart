@@ -63,6 +63,15 @@ void main() {
         expect(listResult.items.length, 1);
         expect(listResult.items.first.path, contains('file3.txt'));
       });
+
+      testWidgets('unauthorized path', (_) async {
+        expect(
+          () => Amplify.Storage.list(
+            path: const StoragePath.fromString('unauthorized/path'),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
     });
 
     group('list() with options', () {

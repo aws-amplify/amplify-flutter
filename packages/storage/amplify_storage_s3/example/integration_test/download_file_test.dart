@@ -162,6 +162,16 @@ void main() {
         expect(downloadedFile.path, contains(metadataDownloadFilePath));
         expect(downloadResult.localFile.path, metadataDownloadFilePath);
       });
+
+      testWidgets('unauthorized path', (_) async {
+        expect(
+          () => Amplify.Storage.downloadFile(
+            path: const StoragePath.fromString('unauthorized/path'),
+            localFile: AWSFile.fromPath(''),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
     });
   });
 }

@@ -129,6 +129,15 @@ void main() {
         expect(utf8.decode(downloadResult.bytes), 'data');
         expect(downloadResult.downloadedItem.path, bytesPath);
       });
+
+      testWidgets('unauthorized path', (_) async {
+        expect(
+          () => Amplify.Storage.downloadData(
+            path: const StoragePath.fromString('unauthorized/path'),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
     });
   });
 }
