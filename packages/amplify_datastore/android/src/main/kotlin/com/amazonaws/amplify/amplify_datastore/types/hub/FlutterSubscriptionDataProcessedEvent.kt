@@ -10,7 +10,7 @@ import com.amplifyframework.datastore.appsync.ModelMetadata
 class FlutterSubscriptionDataProcessedEvent(
     override val eventName: String,
     private val model: SerializedModel,
-    private val syncMetadata: ModelMetadata,
+    private val syncMetadata: ModelMetadata
 ) : FlutterHubEvent {
     override fun toValueMap(): Map<String, Any> {
         return mapOf(

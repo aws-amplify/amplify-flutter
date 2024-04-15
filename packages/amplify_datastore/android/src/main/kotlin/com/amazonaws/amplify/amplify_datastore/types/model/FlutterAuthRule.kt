@@ -53,7 +53,6 @@ data class FlutterAuthRule(val map: Map<String, Any>) {
     }
 
     fun convertToNativeAuthRule(): AuthRule {
-
         val builder: AuthRule.Builder = AuthRule.builder()
             .authStrategy(authStrategy)
 
