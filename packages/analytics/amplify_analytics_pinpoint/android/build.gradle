@@ -25,7 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 34
+    compileSdk 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

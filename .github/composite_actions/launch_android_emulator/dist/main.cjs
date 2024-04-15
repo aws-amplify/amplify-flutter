@@ -15905,7 +15905,7 @@
             case 4:
               // returning from await.
               $async$goto = 5;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Install/update Android platform (34)", new A.SdkManager__ensureBuildTools_closure4(), t4), $async$_ensureBuildTools$0);
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Install/update Android platform (33)", new A.SdkManager__ensureBuildTools_closure4(), t4), $async$_ensureBuildTools$0);
             case 5:
               // returning from await.
               targetTriplet = $async$self.apiLevel.toString$0(0) + ";" + $async$self.target.toString$0(0) + ";" + $async$self.abi.toString$0(0);
@@ -16018,7 +16018,7 @@
   };
   A.SdkManager__ensureBuildTools_closure1.prototype = {
     call$1(line) {
-      return B.JSString_methods.startsWith$1(A._asString(line), "build-tools;34");
+      return B.JSString_methods.startsWith$1(A._asString(line), "build-tools;33");
     },
     $signature: 1
   };
@@ -16084,10 +16084,10 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait($.$get$SdkManager__sdkmanager().call$1(A._setArrayType(["platforms;android-34"], type$.JSArray_String)), $async$call$0);
+              return A._asyncAwait($.$get$SdkManager__sdkmanager().call$1(A._setArrayType(["platforms;android-33"], type$.JSArray_String)), $async$call$0);
             case 2:
               // returning from await.
-              type$.JSObject._as(self.core).info("Successfully installed platforms;android-34");
+              type$.JSObject._as(self.core).info("Successfully installed platforms;android-33");
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }

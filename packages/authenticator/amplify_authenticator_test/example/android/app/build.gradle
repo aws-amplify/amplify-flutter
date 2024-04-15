@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.amazonaws.amplify.amplify_authenticator_test_example"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
