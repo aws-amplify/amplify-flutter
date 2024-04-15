@@ -5,12 +5,16 @@ package com.amazonaws.amplify.amplify_datastore.util
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : Any> Any?.safeCastToMap() =
-    if (this is T)
+    if (this is T) {
         this as Map<String, T>
-    else null
+    } else {
+        null
+    }
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T : Any> Any?.safeCastToList() =
-    if (this is List<*> && this.all { it is T })
+    if (this is List<*> && this.all { it is T }) {
         this as List<T>
-    else null
+    } else {
+        null
+    }
