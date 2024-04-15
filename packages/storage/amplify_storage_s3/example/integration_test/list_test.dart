@@ -116,6 +116,20 @@ void main() {
         expect(listResult.items.length, 1);
         expect(listResult.items.first.path, contains('file2.txt'));
       });
+
+      test('listAll', () async {
+
+        final listResult = await Amplify.Storage.list(
+          path: StoragePath.fromString(uniquePrefix),
+          options: const StorageListOptions(
+            pluginOptions: S3ListPluginOptions.listAll(),
+          ),
+        ).result;
+
+        expect(listResult.items.length, 3);
+        expect(listResult.nextToken, isNull);
+
+      });
     });
   });
 }
