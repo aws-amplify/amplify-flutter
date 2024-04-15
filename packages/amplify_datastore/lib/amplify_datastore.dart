@@ -108,7 +108,6 @@ class AmplifyDataStore extends DataStorePluginInterface
         updateCurrentUser(event.payload);
       });
     }
-
     final apiPlugin = Amplify.API.plugins.firstOrNull;
     final gqlConfig = config.api?.awsPlugin?.all.values.firstWhereOrNull(
       (config) => config.endpointType == EndpointType.graphQL,
@@ -325,4 +324,81 @@ class _NativeAmplifyApi
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
+
+  @override
+  Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
+    print('Flutter mutate:: $request');
+
+    final flutterRequest = GraphQLRequest<String>(
+      document: request.document!,
+      variables: (request.variables ?? {}).cast<String, dynamic>(),
+      apiName: request.apiName,
+    );
+
+    final response = await Amplify.API.mutate(request: flutterRequest).response;
+
+    return NativeGraphQLResponse(
+      payloadJson: response.data,
+      errorsJson: response.errors.toString(),
+    );
+  }
+
+  @override
+  Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
+    print('Flutter mutate:: $request');
+
+    final flutterRequest = GraphQLRequest<String>(
+      document: request.document!,
+      variables: (request.variables ?? {}).cast<String, dynamic>(),
+      apiName: request.apiName,
+    );
+
+    final response = await Amplify.API.query(request: flutterRequest).response;
+
+    return NativeGraphQLResponse(
+      payloadJson: response.data,
+      errorsJson: response.errors.toString(),
+    );
+  }
+
+  @override
+  Future<NativeGraphQLSubscriptionResponse> subscribe(
+      NativeGraphQLRequest request) async {
+    // print('Flutter subscribe:: ${request.document}');
+
+    final flutterRequest = GraphQLRequest<String>(
+      document: request.document!,
+      variables: (request.variables ?? {}).cast<String, dynamic>(),
+      apiName: request.apiName,
+    );
+
+    final subscription = Amplify.API.subscribe(flutterRequest);
+
+    subscription.listen((GraphQLResponse<String> event) {
+      print('Flutter subscription event:: ${event.data}');
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        payloadJson: event.data,
+        type: "data",
+      );
+
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
+    }, onError: (error) {
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        payloadJson: error,
+        type: "error",
+      );
+
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
+    }, onDone: () {
+      final nativeResponse = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        type: "done",
+      );
+      NativeApiBridge().sendSubscriptionEvent(nativeResponse);
+    });
+
+    return NativeGraphQLSubscriptionResponse(subscriptionId: flutterRequest.id);
+  }
 }

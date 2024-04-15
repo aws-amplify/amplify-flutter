@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 import AWSPluginsCore
 import Flutter
 
@@ -88,6 +88,10 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
+    func getLatestAuthToken() async throws -> String {
+        fatalError("not implemented")
+    }
+    
     let flutterAuthProviders: FlutterAuthProviders
     let type: AWSAuthorizationType
 

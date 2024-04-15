@@ -4,7 +4,7 @@
 import Flutter
 import UIKit
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 import AWSPluginsCore
 import AWSCore
 import Combine
@@ -20,6 +20,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let nativeAuthPlugin: NativeAuthPlugin
     private let nativeApiPlugin: NativeApiPlugin
     private let cognitoPlugin: CognitoPlugin
+    private let nativeSubscriptionEventBus = PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>()
     
 
     init(bridge: DataStoreBridge = DataStoreBridge(),
@@ -89,13 +90,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                 AWSAuthorizationType(rawValue: $0)
             }
             try Amplify.add(
-                plugin: AWSAPIPlugin(
+                plugin: FlutterApiPlugin(
                     apiAuthProviderFactory: FlutterAuthProviders(
                         authProviders: authProviders,
                         nativeApiPlugin: nativeApiPlugin
-                    )
+                    ), 
+                    nativeApiPlugin: nativeApiPlugin,
+                    modelSchemaRegistry: modelSchemaRegistry,
+                    subscriptionEventBus: nativeSubscriptionEventBus
                 )
             )
+            print("API Plugin Added!")
             return completion(.success(()))
         } catch let apiError as APIError {
             let flutterError = FlutterError(
@@ -135,6 +140,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
         }
     }
     
+    func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, any Error>) -> Void) {
+            nativeSubscriptionEventBus.send(event)
+    }
+    
     func configure(version: String, config: String, completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             guard let data = config.data(using: .utf8) else {
@@ -146,7 +155,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
             let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
                                                                 from: data)
-            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
+//            TODO: Migrate to v2
+//            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: "\(version) /datastore")
             try Amplify.configure(amplifyConfiguration)
             return completion(.success(()))
         } catch let error as ConfigurationError {

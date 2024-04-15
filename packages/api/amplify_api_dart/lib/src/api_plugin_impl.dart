@@ -80,7 +80,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       );
     }
     for (final entry in apiConfig.endpoints.entries) {
-      if (!entry.value.endpoint.startsWith('https')) {
+      if (!entry.value.endpoint.startsWith('https') && !entry.value.allowHttp) {
         throw ConfigurationError(
           'Non-HTTPS endpoint found for ${entry.key} which is not supported.',
           recoverySuggestion:

@@ -3,7 +3,7 @@
 
 import Foundation
 import Amplify
-import AmplifyPlugins
+import AWSDataStorePlugin
 
 public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?
