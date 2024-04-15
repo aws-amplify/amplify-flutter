@@ -57,7 +57,7 @@ void main() {
 
       test('should list files within a subdirectory', () async {
         final listResult = await Amplify.Storage.list(
-          path: StoragePath.fromString('${uniquePrefix}subdir/'),
+          path: StoragePath.fromString('$uniquePrefix/subdir/'),
         ).result;
 
         expect(listResult.items.length, 1);
@@ -69,7 +69,7 @@ void main() {
       test('should list all files with unique prefix excluding subPaths',
           () async {
         final listResult = await Amplify.Storage.list(
-          path: StoragePath.fromString(uniquePrefix),
+          path: StoragePath.fromString('$uniquePrefix/'),
           options: const StorageListOptions(
             pluginOptions: S3ListPluginOptions(
               excludeSubPaths: true,
@@ -78,6 +78,7 @@ void main() {
         ).result;
 
         expect(listResult.items.length, 2);
+        expect(listResult.items.first.path, contains('file1.txt'));
       });
 
       test('should respect pageSize limitation', () async {
@@ -89,6 +90,7 @@ void main() {
         ).result;
 
         expect(listResult.items.length, 2);
+        expect(listResult.items.first.path, contains('file1.txt'));
       });
 
       test('should list files with pagination', () async {
@@ -112,6 +114,7 @@ void main() {
         ).result;
 
         expect(listResult.items.length, 1);
+        expect(listResult.items.first.path, contains('file2.txt'));
       });
     });
   });
