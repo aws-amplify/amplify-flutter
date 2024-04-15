@@ -20,7 +20,7 @@ void main() {
       await configure(amplifyEnvironments['main']!);
     });
     group('for file type', () {
-      test('from data', () async {
+      testWidgets('from data', (_) async {
         final path = 'public/upload-file-from-data-${uuid()}';
         final data = 'from data'.codeUnits;
         addTearDownPath(StoragePath.fromString(path));
@@ -36,7 +36,7 @@ void main() {
         expect(downloadResult.bytes, data);
       });
 
-      test('from path', () async {
+      testWidgets('from path', (_) async {
         final path = 'public/upload-file-from-path-${uuid()}';
         final data = 'from path'.codeUnits;
         final filePath = await createFile(path, data);
@@ -53,7 +53,7 @@ void main() {
         expect(downloadResult.bytes, data);
       });
 
-      test('from stream', () async {
+      testWidgets('from stream', (_) async {
         final path = 'public/upload-file-from-stream-${uuid()}';
         final stream = Stream<List<int>>.value([1, 2, 3]);
         addTearDownPath(StoragePath.fromString(path));
@@ -70,7 +70,7 @@ void main() {
       });
     });
 
-    test('with identity ID', () async {
+    testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'upload-file-with-identity-id-${uuid()}';
       final data = 'with identity ID'.codeUnits;
@@ -91,7 +91,7 @@ void main() {
       expect(downloadResult.bytes, data);
     });
 
-    test('unauthorized path', () async {
+    testWidgets('unauthorized path', (_) async {
       expect(
         () => Amplify.Storage.uploadFile(
           localFile: AWSFile.fromData('unauthorized path'.codeUnits),
@@ -102,7 +102,7 @@ void main() {
     });
 
     group('with options', () {
-      test('metadata', () async {
+      testWidgets('metadata', (_) async {
         final path = 'public/upload-file-with-metadata-${uuid()}';
         final data = 'metadata'.codeUnits;
         const metadata = {'foo': 'bar'};
@@ -120,7 +120,7 @@ void main() {
         expect(propertiesResult.storageItem.metadata, metadata);
       });
 
-      test('getProperties', () async {
+      testWidgets('getProperties', (_) async {
         final path = 'public/upload-file-get-properties-${uuid()}';
         final data = 'getProperties'.codeUnits;
         const metadata = {'foo': 'bar'};
@@ -137,7 +137,7 @@ void main() {
         expect(result.uploadedItem.metadata, metadata);
       });
 
-      test('useAccelerateEndpoint', () async {
+      testWidgets('useAccelerateEndpoint', (_) async {
         final path = 'public/upload-file-acceleration-${uuid()}';
         final data = 'useAccelerateEndpoint'.codeUnits;
         addTearDownPath(StoragePath.fromString(path));

@@ -21,7 +21,7 @@ void main() {
       await configure(amplifyEnvironments['main']!);
     });
     group('for data type', () {
-      test('bytes', () async {
+      testWidgets('bytes', (_) async {
         final path = 'public/upload-data-from-bytes-${uuid()}';
         final data = 'from bytes'.codeUnits;
         addTearDownPath(StoragePath.fromString(path));
@@ -37,7 +37,7 @@ void main() {
         expect(downloadResult.bytes, data);
       });
 
-      test('dataUrl', () async {
+      testWidgets('dataUrl', (_) async {
         final path = 'public/upload-data-url-${uuid()}';
         final data = 'dataUrl'.codeUnits;
         final dataUrl =
@@ -55,7 +55,7 @@ void main() {
         expect(downloadResult.bytes, data);
       });
 
-      test('json', () async {
+      testWidgets('json', (_) async {
         final path = 'public/upload-data-from-stream-${uuid()}';
         final json = {'foo': 'bar'};
         addTearDownPath(StoragePath.fromString(path));
@@ -71,7 +71,7 @@ void main() {
         expect(downloadResult.bytes, jsonEncode(json).toString().codeUnits);
       });
 
-      test('formFields', () async {
+      testWidgets('formFields', (_) async {
         final path = 'public/upload-data-form-fields-${uuid()}';
         const key = 'foo';
         const value = 'bar';
@@ -88,7 +88,7 @@ void main() {
         expect(downloadResult.bytes, '$key=$value'.codeUnits);
       });
 
-      test('string', () async {
+      testWidgets('string', (_) async {
         final path = 'public/upload-data-string-${uuid()}';
         const data = 'string';
         addTearDownPath(StoragePath.fromString(path));
@@ -104,7 +104,7 @@ void main() {
         expect(downloadResult.bytes, data.codeUnits);
       });
 
-      test('empty', () async {
+      testWidgets('empty', (_) async {
         final path = 'public/upload-data-empty-${uuid()}';
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
@@ -119,7 +119,7 @@ void main() {
         expect(downloadResult.bytes, <int>[]);
       });
 
-      test('stream', () async {
+      testWidgets('stream', (_) async {
         final path = 'public/upload-data-stream-${uuid()}';
         final data = [1, 2, 3];
         final stream = Stream<List<int>>.value(data);
@@ -137,7 +137,7 @@ void main() {
       });
     });
 
-    test('with identity ID', () async {
+    testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'upload-data-with-identity-id-${uuid()}';
       final data = 'with identity ID'.codeUnits;
@@ -158,7 +158,7 @@ void main() {
       expect(downloadResult.bytes, data);
     });
 
-    test('unauthorized path', () async {
+    testWidgets('unauthorized path', (_) async {
       expect(
         () => Amplify.Storage.uploadData(
           data: HttpPayload.bytes('unauthorized path'.codeUnits),
@@ -169,7 +169,7 @@ void main() {
     });
 
     group('with options', () {
-      test('metadata', () async {
+      testWidgets('metadata', (_) async {
         final path = 'public/upload-data-with-metadata-${uuid()}';
         final data = 'metadata'.codeUnits;
         const metadata = {'foo': 'bar'};
@@ -187,7 +187,7 @@ void main() {
         expect(propertiesResult.storageItem.metadata, metadata);
       });
 
-      test('getProperties', () async {
+      testWidgets('getProperties', (_) async {
         final path = 'public/upload-data-get-properties-${uuid()}';
         final data = 'getProperties'.codeUnits;
         const metadata = {'foo': 'bar'};
@@ -204,7 +204,7 @@ void main() {
         expect(result.uploadedItem.metadata, metadata);
       });
 
-      test('useAccelerateEndpoint', () async {
+      testWidgets('useAccelerateEndpoint', (_) async {
         final path = 'public/upload-data-acceleration-${uuid()}';
         final data = 'useAccelerateEndpoint'.codeUnits;
         addTearDownPath(StoragePath.fromString(path));

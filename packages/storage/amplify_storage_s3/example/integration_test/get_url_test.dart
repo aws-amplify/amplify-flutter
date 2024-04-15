@@ -31,7 +31,7 @@ void main() {
       ).result;
     });
 
-    test('String StoragePath', () async {
+    testWidgets('String StoragePath', (_) async {
       final result = await Amplify.Storage.getUrl(
         path: StoragePath.fromString(path),
       ).result;
@@ -40,7 +40,7 @@ void main() {
       expect(actualData, data);
     });
 
-    test('with identity ID', () async {
+    testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'get-url-with-identity-id-${uuid()}';
       final data = 'with identity ID'.codeUnits;
@@ -64,7 +64,7 @@ void main() {
     });
 
     group('unauthorized path', () {
-      test('validateObjectExistence true', () async {
+      testWidgets('validateObjectExistence true', (_) async {
         expect(
           () => Amplify.Storage.getUrl(
             path: const StoragePath.fromString('unauthorized/path'),
@@ -78,7 +78,7 @@ void main() {
         );
       });
 
-      test('validateObjectExistence false', () async {
+      testWidgets('validateObjectExistence false', (_) async {
         final result = await Amplify.Storage.getUrl(
           path: const StoragePath.fromString('unauthorized/path'),
           options: const StorageGetUrlOptions(
@@ -95,7 +95,7 @@ void main() {
     });
 
     group('with options', () {
-      test('expiresIn', () async {
+      testWidgets('expiresIn', (_) async {
         const duration = Duration(seconds: 10);
         final result = await Amplify.Storage.getUrl(
           path: StoragePath.fromString(path),
@@ -115,7 +115,7 @@ void main() {
         );
       });
 
-      test('validateObjectExistence true', () async {
+      testWidgets('validateObjectExistence true', (_) async {
         expect(
           () => Amplify.Storage.getUrl(
             path: const StoragePath.fromString('public/non-existent-path'),
@@ -129,7 +129,7 @@ void main() {
         );
       });
 
-      test('validateObjectExistence false', () async {
+      testWidgets('validateObjectExistence false', (_) async {
         expect(
           Amplify.Storage.getUrl(
             path: const StoragePath.fromString('public/non-existent-path'),
@@ -143,7 +143,7 @@ void main() {
         );
       });
 
-      test('useAccelerateEndpoint', () async {
+      testWidgets('useAccelerateEndpoint', (_) async {
         final result = await Amplify.Storage.getUrl(
           path: StoragePath.fromString(path),
           options: const StorageGetUrlOptions(

@@ -27,7 +27,7 @@ void main() {
       ).result;
     });
 
-    test('String StoragePath', () async {
+    testWidgets('String StoragePath', (_) async {
       final result = await Amplify.Storage.getProperties(
         path: StoragePath.fromString(path),
       ).result;
@@ -37,7 +37,7 @@ void main() {
       expect(result.storageItem.size, data.length);
     });
 
-    test('with identity ID', () async {
+    testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'get-properties-with-identity-id-${uuid()}';
       final data = 'with identity ID'.codeUnits;
@@ -61,7 +61,7 @@ void main() {
       expect(result.storageItem.size, data.length);
     });
 
-    test('unauthorized path', () async {
+    testWidgets('unauthorized path', (_) async {
       expect(
         () => Amplify.Storage.getProperties(
           path: const StoragePath.fromString('unauthorized/path'),
