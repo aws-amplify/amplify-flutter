@@ -3,10 +3,10 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.query
 
-import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amazonaws.amplify.amplify_datastore.cpkPostSchema
 import com.amazonaws.amplify.amplify_datastore.postSchema
 import com.amazonaws.amplify.amplify_datastore.readMapFromFile
+import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amplifyframework.core.model.ModelIdentifier
 import com.amplifyframework.core.model.query.predicate.QueryField
 import com.amplifyframework.core.model.query.predicate.QueryPredicateGroup
@@ -25,7 +25,7 @@ class QueryPredicateBuilderTest {
     private val inventoryName = QueryField.field("name")
     private val inventoryWarehouseID = QueryField.field("warehouseID")
     private val inventoryRegion = QueryField.field("region")
-    private val cpkBlogForeignKeyField = QueryField.field("Post","@@blogForeignKey")
+    private val cpkBlogForeignKeyField = QueryField.field("Post", "@@blogForeignKey")
 
     @Test
     fun test_when_id_not_equals() {
@@ -33,7 +33,8 @@ class QueryPredicateBuilderTest {
             id.ne("123"),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "id_not_equals.json",
+                    "query_predicate",
+                    "id_not_equals.json",
                     HashMap::class.java
                 ).cast()
             )
@@ -167,7 +168,8 @@ class QueryPredicateBuilderTest {
                 .and(inventoryRegion.eq("some region")),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "model_identifier_equals.json",
+                    "query_predicate",
+                    "model_identifier_equals.json",
                     HashMap::class.java
                 ).cast()
             )
@@ -183,7 +185,8 @@ class QueryPredicateBuilderTest {
                 .and(inventoryRegion.ne("some region")),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "model_identifier_not_equals.json",
+                    "query_predicate",
+                    "model_identifier_not_equals.json",
                     HashMap::class.java
                 ).cast()
             )
@@ -201,7 +204,8 @@ class QueryPredicateBuilderTest {
             ),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "model_identifier_group_not_equals.json",
+                    "query_predicate",
+                    "model_identifier_group_not_equals.json",
                     HashMap::class.java
                 ).cast()
             )
@@ -215,11 +219,12 @@ class QueryPredicateBuilderTest {
                 inventoryProductID.ne("product-id")
                     .and(inventoryName.ne("product-name"))
                     .and(inventoryWarehouseID.ne("warehouse-id"))
-                    .and(inventoryRegion.ne("some region")),
+                    .and(inventoryRegion.ne("some region"))
             ),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "model_identifier_group_equals.json",
+                    "query_predicate",
+                    "model_identifier_group_equals.json",
                     HashMap::class.java
                 ).cast()
             )
@@ -229,12 +234,16 @@ class QueryPredicateBuilderTest {
     @Test
     fun test_when_query_by_nested_model_identifier() {
         Assert.assertEquals(
-            cpkBlogForeignKeyField.eq(ModelIdentifier.Helper.getIdentifier(
-                "123", listOf("the parent")
-            )),
+            cpkBlogForeignKeyField.eq(
+                ModelIdentifier.Helper.getIdentifier(
+                    "123",
+                    listOf("the parent")
+                )
+            ),
             QueryPredicateBuilder.fromSerializedMap(
                 readMapFromFile(
-                    "query_predicate", "query_by_nested_model_identifier.json",
+                    "query_predicate",
+                    "query_by_nested_model_identifier.json",
                     HashMap::class.java
                 ).cast(),
                 cpkPostSchema
