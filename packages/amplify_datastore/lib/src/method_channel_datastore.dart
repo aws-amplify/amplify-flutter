@@ -140,10 +140,14 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         throw DataStoreException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       print('serializedResults: $serializedResults');
-      return serializedResults
-          .map((serializedResult) => modelType
-              .fromJson(new Map<String, dynamic>.from(serializedResult)))
-          .toList();
+      return serializedResults.map((serializedResult) {
+        final stringMap = new Map<String, dynamic>.from(serializedResult);
+        final model = modelType.fromJson(stringMap);
+        print('stringMap: $stringMap');
+        print('model: $model');
+        print('modelType: $modelType');
+        return model;
+      }).toList();
     } on PlatformException catch (e) {
       throw _deserializeException(e);
     } on TypeError catch (e) {
