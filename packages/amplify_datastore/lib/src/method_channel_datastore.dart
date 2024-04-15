@@ -139,6 +139,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
       if (serializedResults == null)
         throw DataStoreException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
+      print('serializedResults: $serializedResults');
       return serializedResults
           .map((serializedResult) => modelType
               .fromJson(new Map<String, dynamic>.from(serializedResult)))

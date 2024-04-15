@@ -94,6 +94,7 @@ void main() {
       var posts = await Amplify.DataStore.query(Post.classType);
       expect(posts.length, 1);
       var post = posts[0];
+      print("posts:: $post");
       expect(post.blog!.id, testBlog.id);
     });
   });
