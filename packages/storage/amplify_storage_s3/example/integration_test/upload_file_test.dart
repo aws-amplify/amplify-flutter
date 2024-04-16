@@ -44,10 +44,11 @@ void main() {
       );
 
       testWidgets('from path', (_) async {
-        final path = 'public/upload-file-from-path-${uuid()}';
+        final fileId = uuid();
+        final path = 'public/upload-file-from-path-$fileId';
         const content = 'upload data';
         final data = content.codeUnits;
-        final filePath = await createFile(path: path, content: content);
+        final filePath = await createFile(path: fileId, content: content);
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadFile(
           localFile: AWSFile.fromPath(filePath),
@@ -79,15 +80,13 @@ void main() {
     });
 
     testWidgets('with identity ID', (_) async {
+      final fileId = uuid();
       final userIdentityId = await signInNewUser();
-      final name = 'upload-file-with-identity-id-${uuid()}';
+      final name = 'upload-file-with-identity-id-$fileId';
       const content = 'upload data';
       final data = content.codeUnits;
       final expectedResolvedPath = 'private/$userIdentityId/$name';
-      final filePath = await createFile(
-        path: expectedResolvedPath,
-        content: content,
-      );
+      final filePath = await createFile(path: fileId, content: content);
       addTearDownPath(StoragePath.fromString(expectedResolvedPath));
       final result = await Amplify.Storage.uploadFile(
         localFile: AWSFile.fromPath(filePath),
@@ -151,10 +150,11 @@ void main() {
       });
 
       testWidgets('useAccelerateEndpoint', (_) async {
-        final path = 'public/upload-file-acceleration-${uuid()}';
+        final fileId = uuid();
+        final path = 'public/upload-file-acceleration-$fileId';
         const content = 'upload data';
         final data = content.codeUnits;
-        final filePath = await createFile(path: path, content: content);
+        final filePath = await createFile(path: fileId, content: content);
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadFile(
           localFile: AWSFile.fromPath(filePath),
