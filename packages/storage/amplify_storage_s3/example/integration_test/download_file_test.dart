@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'utils/configure.dart';
 import 'utils/sign_in_new_user.dart';
+import 'utils/tear_down.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -51,10 +52,6 @@ void main() {
       metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
       metadaFilePath = 'public/download-file-get-properties-${uuid()}';
 
-      addTearDown(
-        () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
-      );
-
       metadata = {'foo': 'bar'};
 
       await Amplify.Storage.uploadData(
@@ -68,14 +65,12 @@ void main() {
         ),
       ).result;
 
-      addTearDown(
-        () => Amplify.Storage.removeMany(
-          paths: [
-            StoragePath.fromString(filePath),
-            StoragePath.fromString(metadaFilePath),
-            StoragePath.fromString(identityPath),
-          ],
-        ).result,
+      addTearDownPaths(
+        [
+          StoragePath.fromString(filePath),
+          StoragePath.fromString(metadaFilePath),
+          StoragePath.fromString(identityPath),
+        ],
       );
     });
 

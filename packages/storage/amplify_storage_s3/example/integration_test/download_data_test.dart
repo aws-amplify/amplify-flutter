@@ -11,6 +11,7 @@ import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
 import 'utils/sign_in_new_user.dart';
+import 'utils/tear_down.dart';
 
 void main() {
   late String bytesPath;
@@ -61,15 +62,13 @@ void main() {
         ),
       ).result;
 
-      addTearDown(
-        () => Amplify.Storage.removeMany(
-          paths: [
-            StoragePath.fromString(bytesPath),
-            StoragePath.fromIdentityId(
-              (identityId) => 'private/$identityId/$identityName',
-            ),
-          ],
-        ).result,
+      addTearDownPaths(
+        [
+          StoragePath.fromString(bytesPath),
+          StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$identityName',
+          ),
+        ],
       );
     });
 

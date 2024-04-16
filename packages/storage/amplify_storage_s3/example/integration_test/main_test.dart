@@ -10,10 +10,10 @@ import 'get_properties_test.dart' as get_properties_test;
 import 'get_url_test.dart' as get_url_test;
 import 'issues/get_url_special_characters_test.dart'
     as get_url_special_characters_tests;
+import 'list_test.dart' as list_tests;
 import 'upload_data_test.dart' as upload_data_test;
 import 'upload_file_test.dart' as upload_file_test;
 import 'use_case_test.dart' as use_case_tests;
-import 'list_test.dart' as list_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

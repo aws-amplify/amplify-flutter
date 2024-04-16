@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
+import 'utils/tear_down.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -33,12 +34,9 @@ void main() {
         ).result;
       }
 
-      addTearDown(() async {
-        for (final path in uploadedPaths) {
-          await Amplify.Storage.remove(path: StoragePath.fromString(path))
-              .result;
-        }
-      });
+      for (final path in uploadedPaths) {
+        addTearDownPath(StoragePath.fromString(path));
+      }
     });
 
     group('list() without options', () {
