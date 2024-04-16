@@ -176,7 +176,7 @@ class _PackageSelector extends PackageSelector {
   @override
   Object? toJson() => {
         'include': _include.toJson(),
-        if (_exclude != null) 'exclude': _exclude!.toJson(),
+        if (_exclude != null) 'exclude': _exclude.toJson(),
       };
 }
 

@@ -6,8 +6,8 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/an
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.3.0
+  flutter: ^3.19.0
 
 # Helps `pana` since we do not use Flutter plugins for most platforms
 platforms:
@@ -24,11 +24,11 @@ dependencies:
   amplify_db_common: ">=0.3.3 <0.4.0"
   amplify_secure_storage: ">=0.4.0+6 <0.5.0"
   aws_common: ">=0.6.3 <0.7.0"
-  device_info_plus: ^9.0.0
+  device_info_plus: ^10.0.1
   flutter:
     sdk: flutter
   meta: ^1.7.0
-  package_info_plus: ">=4.0.1 <6.0.0"
+  package_info_plus: ^6.0.0
   path_provider: ^2.0.0
 
 dev_dependencies:
