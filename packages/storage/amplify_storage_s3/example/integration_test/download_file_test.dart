@@ -95,7 +95,7 @@ void main() {
         expect(result.localFile.path, downloadFilePath);
         expect(result.downloadedItem.path, filePath);
       });
-      
+
       testWidgets('to file fromString', (_) async {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file1.txt';
