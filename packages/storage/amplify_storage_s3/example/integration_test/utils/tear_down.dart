@@ -26,7 +26,8 @@ void addTearDownPaths(List<StoragePath> paths) {
     () {
       try {
         return Future.wait(
-            paths.map((path) => Amplify.Storage.remove(path: path).result),);
+          paths.map((path) => Amplify.Storage.remove(path: path).result),
+        );
       } on Exception catch (e) {
         _logger.warn('Failed to remove files after test', e);
         rethrow;
