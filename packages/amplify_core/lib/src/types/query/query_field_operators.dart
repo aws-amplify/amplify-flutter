@@ -382,26 +382,28 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
   bool evaluateSerialized(String? other) => evaluate(other);
 }
 
-class AttributeExistsQueryOperator extends QueryFieldOperatorSingleValue<bool> {
-  const AttributeExistsQueryOperator({bool exists = true})
-      : super(exists, QueryFieldOperatorType.attribute_exists);
+class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
+  const AttributeExistsQueryOperator({this.exists = true})
+      : super(QueryFieldOperatorType.attribute_exists);
+
+  final bool exists;
 
   @override
-  bool evaluate(bool? other) {
-    if (other == null) {
-      return false;
+  bool evaluate(T? other) {
+    if (exists == true) {
+      return other != null;
     }
-    return other == value;
+    return other == null;
   }
 
   @override
-  bool evaluateSerialized(bool? other) => evaluate(other);
+  bool evaluateSerialized(T? other) => evaluate(other);
 
   @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.attribute_exists.toShortString(),
-      'value': serializeDynamicValue(value),
+      'exists': this.exists,
     };
   }
 }

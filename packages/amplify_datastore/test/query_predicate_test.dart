@@ -439,6 +439,12 @@ void main() {
       expect(testPredicate.evaluate(post2), isTrue);
     });
 
+    test('attributeExists', () {
+      QueryPredicate testPredicate = Post.LIKECOUNT.attributeExists();
+      expect(testPredicate.evaluate(post4), isFalse);
+      expect(testPredicate.evaluate(post2), isTrue);
+    });
+
     test('Temporal type', () {
       QueryPredicate testPredicate = Post.CREATED.lt(TemporalDateTime(
         DateTime(2020, 01, 01, 12, 00),
