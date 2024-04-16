@@ -16,7 +16,5 @@ Future<void> configure(String config) async {
 
   await Amplify.addPlugins([authPlugin, storagePlugin]);
   await Amplify.configure(config);
-  addTearDown(() {
-    return Amplify.reset();
-  });
+  addTearDown(Amplify.reset);
 }

@@ -14,7 +14,6 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
   /// {@macro amplify_storage_s3_.amplify_storage_s3_plugin}
   AmplifyStorageS3({
     super.delimiter,
-    super.prefixResolver,
   });
 
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve

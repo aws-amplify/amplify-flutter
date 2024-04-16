@@ -11,7 +11,6 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart'
     as download_file_impl;
-import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/transfer.dart'
     as transfer;
@@ -32,10 +31,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
-    S3PrefixResolver? prefixResolver,
     @visibleForTesting DependencyManager? dependencyManagerOverride,
   })  : _delimiter = delimiter,
-        _prefixResolver = prefixResolver,
         _dependencyManagerOverride = dependencyManagerOverride;
 
   /// {@template amplify_storage_s3_dart.plugin_key}
@@ -57,13 +54,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   @protected
   late final S3PluginConfig s3pluginConfig;
 
-  S3PrefixResolver? _prefixResolver;
-
   late S3PathResolver _pathResolver;
-
-  /// Gets prefix resolver for testing
-  @visibleForTesting
-  S3PrefixResolver? get prefixResolver => _prefixResolver;
 
   /// Gets the instance of dependent [StorageS3Service].
   @protected
@@ -94,8 +85,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       );
     }
 
-    _prefixResolver ??= StorageAccessLevelAwarePrefixResolver(
-      delimiter: _delimiter,
+    _pathResolver = S3PathResolver(
       identityProvider: identityProvider,
     );
 

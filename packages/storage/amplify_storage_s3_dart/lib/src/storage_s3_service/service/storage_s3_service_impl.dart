@@ -557,32 +557,6 @@ class StorageS3Service {
           .uri
           .host;
 
-  /// Resolve a client object key to a "full" object key with proper prefix.
-  ///
-  /// This API is only used internally.
-  @internal
-  static Future<String> getResolvedPrefix({
-    required S3PrefixResolver prefixResolver,
-    required AWSLogger logger,
-    required StorageAccessLevel accessLevel,
-    String? identityId,
-  }) async {
-    try {
-      return await prefixResolver.resolvePrefix(
-        accessLevel: accessLevel,
-        identityId: identityId,
-      );
-    } on Exception catch (error, st) {
-      logger.error('Error happened while resolving prefix', error, st);
-      throw UnknownException(
-        'An error occurred while resolving the prefix.',
-        recoverySuggestion:
-            'If you are providing a custom prefix resolver, review the underlying exception to determine the cause.',
-        underlyingException: error,
-      );
-    }
-  }
-
   /// Creates and sends a [s3.HeadObjectRequest] to S3 service, and then
   /// returns a [s3.HeadObjectOutput].
   ///

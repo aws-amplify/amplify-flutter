@@ -21,20 +21,6 @@ import '../test_utils/test_token_provider.dart';
 const testDelimiter = '#';
 const testPath = StoragePath.fromString('some/path.txt');
 
-class TestPrefixResolver implements S3PrefixResolver {
-  @override
-  Future<String> resolvePrefix({
-    required StorageAccessLevel accessLevel,
-    String? identityId,
-  }) async {
-    if (identityId == 'throw exception for me') {
-      throw Exception('elaborated exception');
-    }
-
-    return '${accessLevel.defaultPrefix}$testDelimiter';
-  }
-}
-
 void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
