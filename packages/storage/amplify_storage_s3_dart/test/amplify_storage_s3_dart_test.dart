@@ -4,27 +4,23 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/prefix_resolver/storage_access_level_aware_prefix_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import 'test_utils/mocks.dart';
-import 'test_utils/test_custom_prefix_resolver.dart';
 import 'test_utils/test_path_resolver.dart';
 import 'test_utils/test_token_provider.dart';
 
 const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
-  const testDefaultStorageAccessLevel = StorageAccessLevel.guest;
   const testConfig = AmplifyConfig(
     storage: StorageConfig(
       plugins: {
         S3PluginConfig.pluginKey: S3PluginConfig(
           bucket: '123',
           region: 'west-2',
-          defaultAccessLevel: testDefaultStorageAccessLevel,
         ),
       },
     ),
@@ -55,52 +51,6 @@ void main() {
 
     tearDown(() {
       dependencyManager.close();
-    });
-
-    test('constructor should take in custom prefix resolver', () {
-      final s3Plugin = AmplifyStorageS3Dart(
-        prefixResolver: TestCustomPrefixResolver(),
-        dependencyManagerOverride: dependencyManager,
-      );
-      final prefixResolver = s3Plugin.prefixResolver;
-      expect(prefixResolver is TestCustomPrefixResolver, isTrue);
-    });
-
-    test(
-        'configure should set up default prefix resolver when custom prefix resolver is NOT supplied',
-        () async {
-      final s3Plugin = AmplifyStorageS3Dart(
-        dependencyManagerOverride: dependencyManager,
-      );
-      await s3Plugin.configure(
-        config: testConfig,
-        authProviderRepo: testAuthProviderRepo,
-      );
-      dependencyManager.addInstance<StorageS3Service>(storageS3Service);
-      final prefixResolver = s3Plugin.prefixResolver;
-      expect(prefixResolver is StorageAccessLevelAwarePrefixResolver, isTrue);
-    });
-
-    test(
-        'configure should set identityProvider for the default prefix resolver',
-        () async {
-      final s3Plugin = AmplifyStorageS3Dart(
-        dependencyManagerOverride: dependencyManager,
-      );
-      await s3Plugin.configure(
-        config: testConfig,
-        authProviderRepo: testAuthProviderRepo,
-      );
-      dependencyManager.addInstance<StorageS3Service>(storageS3Service);
-      final prefixResolver =
-          s3Plugin.prefixResolver as StorageAccessLevelAwarePrefixResolver;
-      final identityProvider = prefixResolver.identityProvider;
-      expect(
-        identityProvider,
-        testAuthProviderRepo.getAuthProvider(
-          APIAuthorizationType.userPools.authProviderToken,
-        ),
-      );
     });
   });
 

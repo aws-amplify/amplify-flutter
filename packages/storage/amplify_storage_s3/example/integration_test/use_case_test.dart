@@ -19,27 +19,6 @@ import 'content_type_infer/content_type_infer.dart';
 import 'transfer_acceleration/test_acceleration_config.dart';
 import 'transfer_acceleration/transfer_acceleration.dart';
 
-class CustomPrefixResolver implements S3PrefixResolver {
-  const CustomPrefixResolver();
-
-  @override
-  Future<String> resolvePrefix({
-    required StorageAccessLevel accessLevel,
-    String? identityId,
-  }) async {
-    final session = await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
-    final currentUserIdentityId = session.identityIdResult.value;
-    switch (accessLevel) {
-      case StorageAccessLevel.guest:
-        return 'everyone/';
-      case StorageAccessLevel.protected:
-        return 'shared/${identityId ?? currentUserIdentityId}/';
-      case StorageAccessLevel.private:
-        return 'private/$currentUserIdentityId/';
-    }
-  }
-}
-
 void main() {
   // Disable Drift multi QueryExecutor warning as we know what's going on
   // in this test suite
@@ -67,7 +46,6 @@ void main() {
   for (final entry in amplifyEnvironments.entries
       .where((element) => element.key != 'custom-prefix')) {
     group('[Environment ${entry.key}]', () {
-      S3PrefixResolver? prefixResolver;
       late String user1IdentityId;
       late String object1Etag;
       late String object2Etag;
@@ -75,17 +53,12 @@ void main() {
       final shouldTestTransferAcceleration = entry.key != 'dots-in-name';
 
       setUpAll(() async {
-        if (entry.key == 'custom-prefix') {
-          prefixResolver = const CustomPrefixResolver();
-        } else if (entry.key == 'no-prefix') {
-          prefixResolver = const PassThroughPrefixResolver();
-        }
         final authPlugin = AmplifyAuthCognito(
           secureStorageFactory: AmplifySecureStorage.factoryFrom(
             macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         );
-        final storagePlugin = AmplifyStorageS3(prefixResolver: prefixResolver);
+        final storagePlugin = AmplifyStorageS3();
         await Amplify.addPlugins([authPlugin, storagePlugin]);
         await Amplify.configure(amplifyEnvironments[entry.key]!);
 
