@@ -195,7 +195,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
                             val message = FlutterSubscriptionDataProcessedEvent(
                                 hubEvent.name,
                                 model,
-                                eventData.syncMetadata,
+                                eventData.syncMetadata
                             )
                             sendEvent(message.toValueMap())
                         } else {
