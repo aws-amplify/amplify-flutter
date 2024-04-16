@@ -49,7 +49,7 @@ void main() {
 
       metaDataPath = 'public/download-data-get-properties-${uuid()}';
 
-      metadata = {'foo': 'bar'};
+      metadata = {'description': 'foo'};
 
       await Amplify.Storage.uploadData(
         path: StoragePath.fromString(metaDataPath),

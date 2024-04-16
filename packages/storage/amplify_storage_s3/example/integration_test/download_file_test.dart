@@ -52,7 +52,7 @@ void main() {
       metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
       metadaFilePath = 'public/download-file-get-properties-${uuid()}';
 
-      metadata = {'foo': 'bar'};
+      metadata = {'description': 'foo'};
 
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
