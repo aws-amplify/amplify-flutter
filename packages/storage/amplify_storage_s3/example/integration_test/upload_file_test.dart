@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
-import 'utils/create_file/create_file_io.dart';
+import 'utils/create_file/create_file.dart';
 import 'utils/sign_in_new_user.dart';
 import 'utils/tear_down.dart';
 
@@ -39,7 +39,7 @@ void main() {
           ).result;
           expect(downloadResult.bytes, data);
         },
-        // TODO(Jordan-Nelson): Resolve bu with `AWSFile.fromData` on web.
+        // TODO(Jordan-Nelson): Resolve bug with `AWSFile.fromData` on web.
         skip: kIsWeb,
       );
 
@@ -81,11 +81,16 @@ void main() {
     testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'upload-file-with-identity-id-${uuid()}';
-      final data = 'upload data'.codeUnits;
+      const content = 'upload data';
+      final data = content.codeUnits;
       final expectedResolvedPath = 'private/$userIdentityId/$name';
+      final filePath = await createFile(
+        path: expectedResolvedPath,
+        content: content,
+      );
       addTearDownPath(StoragePath.fromString(expectedResolvedPath));
       final result = await Amplify.Storage.uploadFile(
-        localFile: AWSFile.fromData(data),
+        localFile: AWSFile.fromPath(filePath),
         path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$name',
         ),
@@ -147,10 +152,12 @@ void main() {
 
       testWidgets('useAccelerateEndpoint', (_) async {
         final path = 'public/upload-file-acceleration-${uuid()}';
-        final data = 'useAccelerateEndpoint'.codeUnits;
+        const content = 'upload data';
+        final data = content.codeUnits;
+        final filePath = await createFile(path: path, content: content);
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadFile(
-          localFile: AWSFile.fromData(data),
+          localFile: AWSFile.fromPath(filePath),
           path: StoragePath.fromString(path),
           options: const StorageUploadFileOptions(
             pluginOptions: S3UploadFilePluginOptions(
