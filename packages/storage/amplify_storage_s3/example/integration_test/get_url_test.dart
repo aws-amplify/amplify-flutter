@@ -48,9 +48,7 @@ void main() {
       addTearDownPath(StoragePath.fromString(expectedResolvedPath));
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$name',
-        ),
+        path: StoragePath.fromString(expectedResolvedPath),
       ).result;
 
       final result = await Amplify.Storage.getUrl(
