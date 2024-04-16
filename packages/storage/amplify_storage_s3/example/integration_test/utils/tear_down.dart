@@ -14,6 +14,7 @@ void addTearDownPath(StoragePath path) {
         return Amplify.Storage.remove(path: path).result;
       } on Exception catch (e) {
         _logger.warn('Failed to remove file after test', e);
+        rethrow;
       }
     },
   );
@@ -26,6 +27,7 @@ void addTearDownCurrentUser() {
       return Amplify.Auth.deleteUser();
     } on Exception catch (e) {
       _logger.warn('Failed to delete user after test', e);
+      rethrow;
     }
   });
 }
