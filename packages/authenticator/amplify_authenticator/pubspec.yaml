@@ -6,8 +6,8 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/au
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.3.0
+  flutter: ^3.19.0
 
 dependencies:
   amplify_auth_cognito: ">=1.7.0 <1.8.0"
@@ -23,7 +23,7 @@ dependencies:
   intl: ">=0.18.0 <1.0.0"
   meta: ^1.7.0
   # TODO(equartey): Remove this once we have our own method of getting the app name
-  package_info_plus: ">=4.0.1 <6.0.0"
+  package_info_plus: ^6.0.0
   qr_flutter: 4.1.0
   smithy: ">=0.6.2 <0.7.0"
   stream_transform: ^2.0.0

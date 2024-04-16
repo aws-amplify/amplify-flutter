@@ -26,7 +26,7 @@ class _EquatableVisitor with XmlVisitor {
   List<XmlNode> _children(XmlHasChildren node) => [
         ...<XmlElement>[...node.childElements]
           ..sort((a, b) => a.name.local.compareTo(b.name.local)),
-        ...node.children.where((el) => el is! XmlElement)
+        ...node.children.where((el) => el is! XmlElement),
       ];
 
   /// Visit an [XmlName].

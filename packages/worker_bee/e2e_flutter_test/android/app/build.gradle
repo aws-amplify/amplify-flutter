@@ -26,8 +26,8 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    // TODO(dnys1): Replace with `flutter.compileSdkVersion` when bumping min Flutter version
-    compileSdkVersion 33
+    namespace 'com.amazonaws.amplify.e2e_flutter_test'
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
