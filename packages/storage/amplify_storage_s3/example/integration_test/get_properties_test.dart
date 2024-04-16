@@ -16,14 +16,14 @@ void main() {
   group('getProperties()', () {
     final path = 'public/get-properties-${uuid()}';
     final data = 'get properties data'.codeUnits;
-    final metadata = {'foo': 'bar'};
+    const metadata = {'description': 'foo'};
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
       addTearDownPath(StoragePath.fromString(path));
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
         path: StoragePath.fromString(path),
-        options: StorageUploadDataOptions(metadata: metadata),
+        options: const StorageUploadDataOptions(metadata: metadata),
       ).result;
     });
 
@@ -48,7 +48,7 @@ void main() {
         path: StoragePath.fromIdentityId(
           (identityId) => 'private/$identityId/$name',
         ),
-        options: StorageUploadDataOptions(metadata: metadata),
+        options: const StorageUploadDataOptions(metadata: metadata),
       ).result;
       final result = await Amplify.Storage.getProperties(
         path: StoragePath.fromIdentityId(

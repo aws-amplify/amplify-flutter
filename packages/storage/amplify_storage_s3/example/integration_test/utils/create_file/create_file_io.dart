@@ -5,10 +5,13 @@ import 'dart:io' as io;
 
 import 'package:path/path.dart' as p;
 
-Future<String> createFile(String path, List<int> bytes) async {
+Future<String> createFile({
+  required String path,
+  required String content,
+}) async {
   final tempPath = io.Directory.systemTemp.path;
   final file = io.File(p.join(tempPath, path));
   await file.create(recursive: true);
-  await file.writeAsBytes(bytes);
+  await file.writeAsBytes(content.codeUnits);
   return file.path;
 }

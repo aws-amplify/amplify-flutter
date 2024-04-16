@@ -172,7 +172,7 @@ void main() {
       testWidgets('metadata', (_) async {
         final path = 'public/upload-data-with-metadata-${uuid()}';
         final data = 'metadata'.codeUnits;
-        const metadata = {'foo': 'bar'};
+        const metadata = {'description': 'foo'};
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
@@ -190,7 +190,7 @@ void main() {
       testWidgets('getProperties', (_) async {
         final path = 'public/upload-data-get-properties-${uuid()}';
         final data = 'getProperties'.codeUnits;
-        const metadata = {'foo': 'bar'};
+        const metadata = {'description': 'foo'};
         addTearDownPath(StoragePath.fromString(path));
         final result = await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
