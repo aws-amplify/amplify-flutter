@@ -454,6 +454,11 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
       ],
     };
   }
+  if (queryFieldOperator is AttributeExistsQueryOperator) {
+    return <String, dynamic>{
+      filterExpression: _getSerializedValue(queryFieldOperator.exists),
+    };
+  }
 
   throw ApiOperationException(
     'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.',
