@@ -139,11 +139,6 @@ void main() {
         final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-        addTearDown(
-          () =>
-              Amplify.Storage.remove(path: StoragePath.fromString(publicPath)),
-        );
-
         final result = await Amplify.Storage.downloadFile(
           path: StoragePath.fromString(publicPath),
           options: const StorageDownloadFileOptions(
