@@ -14,17 +14,16 @@ import 'utils/sign_in_new_user.dart';
 import 'utils/tear_down.dart';
 
 void main() {
-  late String bytesPath;
-  late List<int> bytesData;
-  late String identityName;
-  late List<int> identityData;
-  late String userIdentityId;
-  late String metaDataPath;
-  late Map<String, String> metadata;
-
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('downloadData()', () {
+    late String userIdentityId;
+    final bytesPath = 'public/download-data-${uuid()}';
+    final bytesData = 'test data'.codeUnits;
+    final identityName = 'upload-data-with-identity-id-${uuid()}';
+    final identityData = 'with identity ID'.codeUnits;
+    final metaDataPath = 'public/download-data-get-properties-${uuid()}';
+    final metadata = {'description': 'foo'};
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
       userIdentityId = await signInNewUser();
