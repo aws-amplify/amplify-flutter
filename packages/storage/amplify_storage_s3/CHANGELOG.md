@@ -1,3 +1,9 @@
+## 1.8.0
+
+### Features
+- feat: deprecate `Storage.move()` API ([#4638](https://github.com/aws-amplify/amplify-flutter/pull/4638))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
 ## 1.7.0
 
 - Minor bug fixes and improvements
