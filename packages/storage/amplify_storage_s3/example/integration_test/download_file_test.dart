@@ -25,7 +25,7 @@ void main() {
     final publicPath = 'public/download-file-from-data-${uuid()}';
     final data = 'test data'.codeUnits;
     final name = 'download-file-with-identity-id-${uuid()}';
-    final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
+    final metadataFilePath = 'public/download-file-get-properties-${uuid()}';
     final metadata = {'description': 'foo'};
 
     setUpAll(() async {
@@ -50,7 +50,7 @@ void main() {
 
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(metadaFilePath),
+        path: StoragePath.fromString(metadataFilePath),
         options: StorageUploadDataOptions(
           pluginOptions: const S3UploadDataPluginOptions(
             getProperties: true,
@@ -62,7 +62,7 @@ void main() {
       addTearDownPaths(
         [
           StoragePath.fromString(publicPath),
-          StoragePath.fromString(metadaFilePath),
+          StoragePath.fromString(metadataFilePath),
           StoragePath.fromString(identityPath),
         ],
       );
@@ -146,7 +146,8 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(publicPath)),
+          () =>
+              Amplify.Storage.remove(path: StoragePath.fromString(publicPath)),
         );
 
         final result = await Amplify.Storage.downloadFile(
@@ -168,7 +169,7 @@ void main() {
 
       testWidgets('getProperties', (_) async {
         final downloadResult = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(metadaFilePath),
+          path: StoragePath.fromString(metadataFilePath),
           options: const StorageDownloadFileOptions(
             pluginOptions: S3DownloadFilePluginOptions(
               getProperties: true,

@@ -22,7 +22,7 @@ void main() {
     final bytesData = 'test data'.codeUnits;
     final identityName = 'upload-data-with-identity-id-${uuid()}';
     final identityData = 'with identity ID'.codeUnits;
-    final metaDataPath = 'public/download-data-get-properties-${uuid()}';
+    final metadataPath = 'public/download-data-get-properties-${uuid()}';
     final metadata = {'description': 'foo'};
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
@@ -41,7 +41,7 @@ void main() {
       ).result;
 
       await Amplify.Storage.uploadData(
-        path: StoragePath.fromString(metaDataPath),
+        path: StoragePath.fromString(metadataPath),
         data: HttpPayload.bytes('get properties'.codeUnits),
         options: StorageUploadDataOptions(
           pluginOptions: const S3UploadDataPluginOptions(
@@ -54,6 +54,7 @@ void main() {
       addTearDownPaths(
         [
           StoragePath.fromString(publicPath),
+          StoragePath.fromString(metadataPath),
           StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$identityName',
           ),
@@ -61,7 +62,7 @@ void main() {
       );
     });
 
-    group('with options', () {
+    group('downloadData without options', () {
       testWidgets('from identity ID', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
           path: StoragePath.fromIdentityId(
@@ -74,9 +75,21 @@ void main() {
           'private/$userIdentityId/$identityName',
         );
       });
+
+      testWidgets('unauthorized path', (_) async {
+        expect(
+          () => Amplify.Storage.downloadData(
+            path: const StoragePath.fromString('unauthorized/path'),
+          ).result,
+          throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
+    });
+
+    group('with options', () {
       testWidgets('getProperties', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
-          path: StoragePath.fromString(metaDataPath),
+          path: StoragePath.fromString(metadataPath),
           options: const StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               getProperties: true,
@@ -84,7 +97,7 @@ void main() {
           ),
         ).result;
 
-        expect(downloadResult.downloadedItem.path, metaDataPath);
+        expect(downloadResult.downloadedItem.path, metadataPath);
         expect(downloadResult.downloadedItem.metadata, metadata);
       });
 
@@ -116,15 +129,6 @@ void main() {
 
         expect(utf8.decode(downloadResult.bytes), 'data');
         expect(downloadResult.downloadedItem.path, publicPath);
-      });
-
-      testWidgets('unauthorized path', (_) async {
-        expect(
-          () => Amplify.Storage.downloadData(
-            path: const StoragePath.fromString('unauthorized/path'),
-          ).result,
-          throwsA(isA<StorageAccessDeniedException>()),
-        );
       });
     });
   });
