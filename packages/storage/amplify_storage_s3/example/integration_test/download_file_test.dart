@@ -118,11 +118,6 @@ void main() {
     });
 
     testWidgets('from identity ID', (_) async {
-      addTearDown(
-        () => Amplify.Storage.remove(
-          path: StoragePath.fromString(identityPath),
-        ),
-      );
 
       final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
       final result = await Amplify.Storage.downloadFile(
