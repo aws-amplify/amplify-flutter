@@ -6,7 +6,7 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
   sdk: ^3.3.0
-  flutter: ^3.19.0
+  flutter: ">=3.19.0"
 
 # Helps `pana` since it does not detect Android support.
 platforms:
