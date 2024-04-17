@@ -70,7 +70,6 @@ void main() {
 
     group('for file type', () {
       testWidgets('to file', (_) async {
-        final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         final result = await Amplify.Storage.downloadFile(
