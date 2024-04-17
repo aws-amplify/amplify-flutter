@@ -1,3 +1,8 @@
+## 0.2.4
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
 ## 0.2.3
 
 ### Fixes
