@@ -19,7 +19,7 @@ void main() {
       '$uniquePrefix/file1.txt',
       '$uniquePrefix/file2.txt',
       '$uniquePrefix/subdir/file3.txt',
-    ]; 
+    ];
 
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);

@@ -22,7 +22,7 @@ void main() {
     late Directory tempDir;
     late String userIdentityId;
     late String metadataDownloadFilePath;
-    final filePath = 'public/download-file-from-data-${uuid()}';
+    final publicPath = 'public/download-file-from-data-${uuid()}';
     final data = 'test data'.codeUnits;
     final name = 'download-file-with-identity-id-${uuid()}';
     final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
@@ -32,7 +32,7 @@ void main() {
       await configure(amplifyEnvironments['main']!);
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(filePath),
+        path: StoragePath.fromString(publicPath),
       ).result;
 
       tempDir = await getTemporaryDirectory();
@@ -61,7 +61,7 @@ void main() {
 
       addTearDownPaths(
         [
-          StoragePath.fromString(filePath),
+          StoragePath.fromString(publicPath),
           StoragePath.fromString(metadaFilePath),
           StoragePath.fromString(identityPath),
         ],
@@ -74,7 +74,7 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(filePath),
+          path: StoragePath.fromString(publicPath),
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
@@ -82,7 +82,7 @@ void main() {
         expect(await downloadedFile.readAsBytes(), data);
         expect(downloadedFile.path, contains(downloadFilePath));
         expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, filePath);
+        expect(result.downloadedItem.path, publicPath);
       });
 
       testWidgets('to file fromString', (_) async {
@@ -90,7 +90,7 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file1.txt';
 
         final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(filePath),
+          path: StoragePath.fromString(publicPath),
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
@@ -98,7 +98,7 @@ void main() {
         expect(await downloadedFile.readAsBytes(), data);
         expect(downloadedFile.path, contains(downloadFilePath));
         expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, filePath);
+        expect(result.downloadedItem.path, publicPath);
       });
 
       testWidgets('to file fromData', (_) async {
@@ -106,7 +106,7 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file2.txt';
 
         final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(filePath),
+          path: StoragePath.fromString(publicPath),
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
@@ -114,7 +114,7 @@ void main() {
         expect(await downloadedFile.readAsBytes(), data);
         expect(downloadedFile.path, contains(downloadFilePath));
         expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, filePath);
+        expect(result.downloadedItem.path, publicPath);
       });
     });
 
@@ -146,11 +146,11 @@ void main() {
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         addTearDown(
-          () => Amplify.Storage.remove(path: StoragePath.fromString(filePath)),
+          () => Amplify.Storage.remove(path: StoragePath.fromString(publicPath)),
         );
 
         final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(filePath),
+          path: StoragePath.fromString(publicPath),
           options: const StorageDownloadFileOptions(
             pluginOptions: S3DownloadFilePluginOptions(
               useAccelerateEndpoint: true,
@@ -163,7 +163,7 @@ void main() {
         expect(await downloadedFile.readAsBytes(), data);
         expect(downloadedFile.path, contains(downloadFilePath));
         expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, filePath);
+        expect(result.downloadedItem.path, publicPath);
       });
 
       testWidgets('getProperties', (_) async {

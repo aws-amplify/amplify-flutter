@@ -18,7 +18,7 @@ void main() {
 
   group('downloadData()', () {
     late String userIdentityId;
-    final bytesPath = 'public/download-data-${uuid()}';
+    final publicPath = 'public/download-data-${uuid()}';
     final bytesData = 'test data'.codeUnits;
     final identityName = 'upload-data-with-identity-id-${uuid()}';
     final identityData = 'with identity ID'.codeUnits;
@@ -29,7 +29,7 @@ void main() {
       userIdentityId = await signInNewUser();
 
       await Amplify.Storage.uploadData(
-        path: StoragePath.fromString(bytesPath),
+        path: StoragePath.fromString(publicPath),
         data: HttpPayload.bytes(bytesData),
       ).result;
 
@@ -53,7 +53,7 @@ void main() {
 
       addTearDownPaths(
         [
-          StoragePath.fromString(bytesPath),
+          StoragePath.fromString(publicPath),
           StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$identityName',
           ),
@@ -90,7 +90,7 @@ void main() {
 
       testWidgets('useAccelerateEndpoint', (_) async {
         final downloadResult = await Amplify.Storage.downloadData(
-          path: StoragePath.fromString(bytesPath),
+          path: StoragePath.fromString(publicPath),
           options: const StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               useAccelerateEndpoint: true,
@@ -98,7 +98,7 @@ void main() {
           ),
         ).result;
 
-        expect(downloadResult.downloadedItem.path, bytesPath);
+        expect(downloadResult.downloadedItem.path, publicPath);
         expect(downloadResult.bytes, bytesData);
       });
 
@@ -106,7 +106,7 @@ void main() {
         final bytesRange = S3DataBytesRange(start: 5, end: 9);
 
         final downloadResult = await Amplify.Storage.downloadData(
-          path: StoragePath.fromString(bytesPath),
+          path: StoragePath.fromString(publicPath),
           options: StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               bytesRange: bytesRange,
@@ -115,7 +115,7 @@ void main() {
         ).result;
 
         expect(utf8.decode(downloadResult.bytes), 'data');
-        expect(downloadResult.downloadedItem.path, bytesPath);
+        expect(downloadResult.downloadedItem.path, publicPath);
       });
 
       testWidgets('unauthorized path', (_) async {
