@@ -14,18 +14,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('list()', () {
-    late String uniquePrefix;
-    late List<String> uploadedPaths;
+    final uniquePrefix = 'public/test-list-${uuid()}';
+    final uploadedPaths = <String>[
+      '$uniquePrefix/file1.txt',
+      '$uniquePrefix/file2.txt',
+      '$uniquePrefix/subdir/file3.txt',
+    ]; 
 
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
-
-      uniquePrefix = 'public/test-list-${uuid()}';
-      uploadedPaths = [
-        '$uniquePrefix/file1.txt',
-        '$uniquePrefix/file2.txt',
-        '$uniquePrefix/subdir/file3.txt',
-      ];
 
       for (final path in uploadedPaths) {
         await Amplify.Storage.uploadData(

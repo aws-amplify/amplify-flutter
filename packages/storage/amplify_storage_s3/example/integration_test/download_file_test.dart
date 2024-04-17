@@ -18,20 +18,18 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('downloadFile()', () {
-    late String filePath;
-    late List<int> data;
     late String identityPath;
     late Directory tempDir;
     late String userIdentityId;
-    late String name;
-    late String metadaFilePath;
     late String metadataDownloadFilePath;
-    late Map<String, String> metadata;
+    final filePath = 'public/download-file-from-data-${uuid()}';
+    final data = 'test data'.codeUnits;
+    final name = 'download-file-with-identity-id-${uuid()}';
+    final metadaFilePath = 'public/download-file-get-properties-${uuid()}';
+    final metadata = {'description': 'foo'};
 
     setUpAll(() async {
       await configure(amplifyEnvironments['main']!);
-      filePath = 'public/download-file-from-data-${uuid()}';
-      data = 'test data'.codeUnits;
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),
         path: StoragePath.fromString(filePath),
@@ -39,7 +37,6 @@ void main() {
 
       tempDir = await getTemporaryDirectory();
       userIdentityId = await signInNewUser();
-      name = 'download-file-with-identity-id-${uuid()}';
       identityPath = 'private/$userIdentityId/$name';
 
       await Amplify.Storage.uploadData(
@@ -50,9 +47,6 @@ void main() {
       ).result;
 
       metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
-      metadaFilePath = 'public/download-file-get-properties-${uuid()}';
-
-      metadata = {'description': 'foo'};
 
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(data),

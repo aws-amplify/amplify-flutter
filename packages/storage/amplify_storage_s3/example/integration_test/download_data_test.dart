@@ -28,16 +28,10 @@ void main() {
       await configure(amplifyEnvironments['main']!);
       userIdentityId = await signInNewUser();
 
-      bytesPath = 'public/download-data-${uuid()}';
-      bytesData = 'test data'.codeUnits;
-
       await Amplify.Storage.uploadData(
         path: StoragePath.fromString(bytesPath),
         data: HttpPayload.bytes(bytesData),
       ).result;
-
-      identityData = 'with identity ID'.codeUnits;
-      identityName = 'upload-data-with-identity-id-${uuid()}';
 
       await Amplify.Storage.uploadData(
         data: HttpPayload.bytes(identityData),
@@ -45,10 +39,6 @@ void main() {
           (identityId) => 'private/$identityId/$identityName',
         ),
       ).result;
-
-      metaDataPath = 'public/download-data-get-properties-${uuid()}';
-
-      metadata = {'description': 'foo'};
 
       await Amplify.Storage.uploadData(
         path: StoragePath.fromString(metaDataPath),
