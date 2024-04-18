@@ -41,7 +41,6 @@ jobs:
           persist-credentials: false
           submodules: true
 
-      # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK

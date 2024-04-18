@@ -164,10 +164,10 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     buffer.write('.${totalMicroseconds.toString().padLeft(9, '0')}');
 
     if (_offset != null) {
-      if (_offset!.inSeconds == 0) {
+      if (_offset.inSeconds == 0) {
         buffer.write('Z');
       } else {
-        buffer.write(Temporal.durationToOffset(_offset!));
+        buffer.write(Temporal.durationToOffset(_offset));
       }
     }
 
