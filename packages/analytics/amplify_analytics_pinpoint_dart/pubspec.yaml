@@ -9,7 +9,7 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=1.7.0 <1.8.0"
+  amplify_core: ^1.7.0
   amplify_db_common_dart: ">=0.3.5 <0.4.0"
   amplify_secure_storage_dart: ">=0.4.3 <0.5.0"
   aws_common: ">=0.6.3 <0.7.0"
@@ -26,13 +26,13 @@ dependencies:
   uuid: ">=3.0.6 <5.0.0"
 
 dev_dependencies:
-  amplify_lints: ">=3.0.2 <3.1.0"
+  amplify_lints: ^3.0.2
   build_runner: ^2.4.0
   build_test: ^2.1.5
   build_verify: ^3.0.0
   build_version: ^2.0.0
   build_web_compilers: ^4.0.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
   drift_dev: ">=2.14.0 <2.15.0"
   mocktail: ^1.0.0
   test: ^1.22.1
