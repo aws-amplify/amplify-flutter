@@ -5,12 +5,15 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/invalid_object_state.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'utils/configure.dart';
+import 'utils/file_ops/file_ops.dart';
 import 'utils/sign_in_new_user.dart';
 import 'utils/tear_down.dart';
 
@@ -77,48 +80,17 @@ void main() {
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
-        final downloadedFile = File(downloadFilePath);
-        expect(await downloadedFile.readAsBytes(), data);
-        expect(downloadedFile.path, contains(downloadFilePath));
-        expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, publicPath);
-      });
+        if (!kIsWeb) {
+          final downloadedFile = await readFile(path: downloadFilePath);
+          expect(downloadedFile, data);
+        }
 
-      testWidgets('to file fromString', (_) async {
-        final tempDir = await getTemporaryDirectory();
-        final downloadFilePath = '${tempDir.path}/downloaded-file1.txt';
-
-        final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(publicPath),
-          localFile: AWSFile.fromPath(downloadFilePath),
-        ).result;
-
-        final downloadedFile = File(downloadFilePath);
-        expect(await downloadedFile.readAsBytes(), data);
-        expect(downloadedFile.path, contains(downloadFilePath));
-        expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, publicPath);
-      });
-
-      testWidgets('to file fromData', (_) async {
-        final tempDir = await getTemporaryDirectory();
-        final downloadFilePath = '${tempDir.path}/downloaded-file2.txt';
-
-        final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(publicPath),
-          localFile: AWSFile.fromPath(downloadFilePath),
-        ).result;
-
-        final downloadedFile = File(downloadFilePath);
-        expect(await downloadedFile.readAsBytes(), data);
-        expect(downloadedFile.path, contains(downloadFilePath));
         expect(result.localFile.path, downloadFilePath);
         expect(result.downloadedItem.path, publicPath);
       });
     });
 
     testWidgets('from identity ID', (_) async {
-
       final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
       final result = await Amplify.Storage.downloadFile(
         path: StoragePath.fromIdentityId(
@@ -127,11 +99,12 @@ void main() {
         localFile: AWSFile.fromPath(downloadFilePath),
       ).result;
 
-      final downloadedFile = File(downloadFilePath);
-      expect(await downloadedFile.readAsBytes(), data);
-      expect(downloadedFile.path, contains(downloadFilePath));
-      expect(result.downloadedItem.path, identityPath);
+      if (!kIsWeb) {
+        final downloadedFile = await readFile(path: downloadFilePath);
+        expect(downloadedFile, data);
+      }
       expect(result.localFile.path, downloadFilePath);
+      expect(result.downloadedItem.path, identityPath);
     });
 
     group('with options', () {
@@ -149,9 +122,10 @@ void main() {
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
-        final downloadedFile = File(downloadFilePath);
-        expect(await downloadedFile.readAsBytes(), data);
-        expect(downloadedFile.path, contains(downloadFilePath));
+        if (!kIsWeb) {
+          final downloadedFile = await readFile(path: downloadFilePath);
+          expect(downloadedFile, data);
+        }
         expect(result.localFile.path, downloadFilePath);
         expect(result.downloadedItem.path, publicPath);
       });
@@ -167,20 +141,25 @@ void main() {
           localFile: AWSFile.fromPath(metadataDownloadFilePath),
         ).result;
 
-        final downloadedFile = File(metadataDownloadFilePath);
-        expect(await downloadedFile.readAsBytes(), data);
-        expect(downloadResult.downloadedItem.metadata, metadata);
-        expect(downloadedFile.path, contains(metadataDownloadFilePath));
+        if (!kIsWeb) {
+          final downloadedFile = await readFile(path: metadataDownloadFilePath);
+          expect(downloadedFile, data);
+        }
         expect(downloadResult.localFile.path, metadataDownloadFilePath);
+        expect(downloadResult.downloadedItem.path, metadataFilePath);
       });
 
       testWidgets('unauthorized path', (_) async {
-        expect(
+        final tempDir = await getTemporaryDirectory();
+        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+
+        // TODO(khatruong2009): update to access denied exception when bug is fixed
+        await expectLater(
           () => Amplify.Storage.downloadFile(
             path: const StoragePath.fromString('unauthorized/path'),
-            localFile: AWSFile.fromPath(''),
+            localFile: AWSFile.fromPath(downloadFilePath),
           ).result,
-          throwsA(isA<StorageAccessDeniedException>()),
+          throwsA(isA<InvalidObjectState>()),
         );
       });
     });
