@@ -82,7 +82,7 @@ void main() {
           () => Amplify.Storage.downloadData(
             path: const StoragePath.fromString('unauthorized/path'),
           ).result,
-          // TODO(khatruong2009): update to access denied exception when bug is fixed
+          // TODO(khatruong2009): update to access denied exception when S3 exception mapping is fixed
           throwsA(isA<InvalidObjectState>()),
         );
       });
