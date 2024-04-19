@@ -7,17 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'utils/configure.dart';
+import 'utils/object_exists.dart';
 import 'utils/sign_in_new_user.dart';
-
-/// Returns true if an object exists at the given [path].
-Future<bool> objectExists(StoragePath path) async {
-  try {
-    await Amplify.Storage.getProperties(path: path).result;
-    return true;
-  } on StorageKeyNotFoundException {
-    return false;
-  }
-}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
