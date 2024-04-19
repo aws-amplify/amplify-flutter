@@ -63,7 +63,7 @@ void main() {
 
     group('unauthorized path', () {
       testWidgets('validateObjectExistence true', (_) async {
-        expect(
+        await expectLater(
           () => Amplify.Storage.getUrl(
             path: const StoragePath.fromString('unauthorized/path'),
             options: const StorageGetUrlOptions(
@@ -85,7 +85,7 @@ void main() {
             ),
           ),
         ).result;
-        expect(
+        await expectLater(
           () => readData(result.url),
           throwsA(isA<ClientException>()),
         );
@@ -107,14 +107,14 @@ void main() {
         final actualData = await readData(result.url);
         expect(actualData, data);
         await Future<void>.delayed(duration);
-        expect(
+        await expectLater(
           () => readData(result.url),
           throwsA(isA<ClientException>()),
         );
       });
 
       testWidgets('validateObjectExistence true', (_) async {
-        expect(
+        await expectLater(
           () => Amplify.Storage.getUrl(
             path: const StoragePath.fromString('public/non-existent-path'),
             options: const StorageGetUrlOptions(
@@ -128,7 +128,7 @@ void main() {
       });
 
       testWidgets('validateObjectExistence false', (_) async {
-        expect(
+        await expectLater(
           Amplify.Storage.getUrl(
             path: const StoragePath.fromString('public/non-existent-path'),
             options: const StorageGetUrlOptions(
