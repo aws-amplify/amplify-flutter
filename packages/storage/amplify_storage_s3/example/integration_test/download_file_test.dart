@@ -109,7 +109,6 @@ void main() {
 
     group('with options', () {
       testWidgets('useAccelerateEndpoint', (_) async {
-        final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         final result = await Amplify.Storage.downloadFile(
