@@ -169,18 +169,30 @@ class ManyToManySecondary extends amplify_core.Model {
       : id = json['id'],
         _name = json['name'],
         _firstMtmToPrimary = json['firstMtmToPrimary'] != null
-            ? (json['firstMtmToPrimary']['items'] as List)
-                .where((e) => e != null)
-                .map((e) =>
-                    FirstMtmRelation.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['firstMtmToPrimary'] is Map
+                ? (json['firstMtmToPrimary']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => FirstMtmRelation.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['firstMtmToPrimary'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => FirstMtmRelation.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _secondMtmToPrimary = json['secondMtmToPrimary'] != null
-            ? (json['secondMtmToPrimary']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => SecondMtmRelation.fromJson(
-                    new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['secondMtmToPrimary'] is Map
+                ? (json['secondMtmToPrimary']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => SecondMtmRelation.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['secondMtmToPrimary'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => SecondMtmRelation.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

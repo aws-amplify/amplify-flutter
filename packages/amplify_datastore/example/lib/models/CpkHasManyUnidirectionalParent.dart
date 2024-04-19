@@ -181,18 +181,30 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
       : id = json['id'],
         _name = json['name'],
         _implicitChildren = json['implicitChildren'] != null
-            ? (json['implicitChildren']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
-                    new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['implicitChildren'] is Map
+                ? (json['implicitChildren']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['implicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _explicitChildren = json['explicitChildren'] != null
-            ? (json['explicitChildren']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
-                    new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['explicitChildren'] is Map
+                ? (json['explicitChildren']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['explicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

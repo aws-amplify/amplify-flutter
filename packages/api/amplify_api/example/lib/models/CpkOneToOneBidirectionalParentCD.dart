@@ -284,12 +284,20 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
       : _customId = json['customId'],
         _name = json['name'],
         _implicitChild = json['implicitChild'] != null
-            ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['implicitChild']))
+            ? json['implicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['implicitChild']['serializedData']))
+                : CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+                    new Map<String, dynamic>.from(json['implicitChild']))
             : null,
         _explicitChild = json['explicitChild'] != null
-            ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
-                new Map<String, dynamic>.from(json['explicitChild']))
+            ? json['explicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['explicitChild']['serializedData']))
+                : CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+                    new Map<String, dynamic>.from(json['explicitChild']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

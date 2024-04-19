@@ -155,12 +155,18 @@ class MultiRelatedRegistration extends amplify_core.Model {
   MultiRelatedRegistration.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _meeting = json['meeting'] != null
-            ? MultiRelatedMeeting.fromJson(
-                new Map<String, dynamic>.from(json['meeting']))
+            ? json['meeting']['serializedData'] != null
+                ? MultiRelatedMeeting.fromJson(new Map<String, dynamic>.from(
+                    json['meeting']['serializedData']))
+                : MultiRelatedMeeting.fromJson(
+                    new Map<String, dynamic>.from(json['meeting']))
             : null,
         _attendee = json['attendee'] != null
-            ? MultiRelatedAttendee.fromJson(
-                new Map<String, dynamic>.from(json['attendee']))
+            ? json['attendee']['serializedData'] != null
+                ? MultiRelatedAttendee.fromJson(new Map<String, dynamic>.from(
+                    json['attendee']['serializedData']))
+                : MultiRelatedAttendee.fromJson(
+                    new Map<String, dynamic>.from(json['attendee']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

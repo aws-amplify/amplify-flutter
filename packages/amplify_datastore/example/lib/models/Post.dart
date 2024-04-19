@@ -220,19 +220,36 @@ class Post extends amplify_core.Model {
             ? amplify_core.TemporalDateTime.fromString(json['created'])
             : null,
         _blog = json['blog'] != null
-            ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
+            ? json['blog']['serializedData'] != null
+                ? Blog.fromJson(new Map<String, dynamic>.from(
+                    json['blog']['serializedData']))
+                : Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
         _comments = json['comments'] != null
-            ? (json['comments']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['comments'] is Map
+                ? (json['comments']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        Comment.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['comments'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => Comment.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _tags = json['tags'] != null
-            ? (json['tags']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['tags'] is Map
+                ? (json['tags']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        PostTags.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['tags'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => PostTags.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

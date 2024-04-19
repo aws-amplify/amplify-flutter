@@ -135,11 +135,17 @@ class CpkManyToManyPost extends amplify_core.Model {
       : id = json['id'],
         _title = json['title'],
         _tags = json['tags'] != null
-            ? (json['tags']['items'] as List)
-                .where((e) => e != null)
-                .map((e) =>
-                    CpkPostTags.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['tags'] is Map
+                ? (json['tags']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        CpkPostTags.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['tags'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CpkPostTags.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

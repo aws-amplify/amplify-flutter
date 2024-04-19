@@ -134,10 +134,17 @@ class Tag extends amplify_core.Model {
       : id = json['id'],
         _label = json['label'],
         _posts = json['posts'] != null
-            ? (json['posts']['items'] as List)
-                .where((e) => e != null)
-                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+            ? json['posts'] is Map
+                ? (json['posts']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        PostTags.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : (json['posts'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => PostTags.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

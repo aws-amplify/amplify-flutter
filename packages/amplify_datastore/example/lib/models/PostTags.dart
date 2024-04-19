@@ -141,10 +141,16 @@ class PostTags extends amplify_core.Model {
   PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _post = json['post'] != null
-            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
+            ? json['post']['serializedData'] != null
+                ? Post.fromJson(new Map<String, dynamic>.from(
+                    json['post']['serializedData']))
+                : Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
         _tag = json['tag'] != null
-            ? Tag.fromJson(new Map<String, dynamic>.from(json['tag']))
+            ? json['tag']['serializedData'] != null
+                ? Tag.fromJson(new Map<String, dynamic>.from(
+                    json['tag']['serializedData']))
+                : Tag.fromJson(new Map<String, dynamic>.from(json['tag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

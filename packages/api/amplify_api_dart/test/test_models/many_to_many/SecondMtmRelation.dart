@@ -163,12 +163,18 @@ class SecondMtmRelation extends amplify_core.Model {
   SecondMtmRelation.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _manyToManyPrimary = json['manyToManyPrimary'] != null
-            ? ManyToManyPrimary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManyPrimary']))
+            ? json['manyToManyPrimary']['serializedData'] != null
+                ? ManyToManyPrimary.fromJson(new Map<String, dynamic>.from(
+                    json['manyToManyPrimary']['serializedData']))
+                : ManyToManyPrimary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManyPrimary']))
             : null,
         _manyToManySecondary = json['manyToManySecondary'] != null
-            ? ManyToManySecondary.fromJson(
-                new Map<String, dynamic>.from(json['manyToManySecondary']))
+            ? json['manyToManySecondary']['serializedData'] != null
+                ? ManyToManySecondary.fromJson(new Map<String, dynamic>.from(
+                    json['manyToManySecondary']['serializedData']))
+                : ManyToManySecondary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManySecondary']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
