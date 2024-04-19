@@ -149,7 +149,6 @@ void main() {
       });
 
       testWidgets('unauthorized path', (_) async {
-        final tempDir = await getTemporaryDirectory();
         final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
         // TODO(khatruong2009): update to access denied exception when bug is fixed
