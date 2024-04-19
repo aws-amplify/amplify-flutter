@@ -80,6 +80,7 @@ void main() {
           localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
+        // Web browsers do not grant access to read arbitrary files
         if (!kIsWeb) {
           final downloadedFile = await readFile(path: downloadFilePath);
           expect(downloadedFile, data);
