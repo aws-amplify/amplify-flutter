@@ -519,7 +519,7 @@ class StorageS3Service {
 
     return S3RemoveManyResult(
       removedItems: removedItems,
-      removeErrors: removedErrors,
+      errors: removedErrors,
     );
   }
 
