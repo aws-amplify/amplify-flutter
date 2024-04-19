@@ -3,7 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/invalid_object_state.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -65,7 +64,7 @@ void main() {
           () => Amplify.Storage.list(
             path: const StoragePath.fromString('unauthorized/path'),
           ).result,
-          throwsA(isA<InvalidObjectState>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
     });
