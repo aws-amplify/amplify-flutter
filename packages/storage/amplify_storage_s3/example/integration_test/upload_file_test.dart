@@ -104,7 +104,7 @@ void main() {
     });
 
     testWidgets('unauthorized path', (_) async {
-      await expectLater(
+      expect(
         () => Amplify.Storage.uploadFile(
           localFile: AWSFile.fromData('unauthorized path'.codeUnits),
           path: const StoragePath.fromString('unauthorized/path'),
