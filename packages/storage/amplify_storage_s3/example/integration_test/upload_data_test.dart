@@ -159,7 +159,7 @@ void main() {
     });
 
     testWidgets('unauthorized path', (_) async {
-      expect(
+      await expectLater(
         () => Amplify.Storage.uploadData(
           data: HttpPayload.bytes('unauthorized path'.codeUnits),
           path: const StoragePath.fromString('unauthorized/path'),
