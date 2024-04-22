@@ -4,9 +4,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import 'copy_test.dart' as copy_test;
 import 'download_data_test.dart' as download_data_tests;
 import 'download_file_test.dart' as download_file_tests;
-import 'copy_test.dart' as copy_test;
 import 'get_properties_test.dart' as get_properties_test;
 import 'get_url_test.dart' as get_url_test;
 import 'issues/get_url_special_characters_test.dart'
