@@ -63,7 +63,7 @@ class AWSFilePlatform extends AWSFile {
     super.name,
     super.contentType,
   })  : _stream = null,
-        _inputBlob = Blob([data], contentType),
+        _inputBlob = null,
         _inputFile = null,
         _size = data.length,
         super.protected(

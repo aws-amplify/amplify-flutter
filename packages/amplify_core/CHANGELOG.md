@@ -1,3 +1,14 @@
+## 1.8.0
+
+### Features
+- feat: deprecate `Storage.move()` API ([#4638](https://github.com/aws-amplify/amplify-flutter/pull/4638))
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+### Fixes
+- fix(api): Paginated GraphQL preserve request params ([#4605](https://github.com/aws-amplify/amplify-flutter/pull/4605))
+- fix(api): Web socket decode connection errors ([#4606](https://github.com/aws-amplify/amplify-flutter/pull/4606))
+
 ## 1.7.0
 
 ### Features

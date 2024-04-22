@@ -92,6 +92,7 @@ abstract class AmplifyClass {
   bool get isConfigured => _configCompleter.isCompleted;
 
   /// A future when completes when Amplify has been successfully configured.
+  @Deprecated('Will be removed in 2.0.0')
   Future<AmplifyConfig> get asyncConfig => _configCompleter.future;
 
   /// Configures Amplify with the provided configuration string.
