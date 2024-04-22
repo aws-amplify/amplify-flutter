@@ -40,7 +40,8 @@ void main() {
     );
     AmplifyDataStore dataStore = AmplifyDataStore(
         modelProvider: ModelProvider.instance,
-        errorHandler: (exception) => {receivedException = exception});
+        options: DataStorePluginOptions(
+            errorHandler: (exception) => {receivedException = exception}));
     return dataStore.configureDataStore();
   });
 

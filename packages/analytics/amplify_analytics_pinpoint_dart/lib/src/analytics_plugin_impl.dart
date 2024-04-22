@@ -39,12 +39,15 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     DeviceContextInfoProvider? deviceContextInfoProvider,
     AppLifecycleProvider? appLifecycleProvider,
     SecureStorageFactory? secureStorageFactory,
+    AnalyticsPinpointPluginOptions options =
+        const AnalyticsPinpointPluginOptions(),
   })  : _pathProvider = pathProvider,
         _legacyNativeDataProvider = legacyNativeDataProvider,
         _deviceContextInfoProvider = deviceContextInfoProvider,
         _appLifecycleProvider = appLifecycleProvider,
         _secureStorageFactory =
-            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom();
+            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom(),
+        _options = options;
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -73,6 +76,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   final SecureStorageFactory _secureStorageFactory;
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final LegacyNativeDataProvider? _legacyNativeDataProvider;
+  final AnalyticsPinpointPluginOptions _options;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -157,7 +161,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       },
     );
 
-    final autoFlushEventsInterval = pinpointConfig.autoFlushEventsInterval;
+    final autoFlushEventsInterval = _options.autoFlushEventsInterval;
 
     if (autoFlushEventsInterval.isNegative) {
       throw ConfigurationError(
@@ -260,4 +264,17 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     autoEventSubmitter?.stop();
     await _eventClient.close();
   }
+}
+
+/// {@template amplify_analytics_pinpoint_dart.analytics_pinpoint_plugin_options}
+/// The plugin options for the Amplify Analytics Pinpoint plugin
+/// {@endtemplate}
+class AnalyticsPinpointPluginOptions {
+  /// {@macro amplify_analytics_pinpoint_dart.analytics_pinpoint_plugin_options}
+  const AnalyticsPinpointPluginOptions({
+    this.autoFlushEventsInterval = const Duration(seconds: 30),
+  });
+
+  /// The duration in seconds between flushing analytics events to Pinpoint.
+  final Duration autoFlushEventsInterval;
 }

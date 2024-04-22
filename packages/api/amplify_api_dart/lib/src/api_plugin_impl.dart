@@ -21,18 +21,15 @@ import 'package:meta/meta.dart';
 class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// {@macro amplify_api_dart.amplify_api_dart}
   AmplifyAPIDart({
-    List<APIAuthProvider> authProviders = const [],
+    APIPluginOptions options = const APIPluginOptions(),
     ConnectivityPlatform connectivity = const ConnectivityPlatform(),
-    AWSHttpClient? baseHttpClient,
-    this.modelProvider,
-    this.subscriptionOptions,
-  })  : _baseHttpClient = baseHttpClient,
+  })  : _options = options,
         _connectivity = connectivity {
-    authProviders.forEach(registerAuthProvider);
+    _options.authProviders.forEach(registerAuthProvider);
   }
 
+  final APIPluginOptions _options;
   late final AWSApiPluginConfig _apiConfig;
-  final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Creates a stream representing network connectivity at the hardware level.
@@ -48,9 +45,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   final StreamController<ApiHubEvent> _hubEventController =
       StreamController<ApiHubEvent>.broadcast();
-
-  /// Subscription options
-  final GraphQLSubscriptionOptions? subscriptionOptions;
 
   @override
   Future<void> reset() async {
@@ -156,7 +150,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       dependencies,
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
-        baseClient: _baseHttpClient ?? dependencies.getOrCreate(),
+        baseClient: _options.baseHttpClient ?? dependencies.getOrCreate(),
         authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
@@ -187,8 +181,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
-      subscriptionOptions:
-          subscriptionOptions ?? const GraphQLSubscriptionOptions(),
+      subscriptionOptions: _options.subscriptionOptions,
       connectivity: _connectivity,
     );
   }
@@ -214,8 +207,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }
 
   @override
-  final ModelProviderInterface? modelProvider;
-
+  ModelProviderInterface? get modelProvider => _options.modelProvider;
   // ====== GraphQL ======
 
   @override
@@ -373,4 +365,29 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   @override
   String get runtimeTypeName => 'AmplifyAPIDart';
+}
+
+/// {@template amplify_api_dart.api_plugin_options}
+/// The plugin options for the Amplify API plugin.
+/// {@endtemplate}
+class APIPluginOptions {
+  /// {@macro amplify_api_dart.api_plugin_options}
+  const APIPluginOptions({
+    this.authProviders = const [],
+    this.baseHttpClient,
+    this.modelProvider,
+    this.subscriptionOptions = const GraphQLSubscriptionOptions(),
+  });
+
+  /// List of API Auth providers to be used for API category operations.
+  final List<APIAuthProvider> authProviders;
+
+  /// The HTTP client to be used for API category operations.
+  final AWSHttpClient? baseHttpClient;
+
+  /// The model provider for providing access to the data models
+  final ModelProviderInterface? modelProvider;
+
+  /// {@macro amplify_core.graphql.graphql_subscription_options}
+  final GraphQLSubscriptionOptions subscriptionOptions;
 }

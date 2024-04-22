@@ -18,33 +18,19 @@ export 'package:amplify_core/src/types/datastore/datastore_types.dart'
 class AmplifyDataStore extends DataStorePluginInterface
     with AWSDebuggable, AmplifyLoggerMixin {
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
-  /// and optional datastore configuration properties including
-  ///
-  /// [syncExpressions]: list of sync expressions to filter datastore sync against
-  ///
-  /// [syncInterval]: datastore syncing interval (in seconds)
-  ///
-  /// [syncMaxRecords]: max number of records to sync
-  ///
-  /// [syncPageSize]: page size to sync
+  /// and an optional datastore plugin options [options]
   AmplifyDataStore({
     required ModelProviderInterface modelProvider,
-    Function(AmplifyException)? errorHandler,
-    DataStoreConflictHandler? conflictHandler,
-    List<DataStoreSyncExpression> syncExpressions = const [],
-    int? syncInterval,
-    int? syncMaxRecords,
-    int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
+    DataStorePluginOptions options = const DataStorePluginOptions(),
   }) : super(
           modelProvider: modelProvider,
-          errorHandler: errorHandler,
-          conflictHandler: conflictHandler,
-          syncExpressions: syncExpressions,
-          syncInterval: syncInterval,
-          syncMaxRecords: syncMaxRecords,
-          syncPageSize: syncPageSize,
-          authModeStrategy: authModeStrategy,
+          errorHandler: options.errorHandler,
+          conflictHandler: options.conflictHandler,
+          syncExpressions: options.syncExpressions,
+          syncInterval: options.syncInterval,
+          syncMaxRecords: options.syncMaxRecords,
+          syncPageSize: options.syncPageSize,
+          authModeStrategy: options.authModeStrategy,
         );
 
   /// Internal use constructor
@@ -325,4 +311,43 @@ class _NativeAmplifyApi
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
+}
+
+/// {@template amplify_datastore.datastore_plugin_options}
+/// The plugin options for the Amplify DataStore plugin.
+/// {@endtemplate}
+class DataStorePluginOptions {
+  /// {@macro amplify_datastore.datastore_plugin_options}
+  const DataStorePluginOptions({
+    this.errorHandler,
+    this.conflictHandler,
+    this.syncExpressions = const [],
+    this.syncInterval,
+    this.syncMaxRecords,
+    this.syncPageSize,
+    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
+  });
+
+  /// The custom error handler function that receives an [AmplifyException]
+  /// object when DataStore encounters an unhandled error.
+  final Function(AmplifyException)? errorHandler;
+
+  /// The custom conflict handler function that receives an [ConflictData]
+  /// object when DataStore encounters a data conflict.
+  final DataStoreConflictHandler? conflictHandler;
+
+  /// The list of sync expressions to filter datastore sync.
+  final List<DataStoreSyncExpression> syncExpressions;
+
+  /// The syncing interval in seconds.
+  final int? syncInterval;
+
+  /// The max number of records to sync.
+  final int? syncMaxRecords;
+
+  /// The page size to sync.
+  final int? syncPageSize;
+
+  /// The strategy for authorizing an API call.
+  final AuthModeStrategy authModeStrategy;
 }

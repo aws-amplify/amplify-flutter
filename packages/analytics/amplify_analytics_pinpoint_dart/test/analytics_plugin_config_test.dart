@@ -80,11 +80,12 @@ void main() {
     });
 
     test('throws ConfigurationError when negative', () async {
-      const autoFlushInterval = -1;
-
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration(seconds: -1),
+        ),
       );
 
       await expectLater(
@@ -100,7 +101,6 @@ void main() {
                   pinpointTargeting: PinpointTargeting(
                     region: region,
                   ),
-                  autoFlushEventsInterval: autoFlushInterval,
                 ),
               },
             ),
@@ -116,11 +116,12 @@ void main() {
     });
 
     test('disables autoFlush when 0', () async {
-      const autoFlushInterval = 0;
-
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration.zero,
+        ),
       );
 
       await plugin.configure(
@@ -135,7 +136,6 @@ void main() {
                 pinpointTargeting: PinpointTargeting(
                   region: region,
                 ),
-                autoFlushEventsInterval: autoFlushInterval,
               ),
             },
           ),
@@ -156,6 +156,9 @@ void main() {
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
         secureStorageFactory: (_) => MockSecureStorage(),
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration(seconds: autoFlushInterval),
+        ),
       );
 
       await plugin.configure(
@@ -170,7 +173,6 @@ void main() {
                 pinpointTargeting: PinpointTargeting(
                   region: region,
                 ),
-                autoFlushEventsInterval: autoFlushInterval,
               ),
             },
           ),

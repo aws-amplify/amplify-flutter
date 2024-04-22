@@ -39,8 +39,7 @@ const _v4analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -227,8 +226,7 @@ const _v5analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -415,8 +413,7 @@ const _v6analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -603,8 +600,7 @@ const _v7analytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }
@@ -791,8 +787,7 @@ const _vlatestanalytics = '''
         },
         "pinpointTargeting": {
           "region": "$REGION"
-        },
-        "autoFlushEventsInterval": $ANALYTICS_FLUSH_INTERVAL
+        }
       }
     }
   }

@@ -31,7 +31,9 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
 
 void main() {
   setUpAll(() async {
-    final apiPlugin = AmplifyAPIDart(baseHttpClient: mockHttpClient);
+    final apiPlugin = AmplifyAPIDart(
+      options: APIPluginOptions(baseHttpClient: mockHttpClient),
+    );
     // Register IAM auth provider like amplify_auth_cognito would do.
     final authProviderRepo = AmplifyAuthProviderRepository()
       ..registerAuthProvider(
