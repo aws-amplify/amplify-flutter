@@ -60,11 +60,20 @@ void main() {
     });
 
     testWidgets('unauthorized path', (_) async {
-      expect(
+      await expectLater(
         () => Amplify.Storage.getProperties(
           path: const StoragePath.fromString('unauthorized/path'),
         ).result,
         throwsA(isA<StorageAccessDeniedException>()),
+      );
+    });
+
+    testWidgets('not existent path', (_) async {
+      await expectLater(
+        () => Amplify.Storage.getProperties(
+          path: const StoragePath.fromString('public/not-existent-path'),
+        ).result,
+        throwsA(isA<StorageKeyNotFoundException>()),
       );
     });
   });

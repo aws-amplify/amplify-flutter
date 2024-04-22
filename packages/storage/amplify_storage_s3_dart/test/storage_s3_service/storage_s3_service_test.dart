@@ -1299,7 +1299,7 @@ void main() {
           containsAllInOrder(expectedKeysForRequest2),
         );
         final removedItems = removeManyResult.removedItems;
-        final removeErrors = removeManyResult.removeErrors;
+        final removeErrors = removeManyResult.errors;
 
         expect(removedItems, hasLength(testNumOfRemovedItems));
         expect(removeErrors, hasLength(testNumOfRemoveErrors));
