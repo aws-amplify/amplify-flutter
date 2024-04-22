@@ -754,6 +754,12 @@ void main() {
       'blog': null,
     });
 
+    final malformedResponse = Map<String, dynamic>.from({
+      ...mockPostJson,
+      'comments': 'foo',
+      'blog': null,
+    });
+
     test('should work with nested models V2', () async {
       final post = Post.fromJson(appsyncResponse);
 
@@ -798,6 +804,23 @@ void main() {
 
     test('should work with null nested models', () async {
       final post = Post.fromJson(nullResponse);
+
+      expect(
+        post.id,
+        mockPostJson['id'],
+      );
+      expect(
+        post.blog,
+        isNull,
+      );
+      expect(
+        post.comments,
+        isNull,
+      );
+    });
+
+    test('should gracefully handle wrong types', () async {
+      final post = Post.fromJson(malformedResponse);
 
       expect(
         post.id,
