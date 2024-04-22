@@ -132,10 +132,10 @@ class CpkHasManyParentBidirectionalImplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -165,21 +165,22 @@ class CpkHasManyParentBidirectionalImplicit extends amplify_core.Model {
   CpkHasManyParentBidirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _bidirectionalImplicitChildren = json[
-                    'bidirectionalImplicitChildren'] !=
-                null
-            ? json['bidirectionalImplicitChildren'] is Map
+        _bidirectionalImplicitChildren = json['bidirectionalImplicitChildren']
+                is Map
+            ? (json['bidirectionalImplicitChildren']['items'] is List
                 ? (json['bidirectionalImplicitChildren']['items'] as List)
                     .where((e) => e != null)
                     .map((e) => CpkHasManyChildBidirectionalImplicit.fromJson(
                         new Map<String, dynamic>.from(e)))
                     .toList()
-                : (json['bidirectionalImplicitChildren'] as List)
+                : null)
+            : (json['bidirectionalImplicitChildren'] is List
+                ? (json['bidirectionalImplicitChildren'] as List)
                     .where((e) => e?['serializedData'] != null)
                     .map((e) => CpkHasManyChildBidirectionalImplicit.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
-            : null,
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

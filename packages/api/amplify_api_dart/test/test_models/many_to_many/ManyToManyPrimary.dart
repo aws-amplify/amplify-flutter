@@ -169,32 +169,36 @@ class ManyToManyPrimary extends amplify_core.Model {
   ManyToManyPrimary.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _firstMtmToSecondary = json['firstMtmToSecondary'] != null
-            ? json['firstMtmToSecondary'] is Map
+        _firstMtmToSecondary = json['firstMtmToSecondary'] is Map
+            ? (json['firstMtmToSecondary']['items'] is List
                 ? (json['firstMtmToSecondary']['items'] as List)
                     .where((e) => e != null)
                     .map((e) => FirstMtmRelation.fromJson(
                         new Map<String, dynamic>.from(e)))
                     .toList()
-                : (json['firstMtmToSecondary'] as List)
+                : null)
+            : (json['firstMtmToSecondary'] is List
+                ? (json['firstMtmToSecondary'] as List)
                     .where((e) => e?['serializedData'] != null)
                     .map((e) => FirstMtmRelation.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
-            : null,
-        _secondMtmToSecondary = json['secondMtmToSecondary'] != null
-            ? json['secondMtmToSecondary'] is Map
+                : null),
+        _secondMtmToSecondary = json['secondMtmToSecondary'] is Map
+            ? (json['secondMtmToSecondary']['items'] is List
                 ? (json['secondMtmToSecondary']['items'] as List)
                     .where((e) => e != null)
                     .map((e) => SecondMtmRelation.fromJson(
                         new Map<String, dynamic>.from(e)))
                     .toList()
-                : (json['secondMtmToSecondary'] as List)
+                : null)
+            : (json['secondMtmToSecondary'] is List
+                ? (json['secondMtmToSecondary'] as List)
                     .where((e) => e?['serializedData'] != null)
                     .map((e) => SecondMtmRelation.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
-            : null,
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

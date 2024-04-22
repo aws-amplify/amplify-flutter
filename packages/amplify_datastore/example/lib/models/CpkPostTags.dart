@@ -121,16 +121,16 @@ class CpkPostTags extends amplify_core.Model {
     buffer.write("CpkPostTags {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("cpkManyToManyPost=" +
-        (_cpkManyToManyPost != null ? _cpkManyToManyPost.toString() : "null") +
+        (_cpkManyToManyPost != null ? _cpkManyToManyPost!.toString() : "null") +
         ", ");
     buffer.write("cpkManyToManyTag=" +
-        (_cpkManyToManyTag != null ? _cpkManyToManyTag.toString() : "null") +
+        (_cpkManyToManyTag != null ? _cpkManyToManyTag!.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

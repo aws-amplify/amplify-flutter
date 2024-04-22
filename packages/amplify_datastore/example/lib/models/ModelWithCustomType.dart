@@ -108,18 +108,18 @@ class ModelWithCustomType extends amplify_core.Model {
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("customTypeValue=" +
-        (_customTypeValue != null ? _customTypeValue.toString() : "null") +
+        (_customTypeValue != null ? _customTypeValue!.toString() : "null") +
         ", ");
     buffer.write("listOfCustomTypeValue=" +
         (_listOfCustomTypeValue != null
-            ? _listOfCustomTypeValue.toString()
+            ? _listOfCustomTypeValue!.toString()
             : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

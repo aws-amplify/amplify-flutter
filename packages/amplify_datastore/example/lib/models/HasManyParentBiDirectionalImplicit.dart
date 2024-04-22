@@ -109,10 +109,10 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -143,21 +143,22 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
   HasManyParentBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _biDirectionalImplicitChildren = json[
-                    'biDirectionalImplicitChildren'] !=
-                null
-            ? json['biDirectionalImplicitChildren'] is Map
+        _biDirectionalImplicitChildren = json['biDirectionalImplicitChildren']
+                is Map
+            ? (json['biDirectionalImplicitChildren']['items'] is List
                 ? (json['biDirectionalImplicitChildren']['items'] as List)
                     .where((e) => e != null)
                     .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
                         new Map<String, dynamic>.from(e)))
                     .toList()
-                : (json['biDirectionalImplicitChildren'] as List)
+                : null)
+            : (json['biDirectionalImplicitChildren'] is List
+                ? (json['biDirectionalImplicitChildren'] as List)
                     .where((e) => e?['serializedData'] != null)
                     .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
-            : null,
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

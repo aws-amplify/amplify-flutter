@@ -108,10 +108,10 @@ class HasManyChildExplicit extends amplify_core.Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("hasManyParentID=" + "$_hasManyParentID" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
