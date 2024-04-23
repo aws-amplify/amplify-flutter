@@ -359,6 +359,7 @@ class StorageS3Service {
       metadata: options.metadata,
       pluginOptions: S3UploadDataPluginOptions(
         getProperties: s3PluginOptions.getProperties,
+        useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
       ),
     );
     final uploadDataTask = S3UploadTask.fromAWSFile(
