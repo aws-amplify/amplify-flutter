@@ -21,7 +21,7 @@ S3DownloadFileOperation downloadFile({
   void Function(S3TransferProgress)? onProgress,
 }) {
   late final String destinationPath;
-  late final IOSink sink;
+  IOSink? sink;
   late final File tempFile;
 
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
@@ -52,19 +52,20 @@ S3DownloadFileOperation downloadFile({
     onData: (bytes) {
       // sink is set in the callback preStart, need to keep this closure to
       // preventLateInitializationError: Local 'sink' has not been initialized.
-      sink.add(bytes);
+      sink!.add(bytes);
     },
     // Exception thrown in this callback will be forwarded to the Future,
     // downloadDataTask.result below
     onDone: () async {
       // ensure all bytes are written into the temporary file and then close
-      await sink.flush();
-      await sink.close();
+      await sink!.flush();
+      await sink!.close();
       // then copy the temporary file to the destination
       await tempFile.copy(destinationPath);
     },
     onError: () async {
-      await sink.close();
+      // sink may not be initialized yet when an exception occurs
+      await sink?.close();
     },
   );
 
