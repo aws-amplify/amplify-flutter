@@ -120,8 +120,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       );
 
     scheduleMicrotask(() async {
-      // TODO(nikahsn): remove after making the api internal in 2.0.0.
-      // ignore: deprecated_member_use
+      // ignore: invalid_use_of_internal_member
       await Amplify.asyncConfig;
       if (_zIsTest) {
         return;

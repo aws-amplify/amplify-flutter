@@ -49,8 +49,7 @@ void main() {
             environmentName: environmentName,
           );
 
-          // TODO(nikahsn): remove after making the api internal in 2.0.0.
-          // ignore: deprecated_member_use
+          // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
           final authConfig = config.auth!.awsPlugin!.cognitoUserPool!.default$!;
           client = AWSHttpClient()
