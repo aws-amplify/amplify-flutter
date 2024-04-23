@@ -79,6 +79,52 @@ void main() {
       });
     });
 
+    group('content type inference', () {
+      testWidgets('text/plain', (_) async {
+        final fileId = '${uuid()}.txt';
+        final path = 'public/upload-file-content-type-$fileId';
+        final filePath = await createFile(
+          path: fileId,
+          content: '',
+          contentType: 'text/plain',
+        );
+        final localFile = AWSFile.fromPath(filePath);
+        final contentType = await localFile.contentType;
+        expect(contentType, 'text/plain');
+        addTearDownPath(StoragePath.fromString(path));
+        final result = await Amplify.Storage.uploadFile(
+          localFile: localFile,
+          path: StoragePath.fromString(path),
+          options: const StorageUploadFileOptions(
+            pluginOptions: S3UploadFilePluginOptions(getProperties: true),
+          ),
+        ).result as S3UploadFileResult;
+        expect(result.uploadedItem.contentType, 'text/plain');
+      });
+
+      testWidgets('image/jpeg', (_) async {
+        final fileId = '${uuid()}.jpg';
+        final path = 'public/upload-file-content-type-$fileId';
+        final filePath = await createFile(
+          path: fileId,
+          content: '',
+          contentType: 'image/jpeg',
+        );
+        final localFile = AWSFile.fromPath(filePath);
+        final contentType = await localFile.contentType;
+        expect(contentType, 'image/jpeg');
+        addTearDownPath(StoragePath.fromString(path));
+        final result = await Amplify.Storage.uploadFile(
+          localFile: localFile,
+          path: StoragePath.fromString(path),
+          options: const StorageUploadFileOptions(
+            pluginOptions: S3UploadFilePluginOptions(getProperties: true),
+          ),
+        ).result as S3UploadFileResult;
+        expect(result.uploadedItem.contentType, 'image/jpeg');
+      });
+    });
+
     testWidgets('with identity ID', (_) async {
       final fileId = uuid();
       final userIdentityId = await signInNewUser();

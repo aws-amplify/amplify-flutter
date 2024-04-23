@@ -7,8 +7,9 @@ import 'dart:html' as html;
 Future<String> createFile({
   required String path,
   required String content,
+  String contentType = 'text/plain',
 }) async {
-  final fileBlob = html.Blob([content], 'text/plain');
-  final file = html.File([fileBlob], path);
+  final fileBlob = html.Blob([content], contentType);
+  final file = html.File([fileBlob], path, {'type': fileBlob.type});
   return html.Url.createObjectUrl(file);
 }
