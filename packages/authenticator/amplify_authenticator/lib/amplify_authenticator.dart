@@ -633,8 +633,7 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
-    // TODO(nikahsn): remove after making the api internal in 2.0.0.
-    // ignore: deprecated_member_use
+    // ignore: invalid_use_of_internal_member
     final config = await Amplify.asyncConfig;
     if (!mounted) return;
     setState(() {
