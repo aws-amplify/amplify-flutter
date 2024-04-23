@@ -113,13 +113,13 @@ class PostTags extends amplify_core.Model {
 
     buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("post=" + (_post != null ? _post!.toString() : "null") + ", ");
-    buffer.write("tag=" + (_tag != null ? _tag!.toString() : "null") + ", ");
+    buffer.write("post=" + (_post != null ? _post.toString() : "null") + ", ");
+    buffer.write("tag=" + (_tag != null ? _tag.toString() : "null") + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -140,13 +140,17 @@ class PostTags extends amplify_core.Model {
 
   PostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                new Map<String, dynamic>.from(json['post']['serializedData']))
+        _post = json['post'] != null
+            ? json['post']['serializedData'] != null
+                ? Post.fromJson(new Map<String, dynamic>.from(
+                    json['post']['serializedData']))
+                : Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
-        _tag = json['tag']?['serializedData'] != null
-            ? Tag.fromJson(
-                new Map<String, dynamic>.from(json['tag']['serializedData']))
+        _tag = json['tag'] != null
+            ? json['tag']['serializedData'] != null
+                ? Tag.fromJson(new Map<String, dynamic>.from(
+                    json['tag']['serializedData']))
+                : Tag.fromJson(new Map<String, dynamic>.from(json['tag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

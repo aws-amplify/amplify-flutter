@@ -16,7 +16,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE, sdk = [23,33])
+@Config(manifest = Config.NONE, sdk = [24,33])
 class EncryptedKeyValueRepositoryTest {
     private var context: Context = ApplicationProvider.getApplicationContext()
 

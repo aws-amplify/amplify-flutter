@@ -7,11 +7,16 @@ import android.os.Handler
 import android.os.Looper
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.DataStoreException.GraphQLResponseException
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import com.google.gson.reflect.TypeToken
 import io.flutter.plugin.common.MethodChannel.Result
 import java.lang.reflect.Type
 
@@ -21,9 +26,10 @@ class ExceptionUtil {
         fun postExceptionToFlutterChannel(
             result: Result,
             errorCode: String,
-            details: Map<String, Any?>
+            details: Map<String, Any?>,
+            threadHandler: Handler
         ) {
-            Handler(Looper.getMainLooper()).post {
+            threadHandler.post {
                 result.error(
                     errorCode,
                     ExceptionMessages.defaultFallbackExceptionMessage,
@@ -35,9 +41,11 @@ class ExceptionUtil {
         @JvmStatic
         fun createSerializedError(e: AmplifyException): Map<String, Any?> {
             val gsonBuilder = GsonBuilder()
-            gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
+            gsonBuilder.registerTypeHierarchyAdapter(AmplifyException::class.java, AmplifyExceptionSerializer())
+            gsonBuilder.registerTypeHierarchyAdapter(GraphQLResponseException::class.java, GraphQLExceptionSerializer())
             val gson = gsonBuilder.create()
             val serializedJsonException = gson.toJson(e)
+
             @Suppress("UNCHECKED_CAST")
             var serializedMap: Map<String, Any> = gson.fromJson(serializedJsonException, Map::class.java) as Map<String, Any>
 
@@ -77,7 +85,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun handleAddPluginException(pluginName: String, e: Exception, flutterResult: Result) {
+        fun handleAddPluginException(pluginName: String, e: Exception, flutterResult: Result, threadHandler: Handler) {
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
                 errorCode = "AmplifyAlreadyConfiguredException"
@@ -86,17 +94,42 @@ class ExceptionUtil {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }
-            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails)
+            postExceptionToFlutterChannel(flutterResult, errorCode, errorDetails, threadHandler)
         }
     }
 }
 
-class ThrowableSerializer : JsonSerializer<Throwable> {
-    override fun serialize(
-        src: Throwable?,
-        typeOfSrc: Type?,
-        context: JsonSerializationContext?
-    ): JsonElement {
-        return JsonPrimitive(src.toString())
+class AmplifyExceptionSerializer : JsonSerializer<AmplifyException> {
+    override fun serialize(src: AmplifyException?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+        val jsonObject = JsonObject()
+        src?.let {
+            jsonObject.addProperty("message", src.message)
+            jsonObject.addProperty("recoverySuggestion", src.recoverySuggestion)
+            src.cause?.let { cause ->
+                jsonObject.addProperty("cause", src.cause.toString())
+            }
+        }
+        return jsonObject
+    }
+}
+
+class GraphQLExceptionSerializer : JsonSerializer<GraphQLResponseException> {
+    override fun serialize(src: GraphQLResponseException?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+        val jsonObject = JsonObject()
+        src?.let {
+            jsonObject.addProperty("message", src.message)
+            jsonObject.addProperty("recoverySuggestion", src.recoverySuggestion)
+            src.cause?.let { cause ->
+                jsonObject.addProperty("cause", src.cause.toString())
+            }
+            val array = JsonArray()
+            src.errors.forEach{e ->
+                val temp = JsonObject()
+                temp.addProperty("message", e.message)
+                array.add(temp)
+            }
+            jsonObject.add("errors", array)
+        }
+        return jsonObject
     }
 }

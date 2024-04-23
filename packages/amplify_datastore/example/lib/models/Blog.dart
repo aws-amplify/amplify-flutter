@@ -107,10 +107,10 @@ class Blog extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -132,13 +132,20 @@ class Blog extends amplify_core.Model {
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Post.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _posts = json['posts'] is Map
+            ? (json['posts']['items'] is List
+                ? (json['posts']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['posts'] is List
+                ? (json['posts'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => Post.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

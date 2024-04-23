@@ -142,10 +142,10 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -180,20 +180,36 @@ class CpkHasManyUnidirectionalParent extends amplify_core.Model {
   CpkHasManyUnidirectionalParent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _implicitChildren = json['implicitChildren'] is List
-            ? (json['implicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
-        _explicitChildren = json['explicitChildren'] is List
-            ? (json['explicitChildren'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _implicitChildren = json['implicitChildren'] is Map
+            ? (json['implicitChildren']['items'] is List
+                ? (json['implicitChildren']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['implicitChildren'] is List
+                ? (json['implicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CpkHasManyUnidirectionalChildImplicit.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
+        _explicitChildren = json['explicitChildren'] is Map
+            ? (json['explicitChildren']['items'] is List
+                ? (json['explicitChildren']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['explicitChildren'] is List
+                ? (json['explicitChildren'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CpkHasManyUnidirectionalChildExplicit.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

@@ -121,16 +121,16 @@ class CpkPostTags extends amplify_core.Model {
     buffer.write("CpkPostTags {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("cpkManyToManyPost=" +
-        (_cpkManyToManyPost != null ? _cpkManyToManyPost!.toString() : "null") +
+        (_cpkManyToManyPost != null ? _cpkManyToManyPost.toString() : "null") +
         ", ");
     buffer.write("cpkManyToManyTag=" +
-        (_cpkManyToManyTag != null ? _cpkManyToManyTag!.toString() : "null") +
+        (_cpkManyToManyTag != null ? _cpkManyToManyTag.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -160,14 +160,19 @@ class CpkPostTags extends amplify_core.Model {
 
   CpkPostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _cpkManyToManyPost =
-            json['cpkManyToManyPost']?['serializedData'] != null
+        _cpkManyToManyPost = json['cpkManyToManyPost'] != null
+            ? json['cpkManyToManyPost']['serializedData'] != null
                 ? CpkManyToManyPost.fromJson(new Map<String, dynamic>.from(
                     json['cpkManyToManyPost']['serializedData']))
-                : null,
-        _cpkManyToManyTag = json['cpkManyToManyTag']?['serializedData'] != null
-            ? CpkManyToManyTag.fromJson(new Map<String, dynamic>.from(
-                json['cpkManyToManyTag']['serializedData']))
+                : CpkManyToManyPost.fromJson(
+                    new Map<String, dynamic>.from(json['cpkManyToManyPost']))
+            : null,
+        _cpkManyToManyTag = json['cpkManyToManyTag'] != null
+            ? json['cpkManyToManyTag']['serializedData'] != null
+                ? CpkManyToManyTag.fromJson(new Map<String, dynamic>.from(
+                    json['cpkManyToManyTag']['serializedData']))
+                : CpkManyToManyTag.fromJson(
+                    new Map<String, dynamic>.from(json['cpkManyToManyTag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

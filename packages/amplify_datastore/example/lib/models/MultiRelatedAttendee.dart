@@ -92,10 +92,10 @@ class MultiRelatedAttendee extends amplify_core.Model {
     buffer.write("MultiRelatedAttendee {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -114,13 +114,21 @@ class MultiRelatedAttendee extends amplify_core.Model {
 
   MultiRelatedAttendee.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _meetings = json['meetings'] is List
-            ? (json['meetings'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => MultiRelatedRegistration.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _meetings = json['meetings'] is Map
+            ? (json['meetings']['items'] is List
+                ? (json['meetings']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => MultiRelatedRegistration.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['meetings'] is List
+                ? (json['meetings'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => MultiRelatedRegistration.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

@@ -100,13 +100,13 @@ class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("hasManyParent=" +
-        (_hasManyParent != null ? _hasManyParent!.toString() : "null") +
+        (_hasManyParent != null ? _hasManyParent.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -133,10 +133,13 @@ class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
   HasManyChildBiDirectionalExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _hasManyParent = json['hasManyParent']?['serializedData'] != null
-            ? HasManyParentBiDirectionalExplicit.fromJson(
-                new Map<String, dynamic>.from(
-                    json['hasManyParent']['serializedData']))
+        _hasManyParent = json['hasManyParent'] != null
+            ? json['hasManyParent']['serializedData'] != null
+                ? HasManyParentBiDirectionalExplicit.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['hasManyParent']['serializedData']))
+                : HasManyParentBiDirectionalExplicit.fromJson(
+                    new Map<String, dynamic>.from(json['hasManyParent']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

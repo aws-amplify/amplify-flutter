@@ -1,3 +1,9 @@
+## 0.10.13
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
 ## 0.10.12
 
 ### Fixes
