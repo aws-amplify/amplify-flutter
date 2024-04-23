@@ -143,14 +143,22 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
   HasManyParentBiDirectionalImplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _biDirectionalImplicitChildren =
-            json['biDirectionalImplicitChildren'] is List
+        _biDirectionalImplicitChildren = json['biDirectionalImplicitChildren']
+                is Map
+            ? (json['biDirectionalImplicitChildren']['items'] is List
+                ? (json['biDirectionalImplicitChildren']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['biDirectionalImplicitChildren'] is List
                 ? (json['biDirectionalImplicitChildren'] as List)
                     .where((e) => e?['serializedData'] != null)
                     .map((e) => HasManyChildBiDirectionalImplicit.fromJson(
-                        new Map<String, dynamic>.from(e['serializedData'])))
+                        new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
-                : null,
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

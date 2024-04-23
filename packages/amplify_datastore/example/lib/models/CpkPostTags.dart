@@ -160,14 +160,19 @@ class CpkPostTags extends amplify_core.Model {
 
   CpkPostTags.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _cpkManyToManyPost =
-            json['cpkManyToManyPost']?['serializedData'] != null
+        _cpkManyToManyPost = json['cpkManyToManyPost'] != null
+            ? json['cpkManyToManyPost']['serializedData'] != null
                 ? CpkManyToManyPost.fromJson(new Map<String, dynamic>.from(
                     json['cpkManyToManyPost']['serializedData']))
-                : null,
-        _cpkManyToManyTag = json['cpkManyToManyTag']?['serializedData'] != null
-            ? CpkManyToManyTag.fromJson(new Map<String, dynamic>.from(
-                json['cpkManyToManyTag']['serializedData']))
+                : CpkManyToManyPost.fromJson(
+                    new Map<String, dynamic>.from(json['cpkManyToManyPost']))
+            : null,
+        _cpkManyToManyTag = json['cpkManyToManyTag'] != null
+            ? json['cpkManyToManyTag']['serializedData'] != null
+                ? CpkManyToManyTag.fromJson(new Map<String, dynamic>.from(
+                    json['cpkManyToManyTag']['serializedData']))
+                : CpkManyToManyTag.fromJson(
+                    new Map<String, dynamic>.from(json['cpkManyToManyTag']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

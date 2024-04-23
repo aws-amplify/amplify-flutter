@@ -187,14 +187,20 @@ class HasOneParent extends amplify_core.Model {
   HasOneParent.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _implicitChild = json['implicitChild']?['serializedData'] != null
-            ? HasOneChild.fromJson(new Map<String, dynamic>.from(
-                json['implicitChild']['serializedData']))
+        _implicitChild = json['implicitChild'] != null
+            ? json['implicitChild']['serializedData'] != null
+                ? HasOneChild.fromJson(new Map<String, dynamic>.from(
+                    json['implicitChild']['serializedData']))
+                : HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(json['implicitChild']))
             : null,
         _explicitChildID = json['explicitChildID'],
-        _explicitChild = json['explicitChild']?['serializedData'] != null
-            ? HasOneChild.fromJson(new Map<String, dynamic>.from(
-                json['explicitChild']['serializedData']))
+        _explicitChild = json['explicitChild'] != null
+            ? json['explicitChild']['serializedData'] != null
+                ? HasOneChild.fromJson(new Map<String, dynamic>.from(
+                    json['explicitChild']['serializedData']))
+                : HasOneChild.fromJson(
+                    new Map<String, dynamic>.from(json['explicitChild']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

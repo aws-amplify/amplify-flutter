@@ -21,9 +21,7 @@ class SubscriptionEvent<T extends Model> {
     final serializedItem = Map<String, dynamic>.from(map['item'] as Map);
 
     return SubscriptionEvent(
-      item: modelType.fromJson(
-        Map<String, dynamic>.from(serializedItem['serializedData'] as Map),
-      ),
+      item: modelType.fromJson(serializedItem),
       eventType: EventType.values
           .firstWhere((e) => e.name == map['eventType'] as String?),
       modelType: modelType,

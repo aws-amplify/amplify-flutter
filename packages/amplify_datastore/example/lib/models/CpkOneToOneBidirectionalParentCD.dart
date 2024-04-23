@@ -283,15 +283,21 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
   CpkOneToOneBidirectionalParentCD.fromJson(Map<String, dynamic> json)
       : _customId = json['customId'],
         _name = json['name'],
-        _implicitChild = json['implicitChild']?['serializedData'] != null
-            ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
-                new Map<String, dynamic>.from(
-                    json['implicitChild']['serializedData']))
+        _implicitChild = json['implicitChild'] != null
+            ? json['implicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['implicitChild']['serializedData']))
+                : CpkOneToOneBidirectionalChildImplicitCD.fromJson(
+                    new Map<String, dynamic>.from(json['implicitChild']))
             : null,
-        _explicitChild = json['explicitChild']?['serializedData'] != null
-            ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
-                new Map<String, dynamic>.from(
-                    json['explicitChild']['serializedData']))
+        _explicitChild = json['explicitChild'] != null
+            ? json['explicitChild']['serializedData'] != null
+                ? CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['explicitChild']['serializedData']))
+                : CpkOneToOneBidirectionalChildExplicitCD.fromJson(
+                    new Map<String, dynamic>.from(json['explicitChild']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

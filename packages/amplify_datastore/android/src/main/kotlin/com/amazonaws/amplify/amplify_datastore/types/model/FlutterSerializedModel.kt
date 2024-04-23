@@ -22,12 +22,12 @@ data class FlutterSerializedModel(val serializedModel: SerializedModel) {
         parseModelName(serializedModel.modelName) // ModelSchema -> SerializedModel should always have a name
 
     fun toMap(): Map<String, Any> {
-        val cleanedSerializedData: Map<String, Any?> = serializedData.filterValues { it != null }
 
-        return mapOf(
-            "serializedData" to cleanedSerializedData,
-            "modelName" to modelName
-        )
+        val cleanedSerializedData: Map<String, Any> = serializedData.filterValues { it != null }.cast()
+
+        val modelNameMap = mapOf("__modelName" to modelName)
+
+        return modelNameMap+cleanedSerializedData
     }
 
     private fun parseModelName(modelName: String?): String {
