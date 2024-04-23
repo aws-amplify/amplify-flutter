@@ -40,6 +40,22 @@ void main() {
       expect(actualData, data);
     });
 
+    // ref: https://github.com/aws-amplify/amplify-flutter/issues/2711
+    testWidgets('StoragePath with special characters', (_) async {
+      final date = DateTime(2020, 1, 1, 10);
+      final path = 'public/get-url-special-char-$date/${uuid()}';
+      addTearDownPath(StoragePath.fromString(path));
+      await Amplify.Storage.uploadData(
+        data: S3DataPayload.bytes(data),
+        path: StoragePath.fromString(path),
+      ).result;
+      final result = await Amplify.Storage.getUrl(
+        path: StoragePath.fromString(path),
+      ).result;
+      final actualData = await readData(result.url);
+      expect(actualData, data);
+    });
+
     testWidgets('with identity ID', (_) async {
       final userIdentityId = await signInNewUser();
       final name = 'get-url-with-identity-id-${uuid()}';
