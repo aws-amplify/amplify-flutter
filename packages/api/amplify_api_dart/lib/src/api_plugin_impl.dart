@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_api_dart/src/api_plugin_options.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/send_graphql_request.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
@@ -365,29 +366,4 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   @override
   String get runtimeTypeName => 'AmplifyAPIDart';
-}
-
-/// {@template amplify_api_dart.api_plugin_options}
-/// The plugin options for the Amplify API plugin.
-/// {@endtemplate}
-class APIPluginOptions {
-  /// {@macro amplify_api_dart.api_plugin_options}
-  const APIPluginOptions({
-    this.authProviders = const [],
-    this.baseHttpClient,
-    this.modelProvider,
-    this.subscriptionOptions = const GraphQLSubscriptionOptions(),
-  });
-
-  /// List of API Auth providers to be used for API category operations.
-  final List<APIAuthProvider> authProviders;
-
-  /// The HTTP client to be used for API category operations.
-  final AWSHttpClient? baseHttpClient;
-
-  /// The model provider for providing access to the data models
-  final ModelProviderInterface? modelProvider;
-
-  /// {@macro amplify_core.graphql.graphql_subscription_options}
-  final GraphQLSubscriptionOptions subscriptionOptions;
 }

@@ -5,5 +5,5 @@
 library amplify_analytics_pinpoint_dart;
 
 export 'src/analytics_plugin_impl.dart';
-
+export 'src/analytics_plugin_options.dart';
 export 'src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';

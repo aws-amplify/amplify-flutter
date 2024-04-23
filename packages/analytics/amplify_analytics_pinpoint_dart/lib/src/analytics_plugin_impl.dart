@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
@@ -264,17 +265,4 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     autoEventSubmitter?.stop();
     await _eventClient.close();
   }
-}
-
-/// {@template amplify_analytics_pinpoint_dart.analytics_pinpoint_plugin_options}
-/// The plugin options for the Amplify Analytics Pinpoint plugin
-/// {@endtemplate}
-class AnalyticsPinpointPluginOptions {
-  /// {@macro amplify_analytics_pinpoint_dart.analytics_pinpoint_plugin_options}
-  const AnalyticsPinpointPluginOptions({
-    this.autoFlushEventsInterval = const Duration(seconds: 30),
-  });
-
-  /// The duration in seconds between flushing analytics events to Pinpoint.
-  final Duration autoFlushEventsInterval;
 }

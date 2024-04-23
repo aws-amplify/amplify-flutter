@@ -1,4 +1,5 @@
 import 'package:amplify_analytics_pinpoint_dart/src/analytics_plugin_impl.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/analytics_plugin_options.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
