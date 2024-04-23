@@ -20,6 +20,22 @@ void addTearDownPath(StoragePath path) {
   );
 }
 
+/// Adds a tear down to remove multiple objects at [paths].
+void addTearDownPaths(List<StoragePath> paths) {
+  addTearDown(
+    () {
+      try {
+        return Future.wait(
+          paths.map((path) => Amplify.Storage.remove(path: path).result),
+        );
+      } on Exception catch (e) {
+        _logger.warn('Failed to remove files after test', e);
+        rethrow;
+      }
+    },
+  );
+}
+
 /// Adds a tear down to delete the current user.
 void addTearDownCurrentUser() {
   addTearDown(() {
