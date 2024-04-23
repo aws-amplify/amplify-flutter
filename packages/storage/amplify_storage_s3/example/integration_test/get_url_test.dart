@@ -22,154 +22,196 @@ void main() {
   group('getUrl()', () {
     final path = 'public/get-url-${uuid()}';
     final data = 'get url data'.codeUnits;
-    setUpAll(() async {
-      await configure(amplifyEnvironments['main']!);
-      addTearDownPath(StoragePath.fromString(path));
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(path),
-      ).result;
-    });
-
-    testWidgets('String StoragePath', (_) async {
-      final result = await Amplify.Storage.getUrl(
-        path: StoragePath.fromString(path),
-      ).result;
-      expect(result.url.path, '/$path');
-      final actualData = await readData(result.url);
-      expect(actualData, data);
-    });
-
-    // ref: https://github.com/aws-amplify/amplify-flutter/issues/2711
-    testWidgets('StoragePath with special characters', (_) async {
-      final date = DateTime(2020, 1, 1, 10);
-      final path = 'public/get-url-special-char-$date/${uuid()}';
-      addTearDownPath(StoragePath.fromString(path));
-      await Amplify.Storage.uploadData(
-        data: S3DataPayload.bytes(data),
-        path: StoragePath.fromString(path),
-      ).result;
-      final result = await Amplify.Storage.getUrl(
-        path: StoragePath.fromString(path),
-      ).result;
-      final actualData = await readData(result.url);
-      expect(actualData, data);
-    });
-
-    testWidgets('with identity ID', (_) async {
-      final userIdentityId = await signInNewUser();
-      final name = 'get-url-with-identity-id-${uuid()}';
-      final data = 'with identity ID'.codeUnits;
-      final expectedResolvedPath = 'private/$userIdentityId/$name';
-      addTearDownPath(StoragePath.fromString(expectedResolvedPath));
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(expectedResolvedPath),
-      ).result;
-
-      final result = await Amplify.Storage.getUrl(
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$name',
-        ),
-      ).result;
-      expect(result.url.path, '/$expectedResolvedPath');
-      final actualData = await readData(result.url);
-      expect(actualData, data);
-    });
-
-    group('unauthorized path', () {
-      testWidgets('validateObjectExistence true', (_) async {
-        await expectLater(
-          () => Amplify.Storage.getUrl(
-            path: const StoragePath.fromString('unauthorized/path'),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                validateObjectExistence: true,
-              ),
-            ),
-          ).result,
-          throwsA(isA<StorageAccessDeniedException>()),
-        );
-      });
-
-      testWidgets('validateObjectExistence false', (_) async {
-        final result = await Amplify.Storage.getUrl(
-          path: const StoragePath.fromString('unauthorized/path'),
-          options: const StorageGetUrlOptions(
-            pluginOptions: S3GetUrlPluginOptions(
-              validateObjectExistence: false,
-            ),
-          ),
+    group('standard config', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+        addTearDownPath(StoragePath.fromString(path));
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromString(path),
         ).result;
-        await expectLater(
-          () => readData(result.url),
-          throwsA(isA<ClientException>()),
-        );
       });
-    });
 
-    group('with options', () {
-      testWidgets('expiresIn', (_) async {
-        const duration = Duration(seconds: 10);
+      testWidgets('String StoragePath', (_) async {
         final result = await Amplify.Storage.getUrl(
           path: StoragePath.fromString(path),
-          options: const StorageGetUrlOptions(
-            pluginOptions: S3GetUrlPluginOptions(
-              expiresIn: duration,
-            ),
-          ),
         ).result;
         expect(result.url.path, '/$path');
         final actualData = await readData(result.url);
         expect(actualData, data);
-        await Future<void>.delayed(duration);
-        await expectLater(
-          () => readData(result.url),
-          throwsA(isA<ClientException>()),
-        );
       });
 
-      testWidgets('validateObjectExistence true', (_) async {
-        await expectLater(
-          () => Amplify.Storage.getUrl(
-            path: const StoragePath.fromString('public/non-existent-path'),
-            options: const StorageGetUrlOptions(
-              pluginOptions: S3GetUrlPluginOptions(
-                validateObjectExistence: true,
+      // ref: https://github.com/aws-amplify/amplify-flutter/issues/2711
+      testWidgets('StoragePath with special characters', (_) async {
+        final date = DateTime(2020, 1, 1, 10);
+        final path = 'public/get-url-special-char-$date/${uuid()}';
+        addTearDownPath(StoragePath.fromString(path));
+        await Amplify.Storage.uploadData(
+          data: S3DataPayload.bytes(data),
+          path: StoragePath.fromString(path),
+        ).result;
+        final result = await Amplify.Storage.getUrl(
+          path: StoragePath.fromString(path),
+        ).result;
+        final actualData = await readData(result.url);
+        expect(actualData, data);
+      });
+
+      testWidgets('with identity ID', (_) async {
+        final userIdentityId = await signInNewUser();
+        final name = 'get-url-with-identity-id-${uuid()}';
+        final data = 'with identity ID'.codeUnits;
+        final expectedResolvedPath = 'private/$userIdentityId/$name';
+        addTearDownPath(StoragePath.fromString(expectedResolvedPath));
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromString(expectedResolvedPath),
+        ).result;
+
+        final result = await Amplify.Storage.getUrl(
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$name',
+          ),
+        ).result;
+        expect(result.url.path, '/$expectedResolvedPath');
+        final actualData = await readData(result.url);
+        expect(actualData, data);
+      });
+
+      group('unauthorized path', () {
+        testWidgets('validateObjectExistence true', (_) async {
+          await expectLater(
+            () => Amplify.Storage.getUrl(
+              path: const StoragePath.fromString('unauthorized/path'),
+              options: const StorageGetUrlOptions(
+                pluginOptions: S3GetUrlPluginOptions(
+                  validateObjectExistence: true,
+                ),
               ),
-            ),
-          ).result,
-          throwsA(isA<StorageKeyNotFoundException>()),
-        );
-      });
+            ).result,
+            throwsA(isA<StorageAccessDeniedException>()),
+          );
+        });
 
-      testWidgets('validateObjectExistence false', (_) async {
-        await expectLater(
-          Amplify.Storage.getUrl(
-            path: const StoragePath.fromString('public/non-existent-path'),
+        testWidgets('validateObjectExistence false', (_) async {
+          final result = await Amplify.Storage.getUrl(
+            path: const StoragePath.fromString('unauthorized/path'),
             options: const StorageGetUrlOptions(
               pluginOptions: S3GetUrlPluginOptions(
                 validateObjectExistence: false,
               ),
             ),
-          ).result,
-          completes,
-        );
+          ).result;
+          await expectLater(
+            () => readData(result.url),
+            throwsA(isA<ClientException>()),
+          );
+        });
       });
 
-      testWidgets('useAccelerateEndpoint', (_) async {
-        final result = await Amplify.Storage.getUrl(
-          path: StoragePath.fromString(path),
-          options: const StorageGetUrlOptions(
-            pluginOptions: S3GetUrlPluginOptions(
-              useAccelerateEndpoint: true,
+      group('with options', () {
+        testWidgets('expiresIn', (_) async {
+          const duration = Duration(seconds: 10);
+          final result = await Amplify.Storage.getUrl(
+            path: StoragePath.fromString(path),
+            options: const StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                expiresIn: duration,
+              ),
             ),
-          ),
-        ).result;
-        expect(result.url.path, '/$path');
-        final actualData = await readData(result.url);
-        expect(actualData, data);
+          ).result;
+          expect(result.url.path, '/$path');
+          final actualData = await readData(result.url);
+          expect(actualData, data);
+          await Future<void>.delayed(duration);
+          await expectLater(
+            () => readData(result.url),
+            throwsA(isA<ClientException>()),
+          );
+        });
+
+        testWidgets('validateObjectExistence true', (_) async {
+          await expectLater(
+            () => Amplify.Storage.getUrl(
+              path: const StoragePath.fromString('public/non-existent-path'),
+              options: const StorageGetUrlOptions(
+                pluginOptions: S3GetUrlPluginOptions(
+                  validateObjectExistence: true,
+                ),
+              ),
+            ).result,
+            throwsA(isA<StorageKeyNotFoundException>()),
+          );
+        });
+
+        testWidgets('validateObjectExistence false', (_) async {
+          await expectLater(
+            Amplify.Storage.getUrl(
+              path: const StoragePath.fromString('public/non-existent-path'),
+              options: const StorageGetUrlOptions(
+                pluginOptions: S3GetUrlPluginOptions(
+                  validateObjectExistence: false,
+                ),
+              ),
+            ).result,
+            completes,
+          );
+        });
+
+        testWidgets('useAccelerateEndpoint', (_) async {
+          final result = await Amplify.Storage.getUrl(
+            path: StoragePath.fromString(path),
+            options: const StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+            ),
+          ).result;
+          expect(result.url.path, '/$path');
+          final actualData = await readData(result.url);
+          expect(actualData, data);
+        });
       });
+    });
+
+    group('config with dots in name', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['dots-in-name']!);
+        addTearDownPath(StoragePath.fromString(path));
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromString(path),
+        ).result;
+      });
+      testWidgets(
+        'standard getUrl works',
+        (_) async {
+          final result = await Amplify.Storage.getUrl(
+            path: StoragePath.fromString(path),
+          ).result;
+          expect(result.url.path, contains('/$path'));
+          final actualData = await readData(result.url);
+          expect(actualData, data);
+        },
+      );
+
+      testWidgets(
+        'useAccelerateEndpoint throws',
+        (_) async {
+          await expectLater(
+            () => Amplify.Storage.getUrl(
+              path: StoragePath.fromString(path),
+              options: const StorageGetUrlOptions(
+                pluginOptions: S3GetUrlPluginOptions(
+                  useAccelerateEndpoint: true,
+                ),
+              ),
+            ).result,
+            // useAccelerateEndpoint is not supported with a bucket name with dots
+            throwsA(isA<ConfigurationError>()),
+          );
+        },
+      );
     });
   });
 }

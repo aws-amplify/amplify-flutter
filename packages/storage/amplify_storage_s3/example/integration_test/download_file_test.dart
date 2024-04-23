@@ -32,135 +32,184 @@ void main() {
     final metadata = {'description': 'foo'};
 
     setUpAll(() async {
-      await configure(amplifyEnvironments['main']!);
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(publicPath),
-      ).result;
-
       tempDir = await getTemporaryDirectory();
-      userIdentityId = await signInNewUser();
-      identityPath = 'private/$userIdentityId/$name';
-
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$name',
-        ),
-      ).result;
-
-      metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
-
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes(data),
-        path: StoragePath.fromString(metadataFilePath),
-        options: StorageUploadDataOptions(
-          pluginOptions: const S3UploadDataPluginOptions(
-            getProperties: true,
-          ),
-          metadata: metadata,
-        ),
-      ).result;
-
-      addTearDownPaths(
-        [
-          StoragePath.fromString(publicPath),
-          StoragePath.fromString(metadataFilePath),
-          StoragePath.fromString(identityPath),
-        ],
-      );
     });
 
-    group('for file type', () {
-      testWidgets('to file', (_) async {
-        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
-
-        final result = await Amplify.Storage.downloadFile(
+    group('standard config', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
           path: StoragePath.fromString(publicPath),
-          localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
-        // Web browsers do not grant access to read arbitrary files
-        if (!kIsWeb) {
-          final downloadedFile = await readFile(path: downloadFilePath);
-          expect(downloadedFile, data);
-        }
+        userIdentityId = await signInNewUser();
+        identityPath = 'private/$userIdentityId/$name';
 
-        expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, publicPath);
-      });
-    });
-
-    testWidgets('from identity ID', (_) async {
-      final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
-      final result = await Amplify.Storage.downloadFile(
-        path: StoragePath.fromIdentityId(
-          (identityId) => 'private/$identityId/$name',
-        ),
-        localFile: AWSFile.fromPath(downloadFilePath),
-      ).result;
-
-      if (!kIsWeb) {
-        final downloadedFile = await readFile(path: downloadFilePath);
-        expect(downloadedFile, data);
-      }
-      expect(result.localFile.path, downloadFilePath);
-      expect(result.downloadedItem.path, identityPath);
-    });
-
-    group('with options', () {
-      testWidgets('useAccelerateEndpoint', (_) async {
-        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
-
-        final result = await Amplify.Storage.downloadFile(
-          path: StoragePath.fromString(publicPath),
-          options: const StorageDownloadFileOptions(
-            pluginOptions: S3DownloadFilePluginOptions(
-              useAccelerateEndpoint: true,
-            ),
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$name',
           ),
-          localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
-        if (!kIsWeb) {
-          final downloadedFile = await readFile(path: downloadFilePath);
-          expect(downloadedFile, data);
-        }
-        expect(result.localFile.path, downloadFilePath);
-        expect(result.downloadedItem.path, publicPath);
-      });
+        metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-      testWidgets('getProperties', (_) async {
-        final downloadResult = await Amplify.Storage.downloadFile(
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
           path: StoragePath.fromString(metadataFilePath),
-          options: const StorageDownloadFileOptions(
-            pluginOptions: S3DownloadFilePluginOptions(
+          options: StorageUploadDataOptions(
+            pluginOptions: const S3UploadDataPluginOptions(
               getProperties: true,
             ),
+            metadata: metadata,
           ),
-          localFile: AWSFile.fromPath(metadataDownloadFilePath),
+        ).result;
+
+        addTearDownPaths(
+          [
+            StoragePath.fromString(publicPath),
+            StoragePath.fromString(metadataFilePath),
+            StoragePath.fromString(identityPath),
+          ],
+        );
+      });
+
+      group('for file type', () {
+        testWidgets('to file', (_) async {
+          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+
+          final result = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            localFile: AWSFile.fromPath(downloadFilePath),
+          ).result;
+
+          // Web browsers do not grant access to read arbitrary files
+          if (!kIsWeb) {
+            final downloadedFile = await readFile(path: downloadFilePath);
+            expect(downloadedFile, data);
+          }
+
+          expect(result.localFile.path, downloadFilePath);
+          expect(result.downloadedItem.path, publicPath);
+        });
+      });
+
+      testWidgets('from identity ID', (_) async {
+        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+        final result = await Amplify.Storage.downloadFile(
+          path: StoragePath.fromIdentityId(
+            (identityId) => 'private/$identityId/$name',
+          ),
+          localFile: AWSFile.fromPath(downloadFilePath),
         ).result;
 
         if (!kIsWeb) {
-          final downloadedFile = await readFile(path: metadataDownloadFilePath);
+          final downloadedFile = await readFile(path: downloadFilePath);
           expect(downloadedFile, data);
         }
-        expect(downloadResult.localFile.path, metadataDownloadFilePath);
-        expect(downloadResult.downloadedItem.path, metadataFilePath);
+        expect(result.localFile.path, downloadFilePath);
+        expect(result.downloadedItem.path, identityPath);
       });
 
-      testWidgets('unauthorized path', (_) async {
-        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+      group('with options', () {
+        testWidgets('useAccelerateEndpoint', (_) async {
+          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-        // TODO(khatruong2009): update to access denied exception when bug is fixed
-        await expectLater(
-          () => Amplify.Storage.downloadFile(
-            path: const StoragePath.fromString('unauthorized/path'),
+          final result = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            options: const StorageDownloadFileOptions(
+              pluginOptions: S3DownloadFilePluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+            ),
             localFile: AWSFile.fromPath(downloadFilePath),
-          ).result,
-          throwsA(isA<InvalidObjectState>()),
-        );
+          ).result;
+
+          if (!kIsWeb) {
+            final downloadedFile = await readFile(path: downloadFilePath);
+            expect(downloadedFile, data);
+          }
+          expect(result.localFile.path, downloadFilePath);
+          expect(result.downloadedItem.path, publicPath);
+        });
+
+        testWidgets('getProperties', (_) async {
+          final downloadResult = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(metadataFilePath),
+            options: const StorageDownloadFileOptions(
+              pluginOptions: S3DownloadFilePluginOptions(
+                getProperties: true,
+              ),
+            ),
+            localFile: AWSFile.fromPath(metadataDownloadFilePath),
+          ).result;
+
+          if (!kIsWeb) {
+            final downloadedFile =
+                await readFile(path: metadataDownloadFilePath);
+            expect(downloadedFile, data);
+          }
+          expect(downloadResult.localFile.path, metadataDownloadFilePath);
+          expect(downloadResult.downloadedItem.path, metadataFilePath);
+        });
+
+        testWidgets('unauthorized path', (_) async {
+          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+
+          // TODO(khatruong2009): update to access denied exception when bug is fixed
+          await expectLater(
+            () => Amplify.Storage.downloadFile(
+              path: const StoragePath.fromString('unauthorized/path'),
+              localFile: AWSFile.fromPath(downloadFilePath),
+            ).result,
+            throwsA(isA<InvalidObjectState>()),
+          );
+        });
       });
+    });
+
+    group('config with dots in name', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['dots-in-name']!);
+        addTearDownPath(StoragePath.fromString(publicPath));
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes(data),
+          path: StoragePath.fromString(publicPath),
+        ).result;
+      });
+      testWidgets(
+        'standard download works',
+        (_) async {
+          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final result = await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            localFile: AWSFile.fromPath(downloadFilePath),
+          ).result;
+          expect(result.localFile.path, downloadFilePath);
+          expect(result.downloadedItem.path, publicPath);
+        },
+      );
+
+      testWidgets(
+        'useAccelerateEndpoint throws',
+        (_) async {
+          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          await expectLater(
+            () => Amplify.Storage.downloadFile(
+              path: StoragePath.fromString(publicPath),
+              options: const StorageDownloadFileOptions(
+                pluginOptions: S3DownloadFilePluginOptions(
+                  useAccelerateEndpoint: true,
+                ),
+              ),
+              localFile: AWSFile.fromPath(downloadFilePath),
+            ).result,
+            // useAccelerateEndpoint is not supported with a bucket name with dots
+            throwsA(isA<ConfigurationError>()),
+          );
+        },
+      );
     });
   });
 }
