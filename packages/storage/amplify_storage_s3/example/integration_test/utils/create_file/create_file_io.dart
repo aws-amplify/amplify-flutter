@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 Future<String> createFile({
   required String path,
   required String content,
+  String contentType = 'text/plain',
 }) async {
   final tempPath = io.Directory.systemTemp.path;
   final file = io.File(p.join(tempPath, path));

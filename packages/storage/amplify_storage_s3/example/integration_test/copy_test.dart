@@ -20,100 +20,126 @@ void main() {
     final srcPath = 'public/copy-source-${uuid()}';
     final srcStoragePath = StoragePath.fromString(srcPath);
     const metadata = {'description': 'foo'};
-    setUpAll(() async {
-      await configure(amplifyEnvironments['main']!);
-      addTearDownPath(srcStoragePath);
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes('data'.codeUnits),
-        path: srcStoragePath,
-        options: const StorageUploadDataOptions(metadata: metadata),
-      ).result;
-    });
+    group('standard config', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+        addTearDownPath(srcStoragePath);
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes('data'.codeUnits),
+          path: srcStoragePath,
+          options: const StorageUploadDataOptions(metadata: metadata),
+        ).result;
+      });
 
-    testWidgets('StoragePath from string', (_) async {
-      final destinationPath = 'public/copy-dest-${uuid()}';
-      final destinationStoragePath = StoragePath.fromString(destinationPath);
-      addTearDownPath(destinationStoragePath);
-      final result = await Amplify.Storage.copy(
-        source: srcStoragePath,
-        destination: destinationStoragePath,
-      ).result;
-      expect(await objectExists(destinationStoragePath), true);
-      expect(result.copiedItem.path, destinationPath);
-    });
-
-    testWidgets('StoragePath from identity Id', (_) async {
-      final srcFileName = 'copy-source-identityId-${uuid()}';
-      final srcStoragePath = StoragePath.fromIdentityId(
-        ((identityId) => 'private/$identityId/$srcFileName'),
-      );
-      final identityId = await signInNewUser();
-      addTearDownPath(srcStoragePath);
-      await Amplify.Storage.uploadData(
-        data: HttpPayload.bytes('data'.codeUnits),
-        path: srcStoragePath,
-      ).result;
-      final destinationFileName = 'copy-source-${uuid()}';
-      final destinationStoragePath = StoragePath.fromIdentityId(
-        ((identityId) => 'private/$identityId/$destinationFileName'),
-      );
-      final expectedDestinationPath =
-          'private/$identityId/$destinationFileName';
-      addTearDownPath(destinationStoragePath);
-      final result = await Amplify.Storage.copy(
-        source: srcStoragePath,
-        destination: destinationStoragePath,
-      ).result;
-      expect(await objectExists(destinationStoragePath), true);
-      expect(result.copiedItem.path, expectedDestinationPath);
-    });
-
-    group('with options', () {
-      testWidgets('getProperties', (_) async {
-        final destinationPath = 'public/copy-dest-metadata-${uuid()}';
+      testWidgets('StoragePath from string', (_) async {
+        final destinationPath = 'public/copy-dest-${uuid()}';
         final destinationStoragePath = StoragePath.fromString(destinationPath);
         addTearDownPath(destinationStoragePath);
         final result = await Amplify.Storage.copy(
           source: srcStoragePath,
           destination: destinationStoragePath,
-          options: const StorageCopyOptions(
-            pluginOptions: S3CopyPluginOptions(getProperties: true),
-          ),
         ).result;
-        expect(result.copiedItem.metadata, metadata);
+        expect(await objectExists(destinationStoragePath), true);
+        expect(result.copiedItem.path, destinationPath);
+      });
+
+      testWidgets('StoragePath from identity Id', (_) async {
+        final srcFileName = 'copy-source-identityId-${uuid()}';
+        final srcStoragePath = StoragePath.fromIdentityId(
+          ((identityId) => 'private/$identityId/$srcFileName'),
+        );
+        final identityId = await signInNewUser();
+        addTearDownPath(srcStoragePath);
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes('data'.codeUnits),
+          path: srcStoragePath,
+        ).result;
+        final destinationFileName = 'copy-source-${uuid()}';
+        final destinationStoragePath = StoragePath.fromIdentityId(
+          ((identityId) => 'private/$identityId/$destinationFileName'),
+        );
+        final expectedDestinationPath =
+            'private/$identityId/$destinationFileName';
+        addTearDownPath(destinationStoragePath);
+        final result = await Amplify.Storage.copy(
+          source: srcStoragePath,
+          destination: destinationStoragePath,
+        ).result;
+        expect(await objectExists(destinationStoragePath), true);
+        expect(result.copiedItem.path, expectedDestinationPath);
+      });
+
+      group('with options', () {
+        testWidgets('getProperties', (_) async {
+          final destinationPath = 'public/copy-dest-metadata-${uuid()}';
+          final destinationStoragePath =
+              StoragePath.fromString(destinationPath);
+          addTearDownPath(destinationStoragePath);
+          final result = await Amplify.Storage.copy(
+            source: srcStoragePath,
+            destination: destinationStoragePath,
+            options: const StorageCopyOptions(
+              pluginOptions: S3CopyPluginOptions(getProperties: true),
+            ),
+          ).result;
+          expect(result.copiedItem.metadata, metadata);
+        });
+      });
+
+      testWidgets('unauthorized path (src)', (_) async {
+        await expectLater(
+          () => Amplify.Storage.copy(
+            source: const StoragePath.fromString('unauthorized/path'),
+            destination: const StoragePath.fromString('public/foo'),
+          ).result,
+          // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
+          throwsA(isA<ObjectNotInActiveTierError>()),
+        );
+      });
+
+      testWidgets('unauthorized path (destination)', (_) async {
+        await expectLater(
+          () => Amplify.Storage.copy(
+            source: srcStoragePath,
+            destination: const StoragePath.fromString('unauthorized/path'),
+          ).result,
+          // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
+          throwsA(isA<ObjectNotInActiveTierError>()),
+        );
+      });
+
+      testWidgets('non existent path', (_) async {
+        await expectLater(
+          () => Amplify.Storage.copy(
+            source: const StoragePath.fromString('public/non-existent-path'),
+            destination: const StoragePath.fromString('public/foo'),
+          ).result,
+          throwsA(isA<StorageKeyNotFoundException>()),
+        );
       });
     });
+    group('config with dots in name', () {
+      setUpAll(() async {
+        await configure(amplifyEnvironments['dots-in-name']!);
+        addTearDownPath(srcStoragePath);
+        await Amplify.Storage.uploadData(
+          data: HttpPayload.bytes('data'.codeUnits),
+          path: srcStoragePath,
+          options: const StorageUploadDataOptions(metadata: metadata),
+        ).result;
+      });
 
-    testWidgets('unauthorized path (src)', (_) async {
-      await expectLater(
-        () => Amplify.Storage.copy(
-          source: const StoragePath.fromString('unauthorized/path'),
-          destination: const StoragePath.fromString('public/foo'),
-        ).result,
-        // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
-        throwsA(isA<ObjectNotInActiveTierError>()),
-      );
-    });
-
-    testWidgets('unauthorized path (destination)', (_) async {
-      await expectLater(
-        () => Amplify.Storage.copy(
+      testWidgets('copy works', (_) async {
+        final destinationPath = 'public/copy-dest-${uuid()}';
+        final destinationStoragePath = StoragePath.fromString(destinationPath);
+        addTearDownPath(destinationStoragePath);
+        final result = await Amplify.Storage.copy(
           source: srcStoragePath,
-          destination: const StoragePath.fromString('unauthorized/path'),
-        ).result,
-        // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
-        throwsA(isA<ObjectNotInActiveTierError>()),
-      );
-    });
-
-    testWidgets('non existent path', (_) async {
-      await expectLater(
-        () => Amplify.Storage.copy(
-          source: const StoragePath.fromString('public/non-existent-path'),
-          destination: const StoragePath.fromString('public/foo'),
-        ).result,
-        throwsA(isA<StorageKeyNotFoundException>()),
-      );
+          destination: destinationStoragePath,
+        ).result;
+        expect(await objectExists(destinationStoragePath), true);
+        expect(result.copiedItem.path, destinationPath);
+      });
     });
   });
 }
