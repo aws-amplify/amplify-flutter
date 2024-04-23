@@ -22,15 +22,13 @@ class AuthStringResolver {
   /// {@macro amplify_authenticator.auth_string_resolver}
   const AuthStringResolver({
     ButtonResolver? buttons,
-    // ignore: deprecated_member_use_from_same_package
-    @Deprecated('Use dialCodes instead') CountryResolver? countries,
     DialCodeResolver? dialCodes,
     InputResolver? inputs,
     MessageResolver? messages,
     TitleResolver? titles,
     InstructionsResolver? instructions,
   })  : buttons = buttons ?? const ButtonResolver(),
-        dialCodes = dialCodes ?? countries ?? const DialCodeResolver(),
+        dialCodes = dialCodes ?? const DialCodeResolver(),
         inputs = inputs ?? const InputResolver(),
         titles = titles ?? const TitleResolver(),
         messages = messages ?? const MessageResolver(),
@@ -41,10 +39,6 @@ class AuthStringResolver {
 
   /// The resolver class for area codes
   final DialCodeResolver dialCodes;
-
-  /// The resolver class for area codes
-  @Deprecated('Use dialCodes instead')
-  DialCodeResolver get countries => dialCodes;
 
   /// The resolver class for shared input Widgets
   final InputResolver inputs;
