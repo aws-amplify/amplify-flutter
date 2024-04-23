@@ -4,9 +4,6 @@
 import 'package:amplify_core/src/types/analytics/analytics/custom_properties.dart';
 import 'package:amplify_core/src/types/analytics/analytics/user_profile_location.dart';
 
-@Deprecated('Use UserProfile instead')
-typedef AnalyticsUserProfile = UserProfile;
-
 /// User specific data.
 class UserProfile {
   const UserProfile({
@@ -22,7 +19,4 @@ class UserProfile {
   final String? plan;
   final UserProfileLocation? location;
   final CustomProperties? customProperties;
-
-  @Deprecated('Use customProperties instead')
-  CustomProperties? get properties => customProperties;
 }
