@@ -120,7 +120,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      return value == other.modelIdentifier;
+      return value != other.modelIdentifier;
     }
     return other != value;
   }
