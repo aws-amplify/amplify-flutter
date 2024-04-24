@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
@@ -117,9 +118,15 @@ void main() {
 
           final totpSetupResult = await Amplify.Auth.setUpTotp();
 
-          await Amplify.Auth.verifyTotpSetup(
-            '555555',
-          );
+          try {
+            await Amplify.Auth.verifyTotpSetup('555555');
+            fail('Expected to fail');
+          } on AuthException catch (e) {
+            check(
+              e,
+              because: 'Invalid TOTP code should fail verification',
+            ).isA<EnableSoftwareTokenMfaException>();
+          }
 
           check(
             await cognitoPlugin.fetchMfaPreference(),
@@ -131,9 +138,13 @@ void main() {
             ),
           );
 
-          await Amplify.Auth.verifyTotpSetup(
-            await generateTotpCode(totpSetupResult.sharedSecret),
-          );
+          try {
+            await Amplify.Auth.verifyTotpSetup(
+              await generateTotpCode(totpSetupResult.sharedSecret),
+            );
+          } on Exception catch (e) {
+            fail('Expected to succeed, but got $e');
+          }
 
           check(await cognitoPlugin.fetchMfaPreference()).equals(
             const UserMfaPreference(

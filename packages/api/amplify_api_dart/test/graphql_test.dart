@@ -692,4 +692,148 @@ void main() {
       );
     });
   });
+
+  group('Model fromJson()', () {
+    final mockBlogJson = Map<String, dynamic>.from({
+      'id': '2219c0fe-5243-48ec-8449-b3a2c8fbd3f5',
+      'name': 'Example Blog - 7dc976d7-53a0-47e7-8617-3e62ccebc9e9',
+    });
+    final mockPostJson = Map<String, dynamic>.from({
+      'id': '3bb89c75-22a9-4ee6-94b0-2fc0a20f01a4',
+      'title': 'Example Post - ee824e31-e85d-4faf-97a0-f00649b32599',
+      'rating': 3,
+      'createdAt': '2024-04-04T15:06:30.203Z',
+      'updatedAt': '2024-04-04T15:06:30.203Z',
+    });
+    final mockCommentsJson = List<Map<String, dynamic>>.from([
+      {
+        'content': 'Example Comment - fbc844fa-6ef4-4594-a2ed-9d124275ed30',
+        'id': '288d2f5d-39fa-4d70-8fd9-467a4dee9d41',
+      },
+      {
+        'content': 'Example Comment - c09ed2ea-1d9b-4bff-baf4-f19d806338ee',
+        'id': '84908a82-826a-45d3-978c-0842ad26a493',
+      },
+      {
+        'content': 'Example Comment - f83339ee-0845-4930-be08-bd592ef29321',
+        'id': '3cebd81c-fb26-4adc-996a-b869ff83fa8b',
+      },
+      {
+        'content': 'Example Comment - 6fc3b904-b977-4256-96a9-43221d01d046',
+        'id': 'cac2e916-3fc9-4842-8ba6-ce58e59f163c',
+      }
+    ]);
+    final appsyncResponse = Map<String, dynamic>.from({
+      ...mockPostJson,
+      'comments': {
+        'items': mockCommentsJson,
+      },
+      'blog': mockBlogJson,
+    });
+    final appsyncSerializedResponse = Map<String, dynamic>.from({
+      ...mockPostJson,
+      'comments': [
+        {
+          'serializedData': mockCommentsJson[0],
+        },
+        {
+          'serializedData': mockCommentsJson[1],
+        },
+        {
+          'serializedData': mockCommentsJson[2],
+        },
+        {
+          'serializedData': mockCommentsJson[3],
+        },
+      ],
+      'blog': {'serializedData': mockBlogJson},
+    });
+    final nullResponse = Map<String, dynamic>.from({
+      ...mockPostJson,
+      'comments': null,
+      'blog': null,
+    });
+
+    final malformedResponse = Map<String, dynamic>.from({
+      ...mockPostJson,
+      'comments': 'foo',
+      'blog': null,
+    });
+
+    test('should work with nested models V2', () async {
+      final post = Post.fromJson(appsyncResponse);
+
+      expect(
+        post.id,
+        mockPostJson['id'],
+      );
+      expect(
+        post.blog?.name,
+        mockBlogJson['name'],
+      );
+      expect(
+        post.comments?.length,
+        mockCommentsJson.length,
+      );
+      expect(
+        post.comments?[0].content,
+        mockCommentsJson[0]['content'],
+      );
+    });
+
+    test('should work with nested models V1', () async {
+      final post = Post.fromJson(appsyncSerializedResponse);
+
+      expect(
+        post.id,
+        mockPostJson['id'],
+      );
+      expect(
+        post.blog?.name,
+        mockBlogJson['name'],
+      );
+      expect(
+        post.comments?.length,
+        mockCommentsJson.length,
+      );
+      expect(
+        post.comments?[0].content,
+        mockCommentsJson[0]['content'],
+      );
+    });
+
+    test('should work with null nested models', () async {
+      final post = Post.fromJson(nullResponse);
+
+      expect(
+        post.id,
+        mockPostJson['id'],
+      );
+      expect(
+        post.blog,
+        isNull,
+      );
+      expect(
+        post.comments,
+        isNull,
+      );
+    });
+
+    test('should gracefully handle wrong types', () async {
+      final post = Post.fromJson(malformedResponse);
+
+      expect(
+        post.id,
+        mockPostJson['id'],
+      );
+      expect(
+        post.blog,
+        isNull,
+      );
+      expect(
+        post.comments,
+        isNull,
+      );
+    });
+  });
 }

@@ -3,7 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/jwt/src/cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
-    hide EnableSoftwareTokenMfaException;
+    hide EnableSoftwareTokenMfaException, CodeMismatchException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
@@ -76,6 +76,7 @@ final class TotpSetupStateMachine
   Future<void> _onVerify(TotpSetupVerify event) async {
     final tokens = await manager.getUserPoolTokens();
     final accessToken = tokens.accessToken.raw;
+
     try {
       await _cognitoIdp
           .verifySoftwareToken(
@@ -87,16 +88,16 @@ final class TotpSetupStateMachine
             ),
           )
           .result;
-    } on Exception catch (e, st) {
+    } on Exception catch (e) {
       // Handle mismatch code exception that may occur during TOTP verification.
       // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html#API_VerifySoftwareToken_Errors
-      if (e is EnableSoftwareTokenMfaException) {
+      if (e is EnableSoftwareTokenMfaException || e is CodeMismatchException) {
         assert(
           _details != null,
           'TotpSetupDetails should not be null. Please report this issue.',
         );
         logger.verbose(
-          'Failed to verify TOTP code. Retrying...',
+          'Failed to verify TOTP code. Allowing retry...',
           e,
         );
         emit(
@@ -106,12 +107,7 @@ final class TotpSetupStateMachine
         );
         return;
       }
-      logger.error(
-        'Failed to verify TOTP code. Please try again.',
-        e,
-        st,
-      );
-      emit(TotpSetupState.failure(e, st));
+      rethrow;
     }
 
     try {

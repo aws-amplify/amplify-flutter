@@ -213,7 +213,7 @@ class MockCognitoIdentityProviderClient
     AWSCredentialsProvider? credentialsProvider,
   }) =>
       _mockIfProvided(
-        _initiateAuth == null ? null : () => _initiateAuth!(input),
+        _initiateAuth == null ? null : () => _initiateAuth(input),
       );
 
   @override
@@ -241,7 +241,7 @@ class MockCognitoIdentityProviderClient
       _mockIfProvided(
         _respondToAuthChallenge == null
             ? null
-            : () => _respondToAuthChallenge!(input),
+            : () => _respondToAuthChallenge(input),
       );
 
   @override

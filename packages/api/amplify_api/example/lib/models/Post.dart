@@ -183,17 +183,27 @@ class Post extends amplify_core.Model {
       : id = json['id'],
         _title = json['title'],
         _rating = (json['rating'] as num?)?.toInt(),
-        _blog = json['blog']?['serializedData'] != null
-            ? Blog.fromJson(
-                new Map<String, dynamic>.from(json['blog']['serializedData']))
+        _blog = json['blog'] != null
+            ? json['blog']['serializedData'] != null
+                ? Blog.fromJson(new Map<String, dynamic>.from(
+                    json['blog']['serializedData']))
+                : Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
-        _comments = json['comments'] is List
-            ? (json['comments'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Comment.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
+        _comments = json['comments'] is Map
+            ? (json['comments']['items'] is List
+                ? (json['comments']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        Comment.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['comments'] is List
+                ? (json['comments'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => Comment.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,

@@ -399,86 +399,86 @@ class CustomTypeWithAppsyncScalarTypes {
     buffer.write("CustomTypeWithAppsyncScalarTypes {");
     buffer.write("stringValue=" + "$_stringValue" + ", ");
     buffer.write("listOfStringValue=" +
-        (_listOfStringValue != null ? _listOfStringValue!.toString() : "null") +
+        (_listOfStringValue != null ? _listOfStringValue.toString() : "null") +
         ", ");
     buffer.write("intValue=" +
-        (_intValue != null ? _intValue!.toString() : "null") +
+        (_intValue != null ? _intValue.toString() : "null") +
         ", ");
     buffer.write("listOfIntValue=" +
-        (_listOfIntValue != null ? _listOfIntValue!.toString() : "null") +
+        (_listOfIntValue != null ? _listOfIntValue.toString() : "null") +
         ", ");
     buffer.write("floatValue=" +
-        (_floatValue != null ? _floatValue!.toString() : "null") +
+        (_floatValue != null ? _floatValue.toString() : "null") +
         ", ");
     buffer.write("listOfFloatValue=" +
-        (_listOfFloatValue != null ? _listOfFloatValue!.toString() : "null") +
+        (_listOfFloatValue != null ? _listOfFloatValue.toString() : "null") +
         ", ");
     buffer.write("booleanValue=" +
-        (_booleanValue != null ? _booleanValue!.toString() : "null") +
+        (_booleanValue != null ? _booleanValue.toString() : "null") +
         ", ");
     buffer.write("listOfBooleanValue=" +
         (_listOfBooleanValue != null
-            ? _listOfBooleanValue!.toString()
+            ? _listOfBooleanValue.toString()
             : "null") +
         ", ");
     buffer.write("awsDateValue=" +
-        (_awsDateValue != null ? _awsDateValue!.format() : "null") +
+        (_awsDateValue != null ? _awsDateValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSDateValue=" +
         (_listOfAWSDateValue != null
-            ? _listOfAWSDateValue!.toString()
+            ? _listOfAWSDateValue.toString()
             : "null") +
         ", ");
     buffer.write("awsDateTimeValue=" +
-        (_awsDateTimeValue != null ? _awsDateTimeValue!.format() : "null") +
+        (_awsDateTimeValue != null ? _awsDateTimeValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSDateTimeValue=" +
         (_listOfAWSDateTimeValue != null
-            ? _listOfAWSDateTimeValue!.toString()
+            ? _listOfAWSDateTimeValue.toString()
             : "null") +
         ", ");
     buffer.write("awsTimeValue=" +
-        (_awsTimeValue != null ? _awsTimeValue!.format() : "null") +
+        (_awsTimeValue != null ? _awsTimeValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSTimeValue=" +
         (_listOfAWSTimeValue != null
-            ? _listOfAWSTimeValue!.toString()
+            ? _listOfAWSTimeValue.toString()
             : "null") +
         ", ");
     buffer.write("awsTimestampValue=" +
-        (_awsTimestampValue != null ? _awsTimestampValue!.toString() : "null") +
+        (_awsTimestampValue != null ? _awsTimestampValue.toString() : "null") +
         ", ");
     buffer.write("listOfAWSTimestampValue=" +
         (_listOfAWSTimestampValue != null
-            ? _listOfAWSTimestampValue!.toString()
+            ? _listOfAWSTimestampValue.toString()
             : "null") +
         ", ");
     buffer.write("awsEmailValue=" + "$_awsEmailValue" + ", ");
     buffer.write("listOfAWSEmailValue=" +
         (_listOfAWSEmailValue != null
-            ? _listOfAWSEmailValue!.toString()
+            ? _listOfAWSEmailValue.toString()
             : "null") +
         ", ");
     buffer.write("awsJsonValue=" + "$_awsJsonValue" + ", ");
     buffer.write("listOfAWSJsonValue=" +
         (_listOfAWSJsonValue != null
-            ? _listOfAWSJsonValue!.toString()
+            ? _listOfAWSJsonValue.toString()
             : "null") +
         ", ");
     buffer.write("awsPhoneValue=" + "$_awsPhoneValue" + ", ");
     buffer.write("listOfAWSPhoneValue=" +
         (_listOfAWSPhoneValue != null
-            ? _listOfAWSPhoneValue!.toString()
+            ? _listOfAWSPhoneValue.toString()
             : "null") +
         ", ");
     buffer.write("awsURLValue=" + "$_awsURLValue" + ", ");
     buffer.write("listOfAWSURLValue=" +
-        (_listOfAWSURLValue != null ? _listOfAWSURLValue!.toString() : "null") +
+        (_listOfAWSURLValue != null ? _listOfAWSURLValue.toString() : "null") +
         ", ");
     buffer.write("awsIPAddressValue=" + "$_awsIPAddressValue" + ", ");
     buffer.write("listOfAWSIPAddressValue=" +
         (_listOfAWSIPAddressValue != null
-            ? _listOfAWSIPAddressValue!.toString()
+            ? _listOfAWSIPAddressValue.toString()
             : "null") +
         ", ");
     buffer.write("enumValue=" +
@@ -486,17 +486,17 @@ class CustomTypeWithAppsyncScalarTypes {
         ", ");
     buffer.write("listOfEnumValue=" +
         (_listOfEnumValue != null
-            ? _listOfEnumValue!
+            ? _listOfEnumValue
                 .map((e) => amplify_core.enumToString(e))
                 .toString()
             : "null") +
         ", ");
     buffer.write("customTypeValue=" +
-        (_customTypeValue != null ? _customTypeValue!.toString() : "null") +
+        (_customTypeValue != null ? _customTypeValue.toString() : "null") +
         ", ");
     buffer.write("listOfCustomTypeValue=" +
         (_listOfCustomTypeValue != null
-            ? _listOfCustomTypeValue!.toString()
+            ? _listOfCustomTypeValue.toString()
             : "null"));
     buffer.write("}");
 
@@ -737,15 +737,15 @@ class CustomTypeWithAppsyncScalarTypes {
                     e, EnumField.values)!)
                 .toList()
             : null,
-        _customTypeValue = json['customTypeValue']?['serializedData'] != null
-            ? SimpleCustomType.fromJson(new Map<String, dynamic>.from(
-                json['customTypeValue']['serializedData']))
+        _customTypeValue = json['customTypeValue'] != null
+            ? SimpleCustomType.fromJson(
+                new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
-                .map((e) => SimpleCustomType.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                .map((e) =>
+                    SimpleCustomType.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null;
 

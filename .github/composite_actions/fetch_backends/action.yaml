@@ -46,7 +46,7 @@ runs:
 
     - name: Undo any codegen changes from amplify pull
       shell: bash
-      run: dart pub global run aft exec --include=${{ inputs.scope }} -- [ -d "lib/models" ] && git checkout lib/models/ || exit 0
+      run: dart pub global run aft exec --include=${{ inputs.scope }} -- [ -d "lib/models" ] && git checkout '**/lib/models/*' || exit 0
 
     - name: Delete AWS profile
       shell: bash

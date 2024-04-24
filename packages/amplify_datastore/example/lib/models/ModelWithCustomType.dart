@@ -108,18 +108,18 @@ class ModelWithCustomType extends amplify_core.Model {
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("customTypeValue=" +
-        (_customTypeValue != null ? _customTypeValue!.toString() : "null") +
+        (_customTypeValue != null ? _customTypeValue.toString() : "null") +
         ", ");
     buffer.write("listOfCustomTypeValue=" +
         (_listOfCustomTypeValue != null
-            ? _listOfCustomTypeValue!.toString()
+            ? _listOfCustomTypeValue.toString()
             : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -151,16 +151,15 @@ class ModelWithCustomType extends amplify_core.Model {
 
   ModelWithCustomType.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _customTypeValue = json['customTypeValue']?['serializedData'] != null
+        _customTypeValue = json['customTypeValue'] != null
             ? CustomTypeWithAppsyncScalarTypes.fromJson(
-                new Map<String, dynamic>.from(
-                    json['customTypeValue']['serializedData']))
+                new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                    new Map<String, dynamic>.from(e['serializedData'])))
+                    new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null

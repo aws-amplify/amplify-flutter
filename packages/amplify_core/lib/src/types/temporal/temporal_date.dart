@@ -116,10 +116,10 @@ class TemporalDate implements Comparable<TemporalDate> {
     // Duration.toString returns string of form -9:30:00.000000 / 9:30:00.000000
     // But we need -09:30 / +09:30
     if (_offset != null) {
-      if (_offset!.inSeconds == 0) {
+      if (_offset.inSeconds == 0) {
         buffer.write('Z');
       } else {
-        buffer.write(Temporal.durationToOffset(_offset!));
+        buffer.write(Temporal.durationToOffset(_offset));
       }
     }
 

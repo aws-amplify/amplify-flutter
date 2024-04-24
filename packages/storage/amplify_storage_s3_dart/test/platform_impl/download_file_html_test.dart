@@ -35,7 +35,7 @@ void main() {
       region: 'west-2',
     );
     final testItem = S3Item(
-      key: testKey,
+      path: testKey,
       lastModified: DateTime(2022, 9, 19),
       eTag: '12345',
       size: 1024,
@@ -59,27 +59,25 @@ void main() {
       storageS3Service = MockStorageS3Service();
 
       registerFallbackValue(
-        StorageGetUrlOptions(
-          accessLevel: testS3pluginConfig.defaultAccessLevel,
-        ),
+        const StorageGetUrlOptions(),
       );
 
       registerFallbackValue(
-        StorageGetPropertiesOptions(
-          accessLevel: testS3pluginConfig.defaultAccessLevel,
-        ),
+        const StorageGetPropertiesOptions(),
       );
+
+      registerFallbackValue(const StoragePath.fromString(testKey));
 
       when(
         () => storageS3Service.getProperties(
-          key: testKey,
+          path: any<StoragePath>(named: 'path'),
           options: any(named: 'options'),
         ),
       ).thenAnswer((_) async => testGetPropertiesResult);
 
       when(
         () => storageS3Service.getUrl(
-          key: testKey,
+          path: any<StoragePath>(named: 'path'),
           options: any(named: 'options'),
         ),
       ).thenAnswer((_) async => testGetUrlResult);
@@ -88,84 +86,47 @@ void main() {
     test(
         'should invoke StorageS3Service.getUrl with converted S3DownloadFilePluginOptions',
         () async {
-      const testTargetIdentity = 'someone-else';
       final operation = downloadFile(
-        key: testKey,
+        path: const StoragePath.fromString('public/$testKey'),
         localFile: AWSFile.fromPath('file_name.jpg'),
-        options: StorageDownloadFileOptions(
-          accessLevel: testS3pluginConfig.defaultAccessLevel,
-          pluginOptions:
-              const S3DownloadFilePluginOptions.forIdentity(testTargetIdentity),
-        ),
+        options: const StorageDownloadFileOptions(),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       );
 
       await operation.result;
-
-      final capturedGetPropertiesOptions = verify(
+      verify(
         () => storageS3Service.getProperties(
-          key: testKey,
+          path: any<StoragePath>(named: 'path'),
           options: captureAny<StorageGetPropertiesOptions>(
             named: 'options',
           ),
         ),
       ).captured.last;
 
-      expect(
-        capturedGetPropertiesOptions,
-        isA<StorageGetPropertiesOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              testS3pluginConfig.defaultAccessLevel,
-            )
-            .having(
-              (o) => (o.pluginOptions! as S3GetPropertiesPluginOptions)
-                  .targetIdentityId,
-              'targetIdentityId',
-              testTargetIdentity,
-            ),
-      );
-
-      final capturedUrlOptions = verify(
+      verify(
         () => storageS3Service.getUrl(
-          key: testKey,
+          path: any<StoragePath>(named: 'path'),
           options: captureAny<StorageGetUrlOptions>(
             named: 'options',
           ),
         ),
       ).captured.last;
-
-      expect(
-        capturedUrlOptions,
-        isA<StorageGetUrlOptions>()
-            .having(
-              (o) => o.accessLevel,
-              'accessLevel',
-              testS3pluginConfig.defaultAccessLevel,
-            )
-            .having(
-              (o) =>
-                  (o.pluginOptions! as S3GetUrlPluginOptions).targetIdentityId,
-              'targetIdentityId',
-              testTargetIdentity,
-            ),
-      );
     });
 
     test(
         'download result should include metadata when options.getProperties is set to true',
         () async {
       const options = StorageDownloadFileOptions(
-        accessLevel: StorageAccessLevel.private,
         pluginOptions: S3DownloadFilePluginOptions(
           getProperties: true,
         ),
       );
       final result = await downloadFile(
-        key: testKey,
+        path: StoragePath.fromIdentityId(
+          (identityId) => 'private/$identityId/$testKey',
+        ),
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,
         s3pluginConfig: testS3pluginConfig,

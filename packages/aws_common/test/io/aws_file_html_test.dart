@@ -3,11 +3,11 @@
 
 @TestOn('browser')
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 
-import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/web.dart';
 import 'package:test/test.dart';
@@ -19,6 +19,7 @@ void main() {
     const testStringContent = 'I ❤️ Amplify, œ 小新';
     const testContentType = 'text/plain';
     final testBytes = utf8.encode(testStringContent);
+    final testBytesUtf16 = testStringContent.codeUnits;
     final testBlob = html.Blob([testBytes], testContentType);
     final testFile = html.File(
         [testBlob],
@@ -183,6 +184,14 @@ void main() {
         expect(bytesBuffer.takeBytes(), equals(testBytes));
       });
 
+      test('returns streams over the underlying bytes (utf16)', () async {
+        final awsFile = AWSFile.fromData(testBytesUtf16);
+
+        final collectedBytes = await collectBytes(awsFile.openRead());
+
+        expect(collectedBytes, equals(testBytesUtf16));
+      });
+
       test(
         'returns streams over the underlying file pointed by the path',
         () async {
@@ -204,4 +213,22 @@ void main() {
       );
     });
   });
+}
+
+/// Collects an asynchronous sequence of byte lists into a single list of bytes.
+///
+/// Similar to collectBytes from package:async, but works for any List<int>,
+/// where as collectBytes from package:async only supports [Uint8List].
+Future<List<int>> collectBytes(Stream<List<int>> source) {
+  final bytes = <int>[];
+  final completer = Completer<List<int>>.sync();
+  source.listen(
+    bytes.addAll,
+    onError: completer.completeError,
+    onDone: () {
+      completer.complete(bytes);
+    },
+    cancelOnError: true,
+  );
+  return completer.future;
 }

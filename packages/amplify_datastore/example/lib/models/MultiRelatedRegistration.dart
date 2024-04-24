@@ -121,15 +121,15 @@ class MultiRelatedRegistration extends amplify_core.Model {
     buffer.write("MultiRelatedRegistration {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write(
-        "meeting=" + (_meeting != null ? _meeting!.toString() : "null") + ", ");
+        "meeting=" + (_meeting != null ? _meeting.toString() : "null") + ", ");
     buffer.write("attendee=" +
-        (_attendee != null ? _attendee!.toString() : "null") +
+        (_attendee != null ? _attendee.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -154,13 +154,19 @@ class MultiRelatedRegistration extends amplify_core.Model {
 
   MultiRelatedRegistration.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _meeting = json['meeting']?['serializedData'] != null
-            ? MultiRelatedMeeting.fromJson(new Map<String, dynamic>.from(
-                json['meeting']['serializedData']))
+        _meeting = json['meeting'] != null
+            ? json['meeting']['serializedData'] != null
+                ? MultiRelatedMeeting.fromJson(new Map<String, dynamic>.from(
+                    json['meeting']['serializedData']))
+                : MultiRelatedMeeting.fromJson(
+                    new Map<String, dynamic>.from(json['meeting']))
             : null,
-        _attendee = json['attendee']?['serializedData'] != null
-            ? MultiRelatedAttendee.fromJson(new Map<String, dynamic>.from(
-                json['attendee']['serializedData']))
+        _attendee = json['attendee'] != null
+            ? json['attendee']['serializedData'] != null
+                ? MultiRelatedAttendee.fromJson(new Map<String, dynamic>.from(
+                    json['attendee']['serializedData']))
+                : MultiRelatedAttendee.fromJson(
+                    new Map<String, dynamic>.from(json['attendee']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

@@ -98,13 +98,13 @@ class BelongsToChildExplicit extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("belongsToParent=" +
-        (_belongsToParent != null ? _belongsToParent!.toString() : "null") +
+        (_belongsToParent != null ? _belongsToParent.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -132,9 +132,12 @@ class BelongsToChildExplicit extends amplify_core.Model {
   BelongsToChildExplicit.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _belongsToParent = json['belongsToParent']?['serializedData'] != null
-            ? BelongsToParent.fromJson(new Map<String, dynamic>.from(
-                json['belongsToParent']['serializedData']))
+        _belongsToParent = json['belongsToParent'] != null
+            ? json['belongsToParent']['serializedData'] != null
+                ? BelongsToParent.fromJson(new Map<String, dynamic>.from(
+                    json['belongsToParent']['serializedData']))
+                : BelongsToParent.fromJson(
+                    new Map<String, dynamic>.from(json['belongsToParent']))
             : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])

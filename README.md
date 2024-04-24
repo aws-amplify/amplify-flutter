@@ -38,6 +38,10 @@ When Amplify adds a new enumeration entry or sealed class subtype, we will publi
 Applications that use a `switch` statement to evaluate all members of an enumerated type can add a `default` clause to prevent 
 new cases from causing compile warnings or errors.
 
+#### Semantic versioning and dependencies update
+
+We follow [semantic versioning for updating our dependencies](https://semver.org/#what-should-i-do-if-i-update-my-own-dependencies-without-changing-the-public-api). This includes updating the dart and flutter SDK version.
+
 ## Category / Platform Support
 
 | Category       | Android |  iOS  |  Web  | Windows | MacOS | Linux |
