@@ -8,8 +8,7 @@ import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
 
 const _keyNotFoundRecoveryMessage =
-    'Ensure that correct object key is provided, and/or correct `StorageAccessLevel`'
-    ' and `targetIdentityId` are included in the options.';
+    'Ensure that correct StoragePath is provided.';
 const _httpErrorRecoveryMessage =
     'HTTP error returned from service, review the `underlyingException` for details.';
 
@@ -34,7 +33,7 @@ extension NoSuchKeyToStorageKeyNotFoundException on s3.NoSuchKey {
   /// underlying exception.
   StorageKeyNotFoundException toStorageKeyNotFoundException() {
     return StorageKeyNotFoundException(
-      'Cannot find the item specified by the key and access level.',
+      'Cannot find the item specified by the provided path.',
       recoverySuggestion: _keyNotFoundRecoveryMessage,
       underlyingException: this,
     );
@@ -66,7 +65,7 @@ extension UnknownSmithyHttpExceptionToStorageException
         );
       } else if (statusCode == 404) {
         return StorageKeyNotFoundException(
-          'Cannot find the item specified by the key and access level.',
+          'Cannot find the item specified by the provided path.',
           recoverySuggestion: _keyNotFoundRecoveryMessage,
           underlyingException: this,
         );

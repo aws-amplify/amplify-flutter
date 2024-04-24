@@ -24,6 +24,7 @@ part 'storage/http_status_exception.dart';
 part 'storage/key_not_found_exception.dart';
 part 'storage/local_file_not_found_exception.dart';
 part 'storage/operation_canceled_exception.dart';
+part 'storage/path_validation_exception.dart';
 part 'storage/storage_exception.dart';
 part 'unknown_exception.dart';
 
