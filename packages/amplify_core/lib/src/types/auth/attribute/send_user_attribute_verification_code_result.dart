@@ -40,8 +40,3 @@ class SendUserAttributeVerificationCodeResult
   Map<String, Object?> toJson() =>
       _$SendUserAttributeVerificationCodeResultToJson(this);
 }
-
-/// {@macro amplify_core.send_user_attribute_verification_code_result}
-@Deprecated('Use SendUserAttributeVerificationCodeResult.')
-typedef ResendUserAttributeConfirmationCodeResult
-    = SendUserAttributeVerificationCodeResult;

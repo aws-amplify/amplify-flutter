@@ -33,71 +33,6 @@ void main() {
         ..addInstance<SecureStorageInterface>(secureStorage);
     });
 
-    test('can change flow at runtime', () async {
-      const config = AmplifyConfig(
-        auth: AuthConfig(
-          plugins: {
-            CognitoPluginConfig.pluginKey: CognitoPluginConfig(
-              auth: AWSConfigMap(
-                {
-                  'Default': CognitoAuthConfig(
-                    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
-                  ),
-                },
-              ),
-              cognitoUserPool: AWSConfigMap(
-                {
-                  'Default': CognitoUserPoolConfig(
-                    poolId: testUserPoolId,
-                    appClientId: testAppClientId,
-                    region: testRegion,
-                  ),
-                },
-              ),
-            ),
-          },
-        ),
-      );
-      stateMachine
-          .dispatch(
-            const ConfigurationEvent.configure(config),
-          )
-          .ignore();
-      await expectLater(
-        stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-              (event) => event is Configured || event is ConfigureFailure,
-            ),
-        completion(isA<Configured>()),
-      );
-
-      final mockClient = MockCognitoIdentityProviderClient(
-        initiateAuth: expectAsync1(
-          (_) async => cognito_idp.InitiateAuthResponse(
-            challengeName: cognito_idp.ChallengeNameType.customChallenge,
-          ),
-        ),
-      );
-      stateMachine
-        ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
-        ..dispatch(
-          SignInEvent.initiate(
-            authFlowType: AuthenticationFlowType.customAuthWithSrp,
-            parameters: SignInParameters(
-              (p) => p
-                ..username = 'username'
-                ..password = 'password',
-            ),
-          ),
-        ).ignore();
-
-      final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
-      await signInStateMachine.stream.whereType<SignInChallenge>().first;
-      expect(
-        signInStateMachine.authFlowType,
-        cognito_idp.AuthFlowType.customAuth,
-      );
-    });
-
     test('smoke test', () async {
       stateMachine
           .dispatch(
@@ -231,54 +166,6 @@ void main() {
               'exception',
               isA<AuthValidationException>(),
             ),
-          ]),
-        );
-      });
-
-      test('customAuth uses old behavior', () async {
-        stateMachine
-            .dispatch(
-              ConfigurationEvent.configure(userPoolOnlyConfig),
-            )
-            .ignore();
-        await expectLater(
-          stateMachine.stream.whereType<ConfigurationState>().firstWhere(
-                (event) => event is Configured || event is ConfigureFailure,
-              ),
-          completion(isA<Configured>()),
-        );
-
-        final mockClient = MockCognitoIdentityProviderClient(
-          initiateAuth: expectAsync1(
-            (_) async => cognito_idp.InitiateAuthResponse(
-              authenticationResult: cognito_idp.AuthenticationResultType(
-                accessToken: accessToken.raw,
-                refreshToken: refreshToken,
-                idToken: idToken.raw,
-              ),
-            ),
-          ),
-        );
-        stateMachine
-          ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
-          ..dispatch(
-            SignInEvent.initiate(
-              // ignore: deprecated_member_use
-              authFlowType: AuthenticationFlowType.customAuth,
-              parameters: SignInParameters(
-                (p) => p
-                  ..username = 'username'
-                  ..password = 'password',
-              ),
-            ),
-          ).ignore();
-
-        final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
-        expect(
-          signInStateMachine.stream,
-          emitsInOrder([
-            isA<SignInInitiating>(),
-            isA<SignInSuccess>(),
           ]),
         );
       });

@@ -39,8 +39,3 @@ class CognitoSendUserAttributeVerificationCodePluginOptions
   Map<String, Object?> toJson() =>
       _$CognitoSendUserAttributeVerificationCodePluginOptionsToJson(this);
 }
-
-/// {@macro amplify_auth_cognito.model.cognito_send_user_attribute_verification_code_plugin_options}
-@Deprecated('Use CognitoSendUserAttributeVerificationCodePluginOptions')
-typedef CognitoResendUserAttributeConfirmationCodePluginOptions
-    = CognitoSendUserAttributeVerificationCodePluginOptions;
