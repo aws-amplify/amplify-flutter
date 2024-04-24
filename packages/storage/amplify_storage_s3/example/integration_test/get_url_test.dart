@@ -140,7 +140,7 @@ void main() {
                 ),
               ),
             ).result,
-            throwsA(isA<StorageKeyNotFoundException>()),
+            throwsA(isA<StorageNotFoundException>()),
           );
         });
 

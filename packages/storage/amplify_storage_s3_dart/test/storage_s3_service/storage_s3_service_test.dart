@@ -465,7 +465,7 @@ void main() {
       });
 
       test(
-          'should throw StorageKeyNotFoundException when UnknownSmithyHttpException'
+          'should throw StorageNotFoundException when UnknownSmithyHttpException'
           ' with status code 404 returned from service', () async {
         const testOptions = StorageGetPropertiesOptions();
         const testUnknownException = UnknownSmithyHttpException(
@@ -484,7 +484,7 @@ void main() {
             path: const StoragePath.fromString('a key'),
             options: testOptions,
           ),
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
       });
 
@@ -668,7 +668,7 @@ void main() {
             path: testPath,
             options: testOptions,
           ),
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
 
         final capturedRequest = verify(
@@ -707,7 +707,7 @@ void main() {
             path: testPath,
             options: testOptions,
           ),
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
 
         final capturedRequest = verify(

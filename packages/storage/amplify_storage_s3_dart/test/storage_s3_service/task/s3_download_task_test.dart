@@ -430,9 +430,9 @@ void main() {
           exceptionTypeMatcher: isA<StorageHttpStatusException>(),
         ),
         DownloadTaskExceptionConversionTestItem(
-          description: 'it should complete with a StorageKeyNotFoundException',
+          description: 'it should complete with a StorageNotFoundException',
           originalException: NoSuchKey(),
-          exceptionTypeMatcher: isA<StorageKeyNotFoundException>(),
+          exceptionTypeMatcher: isA<StorageNotFoundException>(),
         ),
         DownloadTaskExceptionConversionTestItem(
           description: 'it should complete with a NetworkException',
