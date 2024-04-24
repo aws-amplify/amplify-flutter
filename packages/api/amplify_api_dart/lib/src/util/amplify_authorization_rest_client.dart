@@ -55,7 +55,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   Future<AWSBaseHttpResponse> transformResponse(
     AWSBaseHttpResponse response,
   ) async {
-    // For REST endpoints, throw [RestException] on non-successful responses.
+    // For REST endpoints, throw [HttpStatusException] on non-successful responses.
     if (endpointConfig.endpointType == EndpointType.rest &&
         (response.statusCode < 200 || response.statusCode >= 300)) {
       final responseForException = switch (response) {
