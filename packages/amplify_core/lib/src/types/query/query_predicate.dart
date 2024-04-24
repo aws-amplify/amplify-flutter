@@ -58,7 +58,7 @@ class QueryPredicateOperation extends QueryPredicate {
   @override
   bool evaluate(Model model) {
     final fieldName = getFieldName(field);
-    final value = model.toJson()[fieldName];
+    final value = model.toMap()[fieldName];
     return queryFieldOperator.evaluate(value);
   }
 
