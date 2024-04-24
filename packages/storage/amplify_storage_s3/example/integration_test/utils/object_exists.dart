@@ -5,7 +5,7 @@ Future<bool> objectExists(StoragePath path) async {
   try {
     await Amplify.Storage.getProperties(path: path).result;
     return true;
-  } on StorageKeyNotFoundException {
+  } on StorageNotFoundException {
     return false;
   }
 }

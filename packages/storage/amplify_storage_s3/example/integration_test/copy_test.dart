@@ -114,7 +114,7 @@ void main() {
             source: const StoragePath.fromString('public/non-existent-path'),
             destination: const StoragePath.fromString('public/foo'),
           ).result,
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
       });
     });

@@ -4,7 +4,6 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -40,8 +39,6 @@ void main() {
             ).result;
             expect(downloadResult.bytes, data);
           },
-          // TODO(Jordan-Nelson): Resolve bug with `AWSFile.fromData` on web.
-          skip: kIsWeb,
         );
 
         testWidgets('from path', (_) async {

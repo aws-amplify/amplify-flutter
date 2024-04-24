@@ -6,7 +6,7 @@ export '../exception/amplify_exception.dart'
         StorageException,
         StorageAccessDeniedException,
         StorageHttpStatusException,
-        StorageKeyNotFoundException,
+        StorageNotFoundException,
         StorageLocalFileNotFoundException,
         StorageOperationCanceledException,
         NetworkException,
