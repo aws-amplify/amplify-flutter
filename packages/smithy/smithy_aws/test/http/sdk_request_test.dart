@@ -24,7 +24,10 @@ void main() {
           return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
         }
         attempt++;
-        return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
+        return AWSHttpResponse(
+          statusCode: 500,
+          body: '{"error":"DummySmithyException"}'.codeUnits,
+        );
       });
       final retryer = AWSRetryer();
       final op = DummyHttpOperation(retryer);
@@ -57,7 +60,10 @@ void main() {
         return AWSHttpResponse(statusCode: 200, body: '{}'.codeUnits);
       }
       attempt++;
-      return AWSHttpResponse(statusCode: 500, body: '{}'.codeUnits);
+      return AWSHttpResponse(
+        statusCode: 500,
+        body: '{"error":"DummySmithyException"}'.codeUnits,
+      );
     });
     final retryer = AWSRetryer();
     final op = DummyHttpOperation(retryer);
