@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /// {@template amplify_analytics_pinpoint_dart.analytics_pinpoint_plugin_options}
 /// The plugin options for the Amplify Analytics Pinpoint plugin
 /// {@endtemplate}
