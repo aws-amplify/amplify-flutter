@@ -3,7 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_not_in_active_tier_error.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -92,8 +91,7 @@ void main() {
             source: const StoragePath.fromString('unauthorized/path'),
             destination: const StoragePath.fromString('public/foo'),
           ).result,
-          // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
-          throwsA(isA<ObjectNotInActiveTierError>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
@@ -103,8 +101,7 @@ void main() {
             source: srcStoragePath,
             destination: const StoragePath.fromString('unauthorized/path'),
           ).result,
-          // TODO(Jordan-Nelson): update to StorageAccessDeniedException when SDK error mapping is fixed
-          throwsA(isA<ObjectNotInActiveTierError>()),
+          throwsA(isA<StorageAccessDeniedException>()),
         );
       });
 
@@ -114,7 +111,7 @@ void main() {
             source: const StoragePath.fromString('public/non-existent-path'),
             destination: const StoragePath.fromString('public/foo'),
           ).result,
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
       });
     });

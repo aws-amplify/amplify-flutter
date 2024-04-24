@@ -75,7 +75,7 @@ void main() {
           () => Amplify.Storage.getProperties(
             path: const StoragePath.fromString('public/not-existent-path'),
           ).result,
-          throwsA(isA<StorageKeyNotFoundException>()),
+          throwsA(isA<StorageNotFoundException>()),
         );
       });
     });

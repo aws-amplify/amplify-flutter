@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/invalid_object_state.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -157,13 +156,12 @@ void main() {
         testWidgets('unauthorized path', (_) async {
           final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
 
-          // TODO(khatruong2009): update to access denied exception when bug is fixed
           await expectLater(
             () => Amplify.Storage.downloadFile(
               path: const StoragePath.fromString('unauthorized/path'),
               localFile: AWSFile.fromPath(downloadFilePath),
             ).result,
-            throwsA(isA<InvalidObjectState>()),
+            throwsA(isA<StorageAccessDeniedException>()),
           );
         });
       });

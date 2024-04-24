@@ -4,6 +4,7 @@
 // ignore_for_file: avoid_unused_constructor_parameters
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
@@ -43,7 +44,7 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   Iterable<HttpProtocol<Unit, Unit, Unit, Unit>> get protocols => [
-        GenericJsonProtocol(
+        DummyProtocol(
           serializers: const [
             _DummySmithyExceptionSerializer(),
           ],
@@ -129,4 +130,20 @@ class _DummySmithyExceptionSerializer
 
   @override
   String get wireName => 'DummySmithyException';
+}
+
+class DummyProtocol<InputPayload, Input, OutputPayload, Output>
+    extends GenericJsonProtocol<InputPayload, Input, OutputPayload, Output> {
+  DummyProtocol({
+    required super.requestInterceptors,
+    required super.serializers,
+  });
+
+  @override
+  Future<String?> resolveErrorType(AWSBaseHttpResponse response) async {
+    final body = await response.bodyBytes;
+    final json = jsonDecode(String.fromCharCodes(body)) as Map<String, Object?>;
+    final error = json['error'] as String?;
+    return error;
+  }
 }
