@@ -12,9 +12,7 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@endtemplate}
 class AmplifyStorageS3 extends AmplifyStorageS3Dart {
   /// {@macro amplify_storage_s3_.amplify_storage_s3_plugin}
-  AmplifyStorageS3({
-    super.delimiter,
-  });
+  AmplifyStorageS3();
 
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
   /// a S3-specific Storage category interface.
