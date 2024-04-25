@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'pinpoint_config.g.dart';
@@ -36,9 +35,7 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
-    int autoFlushEventsInterval = 30,
-  }) : _autoFlushEventsInterval = autoFlushEventsInterval;
-
+  });
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
       _$PinpointPluginConfigFromJson(json);
 
@@ -48,16 +45,8 @@ class PinpointPluginConfig
   final PinpointAnalytics pinpointAnalytics;
   final PinpointTargeting pinpointTargeting;
 
-  final int _autoFlushEventsInterval;
-
-  /// The duration in seconds between flushing analytics events to Pinpoint.
-  @_DurationConverter()
-  Duration get autoFlushEventsInterval =>
-      Duration(seconds: _autoFlushEventsInterval);
-
   @override
-  List<Object?> get props =>
-      [pinpointAnalytics, pinpointTargeting, autoFlushEventsInterval];
+  List<Object?> get props => [pinpointAnalytics, pinpointTargeting];
 
   PinpointPluginConfig copyWith({
     PinpointAnalytics? pinpointAnalytics,
@@ -67,8 +56,6 @@ class PinpointPluginConfig
     return PinpointPluginConfig(
       pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics,
       pinpointTargeting: pinpointTargeting ?? this.pinpointTargeting,
-      autoFlushEventsInterval:
-          autoFlushEventsInterval ?? _autoFlushEventsInterval,
     );
   }
 
@@ -131,14 +118,4 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
 
   @override
   Map<String, Object?> toJson() => _$PinpointTargetingToJson(this);
-}
-
-class _DurationConverter implements JsonConverter<Duration, int> {
-  const _DurationConverter();
-
-  @override
-  Duration fromJson(int json) => Duration(seconds: json);
-
-  @override
-  int toJson(Duration object) => object.inSeconds;
 }
