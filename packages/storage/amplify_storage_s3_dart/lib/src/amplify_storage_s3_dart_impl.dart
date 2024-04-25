@@ -30,10 +30,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
-    String? delimiter,
     @visibleForTesting DependencyManager? dependencyManagerOverride,
-  })  : _delimiter = delimiter,
-        _dependencyManagerOverride = dependencyManagerOverride;
+  }) : _dependencyManagerOverride = dependencyManagerOverride;
 
   /// {@template amplify_storage_s3_dart.plugin_key}
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
@@ -41,8 +39,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   /// {@endtemplate}
   static const StoragePluginKey<AmplifyStorageS3Dart> pluginKey =
       _AmplifyStorageS3DartPluginKey();
-
-  final String? _delimiter;
 
   final DependencyManager? _dependencyManagerOverride;
 
@@ -112,7 +108,6 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
         StorageS3Service(
           credentialsProvider: credentialsProvider,
           s3PluginConfig: s3PluginConfig,
-          delimiter: _delimiter,
           pathResolver: _pathResolver,
           logger: logger,
           dependencyManager: dependencies,

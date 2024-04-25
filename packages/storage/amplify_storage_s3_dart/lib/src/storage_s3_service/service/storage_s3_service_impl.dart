@@ -36,7 +36,6 @@ class StorageS3Service {
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
-    String? delimiter,
   }) {
     final usePathStyle = s3PluginConfig.bucket.contains('.');
 
@@ -61,7 +60,6 @@ class StorageS3Service {
       credentialsProvider: credentialsProvider,
       logger: logger,
       dependencyManager: dependencyManager,
-      delimiter: delimiter,
     );
   }
 
@@ -72,9 +70,7 @@ class StorageS3Service {
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
-    String? delimiter,
   })  : _s3PluginConfig = s3PluginConfig,
-        _delimiter = delimiter ?? '/',
         _defaultS3ClientConfig = s3ClientConfig,
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
@@ -99,7 +95,6 @@ class StorageS3Service {
       sigv4.S3ServiceConfiguration(signPayload: false);
 
   final S3PluginConfig _s3PluginConfig;
-  final String _delimiter;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
   final S3PathResolver _pathResolver;
@@ -141,7 +136,9 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths
+              ? s3PluginOptions.delimiter
+              : null;
       });
 
       try {
@@ -164,7 +161,9 @@ class StorageS3Service {
         builder
           ..bucket = _s3PluginConfig.bucket
           ..prefix = resolvedPath
-          ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths
+              ? s3PluginOptions.delimiter
+              : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;
