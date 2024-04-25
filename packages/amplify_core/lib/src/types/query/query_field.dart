@@ -4,7 +4,6 @@
 library query_field;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/temporal/datetime_parse.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';

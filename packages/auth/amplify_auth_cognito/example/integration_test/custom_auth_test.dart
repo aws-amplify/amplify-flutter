@@ -229,32 +229,6 @@ void main() {
             reason: 'Authorization failures are not retryable',
           );
         });
-
-        asyncTest('works with deprecated auth flow', (_) async {
-          const options = SignInOptions(
-            pluginOptions: CognitoSignInPluginOptions(
-              // ignore: deprecated_member_use
-              authFlowType: AuthenticationFlowType.customAuth,
-            ),
-          );
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            options: options,
-          );
-          expect(
-            signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithCustomChallenge,
-            reason: 'should use non-SRP flow based on exclusion of password',
-          );
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: confirmationValue,
-          );
-          expect(
-            res.isSignedIn,
-            isTrue,
-            reason: 'should use non-SRP flow based on exclusion of password',
-          );
-        });
       });
     }
 
@@ -420,33 +394,6 @@ void main() {
             ),
             throwsA(isA<AuthNotAuthorizedException>()),
             reason: 'Authorization failures are not retryable',
-          );
-        });
-
-        asyncTest('works with deprecated auth flow', (_) async {
-          const options = SignInOptions(
-            pluginOptions: CognitoSignInPluginOptions(
-              // ignore: deprecated_member_use
-              authFlowType: AuthenticationFlowType.customAuth,
-            ),
-          );
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-            options: options,
-          );
-          expect(
-            signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithCustomChallenge,
-            reason: 'should use SRP flow based on inclusion of password',
-          );
-          final res = await Amplify.Auth.confirmSignIn(
-            confirmationValue: confirmationValue,
-          );
-          expect(
-            res.isSignedIn,
-            isTrue,
-            reason: 'should use SRP flow based on inclusion of password',
           );
         });
       });

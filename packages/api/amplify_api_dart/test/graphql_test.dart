@@ -138,9 +138,7 @@ WebSocketBloc? mockWebSocketBloc;
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    super.authProviders,
-    super.modelProvider,
-    super.baseHttpClient,
+    super.options,
   });
 
   @override
@@ -155,9 +153,11 @@ void main() {
 
   setUp(() async {
     final api = MockAmplifyAPI(
-      authProviders: [const CustomFunctionProvider()],
-      baseHttpClient: mockHttpClient,
-      modelProvider: ModelProvider.instance,
+      options: APIPluginOptions(
+        authProviders: [const CustomFunctionProvider()],
+        baseHttpClient: mockHttpClient,
+        modelProvider: ModelProvider.instance,
+      ),
     );
 
     await Amplify.addPlugin(api);

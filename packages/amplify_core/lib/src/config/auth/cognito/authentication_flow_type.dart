@@ -14,11 +14,6 @@ enum AuthenticationFlowType {
   @JsonValue('USER_PASSWORD_AUTH')
   userPasswordAuth('USER_PASSWORD_AUTH'),
 
-  /// Authentication flow for custom flow which are backed by Lambda triggers.
-  @Deprecated('Use customAuthWithSrp or customAuthWithoutSrp instead')
-  @JsonValue('CUSTOM_AUTH')
-  customAuth('CUSTOM_AUTH'),
-
   /// Authentication flow which start with SRP and then move to custom auth
   /// flow.
   @JsonValue('CUSTOM_AUTH_WITH_SRP')

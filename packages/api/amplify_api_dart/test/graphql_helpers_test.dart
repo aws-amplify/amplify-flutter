@@ -19,7 +19,7 @@ const _exampleHeaders = {'testKey': 'testVal'};
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    super.modelProvider,
+    super.options,
   });
 
   @override
@@ -49,7 +49,9 @@ void main() {
       await Amplify.reset();
       await Amplify.addPlugin(
         // needed to fetch the schema from within the helper
-        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+        MockAmplifyAPI(
+          options: APIPluginOptions(modelProvider: ModelProvider.instance),
+        ),
       );
     });
     const blogSelectionSet = 'id name createdAt updatedAt';

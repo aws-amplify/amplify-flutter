@@ -3,11 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// @nodoc
-/// {@macro amplify_core.auth.fetch_auth_session_options}
-@Deprecated('Use FetchAuthSessionOptions instead')
-typedef AuthSessionOptions = FetchAuthSessionOptions;
-
 /// {@category Auth}
 /// {@template amplify_core.auth.fetch_auth_session_options}
 /// Options for `Amplify.Auth.fetchAuthSession`.

@@ -56,15 +56,6 @@ final class SignInStateMachine
   /// Flow used to sign in.
   late AuthFlowType authFlowType;
 
-  /// The default flow used to sign in.
-  late final AuthFlowType defaultAuthFlowType = () {
-    // Get the flow from the plugin config
-    final pluginFlowType =
-        expect<CognitoPluginConfig>().auth?.default$?.authenticationFlowType ??
-            AuthenticationFlowType.userSrpAuth;
-    return pluginFlowType.sdkValue;
-  }();
-
   /// Parameters to the flow.
   late SignInParameters parameters;
 
@@ -291,7 +282,8 @@ final class SignInStateMachine
       return password;
     }
 
-    authFlowType = event.authFlowType?.sdkValue ?? defaultAuthFlowType;
+    authFlowType = event.authFlowType?.sdkValue ??
+        AuthenticationFlowType.userSrpAuth.sdkValue;
     return switch (authFlowType) {
       AuthFlowType.userSrpAuth => () {
           expectPassword();
@@ -551,8 +543,6 @@ final class SignInStateMachine
                 'Do not include a password in your call to Amplify.Auth.signIn',
           );
         }
-      // ignore: deprecated_member_use
-      case AuthenticationFlowType.customAuth:
       default:
         break;
     }

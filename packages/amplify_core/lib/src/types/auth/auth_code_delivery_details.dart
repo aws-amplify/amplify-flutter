@@ -57,11 +57,6 @@ class AuthCodeDeliveryDetails
   /// being updated.
   final AuthUserAttributeKey? attributeKey;
 
-  /// If a user attribute update is underway, this is the name of the attribute
-  /// being updated.
-  @Deprecated('Use attributeKey instead')
-  String? get attributeName => attributeKey?.key;
-
   @override
   List<Object?> get props => [attributeKey, deliveryMedium, destination];
 

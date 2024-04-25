@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:amplify_api_dart/src/api_plugin_options.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/send_graphql_request.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
@@ -21,18 +22,15 @@ import 'package:meta/meta.dart';
 class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// {@macro amplify_api_dart.amplify_api_dart}
   AmplifyAPIDart({
-    List<APIAuthProvider> authProviders = const [],
+    APIPluginOptions options = const APIPluginOptions(),
     ConnectivityPlatform connectivity = const ConnectivityPlatform(),
-    AWSHttpClient? baseHttpClient,
-    this.modelProvider,
-    this.subscriptionOptions,
-  })  : _baseHttpClient = baseHttpClient,
+  })  : _options = options,
         _connectivity = connectivity {
-    authProviders.forEach(registerAuthProvider);
+    _options.authProviders.forEach(registerAuthProvider);
   }
 
+  final APIPluginOptions _options;
   late final AWSApiPluginConfig _apiConfig;
-  final AWSHttpClient? _baseHttpClient;
   late final AmplifyAuthProviderRepository _authProviderRepo;
 
   /// Creates a stream representing network connectivity at the hardware level.
@@ -48,9 +46,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   final StreamController<ApiHubEvent> _hubEventController =
       StreamController<ApiHubEvent>.broadcast();
-
-  /// Subscription options
-  final GraphQLSubscriptionOptions? subscriptionOptions;
 
   @override
   Future<void> reset() async {
@@ -156,7 +151,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       dependencies,
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
-        baseClient: _baseHttpClient ?? dependencies.getOrCreate(),
+        baseClient: _options.baseHttpClient ?? dependencies.getOrCreate(),
         authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
@@ -187,8 +182,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       config: endpoint.config,
       authProviderRepo: _authProviderRepo,
       wsService: AmplifyWebSocketService(),
-      subscriptionOptions:
-          subscriptionOptions ?? const GraphQLSubscriptionOptions(),
+      subscriptionOptions: _options.subscriptionOptions,
       connectivity: _connectivity,
     );
   }
@@ -214,8 +208,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   }
 
   @override
-  final ModelProviderInterface? modelProvider;
-
+  ModelProviderInterface? get modelProvider => _options.modelProvider;
   // ====== GraphQL ======
 
   @override

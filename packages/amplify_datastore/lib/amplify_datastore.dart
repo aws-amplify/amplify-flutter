@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
+import 'package:amplify_datastore/src/datastore_plugin_options.dart';
 import 'package:amplify_datastore/src/method_channel_datastore.dart';
 import 'package:amplify_datastore/src/native_plugin.g.dart';
 import 'package:collection/collection.dart';
@@ -15,36 +16,24 @@ import 'package:meta/meta.dart';
 export 'package:amplify_core/src/types/datastore/datastore_types.dart'
     hide DateTimeParse;
 
+export 'src/datastore_plugin_options.dart';
+
 class AmplifyDataStore extends DataStorePluginInterface
     with AWSDebuggable, AmplifyLoggerMixin {
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
-  /// and optional datastore configuration properties including
-  ///
-  /// [syncExpressions]: list of sync expressions to filter datastore sync against
-  ///
-  /// [syncInterval]: datastore syncing interval (in seconds)
-  ///
-  /// [syncMaxRecords]: max number of records to sync
-  ///
-  /// [syncPageSize]: page size to sync
+  /// and an optional datastore plugin options [options]
   AmplifyDataStore({
     required ModelProviderInterface modelProvider,
-    Function(AmplifyException)? errorHandler,
-    DataStoreConflictHandler? conflictHandler,
-    List<DataStoreSyncExpression> syncExpressions = const [],
-    int? syncInterval,
-    int? syncMaxRecords,
-    int? syncPageSize,
-    AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
+    DataStorePluginOptions options = const DataStorePluginOptions(),
   }) : super(
           modelProvider: modelProvider,
-          errorHandler: errorHandler,
-          conflictHandler: conflictHandler,
-          syncExpressions: syncExpressions,
-          syncInterval: syncInterval,
-          syncMaxRecords: syncMaxRecords,
-          syncPageSize: syncPageSize,
-          authModeStrategy: authModeStrategy,
+          errorHandler: options.errorHandler,
+          conflictHandler: options.conflictHandler,
+          syncExpressions: options.syncExpressions,
+          syncInterval: options.syncInterval,
+          syncMaxRecords: options.syncMaxRecords,
+          syncPageSize: options.syncPageSize,
+          authModeStrategy: options.authModeStrategy,
         );
 
   /// Internal use constructor
