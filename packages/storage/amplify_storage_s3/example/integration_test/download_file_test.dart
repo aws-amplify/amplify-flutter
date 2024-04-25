@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:io';
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
@@ -21,7 +19,7 @@ void main() {
 
   group('downloadFile()', () {
     late String identityPath;
-    late Directory tempDir;
+    late String directory;
     late String userIdentityId;
     late String metadataDownloadFilePath;
     final publicPath = 'public/download-file-from-data-${uuid()}';
@@ -31,7 +29,7 @@ void main() {
     final metadata = {'description': 'foo'};
 
     setUpAll(() async {
-      tempDir = await getTemporaryDirectory();
+      directory = kIsWeb ? '/' : (await getTemporaryDirectory()).path;
     });
 
     group('standard config', () {
@@ -52,7 +50,7 @@ void main() {
           ),
         ).result;
 
-        metadataDownloadFilePath = '${tempDir.path}/downloaded-file.txt';
+        metadataDownloadFilePath = '$directory/downloaded-file.txt';
 
         await Amplify.Storage.uploadData(
           data: HttpPayload.bytes(data),
@@ -76,7 +74,7 @@ void main() {
 
       group('for file type', () {
         testWidgets('to file', (_) async {
-          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final downloadFilePath = '$directory/downloaded-file.txt';
 
           final result = await Amplify.Storage.downloadFile(
             path: StoragePath.fromString(publicPath),
@@ -95,7 +93,7 @@ void main() {
       });
 
       testWidgets('from identity ID', (_) async {
-        final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+        final downloadFilePath = '$directory/downloaded-file.txt';
         final result = await Amplify.Storage.downloadFile(
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$name',
@@ -113,7 +111,7 @@ void main() {
 
       group('with options', () {
         testWidgets('useAccelerateEndpoint', (_) async {
-          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final downloadFilePath = '$directory/downloaded-file.txt';
 
           final result = await Amplify.Storage.downloadFile(
             path: StoragePath.fromString(publicPath),
@@ -154,7 +152,7 @@ void main() {
         });
 
         testWidgets('unauthorized path', (_) async {
-          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final downloadFilePath = '$directory/downloaded-file.txt';
 
           await expectLater(
             () => Amplify.Storage.downloadFile(
@@ -179,7 +177,7 @@ void main() {
       testWidgets(
         'standard download works',
         (_) async {
-          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final downloadFilePath = '$directory/downloaded-file.txt';
           final result = await Amplify.Storage.downloadFile(
             path: StoragePath.fromString(publicPath),
             localFile: AWSFile.fromPath(downloadFilePath),
@@ -192,7 +190,7 @@ void main() {
       testWidgets(
         'useAccelerateEndpoint throws',
         (_) async {
-          final downloadFilePath = '${tempDir.path}/downloaded-file.txt';
+          final downloadFilePath = '$directory/downloaded-file.txt';
           await expectLater(
             () => Amplify.Storage.downloadFile(
               path: StoragePath.fromString(publicPath),
