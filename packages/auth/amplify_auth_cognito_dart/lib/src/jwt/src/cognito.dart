@@ -89,26 +89,6 @@ extension CognitoAccessToken on JsonWebToken {
 /// - [OpenID Connect Core: ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)
 /// - [OpenID Connect Core: Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
 extension CognitoIdToken on JsonWebToken {
-  /// The `nonce` claim comes from a parameter of the same name that you can add
-  /// to requests to your OAuth 2.0 `authorize` endpoint. When you add the
-  /// parameter, the `nonce` claim is included in the ID token that Amazon
-  /// Cognito issues, and you can use it to guard against replay attacks.
-  ///
-  /// If you do not provide a nonce value in your request, Amazon Cognito
-  /// automatically generates and validates a nonce when you authenticate
-  /// through a third-party identity provider, then adds it as a nonce claim to
-  /// the ID token.
-  ///
-  /// The implementation of the nonce claim in Amazon Cognito is based on OIDC
-  /// standards.
-  ///
-  /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-id-token.html)
-  @Deprecated('''
-  Usage of the nonce claim is no longer supported in the Amplify Flutter libraries.
-  To avoid confusion, this getter will be removed in a future version of the library.
-  ''')
-  String? get nonce => claims.customClaims['nonce'] as String?;
-
   /// The Cognito username.
   ///
   /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-id-token.html)
