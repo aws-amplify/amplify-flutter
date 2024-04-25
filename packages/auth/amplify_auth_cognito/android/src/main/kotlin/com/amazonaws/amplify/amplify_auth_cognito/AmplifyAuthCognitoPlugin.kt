@@ -21,6 +21,7 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.PluginRegistry
+import java.net.URLDecoder
 import java.util.Locale
 
 open class AmplifyAuthCognitoPlugin :
@@ -590,15 +591,22 @@ open class AmplifyAuthCognitoPlugin :
   }
 
 }
-
 /**
  * The query parameters of the URI.
  */
 val Uri.queryParameters: MutableMap<String, String>
   get() {
     val queryParameters = mutableMapOf<String, String>()
-    for (name in queryParameterNames) {
-      queryParameters[name] = getQueryParameter(name) ?: ""
+    val queryString = this.encodedQuery ?: return queryParameters
+    val queries = queryString.split("&")
+
+    for (query in queries) {
+      val idx = query.indexOf("=")
+      if (idx != -1) {
+        val name = URLDecoder.decode(query.substring(0, idx), "UTF-8")
+        val value = URLDecoder.decode(query.substring(idx + 1), "UTF-8")
+        queryParameters[name] = value
+      }
     }
     return queryParameters
   }
