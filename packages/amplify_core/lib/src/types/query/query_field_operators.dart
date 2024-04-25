@@ -87,14 +87,7 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO(Jordan-Nelson): Update to `return value == other.modelIdentifier`
-      // when `getId()` is removed from Model.
-      if (value is ModelIdentifier) {
-        return value == other.modelIdentifier;
-      } else {
-        // ignore: deprecated_member_use_from_same_package
-        return value == other.getId();
-      }
+      return value == other.modelIdentifier;
     }
 
     return value == other;
@@ -127,14 +120,7 @@ class NotEqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
     // nested model, such as `Post.BLOG.eq(myBlog.modelIdentifier))`,
     // and the value should be compared against the model ID.
     if (other is Model) {
-      // TODO(Jordan-Nelson): Update to `return value != other.modelIdentifier`
-      // when `getId()` is removed from Model.
-      if (value is ModelIdentifier) {
-        return value != other.modelIdentifier;
-      } else {
-        // ignore: deprecated_member_use_from_same_package
-        return value != other.getId();
-      }
+      return value != other.modelIdentifier;
     }
     return other != value;
   }

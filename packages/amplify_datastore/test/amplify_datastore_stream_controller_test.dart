@@ -214,7 +214,7 @@ void main() {
     expect(payload.modelName, "Post");
     expect(payload.element, isInstanceOf<HubEventElement>());
     expect(payload.element.model, isInstanceOf<Model>());
-    expect(payload.element.model.getId(),
+    expect(payload.element.model.modelIdentifier.serializeAsString(),
         equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((payload.element.model as Post).title, equals("Title 1"));
     expect((payload.element.model as Post).created, equals(parsedDate));
@@ -252,8 +252,8 @@ void main() {
     expect(element, isInstanceOf<HubEventElement>());
     expect(element, isInstanceOf<HubEventElementWithMetadata>());
     expect(element.model, isInstanceOf<Model>());
-    expect(
-        element.model.getId(), equals("43036c6b-8044-4309-bddc-262b6c686026"));
+    expect(element.model.modelIdentifier.serializeAsString(),
+        equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((element.model as Post).title, equals("Title 1"));
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));
