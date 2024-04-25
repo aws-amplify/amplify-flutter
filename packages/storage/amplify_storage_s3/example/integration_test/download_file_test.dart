@@ -36,7 +36,7 @@ void main() {
       setUpAll(() async {
         await configure(amplifyEnvironments['main']!);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(publicPath),
         ).result;
 
@@ -44,7 +44,7 @@ void main() {
         identityPath = 'private/$userIdentityId/$name';
 
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$name',
           ),
@@ -53,7 +53,7 @@ void main() {
         metadataDownloadFilePath = '$directory/downloaded-file.txt';
 
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(metadataFilePath),
           options: StorageUploadDataOptions(
             pluginOptions: const S3UploadDataPluginOptions(
@@ -163,6 +163,28 @@ void main() {
           );
         });
       });
+
+      group('download progress', () {
+        testWidgets('reports progress', (_) async {
+          final downloadFilePath = '$directory/downloaded-file-progress.txt';
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          await Amplify.Storage.downloadFile(
+            path: StoragePath.fromString(publicPath),
+            localFile: AWSFile.fromPath(downloadFilePath),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, data.length);
+          expect(transferredBytes, data.length);
+        });
+      });
     });
 
     group('config with dots in name', () {
@@ -170,7 +192,7 @@ void main() {
         await configure(amplifyEnvironments['dots-in-name']!);
         addTearDownPath(StoragePath.fromString(publicPath));
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(publicPath),
         ).result;
       });

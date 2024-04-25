@@ -27,7 +27,7 @@ void main() {
           final data = 'from bytes'.codeUnits;
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes(data),
+            data: StorageDataPayload.bytes(data),
             path: StoragePath.fromString(path),
           ).result;
           expect(result.uploadedItem.path, path);
@@ -41,14 +41,18 @@ void main() {
         testWidgets('dataUrl', (_) async {
           final path = 'public/upload-data-url-${uuid()}';
           final data = 'dataUrl'.codeUnits;
-          final dataUrl =
-              'data:text/plain;charset=utf-8;base64,${base64Encode(data)}';
+          const contentType = 'text/plain; charset=utf-8';
+          final dataUrl = 'data:$contentType;base64,${base64Encode(data)}';
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.dataUrl(dataUrl),
+            data: StorageDataPayload.dataUrl(dataUrl),
             path: StoragePath.fromString(path),
+            options: const StorageUploadDataOptions(
+              pluginOptions: S3UploadDataPluginOptions(getProperties: true),
+            ),
           ).result;
           expect(result.uploadedItem.path, path);
+          expect((result.uploadedItem as S3Item).contentType, contentType);
 
           final downloadResult = await Amplify.Storage.downloadData(
             path: StoragePath.fromString(path),
@@ -61,10 +65,17 @@ void main() {
           final json = {'foo': 'bar'};
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.json(json),
+            data: StorageDataPayload.json(json),
             path: StoragePath.fromString(path),
+            options: const StorageUploadDataOptions(
+              pluginOptions: S3UploadDataPluginOptions(getProperties: true),
+            ),
           ).result;
           expect(result.uploadedItem.path, path);
+          expect(
+            (result.uploadedItem as S3Item).contentType,
+            'application/json; charset=utf-8',
+          );
 
           final downloadResult = await Amplify.Storage.downloadData(
             path: StoragePath.fromString(path),
@@ -78,10 +89,17 @@ void main() {
           const value = 'bar';
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.formFields({key: value}),
+            data: StorageDataPayload.formFields({key: value}),
             path: StoragePath.fromString(path),
+            options: const StorageUploadDataOptions(
+              pluginOptions: S3UploadDataPluginOptions(getProperties: true),
+            ),
           ).result;
           expect(result.uploadedItem.path, path);
+          expect(
+            (result.uploadedItem as S3Item).contentType,
+            'application/x-www-form-urlencoded; charset=utf-8',
+          );
 
           final downloadResult = await Amplify.Storage.downloadData(
             path: StoragePath.fromString(path),
@@ -94,10 +112,17 @@ void main() {
           const data = 'string';
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.string(data),
+            data: StorageDataPayload.string(data),
             path: StoragePath.fromString(path),
+            options: const StorageUploadDataOptions(
+              pluginOptions: S3UploadDataPluginOptions(getProperties: true),
+            ),
           ).result;
           expect(result.uploadedItem.path, path);
+          expect(
+            (result.uploadedItem as S3Item).contentType,
+            'text/plain; charset=utf-8',
+          );
 
           final downloadResult = await Amplify.Storage.downloadData(
             path: StoragePath.fromString(path),
@@ -109,7 +134,7 @@ void main() {
           final path = 'public/upload-data-empty-${uuid()}';
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: const HttpPayload.empty(),
+            data: const StorageDataPayload.empty(),
             path: StoragePath.fromString(path),
           ).result;
           expect(result.uploadedItem.path, path);
@@ -126,7 +151,7 @@ void main() {
           final stream = Stream<List<int>>.value(data);
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.streaming(stream),
+            data: StorageDataPayload.streaming(stream),
             path: StoragePath.fromString(path),
           ).result;
           expect(result.uploadedItem.path, path);
@@ -145,7 +170,7 @@ void main() {
         final expectedResolvedPath = 'private/$userIdentityId/$name';
         addTearDownPath(StoragePath.fromString(expectedResolvedPath));
         final result = await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$name',
           ),
@@ -162,7 +187,7 @@ void main() {
       testWidgets('unauthorized path', (_) async {
         await expectLater(
           () => Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('unauthorized path'.codeUnits),
+            data: StorageDataPayload.bytes('unauthorized path'.codeUnits),
             path: const StoragePath.fromString('unauthorized/path'),
           ).result,
           throwsA(isA<StorageAccessDeniedException>()),
@@ -176,7 +201,7 @@ void main() {
           const metadata = {'description': 'foo'};
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes(data),
+            data: StorageDataPayload.bytes(data),
             path: StoragePath.fromString(path),
             options: const StorageUploadDataOptions(metadata: metadata),
           ).result;
@@ -194,7 +219,7 @@ void main() {
           const metadata = {'description': 'foo'};
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes(data),
+            data: StorageDataPayload.bytes(data),
             path: StoragePath.fromString(path),
             options: const StorageUploadDataOptions(
               metadata: metadata,
@@ -210,7 +235,7 @@ void main() {
           final data = 'useAccelerateEndpoint'.codeUnits;
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes(data),
+            data: StorageDataPayload.bytes(data),
             path: StoragePath.fromString(path),
             options: const StorageUploadDataOptions(
               pluginOptions: S3UploadDataPluginOptions(
@@ -226,6 +251,80 @@ void main() {
           expect(downloadResult.bytes, data);
         });
       });
+
+      group('upload progress', () {
+        testWidgets('reports progress for byte data', (_) async {
+          final path = 'public/upload-data-progress-bytes-${uuid()}';
+          final data = [1, 2, 3, 4, 5, 6];
+
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.bytes(data),
+            path: StoragePath.fromString(path),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, data.length);
+          expect(transferredBytes, data.length);
+        });
+
+        testWidgets('reports progress for string data', (_) async {
+          final path = 'public/upload-data-progress-bytes-${uuid()}';
+          const data = 'data to upload';
+          final encoded = utf8.encode(data);
+
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.string(data),
+            path: StoragePath.fromString(path),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, encoded.length);
+          expect(transferredBytes, encoded.length);
+        });
+
+        testWidgets(
+            'does not report fractionCompleted or totalBytes for streams',
+            (_) async {
+          final path = 'public/upload-data-progress-stream-${uuid()}';
+          final data = [1, 2, 3, 4, 5, 6];
+
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.streaming(Stream.value(data)),
+            path: StoragePath.fromString(path),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, -1);
+          expect(totalBytes, -1);
+          expect(transferredBytes, data.length);
+        });
+      });
     });
     group('config with dots in name', () {
       setUpAll(() async {
@@ -238,7 +337,7 @@ void main() {
           final data = 'from bytes'.codeUnits;
           addTearDownPath(StoragePath.fromString(path));
           final result = await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes(data),
+            data: StorageDataPayload.bytes(data),
             path: StoragePath.fromString(path),
           ).result;
           expect(result.uploadedItem.path, path);
@@ -257,7 +356,7 @@ void main() {
           final data = 'from bytes'.codeUnits;
           await expectLater(
             () => Amplify.Storage.uploadData(
-              data: HttpPayload.bytes(data),
+              data: StorageDataPayload.bytes(data),
               path: StoragePath.fromString(path),
               options: const StorageUploadDataOptions(
                 pluginOptions: S3UploadDataPluginOptions(

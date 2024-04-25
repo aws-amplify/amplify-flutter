@@ -28,7 +28,7 @@ void main() {
         for (final path in uploadedPaths) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(path),
-            data: HttpPayload.bytes('test content'.codeUnits),
+            data: StorageDataPayload.bytes('test content'.codeUnits),
           ).result;
         }
 
@@ -169,7 +169,7 @@ void main() {
         for (final path in uploadedPaths) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(path),
-            data: HttpPayload.bytes('test content'.codeUnits),
+            data: StorageDataPayload.bytes('test content'.codeUnits),
           ).result;
         }
 

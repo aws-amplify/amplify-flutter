@@ -532,7 +532,7 @@ void main() {
         registerFallbackValue(
           const StorageUploadDataOptions(),
         );
-        registerFallbackValue(S3DataPayload());
+        registerFallbackValue(const S3DataPayload.empty());
       });
 
       test('should forward default options to StorageS3Service.uploadData API',
@@ -704,7 +704,7 @@ void main() {
         registerFallbackValue(
           const StorageUploadFileOptions(),
         );
-        registerFallbackValue(S3DataPayload());
+        registerFallbackValue(const S3DataPayload.empty());
         registerFallbackValue(AWSFile.fromData([]));
       });
 

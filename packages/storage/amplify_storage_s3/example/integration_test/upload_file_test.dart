@@ -217,6 +217,63 @@ void main() {
           expect(downloadResult.bytes, data);
         });
       });
+
+      group('upload progress', () {
+        testWidgets('reports progress', (_) async {
+          final fileId = uuid();
+          final path = 'public/upload-file-path-progress-$fileId';
+          const content = 'upload data';
+          final data = content.codeUnits;
+          final filePath = await createFile(path: fileId, content: content);
+
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: StoragePath.fromString(path),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, data.length);
+          expect(transferredBytes, data.length);
+        });
+
+        testWidgets('reports progress for streams based on provided size',
+            (_) async {
+          final fileId = uuid();
+          final path = 'public/upload-file-stream-progress-$fileId';
+          const content = 'upload data';
+          final data = content.codeUnits;
+
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromStream(
+              Stream.value(data),
+              size: data.length,
+            ),
+            path: StoragePath.fromString(path),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, data.length);
+          expect(transferredBytes, data.length);
+        });
+      });
     });
     group('config with dots in name', () {
       setUpAll(() async {

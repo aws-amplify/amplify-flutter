@@ -31,11 +31,11 @@ void main() {
 
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(publicPath),
-          data: HttpPayload.bytes(bytesData),
+          data: StorageDataPayload.bytes(bytesData),
         ).result;
 
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(identityData),
+          data: StorageDataPayload.bytes(identityData),
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$identityName',
           ),
@@ -43,7 +43,7 @@ void main() {
 
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(metadataPath),
-          data: HttpPayload.bytes('get properties'.codeUnits),
+          data: StorageDataPayload.bytes('get properties'.codeUnits),
           options: StorageUploadDataOptions(
             pluginOptions: const S3UploadDataPluginOptions(
               getProperties: true,
@@ -132,6 +132,26 @@ void main() {
           expect(downloadResult.downloadedItem.path, publicPath);
         });
       });
+
+      group('download progress', () {
+        testWidgets('reports progress', (_) async {
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          await Amplify.Storage.downloadData(
+            path: StoragePath.fromString(publicPath),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, bytesData.length);
+          expect(transferredBytes, bytesData.length);
+        });
+      });
     });
 
     group('config with dots in name', () {
@@ -140,7 +160,7 @@ void main() {
         addTearDownPath(StoragePath.fromString(publicPath));
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(publicPath),
-          data: HttpPayload.bytes(bytesData),
+          data: StorageDataPayload.bytes(bytesData),
         ).result;
       });
       testWidgets(

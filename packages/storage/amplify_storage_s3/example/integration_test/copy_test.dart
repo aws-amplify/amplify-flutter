@@ -24,7 +24,7 @@ void main() {
         await configure(amplifyEnvironments['main']!);
         addTearDownPath(srcStoragePath);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: srcStoragePath,
           options: const StorageUploadDataOptions(metadata: metadata),
         ).result;
@@ -50,7 +50,7 @@ void main() {
         final identityId = await signInNewUser();
         addTearDownPath(srcStoragePath);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: srcStoragePath,
         ).result;
         final destinationFileName = 'copy-source-${uuid()}';
@@ -120,7 +120,7 @@ void main() {
         await configure(amplifyEnvironments['dots-in-name']!);
         addTearDownPath(srcStoragePath);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: srcStoragePath,
           options: const StorageUploadDataOptions(metadata: metadata),
         ).result;
