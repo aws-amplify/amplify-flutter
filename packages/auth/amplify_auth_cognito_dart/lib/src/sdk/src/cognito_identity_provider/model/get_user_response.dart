@@ -76,6 +76,7 @@ abstract class GetUserResponse
         preferredMfaSetting,
         userMfaSettingList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUserResponse')
@@ -112,6 +113,7 @@ class GetUserResponseAwsJson11Serializer
         GetUserResponse,
         _$GetUserResponse,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -119,6 +121,7 @@ class GetUserResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetUserResponse deserialize(
     Serializers serializers,

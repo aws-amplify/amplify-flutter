@@ -40,6 +40,7 @@ abstract class AnalyticsMetadataType
   String? get analyticsEndpointId;
   @override
   List<Object?> get props => [analyticsEndpointId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsMetadataType')
@@ -61,6 +62,7 @@ class AnalyticsMetadataTypeAwsJson11Serializer
         AnalyticsMetadataType,
         _$AnalyticsMetadataType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -68,6 +70,7 @@ class AnalyticsMetadataTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   AnalyticsMetadataType deserialize(
     Serializers serializers,

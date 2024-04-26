@@ -39,6 +39,7 @@ abstract class SetUserMfaPreferenceResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SetUserMfaPreferenceResponse');
@@ -56,6 +57,7 @@ class SetUserMfaPreferenceResponseAwsJson11Serializer
         SetUserMfaPreferenceResponse,
         _$SetUserMfaPreferenceResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -63,6 +65,7 @@ class SetUserMfaPreferenceResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SetUserMfaPreferenceResponse deserialize(
     Serializers serializers,

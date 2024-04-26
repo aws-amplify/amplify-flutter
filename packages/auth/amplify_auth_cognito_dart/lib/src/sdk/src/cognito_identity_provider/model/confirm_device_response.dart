@@ -48,6 +48,7 @@ abstract class ConfirmDeviceResponse
   bool get userConfirmationNecessary;
   @override
   List<Object?> get props => [userConfirmationNecessary];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceResponse')
@@ -69,6 +70,7 @@ class ConfirmDeviceResponseAwsJson11Serializer
         ConfirmDeviceResponse,
         _$ConfirmDeviceResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +78,7 @@ class ConfirmDeviceResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmDeviceResponse deserialize(
     Serializers serializers,

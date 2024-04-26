@@ -42,6 +42,7 @@ abstract class ConfirmForgotPasswordResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordResponse');
@@ -59,6 +60,7 @@ class ConfirmForgotPasswordResponseAwsJson11Serializer
         ConfirmForgotPasswordResponse,
         _$ConfirmForgotPasswordResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -66,6 +68,7 @@ class ConfirmForgotPasswordResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmForgotPasswordResponse deserialize(
     Serializers serializers,

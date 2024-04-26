@@ -46,6 +46,7 @@ abstract class UserContextDataType
         ipAddress,
         encodedData,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserContextDataType')
@@ -70,6 +71,7 @@ class UserContextDataTypeAwsJson11Serializer
         UserContextDataType,
         _$UserContextDataType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -77,6 +79,7 @@ class UserContextDataTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UserContextDataType deserialize(
     Serializers serializers,

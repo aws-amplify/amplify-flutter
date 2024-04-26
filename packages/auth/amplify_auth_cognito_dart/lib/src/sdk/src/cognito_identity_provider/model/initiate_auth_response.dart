@@ -52,7 +52,7 @@ abstract class InitiateAuthResponse
     InitiateAuthResponseAwsJson11Serializer()
   ];
 
-  /// The name of the challenge that you're responding to with this call. This name is returned in the `AdminInitiateAuth` response if you must pass another challenge.
+  /// The name of the challenge that you're responding to with this call. This name is returned in the `InitiateAuth` response if you must pass another challenge.
   ///
   /// Valid values include the following:
   ///
@@ -74,7 +74,7 @@ abstract class InitiateAuthResponse
   ///
   ///     In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
   ///
-  /// *   `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for the user pool will be listed in the challenge parameters `MFA\_CAN\_SETUP` value.
+  /// *   `MFA_SETUP`: For users who are required to setup an MFA factor before they can sign in. The MFA types activated for the user pool will be listed in the challenge parameters `MFAS\_CAN\_SETUP` value.
   ///
   ///     To set up software token MFA, use the session returned here from `InitiateAuth` as an input to `AssociateSoftwareToken`. Use the session returned by `VerifySoftwareToken` as an input to `RespondToAuthChallenge` with challenge name `MFA_SETUP` to complete sign-in. To set up SMS MFA, an administrator should help the user to add a phone number to their account, and then the user should call `InitiateAuth` again to restart sign-in.
   ChallengeNameType? get challengeName;
@@ -96,6 +96,7 @@ abstract class InitiateAuthResponse
         challengeParameters,
         authenticationResult,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InitiateAuthResponse')
@@ -129,6 +130,7 @@ class InitiateAuthResponseAwsJson11Serializer
         InitiateAuthResponse,
         _$InitiateAuthResponse,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -136,6 +138,7 @@ class InitiateAuthResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InitiateAuthResponse deserialize(
     Serializers serializers,

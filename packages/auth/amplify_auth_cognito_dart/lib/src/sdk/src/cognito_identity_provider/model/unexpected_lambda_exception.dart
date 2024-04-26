@@ -48,18 +48,23 @@ abstract class UnexpectedLambdaException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'UnexpectedLambdaException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UnexpectedLambdaException')
@@ -81,6 +86,7 @@ class UnexpectedLambdaExceptionAwsJson11Serializer
         UnexpectedLambdaException,
         _$UnexpectedLambdaException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -88,6 +94,7 @@ class UnexpectedLambdaExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UnexpectedLambdaException deserialize(
     Serializers serializers,
