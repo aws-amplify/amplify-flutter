@@ -27,10 +27,6 @@ sealed class AWSResult<V extends Object?, E extends Exception>
   /// The original stack trace of [exception], if provided.
   StackTrace? get stackTrace;
 
-  /// Indicates if the result was a success.
-  @Deprecated('Use pattern matching instead')
-  AWSResultType get type;
-
   /// The value of the result, if the result was successful.
   ///
   /// If an exception was thrown while retrieving the value, this will throw.
@@ -56,9 +52,6 @@ final class AWSSuccessResult<V extends Object?, E extends Exception>
 
   @override
   V get valueOrNull => value;
-
-  @override
-  AWSResultType get type => AWSResultType.success;
 
   @override
   E? get exception => null;
@@ -119,9 +112,6 @@ final class AWSErrorResult<V extends Object?, E extends Exception>
 
   @override
   V? get valueOrNull => null;
-
-  @override
-  AWSResultType get type => AWSResultType.error;
 
   @override
   List<Object?> get props => [exception, stackTrace];
