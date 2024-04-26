@@ -27,11 +27,11 @@ void main() {
         final storagePath2 = StoragePath.fromString(path2);
         setUp(() async {
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath1,
           ).result;
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath2,
           ).result;
         });
@@ -65,11 +65,11 @@ void main() {
           expectedResolvedPath1 = 'private/$identityId/$fileName1';
           expectedResolvedPath2 = 'private/$identityId/$fileName2';
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: StoragePath.fromString(expectedResolvedPath1),
           ).result;
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: StoragePath.fromString(expectedResolvedPath2),
           ).result;
         });
@@ -132,11 +132,11 @@ void main() {
         final storagePath1 = StoragePath.fromString(path1);
         final storagePath2 = StoragePath.fromString(path2);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: storagePath1,
         ).result;
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: storagePath2,
         ).result;
         expect(await objectExists(storagePath1), true);

@@ -27,7 +27,7 @@ void main() {
         await configure(amplifyEnvironments['main']!);
         addTearDownPath(StoragePath.fromString(path));
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(path),
         ).result;
       });
@@ -64,7 +64,7 @@ void main() {
         final expectedResolvedPath = 'private/$userIdentityId/$name';
         addTearDownPath(StoragePath.fromString(expectedResolvedPath));
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(expectedResolvedPath),
         ).result;
 
@@ -179,7 +179,7 @@ void main() {
         await configure(amplifyEnvironments['dots-in-name']!);
         addTearDownPath(StoragePath.fromString(path));
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(data),
+          data: StorageDataPayload.bytes(data),
           path: StoragePath.fromString(path),
         ).result;
       });

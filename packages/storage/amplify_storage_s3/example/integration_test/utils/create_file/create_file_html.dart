@@ -9,7 +9,20 @@ Future<String> createFile({
   required String content,
   String contentType = 'text/plain',
 }) async {
+  final file = await createHtmlFile(
+    path: path,
+    content: content,
+    contentType: contentType,
+  );
+  return html.Url.createObjectUrl(file);
+}
+
+Future<html.File> createHtmlFile({
+  required String path,
+  required String content,
+  String contentType = 'text/plain',
+}) async {
   final fileBlob = html.Blob([content], contentType);
   final file = html.File([fileBlob], path, {'type': fileBlob.type});
-  return html.Url.createObjectUrl(file);
+  return file;
 }

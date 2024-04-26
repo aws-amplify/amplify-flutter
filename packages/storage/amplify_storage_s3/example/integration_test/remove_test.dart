@@ -24,7 +24,7 @@ void main() {
         final storagePath = StoragePath.fromString(path);
         setUp(() async {
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: storagePath,
           ).result;
         });
@@ -49,7 +49,7 @@ void main() {
           final identityId = await signInNewUser();
           expectedResolvedPath = 'private/$identityId/$fileName';
           await Amplify.Storage.uploadData(
-            data: HttpPayload.bytes('data'.codeUnits),
+            data: StorageDataPayload.bytes('data'.codeUnits),
             path: StoragePath.fromString(expectedResolvedPath),
           ).result;
         });
@@ -91,7 +91,7 @@ void main() {
         final path = 'public/remove-${uuid()}';
         final storagePath = StoragePath.fromString(path);
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes('data'.codeUnits),
+          data: StorageDataPayload.bytes('data'.codeUnits),
           path: storagePath,
         ).result;
         expect(await objectExists(storagePath), true);
