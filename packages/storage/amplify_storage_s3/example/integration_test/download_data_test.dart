@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -150,6 +151,55 @@ void main() {
           expect(fractionCompleted, 1.0);
           expect(totalBytes, bytesData.length);
           expect(transferredBytes, bytesData.length);
+        });
+      });
+
+      group('pause, resume, cancel', () {
+        const size = 1024 * 1024 * 6;
+        const chars = 'qwertyuiopasdfghjklzxcvbnm';
+        final content = List.generate(size, (i) => chars[i % 25]).join();
+        final fileId = uuid();
+        final path = 'public/download-data-pause-$fileId';
+        setUpAll(() async {
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.string(content),
+            path: StoragePath.fromString(path),
+          ).result;
+        });
+        testWidgets('can pause', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          unawaited(
+            operation.result.then(
+              (value) => fail('should not complete after pause'),
+            ),
+          );
+          await Future<void>.delayed(const Duration(seconds: 15));
+        });
+
+        testWidgets('can resume', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          await operation.resume();
+          final result = await operation.result;
+          expect(result.downloadedItem.path, path);
+        });
+
+        testWidgets('can cancel', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          final expectException = expectLater(
+            () => operation.result,
+            throwsA(isA<StorageOperationCanceledException>()),
+          );
+          await operation.cancel();
+          await expectException;
         });
       });
     });

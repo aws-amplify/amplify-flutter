@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
@@ -274,7 +276,63 @@ void main() {
           expect(transferredBytes, data.length);
         });
       });
+
+      group('pause, resume, cancel', () {
+        const size = 1024 * 1024 * 6;
+        const chars = 'qwertyuiopasdfghjklzxcvbnm';
+        final content = List.generate(size, (i) => chars[i % 25]).join();
+        testWidgets('can pause', (_) async {
+          final fileId = uuid();
+          final path = 'public/upload-file-pause-$fileId';
+          final filePath = await createFile(path: fileId, content: content);
+          addTearDownPath(StoragePath.fromString(path));
+          final operation = Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          unawaited(
+            operation.result.then(
+              (value) => fail('should not complete after pause'),
+            ),
+          );
+          await Future<void>.delayed(const Duration(seconds: 15));
+        });
+
+        testWidgets('can resume', (_) async {
+          final fileId = uuid();
+          final path = 'public/upload-file-resume-$fileId';
+          final filePath = await createFile(path: fileId, content: content);
+          addTearDownPath(StoragePath.fromString(path));
+          final operation = Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          await operation.resume();
+          final result = await operation.result;
+          expect(result.uploadedItem.path, path);
+        });
+
+        testWidgets('can cancel', (_) async {
+          final fileId = uuid();
+          final path = 'public/upload-file-cancel-$fileId';
+          final filePath = await createFile(path: fileId, content: content);
+          addTearDownPath(StoragePath.fromString(path));
+          final operation = Amplify.Storage.uploadFile(
+            localFile: AWSFile.fromPath(filePath),
+            path: StoragePath.fromString(path),
+          );
+          final expectException = expectLater(
+            () => operation.result,
+            throwsA(isA<StorageOperationCanceledException>()),
+          );
+          await operation.cancel();
+          await expectException;
+        });
+      });
     });
+
     group('config with dots in name', () {
       setUpAll(() async {
         await configure(amplifyEnvironments['dots-in-name']!);

@@ -325,6 +325,25 @@ void main() {
           expect(transferredBytes, data.length);
         });
       });
+
+      testWidgets('can cancel', (_) async {
+        const size = 1024 * 1024 * 6;
+        const chars = 'qwertyuiopasdfghjklzxcvbnm';
+        final content = List.generate(size, (i) => chars[i % 25]).join();
+        final fileId = uuid();
+        final path = 'public/upload-data-cancel-$fileId';
+        addTearDownPath(StoragePath.fromString(path));
+        final operation = Amplify.Storage.uploadData(
+          data: StorageDataPayload.string(content),
+          path: StoragePath.fromString(path),
+        );
+        final expectException = expectLater(
+          () => operation.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
+        await operation.cancel();
+        await expectException;
+      });
     });
     group('config with dots in name', () {
       setUpAll(() async {
