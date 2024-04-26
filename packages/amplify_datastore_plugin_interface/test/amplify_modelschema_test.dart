@@ -94,8 +94,7 @@ void main() {
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
-                // ignore: deprecated_member_use
-                targetName: "postID")));
+                )));
 
     expect(
         commentSchema.fields!["content"],
@@ -151,8 +150,7 @@ void main() {
             isArray: false,
             association: ModelAssociation(
                 associationType: ModelAssociationEnum.BelongsTo,
-                // ignore: deprecated_member_use
-                targetName: "blogID")));
+                )));
   });
 
   test('PostAuthComplex codegen model generates modelschema with proper fields',

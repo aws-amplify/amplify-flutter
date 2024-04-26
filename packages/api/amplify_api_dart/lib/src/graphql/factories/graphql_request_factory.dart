@@ -86,11 +86,7 @@ class GraphQLRequestFactory {
         // deserializing response because model will use ID nested in `parentSelectionSet`.
         // However, including the ID in selection set allows subscriptions that
         // filter by these ID to be triggered by these mutations.
-        var belongsToKeys = belongsTo.association?.targetNames;
-        if (belongsToKeys == null &&
-            belongsTo.association?.targetName != null) {
-          belongsToKeys = [belongsTo.association!.targetName as String];
-        }
+        final belongsToKeys = belongsTo.association?.targetNames;
         if (belongsToKeys != null) {
           fields.addAll(belongsToKeys);
         }
@@ -296,7 +292,7 @@ class GraphQLRequestFactory {
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
       final associatedTargetName =
-          association?.targetNames?.first ?? association?.targetName;
+          association?.targetNames?.first;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
@@ -388,13 +384,11 @@ class GraphQLRequestFactory {
       // Traverse parent schema to get expected JSON strings and remove from JSON.
       // A parent with complex identifier may have multiple keys.
       var belongsToKeys = belongsTo.association?.targetNames;
-      final legacyTargetName =
-          belongsTo.association?.targetName; // pre-CPK codegen
-      if (belongsToKeys == null && legacyTargetName == null) {
+      if (belongsToKeys == null) {
         // no way to resolve key to write to JSON
         continue;
       }
-      belongsToKeys = belongsToKeys ?? [legacyTargetName as String];
+      belongsToKeys = belongsToKeys;
       var i = 0; // needed to track corresponding index field name
       for (final belongsToKey in belongsToKeys) {
         final parentIdFieldName =
