@@ -59,9 +59,6 @@ class GraphQLRequest<T> with AWSSerializable<Map<String, Object?>> {
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;
 
-  @Deprecated('Use toJson instead')
-  Map<String, dynamic> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'id': id,

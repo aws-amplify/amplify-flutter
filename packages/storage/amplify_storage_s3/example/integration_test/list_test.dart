@@ -19,6 +19,7 @@ void main() {
       '$uniquePrefix/file1.txt',
       '$uniquePrefix/file2.txt',
       '$uniquePrefix/subdir/file3.txt',
+      '$uniquePrefix/subdir2#file4.txt',
     ];
     group('standard config', () {
       setUpAll(() async {
@@ -27,7 +28,7 @@ void main() {
         for (final path in uploadedPaths) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(path),
-            data: HttpPayload.bytes('test content'.codeUnits),
+            data: StorageDataPayload.bytes('test content'.codeUnits),
           ).result;
         }
 
@@ -70,20 +71,46 @@ void main() {
       });
 
       group('list() with options', () {
-        testWidgets(
-            'should list all files with unique prefix excluding subPaths',
-            (_) async {
-          final listResult = await Amplify.Storage.list(
-            path: StoragePath.fromString('$uniquePrefix/'),
-            options: const StorageListOptions(
-              pluginOptions: S3ListPluginOptions(
-                excludeSubPaths: true,
+        group('excluding sub paths', () {
+          testWidgets('default delimiter', (_) async {
+            final listResult = await Amplify.Storage.list(
+              path: StoragePath.fromString('$uniquePrefix/'),
+              options: const StorageListOptions(
+                pluginOptions: S3ListPluginOptions(
+                  excludeSubPaths: true,
+                ),
               ),
-            ),
-          ).result;
+            ).result as S3ListResult;
 
-          expect(listResult.items.length, 2);
-          expect(listResult.items.first.path, contains('file1.txt'));
+            expect(listResult.items.length, 3);
+            expect(listResult.items.first.path, contains('file1.txt'));
+
+            expect(listResult.metadata.subPaths.length, 1);
+            expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
+            expect(listResult.metadata.delimiter, '/');
+          });
+
+          testWidgets('custom delimiter', (_) async {
+            final listResult = await Amplify.Storage.list(
+              path: StoragePath.fromString('$uniquePrefix/'),
+              options: const StorageListOptions(
+                pluginOptions: S3ListPluginOptions(
+                  excludeSubPaths: true,
+                  delimiter: '#',
+                ),
+              ),
+            ).result as S3ListResult;
+
+            expect(listResult.items.length, 3);
+            expect(listResult.items.first.path, contains('file1.txt'));
+
+            expect(listResult.metadata.subPaths.length, 1);
+            expect(
+              listResult.metadata.subPaths.first,
+              '$uniquePrefix/subdir2#',
+            );
+            expect(listResult.metadata.delimiter, '#');
+          });
         });
 
         testWidgets('should respect pageSize limitation', (_) async {
@@ -130,7 +157,7 @@ void main() {
             ),
           ).result;
 
-          expect(listResult.items.length, 3);
+          expect(listResult.items.length, uploadedPaths.length);
           expect(listResult.nextToken, isNull);
         });
       });
@@ -142,7 +169,7 @@ void main() {
         for (final path in uploadedPaths) {
           await Amplify.Storage.uploadData(
             path: StoragePath.fromString(path),
-            data: HttpPayload.bytes('test content'.codeUnits),
+            data: StorageDataPayload.bytes('test content'.codeUnits),
           ).result;
         }
 

@@ -115,27 +115,6 @@ final class UnknownServiceException extends CognitoServiceException
   String get runtimeTypeName => 'UnknownServiceException';
 }
 
-/// Exception thrown when a verification code provided to the requested service
-/// is expired.
-@Deprecated('Use ExpiredCodeException instead')
-typedef CodeExpiredException = ExpiredCodeException;
-
-/// Exception thrown when the software token time-based one-time password (TOTP)
-/// multi-factor authentication (MFA) isn't activated for the user pool.
-@Deprecated('Use SoftwareTokenMfaNotFoundException instead')
-typedef SoftwareTokenMFANotFoundException
-    = SoftwareTokenMfaNotFoundException;
-
-/// Exception thrown when too many failed attempts for a given action has been
-/// made, such as sign-in.
-@Deprecated('Use TooManyFailedAttemptsException instead')
-typedef FailedAttemptsLimitExceededException
-    = TooManyFailedAttemptsException;
-
-/// Exception thrown when the requested service cannot find a multi-factor
-/// authentication (MFA) method.
-@Deprecated('Use MfaMethodNotFoundException instead')
-typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 ''');
 
   // Collect errors

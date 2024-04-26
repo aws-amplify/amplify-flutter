@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -31,11 +32,11 @@ void main() {
 
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(publicPath),
-          data: HttpPayload.bytes(bytesData),
+          data: StorageDataPayload.bytes(bytesData),
         ).result;
 
         await Amplify.Storage.uploadData(
-          data: HttpPayload.bytes(identityData),
+          data: StorageDataPayload.bytes(identityData),
           path: StoragePath.fromIdentityId(
             (identityId) => 'private/$identityId/$identityName',
           ),
@@ -43,7 +44,7 @@ void main() {
 
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(metadataPath),
-          data: HttpPayload.bytes('get properties'.codeUnits),
+          data: StorageDataPayload.bytes('get properties'.codeUnits),
           options: StorageUploadDataOptions(
             pluginOptions: const S3UploadDataPluginOptions(
               getProperties: true,
@@ -132,6 +133,75 @@ void main() {
           expect(downloadResult.downloadedItem.path, publicPath);
         });
       });
+
+      group('download progress', () {
+        testWidgets('reports progress', (_) async {
+          var fractionCompleted = 0.0;
+          var totalBytes = 0;
+          var transferredBytes = 0;
+
+          await Amplify.Storage.downloadData(
+            path: StoragePath.fromString(publicPath),
+            onProgress: (StorageTransferProgress progress) {
+              fractionCompleted = progress.fractionCompleted;
+              totalBytes = progress.totalBytes;
+              transferredBytes = progress.transferredBytes;
+            },
+          ).result;
+          expect(fractionCompleted, 1.0);
+          expect(totalBytes, bytesData.length);
+          expect(transferredBytes, bytesData.length);
+        });
+      });
+
+      group('pause, resume, cancel', () {
+        const size = 1024 * 1024 * 6;
+        const chars = 'qwertyuiopasdfghjklzxcvbnm';
+        final content = List.generate(size, (i) => chars[i % 25]).join();
+        final fileId = uuid();
+        final path = 'public/download-data-pause-$fileId';
+        setUpAll(() async {
+          addTearDownPath(StoragePath.fromString(path));
+          await Amplify.Storage.uploadData(
+            data: StorageDataPayload.string(content),
+            path: StoragePath.fromString(path),
+          ).result;
+        });
+        testWidgets('can pause', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          unawaited(
+            operation.result.then(
+              (value) => fail('should not complete after pause'),
+            ),
+          );
+          await Future<void>.delayed(const Duration(seconds: 15));
+        });
+
+        testWidgets('can resume', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          await operation.pause();
+          await operation.resume();
+          final result = await operation.result;
+          expect(result.downloadedItem.path, path);
+        });
+
+        testWidgets('can cancel', (_) async {
+          final operation = Amplify.Storage.downloadData(
+            path: StoragePath.fromString(path),
+          );
+          final expectException = expectLater(
+            () => operation.result,
+            throwsA(isA<StorageOperationCanceledException>()),
+          );
+          await operation.cancel();
+          await expectException;
+        });
+      });
     });
 
     group('config with dots in name', () {
@@ -140,7 +210,7 @@ void main() {
         addTearDownPath(StoragePath.fromString(publicPath));
         await Amplify.Storage.uploadData(
           path: StoragePath.fromString(publicPath),
-          data: HttpPayload.bytes(bytesData),
+          data: StorageDataPayload.bytes(bytesData),
         ).result;
       });
       testWidgets(

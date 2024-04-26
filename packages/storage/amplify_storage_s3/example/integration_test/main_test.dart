@@ -10,6 +10,8 @@ import 'download_file_test.dart' as download_file_tests;
 import 'get_properties_test.dart' as get_properties_test;
 import 'get_url_test.dart' as get_url_test;
 import 'list_test.dart' as list_tests;
+import 'platform_test_io.dart' if (dart.library.html) 'platform_test_html.dart'
+    as platform_test;
 import 'remove_many_test.dart' as remove_many_test;
 import 'remove_test.dart' as remove_test;
 import 'upload_data_test.dart' as upload_data_test;
@@ -29,5 +31,6 @@ void main() {
     upload_data_test.main();
     remove_many_test.main();
     remove_test.main();
+    platform_test.main();
   });
 }

@@ -699,18 +699,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<SendUserAttributeVerificationCodeResult>
-      resendUserAttributeConfirmationCode({
-    required AuthUserAttributeKey userAttributeKey,
-    SendUserAttributeVerificationCodeOptions? options,
-  }) async {
-    return sendUserAttributeVerificationCode(
-      userAttributeKey: userAttributeKey,
-      options: options,
-    );
-  }
-
-  @override
-  Future<SendUserAttributeVerificationCodeResult>
       sendUserAttributeVerificationCode({
     required AuthUserAttributeKey userAttributeKey,
     SendUserAttributeVerificationCodeOptions? options,
@@ -941,8 +929,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
     switch (state) {
       case TotpSetupRequiresVerification _:
-        // TODO(equartey): Change to `CodeMismatchException` in next major version as breaking change
-        throw const EnableSoftwareTokenMfaException(
+        throw const CodeMismatchException(
           'The code provided was incorrect, try again',
         );
       case TotpSetupFailure(:final exception, :final stackTrace):

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -15,7 +16,9 @@ void main() {
     setUpAll(() async {
       await Amplify.addPlugin(
         // needed to fetch the schema from within the helper
-        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+        MockAmplifyAPI(
+          options: APIPluginOptions(modelProvider: ModelProvider.instance),
+        ),
       );
     });
 

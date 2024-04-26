@@ -210,7 +210,8 @@ class S3UploadTask {
     // size is unknown when uploading a stream of bytes and we cannot
     // determine whether to use multipart upload, so use putObject
     if (dataPayload != null) {
-      _fileSize = -1;
+      // ignore: invalid_use_of_internal_member
+      _fileSize = dataPayload.size;
       unawaited(_startPutObject(dataPayload));
       return;
     }

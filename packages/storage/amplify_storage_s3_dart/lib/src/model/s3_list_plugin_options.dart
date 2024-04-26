@@ -13,12 +13,15 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   const S3ListPluginOptions({
     bool excludeSubPaths = false,
+    String delimiter = '/',
   }) : this._(
           excludeSubPaths: excludeSubPaths,
+          delimiter: delimiter,
         );
 
   const S3ListPluginOptions._({
     this.excludeSubPaths = false,
+    this.delimiter = '/',
     this.listAll = false,
   });
 
@@ -39,6 +42,10 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// Whether to exclude objects under the sub paths of the path to list. The
   /// default value is `false`.
   final bool excludeSubPaths;
+
+  /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
+  /// false, this value has no impact on behavior.
+  final String delimiter;
 
   /// Whether to list all objects under a given path without pagination. The
   /// default value is `false`.
