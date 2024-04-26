@@ -291,8 +291,7 @@ class GraphQLRequestFactory {
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
-      final associatedTargetName =
-          association?.targetNames?.first;
+      final associatedTargetName = association?.targetNames?.first;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
