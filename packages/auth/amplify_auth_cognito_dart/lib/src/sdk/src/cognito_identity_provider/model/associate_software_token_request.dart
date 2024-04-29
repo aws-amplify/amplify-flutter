@@ -50,11 +50,13 @@ abstract class AssociateSoftwareTokenRequest
   String? get session;
   @override
   AssociateSoftwareTokenRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
         session,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenRequest')
@@ -80,6 +82,7 @@ class AssociateSoftwareTokenRequestAwsJson11Serializer
         AssociateSoftwareTokenRequest,
         _$AssociateSoftwareTokenRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -87,6 +90,7 @@ class AssociateSoftwareTokenRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   AssociateSoftwareTokenRequest deserialize(
     Serializers serializers,

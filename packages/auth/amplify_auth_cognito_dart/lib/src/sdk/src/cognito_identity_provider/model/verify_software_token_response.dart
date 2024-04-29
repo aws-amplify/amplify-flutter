@@ -51,6 +51,7 @@ abstract class VerifySoftwareTokenResponse
         status,
         session,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse')
@@ -76,6 +77,7 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
         VerifySoftwareTokenResponse,
         _$VerifySoftwareTokenResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -83,6 +85,7 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   VerifySoftwareTokenResponse deserialize(
     Serializers serializers,

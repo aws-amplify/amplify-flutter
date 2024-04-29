@@ -46,6 +46,7 @@ abstract class MfaOptionType
         deliveryMedium,
         attributeName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MfaOptionType')
@@ -70,6 +71,7 @@ class MfaOptionTypeAwsJson11Serializer
         MfaOptionType,
         _$MfaOptionType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -77,6 +79,7 @@ class MfaOptionTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   MfaOptionType deserialize(
     Serializers serializers,

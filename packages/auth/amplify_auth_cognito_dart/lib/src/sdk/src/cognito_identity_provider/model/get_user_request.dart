@@ -40,8 +40,10 @@ abstract class GetUserRequest
   String get accessToken;
   @override
   GetUserRequest getPayload() => this;
+
   @override
   List<Object?> get props => [accessToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUserRequest')
@@ -62,6 +64,7 @@ class GetUserRequestAwsJson11Serializer
         GetUserRequest,
         _$GetUserRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -69,6 +72,7 @@ class GetUserRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetUserRequest deserialize(
     Serializers serializers,

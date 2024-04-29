@@ -32,7 +32,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Allows a user to enter a confirmation code to reset a forgotten password.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
     ConfirmForgotPasswordRequest,
     ConfirmForgotPasswordRequest,
@@ -40,7 +40,7 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
     ConfirmForgotPasswordResponse> {
   /// Allows a user to enter a confirmation code to reset a forgotten password.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ConfirmForgotPasswordOperation({
     required String region,
     Uri? baseUri,
@@ -108,8 +108,10 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([ConfirmForgotPasswordResponse? output]) => 200;
+
   @override
   ConfirmForgotPasswordResponse buildOutput(
     ConfirmForgotPasswordResponse payload,
@@ -119,6 +121,7 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
@@ -284,14 +287,19 @@ class ConfirmForgotPasswordOperation extends _i1.HttpOperation<
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'ConfirmForgotPassword';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<ConfirmForgotPasswordResponse> run(
     ConfirmForgotPasswordRequest input, {

@@ -121,8 +121,6 @@ abstract class InitiateAuthRequest
   ///
   /// *   Define auth challenge
   ///
-  /// *   Verify auth challenge
-  ///
   ///
   /// For more information, see [Customizing user pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html) in the _Amazon Cognito Developer Guide_.
   ///
@@ -145,6 +143,7 @@ abstract class InitiateAuthRequest
   UserContextDataType? get userContextData;
   @override
   InitiateAuthRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         authFlow,
@@ -154,6 +153,7 @@ abstract class InitiateAuthRequest
         analyticsMetadata,
         userContextData,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InitiateAuthRequest')
@@ -194,6 +194,7 @@ class InitiateAuthRequestAwsJson11Serializer
         InitiateAuthRequest,
         _$InitiateAuthRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -201,6 +202,7 @@ class InitiateAuthRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InitiateAuthRequest deserialize(
     Serializers serializers,

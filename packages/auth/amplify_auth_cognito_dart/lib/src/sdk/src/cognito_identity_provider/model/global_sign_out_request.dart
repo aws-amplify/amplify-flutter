@@ -43,8 +43,10 @@ abstract class GlobalSignOutRequest
   String get accessToken;
   @override
   GlobalSignOutRequest getPayload() => this;
+
   @override
   List<Object?> get props => [accessToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSignOutRequest')
@@ -66,6 +68,7 @@ class GlobalSignOutRequestAwsJson11Serializer
         GlobalSignOutRequest,
         _$GlobalSignOutRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -73,6 +76,7 @@ class GlobalSignOutRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GlobalSignOutRequest deserialize(
     Serializers serializers,

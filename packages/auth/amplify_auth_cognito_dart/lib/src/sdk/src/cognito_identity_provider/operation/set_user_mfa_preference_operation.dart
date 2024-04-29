@@ -24,7 +24,9 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Set the user's multi-factor authentication (MFA) method preference, including which MFA factors are activated and if any are preferred. Only one factor can be set as preferred. The preferred MFA factor will be used to authenticate a user if multiple factors are activated. If multiple options are activated and no preference is set, a challenge to choose an MFA option will be returned during sign-in. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class SetUserMfaPreferenceOperation extends _i1.HttpOperation<
     SetUserMfaPreferenceRequest,
     SetUserMfaPreferenceRequest,
@@ -32,7 +34,9 @@ class SetUserMfaPreferenceOperation extends _i1.HttpOperation<
     SetUserMfaPreferenceResponse> {
   /// Set the user's multi-factor authentication (MFA) method preference, including which MFA factors are activated and if any are preferred. Only one factor can be set as preferred. The preferred MFA factor will be used to authenticate a user if multiple factors are activated. If multiple options are activated and no preference is set, a challenge to choose an MFA option will be returned during sign-in. If an MFA type is activated for a user, the user will be prompted for MFA during all sign-in attempts unless device tracking is turned on and the device has been trusted. If you want MFA to be applied selectively based on the assessed risk level of sign-in attempts, deactivate MFA for users and turn on Adaptive Authentication for the user pool.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   SetUserMfaPreferenceOperation({
     required String region,
     Uri? baseUri,
@@ -100,8 +104,10 @@ class SetUserMfaPreferenceOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([SetUserMfaPreferenceResponse? output]) => 200;
+
   @override
   SetUserMfaPreferenceResponse buildOutput(
     SetUserMfaPreferenceResponse payload,
@@ -111,6 +117,7 @@ class SetUserMfaPreferenceOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ForbiddenException, ForbiddenException>(
@@ -194,14 +201,19 @@ class SetUserMfaPreferenceOperation extends _i1.HttpOperation<
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'SetUserMFAPreference';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<SetUserMfaPreferenceResponse> run(
     SetUserMfaPreferenceRequest input, {

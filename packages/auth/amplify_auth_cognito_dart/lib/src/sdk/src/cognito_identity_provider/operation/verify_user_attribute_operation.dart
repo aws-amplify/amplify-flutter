@@ -31,7 +31,9 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 ///
 /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class VerifyUserAttributeOperation extends _i1.HttpOperation<
     VerifyUserAttributeRequest,
     VerifyUserAttributeRequest,
@@ -41,7 +43,9 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
   ///
   /// If your user pool requires verification before Amazon Cognito updates the attribute value, VerifyUserAttribute updates the affected attribute to its pending value. For more information, see [UserAttributeUpdateSettingsType](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html).
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   VerifyUserAttributeOperation({
     required String region,
     Uri? baseUri,
@@ -109,8 +113,10 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([VerifyUserAttributeResponse? output]) => 200;
+
   @override
   VerifyUserAttributeResponse buildOutput(
     VerifyUserAttributeResponse payload,
@@ -120,6 +126,7 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<AliasExistsException, AliasExistsException>(
@@ -253,14 +260,19 @@ class VerifyUserAttributeOperation extends _i1.HttpOperation<
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'VerifyUserAttribute';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<VerifyUserAttributeResponse> run(
     VerifyUserAttributeRequest input, {

@@ -29,7 +29,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Use this API to register a user's entered time-based one-time password (TOTP) code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class VerifySoftwareTokenOperation extends _i1.HttpOperation<
     VerifySoftwareTokenRequest,
     VerifySoftwareTokenRequest,
@@ -37,7 +37,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
     VerifySoftwareTokenResponse> {
   /// Use this API to register a user's entered time-based one-time password (TOTP) code and mark the user's software token MFA status as "verified" if successful. The request takes an access token or a session string, but not both.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   VerifySoftwareTokenOperation({
     required String region,
     Uri? baseUri,
@@ -105,8 +105,10 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([VerifySoftwareTokenResponse? output]) => 200;
+
   @override
   VerifySoftwareTokenResponse buildOutput(
     VerifySoftwareTokenResponse payload,
@@ -116,6 +118,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<CodeMismatchException, CodeMismatchException>(
@@ -252,14 +255,19 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'VerifySoftwareToken';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<VerifySoftwareTokenResponse> run(
     VerifySoftwareTokenRequest input, {

@@ -25,12 +25,16 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Gets the user attributes and metadata for a user.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class GetUserOperation extends _i1.HttpOperation<GetUserRequest, GetUserRequest,
     GetUserResponse, GetUserResponse> {
   /// Gets the user attributes and metadata for a user.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   GetUserOperation({
     required String region,
     Uri? baseUri,
@@ -94,8 +98,10 @@ class GetUserOperation extends _i1.HttpOperation<GetUserRequest, GetUserRequest,
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([GetUserResponse? output]) => 200;
+
   @override
   GetUserResponse buildOutput(
     GetUserResponse payload,
@@ -105,6 +111,7 @@ class GetUserOperation extends _i1.HttpOperation<GetUserRequest, GetUserRequest,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ForbiddenException, ForbiddenException>(
@@ -198,14 +205,19 @@ class GetUserOperation extends _i1.HttpOperation<GetUserRequest, GetUserRequest,
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'GetUser';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetUserResponse> run(
     GetUserRequest input, {
