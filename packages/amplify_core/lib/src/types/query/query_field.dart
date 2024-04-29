@@ -284,4 +284,28 @@ class QueryField<T> {
   QuerySortBy descending() {
     return QuerySortBy(field: fieldName, order: QuerySortOrder.descending);
   }
+
+  /// A **matchPhrasePrefix** operation.
+  ///
+  /// Matches models where the given field phase prefix with the provided value.
+  /// It's only for GraphQL API with Amplify.API.query()
+  /// You should've already created a search resolver in your GraphQL API.
+  /// See https://docs.amplify.aws/flutter/build-a-backend/graphqlapi/search-and-result-aggregations/
+  ///
+  /// ### Example:
+  /// The example returns Todos where the title phrase prefix with "fo".
+  /// If you have a Todo model with a title "foo", it will be returned as a result.
+  ///
+  /// ```dart
+  /// ModelQueries.search(
+  ///  Todo.classType,
+  ///  where: Todo.TITLE.matchPhrasePrefix("fo"),
+  ///  limit: 10
+  /// );
+  /// ```
+  QueryPredicateOperation matchPhrasePrefix(String value) =>
+      QueryPredicateOperation(
+        fieldName,
+        MatchPhrasePrefixWithQueryOperator(value),
+      );
 }

@@ -59,6 +59,32 @@ class ModelQueries {
       headers: headers,
     );
   }
+
+  /// Generates a request for a search of model instances.
+  /// ```dart
+  /// final request = ModelQueries.search(
+  ///   Todo.classType,
+  ///   where: Todo.NAME.matchPhrasePrefix("Jo"),
+  ///   limit: 10,
+  /// );
+  /// ```
+  static GraphQLRequest<PaginatedResult<T>> search<T extends Model>(
+    ModelType<T> modelType, {
+    int? limit,
+    QueryPredicate? where,
+    String? apiName,
+    APIAuthorizationType? authorizationMode,
+    Map<String, String>? headers,
+  }) {
+    return ModelQueriesFactory.instance.search<T>(
+      modelType,
+      limit: limit,
+      where: where,
+      apiName: apiName,
+      authorizationMode: authorizationMode,
+      headers: headers,
+    );
+  }
 }
 
 // TODO(ragingsquirrel3): remove when https://github.com/dart-lang/sdk/issues/50748 addressed
