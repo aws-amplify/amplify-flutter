@@ -48,18 +48,23 @@ abstract class LimitExceededException
         namespace: 'com.amazonaws.cognitoidentity',
         shape: 'LimitExceededException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LimitExceededException')
@@ -81,6 +86,7 @@ class LimitExceededExceptionAwsJson11Serializer
         LimitExceededException,
         _$LimitExceededException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -88,6 +94,7 @@ class LimitExceededExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   LimitExceededException deserialize(
     Serializers serializers,

@@ -63,6 +63,7 @@ abstract class ConfirmDeviceRequest
   String? get deviceName;
   @override
   ConfirmDeviceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
@@ -70,6 +71,7 @@ abstract class ConfirmDeviceRequest
         deviceSecretVerifierConfig,
         deviceName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmDeviceRequest')
@@ -103,6 +105,7 @@ class ConfirmDeviceRequestAwsJson11Serializer
         ConfirmDeviceRequest,
         _$ConfirmDeviceRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -110,6 +113,7 @@ class ConfirmDeviceRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmDeviceRequest deserialize(
     Serializers serializers,

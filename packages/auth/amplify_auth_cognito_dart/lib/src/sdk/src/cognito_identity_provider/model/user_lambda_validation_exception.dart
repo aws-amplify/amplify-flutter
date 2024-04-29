@@ -50,18 +50,23 @@ abstract class UserLambdaValidationException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'UserLambdaValidationException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UserLambdaValidationException')
@@ -83,6 +88,7 @@ class UserLambdaValidationExceptionAwsJson11Serializer
         UserLambdaValidationException,
         _$UserLambdaValidationException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +96,7 @@ class UserLambdaValidationExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UserLambdaValidationException deserialize(
     Serializers serializers,

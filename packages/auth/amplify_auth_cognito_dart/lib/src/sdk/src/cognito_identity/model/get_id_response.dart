@@ -40,6 +40,7 @@ abstract class GetIdResponse
   String? get identityId;
   @override
   List<Object?> get props => [identityId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdResponse')
@@ -60,6 +61,7 @@ class GetIdResponseAwsJson11Serializer
         GetIdResponse,
         _$GetIdResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -67,6 +69,7 @@ class GetIdResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetIdResponse deserialize(
     Serializers serializers,

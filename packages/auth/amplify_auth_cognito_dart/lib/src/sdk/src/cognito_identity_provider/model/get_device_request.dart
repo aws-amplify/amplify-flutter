@@ -49,11 +49,13 @@ abstract class GetDeviceRequest
   String? get accessToken;
   @override
   GetDeviceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         deviceKey,
         accessToken,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDeviceRequest')
@@ -78,6 +80,7 @@ class GetDeviceRequestAwsJson11Serializer
         GetDeviceRequest,
         _$GetDeviceRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -85,6 +88,7 @@ class GetDeviceRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetDeviceRequest deserialize(
     Serializers serializers,

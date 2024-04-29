@@ -33,7 +33,9 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Generates a user attribute verification code for the specified attribute name. Sends a message to a user with a code that they must return in a VerifyUserAttribute request.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 ///
 /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
 ///
@@ -45,7 +47,9 @@ class GetUserAttributeVerificationCodeOperation extends _i1.HttpOperation<
     GetUserAttributeVerificationCodeResponse> {
   /// Generates a user attribute verification code for the specified attribute name. Sends a message to a user with a code that they must return in a VerifyUserAttribute request.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ///
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
@@ -117,8 +121,10 @@ class GetUserAttributeVerificationCodeOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([GetUserAttributeVerificationCodeResponse? output]) => 200;
+
   @override
   GetUserAttributeVerificationCodeResponse buildOutput(
     GetUserAttributeVerificationCodeResponse payload,
@@ -128,6 +134,7 @@ class GetUserAttributeVerificationCodeOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<CodeDeliveryFailureException,
@@ -307,14 +314,19 @@ class GetUserAttributeVerificationCodeOperation extends _i1.HttpOperation<
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'GetUserAttributeVerificationCode';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetUserAttributeVerificationCodeResponse> run(
     GetUserAttributeVerificationCodeRequest input, {

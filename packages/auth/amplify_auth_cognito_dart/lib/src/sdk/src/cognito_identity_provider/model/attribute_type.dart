@@ -45,6 +45,7 @@ abstract class AttributeType
         name,
         value,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AttributeType')
@@ -69,6 +70,7 @@ class AttributeTypeAwsJson11Serializer
         AttributeType,
         _$AttributeType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +78,7 @@ class AttributeTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   AttributeType deserialize(
     Serializers serializers,

@@ -68,7 +68,7 @@ abstract class ConfirmForgotPasswordRequest
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message. For more information about `SecretHash`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash).
   String? get secretHash;
 
-  /// The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+  /// The username of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value must be the `sub` of a local user or the username of a user from a third-party IdP.
   String get username;
 
   /// The confirmation code from your user's request to reset their password. For more information, see [ForgotPassword](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html).
@@ -99,6 +99,7 @@ abstract class ConfirmForgotPasswordRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ConfirmForgotPasswordRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -110,6 +111,7 @@ abstract class ConfirmForgotPasswordRequest
         userContextData,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmForgotPasswordRequest')
@@ -159,6 +161,7 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
         ConfirmForgotPasswordRequest,
         _$ConfirmForgotPasswordRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -166,6 +169,7 @@ class ConfirmForgotPasswordRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmForgotPasswordRequest deserialize(
     Serializers serializers,

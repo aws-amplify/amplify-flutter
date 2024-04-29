@@ -42,6 +42,7 @@ abstract class ForgotPasswordResponse
   CodeDeliveryDetailsType? get codeDeliveryDetails;
   @override
   List<Object?> get props => [codeDeliveryDetails];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgotPasswordResponse')
@@ -63,6 +64,7 @@ class ForgotPasswordResponseAwsJson11Serializer
         ForgotPasswordResponse,
         _$ForgotPasswordResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -70,6 +72,7 @@ class ForgotPasswordResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ForgotPasswordResponse deserialize(
     Serializers serializers,

@@ -73,28 +73,53 @@ abstract class RespondToAuthChallengeRequest
   /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
 
-  /// The challenge responses. These are inputs corresponding to the value of `ChallengeName`, for example:
+  /// The responses to the challenge that you received in the previous request. Each challenge has its own required response parameters. The following examples are partial JSON request bodies that highlight challenge-response parameters.
   ///
-  /// `SECRET_HASH` (if app client is configured with client secret) applies to all of the inputs that follow (including `SOFTWARE\_TOKEN\_MFA`).
+  /// You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
   ///
-  /// *   `SMS_MFA`: `SMS\_MFA\_CODE`, `USERNAME`.
+  /// SMS_MFA
   ///
-  /// *   `PASSWORD_VERIFIER`: `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`.
+  /// `"ChallengeName": "SMS\_MFA", "ChallengeResponses": {"SMS\_MFA\_CODE": "\[SMS\_code\]", "USERNAME": "\[username\]"}`
   ///
-  ///     `PASSWORD_VERIFIER` requires `DEVICE_KEY` when you sign in with a remembered device.
+  /// PASSWORD_VERIFIER
   ///
-  /// *   `NEW\_PASSWORD\_REQUIRED`: `NEW_PASSWORD`, `USERNAME`, `SECRET_HASH` (if app client is configured with client secret). To set any required attributes that Amazon Cognito returned as `requiredAttributes` in the `InitiateAuth` response, add a `userAttributes._attributename_` parameter. This parameter can also set values for writable attributes that aren't required by your user pool.
+  /// `"ChallengeName": "PASSWORD\_VERIFIER", "ChallengeResponses": {"PASSWORD\_CLAIM\_SIGNATURE": "\[claim\_signature\]", "PASSWORD\_CLAIM\_SECRET\_BLOCK": "\[secret\_block\]", "TIMESTAMP": \[timestamp\], "USERNAME": "\[username\]"}`
   ///
-  ///     In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
+  /// Add `"DEVICE_KEY"` when you sign in with a remembered device.
   ///
-  /// *   `SOFTWARE\_TOKEN\_MFA`: `USERNAME` and `SOFTWARE\_TOKEN\_MFA_CODE` are required attributes.
+  /// CUSTOM_CHALLENGE
   ///
-  /// *   `DEVICE\_SRP\_AUTH` requires `USERNAME`, `DEVICE_KEY`, `SRP_A` (and `SECRET_HASH`).
+  /// `"ChallengeName": "CUSTOM\_CHALLENGE", "ChallengeResponses": {"USERNAME": "\[username\]", "ANSWER": "\[challenge\_answer\]"}`
   ///
-  /// *   `DEVICE\_PASSWORD\_VERIFIER` requires everything that `PASSWORD_VERIFIER` requires, plus `DEVICE_KEY`.
+  /// Add `"DEVICE_KEY"` when you sign in with a remembered device.
   ///
-  /// *   `MFA_SETUP` requires `USERNAME`, plus you must use the session value returned by `VerifySoftwareToken` in the `Session` parameter.
+  /// NEW\_PASSWORD\_REQUIRED
   ///
+  /// `"ChallengeName": "NEW\_PASSWORD\_REQUIRED", "ChallengeResponses": {"NEW\_PASSWORD": "\[new\_password\]", "USERNAME": "\[username\]"}`
+  ///
+  /// To set any required attributes that `InitiateAuth` returned in an `requiredAttributes` parameter, add `"userAttributes.\[attribute\_name\]": "\[attribute\_value\]"`. This parameter can also set values for writable attributes that aren't required by your user pool.
+  ///
+  /// In a `NEW\_PASSWORD\_REQUIRED` challenge response, you can't modify a required attribute that already has a value. In `RespondToAuthChallenge`, set a value for any keys that Amazon Cognito returned in the `requiredAttributes` parameter, then use the `UpdateUserAttributes` API operation to modify the value of any additional attributes.
+  ///
+  /// SOFTWARE\_TOKEN\_MFA
+  ///
+  /// `"ChallengeName": "SOFTWARE\_TOKEN\_MFA", "ChallengeResponses": {"USERNAME": "\[username\]", "SOFTWARE\_TOKEN\_MFA\_CODE": \[authenticator\_code\]}`
+  ///
+  /// DEVICE\_SRP\_AUTH
+  ///
+  /// `"ChallengeName": "DEVICE\_SRP\_AUTH", "ChallengeResponses": {"USERNAME": "\[username\]", "DEVICE\_KEY": "\[device\_key\]", "SRP\_A": "\[srp\_a\]"}`
+  ///
+  /// DEVICE\_PASSWORD\_VERIFIER
+  ///
+  /// `"ChallengeName": "DEVICE\_PASSWORD\_VERIFIER", "ChallengeResponses": {"DEVICE\_KEY": "\[device\_key\]", "PASSWORD\_CLAIM\_SIGNATURE": "\[claim\_signature\]", "PASSWORD\_CLAIM\_SECRET\_BLOCK": "\[secret_block\]", "TIMESTAMP": \[timestamp\], "USERNAME": "\[username\]"}`
+  ///
+  /// MFA_SETUP
+  ///
+  /// `"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "\[username\]"}, "SESSION": "\[Session ID from VerifySoftwareToken\]"`
+  ///
+  /// SELECT\_MFA\_TYPE
+  ///
+  /// `"ChallengeName": "SELECT\_MFA\_TYPE", "ChallengeResponses": {"USERNAME": "\[username\]", "ANSWER": "\[SMS\_MFA or SOFTWARE\_TOKEN_MFA\]"}`
   ///
   /// For more information about `SECRET_HASH`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash). For information about `DEVICE_KEY`, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
   _i3.BuiltMap<String, String>? get challengeResponses;
@@ -121,6 +146,7 @@ abstract class RespondToAuthChallengeRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   RespondToAuthChallengeRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -131,6 +157,7 @@ abstract class RespondToAuthChallengeRequest
         userContextData,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RespondToAuthChallengeRequest')
@@ -176,6 +203,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         RespondToAuthChallengeRequest,
         _$RespondToAuthChallengeRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -183,6 +211,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   RespondToAuthChallengeRequest deserialize(
     Serializers serializers,

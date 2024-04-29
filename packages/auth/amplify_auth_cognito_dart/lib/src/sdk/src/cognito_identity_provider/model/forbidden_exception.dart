@@ -49,18 +49,23 @@ abstract class ForbiddenException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'ForbiddenException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 403;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForbiddenException')
@@ -81,6 +86,7 @@ class ForbiddenExceptionAwsJson11Serializer
         ForbiddenException,
         _$ForbiddenException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -88,6 +94,7 @@ class ForbiddenExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ForbiddenException deserialize(
     Serializers serializers,

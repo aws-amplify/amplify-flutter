@@ -57,6 +57,7 @@ abstract class Credentials
         sessionToken,
         expiration,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Credentials')
@@ -89,6 +90,7 @@ class CredentialsAwsJson11Serializer
         Credentials,
         _$Credentials,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -96,6 +98,7 @@ class CredentialsAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   Credentials deserialize(
     Serializers serializers,

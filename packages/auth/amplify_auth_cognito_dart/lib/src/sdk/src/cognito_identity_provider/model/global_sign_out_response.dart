@@ -41,6 +41,7 @@ abstract class GlobalSignOutResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalSignOutResponse');
@@ -58,6 +59,7 @@ class GlobalSignOutResponseAwsJson11Serializer
         GlobalSignOutResponse,
         _$GlobalSignOutResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class GlobalSignOutResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GlobalSignOutResponse deserialize(
     Serializers serializers,

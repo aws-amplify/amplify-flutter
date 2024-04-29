@@ -52,6 +52,7 @@ abstract class AssociateSoftwareTokenResponse
         secretCode,
         session,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AssociateSoftwareTokenResponse')
@@ -77,6 +78,7 @@ class AssociateSoftwareTokenResponseAwsJson11Serializer
         AssociateSoftwareTokenResponse,
         _$AssociateSoftwareTokenResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -84,6 +86,7 @@ class AssociateSoftwareTokenResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   AssociateSoftwareTokenResponse deserialize(
     Serializers serializers,

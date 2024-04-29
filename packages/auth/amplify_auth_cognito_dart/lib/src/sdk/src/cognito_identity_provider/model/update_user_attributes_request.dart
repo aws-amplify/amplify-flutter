@@ -76,12 +76,14 @@ abstract class UpdateUserAttributesRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   UpdateUserAttributesRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         userAttributes,
         accessToken,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesRequest')
@@ -111,6 +113,7 @@ class UpdateUserAttributesRequestAwsJson11Serializer
         UpdateUserAttributesRequest,
         _$UpdateUserAttributesRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -118,6 +121,7 @@ class UpdateUserAttributesRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UpdateUserAttributesRequest deserialize(
     Serializers serializers,

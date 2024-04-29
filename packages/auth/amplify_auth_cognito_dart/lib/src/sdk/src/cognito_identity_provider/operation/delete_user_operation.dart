@@ -24,12 +24,16 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Allows a user to delete their own user profile.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+///
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 class DeleteUserOperation extends _i1
     .HttpOperation<DeleteUserRequest, DeleteUserRequest, _i1.Unit, _i1.Unit> {
   /// Allows a user to delete their own user profile.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Authorize this action with a signed-in user's access token. It must include the scope `aws.cognito.signin.user.admin`.
+  ///
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   DeleteUserOperation({
     required String region,
     Uri? baseUri,
@@ -93,14 +97,17 @@ class DeleteUserOperation extends _i1
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([_i1.Unit? output]) => 200;
+
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
     _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ForbiddenException, ForbiddenException>(
@@ -194,14 +201,19 @@ class DeleteUserOperation extends _i1
           builder: UserNotFoundException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'DeleteUser';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<_i1.Unit> run(
     DeleteUserRequest input, {
