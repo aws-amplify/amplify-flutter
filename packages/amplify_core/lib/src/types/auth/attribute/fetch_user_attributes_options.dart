@@ -26,10 +26,6 @@ class FetchUserAttributesOptions
   @override
   String get runtimeTypeName => 'FetchUserAttributesOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),

@@ -25,10 +25,6 @@ class GetCurrentUserOptions
   @override
   String get runtimeTypeName => 'GetCurrentUserOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
