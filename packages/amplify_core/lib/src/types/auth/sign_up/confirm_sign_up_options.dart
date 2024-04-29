@@ -26,10 +26,6 @@ class ConfirmSignUpOptions
   @override
   String get runtimeTypeName => 'ConfirmSignUpOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
