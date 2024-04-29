@@ -72,6 +72,7 @@ abstract class RespondToAuthChallengeResponse
         challengeParameters,
         authenticationResult,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RespondToAuthChallengeResponse')
@@ -105,6 +106,7 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
         RespondToAuthChallengeResponse,
         _$RespondToAuthChallengeResponse,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +114,7 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   RespondToAuthChallengeResponse deserialize(
     Serializers serializers,

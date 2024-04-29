@@ -125,7 +125,7 @@ void main() {
             check(
               e,
               because: 'Invalid TOTP code should fail verification',
-            ).isA<EnableSoftwareTokenMfaException>();
+            ).isA<CodeMismatchException>();
           }
 
           check(

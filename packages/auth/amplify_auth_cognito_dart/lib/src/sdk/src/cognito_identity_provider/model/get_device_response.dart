@@ -41,6 +41,7 @@ abstract class GetDeviceResponse
   DeviceType get device;
   @override
   List<Object?> get props => [device];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDeviceResponse')
@@ -61,6 +62,7 @@ class GetDeviceResponseAwsJson11Serializer
         GetDeviceResponse,
         _$GetDeviceResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -68,6 +70,7 @@ class GetDeviceResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetDeviceResponse deserialize(
     Serializers serializers,

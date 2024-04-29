@@ -15,24 +15,18 @@ import 'package:test/test.dart';
 
 import '../../test_utils/helper_types.dart';
 import '../../test_utils/mocks.dart';
-import '../storage_s3_service_test.dart';
+import '../../test_utils/test_path_resolver.dart';
 
 void main() {
   group('S3DownloadTask', () {
     const testBucket = 'bucket1';
-    const testDefaultAccessLevel = StorageAccessLevel.guest;
     const testKey = 'some-object';
-    const defaultTestOptions = StorageDownloadDataOptions(
-      accessLevel: StorageAccessLevel.private,
-    );
-    final testPrefixResolver = TestPrefixResolver();
+    const defaultTestOptions = StorageDownloadDataOptions();
     const defaultS3ClientConfig = S3ClientConfig();
     late S3Client s3Client;
-    late AWSLogger logger;
 
     setUpAll(() {
       s3Client = MockS3Client();
-      logger = MockAWSLogger();
 
       registerFallbackValue(
         GetObjectRequest(
@@ -63,12 +57,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           preStart: testPreStart,
         );
 
@@ -102,12 +94,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
+          pathResolver: TestPathResolver(),
           options: const StorageDownloadDataOptions(),
-          logger: logger,
           onProgress: (progress) {
             finalState = progress.state;
           },
@@ -128,9 +118,7 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testDefaultAccessLevel,
-          )}$testKey',
+          TestPathResolver.path,
         );
         expect(request.checksumMode, ChecksumMode.enabled);
 
@@ -143,7 +131,6 @@ void main() {
           () async {
         const testUseAccelerateEndpoint = true;
         const testOptions = StorageDownloadDataOptions(
-          accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3DownloadDataPluginOptions(
             useAccelerateEndpoint: testUseAccelerateEndpoint,
           ),
@@ -169,12 +156,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
+          pathResolver: TestPathResolver(),
           options: testOptions,
-          logger: logger,
         );
 
         await downloadTask.start();
@@ -219,12 +204,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onError: () {
             onErrorHasBeenCalled = true;
           },
@@ -245,16 +228,14 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: const S3ClientConfig(usePathStyle: true),
-          prefixResolver: testPrefixResolver,
           bucket: 'bucket.name.has.dots.com',
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: const StorageDownloadDataOptions(
             pluginOptions: S3DownloadDataPluginOptions(
               useAccelerateEndpoint: true,
             ),
           ),
-          logger: logger,
         );
 
         unawaited(downloadTask.start());
@@ -296,12 +277,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
           },
@@ -343,12 +322,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
           },
@@ -414,12 +391,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
           },
@@ -455,9 +430,9 @@ void main() {
           exceptionTypeMatcher: isA<StorageHttpStatusException>(),
         ),
         DownloadTaskExceptionConversionTestItem(
-          description: 'it should complete with a StorageKeyNotFoundException',
+          description: 'it should complete with a StorageNotFoundException',
           originalException: NoSuchKey(),
-          exceptionTypeMatcher: isA<StorageKeyNotFoundException>(),
+          exceptionTypeMatcher: isA<StorageNotFoundException>(),
         ),
         DownloadTaskExceptionConversionTestItem(
           description: 'it should complete with a NetworkException',
@@ -487,12 +462,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
         );
 
         unawaited(downloadTask.start());
@@ -506,12 +479,10 @@ void main() {
           downloadTask = S3DownloadTask(
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
             options: defaultTestOptions,
-            logger: logger,
           );
         });
 
@@ -559,12 +530,10 @@ void main() {
           downloadTask = S3DownloadTask(
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: const StoragePath.fromString('public/$testKey'),
+            pathResolver: TestPathResolver(),
             options: defaultTestOptions,
-            logger: logger,
           );
         });
 
@@ -614,12 +583,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onProgress: (progress) {
             finalState = progress.state;
           },
@@ -658,12 +625,10 @@ void main() {
         final downloadTask = S3DownloadTask(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString('public/$testKey'),
+          pathResolver: TestPathResolver(),
           options: defaultTestOptions,
-          logger: logger,
           onDone: () async {
             onDoneHasBeenCalled = true;
             throw testOnDoneException;
@@ -691,13 +656,13 @@ void main() {
             description:
                 'should include metadata when getPropertiesValue is set to true',
             getPropertiesValue: true,
-            expectedS3Item: S3Item(key: testKey, metadata: testMetadata),
+            expectedS3Item: S3Item(path: testKey, metadata: testMetadata),
           ),
           GetPropertiesTestItem(
             description:
                 'should NOT include metadata when getPropertiesValue is set to false',
             getPropertiesValue: false,
-            expectedS3Item: S3Item(key: testKey, metadata: {}),
+            expectedS3Item: S3Item(path: testKey, metadata: {}),
           ),
         ];
 
@@ -726,17 +691,14 @@ void main() {
             final downloadTask = S3DownloadTask(
               s3Client: s3Client,
               defaultS3ClientConfig: defaultS3ClientConfig,
-              defaultAccessLevel: testDefaultAccessLevel,
-              prefixResolver: testPrefixResolver,
               bucket: testBucket,
-              key: testKey,
+              path: const StoragePath.fromString('public/$testKey'),
+              pathResolver: TestPathResolver(),
               options: StorageDownloadDataOptions(
-                accessLevel: StorageAccessLevel.guest,
                 pluginOptions: S3DownloadDataPluginOptions(
                   getProperties: item.getPropertiesValue,
                 ),
               ),
-              logger: logger,
             );
 
             unawaited(downloadTask.start());

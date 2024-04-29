@@ -17,13 +17,14 @@ void main() {
 
   AmplifyDataStore dataStore = AmplifyDataStore(
       modelProvider: ModelProvider.instance,
-      syncExpressions: [
-        DataStoreSyncExpression(Blog.classType, () => Blog.NAME.eq('foo')),
-        DataStoreSyncExpression(Post.classType, () => Post.TITLE.eq('bar'))
-      ],
-      syncInterval: mockSyncInterval,
-      syncMaxRecords: mockSyncMaxRecords,
-      syncPageSize: mockSyncPagesize);
+      options: DataStorePluginOptions(
+          syncExpressions: [
+            DataStoreSyncExpression(Blog.classType, () => Blog.NAME.eq('foo')),
+            DataStoreSyncExpression(Post.classType, () => Post.TITLE.eq('bar'))
+          ],
+          syncInterval: mockSyncInterval,
+          syncMaxRecords: mockSyncMaxRecords,
+          syncPageSize: mockSyncPagesize));
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 

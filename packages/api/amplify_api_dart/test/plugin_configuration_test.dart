@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:convert';
 
-import 'package:amplify_api_dart/src/api_plugin_impl.dart';
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/providers/app_sync_api_key_auth_provider.dart';
 import 'package:amplify_api_dart/src/graphql/providers/oidc_function_api_auth_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -99,8 +99,9 @@ void main() {
 
     test('should register an OIDC auth provider when passed to plugin',
         () async {
-      final plugin =
-          AmplifyAPIDart(authProviders: [const CustomOIDCProvider()]);
+      final plugin = AmplifyAPIDart(
+        options: const APIPluginOptions(authProviders: [CustomOIDCProvider()]),
+      );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
         config: config,
@@ -117,8 +118,10 @@ void main() {
     test(
         'should register a Lambda (function) auth provider when passed to plugin',
         () async {
-      final plugin =
-          AmplifyAPIDart(authProviders: [const CustomFunctionProvider()]);
+      final plugin = AmplifyAPIDart(
+        options:
+            const APIPluginOptions(authProviders: [CustomFunctionProvider()]),
+      );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
         config: config,
@@ -135,7 +138,9 @@ void main() {
     test(
         'should configure an HTTP client for GraphQL that authorizes with auth providers and adds user-agent',
         () async {
-      final plugin = AmplifyAPIDart(baseHttpClient: _mockGqlClient);
+      final plugin = AmplifyAPIDart(
+        options: APIPluginOptions(baseHttpClient: _mockGqlClient),
+      );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
         config: config,
@@ -159,7 +164,9 @@ void main() {
     test(
         'should configure an HTTP client for REST that authorizes with auth providers and adds user-agent',
         () async {
-      final plugin = AmplifyAPIDart(baseHttpClient: _mockRestClient);
+      final plugin = AmplifyAPIDart(
+        options: APIPluginOptions(baseHttpClient: _mockRestClient),
+      );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
         config: config,

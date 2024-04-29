@@ -8,6 +8,9 @@ export 'package:amplify_core/src/types/api/api_types.dart';
 
 export 'src/api_plugin_impl.dart';
 
+/// API plugin options
+export 'src/api_plugin_options.dart';
+
 /// Model helpers
 export 'src/graphql/model_helpers/model_mutations.dart';
 export 'src/graphql/model_helpers/model_queries.dart';

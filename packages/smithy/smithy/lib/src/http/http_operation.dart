@@ -287,9 +287,6 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         smithyError =
             errorTypes.firstWhereOrNull((t) => t.shapeId.shape == resolvedType);
       }
-      smithyError ??= errorTypes.singleWhereOrNull(
-        (t) => t.statusCode == response.statusCode,
-      );
       if (smithyError == null) {
         throw SmithyHttpException(
           statusCode: response.statusCode,

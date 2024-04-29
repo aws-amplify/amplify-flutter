@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:meta/meta.dart';
 
 /// {@template aws_common.http.http_payload}
 /// An HTTP request's payload.
@@ -61,7 +62,7 @@ final class HttpPayload extends StreamView<List<int>> {
         super(
           LazyStream(
             () => Stream.value(
-              encoding.encode(_encodeFormValues(body, encoding: encoding)),
+              encoding.encode(encodeFormValues(body, encoding: encoding)),
             ),
           ),
         );
@@ -87,7 +88,7 @@ final class HttpPayload extends StreamView<List<int>> {
 
   /// A data url HTTP body.
   factory HttpPayload.dataUrl(String dataUrl) {
-    if (!dataUrl.startsWith(_dataUrlMatcher)) {
+    if (!dataUrl.startsWith(dataUrlMatcher)) {
       throw ArgumentError('Invalid data url: $dataUrl');
     }
 
@@ -118,7 +119,8 @@ final class HttpPayload extends StreamView<List<int>> {
   ///     //=> "foo=bar&baz=bang"
   ///
   /// Similar util at https://github.com/dart-lang/http/blob/06649afbb5847dbb0293816ba8348766b116e419/pkgs/http/lib/src/utils.dart#L15
-  static String _encodeFormValues(
+  @internal
+  static String encodeFormValues(
     Map<String, String> params, {
     required Encoding encoding,
   }) =>
@@ -131,5 +133,7 @@ final class HttpPayload extends StreamView<List<int>> {
           )
           .join('&');
 
-  static final _dataUrlMatcher = RegExp(r'^data:.*,');
+  /// A [RegExp] matcher for data urls.
+  @internal
+  static final dataUrlMatcher = RegExp(r'^data:.*,');
 }

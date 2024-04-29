@@ -3,9 +3,6 @@
 
 import 'dart:collection';
 
-@Deprecated('Use CustomProperties instead')
-typedef AnalyticsProperties = CustomProperties;
-
 /// Provides key/value storage of typed property values of String, Double, Bool, and Int.
 class CustomProperties {
   CustomProperties();

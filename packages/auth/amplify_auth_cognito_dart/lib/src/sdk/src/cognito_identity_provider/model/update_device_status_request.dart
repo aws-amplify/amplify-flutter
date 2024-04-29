@@ -58,12 +58,14 @@ abstract class UpdateDeviceStatusRequest
   DeviceRememberedStatusType? get deviceRememberedStatus;
   @override
   UpdateDeviceStatusRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
         deviceKey,
         deviceRememberedStatus,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest')
@@ -93,6 +95,7 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
         UpdateDeviceStatusRequest,
         _$UpdateDeviceStatusRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -100,6 +103,7 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UpdateDeviceStatusRequest deserialize(
     Serializers serializers,

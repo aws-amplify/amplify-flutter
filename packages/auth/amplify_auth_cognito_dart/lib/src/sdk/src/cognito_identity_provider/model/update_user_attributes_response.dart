@@ -49,6 +49,7 @@ abstract class UpdateUserAttributesResponse
   _i2.BuiltList<CodeDeliveryDetailsType>? get codeDeliveryDetailsList;
   @override
   List<Object?> get props => [codeDeliveryDetailsList];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse')
@@ -70,6 +71,7 @@ class UpdateUserAttributesResponseAwsJson11Serializer
         UpdateUserAttributesResponse,
         _$UpdateUserAttributesResponse,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -77,6 +79,7 @@ class UpdateUserAttributesResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UpdateUserAttributesResponse deserialize(
     Serializers serializers,

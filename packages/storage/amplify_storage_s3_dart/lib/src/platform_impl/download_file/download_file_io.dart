@@ -7,12 +7,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 
 /// The io implementation of `downloadFile` API.
 @internal
 S3DownloadFileOperation downloadFile({
-  required String key,
+  required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
@@ -21,34 +21,26 @@ S3DownloadFileOperation downloadFile({
   void Function(S3TransferProgress)? onProgress,
 }) {
   late final String destinationPath;
-  late final IOSink sink;
+  IOSink? sink;
   late final File tempFile;
 
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
-  final targetIdentityId = s3PluginOptions.targetIdentityId;
   final downloadDataOptions = StorageDownloadDataOptions(
-    accessLevel: options.accessLevel,
-    pluginOptions: targetIdentityId == null
-        ? S3DownloadDataPluginOptions(
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          )
-        : S3DownloadDataPluginOptions.forIdentity(
-            targetIdentityId,
-            getProperties: s3PluginOptions.getProperties,
-            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
-          ),
+    pluginOptions: S3DownloadDataPluginOptions(
+      getProperties: s3PluginOptions.getProperties,
+      useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+    ),
   );
 
   final downloadDataTask = storageS3Service.downloadData(
-    key: key,
+    path: path,
     options: downloadDataOptions,
     // Ensure destination file is writable. Exception thrown in the check
     // will be forwarded to the Future, downloadDataTask.result below
     preStart: () async {
       destinationPath = await _ensureDestinationWritable(localFile);
       tempFile = File(
-        path.join(
+        p.join(
           await appPathProvider.getTemporaryPath(),
           'amplify_storage_s3_temp_${uuid()}',
         ),
@@ -60,25 +52,26 @@ S3DownloadFileOperation downloadFile({
     onData: (bytes) {
       // sink is set in the callback preStart, need to keep this closure to
       // preventLateInitializationError: Local 'sink' has not been initialized.
-      sink.add(bytes);
+      sink!.add(bytes);
     },
     // Exception thrown in this callback will be forwarded to the Future,
     // downloadDataTask.result below
     onDone: () async {
       // ensure all bytes are written into the temporary file and then close
-      await sink.flush();
-      await sink.close();
+      await sink!.flush();
+      await sink!.close();
       // then copy the temporary file to the destination
       await tempFile.copy(destinationPath);
     },
     onError: () async {
-      await sink.close();
+      // sink may not be initialized yet when an exception occurs
+      await sink?.close();
     },
   );
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: key,
+      path: path,
       localFile: localFile,
       options: options,
     ),

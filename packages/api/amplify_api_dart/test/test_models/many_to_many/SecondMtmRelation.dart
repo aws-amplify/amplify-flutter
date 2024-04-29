@@ -1,26 +1,35 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
-
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'MtmModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/// This is an auto generated class representing the SecondMtmRelation type in your schema.
-@immutable
-class SecondMtmRelation extends Model {
-  static const classType = _SecondMtmRelationModelType();
+/** This is an auto generated class representing the SecondMtmRelation type in your schema. */
+class SecondMtmRelation extends amplify_core.Model {
+  static const classType = const _SecondMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final amplify_core.TemporalDateTime? _createdAt;
+  final amplify_core.TemporalDateTime? _updatedAt;
 
   @override
   getInstanceType() => classType;
@@ -38,10 +47,10 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManyPrimary!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
@@ -51,20 +60,20 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManySecondary!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
-          AmplifyExceptionMessages
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: AmplifyExceptionMessages
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastRecoverySuggestion,
           underlyingException: e.toString());
     }
   }
 
-  TemporalDateTime? get createdAt {
+  amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
 
-  TemporalDateTime? get updatedAt {
+  amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
 
@@ -84,7 +93,7 @@ class SecondMtmRelation extends Model {
       required ManyToManyPrimary manyToManyPrimary,
       required ManyToManySecondary manyToManySecondary}) {
     return SecondMtmRelation._internal(
-        id: id == null ? UUID.getUUID() : id,
+        id: id == null ? amplify_core.UUID.getUUID() : id,
         manyToManyPrimary: manyToManyPrimary,
         manyToManySecondary: manyToManySecondary);
   }
@@ -107,7 +116,7 @@ class SecondMtmRelation extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
@@ -138,23 +147,40 @@ class SecondMtmRelation extends Model {
         manyToManySecondary: manyToManySecondary ?? this.manyToManySecondary);
   }
 
+  SecondMtmRelation copyWithModelFieldValues(
+      {ModelFieldValue<ManyToManyPrimary>? manyToManyPrimary,
+      ModelFieldValue<ManyToManySecondary>? manyToManySecondary}) {
+    return SecondMtmRelation._internal(
+        id: id,
+        manyToManyPrimary: manyToManyPrimary == null
+            ? this.manyToManyPrimary
+            : manyToManyPrimary.value,
+        manyToManySecondary: manyToManySecondary == null
+            ? this.manyToManySecondary
+            : manyToManySecondary.value);
+  }
+
   SecondMtmRelation.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _manyToManyPrimary =
-            json['manyToManyPrimary']?['serializedData'] != null
-                ? ManyToManyPrimary.fromJson(Map<String, dynamic>.from(
+        _manyToManyPrimary = json['manyToManyPrimary'] != null
+            ? json['manyToManyPrimary']['serializedData'] != null
+                ? ManyToManyPrimary.fromJson(new Map<String, dynamic>.from(
                     json['manyToManyPrimary']['serializedData']))
-                : null,
-        _manyToManySecondary =
-            json['manyToManySecondary']?['serializedData'] != null
-                ? ManyToManySecondary.fromJson(Map<String, dynamic>.from(
+                : ManyToManyPrimary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManyPrimary']))
+            : null,
+        _manyToManySecondary = json['manyToManySecondary'] != null
+            ? json['manyToManySecondary']['serializedData'] != null
+                ? ManyToManySecondary.fromJson(new Map<String, dynamic>.from(
                     json['manyToManySecondary']['serializedData']))
-                : null,
+                : ManyToManySecondary.fromJson(
+                    new Map<String, dynamic>.from(json['manyToManySecondary']))
+            : null,
         _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -173,60 +199,67 @@ class SecondMtmRelation extends Model {
         'updatedAt': _updatedAt
       };
 
-  static final QueryModelIdentifier<SecondMtmRelationModelIdentifier>
-      MODEL_IDENTIFIER =
-      QueryModelIdentifier<SecondMtmRelationModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField MANYTOMANYPRIMARY = QueryField(
+  static final amplify_core
+      .QueryModelIdentifier<SecondMtmRelationModelIdentifier> MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<SecondMtmRelationModelIdentifier>();
+  static final ID = amplify_core.QueryField(fieldName: "id");
+  static final MANYTOMANYPRIMARY = amplify_core.QueryField(
       fieldName: "manyToManyPrimary",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'ManyToManyPrimary'));
-  static final QueryField MANYTOMANYSECONDARY = QueryField(
+  static final MANYTOMANYSECONDARY = amplify_core.QueryField(
       fieldName: "manyToManySecondary",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'ManyToManySecondary'));
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "SecondMtmRelation";
     modelSchemaDefinition.pluralName = "SecondMtmRelations";
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(
+      amplify_core.ModelIndex(
           fields: const ["manyToManyPrimaryId"], name: "byManyToManyPrimary"),
-      ModelIndex(
+      amplify_core.ModelIndex(
           fields: const ["manyToManySecondaryId"],
           name: "byManyToManySecondary")
     ];
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYPRIMARY,
         isRequired: true,
         targetNames: ['manyToManyPrimaryId'],
         ofModelName: 'ManyToManyPrimary'));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: SecondMtmRelation.MANYTOMANYSECONDARY,
         isRequired: true,
         targetNames: ['manyToManySecondaryId'],
         ofModelName: 'ManyToManySecondary'));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _SecondMtmRelationModelType extends ModelType<SecondMtmRelation> {
+class _SecondMtmRelationModelType
+    extends amplify_core.ModelType<SecondMtmRelation> {
   const _SecondMtmRelationModelType();
 
   @override
@@ -240,14 +273,15 @@ class _SecondMtmRelationModelType extends ModelType<SecondMtmRelation> {
   }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [SecondMtmRelation] in your schema.
-@immutable
+/**
+ * This is an auto generated class representing the model identifier
+ * of [SecondMtmRelation] in your schema.
+ */
 class SecondMtmRelationModelIdentifier
-    implements ModelIdentifier<SecondMtmRelation> {
+    implements amplify_core.ModelIdentifier<SecondMtmRelation> {
   final String id;
 
-  /// Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key.
+  /** Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key. */
   const SecondMtmRelationModelIdentifier({required this.id});
 
   @override

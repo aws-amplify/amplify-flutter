@@ -57,6 +57,7 @@ abstract class SoftwareTokenMfaSettingsType
         enabled,
         preferredMfa,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SoftwareTokenMfaSettingsType')
@@ -82,6 +83,7 @@ class SoftwareTokenMfaSettingsTypeAwsJson11Serializer
         SoftwareTokenMfaSettingsType,
         _$SoftwareTokenMfaSettingsType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -89,6 +91,7 @@ class SoftwareTokenMfaSettingsTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SoftwareTokenMfaSettingsType deserialize(
     Serializers serializers,

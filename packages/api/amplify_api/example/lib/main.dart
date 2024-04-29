@@ -48,7 +48,15 @@ class _MyAppState extends State<MyApp> {
       authPlugin,
       // FIXME: In your app, make sure to run `amplify codegen models` to generate
       // the models and provider
-      AmplifyAPI(modelProvider: ModelProvider.instance),
+      AmplifyAPI(
+        options: APIPluginOptions(
+          modelProvider: ModelProvider.instance,
+          subscriptionOptions: const GraphQLSubscriptionOptions(
+            pollInterval: Duration(seconds: 10),
+            retryOptions: RetryOptions(),
+          ),
+        ),
+      ),
     ]);
 
     try {

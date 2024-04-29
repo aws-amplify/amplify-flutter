@@ -19,7 +19,7 @@ import 'package:test/test.dart';
 
 import '../../test_utils/io_mocks.dart';
 import '../../test_utils/mocks.dart';
-import '../../test_utils/test_custom_prefix_resolver.dart';
+import '../../test_utils/test_path_resolver.dart';
 
 void main() {
   group('S3UploadTask', () {
@@ -28,11 +28,8 @@ void main() {
     late transfer.TransferDatabase transferDatabase;
     const testBucket = 'fake-bucket';
     const defaultS3ClientConfig = smithy_aws.S3ClientConfig();
-    final testPrefixResolver = TestCustomPrefixResolver();
-    const testUploadDataOptions = StorageUploadDataOptions(
-      accessLevel: StorageAccessLevel.private,
-    );
-    const testDefaultAccessLevel = StorageAccessLevel.guest;
+    final pathResolver = TestPathResolver();
+    const testUploadDataOptions = StorageUploadDataOptions();
 
     setUpAll(() {
       s3Client = MockS3Client();
@@ -91,7 +88,7 @@ void main() {
     group('Uploading S3DataPayload', () {
       final testDataPayload = S3DataPayload.string('Upload me please!');
       final testDataPayloadBytes = S3DataPayload.bytes([101, 102]);
-      const testKey = 'object-upload-to';
+      const testPath = StoragePath.fromString('object-upload-to');
 
       test(
           'should invoke S3Client.putObject API with expected parameters and default access level',
@@ -116,10 +113,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: const StorageUploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
@@ -129,7 +125,7 @@ void main() {
 
         final result = await uploadDataTask.result;
 
-        expect(result.key, testKey);
+        expect(result.path, TestPathResolver.path);
 
         final capturedRequest = verify(
           () => s3Client.putObject(
@@ -143,9 +139,7 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testDefaultAccessLevel,
-          )}$testKey',
+          TestPathResolver.path,
         );
         expect(request.body, testDataPayload);
       });
@@ -154,7 +148,6 @@ void main() {
           'should invoke S3Client.putObject API with correct useAcceleration parameters',
           () async {
         const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,
           ),
@@ -179,10 +172,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -230,10 +222,9 @@ void main() {
             testDataPayloadBytes,
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
+            pathResolver: pathResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: testPath,
             options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
@@ -265,7 +256,6 @@ void main() {
           'should invoke S3Client.headObject API with correct parameters when getProperties is set to true in the options',
           () async {
         const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
           ),
@@ -301,10 +291,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -322,31 +311,8 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
-      });
-
-      test('should throw StorageException when prefix resolving fails', () {
-        final prefixResolverThrowsException =
-            TestCustomPrefixResolverThrowsException();
-
-        final uploadDataTask = S3UploadTask.fromDataPayload(
-          testDataPayload,
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: prefixResolverThrowsException,
-          bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: testUploadDataOptions,
-          logger: logger,
-          transferDatabase: transferDatabase,
-        );
-
-        unawaited(uploadDataTask.start());
-        expect(uploadDataTask.result, throwsA(isA<StorageException>()));
       });
 
       test(
@@ -368,10 +334,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -388,9 +353,7 @@ void main() {
       test(
           'should throw NetworkException when S3Client.putObject'
           ' returned AWSHttpException', () {
-        const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
+        const testUploadDataOptions = StorageUploadDataOptions();
         final testException = AWSHttpException(
           AWSHttpRequest(method: AWSHttpMethod.put, uri: Uri()),
         );
@@ -406,10 +369,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -452,10 +414,9 @@ void main() {
           testDataPayload,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: testPath,
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -505,10 +466,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -518,7 +478,7 @@ void main() {
 
         final result = await uploadDataTask.result;
 
-        expect(result.key, testKey);
+        expect(result.path, TestPathResolver.path);
 
         final capturedRequest = verify(
           () => s3Client.putObject(
@@ -532,9 +492,7 @@ void main() {
         expect(request.bucket, testBucket);
         expect(
           request.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
         expect(request.contentType, await testLocalFile.contentType);
         expect(await request.body.toList(), equals([testBytes]));
@@ -544,7 +502,6 @@ void main() {
           'should invoke S3Client.putObject with correct useAcceleration parameter',
           () async {
         const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,
           ),
@@ -569,10 +526,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -626,10 +582,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -681,10 +636,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -722,7 +676,6 @@ void main() {
         }
 
         const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.protected,
           metadata: {'filename': 'png.png'},
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
@@ -821,10 +774,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -855,9 +807,7 @@ void main() {
         );
         expect(
           createMultipartUploadRequest.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
         expect(
           capturedCreateMultipartUploadRequest.metadata?['filename'],
@@ -895,9 +845,7 @@ void main() {
           expect(request.bucket, testBucket);
           expect(
             request.key,
-            '${await testPrefixResolver.resolvePrefix(
-              accessLevel: testUploadDataOptions.accessLevel!,
-            )}$testKey',
+            TestPathResolver.path,
           );
           partNumbers.add(request.partNumber!);
           bytes.add(
@@ -931,9 +879,7 @@ void main() {
         expect(completeMultipartUploadRequest.bucket, testBucket);
         expect(
           completeMultipartUploadRequest.key,
-          '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel!,
-          )}$testKey',
+          TestPathResolver.path,
         );
 
         final capturedTransferDBDeleteParam = verify(
@@ -951,7 +897,6 @@ void main() {
           'should invoke S3Client uploadPart API with correct useAcceleration parameter',
           () async {
         const testUploadDataOptions = StorageUploadDataOptions(
-          accessLevel: StorageAccessLevel.protected,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,
           ),
@@ -1011,10 +956,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1104,10 +1048,9 @@ void main() {
           testLocalFileWithoutContentType,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1206,10 +1149,9 @@ void main() {
             testLocalFile,
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
+            pathResolver: pathResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: const StoragePath.fromString(testKey),
             options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
@@ -1244,10 +1186,9 @@ void main() {
               testLocalFile,
               s3Client: s3Client,
               defaultS3ClientConfig: defaultS3ClientConfig,
-              prefixResolver: testPrefixResolver,
+              pathResolver: pathResolver,
               bucket: testBucket,
-              defaultAccessLevel: testDefaultAccessLevel,
-              key: testKey,
+              path: const StoragePath.fromString(testKey),
               options: testUploadDataOptions,
               logger: logger,
               transferDatabase: transferDatabase,
@@ -1277,10 +1218,9 @@ void main() {
           testBadFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1307,10 +1247,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1352,13 +1291,10 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: const StorageUploadDataOptions(
-            accessLevel: StorageAccessLevel.guest,
-          ),
+          path: const StoragePath.fromString(testKey),
+          options: const StorageUploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1398,10 +1334,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1442,10 +1377,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1524,10 +1458,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1617,13 +1550,10 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: const StorageUploadDataOptions(
-            accessLevel: StorageAccessLevel.guest,
-          ),
+          path: const StoragePath.fromString(testKey),
+          options: const StorageUploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1711,10 +1641,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1782,10 +1711,9 @@ void main() {
           testLocalFile,
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
+          path: const StoragePath.fromString(testKey),
           options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
@@ -1939,10 +1867,9 @@ void main() {
             testLocalFile,
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
+            pathResolver: pathResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: const StoragePath.fromString(testKey),
             options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
@@ -1998,10 +1925,9 @@ void main() {
             testLocalFile,
             s3Client: s3Client,
             defaultS3ClientConfig: defaultS3ClientConfig,
-            prefixResolver: testPrefixResolver,
+            pathResolver: pathResolver,
             bucket: testBucket,
-            defaultAccessLevel: testDefaultAccessLevel,
-            key: testKey,
+            path: const StoragePath.fromString(testKey),
             options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
@@ -2057,16 +1983,16 @@ void main() {
     });
 
     group('path style URL', () {
+      const testKey = 'object-upload-to';
       test('throw exception when attempt to use accelerate endpoint', () {
         final uploadTask = S3UploadTask.fromAWSFile(
           AWSFile.fromPath('fake/file.jpg'),
           s3Client: s3Client,
           defaultS3ClientConfig:
               const smithy_aws.S3ClientConfig(usePathStyle: true),
-          prefixResolver: testPrefixResolver,
+          pathResolver: pathResolver,
           bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: 'fake-key',
+          path: const StoragePath.fromString(testKey),
           options: const StorageUploadDataOptions(
             pluginOptions: S3UploadDataPluginOptions(
               useAccelerateEndpoint: true,

@@ -19,16 +19,12 @@ void main() {
       });
 
       test('completes', () async {
-        // TODO(nikahsn): remove after making the api internal in 2.0.0.
-        // ignore: deprecated_member_use_from_same_package
         expect(Amplify.asyncConfig, completes);
         await Amplify.addPlugin(SuccessPlugin());
         expect(Amplify.configure(dummyConfiguration), completes);
       });
 
       test('plugin is configured even if addPlugin is not awaited', () async {
-        // TODO(nikahsn): remove after making the api internal in 2.0.0.
-        // ignore: deprecated_member_use_from_same_package
         expect(Amplify.asyncConfig, completes);
         final plugin = AsyncAddPlugin();
         unawaited(Amplify.addPlugin(plugin));
@@ -40,8 +36,6 @@ void main() {
 
       test('throws for invalid JSON', () async {
         expect(
-          // TODO(nikahsn): remove after making the api internal in 2.0.0.
-          // ignore: deprecated_member_use_from_same_package
           Amplify.asyncConfig,
           throwsA(isA<ConfigurationError>()),
         );
@@ -53,8 +47,6 @@ void main() {
 
       test('throws for configuration exceptions', () async {
         expect(
-          // TODO(nikahsn): remove after making the api internal in 2.0.0.
-          // ignore: deprecated_member_use_from_same_package
           Amplify.asyncConfig,
           throwsA(isA<ConfigurationError>()),
         );
@@ -66,8 +58,6 @@ void main() {
       });
 
       test('throws non-configuration exceptions', () async {
-        // TODO(nikahsn): remove after making the api internal in 2.0.0.
-        // ignore: deprecated_member_use_from_same_package
         expect(Amplify.asyncConfig, completes);
         await Amplify.addPlugin(NonConfigErrorPlugin());
         expect(

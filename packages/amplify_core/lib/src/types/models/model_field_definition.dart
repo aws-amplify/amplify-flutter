@@ -167,9 +167,6 @@ class ModelFieldDefinition {
           ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
       association: ModelAssociation(
         associationType: ModelAssociationEnum.BelongsTo,
-        // Allow support for old schemas
-        // ignore: deprecated_member_use_from_same_package
-        targetName: targetName,
         targetNames: targetNames,
         associatedName: associatedName,
         associatedType: associatedType,

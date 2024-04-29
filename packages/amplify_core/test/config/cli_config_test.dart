@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 
 import 'testdata/cli_generated.dart';
 import 'testdata/test_values.dart';
+import 'utils/remove_deprecated_key.dart';
 
 void main() {
   group('Config', () {
@@ -17,10 +18,11 @@ void main() {
           final name = testData.name;
           test(name, () {
             final json = jsonDecode(testData.config) as Map<String, Object?>;
+            final expectedJson = removeDeprecatedKeys(json);
             final parsed = AmplifyConfig.fromJson(json.cast());
             final expectedConfig = expected[name]!;
             expect(parsed, equals(expectedConfig));
-            expect(expectedConfig.toJson(), equals(json));
+            expect(expectedConfig.toJson(), equals(expectedJson));
           });
         }
       });
@@ -39,7 +41,6 @@ const expected = {
             region: REGION,
           ),
           pinpointTargeting: PinpointTargeting(region: REGION),
-          autoFlushEventsInterval: ANALYTICS_FLUSH_INTERVAL,
         ),
       },
     ),
@@ -95,12 +96,8 @@ const expected = {
                 signOutRedirectUri: OAUTH_SIGNOUT,
                 webDomain: OAUTH_DOMAIN,
               ),
-              authenticationFlowType: AuthenticationFlowType.userSrpAuth,
             ),
-            'DefaultCustomAuth': CognitoAuthConfig(
-              // ignore: deprecated_member_use_from_same_package
-              authenticationFlowType: AuthenticationFlowType.customAuth,
-            ),
+            'DefaultCustomAuth': CognitoAuthConfig(),
           }),
           cognitoUserPool: AWSConfigMap({
             'CustomEndpoint': CognitoUserPoolConfig(

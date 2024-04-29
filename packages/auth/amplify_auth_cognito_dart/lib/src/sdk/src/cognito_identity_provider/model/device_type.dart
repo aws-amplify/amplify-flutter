@@ -53,7 +53,7 @@ abstract class DeviceType
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
 
-  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was modified.
+  /// The date and time when the item was modified. Amazon Cognito returns this timestamp in UNIX epoch time format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java `Date` object.
   DateTime? get deviceLastModifiedDate;
 
   /// The date when the device was last authenticated.
@@ -66,6 +66,7 @@ abstract class DeviceType
         deviceLastModifiedDate,
         deviceLastAuthenticatedDate,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeviceType')
@@ -102,6 +103,7 @@ class DeviceTypeAwsJson11Serializer
         DeviceType,
         _$DeviceType,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -109,6 +111,7 @@ class DeviceTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DeviceType deserialize(
     Serializers serializers,

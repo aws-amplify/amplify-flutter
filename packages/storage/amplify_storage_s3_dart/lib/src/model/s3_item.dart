@@ -19,7 +19,7 @@ class S3Item extends StorageItem
         AWSDebuggable {
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
   S3Item({
-    required super.key,
+    required super.path,
     super.size,
     super.lastModified,
     super.eTag,
@@ -33,7 +33,7 @@ class S3Item extends StorageItem
     return storageItem is S3Item
         ? storageItem
         : S3Item(
-            key: storageItem.key,
+            path: storageItem.path,
             size: storageItem.size,
             lastModified: storageItem.lastModified,
             eTag: storageItem.eTag,
@@ -47,9 +47,8 @@ class S3Item extends StorageItem
   /// Creates a [S3Item] from [s3.S3Object] provided by S3 Client.
   @internal
   factory S3Item.fromS3Object(
-    s3.S3Object object, {
-    required String prefixToDrop,
-  }) {
+    s3.S3Object object,
+  ) {
     final key = object.key;
 
     // Sanity check, key property should never be null in a S3Object returned
@@ -61,13 +60,8 @@ class S3Item extends StorageItem
       );
     }
 
-    final keyDroppedPrefix = dropPrefixFromKey(
-      prefixToDrop: prefixToDrop,
-      key: key,
-    );
-
     return S3Item(
-      key: keyDroppedPrefix,
+      path: key,
       size: object.size?.toInt(),
       lastModified: object.lastModified,
       eTag: object.eTag,
@@ -79,10 +73,10 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromHeadObjectOutput(
     s3.HeadObjectOutput headObjectOutput, {
-    required String key,
+    required String path,
   }) {
     return S3Item(
-      key: key,
+      path: path,
       lastModified: headObjectOutput.lastModified,
       eTag: headObjectOutput.eTag,
       metadata: headObjectOutput.metadata?.toMap() ?? const {},
@@ -97,10 +91,10 @@ class S3Item extends StorageItem
   @internal
   factory S3Item.fromGetObjectOutput(
     s3.GetObjectOutput getObjectOutput, {
-    required String key,
+    required String path,
   }) {
     return S3Item(
-      key: key,
+      path: path,
       lastModified: getObjectOutput.lastModified,
       eTag: getObjectOutput.eTag,
       metadata: getObjectOutput.metadata?.toMap() ?? const {},
@@ -108,15 +102,6 @@ class S3Item extends StorageItem
       size: getObjectOutput.contentLength?.toInt(),
       contentType: getObjectOutput.contentType,
     );
-  }
-
-  /// Removes [prefixToDrop] from [key] string.
-  @internal
-  static String dropPrefixFromKey({
-    required String prefixToDrop,
-    required String key,
-  }) {
-    return key.replaceRange(0, prefixToDrop.length, '');
   }
 
   /// Object `versionId`, may be available when S3 bucket versioning is enabled.
@@ -127,7 +112,7 @@ class S3Item extends StorageItem
 
   @override
   List<Object?> get props => [
-        key,
+        path,
         size,
         lastModified,
         eTag,

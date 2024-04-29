@@ -19,10 +19,6 @@ abstract base class StateMachineEvent<EventType extends Object,
   /// The event's discrete type, expressed as an enum.
   EventType get type;
 
-  /// Casts this to an event of type [E].
-  @Deprecated('Use pattern matching instead')
-  E cast<E extends StateMachineEvent<EventType, StateType>>() => this as E;
-
   /// Checks the precondition, given [currentState].
   ///
   /// Returns a [PreconditionException] if the check fails, otherwise `null`.

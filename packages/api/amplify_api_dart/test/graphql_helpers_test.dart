@@ -5,7 +5,6 @@ import 'dart:convert';
 
 import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_api_dart/src/graphql/helpers/graphql_response_decoder.dart';
-import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
@@ -20,7 +19,7 @@ const _exampleHeaders = {'testKey': 'testVal'};
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    super.modelProvider,
+    super.options,
   });
 
   @override
@@ -50,7 +49,9 @@ void main() {
       await Amplify.reset();
       await Amplify.addPlugin(
         // needed to fetch the schema from within the helper
-        MockAmplifyAPI(modelProvider: ModelProvider.instance),
+        MockAmplifyAPI(
+          options: APIPluginOptions(modelProvider: ModelProvider.instance),
+        ),
       );
     });
     const blogSelectionSet = 'id name createdAt updatedAt';
@@ -888,207 +889,6 @@ void main() {
           req.variables,
           expectedFilter,
         );
-      });
-    });
-
-    group('transformAppSyncJsonToModelJson', () {
-      test('should be no-op for flat JSON with no parents/children', () {
-        final input = <String, dynamic>{'id': 'abc123', 'name': 'Lorem Ipsum'};
-        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
-        expect(input, output);
-      });
-
-      test('should be no-op for flat JSON with null parent/children', () {
-        final blogInput = <String, dynamic>{
-          'id': 'abc123',
-          'name': 'Lorem Ipsum',
-          'posts': null,
-        };
-        final blogOutput =
-            transformAppSyncJsonToModelJson(blogInput, Blog.schema);
-        expect(blogInput, blogOutput);
-
-        final postInput = <String, dynamic>{
-          'id': 'abc123',
-          'title': 'Lorem Ipsum',
-          'rating': 0,
-          'comments': null,
-          'blog': null,
-        };
-        final postOutput =
-            transformAppSyncJsonToModelJson(postInput, Post.schema);
-        expect(postInput, postOutput);
-      });
-
-      test('should translate children to expected format', () {
-        final input = <String, dynamic>{
-          'id': 'abc123',
-          'name': 'Lorem Ipsum',
-          'posts': {
-            'items': [
-              {'id': 'xyz456', 'rating': 0, 'title': 'Lorem ipsum'},
-            ],
-          },
-        };
-        final expectedOutput = <String, dynamic>{
-          'id': 'abc123',
-          'name': 'Lorem Ipsum',
-          'posts': [
-            {
-              'serializedData': {
-                'id': 'xyz456',
-                'rating': 0,
-                'title': 'Lorem ipsum',
-              },
-            }
-          ],
-        };
-        final output = transformAppSyncJsonToModelJson(input, Blog.schema);
-        expect(output, expectedOutput);
-      });
-
-      test('should translate parents and children to expected format', () {
-        final input = <String, dynamic>{
-          'id': 'xyz456',
-          'title': 'Lorem Ipsum',
-          'rating': 0,
-          'comments': {
-            'items': [
-              {'id': 'def456', 'content': 'Worst... post... ever!'},
-            ],
-          },
-          'blog': {'id': 'abc123', 'title': 'blog about life'},
-        };
-        final expectedOutput = <String, dynamic>{
-          'id': 'xyz456',
-          'title': 'Lorem Ipsum',
-          'rating': 0,
-          'comments': [
-            {
-              'serializedData': {
-                'id': 'def456',
-                'content': 'Worst... post... ever!',
-              },
-            }
-          ],
-          'blog': {
-            'serializedData': {'id': 'abc123', 'title': 'blog about life'},
-          },
-        };
-        final output = transformAppSyncJsonToModelJson(input, Post.schema);
-        expect(output, expectedOutput);
-      });
-
-      test('should translate list to expected format', () {
-        final input = <String, dynamic>{
-          'items': [
-            {
-              'id': 'xyz456',
-              'title': 'Lorem Ipsum',
-              'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'},
-            },
-            {
-              'id': 'lmn456',
-              'title': 'Lorem Ipsum better',
-              'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'},
-            }
-          ],
-        };
-        final expectedOutput = <String, dynamic>{
-          'items': [
-            {
-              'id': 'xyz456',
-              'title': 'Lorem Ipsum',
-              'rating': 0,
-              'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
-              },
-            },
-            {
-              'id': 'lmn456',
-              'title': 'Lorem Ipsum better',
-              'rating': 0,
-              'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
-              },
-            }
-          ],
-        };
-        final output = transformAppSyncJsonToModelJson(
-          input,
-          Post.schema,
-          isPaginated: true,
-        );
-        expect(output, expectedOutput);
-      });
-
-      test('should translate list with a null entry to expected format', () {
-        final input = <String, dynamic>{
-          'items': [
-            {
-              'id': 'xyz456',
-              'title': 'Lorem Ipsum',
-              'rating': 0,
-              'blog': {'id': 'abc123', 'title': 'blog about life'},
-            },
-            null,
-          ],
-        };
-        final expectedOutput = <String, dynamic>{
-          'items': [
-            {
-              'id': 'xyz456',
-              'title': 'Lorem Ipsum',
-              'rating': 0,
-              'blog': {
-                'serializedData': {'id': 'abc123', 'title': 'blog about life'},
-              },
-            },
-            null,
-          ],
-        };
-        final output = transformAppSyncJsonToModelJson(
-          input,
-          Post.schema,
-          isPaginated: true,
-        );
-        expect(output, expectedOutput);
-      });
-
-      test('should result in no-op if wrong schema provided', () {
-        final input = <String, dynamic>{
-          'id': 'xyz456',
-          'title': 'Lorem Ipsum',
-          'rating': 0,
-          'comments': {
-            'items': [
-              {'id': 'def456', 'content': 'Worst... post... ever!'},
-            ],
-          },
-          'blog': {'id': 'abc123', 'title': 'blog about life'},
-        };
-        final output = transformAppSyncJsonToModelJson(input, Comment.schema);
-        expect(output, input);
-      });
-
-      test('should translate custom type model', () {
-        final input = <String, dynamic>{
-          'id': 'xyz456',
-          'customTypeValue': {'stringValue': 'abc123'},
-        };
-        final expectedOutput = <String, dynamic>{
-          'id': 'xyz456',
-          'customTypeValue': {
-            'serializedData': {'stringValue': 'abc123'},
-          },
-        };
-        final output = transformAppSyncJsonToModelJson(
-          input,
-          ModelWithCustomType.schema,
-        );
-        expect(output, expectedOutput);
       });
     });
   });

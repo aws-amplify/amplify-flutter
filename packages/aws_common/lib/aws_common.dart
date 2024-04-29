@@ -42,7 +42,6 @@ export 'src/operation/aws_operation.dart';
 export 'src/operation/aws_progress_operation.dart';
 // Result
 export 'src/result/aws_result.dart';
-export 'src/result/aws_result_type.dart';
 // Utils
 export 'src/util/cancelable.dart';
 export 'src/util/closeable.dart';

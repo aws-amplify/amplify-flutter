@@ -49,18 +49,23 @@ abstract class SoftwareTokenMfaNotFoundException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'SoftwareTokenMFANotFoundException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper =
@@ -83,6 +88,7 @@ class SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer
         SoftwareTokenMfaNotFoundException,
         _$SoftwareTokenMfaNotFoundException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +96,7 @@ class SoftwareTokenMfaNotFoundExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SoftwareTokenMfaNotFoundException deserialize(
     Serializers serializers,

@@ -56,6 +56,7 @@ abstract class GetCredentialsForIdentityResponse
         identityId,
         credentials,
       ];
+
   @override
   String toString() {
     final helper =
@@ -82,6 +83,7 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
         GetCredentialsForIdentityResponse,
         _$GetCredentialsForIdentityResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -89,6 +91,7 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetCredentialsForIdentityResponse deserialize(
     Serializers serializers,

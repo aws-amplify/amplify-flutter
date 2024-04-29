@@ -20,8 +20,12 @@ Future<void> main() async {
     AmplifyAuthCognito(),
     AmplifyStorageS3(),
     AmplifyAnalyticsPinpoint(),
-    AmplifyAPI(modelProvider: ModelProvider.instance),
-    AmplifyDataStore(modelProvider: ModelProvider.instance),
+    AmplifyAPI(
+      options: APIPluginOptions(modelProvider: ModelProvider.instance),
+    ),
+    AmplifyDataStore(
+      modelProvider: ModelProvider.instance,
+    ),
   ]);
   await Amplify.configure(amplifyconfig);
   safePrint('Successfully configured Amplify.');

@@ -48,13 +48,14 @@ abstract class ListDevicesResponse
   /// The devices returned in the list devices response.
   _i2.BuiltList<DeviceType>? get devices;
 
-  /// The pagination token for the list device response.
+  /// The identifier that Amazon Cognito returned with the previous request to this operation. When you include a pagination token in your request, Amazon Cognito returns the next set of items in the list. By use of this token, you can paginate through the full list of items.
   String? get paginationToken;
   @override
   List<Object?> get props => [
         devices,
         paginationToken,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListDevicesResponse')
@@ -79,6 +80,7 @@ class ListDevicesResponseAwsJson11Serializer
         ListDevicesResponse,
         _$ListDevicesResponse,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -86,6 +88,7 @@ class ListDevicesResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ListDevicesResponse deserialize(
     Serializers serializers,

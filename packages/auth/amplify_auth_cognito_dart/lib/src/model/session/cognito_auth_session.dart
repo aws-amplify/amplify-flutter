@@ -33,22 +33,6 @@ class CognitoAuthSession extends AuthSession
   /// The AWS identity ID Result.
   final AuthResult<String> identityIdResult;
 
-  /// The AWS credentials.
-  @Deprecated('Use `credentialsResult.value` instead')
-  AWSCredentials? get credentials => credentialsResult.valueOrNull;
-
-  /// The User Pool tokens.
-  @Deprecated('Use `userPoolTokensResult.value` instead')
-  CognitoUserPoolTokens? get userPoolTokens => userPoolTokensResult.valueOrNull;
-
-  /// The user ID (subject).
-  @Deprecated('Use `userSubResult.value` instead')
-  String? get userSub => userSubResult.valueOrNull;
-
-  /// The AWS identity ID.
-  @Deprecated('Use `identityIdResult.value` instead')
-  String? get identityId => identityIdResult.valueOrNull;
-
   @override
   List<Object?> get props => [
         userPoolTokensResult,

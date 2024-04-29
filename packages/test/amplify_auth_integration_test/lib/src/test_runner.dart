@@ -110,8 +110,10 @@ class AuthTestRunner {
       authPlugin,
       if (hasApiPlugin)
         AmplifyAPI(
-          authProviders: apiAuthProviders,
-          baseHttpClient: baseClient,
+          options: APIPluginOptions(
+            authProviders: apiAuthProviders,
+            baseHttpClient: baseClient,
+          ),
         ),
     ]);
     await Amplify.configure(config);

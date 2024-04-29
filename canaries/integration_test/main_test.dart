@@ -30,14 +30,14 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   const data = 'hello, world';
-  const dataKey = 'hello';
+  const path = StoragePath.fromString('public/hello');
   final event = AnalyticsEvent('hello');
 
   Future<void> performUnauthenticatedActions() async {
     // Upload data to Storage
     await Amplify.Storage.uploadData(
       data: HttpPayload.string(data),
-      key: dataKey,
+      path: path,
     ).result;
 
     // Record Analytics event
@@ -63,19 +63,15 @@ void main() {
   Future<void> performAuthenticatedActions() async {
     // Retrieve guest data
     final guestData = await Amplify.Storage.downloadData(
-      key: dataKey,
-      options: const StorageDownloadDataOptions(
-        accessLevel: StorageAccessLevel.guest,
-      ),
+      path: path,
     ).result;
     expect(utf8.decode(guestData.bytes), data);
 
     // Upload data to Storage
     await Amplify.Storage.uploadData(
       data: HttpPayload.string(data),
-      key: dataKey,
-      options: const StorageUploadDataOptions(
-        accessLevel: StorageAccessLevel.private,
+      path: StoragePath.fromIdentityId(
+        (String identityId) => 'private/$identityId/hello',
       ),
     ).result;
 

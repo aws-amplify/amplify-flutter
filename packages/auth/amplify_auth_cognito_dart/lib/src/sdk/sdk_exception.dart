@@ -88,26 +88,6 @@ final class UnknownServiceException extends CognitoServiceException
   String get runtimeTypeName => 'UnknownServiceException';
 }
 
-/// Exception thrown when a verification code provided to the requested service
-/// is expired.
-@Deprecated('Use ExpiredCodeException instead')
-typedef CodeExpiredException = ExpiredCodeException;
-
-/// Exception thrown when the software token time-based one-time password (TOTP)
-/// multi-factor authentication (MFA) isn't activated for the user pool.
-@Deprecated('Use SoftwareTokenMfaNotFoundException instead')
-typedef SoftwareTokenMFANotFoundException = SoftwareTokenMfaNotFoundException;
-
-/// Exception thrown when too many failed attempts for a given action has been
-/// made, such as sign-in.
-@Deprecated('Use TooManyFailedAttemptsException instead')
-typedef FailedAttemptsLimitExceededException = TooManyFailedAttemptsException;
-
-/// Exception thrown when the requested service cannot find a multi-factor
-/// authentication (MFA) method.
-@Deprecated('Use MfaMethodNotFoundException instead')
-typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
-
 /// {@template amplify_auth_cognito_dart.sdk_exception.alias_exists_exception}
 /// This exception is thrown when a user tries to confirm the account with an email address or phone number that has already been supplied as an alias for a different user profile. This exception indicates that an account with this email address or phone already exists in a user pool that you've configured to use email address or phone number as a sign-in alias.
 /// {@endtemplate}

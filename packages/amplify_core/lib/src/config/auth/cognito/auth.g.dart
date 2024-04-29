@@ -13,9 +13,6 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
       oAuth: json['OAuth'] == null
           ? null
           : CognitoOAuthConfig.fromJson(json['OAuth'] as Map<String, dynamic>),
-      authenticationFlowType: $enumDecodeNullable(
-          _$AuthenticationFlowTypeEnumMap, json['authenticationFlowType'],
-          unknownValue: JsonKey.nullForUndefinedEnumValue),
       socialProviders: (json['socialProviders'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
           .toList(),
@@ -52,8 +49,6 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
   }
 
   writeNotNull('OAuth', instance.oAuth?.toJson());
-  writeNotNull('authenticationFlowType',
-      _$AuthenticationFlowTypeEnumMap[instance.authenticationFlowType]);
   writeNotNull(
       'socialProviders',
       instance.socialProviders
@@ -82,14 +77,6 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
           .toList());
   return val;
 }
-
-const _$AuthenticationFlowTypeEnumMap = {
-  AuthenticationFlowType.userSrpAuth: 'USER_SRP_AUTH',
-  AuthenticationFlowType.userPasswordAuth: 'USER_PASSWORD_AUTH',
-  AuthenticationFlowType.customAuth: 'CUSTOM_AUTH',
-  AuthenticationFlowType.customAuthWithSrp: 'CUSTOM_AUTH_WITH_SRP',
-  AuthenticationFlowType.customAuthWithoutSrp: 'CUSTOM_AUTH_WITHOUT_SRP',
-};
 
 const _$SocialProviderEnumMap = {
   SocialProvider.facebook: 'FACEBOOK',
