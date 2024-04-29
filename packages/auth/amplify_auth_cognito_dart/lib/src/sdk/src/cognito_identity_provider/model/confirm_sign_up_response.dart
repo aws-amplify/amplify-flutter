@@ -41,6 +41,7 @@ abstract class ConfirmSignUpResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmSignUpResponse');
@@ -58,6 +59,7 @@ class ConfirmSignUpResponseAwsJson11Serializer
         ConfirmSignUpResponse,
         _$ConfirmSignUpResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class ConfirmSignUpResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmSignUpResponse deserialize(
     Serializers serializers,

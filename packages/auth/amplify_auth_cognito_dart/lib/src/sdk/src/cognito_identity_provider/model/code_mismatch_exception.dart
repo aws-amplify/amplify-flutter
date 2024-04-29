@@ -49,18 +49,23 @@ abstract class CodeMismatchException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'CodeMismatchException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CodeMismatchException')
@@ -82,6 +87,7 @@ class CodeMismatchExceptionAwsJson11Serializer
         CodeMismatchException,
         _$CodeMismatchException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -89,6 +95,7 @@ class CodeMismatchExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   CodeMismatchException deserialize(
     Serializers serializers,

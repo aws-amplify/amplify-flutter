@@ -40,6 +40,7 @@ abstract class UpdateDeviceStatusResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateDeviceStatusResponse');
@@ -57,6 +58,7 @@ class UpdateDeviceStatusResponseAwsJson11Serializer
         UpdateDeviceStatusResponse,
         _$UpdateDeviceStatusResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -64,6 +66,7 @@ class UpdateDeviceStatusResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UpdateDeviceStatusResponse deserialize(
     Serializers serializers,

@@ -69,7 +69,7 @@ abstract class SignUpRequest
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
-  /// The user name of the user you want to register.
+  /// The username of the user that you want to sign up. The value of this parameter is typically a username, but can be any alias attribute in your user pool.
   String get username;
 
   /// The password of the user you want to register.
@@ -80,7 +80,11 @@ abstract class SignUpRequest
   /// For custom attributes, you must prepend the `custom:` prefix to the attribute name.
   _i3.BuiltList<AttributeType>? get userAttributes;
 
-  /// The validation data in the request to register a user.
+  /// Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of key-value pairs are for custom validation of information that you collect from your users but don't need to retain.
+  ///
+  /// Your Lambda function can analyze this additional data and act on it. Your function might perform external API operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they sign up from within your network.
+  ///
+  /// For more information about the pre sign-up Lambda trigger, see [Pre sign-up Lambda trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html).
   _i3.BuiltList<AttributeType>? get validationData;
 
   /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `SignUp` calls.
@@ -105,6 +109,7 @@ abstract class SignUpRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   SignUpRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -117,6 +122,7 @@ abstract class SignUpRequest
         userContextData,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SignUpRequest')
@@ -169,6 +175,7 @@ class SignUpRequestAwsJson11Serializer
         SignUpRequest,
         _$SignUpRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -176,6 +183,7 @@ class SignUpRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SignUpRequest deserialize(
     Serializers serializers,

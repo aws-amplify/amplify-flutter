@@ -67,12 +67,14 @@ abstract class GetIdInput
   _i3.BuiltMap<String, String>? get logins;
   @override
   GetIdInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         accountId,
         identityPoolId,
         logins,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIdInput')
@@ -101,6 +103,7 @@ class GetIdInputAwsJson11Serializer
         GetIdInput,
         _$GetIdInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -108,6 +111,7 @@ class GetIdInputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetIdInput deserialize(
     Serializers serializers,

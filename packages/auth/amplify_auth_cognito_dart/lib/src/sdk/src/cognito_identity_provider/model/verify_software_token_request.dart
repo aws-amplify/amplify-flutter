@@ -59,6 +59,7 @@ abstract class VerifySoftwareTokenRequest
   String? get friendlyDeviceName;
   @override
   VerifySoftwareTokenRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
@@ -66,6 +67,7 @@ abstract class VerifySoftwareTokenRequest
         userCode,
         friendlyDeviceName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VerifySoftwareTokenRequest')
@@ -99,6 +101,7 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
         VerifySoftwareTokenRequest,
         _$VerifySoftwareTokenRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -106,6 +109,7 @@ class VerifySoftwareTokenRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   VerifySoftwareTokenRequest deserialize(
     Serializers serializers,

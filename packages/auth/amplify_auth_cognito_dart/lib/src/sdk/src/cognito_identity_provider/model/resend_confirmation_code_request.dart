@@ -67,7 +67,7 @@ abstract class ResendConfirmationCodeRequest
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   UserContextDataType? get userContextData;
 
-  /// The `username` attribute of the user to whom you want to resend a confirmation code.
+  /// The username of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value must be the `sub` of a local user or the username of a user from a third-party IdP.
   String get username;
 
   /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `ResendConfirmationCode` calls.
@@ -89,6 +89,7 @@ abstract class ResendConfirmationCodeRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ResendConfirmationCodeRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -98,6 +99,7 @@ abstract class ResendConfirmationCodeRequest
         analyticsMetadata,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResendConfirmationCodeRequest')
@@ -139,6 +141,7 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         ResendConfirmationCodeRequest,
         _$ResendConfirmationCodeRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -146,6 +149,7 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ResendConfirmationCodeRequest deserialize(
     Serializers serializers,
