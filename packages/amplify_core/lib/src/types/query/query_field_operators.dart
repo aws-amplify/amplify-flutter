@@ -274,9 +274,6 @@ class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
   }
 
   @override
-  bool evaluateSerialized(T? other) => evaluate(other);
-
-  @override
   Map<String, dynamic> serializeAsMap() {
     return <String, dynamic>{
       'operatorName': QueryFieldOperatorType.attribute_exists.toShortString(),
