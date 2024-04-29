@@ -18,17 +18,18 @@ external ChildProcess get childProcess;
 extension type ChildProcess(JSObject it) {
   @JS('spawn')
   external NodeChildProcess _spawn(
-    String command, 
-    JSArray args, 
+    String command,
+    JSArray args,
     _ChildProcessOptions options,
   );
 
   @JS('exec')
   external NodeChildProcess _exec(
     String command,
-    _ChildProcessOptions options,
-    [JSFunction callback,] // (error: Error, stdout: string, stderr: string) => void
-  );
+    _ChildProcessOptions options, [
+    JSFunction callback,
+  ] // (error: Error, stdout: string, stderr: string) => void
+      );
 
   @JS('execSync')
   external JSUint8Array? _execSync(
@@ -48,7 +49,7 @@ extension type ChildProcess(JSObject it) {
     final completer = Completer<ProcessResult>();
     late NodeChildProcess child;
     child = _exec(
-      <String>[command, ...args].join(' '), 
+      <String>[command, ...args].join(' '),
       _ChildProcessOptions(
         cwd: workingDirectory,
         env: <String, String?>{
@@ -87,8 +88,8 @@ extension type ChildProcess(JSObject it) {
     bool echoOutput = false,
   }) {
     try {
-      final stdout =  _execSync(
-        <String>[command, ...args].join(' '), 
+      final stdout = _execSync(
+        <String>[command, ...args].join(' '),
         _ChildProcessOptions(
           cwd: workingDirectory,
           env: <String, String?>{
@@ -105,14 +106,14 @@ extension type ChildProcess(JSObject it) {
         ),
       );
       return ProcessResult(
-        -1, 
-        0, 
-        stdout?.toDart ?? Uint8List(0), 
+        -1,
+        0,
+        stdout?.toDart ?? Uint8List(0),
         Uint8List(0),
       );
     } on Object catch (e) {
       final message = switch (e) {
-        JSError _ => e.message,
+        final JSError e => e.message,
         _ => e.toString(),
       };
       throw ProcessException(command, args, message);
@@ -135,10 +136,11 @@ extension type ChildProcess(JSObject it) {
       ProcessStartMode.detachedWithStdio => 'pipe',
       ProcessStartMode.inheritStdio => 'inherit',
       _ => unreachable,
-    }.toJS;
+    }
+        .toJS;
     return _spawn(
-      command, 
-      args.map((arg) => arg.toJS).toList().toJS, 
+      command,
+      args.map((arg) => arg.toJS).toList().toJS,
       _ChildProcessOptions(
         cwd: workingDirectory,
         env: {
@@ -236,10 +238,10 @@ extension type EventEmitter._(JSObject it) implements JSObject {
   Future<T> once<T extends JSAny?>(String eventName) {
     final completer = Completer<T>();
     _once(
-      eventName, 
+      eventName,
       // Callbacks may be called with 0-3 args. This will generate
       // stubs for each of the argument counts, mimicking a variadic
-      // JS function. 
+      // JS function.
       //
       // We are really only concerned with the first, though.
       ([JSAny? arg0, JSAny? arg1, JSAny? arg2]) {
@@ -253,5 +255,6 @@ extension type EventEmitter._(JSObject it) implements JSObject {
 @JS()
 @anonymous
 extension type NodeWriteableStream._(JSObject it) {
-  external void write(JSUint8Array chunk, [String? encoding, JSFunction flushCallback]);
+  external void write(JSUint8Array chunk,
+      [String? encoding, JSFunction flushCallback]);
 }

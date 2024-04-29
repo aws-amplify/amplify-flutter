@@ -16,6 +16,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_password_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_sms_role_access_policy_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/invalid_sms_role_trust_relationship_exception.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/limit_exceeded_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/not_authorized_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/resource_not_found_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/sign_up_request.dart';
@@ -31,7 +32,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// Registers the user in the specified user pool and creates a user name, password, and user attributes.
 ///
-/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+/// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
 ///
 /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
 ///
@@ -40,7 +41,7 @@ class SignUpOperation extends _i1.HttpOperation<SignUpRequest, SignUpRequest,
     SignUpResponse, SignUpResponse> {
   /// Registers the user in the specified user pool and creates a user name, password, and user attributes.
   ///
-  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito native and OIDC APIs](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
+  /// Amazon Cognito doesn't evaluate Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you can't use IAM credentials to authorize requests, and you can't grant IAM permissions in policies. For more information about authorization models in Amazon Cognito, see [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html).
   ///
   /// This action might generate an SMS text message. Starting June 1, 2021, US telecom carriers require you to register an origination phone number before you can send SMS messages to US phone numbers. If you use SMS text messages in Amazon Cognito, you must register a phone number with [Amazon Pinpoint](https://console.aws.amazon.com/pinpoint/home/). Amazon Cognito uses the registered number automatically. Otherwise, Amazon Cognito users who must receive SMS messages might not be able to sign up, activate their accounts, or sign in.
   ///
@@ -108,8 +109,10 @@ class SignUpOperation extends _i1.HttpOperation<SignUpRequest, SignUpRequest,
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([SignUpResponse? output]) => 200;
+
   @override
   SignUpResponse buildOutput(
     SignUpResponse payload,
@@ -119,6 +122,7 @@ class SignUpOperation extends _i1.HttpOperation<SignUpRequest, SignUpRequest,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<CodeDeliveryFailureException,
@@ -215,6 +219,16 @@ class SignUpOperation extends _i1.HttpOperation<SignUpRequest, SignUpRequest,
           statusCode: 400,
           builder: InvalidSmsRoleTrustRelationshipException.fromResponse,
         ),
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.cognitoidentityprovider',
+            shape: 'LimitExceededException',
+          ),
+          _i1.ErrorKind.client,
+          LimitExceededException,
+          statusCode: 400,
+          builder: LimitExceededException.fromResponse,
+        ),
         _i1.SmithyError<NotAuthorizedException, NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
@@ -277,14 +291,19 @@ class SignUpOperation extends _i1.HttpOperation<SignUpRequest, SignUpRequest,
           builder: UsernameExistsException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'SignUp';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<SignUpResponse> run(
     SignUpRequest input, {

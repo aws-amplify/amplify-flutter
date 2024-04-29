@@ -46,6 +46,7 @@ abstract class ResendConfirmationCodeResponse
   CodeDeliveryDetailsType? get codeDeliveryDetails;
   @override
   List<Object?> get props => [codeDeliveryDetails];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResendConfirmationCodeResponse')
@@ -67,6 +68,7 @@ class ResendConfirmationCodeResponseAwsJson11Serializer
         ResendConfirmationCodeResponse,
         _$ResendConfirmationCodeResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -74,6 +76,7 @@ class ResendConfirmationCodeResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ResendConfirmationCodeResponse deserialize(
     Serializers serializers,

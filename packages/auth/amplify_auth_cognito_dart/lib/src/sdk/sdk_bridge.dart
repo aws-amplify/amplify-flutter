@@ -93,8 +93,6 @@ extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
   /// The Cognito SDK value of `this`.
   AuthFlowType get sdkValue => switch (this) {
         AuthenticationFlowType.userSrpAuth => AuthFlowType.userSrpAuth,
-        // ignore: deprecated_member_use
-        AuthenticationFlowType.customAuth ||
         AuthenticationFlowType.customAuthWithSrp ||
         AuthenticationFlowType.customAuthWithoutSrp =>
           AuthFlowType.customAuth,

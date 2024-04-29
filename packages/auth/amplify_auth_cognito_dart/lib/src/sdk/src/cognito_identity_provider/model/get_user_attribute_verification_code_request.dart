@@ -75,12 +75,14 @@ abstract class GetUserAttributeVerificationCodeRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   GetUserAttributeVerificationCodeRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
         attributeName,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper =
@@ -111,6 +113,7 @@ class GetUserAttributeVerificationCodeRequestAwsJson11Serializer extends _i1
         GetUserAttributeVerificationCodeRequest,
         _$GetUserAttributeVerificationCodeRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -118,6 +121,7 @@ class GetUserAttributeVerificationCodeRequestAwsJson11Serializer extends _i1
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetUserAttributeVerificationCodeRequest deserialize(
     Serializers serializers,

@@ -52,11 +52,13 @@ abstract class ForgetDeviceRequest
   String get deviceKey;
   @override
   ForgetDeviceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
         deviceKey,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgetDeviceRequest')
@@ -81,6 +83,7 @@ class ForgetDeviceRequestAwsJson11Serializer
         ForgetDeviceRequest,
         _$ForgetDeviceRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -88,6 +91,7 @@ class ForgetDeviceRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ForgetDeviceRequest deserialize(
     Serializers serializers,

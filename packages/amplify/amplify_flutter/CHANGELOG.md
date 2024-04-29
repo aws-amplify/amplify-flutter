@@ -1,3 +1,15 @@
+## 1.8.0
+
+NOTE: This version has been updated to:
+- Flutter: ">=3.19.0"
+- Dart ^3.3.0
+- Java 17, Kotlin 1.9.10 and Gradle 8.1 for Android projects
+
+### Features
+- feat: deprecate `Storage.move()` API ([#4638](https://github.com/aws-amplify/amplify-flutter/pull/4638))
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
 ## 1.7.0
 
 ### Features

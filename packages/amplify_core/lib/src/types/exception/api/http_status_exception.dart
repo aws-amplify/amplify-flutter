@@ -3,9 +3,6 @@
 
 part of '../amplify_exception.dart';
 
-@Deprecated('Use HttpStatusException instead')
-typedef RestException = HttpStatusException;
-
 /// {@template amplify_core.api.http_status_exception}
 /// An HTTP error encountered during a REST API call, i.e. for calls returning
 /// non-2xx status codes.

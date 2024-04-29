@@ -13,27 +13,17 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   const S3ListPluginOptions({
     bool excludeSubPaths = false,
+    String delimiter = '/',
   }) : this._(
           excludeSubPaths: excludeSubPaths,
+          delimiter: delimiter,
         );
 
   const S3ListPluginOptions._({
-    this.targetIdentityId,
     this.excludeSubPaths = false,
+    this.delimiter = '/',
     this.listAll = false,
   });
-
-  /// {@macro storage.amplify_storage_s3.list_plugin_options}
-  ///
-  /// Use this to list objects that belongs to other user (identified by
-  /// [targetIdentityId]) rather than the currently signed in user.
-  const S3ListPluginOptions.forIdentity(
-    String targetIdentityId, {
-    bool excludeSubPaths = false,
-  }) : this._(
-          targetIdentityId: targetIdentityId,
-          excludeSubPaths: excludeSubPaths,
-        );
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
@@ -46,36 +36,21 @@ class S3ListPluginOptions extends StorageListPluginOptions {
         );
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
-  ///
-  /// Use this to list all objects without pagination when the objects belong
-  /// to other user (identified by [targetIdentityId]) rather than the currently
-  /// signed in user.
-  const S3ListPluginOptions.listAllForIdentity(
-    String targetIdentityId, {
-    bool excludeSubPaths = false,
-  }) : this._(
-          targetIdentityId: targetIdentityId,
-          excludeSubPaths: excludeSubPaths,
-        );
-
-  /// {@macro storage.amplify_storage_s3.list_plugin_options}
   factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3ListPluginOptionsFromJson(json);
-
-  /// The identity ID of another user who uploaded the objects.
-  ///
-  /// This can be set by using [S3ListPluginOptions.forIdentity].
-  final String? targetIdentityId;
 
   /// Whether to exclude objects under the sub paths of the path to list. The
   /// default value is `false`.
   final bool excludeSubPaths;
 
+  /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
+  /// false, this value has no impact on behavior.
+  final String delimiter;
+
   /// Whether to list all objects under a given path without pagination. The
   /// default value is `false`.
   ///
-  /// This can be set by using [S3ListPluginOptions.listAll] or
-  /// [S3ListPluginOptions.listAllForIdentity].
+  /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
   final bool listAll;
@@ -84,7 +59,6 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   List<Object?> get props => [
         excludeSubPaths,
         listAll,
-        targetIdentityId,
       ];
 
   @override

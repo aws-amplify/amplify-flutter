@@ -56,12 +56,14 @@ abstract class SetUserMfaPreferenceRequest
   String get accessToken;
   @override
   SetUserMfaPreferenceRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         smsMfaSettings,
         softwareTokenMfaSettings,
         accessToken,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SetUserMfaPreferenceRequest')
@@ -91,6 +93,7 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
         SetUserMfaPreferenceRequest,
         _$SetUserMfaPreferenceRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -98,6 +101,7 @@ class SetUserMfaPreferenceRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SetUserMfaPreferenceRequest deserialize(
     Serializers serializers,

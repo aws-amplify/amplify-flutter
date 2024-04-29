@@ -3,6 +3,7 @@
 
 package com.amazonaws.amplify.amplify_datastore.types.model
 
+import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amplifyframework.core.model.CustomTypeSchema
 import com.amplifyframework.core.model.SerializedCustomType
 import com.amplifyframework.core.model.temporal.Temporal
@@ -16,10 +17,11 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
     private val customTypeName: String = parseCustomTypeName(serializedCustomType.customTypeName)
 
     fun toMap(): Map<String, Any> {
-        return mapOf(
-            "serializedData" to serializedData,
-            "customTypeName" to customTypeName
-        )
+        val cleanedSerializedData: Map<String, Any> = serializedData.filterValues { it != null }.cast()
+        
+        val modelNameMap = mapOf("customTypeName" to customTypeName)
+
+        return cleanedSerializedData+modelNameMap
     }
 
     private fun parseCustomTypeName(customTypeName: String?): String = customTypeName ?: ""
@@ -28,9 +30,11 @@ data class FlutterSerializedCustomType(val serializedCustomType: SerializedCusto
         serializedData: Map<String, Any>,
         customTypeSchema: CustomTypeSchema
     ): Map<String, Any?> {
-        if (serializedData.isEmpty()) throw Exception(
-            "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
-        )
+        if (serializedData.isEmpty()) {
+            throw Exception(
+                "FlutterSerializedCustomType - no serializedData for ${customTypeSchema.name}"
+            )
+        }
 
         return serializedData.mapValues {
             val field = customTypeSchema.fields[it.key]!!

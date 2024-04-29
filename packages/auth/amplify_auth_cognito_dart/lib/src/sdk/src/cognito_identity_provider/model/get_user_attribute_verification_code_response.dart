@@ -49,6 +49,7 @@ abstract class GetUserAttributeVerificationCodeResponse
   CodeDeliveryDetailsType? get codeDeliveryDetails;
   @override
   List<Object?> get props => [codeDeliveryDetails];
+
   @override
   String toString() {
     final helper =
@@ -71,6 +72,7 @@ class GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i2
         GetUserAttributeVerificationCodeResponse,
         _$GetUserAttributeVerificationCodeResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +80,7 @@ class GetUserAttributeVerificationCodeResponseAwsJson11Serializer extends _i2
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetUserAttributeVerificationCodeResponse deserialize(
     Serializers serializers,

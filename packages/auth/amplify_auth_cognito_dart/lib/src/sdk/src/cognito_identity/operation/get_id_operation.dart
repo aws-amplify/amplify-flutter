@@ -94,8 +94,10 @@ class GetIdOperation extends _i1
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([GetIdResponse? output]) => 200;
+
   @override
   GetIdResponse buildOutput(
     GetIdResponse payload,
@@ -105,6 +107,7 @@ class GetIdOperation extends _i1
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ExternalServiceException, ExternalServiceException>(
@@ -187,14 +190,19 @@ class GetIdOperation extends _i1
           builder: TooManyRequestsException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'GetId';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetIdResponse> run(
     GetIdInput input, {

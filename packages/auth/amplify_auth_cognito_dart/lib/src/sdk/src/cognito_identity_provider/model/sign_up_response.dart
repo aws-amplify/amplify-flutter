@@ -65,6 +65,7 @@ abstract class SignUpResponse
         codeDeliveryDetails,
         userSub,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SignUpResponse')
@@ -93,6 +94,7 @@ class SignUpResponseAwsJson11Serializer
         SignUpResponse,
         _$SignUpResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -100,6 +102,7 @@ class SignUpResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SignUpResponse deserialize(
     Serializers serializers,

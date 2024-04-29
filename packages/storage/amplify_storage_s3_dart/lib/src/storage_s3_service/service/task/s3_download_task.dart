@@ -7,8 +7,8 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
-import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
 import 'package:smithy_aws/smithy_aws.dart' as smithy_aws;
@@ -50,31 +50,26 @@ class S3DownloadTask {
   S3DownloadTask({
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
-    required StorageAccessLevel defaultAccessLevel,
+    required S3PathResolver pathResolver,
     required String bucket,
-    required String key,
+    required StoragePath path,
     required StorageDownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
     void Function(List<int>)? onData,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
-    required AWSLogger logger,
   })  : _downloadCompleter = Completer<S3Item>(),
         _s3Client = s3Client,
         _defaultS3ClientConfig = defaultS3ClientConfig,
-        _prefixResolver = prefixResolver,
+        _pathResolver = pathResolver,
         _bucket = bucket,
-        _defaultAccessLevel = defaultAccessLevel,
-        _key = key,
-        _downloadDataOptions = options,
+        _path = path,
         _preStart = preStart,
         _onProgress = onProgress,
         _onData = onData,
         _onDone = onDone,
         _onError = onError,
-        _logger = logger,
         _downloadedBytesSize = 0,
         _s3PluginOptions =
             options.pluginOptions as S3DownloadDataPluginOptions? ??
@@ -85,17 +80,14 @@ class S3DownloadTask {
 
   final s3.S3Client _s3Client;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
-  final S3PrefixResolver _prefixResolver;
+  final S3PathResolver _pathResolver;
   final String _bucket;
-  final StorageAccessLevel _defaultAccessLevel;
-  final String _key;
-  final StorageDownloadDataOptions _downloadDataOptions;
+  final StoragePath _path;
   final FutureOr<void> Function()? _preStart;
   final void Function(S3TransferProgress)? _onProgress;
   final void Function(List<int> bytes)? _onData;
   final FutureOr<void> Function()? _onDone;
   final FutureOr<void> Function()? _onError;
-  final AWSLogger _logger;
   final S3DownloadDataPluginOptions _s3PluginOptions;
 
   int _downloadedBytesSize;
@@ -110,7 +102,7 @@ class S3DownloadTask {
   Completer<void>? _pauseCompleter;
 
   late StorageTransferState _state;
-  late final String _resolvedKey;
+  late final String _resolvedPath;
   late final S3Item _downloadedS3Item;
 
   // Total bytes that need to be downloaded, this field is set when the
@@ -145,19 +137,12 @@ class S3DownloadTask {
       return;
     }
 
-    final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: _downloadDataOptions.accessLevel ?? _defaultAccessLevel,
-      identityId: _s3PluginOptions.targetIdentityId,
-    );
-
-    _resolvedKey = '$resolvedPrefix$_key';
+    _resolvedPath = await _pathResolver.resolvePath(path: _path);
 
     try {
       final getObjectOutput = await _getObject(
         bucket: _bucket,
-        key: _resolvedKey,
+        key: _resolvedPath,
         bytesRange: _s3PluginOptions.bytesRange,
       );
 
@@ -176,7 +161,7 @@ class S3DownloadTask {
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
       _downloadedS3Item =
-          S3Item.fromGetObjectOutput(getObjectOutput, key: _key);
+          S3Item.fromGetObjectOutput(getObjectOutput, path: _resolvedPath);
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }
@@ -227,7 +212,7 @@ class S3DownloadTask {
     try {
       final getObjectOutput = await _getObject(
         bucket: _bucket,
-        key: _resolvedKey,
+        key: _resolvedPath,
         bytesRange: bytesRangeToDownload,
       );
       _listenToBytesSteam(getObjectOutput.body);
@@ -311,7 +296,7 @@ class S3DownloadTask {
               // is set to `false`.
               _s3PluginOptions.getProperties
                   ? _downloadedS3Item
-                  : S3Item(key: _downloadedS3Item.key),
+                  : S3Item(path: _downloadedS3Item.path),
             );
           } on Exception catch (error, stackTrace) {
             await _completeDownloadWithError(error, stackTrace);
@@ -370,7 +355,7 @@ class S3DownloadTask {
       throw error.toStorageException();
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
-      throw error.toStorageKeyNotFoundException();
+      throw error.toStorageNotFoundException();
     } on AWSHttpException catch (error) {
       throw error.toNetworkException();
     }

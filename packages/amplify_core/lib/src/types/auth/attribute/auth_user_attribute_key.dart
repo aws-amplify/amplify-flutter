@@ -5,10 +5,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-/// @nodoc
-@Deprecated('Use AuthUserAttributeKey instead')
-typedef UserAttributeKey = AuthUserAttributeKey;
-
 /// {@category Auth}
 /// {@template amplify_core.auth_user_attribute_key}
 /// A user attribute identifier.

@@ -48,18 +48,23 @@ abstract class TooManyRequestsException
         namespace: 'com.amazonaws.cognitoidentity',
         shape: 'TooManyRequestsException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 429;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException')
@@ -81,6 +86,7 @@ class TooManyRequestsExceptionAwsJson11Serializer
         TooManyRequestsException,
         _$TooManyRequestsException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -88,6 +94,7 @@ class TooManyRequestsExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   TooManyRequestsException deserialize(
     Serializers serializers,

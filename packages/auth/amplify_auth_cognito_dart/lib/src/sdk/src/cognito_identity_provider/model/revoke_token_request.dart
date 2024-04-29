@@ -52,12 +52,14 @@ abstract class RevokeTokenRequest
   String? get clientSecret;
   @override
   RevokeTokenRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         token,
         clientId,
         clientSecret,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RevokeTokenRequest')
@@ -86,6 +88,7 @@ class RevokeTokenRequestAwsJson11Serializer
         RevokeTokenRequest,
         _$RevokeTokenRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -93,6 +96,7 @@ class RevokeTokenRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   RevokeTokenRequest deserialize(
     Serializers serializers,

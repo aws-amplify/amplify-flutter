@@ -77,6 +77,7 @@ abstract class AuthenticationResultType
         idToken,
         newDeviceMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AuthenticationResultType')
@@ -118,6 +119,7 @@ class AuthenticationResultTypeAwsJson11Serializer
         AuthenticationResultType,
         _$AuthenticationResultType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -125,6 +127,7 @@ class AuthenticationResultTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   AuthenticationResultType deserialize(
     Serializers serializers,

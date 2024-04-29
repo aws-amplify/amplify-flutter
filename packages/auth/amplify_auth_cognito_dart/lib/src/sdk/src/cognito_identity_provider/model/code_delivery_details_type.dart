@@ -52,6 +52,7 @@ abstract class CodeDeliveryDetailsType
         deliveryMedium,
         attributeName,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CodeDeliveryDetailsType')
@@ -81,6 +82,7 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
         CodeDeliveryDetailsType,
         _$CodeDeliveryDetailsType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -88,6 +90,7 @@ class CodeDeliveryDetailsTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   CodeDeliveryDetailsType deserialize(
     Serializers serializers,

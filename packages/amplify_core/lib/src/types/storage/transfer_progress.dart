@@ -46,6 +46,8 @@ class StorageTransferProgress {
 
   /// The fractional progress of the storage transfer operation.
   ///
-  /// 0 <= `fractionCompleted` <= 1
-  double get fractionCompleted => transferredBytes / totalBytes;
+  /// fractionCompleted will be between 0 and 1, unless the upload source size
+  /// cannot be determined in which case the fractionCompleted will be -1.
+  double get fractionCompleted =>
+      totalBytes == -1 ? -1 : transferredBytes / totalBytes;
 }

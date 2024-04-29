@@ -633,6 +633,7 @@ class _AuthenticatorState extends State<Authenticator> {
   }
 
   Future<void> _waitForConfiguration() async {
+    // ignore: invalid_use_of_internal_member
     final config = await Amplify.asyncConfig;
     if (!mounted) return;
     setState(() {

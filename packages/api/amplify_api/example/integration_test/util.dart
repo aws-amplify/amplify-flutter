@@ -85,7 +85,9 @@ Future<void> configureAmplify() async {
           macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
         ),
       ),
-      AmplifyAPI(modelProvider: ModelProvider.instance),
+      AmplifyAPI(
+        options: APIPluginOptions(modelProvider: ModelProvider.instance),
+      ),
     ]);
     await Amplify.configure(amplifyconfig);
   }

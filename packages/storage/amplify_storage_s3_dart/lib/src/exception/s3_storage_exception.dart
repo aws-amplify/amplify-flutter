@@ -7,9 +7,7 @@ import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart' as smithy;
 
-const _keyNotFoundRecoveryMessage =
-    'Ensure that correct object key is provided, and/or correct `StorageAccessLevel`'
-    ' and `targetIdentityId` are included in the options.';
+const _notFoundRecoveryMessage = 'Ensure that correct StoragePath is provided.';
 const _httpErrorRecoveryMessage =
     'HTTP error returned from service, review the `underlyingException` for details.';
 
@@ -30,12 +28,12 @@ final accelerateEndpointUnusable = ConfigurationError(
 
 /// Extension of [s3.NoSuchKey] to add util methods.
 extension NoSuchKeyToStorageKeyNotFoundException on s3.NoSuchKey {
-  /// Creates a [StorageKeyNotFoundException] with the [s3.NoSuchKey] as the
+  /// Creates a [StorageNotFoundException] with the [s3.NoSuchKey] as the
   /// underlying exception.
-  StorageKeyNotFoundException toStorageKeyNotFoundException() {
-    return StorageKeyNotFoundException(
-      'Cannot find the item specified by the key and access level.',
-      recoverySuggestion: _keyNotFoundRecoveryMessage,
+  StorageNotFoundException toStorageNotFoundException() {
+    return StorageNotFoundException(
+      'Cannot find the item specified by the provided path.',
+      recoverySuggestion: _notFoundRecoveryMessage,
       underlyingException: this,
     );
   }
@@ -65,9 +63,9 @@ extension UnknownSmithyHttpExceptionToStorageException
           underlyingException: this,
         );
       } else if (statusCode == 404) {
-        return StorageKeyNotFoundException(
-          'Cannot find the item specified by the key and access level.',
-          recoverySuggestion: _keyNotFoundRecoveryMessage,
+        return StorageNotFoundException(
+          'Cannot find the item specified by the provided path.',
+          recoverySuggestion: _notFoundRecoveryMessage,
           underlyingException: this,
         );
       } else {

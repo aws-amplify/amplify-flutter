@@ -26,10 +26,6 @@ class UpdateUserAttributesOptions
   @override
   String get runtimeTypeName => 'UpdateUserAttributesOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),

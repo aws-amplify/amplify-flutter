@@ -4,8 +4,8 @@ version: 0.1.0
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
-  flutter: ">=3.10.0"
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
 
 dependencies:
   amplify_auth_cognito: any
@@ -25,6 +25,8 @@ dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints
   amplify_storage_s3_dart: any
+  amplify_test:
+    path: ../../../test/amplify_test
   aws_common: any
   drift: ">=2.14.0 <2.15.0"
   flutter_driver:

@@ -9,13 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 class StorageUploadFileRequest {
   /// {@macro amplify_core.storage.upload_file_request}
   const StorageUploadFileRequest({
+    required this.path,
     required this.localFile,
-    required this.key,
     this.options,
   });
 
-  /// The key of the object upload to.
-  final String key;
+  /// Path to upload the file to.
+  final StoragePath path;
 
   /// The local file to upload.
   final AWSFile localFile;

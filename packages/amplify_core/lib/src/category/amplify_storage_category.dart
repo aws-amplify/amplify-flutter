@@ -9,9 +9,6 @@ part of 'amplify_categories.dart';
 ///
 /// It comes with default, built-in support for Amazon S3 service
 /// leveraging Amplify Auth Category for authorization.
-///
-/// The Amplify CLI helps you to create and configure the storage category
-/// and auth category.
 /// {@endtemplate}
 class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   @override
@@ -37,7 +34,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// returns a [StorageListOperation].
   /// {@endtemplate}
   StorageListOperation list({
-    String? path,
+    required StoragePath path,
     StorageListOptions? options,
   }) {
     return identifyCall(
@@ -50,7 +47,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.get_properties}
-  /// Retrieves properties of the object specified by [key] with optional
+  /// Retrieves properties of the object specified by [path] with optional
   /// [StorageGetPropertiesOptions]. And returns a
   /// [StorageGetPropertiesOperation].
   ///
@@ -58,40 +55,40 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// was uploaded.
   /// {@endtemplate}
   StorageGetPropertiesOperation getProperties({
-    required String key,
+    required StoragePath path,
     StorageGetPropertiesOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.getProperties,
       () => defaultPlugin.getProperties(
-        key: key,
+        path: path,
         options: options,
       ),
     );
   }
 
   /// {@template amplify_core.amplify_storage_category.get_url}
-  /// Generates a downloadable url for the object specified by [key] with
+  /// Generates a downloadable url for the object specified by [path] with
   /// [StorageGetUrlOptions], and returns a [StorageGetUrlOperation].
   ///
   /// The url is presigned by the aws_signature_v4, and is enforced with scheme
   /// `https`.
   /// {@endtemplate}
   StorageGetUrlOperation getUrl({
-    required String key,
+    required StoragePath path,
     StorageGetUrlOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.getUrl,
       () => defaultPlugin.getUrl(
-        key: key,
+        path: path,
         options: options,
       ),
     );
   }
 
   /// {@template amplify_core.amplify_storage_category.download_data}
-  /// Downloads bytes of object specified by [key] into memory with optional
+  /// Downloads bytes of object specified by [path] into memory with optional
   /// [onProgress] and [StorageDownloadDataOptions], and returns a
   /// [StorageDownloadDataOperation].
   ///
@@ -99,14 +96,14 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// memory leaks.
   /// {@endtemplate}
   StorageDownloadDataOperation downloadData({
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadDataOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.downloadData,
       () => defaultPlugin.downloadData(
-        key: key,
+        path: path,
         onProgress: onProgress,
         options: options,
       ),
@@ -114,12 +111,12 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   }
 
   /// {@template amplify_core.amplify_storage_category.download_file}
-  /// Downloads the object specified by [key] to [localFile] with optional
+  /// Downloads the object specified by [path] to [localFile] with optional
   /// [onProgress] and [StorageDownloadFileOptions], and returns a
   /// [StorageDownloadFileOperation].
   /// {@endtemplate}
   StorageDownloadFileOperation downloadFile({
-    required String key,
+    required StoragePath path,
     required AWSFile localFile,
     void Function(StorageTransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
@@ -127,7 +124,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     return identifyCall(
       StorageCategoryMethod.downloadFile,
       () => defaultPlugin.downloadFile(
-        key: key,
+        path: path,
         localFile: localFile,
         onProgress: onProgress,
         options: options,
@@ -137,21 +134,21 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
 
   /// {@template amplify_core.amplify_storage_category.upload_data}
   /// Uploads [data] as a [StorageDataPayload] with optional
-  /// [onProgress] and [StorageUploadDataOptions] to object specified by [key],
+  /// [onProgress] and [StorageUploadDataOptions] to object specified by [path],
   /// and returns a [StorageUploadDataOperation].
   ///
   /// See [StorageDataPayload] for supported data formats.
   /// {@endtemplate}
   StorageUploadDataOperation uploadData({
     required StorageDataPayload data,
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.uploadData,
       () => defaultPlugin.uploadData(
-        key: key,
+        path: path,
         data: data,
         onProgress: onProgress,
         options: options,
@@ -161,7 +158,7 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
 
   /// {@template amplify_core.amplify_storage_category.upload_file}
   /// Uploads data from [localFile] with optional [onProgress] and
-  /// [StorageUploadFileOptions] to object specified by [key], and returns a
+  /// [StorageUploadFileOptions] to object specified by [path], and returns a
   /// [StorageUploadFileOperation].
   ///
   /// [AWSFile] provides various adapters to read file content from file
@@ -169,14 +166,14 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   StorageUploadFileOperation uploadFile({
     required AWSFile localFile,
-    required String key,
+    required StoragePath path,
     void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.uploadFile,
       () => defaultPlugin.uploadFile(
-        key: key,
+        path: path,
         localFile: localFile,
         onProgress: onProgress,
         options: options,
@@ -190,12 +187,11 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
   /// {@endtemplate}
   ///
   /// {@template amplify_core.amplify_storage_category.copy_source}
-  /// The `source` should be readable to the API call originator following
-  /// corresponding [StorageAccessLevel].
+  /// The `source` should be readable to the API call originator.
   /// {@endtemplate}
   StorageCopyOperation copy({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
+    required StoragePath source,
+    required StoragePath destination,
     StorageCopyOptions? options,
   }) {
     return identifyCall(
@@ -208,65 +204,32 @@ class StorageCategory extends AmplifyCategory<StoragePluginInterface> {
     );
   }
 
-  /// {@template amplify_core.amplify_storage_category.move}
-  /// Moves [source] to [destination] with optional [StorageMoveOptions],
-  /// and returns a [StorageMoveOperation].
-  ///
-  /// This API performs two consecutive S3 service calls:
-  ///   1. copy the source object to destination objection
-  ///   2. delete the source object
-  ///
-  /// {@macro amplify_core.amplify_storage_category.copy_source}
-  /// {@endtemplate}
-  @Deprecated(
-    'This API will be removed in the next major version. '
-    'This API calls Amplify.Storage.copy() to create a copy of the file in the '
-    'destination directory and then calls Amplify.Storage.remove() to remove '
-    'the source file. '
-    'Please use Amplify.Storage.copy() and Amplify.Storage.remove() directly '
-    'instead.',
-  )
-  StorageMoveOperation move({
-    required StorageItemWithAccessLevel<StorageItem> source,
-    required StorageItemWithAccessLevel<StorageItem> destination,
-    StorageMoveOptions? options,
-  }) {
-    return identifyCall(
-      StorageCategoryMethod.move,
-      () => defaultPlugin.move(
-        source: source,
-        destination: destination,
-        options: options,
-      ),
-    );
-  }
-
   /// {@template amplify_core.amplify_storage_category.remove}
-  /// Removes an object specified by [key] with optional [StorageRemoveOptions],
+  /// Removes an object specified by [path] with optional [StorageRemoveOptions],
   /// and returns a [StorageRemoveOperation].
   /// {@endtemplate}
   StorageRemoveOperation remove({
-    required String key,
+    required StoragePath path,
     StorageRemoveOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.remove,
-      () => defaultPlugin.remove(key: key, options: options),
+      () => defaultPlugin.remove(path: path, options: options),
     );
   }
 
   /// {@template amplify_core.amplify_storage_category.remove_many}
-  /// Removes multiple objects specified by [keys] with optional
+  /// Removes multiple objects specified by [paths] with optional
   /// [StorageRemoveManyOptions], and returns a [StorageRemoveManyOperation].
   /// {@endtemplate}
   StorageRemoveManyOperation removeMany({
-    required List<String> keys,
+    required List<StoragePath> paths,
     StorageRemoveManyOptions? options,
   }) {
     return identifyCall(
       StorageCategoryMethod.removeMany,
       () => defaultPlugin.removeMany(
-        keys: keys,
+        paths: paths,
         options: options,
       ),
     );

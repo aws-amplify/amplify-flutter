@@ -50,13 +50,12 @@ public struct FlutterHubElement {
                 modelName: modelName
             )
             self.version = hubElement.version
-            let serializedData = model["serializedData"] as? [String: Any] ?? [:]
-            self.deleted = serializedData["_deleted"] as? Bool ?? false
-            if let value = serializedData["_lastChangedAt"] as? Double {
+            self.deleted = self.model["_deleted"] as? Bool ?? false
+            if let value = self.model["_lastChangedAt"] as? Double {
                 self.lastChangedAt = Int(value)
-            } else if let value = serializedData["_lastChangedAt"] as? String {
+            } else if let value = self.model["_lastChangedAt"] as? String {
                 self.lastChangedAt = Int(value)
-            } else if let value = serializedData["_lastChangedAt"] as? Int {
+            } else if let value = self.model["_lastChangedAt"] as? Int {
                 self.lastChangedAt = value
             }
         } catch {

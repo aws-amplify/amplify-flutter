@@ -208,13 +208,13 @@ void main() {
     sub.cancel();
 
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
-    TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"]);
+    TemporalDateTime parsedDate =
+        TemporalDateTime.fromString(json["element"]["model"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(payload.element, isInstanceOf<HubEventElement>());
     expect(payload.element.model, isInstanceOf<Model>());
-    expect(payload.element.model.getId(),
+    expect(payload.element.model.modelIdentifier.serializeAsString(),
         equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((payload.element.model as Post).title, equals("Title 1"));
     expect((payload.element.model as Post).created, equals(parsedDate));
@@ -245,15 +245,15 @@ void main() {
     OutboxMutationEvent payload = events.last.payload as OutboxMutationEvent;
     HubEventElementWithMetadata element =
         payload.element as HubEventElementWithMetadata;
-    TemporalDateTime parsedDate = TemporalDateTime.fromString(
-        json["element"]["model"]["serializedData"]["created"]);
+    TemporalDateTime parsedDate =
+        TemporalDateTime.fromString(json["element"]["model"]["created"]);
     expect(events.last, isInstanceOf<HubEvent>());
     expect(payload.modelName, "Post");
     expect(element, isInstanceOf<HubEventElement>());
     expect(element, isInstanceOf<HubEventElementWithMetadata>());
     expect(element.model, isInstanceOf<Model>());
-    expect(
-        element.model.getId(), equals("43036c6b-8044-4309-bddc-262b6c686026"));
+    expect(element.model.modelIdentifier.serializeAsString(),
+        equals("43036c6b-8044-4309-bddc-262b6c686026"));
     expect((element.model as Post).title, equals("Title 1"));
     expect((element.model as Post).created, equals(parsedDate));
     expect(element.deleted, equals(false));

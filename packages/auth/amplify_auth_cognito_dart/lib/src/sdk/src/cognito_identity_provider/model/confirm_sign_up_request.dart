@@ -73,7 +73,7 @@ abstract class ConfirmSignUpRequest
   /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
   String? get secretHash;
 
-  /// The user name of the user whose registration you want to confirm.
+  /// The username of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value must be the `sub` of a local user or the username of a user from a third-party IdP.
   String get username;
 
   /// The confirmation code sent by a user's request to confirm registration.
@@ -104,6 +104,7 @@ abstract class ConfirmSignUpRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ConfirmSignUpRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -115,6 +116,7 @@ abstract class ConfirmSignUpRequest
         userContextData,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfirmSignUpRequest')
@@ -164,6 +166,7 @@ class ConfirmSignUpRequestAwsJson11Serializer
         ConfirmSignUpRequest,
         _$ConfirmSignUpRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -171,6 +174,7 @@ class ConfirmSignUpRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ConfirmSignUpRequest deserialize(
     Serializers serializers,

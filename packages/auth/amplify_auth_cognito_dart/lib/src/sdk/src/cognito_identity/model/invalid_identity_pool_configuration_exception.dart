@@ -53,18 +53,23 @@ abstract class InvalidIdentityPoolConfigurationException
         namespace: 'com.amazonaws.cognitoidentity',
         shape: 'InvalidIdentityPoolConfigurationException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper =
@@ -87,6 +92,7 @@ class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
         InvalidIdentityPoolConfigurationException,
         _$InvalidIdentityPoolConfigurationException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -94,6 +100,7 @@ class InvalidIdentityPoolConfigurationExceptionAwsJson11Serializer extends _i2
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InvalidIdentityPoolConfigurationException deserialize(
     Serializers serializers,

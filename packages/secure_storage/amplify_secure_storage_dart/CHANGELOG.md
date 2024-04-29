@@ -1,3 +1,9 @@
+## 0.4.4
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
 ## 0.4.3
 
 ### Fixes

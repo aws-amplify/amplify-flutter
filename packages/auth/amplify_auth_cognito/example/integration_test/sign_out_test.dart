@@ -49,6 +49,7 @@ void main() {
             environmentName: environmentName,
           );
 
+          // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
           final authConfig = config.auth!.awsPlugin!.cognitoUserPool!.default$!;
           client = AWSHttpClient()

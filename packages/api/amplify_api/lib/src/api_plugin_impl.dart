@@ -11,10 +11,7 @@ import 'package:amplify_core/amplify_core.dart';
 class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
   /// {@macro amplify_api.amplify_api}
   AmplifyAPI({
-    super.authProviders,
-    super.baseHttpClient,
-    super.modelProvider,
-    super.subscriptionOptions,
+    super.options,
   }) : super(
           connectivity: const ConnectivityPlusPlatform(),
         );

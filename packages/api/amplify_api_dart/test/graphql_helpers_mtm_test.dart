@@ -13,7 +13,7 @@ final _deepEquals = const DeepCollectionEquality().equals;
 
 class MockAmplifyAPI extends AmplifyAPIDart {
   MockAmplifyAPI({
-    super.modelProvider,
+    super.options,
   });
 }
 
@@ -23,7 +23,9 @@ void main() {
       await Amplify.reset();
       await Amplify.addPlugin(
 // needed to fetch the schema from within the helper
-        MockAmplifyAPI(modelProvider: MtmModelProvider.instance),
+        MockAmplifyAPI(
+          options: APIPluginOptions(modelProvider: MtmModelProvider.instance),
+        ),
       );
     });
 

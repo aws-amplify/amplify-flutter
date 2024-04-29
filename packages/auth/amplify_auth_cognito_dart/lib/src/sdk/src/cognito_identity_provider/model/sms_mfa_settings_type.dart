@@ -55,6 +55,7 @@ abstract class SmsMfaSettingsType
         enabled,
         preferredMfa,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SmsMfaSettingsType')
@@ -79,6 +80,7 @@ class SmsMfaSettingsTypeAwsJson11Serializer
         SmsMfaSettingsType,
         _$SmsMfaSettingsType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -86,6 +88,7 @@ class SmsMfaSettingsTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SmsMfaSettingsType deserialize(
     Serializers serializers,

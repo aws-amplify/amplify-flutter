@@ -19,6 +19,7 @@ class AmplifyAnalyticsPinpoint extends AmplifyAnalyticsPinpointDart {
   AmplifyAnalyticsPinpoint({
     @visibleForTesting AppLifecycleProvider? appLifecycleProvider,
     @visibleForTesting SecureStorageFactory? secureStorageFactory,
+    super.options,
   }) : super(
           pathProvider: FlutterPathProvider(),
           legacyNativeDataProvider: FlutterLegacyNativeDataProvider(),
