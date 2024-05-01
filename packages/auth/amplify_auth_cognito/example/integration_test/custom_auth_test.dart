@@ -181,7 +181,7 @@ void main() {
           'passes client metadata to signIn',
           (_) async {
             await expectLater(
-              Amplify.Auth.signIn(
+              () => Amplify.Auth.signIn(
                 username: username,
                 options: const SignInOptions(
                   pluginOptions: CognitoSignInPluginOptions(
@@ -347,7 +347,7 @@ void main() {
 
         asyncTest('passes client metadata to signIn', (_) async {
           await expectLater(
-            Amplify.Auth.signIn(
+            () => Amplify.Auth.signIn(
               username: username,
               password: password,
               options: const SignInOptions(
