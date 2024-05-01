@@ -345,7 +345,7 @@ class _NativeAmplifyApi
 
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
-    print('Flutter mutate:: $request');
+    print('Flutter query:: $request');
 
     final flutterRequest = GraphQLRequest<String>(
       document: request.document!,

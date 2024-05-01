@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 // swiftlint:disable line_length
 
@@ -13,7 +14,7 @@ import Foundation
 /// GraphQL backend, or an Amazon API Gateway endpoint.
 ///
 /// - SeeAlso: [https://docs.aws.amazon.com/appsync/latest/devguide/security.html](AppSync Security)
-public enum AWSAuthorizationType: String {
+public enum AWSAuthorizationType: String, AuthorizationMode {
 
     /// For public APIs
     case none = "NONE"

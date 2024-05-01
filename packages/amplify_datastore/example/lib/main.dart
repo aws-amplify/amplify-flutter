@@ -8,9 +8,6 @@ import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_datastore_example/amplifyconfiguration.dart';
-// Uncomment the below line to enable online sync
-// import 'package:amplify_api/amplify_api.dart';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,9 +84,6 @@ class _MyAppState extends State<MyApp> {
 
       // Uncomment the below lines to enable online sync.
       await Amplify.configure(amplifyconfig);
-
-      // Remove this line when using the lines above for online sync
-      // await Amplify.configure("{}");
     } on AmplifyAlreadyConfiguredException {
       print(
           'Amplify was already configured. Looks like app restarted on android.');
@@ -169,7 +163,7 @@ class _MyAppState extends State<MyApp> {
           print('Network status message: $msg');
           return;
         }
-        print(msg);
+        print("Hub event: ${msg.type}");
       });
       _listeningToHub = true;
     });
@@ -260,6 +254,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> queryExample() async {
+    final res = await Amplify.DataStore.query(Blog.classType);
+    print("QUERY:: ${res}");
+  }
+
   void subExample() {
     final req = ModelSubscriptions.onCreate(
       Blog.classType,
@@ -342,6 +341,8 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(onPressed: stop, child: const Text('Stop')),
                 ElevatedButton(
                     onPressed: subExample, child: const Text('Subscribe')),
+                ElevatedButton(
+                    onPressed: queryExample, child: const Text('Query')),
               ],
             ),
 

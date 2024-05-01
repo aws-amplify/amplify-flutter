@@ -13,42 +13,16 @@ import Combine
 
 
 
-public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExtended
+public class FlutterApiPlugin: APICategoryPlugin
 {
-    
-    public func query<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
-        
-        fatalError("To be implmented")
-    }
-    
-    public func mutate<R>(request: GraphQLRequest<R>, listener: GraphQLOperation<R>.ResultListener?) -> GraphQLOperation<R> where R : Decodable {
-        
-        fatalError("TODO: implmenet return transform")
-    }
-    
-    public func subscribe<R>(request: GraphQLRequest<R>, valueListener: GraphQLSubscriptionOperation<R>.InProcessListener?, completionListener: GraphQLSubscriptionOperation<R>.ResultListener?) -> GraphQLSubscriptionOperation<R> where R : Decodable {
-        
-        // A hacky way to call the old subscribe API
-        // Currently does not return any thing
-        _ = subscribe(request: request)
-        
-        
-        // This is a placeholder return type.
-        // TODO: Events from Flutter bridge should be returned to caller.
-        let responseOp = GraphQLOperationRequest(apiName: request.apiName, operationType: GraphQLOperationType.subscription, document: request.document, responseType: request.responseType, options: GraphQLOperationRequest.Options(pluginOptions: []))
-        
-        
-        
-        return GraphQLSubscriptionOperation(categoryType: CategoryType.api, eventName: HubPayload.EventName.API.subscribe, request: responseOp)
-    }
-    
-    
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
     private  let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = Set<AnyCancellable>()
     private var modelSchemaRegistry: FlutterSchemaRegistry
+    
+    private var mySequence: AmplifyAsyncThrowingSequence<any Sendable>?
     
     init(apiAuthProviderFactory: APIAuthProviderFactory, nativeApiPlugin: NativeApiPlugin, modelSchemaRegistry: FlutterSchemaRegistry, subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>) {
         self.apiAuthFactory = apiAuthProviderFactory
@@ -102,11 +76,13 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
         }
     }
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
+        print("Swift:: Query called")
         let nativeRequest = getNativeGraphQLRequest(request: request)
-        
+        print("Swift:: Query request made")
         let response = await asyncQuery(nativeRequest: nativeRequest)
-            
+        print("Swift:: Query got response")
         let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
+        print("Swift:: Query decoded response")
         
         // Return GraphQLTask
         fatalError("operation not supported")
@@ -142,18 +118,19 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
                 subscriptionId = response.subscriptionId
             }
         }
-        let amplifySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
+        print("SWIFT:: creating a sequence!")
+        mySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
         
         nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
             do {
                 let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
                 
-                amplifySequence.send(.data(responseDecoded))
+                mySequence?.send(.data(responseDecoded))
             } catch {
                 print("Failed to decode JSON: \(error.localizedDescription)")
             }
         }).store(in: &cancellables)
-        return amplifySequence
+        return mySequence as! AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>
     }
     
     public func configure(using configuration: Any?) throws {
@@ -196,4 +173,9 @@ public class FlutterApiPlugin: APICategoryPlugin, APICategoryGraphQLBehaviorExte
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {
         return nil
     }
+}
+
+
+extension GraphQLSubscriptionEvent: Sendable {
+    
 }

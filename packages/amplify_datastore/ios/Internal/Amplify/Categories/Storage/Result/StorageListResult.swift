@@ -42,9 +42,15 @@ extension StorageListResult {
     /// - Tag: StorageListResultItem
     public struct Item {
 
+        /// The path of the object in storage.
+        ///
+        /// - Tag: StorageListResultItem.path
+        public let path: String
+
         /// The unique identifier of the object in storage.
         ///
         /// - Tag: StorageListResultItem.key
+        @available(*, deprecated, message: "Use `path` instead.")
         public let key: String
 
         /// Size in bytes of the object
@@ -72,12 +78,31 @@ extension StorageListResult {
         /// [StorageCategoryBehavior.list](x-source-tag://StorageCategoryBehavior.list).
         ///
         /// - Tag: StorageListResultItem.init
-        public init(key: String,
-                    size: Int? = nil,
-                    eTag: String? = nil,
-                    lastModified: Date? = nil,
-                    pluginResults: Any? = nil) {
+        @available(*, deprecated, message: "Use init(path:size:lastModifiedDate:eTag:pluginResults)")
+        public init(
+            key: String,
+            size: Int? = nil,
+            eTag: String? = nil,
+            lastModified: Date? = nil,
+            pluginResults: Any? = nil
+        ) {
             self.key = key
+            self.size = size
+            self.eTag = eTag
+            self.lastModified = lastModified
+            self.pluginResults  = pluginResults
+            self.path = ""
+        }
+
+        public init(
+            path: String,
+            size: Int? = nil,
+            eTag: String? = nil,
+            lastModified: Date? = nil,
+            pluginResults: Any? = nil
+        ) {
+            self.path = path
+            self.key = path
             self.size = size
             self.eTag = eTag
             self.lastModified = lastModified

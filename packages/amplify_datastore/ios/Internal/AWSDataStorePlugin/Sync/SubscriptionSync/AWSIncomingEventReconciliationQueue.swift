@@ -15,7 +15,7 @@ typealias DisableSubscriptions = () -> Bool
 // Used for testing:
 typealias IncomingEventReconciliationQueueFactory =
     ([ModelSchema],
-    APICategoryGraphQLBehaviorExtended,
+    APICategoryGraphQLBehavior,
     StorageEngineAdapter,
     [DataStoreSyncExpression],
     AuthCategoryBehavior?,
@@ -46,7 +46,7 @@ final class AWSIncomingEventReconciliationQueue: IncomingEventReconciliationQueu
     private let modelSchemasCount: Int
 
     init(modelSchemas: [ModelSchema],
-         api: APICategoryGraphQLBehaviorExtended,
+         api: APICategoryGraphQLBehavior,
          storageAdapter: StorageEngineAdapter,
          syncExpressions: [DataStoreSyncExpression],
          auth: AuthCategoryBehavior? = nil,

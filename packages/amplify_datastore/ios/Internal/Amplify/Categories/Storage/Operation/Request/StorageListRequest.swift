@@ -15,9 +15,22 @@ public struct StorageListRequest: AmplifyOperationRequest {
     /// - Tag: StorageListRequest
     public let options: Options
 
+    /// The unique path for the object in storage
+    ///
+    /// - Tag: StorageListRequest.path
+    public let path: (any StoragePath)?
+
     /// - Tag: StorageListRequest.init
+    @available(*, deprecated, message: "Use init(path:options)")
     public init(options: Options) {
         self.options = options
+        self.path = nil
+    }
+
+    /// - Tag: StorageListRequest.init
+    public init(path: any StoragePath, options: Options) {
+        self.options = options
+        self.path = path
     }
 }
 
@@ -32,16 +45,19 @@ public extension StorageListRequest {
         /// Access level of the storage system. Defaults to `public`
         ///
         /// - Tag: StorageListRequestOptions.accessLevel
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let accessLevel: StorageAccessLevel
 
         /// Target user to apply the action on
         ///
         /// - Tag: StorageListRequestOptions.targetIdentityId
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let targetIdentityId: String?
 
         /// Path to the keys
         ///
         /// - Tag: StorageListRequestOptions.path
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let path: String?
 
         /// Number between 1 and 1,000 that indicates the limit of how many entries to fetch when

@@ -13,9 +13,15 @@ import Foundation
 /// - Tag: StorageUploadDataRequest
 public struct StorageUploadDataRequest: AmplifyOperationRequest {
 
+    /// The path for the object in storage
+    ///
+    /// - Tag: StorageDownloadFileRequest.path
+    public let path: (any StoragePath)?
+
     /// The unique identifier for the object in storage
     ///
     /// - Tag: StorageUploadDataRequest.key
+    @available(*, deprecated, message: "Use `path` instead of `key`")
     public let key: String
 
     /// The data in memory to be uploaded
@@ -29,10 +35,19 @@ public struct StorageUploadDataRequest: AmplifyOperationRequest {
     public let options: Options
 
     /// - Tag: StorageUploadDataRequest.init
+    @available(*, deprecated, message: "Use init(path:data:options)")
     public init(key: String, data: Data, options: Options) {
         self.key = key
         self.data = data
         self.options = options
+        self.path = nil
+    }
+
+    public init(path: any StoragePath, data: Data, options: Options) {
+        self.key = ""
+        self.data = data
+        self.options = options
+        self.path = path
     }
 }
 
@@ -46,11 +61,13 @@ public extension StorageUploadDataRequest {
         /// Access level of the storage system. Defaults to `public`
         ///
         /// - Tag: StorageUploadDataRequestOptions.accessLevel
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let accessLevel: StorageAccessLevel
 
         /// Target user to apply the action on.
         ///
         /// - Tag: StorageUploadDataRequestOptions.targetIdentityId
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let targetIdentityId: String?
 
         /// Metadata for the object to store
@@ -71,13 +88,27 @@ public extension StorageUploadDataRequest {
         public let pluginOptions: Any?
 
         /// - Tag: StorageUploadDataRequestOptions.init
+        @available(*, deprecated, message: "Use init(metadata:contentType:options)")
         public init(accessLevel: StorageAccessLevel = .guest,
                     targetIdentityId: String? = nil,
                     metadata: [String: String]? = nil,
                     contentType: String? = nil,
-                    pluginOptions: Any? = nil) {
+                    pluginOptions: Any? = nil
+        ) {
             self.accessLevel = accessLevel
             self.targetIdentityId = targetIdentityId
+            self.metadata = metadata
+            self.contentType = contentType
+            self.pluginOptions = pluginOptions
+        }
+
+        /// - Tag: StorageUploadDataRequestOptions.init
+        public init(metadata: [String: String]? = nil,
+                    contentType: String? = nil,
+                    pluginOptions: Any? = nil
+        ) {
+            self.accessLevel = .guest
+            self.targetIdentityId = nil
             self.metadata = metadata
             self.contentType = contentType
             self.pluginOptions = pluginOptions

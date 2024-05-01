@@ -35,7 +35,8 @@ protocol ModelGraphQLRequestFactory {
     static func list<M: Model>(_ modelType: M.Type,
                                where predicate: QueryPredicate?,
                                includes: IncludedAssociations<M>,
-                               limit: Int?) -> GraphQLRequest<List<M>>
+                               limit: Int?,
+                               authMode: AWSAuthorizationType?) -> GraphQLRequest<List<M>>
 
     /// Creates a `GraphQLRequest` that represents a query that expects a single value as a result.
     /// The request will be created with the correct correct document based on the `ModelSchema` and
@@ -50,16 +51,19 @@ protocol ModelGraphQLRequestFactory {
     /// - seealso: `GraphQLQuery`, `GraphQLQueryType.get`
     static func get<M: Model>(_ modelType: M.Type,
                               byId id: String,
-                              includes: IncludedAssociations<M>) -> GraphQLRequest<M?>
+                              includes: IncludedAssociations<M>,
+                              authMode: AWSAuthorizationType?) -> GraphQLRequest<M?>
 
     static func get<M: Model>(_ modelType: M.Type,
                               byIdentifier id: String,
-                              includes: IncludedAssociations<M>) -> GraphQLRequest<M?>
+                              includes: IncludedAssociations<M>,
+                              authMode: AWSAuthorizationType?) -> GraphQLRequest<M?>
         where M: ModelIdentifiable, M.IdentifierFormat == ModelIdentifierFormat.Default
 
     static func get<M: Model>(_ modelType: M.Type,
                               byIdentifier id: ModelIdentifier<M, M.IdentifierFormat>,
-                              includes: IncludedAssociations<M>) -> GraphQLRequest<M?>
+                              includes: IncludedAssociations<M>,
+                              authMode: AWSAuthorizationType?) -> GraphQLRequest<M?>
         where M: ModelIdentifiable
 
     // MARK: Mutation
@@ -76,7 +80,8 @@ protocol ModelGraphQLRequestFactory {
                                    modelSchema: ModelSchema,
                                    where predicate: QueryPredicate?,
                                    includes: IncludedAssociations<M>,
-                                   type: GraphQLMutationType) -> GraphQLRequest<M>
+                                   type: GraphQLMutationType,
+                                   authMode: AWSAuthorizationType?) -> GraphQLRequest<M>
 
     /// Creates a `GraphQLRequest` that represents a create mutation
     /// for a given `model` instance.
@@ -85,7 +90,9 @@ protocol ModelGraphQLRequestFactory {
     ///   - model: the model instance populated with values
     /// - Returns: a valid `GraphQLRequest` instance
     /// - seealso: `GraphQLRequest.mutation(of:where:type:)`
-    static func create<M: Model>(_ model: M, includes: IncludedAssociations<M>) -> GraphQLRequest<M>
+    static func create<M: Model>(_ model: M, 
+                                 includes: IncludedAssociations<M>,
+                                 authMode: AWSAuthorizationType?) -> GraphQLRequest<M>
 
     /// Creates a `GraphQLRequest` that represents an update mutation
     /// for a given `model` instance.
@@ -97,7 +104,8 @@ protocol ModelGraphQLRequestFactory {
     /// - seealso: `GraphQLRequest.mutation(of:where:type:)`
     static func update<M: Model>(_ model: M,
                                  where predicate: QueryPredicate?,
-                                 includes: IncludedAssociations<M>) -> GraphQLRequest<M>
+                                 includes: IncludedAssociations<M>,
+                                 authMode: AWSAuthorizationType?) -> GraphQLRequest<M>
 
     /// Creates a `GraphQLRequest` that represents a delete mutation
     /// for a given `model` instance.
@@ -109,7 +117,8 @@ protocol ModelGraphQLRequestFactory {
     /// - seealso: `GraphQLRequest.mutation(of:where:type:)`
     static func delete<M: Model>(_ model: M,
                                  where predicate: QueryPredicate?,
-                                 includes: IncludedAssociations<M>) -> GraphQLRequest<M>
+                                 includes: IncludedAssociations<M>,
+                                 authMode: AWSAuthorizationType?) -> GraphQLRequest<M>
 
     // MARK: Subscription
 
@@ -125,7 +134,8 @@ protocol ModelGraphQLRequestFactory {
     /// - seealso: `GraphQLSubscription`, `GraphQLSubscriptionType`
     static func subscription<M: Model>(of: M.Type,
                                        type: GraphQLSubscriptionType,
-                                       includes: IncludedAssociations<M>) -> GraphQLRequest<M>
+                                       includes: IncludedAssociations<M>,
+                                       authMode: AWSAuthorizationType?) -> GraphQLRequest<M>
 }
 
 // MARK: - Extension
@@ -141,52 +151,97 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
         return modelType.schema
     }
 
-    public static func create<M: Model>(_ model: M, includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return create(model, modelSchema: modelSchema(for: model), includes: includes)
+    public static func create<M: Model>(
+        _ model: M,
+        includes: IncludedAssociations<M> = { _ in [] },
+        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+            return create(
+                model,
+                modelSchema: modelSchema(for: model),
+                includes: includes,
+                authMode: authMode)
     }
 
     public static func update<M: Model>(_ model: M,
                                         where predicate: QueryPredicate? = nil,
-                                        includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return update(model, modelSchema: modelSchema(for: model), where: predicate, includes: includes)
+                                        includes: IncludedAssociations<M> = { _ in [] },
+                                        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        return update(
+            model,
+            modelSchema: modelSchema(for: model),
+            where: predicate,
+            includes: includes,
+            authMode: authMode)
     }
 
     public static func delete<M: Model>(_ model: M,
                                         where predicate: QueryPredicate? = nil,
-                                        includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return delete(model, modelSchema: modelSchema(for: model), where: predicate, includes: includes)
+                                        includes: IncludedAssociations<M> = { _ in [] },
+                                        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        return delete(
+            model,
+            modelSchema: modelSchema(for: model),
+            where: predicate, 
+            includes: includes,
+            authMode: authMode)
     }
 
-    public static func create<M: Model>(_ model: M, modelSchema: ModelSchema, includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return mutation(of: model, modelSchema: modelSchema, includes: includes, type: .create)
+    public static func create<M: Model>(_ model: M, 
+                                        modelSchema: ModelSchema,
+                                        includes: IncludedAssociations<M> = { _ in [] },
+                                        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        return mutation(of: model, 
+                        modelSchema: modelSchema,
+                        includes: includes,
+                        type: .create,
+                        authMode: authMode)
     }
 
     public static func update<M: Model>(_ model: M,
                                         modelSchema: ModelSchema,
                                         where predicate: QueryPredicate? = nil,
-                                        includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return mutation(of: model, modelSchema: modelSchema, where: predicate, includes: includes, type: .update)
+                                        includes: IncludedAssociations<M> = { _ in [] },
+                                        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        return mutation(of: model, 
+                        modelSchema: modelSchema,
+                        where: predicate,
+                        includes: includes,
+                        type: .update,
+                        authMode: authMode)
     }
 
     public static func delete<M: Model>(_ model: M,
                                         modelSchema: ModelSchema,
                                         where predicate: QueryPredicate? = nil,
-                                        includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
-        return mutation(of: model, modelSchema: modelSchema, where: predicate, includes: includes, type: .delete)
+                                        includes: IncludedAssociations<M> = { _ in [] },
+                                        authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        return mutation(of: model, 
+                        modelSchema: modelSchema,
+                        where: predicate,
+                        includes: includes,
+                        type: .delete,
+                        authMode: authMode)
     }
 
     public static func mutation<M: Model>(of model: M,
                                           where predicate: QueryPredicate? = nil,
                                           includes: IncludedAssociations<M> = { _ in [] },
-                                          type: GraphQLMutationType) -> GraphQLRequest<M> {
-        mutation(of: model, modelSchema: model.schema, where: predicate, includes: includes, type: type)
+                                          type: GraphQLMutationType,
+                                          authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
+        mutation(of: model, 
+                 modelSchema: model.schema,
+                 where: predicate,
+                 includes: includes, 
+                 type: type,
+                 authMode: authMode)
     }
 
     public static func mutation<M: Model>(of model: M,
                                           modelSchema: ModelSchema,
                                           where predicate: QueryPredicate? = nil,
                                           includes: IncludedAssociations<M> = { _ in [] },
-                                          type: GraphQLMutationType) -> GraphQLRequest<M> {
+                                          type: GraphQLMutationType,
+                                          authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelSchema,
                                                                operationType: .mutation)
         documentBuilder.add(decorator: DirectiveNameDecorator(type: type))
@@ -216,12 +271,14 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
         return GraphQLRequest<M>(document: document.stringValue,
                                  variables: document.variables,
                                  responseType: M.self,
-                                 decodePath: document.name)
+                                 decodePath: document.name,
+                                 authMode: authMode)
     }
 
     public static func get<M: Model>(_ modelType: M.Type,
                                      byId id: String,
-                                     includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M?> {
+                                     includes: IncludedAssociations<M> = { _ in [] },
+                                     authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M?> {
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelType.schema,
                                                                operationType: .query)
         documentBuilder.add(decorator: DirectiveNameDecorator(type: .get))
@@ -237,19 +294,22 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
         return GraphQLRequest<M?>(document: document.stringValue,
                                   variables: document.variables,
                                   responseType: M?.self,
-                                  decodePath: document.name)
+                                  decodePath: document.name, 
+                                  authMode: authMode)
     }
 
     public static func get<M: Model>(_ modelType: M.Type,
                                      byIdentifier id: String,
-                                     includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M?>
+                                     includes: IncludedAssociations<M> = { _ in [] },
+                                     authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M?>
     where M: ModelIdentifiable, M.IdentifierFormat == ModelIdentifierFormat.Default {
-        return .get(modelType, byId: id, includes: includes)
+        return .get(modelType, byId: id, includes: includes, authMode: authMode)
     }
 
     public static func get<M: Model>(_ modelType: M.Type,
                                      byIdentifier id: ModelIdentifier<M, M.IdentifierFormat>,
-                                     includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M?>
+                                     includes: IncludedAssociations<M> = { _ in [] },
+                                     authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M?>
         where M: ModelIdentifiable {
             var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelType.schema,
                                                                    operationType: .query)
@@ -265,13 +325,15 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
             return GraphQLRequest<M?>(document: document.stringValue,
                                       variables: document.variables,
                                       responseType: M?.self,
-                                      decodePath: document.name)
+                                      decodePath: document.name, 
+                                      authMode: authMode)
     }
 
     public static func list<M: Model>(_ modelType: M.Type,
                                       where predicate: QueryPredicate? = nil,
                                       includes: IncludedAssociations<M> = { _ in [] },
-                                      limit: Int? = nil) -> GraphQLRequest<List<M>> {
+                                      limit: Int? = nil,
+                                      authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<List<M>> {
         let primaryKeysOnly = (M.rootPath != nil) ? true : false
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelType.schema,
                                                                operationType: .query)
@@ -292,12 +354,14 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
         return GraphQLRequest<List<M>>(document: document.stringValue,
                                        variables: document.variables,
                                        responseType: List<M>.self,
-                                       decodePath: document.name)
+                                       decodePath: document.name,
+                                       authMode: authMode)
     }
 
     public static func subscription<M: Model>(of modelType: M.Type,
                                               type: GraphQLSubscriptionType,
-                                              includes: IncludedAssociations<M> = { _ in [] }) -> GraphQLRequest<M> {
+                                              includes: IncludedAssociations<M> = { _ in [] },
+                                              authMode: AWSAuthorizationType? = nil) -> GraphQLRequest<M> {
         var documentBuilder = ModelBasedGraphQLDocumentBuilder(modelSchema: modelType.schema,
                                                                operationType: .subscription)
         documentBuilder.add(decorator: DirectiveNameDecorator(type: type))
@@ -312,6 +376,7 @@ extension GraphQLRequest: ModelGraphQLRequestFactory {
         return GraphQLRequest<M>(document: document.stringValue,
                                  variables: document.variables,
                                  responseType: modelType,
-                                 decodePath: document.name)
+                                 decodePath: document.name,
+                                 authMode: authMode)
     }
 }
