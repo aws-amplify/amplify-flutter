@@ -2,10 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
-import 'dart:js_util' as js_util;
+// import 'package:js/js.dart';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+
+// import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/js/common.dart';
-import 'package:js/js.dart';
 
 /// The global read-only [IDBFactory] instance.
 @JS()
@@ -22,7 +25,7 @@ abstract class DOMStringList {}
 extension PropsDOMStringList on DOMStringList {
   /// Checks if the given string is in the list.
   bool contains(String string) =>
-      js_util.callMethod(this, 'contains', [string]);
+      globalContext.callMethod('contains'.toJS, string.toJS);
 }
 
 /// {@template amplify_secure_storage_dart.idb_version_change_event}
@@ -37,7 +40,7 @@ abstract class IDBVersionChangeEvent extends Event {}
 /// {@macro amplify_secure_storage_dart.idb_version_change_event}
 extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {
   /// The target of this event, the DB open request.
-  IDBOpenDBRequest get target => js_util.getProperty(this, 'target');
+  IDBOpenDBRequest get target => globalContext.getProperty('target'.toJS);
 }
 
 /// {@template amplify_secure_storage_dart.idb_request}
@@ -57,16 +60,16 @@ extension PropsIDBRequest<T> on IDBRequest<T> {
   ///
   /// If the request failed and the result is not available, an
   /// `InvalidStateError` exception is thrown.
-  T get result => js_util.getProperty(this, 'result');
+  T get result => globalContext.getProperty('result'.toJS);
 
   /// Fired when an IDBRequest succeeds.
   set onsuccess(EventHandler newValue) {
-    js_util.setProperty(this, 'onsuccess', allowInterop(newValue));
+    globalContext.setProperty('onsuccess'.toJS, newValue.toJS);
   }
 
   /// Fired when an error caused a request to fail.
   set onerror(EventHandler newValue) {
-    js_util.setProperty(this, 'onerror', allowInterop(newValue));
+    globalContext.setProperty('onerror'.toJS, newValue.toJS);
   }
 
   /// Returns a [Future] which completes with the [result] of this request.
@@ -97,7 +100,7 @@ extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
   /// Fired when an attempt was made to open a database with a version number
   /// higher than its current version.
   set onupgradeneeded(EventHandler<IDBVersionChangeEvent> newValue) {
-    js_util.setProperty(this, 'onupgradeneeded', allowInterop(newValue));
+    globalContext.setProperty('onupgradeneeded'.toJS, newValue.toJS);
   }
 }
 
@@ -113,10 +116,10 @@ abstract class IDBFactory {}
 extension PropsIDBFactory on IDBFactory {
   /// The current method to request opening a connection to a database.
   IDBOpenDBRequest open(String name, [int? version]) =>
-      js_util.callMethod(this, 'open', [
-        name,
-        if (version != null) version,
-      ]);
+      globalContext.callMethod('open'.toJS, 
+        name.toJS,
+        (version != null) ? version.toJS : null,
+      );
 }
 
 /// {@template amplify_secure_storage_dart.idb_database}
@@ -133,7 +136,7 @@ abstract class IDBDatabase {}
 extension PropsIDBDatabase on IDBDatabase {
   /// The list of the names of object stores in the database.
   DOMStringList get objectStoreNames =>
-      js_util.getProperty(this, 'objectStoreNames');
+      globalContext.getProperty('objectStoreNames'.toJS);
 
   /// Returns a new transaction with the given mode (`readonly` or `readwrite`)
   /// and scope which can be a single object store name or an array of names.
@@ -141,7 +144,7 @@ extension PropsIDBDatabase on IDBDatabase {
     String storeNames, {
     IDBTransactionMode mode = IDBTransactionMode.readonly,
   }) =>
-      js_util.callMethod(this, 'transaction', [storeNames, mode.name]);
+      globalContext.callMethod('transaction'.toJS, storeNames.toJS, mode.jsify());
 
   /// Creates a new object store with the given name and options and returns a
   /// new [IDBObjectStore].
@@ -161,10 +164,10 @@ extension PropsIDBDatabase on IDBDatabase {
       params['autoIncrement'] = autoIncrement;
     }
 
-    return js_util.callMethod(
-      this,
-      'createObjectStore',
-      [name, js_util.jsify(params)],
+    return globalContext.callMethod(
+      'createObjectStore'.toJS,
+      name.toJS,
+      params.jsify(),
     );
   }
 
@@ -198,7 +201,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   /// This is for updating existing records in an object store when the
   /// transaction's mode is `readwrite`.
   IDBRequest<void> put(String value, String key) =>
-      js_util.callMethod(this, 'put', [value, key]);
+      globalContext.callMethod('put'.toJS, value.toJS, key.toJS);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, creates a
   /// structured clone of the value, and stores the cloned value in the object
@@ -206,7 +209,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   /// This is for adding new records to an object store.
   IDBRequest<void> add(String value, String key) =>
-      js_util.callMethod(this, 'add', [value, key]);
+      globalContext.callMethod('add'.toJS, value.toJS, key.toJS);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, creates a
   /// structured clone of the value, and stores the cloned value in the object
@@ -214,41 +217,41 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   /// This is for adding new records to an object store created with keyPath set and autoincrement = true
   IDBRequest<void> push(Map<Object, Object> item) =>
-      js_util.callMethod(this, 'add', [js_util.jsify(item)]);
+      globalContext.callMethod('add'.toJS, item.jsify());
 
   /// Returns an [IDBRequest] object, and, in a separate thread, deletes the
   /// store object selected by the specified key.
   ///
   /// This is for deleting individual records out of an object store.
   IDBRequest<void> delete(String query) =>
-      js_util.callMethod(this, 'delete', [query]);
+      globalContext.callMethod('delete'.toJS, query.toJS);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, deletes the
   /// store objects within the provided [IDBKeyRange].
   ///
   /// This is for deleting ranges of records out of an object store.
   IDBRequest<void> deleteByKeyRange(IDBKeyRange range) =>
-      js_util.callMethod(this, 'delete', [range]);
+      globalContext.callMethod('delete'.toJS, range.jsify());
 
   /// Returns an [IDBRequest] object, and, in a separate thread, deletes all
   /// store objects.
   ///
   /// This is for deleting all records in an object store.
-  IDBRequest<void> clear() => js_util.callMethod(this, 'clear', []);
+  IDBRequest<void> clear() => globalContext.callMethod('clear'.toJS, null);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, returns the
   /// store object store selected by the specified key.
   ///
   /// This is for retrieving specific records from an object store.
   IDBRequest<String?> getObject(String query) =>
-      js_util.callMethod(this, 'get', [query]);
+      globalContext.callMethod('get'.toJS, query.toJS);
 
   /// Returns an [IDBRequest] object, and, in a separate thread, returns
   /// [count] records from the object store.
   ///
   /// This is for retrieving a specific [count] of records from the object store.
   IDBRequest<List<dynamic>> getAll(String? query, int? count) =>
-      js_util.callMethod(this, 'getAll', [query, count]);
+      globalContext.callMethod('getAll'.toJS, query?.toJS, count?.toJS);
 }
 
 /// {@template amplify_secure_storage_dart.idb_transaction}
@@ -265,7 +268,7 @@ abstract class IDBTransaction {}
 extension PropsIDBTransaction on IDBTransaction {
   /// Returns an [IDBObjectStore] in the transaction's scope.
   IDBObjectStore objectStore(String name) =>
-      js_util.callMethod(this, 'objectStore', [name]);
+      globalContext.callMethod('objectStore'.toJS, name.toJS);
 }
 
 /// The mode for isolating access to data in the object stores that are in the

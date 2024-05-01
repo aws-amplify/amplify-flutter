@@ -1,13 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// import 'package:js/js.dart';
+// import 'package:js/js_util.dart' as js_util;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+
 import 'package:aws_common/aws_common.dart';
 import 'package:aws_common/src/js/abort.dart';
 import 'package:aws_common/src/js/common.dart';
 import 'package:aws_common/src/js/promise.dart';
 import 'package:aws_common/src/js/readable_stream.dart';
-import 'package:js/js.dart';
-import 'package:js/js_util.dart' as js_util;
 
 /// How a [Request] will interact with the browser's HTTP cache.
 enum RequestCache with JSEnum {
@@ -228,7 +231,7 @@ abstract class RequestInit {
       destination: destination.jsValue,
       redirect: redirect.jsValue,
       referrer: referrer ?? undefined,
-      headers: headers != null ? js_util.jsify(headers) : undefined,
+      headers: headers != null ? headers.jsify() : undefined,
       integrity: integrity ?? undefined,
       keepalive: keepalive ?? undefined,
       method: method.value,
@@ -302,7 +305,7 @@ extension PropsHeaders on Headers {
   void forEach(
     void Function(String value, String key, Headers parent) callback,
   ) =>
-      js_util.callMethod(this, 'forEach', [allowInterop(callback)]);
+      globalContext.callMethod('forEach'.toJS, callback.toJS);
 }
 
 /// {@template aws_common.js.request}
@@ -334,13 +337,13 @@ final Expando<ReadableStreamView> _responseStreams = Expando('ResponseStreams');
 extension PropsResponse on Response {
   /// The response's body as a Dart [Stream].
   ReadableStreamView get body => _responseStreams[this] ??=
-      js_util.getProperty<ReadableStream?>(this, 'body')?.stream ??
+      (globalContext.getProperty('body'.toJS) as ReadableStream?)?.stream ??
           const ReadableStreamView.empty();
 
   /// The response's headers.
   Map<String, String> get headers {
     final Map<String, String> headers = CaseInsensitiveMap({});
-    js_util.getProperty<Headers>(this, 'headers').forEach((value, key, _) {
+    (globalContext.getProperty('headers'.toJS) as Headers?)?.forEach((value, key, _) {
       headers[key] = value;
     });
     return headers;
