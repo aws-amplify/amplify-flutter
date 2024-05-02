@@ -84,8 +84,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
         print("Swift:: Query decoded response")
         
-        // Return GraphQLTask
-        fatalError("operation not supported")
+        return responseDecoded
     }
     
     func asyncMutate(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
@@ -105,8 +104,7 @@ public class FlutterApiPlugin: APICategoryPlugin
             
         let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
         
-        // Return GraphQLTask
-        fatalError("operation not supported")
+        return responseDecoded
     }
 
     public func subscribe<R: Decodable>(request: GraphQLRequest<R>) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
@@ -124,18 +122,18 @@ public class FlutterApiPlugin: APICategoryPlugin
         
         nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
             do {
-                if (event.type == "connected") {
+                if (event.type == "start_ack") {
                     mySequence.send(.connection(.connected))
                 } else if (event.type == "data") {
                     let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
                     print("Swift:: event: \(responseDecoded) ")
                     mySequence.send(.data(responseDecoded))
-                } else if (event.type == "disconnected") {
+                } else if (event.type == "complete") {
                     mySequence.send(.connection(.disconnected))
                 } else if (event.type == "error") {
                     print("ERROR -- TODO: need to handle errors")
                 } else {
-                    print("ERROR unsupported subscription event type!")
+                    print("ERROR unsupported subscription event type! \(event.type)")
                 }
 
             } catch {
