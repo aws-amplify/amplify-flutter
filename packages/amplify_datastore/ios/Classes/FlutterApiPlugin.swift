@@ -119,18 +119,30 @@ public class FlutterApiPlugin: APICategoryPlugin
             }
         }
         print("SWIFT:: creating a sequence!")
-        mySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
+        let mySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
+        mySequence.send(.connection(.connecting))
         
         nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
             do {
-                let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
-                
-                mySequence?.send(.data(responseDecoded))
+                if (event.type == "connected") {
+                    mySequence.send(.connection(.connected))
+                } else if (event.type == "data") {
+                    let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
+                    print("Swift:: event: \(responseDecoded) ")
+                    mySequence.send(.data(responseDecoded))
+                } else if (event.type == "disconnected") {
+                    mySequence.send(.connection(.disconnected))
+                } else if (event.type == "error") {
+                    print("ERROR -- TODO: need to handle errors")
+                } else {
+                    print("ERROR unsupported subscription event type!")
+                }
+
             } catch {
                 print("Failed to decode JSON: \(error.localizedDescription)")
             }
         }).store(in: &cancellables)
-        return mySequence as! AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>
+        return mySequence
     }
     
     public func configure(using configuration: Any?) throws {

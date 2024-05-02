@@ -364,15 +364,23 @@ class _NativeAmplifyApi
   @override
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
-    // print('Flutter subscribe:: ${request.document}');
-
+    print('Flutter subscription:: ${request.document}');
     final flutterRequest = GraphQLRequest<String>(
       document: request.document!,
       variables: (request.variables ?? {}).cast<String, dynamic>(),
       apiName: request.apiName,
     );
 
-    final subscription = Amplify.API.subscribe(flutterRequest);
+    final subscription =
+        Amplify.API.subscribe(flutterRequest, onEstablished: () {
+      print('Flutter subscription established');
+      final nativeStartAck = NativeGraphQLSubscriptionResponse(
+        subscriptionId: flutterRequest.id,
+        type: "start_ack",
+      );
+
+      NativeApiBridge().sendSubscriptionEvent(nativeStartAck);
+    });
 
     subscription.listen((GraphQLResponse<String> event) {
       print('Flutter subscription event:: ${event.data}');
@@ -394,7 +402,7 @@ class _NativeAmplifyApi
     }, onDone: () {
       final nativeResponse = NativeGraphQLSubscriptionResponse(
         subscriptionId: flutterRequest.id,
-        type: "done",
+        type: "complete",
       );
       NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     });
