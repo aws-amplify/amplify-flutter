@@ -45,10 +45,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
                   ?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
           final tp = TextPainter(
-            // TODO(dnys1): replace with textScaleFactor when min flutter version is bumped to 3.16.0
-            // see: https://docs.flutter.dev/release/breaking-changes/deprecate-textscalefactor#migrating-code-that-consumes-textscalefactor
-            // ignore: deprecated_member_use
-            textScaleFactor: MediaQuery.textScaleFactorOf(context),
+            textScaler: MediaQuery.textScalerOf(context),
             text: TextSpan(
               text: text,
               style: style,

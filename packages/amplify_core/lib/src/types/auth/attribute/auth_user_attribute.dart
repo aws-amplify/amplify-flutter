@@ -31,10 +31,6 @@ class AuthUserAttribute
   @override
   List<Object> get props => [userAttributeKey, value];
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   String get runtimeTypeName => 'AuthUserAttribute';
 

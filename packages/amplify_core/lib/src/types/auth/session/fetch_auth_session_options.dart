@@ -33,10 +33,6 @@ class FetchAuthSessionOptions
   @override
   String get runtimeTypeName => 'FetchAuthSessionOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'forceRefresh': forceRefresh,

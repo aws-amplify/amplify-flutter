@@ -26,10 +26,6 @@ class ResetPasswordOptions
   @override
   String get runtimeTypeName => 'ResetPasswordOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),

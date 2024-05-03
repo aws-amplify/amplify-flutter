@@ -447,6 +447,11 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
       ],
     };
   }
+  if (queryFieldOperator is AttributeExistsQueryOperator) {
+    return <String, dynamic>{
+      filterExpression: _getSerializedValue(queryFieldOperator.exists),
+    };
+  }
 
   throw ApiOperationException(
     'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.',
@@ -464,6 +469,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
     QueryFieldOperatorType.between: 'between',
     QueryFieldOperatorType.contains: 'contains',
     QueryFieldOperatorType.begins_with: 'beginsWith',
+    QueryFieldOperatorType.attribute_exists: 'attributeExists',
   };
   final result = dictionary[operatorType];
   if (result == null) {
