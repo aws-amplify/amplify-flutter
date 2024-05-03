@@ -5,15 +5,14 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/src/push_notifications_background_processing.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'push_notifications_background_processing_test.mocks.dart';
 import 'test_data/fake_amplify_configuration.dart';
 
-@GenerateMocks(
-  [AmplifySecureStorage, AmplifyClass],
-)
+class MockAmplifyClass extends Mock implements AmplifyClass {}
+
+class MockAmplifySecureStorage extends Mock implements AmplifySecureStorage {}
+
 void main() {
   final testWidgetsFlutterBinding =
       TestWidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +31,9 @@ void main() {
     test('should fail when the config stored in secure storage is not found',
         () {
       final mockStorage = MockAmplifySecureStorage();
-      when(mockStorage.read(key: anyNamed('key')))
-          .thenAnswer((_) async => null);
+      when(() => mockStorage.read(key: any(named: 'key'))).thenAnswer(
+        (_) async => null,
+      );
 
       expect(
         () async => amplifyBackgroundProcessing(
@@ -46,13 +46,16 @@ void main() {
     test('should configure Amplify plugins', () async {
       log.clear();
       final mockStorage = MockAmplifySecureStorage();
-      when(mockStorage.read(key: anyNamed('key')))
-          .thenAnswer((_) async => amplifyconfig);
+      when(() => mockStorage.read(key: any(named: 'key'))).thenAnswer(
+        (_) async => amplifyconfig,
+      );
+
       final mockAmplify = MockAmplifyClass();
 
-      when(mockAmplify.isConfigured).thenReturn(false);
-      when(mockAmplify.addPlugins(any)).thenAnswer((realInvocation) async {});
-      when(mockAmplify.configure(any)).thenAnswer((realInvocation) async {});
+      when(() => mockAmplify.isConfigured).thenReturn(false);
+      when(() => mockAmplify.addPlugins(any())).thenAnswer((_) async {});
+      when(() => mockAmplify.configure(any())).thenAnswer((_) async {});
+
       await amplifyBackgroundProcessing(
         amplifySecureStorage: mockStorage,
         amplify: mockAmplify,

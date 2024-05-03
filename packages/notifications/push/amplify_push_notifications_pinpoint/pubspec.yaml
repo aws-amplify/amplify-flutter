@@ -36,4 +36,4 @@ dev_dependencies:
   built_value_generator: 8.8.1
   flutter_test:
     sdk: flutter
-  mockito: ^5.0.0
+  mocktail: ^1.0.0
