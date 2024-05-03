@@ -306,6 +306,9 @@ class _NativeAmplifyApi
   final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
       _authProviders;
 
+  final Map<String, StreamSubscription<GraphQLResponse<String>>>
+      _subscriptions = {};
+
   @override
   Future<String?> getLatestAuthToken(String providerName) {
     final provider = APIAuthorizationTypeX.from(providerName);
@@ -327,28 +330,22 @@ class _NativeAmplifyApi
 
   @override
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
-    print('Flutter mutate:: req: $request');
+    // print('Flutter mutate:: req: $request');
     final flutterRequest = _toFlutterRequest(request);
 
     final response = await Amplify.API.mutate(request: flutterRequest).response;
 
-    return NativeGraphQLResponse(
-      payloadJson: response.data,
-      errorsJson: response.errors.toString(),
-    );
+    return _toNativeResponse(response);
   }
 
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
-    print('Flutter query:: $request');
+    // print('Flutter query:: $request');
     final flutterRequest = _toFlutterRequest(request);
 
     final response = await Amplify.API.query(request: flutterRequest).response;
 
-    return NativeGraphQLResponse(
-      payloadJson: response.data,
-      errorsJson: response.errors.toString(),
-    );
+    return _toNativeResponse(response);
   }
 
   GraphQLRequest<String> _toFlutterRequest(NativeGraphQLRequest request) {
@@ -359,15 +356,24 @@ class _NativeAmplifyApi
     );
   }
 
+  NativeGraphQLResponse _toNativeResponse(GraphQLResponse<String> response) {
+    final errors = "";
+    final json = jsonEncode(
+        response.errors.whereNotNull().map((e) => e.toJson()).toList());
+    print('Flutter response:: errors: $json');
+    return NativeGraphQLResponse(
+      payloadJson: response.data,
+      errorsJson: errors,
+    );
+  }
+
   @override
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
-    print('Flutter subscription:: ${request.document}');
+    // print('Flutter subscription:: ${request.document}');
     final flutterRequest = _toFlutterRequest(request);
 
-    final subscription =
-        Amplify.API.subscribe(flutterRequest, onEstablished: () {
-      print('Flutter subscription established');
+    final operation = Amplify.API.subscribe(flutterRequest, onEstablished: () {
       final nativeStartAck = NativeGraphQLSubscriptionResponse(
         subscriptionId: flutterRequest.id,
         type: "start_ack",
@@ -376,8 +382,7 @@ class _NativeAmplifyApi
       NativeApiBridge().sendSubscriptionEvent(nativeStartAck);
     });
 
-    subscription.listen((GraphQLResponse<String> event) {
-      print('Flutter subscription event:: ${event.data}');
+    final subscription = operation.listen((GraphQLResponse<String> event) {
       final nativeResponse = NativeGraphQLSubscriptionResponse(
         subscriptionId: flutterRequest.id,
         payloadJson: event.data,
@@ -402,6 +407,17 @@ class _NativeAmplifyApi
       NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     });
 
+    _subscriptions[flutterRequest.id] = subscription;
+
     return NativeGraphQLSubscriptionResponse(subscriptionId: flutterRequest.id);
+  }
+
+  @override
+  Future<void> unsubscribe(String subscriptionId) async {
+    final subscription = _subscriptions[subscriptionId];
+    if (subscription != null) {
+      await subscription.cancel();
+      _subscriptions.remove(subscriptionId);
+    }
   }
 }

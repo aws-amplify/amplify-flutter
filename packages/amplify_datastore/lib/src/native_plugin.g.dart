@@ -354,6 +354,8 @@ abstract class NativeApiPlugin {
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request);
 
+  Future<void> unsubscribe(String subscriptionId);
+
   static void setup(NativeApiPlugin? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
@@ -435,6 +437,26 @@ abstract class NativeApiPlugin {
           final NativeGraphQLSubscriptionResponse output =
               await api.subscribe(arg_request!);
           return output;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe',
+          codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final String? arg_subscriptionId = (args[0] as String?);
+          assert(arg_subscriptionId != null,
+              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null, expected non-null String.');
+          await api.unsubscribe(arg_subscriptionId!);
+          return;
         });
       }
     }

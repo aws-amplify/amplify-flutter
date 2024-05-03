@@ -36,6 +36,9 @@ abstract class NativeApiPlugin {
 
   @async
   NativeGraphQLSubscriptionResponse subscribe(NativeGraphQLRequest request);
+
+  @async
+  void unsubscribe(String subscriptionId);
 }
 
 @HostApi()

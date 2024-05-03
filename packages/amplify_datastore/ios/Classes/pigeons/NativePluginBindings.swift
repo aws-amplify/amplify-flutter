@@ -391,6 +391,12 @@ class NativeApiPlugin {
       completion(result)
     }
   }
+  func unsubscribe(subscriptionId subscriptionIdArg: String, completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([subscriptionIdArg] as [Any?]) { _ in
+      completion()
+    }
+  }
 }
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NativeAmplifyBridge {

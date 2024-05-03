@@ -373,6 +373,12 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback(result)
     }
   }
+  fun unsubscribe(subscriptionIdArg: String, callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe", codec)
+    channel.send(listOf(subscriptionIdArg)) {
+      callback()
+    }
+  }
 }
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface NativeAmplifyBridge {
