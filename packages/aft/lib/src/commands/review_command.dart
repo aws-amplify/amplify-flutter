@@ -94,7 +94,12 @@ class ReviewCommand extends AmplifyCommand {
       ['pr', 'ready', ref],
     );
     if (branchName.exitCode != 0) {
-      logger.error('A PR is not ready at ref: $ref');
+      final error = branchName.stderr.toString();
+      if (error.contains('Could not resolve to a PullRequest')) {
+        logger.error('A PR is not ready at ref: $ref');
+      } else {
+        logger.error('Invalid ref: $error');
+      }
       exit(1);
     }
   }
