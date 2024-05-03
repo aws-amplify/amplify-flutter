@@ -22,12 +22,26 @@ extension GraphQLResponse {
     }
 
     public static func fromAppSyncResponse<R: Decodable>(
+        string: String,
+        decodePath: String?,
+        modelName: String? = nil
+    ) -> GraphQLResponse<R> {
+        guard let data = string.data(using: .utf8) else {
+            return .failure(.transformationError(
+                string,
+                .operationError("Unable to deserialize json data", "Check the event structure.", nil)
+            ))
+        }
+        return fromAppSyncResponse(data: data, decodePath: decodePath, modelName: modelName)
+    }
+
+    public static func fromAppSyncResponse<R: Decodable>(
         data: Data,
-        decodePath: String
+        decodePath: String?,
+        modelName: String? = nil
     ) -> GraphQLResponse<R> {
         toJson(data: data)
-            .flatMap {
-                fromAppSyncResponse(json: $0, decodePath: decodePath) }
+            .flatMap { fromAppSyncResponse(json: $0, decodePath: decodePath, modelName: modelName) }
             .mapError {
                 if let response = String(data: data, encoding: .utf8) {
                     return .transformationError(response, $0)
@@ -37,23 +51,20 @@ extension GraphQLResponse {
             }
     }
 
-
     static func fromAppSyncResponse<R: Decodable>(
         json: JSONValue,
-        decodePath: String
+        decodePath: String?,
+        modelName: String?
     ) -> Result<R, APIError> {
-//        if let decodePath {
+        if let decodePath {
             if let payload = json.value(at: decodePath) {
-                let modelName = payload.value(at: "__typename")?.stringValue
                 return decodeDataPayload(payload, modelName: modelName)
             } else {
                 return .failure(.operationError("Empty data on decode path \(decodePath)", "", nil))
             }
-
-//        } 
-//        else {
-//            return decodeDataPayload(json, modelName: modelName)
-//        }
+        } else {
+            return decodeDataPayload(json, modelName: modelName)
+        }
     }
 
     static func decodeDataPayload<R: Decodable>(

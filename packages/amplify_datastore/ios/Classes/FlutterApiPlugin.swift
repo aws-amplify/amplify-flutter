@@ -18,13 +18,16 @@ public class FlutterApiPlugin: APICategoryPlugin
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
-    private  let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
+    private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = Set<AnyCancellable>()
     private var modelSchemaRegistry: FlutterSchemaRegistry
     
-    private var mySequence: AmplifyAsyncThrowingSequence<any Sendable>?
-    
-    init(apiAuthProviderFactory: APIAuthProviderFactory, nativeApiPlugin: NativeApiPlugin, modelSchemaRegistry: FlutterSchemaRegistry, subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>) {
+    init(
+        apiAuthProviderFactory: APIAuthProviderFactory,
+        nativeApiPlugin: NativeApiPlugin,
+        modelSchemaRegistry: FlutterSchemaRegistry,
+        subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
+    ) {
         self.apiAuthFactory = apiAuthProviderFactory
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
@@ -34,47 +37,22 @@ public class FlutterApiPlugin: APICategoryPlugin
     public func apiAuthProviderFactory() -> APIAuthProviderFactory {
         return self.apiAuthFactory // might not need
     }
-    
-    private func getNativeGraphQLRequest<R>(request: GraphQLRequest<R>) -> NativeGraphQLRequest {
-        let variablesJson = variablesToJson(request.variables)
-        
-        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variablesJson: variablesJson, responseType: String(describing: request.responseType), decodePath: request.decodePath)
-        return nativeRequest
-    }
-    
-    private func decodeResponse<R>(request: GraphQLRequest<R>, response: NativeGraphQLResponse) throws ->
-    GraphQLResponse<R> {
-        return try decodePayloadJson(request: request, payload: response.payloadJson)
-    }
-    
-    private func decodeResponse<R>(request: GraphQLRequest<R>, response: NativeGraphQLSubscriptionResponse) throws ->
-    GraphQLResponse<R> {
-        return try decodePayloadJson(request: request, payload: response.payloadJson)
-    }
-    
-    private func decodePayloadJson<R>(request: GraphQLRequest<R>, payload: String?) throws -> GraphQLResponse<R>{
-        guard let jsonData = payload?.data(using: .utf8) else {
-            throw DataStoreError.decodingError("Unable to deserialize json data", "Check the event structure.")
+
+    private func decodePayloadJson<R>(
+        request: GraphQLRequest<R>,
+        payload: String?
+    ) throws -> GraphQLResponse<R> {
+        guard let payload else {
+            throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
-        if (request.decodePath == nil) {
-            throw DataStoreError.decodingError("No decodePath found", "Please provide a valid decodePath to the request")
-        }
-        let response: GraphQLResponse<R> = .fromAppSyncResponse(
-            data: jsonData,
-            decodePath: request.decodePath!
+
+        return GraphQLResponse<R>.fromAppSyncResponse(
+            string: payload,
+            decodePath: request.decodePath
         )
-        return response
     }
-    
-    func variablesToJson(_ dict: [String: Any]?) -> String {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: dict ?? [:], options: .prettyPrinted) else {
-                return "{}"
-            }
-        return String(decoding: jsonData, as: UTF8.self)
-    }
-    
-    
-    func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
+
+    func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
             nativeApiPlugin.query(request: nativeRequest) { response in
                 print("Swift:: query response: \(response)")
@@ -82,13 +60,14 @@ public class FlutterApiPlugin: APICategoryPlugin
             }
         }
     }
+
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
         print("Swift:: Query called")
-        let nativeRequest = getNativeGraphQLRequest(request: request)
+        let nativeRequest = request.toNativeGraphQLRequest()
         print("Swift:: Query request made")
         let response = await asyncQuery(nativeRequest: nativeRequest)
         print("Swift:: Query got response")
-        let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
+        let responseDecoded: GraphQLResponse<R> = try decodePayloadJson(request: request, payload: response.payloadJson)
         print("Swift:: Query decoded response")
         
         return responseDecoded
@@ -102,52 +81,48 @@ public class FlutterApiPlugin: APICategoryPlugin
             }
         }
     }
-    
-    
+
     public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        let nativeRequest = getNativeGraphQLRequest(request: request)
-        
-        let response = await asyncMutate(nativeRequest: nativeRequest)
-            
-        let responseDecoded: GraphQLResponse<R> =  try  decodeResponse(request: request, response: response)
-        
-        return responseDecoded
+        let response = await asyncMutate(nativeRequest: request.toNativeGraphQLRequest())
+        return try decodePayloadJson(request: request, payload: response.payloadJson)
     }
 
-    public func subscribe<R: Decodable>(request: GraphQLRequest<R>) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
-        let nativeRequest = getNativeGraphQLRequest(request: request)
-        
+    public func subscribe<R: Decodable>(
+        request: GraphQLRequest<R>
+    ) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
         var subscriptionId: String? = ""
-        DispatchQueue.main.async {
-            self.nativeApiPlugin.subscribe(request: nativeRequest) { response in
-                subscriptionId = response.subscriptionId
-            }
-        }
-        print("SWIFT:: creating a sequence!")
-        let mySequence = AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>>()
-        mySequence.send(.connection(.connecting))
-        
-        nativeSubscriptionEvents.filter{(subscriptionId != nil) && $0.subscriptionId == subscriptionId}.sink(receiveValue: { event in
-            do {
-                if (event.type == "start_ack") {
-                    mySequence.send(.connection(.connected))
-                } else if (event.type == "data") {
-                    let responseDecoded: GraphQLResponse<R> =  try  self.decodeResponse(request: request, response: event)
-                    print("Swift:: event: \(responseDecoded) ")
-                    mySequence.send(.data(responseDecoded))
-                } else if (event.type == "complete") {
-                    mySequence.send(.connection(.disconnected))
-                } else if (event.type == "error") {
-                    print("ERROR -- TODO: need to handle errors")
-                } else {
-                    print("ERROR unsupported subscription event type! \(event.type)")
+        let (sequence, cancellable) = nativeSubscriptionEvents // shouldn't there be a timeout if there is no start_ack returned in a certain period of time
+            .filter { $0.subscriptionId != nil }
+            .filter { $0.subscriptionId == subscriptionId }
+            .compactMap { [weak self] event -> GraphQLSubscriptionEvent<R>? in
+                switch event.type {
+                case .some("start_ack"):
+                    return .connection(.connected)
+                case .some("complete"):
+                    return .connection(.disconnected)
+                case .some("data"):
+                    if let responseDecoded: GraphQLResponse<R> =
+                        try? self?.decodePayloadJson(request: request, payload: event.payloadJson)
+                    {
+                        print("Swift:: event: \(responseDecoded) ")
+                        return .data(responseDecoded)
+                    }
+                    return nil
+                case .some("error"):
+                    // TODO: (5d) error parsing
+                    print("received error:  \(String(describing: event.payloadJson))")
+                    return nil
+                default:
+                    print("ERROR unsupported subscription event type! \(String(describing: event.type))")
+                    return nil
                 }
-
-            } catch {
-                print("Failed to decode JSON: \(error.localizedDescription)")
-            }
-        }).store(in: &cancellables)
-        return mySequence
+            }.toAmplifyAsyncThrowingSequence()
+        cancellables.insert(cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+        sequence.send(.connection(.connecting))
+        self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
+            subscriptionId = response.subscriptionId
+        }
+        return sequence
     }
     
     public func configure(using configuration: Any?) throws {
@@ -190,9 +165,4 @@ public class FlutterApiPlugin: APICategoryPlugin
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {
         return nil
     }
-}
-
-
-extension GraphQLSubscriptionEvent: Sendable {
-    
 }
