@@ -36,9 +36,9 @@ public class FlutterApiPlugin: APICategoryPlugin
     }
     
     private func getNativeGraphQLRequest<R>(request: GraphQLRequest<R>) -> NativeGraphQLRequest {
-        let variables = request.variables?.compactMapValues { $0 as? String }
+        let variablesJson = variablesToJson(request.variables)
         
-        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variables: variables, responseType: String(describing: request.responseType), decodePath: request.decodePath)
+        let nativeRequest = NativeGraphQLRequest(apiName: request.apiName, document: request.document, variablesJson: variablesJson, responseType: String(describing: request.responseType), decodePath: request.decodePath)
         return nativeRequest
     }
     
@@ -64,6 +64,13 @@ public class FlutterApiPlugin: APICategoryPlugin
             decodePath: request.decodePath!
         )
         return response
+    }
+    
+    func variablesToJson(_ dict: [String: Any]?) -> String {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: dict ?? [:], options: .prettyPrinted) else {
+                return "{}"
+            }
+        return String(decoding: jsonData, as: UTF8.self)
     }
     
     

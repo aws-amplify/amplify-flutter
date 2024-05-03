@@ -210,7 +210,7 @@ class NativeGraphQLRequest {
   NativeGraphQLRequest({
     this.apiName,
     this.document,
-    this.variables,
+    this.variablesJson,
     this.responseType,
     this.decodePath,
     this.options,
@@ -220,7 +220,7 @@ class NativeGraphQLRequest {
 
   String? document;
 
-  Map<String?, String?>? variables;
+  String? variablesJson;
 
   String? responseType;
 
@@ -232,7 +232,7 @@ class NativeGraphQLRequest {
     return <Object?>[
       apiName,
       document,
-      variables,
+      variablesJson,
       responseType,
       decodePath,
       options,
@@ -244,8 +244,7 @@ class NativeGraphQLRequest {
     return NativeGraphQLRequest(
       apiName: result[0] as String?,
       document: result[1] as String?,
-      variables:
-          (result[2] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      variablesJson: result[2] as String?,
       responseType: result[3] as String?,
       decodePath: result[4] as String?,
       options: (result[5] as Map<Object?, Object?>?)?.cast<String?, String?>(),

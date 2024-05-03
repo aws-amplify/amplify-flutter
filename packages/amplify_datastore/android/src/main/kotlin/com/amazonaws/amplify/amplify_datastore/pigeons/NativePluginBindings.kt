@@ -207,7 +207,7 @@ data class NativeGraphQLSubscriptionResponse (
 data class NativeGraphQLRequest (
   val apiName: String? = null,
   val document: String? = null,
-  val variables: Map<String?, String?>? = null,
+  val variablesJson: String? = null,
   val responseType: String? = null,
   val decodePath: String? = null,
   val options: Map<String?, String?>? = null
@@ -218,18 +218,18 @@ data class NativeGraphQLRequest (
     fun fromList(list: List<Any?>): NativeGraphQLRequest {
       val apiName = list[0] as String?
       val document = list[1] as String?
-      val variables = list[2] as Map<String?, String?>?
+      val variablesJson = list[2] as String?
       val responseType = list[3] as String?
       val decodePath = list[4] as String?
       val options = list[5] as Map<String?, String?>?
-      return NativeGraphQLRequest(apiName, document, variables, responseType, decodePath, options)
+      return NativeGraphQLRequest(apiName, document, variablesJson, responseType, decodePath, options)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
       apiName,
       document,
-      variables,
+      variablesJson,
       responseType,
       decodePath,
       options,

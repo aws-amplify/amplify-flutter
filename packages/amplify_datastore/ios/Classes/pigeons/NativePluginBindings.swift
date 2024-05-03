@@ -211,7 +211,7 @@ struct NativeGraphQLSubscriptionResponse {
 struct NativeGraphQLRequest {
   var apiName: String? = nil
   var document: String? = nil
-  var variables: [String?: String?]? = nil
+  var variablesJson: String? = nil
   var responseType: String? = nil
   var decodePath: String? = nil
   var options: [String?: String?]? = nil
@@ -219,7 +219,7 @@ struct NativeGraphQLRequest {
   static func fromList(_ list: [Any?]) -> NativeGraphQLRequest? {
     let apiName: String? = nilOrValue(list[0])
     let document: String? = nilOrValue(list[1])
-    let variables: [String?: String?]? = nilOrValue(list[2])
+    let variablesJson: String? = nilOrValue(list[2])
     let responseType: String? = nilOrValue(list[3])
     let decodePath: String? = nilOrValue(list[4])
     let options: [String?: String?]? = nilOrValue(list[5])
@@ -227,7 +227,7 @@ struct NativeGraphQLRequest {
     return NativeGraphQLRequest(
       apiName: apiName,
       document: document,
-      variables: variables,
+      variablesJson: variablesJson,
       responseType: responseType,
       decodePath: decodePath,
       options: options
@@ -237,7 +237,7 @@ struct NativeGraphQLRequest {
     return [
       apiName,
       document,
-      variables,
+      variablesJson,
       responseType,
       decodePath,
       options,

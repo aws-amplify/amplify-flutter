@@ -114,7 +114,7 @@ class NativeGraphQLSubscriptionResponse {
 class NativeGraphQLRequest {
   String? apiName;
   String? document;
-  Map<String?, String?>? variables;
+  String? variablesJson;
   String? responseType; // needs proper typing
   String? decodePath;
   Map<String?, String?>? options; // needs proper typing

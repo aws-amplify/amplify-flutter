@@ -327,13 +327,8 @@ class _NativeAmplifyApi
 
   @override
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
-    print('Flutter mutate:: $request');
-
-    final flutterRequest = GraphQLRequest<String>(
-      document: request.document!,
-      variables: (request.variables ?? {}).cast<String, dynamic>(),
-      apiName: request.apiName,
-    );
+    print('Flutter mutate:: req: $request');
+    final flutterRequest = _toFlutterRequest(request);
 
     final response = await Amplify.API.mutate(request: flutterRequest).response;
 
@@ -346,12 +341,7 @@ class _NativeAmplifyApi
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
     print('Flutter query:: $request');
-
-    final flutterRequest = GraphQLRequest<String>(
-      document: request.document!,
-      variables: (request.variables ?? {}).cast<String, dynamic>(),
-      apiName: request.apiName,
-    );
+    final flutterRequest = _toFlutterRequest(request);
 
     final response = await Amplify.API.query(request: flutterRequest).response;
 
@@ -361,15 +351,19 @@ class _NativeAmplifyApi
     );
   }
 
+  GraphQLRequest<String> _toFlutterRequest(NativeGraphQLRequest request) {
+    return GraphQLRequest<String>(
+      document: request.document!,
+      variables: jsonDecode(request.variablesJson ?? '{}'),
+      apiName: request.apiName,
+    );
+  }
+
   @override
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
     print('Flutter subscription:: ${request.document}');
-    final flutterRequest = GraphQLRequest<String>(
-      document: request.document!,
-      variables: (request.variables ?? {}).cast<String, dynamic>(),
-      apiName: request.apiName,
-    );
+    final flutterRequest = _toFlutterRequest(request);
 
     final subscription =
         Amplify.API.subscribe(flutterRequest, onEstablished: () {
@@ -392,9 +386,10 @@ class _NativeAmplifyApi
 
       NativeApiBridge().sendSubscriptionEvent(nativeResponse);
     }, onError: (error) {
+      final errorPayload = error.toString();
       final nativeResponse = NativeGraphQLSubscriptionResponse(
         subscriptionId: flutterRequest.id,
-        payloadJson: error,
+        payloadJson: errorPayload,
         type: "error",
       );
 
