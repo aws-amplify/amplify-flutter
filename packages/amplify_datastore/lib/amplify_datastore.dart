@@ -357,13 +357,12 @@ class _NativeAmplifyApi
   }
 
   NativeGraphQLResponse _toNativeResponse(GraphQLResponse<String> response) {
-    final errors = "";
     final json = jsonEncode(
         response.errors.whereNotNull().map((e) => e.toJson()).toList());
     print('Flutter response:: errors: $json');
     return NativeGraphQLResponse(
       payloadJson: response.data,
-      errorsJson: errors,
+      errorsJson: json,
     );
   }
 
