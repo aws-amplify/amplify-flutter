@@ -1,3 +1,10 @@
+## 0.4.0
+
+### Breaking Changes
+- chore!: rename StorageNotFoundException ([#4770](https://github.com/aws-amplify/amplify-flutter/pull/4770))
+- feat!: Update storage APIs to accept `StoragePath` ([#4713](https://github.com/aws-amplify/amplify-flutter/pull/4713))
+- feat!: move `delimiter` to `S3ListPluginOptions` ([#4773](https://github.com/aws-amplify/amplify-flutter/pull/4773))
+
 ## 0.3.11
 
 ### Features

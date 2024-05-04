@@ -1,3 +1,11 @@
+## 0.5.1
+
+- Minor bug fixes and improvements
+
+## 0.5.0
+
+- Retracted
+
 ## 0.4.4
 
 - Add Apple privacy manifest file ([#4794](https://github.com/aws-amplify/amplify-flutter/pull/4794))

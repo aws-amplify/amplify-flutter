@@ -1,3 +1,8 @@
+## 0.7.0
+
+### Breaking Changes
+- feat!: remove error match on http status code ([#4750](https://github.com/aws-amplify/amplify-flutter/pull/4750))
+
 ## 0.6.4
 
 ### Features

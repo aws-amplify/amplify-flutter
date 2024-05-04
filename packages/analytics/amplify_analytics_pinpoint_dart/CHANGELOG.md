@@ -1,3 +1,8 @@
+## 0.4.0
+
+### Breaking Changes
+- feat!: use plugin options for optional plugin parameters ([#4762](https://github.com/aws-amplify/amplify-flutter/pull/4762))
+
 ## 0.3.8
 
 ### Features
