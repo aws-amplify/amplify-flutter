@@ -1,3 +1,12 @@
+## 0.11.0
+
+### Breaking Changes
+- chore!: remove deprecated auth types ([#4764](https://github.com/aws-amplify/amplify-flutter/pull/4764))
+- fix!: regenerate cognito sdks to update signup operation for adding limit exceeded exception ([#4781](https://github.com/aws-amplify/amplify-flutter/pull/4781))
+
+### Fixes
+- fix: map Lambda exceptions correctly ([#4804](https://github.com/aws-amplify/amplify-flutter/pull/4804))
+
 ## 0.10.13
 
 ### Features
