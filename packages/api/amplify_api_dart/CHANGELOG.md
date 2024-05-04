@@ -1,3 +1,14 @@
+## 0.5.0
+
+### Breaking Changes
+- chore!: Model .fromJson() Refactor ([#4665](https://github.com/aws-amplify/amplify-flutter/pull/4665))
+- chore!: Removed deprecated members … ([#4772](https://github.com/aws-amplify/amplify-flutter/pull/4772))
+- chore!: remove Model.getId() usages ([#4774](https://github.com/aws-amplify/amplify-flutter/pull/4774))
+- feat!: use plugin options for optional plugin parameters ([#4762](https://github.com/aws-amplify/amplify-flutter/pull/4762))
+
+### Features
+- feat: Add attributeExists query predicate ([#4134](https://github.com/aws-amplify/amplify-flutter/pull/4134))
+
 ## 0.4.1
 
 ### Fixes

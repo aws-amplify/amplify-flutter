@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Minor bug fixes and improvements
+
 ## 1.8.0
 
 ### Features
