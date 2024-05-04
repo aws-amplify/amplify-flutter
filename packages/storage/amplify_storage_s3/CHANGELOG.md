@@ -1,3 +1,19 @@
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+This release enables flexible storage paths when using Amplify Gen 2 Storage. This release also addresses several bugs that required breaking changes to resolve. See the change log below for the full list of updates.
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- chore!: rename StorageNotFoundException ([#4770](https://github.com/aws-amplify/amplify-flutter/pull/4770))
+- feat!: Update storage APIs to accept `StoragePath` ([#4713](https://github.com/aws-amplify/amplify-flutter/pull/4713))
+- feat!: remove error match on http status code ([#4750](https://github.com/aws-amplify/amplify-flutter/pull/4750))
+- feat!: move `delimiter` to `S3ListPluginOptions` ([#4773](https://github.com/aws-amplify/amplify-flutter/pull/4773))
+
 ## 1.8.0
 
 ### Features

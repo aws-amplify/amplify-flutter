@@ -1,3 +1,19 @@
+## 2.0.0
+
+We are thrilled to release version 2.0 of the Amplify Flutter libraries to add support for Amplify Gen 2. Learn more about Amplify Gen 2 at [https://docs.amplify.aws](https://docs.amplify.aws).
+
+If you are upgrading an existing project using Amplify Flutter v1 (created with Amplify Gen 1 CLI or a custom pipeline) please see the [upgrade guide](https://docs.amplify.aws/gen1/flutter/start/project-setup/upgrade-guide/).
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and [Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Breaking Changes
+- chore!: remove deprecated auth types ([#4764](https://github.com/aws-amplify/amplify-flutter/pull/4764))
+- fix!: regenerate cognito sdks to update signup operation for adding limit exceeded exception ([#4781](https://github.com/aws-amplify/amplify-flutter/pull/4781))
+
+### Fixes
+- fix: Android Intent URI Query Parameter Parsing ([#4546](https://github.com/aws-amplify/amplify-flutter/pull/4546))
+- fix: map Lambda exceptions correctly ([#4804](https://github.com/aws-amplify/amplify-flutter/pull/4804))
+
 ## 1.8.0
 
 ### Features
