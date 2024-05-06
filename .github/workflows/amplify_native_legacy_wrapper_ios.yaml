@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
       - 'packages/amplify_native_legacy_wrapper/**/*.yaml'
@@ -15,6 +14,7 @@ on:
       - '.github/workflows/amplify_native_legacy_wrapper_ios.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
+  workflow_dispatch:
 defaults:
   run:
     shell: bash

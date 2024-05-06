@@ -32,6 +32,7 @@ on:
       - 'packages/test/pub_server/test/**/*'
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
