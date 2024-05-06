@@ -308,6 +308,7 @@ ${workflowPaths.map((path) => "      - '$path'").join('\n')}
 ${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
@@ -498,7 +499,6 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
       - '$repoRelativePath/**/*.yaml'
@@ -507,6 +507,7 @@ on:
 ${androidWorkflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
@@ -569,7 +570,6 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
       - '$repoRelativePath/**/*.yaml'
@@ -578,6 +578,7 @@ on:
 ${iosWorkflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
