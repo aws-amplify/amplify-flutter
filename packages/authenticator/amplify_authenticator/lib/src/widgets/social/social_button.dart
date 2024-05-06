@@ -188,6 +188,8 @@ class _SocialSignInButtonState
     );
   }
 
+  // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+  // ignore: deprecated_member_use
   MaterialStateProperty<Color?> getButtonForegroundColor(BuildContext context) {
     final theme = Theme.of(context);
     final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
@@ -196,6 +198,8 @@ class _SocialSignInButtonState
     }
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+    // ignore: deprecated_member_use
     return MaterialStateProperty.all(isDark ? Colors.white : Colors.black);
   }
 
