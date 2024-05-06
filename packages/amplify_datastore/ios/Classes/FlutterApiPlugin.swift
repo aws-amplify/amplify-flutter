@@ -66,15 +66,16 @@ public class FlutterApiPlugin: APICategoryPlugin
                         return .connection(.disconnected)
                     case "data":
                         if let responseDecoded: GraphQLResponse<R> =
-                            try? self?.decodePayloadJson(request: request, payload: event.payloadJson)
+                            try? self?.decodeGraphQLPayloadJson(request: request, payload: event.payloadJson)
                         {
                             return .data(responseDecoded)
                         }
                         return nil
                     case "error":
-                        // TODO: (5d) error parsing
-                        print("received error:  \(String(describing: event.payloadJson))")
-                        return nil
+                        if let payload = event.payloadJson {
+                            return .data(.fromAppSyncSubscriptionErrorResponse(string: payload))
+                        }
+                    return nil
                     default:
                         print("ERROR unsupported subscription event type! \(String(describing: event.type))")
                         return nil
@@ -91,7 +92,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         return sequence
     }
 
-    private func decodePayloadJson<R>(
+    private func decodeGraphQLPayloadJson<R>(
         request: GraphQLRequest<R>,
         payload: String?
     ) throws -> GraphQLResponse<R> {
@@ -100,6 +101,20 @@ public class FlutterApiPlugin: APICategoryPlugin
         }
 
         return GraphQLResponse<R>.fromAppSyncResponse(
+            string: payload,
+            decodePath: request.decodePath
+        )
+    }
+
+    private func decodeGraphQLSubscriptionPayloadJson<R>(
+        request: GraphQLRequest<R>,
+        payload: String?
+    ) throws -> GraphQLResponse<R> {
+        guard let payload else {
+            throw DataStoreError.decodingError("Request payload could not be empty", "")
+        }
+
+        return GraphQLResponse<R>.fromAppSyncSubscriptionResponse(
             string: payload,
             decodePath: request.decodePath
         )
