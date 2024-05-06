@@ -214,7 +214,7 @@ struct NativeGraphQLRequest {
   var variablesJson: String? = nil
   var responseType: String? = nil
   var decodePath: String? = nil
-  var options: [String?: String?]? = nil
+  var options: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLRequest? {
     let apiName: String? = nilOrValue(list[0])
@@ -222,7 +222,7 @@ struct NativeGraphQLRequest {
     let variablesJson: String? = nilOrValue(list[2])
     let responseType: String? = nilOrValue(list[3])
     let decodePath: String? = nilOrValue(list[4])
-    let options: [String?: String?]? = nilOrValue(list[5])
+    let options: String? = nilOrValue(list[5])
 
     return NativeGraphQLRequest(
       apiName: apiName,

@@ -118,7 +118,7 @@ class NativeGraphQLRequest {
   String? apiName;
   String? document;
   String? variablesJson;
-  String? responseType; // needs proper typing
+  String? responseType;
   String? decodePath;
-  Map<String?, String?>? options; // needs proper typing
+  String? options;
 }

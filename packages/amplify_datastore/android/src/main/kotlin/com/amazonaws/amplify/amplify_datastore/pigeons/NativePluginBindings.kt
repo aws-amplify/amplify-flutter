@@ -210,7 +210,7 @@ data class NativeGraphQLRequest (
   val variablesJson: String? = null,
   val responseType: String? = null,
   val decodePath: String? = null,
-  val options: Map<String?, String?>? = null
+  val options: String? = null
 
 ) {
   companion object {
@@ -221,7 +221,7 @@ data class NativeGraphQLRequest (
       val variablesJson = list[2] as String?
       val responseType = list[3] as String?
       val decodePath = list[4] as String?
-      val options = list[5] as Map<String?, String?>?
+      val options = list[5] as String?
       return NativeGraphQLRequest(apiName, document, variablesJson, responseType, decodePath, options)
     }
   }

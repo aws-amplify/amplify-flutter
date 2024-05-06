@@ -226,7 +226,7 @@ class NativeGraphQLRequest {
 
   String? decodePath;
 
-  Map<String?, String?>? options;
+  String? options;
 
   Object encode() {
     return <Object?>[
@@ -247,7 +247,7 @@ class NativeGraphQLRequest {
       variablesJson: result[2] as String?,
       responseType: result[3] as String?,
       decodePath: result[4] as String?,
-      options: (result[5] as Map<Object?, Object?>?)?.cast<String?, String?>(),
+      options: result[5] as String?,
     );
   }
 }

@@ -96,7 +96,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         request: GraphQLRequest<R>
     ) -> AmplifyAsyncThrowingSequence<GraphQLSubscriptionEvent<R>> where R : Decodable {
         // TODO: write a e2e test to ensure we don't go over 100 AppSync connections
-        func unsub(subscriptionId: String?){
+        func unsubscribe(subscriptionId: String?){
             if let subscriptionId {
                 DispatchQueue.main.async {
                     self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) {}
@@ -105,13 +105,13 @@ public class FlutterApiPlugin: APICategoryPlugin
         }
         
         var subscriptionId: String? = ""
-        let (sequence, cancellable) = nativeSubscriptionEvents // shouldn't there be a timeout if there is no start_ack returned in a certain period of time
+        let (sequence, cancellable) = nativeSubscriptionEvents // TODO: shouldn't there be a timeout if there is no start_ack returned in a certain period of time
             .filter { $0.subscriptionId != nil }
             .filter { $0.subscriptionId == subscriptionId }
             .handleEvents(receiveCompletion: {_ in 
-                unsub(subscriptionId: subscriptionId)
+                unsubscribe(subscriptionId: subscriptionId)
             }, receiveCancel: {
-                unsub(subscriptionId: subscriptionId)
+                unsubscribe(subscriptionId: subscriptionId)
             })
             .compactMap { [weak self] event -> GraphQLSubscriptionEvent<R>? in
                 switch event.type {
