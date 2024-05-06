@@ -326,6 +326,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
                 style: ButtonStyle(
+                  // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+                  // ignore: deprecated_member_use
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),
                 onPressed: _signOut,
