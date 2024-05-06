@@ -20,6 +20,8 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Blog" ? Colors.white10 : Colors.white60,
         ),
@@ -38,6 +40,8 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Post" ? Colors.white10 : Colors.white60,
         ),
@@ -56,6 +60,8 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Comment" ? Colors.white10 : Colors.white60,
         ),
