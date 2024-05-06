@@ -38,7 +38,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         return self.apiAuthFactory // might not need
     }
 
-    private func decodePayloadJson<R>(
+    private func decodeGraphQLPayloadJson<R>(
         request: GraphQLRequest<R>,
         payload: String?
     ) throws -> GraphQLResponse<R> {
@@ -51,6 +51,21 @@ public class FlutterApiPlugin: APICategoryPlugin
             decodePath: request.decodePath
         )
     }
+
+    private func decodeGraphQLSubscriptionPayloadJson<R>(
+        request: GraphQLRequest<R>,
+        payload: String?
+    ) throws -> GraphQLResponse<R> {
+        guard let payload else {
+            throw DataStoreError.decodingError("Request payload could not be empty", "")
+        }
+
+        return GraphQLResponse<R>.fromAppSyncSubscriptionResponse(
+            string: payload,
+            decodePath: request.decodePath
+        )
+    }
+
 
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
@@ -69,7 +84,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         print("Swift:: Query request made")
         let response = await asyncQuery(nativeRequest: nativeRequest)
         print("Swift:: Query got response")
-        let responseDecoded: GraphQLResponse<R> = try decodePayloadJson(request: request, payload: response.payloadJson)
+        let responseDecoded: GraphQLResponse<R> = try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
         print("Swift:: Query decoded response")
         
         return responseDecoded
@@ -88,7 +103,7 @@ public class FlutterApiPlugin: APICategoryPlugin
 
     public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
         let response = await asyncMutate(nativeRequest: request.toNativeGraphQLRequest())
-        return try decodePayloadJson(request: request, payload: response.payloadJson)
+        return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
     }
 
 
@@ -121,15 +136,16 @@ public class FlutterApiPlugin: APICategoryPlugin
                     return .connection(.disconnected)
                 case .some("data"):
                     if let responseDecoded: GraphQLResponse<R> =
-                        try? self?.decodePayloadJson(request: request, payload: event.payloadJson)
+                        try? self?.decodeGraphQLSubscriptionPayloadJson(request: request, payload: event.payloadJson)
                     {
                         print("Swift:: event: \(responseDecoded) ")
                         return .data(responseDecoded)
                     }
                     return nil
                 case .some("error"):
-                    // TODO: (5d) error parsing
-                    print("received error:  \(String(describing: event.payloadJson))")
+                    if let payload = event.payloadJson {
+                        return .data(.fromAppSyncSubscriptionErrorResponse(string: payload))
+                    }
                     return nil
                 default:
                     print("ERROR unsupported subscription event type! \(String(describing: event.type))")
