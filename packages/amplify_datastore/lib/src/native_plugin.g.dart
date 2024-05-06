@@ -177,48 +177,48 @@ class NativeGraphQLResponse {
 
 class NativeGraphQLSubscriptionResponse {
   NativeGraphQLSubscriptionResponse({
-    this.subscriptionId,
+    required this.type,
+    required this.subscriptionId,
     this.payloadJson,
-    this.type,
   });
 
-  String? subscriptionId;
+  String type;
+
+  String subscriptionId;
 
   String? payloadJson;
 
-  String? type;
-
   Object encode() {
     return <Object?>[
+      type,
       subscriptionId,
       payloadJson,
-      type,
     ];
   }
 
   static NativeGraphQLSubscriptionResponse decode(Object result) {
     result as List<Object?>;
     return NativeGraphQLSubscriptionResponse(
-      subscriptionId: result[0] as String?,
-      payloadJson: result[1] as String?,
-      type: result[2] as String?,
+      type: result[0]! as String,
+      subscriptionId: result[1]! as String,
+      payloadJson: result[2] as String?,
     );
   }
 }
 
 class NativeGraphQLRequest {
   NativeGraphQLRequest({
+    required this.document,
     this.apiName,
-    this.document,
     this.variablesJson,
     this.responseType,
     this.decodePath,
     this.options,
   });
 
-  String? apiName;
+  String document;
 
-  String? document;
+  String? apiName;
 
   String? variablesJson;
 
@@ -230,8 +230,8 @@ class NativeGraphQLRequest {
 
   Object encode() {
     return <Object?>[
-      apiName,
       document,
+      apiName,
       variablesJson,
       responseType,
       decodePath,
@@ -242,8 +242,8 @@ class NativeGraphQLRequest {
   static NativeGraphQLRequest decode(Object result) {
     result as List<Object?>;
     return NativeGraphQLRequest(
-      apiName: result[0] as String?,
-      document: result[1] as String?,
+      document: result[0]! as String,
+      apiName: result[1] as String?,
       variablesJson: result[2] as String?,
       responseType: result[3] as String?,
       decodePath: result[4] as String?,

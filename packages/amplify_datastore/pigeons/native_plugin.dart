@@ -114,14 +114,14 @@ class NativeGraphQLResponse {
 }
 
 class NativeGraphQLSubscriptionResponse {
-  String? subscriptionId;
+  late String type;
+  late String subscriptionId;
   String? payloadJson;
-  String? type;
 }
 
 class NativeGraphQLRequest {
+  late String document;
   String? apiName;
-  String? document;
   String? variablesJson;
   String? responseType;
   String? decodePath;

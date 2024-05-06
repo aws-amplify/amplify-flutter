@@ -180,33 +180,33 @@ data class NativeGraphQLResponse (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class NativeGraphQLSubscriptionResponse (
-  val subscriptionId: String? = null,
-  val payloadJson: String? = null,
-  val type: String? = null
+  val type: String,
+  val subscriptionId: String,
+  val payloadJson: String? = null
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): NativeGraphQLSubscriptionResponse {
-      val subscriptionId = list[0] as String?
-      val payloadJson = list[1] as String?
-      val type = list[2] as String?
-      return NativeGraphQLSubscriptionResponse(subscriptionId, payloadJson, type)
+      val type = list[0] as String
+      val subscriptionId = list[1] as String
+      val payloadJson = list[2] as String?
+      return NativeGraphQLSubscriptionResponse(type, subscriptionId, payloadJson)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
+      type,
       subscriptionId,
       payloadJson,
-      type,
     )
   }
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class NativeGraphQLRequest (
+  val document: String,
   val apiName: String? = null,
-  val document: String? = null,
   val variablesJson: String? = null,
   val responseType: String? = null,
   val decodePath: String? = null,
@@ -216,19 +216,19 @@ data class NativeGraphQLRequest (
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): NativeGraphQLRequest {
-      val apiName = list[0] as String?
-      val document = list[1] as String?
+      val document = list[0] as String
+      val apiName = list[1] as String?
       val variablesJson = list[2] as String?
       val responseType = list[3] as String?
       val decodePath = list[4] as String?
       val options = list[5] as String?
-      return NativeGraphQLRequest(apiName, document, variablesJson, responseType, decodePath, options)
+      return NativeGraphQLRequest(document, apiName, variablesJson, responseType, decodePath, options)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
-      apiName,
       document,
+      apiName,
       variablesJson,
       responseType,
       decodePath,

@@ -183,50 +183,50 @@ struct NativeGraphQLResponse {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct NativeGraphQLSubscriptionResponse {
-  var subscriptionId: String? = nil
+  var type: String
+  var subscriptionId: String
   var payloadJson: String? = nil
-  var type: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLSubscriptionResponse? {
-    let subscriptionId: String? = nilOrValue(list[0])
-    let payloadJson: String? = nilOrValue(list[1])
-    let type: String? = nilOrValue(list[2])
+    let type = list[0] as! String
+    let subscriptionId = list[1] as! String
+    let payloadJson: String? = nilOrValue(list[2])
 
     return NativeGraphQLSubscriptionResponse(
+      type: type,
       subscriptionId: subscriptionId,
-      payloadJson: payloadJson,
-      type: type
+      payloadJson: payloadJson
     )
   }
   func toList() -> [Any?] {
     return [
+      type,
       subscriptionId,
       payloadJson,
-      type,
     ]
   }
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct NativeGraphQLRequest {
+  var document: String
   var apiName: String? = nil
-  var document: String? = nil
   var variablesJson: String? = nil
   var responseType: String? = nil
   var decodePath: String? = nil
   var options: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLRequest? {
-    let apiName: String? = nilOrValue(list[0])
-    let document: String? = nilOrValue(list[1])
+    let document = list[0] as! String
+    let apiName: String? = nilOrValue(list[1])
     let variablesJson: String? = nilOrValue(list[2])
     let responseType: String? = nilOrValue(list[3])
     let decodePath: String? = nilOrValue(list[4])
     let options: String? = nilOrValue(list[5])
 
     return NativeGraphQLRequest(
-      apiName: apiName,
       document: document,
+      apiName: apiName,
       variablesJson: variablesJson,
       responseType: responseType,
       decodePath: decodePath,
@@ -235,8 +235,8 @@ struct NativeGraphQLRequest {
   }
   func toList() -> [Any?] {
     return [
-      apiName,
       document,
+      apiName,
       variablesJson,
       responseType,
       decodePath,
