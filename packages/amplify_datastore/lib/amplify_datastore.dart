@@ -297,6 +297,9 @@ class _NativeAmplifyApi
       _authProviders;
 
   @override
+  String get runtimeTypeName => '_NativeAmplifyApi';
+
+  @override
   Future<String?> getLatestAuthToken(String providerName) {
     final provider = APIAuthorizationTypeX.from(providerName);
     if (provider == null) {
@@ -313,5 +316,23 @@ class _NativeAmplifyApi
   }
 
   @override
-  String get runtimeTypeName => '_NativeAmplifyApi';
+  Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<NativeGraphQLSubscriptionResponse> subscribe(
+      NativeGraphQLRequest request) async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> unsubscribe(String subscriptionId) async {
+    throw UnimplementedError();
+  }
 }
