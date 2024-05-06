@@ -54,9 +54,11 @@ public class FlutterApiPlugin: APICategoryPlugin
 
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
-            nativeApiPlugin.query(request: nativeRequest) { response in
-                print("Swift:: query response: \(response)")
-                continuation.resume(returning: response)
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.query(request: nativeRequest) { response in
+                    print("Swift:: query response: \(response)")
+                    continuation.resume(returning: response)
+                }
             }
         }
     }
@@ -75,9 +77,11 @@ public class FlutterApiPlugin: APICategoryPlugin
     
     func asyncMutate(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
         await withCheckedContinuation { continuation in
-            nativeApiPlugin.mutate(request: nativeRequest) { response in
-                print("Swift:: mutate response: \(response)")
-                continuation.resume(returning: response)
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.mutate(request: nativeRequest) { response in
+                    print("Swift:: mutate response: \(response)")
+                    continuation.resume(returning: response)
+                }
             }
         }
     }
@@ -94,7 +98,9 @@ public class FlutterApiPlugin: APICategoryPlugin
         // TODO: write a e2e test to ensure we don't go over 100 AppSync connections
         func unsub(subscriptionId: String?){
             if let subscriptionId {
-                self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) {}
+                DispatchQueue.main.async {
+                    self.nativeApiPlugin.unsubscribe(subscriptionId: subscriptionId) {}
+                }
             }
         }
         
@@ -132,8 +138,10 @@ public class FlutterApiPlugin: APICategoryPlugin
             }.toAmplifyAsyncThrowingSequence()
         cancellables.insert(cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
         sequence.send(.connection(.connecting))
-        self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
-            subscriptionId = response.subscriptionId
+        DispatchQueue.main.async {
+            self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
+                subscriptionId = response.subscriptionId
+            }
         }
         return sequence
     }
