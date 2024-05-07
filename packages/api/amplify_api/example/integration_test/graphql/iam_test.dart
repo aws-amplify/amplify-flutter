@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
@@ -19,6 +20,8 @@ import '../util.dart';
 /// after tests complete, but during test execution the number of models can
 /// increase past the default limit.
 const _limit = 10000;
+
+const _max = 10000;
 
 void main({bool useExistingTestUser = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -186,6 +189,51 @@ void main({bool useExistingTestUser = false}) {
         expect(postFromResponse?.blog?.id, isNotNull);
         expect(postFromResponse?.blog?.id, createdPost.blog?.id);
         expect(postFromResponse?.title, title);
+      });
+
+      testWidgets('should return model if attribute exists',
+          (WidgetTester tester) async {
+        // Use same name to scope the query to the created model.
+        final name = 'Lorem Ipsum Test Sample: ${uuid()}';
+        final number = Random().nextInt(_max);
+        await addSamplePartial(
+          name,
+          number: number,
+        );
+        await addSamplePartial(name);
+
+        final existsRequest = ModelQueries.list(
+          Sample.classType,
+          where: Sample.NUMBER.attributeExists().and(Sample.NAME.eq(name)),
+          limit: _limit,
+        );
+
+        final existsResponse = await Amplify.API
+            .query(
+              request: existsRequest,
+            )
+            .response;
+
+        final existsData = existsResponse.data;
+        expect(existsData?.items.length, 1);
+        expect(existsData?.items[0]?.number, number);
+
+        final doesNotExistRequest = ModelQueries.list(
+          Sample.classType,
+          where: Sample.NUMBER
+              .attributeExists(exists: false)
+              .and(Sample.NAME.eq(name)),
+          limit: _limit,
+        );
+        final doesNotExistResponse = await Amplify.API
+            .query(
+              request: doesNotExistRequest,
+            )
+            .response;
+
+        final doesNotExistData = doesNotExistResponse.data;
+        expect(doesNotExistData?.items.length, 1);
+        expect(doesNotExistData?.items[0]?.number, null);
       });
 
       testWidgets('should copyWith request', (WidgetTester tester) async {

@@ -14,7 +14,8 @@ enum QueryFieldOperatorType {
   greater_than,
   contains,
   between,
-  begins_with
+  begins_with,
+  attribute_exists,
 }
 
 extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
@@ -255,5 +256,28 @@ class BeginsWithQueryOperator extends QueryFieldOperatorSingleValue<String> {
       return false;
     }
     return other.startsWith(value);
+  }
+}
+
+class AttributeExistsQueryOperator<T> extends QueryFieldOperator<T> {
+  const AttributeExistsQueryOperator({this.exists = true})
+      : super(QueryFieldOperatorType.attribute_exists);
+
+  final bool exists;
+
+  @override
+  bool evaluate(T? other) {
+    if (exists == true) {
+      return other != null;
+    }
+    return other == null;
+  }
+
+  @override
+  Map<String, dynamic> serializeAsMap() {
+    return <String, dynamic>{
+      'operatorName': QueryFieldOperatorType.attribute_exists.toShortString(),
+      'exists': this.exists,
+    };
   }
 }

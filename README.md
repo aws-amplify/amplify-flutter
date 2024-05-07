@@ -119,9 +119,9 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 
 ```yaml
 dependencies:
-  amplify_auth_cognito: ^1.0.0
-  amplify_authenticator: ^1.0.0
-  amplify_flutter: ^1.0.0
+  amplify_auth_cognito: ^2.0.0
+  amplify_authenticator: ^2.0.0
+  amplify_flutter: ^2.0.0
   flutter:
     sdk: flutter
 ```

@@ -27,31 +27,27 @@ sealed class CognitoServiceException extends core.AuthServiceException {
 /// {@endtemplate}
 final class LambdaException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
-  factory LambdaException(
-    String message, {
-    String? recoverySuggestion,
-    Object? underlyingException,
-  }) {
-    final match = _errorRegex.firstMatch(message);
-    final lambdaName = match?.group(1);
-    final parsedMessage = match?.group(2);
-    if (parsedMessage != null) {
-      message = parsedMessage;
-    }
-    return LambdaException._(
-      message,
-      lambdaName: lambdaName,
-      recoverySuggestion: recoverySuggestion,
-      underlyingException: underlyingException,
-    );
-  }
-
-  const LambdaException._(
+  const LambdaException(
     super.message, {
-    this.lambdaName,
     super.recoverySuggestion,
     super.underlyingException,
-  });
+  }) : _message = message;
+
+  final String _message;
+
+  @override
+  String get message {
+    final match = _errorRegex.firstMatch(_message);
+    final parsedMessage = match?.group(2);
+    return parsedMessage ?? _message;
+  }
+
+  /// The name of the lambda which triggered this exception.
+  String? get lambdaName {
+    final match = _errorRegex.firstMatch(_message);
+    final lambdaName = match?.group(1);
+    return lambdaName;
+  }
 
   /// Whether [exception] originated in a user Lambda.
   static bool isLambdaException(String exception) =>
@@ -64,9 +60,6 @@ final class LambdaException extends CognitoServiceException {
   /// send back any special code to distinguish these from other, more general
   /// errors.
   static final RegExp _errorRegex = RegExp(r'(\w+) failed with error (.*)\.');
-
-  /// The name of the lambda which triggered this exception.
-  final String? lambdaName;
 
   @override
   String get runtimeTypeName => 'LambdaException';
@@ -227,7 +220,7 @@ final class InvalidEmailRoleAccessPolicyException
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_lambda_response_exception}
 /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
 /// {@endtemplate}
-final class InvalidLambdaResponseException extends CognitoServiceException {
+final class InvalidLambdaResponseException extends LambdaException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_lambda_response_exception}
   const InvalidLambdaResponseException(
     super.message, {
@@ -456,7 +449,7 @@ final class UnauthorizedException extends CognitoServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unexpected_lambda_exception}
 /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
 /// {@endtemplate}
-final class UnexpectedLambdaException extends CognitoServiceException {
+final class UnexpectedLambdaException extends LambdaException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unexpected_lambda_exception}
   const UnexpectedLambdaException(
     super.message, {
@@ -501,7 +494,7 @@ final class UnsupportedTokenTypeException extends CognitoServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.user_lambda_validation_exception}
 /// This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.
 /// {@endtemplate}
-final class UserLambdaValidationException extends CognitoServiceException {
+final class UserLambdaValidationException extends LambdaException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.user_lambda_validation_exception}
   const UserLambdaValidationException(
     super.message, {
@@ -614,15 +607,6 @@ Object transformSdkException(Object e) {
   }
   final message = e.message ?? 'An unknown error occurred';
   final shapeName = e.shapeId?.shape;
-
-  // Some exceptions are returned as non-Lambda exceptions even though they
-  // orginated in user-defined lambdas.
-  if (LambdaException.isLambdaException(message) ||
-      shapeName == 'InvalidLambdaResponseException' ||
-      shapeName == 'UnexpectedLambdaException' ||
-      shapeName == 'UserLambdaValidationException') {
-    return LambdaException(message, underlyingException: e);
-  }
 
   return switch (shapeName) {
     'AliasExistsException' => AliasExistsException(
@@ -766,6 +750,13 @@ Object transformSdkException(Object e) {
         message,
         underlyingException: e,
       ),
-    _ => UnknownServiceException(message, underlyingException: e),
+    _ => (() {
+        // Some exceptions are returned as non-Lambda exceptions even though they
+        // originated in user-defined lambdas.
+        if (LambdaException.isLambdaException(message)) {
+          return LambdaException(message, underlyingException: e);
+        }
+        return UnknownServiceException(message, underlyingException: e);
+      })(),
   };
 }
