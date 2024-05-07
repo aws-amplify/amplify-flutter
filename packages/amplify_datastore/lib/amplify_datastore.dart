@@ -321,12 +321,16 @@ class _NativeAmplifyApi
 
   @override
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
-    throw UnimplementedError();
+    final flutterRequest = NativeRequestToGraphQLRequest(request);
+    final response = await Amplify.API.mutate(request: flutterRequest).response;
+    return GraphQLResponseToNativeResponse(response);
   }
 
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
-    throw UnimplementedError();
+    final flutterRequest = NativeRequestToGraphQLRequest(request);
+    final response = await Amplify.API.query(request: flutterRequest).response;
+    return GraphQLResponseToNativeResponse(response);
   }
 
   @override
