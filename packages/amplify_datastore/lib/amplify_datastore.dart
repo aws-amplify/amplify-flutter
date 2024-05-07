@@ -9,6 +9,7 @@ import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/src/datastore_plugin_options.dart';
 import 'package:amplify_datastore/src/method_channel_datastore.dart';
 import 'package:amplify_datastore/src/native_plugin.g.dart';
+import 'package:amplify_datastore/src/utils/native_api_helpers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
@@ -296,6 +297,9 @@ class _NativeAmplifyApi
   final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
       _authProviders;
 
+  final Map<String, StreamSubscription<GraphQLResponse<String>>>
+      _subscriptionsCache = {};
+
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
 
@@ -328,11 +332,32 @@ class _NativeAmplifyApi
   @override
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
-    throw UnimplementedError();
+    final flutterRequest = NativeRequestToGraphQLRequest(request);
+
+    final operation = Amplify.API.subscribe(flutterRequest,
+        onEstablished: () => sendNativeStartAckEvent(flutterRequest.id));
+
+    final subscription = operation.listen(
+        (GraphQLResponse<String> event) =>
+            sendNativeDataEvent(flutterRequest.id, event.data),
+        onError: (error) {
+          // TODO(equartey): verify that error.toString() is the correct payload format. Should match AppSync
+          final errorPayload = error.toString();
+          sendNativeErrorEvent(flutterRequest.id, errorPayload);
+        },
+        onDone: () => sendNativeCompleteEvent(flutterRequest.id));
+
+    _subscriptionsCache[flutterRequest.id] = subscription;
+
+    return getConnectingEvent(flutterRequest.id);
   }
 
   @override
   Future<void> unsubscribe(String subscriptionId) async {
-    throw UnimplementedError();
+    final subscription = _subscriptionsCache[subscriptionId];
+    if (subscription != null) {
+      await subscription.cancel();
+      _subscriptionsCache.remove(subscriptionId);
+    }
   }
 }
