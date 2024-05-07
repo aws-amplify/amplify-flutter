@@ -41,7 +41,7 @@ protocol RemoteSyncEngineBehavior: AnyObject {
     ///    the updates in the Datastore
     /// 1. Mutation processor drains messages off the queue in serial and sends to the service, invoking
     ///    any local callbacks on error if necessary
-    func start(api: APICategoryGraphQLBehaviorExtended, auth: AuthCategoryBehavior?)
+    func start(api: APICategoryGraphQLBehavior, auth: AuthCategoryBehavior?)
 
     func stop(completion: @escaping DataStoreCallback<Void>)
 

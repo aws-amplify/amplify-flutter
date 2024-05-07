@@ -11,6 +11,7 @@ import Foundation
 /// See https://aws-amplify.github.io/docs/ios/storage#storage-access
 ///
 /// - Tag: StorageAccessLevel
+@available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
 public enum StorageAccessLevel: String {
 
     /// Objects can be read or written by any user without authentication

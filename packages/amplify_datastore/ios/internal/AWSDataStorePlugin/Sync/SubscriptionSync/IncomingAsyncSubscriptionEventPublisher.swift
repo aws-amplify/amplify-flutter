@@ -6,7 +6,7 @@
 //
 
 import Amplify
-import AWSPluginsCore
+@_spi(WebSocket) import AWSPluginsCore
 import Combine
 import Foundation
 
@@ -39,7 +39,8 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         return onCreateConnected && onUpdateConnected && onDeleteConnected
     }
 
-    private let incomingSubscriptionEvents: PassthroughSubject<Event, DataStoreError>
+    private let incomingSubscriptionEvents = PassthroughSubject<Event, DataStoreError>()
+    private var cancelables = Set<AnyCancellable>()
     private let awsAuthService: AWSAuthServiceBehavior
 
     private let consistencyQueue: DispatchQueue
@@ -47,7 +48,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
     private let modelName: ModelName
 
     init(modelSchema: ModelSchema,
-         api: APICategoryGraphQLBehaviorExtended,
+         api: APICategoryGraphQLBehavior,
          modelPredicate: QueryPredicate?,
          auth: AuthCategoryBehavior?,
          authModeStrategy: AuthModeStrategy,
@@ -67,72 +68,81 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         connectionStatusQueue.maxConcurrentOperationCount = 1
         connectionStatusQueue.isSuspended = false
 
-        let incomingSubscriptionEvents = PassthroughSubject<Event, DataStoreError>()
-        self.incomingSubscriptionEvents = incomingSubscriptionEvents
         self.awsAuthService = awsAuthService ?? AWSAuthService()
 
         // onCreate operation
-        let onCreateValueListener = onCreateValueListenerHandler(event:)
-        let onCreateAuthTypeProvider = await authModeStrategy.authTypesFor(schema: modelSchema,
-                                                                           operations: [.create, .read])
-        self.onCreateValueListener = onCreateValueListener
-        self.onCreateOperation = RetryableGraphQLSubscriptionOperation(
-            requestFactory: IncomingAsyncSubscriptionEventPublisher.apiRequestFactoryFor(
-                for: modelSchema,
-                subscriptionType: .onCreate,
-                api: api,
-                auth: auth,
-                awsAuthService: self.awsAuthService,
-                authTypeProvider: onCreateAuthTypeProvider),
-            maxRetries: onCreateAuthTypeProvider.count,
-            resultListener: genericCompletionListenerHandler) { nextRequest, wrappedCompletion in
-            api.subscribe(request: nextRequest,
-                          valueListener: onCreateValueListener,
-                          completionListener: wrappedCompletion)
-        }
-        onCreateOperation?.main()
+        self.onCreateValueListener = onCreateValueListenerHandler(event:)
+        self.onCreateOperation = await retryableOperation(
+            subscriptionType: .create,
+            modelSchema: modelSchema,
+            authModeStrategy: authModeStrategy,
+            auth: auth,
+            api: api
+        )
+        onCreateOperation?.subscribe()
+            .sink(receiveCompletion: genericCompletionListenerHandler(result:), receiveValue: onCreateValueListener!)
+            .store(in: &cancelables)
 
         // onUpdate operation
-        let onUpdateValueListener = onUpdateValueListenerHandler(event:)
-        let onUpdateAuthTypeProvider = await authModeStrategy.authTypesFor(schema: modelSchema,
-                                                                           operations: [.update, .read])
-        self.onUpdateValueListener = onUpdateValueListener
-        self.onUpdateOperation = RetryableGraphQLSubscriptionOperation(
-            requestFactory: IncomingAsyncSubscriptionEventPublisher.apiRequestFactoryFor(
-                for: modelSchema,
-                subscriptionType: .onUpdate,
-                api: api,
-                auth: auth,
-                awsAuthService: self.awsAuthService,
-                authTypeProvider: onUpdateAuthTypeProvider),
-            maxRetries: onUpdateAuthTypeProvider.count,
-            resultListener: genericCompletionListenerHandler) { nextRequest, wrappedCompletion in
-            api.subscribe(request: nextRequest,
-                          valueListener: onUpdateValueListener,
-                          completionListener: wrappedCompletion)
-        }
-        onUpdateOperation?.main()
+        self.onUpdateValueListener = onUpdateValueListenerHandler(event:)
+        self.onUpdateOperation = await retryableOperation(
+            subscriptionType: .update,
+            modelSchema: modelSchema,
+            authModeStrategy: authModeStrategy,
+            auth: auth,
+            api: api
+        )
+        onUpdateOperation?.subscribe()
+            .sink(receiveCompletion: genericCompletionListenerHandler(result:), receiveValue: onUpdateValueListener!)
+            .store(in: &cancelables)
 
         // onDelete operation
-        let onDeleteValueListener = onDeleteValueListenerHandler(event:)
-        let onDeleteAuthTypeProvider = await authModeStrategy.authTypesFor(schema: modelSchema,
-                                                                           operations: [.delete, .read])
-        self.onDeleteValueListener = onDeleteValueListener
-        self.onDeleteOperation = RetryableGraphQLSubscriptionOperation(
-            requestFactory: IncomingAsyncSubscriptionEventPublisher.apiRequestFactoryFor(
-                for: modelSchema,
-                subscriptionType: .onDelete,
-                api: api,
-                auth: auth,
-                awsAuthService: self.awsAuthService,
-                authTypeProvider: onDeleteAuthTypeProvider),
-            maxRetries: onUpdateAuthTypeProvider.count,
-            resultListener: genericCompletionListenerHandler) { nextRequest, wrappedCompletion in
-            api.subscribe(request: nextRequest,
-                          valueListener: onDeleteValueListener,
-                          completionListener: wrappedCompletion)
-        }
-        onDeleteOperation?.main()
+        self.onDeleteValueListener = onDeleteValueListenerHandler(event:)
+        self.onDeleteOperation = await retryableOperation(
+            subscriptionType: .delete,
+            modelSchema: modelSchema,
+            authModeStrategy: authModeStrategy,
+            auth: auth,
+            api: api
+        )
+        onDeleteOperation?.subscribe()
+            .sink(receiveCompletion: genericCompletionListenerHandler(result:), receiveValue: onDeleteValueListener!)
+            .store(in: &cancelables)
+    }
+
+
+    func retryableOperation(
+        subscriptionType: IncomingAsyncSubscriptionType,
+        modelSchema: ModelSchema,
+        authModeStrategy: AuthModeStrategy,
+        auth: AuthCategoryBehavior?,
+        api: APICategoryGraphQLBehavior
+    ) async -> RetryableGraphQLSubscriptionOperation<Payload> {
+        let authTypeProvider = await authModeStrategy.authTypesFor(
+            schema: modelSchema,
+            operations: subscriptionType.operations
+        )
+
+        return RetryableGraphQLSubscriptionOperation(
+            requestStream: authTypeProvider.publisher()
+                .map { Optional.some($0) } // map to optional to have nil as element
+                .replaceEmpty(with: nil) // use a nil element to trigger default auth if no auth provided
+                .map { authType in { [weak self] in
+                    guard let self else {
+                        throw APIError.operationError("GraphQL subscription cancelled", "")
+                    }
+
+                    return api.subscribe(request: await IncomingAsyncSubscriptionEventPublisher.makeAPIRequest(
+                        for: modelSchema,
+                        subscriptionType: subscriptionType.subscriptionType,
+                        api: api,
+                        auth: auth,
+                        authType: authType,
+                        awsAuthService: self.awsAuthService
+                    ))
+                }}
+                .eraseToAnyPublisher()
+        )
     }
 
     func onCreateValueListenerHandler(event: Event) {
@@ -183,9 +193,9 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         }
     }
 
-    func genericCompletionListenerHandler(result: Result<Void, APIError>) {
+    func genericCompletionListenerHandler(result: Subscribers.Completion<APIError>) {
         switch result {
-        case .success:
+        case .finished:
             send(completion: .finished)
         case .failure(let apiError):
             log.verbose("[InitializeSubscription.1] API.subscribe failed for `\(modelName)` error: \(apiError.errorDescription)")
@@ -196,7 +206,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
 
     static func makeAPIRequest(for modelSchema: ModelSchema,
                                subscriptionType: GraphQLSubscriptionType,
-                               api: APICategoryGraphQLBehaviorExtended,
+                               api: APICategoryGraphQLBehavior,
                                auth: AuthCategoryBehavior?,
                                authType: AWSAuthorizationType?,
                                awsAuthService: AWSAuthServiceBehavior) async -> GraphQLRequest<Payload> {
@@ -226,7 +236,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         return request
     }
 
-    static func hasOIDCAuthProviderAvailable(api: APICategoryGraphQLBehaviorExtended) -> AmplifyOIDCAuthProvider? {
+    static func hasOIDCAuthProviderAvailable(api: APICategoryGraphQLBehavior) -> AmplifyOIDCAuthProvider? {
         if let apiPlugin = api as? APICategoryAuthProviderFactoryBehavior,
             let oidcAuthProvider = apiPlugin.apiAuthProviderFactory().oidcAuthProvider() {
             return oidcAuthProvider
@@ -254,7 +264,7 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
 
     func cancel() {
         consistencyQueue.sync {
-            genericCompletionListenerHandler(result: .successfulVoid)
+            genericCompletionListenerHandler(result: .finished)
 
             onCreateOperation?.cancel()
             onCreateOperation = nil
@@ -287,30 +297,33 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
             onDeleteOperation = nil
             onDeleteValueListener?(.connection(.disconnected))
 
-            genericCompletionListenerHandler(result: .successfulVoid)
+            genericCompletionListenerHandler(result: .finished)
         }
     }
 
 }
 
-// MARK: - IncomingAsyncSubscriptionEventPublisher + API request factory
-extension IncomingAsyncSubscriptionEventPublisher {
-    static func apiRequestFactoryFor(for modelSchema: ModelSchema,
-                                     subscriptionType: GraphQLSubscriptionType,
-                                     api: APICategoryGraphQLBehaviorExtended,
-                                     auth: AuthCategoryBehavior?,
-                                     awsAuthService: AWSAuthServiceBehavior,
-                                     authTypeProvider: AWSAuthorizationTypeIterator) -> RetryableGraphQLOperation<Payload>.RequestFactory {
-        var authTypes = authTypeProvider
-        return {
-            return await IncomingAsyncSubscriptionEventPublisher.makeAPIRequest(for: modelSchema,
-                                                                          subscriptionType: subscriptionType,
-                                                                          api: api,
-                                                                          auth: auth,
-                                                                          authType: authTypes.next(),
-                                                                          awsAuthService: awsAuthService)
+enum IncomingAsyncSubscriptionType {
+    case create
+    case delete
+    case update
+
+    var operations: [ModelOperation] {
+        switch self {
+        case .create: return [.create, .read]
+        case .delete: return [.delete, .read]
+        case .update: return [.update, .read]
         }
     }
+
+    var subscriptionType: GraphQLSubscriptionType {
+        switch self {
+        case .create: return .onCreate
+        case .delete: return .onDelete
+        case .update: return .onUpdate
+        }
+    }
+
 }
 
 extension IncomingAsyncSubscriptionEventPublisher: DefaultLogger {

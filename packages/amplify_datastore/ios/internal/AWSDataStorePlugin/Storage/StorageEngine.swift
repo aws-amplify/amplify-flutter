@@ -206,6 +206,7 @@ final class StorageEngine: StorageEngineBehavior {
                 "Cannot apply a condition on model which does not exist.",
                 "Save the model instance without a condition first.")
             completion(.failure(causedBy: dataStoreError))
+            return
         }
 
         do {
