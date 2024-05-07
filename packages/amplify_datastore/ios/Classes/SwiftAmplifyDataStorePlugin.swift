@@ -606,6 +606,10 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                                                               flutterResult: flutterResult)
         }
     }
+    
+    func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, any Error>) -> Void) {
+        fatalError("not implemented")
+    }
 
     private func checkArguments(args: Any) throws -> [String: Any] {
         guard let res = args as? [String: Any] else {
