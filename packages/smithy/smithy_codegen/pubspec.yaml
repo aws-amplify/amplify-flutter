@@ -13,7 +13,7 @@ dependencies:
   aws_signature_v4: any
   build_cli_annotations: ^2.0.0
   built_collection: ^5.1.1
-  built_value: ^8.6.0
+  built_value: ^8.9.2
   code_builder: 4.10.0
   collection: ^1.15.0
   crclib: ^3.0.0
@@ -25,7 +25,7 @@ dependencies:
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"
-  protobuf: ^2.0.1
+  protobuf: ^3.1.0
   pub_semver: ^2.1.0
   pubspec_parse: ^1.2.0
   shelf: ^1.1.0
@@ -37,12 +37,12 @@ dependencies:
   yaml_edit: ^2.0.1
 
 dev_dependencies:
-  amplify_lints: ">=3.0.0 <3.1.0"
+  amplify_lints: ^3.1.0
   build_cli: ^2.1.6
   build_runner: ^2.4.0
   build_verify: ^3.0.0
   build_version: ^2.1.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
   json_serializable: 6.7.1
   smithy_test:
     path: ../smithy_test
