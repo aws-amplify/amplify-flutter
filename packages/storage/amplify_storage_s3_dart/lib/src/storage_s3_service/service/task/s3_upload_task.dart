@@ -172,14 +172,11 @@ class S3UploadTask {
   int _currentSubTaskId = 0;
   final Completer<void> _determineUploadModeCompleter = Completer();
   Completer<void>? _uploadPartBatchingCompleter;
-  Completer<void>? _abortMultipartUploadCompleter;
 
   FutureOr<void> get _uploadModeDetermined =>
       _determineUploadModeCompleter.future;
   FutureOr<void> get _uploadPartBatchingCompleted =>
       _uploadPartBatchingCompleter?.future;
-  FutureOr<void> get _abortMultipartUploadCompleted =>
-      _abortMultipartUploadCompleter?.future;
 
   int get _numOfOngoingSubtasks => _ongoingSubtasks.length;
   int get _numOfCompletedSubtasks => _completedSubtasks.length;
@@ -263,6 +260,7 @@ class S3UploadTask {
     if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
       return;
     }
+    _state = StorageTransferState.paused;
 
     await _uploadPartBatchingCompleted;
 
@@ -279,6 +277,7 @@ class S3UploadTask {
     if (!_isMultipartUpload || _state != StorageTransferState.paused) {
       return;
     }
+    _state = StorageTransferState.inProgress;
     await _uploadPartBatchingCompleted;
 
     _subtasksStreamSubscription.resume();
@@ -300,6 +299,7 @@ class S3UploadTask {
         _state == StorageTransferState.failure) {
       return;
     }
+    _state = StorageTransferState.canceled;
 
     if (_isMultipartUpload) {
       await _subtasksStreamSubscription.cancel();
@@ -355,10 +355,17 @@ class S3UploadTask {
 
       _state = StorageTransferState.success;
     } on CancellationException {
-      _logger.debug('PutObject HTTP operation has been canceled.');
-      _state = StorageTransferState.canceled;
-      _uploadCompleter
-          .completeError(s3_exception.s3ControllableOperationCanceledException);
+      // CancellationException is expected when the operation is paused. The
+      // exception should be swallowed in this case.
+      if (_state == StorageTransferState.paused) {
+        _logger.debug(
+          'PutObject HTTP operation has been paused.',
+        );
+        return;
+      }
+      _uploadCompleter.completeError(
+        s3_exception.s3ControllableOperationCanceledException,
+      );
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
         error.toStorageException(),
@@ -376,6 +383,7 @@ class S3UploadTask {
   Future<void> _startMultipartUpload(
     AWSFile localFile,
   ) async {
+    _state = StorageTransferState.inProgress;
     // 1. check if can initiate multipart upload with the given file size
     // and create a multipart upload and set its id to _multipartUploadId
     try {
@@ -396,29 +404,25 @@ class S3UploadTask {
     _subtasksStreamController = StreamController(
       onListen: () {
         // 3. start the multipart uploading
-        _state = StorageTransferState.inProgress;
         unawaited(_startNextUploadPartsBatch());
         _emitTransferProgress();
         _determineUploadModeCompleter.complete();
       },
       onPause: () async {
-        _state = StorageTransferState.paused;
-        _cancelOngoingUploadPartOperations(cancelingOnPause: true);
+        await _cancelOngoingUploadPartOperations(cancelingOnPause: true);
         _emitTransferProgress();
       },
       onResume: () async {
         unawaited(_startNextUploadPartsBatch(resumingFromPause: true));
-        _state = StorageTransferState.inProgress;
         _emitTransferProgress();
       },
       onCancel: () async {
         // _streamController.close triggers this callback but we don't
         // need to emit canceled state as the upload has completed
-        if (_state == StorageTransferState.canceled ||
-            _numOfCompletedSubtasks == _expectedNumOfSubtasks) {
+        if (_numOfCompletedSubtasks == _expectedNumOfSubtasks) {
           return;
         }
-        _cancelOngoingUploadPartOperations();
+        await _cancelOngoingUploadPartOperations();
         await _terminateMultipartUploadOnError(
           s3_exception.s3ControllableOperationCanceledException,
           isCancel: true,
@@ -690,10 +694,17 @@ class S3UploadTask {
     try {
       final completedSubtask = await uploadPartRequest;
       _subtasksStreamController.add(completedSubtask);
-    } on CancellationException {
-      _logger
-          .debug('Part $partNumber upload HTTP operation has been canceled.');
     } on Exception catch (error) {
+      // Each part upload is canceled during pause/cancel, which results in an
+      // expected Exception. _terminateMultipartUploadOnError does not need to be
+      // invoked since it is already invoked when cancel() is invoked.
+      if (_state == StorageTransferState.canceled ||
+          _state == StorageTransferState.paused) {
+        _logger.debug(
+          'Part $partNumber upload HTTP operation has been ${_state.name}.',
+        );
+        return;
+      }
       // May include:
       //   - exceptions created from smithy.UnknownSmithyHttpException
       //   - NetworkException
@@ -702,15 +713,17 @@ class S3UploadTask {
     }
   }
 
-  void _cancelOngoingUploadPartOperations({
+  Future<void> _cancelOngoingUploadPartOperations({
     bool cancelingOnPause = false,
-  }) {
+  }) async {
+    final cancelFutures = <Future<void>>[];
     for (final operation in _ongoingUploadPartHttpOperations.values) {
-      operation.smithyOperation.cancel();
+      cancelFutures.add(operation.smithyOperation.cancel());
       if (!cancelingOnPause) {
         _ongoingSubtasks.remove(operation.partNumber);
       }
     }
+    await Future.wait(cancelFutures);
   }
 
   Future<void> _terminateMultipartUploadOnError(
@@ -719,13 +732,9 @@ class S3UploadTask {
   }) async {
     // in parallel part upload failures will all invoke this function
     // use this to avoid invoking AbortMultipartUploadRequest multiple times
-    await _abortMultipartUploadCompleted;
-    if (_state == StorageTransferState.canceled ||
-        _state == StorageTransferState.failure) {
+    if (_state == StorageTransferState.failure) {
       return;
     }
-
-    _abortMultipartUploadCompleter = Completer();
 
     final request = s3.AbortMultipartUploadRequest.build((builder) {
       builder
@@ -747,8 +756,6 @@ class S3UploadTask {
         ),
       );
     }
-
-    _abortMultipartUploadCompleter?.complete();
   }
 
   void _completeUploadWithError(
