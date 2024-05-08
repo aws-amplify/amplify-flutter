@@ -21,7 +21,7 @@ class HubEventElementWithMetadata<M extends Model> extends HubEventElement<M> {
     final serializedElement = serializedHubEventElement['element'] as Map;
     final metadata = serializedElement['syncMetadata'] as Map;
     final version = metadata['_version'] as int;
-    final lastChangedAt = metadata['_lastChangedAt'] as int;
+    final lastChangedAt = metadata['_lastChangedAt'] as int?;
     final deleted = metadata['_deleted'] as bool?;
     return HubEventElementWithMetadata(
       model as M,
@@ -35,7 +35,7 @@ class HubEventElementWithMetadata<M extends Model> extends HubEventElement<M> {
   final int version;
 
   /// The last time the model was updated locally, in seconds since epoch.
-  final int lastChangedAt;
+  final int? lastChangedAt;
 
   /// Whether or not the model was deleted.
   final bool deleted;
