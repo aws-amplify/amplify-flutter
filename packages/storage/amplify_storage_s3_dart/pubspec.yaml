@@ -9,11 +9,11 @@ environment:
   sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=1.8.0 <1.9.0"
-  amplify_db_common_dart: ">=0.3.7 <0.4.0"
+  amplify_core: ">=1.8.0 <3.0.0"
+  amplify_db_common_dart: ">=0.3.7 <0.5.0"
   async: ^2.10.0
-  aws_common: ">=0.6.4 <0.7.0"
-  aws_signature_v4: ">=0.5.2 <0.6.0"
+  aws_common: ">=0.6.4 <0.8.0"
+  aws_signature_v4: ">=0.5.2 <0.7.0"
   built_collection: ^5.0.0
   built_value: ^8.6.0
   drift: ">=2.14.0 <2.15.0"
@@ -21,14 +21,14 @@ dependencies:
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"
-  smithy: ">=0.6.4 <0.7.0"
-  smithy_aws: ">=0.6.3 <0.7.0"
+  smithy: ">=0.6.4 <0.8.0"
+  smithy_aws: ">=0.6.3 <0.8.0"
 
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
   build_runner: ^2.4.0
   build_verify: ^3.0.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
   drift_dev: ">=2.14.0 <2.15.0"
   json_serializable: 6.7.1
   mocktail: ^1.0.0
