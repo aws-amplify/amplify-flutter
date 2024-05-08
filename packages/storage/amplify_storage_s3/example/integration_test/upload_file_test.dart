@@ -278,58 +278,110 @@ void main() {
       });
 
       group('pause, resume, cancel', () {
-        const size = 1024 * 1024 * 6;
-        const chars = 'qwertyuiopasdfghjklzxcvbnm';
-        final content = List.generate(size, (i) => chars[i % 25]).join();
-        testWidgets('can pause', (_) async {
-          final fileId = uuid();
-          final path = 'public/upload-file-pause-$fileId';
-          final filePath = await createFile(path: fileId, content: content);
-          addTearDownPath(StoragePath.fromString(path));
-          final operation = Amplify.Storage.uploadFile(
-            localFile: AWSFile.fromPath(filePath),
-            path: StoragePath.fromString(path),
+        /// file sizes in mb
+        const fileSizes = [
+          1, // non multi part upload
+          6, // small multi part upload (2 parts)
+          50, // large multi part upload (10 parts)
+        ];
+        for (final fileSize in fileSizes) {
+          final size = 1024 * 1024 * fileSize;
+          const chars = 'qwertyuiopasdfghjklzxcvbnm';
+          final content = List.generate(size, (i) => chars[i % 25]).join();
+          testWidgets(
+            'can pause (file size: $fileSize mb)',
+            (_) async {
+              final fileId = uuid();
+              final path = 'public/upload-file-pause-$fileId';
+              final filePath = await createFile(path: fileId, content: content);
+              StorageTransferState? state;
+              addTearDownPath(StoragePath.fromString(path));
+              final operation = Amplify.Storage.uploadFile(
+                localFile: AWSFile.fromPath(filePath),
+                path: StoragePath.fromString(path),
+                onProgress: (progress) {
+                  state = progress.state;
+                },
+              );
+              await operation.pause();
+              // pause is only supported for multi part uploads (over 5 mb)
+              // calling .pause() should not throw, but the operation will not
+              // actually pause.
+              if (fileSize > 5) {
+                unawaited(
+                  operation.result.then(
+                    (value) => fail('should not complete after pause'),
+                  ),
+                );
+                await Future<void>.delayed(const Duration(seconds: 15));
+                expect(state, StorageTransferState.paused);
+                await expectLater(
+                  () => Amplify.Storage.downloadData(
+                    path: StoragePath.fromString(path),
+                  ).result,
+                  throwsA(isA<StorageNotFoundException>()),
+                );
+              }
+            },
           );
-          await operation.pause();
-          unawaited(
-            operation.result.then(
-              (value) => fail('should not complete after pause'),
-            ),
-          );
-          await Future<void>.delayed(const Duration(seconds: 15));
-        });
 
-        testWidgets('can resume', (_) async {
-          final fileId = uuid();
-          final path = 'public/upload-file-resume-$fileId';
-          final filePath = await createFile(path: fileId, content: content);
-          addTearDownPath(StoragePath.fromString(path));
-          final operation = Amplify.Storage.uploadFile(
-            localFile: AWSFile.fromPath(filePath),
-            path: StoragePath.fromString(path),
+          testWidgets(
+            'can resume (file size: $fileSize mb)',
+            (_) async {
+              final fileId = uuid();
+              final path = 'public/upload-file-resume-$fileId';
+              final filePath = await createFile(path: fileId, content: content);
+              final state = StreamController<StorageTransferState>();
+              addTearDownPath(StoragePath.fromString(path));
+              final operation = Amplify.Storage.uploadFile(
+                localFile: AWSFile.fromPath(filePath),
+                path: StoragePath.fromString(path),
+                onProgress: (progress) {
+                  state.sink.add(progress.state);
+                },
+              );
+              await operation.pause();
+              await operation.resume();
+              final nextProgressState = await state.stream.first;
+              expect(nextProgressState, StorageTransferState.inProgress);
+              final result = await operation.result;
+              expect(result.uploadedItem.path, path);
+              final downloadResult = await Amplify.Storage.downloadData(
+                path: StoragePath.fromString(path),
+              ).result;
+              expect(downloadResult.bytes, content.codeUnits);
+              await state.close();
+            },
           );
-          await operation.pause();
-          await operation.resume();
-          final result = await operation.result;
-          expect(result.uploadedItem.path, path);
-        });
 
-        testWidgets('can cancel', (_) async {
-          final fileId = uuid();
-          final path = 'public/upload-file-cancel-$fileId';
-          final filePath = await createFile(path: fileId, content: content);
-          addTearDownPath(StoragePath.fromString(path));
-          final operation = Amplify.Storage.uploadFile(
-            localFile: AWSFile.fromPath(filePath),
-            path: StoragePath.fromString(path),
-          );
-          final expectException = expectLater(
-            () => operation.result,
-            throwsA(isA<StorageOperationCanceledException>()),
-          );
-          await operation.cancel();
-          await expectException;
-        });
+          testWidgets('can cancel (file size: $fileSize mb)', (_) async {
+            final fileId = uuid();
+            final path = 'public/upload-file-cancel-$fileId';
+            final filePath = await createFile(path: fileId, content: content);
+            StorageTransferState? state;
+            addTearDownPath(StoragePath.fromString(path));
+            final operation = Amplify.Storage.uploadFile(
+              localFile: AWSFile.fromPath(filePath),
+              path: StoragePath.fromString(path),
+              onProgress: (progress) {
+                state = progress.state;
+              },
+            );
+            final expectException = expectLater(
+              () => operation.result,
+              throwsA(isA<StorageOperationCanceledException>()),
+            );
+            await operation.cancel();
+            expect(state, StorageTransferState.canceled);
+            await expectException;
+            await expectLater(
+              () => Amplify.Storage.downloadData(
+                path: StoragePath.fromString(path),
+              ).result,
+              throwsA(isA<StorageNotFoundException>()),
+            );
+          });
+        }
       });
     });
 
