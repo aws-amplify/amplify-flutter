@@ -29,6 +29,18 @@ const zAmplifySerializable = JsonSerializable(
   ],
 );
 
+/// serialization options for AmplifyOutputs type.
+@internal
+const zAmplifyOutputsSerializable = JsonSerializable(
+  includeIfNull: false,
+  explicitToJson: true,
+  fieldRename: FieldRename.snake,
+  converters: [
+    CognitoUserAttributeKeyConverter(),
+    CognitoUserAttributeMapConverter(),
+  ],
+);
+
 /// Global serialization options for AWS types.
 const zAwsSerializable = JsonSerializable(
   fieldRename: FieldRename.pascal,

@@ -18,6 +18,12 @@ export 'src/category/amplify_categories.dart';
 
 /// Config
 export 'src/config/amplify_config.dart';
+export 'src/config/amplify_outputs/amplify_outputs.dart';
+export 'src/config/amplify_outputs/analytics/analytics_outputs.dart';
+export 'src/config/amplify_outputs/auth/auth_outputs.dart';
+export 'src/config/amplify_outputs/data/data_outputs.dart';
+export 'src/config/amplify_outputs/notifications/notifications_outputs.dart';
+export 'src/config/amplify_outputs/storage/storage_outputs.dart';
 export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;
 export 'src/config/amplify_plugin_registry.dart';
 export 'src/config/analytics/analytics_config.dart';
