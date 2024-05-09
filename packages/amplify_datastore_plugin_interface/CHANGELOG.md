@@ -1,3 +1,25 @@
+## 1.8.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.0
+
+- Minor bug fixes and improvements
+
+## 1.6.1
+
+### Fixes
+- fix(datastore): emit observeQuery snapshot when model create mutation results in an updated model ([#4084](https://github.com/aws-amplify/amplify-flutter/pull/4084))
+
+## 1.6.0
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+- Minor bug fixes and improvements
+
 ## 1.4.0
 
 - Minor bug fixes and improvements

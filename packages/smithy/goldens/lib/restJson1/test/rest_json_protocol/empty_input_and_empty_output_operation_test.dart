@@ -133,6 +133,7 @@ class EmptyInputAndEmptyOutputInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -140,6 +141,7 @@ class EmptyInputAndEmptyOutputInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,
@@ -166,6 +168,7 @@ class EmptyInputAndEmptyOutputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -173,6 +176,7 @@ class EmptyInputAndEmptyOutputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,

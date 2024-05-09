@@ -46,10 +46,13 @@ abstract class NotFound
         namespace: 'com.amazonaws.s3',
         shape: 'NotFound',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -58,8 +61,10 @@ abstract class NotFound
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NotFound');
@@ -76,6 +81,7 @@ class NotFoundRestXmlSerializer
         NotFound,
         _$NotFound,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -83,6 +89,7 @@ class NotFoundRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NotFound deserialize(
     Serializers serializers,

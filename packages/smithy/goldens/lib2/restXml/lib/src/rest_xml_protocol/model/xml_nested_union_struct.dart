@@ -65,6 +65,7 @@ abstract class XmlNestedUnionStruct
         floatValue,
         doubleValue,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct')
@@ -113,6 +114,7 @@ class XmlNestedUnionStructRestXmlSerializer
         XmlNestedUnionStruct,
         _$XmlNestedUnionStruct,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -120,6 +122,7 @@ class XmlNestedUnionStructRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlNestedUnionStruct deserialize(
     Serializers serializers,
@@ -204,7 +207,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('booleanValue'))
         ..add(serializers.serialize(
           booleanValue,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (byteValue != null) {
@@ -212,7 +215,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('byteValue'))
         ..add(serializers.serialize(
           byteValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (doubleValue != null) {
@@ -220,7 +223,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('doubleValue'))
         ..add(serializers.serialize(
           doubleValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (floatValue != null) {
@@ -228,7 +231,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('floatValue'))
         ..add(serializers.serialize(
           floatValue,
-          specifiedType: const FullType.nullable(double),
+          specifiedType: const FullType(double),
         ));
     }
     if (integerValue != null) {
@@ -236,7 +239,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('integerValue'))
         ..add(serializers.serialize(
           integerValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (longValue != null) {
@@ -244,7 +247,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('longValue'))
         ..add(serializers.serialize(
           longValue,
-          specifiedType: const FullType.nullable(_i2.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (shortValue != null) {
@@ -252,7 +255,7 @@ class XmlNestedUnionStructRestXmlSerializer
         ..add(const _i3.XmlElementName('shortValue'))
         ..add(serializers.serialize(
           shortValue,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (stringValue != null) {

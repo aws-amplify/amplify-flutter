@@ -119,6 +119,7 @@ abstract class SimpleScalarPropertiesInputOutput
         b.stringValue = stringValue;
         b.trueBooleanValue = trueBooleanValue;
       });
+
   @override
   List<Object?> get props => [
         foo,
@@ -132,6 +133,7 @@ abstract class SimpleScalarPropertiesInputOutput
         floatValue,
         doubleValue,
       ];
+
   @override
   String toString() {
     final helper =
@@ -214,6 +216,7 @@ abstract class SimpleScalarPropertiesInputOutputPayload
         stringValue,
         trueBooleanValue,
       ];
+
   @override
   String toString() {
     final helper =
@@ -270,6 +273,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         SimpleScalarPropertiesInputOutputPayload,
         _$SimpleScalarPropertiesInputOutputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -277,6 +281,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutputPayload deserialize(
     Serializers serializers,

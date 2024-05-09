@@ -68,6 +68,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
       child: SearchAnchor(
         // Always use full screen at small break point. Otherwise use default
         // behavior.
+        key: keySelectCountryCode,
         isFullScreen: Breakpoint.of(context) == Breakpoint.small ? true : null,
         viewHintText: _dialCodeResolver.resolve(
           context,
@@ -93,6 +94,17 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
           minWidth: 360,
           maxHeight: 300,
         ),
+        // Custom suggestion list widget. This displays the output of `suggestionsBuilder`
+        viewBuilder: (suggestions) {
+          return ListView.builder(
+            key: keyCountryDialog,
+            itemCount: suggestions.length,
+            itemBuilder: (BuildContext context, int index) {
+              return suggestions.elementAt(index);
+            },
+          );
+        },
+        // Custom suggestion item widgets
         suggestionsBuilder: ((context, SearchController controller) {
           final textStyle = Theme.of(context).listTileTheme.titleTextStyle ??
               const TextStyle(fontSize: 15);

@@ -18,10 +18,47 @@ abstract interface class LegacyCredentialProvider {
     CognitoOAuthConfig? hostedUiConfig,
   });
 
+  /// Fetches legacy device secrets if they are present.
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
+    required String username,
+    CognitoUserPoolConfig? userPoolConfig,
+  });
+
   /// Deletes legacy credentials if they are present.
   Future<void> deleteLegacyCredentials({
     CognitoUserPoolConfig? userPoolConfig,
     CognitoIdentityCredentialsProvider? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
   });
+
+  /// Deletes legacy device secrets if they are present.
+  Future<void> deleteLegacyDeviceSecrets({
+    required String username,
+    CognitoUserPoolConfig? userPoolConfig,
+  });
+}
+
+/// {@template amplify_auth_cognito_dart.legacy_device_details}
+/// The legacy device details.
+/// {@endtemplate}
+class LegacyDeviceDetails {
+  /// {@macro amplify_auth_cognito_dart.legacy_device_details}
+  const LegacyDeviceDetails({
+    required this.deviceKey,
+    required this.deviceGroupKey,
+    required this.devicePassword,
+    required this.asfDeviceId,
+  });
+
+  /// The device key/ID.
+  final String? deviceKey;
+
+  /// The device group key.
+  final String? deviceGroupKey;
+
+  /// The device password.
+  final String? devicePassword;
+
+  /// The asf device ID.
+  final String? asfDeviceId;
 }

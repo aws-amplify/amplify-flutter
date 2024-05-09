@@ -39,8 +39,10 @@ abstract class SensitiveValidationInput
   String? get string;
   @override
   SensitiveValidationInput getPayload() => this;
+
   @override
   List<Object?> get props => [string];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SensitiveValidationInput')
@@ -62,6 +64,7 @@ class SensitiveValidationInputRestJson1Serializer
         SensitiveValidationInput,
         _$SensitiveValidationInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -69,6 +72,7 @@ class SensitiveValidationInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   SensitiveValidationInput deserialize(
     Serializers serializers,

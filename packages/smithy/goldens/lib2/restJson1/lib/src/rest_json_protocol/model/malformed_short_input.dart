@@ -79,6 +79,7 @@ abstract class MalformedShortInput
   MalformedShortInputPayload getPayload() => MalformedShortInputPayload((b) {
         b.shortInBody = shortInBody;
       });
+
   @override
   List<Object?> get props => [
         shortInBody,
@@ -86,6 +87,7 @@ abstract class MalformedShortInput
         shortInQuery,
         shortInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedShortInput')
@@ -123,6 +125,7 @@ abstract class MalformedShortInputPayload
   int? get shortInBody;
   @override
   List<Object?> get props => [shortInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedShortInputPayload')
@@ -145,6 +148,7 @@ class MalformedShortInputRestJson1Serializer
         MalformedShortInputPayload,
         _$MalformedShortInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -152,6 +156,7 @@ class MalformedShortInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedShortInputPayload deserialize(
     Serializers serializers,

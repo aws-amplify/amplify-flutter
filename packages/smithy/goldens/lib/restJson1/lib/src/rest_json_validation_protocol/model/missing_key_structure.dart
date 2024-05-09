@@ -30,6 +30,7 @@ abstract class MissingKeyStructure
   String get hi;
   @override
   List<Object?> get props => [hi];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MissingKeyStructure')
@@ -50,6 +51,7 @@ class MissingKeyStructureRestJson1Serializer
         MissingKeyStructure,
         _$MissingKeyStructure,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -57,6 +59,7 @@ class MissingKeyStructureRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MissingKeyStructure deserialize(
     Serializers serializers,

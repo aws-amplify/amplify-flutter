@@ -429,6 +429,7 @@ class DocumentTypeInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [DocumentTypeInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -436,6 +437,7 @@ class DocumentTypeInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   DocumentTypeInputOutput deserialize(
     Serializers serializers,

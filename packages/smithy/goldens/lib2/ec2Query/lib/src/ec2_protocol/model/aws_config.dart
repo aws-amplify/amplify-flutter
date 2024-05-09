@@ -43,6 +43,7 @@ abstract class AwsConfig
         clockTime,
         scopedConfig,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AwsConfig')
@@ -67,6 +68,7 @@ class AwsConfigEc2QuerySerializer
         AwsConfig,
         _$AwsConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -74,6 +76,7 @@ class AwsConfigEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,
@@ -124,7 +127,7 @@ class AwsConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('ClockTime'))
         ..add(serializers.serialize(
           clockTime,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (scopedConfig != null) {

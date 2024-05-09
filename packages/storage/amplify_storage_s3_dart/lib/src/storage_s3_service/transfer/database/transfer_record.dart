@@ -10,7 +10,7 @@ part 'transfer_record.g.dart';
 /// {@template amplify_storage_s3_dart.transfer_data}
 /// the type used by Storage S3 plugin upload operations when using s3 multipart upload.
 /// it is persisted to TransferDatabase.
-/// {@endtemplate amplify_storage_s3_dart.transfer_data}
+/// {@endtemplate}
 @JsonSerializable()
 class TransferRecord {
   /// {@macro amplify_storage_s3_dart.transfer_data}

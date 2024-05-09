@@ -67,6 +67,7 @@ abstract class XmlTimestampsOutput
         httpDate,
         httpDateOnTarget,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlTimestampsOutput')
@@ -111,6 +112,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         XmlTimestampsOutput,
         _$XmlTimestampsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -118,6 +120,7 @@ class XmlTimestampsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlTimestampsOutput deserialize(
     Serializers serializers,
@@ -213,7 +216,7 @@ class XmlTimestampsOutputAwsQuerySerializer
         ..add(const _i2.XmlElementName('normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (dateTime != null) {

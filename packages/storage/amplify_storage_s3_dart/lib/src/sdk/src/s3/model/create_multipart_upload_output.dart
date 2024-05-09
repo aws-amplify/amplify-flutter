@@ -119,19 +119,21 @@ abstract class CreateMultipartUploadOutput
   static const List<_i2.SmithySerializer<CreateMultipartUploadOutputPayload>>
       serializers = [CreateMultipartUploadOutputRestXmlSerializer()];
 
-  /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
+  /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
   ///
-  /// The response also includes the `x-amz-abort-rule-id` header that provides the ID of the lifecycle configuration rule that defines this action.
+  /// The response also includes the `x-amz-abort-rule-id` header that provides the ID of the lifecycle configuration rule that defines the abort action.
+  ///
+  /// This functionality is not supported for directory buckets.
   DateTime? get abortDate;
 
   /// This header is returned along with the `x-amz-abort-date` header. It identifies the applicable lifecycle configuration rule that defines the action to abort incomplete multipart uploads.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get abortRuleId;
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   ///
-  /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
-  ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// Access points are not supported by directory buckets.
   String? get bucket;
 
   /// Object key for which the multipart upload was initiated.
@@ -140,25 +142,39 @@ abstract class CreateMultipartUploadOutput
   /// ID for the initiated multipart upload.
   String? get uploadId;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+  /// The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+  ///
+  /// For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
   ServerSideEncryption? get serverSideEncryption;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to confirm the encryption algorithm that's used.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerAlgorithm;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide the round-trip message integrity verification of the customer-provided encryption key.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsKeyId;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  /// If present, indicates the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsEncryptionContext;
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
 
   /// The algorithm that was used to create a checksum of the object.
@@ -170,6 +186,7 @@ abstract class CreateMultipartUploadOutput
         b.key = key;
         b.uploadId = uploadId;
       });
+
   @override
   List<Object?> get props => [
         abortDate,
@@ -186,6 +203,7 @@ abstract class CreateMultipartUploadOutput
         requestCharged,
         checksumAlgorithm,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateMultipartUploadOutput')
@@ -260,9 +278,7 @@ abstract class CreateMultipartUploadOutputPayload
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   ///
-  /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
-  ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// Access points are not supported by directory buckets.
   String? get bucket;
 
   /// Object key for which the multipart upload was initiated.
@@ -276,6 +292,7 @@ abstract class CreateMultipartUploadOutputPayload
         key,
         uploadId,
       ];
+
   @override
   String toString() {
     final helper =
@@ -308,6 +325,7 @@ class CreateMultipartUploadOutputRestXmlSerializer
         CreateMultipartUploadOutputPayload,
         _$CreateMultipartUploadOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -315,6 +333,7 @@ class CreateMultipartUploadOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CreateMultipartUploadOutputPayload deserialize(
     Serializers serializers,

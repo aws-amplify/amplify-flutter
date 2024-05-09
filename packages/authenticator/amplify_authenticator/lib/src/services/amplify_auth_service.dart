@@ -332,6 +332,7 @@ class AmplifyAuthService
       );
     });
     try {
+      // ignore: invalid_use_of_internal_member
       return await Amplify.asyncConfig;
     } finally {
       timer.cancel();

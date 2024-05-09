@@ -31,6 +31,7 @@ abstract class NestedWithNamespace
   String? get attrField;
   @override
   List<Object?> get props => [attrField];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedWithNamespace')
@@ -51,6 +52,7 @@ class NestedWithNamespaceRestXmlSerializer
         NestedWithNamespace,
         _$NestedWithNamespace,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -58,6 +60,7 @@ class NestedWithNamespaceRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedWithNamespace deserialize(
     Serializers serializers,

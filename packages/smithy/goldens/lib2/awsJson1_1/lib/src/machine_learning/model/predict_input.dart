@@ -47,12 +47,14 @@ abstract class PredictInput
   String get predictEndpoint;
   @override
   PredictInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         mlModelId,
         record,
         predictEndpoint,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictInput')
@@ -81,6 +83,7 @@ class PredictInputAwsJson11Serializer
         PredictInput,
         _$PredictInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -88,6 +91,7 @@ class PredictInputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PredictInput deserialize(
     Serializers serializers,

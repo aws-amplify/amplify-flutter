@@ -43,6 +43,7 @@ abstract class RecursiveXmlShapesOutputNested2
         bar,
         recursiveMember,
       ];
+
   @override
   String toString() {
     final helper =
@@ -69,6 +70,7 @@ class RecursiveXmlShapesOutputNested2Ec2QuerySerializer
         RecursiveXmlShapesOutputNested2,
         _$RecursiveXmlShapesOutputNested2,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +78,7 @@ class RecursiveXmlShapesOutputNested2Ec2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   RecursiveXmlShapesOutputNested2 deserialize(
     Serializers serializers,

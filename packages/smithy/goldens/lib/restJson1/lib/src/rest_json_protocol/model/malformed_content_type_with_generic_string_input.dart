@@ -44,8 +44,10 @@ abstract class MalformedContentTypeWithGenericStringInput
   String? get payload;
   @override
   String? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -68,6 +70,7 @@ class MalformedContentTypeWithGenericStringInputRestJson1Serializer
         MalformedContentTypeWithGenericStringInput,
         _$MalformedContentTypeWithGenericStringInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -75,6 +78,7 @@ class MalformedContentTypeWithGenericStringInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   String deserialize(
     Serializers serializers,

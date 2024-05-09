@@ -101,6 +101,7 @@ class EmptyInputAndEmptyOutputInputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -108,6 +109,7 @@ class EmptyInputAndEmptyOutputInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,
@@ -134,6 +136,7 @@ class EmptyInputAndEmptyOutputOutputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -141,6 +144,7 @@ class EmptyInputAndEmptyOutputOutputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,

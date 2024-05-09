@@ -69,6 +69,7 @@ abstract class FileConfigSettings
         retryMode,
         maxAttempts,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FileConfigSettings')
@@ -113,6 +114,7 @@ class FileConfigSettingsAwsJson10Serializer
         FileConfigSettings,
         _$FileConfigSettings,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -120,6 +122,7 @@ class FileConfigSettingsAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   FileConfigSettings deserialize(
     Serializers serializers,

@@ -15,11 +15,32 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-/// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
+/// The `HEAD` operation retrieves metadata from an object without returning the object itself. This operation is useful if you're interested only in an object's metadata.
 ///
-/// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
+/// A `HEAD` request has the same options as a `GET` operation on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic code, such as `400 Bad Request`, `403 Forbidden`, `404 Not Found`, `405 Method Not Allowed`, `412 Precondition Failed`, or `304 Not Modified`. It's not possible to retrieve the exact exception of these error codes.
 ///
-/// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
+/// Request headers are limited to 8 KB in size. For more information, see [Common Request Headers](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html).
+///
+/// **Directory buckets** \- For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format `https://_bucket_name_.s3express-_az_id_._region_.amazonaws.com/_key-name_` . Path-style requests are not supported. For more information, see [Regional and Zonal endpoints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html) in the _Amazon S3 User Guide_.
+///
+/// Permissions
+///
+/// *   **General purpose bucket permissions** \- To use `HEAD`, you must have the `s3:GetObject` permission. You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html) in the _Amazon S3 User Guide_.
+///
+///     If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the `s3:ListBucket` permission.
+///
+///     *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code `404 Not Found` error.
+///
+///     *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code `403 Forbidden` error.
+///
+/// *   **Directory bucket permissions** \- To grant access to this API operation on a directory bucket, we recommend that you use the [`CreateSession`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html) API operation for session-based authorization. Specifically, you grant the `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy. Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in your request header, you can make API requests to this operation. After the session token expires, you make another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create session and refresh the session token automatically to avoid service interruptions when a session expires. For more information about authorization, see [`CreateSession`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html) .
+///
+///
+/// Encryption
+///
+/// Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `HEAD` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). The `x-amz-server-side-encryption` header is used when you `PUT` an object to S3 and want to specify the encryption method. If you include this header in a `HEAD` request for an object that uses these types of keys, you’ll get an HTTP `400 Bad Request` error. It's because the encryption method can't be changed when you retrieve the object.
+///
+/// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers to provide the encryption key for the server to be able to retrieve the object's metadata. The headers are:
 ///
 /// *   `x-amz-server-side-encryption-customer-algorithm`
 ///
@@ -28,46 +49,25 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   `x-amz-server-side-encryption-customer-key-MD5`
 ///
 ///
-/// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+/// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
 ///
-/// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `GET` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 Bad Request error.
+/// **Directory bucket permissions** \- For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
 ///
-/// *   The last modified property in this case is the creation date of the object.
+/// Versioning
 ///
+/// *   If the current version of the object is a delete marker, Amazon S3 behaves as if the object was deleted and includes `x-amz-delete-marker: true` in the response.
 ///
-/// Request headers are limited to 8 KB in size. For more information, see [Common Request Headers](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html).
-///
-/// Consider the following when using request headers:
-///
-/// *   Consideration 1 – If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows:
-///
-///     *   `If-Match` condition evaluates to `true`, and;
-///
-///     *   `If-Unmodified-Since` condition evaluates to `false`;
+/// *   If the specified version is a delete marker, the response returns a `405 Method Not Allowed` error and the `Last-Modified: timestamp` response header.
 ///
 ///
-///     Then Amazon S3 returns `200 OK` and the data requested.
+/// *   **Directory buckets** \- Delete marker is not supported by directory buckets.
 ///
-/// *   Consideration 2 – If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows:
-///
-///     *   `If-None-Match` condition evaluates to `false`, and;
-///
-///     *   `If-Modified-Since` condition evaluates to `true`;
+/// *   **Directory buckets** \- S3 Versioning isn't enabled and supported for directory buckets. For this API operation, only the `null` value of the version ID is supported by directory buckets. You can only specify `null` to the `versionId` query parameter in the request.
 ///
 ///
-///     Then Amazon S3 returns the `304 Not Modified` response code.
+/// HTTP Host header syntax
 ///
-///
-/// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
-///
-/// Permissions
-///
-/// You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html). If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
-///
-/// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 error.
-///
-/// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 error.
-///
+/// **Directory buckets** \- The HTTP Host header syntax is `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`.
 ///
 /// The following actions are related to `HeadObject`:
 ///
@@ -76,11 +76,32 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
 class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
     HeadObjectRequest, HeadObjectOutputPayload, HeadObjectOutput> {
-  /// The `HEAD` action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use `HEAD`, you must have READ access to the object.
+  /// The `HEAD` operation retrieves metadata from an object without returning the object itself. This operation is useful if you're interested only in an object's metadata.
   ///
-  /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
+  /// A `HEAD` request has the same options as a `GET` operation on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic code, such as `400 Bad Request`, `403 Forbidden`, `404 Not Found`, `405 Method Not Allowed`, `412 Precondition Failed`, or `304 Not Modified`. It's not possible to retrieve the exact exception of these error codes.
   ///
-  /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
+  /// Request headers are limited to 8 KB in size. For more information, see [Common Request Headers](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html).
+  ///
+  /// **Directory buckets** \- For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format `https://_bucket_name_.s3express-_az_id_._region_.amazonaws.com/_key-name_` . Path-style requests are not supported. For more information, see [Regional and Zonal endpoints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html) in the _Amazon S3 User Guide_.
+  ///
+  /// Permissions
+  ///
+  /// *   **General purpose bucket permissions** \- To use `HEAD`, you must have the `s3:GetObject` permission. You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html) in the _Amazon S3 User Guide_.
+  ///
+  ///     If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the `s3:ListBucket` permission.
+  ///
+  ///     *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code `404 Not Found` error.
+  ///
+  ///     *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code `403 Forbidden` error.
+  ///
+  /// *   **Directory bucket permissions** \- To grant access to this API operation on a directory bucket, we recommend that you use the [`CreateSession`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html) API operation for session-based authorization. Specifically, you grant the `s3express:CreateSession` permission to the directory bucket in a bucket policy or an IAM identity-based policy. Then, you make the `CreateSession` API call on the bucket to obtain a session token. With the session token in your request header, you can make API requests to this operation. After the session token expires, you make another `CreateSession` API call to generate a new session token for use. Amazon Web Services CLI or SDKs create session and refresh the session token automatically to avoid service interruptions when a session expires. For more information about authorization, see [`CreateSession`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateSession.html) .
+  ///
+  ///
+  /// Encryption
+  ///
+  /// Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `HEAD` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). The `x-amz-server-side-encryption` header is used when you `PUT` an object to S3 and want to specify the encryption method. If you include this header in a `HEAD` request for an object that uses these types of keys, you’ll get an HTTP `400 Bad Request` error. It's because the encryption method can't be changed when you retrieve the object.
+  ///
+  /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers to provide the encryption key for the server to be able to retrieve the object's metadata. The headers are:
   ///
   /// *   `x-amz-server-side-encryption-customer-algorithm`
   ///
@@ -89,46 +110,25 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
   /// *   `x-amz-server-side-encryption-customer-key-MD5`
   ///
   ///
-  /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
   ///
-  /// *   Encryption request headers, like `x-amz-server-side-encryption`, should not be sent for `GET` requests if your object uses server-side encryption with Key Management Service (KMS) keys (SSE-KMS), dual-layer server-side encryption with Amazon Web Services KMS keys (DSSE-KMS), or server-side encryption with Amazon S3 managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 Bad Request error.
+  /// **Directory bucket permissions** \- For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
   ///
-  /// *   The last modified property in this case is the creation date of the object.
+  /// Versioning
   ///
+  /// *   If the current version of the object is a delete marker, Amazon S3 behaves as if the object was deleted and includes `x-amz-delete-marker: true` in the response.
   ///
-  /// Request headers are limited to 8 KB in size. For more information, see [Common Request Headers](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html).
-  ///
-  /// Consider the following when using request headers:
-  ///
-  /// *   Consideration 1 – If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows:
-  ///
-  ///     *   `If-Match` condition evaluates to `true`, and;
-  ///
-  ///     *   `If-Unmodified-Since` condition evaluates to `false`;
+  /// *   If the specified version is a delete marker, the response returns a `405 Method Not Allowed` error and the `Last-Modified: timestamp` response header.
   ///
   ///
-  ///     Then Amazon S3 returns `200 OK` and the data requested.
+  /// *   **Directory buckets** \- Delete marker is not supported by directory buckets.
   ///
-  /// *   Consideration 2 – If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows:
-  ///
-  ///     *   `If-None-Match` condition evaluates to `false`, and;
-  ///
-  ///     *   `If-Modified-Since` condition evaluates to `true`;
+  /// *   **Directory buckets** \- S3 Versioning isn't enabled and supported for directory buckets. For this API operation, only the `null` value of the version ID is supported by directory buckets. You can only specify `null` to the `versionId` query parameter in the request.
   ///
   ///
-  ///     Then Amazon S3 returns the `304 Not Modified` response code.
+  /// HTTP Host header syntax
   ///
-  ///
-  /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
-  ///
-  /// Permissions
-  ///
-  /// You need the relevant read object (or version) permission for this operation. For more information, see [Actions, resources, and condition keys for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/list_amazons3.html). If the object you request doesn't exist, the error that Amazon S3 returns depends on whether you also have the s3:ListBucket permission.
-  ///
-  /// *   If you have the `s3:ListBucket` permission on the bucket, Amazon S3 returns an HTTP status code 404 error.
-  ///
-  /// *   If you don’t have the `s3:ListBucket` permission, Amazon S3 returns an HTTP status code 403 error.
-  ///
+  /// **Directory buckets** \- The HTTP Host header syntax is `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`.
   ///
   /// The following actions are related to `HeadObject`:
   ///
@@ -269,8 +269,10 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
           );
         }
       });
+
   @override
   int successCode([HeadObjectOutput? output]) => 200;
+
   @override
   HeadObjectOutput buildOutput(
     HeadObjectOutputPayload payload,
@@ -280,6 +282,7 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<NotFound, NotFound>(
@@ -292,10 +295,13 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
           builder: NotFound.fromResponse,
         )
       ];
+
   @override
   String get runtimeTypeName => 'HeadObject';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -316,6 +322,7 @@ class HeadObjectOperation extends _i1.HttpOperation<HeadObjectRequestPayload,
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HeadObjectOutput> run(
     HeadObjectRequest input, {

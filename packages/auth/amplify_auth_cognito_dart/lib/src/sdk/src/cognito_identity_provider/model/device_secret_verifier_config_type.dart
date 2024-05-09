@@ -48,6 +48,7 @@ abstract class DeviceSecretVerifierConfigType
         passwordVerifier,
         salt,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeviceSecretVerifierConfigType')
@@ -73,6 +74,7 @@ class DeviceSecretVerifierConfigTypeAwsJson11Serializer
         DeviceSecretVerifierConfigType,
         _$DeviceSecretVerifierConfigType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -80,6 +82,7 @@ class DeviceSecretVerifierConfigTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DeviceSecretVerifierConfigType deserialize(
     Serializers serializers,

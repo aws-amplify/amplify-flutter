@@ -1,3 +1,25 @@
+## 0.6.3
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.6.2
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+- fix: uncaught exception in smithy code ([#4369](https://github.com/aws-amplify/amplify-flutter/pull/4369))
+
+## 0.6.1
+
+- Minor bug fixes and improvements
+
+## 0.6.0
+
+### Breaking Changes
+- fix(smithy_aws)!: do not sign optional requests
+
 ## 0.5.1
 
 ### Features

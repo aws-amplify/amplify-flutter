@@ -277,7 +277,6 @@ void main() {
 
 final passwordReqConfig = AmplifyConfig(
   auth: AuthConfig.cognito(
-    authenticationFlowType: AuthenticationFlowType.userSrpAuth,
     usernameAttributes: const [CognitoUserAttributeKey.email],
     signupAttributes: const [CognitoUserAttributeKey.email],
     passwordProtectionSettings: const PasswordProtectionSettings(

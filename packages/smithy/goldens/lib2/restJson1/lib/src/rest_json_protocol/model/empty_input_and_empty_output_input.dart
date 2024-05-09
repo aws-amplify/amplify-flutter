@@ -40,8 +40,10 @@ abstract class EmptyInputAndEmptyOutputInput
 
   @override
   EmptyInputAndEmptyOutputInput getPayload() => this;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EmptyInputAndEmptyOutputInput');
@@ -59,6 +61,7 @@ class EmptyInputAndEmptyOutputInputRestJson1Serializer
         EmptyInputAndEmptyOutputInput,
         _$EmptyInputAndEmptyOutputInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -66,6 +69,7 @@ class EmptyInputAndEmptyOutputInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,

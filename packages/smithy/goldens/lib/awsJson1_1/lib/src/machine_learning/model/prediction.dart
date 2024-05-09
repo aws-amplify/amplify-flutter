@@ -50,6 +50,7 @@ abstract class Prediction
         predictedScores,
         details,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Prediction')
@@ -82,6 +83,7 @@ class PredictionAwsJson11Serializer
         Prediction,
         _$Prediction,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -89,6 +91,7 @@ class PredictionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   Prediction deserialize(
     Serializers serializers,

@@ -124,5 +124,36 @@ void main() {
       await Amplify.DataStore.delete(updatedBlog);
       await Amplify.DataStore.save(otherBlog);
     });
+
+    testWidgets(
+        'observe with attribute exists query predicate filters out non matches',
+        (WidgetTester tester) async {
+      HasOneChild hasAttribute = HasOneChild(name: 'name - ${uuid()}');
+      HasOneChild hasNoAttribute = HasOneChild();
+
+      var hasAttributeStream = Amplify.DataStore.observe(HasOneChild.classType,
+              where: Blog.NAME.attributeExists())
+          .map((event) => event.item);
+      expectLater(
+        hasAttributeStream,
+        emitsInOrder(
+          [hasAttribute],
+        ),
+      );
+
+      var hasNoAttributeStream = Amplify.DataStore.observe(
+              HasOneChild.classType,
+              where: Blog.NAME.attributeExists(exists: false))
+          .map((event) => event.item);
+      expectLater(
+        hasNoAttributeStream,
+        emitsInOrder(
+          [hasNoAttribute],
+        ),
+      );
+
+      await Amplify.DataStore.save(hasAttribute);
+      await Amplify.DataStore.save(hasNoAttribute);
+    });
   });
 }

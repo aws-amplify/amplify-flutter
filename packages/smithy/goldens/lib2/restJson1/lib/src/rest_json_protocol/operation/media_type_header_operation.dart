@@ -75,8 +75,10 @@ class MediaTypeHeaderOperation extends _i1.HttpOperation<
               .base64Encode(_i3.utf8.encode(_i3.jsonEncode(input.json!.value)));
         }
       });
+
   @override
   int successCode([MediaTypeHeaderOutput? output]) => 200;
+
   @override
   MediaTypeHeaderOutput buildOutput(
     MediaTypeHeaderOutputPayload payload,
@@ -86,16 +88,22 @@ class MediaTypeHeaderOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'MediaTypeHeader';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<MediaTypeHeaderOutput> run(
     MediaTypeHeaderInput input, {

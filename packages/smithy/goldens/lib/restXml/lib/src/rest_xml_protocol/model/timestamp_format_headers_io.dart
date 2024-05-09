@@ -158,6 +158,7 @@ abstract class TimestampFormatHeadersIo
   @override
   TimestampFormatHeadersIoPayload getPayload() =>
       TimestampFormatHeadersIoPayload();
+
   @override
   List<Object?> get props => [
         memberEpochSeconds,
@@ -168,6 +169,7 @@ abstract class TimestampFormatHeadersIo
         targetHttpDate,
         targetDateTime,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo')
@@ -219,6 +221,7 @@ abstract class TimestampFormatHeadersIoPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -239,6 +242,7 @@ class TimestampFormatHeadersIoRestXmlSerializer
         TimestampFormatHeadersIoPayload,
         _$TimestampFormatHeadersIoPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -246,6 +250,7 @@ class TimestampFormatHeadersIoRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   TimestampFormatHeadersIoPayload deserialize(
     Serializers serializers,

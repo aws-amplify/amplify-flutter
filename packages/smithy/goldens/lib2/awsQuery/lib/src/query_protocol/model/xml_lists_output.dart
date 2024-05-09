@@ -111,6 +111,7 @@ abstract class XmlListsOutput
         flattenedListWithNamespace,
         structureList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlListsOutput')
@@ -183,6 +184,7 @@ class XmlListsOutputAwsQuerySerializer
         XmlListsOutput,
         _$XmlListsOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -190,6 +192,7 @@ class XmlListsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlListsOutput deserialize(
     Serializers serializers,
@@ -393,7 +396,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           stringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -407,7 +410,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           stringSet,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltSet,
             [FullType(String)],
           ),
@@ -421,7 +424,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           integerList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(int)],
           ),
@@ -435,7 +438,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           booleanList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(bool)],
           ),
@@ -449,7 +452,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           timestampList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(DateTime)],
           ),
@@ -463,7 +466,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           enumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(FooEnum)],
           ),
@@ -477,7 +480,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           intEnumList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(IntegerEnum)],
           ),
@@ -491,7 +494,7 @@ class XmlListsOutputAwsQuerySerializer
             .serialize(
           serializers,
           nestedStringList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [
               FullType(
@@ -511,7 +514,7 @@ class XmlListsOutputAwsQuerySerializer
         ).serialize(
           serializers,
           renamedListMembers,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
@@ -524,7 +527,7 @@ class XmlListsOutputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedList,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -537,7 +540,7 @@ class XmlListsOutputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedList2,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -551,7 +554,7 @@ class XmlListsOutputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListWithMemberNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -564,7 +567,7 @@ class XmlListsOutputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListWithNamespace,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(String)],
         ),
@@ -579,7 +582,7 @@ class XmlListsOutputAwsQuerySerializer
         ).serialize(
           serializers,
           structureList,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(StructureListMember)],
           ),

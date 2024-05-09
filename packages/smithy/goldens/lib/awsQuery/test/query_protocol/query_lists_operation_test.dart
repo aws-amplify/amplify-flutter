@@ -310,6 +310,7 @@ class QueryListsInputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [QueryListsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -317,6 +318,7 @@ class QueryListsInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   QueryListsInput deserialize(
     Serializers serializers,
@@ -400,6 +402,7 @@ class GreetingStructAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [GreetingStruct];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -407,6 +410,7 @@ class GreetingStructAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,
@@ -451,6 +455,7 @@ class NestedStructWithListAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [NestedStructWithList];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -458,6 +463,7 @@ class NestedStructWithListAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NestedStructWithList deserialize(
     Serializers serializers,

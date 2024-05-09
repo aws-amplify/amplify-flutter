@@ -44,6 +44,7 @@ abstract class RetryConfig
         mode,
         maxAttempts,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig')
@@ -68,6 +69,7 @@ class RetryConfigRestXmlSerializer
         RetryConfig,
         _$RetryConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -75,6 +77,7 @@ class RetryConfigRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   RetryConfig deserialize(
     Serializers serializers,
@@ -120,7 +123,7 @@ class RetryConfigRestXmlSerializer
         ..add(const _i2.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (mode != null) {
@@ -128,7 +131,7 @@ class RetryConfigRestXmlSerializer
         ..add(const _i2.XmlElementName('mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     return result$;

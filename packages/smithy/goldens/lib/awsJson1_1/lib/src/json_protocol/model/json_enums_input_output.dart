@@ -67,6 +67,7 @@ abstract class JsonEnumsInputOutput
   _i3.BuiltMap<String, FooEnum>? get fooEnumMap;
   @override
   JsonEnumsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         fooEnum1,
@@ -76,6 +77,7 @@ abstract class JsonEnumsInputOutput
         fooEnumSet,
         fooEnumMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonEnumsInputOutput')
@@ -117,6 +119,7 @@ class JsonEnumsInputOutputAwsJson11Serializer
         JsonEnumsInputOutput,
         _$JsonEnumsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -124,6 +127,7 @@ class JsonEnumsInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   JsonEnumsInputOutput deserialize(
     Serializers serializers,

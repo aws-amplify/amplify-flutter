@@ -86,11 +86,7 @@ class GraphQLRequestFactory {
         // deserializing response because model will use ID nested in `parentSelectionSet`.
         // However, including the ID in selection set allows subscriptions that
         // filter by these ID to be triggered by these mutations.
-        var belongsToKeys = belongsTo.association?.targetNames;
-        if (belongsToKeys == null &&
-            belongsTo.association?.targetName != null) {
-          belongsToKeys = [belongsTo.association!.targetName as String];
-        }
+        final belongsToKeys = belongsTo.association?.targetNames;
         if (belongsToKeys != null) {
           fields.addAll(belongsToKeys);
         }
@@ -126,7 +122,7 @@ class GraphQLRequestFactory {
   ) {
     var upperOutput = '';
     var lowerOutput = '';
-    final modelName = schema.name;
+    final modelName = _capitalize(schema.name);
 
     // build inputs based on request operation
     switch (operation) {
@@ -209,7 +205,7 @@ class GraphQLRequestFactory {
         getModelSchemaByModelName(modelType.modelName(), requestOperation);
 
     // e.g. "Blog" or "Blogs"
-    final name = _getName(schema, requestOperation);
+    final name = _capitalize(_getName(schema, requestOperation));
     // e.g. "query" or "mutation"
     final requestTypeVal = requestType.name;
     // e.g. "get" or "list"
@@ -295,8 +291,7 @@ class GraphQLRequestFactory {
     // e.g. { 'name': { 'eq': 'foo }}
     if (queryPredicate is QueryPredicateOperation) {
       final association = schema.fields?[queryPredicate.field]?.association;
-      final associatedTargetName =
-          association?.targetNames?.first ?? association?.targetName;
+      final associatedTargetName = association?.targetNames?.first;
       var fieldName = queryPredicate.field;
       if (queryPredicate.field ==
           '${_lowerCaseFirstCharacter(schema.name)}.$_defaultIdFieldName') {
@@ -388,13 +383,11 @@ class GraphQLRequestFactory {
       // Traverse parent schema to get expected JSON strings and remove from JSON.
       // A parent with complex identifier may have multiple keys.
       var belongsToKeys = belongsTo.association?.targetNames;
-      final legacyTargetName =
-          belongsTo.association?.targetName; // pre-CPK codegen
-      if (belongsToKeys == null && legacyTargetName == null) {
+      if (belongsToKeys == null) {
         // no way to resolve key to write to JSON
         continue;
       }
-      belongsToKeys = belongsToKeys ?? [legacyTargetName as String];
+      belongsToKeys = belongsToKeys;
       var i = 0; // needed to track corresponding index field name
       for (final belongsToKey in belongsToKeys) {
         final parentIdFieldName =
@@ -454,6 +447,11 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
       ],
     };
   }
+  if (queryFieldOperator is AttributeExistsQueryOperator) {
+    return <String, dynamic>{
+      filterExpression: _getSerializedValue(queryFieldOperator.exists),
+    };
+  }
 
   throw ApiOperationException(
     'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.',
@@ -471,6 +469,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
     QueryFieldOperatorType.between: 'between',
     QueryFieldOperatorType.contains: 'contains',
     QueryFieldOperatorType.begins_with: 'beginsWith',
+    QueryFieldOperatorType.attribute_exists: 'attributeExists',
   };
   final result = dictionary[operatorType];
   if (result == null) {

@@ -68,6 +68,7 @@ abstract class QueryMapsInput
   NestedStructWithMap? get nestedStructWithMap;
   @override
   QueryMapsInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         mapArg,
@@ -79,6 +80,7 @@ abstract class QueryMapsInput
         mapOfLists,
         nestedStructWithMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryMapsInput')
@@ -127,6 +129,7 @@ class QueryMapsInputAwsQuerySerializer
         QueryMapsInput,
         _$QueryMapsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -134,6 +137,7 @@ class QueryMapsInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   QueryMapsInput deserialize(
     Serializers serializers,
@@ -309,7 +313,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           mapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -326,7 +330,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           renamedMapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -343,7 +347,7 @@ class QueryMapsInputAwsQuerySerializer
                 .serialize(
           serializers,
           complexMapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -362,7 +366,7 @@ class QueryMapsInputAwsQuerySerializer
         ).serialize(
           serializers,
           mapWithXmlMemberName,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),
@@ -378,7 +382,7 @@ class QueryMapsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -396,7 +400,7 @@ class QueryMapsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedMapWithXmlName,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -413,7 +417,7 @@ class QueryMapsInputAwsQuerySerializer
             .serialize(
           serializers,
           mapOfLists,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
               FullType(String),

@@ -46,8 +46,10 @@ abstract class XmlEmptyStringsInputOutput
   String? get emptyString;
   @override
   XmlEmptyStringsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [emptyString];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput')
@@ -69,6 +71,7 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
         XmlEmptyStringsInputOutput,
         _$XmlEmptyStringsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -76,6 +79,7 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlEmptyStringsInputOutput deserialize(
     Serializers serializers,

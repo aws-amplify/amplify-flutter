@@ -43,6 +43,7 @@ abstract class AwsConfig
         clockTime,
         scopedConfig,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AwsConfig')
@@ -67,6 +68,7 @@ class AwsConfigAwsJson10Serializer
         AwsConfig,
         _$AwsConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -74,6 +76,7 @@ class AwsConfigAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   AwsConfig deserialize(
     Serializers serializers,

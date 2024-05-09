@@ -103,8 +103,10 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           );
         }
       });
+
   @override
   int successCode([RestApis? output]) => 200;
+
   @override
   RestApis buildOutput(
     RestApis payload,
@@ -114,6 +116,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<BadRequestException, BadRequestException>(
@@ -148,14 +151,19 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           builder: UnauthorizedException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'GetRestApis';
+
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<RestApis> run(
     GetRestApisRequest input, {
@@ -177,9 +185,11 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
 
   @override
   String? getToken(RestApis output) => output.position;
+
   @override
   _i2.BuiltList<RestApi> getItems(RestApis output) =>
       output.items ?? _i2.BuiltList();
+
   @override
   GetRestApisRequest rebuildInput(
     GetRestApisRequest input,

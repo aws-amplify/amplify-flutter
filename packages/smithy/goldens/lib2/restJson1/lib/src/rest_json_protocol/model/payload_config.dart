@@ -29,6 +29,7 @@ abstract class PayloadConfig
   int? get data;
   @override
   List<Object?> get props => [data];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PayloadConfig')
@@ -49,6 +50,7 @@ class PayloadConfigRestJson1Serializer
         PayloadConfig,
         _$PayloadConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -56,6 +58,7 @@ class PayloadConfigRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PayloadConfig deserialize(
     Serializers serializers,

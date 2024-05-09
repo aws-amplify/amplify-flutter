@@ -38,6 +38,7 @@ abstract class PostUnionWithJsonNameOutput
   UnionWithJsonName get value;
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameOutput')
@@ -59,6 +60,7 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
         PostUnionWithJsonNameOutput,
         _$PostUnionWithJsonNameOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -66,6 +68,7 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostUnionWithJsonNameOutput deserialize(
     Serializers serializers,

@@ -14,8 +14,7 @@ on:
 jobs:
   test-dart-ddc:
     # These tests heavily leverage build_runner which benefits from faster runners
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       # Allows other matrix items to run if one fails
@@ -23,7 +22,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - "3.0.1"
+          - "3.3.0"
           - stable
           - beta
         browser:
@@ -82,7 +81,7 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }}
+        run: dart run build_runner build test --delete-conflicting-outputs && dart test -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
 
       - name: Log success/failure

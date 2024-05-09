@@ -80,6 +80,7 @@ abstract class MalformedDoubleInput
   MalformedDoubleInputPayload getPayload() => MalformedDoubleInputPayload((b) {
         b.doubleInBody = doubleInBody;
       });
+
   @override
   List<Object?> get props => [
         doubleInBody,
@@ -87,6 +88,7 @@ abstract class MalformedDoubleInput
         doubleInQuery,
         doubleInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedDoubleInput')
@@ -124,6 +126,7 @@ abstract class MalformedDoubleInputPayload
   double? get doubleInBody;
   @override
   List<Object?> get props => [doubleInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedDoubleInputPayload')
@@ -147,6 +150,7 @@ class MalformedDoubleInputRestJson1Serializer
         MalformedDoubleInputPayload,
         _$MalformedDoubleInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -154,6 +158,7 @@ class MalformedDoubleInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedDoubleInputPayload deserialize(
     Serializers serializers,

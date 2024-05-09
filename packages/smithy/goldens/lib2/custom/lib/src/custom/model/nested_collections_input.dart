@@ -52,8 +52,10 @@ abstract class NestedCollectionsInput
       get mapOfListOfMapOfLists;
   @override
   NestedCollectionsInput getPayload() => this;
+
   @override
   List<Object?> get props => [mapOfListOfMapOfLists];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedCollectionsInput')
@@ -75,6 +77,7 @@ class NestedCollectionsInputRestJson1Serializer
         NestedCollectionsInput,
         _$NestedCollectionsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -82,6 +85,7 @@ class NestedCollectionsInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   NestedCollectionsInput deserialize(
     Serializers serializers,

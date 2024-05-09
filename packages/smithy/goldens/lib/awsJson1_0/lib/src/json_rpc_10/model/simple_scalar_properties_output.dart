@@ -49,6 +49,7 @@ abstract class SimpleScalarPropertiesOutput
         floatValue,
         doubleValue,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesOutput')
@@ -74,6 +75,7 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
         SimpleScalarPropertiesOutput,
         _$SimpleScalarPropertiesOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -81,6 +83,7 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   SimpleScalarPropertiesOutput deserialize(
     Serializers serializers,

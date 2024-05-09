@@ -101,6 +101,7 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i3
 
   @override
   Iterable<Type> get types => const [OmitsNullSerializesEmptyStringInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -108,6 +109,7 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i3
           shape: 'restXml',
         )
       ];
+
   @override
   OmitsNullSerializesEmptyStringInput deserialize(
     Serializers serializers,

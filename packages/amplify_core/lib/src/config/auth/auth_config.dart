@@ -24,7 +24,6 @@ class AuthConfig extends AmplifyPluginConfigMap {
     CognitoUserPoolConfig? userPoolConfig,
     CognitoIdentityPoolConfig? identityPoolConfig,
     CognitoOAuthConfig? hostedUiConfig,
-    AuthenticationFlowType? authenticationFlowType,
     List<SocialProvider>? socialProviders,
     List<CognitoUserAttributeKey>? usernameAttributes,
     List<CognitoUserAttributeKey>? signupAttributes,
@@ -40,7 +39,6 @@ class AuthConfig extends AmplifyPluginConfigMap {
             auth: AWSConfigMap.withDefault(
               CognitoAuthConfig(
                 oAuth: hostedUiConfig,
-                authenticationFlowType: authenticationFlowType,
                 socialProviders: socialProviders,
                 usernameAttributes: usernameAttributes ?? const [],
                 signupAttributes: signupAttributes ?? const [],

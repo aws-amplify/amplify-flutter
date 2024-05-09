@@ -60,6 +60,7 @@ class HostLabelInputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [HostLabelInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -67,6 +68,7 @@ class HostLabelInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   HostLabelInput deserialize(
     Serializers serializers,

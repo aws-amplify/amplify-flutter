@@ -47,8 +47,10 @@ abstract class XmlMapsInputOutput
   _i3.BuiltMap<String, GreetingStruct>? get myMap;
   @override
   XmlMapsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [myMap];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlMapsInputOutput')
@@ -69,6 +71,7 @@ class XmlMapsInputOutputRestXmlSerializer
         XmlMapsInputOutput,
         _$XmlMapsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -76,6 +79,7 @@ class XmlMapsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlMapsInputOutput deserialize(
     Serializers serializers,
@@ -124,7 +128,7 @@ class XmlMapsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
           myMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),

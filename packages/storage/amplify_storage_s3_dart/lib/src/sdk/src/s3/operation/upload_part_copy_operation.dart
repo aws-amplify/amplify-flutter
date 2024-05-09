@@ -15,66 +15,74 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
-/// Uploads a part by copying data from an existing object as data source. You specify the data source by adding the request header `x-amz-copy-source` in your request and a byte range by adding the request header `x-amz-copy-source-range` in your request.
+/// Uploads a part by copying data from an existing object as data source. To specify the data source, you add the request header `x-amz-copy-source` in your request. To specify a byte range, you add the request header `x-amz-copy-source-range` in your request.
 ///
 /// For information about maximum and minimum part sizes and other multipart upload specifications, see [Multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html) in the _Amazon S3 User Guide_.
 ///
-/// Instead of using an existing object as part data, you might use the [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html) action and provide data in your request.
+/// Instead of copying data from an existing object as part data, you might use the [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html) action to upload new data as a part of an object in your request.
 ///
-/// You must initiate a multipart upload before you can upload any part. In response to your initiate request. Amazon S3 returns a unique identifier, the upload ID, that you must include in your upload part request.
+/// You must initiate a multipart upload before you can upload any part. In response to your initiate request, Amazon S3 returns the upload ID, a unique identifier that you must include in your upload part request.
 ///
-/// For more information about using the `UploadPartCopy` operation, see the following:
+/// For conceptual information about multipart uploads, see [Uploading Objects Using Multipart Upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html) in the _Amazon S3 User Guide_. For information about copying objects using a single atomic action vs. a multipart upload, see [Operations on Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html) in the _Amazon S3 User Guide_.
 ///
-/// *   For conceptual information about multipart uploads, see [Uploading Objects Using Multipart Upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html) in the _Amazon S3 User Guide_.
+/// **Directory buckets** \- For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format `https://_bucket_name_.s3express-_az_id_._region_.amazonaws.com/_key-name_` . Path-style requests are not supported. For more information, see [Regional and Zonal endpoints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html) in the _Amazon S3 User Guide_.
 ///
-/// *   For information about permissions required to use the multipart upload API, see [Multipart Upload and Permissions](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html) in the _Amazon S3 User Guide_.
+/// Authentication and authorization
 ///
-/// *   For information about copying objects using a single atomic action vs. a multipart upload, see [Operations on Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html) in the _Amazon S3 User Guide_.
+/// All `UploadPartCopy` requests must be authenticated and signed by using IAM credentials (access key ID and secret access key for the IAM identities). All headers with the `x-amz-` prefix, including `x-amz-copy-source`, must be signed. For more information, see [REST Authentication](https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html).
 ///
-/// *   For information about using server-side encryption with customer-provided encryption keys with the `UploadPartCopy` operation, see [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html) and [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html).
+/// **Directory buckets** \- You must use IAM credentials to authenticate and authorize your access to the `UploadPartCopy` API operation, instead of using the temporary security credentials through the `CreateSession` API operation.
 ///
+/// Amazon Web Services CLI or SDKs handles authentication and authorization on your behalf.
 ///
-/// Note the following additional considerations about the request headers `x-amz-copy-source-if-match`, `x-amz-copy-source-if-none-match`, `x-amz-copy-source-if-unmodified-since`, and `x-amz-copy-source-if-modified-since`:
+/// Permissions
 ///
-/// *   **Consideration 1** \- If both of the `x-amz-copy-source-if-match` and `x-amz-copy-source-if-unmodified-since` headers are present in the request as follows:
+/// You must have `READ` access to the source object and `WRITE` access to the destination bucket.
 ///
-///     `x-amz-copy-source-if-match` condition evaluates to `true`, and;
+/// *   **General purpose bucket permissions** \- You must have the permissions in a policy based on the bucket types of your source bucket and destination bucket in an `UploadPartCopy` operation.
 ///
-///     `x-amz-copy-source-if-unmodified-since` condition evaluates to `false`;
+///     *   If the source object is in a general purpose bucket, you must have the **`s3:GetObject`** permission to read the source object that is being copied.
 ///
-///     Amazon S3 returns `200 OK` and copies the data.
-///
-/// *   **Consideration 2** \- If both of the `x-amz-copy-source-if-none-match` and `x-amz-copy-source-if-modified-since` headers are present in the request as follows:
-///
-///     `x-amz-copy-source-if-none-match` condition evaluates to `false`, and;
-///
-///     `x-amz-copy-source-if-modified-since` condition evaluates to `true`;
-///
-///     Amazon S3 returns `412 Precondition Failed` response code.
+///     *   If the destination bucket is a general purpose bucket, you must have the **`s3:PubObject`** permission to write the object copy to the destination bucket.
 ///
 ///
-/// Versioning
+///     For information about permissions required to use the multipart upload API, see [Multipart Upload and Permissions](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html) in the _Amazon S3 User Guide_.
 ///
-/// If your bucket has versioning enabled, you could have multiple versions of the same object. By default, `x-amz-copy-source` identifies the current version of the object to copy. If the current version is a delete marker and you don't specify a versionId in the `x-amz-copy-source`, Amazon S3 returns a 404 error, because the object does not exist. If you specify versionId in the `x-amz-copy-source` and the versionId is a delete marker, Amazon S3 returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the `x-amz-copy-source`.
+/// *   **Directory bucket permissions** \- You must have permissions in a bucket policy or an IAM identity-based policy based on the source and destination bucket types in an `UploadPartCopy` operation.
 ///
-/// You can optionally specify a specific version of the source object to copy by adding the `versionId` subresource as shown in the following example:
+///     *   If the source object that you want to copy is in a directory bucket, you must have the **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object . By default, the session is in the `ReadWrite` mode. If you want to restrict the access, you can explicitly set the `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
 ///
-/// `x-amz-copy-source: /bucket/object?versionId=version id`
+///     *   If the copy destination is a directory bucket, you must have the **`s3express:CreateSession`** permission in the `Action` element of a policy to write the object to the destination. The `s3express:SessionMode` condition key cannot be set to `ReadOnly` on the copy destination.
+///
+///
+///     For example policies, see [Example bucket policies for S3 Express One Zone](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-example-bucket-policies.html) and [Amazon Web Services Identity and Access Management (IAM) identity-based policies for S3 Express One Zone](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html) in the _Amazon S3 User Guide_.
+///
+///
+/// Encryption
+///
+/// *   **General purpose buckets** \- For information about using server-side encryption with customer-provided encryption keys with the `UploadPartCopy` operation, see [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html) and [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html).
+///
+/// *   **Directory buckets** \- For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
+///
 ///
 /// Special errors
 ///
-/// *   *   _Code: NoSuchUpload_
+/// *   Error Code: `NoSuchUpload`
 ///
-///     *   _Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed._
+///     *   Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.
 ///
-///     *   _HTTP Status Code: 404 Not Found_
+///     *   HTTP Status Code: 404 Not Found
 ///
-/// *   *   _Code: InvalidRequest_
+/// *   Error Code: `InvalidRequest`
 ///
-///     *   _Cause: The specified copy source is not supported as a byte-range copy source._
+///     *   Description: The specified copy source is not supported as a byte-range copy source.
 ///
-///     *   _HTTP Status Code: 400 Bad Request_
+///     *   HTTP Status Code: 400 Bad Request
 ///
+///
+/// HTTP Host header syntax
+///
+/// **Directory buckets** \- The HTTP Host header syntax is `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`.
 ///
 /// The following operations are related to `UploadPartCopy`:
 ///
@@ -94,66 +102,74 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
     UploadPartCopyRequest,
     CopyPartResult,
     UploadPartCopyOutput> {
-  /// Uploads a part by copying data from an existing object as data source. You specify the data source by adding the request header `x-amz-copy-source` in your request and a byte range by adding the request header `x-amz-copy-source-range` in your request.
+  /// Uploads a part by copying data from an existing object as data source. To specify the data source, you add the request header `x-amz-copy-source` in your request. To specify a byte range, you add the request header `x-amz-copy-source-range` in your request.
   ///
   /// For information about maximum and minimum part sizes and other multipart upload specifications, see [Multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html) in the _Amazon S3 User Guide_.
   ///
-  /// Instead of using an existing object as part data, you might use the [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html) action and provide data in your request.
+  /// Instead of copying data from an existing object as part data, you might use the [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html) action to upload new data as a part of an object in your request.
   ///
-  /// You must initiate a multipart upload before you can upload any part. In response to your initiate request. Amazon S3 returns a unique identifier, the upload ID, that you must include in your upload part request.
+  /// You must initiate a multipart upload before you can upload any part. In response to your initiate request, Amazon S3 returns the upload ID, a unique identifier that you must include in your upload part request.
   ///
-  /// For more information about using the `UploadPartCopy` operation, see the following:
+  /// For conceptual information about multipart uploads, see [Uploading Objects Using Multipart Upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html) in the _Amazon S3 User Guide_. For information about copying objects using a single atomic action vs. a multipart upload, see [Operations on Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html) in the _Amazon S3 User Guide_.
   ///
-  /// *   For conceptual information about multipart uploads, see [Uploading Objects Using Multipart Upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html) in the _Amazon S3 User Guide_.
+  /// **Directory buckets** \- For directory buckets, you must make requests for this API operation to the Zonal endpoint. These endpoints support virtual-hosted-style requests in the format `https://_bucket_name_.s3express-_az_id_._region_.amazonaws.com/_key-name_` . Path-style requests are not supported. For more information, see [Regional and Zonal endpoints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-Regions-and-Zones.html) in the _Amazon S3 User Guide_.
   ///
-  /// *   For information about permissions required to use the multipart upload API, see [Multipart Upload and Permissions](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html) in the _Amazon S3 User Guide_.
+  /// Authentication and authorization
   ///
-  /// *   For information about copying objects using a single atomic action vs. a multipart upload, see [Operations on Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectOperations.html) in the _Amazon S3 User Guide_.
+  /// All `UploadPartCopy` requests must be authenticated and signed by using IAM credentials (access key ID and secret access key for the IAM identities). All headers with the `x-amz-` prefix, including `x-amz-copy-source`, must be signed. For more information, see [REST Authentication](https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html).
   ///
-  /// *   For information about using server-side encryption with customer-provided encryption keys with the `UploadPartCopy` operation, see [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html) and [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html).
+  /// **Directory buckets** \- You must use IAM credentials to authenticate and authorize your access to the `UploadPartCopy` API operation, instead of using the temporary security credentials through the `CreateSession` API operation.
   ///
+  /// Amazon Web Services CLI or SDKs handles authentication and authorization on your behalf.
   ///
-  /// Note the following additional considerations about the request headers `x-amz-copy-source-if-match`, `x-amz-copy-source-if-none-match`, `x-amz-copy-source-if-unmodified-since`, and `x-amz-copy-source-if-modified-since`:
+  /// Permissions
   ///
-  /// *   **Consideration 1** \- If both of the `x-amz-copy-source-if-match` and `x-amz-copy-source-if-unmodified-since` headers are present in the request as follows:
+  /// You must have `READ` access to the source object and `WRITE` access to the destination bucket.
   ///
-  ///     `x-amz-copy-source-if-match` condition evaluates to `true`, and;
+  /// *   **General purpose bucket permissions** \- You must have the permissions in a policy based on the bucket types of your source bucket and destination bucket in an `UploadPartCopy` operation.
   ///
-  ///     `x-amz-copy-source-if-unmodified-since` condition evaluates to `false`;
+  ///     *   If the source object is in a general purpose bucket, you must have the **`s3:GetObject`** permission to read the source object that is being copied.
   ///
-  ///     Amazon S3 returns `200 OK` and copies the data.
-  ///
-  /// *   **Consideration 2** \- If both of the `x-amz-copy-source-if-none-match` and `x-amz-copy-source-if-modified-since` headers are present in the request as follows:
-  ///
-  ///     `x-amz-copy-source-if-none-match` condition evaluates to `false`, and;
-  ///
-  ///     `x-amz-copy-source-if-modified-since` condition evaluates to `true`;
-  ///
-  ///     Amazon S3 returns `412 Precondition Failed` response code.
+  ///     *   If the destination bucket is a general purpose bucket, you must have the **`s3:PubObject`** permission to write the object copy to the destination bucket.
   ///
   ///
-  /// Versioning
+  ///     For information about permissions required to use the multipart upload API, see [Multipart Upload and Permissions](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html) in the _Amazon S3 User Guide_.
   ///
-  /// If your bucket has versioning enabled, you could have multiple versions of the same object. By default, `x-amz-copy-source` identifies the current version of the object to copy. If the current version is a delete marker and you don't specify a versionId in the `x-amz-copy-source`, Amazon S3 returns a 404 error, because the object does not exist. If you specify versionId in the `x-amz-copy-source` and the versionId is a delete marker, Amazon S3 returns an HTTP 400 error, because you are not allowed to specify a delete marker as a version for the `x-amz-copy-source`.
+  /// *   **Directory bucket permissions** \- You must have permissions in a bucket policy or an IAM identity-based policy based on the source and destination bucket types in an `UploadPartCopy` operation.
   ///
-  /// You can optionally specify a specific version of the source object to copy by adding the `versionId` subresource as shown in the following example:
+  ///     *   If the source object that you want to copy is in a directory bucket, you must have the **`s3express:CreateSession`** permission in the `Action` element of a policy to read the object . By default, the session is in the `ReadWrite` mode. If you want to restrict the access, you can explicitly set the `s3express:SessionMode` condition key to `ReadOnly` on the copy source bucket.
   ///
-  /// `x-amz-copy-source: /bucket/object?versionId=version id`
+  ///     *   If the copy destination is a directory bucket, you must have the **`s3express:CreateSession`** permission in the `Action` element of a policy to write the object to the destination. The `s3express:SessionMode` condition key cannot be set to `ReadOnly` on the copy destination.
+  ///
+  ///
+  ///     For example policies, see [Example bucket policies for S3 Express One Zone](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-example-bucket-policies.html) and [Amazon Web Services Identity and Access Management (IAM) identity-based policies for S3 Express One Zone](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-security-iam-identity-policies.html) in the _Amazon S3 User Guide_.
+  ///
+  ///
+  /// Encryption
+  ///
+  /// *   **General purpose buckets** \- For information about using server-side encryption with customer-provided encryption keys with the `UploadPartCopy` operation, see [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html) and [UploadPart](https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html).
+  ///
+  /// *   **Directory buckets** \- For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
+  ///
   ///
   /// Special errors
   ///
-  /// *   *   _Code: NoSuchUpload_
+  /// *   Error Code: `NoSuchUpload`
   ///
-  ///     *   _Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed._
+  ///     *   Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.
   ///
-  ///     *   _HTTP Status Code: 404 Not Found_
+  ///     *   HTTP Status Code: 404 Not Found
   ///
-  /// *   *   _Code: InvalidRequest_
+  /// *   Error Code: `InvalidRequest`
   ///
-  ///     *   _Cause: The specified copy source is not supported as a byte-range copy source._
+  ///     *   Description: The specified copy source is not supported as a byte-range copy source.
   ///
-  ///     *   _HTTP Status Code: 400 Bad Request_
+  ///     *   HTTP Status Code: 400 Bad Request
   ///
+  ///
+  /// HTTP Host header syntax
+  ///
+  /// **Directory buckets** \- The HTTP Host header syntax is `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`.
   ///
   /// The following operations are related to `UploadPartCopy`:
   ///
@@ -332,8 +348,10 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
           input.uploadId,
         );
       });
+
   @override
   int successCode([UploadPartCopyOutput? output]) => 200;
+
   @override
   UploadPartCopyOutput buildOutput(
     CopyPartResult? payload,
@@ -343,12 +361,16 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'UploadPartCopy';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -369,6 +391,7 @@ class UploadPartCopyOperation extends _i1.HttpOperation<
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<UploadPartCopyOutput> run(
     UploadPartCopyRequest input, {

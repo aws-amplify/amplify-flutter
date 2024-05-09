@@ -66,6 +66,7 @@ class GetBucketLocationRequestRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GetBucketLocationRequest];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -73,6 +74,7 @@ class GetBucketLocationRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetBucketLocationRequest deserialize(
     Serializers serializers,
@@ -117,6 +119,7 @@ class GetBucketLocationOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GetBucketLocationOutput];
+
   @override
   Iterable<_i5.ShapeId> get supportedProtocols => const [
         _i5.ShapeId(
@@ -124,6 +127,7 @@ class GetBucketLocationOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetBucketLocationOutput deserialize(
     Serializers serializers,

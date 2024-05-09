@@ -94,6 +94,7 @@ abstract class UploadMultipartPartInput
 
   @override
   _i2.Stream<List<int>>? getPayload() => body;
+
   @override
   List<Object?> get props => [
         accountId,
@@ -103,6 +104,7 @@ abstract class UploadMultipartPartInput
         range,
         body,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadMultipartPartInput')
@@ -144,6 +146,7 @@ class UploadMultipartPartInputRestJson1Serializer
         UploadMultipartPartInput,
         _$UploadMultipartPartInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -151,6 +154,7 @@ class UploadMultipartPartInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Stream<List<int>> deserialize(
     Serializers serializers,

@@ -45,8 +45,10 @@ abstract class DeleteObjectTaggingOutput
   @override
   DeleteObjectTaggingOutputPayload getPayload() =>
       DeleteObjectTaggingOutputPayload();
+
   @override
   List<Object?> get props => [versionId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectTaggingOutput')
@@ -74,6 +76,7 @@ abstract class DeleteObjectTaggingOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -94,6 +97,7 @@ class DeleteObjectTaggingOutputRestXmlSerializer
         DeleteObjectTaggingOutputPayload,
         _$DeleteObjectTaggingOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -101,6 +105,7 @@ class DeleteObjectTaggingOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectTaggingOutputPayload deserialize(
     Serializers serializers,

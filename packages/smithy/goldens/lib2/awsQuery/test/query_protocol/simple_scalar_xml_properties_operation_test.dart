@@ -182,6 +182,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [SimpleScalarXmlPropertiesOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -189,6 +190,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   SimpleScalarXmlPropertiesOutput deserialize(
     Serializers serializers,

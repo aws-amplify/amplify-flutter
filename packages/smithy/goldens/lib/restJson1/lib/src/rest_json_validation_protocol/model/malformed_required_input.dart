@@ -62,12 +62,14 @@ abstract class MalformedRequiredInput
       MalformedRequiredInputPayload((b) {
         b.string = string;
       });
+
   @override
   List<Object?> get props => [
         string,
         stringInQuery,
         stringInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInput')
@@ -103,6 +105,7 @@ abstract class MalformedRequiredInputPayload
   String get string;
   @override
   List<Object?> get props => [string];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequiredInputPayload')
@@ -126,6 +129,7 @@ class MalformedRequiredInputRestJson1Serializer
         MalformedRequiredInputPayload,
         _$MalformedRequiredInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -133,6 +137,7 @@ class MalformedRequiredInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedRequiredInputPayload deserialize(
     Serializers serializers,

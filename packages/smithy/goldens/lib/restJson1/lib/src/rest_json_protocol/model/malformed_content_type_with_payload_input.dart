@@ -46,8 +46,10 @@ abstract class MalformedContentTypeWithPayloadInput
   _i2.Uint8List? get payload;
   @override
   _i2.Uint8List? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper =
@@ -70,6 +72,7 @@ class MalformedContentTypeWithPayloadInputRestJson1Serializer
         MalformedContentTypeWithPayloadInput,
         _$MalformedContentTypeWithPayloadInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class MalformedContentTypeWithPayloadInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

@@ -66,7 +66,7 @@ abstract class ForgotPasswordRequest
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
   UserContextDataType? get userContextData;
 
-  /// The user name of the user for whom you want to enter a code to reset a forgotten password.
+  /// The username of the user that you want to query or modify. The value of this parameter is typically your user's username, but it can be any of their alias attributes. If `username` isn't an alias attribute in your user pool, this value must be the `sub` of a local user or the username of a user from a third-party IdP.
   String get username;
 
   /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `ForgotPassword` calls.
@@ -88,6 +88,7 @@ abstract class ForgotPasswordRequest
   _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ForgotPasswordRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         clientId,
@@ -97,6 +98,7 @@ abstract class ForgotPasswordRequest
         analyticsMetadata,
         clientMetadata,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ForgotPasswordRequest')
@@ -138,6 +140,7 @@ class ForgotPasswordRequestAwsJson11Serializer
         ForgotPasswordRequest,
         _$ForgotPasswordRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -145,6 +148,7 @@ class ForgotPasswordRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ForgotPasswordRequest deserialize(
     Serializers serializers,

@@ -39,9 +39,10 @@ class $TransferRecordsTable extends TransferRecords
   @override
   List<GeneratedColumn> get $columns => [id, uploadId, objectKey, createdAt];
   @override
-  String get aliasedName => _alias ?? 'transfer_records';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'transfer_records';
+  String get actualTableName => $name;
+  static const String $name = 'transfer_records';
   @override
   VerificationContext validateIntegrity(Insertable<TransferRecord> instance,
       {bool isInserting = false}) {

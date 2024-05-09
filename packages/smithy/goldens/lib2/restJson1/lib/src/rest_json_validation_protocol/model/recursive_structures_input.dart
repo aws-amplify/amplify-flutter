@@ -40,8 +40,10 @@ abstract class RecursiveStructuresInput
   RecursiveUnionOne? get union;
   @override
   RecursiveStructuresInput getPayload() => this;
+
   @override
   List<Object?> get props => [union];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecursiveStructuresInput')
@@ -63,6 +65,7 @@ class RecursiveStructuresInputRestJson1Serializer
         RecursiveStructuresInput,
         _$RecursiveStructuresInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -70,6 +73,7 @@ class RecursiveStructuresInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveStructuresInput deserialize(
     Serializers serializers,

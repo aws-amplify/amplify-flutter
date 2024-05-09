@@ -47,8 +47,10 @@ abstract class BodyWithXmlNameInputOutput
   PayloadWithXmlName? get nested;
   @override
   BodyWithXmlNameInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput')
@@ -70,6 +72,7 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
         BodyWithXmlNameInputOutput,
         _$BodyWithXmlNameInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   BodyWithXmlNameInputOutput deserialize(
     Serializers serializers,

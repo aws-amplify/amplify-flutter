@@ -38,6 +38,7 @@ abstract class JsonUnionsOutput
   MyUnion? get contents;
   @override
   List<Object?> get props => [contents];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonUnionsOutput')
@@ -58,6 +59,7 @@ class JsonUnionsOutputAwsJson10Serializer
         JsonUnionsOutput,
         _$JsonUnionsOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class JsonUnionsOutputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   JsonUnionsOutput deserialize(
     Serializers serializers,

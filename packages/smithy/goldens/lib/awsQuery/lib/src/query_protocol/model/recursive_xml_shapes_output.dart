@@ -38,6 +38,7 @@ abstract class RecursiveXmlShapesOutput
   RecursiveXmlShapesOutputNested1? get nested;
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RecursiveXmlShapesOutput')
@@ -59,6 +60,7 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
         RecursiveXmlShapesOutput,
         _$RecursiveXmlShapesOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -66,6 +68,7 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   RecursiveXmlShapesOutput deserialize(
     Serializers serializers,

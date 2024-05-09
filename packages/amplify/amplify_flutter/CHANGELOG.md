@@ -1,3 +1,60 @@
+## 1.8.0
+
+NOTE: This version has been updated to:
+- Flutter: ">=3.19.0"
+- Dart ^3.3.0
+- Java 17, Kotlin 1.9.10 and Gradle 8.1 for Android projects
+
+### Features
+- feat: deprecate `Storage.move()` API ([#4638](https://github.com/aws-amplify/amplify-flutter/pull/4638))
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.0
+
+### Features
+
+- feat(api): add copyWith to GraphQLRequest ([#4365](https://github.com/aws-amplify/amplify-flutter/pull/4365))
+
+### Fixes
+
+- fix: `google.crypto.tink` version constraint ([#4434](https://github.com/aws-amplify/amplify-flutter/pull/4434))
+
+### Chores
+
+- chore(datastore): Amplify Swift version bump to 1.30.7 ([#4454](https://github.com/aws-amplify/amplify-flutter/pull/4454))
+
+## 1.6.1
+
+### Fixes
+
+- fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
+- fix(core): pub docs ([#4049](https://github.com/aws-amplify/amplify-flutter/pull/4049))
+- fix(datastore): emit observeQuery snapshot when model create mutation results in an updated model ([#4084](https://github.com/aws-amplify/amplify-flutter/pull/4084))
+
+## 1.6.0
+
+### Features
+
+- feat: rename sendUserAttributeVerificationCode ([#3759](https://github.com/aws-amplify/amplify-flutter/pull/3759))
+
+### Fixes
+
+- fix(analytics): allow nullable userProfile
+- fix(pub): ignore templates folder during analysis ([#4009](https://github.com/aws-amplify/amplify-flutter/pull/4009))
+- fix: remove exception during token timeout ([#3939](https://github.com/aws-amplify/amplify-flutter/pull/3939))
+
+## 1.5.0
+
+### Feature
+
+- feat(analytics): Support identity pools that have unauthenticated (guest) access disabled
+
+### Fixes
+
+- fix(analytics): event client flush events to do not discard events from cache on auth exception ([#3999](https://github.com/aws-amplify/amplify-flutter/pull/3999))
+- fix: catch and log updateEndpoint error during configure ([#3985](https://github.com/aws-amplify/amplify-flutter/pull/3985))
+
 ## 1.4.1
 
 ### Fixes

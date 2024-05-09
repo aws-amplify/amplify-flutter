@@ -49,8 +49,10 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   _i3.BuiltMap<String, String>? get myMap;
   @override
   FlattenedXmlMapWithXmlNameInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [myMap];
+
   @override
   String toString() {
     final helper =
@@ -73,6 +75,7 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
         FlattenedXmlMapWithXmlNameInputOutput,
         _$FlattenedXmlMapWithXmlNameInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -80,6 +83,7 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
           shape: 'restXml',
         )
       ];
+
   @override
   FlattenedXmlMapWithXmlNameInputOutput deserialize(
     Serializers serializers,
@@ -139,7 +143,7 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
       ).serialize(
         serializers,
         myMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),

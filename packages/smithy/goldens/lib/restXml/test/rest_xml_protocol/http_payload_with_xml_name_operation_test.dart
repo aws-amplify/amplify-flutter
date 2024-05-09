@@ -104,6 +104,7 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [HttpPayloadWithXmlNameInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -111,6 +112,7 @@ class HttpPayloadWithXmlNameInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HttpPayloadWithXmlNameInputOutput deserialize(
     Serializers serializers,
@@ -154,6 +156,7 @@ class PayloadWithXmlNameRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [PayloadWithXmlName];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -161,6 +164,7 @@ class PayloadWithXmlNameRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PayloadWithXmlName deserialize(
     Serializers serializers,

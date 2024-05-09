@@ -34,6 +34,7 @@ abstract class JsonInput
   JsonType? get type;
   @override
   List<Object?> get props => [type];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonInput')
@@ -54,6 +55,7 @@ class JsonInputRestXmlSerializer
         JsonInput,
         _$JsonInput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class JsonInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   JsonInput deserialize(
     Serializers serializers,

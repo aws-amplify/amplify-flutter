@@ -18,8 +18,8 @@ void setupNodeTest() {
   final childProcess = require('node:child_process');
   final os = require('node:os');
 
-  globalContext['process'.toJS] = process;
-  globalContext['fs'.toJS] = fs;
-  globalContext['childProcess'.toJS] = childProcess;
-  globalContext['os'.toJS] = os;
+  globalContext['process'] = process;
+  globalContext['fs'] = fs;
+  globalContext['childProcess'] = childProcess;
+  globalContext['os'] = os;
 }

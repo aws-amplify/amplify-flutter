@@ -47,8 +47,10 @@ abstract class XmlUnionsInputOutput
   XmlUnionShape? get unionValue;
   @override
   XmlUnionsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [unionValue];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlUnionsInputOutput')
@@ -69,6 +71,7 @@ class XmlUnionsInputOutputRestXmlSerializer
         XmlUnionsInputOutput,
         _$XmlUnionsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -76,6 +79,7 @@ class XmlUnionsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlUnionsInputOutput deserialize(
     Serializers serializers,

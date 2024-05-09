@@ -43,8 +43,10 @@ abstract class MalformedAcceptWithGenericStringOutput
   String? get payload;
   @override
   String? getPayload() => payload;
+
   @override
   List<Object?> get props => [payload];
+
   @override
   String toString() {
     final helper =
@@ -67,6 +69,7 @@ class MalformedAcceptWithGenericStringOutputRestJson1Serializer
         MalformedAcceptWithGenericStringOutput,
         _$MalformedAcceptWithGenericStringOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -74,6 +77,7 @@ class MalformedAcceptWithGenericStringOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   String deserialize(
     Serializers serializers,

@@ -37,6 +37,7 @@ abstract class NoInputAndOutputOutput
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NoInputAndOutputOutput');
@@ -54,6 +55,7 @@ class NoInputAndOutputOutputEc2QuerySerializer
         NoInputAndOutputOutput,
         _$NoInputAndOutputOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class NoInputAndOutputOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   NoInputAndOutputOutput deserialize(
     Serializers serializers,

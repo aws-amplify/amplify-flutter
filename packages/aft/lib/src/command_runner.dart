@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/commands/review_command.dart';
 import 'package:aft/src/commands/save_repo_state_command.dart';
 import 'package:args/command_runner.dart';
 
@@ -32,7 +33,8 @@ Future<void> run(List<String> args) async {
     ..addCommand(SaveRepoStateCommand())
     ..addCommand(RunCommand())
     ..addCommand(DocsCommand())
-    ..addCommand(ServeCommand());
+    ..addCommand(ServeCommand())
+    ..addCommand(ReviewCommand());
 
   try {
     final argResults = runner.argParser.parse(args);

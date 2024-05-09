@@ -54,6 +54,9 @@ class _MyAppState extends State<MyApp> {
       AmplifyAnalyticsPinpoint(
         // ignore: invalid_use_of_visible_for_testing_member
         secureStorageFactory: storageFactory,
+        options: const AnalyticsPinpointPluginOptions(
+          autoFlushEventsInterval: Duration(seconds: 10),
+        ),
       ),
     ]);
 

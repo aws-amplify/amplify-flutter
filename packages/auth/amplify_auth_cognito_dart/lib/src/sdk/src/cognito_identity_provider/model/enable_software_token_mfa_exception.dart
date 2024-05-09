@@ -49,18 +49,23 @@ abstract class EnableSoftwareTokenMfaException
         namespace: 'com.amazonaws.cognitoidentityprovider',
         shape: 'EnableSoftwareTokenMFAException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 400;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper =
@@ -83,6 +88,7 @@ class EnableSoftwareTokenMfaExceptionAwsJson11Serializer
         EnableSoftwareTokenMfaException,
         _$EnableSoftwareTokenMfaException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -90,6 +96,7 @@ class EnableSoftwareTokenMfaExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   EnableSoftwareTokenMfaException deserialize(
     Serializers serializers,

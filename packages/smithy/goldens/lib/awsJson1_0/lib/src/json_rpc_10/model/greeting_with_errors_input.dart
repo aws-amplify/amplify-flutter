@@ -38,8 +38,10 @@ abstract class GreetingWithErrorsInput
   String? get greeting;
   @override
   GreetingWithErrorsInput getPayload() => this;
+
   @override
   List<Object?> get props => [greeting];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput')
@@ -61,6 +63,7 @@ class GreetingWithErrorsInputAwsJson10Serializer
         GreetingWithErrorsInput,
         _$GreetingWithErrorsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -68,6 +71,7 @@ class GreetingWithErrorsInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   GreetingWithErrorsInput deserialize(
     Serializers serializers,

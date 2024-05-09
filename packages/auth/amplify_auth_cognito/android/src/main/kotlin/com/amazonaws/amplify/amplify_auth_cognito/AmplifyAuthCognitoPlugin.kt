@@ -6,6 +6,7 @@ package com.amazonaws.amplify.amplify_auth_cognito
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.MATCH_ALL
 import android.content.pm.PackageManager.MATCH_DEFAULT_ONLY
@@ -20,6 +21,7 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.PluginRegistry
+import java.net.URLDecoder
 import java.util.Locale
 
 open class AmplifyAuthCognitoPlugin :
@@ -101,6 +103,13 @@ open class AmplifyAuthCognitoPlugin :
       applicationContext!!,
       "com.amazonaws.android.auth"
     )
+  }
+
+  /**
+   ASF Device Secrets Storage.
+   */
+  private val asfDeviceSecretsStore: SharedPreferences by lazy {
+    applicationContext!!.getSharedPreferences("AWS.Cognito.ContextData", Context.MODE_PRIVATE)
   }
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -241,7 +250,7 @@ open class AmplifyAuthCognitoPlugin :
    *  - https://github.com/aws-amplify/aws-sdk-android/blob/main/aws-android-sdk-cognitoauth/src/main/java/com/amazonaws/mobileconnectors/cognitoauth/util/ClientConstants.java
    */
   override fun getLegacyCredentials(identityPoolId: String?, appClientId: String?, callback: (Result<LegacyCredentialStoreData>) -> Unit) {
-    val data = LegacyCredentialStoreData.builder()
+    val data = LegacyCredentialStoreDataBuilder()
 
     if (appClientId != null) {
       val lastAuthUser = legacyUserPoolStore["CognitoIdentityProvider.$appClientId.LastAuthUser"]
@@ -271,6 +280,52 @@ open class AmplifyAuthCognitoPlugin :
     }
 
     callback(Result.success(data.build()))
+  }
+
+  /**
+   * Get Legacy Device Secrets
+   */
+  override fun fetchLegacyDeviceSecrets(
+    username: String,
+    userPoolId: String,
+    callback: (Result<LegacyDeviceDetailsSecret?>) -> Unit
+  ) {
+    val data = LegacyDeviceDetailsBuilder()
+
+    val newLegacyDeviceSecretsStore = LegacyKeyValueStore(
+      applicationContext!!,
+      "CognitoIdentityProviderDeviceCache.$userPoolId.$username"
+    )
+
+    val deviceKey = newLegacyDeviceSecretsStore["DeviceKey"]
+    val deviceSecret = newLegacyDeviceSecretsStore["DeviceSecret"]
+    val deviceGroup = newLegacyDeviceSecretsStore["DeviceGroupKey"]
+
+    data.apply {
+      this.deviceKey = deviceKey
+      this.deviceSecret = deviceSecret
+      this.deviceGroupKey = deviceGroup
+    }
+
+    val asfDeviceId = asfDeviceSecretsStore.getString("CognitoDeviceId", null)
+    data.apply {
+      this.asfDeviceId = asfDeviceId
+    }
+
+    callback(Result.success(data.build()))
+  }
+
+  /**
+   * Delete Legacy Device Secrets
+   */
+  override fun deleteLegacyDeviceSecrets(username: String, userPoolId: String, callback: (Result<Unit>) -> Unit) {
+    val legacyDeviceSecretsStore = LegacyKeyValueStore(
+      applicationContext!!,
+      "CognitoIdentityProviderDeviceCache.$userPoolId.$username"
+    )
+    legacyDeviceSecretsStore.clear()
+    asfDeviceSecretsStore.edit().clear().apply()
+    callback(Result.success(Unit))
   }
 
   /**
@@ -536,15 +591,22 @@ open class AmplifyAuthCognitoPlugin :
   }
 
 }
-
 /**
  * The query parameters of the URI.
  */
 val Uri.queryParameters: MutableMap<String, String>
   get() {
     val queryParameters = mutableMapOf<String, String>()
-    for (name in queryParameterNames) {
-      queryParameters[name] = getQueryParameter(name) ?: ""
+    val queryString = this.encodedQuery ?: return queryParameters
+    val queries = queryString.split("&")
+
+    for (query in queries) {
+      val idx = query.indexOf("=")
+      if (idx != -1) {
+        val name = URLDecoder.decode(query.substring(0, idx), "UTF-8")
+        val value = URLDecoder.decode(query.substring(idx + 1), "UTF-8")
+        queryParameters[name] = value
+      }
     }
     return queryParameters
   }
@@ -570,5 +632,21 @@ class LegacyCredentialStoreDataBuilder(
     accessToken,
     refreshToken,
     idToken,
+  )
+}
+
+fun LegacyDeviceDetailsSecret.Companion.builder() = LegacyDeviceDetailsBuilder()
+
+class LegacyDeviceDetailsBuilder(
+  var deviceKey: String? = null,
+  var deviceGroupKey: String? = null,
+  var deviceSecret: String? = null,
+  var asfDeviceId: String? = null,
+) {
+  fun build(): LegacyDeviceDetailsSecret = LegacyDeviceDetailsSecret(
+    deviceKey,
+    deviceGroupKey,
+    deviceSecret,
+    asfDeviceId,
   )
 }

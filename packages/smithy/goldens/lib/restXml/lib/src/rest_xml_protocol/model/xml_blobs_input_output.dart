@@ -48,8 +48,10 @@ abstract class XmlBlobsInputOutput
   _i3.Uint8List? get data;
   @override
   XmlBlobsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [data];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlBlobsInputOutput')
@@ -70,6 +72,7 @@ class XmlBlobsInputOutputRestXmlSerializer
         XmlBlobsInputOutput,
         _$XmlBlobsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class XmlBlobsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlBlobsInputOutput deserialize(
     Serializers serializers,
@@ -117,7 +121,7 @@ class XmlBlobsInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('data'))
         ..add(serializers.serialize(
           data,
-          specifiedType: const FullType.nullable(_i3.Uint8List),
+          specifiedType: const FullType(_i3.Uint8List),
         ));
     }
     return result$;

@@ -119,6 +119,7 @@ abstract class OmitsSerializingEmptyListsInput
   @override
   OmitsSerializingEmptyListsInputPayload getPayload() =>
       OmitsSerializingEmptyListsInputPayload();
+
   @override
   List<Object?> get props => [
         queryStringList,
@@ -129,6 +130,7 @@ abstract class OmitsSerializingEmptyListsInput
         queryEnumList,
         queryIntegerEnumList,
       ];
+
   @override
   String toString() {
     final helper =
@@ -181,6 +183,7 @@ abstract class OmitsSerializingEmptyListsInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -201,6 +204,7 @@ class OmitsSerializingEmptyListsInputRestJson1Serializer extends _i1
         OmitsSerializingEmptyListsInputPayload,
         _$OmitsSerializingEmptyListsInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -208,6 +212,7 @@ class OmitsSerializingEmptyListsInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   OmitsSerializingEmptyListsInputPayload deserialize(
     Serializers serializers,

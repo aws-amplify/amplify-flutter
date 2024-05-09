@@ -135,6 +135,7 @@ class XmlMapsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlMapsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -142,6 +143,7 @@ class XmlMapsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlMapsInputOutput deserialize(
     Serializers serializers,
@@ -191,6 +193,7 @@ class GreetingStructRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [GreetingStruct];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -198,6 +201,7 @@ class GreetingStructRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,

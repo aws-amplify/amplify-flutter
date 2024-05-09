@@ -54,22 +54,27 @@ abstract class ServiceUnavailableException
         namespace: 'com.amazonaws.glacier',
         shape: 'ServiceUnavailableException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 500;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         type,
         code,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ServiceUnavailableException')
@@ -99,6 +104,7 @@ class ServiceUnavailableExceptionRestJson1Serializer
         ServiceUnavailableException,
         _$ServiceUnavailableException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -106,6 +112,7 @@ class ServiceUnavailableExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ServiceUnavailableException deserialize(
     Serializers serializers,

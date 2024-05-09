@@ -40,8 +40,10 @@ abstract class DeleteUserRequest
   String get accessToken;
   @override
   DeleteUserRequest getPayload() => this;
+
   @override
   List<Object?> get props => [accessToken];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteUserRequest')
@@ -62,6 +64,7 @@ class DeleteUserRequestAwsJson11Serializer
         DeleteUserRequest,
         _$DeleteUserRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -69,6 +72,7 @@ class DeleteUserRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   DeleteUserRequest deserialize(
     Serializers serializers,

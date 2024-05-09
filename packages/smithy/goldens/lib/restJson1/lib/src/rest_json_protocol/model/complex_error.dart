@@ -68,29 +68,36 @@ abstract class ComplexError
         }
         b.topLevel = topLevel;
       });
+
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'aws.protocoltests.restjson',
         shape: 'ComplexError',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 403;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         header,
         topLevel,
         nested,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexError')
@@ -127,6 +134,7 @@ abstract class ComplexErrorPayload
         nested,
         topLevel,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexErrorPayload')
@@ -153,6 +161,7 @@ class ComplexErrorRestJson1Serializer
         ComplexErrorPayload,
         _$ComplexErrorPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -160,6 +169,7 @@ class ComplexErrorRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ComplexErrorPayload deserialize(
     Serializers serializers,

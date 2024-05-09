@@ -59,11 +59,13 @@ abstract class ConstantAndVariableQueryStringInput
   @override
   ConstantAndVariableQueryStringInputPayload getPayload() =>
       ConstantAndVariableQueryStringInputPayload();
+
   @override
   List<Object?> get props => [
         baz,
         maybeSet,
       ];
+
   @override
   String toString() {
     final helper =
@@ -96,6 +98,7 @@ abstract class ConstantAndVariableQueryStringInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -116,6 +119,7 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i1
         ConstantAndVariableQueryStringInputPayload,
         _$ConstantAndVariableQueryStringInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -123,6 +127,7 @@ class ConstantAndVariableQueryStringInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   ConstantAndVariableQueryStringInputPayload deserialize(
     Serializers serializers,

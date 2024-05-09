@@ -174,29 +174,49 @@ abstract class GetObjectRequest
 
   /// The bucket name containing the object.
   ///
-  /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
+  /// **Directory buckets** \- When you use this operation with a directory bucket, you must use virtual-hosted-style requests in the format `_Bucket_name_.s3express-_az_id_._region_.amazonaws.com`. Path-style requests are not supported. Directory bucket names must be unique in the chosen Availability Zone. Bucket names must follow the format `_bucket\_base\_name_--_az-id_--x-s3` (for example, `_DOC-EXAMPLE-BUCKET_--_usw2-az2_--x-s3`). For information about bucket naming restrictions, see [Directory bucket naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-naming-rules.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using an Object Lambda access point the hostname takes the form _AccessPointName_-_AccountId_.s3-object-lambda._Region_.amazonaws.com.
+  /// **Access points** \- When you use this action with an access point, you must provide the alias of the access point in place of the bucket name or specify the access point ARN. When using the access point ARN, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// **Object Lambda access points** \- When you use this action with an Object Lambda access point, you must direct requests to the Object Lambda access point hostname. The Object Lambda access point hostname takes the form _AccessPointName_-_AccountId_.s3-object-lambda._Region_.amazonaws.com.
+  ///
+  /// Access points and Object Lambda access points are not supported by directory buckets.
+  ///
+  /// **S3 on Outposts** \- When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412 (precondition failed) error.
+  /// Return the object only if its entity tag (ETag) is the same as the one specified in this header; otherwise, return a `412 Precondition Failed` error.
+  ///
+  /// If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows: `If-Match` condition evaluates to `true`, and; `If-Unmodified-Since` condition evaluates to `false`; then, S3 returns `200 OK` and the data requested.
+  ///
+  /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   String? get ifMatch;
 
-  /// Return the object only if it has been modified since the specified time; otherwise, return a 304 (not modified) error.
+  /// Return the object only if it has been modified since the specified time; otherwise, return a `304 Not Modified` error.
+  ///
+  /// If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows: `If-None-Match` condition evaluates to `false`, and; `If-Modified-Since` condition evaluates to `true`; then, S3 returns `304 Not Modified` status code.
+  ///
+  /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   DateTime? get ifModifiedSince;
 
-  /// Return the object only if its entity tag (ETag) is different from the one specified; otherwise, return a 304 (not modified) error.
+  /// Return the object only if its entity tag (ETag) is different from the one specified in this header; otherwise, return a `304 Not Modified` error.
+  ///
+  /// If both of the `If-None-Match` and `If-Modified-Since` headers are present in the request as follows: `If-None-Match` condition evaluates to `false`, and; `If-Modified-Since` condition evaluates to `true`; then, S3 returns `304 Not Modified` HTTP status code.
+  ///
+  /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   String? get ifNoneMatch;
 
-  /// Return the object only if it has not been modified since the specified time; otherwise, return a 412 (precondition failed) error.
+  /// Return the object only if it has not been modified since the specified time; otherwise, return a `412 Precondition Failed` error.
+  ///
+  /// If both of the `If-Match` and `If-Unmodified-Since` headers are present in the request as follows: `If-Match` condition evaluates to `true`, and; `If-Unmodified-Since` condition evaluates to `false`; then, S3 returns `200 OK` and the data requested.
+  ///
+  /// For more information about conditional requests, see [RFC 7232](https://tools.ietf.org/html/rfc7232).
   DateTime? get ifUnmodifiedSince;
 
   /// Key of the object to get.
   String get key;
 
-  /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.rfc-editor.org/rfc/rfc9110.html#name-range](https://www.rfc-editor.org/rfc/rfc9110.html#name-range).
+  /// Downloads the specified byte range of an object. For more information about the HTTP Range header, see [https://www.rfc-editor.org/rfc/rfc9110.html#name-range](https://www.rfc-editor.org/rfc/rfc9110.html#name-range).
   ///
   /// Amazon S3 doesn't support retrieving multiple ranges of data per `GET` request.
   String? get range;
@@ -204,7 +224,7 @@ abstract class GetObjectRequest
   /// Sets the `Cache-Control` header of the response.
   String? get responseCacheControl;
 
-  /// Sets the `Content-Disposition` header of the response
+  /// Sets the `Content-Disposition` header of the response.
   String? get responseContentDisposition;
 
   /// Sets the `Content-Encoding` header of the response.
@@ -219,25 +239,77 @@ abstract class GetObjectRequest
   /// Sets the `Expires` header of the response.
   DateTime? get responseExpires;
 
-  /// VersionId used to reference a specific version of the object.
+  /// Version ID used to reference a specific version of the object.
+  ///
+  /// By default, the `GetObject` operation returns the current version of an object. To return a different version, use the `versionId` subresource.
+  ///
+  /// *   If you include a `versionId` in your request header, you must have the `s3:GetObjectVersion` permission to access a specific version of an object. The `s3:GetObject` permission is not required in this scenario.
+  ///
+  /// *   If you request the current version of an object without a specific `versionId` in the request header, only the `s3:GetObject` permission is required. The `s3:GetObjectVersion` permission is not required in this scenario.
+  ///
+  /// *   **Directory buckets** \- S3 Versioning isn't enabled and supported for directory buckets. For this API operation, only the `null` value of the version ID is supported by directory buckets. You can only specify `null` to the `versionId` query parameter in the request.
+  ///
+  ///
+  /// For more information about versioning, see [PutBucketVersioning](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html).
   String? get versionId;
 
-  /// Specifies the algorithm to use to when decrypting the object (for example, AES256).
+  /// Specifies the algorithm to use when decrypting the object (for example, `AES256`).
+  ///
+  /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you GET the object, you must use the following headers:
+  ///
+  /// *   `x-amz-server-side-encryption-customer-algorithm`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key-MD5`
+  ///
+  ///
+  /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerAlgorithm;
 
-  /// Specifies the customer-provided encryption key for Amazon S3 used to encrypt the data. This value is used to decrypt the object when recovering it and must match the one used when storing the data. The key must be appropriate for use with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
+  /// Specifies the customer-provided encryption key that you originally provided for Amazon S3 to encrypt the data before storing it. This value is used to decrypt the object when recovering it and must match the one used when storing the data. The key must be appropriate for use with the algorithm specified in the `x-amz-server-side-encryption-customer-algorithm` header.
+  ///
+  /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you GET the object, you must use the following headers:
+  ///
+  /// *   `x-amz-server-side-encryption-customer-algorithm`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key-MD5`
+  ///
+  ///
+  /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKey;
 
-  /// Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
+  /// Specifies the 128-bit MD5 digest of the customer-provided encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
+  ///
+  /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you GET the object, you must use the following headers:
+  ///
+  /// *   `x-amz-server-side-encryption-customer-algorithm`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key`
+  ///
+  /// *   `x-amz-server-side-encryption-customer-key-MD5`
+  ///
+  ///
+  /// For more information about SSE-C, see [Server-Side Encryption (Using Customer-Provided Encryption Keys)](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKeyMd5;
 
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. If either the source or destination S3 bucket has Requester Pays enabled, the requester will pay for corresponding charges to copy the object. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestPayer? get requestPayer;
 
   /// Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' GET request for the part specified. Useful for downloading just a part of an object.
   int? get partNumber;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  /// The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
 
   /// To retrieve the checksum, this mode must be enabled.
@@ -258,6 +330,7 @@ abstract class GetObjectRequest
 
   @override
   GetObjectRequestPayload getPayload() => GetObjectRequestPayload();
+
   @override
   List<Object?> get props => [
         bucket,
@@ -282,6 +355,7 @@ abstract class GetObjectRequest
         expectedBucketOwner,
         checksumMode,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequest')
@@ -387,6 +461,7 @@ abstract class GetObjectRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectRequestPayload');
@@ -405,6 +480,7 @@ class GetObjectRequestRestXmlSerializer
         GetObjectRequestPayload,
         _$GetObjectRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -412,6 +488,7 @@ class GetObjectRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetObjectRequestPayload deserialize(
     Serializers serializers,

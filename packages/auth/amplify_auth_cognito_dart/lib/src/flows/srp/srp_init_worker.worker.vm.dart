@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class SrpInitWorkerImpl extends SrpInitWorker {
   @override
   String get name => 'SrpInitWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

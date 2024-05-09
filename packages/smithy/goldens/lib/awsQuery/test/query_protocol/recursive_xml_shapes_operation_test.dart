@@ -71,6 +71,7 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [RecursiveXmlShapesOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -78,6 +79,7 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   RecursiveXmlShapesOutput deserialize(
     Serializers serializers,
@@ -122,6 +124,7 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [RecursiveXmlShapesOutputNested1];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -129,6 +132,7 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   RecursiveXmlShapesOutputNested1 deserialize(
     Serializers serializers,
@@ -178,6 +182,7 @@ class RecursiveXmlShapesOutputNested2AwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [RecursiveXmlShapesOutputNested2];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -185,6 +190,7 @@ class RecursiveXmlShapesOutputNested2AwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   RecursiveXmlShapesOutputNested2 deserialize(
     Serializers serializers,

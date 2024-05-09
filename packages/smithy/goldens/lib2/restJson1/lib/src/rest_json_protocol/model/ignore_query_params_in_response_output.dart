@@ -39,6 +39,7 @@ abstract class IgnoreQueryParamsInResponseOutput
   String? get baz;
   @override
   List<Object?> get props => [baz];
+
   @override
   String toString() {
     final helper =
@@ -61,6 +62,7 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer
         IgnoreQueryParamsInResponseOutput,
         _$IgnoreQueryParamsInResponseOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -68,6 +70,7 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   IgnoreQueryParamsInResponseOutput deserialize(
     Serializers serializers,

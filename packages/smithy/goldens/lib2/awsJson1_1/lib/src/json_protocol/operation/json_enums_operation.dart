@@ -80,8 +80,10 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([JsonEnumsInputOutput? output]) => 200;
+
   @override
   JsonEnumsInputOutput buildOutput(
     JsonEnumsInputOutput payload,
@@ -91,16 +93,22 @@ class JsonEnumsOperation extends _i1.HttpOperation<JsonEnumsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'JsonEnums';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<JsonEnumsInputOutput> run(
     JsonEnumsInputOutput input, {

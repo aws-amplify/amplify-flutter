@@ -25,4 +25,9 @@ class AmplifyNativeLegacyWrapper implements LegacyNativePlugin {
   Future<void> signOut() {
     return _plugin.signOut();
   }
+
+  @override
+  Future<void> rememberDevice() {
+    return _plugin.rememberDevice();
+  }
 }

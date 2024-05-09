@@ -230,6 +230,12 @@ class PackageInfo
     return unitTestDir;
   }
 
+  bool hasDirectory(String name) {
+    final expectedPath = p.join(path, name);
+    final dir = Directory(expectedPath);
+    return dir.existsSync();
+  }
+
   /// The integration test directory within the enclosing directory, if any
   Directory? get integrationTestDirectory {
     final expectedPath = p.join(path, 'integration_test');

@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@Deprecated('Use UserProfileLocation instead')
-typedef AnalyticsUserProfileLocation = UserProfileLocation;
-
 /// Location data of a user.
 class UserProfileLocation {
   const UserProfileLocation({

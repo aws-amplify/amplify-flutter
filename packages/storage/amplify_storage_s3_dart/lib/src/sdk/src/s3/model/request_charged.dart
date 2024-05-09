@@ -6,6 +6,8 @@ library amplify_storage_s3_dart.s3.model.request_charged; // ignore_for_file: no
 import 'package:smithy/smithy.dart' as _i1;
 
 /// If present, indicates that the requester was successfully charged for the request.
+///
+/// This functionality is not supported for directory buckets.
 class RequestCharged extends _i1.SmithyEnum<RequestCharged> {
   const RequestCharged._(
     super.index,

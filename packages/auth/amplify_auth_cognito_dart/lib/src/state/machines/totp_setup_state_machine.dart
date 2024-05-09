@@ -2,8 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito_dart/src/jwt/src/cognito.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
+    hide EnableSoftwareTokenMfaException, CodeMismatchException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/sdk_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -48,6 +50,7 @@ final class TotpSetupStateMachine
   CognitoIdentityProviderClient get _cognitoIdp => expect();
 
   String? _session;
+  TotpSetupDetails? _details;
 
   Future<void> _onInitiate(TotpSetupInitiate event) async {
     final tokens = await manager.getUserPoolTokens();
@@ -59,12 +62,13 @@ final class TotpSetupStateMachine
         )
         .result;
     _session = response.session;
+    _details = TotpSetupDetails(
+      username: CognitoIdToken(tokens.idToken).username,
+      sharedSecret: response.secretCode!,
+    );
     emit(
       TotpSetupState.requiresVerification(
-        TotpSetupDetails(
-          username: CognitoIdToken(tokens.idToken).username,
-          sharedSecret: response.secretCode!,
-        ),
+        _details!,
       ),
     );
   }
@@ -72,16 +76,40 @@ final class TotpSetupStateMachine
   Future<void> _onVerify(TotpSetupVerify event) async {
     final tokens = await manager.getUserPoolTokens();
     final accessToken = tokens.accessToken.raw;
-    await _cognitoIdp
-        .verifySoftwareToken(
-          VerifySoftwareTokenRequest(
-            accessToken: accessToken,
-            session: _session,
-            userCode: event.code,
-            friendlyDeviceName: event.friendlyDeviceName,
+
+    try {
+      await _cognitoIdp
+          .verifySoftwareToken(
+            VerifySoftwareTokenRequest(
+              accessToken: accessToken,
+              session: _session,
+              userCode: event.code,
+              friendlyDeviceName: event.friendlyDeviceName,
+            ),
+          )
+          .result;
+    } on Exception catch (e) {
+      // Handle mismatch code exception that may occur during TOTP verification.
+      // See: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_VerifySoftwareToken.html#API_VerifySoftwareToken_Errors
+      if (e is EnableSoftwareTokenMfaException || e is CodeMismatchException) {
+        assert(
+          _details != null,
+          'TotpSetupDetails should not be null. Please report this issue.',
+        );
+        logger.verbose(
+          'Failed to verify TOTP code. Allowing retry...',
+          e,
+        );
+        emit(
+          TotpSetupState.requiresVerification(
+            _details!,
           ),
-        )
-        .result;
+        );
+        return;
+      }
+      rethrow;
+    }
+
     try {
       await _cognitoIdp.setMfaSettings(
         accessToken: accessToken,

@@ -89,6 +89,7 @@ abstract class CsvInput
         quoteCharacter,
         allowQuotedRecordDelimiter,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CsvInput')
@@ -133,6 +134,7 @@ class CsvInputRestXmlSerializer
         CsvInput,
         _$CsvInput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -140,6 +142,7 @@ class CsvInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CsvInput deserialize(
     Serializers serializers,

@@ -168,6 +168,7 @@ class UploadArchiveInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [UploadArchiveInput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -175,6 +176,7 @@ class UploadArchiveInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   UploadArchiveInput deserialize(
     Serializers serializers,
@@ -248,6 +250,7 @@ class ArchiveCreationOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ArchiveCreationOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -255,6 +258,7 @@ class ArchiveCreationOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ArchiveCreationOutput deserialize(
     Serializers serializers,
@@ -309,6 +313,7 @@ class InvalidParameterValueExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [InvalidParameterValueException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -316,6 +321,7 @@ class InvalidParameterValueExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   InvalidParameterValueException deserialize(
     Serializers serializers,
@@ -370,6 +376,7 @@ class MissingParameterValueExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [MissingParameterValueException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -377,6 +384,7 @@ class MissingParameterValueExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MissingParameterValueException deserialize(
     Serializers serializers,
@@ -431,6 +439,7 @@ class RequestTimeoutExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RequestTimeoutException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -438,6 +447,7 @@ class RequestTimeoutExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RequestTimeoutException deserialize(
     Serializers serializers,
@@ -492,6 +502,7 @@ class ResourceNotFoundExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ResourceNotFoundException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -499,6 +510,7 @@ class ResourceNotFoundExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ResourceNotFoundException deserialize(
     Serializers serializers,
@@ -553,6 +565,7 @@ class ServiceUnavailableExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [ServiceUnavailableException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -560,6 +573,7 @@ class ServiceUnavailableExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ServiceUnavailableException deserialize(
     Serializers serializers,

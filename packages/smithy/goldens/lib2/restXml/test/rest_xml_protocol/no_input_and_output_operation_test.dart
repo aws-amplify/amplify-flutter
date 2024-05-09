@@ -91,6 +91,7 @@ class NoInputAndOutputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [NoInputAndOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -98,6 +99,7 @@ class NoInputAndOutputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NoInputAndOutputOutput deserialize(
     Serializers serializers,

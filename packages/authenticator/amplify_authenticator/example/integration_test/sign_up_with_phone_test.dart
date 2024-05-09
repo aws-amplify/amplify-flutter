@@ -96,8 +96,7 @@ void main() {
       final password = generatePassword();
       final email = generateEmail();
 
-      // When I select my country code
-      await signUpPage.selectCountryCode();
+      // When I enter my phone number
       await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
 
       // And I type my password

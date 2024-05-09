@@ -29,6 +29,7 @@ abstract class ComplexNestedErrorData
   String? get foo;
   @override
   List<Object?> get props => [foo];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexNestedErrorData')
@@ -50,6 +51,7 @@ class ComplexNestedErrorDataRestJson1Serializer
         ComplexNestedErrorData,
         _$ComplexNestedErrorData,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -57,6 +59,7 @@ class ComplexNestedErrorDataRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,

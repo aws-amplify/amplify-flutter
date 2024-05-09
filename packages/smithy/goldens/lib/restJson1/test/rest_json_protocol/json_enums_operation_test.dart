@@ -127,6 +127,7 @@ class JsonEnumsInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [JsonEnumsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -134,6 +135,7 @@ class JsonEnumsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonEnumsInputOutput deserialize(
     Serializers serializers,

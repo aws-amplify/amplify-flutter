@@ -1,3 +1,24 @@
+## 0.4.4
+
+- Add Apple privacy manifest file ([#4794](https://github.com/aws-amplify/amplify-flutter/pull/4794))
+
+## 0.4.3
+
+### Features
+- feat: update `built_value` version constraint ([#4634](https://github.com/aws-amplify/amplify-flutter/pull/4634))
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.4.2
+
+### Fixes
+- fix: `google.crypto.tink` version constraint ([#4434](https://github.com/aws-amplify/amplify-flutter/pull/4434))
+
+## 0.4.1
+
+### Fixes
+- fix: Bumped built_value to ">=8.6.0 <8.9.0" and built_value_generator to 8.8.1
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
 ## 0.4.0+6
 
 - Minor bug fixes and improvements

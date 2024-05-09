@@ -57,22 +57,30 @@ abstract class DeleteObjectOutput
   static const List<_i2.SmithySerializer<DeleteObjectOutputPayload>>
       serializers = [DeleteObjectOutputRestXmlSerializer()];
 
-  /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
+  /// Indicates whether the specified object version that was permanently deleted was (true) or was not (false) a delete marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version of the object is a delete marker.
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get deleteMarker;
 
   /// Returns the version ID of the delete marker created as a result of the DELETE operation.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
   @override
   DeleteObjectOutputPayload getPayload() => DeleteObjectOutputPayload();
+
   @override
   List<Object?> get props => [
         deleteMarker,
         versionId,
         requestCharged,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectOutput')
@@ -106,6 +114,7 @@ abstract class DeleteObjectOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteObjectOutputPayload');
@@ -124,6 +133,7 @@ class DeleteObjectOutputRestXmlSerializer
         DeleteObjectOutputPayload,
         _$DeleteObjectOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -131,6 +141,7 @@ class DeleteObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeleteObjectOutputPayload deserialize(
     Serializers serializers,

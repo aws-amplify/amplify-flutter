@@ -43,12 +43,18 @@ abstract class DeletedObject
   String? get key;
 
   /// The version ID of the deleted object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
-  /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
+  /// Indicates whether the specified object version that was permanently deleted was (true) or was not (false) a delete marker before deletion. In a simple DELETE, this header indicates whether (true) or not (false) the current version of the object is a delete marker.
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get deleteMarker;
 
   /// The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get deleteMarkerVersionId;
   @override
   List<Object?> get props => [
@@ -57,6 +63,7 @@ abstract class DeletedObject
         deleteMarker,
         deleteMarkerVersionId,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeletedObject')
@@ -89,6 +96,7 @@ class DeletedObjectRestXmlSerializer
         DeletedObject,
         _$DeletedObject,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -96,6 +104,7 @@ class DeletedObjectRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   DeletedObject deserialize(
     Serializers serializers,

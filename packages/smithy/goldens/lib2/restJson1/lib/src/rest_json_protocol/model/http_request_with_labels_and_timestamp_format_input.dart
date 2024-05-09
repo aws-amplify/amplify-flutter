@@ -150,6 +150,7 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayload getPayload() =>
       HttpRequestWithLabelsAndTimestampFormatInputPayload();
+
   @override
   List<Object?> get props => [
         memberEpochSeconds,
@@ -160,6 +161,7 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
         targetHttpDate,
         targetDateTime,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -212,6 +214,7 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -233,6 +236,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
         HttpRequestWithLabelsAndTimestampFormatInputPayload,
         _$HttpRequestWithLabelsAndTimestampFormatInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -240,6 +244,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithLabelsAndTimestampFormatInputPayload deserialize(
     Serializers serializers,

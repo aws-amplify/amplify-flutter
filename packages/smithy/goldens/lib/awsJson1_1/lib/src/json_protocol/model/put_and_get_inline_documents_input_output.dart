@@ -50,8 +50,10 @@ abstract class PutAndGetInlineDocumentsInputOutput
   _i3.JsonObject? get inlineDocument;
   @override
   PutAndGetInlineDocumentsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [inlineDocument];
+
   @override
   String toString() {
     final helper =
@@ -74,6 +76,7 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
         PutAndGetInlineDocumentsInputOutput,
         _$PutAndGetInlineDocumentsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -81,6 +84,7 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i1
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PutAndGetInlineDocumentsInputOutput deserialize(
     Serializers serializers,

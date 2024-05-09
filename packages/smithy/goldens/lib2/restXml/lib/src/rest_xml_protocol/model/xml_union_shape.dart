@@ -70,15 +70,25 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   ];
 
   String? get stringValue => null;
+
   bool? get booleanValue => null;
+
   int? get byteValue => null;
+
   int? get shortValue => null;
+
   int? get integerValue => null;
+
   _i2.Int64? get longValue => null;
+
   double? get floatValue => null;
+
   double? get doubleValue => null;
+
   XmlUnionShape? get unionValue => null;
+
   XmlNestedUnionStruct? get structValue => null;
+
   @override
   Object get value => (stringValue ??
       booleanValue ??
@@ -90,6 +100,7 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
       doubleValue ??
       unionValue ??
       structValue)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'XmlUnionShape');
@@ -288,6 +299,7 @@ class XmlUnionShapeRestXmlSerializer
         XmlUnionShapeUnionValue$,
         XmlUnionShapeStructValue$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -295,6 +307,7 @@ class XmlUnionShapeRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlUnionShape deserialize(
     Serializers serializers,

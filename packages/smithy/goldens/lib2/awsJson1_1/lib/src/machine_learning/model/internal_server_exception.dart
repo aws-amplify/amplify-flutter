@@ -51,21 +51,26 @@ abstract class InternalServerException
         namespace: 'com.amazonaws.machinelearning',
         shape: 'InternalServerException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 500;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         message,
         code,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InternalServerException')
@@ -91,6 +96,7 @@ class InternalServerExceptionAwsJson11Serializer
         InternalServerException,
         _$InternalServerException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -98,6 +104,7 @@ class InternalServerExceptionAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   InternalServerException deserialize(
     Serializers serializers,

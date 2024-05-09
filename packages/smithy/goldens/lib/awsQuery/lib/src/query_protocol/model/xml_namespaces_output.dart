@@ -38,6 +38,7 @@ abstract class XmlNamespacesOutput
   XmlNamespaceNested? get nested;
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespacesOutput')
@@ -58,6 +59,7 @@ class XmlNamespacesOutputAwsQuerySerializer
         XmlNamespacesOutput,
         _$XmlNamespacesOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -65,6 +67,7 @@ class XmlNamespacesOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlNamespacesOutput deserialize(
     Serializers serializers,

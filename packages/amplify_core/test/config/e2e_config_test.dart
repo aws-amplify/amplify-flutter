@@ -11,6 +11,7 @@ import 'testdata/e2e/v4/amplifyconfiguration.dart' as v4;
 import 'testdata/e2e/v5/amplifyconfiguration.dart' as v5;
 import 'testdata/e2e/v6/amplifyconfiguration.dart' as v6;
 import 'testdata/e2e/v7/amplifyconfiguration.dart' as v7;
+import 'utils/remove_deprecated_key.dart';
 
 class E2ETest {
   const E2ETest(this.version, this.config);
@@ -33,7 +34,8 @@ void main() {
       test('v${e2eTest.version}', () {
         final json = jsonDecode(e2eTest.config) as Map<String, Object?>;
         final parsed = AmplifyConfig.fromJson(json.cast());
-        expect(parsed.toJson(), equals(json));
+        final expectedJson = removeDeprecatedKeys(json);
+        expect(parsed.toJson(), equals(expectedJson));
       });
     }
   });

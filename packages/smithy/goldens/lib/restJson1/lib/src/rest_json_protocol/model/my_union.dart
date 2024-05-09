@@ -50,15 +50,25 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
   ];
 
   String? get stringValue => null;
+
   bool? get booleanValue => null;
+
   int? get numberValue => null;
+
   _i2.Uint8List? get blobValue => null;
+
   DateTime? get timestampValue => null;
+
   FooEnum? get enumValue => null;
+
   _i3.BuiltList<String>? get listValue => null;
+
   _i3.BuiltMap<String, String>? get mapValue => null;
+
   GreetingStruct? get structureValue => null;
+
   RenamedGreeting? get renamedStructureValue => null;
+
   @override
   Object get value => (stringValue ??
       booleanValue ??
@@ -70,6 +80,7 @@ sealed class MyUnion extends _i1.SmithyUnion<MyUnion> {
       mapValue ??
       structureValue ??
       renamedStructureValue)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'MyUnion');
@@ -273,6 +284,7 @@ class MyUnionRestJson1Serializer
         MyUnionStructureValue$,
         MyUnionRenamedStructureValue$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -280,6 +292,7 @@ class MyUnionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MyUnion deserialize(
     Serializers serializers,

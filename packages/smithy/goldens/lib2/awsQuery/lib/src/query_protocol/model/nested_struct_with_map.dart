@@ -32,6 +32,7 @@ abstract class NestedStructWithMap
   _i2.BuiltMap<String, String>? get mapArg;
   @override
   List<Object?> get props => [mapArg];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructWithMap')
@@ -52,6 +53,7 @@ class NestedStructWithMapAwsQuerySerializer
         NestedStructWithMap,
         _$NestedStructWithMap,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -59,6 +61,7 @@ class NestedStructWithMapAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NestedStructWithMap deserialize(
     Serializers serializers,
@@ -124,7 +127,7 @@ class NestedStructWithMapAwsQuerySerializer
                 .serialize(
           serializers,
           mapArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

@@ -30,6 +30,7 @@ abstract class EndEvent
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('EndEvent');
@@ -46,6 +47,7 @@ class EndEventRestXmlSerializer
         EndEvent,
         _$EndEvent,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -53,6 +55,7 @@ class EndEventRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   EndEvent deserialize(
     Serializers serializers,

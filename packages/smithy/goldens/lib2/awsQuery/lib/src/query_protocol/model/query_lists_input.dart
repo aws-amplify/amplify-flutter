@@ -64,6 +64,7 @@ abstract class QueryListsInput
   NestedStructWithList? get nestedWithList;
   @override
   QueryListsInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         listArg,
@@ -73,6 +74,7 @@ abstract class QueryListsInput
         flattenedListArgWithXmlName,
         nestedWithList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryListsInput')
@@ -113,6 +115,7 @@ class QueryListsInputAwsQuerySerializer
         QueryListsInput,
         _$QueryListsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -120,6 +123,7 @@ class QueryListsInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   QueryListsInput deserialize(
     Serializers serializers,
@@ -228,7 +232,7 @@ class QueryListsInputAwsQuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -242,7 +246,7 @@ class QueryListsInputAwsQuerySerializer
             .serialize(
           serializers,
           complexListArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(GreetingStruct)],
           ),
@@ -255,7 +259,7 @@ class QueryListsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListArg,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),
@@ -270,7 +274,7 @@ class QueryListsInputAwsQuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlNameMember,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -283,7 +287,7 @@ class QueryListsInputAwsQuerySerializer
       ).serialize(
         serializers,
         flattenedListArgWithXmlName,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltList,
           [FullType(String)],
         ),

@@ -68,6 +68,7 @@ abstract class ClientConfig
         retryConfig,
         awsProfile,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ClientConfig')
@@ -112,6 +113,7 @@ class ClientConfigAwsJson11Serializer
         ClientConfig,
         _$ClientConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -119,6 +121,7 @@ class ClientConfigAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ClientConfig deserialize(
     Serializers serializers,

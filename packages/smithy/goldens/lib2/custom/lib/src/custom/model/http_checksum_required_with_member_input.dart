@@ -58,11 +58,13 @@ abstract class HttpChecksumRequiredWithMemberInput
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;
+
   @override
   List<Object?> get props => [
         checksumAlgorithm,
         content,
       ];
+
   @override
   String toString() {
     final helper =
@@ -89,6 +91,7 @@ class HttpChecksumRequiredWithMemberInputRestJson1Serializer
         HttpChecksumRequiredWithMemberInput,
         _$HttpChecksumRequiredWithMemberInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -96,6 +99,7 @@ class HttpChecksumRequiredWithMemberInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

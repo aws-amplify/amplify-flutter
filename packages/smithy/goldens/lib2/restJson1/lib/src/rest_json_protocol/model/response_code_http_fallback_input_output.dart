@@ -47,8 +47,10 @@ abstract class ResponseCodeHttpFallbackInputOutput
 
   @override
   ResponseCodeHttpFallbackInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -67,6 +69,7 @@ class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
         ResponseCodeHttpFallbackInputOutput,
         _$ResponseCodeHttpFallbackInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -74,6 +77,7 @@ class ResponseCodeHttpFallbackInputOutputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   ResponseCodeHttpFallbackInputOutput deserialize(
     Serializers serializers,

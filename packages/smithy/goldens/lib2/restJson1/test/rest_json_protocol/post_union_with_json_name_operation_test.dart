@@ -257,6 +257,7 @@ class PostUnionWithJsonNameInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PostUnionWithJsonNameInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -264,6 +265,7 @@ class PostUnionWithJsonNameInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostUnionWithJsonNameInput deserialize(
     Serializers serializers,
@@ -308,6 +310,7 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [PostUnionWithJsonNameOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -315,6 +318,7 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostUnionWithJsonNameOutput deserialize(
     Serializers serializers,

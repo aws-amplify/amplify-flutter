@@ -4,7 +4,6 @@
 library query_field;
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/types/temporal/datetime_parse.dart';
 
 part 'query_field_operators.dart';
 part 'query_pagination.dart';
@@ -255,6 +254,27 @@ class QueryField<T> {
   /// ```
   QueryPredicateOperation beginsWith(String value) =>
       QueryPredicateOperation(fieldName, BeginsWithQueryOperator(value));
+
+  /// An **attribute exists** operation.
+  ///
+  /// Matches models whether the given field exists or not.
+  ///
+  /// ### Example:
+  /// The example returns Blog where the optional Author attribute exists.
+  ///
+  /// ```dart
+  /// ModelQueries.list(
+  ///  Blog.classType,
+  ///  where: Blog.AUTHOR.attributeExists(),
+  /// );
+  /// ```
+  QueryPredicateOperation attributeExists({bool exists = true}) =>
+      QueryPredicateOperation(
+        fieldName,
+        AttributeExistsQueryOperator(
+          exists: exists,
+        ),
+      );
 
   /// Sorts models by the given field in ascending order
   ///

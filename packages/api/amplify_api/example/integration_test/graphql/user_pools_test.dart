@@ -122,6 +122,24 @@ void main({bool useExistingTestUser = false}) {
         expect(data.rating, equals(rating));
       });
 
+      testWidgets('should CREATE a lower case model name with Model helper',
+          (WidgetTester tester) async {
+        final name = 'Integration Test lowercase - ${uuid()}';
+        final model = lowerCase(name: name);
+
+        final req = ModelMutations.create(
+          model,
+          authorizationMode: APIAuthorizationType.userPools,
+        );
+        final res = await Amplify.API.mutate(request: req).response;
+        expect(res, hasNoGraphQLErrors);
+        final data = res.data;
+        if (data != null) lowerCaseCache.add(data);
+
+        expect(data?.name, equals(model.name));
+        expect(data?.id, equals(model.id));
+      });
+
       testWidgets('should UPDATE a blog with Model helper',
           (WidgetTester tester) async {
         const oldName = 'Integration Test Blog to update';

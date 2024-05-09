@@ -15,7 +15,7 @@ import 'package:smithy/ast.dart';
 /// {@template aws.smithy.timestamp}
 /// A [DateTime] wrapper which provides custom formatting and parsing options
 /// for use with Smithy services.
-/// @{endtemplate}
+/// {@endtemplate}
 class Timestamp {
   /// {@macro aws.smithy.timestamp}
   Timestamp(DateTime timestamp) : _timestamp = timestamp.stripMicroseconds();

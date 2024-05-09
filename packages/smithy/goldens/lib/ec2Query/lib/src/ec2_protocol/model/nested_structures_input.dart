@@ -40,8 +40,10 @@ abstract class NestedStructuresInput
   StructArg? get nested;
   @override
   NestedStructuresInput getPayload() => this;
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedStructuresInput')
@@ -63,6 +65,7 @@ class NestedStructuresInputEc2QuerySerializer
         NestedStructuresInput,
         _$NestedStructuresInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -70,6 +73,7 @@ class NestedStructuresInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   NestedStructuresInput deserialize(
     Serializers serializers,

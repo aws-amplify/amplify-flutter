@@ -73,11 +73,13 @@ abstract class NestedXmlMapsInputOutput
   _i3.BuiltMap<String, _i3.BuiltMap<String, FooEnum>>? get flatNestedMap;
   @override
   NestedXmlMapsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         nestedMap,
         flatNestedMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput')
@@ -103,6 +105,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
         NestedXmlMapsInputOutput,
         _$NestedXmlMapsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -110,6 +113,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedXmlMapsInputOutput deserialize(
     Serializers serializers,
@@ -189,7 +193,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
               .serialize(
         serializers,
         flatNestedMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i3.BuiltMap,
           [
             FullType(String),
@@ -210,7 +214,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
           nestedMap,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltMap,
             [
               FullType(String),

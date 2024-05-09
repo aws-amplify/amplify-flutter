@@ -65,8 +65,10 @@ class JsonListsOperation extends _i1.HttpOperation<JsonListsInputOutput,
         b.method = 'PUT';
         b.path = r'/JsonLists';
       });
+
   @override
   int successCode([JsonListsInputOutput? output]) => 200;
+
   @override
   JsonListsInputOutput buildOutput(
     JsonListsInputOutput payload,
@@ -76,16 +78,22 @@ class JsonListsOperation extends _i1.HttpOperation<JsonListsInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'JsonLists';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<JsonListsInputOutput> run(
     JsonListsInputOutput input, {

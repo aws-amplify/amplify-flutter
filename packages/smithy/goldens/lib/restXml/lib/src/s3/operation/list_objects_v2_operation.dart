@@ -142,8 +142,10 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
           );
         }
       });
+
   @override
   int successCode([ListObjectsV2Output? output]) => 200;
+
   @override
   ListObjectsV2Output buildOutput(
     ListObjectsV2Output payload,
@@ -153,6 +155,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<NoSuchBucket, NoSuchBucket>(
@@ -165,10 +168,13 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
           builder: NoSuchBucket.fromResponse,
         )
       ];
+
   @override
   String get runtimeTypeName => 'ListObjectsV2';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -189,6 +195,7 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<ListObjectsV2Output> run(
     ListObjectsV2Request input, {
@@ -210,8 +217,10 @@ class ListObjectsV2Operation extends _i1.PaginatedHttpOperation<
 
   @override
   String? getToken(ListObjectsV2Output output) => output.nextContinuationToken;
+
   @override
   ListObjectsV2Output getItems(ListObjectsV2Output output) => output;
+
   @override
   ListObjectsV2Request rebuildInput(
     ListObjectsV2Request input,

@@ -97,6 +97,7 @@ class EmptyInputAndEmptyOutputInputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -104,6 +105,7 @@ class EmptyInputAndEmptyOutputInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputInput deserialize(
     Serializers serializers,
@@ -130,6 +132,7 @@ class EmptyInputAndEmptyOutputOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [EmptyInputAndEmptyOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -137,6 +140,7 @@ class EmptyInputAndEmptyOutputOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   EmptyInputAndEmptyOutputOutput deserialize(
     Serializers serializers,

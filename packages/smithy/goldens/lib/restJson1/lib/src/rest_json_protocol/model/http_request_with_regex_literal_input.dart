@@ -61,8 +61,10 @@ abstract class HttpRequestWithRegexLiteralInput
   @override
   HttpRequestWithRegexLiteralInputPayload getPayload() =>
       HttpRequestWithRegexLiteralInputPayload();
+
   @override
   List<Object?> get props => [str];
+
   @override
   String toString() {
     final helper =
@@ -91,6 +93,7 @@ abstract class HttpRequestWithRegexLiteralInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -111,6 +114,7 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i1
         HttpRequestWithRegexLiteralInputPayload,
         _$HttpRequestWithRegexLiteralInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -118,6 +122,7 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithRegexLiteralInputPayload deserialize(
     Serializers serializers,

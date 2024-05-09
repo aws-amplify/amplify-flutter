@@ -17,7 +17,7 @@
 // Generated files can be excluded from analysis in analysis_options.yaml
 // For more info, see: https://dart.dev/guides/language/analysis-options#excluding-code-from-analysis
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
@@ -407,96 +407,96 @@ class ModelWithAppsyncScalarTypes extends amplify_core.Model {
     buffer.write("stringValue=" + "$_stringValue" + ", ");
     buffer.write("altStringValue=" + "$_altStringValue" + ", ");
     buffer.write("listOfStringValue=" +
-        (_listOfStringValue != null ? _listOfStringValue!.toString() : "null") +
+        (_listOfStringValue != null ? _listOfStringValue.toString() : "null") +
         ", ");
     buffer.write("intValue=" +
-        (_intValue != null ? _intValue!.toString() : "null") +
+        (_intValue != null ? _intValue.toString() : "null") +
         ", ");
     buffer.write("altIntValue=" +
-        (_altIntValue != null ? _altIntValue!.toString() : "null") +
+        (_altIntValue != null ? _altIntValue.toString() : "null") +
         ", ");
     buffer.write("listOfIntValue=" +
-        (_listOfIntValue != null ? _listOfIntValue!.toString() : "null") +
+        (_listOfIntValue != null ? _listOfIntValue.toString() : "null") +
         ", ");
     buffer.write("floatValue=" +
-        (_floatValue != null ? _floatValue!.toString() : "null") +
+        (_floatValue != null ? _floatValue.toString() : "null") +
         ", ");
     buffer.write("listOfFloatValue=" +
-        (_listOfFloatValue != null ? _listOfFloatValue!.toString() : "null") +
+        (_listOfFloatValue != null ? _listOfFloatValue.toString() : "null") +
         ", ");
     buffer.write("booleanValue=" +
-        (_booleanValue != null ? _booleanValue!.toString() : "null") +
+        (_booleanValue != null ? _booleanValue.toString() : "null") +
         ", ");
     buffer.write("listOfBooleanValue=" +
         (_listOfBooleanValue != null
-            ? _listOfBooleanValue!.toString()
+            ? _listOfBooleanValue.toString()
             : "null") +
         ", ");
     buffer.write("awsDateValue=" +
-        (_awsDateValue != null ? _awsDateValue!.format() : "null") +
+        (_awsDateValue != null ? _awsDateValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSDateValue=" +
         (_listOfAWSDateValue != null
-            ? _listOfAWSDateValue!.toString()
+            ? _listOfAWSDateValue.toString()
             : "null") +
         ", ");
     buffer.write("awsTimeValue=" +
-        (_awsTimeValue != null ? _awsTimeValue!.format() : "null") +
+        (_awsTimeValue != null ? _awsTimeValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSTimeValue=" +
         (_listOfAWSTimeValue != null
-            ? _listOfAWSTimeValue!.toString()
+            ? _listOfAWSTimeValue.toString()
             : "null") +
         ", ");
     buffer.write("awsDateTimeValue=" +
-        (_awsDateTimeValue != null ? _awsDateTimeValue!.format() : "null") +
+        (_awsDateTimeValue != null ? _awsDateTimeValue.format() : "null") +
         ", ");
     buffer.write("listOfAWSDateTimeValue=" +
         (_listOfAWSDateTimeValue != null
-            ? _listOfAWSDateTimeValue!.toString()
+            ? _listOfAWSDateTimeValue.toString()
             : "null") +
         ", ");
     buffer.write("awsTimestampValue=" +
-        (_awsTimestampValue != null ? _awsTimestampValue!.toString() : "null") +
+        (_awsTimestampValue != null ? _awsTimestampValue.toString() : "null") +
         ", ");
     buffer.write("listOfAWSTimestampValue=" +
         (_listOfAWSTimestampValue != null
-            ? _listOfAWSTimestampValue!.toString()
+            ? _listOfAWSTimestampValue.toString()
             : "null") +
         ", ");
     buffer.write("awsEmailValue=" + "$_awsEmailValue" + ", ");
     buffer.write("listOfAWSEmailValue=" +
         (_listOfAWSEmailValue != null
-            ? _listOfAWSEmailValue!.toString()
+            ? _listOfAWSEmailValue.toString()
             : "null") +
         ", ");
     buffer.write("awsJsonValue=" + "$_awsJsonValue" + ", ");
     buffer.write("listOfAWSJsonValue=" +
         (_listOfAWSJsonValue != null
-            ? _listOfAWSJsonValue!.toString()
+            ? _listOfAWSJsonValue.toString()
             : "null") +
         ", ");
     buffer.write("awsPhoneValue=" + "$_awsPhoneValue" + ", ");
     buffer.write("listOfAWSPhoneValue=" +
         (_listOfAWSPhoneValue != null
-            ? _listOfAWSPhoneValue!.toString()
+            ? _listOfAWSPhoneValue.toString()
             : "null") +
         ", ");
     buffer.write("awsURLValue=" + "$_awsURLValue" + ", ");
     buffer.write("listOfAWSURLValue=" +
-        (_listOfAWSURLValue != null ? _listOfAWSURLValue!.toString() : "null") +
+        (_listOfAWSURLValue != null ? _listOfAWSURLValue.toString() : "null") +
         ", ");
     buffer.write("awsIPAddressValue=" + "$_awsIPAddressValue" + ", ");
     buffer.write("listOfAWSIPAddressValue=" +
         (_listOfAWSIPAddressValue != null
-            ? _listOfAWSIPAddressValue!.toString()
+            ? _listOfAWSIPAddressValue.toString()
             : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
+        (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

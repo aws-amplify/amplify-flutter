@@ -68,6 +68,7 @@ abstract class XmlTimestampsInputOutput
   DateTime? get httpDateOnTarget;
   @override
   XmlTimestampsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         normal,
@@ -78,6 +79,7 @@ abstract class XmlTimestampsInputOutput
         httpDate,
         httpDateOnTarget,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlTimestampsInputOutput')
@@ -123,6 +125,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
         XmlTimestampsInputOutput,
         _$XmlTimestampsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -130,6 +133,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlTimestampsInputOutput deserialize(
     Serializers serializers,
@@ -262,7 +266,7 @@ class XmlTimestampsInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('normal'))
         ..add(serializers.serialize(
           normal,
-          specifiedType: const FullType.nullable(DateTime),
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result$;

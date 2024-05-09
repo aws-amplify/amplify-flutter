@@ -62,8 +62,10 @@ class HttpResponseCodeOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         b.method = 'PUT';
         b.path = r'/HttpResponseCode';
       });
+
   @override
   int successCode([HttpResponseCodeOutput? output]) => output?.status ?? 200;
+
   @override
   HttpResponseCodeOutput buildOutput(
     HttpResponseCodeOutputPayload payload,
@@ -73,16 +75,22 @@ class HttpResponseCodeOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpResponseCode';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpResponseCodeOutput> run(
     _i1.Unit input, {

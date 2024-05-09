@@ -123,6 +123,7 @@ class TimestampFormatHeadersIoRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [TimestampFormatHeadersIo];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -130,6 +131,7 @@ class TimestampFormatHeadersIoRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   TimestampFormatHeadersIo deserialize(
     Serializers serializers,

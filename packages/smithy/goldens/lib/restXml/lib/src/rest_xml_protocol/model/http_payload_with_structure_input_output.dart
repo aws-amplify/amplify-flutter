@@ -58,8 +58,10 @@ abstract class HttpPayloadWithStructureInputOutput
   NestedPayload? get nested;
   @override
   NestedPayload? getPayload() => nested ?? NestedPayload();
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper =
@@ -82,6 +84,7 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
         HttpPayloadWithStructureInputOutput,
         _$HttpPayloadWithStructureInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -89,6 +92,7 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedPayload deserialize(
     Serializers serializers,

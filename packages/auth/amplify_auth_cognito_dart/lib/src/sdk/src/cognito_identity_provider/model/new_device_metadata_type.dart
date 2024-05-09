@@ -46,6 +46,7 @@ abstract class NewDeviceMetadataType
         deviceKey,
         deviceGroupKey,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NewDeviceMetadataType')
@@ -71,6 +72,7 @@ class NewDeviceMetadataTypeAwsJson11Serializer
         NewDeviceMetadataType,
         _$NewDeviceMetadataType,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +80,7 @@ class NewDeviceMetadataTypeAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   NewDeviceMetadataType deserialize(
     Serializers serializers,

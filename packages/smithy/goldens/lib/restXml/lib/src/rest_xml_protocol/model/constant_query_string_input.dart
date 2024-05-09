@@ -59,8 +59,10 @@ abstract class ConstantQueryStringInput
   @override
   ConstantQueryStringInputPayload getPayload() =>
       ConstantQueryStringInputPayload();
+
   @override
   List<Object?> get props => [hello];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConstantQueryStringInput')
@@ -88,6 +90,7 @@ abstract class ConstantQueryStringInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -108,6 +111,7 @@ class ConstantQueryStringInputRestXmlSerializer
         ConstantQueryStringInputPayload,
         _$ConstantQueryStringInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -115,6 +119,7 @@ class ConstantQueryStringInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ConstantQueryStringInputPayload deserialize(
     Serializers serializers,

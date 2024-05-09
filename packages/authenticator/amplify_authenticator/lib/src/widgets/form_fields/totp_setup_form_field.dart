@@ -3,7 +3,7 @@
 
 // ignore_for_file: use_build_context_synchronously
 
-part of authenticator.form_field;
+part of '../form_field.dart';
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.instruction_form_field}

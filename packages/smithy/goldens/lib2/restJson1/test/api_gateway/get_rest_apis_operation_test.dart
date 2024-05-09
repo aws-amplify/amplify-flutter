@@ -74,6 +74,7 @@ class GetRestApisRequestRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [GetRestApisRequest];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -81,6 +82,7 @@ class GetRestApisRequestRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GetRestApisRequest deserialize(
     Serializers serializers,
@@ -129,6 +131,7 @@ class RestApisRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RestApis];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -136,6 +139,7 @@ class RestApisRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RestApis deserialize(
     Serializers serializers,
@@ -187,6 +191,7 @@ class RestApiRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [RestApi];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -194,6 +199,7 @@ class RestApiRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RestApi deserialize(
     Serializers serializers,
@@ -310,6 +316,7 @@ class EndpointConfigurationRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [EndpointConfiguration];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -317,6 +324,7 @@ class EndpointConfigurationRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EndpointConfiguration deserialize(
     Serializers serializers,
@@ -371,6 +379,7 @@ class BadRequestExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [BadRequestException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -378,6 +387,7 @@ class BadRequestExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   BadRequestException deserialize(
     Serializers serializers,
@@ -422,6 +432,7 @@ class TooManyRequestsExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [TooManyRequestsException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -429,6 +440,7 @@ class TooManyRequestsExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TooManyRequestsException deserialize(
     Serializers serializers,
@@ -478,6 +490,7 @@ class UnauthorizedExceptionRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [UnauthorizedException];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -485,6 +498,7 @@ class UnauthorizedExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   UnauthorizedException deserialize(
     Serializers serializers,

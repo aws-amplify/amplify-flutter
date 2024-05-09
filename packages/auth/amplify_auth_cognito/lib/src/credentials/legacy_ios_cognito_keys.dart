@@ -53,6 +53,24 @@ enum LegacyCognitoIdentityPoolKey {
   identityId,
 }
 
+/// Discrete keys stored for Legacy Device Secrets on iOS.
+enum LegacyDeviceSecretKey {
+  /// The device key.
+  id,
+
+  /// The device password.
+  secret,
+
+  /// The device group key.
+  group,
+}
+
+/// Discrete keys stored for Legacy ASF on iOS.
+enum LegacyAsfDeviceKey {
+  /// The advanced security feature (ASF) device identifier.
+  id;
+}
+
 /// {@template amplify_auth_cognito.legacy_cognito_identity_pool_keys}
 /// Enumerates and iterates over the keys stored in secure storage by
 /// legacy Cognito Identity Pool operations.
@@ -110,6 +128,51 @@ class LegacyCognitoUserPoolKeys
 
   @override
   String get prefix => '${config.appClientId}.$currentUserId';
+}
+
+/// {@template amplify_auth_cognito.cognito_user_pool_keys}
+/// Enumerates and iterates over the keys stored in secure storage for
+/// Device Secrets.
+/// {@endtemplate}
+class LegacyDeviceSecretKeys
+    extends LegacyIOSCognitoKeys<LegacyDeviceSecretKey> {
+  /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
+  const LegacyDeviceSecretKeys(this.currentUserId, this.config);
+
+  /// The Cognito identity pool configuration, used to determine the key
+  /// prefixes.
+  final CognitoUserPoolConfig config;
+
+  /// The current user ID, used to determine the key prefixes.
+  final String currentUserId;
+
+  @override
+  List<LegacyDeviceSecretKey> get _values => LegacyDeviceSecretKey.values;
+
+  @override
+  String get prefix => '${config.poolId}.$currentUserId.device';
+}
+
+/// {@template amplify_auth_cognito.cognito_user_pool_keys}
+/// Enumerates and iterates over the keys stored in secure storage for
+/// ASF Device Secrets.
+/// {@endtemplate}
+class LegacyAsfDeviceKeys extends LegacyIOSCognitoKeys<LegacyAsfDeviceKey> {
+  /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
+  const LegacyAsfDeviceKeys(this.currentUserId, this.config);
+
+  /// The Cognito identity pool configuration, used to determine the key
+  /// prefixes.
+  final CognitoUserPoolConfig config;
+
+  /// The current user ID, used to determine the key prefixes.
+  final String currentUserId;
+
+  @override
+  List<LegacyAsfDeviceKey> get _values => LegacyAsfDeviceKey.values;
+
+  @override
+  String get prefix => '${config.poolId}.$currentUserId.asf.device';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}

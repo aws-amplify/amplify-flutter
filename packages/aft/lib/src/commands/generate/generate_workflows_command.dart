@@ -271,6 +271,23 @@ ${dependabotGroups.join('\n')}
         '$repoRelativePath/pubspec.yaml',
         '$repoRelativePath/lib/**/*.dart',
       ]);
+
+      // run e2e tests (if present) when native resources change in a dependency
+      if (needsE2ETest) {
+        const nativeDirectories = [
+          'android',
+          'ios',
+          'macos',
+          'darwin',
+          'windows',
+          'linux',
+          'web',
+        ];
+        workflowPaths.addAll([
+          for (final dir in nativeDirectories)
+            if (dependent.hasDirectory(dir)) '$repoRelativePath/$dir/**/*',
+        ]);
+      }
     }
 
     workflowPaths.sort();

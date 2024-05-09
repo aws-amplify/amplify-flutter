@@ -47,6 +47,7 @@ abstract class S3Config
         useAccelerateEndpoint,
         useDualstackEndpoint,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Config')
@@ -75,6 +76,7 @@ class S3ConfigEc2QuerySerializer
         S3Config,
         _$S3Config,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -82,6 +84,7 @@ class S3ConfigEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   S3Config deserialize(
     Serializers serializers,
@@ -141,7 +144,7 @@ class S3ConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('Addressing_style'))
         ..add(serializers.serialize(
           addressingStyle,
-          specifiedType: const FullType.nullable(S3AddressingStyle),
+          specifiedType: const FullType(S3AddressingStyle),
         ));
     }
     if (useAccelerateEndpoint != null) {
@@ -149,7 +152,7 @@ class S3ConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('Use_accelerate_endpoint'))
         ..add(serializers.serialize(
           useAccelerateEndpoint,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (useDualstackEndpoint != null) {
@@ -157,7 +160,7 @@ class S3ConfigEc2QuerySerializer
         ..add(const _i2.XmlElementName('Use_dualstack_endpoint'))
         ..add(serializers.serialize(
           useDualstackEndpoint,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

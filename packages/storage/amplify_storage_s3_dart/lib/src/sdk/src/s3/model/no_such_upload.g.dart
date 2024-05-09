@@ -8,14 +8,12 @@ part of 'no_such_upload.dart';
 
 class _$NoSuchUpload extends NoSuchUpload {
   @override
-  final int? statusCode;
-  @override
   final Map<String, String>? headers;
 
   factory _$NoSuchUpload([void Function(NoSuchUploadBuilder)? updates]) =>
       (new NoSuchUploadBuilder()..update(updates))._build();
 
-  _$NoSuchUpload._({this.statusCode, this.headers}) : super._();
+  _$NoSuchUpload._({this.headers}) : super._();
 
   @override
   NoSuchUpload rebuild(void Function(NoSuchUploadBuilder) updates) =>
@@ -40,10 +38,6 @@ class NoSuchUploadBuilder
     implements Builder<NoSuchUpload, NoSuchUploadBuilder> {
   _$NoSuchUpload? _$v;
 
-  int? _statusCode;
-  int? get statusCode => _$this._statusCode;
-  set statusCode(int? statusCode) => _$this._statusCode = statusCode;
-
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
@@ -53,7 +47,6 @@ class NoSuchUploadBuilder
   NoSuchUploadBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
     }
@@ -75,8 +68,7 @@ class NoSuchUploadBuilder
   NoSuchUpload build() => _build();
 
   _$NoSuchUpload _build() {
-    final _$result =
-        _$v ?? new _$NoSuchUpload._(statusCode: statusCode, headers: headers);
+    final _$result = _$v ?? new _$NoSuchUpload._(headers: headers);
     replace(_$result);
     return _$result;
   }

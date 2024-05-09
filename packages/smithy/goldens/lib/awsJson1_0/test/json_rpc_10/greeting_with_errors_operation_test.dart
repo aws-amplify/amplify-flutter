@@ -497,6 +497,7 @@ class GreetingWithErrorsInputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -504,6 +505,7 @@ class GreetingWithErrorsInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   GreetingWithErrorsInput deserialize(
     Serializers serializers,
@@ -548,6 +550,7 @@ class GreetingWithErrorsOutputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [GreetingWithErrorsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -555,6 +558,7 @@ class GreetingWithErrorsOutputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   GreetingWithErrorsOutput deserialize(
     Serializers serializers,
@@ -598,6 +602,7 @@ class ComplexErrorAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [ComplexError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -605,6 +610,7 @@ class ComplexErrorAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,
@@ -654,6 +660,7 @@ class ComplexNestedErrorDataAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [ComplexNestedErrorData];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -661,6 +668,7 @@ class ComplexNestedErrorDataAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   ComplexNestedErrorData deserialize(
     Serializers serializers,
@@ -704,6 +712,7 @@ class FooErrorAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [FooError];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -711,6 +720,7 @@ class FooErrorAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   FooError deserialize(
     Serializers serializers,
@@ -736,6 +746,7 @@ class InvalidGreetingAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [InvalidGreeting];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -743,6 +754,7 @@ class InvalidGreetingAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

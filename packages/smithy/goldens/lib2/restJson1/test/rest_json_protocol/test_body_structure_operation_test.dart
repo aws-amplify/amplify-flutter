@@ -106,6 +106,7 @@ class TestBodyStructureInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [TestBodyStructureInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -113,6 +114,7 @@ class TestBodyStructureInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TestBodyStructureInputOutput deserialize(
     Serializers serializers,
@@ -161,6 +163,7 @@ class TestConfigRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [TestConfig];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -168,6 +171,7 @@ class TestConfigRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TestConfig deserialize(
     Serializers serializers,

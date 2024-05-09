@@ -58,8 +58,10 @@ abstract class TestNoPayloadInputOutput
   @override
   TestNoPayloadInputOutputPayload getPayload() =>
       TestNoPayloadInputOutputPayload();
+
   @override
   List<Object?> get props => [testId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestNoPayloadInputOutput')
@@ -87,6 +89,7 @@ abstract class TestNoPayloadInputOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -107,6 +110,7 @@ class TestNoPayloadInputOutputRestJson1Serializer
         TestNoPayloadInputOutputPayload,
         _$TestNoPayloadInputOutputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -114,6 +118,7 @@ class TestNoPayloadInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   TestNoPayloadInputOutputPayload deserialize(
     Serializers serializers,

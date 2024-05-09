@@ -81,6 +81,7 @@ abstract class MalformedIntegerInput
       MalformedIntegerInputPayload((b) {
         b.integerInBody = integerInBody;
       });
+
   @override
   List<Object?> get props => [
         integerInBody,
@@ -88,6 +89,7 @@ abstract class MalformedIntegerInput
         integerInQuery,
         integerInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedIntegerInput')
@@ -127,6 +129,7 @@ abstract class MalformedIntegerInputPayload
   int? get integerInBody;
   @override
   List<Object?> get props => [integerInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedIntegerInputPayload')
@@ -150,6 +153,7 @@ class MalformedIntegerInputRestJson1Serializer
         MalformedIntegerInputPayload,
         _$MalformedIntegerInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -157,6 +161,7 @@ class MalformedIntegerInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedIntegerInputPayload deserialize(
     Serializers serializers,

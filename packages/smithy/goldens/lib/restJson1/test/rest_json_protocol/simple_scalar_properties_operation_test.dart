@@ -445,6 +445,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -452,6 +453,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,

@@ -97,6 +97,7 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [QueryIdempotencyTokenAutoFillInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -104,6 +105,7 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
     Serializers serializers,

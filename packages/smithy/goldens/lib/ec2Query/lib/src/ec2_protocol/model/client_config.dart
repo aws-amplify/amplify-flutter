@@ -68,6 +68,7 @@ abstract class ClientConfig
         retryConfig,
         awsProfile,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ClientConfig')
@@ -112,6 +113,7 @@ class ClientConfigEc2QuerySerializer
         ClientConfig,
         _$ClientConfig,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -119,6 +121,7 @@ class ClientConfigEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   ClientConfig deserialize(
     Serializers serializers,

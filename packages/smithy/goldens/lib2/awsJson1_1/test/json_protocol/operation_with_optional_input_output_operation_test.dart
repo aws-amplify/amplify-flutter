@@ -119,6 +119,7 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i4
 
   @override
   Iterable<Type> get types => const [OperationWithOptionalInputOutputInput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -126,6 +127,7 @@ class OperationWithOptionalInputOutputInputAwsJson11Serializer extends _i4
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   OperationWithOptionalInputOutputInput deserialize(
     Serializers serializers,
@@ -170,6 +172,7 @@ class OperationWithOptionalInputOutputOutputAwsJson11Serializer extends _i4
 
   @override
   Iterable<Type> get types => const [OperationWithOptionalInputOutputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -177,6 +180,7 @@ class OperationWithOptionalInputOutputOutputAwsJson11Serializer extends _i4
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   OperationWithOptionalInputOutputOutput deserialize(
     Serializers serializers,

@@ -198,6 +198,7 @@ class HttpPrefixHeadersInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [HttpPrefixHeadersInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -205,6 +206,7 @@ class HttpPrefixHeadersInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HttpPrefixHeadersInputOutput deserialize(
     Serializers serializers,

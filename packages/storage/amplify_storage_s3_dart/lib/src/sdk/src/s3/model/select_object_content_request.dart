@@ -150,7 +150,7 @@ abstract class SelectObjectContentRequest
   /// *   `50` \- process only the records within the last 50 bytes of the file.
   ScanRange? get scanRange;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  /// The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
@@ -180,6 +180,7 @@ abstract class SelectObjectContentRequest
           b.scanRange.replace(scanRange!);
         }
       });
+
   @override
   List<Object?> get props => [
         bucket,
@@ -195,6 +196,7 @@ abstract class SelectObjectContentRequest
         scanRange,
         expectedBucketOwner,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectObjectContentRequest')
@@ -297,6 +299,7 @@ abstract class SelectObjectContentRequestPayload
         requestProgress,
         scanRange,
       ];
+
   @override
   String toString() {
     final helper =
@@ -341,6 +344,7 @@ class SelectObjectContentRequestRestXmlSerializer
         SelectObjectContentRequestPayload,
         _$SelectObjectContentRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -348,6 +352,7 @@ class SelectObjectContentRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   SelectObjectContentRequestPayload deserialize(
     Serializers serializers,

@@ -59,6 +59,7 @@ abstract class QueryListsInput
   NestedStructWithList? get nestedWithList;
   @override
   QueryListsInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         listArg,
@@ -67,6 +68,7 @@ abstract class QueryListsInput
         listArgWithXmlName,
         nestedWithList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryListsInput')
@@ -103,6 +105,7 @@ class QueryListsInputEc2QuerySerializer
         QueryListsInput,
         _$QueryListsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -110,6 +113,7 @@ class QueryListsInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryListsInput deserialize(
     Serializers serializers,
@@ -211,7 +215,7 @@ class QueryListsInputEc2QuerySerializer
             .serialize(
           serializers,
           listArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -225,7 +229,7 @@ class QueryListsInputEc2QuerySerializer
             .serialize(
           serializers,
           complexListArg,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(GreetingStruct)],
           ),
@@ -240,7 +244,7 @@ class QueryListsInputEc2QuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlNameMember,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
@@ -255,7 +259,7 @@ class QueryListsInputEc2QuerySerializer
         ).serialize(
           serializers,
           listArgWithXmlName,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),

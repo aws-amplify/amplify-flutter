@@ -80,6 +80,7 @@ abstract class MalformedFloatInput
   MalformedFloatInputPayload getPayload() => MalformedFloatInputPayload((b) {
         b.floatInBody = floatInBody;
       });
+
   @override
   List<Object?> get props => [
         floatInBody,
@@ -87,6 +88,7 @@ abstract class MalformedFloatInput
         floatInQuery,
         floatInHeader,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInput')
@@ -124,6 +126,7 @@ abstract class MalformedFloatInputPayload
   double? get floatInBody;
   @override
   List<Object?> get props => [floatInBody];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload')
@@ -146,6 +149,7 @@ class MalformedFloatInputRestJson1Serializer
         MalformedFloatInputPayload,
         _$MalformedFloatInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -153,6 +157,7 @@ class MalformedFloatInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedFloatInputPayload deserialize(
     Serializers serializers,

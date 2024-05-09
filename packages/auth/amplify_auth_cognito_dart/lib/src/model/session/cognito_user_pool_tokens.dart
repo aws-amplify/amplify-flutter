@@ -8,10 +8,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cognito_user_pool_tokens.g.dart';
 
-/// {@macro amplify_auth_dart.cognito_user_pool_tokens}
-@Deprecated('Use CognitoUserPoolTokens instead')
-typedef AWSCognitoUserPoolTokens = CognitoUserPoolTokens;
-
 /// {@template amplify_auth_dart.cognito_user_pool_tokens}
 /// Cognito credentials of the active user.
 /// {@endtemplate}

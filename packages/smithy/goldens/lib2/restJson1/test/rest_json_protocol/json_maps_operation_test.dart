@@ -616,6 +616,7 @@ class JsonMapsInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [JsonMapsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -623,6 +624,7 @@ class JsonMapsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonMapsInputOutput deserialize(
     Serializers serializers,
@@ -771,6 +773,7 @@ class GreetingStructRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [GreetingStruct];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -778,6 +781,7 @@ class GreetingStructRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,

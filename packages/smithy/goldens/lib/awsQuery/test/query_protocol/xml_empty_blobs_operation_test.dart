@@ -89,6 +89,7 @@ class XmlBlobsOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlBlobsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -96,6 +97,7 @@ class XmlBlobsOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   XmlBlobsOutput deserialize(
     Serializers serializers,

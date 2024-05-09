@@ -52,8 +52,10 @@ abstract class EndpointWithHostLabelOperationInput
 
   @override
   EndpointWithHostLabelOperationInput getPayload() => this;
+
   @override
   List<Object?> get props => [label];
+
   @override
   String toString() {
     final helper =
@@ -76,6 +78,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i1
         EndpointWithHostLabelOperationInput,
         _$EndpointWithHostLabelOperationInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -83,6 +86,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i1
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   EndpointWithHostLabelOperationInput deserialize(
     Serializers serializers,

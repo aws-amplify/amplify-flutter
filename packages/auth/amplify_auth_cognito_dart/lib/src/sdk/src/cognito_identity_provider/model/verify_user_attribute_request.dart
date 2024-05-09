@@ -57,12 +57,14 @@ abstract class VerifyUserAttributeRequest
   String get code;
   @override
   VerifyUserAttributeRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         accessToken,
         attributeName,
         code,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VerifyUserAttributeRequest')
@@ -92,6 +94,7 @@ class VerifyUserAttributeRequestAwsJson11Serializer
         VerifyUserAttributeRequest,
         _$VerifyUserAttributeRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -99,6 +102,7 @@ class VerifyUserAttributeRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   VerifyUserAttributeRequest deserialize(
     Serializers serializers,

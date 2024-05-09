@@ -59,12 +59,14 @@ abstract class NullOperationInputOutput
   _i3.BuiltMap<String, String?>? get sparseStringMap;
   @override
   NullOperationInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         string,
         sparseStringList,
         sparseStringMap,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullOperationInputOutput')
@@ -94,6 +96,7 @@ class NullOperationInputOutputAwsJson11Serializer
         NullOperationInputOutput,
         _$NullOperationInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -101,6 +104,7 @@ class NullOperationInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   NullOperationInputOutput deserialize(
     Serializers serializers,

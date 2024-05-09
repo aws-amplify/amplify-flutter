@@ -58,8 +58,10 @@ abstract class HostLabelHeaderInput
 
   @override
   HostLabelHeaderInputPayload getPayload() => HostLabelHeaderInputPayload();
+
   @override
   List<Object?> get props => [accountId];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelHeaderInput')
@@ -85,6 +87,7 @@ abstract class HostLabelHeaderInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HostLabelHeaderInputPayload');
@@ -103,6 +106,7 @@ class HostLabelHeaderInputRestXmlSerializer
         HostLabelHeaderInputPayload,
         _$HostLabelHeaderInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -110,6 +114,7 @@ class HostLabelHeaderInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   HostLabelHeaderInputPayload deserialize(
     Serializers serializers,

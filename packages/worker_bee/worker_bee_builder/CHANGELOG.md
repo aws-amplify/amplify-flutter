@@ -1,3 +1,21 @@
+## 0.2.4
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.2.3
+
+### Fixes
+- fix: Bumped path to ">=1.8.0 <2.0.0"
+
+## 0.2.2
+
+- Minor bug fixes and improvements
+
+## 0.2.1
+
+- Minor bug fixes and improvements
+
 ## 0.2.0+7
 
 - Minor bug fixes and improvements

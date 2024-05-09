@@ -40,8 +40,10 @@ abstract class PostPlayerActionInput
   PlayerAction? get action;
   @override
   PostPlayerActionInput getPayload() => this;
+
   @override
   List<Object?> get props => [action];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostPlayerActionInput')
@@ -63,6 +65,7 @@ class PostPlayerActionInputRestJson1Serializer
         PostPlayerActionInput,
         _$PostPlayerActionInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -70,6 +73,7 @@ class PostPlayerActionInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostPlayerActionInput deserialize(
     Serializers serializers,

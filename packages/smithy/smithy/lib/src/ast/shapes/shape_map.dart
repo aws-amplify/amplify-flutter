@@ -12,7 +12,7 @@ class ShapeMap extends DelegatingMap<ShapeId, Shape> {
   ShapeMap(super.shapes);
 
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       other is ShapeMap &&
           const MapEquality<ShapeId, Shape>().equals(this, other);

@@ -49,6 +49,7 @@ void main() {
             environmentName: environmentName,
           );
 
+          // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
           final authConfig = config.auth!.awsPlugin!.cognitoUserPool!.default$!;
           client = AWSHttpClient()
@@ -144,7 +145,7 @@ void main() {
             because: 'Sign out should succeed even if user is deleted',
             cognitoPlugin.signOut(),
           ).completes(
-            it()
+            (it) => it
               ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
           );
         });
@@ -178,8 +179,9 @@ void main() {
                 'credentials are expired',
             cognitoPlugin.signOut(),
           ).completes(
-            it()
-              ..has((res) => res.signedOutLocally, 'signedOutLocally').isTrue(),
+            (it) => it
+                .has((res) => res.signedOutLocally, 'signedOutLocally')
+                .isTrue(),
           );
         });
       });

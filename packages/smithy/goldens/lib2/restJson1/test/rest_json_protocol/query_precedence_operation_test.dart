@@ -69,6 +69,7 @@ class QueryPrecedenceInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [QueryPrecedenceInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -76,6 +77,7 @@ class QueryPrecedenceInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   QueryPrecedenceInput deserialize(
     Serializers serializers,

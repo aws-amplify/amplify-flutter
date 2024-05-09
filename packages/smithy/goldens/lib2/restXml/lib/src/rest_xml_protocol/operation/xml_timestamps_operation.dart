@@ -69,8 +69,10 @@ class XmlTimestampsOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/XmlTimestamps';
       });
+
   @override
   int successCode([XmlTimestampsInputOutput? output]) => 200;
+
   @override
   XmlTimestampsInputOutput buildOutput(
     XmlTimestampsInputOutput payload,
@@ -80,16 +82,22 @@ class XmlTimestampsOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlTimestamps';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlTimestampsInputOutput> run(
     XmlTimestampsInputOutput input, {

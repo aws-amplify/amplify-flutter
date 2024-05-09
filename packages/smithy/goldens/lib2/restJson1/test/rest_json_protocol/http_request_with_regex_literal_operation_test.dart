@@ -62,6 +62,7 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpRequestWithRegexLiteralInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -69,6 +70,7 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithRegexLiteralInput deserialize(
     Serializers serializers,

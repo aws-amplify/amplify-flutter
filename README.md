@@ -10,9 +10,9 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 
 [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
 
-⚠️ **Amplify Flutter v0 is now in Maintenance Mode until July 19th, 2024. This means that we will continue to include updates to ensure compatibility with backend services and security. No new features will be introduced in v0.**
+⚠️ **Amplify Flutter v1 is now in Maintenance Mode until April 30th, 2025. This means that we will continue to include updates to ensure compatibility with backend services and security. No new features will be introduced in v1.**
 
-Please use the latest version (v1) of Amplify Flutter. If you are currently using v0, follow [these instructions](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) to upgrade to v1.
+Please use the latest version (v2) of Amplify Flutter. If you are currently using v1, follow [these instructions](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) to upgrade to v2.
 
 ## Supported Amplify Libraries
 
@@ -35,20 +35,24 @@ We follow [semantic versioning](https://dart.dev/tools/pub/versioning#semantic-v
 
 When Amplify adds a new enumeration entry or sealed class subtype, we will publish a new **minor** version of the library.
 
-Applications that use a `switch` statement to evaluate all members of an enumerated type can add a `default` clause to prevent 
+Applications that use a `switch` statement to evaluate all members of an enumerated type can add a `default` clause to prevent
 new cases from causing compile warnings or errors.
+
+#### Semantic versioning and dependencies update
+
+We follow [semantic versioning for updating our dependencies](https://semver.org/#what-should-i-do-if-i-update-my-own-dependencies-without-changing-the-public-api). This includes updating the dart and flutter SDK version.
 
 ## Category / Platform Support
 
-| Category       | Android |  iOS  |  Web  | Windows | MacOS | Linux |
-| -------------- | :-----: | :---: | :---: | :-----: | :---: | :---: |
-| Analytics      |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
-| API (REST)     |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
-| API (GraphQL)  |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
-| Authentication |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
-| DataStore      |    ✅    |   ✅   |   🔴   |    🔴    |   🔴   |   🔴   |
-| Storage        |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
-| Notifications  |    ✅    |   ✅   |   🔴   |    🔴    |   🔴   |   🔴   |
+| Category       | Android | iOS | Web | Windows | MacOS | Linux |
+| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
+| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
+| Notifications  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 
 ## Documentation
 
@@ -115,9 +119,9 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
 
 ```yaml
 dependencies:
-  amplify_auth_cognito: ^1.0.0
-  amplify_authenticator: ^1.0.0
-  amplify_flutter: ^1.0.0
+  amplify_auth_cognito: ^2.0.0
+  amplify_authenticator: ^2.0.0
+  amplify_flutter: ^2.0.0
   flutter:
     sdk: flutter
 ```

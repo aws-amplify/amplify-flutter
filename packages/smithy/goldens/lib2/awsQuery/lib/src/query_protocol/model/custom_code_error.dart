@@ -45,8 +45,10 @@ abstract class CustomCodeError
         namespace: 'aws.protocoltests.query',
         shape: 'CustomCodeError',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -55,8 +57,10 @@ abstract class CustomCodeError
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CustomCodeError')
@@ -77,6 +81,7 @@ class CustomCodeErrorAwsQuerySerializer
         CustomCodeError,
         _$CustomCodeError,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -84,6 +89,7 @@ class CustomCodeErrorAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   CustomCodeError deserialize(
     Serializers serializers,

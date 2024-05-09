@@ -1,3 +1,30 @@
+## 0.4.1
+
+### Fixes
+- fix(api): Paginated GraphQL preserve request params ([#4605](https://github.com/aws-amplify/amplify-flutter/pull/4605))
+- fix(api): Web socket decode connection errors ([#4606](https://github.com/aws-amplify/amplify-flutter/pull/4606))
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 0.4.0
+
+### Features
+- feat(api): add copyWith to GraphQLRequest ([#4365](https://github.com/aws-amplify/amplify-flutter/pull/4365))
+
+## 0.3.4
+
+### Fixes
+- fix(api): GraphQL Model Helpers support lowercase model names #4143 (#4144)
+
+## 0.3.3
+
+- Minor bug fixes and improvements
+
+## 0.3.2
+
+- Minor bug fixes and improvements
+
 ## 0.3.1+1
 
 ### Fixes

@@ -57,6 +57,7 @@ abstract class MalformedEnumInput
   EnumUnion? get union;
   @override
   MalformedEnumInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         string,
@@ -65,6 +66,7 @@ abstract class MalformedEnumInput
         map,
         union,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedEnumInput')
@@ -101,6 +103,7 @@ class MalformedEnumInputRestJson1Serializer
         MalformedEnumInput,
         _$MalformedEnumInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -108,6 +111,7 @@ class MalformedEnumInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedEnumInput deserialize(
     Serializers serializers,

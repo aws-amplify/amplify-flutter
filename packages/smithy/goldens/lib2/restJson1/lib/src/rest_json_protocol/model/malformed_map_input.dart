@@ -38,8 +38,10 @@ abstract class MalformedMapInput
   _i3.BuiltMap<String, String>? get bodyMap;
   @override
   MalformedMapInput getPayload() => this;
+
   @override
   List<Object?> get props => [bodyMap];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedMapInput')
@@ -60,6 +62,7 @@ class MalformedMapInputRestJson1Serializer
         MalformedMapInput,
         _$MalformedMapInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -67,6 +70,7 @@ class MalformedMapInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedMapInput deserialize(
     Serializers serializers,

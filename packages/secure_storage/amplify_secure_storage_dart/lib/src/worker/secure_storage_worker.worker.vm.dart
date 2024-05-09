@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class SecureStorageWorkerImpl extends SecureStorageWorker {
   @override
   String get name => 'SecureStorageWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

@@ -108,6 +108,7 @@ class XmlListsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlListsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -115,6 +116,7 @@ class XmlListsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlListsInputOutput deserialize(
     Serializers serializers,
@@ -279,6 +281,7 @@ class StructureListMemberRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [StructureListMember];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -286,6 +289,7 @@ class StructureListMemberRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   StructureListMember deserialize(
     Serializers serializers,

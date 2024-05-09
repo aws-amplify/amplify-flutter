@@ -47,8 +47,10 @@ abstract class QueryIdempotencyTokenAutoFillInput
   String? get token;
   @override
   QueryIdempotencyTokenAutoFillInput getPayload() => this;
+
   @override
   List<Object?> get props => [token];
+
   @override
   String toString() {
     final helper =
@@ -71,6 +73,7 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
         QueryIdempotencyTokenAutoFillInput,
         _$QueryIdempotencyTokenAutoFillInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -78,6 +81,7 @@ class QueryIdempotencyTokenAutoFillInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryIdempotencyTokenAutoFillInput deserialize(
     Serializers serializers,

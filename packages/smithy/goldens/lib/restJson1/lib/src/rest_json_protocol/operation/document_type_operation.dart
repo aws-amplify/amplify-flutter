@@ -65,8 +65,10 @@ class DocumentTypeOperation extends _i1.HttpOperation<DocumentTypeInputOutput,
         b.method = 'PUT';
         b.path = r'/DocumentType';
       });
+
   @override
   int successCode([DocumentTypeInputOutput? output]) => 200;
+
   @override
   DocumentTypeInputOutput buildOutput(
     DocumentTypeInputOutput payload,
@@ -76,16 +78,22 @@ class DocumentTypeOperation extends _i1.HttpOperation<DocumentTypeInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'DocumentType';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<DocumentTypeInputOutput> run(
     DocumentTypeInputOutput input, {

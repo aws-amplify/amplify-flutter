@@ -50,8 +50,10 @@ abstract class HttpPrefixHeadersInResponseOutput
   @override
   HttpPrefixHeadersInResponseOutputPayload getPayload() =>
       HttpPrefixHeadersInResponseOutputPayload();
+
   @override
   List<Object?> get props => [prefixHeaders];
+
   @override
   String toString() {
     final helper =
@@ -80,6 +82,7 @@ abstract class HttpPrefixHeadersInResponseOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -100,6 +103,7 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i2
         HttpPrefixHeadersInResponseOutputPayload,
         _$HttpPrefixHeadersInResponseOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -107,6 +111,7 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i2
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPrefixHeadersInResponseOutputPayload deserialize(
     Serializers serializers,

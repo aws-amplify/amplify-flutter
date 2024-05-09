@@ -64,8 +64,10 @@ class DefaultValuesOperation extends _i1.HttpOperation<DefaultValuesInput,
         b.method = 'POST';
         b.path = r'/default';
       });
+
   @override
   int successCode([DefaultValuesOutput? output]) => 200;
+
   @override
   DefaultValuesOutput buildOutput(
     DefaultValuesOutput payload,
@@ -75,16 +77,22 @@ class DefaultValuesOperation extends _i1.HttpOperation<DefaultValuesInput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'DefaultValues';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<DefaultValuesOutput> run(
     DefaultValuesInput input, {

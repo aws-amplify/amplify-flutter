@@ -86,8 +86,10 @@ class PutAndGetInlineDocumentsOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([PutAndGetInlineDocumentsInputOutput? output]) => 200;
+
   @override
   PutAndGetInlineDocumentsInputOutput buildOutput(
     PutAndGetInlineDocumentsInputOutput payload,
@@ -97,16 +99,22 @@ class PutAndGetInlineDocumentsOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'PutAndGetInlineDocuments';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<PutAndGetInlineDocumentsInputOutput> run(
     PutAndGetInlineDocumentsInputOutput input, {

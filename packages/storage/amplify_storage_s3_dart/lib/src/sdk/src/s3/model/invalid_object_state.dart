@@ -13,12 +13,16 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'invalid_object_state.g.dart';
 
 /// Object is archived and inaccessible until restored.
+///
+/// If the object you are retrieving is stored in the S3 Glacier Flexible Retrieval storage class, the S3 Glacier Deep Archive storage class, the S3 Intelligent-Tiering Archive Access tier, or the S3 Intelligent-Tiering Deep Archive Access tier, before you can retrieve the object you must first restore a copy using [RestoreObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html). Otherwise, this operation returns an `InvalidObjectState` error. For information about restoring archived objects, see [Restoring Archived Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/restoring-objects.html) in the _Amazon S3 User Guide_.
 abstract class InvalidObjectState
     with _i1.AWSEquatable<InvalidObjectState>
     implements
         Built<InvalidObjectState, InvalidObjectStateBuilder>,
         _i2.SmithyHttpException {
   /// Object is archived and inaccessible until restored.
+  ///
+  /// If the object you are retrieving is stored in the S3 Glacier Flexible Retrieval storage class, the S3 Glacier Deep Archive storage class, the S3 Intelligent-Tiering Archive Access tier, or the S3 Intelligent-Tiering Deep Archive Access tier, before you can retrieve the object you must first restore a copy using [RestoreObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html). Otherwise, this operation returns an `InvalidObjectState` error. For information about restoring archived objects, see [Restoring Archived Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/restoring-objects.html) in the _Amazon S3 User Guide_.
   factory InvalidObjectState({
     StorageClass? storageClass,
     IntelligentTieringAccessTier? accessTier,
@@ -30,6 +34,8 @@ abstract class InvalidObjectState
   }
 
   /// Object is archived and inaccessible until restored.
+  ///
+  /// If the object you are retrieving is stored in the S3 Glacier Flexible Retrieval storage class, the S3 Glacier Deep Archive storage class, the S3 Intelligent-Tiering Archive Access tier, or the S3 Intelligent-Tiering Deep Archive Access tier, before you can retrieve the object you must first restore a copy using [RestoreObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html). Otherwise, this operation returns an `InvalidObjectState` error. For information about restoring archived objects, see [Restoring Archived Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/restoring-objects.html) in the _Amazon S3 User Guide_.
   factory InvalidObjectState.build(
           [void Function(InvalidObjectStateBuilder) updates]) =
       _$InvalidObjectState;
@@ -42,7 +48,6 @@ abstract class InvalidObjectState
     _i1.AWSBaseHttpResponse response,
   ) =>
       payload.rebuild((b) {
-        b.statusCode = response.statusCode;
         b.headers = response.headers;
       });
 
@@ -57,23 +62,29 @@ abstract class InvalidObjectState
         namespace: 'com.amazonaws.s3',
         shape: 'InvalidObjectState',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
-  int? get statusCode;
+  int get statusCode => 403;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         storageClass,
         accessTier,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidObjectState')
@@ -98,6 +109,7 @@ class InvalidObjectStateRestXmlSerializer
         InvalidObjectState,
         _$InvalidObjectState,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -105,6 +117,7 @@ class InvalidObjectStateRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   InvalidObjectState deserialize(
     Serializers serializers,

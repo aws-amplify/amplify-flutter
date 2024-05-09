@@ -86,6 +86,7 @@ abstract class RestApi
         tags,
         disableExecuteApiEndpoint,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestApi')
@@ -154,6 +155,7 @@ class RestApiRestJson1Serializer
         RestApi,
         _$RestApi,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -161,6 +163,7 @@ class RestApiRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RestApi deserialize(
     Serializers serializers,

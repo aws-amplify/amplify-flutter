@@ -92,6 +92,7 @@ abstract class ListObjectsV2Output
         nextContinuationToken,
         startAfter,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
@@ -156,6 +157,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ListObjectsV2Output,
         _$ListObjectsV2Output,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -163,6 +165,7 @@ class ListObjectsV2OutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ListObjectsV2Output deserialize(
     Serializers serializers,
@@ -277,7 +280,7 @@ class ListObjectsV2OutputRestXmlSerializer
               .serialize(
         serializers,
         commonPrefixes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(CommonPrefix)],
         ),
@@ -288,7 +291,7 @@ class ListObjectsV2OutputRestXmlSerializer
           const _i3.XmlBuiltListSerializer(memberName: 'Contents').serialize(
         serializers,
         contents,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltList,
           [FullType(S3Object)],
         ),
@@ -315,7 +318,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i3.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(EncodingType),
+          specifiedType: const FullType(EncodingType),
         ));
     }
     if (isTruncated != null) {
@@ -323,7 +326,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
-          specifiedType: const FullType.nullable(bool),
+          specifiedType: const FullType(bool),
         ));
     }
     if (keyCount != null) {
@@ -331,7 +334,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i3.XmlElementName('KeyCount'))
         ..add(serializers.serialize(
           keyCount,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (maxKeys != null) {
@@ -339,7 +342,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i3.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
           maxKeys,
-          specifiedType: const FullType.nullable(int),
+          specifiedType: const FullType(int),
         ));
     }
     if (name != null) {

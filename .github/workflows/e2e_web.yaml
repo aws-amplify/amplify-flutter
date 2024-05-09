@@ -17,8 +17,18 @@ on:
 
 jobs:
   e2e-test-web:
-    runs-on:
-      labels: amplify-flutter_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        channel:
+          - beta
+          - stable
+        # Skips e2e tests against beta on PRs
+        exclude:
+          - channel: ${{ (github.event_name == 'pull_request' && 'beta') || 'NONE' }}
+
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -31,6 +41,8 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          channel: ${{ matrix.channel }}
 
       - name: Pub Upgrade
         run: aft exec --include=${{ inputs.package-name }} -- flutter pub upgrade

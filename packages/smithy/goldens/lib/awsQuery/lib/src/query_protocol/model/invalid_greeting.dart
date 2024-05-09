@@ -48,8 +48,10 @@ abstract class InvalidGreeting
         namespace: 'aws.protocoltests.query',
         shape: 'InvalidGreeting',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -58,8 +60,10 @@ abstract class InvalidGreeting
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [message];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InvalidGreeting')
@@ -80,6 +84,7 @@ class InvalidGreetingAwsQuerySerializer
         InvalidGreeting,
         _$InvalidGreeting,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -87,6 +92,7 @@ class InvalidGreetingAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   InvalidGreeting deserialize(
     Serializers serializers,

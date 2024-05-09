@@ -26,9 +26,10 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
   @override
   List<GeneratedColumn> get $columns => [id, value];
   @override
-  String get aliasedName => _alias ?? 'drift_queued_items';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_queued_items';
+  String get actualTableName => $name;
+  static const String $name = 'drift_queued_items';
   @override
   VerificationContext validateIntegrity(Insertable<DriftQueuedItem> instance,
       {bool isInserting = false}) {

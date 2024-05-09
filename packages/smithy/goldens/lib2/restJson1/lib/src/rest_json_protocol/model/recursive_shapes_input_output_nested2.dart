@@ -43,6 +43,7 @@ abstract class RecursiveShapesInputOutputNested2
         bar,
         recursiveMember,
       ];
+
   @override
   String toString() {
     final helper =
@@ -69,6 +70,7 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
         RecursiveShapesInputOutputNested2,
         _$RecursiveShapesInputOutputNested2,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +78,7 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RecursiveShapesInputOutputNested2 deserialize(
     Serializers serializers,

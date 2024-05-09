@@ -1,3 +1,20 @@
+## 1.8.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.7.0
+
+- chore(datastore): Amplify Swift version bump to 1.30.7 ([#4454](https://github.com/aws-amplify/amplify-flutter/pull/4454))
+
+## 1.6.0
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+- Minor bug fixes and improvements
+
 ## 1.4.2
 
 - Minor bug fixes and improvements
@@ -9,11 +26,13 @@
 ## 1.4.0
 
 ### Fixes
+
 - fix(datastore): Use platform thread ([#3607](https://github.com/aws-amplify/amplify-flutter/pull/3607))
 
 ## 1.3.4
 
 ### Fixes
+
 - fix(datastore): Pin `Starscream`
 
 ## 1.3.3
@@ -23,17 +42,20 @@
 ## 1.3.2
 
 ### Fixes
+
 - fix(datastore): Custom list serde ([#3544](https://github.com/aws-amplify/amplify-flutter/pull/3544))
 
 ## 1.3.1
 
 ### Fixes
+
 - fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
 - fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
 
 ## 1.3.0
 
 ### Features
+
 - feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
 
 ### Chores
@@ -51,27 +73,31 @@
 ## 1.1.0-supports-only-mobile+1
 
 ### Fixes
+
 - fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
 
 ## 1.1.0-supports-only-mobile
 
 ### Features
+
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
 
 ### Fixes
+
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
 
 ## 1.0.0-supports-only-mobile.0+1
 
 ### Fixes
+
 - fix(repo): Flutter 3.3 support
 
 ## 1.0.0-supports-only-mobile.0
 
-Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports. 
-When interacting with GraphQL APIs, use the API category for all platforms or DataStore for iOS and Android. 
-This is because we retained DataStore on the original Android & iOS implementation. We’re 
-looking to bring data synchronization and offline-first experiences to the web and desktop in the 
+Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports.
+When interacting with GraphQL APIs, use the API category for all platforms or DataStore for iOS and Android.
+This is because we retained DataStore on the original Android & iOS implementation. We’re
+looking to bring data synchronization and offline-first experiences to the web and desktop in the
 future and would love to get your feedback on [this GitHub issue](https://github.com/aws-amplify/amplify-flutter/issues/234).
 
 As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
@@ -88,11 +114,13 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.7
 
 ### Fixes
+
 - fix(android): Bump Amplify Android to 2.4.1
 - fix(datastore): support use of java8 features in the example App
 - fix(ios): Bump Amplify iOS to 1.29.1
 
 ### Breaking Changes
+
 - chore(datastore)!: Reorganize + import cleanup ([#2760](https://github.com/aws-amplify/amplify-flutter/pull/2760))
 
 ## 1.0.0-next.6
@@ -106,11 +134,13 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.4
 
 ### Fixes
+
 - fix(datastore): prevent unhandled exception crashing App rebuilding sync expression
 
 ## 1.0.0-next.3
 
 ### Breaking Changes
+
 - refactor(core)!: Migrate exception types
 
 ## 1.0.0-next.2
@@ -120,6 +150,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 ## 1.0.0-next.1+1
 
 ### Fixes
+
 - fix(datastore): adapt amplify-ios CPK fix breaking change
 - fix(datastore): cpk errors on a custom type ([#2134](https://github.com/aws-amplify/amplify-flutter/pull/2134))
 - fix(datastore): enable java8 desugaring for amplify-android datastore plugin
@@ -127,6 +158,7 @@ As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-fl
 - fix(datastore): update dependency importing paths
 
 ### Features
+
 - feat(datastore): add targetNames support for codegen
 - feat(datastore): custom primary key Flutter native implementation
 

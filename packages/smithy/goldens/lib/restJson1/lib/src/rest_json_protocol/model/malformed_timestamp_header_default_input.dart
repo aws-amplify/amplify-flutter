@@ -52,8 +52,10 @@ abstract class MalformedTimestampHeaderDefaultInput
   @override
   MalformedTimestampHeaderDefaultInputPayload getPayload() =>
       MalformedTimestampHeaderDefaultInputPayload();
+
   @override
   List<Object?> get props => [timestamp];
+
   @override
   String toString() {
     final helper =
@@ -82,6 +84,7 @@ abstract class MalformedTimestampHeaderDefaultInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -102,6 +105,7 @@ class MalformedTimestampHeaderDefaultInputRestJson1Serializer extends _i1
         MalformedTimestampHeaderDefaultInputPayload,
         _$MalformedTimestampHeaderDefaultInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -109,6 +113,7 @@ class MalformedTimestampHeaderDefaultInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedTimestampHeaderDefaultInputPayload deserialize(
     Serializers serializers,

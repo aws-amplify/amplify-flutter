@@ -141,6 +141,7 @@ class JsonEnumsInputOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [JsonEnumsInputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -148,6 +149,7 @@ class JsonEnumsInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   JsonEnumsInputOutput deserialize(
     Serializers serializers,

@@ -56,8 +56,10 @@ abstract class QueryIdempotencyTokenAutoFillInput
   @override
   QueryIdempotencyTokenAutoFillInputPayload getPayload() =>
       QueryIdempotencyTokenAutoFillInputPayload();
+
   @override
   List<Object?> get props => [token];
+
   @override
   String toString() {
     final helper =
@@ -86,6 +88,7 @@ abstract class QueryIdempotencyTokenAutoFillInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -106,6 +109,7 @@ class QueryIdempotencyTokenAutoFillInputRestJson1Serializer extends _i1
         QueryIdempotencyTokenAutoFillInputPayload,
         _$QueryIdempotencyTokenAutoFillInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -113,6 +117,7 @@ class QueryIdempotencyTokenAutoFillInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   QueryIdempotencyTokenAutoFillInputPayload deserialize(
     Serializers serializers,

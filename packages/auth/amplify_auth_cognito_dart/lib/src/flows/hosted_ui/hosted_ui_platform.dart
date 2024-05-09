@@ -261,8 +261,6 @@ abstract class HostedUiPlatform implements Closeable {
       [
         _secureStorage.delete(key: _keys[HostedUiKey.state]),
         _secureStorage.delete(key: _keys[HostedUiKey.codeVerifier]),
-        // ignore: deprecated_member_use_from_same_package
-        _secureStorage.delete(key: _keys[HostedUiKey.nonce]),
         _secureStorage.delete(key: _keys[HostedUiKey.options]),
       ].map(Future.value),
     );

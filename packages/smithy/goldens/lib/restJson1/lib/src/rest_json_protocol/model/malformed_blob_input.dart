@@ -39,8 +39,10 @@ abstract class MalformedBlobInput
   _i3.Uint8List? get blob;
   @override
   MalformedBlobInput getPayload() => this;
+
   @override
   List<Object?> get props => [blob];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedBlobInput')
@@ -61,6 +63,7 @@ class MalformedBlobInputRestJson1Serializer
         MalformedBlobInput,
         _$MalformedBlobInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -68,6 +71,7 @@ class MalformedBlobInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedBlobInput deserialize(
     Serializers serializers,

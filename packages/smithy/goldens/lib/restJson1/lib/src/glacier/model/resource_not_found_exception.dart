@@ -54,22 +54,27 @@ abstract class ResourceNotFoundException
         namespace: 'com.amazonaws.glacier',
         shape: 'ResourceNotFoundException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int get statusCode => 404;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         type,
         code,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
@@ -99,6 +104,7 @@ class ResourceNotFoundExceptionRestJson1Serializer
         ResourceNotFoundException,
         _$ResourceNotFoundException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -106,6 +112,7 @@ class ResourceNotFoundExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ResourceNotFoundException deserialize(
     Serializers serializers,

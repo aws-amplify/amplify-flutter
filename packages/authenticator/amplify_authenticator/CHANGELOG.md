@@ -1,3 +1,42 @@
+## 1.6.0
+
+### Features
+- feat: update plus plugins version ([#4619](https://github.com/aws-amplify/amplify-flutter/pull/4619))
+
+## 1.5.5
+
+### Fixes
+- fix: correct `package_info_plus` version constraint ([#4583](https://github.com/aws-amplify/amplify-flutter/pull/4583))
+
+## 1.5.4
+
+- Minor bug fixes and improvements## 1.5.3
+
+## 1.5.3
+
+### Fixes
+- fix: Bumped package_info_plus to ">=4.0.1 <=6.0.0"
+
+## 1.5.2
+
+### Fixes
+- fix(authenticator): required phone number validator ([#4106](https://github.com/aws-amplify/amplify-flutter/pull/4106))
+
+## 1.5.1
+
+- Minor bug fixes and improvements
+
+## 1.5.0
+
+### Fixes
+- fix(authenticator): Beta channel fixes ([#3835](https://github.com/aws-amplify/amplify-flutter/pull/3835))
+- fix(authenticator): fix validate before trim bug ([#3809](https://github.com/aws-amplify/amplify-flutter/pull/3809))
+- fix(authenticator): use getCurrentUser to check sign in state
+
+## 1.4.3
+
+- Minor bug fixes and improvements
+
 ## 1.4.2
 
 ### Fixes

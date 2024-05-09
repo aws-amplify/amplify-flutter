@@ -57,12 +57,14 @@ abstract class ChangePasswordRequest
   String get accessToken;
   @override
   ChangePasswordRequest getPayload() => this;
+
   @override
   List<Object?> get props => [
         previousPassword,
         proposedPassword,
         accessToken,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ChangePasswordRequest')
@@ -92,6 +94,7 @@ class ChangePasswordRequestAwsJson11Serializer
         ChangePasswordRequest,
         _$ChangePasswordRequest,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -99,6 +102,7 @@ class ChangePasswordRequestAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ChangePasswordRequest deserialize(
     Serializers serializers,

@@ -26,10 +26,6 @@ class ConfirmUserAttributeOptions
   @override
   String get runtimeTypeName => 'ConfirmUserAttributeOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),

@@ -131,6 +131,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -138,6 +139,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,
@@ -231,6 +233,7 @@ class NestedWithNamespaceRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [NestedWithNamespace];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -238,6 +241,7 @@ class NestedWithNamespaceRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedWithNamespace deserialize(
     Serializers serializers,

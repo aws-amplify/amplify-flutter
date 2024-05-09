@@ -454,6 +454,7 @@ class AllQueryStringTypesInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [AllQueryStringTypesInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -461,6 +462,7 @@ class AllQueryStringTypesInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   AllQueryStringTypesInput deserialize(
     Serializers serializers,

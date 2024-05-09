@@ -73,11 +73,13 @@ abstract class HttpRequestWithGreedyLabelInPathInput
   @override
   HttpRequestWithGreedyLabelInPathInputPayload getPayload() =>
       HttpRequestWithGreedyLabelInPathInputPayload();
+
   @override
   List<Object?> get props => [
         foo,
         baz,
       ];
+
   @override
   String toString() {
     final helper =
@@ -110,6 +112,7 @@ abstract class HttpRequestWithGreedyLabelInPathInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -130,6 +133,7 @@ class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer extends _i1
         HttpRequestWithGreedyLabelInPathInputPayload,
         _$HttpRequestWithGreedyLabelInPathInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -137,6 +141,7 @@ class HttpRequestWithGreedyLabelInPathInputRestXmlSerializer extends _i1
           shape: 'restXml',
         )
       ];
+
   @override
   HttpRequestWithGreedyLabelInPathInputPayload deserialize(
     Serializers serializers,

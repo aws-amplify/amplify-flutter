@@ -294,7 +294,7 @@ class PubServer {
   Handler get handler => const Pipeline()
       .addMiddleware(_loggerMiddleware)
       .addMiddleware(corsMiddleware)
-      .addHandler(_$PubServerRouter(this));
+      .addHandler(_$PubServerRouter(this).call);
 }
 
 /// Allows access from Web UI.

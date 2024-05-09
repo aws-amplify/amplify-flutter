@@ -96,8 +96,10 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           }
         }
       });
+
   @override
   int successCode([UploadMultipartPartOutput? output]) => 204;
+
   @override
   UploadMultipartPartOutput buildOutput(
     UploadMultipartPartOutputPayload payload,
@@ -107,6 +109,7 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<InvalidParameterValueException,
@@ -163,14 +166,19 @@ class UploadMultipartPartOperation extends _i1.HttpOperation<
           builder: ServiceUnavailableException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'UploadMultipartPart';
+
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<UploadMultipartPartOutput> run(
     UploadMultipartPartInput input, {

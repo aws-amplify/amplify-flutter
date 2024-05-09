@@ -63,6 +63,7 @@ class XmlListsOutputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [XmlListsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -70,6 +71,7 @@ class XmlListsOutputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   XmlListsOutput deserialize(
     Serializers serializers,
@@ -226,6 +228,7 @@ class StructureListMemberEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [StructureListMember];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -233,6 +236,7 @@ class StructureListMemberEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   StructureListMember deserialize(
     Serializers serializers,

@@ -261,6 +261,7 @@ class QueryListsInputEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [QueryListsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -268,6 +269,7 @@ class QueryListsInputEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   QueryListsInput deserialize(
     Serializers serializers,
@@ -343,6 +345,7 @@ class GreetingStructEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [GreetingStruct];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -350,6 +353,7 @@ class GreetingStructEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   GreetingStruct deserialize(
     Serializers serializers,
@@ -394,6 +398,7 @@ class NestedStructWithListEc2QuerySerializer
 
   @override
   Iterable<Type> get types => const [NestedStructWithList];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -401,6 +406,7 @@ class NestedStructWithListEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   NestedStructWithList deserialize(
     Serializers serializers,

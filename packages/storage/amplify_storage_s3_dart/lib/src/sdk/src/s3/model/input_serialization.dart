@@ -62,6 +62,7 @@ abstract class InputSerialization
         json,
         parquet,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('InputSerialization')
@@ -94,6 +95,7 @@ class InputSerializationRestXmlSerializer
         InputSerialization,
         _$InputSerialization,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -101,6 +103,7 @@ class InputSerializationRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   InputSerialization deserialize(
     Serializers serializers,

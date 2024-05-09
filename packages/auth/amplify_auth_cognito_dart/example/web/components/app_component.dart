@@ -62,10 +62,12 @@ class AppComponent extends StatefulComponent {
     if (Amplify.isConfigured) return;
     try {
       await configure();
+      // ignore: invalid_use_of_internal_member
       config = await Amplify.asyncConfig;
 
       Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
         if (event.type == AuthHubEventType.signedIn) {
+          // ignore: invalid_use_of_internal_member
           Amplify.asyncConfig.then((_) {
             if (!appState.authState.isAuthenticatedRoute) {
               setState(

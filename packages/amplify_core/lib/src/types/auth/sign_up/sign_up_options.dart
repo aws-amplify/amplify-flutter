@@ -41,10 +41,6 @@ class SignUpOptions
   @override
   String get runtimeTypeName => 'SignUpOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'userAttributes': userAttributes,

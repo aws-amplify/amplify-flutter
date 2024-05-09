@@ -129,6 +129,7 @@ abstract class HttpRequestWithLabelsInput
   @override
   HttpRequestWithLabelsInputPayload getPayload() =>
       HttpRequestWithLabelsInputPayload();
+
   @override
   List<Object?> get props => [
         string,
@@ -140,6 +141,7 @@ abstract class HttpRequestWithLabelsInput
         boolean,
         timestamp,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
@@ -195,6 +197,7 @@ abstract class HttpRequestWithLabelsInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -215,6 +218,7 @@ class HttpRequestWithLabelsInputRestJson1Serializer
         HttpRequestWithLabelsInputPayload,
         _$HttpRequestWithLabelsInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -222,6 +226,7 @@ class HttpRequestWithLabelsInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithLabelsInputPayload deserialize(
     Serializers serializers,

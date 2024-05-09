@@ -72,8 +72,10 @@ class StreamingTraitsOperation extends _i1.HttpOperation<
           }
         }
       });
+
   @override
   int successCode([StreamingTraitsInputOutput? output]) => 200;
+
   @override
   StreamingTraitsInputOutput buildOutput(
     _i2.Stream<List<int>> payload,
@@ -83,16 +85,22 @@ class StreamingTraitsOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'StreamingTraits';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<StreamingTraitsInputOutput> run(
     StreamingTraitsInputOutput input, {

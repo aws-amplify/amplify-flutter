@@ -37,6 +37,7 @@ abstract class PredictOutput
   Prediction? get prediction;
   @override
   List<Object?> get props => [prediction];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PredictOutput')
@@ -57,6 +58,7 @@ class PredictOutputAwsJson11Serializer
         PredictOutput,
         _$PredictOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -64,6 +66,7 @@ class PredictOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   PredictOutput deserialize(
     Serializers serializers,

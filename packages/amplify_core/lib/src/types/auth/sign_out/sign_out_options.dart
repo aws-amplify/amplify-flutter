@@ -33,10 +33,6 @@ class SignOutOptions
   @override
   String get runtimeTypeName => 'SignOutOptions';
 
-  /// @nodoc
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
-
   @override
   Map<String, Object?> toJson() => {
         'globalSignOut': globalSignOut,

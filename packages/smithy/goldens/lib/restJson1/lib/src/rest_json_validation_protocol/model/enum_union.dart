@@ -25,9 +25,12 @@ sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   ];
 
   EnumString? get first => null;
+
   EnumString? get second => null;
+
   @override
   Object get value => (first ?? second)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'EnumUnion');
@@ -90,6 +93,7 @@ class EnumUnionRestJson1Serializer
         EnumUnionFirst$,
         EnumUnionSecond$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -97,6 +101,7 @@ class EnumUnionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   EnumUnion deserialize(
     Serializers serializers,

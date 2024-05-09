@@ -27,9 +27,12 @@ sealed class PatternUnionOverride
   ];
 
   String? get first => null;
+
   String? get second => null;
+
   @override
   Object get value => (first ?? second)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PatternUnionOverride');
@@ -93,6 +96,7 @@ class PatternUnionOverrideRestJson1Serializer
         PatternUnionOverrideFirst$,
         PatternUnionOverrideSecond$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -100,6 +104,7 @@ class PatternUnionOverrideRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PatternUnionOverride deserialize(
     Serializers serializers,

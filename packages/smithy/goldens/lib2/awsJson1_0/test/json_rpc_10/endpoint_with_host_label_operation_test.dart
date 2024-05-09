@@ -62,6 +62,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i3
 
   @override
   Iterable<Type> get types => const [EndpointWithHostLabelOperationInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -69,6 +70,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i3
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   EndpointWithHostLabelOperationInput deserialize(
     Serializers serializers,

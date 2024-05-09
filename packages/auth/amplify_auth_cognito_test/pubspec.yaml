@@ -3,7 +3,7 @@ description: Tests for the amplify_auth_cognito_dart package.
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.3.0
 
 dependencies:
   amplify_analytics_pinpoint_dart: any
@@ -13,7 +13,7 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   built_collection: ^5.0.0
-  built_value: ">=8.6.0 <8.7.0"
+  built_value: ^8.6.0
   collection: ^1.15.0
   convert: ^3.0.0
   http: ">=0.13.0 <2.0.0"

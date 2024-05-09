@@ -69,8 +69,10 @@ class XmlAttributesOperation extends _i1.HttpOperation<
         b.method = 'PUT';
         b.path = r'/XmlAttributes';
       });
+
   @override
   int successCode([XmlAttributesInputOutput? output]) => 200;
+
   @override
   XmlAttributesInputOutput buildOutput(
     XmlAttributesInputOutput payload,
@@ -80,16 +82,22 @@ class XmlAttributesOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'XmlAttributes';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<XmlAttributesInputOutput> run(
     XmlAttributesInputOutput input, {

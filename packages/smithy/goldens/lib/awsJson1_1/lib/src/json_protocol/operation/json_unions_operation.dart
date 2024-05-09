@@ -79,8 +79,10 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([UnionInputOutput? output]) => 200;
+
   @override
   UnionInputOutput buildOutput(
     UnionInputOutput payload,
@@ -90,16 +92,22 @@ class JsonUnionsOperation extends _i1.HttpOperation<UnionInputOutput,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'JsonUnions';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<UnionInputOutput> run(
     UnionInputOutput input, {

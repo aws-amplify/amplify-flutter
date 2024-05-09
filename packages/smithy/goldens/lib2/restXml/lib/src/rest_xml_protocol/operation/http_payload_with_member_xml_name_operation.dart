@@ -73,8 +73,10 @@ class HttpPayloadWithMemberXmlNameOperation extends _i1.HttpOperation<
         b.method = 'PUT';
         b.path = r'/HttpPayloadWithMemberXmlName';
       });
+
   @override
   int successCode([HttpPayloadWithMemberXmlNameInputOutput? output]) => 200;
+
   @override
   HttpPayloadWithMemberXmlNameInputOutput buildOutput(
     PayloadWithXmlName? payload,
@@ -84,16 +86,22 @@ class HttpPayloadWithMemberXmlNameOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpPayloadWithMemberXmlName';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpPayloadWithMemberXmlNameInputOutput> run(
     HttpPayloadWithMemberXmlNameInputOutput input, {

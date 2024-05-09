@@ -39,6 +39,39 @@ void main() {
             expect(updatedSnapshot.items.length, snapshot.items.length + 1);
             expect(updatedSnapshot.items.last, newBlog);
           });
+
+          test(
+              'returns a QuerySnapshot with an updated item if the item already exists',
+              () async {
+            final blog = Blog(name: 'new blog');
+
+            final subscriptionEvent = SubscriptionEvent(
+              item: blog,
+              modelType: Blog.classType,
+              eventType: EventType.create,
+            );
+
+            final updatedSnapshot = snapshot.withSubscriptionEvent(
+              event: subscriptionEvent,
+            );
+
+            expect(updatedSnapshot.items.contains(blog), isTrue);
+
+            final updatedBlog = blog.copyWith(name: 'updated name');
+
+            final subscriptionEvent2 = SubscriptionEvent(
+              item: updatedBlog,
+              modelType: Blog.classType,
+              eventType: EventType.create,
+            );
+
+            final updatedSnapshot2 = updatedSnapshot.withSubscriptionEvent(
+              event: subscriptionEvent2,
+            );
+
+            expect(updatedSnapshot2.items.contains(updatedBlog), isTrue);
+            expect(updatedSnapshot2.items.contains(blog), isFalse);
+          });
         });
 
         group('update event', () {

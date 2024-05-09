@@ -68,11 +68,13 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
   _i2.Uint8List? get blob;
   @override
   _i2.Uint8List? getPayload() => blob;
+
   @override
   List<Object?> get props => [
         foo,
         blob,
       ];
+
   @override
   String toString() {
     final helper =
@@ -99,6 +101,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
         HttpPayloadTraitsWithMediaTypeInputOutput,
         _$HttpPayloadTraitsWithMediaTypeInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -106,6 +109,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   _i2.Uint8List deserialize(
     Serializers serializers,

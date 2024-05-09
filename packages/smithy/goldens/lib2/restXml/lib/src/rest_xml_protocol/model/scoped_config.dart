@@ -69,6 +69,7 @@ abstract class ScopedConfig
         client,
         operation,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScopedConfig')
@@ -105,6 +106,7 @@ class ScopedConfigRestXmlSerializer
         ScopedConfig,
         _$ScopedConfig,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +114,7 @@ class ScopedConfigRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -203,7 +206,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           configFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -218,7 +221,7 @@ class ScopedConfigRestXmlSerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           credentialsFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),

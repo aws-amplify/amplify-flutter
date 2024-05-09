@@ -20,20 +20,26 @@ class ReplicationStatus extends _i1.SmithyEnum<ReplicationStatus> {
     'COMPLETE',
   );
 
-  static const failed = ReplicationStatus._(
+  static const completed = ReplicationStatus._(
     1,
+    'COMPLETED',
+    'COMPLETED',
+  );
+
+  static const failed = ReplicationStatus._(
+    2,
     'FAILED',
     'FAILED',
   );
 
   static const pending = ReplicationStatus._(
-    2,
+    3,
     'PENDING',
     'PENDING',
   );
 
   static const replica = ReplicationStatus._(
-    3,
+    4,
     'REPLICA',
     'REPLICA',
   );
@@ -41,6 +47,7 @@ class ReplicationStatus extends _i1.SmithyEnum<ReplicationStatus> {
   /// All values of [ReplicationStatus].
   static const values = <ReplicationStatus>[
     ReplicationStatus.complete,
+    ReplicationStatus.completed,
     ReplicationStatus.failed,
     ReplicationStatus.pending,
     ReplicationStatus.replica,

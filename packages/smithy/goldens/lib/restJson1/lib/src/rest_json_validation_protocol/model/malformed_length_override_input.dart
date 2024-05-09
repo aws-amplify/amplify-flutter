@@ -62,6 +62,7 @@ abstract class MalformedLengthOverrideInput
   _i4.BuiltListMultimap<String, String>? get map;
   @override
   MalformedLengthOverrideInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         blob,
@@ -71,6 +72,7 @@ abstract class MalformedLengthOverrideInput
         list,
         map,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedLengthOverrideInput')
@@ -112,6 +114,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
         MalformedLengthOverrideInput,
         _$MalformedLengthOverrideInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -119,6 +122,7 @@ class MalformedLengthOverrideInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedLengthOverrideInput deserialize(
     Serializers serializers,

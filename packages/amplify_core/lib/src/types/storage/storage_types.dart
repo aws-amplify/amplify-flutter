@@ -6,12 +6,11 @@ export '../exception/amplify_exception.dart'
         StorageException,
         StorageAccessDeniedException,
         StorageHttpStatusException,
-        StorageKeyNotFoundException,
+        StorageNotFoundException,
         StorageLocalFileNotFoundException,
         StorageOperationCanceledException,
         NetworkException,
         UnknownException;
-export 'access_level.dart';
 export 'copy_operation.dart';
 export 'copy_options.dart';
 export 'copy_request.dart';
@@ -37,10 +36,6 @@ export 'list_operation.dart';
 export 'list_options.dart';
 export 'list_request.dart';
 export 'list_result.dart';
-export 'move_operation.dart';
-export 'move_options.dart';
-export 'move_request.dart';
-export 'move_result.dart';
 export 'remove_many_operation.dart';
 export 'remove_many_options.dart';
 export 'remove_many_request.dart';
@@ -50,6 +45,7 @@ export 'remove_options.dart';
 export 'remove_request.dart';
 export 'remove_result.dart';
 export 'storage_item.dart';
+export 'storage_path.dart';
 export 'transfer_progress.dart';
 export 'upload_data_operation.dart';
 export 'upload_data_options.dart';

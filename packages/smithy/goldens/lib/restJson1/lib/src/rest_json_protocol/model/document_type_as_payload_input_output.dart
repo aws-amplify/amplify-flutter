@@ -56,8 +56,10 @@ abstract class DocumentTypeAsPayloadInputOutput
   _i2.JsonObject? get documentValue;
   @override
   _i2.JsonObject? getPayload() => documentValue;
+
   @override
   List<Object?> get props => [documentValue];
+
   @override
   String toString() {
     final helper =
@@ -80,6 +82,7 @@ class DocumentTypeAsPayloadInputOutputRestJson1Serializer
         DocumentTypeAsPayloadInputOutput,
         _$DocumentTypeAsPayloadInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -87,6 +90,7 @@ class DocumentTypeAsPayloadInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   _i2.JsonObject deserialize(
     Serializers serializers,

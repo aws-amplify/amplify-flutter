@@ -41,6 +41,7 @@ abstract class FlattenedXmlMapWithXmlNameOutput
   _i2.BuiltMap<String, String>? get myMap;
   @override
   List<Object?> get props => [myMap];
+
   @override
   String toString() {
     final helper =
@@ -63,6 +64,7 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
         FlattenedXmlMapWithXmlNameOutput,
         _$FlattenedXmlMapWithXmlNameOutput,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -70,6 +72,7 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   FlattenedXmlMapWithXmlNameOutput deserialize(
     Serializers serializers,
@@ -142,7 +145,7 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
       ).serialize(
         serializers,
         myMap,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i2.BuiltMap,
           [
             FullType(String),

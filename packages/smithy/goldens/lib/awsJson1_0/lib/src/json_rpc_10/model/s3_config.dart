@@ -47,6 +47,7 @@ abstract class S3Config
         useAccelerateEndpoint,
         useDualstackEndpoint,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Config')
@@ -75,6 +76,7 @@ class S3ConfigAwsJson10Serializer
         S3Config,
         _$S3Config,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -82,6 +84,7 @@ class S3ConfigAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   S3Config deserialize(
     Serializers serializers,

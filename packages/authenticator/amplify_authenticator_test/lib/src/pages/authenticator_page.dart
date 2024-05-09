@@ -126,13 +126,17 @@ abstract class AuthenticatorPage {
     await tester.tap(countrySelectField);
     await tester.pumpAndSettle();
     expect(countrySelectDialog, findsOneWidget);
-    expect(countrySearchField, findsOneWidget);
-    await tester.enterText(countrySearchField, countryName);
-    await tester.pumpAndSettle();
     final dialCode = find.descendant(
       of: find.byKey(keyCountryDialog),
-      matching: find.textContaining('($countryCode)'),
+      matching: find.textContaining(countryCode),
     );
+    await tester.dragUntilVisible(
+      dialCode,
+      countrySelectDialog,
+      const Offset(0, -250),
+      maxIteration: 100, // delta to move
+    );
+    await tester.pumpAndSettle();
     expect(dialCode, findsOneWidget);
     await tester.tap(dialCode);
   }

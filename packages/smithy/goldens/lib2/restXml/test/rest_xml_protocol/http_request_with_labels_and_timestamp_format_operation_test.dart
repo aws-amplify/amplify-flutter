@@ -71,6 +71,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer extends _i3
   @override
   Iterable<Type> get types =>
       const [HttpRequestWithLabelsAndTimestampFormatInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -78,6 +79,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer extends _i3
           shape: 'restXml',
         )
       ];
+
   @override
   HttpRequestWithLabelsAndTimestampFormatInput deserialize(
     Serializers serializers,

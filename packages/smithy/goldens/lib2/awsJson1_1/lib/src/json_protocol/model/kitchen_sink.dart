@@ -148,6 +148,7 @@ abstract class KitchenSink
   DateTime? get unixTimestamp;
   @override
   KitchenSink getPayload() => this;
+
   @override
   List<Object?> get props => [
         blob,
@@ -177,6 +178,7 @@ abstract class KitchenSink
         timestamp,
         unixTimestamp,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('KitchenSink')
@@ -297,6 +299,7 @@ class KitchenSinkAwsJson11Serializer
         KitchenSink,
         _$KitchenSink,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -304,6 +307,7 @@ class KitchenSinkAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   KitchenSink deserialize(
     Serializers serializers,

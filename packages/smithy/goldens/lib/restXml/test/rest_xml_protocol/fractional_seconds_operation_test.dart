@@ -55,6 +55,7 @@ class FractionalSecondsOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [FractionalSecondsOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -62,6 +63,7 @@ class FractionalSecondsOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   FractionalSecondsOutput deserialize(
     Serializers serializers,

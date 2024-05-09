@@ -104,6 +104,7 @@ class HttpPayloadWithMemberXmlNameInputOutputRestXmlSerializer extends _i3
 
   @override
   Iterable<Type> get types => const [HttpPayloadWithMemberXmlNameInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -111,6 +112,7 @@ class HttpPayloadWithMemberXmlNameInputOutputRestXmlSerializer extends _i3
           shape: 'restXml',
         )
       ];
+
   @override
   HttpPayloadWithMemberXmlNameInputOutput deserialize(
     Serializers serializers,
@@ -154,6 +156,7 @@ class PayloadWithXmlNameRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [PayloadWithXmlName];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -161,6 +164,7 @@ class PayloadWithXmlNameRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   PayloadWithXmlName deserialize(
     Serializers serializers,

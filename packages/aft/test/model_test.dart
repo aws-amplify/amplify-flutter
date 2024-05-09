@@ -120,11 +120,13 @@ void main() {
       final currentDartVersion = Version.parse(
         Platform.version.split(RegExp(r'\s+')).first,
       );
+      final major = currentDartVersion.major;
+      final minor = currentDartVersion.minor;
       final stablePackage = await d.package('stable_pkg').create();
       final previewPackage = await d
           .package(
             'preview_pkg',
-            sdkConstraint: '^3.2.0-0',
+            sdkConstraint: '^$major.${minor + 1}.0-0',
           )
           .create();
       expect(
@@ -133,7 +135,7 @@ void main() {
       );
       expect(
         previewPackage.compatibleWithActiveSdk,
-        currentDartVersion.isPreRelease,
+        isFalse,
       );
     });
   });

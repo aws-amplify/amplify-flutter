@@ -29,6 +29,7 @@ abstract class SimpleStruct
   String? get value;
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleStruct')
@@ -49,6 +50,7 @@ class SimpleStructAwsJson11Serializer
         SimpleStruct,
         _$SimpleStruct,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -56,6 +58,7 @@ class SimpleStructAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   SimpleStruct deserialize(
     Serializers serializers,

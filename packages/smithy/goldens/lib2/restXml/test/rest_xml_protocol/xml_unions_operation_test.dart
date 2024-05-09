@@ -351,6 +351,7 @@ class XmlUnionsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlUnionsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -358,6 +359,7 @@ class XmlUnionsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlUnionsInputOutput deserialize(
     Serializers serializers,

@@ -89,8 +89,10 @@ class UploadArchiveOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
           }
         }
       });
+
   @override
   int successCode([ArchiveCreationOutput? output]) => 201;
+
   @override
   ArchiveCreationOutput buildOutput(
     ArchiveCreationOutputPayload payload,
@@ -100,6 +102,7 @@ class UploadArchiveOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<InvalidParameterValueException,
@@ -156,14 +159,19 @@ class UploadArchiveOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
           builder: ServiceUnavailableException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'UploadArchive';
+
   @override
   _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<ArchiveCreationOutput> run(
     UploadArchiveInput input, {

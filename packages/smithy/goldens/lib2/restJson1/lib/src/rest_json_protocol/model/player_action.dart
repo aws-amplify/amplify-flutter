@@ -23,8 +23,10 @@ sealed class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
 
   /// Quit the game.
   _i1.Unit? get quit => null;
+
   @override
   Object get value => (quit)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'PlayerAction');
@@ -43,6 +45,7 @@ final class PlayerActionQuit$ extends PlayerAction {
 
   @override
   String get name => 'quit';
+
   @override
   _i1.Unit get quit => const _i1.Unit();
 }
@@ -69,6 +72,7 @@ class PlayerActionRestJson1Serializer
         PlayerAction,
         PlayerActionQuit$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -76,6 +80,7 @@ class PlayerActionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PlayerAction deserialize(
     Serializers serializers,

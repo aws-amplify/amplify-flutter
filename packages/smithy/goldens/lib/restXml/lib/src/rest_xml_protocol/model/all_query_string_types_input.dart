@@ -212,6 +212,7 @@ abstract class AllQueryStringTypesInput
   @override
   AllQueryStringTypesInputPayload getPayload() =>
       AllQueryStringTypesInputPayload();
+
   @override
   List<Object?> get props => [
         queryString,
@@ -236,6 +237,7 @@ abstract class AllQueryStringTypesInput
         queryIntegerEnumList,
         queryParamsMapOfStrings,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AllQueryStringTypesInput')
@@ -343,6 +345,7 @@ abstract class AllQueryStringTypesInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -363,6 +366,7 @@ class AllQueryStringTypesInputRestXmlSerializer
         AllQueryStringTypesInputPayload,
         _$AllQueryStringTypesInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -370,6 +374,7 @@ class AllQueryStringTypesInputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   AllQueryStringTypesInputPayload deserialize(
     Serializers serializers,

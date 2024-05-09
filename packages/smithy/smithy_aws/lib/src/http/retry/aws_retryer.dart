@@ -193,21 +193,21 @@ class AWSRetryer implements Retryer {
           return completer.complete(result);
         } on Exception catch (e) {
           if (!isRetryable(e)) {
-            rethrow;
+            return completer.completeError(e);
           }
           retryToken = _retrieveRetryToken(e);
           if (retryToken == null) {
-            rethrow;
+            return completer.completeError(e);
           }
           final delay = _delayFor(e, attempts);
           if (++attempts >= _maxAttempts) {
-            rethrow;
+            return completer.completeError(e);
           }
           await onRetry?.call(e, delay);
           await Future<void>.delayed(delay);
         }
       }
-    }).catchError(completer.completeError);
+    });
     return completer.operation;
   }
 }

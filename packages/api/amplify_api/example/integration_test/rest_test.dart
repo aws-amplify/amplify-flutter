@@ -61,7 +61,7 @@ void main({bool useExistingTestUser = false}) {
         skip: zIsWeb,
       );
 
-      testWidgets('should throw a RestException for POST',
+      testWidgets('should throw a HttpStatusException for POST',
           (WidgetTester tester) async {
         final operation = Amplify.API.post(path);
         await expectLater(

@@ -81,8 +81,10 @@ class NullOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([NullOperationInputOutput? output]) => 200;
+
   @override
   NullOperationInputOutput buildOutput(
     NullOperationInputOutput payload,
@@ -92,16 +94,22 @@ class NullOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'NullOperation';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<NullOperationInputOutput> run(
     NullOperationInputOutput input, {

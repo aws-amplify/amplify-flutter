@@ -59,11 +59,13 @@ abstract class OmitsNullSerializesEmptyStringInput
   @override
   OmitsNullSerializesEmptyStringInputPayload getPayload() =>
       OmitsNullSerializesEmptyStringInputPayload();
+
   @override
   List<Object?> get props => [
         nullValue,
         emptyString,
       ];
+
   @override
   String toString() {
     final helper =
@@ -96,6 +98,7 @@ abstract class OmitsNullSerializesEmptyStringInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
@@ -116,6 +119,7 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i1
         OmitsNullSerializesEmptyStringInputPayload,
         _$OmitsNullSerializesEmptyStringInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -123,6 +127,7 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i1
           shape: 'restXml',
         )
       ];
+
   @override
   OmitsNullSerializesEmptyStringInputPayload deserialize(
     Serializers serializers,

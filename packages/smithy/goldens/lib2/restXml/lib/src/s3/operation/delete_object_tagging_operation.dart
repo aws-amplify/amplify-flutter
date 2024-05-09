@@ -102,8 +102,10 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
           );
         }
       });
+
   @override
   int successCode([DeleteObjectTaggingOutput? output]) => 204;
+
   @override
   DeleteObjectTaggingOutput buildOutput(
     DeleteObjectTaggingOutputPayload payload,
@@ -113,12 +115,16 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'DeleteObjectTagging';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -139,6 +145,7 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
 
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<DeleteObjectTaggingOutput> run(
     DeleteObjectTaggingRequest input, {

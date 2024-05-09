@@ -150,6 +150,7 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpRequestWithFloatLabelsInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -157,6 +158,7 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpRequestWithFloatLabelsInput deserialize(
     Serializers serializers,

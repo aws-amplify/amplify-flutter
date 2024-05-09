@@ -61,8 +61,10 @@ abstract class ValidationException
         namespace: 'smithy.framework',
         shape: 'ValidationException',
       );
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -71,11 +73,13 @@ abstract class ValidationException
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         message,
         fieldList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationException')
@@ -100,6 +104,7 @@ class ValidationExceptionRestJson1Serializer
         ValidationException,
         _$ValidationException,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -107,6 +112,7 @@ class ValidationExceptionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ValidationException deserialize(
     Serializers serializers,

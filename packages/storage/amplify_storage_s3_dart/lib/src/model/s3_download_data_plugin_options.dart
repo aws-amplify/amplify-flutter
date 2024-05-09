@@ -25,26 +25,8 @@ class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
   const S3DownloadDataPluginOptions._({
     this.getProperties = false,
     this.bytesRange,
-    this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
-
-  /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
-  ///
-  /// Use this when calling `downloadData` on an object that belongs to another
-  /// user (identified by [targetIdentityId]) rather than the currently
-  /// signed-in user.
-  const S3DownloadDataPluginOptions.forIdentity(
-    String targetIdentityId, {
-    bool getProperties = false,
-    S3DataBytesRange? bytesRange,
-    bool useAccelerateEndpoint = false,
-  }) : this._(
-          targetIdentityId: targetIdentityId,
-          getProperties: getProperties,
-          bytesRange: bytesRange,
-          useAccelerateEndpoint: useAccelerateEndpoint,
-        );
 
   /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
   factory S3DownloadDataPluginOptions.fromJson(Map<String, Object?> json) =>
@@ -52,11 +34,6 @@ class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
 
   /// The byte range to download from the object.
   final S3DataBytesRange? bytesRange;
-
-  /// The identity ID of another user who uploaded the object.
-  ///
-  /// This can be set by using [S3DownloadDataPluginOptions.forIdentity].
-  final String? targetIdentityId;
 
   /// Whether to retrieve properties for the downloaded object using the
   /// `getProperties` API.
@@ -73,7 +50,6 @@ class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
         getProperties,
         useAccelerateEndpoint,
         bytesRange,
-        targetIdentityId,
       ];
 
   @override

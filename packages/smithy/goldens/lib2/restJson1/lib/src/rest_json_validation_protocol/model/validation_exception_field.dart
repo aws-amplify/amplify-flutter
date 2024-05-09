@@ -46,6 +46,7 @@ abstract class ValidationExceptionField
         path,
         message,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationExceptionField')
@@ -71,6 +72,7 @@ class ValidationExceptionFieldRestJson1Serializer
         ValidationExceptionField,
         _$ValidationExceptionField,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -78,6 +80,7 @@ class ValidationExceptionFieldRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   ValidationExceptionField deserialize(
     Serializers serializers,

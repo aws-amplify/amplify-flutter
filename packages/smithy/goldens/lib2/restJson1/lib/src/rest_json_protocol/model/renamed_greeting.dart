@@ -29,6 +29,7 @@ abstract class RenamedGreeting
   String? get salutation;
   @override
   List<Object?> get props => [salutation];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RenamedGreeting')
@@ -49,6 +50,7 @@ class RenamedGreetingRestJson1Serializer
         RenamedGreeting,
         _$RenamedGreeting,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -56,6 +58,7 @@ class RenamedGreetingRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   RenamedGreeting deserialize(
     Serializers serializers,

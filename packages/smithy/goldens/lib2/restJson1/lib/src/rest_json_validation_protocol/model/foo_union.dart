@@ -24,9 +24,12 @@ sealed class FooUnion extends _i1.SmithyUnion<FooUnion> {
   ];
 
   String? get string => null;
+
   int? get integer => null;
+
   @override
   Object get value => (string ?? integer)!;
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'FooUnion');
@@ -89,6 +92,7 @@ class FooUnionRestJson1Serializer
         FooUnionString$,
         FooUnionInteger$,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -96,6 +100,7 @@ class FooUnionRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   FooUnion deserialize(
     Serializers serializers,

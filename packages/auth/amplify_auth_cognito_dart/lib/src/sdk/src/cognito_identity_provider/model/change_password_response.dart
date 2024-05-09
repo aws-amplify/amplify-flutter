@@ -40,6 +40,7 @@ abstract class ChangePasswordResponse
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ChangePasswordResponse');
@@ -57,6 +58,7 @@ class ChangePasswordResponseAwsJson11Serializer
         ChangePasswordResponse,
         _$ChangePasswordResponse,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -64,6 +66,7 @@ class ChangePasswordResponseAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   ChangePasswordResponse deserialize(
     Serializers serializers,

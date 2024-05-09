@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-part of authenticator.form_field;
+part of '../form_field.dart';
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.confirm_sign_in_form_field}

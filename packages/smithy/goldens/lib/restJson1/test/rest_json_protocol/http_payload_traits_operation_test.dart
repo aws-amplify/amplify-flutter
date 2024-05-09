@@ -180,6 +180,7 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpPayloadTraitsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -187,6 +188,7 @@ class HttpPayloadTraitsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpPayloadTraitsInputOutput deserialize(
     Serializers serializers,

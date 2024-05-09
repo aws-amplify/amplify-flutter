@@ -8,6 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/part_size_util.dart'
     as part_size_util;
@@ -48,10 +49,9 @@ class S3UploadTask {
   S3UploadTask._({
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    required StoragePath path,
     required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
     AWSFile? localFile,
@@ -60,10 +60,9 @@ class S3UploadTask {
     required transfer.TransferDatabase transferDatabase,
   })  : _s3Client = s3Client,
         _defaultS3ClientConfig = defaultS3ClientConfig,
-        _prefixResolver = prefixResolver,
+        _pathResolver = pathResolver,
         _bucket = bucket,
-        _defaultAccessLevel = defaultAccessLevel,
-        _key = key,
+        _path = path,
         _options = options,
         _dataPayload = dataPayload,
         _localFile = localFile,
@@ -83,10 +82,9 @@ class S3UploadTask {
     S3DataPayload dataPayload, {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
@@ -94,10 +92,9 @@ class S3UploadTask {
   }) : this._(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: prefixResolver,
+          pathResolver: pathResolver,
           bucket: bucket,
-          defaultAccessLevel: defaultAccessLevel,
-          key: key,
+          path: path,
           dataPayload: dataPayload,
           options: options,
           onProgress: onProgress,
@@ -112,10 +109,9 @@ class S3UploadTask {
     AWSFile localFile, {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
-    required S3PrefixResolver prefixResolver,
+    required S3PathResolver pathResolver,
     required String bucket,
-    required StorageAccessLevel defaultAccessLevel,
-    required String key,
+    required StoragePath path,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
@@ -123,10 +119,9 @@ class S3UploadTask {
   }) : this._(
           s3Client: s3Client,
           defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: prefixResolver,
+          pathResolver: pathResolver,
           bucket: bucket,
-          defaultAccessLevel: defaultAccessLevel,
-          key: key,
+          path: path,
           localFile: localFile,
           options: options,
           onProgress: onProgress,
@@ -141,10 +136,9 @@ class S3UploadTask {
 
   final s3.S3Client _s3Client;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
-  final S3PrefixResolver _prefixResolver;
+  final S3PathResolver _pathResolver;
   final String _bucket;
-  final StorageAccessLevel _defaultAccessLevel;
-  final String _key;
+  final StoragePath _path;
   final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
   final AWSLogger _logger;
@@ -156,7 +150,7 @@ class S3UploadTask {
   bool _isMultipartUpload = false;
 
   late StorageTransferState _state;
-  late final String _resolvedKey;
+  late final String _resolvedPath;
 
   // fields used to manage the single upload process
   smithy.SmithyOperation<s3.PutObjectOutput>? _putObjectOperation;
@@ -206,7 +200,7 @@ class S3UploadTask {
     }
 
     try {
-      await _setResolvedKey();
+      await _setResolvedPath();
     } on Exception catch (error, stackTrace) {
       _completeUploadWithError(error, stackTrace);
       return;
@@ -216,7 +210,8 @@ class S3UploadTask {
     // size is unknown when uploading a stream of bytes and we cannot
     // determine whether to use multipart upload, so use putObject
     if (dataPayload != null) {
-      _fileSize = -1;
+      // ignore: invalid_use_of_internal_member
+      _fileSize = dataPayload.size;
       unawaited(_startPutObject(dataPayload));
       return;
     }
@@ -313,14 +308,8 @@ class S3UploadTask {
     }
   }
 
-  Future<void> _setResolvedKey() async {
-    final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
-      prefixResolver: _prefixResolver,
-      logger: _logger,
-      accessLevel: _options.accessLevel ?? _defaultAccessLevel,
-    );
-
-    _resolvedKey = '$resolvedPrefix$_key';
+  Future<void> _setResolvedPath() async {
+    _resolvedPath = await _pathResolver.resolvePath(path: _path);
   }
 
   Future<void> _startPutObject(S3DataPayload body) async {
@@ -332,7 +321,7 @@ class S3UploadTask {
         ..bucket = _bucket
         ..body = body
         ..contentType = body.contentType ?? fallbackContentType
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..metadata.addAll(_metadata);
     });
 
@@ -357,11 +346,11 @@ class S3UploadTask {
                 await StorageS3Service.headObject(
                   s3client: _s3Client,
                   bucket: _bucket,
-                  key: _resolvedKey,
+                  key: _resolvedPath,
                 ),
-                key: _key,
+                path: _resolvedPath,
               )
-            : S3Item(key: _key),
+            : S3Item(path: _resolvedPath),
       );
 
       _state = StorageTransferState.success;
@@ -466,11 +455,11 @@ class S3UploadTask {
                         await StorageS3Service.headObject(
                           s3client: _s3Client,
                           bucket: _bucket,
-                          key: _resolvedKey,
+                          key: _resolvedPath,
                         ),
-                        key: _key,
+                        path: _resolvedPath,
                       )
-                    : S3Item(key: _key),
+                    : S3Item(path: _resolvedPath),
               );
               _state = StorageTransferState.success;
               _emitTransferProgress();
@@ -486,7 +475,7 @@ class S3UploadTask {
       builder
         ..bucket = _bucket
         ..contentType = contentType ?? fallbackContentType
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..metadata.addAll(_metadata);
     });
 
@@ -503,7 +492,7 @@ class S3UploadTask {
         await _transferDatabase.insertTransferRecord(
           TransferRecord(
             uploadId: uploadId,
-            objectKey: _resolvedKey,
+            objectKey: _resolvedPath,
             createdAt: DateTime.now(),
           ),
         );
@@ -530,7 +519,7 @@ class S3UploadTask {
     final request = s3.CompleteMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..uploadId = _multipartUploadId
         ..multipartUpload = s3.CompletedMultipartUpload(
           parts: (_completedSubtasks
@@ -650,7 +639,7 @@ class S3UploadTask {
       builder
         ..bucket = _bucket
         ..body = partBody
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..partNumber = partNumber
         ..uploadId = _multipartUploadId;
     });
@@ -741,7 +730,7 @@ class S3UploadTask {
     final request = s3.AbortMultipartUploadRequest.build((builder) {
       builder
         ..bucket = _bucket
-        ..key = _resolvedKey
+        ..key = _resolvedPath
         ..uploadId = _multipartUploadId;
     });
 

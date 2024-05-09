@@ -837,6 +837,7 @@ class UnionInputOutputAwsJson11Serializer
 
   @override
   Iterable<Type> get types => const [UnionInputOutput];
+
   @override
   Iterable<_i4.ShapeId> get supportedProtocols => const [
         _i4.ShapeId(
@@ -844,6 +845,7 @@ class UnionInputOutputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   UnionInputOutput deserialize(
     Serializers serializers,

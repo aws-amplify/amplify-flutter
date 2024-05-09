@@ -34,6 +34,7 @@ abstract class ProgressEvent
   Progress? get details;
   @override
   List<Object?> get props => [details];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ProgressEvent')
@@ -54,6 +55,7 @@ class ProgressEventRestXmlSerializer
         ProgressEvent,
         _$ProgressEvent,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -61,6 +63,7 @@ class ProgressEventRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ProgressEvent deserialize(
     Serializers serializers,

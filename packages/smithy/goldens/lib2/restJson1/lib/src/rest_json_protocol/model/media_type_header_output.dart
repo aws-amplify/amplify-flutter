@@ -49,8 +49,10 @@ abstract class MediaTypeHeaderOutput
   _i3.JsonObject? get json;
   @override
   MediaTypeHeaderOutputPayload getPayload() => MediaTypeHeaderOutputPayload();
+
   @override
   List<Object?> get props => [json];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderOutput')
@@ -78,6 +80,7 @@ abstract class MediaTypeHeaderOutputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MediaTypeHeaderOutputPayload');
@@ -97,6 +100,7 @@ class MediaTypeHeaderOutputRestJson1Serializer
         MediaTypeHeaderOutputPayload,
         _$MediaTypeHeaderOutputPayload,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -104,6 +108,7 @@ class MediaTypeHeaderOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MediaTypeHeaderOutputPayload deserialize(
     Serializers serializers,

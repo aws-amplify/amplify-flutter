@@ -51,6 +51,7 @@ abstract class Stats
         bytesProcessed,
         bytesReturned,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Stats')
@@ -78,6 +79,7 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
         Stats,
         _$Stats,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -85,6 +87,7 @@ class StatsRestXmlSerializer extends _i3.StructuredSmithySerializer<Stats> {
           shape: 'restXml',
         )
       ];
+
   @override
   Stats deserialize(
     Serializers serializers,

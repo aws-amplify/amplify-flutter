@@ -45,10 +45,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
                   ?.resolve({}) ??
               Theme.of(context).textTheme.labelLarge;
           final tp = TextPainter(
-            // TODO(dnys1): replace with textScaleFactor when min flutter version is bumped to 3.16.0
-            // see: https://docs.flutter.dev/release/breaking-changes/deprecate-textscalefactor#migrating-code-that-consumes-textscalefactor
-            // ignore: deprecated_member_use
-            textScaleFactor: MediaQuery.textScaleFactorOf(context),
+            textScaler: MediaQuery.textScalerOf(context),
             text: TextSpan(
               text: text,
               style: style,
@@ -191,6 +188,8 @@ class _SocialSignInButtonState
     );
   }
 
+  // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+  // ignore: deprecated_member_use
   MaterialStateProperty<Color?> getButtonForegroundColor(BuildContext context) {
     final theme = Theme.of(context);
     final foregroundColor = theme.outlinedButtonTheme.style?.foregroundColor;
@@ -199,6 +198,8 @@ class _SocialSignInButtonState
     }
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    // TODO(Jordan-Nelson): use `WidgetStateProperty` when min flutter sdk is 3.22.0
+    // ignore: deprecated_member_use
     return MaterialStateProperty.all(isDark ? Colors.white : Colors.black);
   }
 

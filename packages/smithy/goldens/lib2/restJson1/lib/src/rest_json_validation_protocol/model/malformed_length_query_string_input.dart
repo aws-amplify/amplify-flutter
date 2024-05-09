@@ -49,8 +49,10 @@ abstract class MalformedLengthQueryStringInput
   @override
   MalformedLengthQueryStringInputPayload getPayload() =>
       MalformedLengthQueryStringInputPayload();
+
   @override
   List<Object?> get props => [string];
+
   @override
   String toString() {
     final helper =
@@ -79,6 +81,7 @@ abstract class MalformedLengthQueryStringInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -99,6 +102,7 @@ class MalformedLengthQueryStringInputRestJson1Serializer extends _i1
         MalformedLengthQueryStringInputPayload,
         _$MalformedLengthQueryStringInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -106,6 +110,7 @@ class MalformedLengthQueryStringInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedLengthQueryStringInputPayload deserialize(
     Serializers serializers,

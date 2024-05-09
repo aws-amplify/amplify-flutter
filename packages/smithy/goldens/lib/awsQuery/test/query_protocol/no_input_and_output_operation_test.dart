@@ -92,6 +92,7 @@ class NoInputAndOutputInputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [NoInputAndOutputInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -99,6 +100,7 @@ class NoInputAndOutputInputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NoInputAndOutputInput deserialize(
     Serializers serializers,
@@ -125,6 +127,7 @@ class NoInputAndOutputOutputAwsQuerySerializer
 
   @override
   Iterable<Type> get types => const [NoInputAndOutputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -132,6 +135,7 @@ class NoInputAndOutputOutputAwsQuerySerializer
           shape: 'awsQuery',
         )
       ];
+
   @override
   NoInputAndOutputOutput deserialize(
     Serializers serializers,

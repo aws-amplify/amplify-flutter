@@ -13,7 +13,6 @@ part 'auth.g.dart';
 class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   const CognitoAuthConfig({
     this.oAuth,
-    this.authenticationFlowType,
     this.socialProviders,
     this.usernameAttributes,
     this.signupAttributes,
@@ -29,10 +28,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   @JsonKey(name: 'OAuth')
   final CognitoOAuthConfig? oAuth;
 
-  @JsonKey(
-    unknownEnumValue: JsonKey.nullForUndefinedEnumValue,
-  )
-  final AuthenticationFlowType? authenticationFlowType;
   final List<SocialProvider>? socialProviders;
   final List<CognitoUserAttributeKey>? usernameAttributes;
   final List<CognitoUserAttributeKey>? signupAttributes;
@@ -44,7 +39,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   @override
   List<Object?> get props => [
         oAuth,
-        authenticationFlowType,
         socialProviders,
         usernameAttributes,
         signupAttributes,
@@ -56,7 +50,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
 
   CognitoAuthConfig copyWith({
     CognitoOAuthConfig? oAuth,
-    AuthenticationFlowType? authenticationFlowType,
     List<SocialProvider>? socialProviders,
     List<CognitoUserAttributeKey>? usernameAttributes,
     List<CognitoUserAttributeKey>? signupAttributes,
@@ -67,8 +60,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   }) {
     return CognitoAuthConfig(
       oAuth: oAuth ?? this.oAuth,
-      authenticationFlowType:
-          authenticationFlowType ?? this.authenticationFlowType,
       socialProviders: socialProviders ??
           (this.socialProviders == null
               ? null

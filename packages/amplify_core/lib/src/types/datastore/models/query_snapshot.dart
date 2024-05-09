@@ -71,37 +71,59 @@ class QuerySnapshot<T extends Model> {
   QuerySnapshot<T> withSubscriptionEvent({
     required SubscriptionEvent<T> event,
   }) {
-    final sortedListCopy = SortedList<T>.from(_sortedList);
     SortedList<T>? updatedSortedList;
 
     final newItem = event.item;
-    final newItemMatchesPredicate = where == null || where!.evaluate(newItem);
-    final currentItemIndex =
-        // TODO(HuiSF): remove the ignore when merging CPK feature commits
-        // ignore: deprecated_member_use_from_same_package
-        sortedListCopy.indexWhere((item) => item.getId() == newItem.getId());
-    final currentItem =
-        currentItemIndex == -1 ? null : sortedListCopy[currentItemIndex];
-    final currentItemMatchesPredicate =
-        currentItem != null && (where == null || where!.evaluate(currentItem));
+    final matchesPredicate = where == null || where!.evaluate(newItem);
+    final currentIndex = _sortedList.indexWhere(
+      (item) => item.modelIdentifier == newItem.modelIdentifier,
+    );
+    final currentItem = currentIndex == -1 ? null : _sortedList[currentIndex];
 
-    if (event.eventType == EventType.create &&
-        newItemMatchesPredicate &&
-        currentItem == null) {
-      updatedSortedList = sortedListCopy..addSorted(newItem);
-    } else if (event.eventType == EventType.delete && currentItem != null) {
-      updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
-    } else if (event.eventType == EventType.update) {
-      if (currentItemMatchesPredicate &&
-          newItemMatchesPredicate &&
-          currentItem != newItem) {
-        updatedSortedList = sortedListCopy
-          ..updateAtSorted(currentItemIndex, newItem);
-      } else if (currentItemMatchesPredicate && !newItemMatchesPredicate) {
-        updatedSortedList = sortedListCopy..removeAt(currentItemIndex);
-      } else if (currentItem == null && newItemMatchesPredicate) {
-        updatedSortedList = sortedListCopy..addSorted(newItem);
-      }
+    switch (event.eventType) {
+      case EventType.create:
+        // Skip any new item that doesn't match the predicate.
+        if (!matchesPredicate) break;
+        if (currentItem == null) {
+          // Add the item to the list. This is a new item and matches the
+          // predicate, it should be added.
+          updatedSortedList = _sortedList.copy()..addSorted(newItem);
+        } else if (currentItem != newItem) {
+          // Update the item in the list. This is a "new" item, but it already
+          // exists in the list with a different value. This is the result of
+          // the item being created on this device and App Sync returning an
+          // updated item during the create mutation. This can happen when using
+          // custom resolvers.
+          updatedSortedList = _sortedList.copy()
+            ..updateAtSorted(
+              currentIndex,
+              newItem,
+            );
+        }
+      case EventType.update:
+        if (currentItem == null && matchesPredicate) {
+          // Add the item to the list. This is an existing item that matches the
+          // predicate but is not yet in the list.
+          updatedSortedList = _sortedList.copy()..addSorted(newItem);
+        } else if (currentItem != newItem && matchesPredicate) {
+          // Update the item in the list. This item exists in the list but the
+          // value of the item has changed.
+          updatedSortedList = _sortedList.copy()
+            ..updateAtSorted(
+              currentIndex,
+              newItem,
+            );
+        } else if (currentItem != null && !matchesPredicate) {
+          // Remove the item from the list. The item exist in the list but no
+          // longer matches the predicate.
+          updatedSortedList = _sortedList.copy()..removeAt(currentIndex);
+        }
+      case EventType.delete:
+        if (currentItem != null) {
+          // Remove the item from the list. The item exists in the list but was
+          // just deleted.
+          updatedSortedList = _sortedList.copy()..removeAt(currentIndex);
+        }
     }
     if (updatedSortedList != null) {
       return QuerySnapshot._(

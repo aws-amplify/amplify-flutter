@@ -72,8 +72,10 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<_i2.Uint8List,
           }
         }
       });
+
   @override
   int successCode([HttpPayloadTraitsInputOutput? output]) => 200;
+
   @override
   HttpPayloadTraitsInputOutput buildOutput(
     _i2.Uint8List? payload,
@@ -83,16 +85,22 @@ class HttpPayloadTraitsOperation extends _i1.HttpOperation<_i2.Uint8List,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpPayloadTraits';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpPayloadTraitsInputOutput> run(
     HttpPayloadTraitsInputOutput input, {

@@ -84,8 +84,10 @@ class NullAndEmptyHeadersServerOperation extends _i1.HttpOperation<
           }
         }
       });
+
   @override
   int successCode([NullAndEmptyHeadersIo? output]) => 200;
+
   @override
   NullAndEmptyHeadersIo buildOutput(
     NullAndEmptyHeadersIoPayload payload,
@@ -95,16 +97,22 @@ class NullAndEmptyHeadersServerOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'NullAndEmptyHeadersServer';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<NullAndEmptyHeadersIo> run(
     NullAndEmptyHeadersIo input, {

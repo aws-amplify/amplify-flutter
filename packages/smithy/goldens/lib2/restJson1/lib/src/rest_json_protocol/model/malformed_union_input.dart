@@ -40,8 +40,10 @@ abstract class MalformedUnionInput
   SimpleUnion? get union;
   @override
   MalformedUnionInput getPayload() => this;
+
   @override
   List<Object?> get props => [union];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedUnionInput')
@@ -62,6 +64,7 @@ class MalformedUnionInputRestJson1Serializer
         MalformedUnionInput,
         _$MalformedUnionInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -69,6 +72,7 @@ class MalformedUnionInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedUnionInput deserialize(
     Serializers serializers,

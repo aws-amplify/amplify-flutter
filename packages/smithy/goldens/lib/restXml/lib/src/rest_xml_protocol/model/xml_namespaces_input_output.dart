@@ -47,8 +47,10 @@ abstract class XmlNamespacesInputOutput
   XmlNamespaceNested? get nested;
   @override
   XmlNamespacesInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [nested];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput')
@@ -70,6 +72,7 @@ class XmlNamespacesInputOutputRestXmlSerializer
         XmlNamespacesInputOutput,
         _$XmlNamespacesInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -77,6 +80,7 @@ class XmlNamespacesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlNamespacesInputOutput deserialize(
     Serializers serializers,

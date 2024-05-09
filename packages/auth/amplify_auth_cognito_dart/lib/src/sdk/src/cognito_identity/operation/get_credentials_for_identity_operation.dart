@@ -100,8 +100,10 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/';
       });
+
   @override
   int successCode([GetCredentialsForIdentityResponse? output]) => 200;
+
   @override
   GetCredentialsForIdentityResponse buildOutput(
     GetCredentialsForIdentityResponse payload,
@@ -111,6 +113,7 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ExternalServiceException, ExternalServiceException>(
@@ -194,14 +197,19 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           builder: TooManyRequestsException.fromResponse,
         ),
       ];
+
   @override
   String get runtimeTypeName => 'GetCredentialsForIdentity';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<GetCredentialsForIdentityResponse> run(
     GetCredentialsForIdentityInput input, {

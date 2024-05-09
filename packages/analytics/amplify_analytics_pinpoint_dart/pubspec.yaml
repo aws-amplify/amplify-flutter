@@ -1,39 +1,39 @@
 name: amplify_analytics_pinpoint_dart
 description: A Dart-only implementation of the Amplify Analytics plugin for Pinpoint.
-version: 0.3.1
+version: 0.3.8
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/analytics/amplify_analytics_pinpoint_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.3.0
 
 dependencies:
-  amplify_core: ">=1.4.0 <1.5.0"
-  amplify_db_common_dart: ">=0.3.0+5 <0.4.0"
-  amplify_secure_storage_dart: ">=0.4.0+5 <0.5.0"
-  aws_common: ">=0.6.0 <0.7.0"
-  aws_signature_v4: ">=0.5.0 <0.6.0"
+  amplify_core: ">=1.8.0 <1.9.0"
+  amplify_db_common_dart: ">=0.3.7 <0.4.0"
+  amplify_secure_storage_dart: ">=0.4.4 <0.5.0"
+  aws_common: ">=0.6.4 <0.7.0"
+  aws_signature_v4: ">=0.5.2 <0.6.0"
   built_collection: ^5.0.0
-  built_value: ">=8.6.0 <8.7.0"
+  built_value: ^8.6.0
   collection: ^1.15.0
-  drift: ">=2.11.0 <2.12.0"
+  drift: ">=2.14.0 <2.15.0"
   intl: ">=0.18.0 <1.0.0"
   meta: ^1.7.0
-  path: ^1.8.0
-  smithy: ">=0.5.1 <0.6.0"
-  smithy_aws: ">=0.5.1 <0.6.0"
-  uuid: ">=3.0.6 <=3.0.7"
+  path: ">=1.8.0 <2.0.0"
+  smithy: ">=0.6.4 <0.7.0"
+  smithy_aws: ">=0.6.3 <0.7.0"
+  uuid: ">=3.0.6 <5.0.0"
 
 dev_dependencies:
-  amplify_lints: ">=3.0.0 <3.1.0"
+  amplify_lints: ">=3.1.0 <3.2.0"
   build_runner: ^2.4.0
   build_test: ^2.1.5
   build_verify: ^3.0.0
   build_version: ^2.0.0
   build_web_compilers: ^4.0.0
-  built_value_generator: 8.6.1
-  drift_dev: ">=2.11.0 <2.12.0"
+  built_value_generator: 8.8.1
+  drift_dev: ">=2.14.0 <2.15.0"
   mocktail: ^1.0.0
   test: ^1.22.1
 

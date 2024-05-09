@@ -101,6 +101,7 @@ abstract class MalformedUniqueItemsInput
   _i5.BuiltSet<FooUnion>? get unionList;
   @override
   MalformedUniqueItemsInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         blobList,
@@ -120,6 +121,7 @@ abstract class MalformedUniqueItemsInput
         structureListWithNoKey,
         unionList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput')
@@ -201,6 +203,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
         MalformedUniqueItemsInput,
         _$MalformedUniqueItemsInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -208,6 +211,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedUniqueItemsInput deserialize(
     Serializers serializers,

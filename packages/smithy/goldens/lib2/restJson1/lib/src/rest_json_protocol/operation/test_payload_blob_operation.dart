@@ -71,8 +71,10 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<_i2.Uint8List,
           }
         }
       });
+
   @override
   int successCode([TestPayloadBlobInputOutput? output]) => 200;
+
   @override
   TestPayloadBlobInputOutput buildOutput(
     _i2.Uint8List? payload,
@@ -82,16 +84,22 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<_i2.Uint8List,
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'TestPayloadBlob';
+
   @override
   _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<TestPayloadBlobInputOutput> run(
     TestPayloadBlobInputOutput input, {

@@ -185,6 +185,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [NestedXmlMapsInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -192,6 +193,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NestedXmlMapsInputOutput deserialize(
     Serializers serializers,

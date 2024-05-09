@@ -34,7 +34,6 @@ abstract class NoSuchBucket
     _i1.AWSBaseHttpResponse response,
   ) =>
       payload.rebuild((b) {
-        b.statusCode = response.statusCode;
         b.headers = response.headers;
       });
 
@@ -47,20 +46,26 @@ abstract class NoSuchBucket
         namespace: 'com.amazonaws.s3',
         shape: 'NoSuchBucket',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
-  int? get statusCode;
+  int get statusCode => 404;
+
   @override
   @BuiltValueField(compare: false)
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NoSuchBucket');
@@ -77,6 +82,7 @@ class NoSuchBucketRestXmlSerializer
         NoSuchBucket,
         _$NoSuchBucket,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -84,6 +90,7 @@ class NoSuchBucketRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NoSuchBucket deserialize(
     Serializers serializers,

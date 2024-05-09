@@ -40,8 +40,10 @@ abstract class PostUnionWithJsonNameInput
   UnionWithJsonName? get value;
   @override
   PostUnionWithJsonNameInput getPayload() => this;
+
   @override
   List<Object?> get props => [value];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput')
@@ -63,6 +65,7 @@ class PostUnionWithJsonNameInputRestJson1Serializer
         PostUnionWithJsonNameInput,
         _$PostUnionWithJsonNameInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -70,6 +73,7 @@ class PostUnionWithJsonNameInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   PostUnionWithJsonNameInput deserialize(
     Serializers serializers,

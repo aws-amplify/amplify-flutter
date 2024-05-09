@@ -97,30 +97,45 @@ abstract class UploadPartCopyOutput
   ];
 
   /// The version of the source object that was copied, if you have enabled versioning on the source bucket.
+  ///
+  /// This functionality is not supported when the source object is in a directory bucket.
   String? get copySourceVersionId;
 
   /// Container for all response elements.
   CopyPartResult? get copyPartResult;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+  /// The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`).
+  ///
+  /// For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
   ServerSideEncryption? get serverSideEncryption;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to confirm the encryption algorithm that's used.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerAlgorithm;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide the round-trip message integrity verification of the customer-provided encryption key.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsKeyId;
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
   @override
   CopyPartResult? getPayload() => copyPartResult ?? CopyPartResult();
+
   @override
   List<Object?> get props => [
         copySourceVersionId,
@@ -132,6 +147,7 @@ abstract class UploadPartCopyOutput
         bucketKeyEnabled,
         requestCharged,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartCopyOutput')
@@ -180,6 +196,7 @@ class UploadPartCopyOutputRestXmlSerializer
         UploadPartCopyOutput,
         _$UploadPartCopyOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -187,6 +204,7 @@ class UploadPartCopyOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyPartResult deserialize(
     Serializers serializers,

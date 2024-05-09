@@ -20,56 +20,62 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
     'DEEP_ARCHIVE',
   );
 
-  static const glacier = ObjectStorageClass._(
+  static const expressOnezone = ObjectStorageClass._(
     1,
+    'EXPRESS_ONEZONE',
+    'EXPRESS_ONEZONE',
+  );
+
+  static const glacier = ObjectStorageClass._(
+    2,
     'GLACIER',
     'GLACIER',
   );
 
   static const glacierIr = ObjectStorageClass._(
-    2,
+    3,
     'GLACIER_IR',
     'GLACIER_IR',
   );
 
   static const intelligentTiering = ObjectStorageClass._(
-    3,
+    4,
     'INTELLIGENT_TIERING',
     'INTELLIGENT_TIERING',
   );
 
   static const onezoneIa = ObjectStorageClass._(
-    4,
+    5,
     'ONEZONE_IA',
     'ONEZONE_IA',
   );
 
   static const outposts = ObjectStorageClass._(
-    5,
+    6,
     'OUTPOSTS',
     'OUTPOSTS',
   );
 
   static const reducedRedundancy = ObjectStorageClass._(
-    6,
+    7,
     'REDUCED_REDUNDANCY',
     'REDUCED_REDUNDANCY',
   );
 
   static const snow = ObjectStorageClass._(
-    7,
+    8,
     'SNOW',
     'SNOW',
   );
 
   static const standard = ObjectStorageClass._(
-    8,
+    9,
     'STANDARD',
     'STANDARD',
   );
 
   static const standardIa = ObjectStorageClass._(
-    9,
+    10,
     'STANDARD_IA',
     'STANDARD_IA',
   );
@@ -77,6 +83,7 @@ class ObjectStorageClass extends _i1.SmithyEnum<ObjectStorageClass> {
   /// All values of [ObjectStorageClass].
   static const values = <ObjectStorageClass>[
     ObjectStorageClass.deepArchive,
+    ObjectStorageClass.expressOnezone,
     ObjectStorageClass.glacier,
     ObjectStorageClass.glacierIr,
     ObjectStorageClass.intelligentTiering,

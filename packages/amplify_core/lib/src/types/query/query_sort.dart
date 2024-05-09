@@ -22,14 +22,8 @@ class QuerySortBy {
     final fieldName = getFieldName(field);
     Object? valueA;
     Object? valueB;
-    // TODO(Jordan-Nelson): Remove try/catch at next major version bump
-    try {
-      valueA = a.toMap()[fieldName];
-      valueB = b.toMap()[fieldName];
-    } on UnimplementedError {
-      valueA = a.toJson()[fieldName];
-      valueB = b.toJson()[fieldName];
-    }
+    valueA = a.toMap()[fieldName];
+    valueB = b.toMap()[fieldName];
     final orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);

@@ -67,14 +67,17 @@ class MalformedLengthOverrideOperation extends _i1.HttpOperation<
         b.method = 'POST';
         b.path = r'/MalformedLengthOverride';
       });
+
   @override
   int successCode([_i1.Unit? output]) => 200;
+
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
     _i3.AWSBaseHttpResponse response,
   ) =>
       payload;
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ValidationException, ValidationException>(
@@ -87,14 +90,19 @@ class MalformedLengthOverrideOperation extends _i1.HttpOperation<
           builder: ValidationException.fromResponse,
         )
       ];
+
   @override
   String get runtimeTypeName => 'MalformedLengthOverride';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<_i1.Unit> run(
     MalformedLengthOverrideInput input, {

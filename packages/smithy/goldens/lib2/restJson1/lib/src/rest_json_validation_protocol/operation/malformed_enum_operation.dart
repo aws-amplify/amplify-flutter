@@ -64,14 +64,17 @@ class MalformedEnumOperation extends _i1
         b.method = 'POST';
         b.path = r'/MalformedEnum';
       });
+
   @override
   int successCode([_i1.Unit? output]) => 200;
+
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
     _i3.AWSBaseHttpResponse response,
   ) =>
       payload;
+
   @override
   List<_i1.SmithyError> get errorTypes => const [
         _i1.SmithyError<ValidationException, ValidationException>(
@@ -84,14 +87,19 @@ class MalformedEnumOperation extends _i1
           builder: ValidationException.fromResponse,
         )
       ];
+
   @override
   String get runtimeTypeName => 'MalformedEnum';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<_i1.Unit> run(
     MalformedEnumInput input, {

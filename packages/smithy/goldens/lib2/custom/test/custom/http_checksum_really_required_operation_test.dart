@@ -68,6 +68,7 @@ class HttpChecksumReallyRequiredInputRestJson1Serializer
 
   @override
   Iterable<Type> get types => const [HttpChecksumReallyRequiredInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -75,6 +76,7 @@ class HttpChecksumReallyRequiredInputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   HttpChecksumReallyRequiredInput deserialize(
     Serializers serializers,

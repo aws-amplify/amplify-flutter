@@ -107,6 +107,7 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [FlattenedXmlMapInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -114,6 +115,7 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   FlattenedXmlMapInputOutput deserialize(
     Serializers serializers,

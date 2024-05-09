@@ -14,13 +14,6 @@ abstract class Model {
     );
   }
 
-  @Deprecated(
-    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
-  )
-  String getId() {
-    throw UnimplementedError('getId() has not been implemented on Model.');
-  }
-
   ModelIdentifier get modelIdentifier {
     throw UnimplementedError(
       'modelIdentifier has not been implemented on Model.',

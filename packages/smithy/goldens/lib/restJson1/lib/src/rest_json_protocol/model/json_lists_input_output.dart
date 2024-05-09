@@ -87,6 +87,7 @@ abstract class JsonListsInputOutput
   _i3.BuiltList<StructureListMember>? get structureList;
   @override
   JsonListsInputOutput getPayload() => this;
+
   @override
   List<Object?> get props => [
         stringList,
@@ -100,6 +101,7 @@ abstract class JsonListsInputOutput
         nestedStringList,
         structureList,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonListsInputOutput')
@@ -157,6 +159,7 @@ class JsonListsInputOutputRestJson1Serializer
         JsonListsInputOutput,
         _$JsonListsInputOutput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -164,6 +167,7 @@ class JsonListsInputOutputRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   JsonListsInputOutput deserialize(
     Serializers serializers,

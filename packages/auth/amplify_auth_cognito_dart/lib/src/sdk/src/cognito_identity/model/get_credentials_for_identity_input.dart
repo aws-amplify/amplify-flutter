@@ -63,12 +63,14 @@ abstract class GetCredentialsForIdentityInput
   String? get customRoleArn;
   @override
   GetCredentialsForIdentityInput getPayload() => this;
+
   @override
   List<Object?> get props => [
         identityId,
         logins,
         customRoleArn,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetCredentialsForIdentityInput')
@@ -98,6 +100,7 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
         GetCredentialsForIdentityInput,
         _$GetCredentialsForIdentityInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -105,6 +108,7 @@ class GetCredentialsForIdentityInputAwsJson11Serializer
           shape: 'awsJson1_1',
         )
       ];
+
   @override
   GetCredentialsForIdentityInput deserialize(
     Serializers serializers,

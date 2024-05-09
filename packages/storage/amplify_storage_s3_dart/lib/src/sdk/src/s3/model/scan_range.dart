@@ -46,6 +46,7 @@ abstract class ScanRange
         start,
         end,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScanRange')
@@ -70,6 +71,7 @@ class ScanRangeRestXmlSerializer
         ScanRange,
         _$ScanRange,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -77,6 +79,7 @@ class ScanRangeRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   ScanRange deserialize(
     Serializers serializers,

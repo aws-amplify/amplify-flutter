@@ -105,6 +105,7 @@ class PutWithContentEncodingInputAwsJson10Serializer
 
   @override
   Iterable<Type> get types => const [PutWithContentEncodingInput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +113,7 @@ class PutWithContentEncodingInputAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   PutWithContentEncodingInput deserialize(
     Serializers serializers,

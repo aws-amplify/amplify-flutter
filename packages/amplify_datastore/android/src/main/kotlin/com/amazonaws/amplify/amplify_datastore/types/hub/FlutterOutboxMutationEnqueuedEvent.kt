@@ -12,7 +12,6 @@ class FlutterOutboxMutationEnqueuedEvent(
     private val element: OutboxMutationEvent.OutboxMutationEventElement<out Model>
 ) : FlutterHubEvent {
     override fun toValueMap(): Map<String, Any> {
-
         return mapOf(
             "eventName" to this.eventName,
             "modelName" to this.modelName,

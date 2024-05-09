@@ -111,6 +111,7 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlAttributesOnPayloadInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -118,6 +119,7 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlAttributesOnPayloadInputOutput deserialize(
     Serializers serializers,
@@ -162,6 +164,7 @@ class XmlAttributesInputOutputRestXmlSerializer
 
   @override
   Iterable<Type> get types => const [XmlAttributesInputOutput];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -169,6 +172,7 @@ class XmlAttributesInputOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   XmlAttributesInputOutput deserialize(
     Serializers serializers,

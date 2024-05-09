@@ -40,8 +40,10 @@ abstract class MalformedTimestampBodyHttpDateInput
   DateTime get timestamp;
   @override
   MalformedTimestampBodyHttpDateInput getPayload() => this;
+
   @override
   List<Object?> get props => [timestamp];
+
   @override
   String toString() {
     final helper =
@@ -64,6 +66,7 @@ class MalformedTimestampBodyHttpDateInputRestJson1Serializer extends _i1
         MalformedTimestampBodyHttpDateInput,
         _$MalformedTimestampBodyHttpDateInput,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -71,6 +74,7 @@ class MalformedTimestampBodyHttpDateInputRestJson1Serializer extends _i1
           shape: 'restJson1',
         )
       ];
+
   @override
   MalformedTimestampBodyHttpDateInput deserialize(
     Serializers serializers,

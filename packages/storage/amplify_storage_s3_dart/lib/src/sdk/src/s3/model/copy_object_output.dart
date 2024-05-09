@@ -115,36 +115,57 @@ abstract class CopyObjectOutput
   CopyObjectResult? get copyObjectResult;
 
   /// If the object expiration is configured, the response includes this header.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get expiration;
 
-  /// Version of the copied object in the destination bucket.
+  /// Version ID of the source object that was copied.
+  ///
+  /// This functionality is not supported when the source object is in a directory bucket.
   String? get copySourceVersionId;
 
   /// Version ID of the newly created copy.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get versionId;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
+  /// The server-side encryption algorithm used when you store this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
+  ///
+  /// For directory buckets, only server-side encryption with Amazon S3 managed keys (SSE-S3) (`AES256`) is supported.
   ServerSideEncryption? get serverSideEncryption;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to confirm the encryption algorithm that's used.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerAlgorithm;
 
-  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
+  /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide the round-trip message integrity verification of the customer-provided encryption key.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, indicates the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsKeyId;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  /// If present, indicates the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  ///
+  /// This functionality is not supported for directory buckets.
   String? get ssekmsEncryptionContext;
 
   /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
+  ///
+  /// This functionality is not supported for directory buckets.
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
+  ///
+  /// This functionality is not supported for directory buckets.
   RequestCharged? get requestCharged;
   @override
   CopyObjectResult? getPayload() => copyObjectResult ?? CopyObjectResult();
+
   @override
   List<Object?> get props => [
         copyObjectResult,
@@ -159,6 +180,7 @@ abstract class CopyObjectOutput
         bucketKeyEnabled,
         requestCharged,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectOutput')
@@ -219,6 +241,7 @@ class CopyObjectOutputRestXmlSerializer
         CopyObjectOutput,
         _$CopyObjectOutput,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -226,6 +249,7 @@ class CopyObjectOutputRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   CopyObjectResult deserialize(
     Serializers serializers,

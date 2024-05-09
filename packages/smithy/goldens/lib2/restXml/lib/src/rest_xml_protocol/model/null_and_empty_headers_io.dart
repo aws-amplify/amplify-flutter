@@ -82,12 +82,14 @@ abstract class NullAndEmptyHeadersIo
   _i3.BuiltList<String>? get c;
   @override
   NullAndEmptyHeadersIoPayload getPayload() => NullAndEmptyHeadersIoPayload();
+
   @override
   List<Object?> get props => [
         a,
         b,
         c,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIo')
@@ -123,6 +125,7 @@ abstract class NullAndEmptyHeadersIoPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullAndEmptyHeadersIoPayload');
@@ -142,6 +145,7 @@ class NullAndEmptyHeadersIoRestXmlSerializer
         NullAndEmptyHeadersIoPayload,
         _$NullAndEmptyHeadersIoPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -149,6 +153,7 @@ class NullAndEmptyHeadersIoRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   NullAndEmptyHeadersIoPayload deserialize(
     Serializers serializers,

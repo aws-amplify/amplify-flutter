@@ -57,11 +57,13 @@ abstract class QueryParamsAsStringListMapInput
   @override
   QueryParamsAsStringListMapInputPayload getPayload() =>
       QueryParamsAsStringListMapInputPayload();
+
   @override
   List<Object?> get props => [
         qux,
         foo,
       ];
+
   @override
   String toString() {
     final helper =
@@ -94,6 +96,7 @@ abstract class QueryParamsAsStringListMapInputPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -114,6 +117,7 @@ class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
         QueryParamsAsStringListMapInputPayload,
         _$QueryParamsAsStringListMapInputPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -121,6 +125,7 @@ class QueryParamsAsStringListMapInputRestXmlSerializer extends _i1
           shape: 'restXml',
         )
       ];
+
   @override
   QueryParamsAsStringListMapInputPayload deserialize(
     Serializers serializers,

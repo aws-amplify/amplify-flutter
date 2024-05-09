@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
-final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
+final config = amplifyEnvironments['device-tracking-always']!;
 
 AmplifyAuthCognito get plugin =>
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
@@ -35,8 +35,8 @@ void main() {
 
       setUp(() async {
         // configure Amplify and legacy plugin, and ensure no users are signed in.
-        await configureAmplify(usernameConfig);
-        await legacyPlugin.configure(usernameConfig);
+        await configureAmplify(config);
+        await legacyPlugin.configure(config);
         await tryAsync(Amplify.Auth.signOut);
         await tryAsync(legacyPlugin.signOut);
 
@@ -46,7 +46,7 @@ void main() {
         cognitoUsername = await createUser(username, password);
       });
 
-      asyncTest('sign in with username', (_) async {
+      asyncTest('sign in with username with mfa', (_) async {
         // assert no user is signed in.
         final session1 = await plugin.fetchAuthSession();
         expect(session1.isSignedIn, isFalse);
@@ -54,8 +54,10 @@ void main() {
         // sign a user in with the legacy plugin.
         await legacyPlugin.signIn(username, password);
 
+        await legacyPlugin.rememberDevice();
+
         // reconfigure Amplify to trigger credential migration.
-        await configureAmplify(usernameConfig);
+        await configureAmplify(config);
 
         // assert a user is signed in and tokens have been migrated.
         final session2 = await plugin.fetchAuthSession();
@@ -67,6 +69,14 @@ void main() {
           isValidAWSCognitoUserPoolTokens(session2.userPoolTokensResult.value),
           isTrue,
         );
+
+        // confirm tokens can be refreshed
+        final session3 = await plugin.fetchAuthSession(
+          options: const FetchAuthSessionOptions(
+            forceRefresh: true,
+          ),
+        );
+        expect(session3.isSignedIn, isTrue);
 
         final currentUser = await plugin.getCurrentUser();
         expect(currentUser.username, cognitoUsername);

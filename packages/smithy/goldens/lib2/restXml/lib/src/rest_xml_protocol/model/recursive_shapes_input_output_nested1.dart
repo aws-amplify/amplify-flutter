@@ -43,6 +43,7 @@ abstract class RecursiveShapesInputOutputNested1
         foo,
         nested,
       ];
+
   @override
   String toString() {
     final helper =
@@ -69,6 +70,7 @@ class RecursiveShapesInputOutputNested1RestXmlSerializer
         RecursiveShapesInputOutputNested1,
         _$RecursiveShapesInputOutputNested1,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -76,6 +78,7 @@ class RecursiveShapesInputOutputNested1RestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   RecursiveShapesInputOutputNested1 deserialize(
     Serializers serializers,

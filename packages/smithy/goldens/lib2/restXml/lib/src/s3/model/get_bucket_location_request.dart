@@ -59,8 +59,10 @@ abstract class GetBucketLocationRequest
   @override
   GetBucketLocationRequestPayload getPayload() =>
       GetBucketLocationRequestPayload();
+
   @override
   List<Object?> get props => [bucket];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketLocationRequest')
@@ -88,6 +90,7 @@ abstract class GetBucketLocationRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper =
@@ -108,6 +111,7 @@ class GetBucketLocationRequestRestXmlSerializer
         GetBucketLocationRequestPayload,
         _$GetBucketLocationRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -115,6 +119,7 @@ class GetBucketLocationRequestRestXmlSerializer
           shape: 'restXml',
         )
       ];
+
   @override
   GetBucketLocationRequestPayload deserialize(
     Serializers serializers,

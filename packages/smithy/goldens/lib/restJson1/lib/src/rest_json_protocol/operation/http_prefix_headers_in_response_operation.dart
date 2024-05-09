@@ -73,8 +73,10 @@ class HttpPrefixHeadersInResponseOperation extends _i1.HttpOperation<
         b.method = 'GET';
         b.path = r'/HttpPrefixHeadersResponse';
       });
+
   @override
   int successCode([HttpPrefixHeadersInResponseOutput? output]) => 200;
+
   @override
   HttpPrefixHeadersInResponseOutput buildOutput(
     HttpPrefixHeadersInResponseOutputPayload payload,
@@ -84,16 +86,22 @@ class HttpPrefixHeadersInResponseOperation extends _i1.HttpOperation<
         payload,
         response,
       );
+
   @override
   List<_i1.SmithyError> get errorTypes => const [];
+
   @override
   String get runtimeTypeName => 'HttpPrefixHeadersInResponse';
+
   @override
   _i2.AWSRetryer get retryer => _i2.AWSRetryer();
+
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
+
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
+
   @override
   _i1.SmithyOperation<HttpPrefixHeadersInResponseOutput> run(
     HttpPrefixHeadersInResponseInput input, {

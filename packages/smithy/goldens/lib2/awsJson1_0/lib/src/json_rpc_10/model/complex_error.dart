@@ -55,10 +55,13 @@ abstract class ComplexError
         namespace: 'aws.protocoltests.json10',
         shape: 'ComplexError',
       );
+
   @override
   String? get message => null;
+
   @override
   _i2.RetryConfig? get retryConfig => null;
+
   @override
   @BuiltValueField(compare: false)
   int? get statusCode;
@@ -67,11 +70,13 @@ abstract class ComplexError
   Map<String, String>? get headers;
   @override
   Exception? get underlyingException => null;
+
   @override
   List<Object?> get props => [
         topLevel,
         nested,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplexError')
@@ -96,6 +101,7 @@ class ComplexErrorAwsJson10Serializer
         ComplexError,
         _$ComplexError,
       ];
+
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
         _i2.ShapeId(
@@ -103,6 +109,7 @@ class ComplexErrorAwsJson10Serializer
           shape: 'awsJson1_0',
         )
       ];
+
   @override
   ComplexError deserialize(
     Serializers serializers,

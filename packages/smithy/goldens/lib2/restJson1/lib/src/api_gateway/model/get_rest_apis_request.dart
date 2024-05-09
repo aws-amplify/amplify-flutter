@@ -56,11 +56,13 @@ abstract class GetRestApisRequest
   int? get limit;
   @override
   GetRestApisRequestPayload getPayload() => GetRestApisRequestPayload();
+
   @override
   List<Object?> get props => [
         position,
         limit,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRestApisRequest')
@@ -90,6 +92,7 @@ abstract class GetRestApisRequestPayload
 
   @override
   List<Object?> get props => [];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRestApisRequestPayload');
@@ -108,6 +111,7 @@ class GetRestApisRequestRestJson1Serializer
         GetRestApisRequestPayload,
         _$GetRestApisRequestPayload,
       ];
+
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
         _i1.ShapeId(
@@ -115,6 +119,7 @@ class GetRestApisRequestRestJson1Serializer
           shape: 'restJson1',
         )
       ];
+
   @override
   GetRestApisRequestPayload deserialize(
     Serializers serializers,

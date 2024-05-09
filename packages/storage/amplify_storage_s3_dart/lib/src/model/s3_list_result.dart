@@ -23,27 +23,17 @@ class S3ListResult extends StorageListResult<S3Item> {
   /// smithy. This named constructor should be used internally only.
   @internal
   factory S3ListResult.fromPaginatedResult(
-    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult, {
-    required String prefixToDrop,
-  }) {
+    PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
+  ) {
     final output = paginatedResult.items;
     final metadata = S3ListMetadata.fromS3CommonPrefixes(
-      prefixToDrop: prefixToDrop,
       commonPrefixes: output.commonPrefixes?.toList(),
       delimiter: output.delimiter,
     );
-    final items = output.contents
-            ?.map(
-              (s3.S3Object item) => S3Item.fromS3Object(
-                item,
-                prefixToDrop: prefixToDrop,
-              ),
-            )
-            .toList() ??
-        const <S3Item>[];
+    final items = output.contents?.map(S3Item.fromS3Object).toList();
 
     return S3ListResult(
-      items,
+      items ?? const <S3Item>[],
       hasNextPage: paginatedResult.hasNext,
       nextToken: paginatedResult.nextContinuationToken,
       metadata: metadata,
@@ -71,28 +61,16 @@ class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
   factory S3ListMetadata.fromS3CommonPrefixes({
-    required String prefixToDrop,
     List<s3.CommonPrefix>? commonPrefixes,
     String? delimiter,
   }) {
-    final extractedSubPath = <String>[];
-
-    if (commonPrefixes != null) {
-      for (final commonPrefix in commonPrefixes) {
-        final prefix = commonPrefix.prefix;
-        if (prefix != null) {
-          extractedSubPath.add(
-            S3Item.dropPrefixFromKey(
-              prefixToDrop: prefixToDrop,
-              key: prefix,
-            ),
-          );
-        }
-      }
-    }
+    final subPaths = commonPrefixes
+        ?.map((commonPrefix) => commonPrefix.prefix)
+        .whereType<String>()
+        .toList();
 
     return S3ListMetadata._(
-      subPaths: extractedSubPath,
+      subPaths: subPaths,
       delimiter: delimiter,
     );
   }

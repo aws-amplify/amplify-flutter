@@ -25,6 +25,7 @@ Future<void> _run(SendPorts ports) async {
 class SrpPasswordVerifierWorkerImpl extends SrpPasswordVerifierWorker {
   @override
   String get name => 'SrpPasswordVerifierWorker';
+
   @override
   VmEntrypoint get vmEntrypoint => _run;
 }

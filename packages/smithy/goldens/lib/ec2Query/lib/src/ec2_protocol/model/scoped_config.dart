@@ -69,6 +69,7 @@ abstract class ScopedConfig
         client,
         operation,
       ];
+
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScopedConfig')
@@ -105,6 +106,7 @@ class ScopedConfigEc2QuerySerializer
         ScopedConfig,
         _$ScopedConfig,
       ];
+
   @override
   Iterable<_i3.ShapeId> get supportedProtocols => const [
         _i3.ShapeId(
@@ -112,6 +114,7 @@ class ScopedConfigEc2QuerySerializer
           shape: 'ec2Query',
         )
       ];
+
   @override
   ScopedConfig deserialize(
     Serializers serializers,
@@ -208,7 +211,7 @@ class ScopedConfigEc2QuerySerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           configFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
@@ -223,7 +226,7 @@ class ScopedConfigEc2QuerySerializer
         ..add(const _i3.XmlBuiltMapSerializer().serialize(
           serializers,
           credentialsFile,
-          specifiedType: const FullType.nullable(
+          specifiedType: const FullType(
             _i2.BuiltMap,
             [
               FullType(String),
