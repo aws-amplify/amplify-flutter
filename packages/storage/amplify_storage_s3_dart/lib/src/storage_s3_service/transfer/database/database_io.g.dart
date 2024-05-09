@@ -4,7 +4,7 @@ part of 'database_io.dart';
 
 // ignore_for_file: type=lint
 class $TransferRecordsTable extends TransferRecords
-    with TableInfo<$TransferRecordsTable, TransferRecord> {
+    with TableInfo<$TransferRecordsTable, data.TransferRecord> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -44,7 +44,8 @@ class $TransferRecordsTable extends TransferRecords
   String get actualTableName => $name;
   static const String $name = 'transfer_records';
   @override
-  VerificationContext validateIntegrity(Insertable<TransferRecord> instance,
+  VerificationContext validateIntegrity(
+      Insertable<data.TransferRecord> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -75,9 +76,9 @@ class $TransferRecordsTable extends TransferRecords
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+  data.TransferRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TransferRecord(
+    return data.TransferRecord(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       uploadId: attachedDatabase.typeMapping
@@ -95,7 +96,8 @@ class $TransferRecordsTable extends TransferRecords
   }
 }
 
-class TransferRecord extends DataClass implements Insertable<TransferRecord> {
+class TransferRecord extends DataClass
+    implements Insertable<data.TransferRecord> {
   /// The record id.
   final int id;
 
@@ -152,9 +154,9 @@ class TransferRecord extends DataClass implements Insertable<TransferRecord> {
     };
   }
 
-  TransferRecord copyWith(
+  data.TransferRecord copyWith(
           {int? id, String? uploadId, String? objectKey, String? createdAt}) =>
-      TransferRecord(
+      data.TransferRecord(
         id: id ?? this.id,
         uploadId: uploadId ?? this.uploadId,
         objectKey: objectKey ?? this.objectKey,
@@ -176,14 +178,14 @@ class TransferRecord extends DataClass implements Insertable<TransferRecord> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TransferRecord &&
+      (other is data.TransferRecord &&
           other.id == this.id &&
           other.uploadId == this.uploadId &&
           other.objectKey == this.objectKey &&
           other.createdAt == this.createdAt);
 }
 
-class TransferRecordsCompanion extends UpdateCompanion<TransferRecord> {
+class TransferRecordsCompanion extends UpdateCompanion<data.TransferRecord> {
   final Value<int> id;
   final Value<String> uploadId;
   final Value<String> objectKey;
@@ -202,7 +204,7 @@ class TransferRecordsCompanion extends UpdateCompanion<TransferRecord> {
   })  : uploadId = Value(uploadId),
         objectKey = Value(objectKey),
         createdAt = Value(createdAt);
-  static Insertable<TransferRecord> custom({
+  static Insertable<data.TransferRecord> custom({
     Expression<int>? id,
     Expression<String>? uploadId,
     Expression<String>? objectKey,
@@ -261,6 +263,7 @@ class TransferRecordsCompanion extends UpdateCompanion<TransferRecord> {
 
 abstract class _$TransferDatabase extends GeneratedDatabase {
   _$TransferDatabase(QueryExecutor e) : super(e);
+  _$TransferDatabaseManager get managers => _$TransferDatabaseManager(this);
   late final $TransferRecordsTable transferRecords =
       $TransferRecordsTable(this);
   @override
@@ -268,4 +271,133 @@ abstract class _$TransferDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [transferRecords];
+}
+
+typedef $$TransferRecordsTableInsertCompanionBuilder = TransferRecordsCompanion
+    Function({
+  Value<int> id,
+  required String uploadId,
+  required String objectKey,
+  required String createdAt,
+});
+typedef $$TransferRecordsTableUpdateCompanionBuilder = TransferRecordsCompanion
+    Function({
+  Value<int> id,
+  Value<String> uploadId,
+  Value<String> objectKey,
+  Value<String> createdAt,
+});
+
+class $$TransferRecordsTableTableManager extends RootTableManager<
+    _$TransferDatabase,
+    $TransferRecordsTable,
+    data.TransferRecord,
+    $$TransferRecordsTableFilterComposer,
+    $$TransferRecordsTableOrderingComposer,
+    $$TransferRecordsTableProcessedTableManager,
+    $$TransferRecordsTableInsertCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder> {
+  $$TransferRecordsTableTableManager(
+      _$TransferDatabase db, $TransferRecordsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$TransferRecordsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$TransferRecordsTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$TransferRecordsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> uploadId = const Value.absent(),
+            Value<String> objectKey = const Value.absent(),
+            Value<String> createdAt = const Value.absent(),
+          }) =>
+              TransferRecordsCompanion(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String uploadId,
+            required String objectKey,
+            required String createdAt,
+          }) =>
+              TransferRecordsCompanion.insert(
+            id: id,
+            uploadId: uploadId,
+            objectKey: objectKey,
+            createdAt: createdAt,
+          ),
+        ));
+}
+
+class $$TransferRecordsTableProcessedTableManager extends ProcessedTableManager<
+    _$TransferDatabase,
+    $TransferRecordsTable,
+    data.TransferRecord,
+    $$TransferRecordsTableFilterComposer,
+    $$TransferRecordsTableOrderingComposer,
+    $$TransferRecordsTableProcessedTableManager,
+    $$TransferRecordsTableInsertCompanionBuilder,
+    $$TransferRecordsTableUpdateCompanionBuilder> {
+  $$TransferRecordsTableProcessedTableManager(super.$state);
+}
+
+class $$TransferRecordsTableFilterComposer
+    extends FilterComposer<_$TransferDatabase, $TransferRecordsTable> {
+  $$TransferRecordsTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get uploadId => $state.composableBuilder(
+      column: $state.table.uploadId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get objectKey => $state.composableBuilder(
+      column: $state.table.objectKey,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get createdAt => $state.composableBuilder(
+      column: $state.table.createdAt,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$TransferRecordsTableOrderingComposer
+    extends OrderingComposer<_$TransferDatabase, $TransferRecordsTable> {
+  $$TransferRecordsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get uploadId => $state.composableBuilder(
+      column: $state.table.uploadId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get objectKey => $state.composableBuilder(
+      column: $state.table.objectKey,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get createdAt => $state.composableBuilder(
+      column: $state.table.createdAt,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class _$TransferDatabaseManager {
+  final _$TransferDatabase _db;
+  _$TransferDatabaseManager(this._db);
+  $$TransferRecordsTableTableManager get transferRecords =>
+      $$TransferRecordsTableTableManager(_db, _db.transferRecords);
 }
