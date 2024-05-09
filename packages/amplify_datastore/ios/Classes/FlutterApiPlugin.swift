@@ -50,6 +50,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         
         // TODO: shouldn't there be a timeout if there is no start_ack returned in a certain period of time
         let (sequence, cancellable) = nativeSubscriptionEvents
+            .receive(on: DispatchQueue.global())
             .filter { $0.subscriptionId == subscriptionId }
             .handleEvents(receiveCompletion: {_ in
                 unsubscribe(subscriptionId: subscriptionId)
