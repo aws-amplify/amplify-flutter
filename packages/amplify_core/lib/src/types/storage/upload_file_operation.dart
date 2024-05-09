@@ -18,4 +18,18 @@ abstract class StorageUploadFileOperation<
     required super.request,
     required super.result,
   });
+
+  /// Pauses the operation that is in progress.
+  ///
+  /// This has no effect on S3 upload operations that do not require a multi part
+  /// upload (over 5 MiB). Uploads smaller than 5 MiB cannot be paused or resumed.
+  @override
+  Future<void> pause();
+
+  /// Resumes the operation that is in a paused state.
+  ///
+  /// This has no effect on S3 upload operations that do not require a multi part
+  /// upload (over 5 MiB). Uploads smaller than 5 MiB cannot be paused or resumed.
+  @override
+  Future<void> resume();
 }
