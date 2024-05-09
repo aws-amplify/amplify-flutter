@@ -11,7 +11,7 @@ let testSchema: ModelSchema = SchemaData.PostSchema
 let amplifySuccessResults: [FlutterSerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { serializedModel in
         FlutterSerializedModel.init(
-            map: try! getJSONValue(serializedModel as! [String: Any]),
+            map: try! getJSONValue(serializedModel),
             modelName: serializedModel["__modelName"] as! String
         )
     }
