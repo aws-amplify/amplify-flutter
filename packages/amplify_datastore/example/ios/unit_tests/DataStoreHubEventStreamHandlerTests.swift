@@ -63,7 +63,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         waitForExpectations(timeout: 1.0)
         // cancellation needed to make sure that Hub token is invalidated to
         // prevent collisions between tests
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_readyEvent_success() throws {
@@ -88,7 +88,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let readyEventPayload = HubPayload(eventName: HubPayload.EventName.DataStore.ready)
         Amplify.Hub.dispatch(to: .dataStore, payload: readyEventPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_subscriptionEstablishedEvent_success() throws {
@@ -113,7 +113,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let subscriptionEstablishedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.subscriptionsEstablished)
         Amplify.Hub.dispatch(to: .dataStore, payload: subscriptionEstablishedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_syncQueriesReadyEvent_success() throws {
@@ -138,7 +138,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let syncQueriesReadyPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesReady)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesReadyPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_networkStatusEvent_success() throws {
@@ -166,7 +166,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let networkStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.networkStatus, data: networkStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: networkStatusPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxStatusEvent_success() throws {
@@ -194,7 +194,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let outboxStatusPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxStatus, data: outboxStatusEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxStatusPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_syncQueriesStartedEvent_success() throws {
@@ -221,7 +221,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let syncQueriesStartedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.syncQueriesStarted, data: syncQueriesStartedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: syncQueriesStartedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxMutationEnqueued_success() throws {
@@ -264,7 +264,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
         let outboxMutationEnqueuedPayload = HubPayload(eventName: HubPayload.EventName.DataStore.outboxMutationEnqueued, data: outboxMutationEnqueuedEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: outboxMutationEnqueuedPayload)
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hub_outboxMutationProcessedEvent_success() throws {
@@ -300,7 +300,8 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
 
         let serializedModel = FlutterSerializedModel(map: try FlutterDataStoreRequestUtils.getJSONValue(modelMap), modelName: "Post")
 
-        let syncMetadata = MutationSyncMetadata(id: uuid,
+        let syncMetadata = MutationSyncMetadata(modelId: uuid,
+                                                modelName: "MutationSync",
                                                 deleted: false,
                                                 lastChangedAt: 123,
                                                 version: 1)
@@ -321,7 +322,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
             expect.fulfill()
         }
         waitForExpectations(timeout: 1.0)
-        hubHandler.onCancel(withArguments: nil)
+        let _ = hubHandler.onCancel(withArguments: nil)
     }
 
     func test_hot_restart_replays_sync_and_ready_events() {
