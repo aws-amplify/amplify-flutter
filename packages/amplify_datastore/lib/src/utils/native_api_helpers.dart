@@ -4,7 +4,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/native_plugin.g.dart';
 
 /// Convert a [NativeGraphQLResponse] to a [GraphQLResponse]
-GraphQLRequest<String> NativeRequestToGraphQLRequest(
+GraphQLRequest<String> nativeRequestToGraphQLRequest(
     NativeGraphQLRequest request) {
   return GraphQLRequest<String>(
     document: request.document,
