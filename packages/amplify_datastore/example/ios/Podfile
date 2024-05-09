@@ -32,9 +32,9 @@ target 'Runner' do
   use_modular_headers!
 
   # Point pods to internal source files
-  pod 'Amplify', path: '../../ios/internal/'
-  pod 'AWSPluginsCore', path: '../../ios/internal/'
-  pod 'AWSDataStorePlugin', path: '../../ios/internal/'
+  pod 'Amplify', path: '../../ios/internal/', :inhibit_warnings => true
+  pod 'AWSPluginsCore', path: '../../ios/internal/', :inhibit_warnings => true
+  pod 'AWSDataStorePlugin', path: '../../ios/internal/', :inhibit_warnings => true
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
