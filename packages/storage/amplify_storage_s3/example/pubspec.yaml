@@ -28,7 +28,7 @@ dev_dependencies:
   amplify_test:
     path: ../../../test/amplify_test
   aws_common: any
-  drift: ">=2.14.0 <2.15.0"
+  drift: ">=2.18.0 <2.19.0"
   flutter_driver:
     sdk: flutter
   flutter_test:

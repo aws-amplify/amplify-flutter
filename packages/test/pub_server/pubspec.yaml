@@ -14,7 +14,7 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   collection: ^1.15.0
-  drift: ">=2.14.0 <2.15.0"
+  drift: ">=2.18.0 <2.19.0"
   file: ">=6.0.0 <8.0.0"
   git: ^2.2.0
   graphs: ^2.1.0
