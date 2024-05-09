@@ -281,7 +281,7 @@ class DataStoreHubEventStreamHandlerTests: XCTestCase {
                 let syncMetaData = element["syncMetadata"] as! [String: Any]
                 XCTAssertEqual(flutterEvent["eventName"] as! String, "outboxMutationProcessed")
                 XCTAssertEqual(flutterEvent["modelName"] as! String, "Post")
-                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int, 123)
+                XCTAssertEqual(syncMetaData["_lastChangedAt"] as? Int64, 123)
                 XCTAssertEqual(syncMetaData["_version"] as? Int, 1)
                 XCTAssertEqual(syncMetaData["_deleted"] as? Bool, false)
                 XCTAssertEqual(model["__modelName"] as! String, "Post")
