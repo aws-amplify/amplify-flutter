@@ -323,14 +323,14 @@ class _NativeAmplifyApi
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
     final flutterRequest = nativeRequestToGraphQLRequest(request);
     final response = await Amplify.API.mutate(request: flutterRequest).response;
-    return GraphQLResponseToNativeResponse(response);
+    return graphQLResponseToNativeResponse(response);
   }
 
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
     final flutterRequest = nativeRequestToGraphQLRequest(request);
     final response = await Amplify.API.query(request: flutterRequest).response;
-    return GraphQLResponseToNativeResponse(response);
+    return graphQLResponseToNativeResponse(response);
   }
 
   @override

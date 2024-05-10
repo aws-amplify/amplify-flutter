@@ -15,7 +15,7 @@ GraphQLRequest<String> nativeRequestToGraphQLRequest(
 }
 
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
-NativeGraphQLResponse GraphQLResponseToNativeResponse(
+NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
   final errorJson = jsonEncode(
       response.errors.whereNotNull().map((e) => e.toJson()).toList());
