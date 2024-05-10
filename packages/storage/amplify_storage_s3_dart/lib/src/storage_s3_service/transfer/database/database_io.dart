@@ -51,7 +51,7 @@ class TransferDatabase extends _$TransferDatabase
           (e) => data.TransferRecord(
             objectKey: e.objectKey,
             uploadId: e.uploadId,
-            createdAt: DateTime.parse(e.createdAt),
+            createdAt: e.createdAt,
           ),
         )
         .get();
