@@ -130,20 +130,6 @@ updates:
         patterns:
           - "test"
   - package-ecosystem: "pub"
-    directory: "infra"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      # Ignore all repo packages
-      - dependency-name: "amplify_core"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "aws_signature_v4"
-  - package-ecosystem: "pub"
     directory: "actions"
     schedule:
       interval: "daily"
@@ -207,6 +193,20 @@ updates:
       - dependency-name: "amplify_datastore_plugin_interface"
       - dependency-name: "amplify_storage_s3"
       - dependency-name: "amplify_storage_s3_dart"
+  - package-ecosystem: "pub"
+    directory: "infra"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
     directory: "packages/aft"
     schedule:
