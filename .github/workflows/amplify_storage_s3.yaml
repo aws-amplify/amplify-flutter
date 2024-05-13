@@ -58,6 +58,7 @@ on:
       - 'packages/storage/amplify_storage_s3_dart/pubspec.yaml'
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
