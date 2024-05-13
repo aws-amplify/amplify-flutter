@@ -25,7 +25,7 @@ extension StorageEngine {
                ))
             }
 
-            guard let apiGraphQL = api as? APICategoryGraphQLBehaviorExtended else {
+            guard let apiGraphQL = api as? APICategoryGraphQLBehavior else {
                 log.info("Unable to find GraphQL API plugin for syncEngine. syncEngine will not be started")
                 return .failure(.configuration(
                     "Unable to find suitable GraphQL API plugin for syncEngine. syncEngine will not be started",

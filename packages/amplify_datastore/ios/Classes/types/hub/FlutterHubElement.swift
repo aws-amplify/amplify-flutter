@@ -52,11 +52,11 @@ public struct FlutterHubElement {
             self.version = hubElement.version
             self.deleted = self.model["_deleted"] as? Bool ?? false
             if let value = self.model["_lastChangedAt"] as? Double {
-                self.lastChangedAt = Int(value)
+                self.lastChangedAt = Int64(value)
             } else if let value = self.model["_lastChangedAt"] as? String {
-                self.lastChangedAt = Int(value)
+                self.lastChangedAt = Int64(value)
             } else if let value = self.model["_lastChangedAt"] as? Int {
-                self.lastChangedAt = value
+                self.lastChangedAt = Int64(value)
             }
         } catch {
             throw FlutterDataStoreError.hubEventCast

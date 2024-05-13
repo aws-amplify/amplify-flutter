@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 public typealias WeakAmplifyAsyncThrowingSequenceRef<Element> = WeakRef<AmplifyAsyncThrowingSequence<Element>>
 
@@ -49,4 +50,5 @@ public class AmplifyAsyncThrowingSequence<Element: Sendable>: AsyncSequence, Can
         parent?.cancel()
         finish()
     }
+
 }

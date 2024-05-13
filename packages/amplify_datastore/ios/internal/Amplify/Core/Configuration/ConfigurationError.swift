@@ -21,6 +21,11 @@ public enum ConfigurationError {
     /// - Tag: ConfigurationError.invalidAmplifyConfigurationFile
     case invalidAmplifyConfigurationFile(ErrorDescription, RecoverySuggestion, Error? = nil)
 
+    /// The specified `amplify_outputs.json` file was not present or unreadable
+    ///
+    /// - Tag: ConfigurationError.invalidAmplifyOutputsFile
+    case invalidAmplifyOutputsFile(ErrorDescription, RecoverySuggestion, Error? = nil)
+
     /// Unable to decode `amplifyconfiguration.json` into a valid AmplifyConfiguration object
     ///
     /// - Tag: ConfigurationError.unableToDecode
@@ -38,6 +43,7 @@ extension ConfigurationError: AmplifyError {
         switch self {
         case .amplifyAlreadyConfigured(let description, _, _),
              .invalidAmplifyConfigurationFile(let description, _, _),
+             .invalidAmplifyOutputsFile(let description, _, _),
              .unableToDecode(let description, _, _),
              .unknown(let description, _, _):
             return description
@@ -49,6 +55,7 @@ extension ConfigurationError: AmplifyError {
         switch self {
         case .amplifyAlreadyConfigured(_, let recoverySuggestion, _),
              .invalidAmplifyConfigurationFile(_, let recoverySuggestion, _),
+             .invalidAmplifyOutputsFile(_, let recoverySuggestion, _),
              .unableToDecode(_, let recoverySuggestion, _),
              .unknown(_, let recoverySuggestion, _):
             return recoverySuggestion
@@ -60,6 +67,7 @@ extension ConfigurationError: AmplifyError {
         switch self {
         case .amplifyAlreadyConfigured(_, _, let underlyingError),
              .invalidAmplifyConfigurationFile(_, _, let underlyingError),
+             .invalidAmplifyOutputsFile(_, _, let underlyingError),
              .unableToDecode(_, _, let underlyingError),
              .unknown(_, _, let underlyingError):
             return underlyingError

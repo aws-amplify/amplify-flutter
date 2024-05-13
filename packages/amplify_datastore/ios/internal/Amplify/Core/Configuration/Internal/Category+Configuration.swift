@@ -37,5 +37,4 @@ extension CategoryTypeable {
             return amplifyConfiguration.auth
         }
     }
-
 }

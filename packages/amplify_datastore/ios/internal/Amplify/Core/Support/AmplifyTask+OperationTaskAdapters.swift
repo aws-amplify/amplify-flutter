@@ -20,7 +20,9 @@ public class AmplifyOperationTaskAdapter<Request: AmplifyOperationRequest,
     public init(operation: AmplifyOperation<Request, Success, Failure>) {
         self.operation = operation
         self.childTask = ChildTask(parent: operation)
-        resultToken = operation.subscribe(resultListener: resultListener)
+        resultToken = operation.subscribe { [weak self] in
+            self?.resultListener($0)
+        }
     }
 
     deinit {

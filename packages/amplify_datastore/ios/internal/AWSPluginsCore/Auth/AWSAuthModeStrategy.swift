@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import Amplify
 
 /// Represents different auth strategies supported by a client
@@ -92,6 +93,19 @@ public struct AWSAuthorizationTypeIterator: AuthorizationTypeIterator {
         }
         
         return nil
+    }
+}
+
+extension AuthorizationTypeIterator {
+    public func publisher() -> AnyPublisher<AuthorizationType, Never> {
+        var it = self
+        return Deferred {
+            var authTypes = [AuthorizationType]()
+            while let authType = it.next() {
+                authTypes.append(authType)
+            }
+            return Publishers.MergeMany(authTypes.map { Just($0) })
+        }.eraseToAnyPublisher()
     }
 }
 

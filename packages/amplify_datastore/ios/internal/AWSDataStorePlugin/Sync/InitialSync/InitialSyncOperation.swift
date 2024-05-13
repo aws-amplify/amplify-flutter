@@ -13,7 +13,7 @@ import Foundation
 final class InitialSyncOperation: AsynchronousOperation {
     typealias SyncQueryResult = PaginatedList<AnyModel>
 
-    private weak var api: APICategoryGraphQLBehaviorExtended?
+    private weak var api: APICategoryGraphQLBehavior?
     private weak var reconciliationQueue: IncomingEventReconciliationQueue?
     private weak var storageAdapter: StorageEngineAdapter?
     private let dataStoreConfiguration: DataStoreConfiguration
@@ -22,6 +22,7 @@ final class InitialSyncOperation: AsynchronousOperation {
     private let modelSchema: ModelSchema
 
     private var recordsReceived: UInt
+    private var queryTask: Task<Void, Never>?
 
     private var syncMaxRecords: UInt {
         return dataStoreConfiguration.syncMaxRecords
@@ -61,7 +62,7 @@ final class InitialSyncOperation: AsynchronousOperation {
     }
 
     init(modelSchema: ModelSchema,
-         api: APICategoryGraphQLBehaviorExtended?,
+         api: APICategoryGraphQLBehavior?,
          reconciliationQueue: IncomingEventReconciliationQueue?,
          storageAdapter: StorageEngineAdapter?,
          dataStoreConfiguration: DataStoreConfiguration,
@@ -86,7 +87,7 @@ final class InitialSyncOperation: AsynchronousOperation {
         log.info("Beginning sync for \(modelSchema.name)")
         let lastSyncMetadata = getLastSyncMetadata()
         let lastSyncTime = getLastSyncTime(lastSyncMetadata)
-        Task {
+        self.queryTask = Task {
             await query(lastSyncTime: lastSyncTime)
         }
     }
@@ -168,42 +169,44 @@ final class InitialSyncOperation: AsynchronousOperation {
         }
         let minSyncPageSize = Int(min(syncMaxRecords - recordsReceived, syncPageSize))
         let limit = minSyncPageSize < 0 ? Int(syncPageSize) : minSyncPageSize
-        let completionListener: GraphQLOperation<SyncQueryResult>.ResultListener = { result in
-            switch result {
-            case .failure(let apiError):
-                if self.isAuthSignedOutError(apiError: apiError) {
-                    self.log.error("Sync for \(self.modelSchema.name) failed due to signed out error \(apiError.errorDescription)")
+        let authTypes = await authModeStrategy.authTypesFor(schema: modelSchema, operation: .read)
+            .publisher()
+            .map { Optional.some($0) } // map to optional to have nil as element
+            .replaceEmpty(with: nil) // use a nil element to trigger default auth if no auth provided
+            .map { authType in { [weak self] in
+                guard let self, let api = self.api else {
+                    throw APIError.operationError("Operation cancelled", "")
                 }
 
-                // TODO: Retry query on error
-                let error = DataStoreError.api(apiError)
-                self.dataStoreConfiguration.errorHandler(error)
-                self.finish(result: .failure(error))
-            case .success(let graphQLResult):
-                self.handleQueryResults(lastSyncTime: lastSyncTime, graphQLResult: graphQLResult)
+                return try await api.query(request: GraphQLRequest<SyncQueryResult>.syncQuery(
+                    modelSchema: self.modelSchema,
+                    where: self.syncPredicate,
+                    limit: limit,
+                    nextToken: nextToken,
+                    lastSync: lastSyncTime,
+                    authType: authType
+                ))
+            }}
+            .eraseToAnyPublisher()
+
+        switch await RetryableGraphQLOperation(requestStream: authTypes).run() {
+        case .success(let graphQLResult):
+            await handleQueryResults(lastSyncTime: lastSyncTime, graphQLResult: graphQLResult)
+        case .failure(let apiError):
+            if self.isAuthSignedOutError(apiError: apiError) {
+                self.log.error("Sync for \(self.modelSchema.name) failed due to signed out error \(apiError.errorDescription)")
             }
+            self.dataStoreConfiguration.errorHandler(DataStoreError.api(apiError))
+            self.finish(result: .failure(.api(apiError)))
         }
-
-        var authTypes = await authModeStrategy.authTypesFor(schema: modelSchema, operation: .read)
-
-        RetryableGraphQLOperation(requestFactory: {
-            GraphQLRequest<SyncQueryResult>.syncQuery(modelSchema: self.modelSchema,
-                                                      where: self.syncPredicate,
-                                                      limit: limit,
-                                                      nextToken: nextToken,
-                                                      lastSync: lastSyncTime,
-                                                      authType: authTypes.next())
-        },
-                                  maxRetries: authTypes.count,
-                                  resultListener: completionListener) { nextRequest, wrappedCompletionListener in
-            api.query(request: nextRequest, listener: wrappedCompletionListener)
-        }.main()
     }
 
     /// Disposes of the query results: Stops if error, reconciles results if success, and kick off a new query if there
     /// is a next token
-    private func handleQueryResults(lastSyncTime: Int64?,
-                                    graphQLResult: Result<SyncQueryResult, GraphQLResponseError<SyncQueryResult>>) {
+    private func handleQueryResults(
+        lastSyncTime: Int64?,
+        graphQLResult: Result<SyncQueryResult, GraphQLResponseError<SyncQueryResult>>
+    ) async {
         guard !isCancelled else {
             finish(result: .successfulVoid)
             return
@@ -238,9 +241,7 @@ final class InitialSyncOperation: AsynchronousOperation {
         }
 
         if let nextToken = syncQueryResult.nextToken, recordsReceived < syncMaxRecords {
-            Task {
-                await self.query(lastSyncTime: lastSyncTime, nextToken: nextToken)
-            }
+            await self.query(lastSyncTime: lastSyncTime, nextToken: nextToken)
         } else {
             updateModelSyncMetadata(lastSyncTime: syncQueryResult.startedAt)
         }
@@ -292,6 +293,9 @@ final class InitialSyncOperation: AsynchronousOperation {
         super.finish()
     }
 
+    override func cancel() {
+        self.queryTask?.cancel()
+    }
 }
 
 extension InitialSyncOperation: DefaultLogger {
