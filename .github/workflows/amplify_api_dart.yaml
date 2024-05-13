@@ -46,6 +46,7 @@ on:
       - 'packages/aws_signature_v4/pubspec.yaml'
   schedule:
     - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
