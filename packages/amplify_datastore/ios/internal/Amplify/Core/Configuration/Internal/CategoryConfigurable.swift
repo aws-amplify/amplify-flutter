@@ -20,7 +20,11 @@ protocol CategoryConfigurable: AnyObject, CategoryTypeable {
     /// - Parameter amplifyConfiguration: The AmplifyConfiguration
     func configure(using amplifyConfiguration: AmplifyConfiguration) throws
 
+    /// Convenience method for configuring the category using the top-level AmplifyOutputsData
+    ///
+    /// - Parameter amplifyOutputs: The AmplifyOutputsData configuration
+    func configure(using amplifyOutputs: AmplifyOutputsData) throws
+
     /// Clears the category configurations, and invokes `reset` on each added plugin
     func reset() async
-
 }

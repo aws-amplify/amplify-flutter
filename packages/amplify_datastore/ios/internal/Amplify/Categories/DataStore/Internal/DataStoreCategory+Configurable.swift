@@ -15,6 +15,10 @@ extension DataStoreCategory: CategoryConfigurable {
         }
     }
 
+    func configure(using amplifyConfiguration: AmplifyOutputsData) throws {
+        try configureFirstWithEmptyConfiguration()
+    }
+
     func configure(using configuration: CategoryConfiguration?) throws {
         guard !isConfigured else {
             let error = ConfigurationError.amplifyAlreadyConfigured(

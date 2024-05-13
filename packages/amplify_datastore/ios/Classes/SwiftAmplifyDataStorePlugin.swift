@@ -14,6 +14,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
     private let dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler?
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
+    private let nativeSubscriptionEventBus = PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>()
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
     private let nativeAuthPlugin: NativeAuthPlugin
@@ -88,7 +89,14 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                 AWSAuthorizationType(rawValue: $0)
             }
             try Amplify.add(
-                plugin: FlutterApiPlugin()
+                plugin: FlutterApiPlugin(
+                    apiAuthProviderFactory: FlutterAuthProviders(
+                        authProviders: authProviders,
+                        nativeApiPlugin: nativeApiPlugin
+                    ), 
+                    nativeApiPlugin: nativeApiPlugin,
+                    subscriptionEventBus: nativeSubscriptionEventBus
+                )
             )
             return completion(.success(()))
         } catch let apiError as APIError {
@@ -608,7 +616,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     }
     
     func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, any Error>) -> Void) {
-        fatalError("not implemented")
+        nativeSubscriptionEventBus.send(event)
     }
 
     private func checkArguments(args: Any) throws -> [String: Any] {

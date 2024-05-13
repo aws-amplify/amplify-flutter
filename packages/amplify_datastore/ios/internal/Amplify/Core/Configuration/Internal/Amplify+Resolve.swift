@@ -16,5 +16,4 @@ extension Amplify {
 
         return try AmplifyConfiguration(bundle: Bundle.main)
     }
-
 }

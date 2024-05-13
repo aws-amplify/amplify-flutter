@@ -14,18 +14,33 @@ public struct StorageGetURLRequest: AmplifyOperationRequest {
 
     /// The unique identifier for the object in storage
     ///
-    /// - Tag: StorageListRequest.key
+    /// - Tag: StorageGetURLRequest.key
+    @available(*, deprecated, message: "Use `path` in Storage API instead of `key`")
     public let key: String
 
-    /// Options to adjust the behavior of this request, including plugin-options
+    /// The unique path for the object in storage
     ///
-    /// - Tag: StorageListRequest.options
+    /// - Tag: StorageGetURLRequest.path
+    public let path: (any StoragePath)?
+
+    /// Options to adjust the behaviour of this request, including plugin-options
+    ///
+    /// - Tag: StorageGetURLRequest.options
     public let options: Options
 
-    /// - Tag: StorageListRequest.init
+    /// - Tag: StorageGetURLRequest.init
+    @available(*, deprecated, message: "Use init(path:options)")
     public init(key: String, options: Options) {
         self.key = key
         self.options = options
+        self.path = nil
+    }
+
+    /// - Tag: StorageGetURLRequest.init
+    public init(path: any StoragePath, options: Options) {
+        self.key = ""
+        self.options = options
+        self.path = path
     }
 }
 
@@ -33,27 +48,29 @@ public extension StorageGetURLRequest {
 
     /// Options to adjust the behavior of this request, including plugin-options
     ///
-    /// - Tag: StorageListRequestOptions
+    /// - Tag: StorageGetURLRequest.Options
     struct Options {
         /// The default amount of time before the URL expires is 18000 seconds, or 5 hours.
         ///
-        /// - Tag: StorageListRequestOptions.defaultExpireInSeconds
+        /// - Tag: StorageGetURLRequest.Options.defaultExpireInSeconds
         public static let defaultExpireInSeconds = 18_000
 
         /// Access level of the storage system. Defaults to `public`
         ///
-        /// - Tag: StorageListRequestOptions.accessLevel
+        /// - Tag: StorageGetURLRequest.Options.accessLevel
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let accessLevel: StorageAccessLevel
 
         /// Target user to apply the action on.
         ///
-        /// - Tag: StorageListRequestOptions.targetIdentityId
+        /// - Tag: StorageGetURLRequest.Options.targetIdentityId
+        @available(*, deprecated, message: "Use `path` in Storage API instead of `Options`")
         public let targetIdentityId: String?
 
         /// Number of seconds before the URL expires. Defaults to
         /// [defaultExpireInSeconds](x-source-tag://StorageListRequestOptions.defaultExpireInSeconds)
         ///
-        /// - Tag: StorageListRequestOptions.expires
+        /// - Tag: StorageGetURLRequest.Options.expires
         public let expires: Int
 
         /// Extra plugin specific options, only used in special circumstances when the existing options do
@@ -62,10 +79,11 @@ public extension StorageGetURLRequest {
         /// [AWSStorageGetURLOptions](x-source-tag://AWSStorageGetURLOptions) for
         /// expected key/values.
         ///
-        /// - Tag: StorageListRequestOptions.pluginOptions
+        /// - Tag: StorageGetURLRequest.Options.pluginOptions
         public let pluginOptions: Any?
 
-        /// - Tag: StorageListRequestOptions.init
+        /// - Tag: StorageGetURLRequest.Options.init
+        @available(*, deprecated, message: "Use init(expires:pluginOptions)")
         public init(accessLevel: StorageAccessLevel = .guest,
                     targetIdentityId: String? = nil,
                     expires: Int = Options.defaultExpireInSeconds,
@@ -74,6 +92,15 @@ public extension StorageGetURLRequest {
             self.targetIdentityId = targetIdentityId
             self.expires = expires
             self.pluginOptions = pluginOptions
+        }
+
+        /// - Tag: StorageGetURLRequest.Options.init
+        public init(expires: Int = Options.defaultExpireInSeconds,
+                    pluginOptions: Any? = nil) {
+            self.expires = expires
+            self.pluginOptions = pluginOptions
+            self.accessLevel = .guest
+            self.targetIdentityId = nil
         }
     }
 }

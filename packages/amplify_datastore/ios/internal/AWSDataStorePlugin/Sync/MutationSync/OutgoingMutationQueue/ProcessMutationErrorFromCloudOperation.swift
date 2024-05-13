@@ -27,12 +27,12 @@ class ProcessMutationErrorFromCloudOperation: AsynchronousOperation {
     private let apiError: APIError?
     private let completion: (Result<MutationEvent?, Error>) -> Void
     private var mutationOperation: AtomicValue<GraphQLOperation<MutationSync<AnyModel>>?>
-    private weak var api: APICategoryGraphQLBehaviorExtended?
+    private weak var api: APICategoryGraphQLBehavior?
     private weak var reconciliationQueue: IncomingEventReconciliationQueue?
 
     init(dataStoreConfiguration: DataStoreConfiguration,
          mutationEvent: MutationEvent,
-         api: APICategoryGraphQLBehaviorExtended,
+         api: APICategoryGraphQLBehavior,
          storageAdapter: StorageEngineAdapter,
          graphQLResponseError: GraphQLResponseError<MutationSync<AnyModel>>? = nil,
          apiError: APIError? = nil,
@@ -296,44 +296,44 @@ class ProcessMutationErrorFromCloudOperation: AsynchronousOperation {
         }
 
         log.verbose("\(#function) sending mutation with data: \(apiRequest)")
-        let graphQLOperation = api.mutate(request: apiRequest) { [weak self] result in
-            guard let self = self, !self.isCancelled else {
-                return
-            }
+        Task { [weak self] in
+            do {
+                let result = try await api.mutate(request: apiRequest)
+                guard let self = self, !self.isCancelled else {
+                    self?.finish(result: .failure(APIError.operationError("Mutation operation cancelled", "")))
+                    return
+                }
 
-            self.log.verbose("sendMutationToCloud received asyncEvent: \(result)")
-            self.validate(cloudResult: result, request: apiRequest)
+                self.log.verbose("sendMutationToCloud received asyncEvent: \(result)")
+                self.validate(cloudResult: result, request: apiRequest)
+            } catch {
+                self?.finish(result: .failure(APIError.operationError("Failed to do mutation", "", error)))
+            }
         }
-        mutationOperation.set(graphQLOperation)
     }
 
-    private func validate(cloudResult: MutationSyncCloudResult, request: MutationSyncAPIRequest) {
+    private func validate(cloudResult: GraphQLResponse<MutationSyncResult>, request: MutationSyncAPIRequest) {
         guard !isCancelled else {
             return
         }
 
-        if case .failure(let error) = cloudResult {
-            dataStoreConfiguration.errorHandler(error)
-        }
-
-        if case let .success(graphQLResponse) = cloudResult {
-            if case .failure(let error) = graphQLResponse {
-                dataStoreConfiguration.errorHandler(error)
-            } else if case let .success(graphQLResult) = graphQLResponse {
-                guard let reconciliationQueue = reconciliationQueue else {
-                    let dataStoreError = DataStoreError.configuration(
-                        "reconciliationQueue is unexpectedly nil",
-                        """
-                        The reference to reconciliationQueue has been released while an ongoing mutation was being processed.
-                        \(AmplifyErrorMessages.reportBugToAWS())
-                        """
-                    )
-                    finish(result: .failure(dataStoreError))
-                    return
-                }
-
-                reconciliationQueue.offer([graphQLResult], modelName: mutationEvent.modelName)
+        switch cloudResult {
+        case .success(let mutationSyncResult):
+            guard let reconciliationQueue = reconciliationQueue else {
+                let dataStoreError = DataStoreError.configuration(
+                    "reconciliationQueue is unexpectedly nil",
+                    """
+                    The reference to reconciliationQueue has been released while an ongoing mutation was being processed.
+                    \(AmplifyErrorMessages.reportBugToAWS())
+                    """
+                )
+                finish(result: .failure(dataStoreError))
+                return
             }
+
+            reconciliationQueue.offer([mutationSyncResult], modelName: mutationEvent.modelName)
+        case .failure(let graphQLResponseError):
+            dataStoreConfiguration.errorHandler(graphQLResponseError)
         }
 
         finish(result: .success(nil))
