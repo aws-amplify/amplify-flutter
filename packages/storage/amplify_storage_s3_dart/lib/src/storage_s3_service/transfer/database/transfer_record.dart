@@ -40,6 +40,9 @@ class TransferRecord {
   /// Timestamp of [uploadId] creation.
   final DateTime createdAt;
 
+  /// The record id used by drift data class
+  String get id => uploadId;
+
   /// return json map representation of [TransferRecord] object.
   Map<String, dynamic> toJson() => _$TransferRecordToJson(this);
 
