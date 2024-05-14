@@ -738,14 +738,17 @@ class CustomTypeWithAppsyncScalarTypes {
                 .toList()
             : null,
         _customTypeValue = json['customTypeValue'] != null
-            ? SimpleCustomType.fromJson(
-                new Map<String, dynamic>.from(json['customTypeValue']))
+            ? json['customTypeValue']['serializedData'] != null
+                ? SimpleCustomType.fromJson(new Map<String, dynamic>.from(
+                    json['customTypeValue']['serializedData']))
+                : SimpleCustomType.fromJson(
+                    new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
-                .map((e) =>
-                    SimpleCustomType.fromJson(new Map<String, dynamic>.from(e)))
+                .map((e) => SimpleCustomType.fromJson(
+                    new Map<String, dynamic>.from(e['serializedData'] ?? e)))
                 .toList()
             : null;
 
