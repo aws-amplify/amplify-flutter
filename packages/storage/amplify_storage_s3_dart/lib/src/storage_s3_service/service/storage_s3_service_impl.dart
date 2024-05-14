@@ -598,12 +598,12 @@ class StorageS3Service {
         builder
           ..bucket = _s3PluginConfig.bucket
           ..key = record.objectKey
-          ..uploadId = record.uploadId;
+          ..uploadId = record.id;
       });
 
       try {
         await _defaultS3Client.abortMultipartUpload(request).result;
-        await _transferDatabase.deleteTransferRecords(record.uploadId);
+        await _transferDatabase.deleteTransferRecords(record.id);
       } on Exception catch (error) {
         _logger.error('Failed to abort multipart upload due to: $error');
       }

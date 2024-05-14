@@ -26,7 +26,7 @@ class TransferDatabase implements stub.TransferDatabase {
     var result = 0;
     for (final element in _entries) {
       final transferRecord = TransferRecord.fromJsonString(element.value);
-      if (transferRecord.uploadId == uploadId) {
+      if (transferRecord.id == uploadId) {
         window.localStorage.remove(element.key);
         result++;
       }

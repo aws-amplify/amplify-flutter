@@ -76,7 +76,7 @@ void main() {
 
       registerFallbackValue(
         TransferRecord(
-          uploadId: 'uploadId',
+          id: 'uploadId',
           objectKey: 'dummy key',
           createdAt: DateTime(2022, 1, 1),
         ),
@@ -821,7 +821,7 @@ void main() {
         expect(
           capturedTransferDBInsertParam,
           isA<TransferRecord>().having(
-            (o) => o.uploadId,
+            (o) => o.id,
             'uploadId',
             testMultipartUploadId,
           ),

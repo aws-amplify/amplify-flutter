@@ -15,7 +15,7 @@ part 'transfer_record.g.dart';
 class TransferRecord {
   /// {@macro amplify_storage_s3_dart.transfer_data}
   const TransferRecord({
-    required this.uploadId,
+    required this.id,
     required this.objectKey,
     required this.createdAt,
   });
@@ -32,16 +32,13 @@ class TransferRecord {
   }
 
   /// The multipart upload id.
-  final String uploadId;
+  final String id;
 
-  /// The object key associated with the [uploadId].
+  /// The object key associated with the [id].
   final String objectKey;
 
-  /// Timestamp of [uploadId] creation.
+  /// Timestamp of [id] creation.
   final DateTime createdAt;
-
-  /// The record id used by drift data class
-  String get id => uploadId;
 
   /// return json map representation of [TransferRecord] object.
   Map<String, dynamic> toJson() => _$TransferRecordToJson(this);

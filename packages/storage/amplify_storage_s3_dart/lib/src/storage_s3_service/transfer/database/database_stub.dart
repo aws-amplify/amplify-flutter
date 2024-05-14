@@ -37,7 +37,7 @@ class TransferDatabase {
 
   /// {@template amplify_storage_s3_dart.transfer_database_delete}
   /// Deletes [TransferRecord]s from the database where
-  /// [TransferRecord.uploadId] is equal to [uploadId].
+  /// [TransferRecord.id] is equal to [uploadId].
   /// returns number of recordes deleted from the database.
   /// {@endtemplate}
   Future<int> deleteTransferRecords(String uploadId) {

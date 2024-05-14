@@ -15,7 +15,7 @@ void main() {
     final testCreatedAt = DateTime(2022, 1, 1);
 
     final testTransferRecord = TransferRecord(
-      uploadId: testUploadId,
+      id: testUploadId,
       objectKey: testObjectKey,
       createdAt: testCreatedAt,
     );

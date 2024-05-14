@@ -35,7 +35,7 @@ class TransferDatabase extends _$TransferDatabase
 
   // Bump the version number when any alteration is made into tables.dart
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   Future<List<data.TransferRecord>> getMultipartUploadRecordsCreatedBefore(
@@ -50,7 +50,7 @@ class TransferDatabase extends _$TransferDatabase
         .map(
           (e) => data.TransferRecord(
             objectKey: e.objectKey,
-            uploadId: e.uploadId,
+            id: e.id,
             createdAt: e.createdAt,
           ),
         )
@@ -60,7 +60,7 @@ class TransferDatabase extends _$TransferDatabase
   @override
   Future<String> insertTransferRecord(data.TransferRecord record) async {
     final entry = TransferRecordsCompanion.insert(
-      uploadId: record.uploadId,
+      uploadId: record.id,
       objectKey: record.objectKey,
       createdAt: record.createdAt.toIso8601String(),
     );
