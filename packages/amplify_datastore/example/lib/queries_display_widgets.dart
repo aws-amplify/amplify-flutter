@@ -20,6 +20,7 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Blog" ? Colors.white10 : Colors.white60,
         ),
@@ -38,6 +39,7 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Post" ? Colors.white10 : Colors.white60,
         ),
@@ -56,6 +58,7 @@ Widget displayQueryButtons(bool isAmplifyConfigured, String queriesToView,
         return null;
       },
       style: ButtonStyle(
+        // ignore: deprecated_member_use
         backgroundColor: MaterialStateProperty.all(
           queriesToView == "Comment" ? Colors.white10 : Colors.white60,
         ),
@@ -113,7 +116,10 @@ Widget getWidgetToDisplayPost(
                   _postsToView[i].rating.toString() +
                   ", blog: " +
                   allBlogs
-                      .firstWhere((blog) => blog.id == _postsToView[i].blog?.id)
+                      .firstWhere(
+                        (blog) => blog.id == _postsToView[i].blog?.id,
+                        orElse: () => Blog(name: "Blog not found"),
+                      )
                       .name,
               style: TextStyle(fontSize: 14.0),
             ),
