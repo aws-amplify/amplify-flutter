@@ -1,3 +1,8 @@
+## 0.4.1
+
+### Fixes
+- fix(common): set upper bound limit for sqlite version for `drift` compatibility ([#4884](https://github.com/aws-amplify/amplify-flutter/pull/4884))
+
 ## 0.4.0
 
 - Minor bug fixes and improvements
