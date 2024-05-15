@@ -333,5 +333,22 @@ void main() {
         ),
       );
     });
+
+    test(
+        'updateEndpoint throws NetworkException for AWSHttpException exceptions',
+        () async {
+      when(() => pinpointClient.updateEndpoint(any())).thenThrow(
+        AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.post, uri: Uri()),
+        ),
+      );
+
+      expect(
+        endpointClient.updateEndpoint(),
+        throwsA(
+          isA<NetworkException>(),
+        ),
+      );
+    });
   });
 }
