@@ -151,8 +151,8 @@ extension GraphQLResponse {
         _ dataPayload: JSONValue,
         modelName: String?
     ) -> Result<R, APIError> {
-        if R.Type.self == String.self {
-            return decodeDataPayloadToString(dataPayload).map { $0 as! R }
+        if R.self == String.self {
+            return encodeDataPayloadToString(dataPayload).map { $0 as! R }
         }
 
         let dataPayloadWithTypeName = modelName.flatMap {
@@ -161,7 +161,7 @@ extension GraphQLResponse {
             ) { a, _ in a }
         }.map { JSONValue.object($0) } ?? dataPayload
 
-        if R.Type.self == AnyModel.self {
+        if R.self == AnyModel.self {
             return decodeDataPayloadToAnyModel(dataPayloadWithTypeName).map { $0 as! R }
         }
 
@@ -173,20 +173,20 @@ extension GraphQLResponse {
     }
 
     static func decodeDataPayloadToAnyModel(
-        _ dataPaylod: JSONValue
+        _ dataPayload: JSONValue
     ) -> Result<AnyModel, APIError> {
-        guard let typeName = dataPaylod.__typeName?.stringValue else {
+        guard let typeName = dataPayload.__typename?.stringValue else {
             return .failure(.operationError(
-                "Could not retrieve __typeName from object",
+                "Could not retrieve __typename from object",
                 """
                 Could not retrieve the `__typename` attribute from the return value. Be sure to include __typename in \
                 the selection set of the GraphQL operation. GraphQL:
-                \(dataPaylod)
+                \(dataPayload)
                 """
             ))
         }
 
-        return decodeDataPayloadToString(dataPaylod).flatMap { underlyingModelString in
+        return encodeDataPayloadToString(dataPayload).flatMap { underlyingModelString in
             do {
                 return .success(.init(try ModelRegistry.decode(
                     modelName: typeName,
@@ -202,22 +202,16 @@ extension GraphQLResponse {
         }
     }
 
-    static func decodeDataPayloadToString(
+    static func encodeDataPayloadToString(
         _ dataPayload: JSONValue
     ) -> Result<String, APIError> {
-        do {
-            let data = try jsonEncoder.encode(dataPayload)
-            guard let string = String(data: data, encoding: .utf8) else {
+        fromJson(dataPayload).flatMap {
+            guard let string = String(data: $0, encoding: .utf8) else {
                 return .failure(
                     .operationError("Could not get String from Data", "", nil)
                 )
             }
             return .success(string)
-        } catch {
-            return .failure(.operationError(
-                "Could not get the String representation of the GraphQL response",
-                ""
-            ))
         }
     }
 
