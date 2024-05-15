@@ -152,14 +152,18 @@ class ModelWithCustomType extends amplify_core.Model {
   ModelWithCustomType.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _customTypeValue = json['customTypeValue'] != null
-            ? CustomTypeWithAppsyncScalarTypes.fromJson(
-                new Map<String, dynamic>.from(json['customTypeValue']))
+            ? json['customTypeValue']['serializedData'] != null
+                ? CustomTypeWithAppsyncScalarTypes.fromJson(
+                    new Map<String, dynamic>.from(
+                        json['customTypeValue']['serializedData']))
+                : CustomTypeWithAppsyncScalarTypes.fromJson(
+                    new Map<String, dynamic>.from(json['customTypeValue']))
             : null,
         _listOfCustomTypeValue = json['listOfCustomTypeValue'] is List
             ? (json['listOfCustomTypeValue'] as List)
                 .where((e) => e != null)
                 .map((e) => CustomTypeWithAppsyncScalarTypes.fromJson(
-                    new Map<String, dynamic>.from(e)))
+                    new Map<String, dynamic>.from(e['serializedData'] ?? e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
