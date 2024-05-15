@@ -12,11 +12,15 @@ public class DataStoreObserveEventStreamHandler: NSObject, FlutterStreamHandler 
     }
 
     func sendEvent(flutterEvent: [String: Any]) {
-        eventSink?(flutterEvent)
+        DispatchQueue.main.async {
+            self.eventSink?(flutterEvent)
+        }
     }
 
     func sendError(flutterError: FlutterError) {
-        eventSink?(flutterError)
+        DispatchQueue.main.async {
+            self.eventSink?(flutterError)
+        }
     }
 
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {

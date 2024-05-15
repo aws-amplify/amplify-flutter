@@ -11,7 +11,6 @@ import Combine
 public struct FlutterHubElement {
     var model: [String: Any]
     var version: Int?
-    // TODO: Migrate to Async Swift v2 -- Is this breaking?
     var lastChangedAt: Int64?
     var deleted: Bool
 

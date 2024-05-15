@@ -24,14 +24,15 @@ public class FlutterApiPlugin: APICategoryPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
     }
     
-    // TODO: Implment in Async Swift v2
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        preconditionFailure("method not supported")
+        let response = await asyncQuery(nativeRequest: request.toNativeGraphQLRequest())
+        return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
     }
     
-    // TODO: Implment in Async Swift v2
+
     public func mutate<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
-        preconditionFailure("method not supported")
+        let response = await asyncMutate(nativeRequest: request.toNativeGraphQLRequest())
+        return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
     }
     
     public func subscribe<R: Decodable>(
@@ -119,6 +120,26 @@ public class FlutterApiPlugin: APICategoryPlugin
             string: payload,
             decodePath: request.decodePath
         )
+    }
+    
+    func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.query(request: nativeRequest) { response in
+                    continuation.resume(returning: response)
+                }
+            }
+        }
+    }
+    
+    func asyncMutate(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse{
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.mutate(request: nativeRequest) { response in
+                    continuation.resume(returning: response)
+                }
+            }
+        }
     }
     
     public func configure(using configuration: Any?) throws { }

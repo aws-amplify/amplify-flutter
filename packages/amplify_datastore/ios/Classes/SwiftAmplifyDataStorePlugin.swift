@@ -299,6 +299,17 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             modelSchemas.forEach { modelSchema in
                 modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
             }
+            
+            // Amplify Swift DataStore system schemas must be added manually
+            let systemSchemas = [
+                ModelSyncMetadata.schema,
+                MutationEvent.schema,
+                MutationSyncMetadata.schema
+            ]
+            
+            systemSchemas.forEach { modelSchema in
+                modelSchemaRegistry.addModelSchema(modelName: modelSchema.name, modelSchema: modelSchema)
+            }
 
             modelSchemaRegistry.version = modelProviderVersion
 
