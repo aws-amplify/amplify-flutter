@@ -55,28 +55,25 @@ enum ScreenGeometry {
   final double pixelRatio;
 }
 
-// TODO(Jordan-Nelson): Update all themes to use material3
 enum TestTheme {
+  material2(),
   defaultMaterial(),
-  material3(),
   highContrast(),
   customSwatch(),
   custom();
 
   ThemeData get lightTheme {
     switch (this) {
-      case TestTheme.defaultMaterial:
+      case TestTheme.material2:
         return ThemeData.light(useMaterial3: false);
-      case TestTheme.material3:
-        return ThemeData.light(useMaterial3: true);
+      case TestTheme.defaultMaterial:
+        return ThemeData.light();
       case TestTheme.highContrast:
         return ThemeData.from(
-          useMaterial3: false,
           colorScheme: const ColorScheme.highContrastLight(),
         );
       case TestTheme.customSwatch:
         return ThemeData.from(
-          useMaterial3: false,
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red,
             backgroundColor: Colors.white,
@@ -85,7 +82,7 @@ enum TestTheme {
           indicatorColor: Colors.red,
         );
       case TestTheme.custom:
-        return ThemeData.light(useMaterial3: false).copyWith(
+        return ThemeData.light().copyWith(
           tabBarTheme: const TabBarTheme(
             labelColor: Colors.amber,
           ),
@@ -96,18 +93,16 @@ enum TestTheme {
 
   ThemeData get darkTheme {
     switch (this) {
-      case TestTheme.defaultMaterial:
+      case TestTheme.material2:
         return ThemeData.dark(useMaterial3: false);
-      case TestTheme.material3:
-        return ThemeData.dark(useMaterial3: true);
+      case TestTheme.defaultMaterial:
+        return ThemeData.dark();
       case TestTheme.highContrast:
         return ThemeData.from(
-          useMaterial3: false,
           colorScheme: const ColorScheme.highContrastDark(),
         );
       case TestTheme.customSwatch:
         return ThemeData.from(
-          useMaterial3: false,
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.red,
             backgroundColor: Colors.black,
@@ -115,7 +110,7 @@ enum TestTheme {
           ),
         );
       case TestTheme.custom:
-        return ThemeData.dark(useMaterial3: false).copyWith(
+        return ThemeData.dark().copyWith(
           tabBarTheme: const TabBarTheme(
             labelColor: Colors.amber,
           ),
@@ -182,7 +177,7 @@ void main() {
               MockAuthenticatorApp(
                 initialStep: step,
                 config: testConfig.config,
-                lightTheme: TestTheme.material3.lightTheme,
+                lightTheme: TestTheme.defaultMaterial.lightTheme,
               ),
             );
             await tester.pumpAndSettle();
@@ -241,7 +236,7 @@ void main() {
       );
     });
 
-    // Tests remaining AuthenticatorSteps on email config, with material 3, dark & light mode, mobile & desktop.
+    // Tests remaining AuthenticatorSteps on email config, with default theme, dark & light mode, mobile & desktop.
     group('reference', () {
       /// These steps have been tested in other groups.
       const skipSteps = [
@@ -254,7 +249,7 @@ void main() {
         [TestConfig.email],
         [...AuthenticatorStep.values]
           ..removeWhere((x) => skipSteps.contains(x)),
-        [TestTheme.material3],
+        [TestTheme.defaultMaterial],
         Brightness.values,
         [ScreenGeometry.mobile, ScreenGeometry.desktop],
         (
@@ -274,15 +269,11 @@ void main() {
 
           setUp(() {
             binding.platformDispatcher.platformBrightnessTestValue = brightness;
-
-            // TODO(Jordan-Nelson): Migrate to WidgetTester
-            // ignore: deprecated_member_use
-            binding.window.devicePixelRatioTestValue = geometry.pixelRatio;
-            // ignore: deprecated_member_use
-            binding.window.physicalSizeTestValue = geometry.size;
           });
 
           testWidgets('matches snapshot', (WidgetTester tester) async {
+            tester.view.devicePixelRatio = geometry.pixelRatio;
+            tester.view.physicalSize = geometry.size;
             await tester.pumpWidget(
               MockAuthenticatorApp(
                 initialStep: step,
