@@ -14,83 +14,12 @@ import 'package:aws_common/testing.dart';
 import 'package:collection/collection.dart';
 import 'package:test/test.dart';
 
+import 'mocks.dart';
 import 'test_data/fake_amplify_configuration.dart';
 import 'test_models/ModelProvider.dart';
 import 'util.dart';
 
 final _deepEquals = const DeepCollectionEquality().equals;
-
-// Success Mocks
-const _expectedQuerySuccessResponseBody = {
-  'data': {
-    'listBlogs': {
-      'items': [
-        {
-          'id': 'TEST_ID',
-          'name': 'Test App Blog',
-          'createdAt': '2022-06-28T17:36:52.460Z',
-        }
-      ],
-    },
-  },
-};
-
-final _modelQueryId = uuid();
-final _expectedModelQueryResult = {
-  'data': {
-    'getBlog': {
-      'createdAt': '2021-07-21T22:23:33.707Z',
-      'id': _modelQueryId,
-      'name': 'Test App Blog',
-    },
-  },
-};
-const _expectedMutateSuccessResponseBody = {
-  'data': {
-    'createBlog': {
-      'id': 'TEST_ID',
-      'name': 'Test App Blog',
-      'createdAt': '2022-07-06T18:42:26.126Z',
-    },
-  },
-};
-
-// Error Mocks
-const _errorMessage = 'Unable to parse GraphQL query.';
-const _errorLocations = [
-  {'line': 2, 'column': 3},
-  {'line': 4, 'column': 5},
-];
-const _errorPath = ['a', 1, 'b'];
-const _errorExtensions = {
-  'a': 'blah',
-  'b': {'c': 'd'},
-};
-const _errorType = 'DynamoDB:ConditionalCheckFailedException';
-const _errorInfo = {'a': 'b'};
-const _expectedErrorResponseBody = {
-  'data': null,
-  'errors': [
-    {
-      'message': _errorMessage,
-      'locations': _errorLocations,
-      'path': _errorPath,
-      'extensions': _errorExtensions,
-      'errorType': _errorType,
-      'errorInfo': _errorInfo,
-    },
-  ],
-};
-
-const _authErrorMessage = 'Not authorized';
-const _expectedAuthErrorResponseBody = {
-  'data': null,
-  'errors': [
-    {
-      'message': _authErrorMessage,
-    },
-  ],
-};
 
 final mockHttpClient = MockAWSHttpClient((request, _) async {
   if (request.headers[xApiKey] != 'abc123' &&
@@ -99,7 +28,7 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
     // does not work for this query.
     return AWSHttpResponse(
       statusCode: 401,
-      body: utf8.encode(json.encode(_expectedAuthErrorResponseBody)),
+      body: utf8.encode(json.encode(expectedAuthErrorResponseBody)),
     );
   }
   if (request.headers[xApiKey] != 'abc123') {
@@ -110,25 +39,32 @@ final mockHttpClient = MockAWSHttpClient((request, _) async {
   if (body.contains('getBlog')) {
     return AWSHttpResponse(
       statusCode: 200,
-      body: utf8.encode(json.encode(_expectedModelQueryResult)),
+      body: utf8.encode(json.encode(expectedModelQueryResult)),
     );
   }
   if (body.contains('TestMutate')) {
     return AWSHttpResponse(
       statusCode: 400,
-      body: utf8.encode(json.encode(_expectedMutateSuccessResponseBody)),
+      body: utf8.encode(json.encode(expectedMutateSuccessResponseBody)),
     );
   }
   if (body.contains('TestError')) {
     return AWSHttpResponse(
       statusCode: 400,
-      body: utf8.encode(json.encode(_expectedErrorResponseBody)),
+      body: utf8.encode(json.encode(expectedErrorResponseBody)),
+    );
+  }
+  if (body.contains('createModelWithCustomType')) {
+    return AWSHttpResponse(
+      statusCode: 200,
+      body: utf8
+          .encode(json.encode(expectedModelWithCustomTypeSuccessResponseBody)),
     );
   }
 
   return AWSHttpResponse(
     statusCode: 400,
-    body: utf8.encode((json.encode(_expectedQuerySuccessResponseBody))),
+    body: utf8.encode((json.encode(expectedQuerySuccessResponseBody))),
   );
 });
 
@@ -195,7 +131,7 @@ void main() {
       final operation = Amplify.API.query(request: req);
       final res = await operation.response;
 
-      final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
+      final expected = json.encode(expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
       expect(res.errors, isEmpty);
@@ -219,7 +155,7 @@ void main() {
       final operation = Amplify.API.query(request: req);
       final res = await operation.response;
 
-      final expected = json.encode(_expectedQuerySuccessResponseBody['data']);
+      final expected = json.encode(expectedQuerySuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
       expect(res.errors, isEmpty);
@@ -242,7 +178,23 @@ void main() {
       final operation = Amplify.API.mutate(request: req);
       final res = await operation.response;
 
-      final expected = json.encode(_expectedMutateSuccessResponseBody['data']);
+      final expected = json.encode(expectedMutateSuccessResponseBody['data']);
+
+      expect(res.data, equals(expected));
+      expect(res.errors, isEmpty);
+    });
+
+    test('Mutate returns proper response.data for custom types', () async {
+      final req = GraphQLRequest<String>(
+        document: modelWithCustomTypeDocument,
+        variables: modelWithCustomTypeVariables,
+      );
+
+      final operation = Amplify.API.mutate(request: req);
+      final res = await operation.response;
+
+      final expected =
+          json.encode(expectedModelWithCustomTypeSuccessResponseBody['data']);
 
       expect(res.data, equals(expected));
       expect(res.errors, isEmpty);
@@ -255,7 +207,7 @@ void main() {
       const expectedDoc =
           'query getBlog(\$id: ID!) { getBlog(id: \$id) { $blogSelectionSet } }';
       const decodePath = 'getBlog';
-      final blog = Blog(id: _modelQueryId, name: 'Lorem ipsum $_modelQueryId');
+      final blog = Blog(id: modelQueryId, name: 'Lorem ipsum $modelQueryId');
       final req = ModelQueries.get<Blog>(Blog.classType, blog.modelIdentifier);
 
       final operation = Amplify.API.query(request: req);
@@ -263,15 +215,49 @@ void main() {
 
       // request asserts
       expect(req.document, expectedDoc);
-      expect(_deepEquals(req.variables, {'id': _modelQueryId}), isTrue);
+      expect(_deepEquals(req.variables, {'id': modelQueryId}), isTrue);
       expect(req.modelType, Blog.classType);
       expect(req.decodePath, decodePath);
       // response asserts
       expect(res.data, isA<Blog>());
-      expect(res.data?.id, _modelQueryId);
+      expect(res.data?.id, modelQueryId);
+      expect(res.errors, isEmpty);
+    });
+
+    test(
+        'Mutation.create returns proper response.data for Models with custom types',
+        () async {
+      const expectedDoc = modelWithCustomTypeDocument;
+      const decodePath = 'createModelWithCustomType';
+      final req = ModelMutations.create<ModelWithCustomType>(
+        modelWithCustomType,
+      );
+
+      final operation = Amplify.API.query(request: req);
+      final res = await operation.response;
+
+      // request asserts
+      expect(req.document, expectedDoc);
+      expect(_deepEquals(req.variables, modelWithCustomTypeVariables), isTrue);
+      expect(req.modelType, ModelWithCustomType.classType);
+      expect(req.decodePath, decodePath);
+      // response asserts
+      expect(res.data, isA<ModelWithCustomType>());
+      expect(res.data?.id, modelCustomTypeId);
+
+      final data = res.data!;
+      expect(
+        data.customTypeValue,
+        equals(modelWithCustomType.customTypeValue),
+      );
+      expect(
+        data.listOfCustomTypeValue,
+        equals(modelWithCustomType.listOfCustomTypeValue),
+      );
       expect(res.errors, isEmpty);
     });
   });
+
   const graphQLDocument = '''subscription MySubscription {
         onCreateBlog {
           id
@@ -550,15 +536,15 @@ void main() {
       final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
-        message: _errorMessage,
+        message: errorMessage,
         locations: [
           GraphQLResponseErrorLocation(2, 3),
           GraphQLResponseErrorLocation(4, 5),
         ],
-        path: <dynamic>[..._errorPath],
-        extensions: <String, dynamic>{..._errorExtensions},
-        errorType: _errorType,
-        errorInfo: _errorInfo,
+        path: <dynamic>[...errorPath],
+        extensions: <String, dynamic>{...errorExtensions},
+        errorType: errorType,
+        errorInfo: errorInfo,
       );
 
       expect(res.data, equals(null));
@@ -585,7 +571,7 @@ void main() {
       final res = await operation.response;
 
       const errorExpected = GraphQLResponseError(
-        message: _authErrorMessage,
+        message: authErrorMessage,
       );
 
       expect(res.data, equals(null));
