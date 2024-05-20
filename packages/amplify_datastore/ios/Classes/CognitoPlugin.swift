@@ -59,14 +59,7 @@ public class CognitoPlugin: AuthCategoryPlugin {
     
     // TODO: Mirgrate to Async Swift v2
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.main.async {
-                self.nativeAuthPlugin.fetchAuthSession { session in
-                    let result = NativeAWSAuthCognitoSession(from: session)
-                    continuation.resume(returning: result)
-                }
-            }
-        }
+        preconditionFailure("method not supported")
     }
     
     // TODO: Migrate to Async Swift v2
