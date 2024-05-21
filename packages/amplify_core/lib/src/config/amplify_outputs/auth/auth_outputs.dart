@@ -1,16 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart' hide MfaConfiguration, MfaType;
-import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
-import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
-import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.auth_outputs}
-/// The auth outputs used by Auth category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 outputs for Auth category.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class AuthOutputs
@@ -18,8 +14,8 @@ class AuthOutputs
   /// {@macro amplify_core.amplify_outputs.auth_outputs}
   const AuthOutputs({
     required this.awsRegion,
-    required this.userPoolId,
-    required this.userPoolClientId,
+    this.userPoolId,
+    this.userPoolClientId,
     this.identityPoolId,
     this.passwordPolicy,
     this.oauth,
@@ -38,10 +34,10 @@ class AuthOutputs
   final String awsRegion;
 
   /// The Cognito User Pool ID.
-  final String userPoolId;
+  final String? userPoolId;
 
   /// The Cognito User Pool Client ID.
-  final String userPoolClientId;
+  final String? userPoolClientId;
 
   /// The Cognito Identity Pool ID.
   final String? identityPoolId;

@@ -12,7 +12,7 @@ AnalyticsOutputs _$AnalyticsOutputsFromJson(Map<String, dynamic> json) =>
     AnalyticsOutputs(
       amazonPinpoint: json['amazon_pinpoint'] == null
           ? null
-          : AmazonPinpoint.fromJson(
+          : AmazonPinpointOutputs.fromJson(
               json['amazon_pinpoint'] as Map<String, dynamic>),
     );
 

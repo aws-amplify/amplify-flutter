@@ -21,7 +21,8 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) => OAuthOutputs(
       redirectSignOutUri: (json['redirect_sign_out_uri'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      responseType: $enumDecode(_$ResponseTypeEnumMap, json['response_type']),
+      responseType:
+          $enumDecode(_$OAuthResponseTypeEnumMap, json['response_type']),
     );
 
 Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) =>
@@ -33,7 +34,7 @@ Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) =>
       'scopes': instance.scopes,
       'redirect_sign_in_uri': instance.redirectSignInUri,
       'redirect_sign_out_uri': instance.redirectSignOutUri,
-      'response_type': _$ResponseTypeEnumMap[instance.responseType]!,
+      'response_type': _$OAuthResponseTypeEnumMap[instance.responseType]!,
     };
 
 const _$IdentityProviderEnumMap = {
@@ -43,7 +44,7 @@ const _$IdentityProviderEnumMap = {
   IdentityProvider.apple: 'SIGN_IN_WITH_APPLE',
 };
 
-const _$ResponseTypeEnumMap = {
-  ResponseType.code: 'code',
-  ResponseType.token: 'token',
+const _$OAuthResponseTypeEnumMap = {
+  OAuthResponseType.code: 'code',
+  OAuthResponseType.token: 'token',
 };

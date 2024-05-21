@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
 
 part 'notifications_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.notifications_outputs}
-/// The notifications outputs used by Notifications category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 outputs for Notifications category.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class NotificationsOutputs

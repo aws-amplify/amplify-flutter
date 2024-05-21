@@ -10,8 +10,8 @@ part of 'auth_outputs.dart';
 
 AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => AuthOutputs(
       awsRegion: json['aws_region'] as String,
-      userPoolId: json['user_pool_id'] as String,
-      userPoolClientId: json['user_pool_client_id'] as String,
+      userPoolId: json['user_pool_id'] as String?,
+      userPoolClientId: json['user_pool_client_id'] as String?,
       identityPoolId: json['identity_pool_id'] as String?,
       passwordPolicy: json['password_policy'] == null
           ? null
@@ -45,8 +45,6 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => AuthOutputs(
 Map<String, dynamic> _$AuthOutputsToJson(AuthOutputs instance) {
   final val = <String, dynamic>{
     'aws_region': instance.awsRegion,
-    'user_pool_id': instance.userPoolId,
-    'user_pool_client_id': instance.userPoolClientId,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -55,6 +53,8 @@ Map<String, dynamic> _$AuthOutputsToJson(AuthOutputs instance) {
     }
   }
 
+  writeNotNull('user_pool_id', instance.userPoolId);
+  writeNotNull('user_pool_client_id', instance.userPoolClientId);
   writeNotNull('identity_pool_id', instance.identityPoolId);
   writeNotNull('password_policy', instance.passwordPolicy?.toJson());
   writeNotNull('oauth', instance.oauth?.toJson());

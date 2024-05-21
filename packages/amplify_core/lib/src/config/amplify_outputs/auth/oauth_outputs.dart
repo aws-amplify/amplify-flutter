@@ -1,15 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart' hide SocialProvider;
-import 'package:amplify_core/src/config/amplify_outputs/auth/identity_provider.dart';
-import 'package:amplify_core/src/config/amplify_outputs/auth/response_type.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 part 'oauth_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.oauth_outputs}
-/// The oauth outputs used by Auth category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 outputs for oauth.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class OAuthOutputs
@@ -42,8 +39,8 @@ class OAuthOutputs
   /// URIs used to redirect after signing out.
   final List<String> redirectSignOutUri;
 
-  /// {@macro amplify_core.amplify_outputs.response_type}
-  final ResponseType responseType;
+  /// {@macro amplify_core.amplify_outputs.oauth_response_type}
+  final OAuthResponseType responseType;
 
   @override
   List<Object?> get props => [

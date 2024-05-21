@@ -4,8 +4,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// {@template amplify_core.amplify_outputs.maf_method}
-/// The MFA method of Amazon Cognito User Pool for
-/// sending the authorization code.
+/// The MFA method of Amazon Cognito User Pool.
 /// {@endtemplate}
 enum MfaMethod {
   @JsonValue('SMS')

@@ -3,7 +3,7 @@
 
 // GENERATED FILE. DO NOT MODIFY BY HAND.
 
-// It uses json-schema-faker to generate a sample json from the Amplify CLI GEN2 client-config-schema.
+// It uses json-schema-faker to generate a sample json from the Amplify GEN 2 client-config-schema.
 // Run below commands to regenerate a sample json.
 // curl https://raw.githubusercontent.com/aws-amplify/amplify-backend/main/packages/client-config/src/client-config-schema/schema_v1.json -o schema_v1.json
 // npx json-schema-faker -s schema_v1.json -o sample.json --alwaysFakeOptionals

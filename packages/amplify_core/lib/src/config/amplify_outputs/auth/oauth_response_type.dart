@@ -3,10 +3,10 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-/// {@template amplify_core.amplify_outputs.response_type}
+/// {@template amplify_core.amplify_outputs.oauth_response_type}
 /// The response type for identity providers set on Amazon Cognito.
 /// {@endtemplate}
-enum ResponseType {
+enum OAuthResponseType {
   @JsonValue('code')
   code,
 

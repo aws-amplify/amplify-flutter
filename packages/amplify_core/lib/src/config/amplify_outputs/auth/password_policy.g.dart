@@ -11,10 +11,10 @@ part of 'password_policy.dart';
 PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
     PasswordPolicy(
       minLength: json['min_length'] as int?,
-      requireNumbers: json['require_numbers'] as bool?,
-      requireLowercase: json['require_lowercase'] as bool?,
-      requireUppercase: json['require_uppercase'] as bool?,
-      requireSymbols: json['require_symbols'] as bool?,
+      requireNumbers: json['require_numbers'] as bool? ?? false,
+      requireLowercase: json['require_lowercase'] as bool? ?? false,
+      requireUppercase: json['require_uppercase'] as bool? ?? false,
+      requireSymbols: json['require_symbols'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PasswordPolicyToJson(PasswordPolicy instance) {
@@ -27,9 +27,9 @@ Map<String, dynamic> _$PasswordPolicyToJson(PasswordPolicy instance) {
   }
 
   writeNotNull('min_length', instance.minLength);
-  writeNotNull('require_numbers', instance.requireNumbers);
-  writeNotNull('require_lowercase', instance.requireLowercase);
-  writeNotNull('require_uppercase', instance.requireUppercase);
-  writeNotNull('require_symbols', instance.requireSymbols);
+  val['require_numbers'] = instance.requireNumbers;
+  val['require_lowercase'] = instance.requireLowercase;
+  val['require_uppercase'] = instance.requireUppercase;
+  val['require_symbols'] = instance.requireSymbols;
   return val;
 }

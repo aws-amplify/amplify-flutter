@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/config/amplify_outputs/analytics/amazon_pinpoint.dart';
 
 part 'analytics_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.analytics_outputs}
-/// The analytics outputs used by Analytics category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 output for Analytics category.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class AnalyticsOutputs
@@ -20,7 +18,7 @@ class AnalyticsOutputs
       _$AnalyticsOutputsFromJson(json);
 
   /// {@macro amplify_core.amplify_outputs.amazon_pinpoint}
-  final AmazonPinpoint? amazonPinpoint;
+  final AmazonPinpointOutputs? amazonPinpoint;
 
   @override
   List<Object?> get props => [amazonPinpoint];

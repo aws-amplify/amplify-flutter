@@ -6,8 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 part 'data_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.data_outputs}
-/// The data outputs used by API GraphQL category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 outputs for API GraphQL category.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class DataOutputs

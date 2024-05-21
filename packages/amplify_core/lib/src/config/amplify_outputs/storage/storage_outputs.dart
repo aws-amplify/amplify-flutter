@@ -6,8 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 part 'storage_outputs.g.dart';
 
 /// {@template amplify_core.amplify_outputs.storage_outputs}
-/// The storage outputs used by Storage category plugin
-/// to communicate with backend services.
+/// The Amplify Gen 2 outputs for Storage category.
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class StorageOutputs

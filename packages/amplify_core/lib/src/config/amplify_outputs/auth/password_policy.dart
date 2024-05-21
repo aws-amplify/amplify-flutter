@@ -14,10 +14,10 @@ class PasswordPolicy
   /// {@macro amplify_core.amplify_outputs.password_policy}
   const PasswordPolicy({
     this.minLength,
-    this.requireNumbers,
-    this.requireLowercase,
-    this.requireUppercase,
-    this.requireSymbols,
+    this.requireNumbers = false,
+    this.requireLowercase = false,
+    this.requireUppercase = false,
+    this.requireSymbols = false,
   });
 
   factory PasswordPolicy.fromJson(Map<String, Object?> json) =>
@@ -27,16 +27,16 @@ class PasswordPolicy
   final int? minLength;
 
   /// Requires numbers.
-  final bool? requireNumbers;
+  final bool requireNumbers;
 
   /// Requires lower case.
-  final bool? requireLowercase;
+  final bool requireLowercase;
 
   /// Requires upper case.
-  final bool? requireUppercase;
+  final bool requireUppercase;
 
   /// Requires symbols.
-  final bool? requireSymbols;
+  final bool requireSymbols;
 
   @override
   List<Object?> get props => [
