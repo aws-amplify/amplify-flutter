@@ -42,7 +42,10 @@ public class CognitoPlugin: AuthCategoryPlugin {
     
     // TODO: Migrate to Async Swift v2
     public func getCurrentUser() async throws -> any AuthUser {
-        return currentUser!
+        guard let user = currentUser else {
+            throw FlutterError(code: "NO_CURRENT_USER", message: "No current user is signed in.", details: nil)
+        }
+        return user
     }
     
     public func signUp(username: String, password: String?, options: AuthSignUpRequest.Options?) async throws -> AuthSignUpResult {
