@@ -28,33 +28,6 @@ public class CognitoPlugin: AuthCategoryPlugin {
         // TODO: reset plugin -- used for testing
     }
     
-// TODO: Migrate to Async Swift v2
-//    public func fetchAuthSession(
-//        options: AuthFetchSessionRequest.Options?,
-//        listener: ((AmplifyOperation<AuthFetchSessionRequest,
-//                        AuthSession,
-//                        AuthError>.OperationResult)
-//                  -> Void)?
-//    ) -> AuthFetchSessionOperation {
-//        let operation = NativeAuthFetchSessionOperation(
-//            categoryType: .auth,
-//            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
-//            request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
-//            resultListener: listener
-//        )
-//        DispatchQueue.main.async {
-//            self.nativeAuthPlugin.fetchAuthSession { session in
-//                let result = NativeAWSAuthCognitoSession(from: session)
-//                operation.dispatch(result: .success(result))
-//            }
-//        }
-//        return operation
-//    }
-//
-//    public func getCurrentUser() -> AuthUser? {
-//        return currentUser
-//    }
-    
     // TODO: Mirgrate to Async Swift v2
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
         await withCheckedContinuation { continuation in
