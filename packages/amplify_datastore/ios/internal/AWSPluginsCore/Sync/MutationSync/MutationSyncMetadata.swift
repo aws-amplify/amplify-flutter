@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 public struct MutationSyncMetadata: Model {
     /// Alias of MutationSyncMetadata's identifier, which has the format of `{modelName}|{modelId}`

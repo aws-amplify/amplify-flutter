@@ -5,9 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Dispatch
-import AWSPluginsCore
 
 extension MutationEvent {
     // Consecutive operations that modify a model results in a sequence of pending mutation events that

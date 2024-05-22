@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 /// A simple implementation of a stopwatch used for gathering metrics of elapsed time.
 class Stopwatch {

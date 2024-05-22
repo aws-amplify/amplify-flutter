@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 public class AWSAuthService: AWSAuthServiceBehavior {
 
