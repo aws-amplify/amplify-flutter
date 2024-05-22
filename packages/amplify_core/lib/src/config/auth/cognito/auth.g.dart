@@ -17,12 +17,12 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$SocialProviderEnumMap, e))
           .toList(),
       usernameAttributes: (json['usernameAttributes'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          ?.map((e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+              .fromJson(e as String))
           .toList(),
       signupAttributes: (json['signupAttributes'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          ?.map((e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+              .fromJson(e as String))
           .toList(),
       passwordProtectionSettings: json['passwordProtectionSettings'] == null
           ? null
@@ -34,8 +34,8 @@ CognitoAuthConfig _$CognitoAuthConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
           .toList(),
       verificationMechanisms: (json['verificationMechanisms'] as List<dynamic>?)
-          ?.map((e) =>
-              const CognitoUserAttributeKeyConverter().fromJson(e as String))
+          ?.map((e) => const CognitoUserAttributeKeyToUpperCaseConverter()
+              .fromJson(e as String))
           .toList(),
     );
 
@@ -57,12 +57,12 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
   writeNotNull(
       'usernameAttributes',
       instance.usernameAttributes
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
           .toList());
   writeNotNull(
       'signupAttributes',
       instance.signupAttributes
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
           .toList());
   writeNotNull('passwordProtectionSettings',
       instance.passwordProtectionSettings?.toJson());
@@ -73,7 +73,7 @@ Map<String, dynamic> _$CognitoAuthConfigToJson(CognitoAuthConfig instance) {
   writeNotNull(
       'verificationMechanisms',
       instance.verificationMechanisms
-          ?.map(const CognitoUserAttributeKeyConverter().toJson)
+          ?.map(const CognitoUserAttributeKeyToUpperCaseConverter().toJson)
           .toList());
   return val;
 }
