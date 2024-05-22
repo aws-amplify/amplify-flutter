@@ -3,12 +3,9 @@
 
 import Flutter
 import UIKit
-import Amplify
-import AWSDataStorePlugin
-import AWSPluginsCore
 import Combine
 
-public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
+public class AmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
     private let bridge: DataStoreBridge
     private let modelSchemaRegistry: FlutterSchemaRegistry
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
@@ -41,7 +38,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let binaryMessenger = registrar.messenger()
-        let instance = SwiftAmplifyDataStorePlugin(binaryMessenger: binaryMessenger)
+        let instance = AmplifyDataStorePlugin(binaryMessenger: binaryMessenger)
         let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: binaryMessenger)
         let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: binaryMessenger)
         instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: binaryMessenger)
