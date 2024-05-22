@@ -87,6 +87,12 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     ),
   ];
 
+  final _importsToRemove = [
+    'import Amplify',
+    'import AWSPluginsCore',
+    'import AWSDataStorePlugin',
+  ];
+
   /// Downloads Amplify Swift from GitHub into a temporary directory.
   Future<Directory> _downloadRepository() => _cloneMemo.runOnce(() async {
         final cloneDir =
@@ -183,6 +189,27 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       ..info('Copying plugin files for ${plugin.name}...')
       ..verbose('From $remotePluginDir to $outputDir');
     await copyPath(remotePluginDir.path, outputDir.path);
+
+    // Replace the `import` statements in the plugin files.
+    await _replaceImports(outputDir);
+  }
+
+  /// Find and replaces the `import` statements in the plugin files.
+  Future<void> _replaceImports(Directory pluginDir) async {
+    logger.info('Replacing import statements in ${pluginDir.path}...');
+    final files = await pluginDir.list(recursive: true).toList();
+    for (final file in files) {
+      // Only process Swift files.
+      if (file is! File || !file.path.endsWith('.swift')) {
+        continue;
+      }
+      final contents = await file.readAsString();
+      // remove the list of import statement for Amplify including line breaks
+      final newContents = contents.split('\n').where((line) {
+        return !_importsToRemove.any((import) => line.contains(import));
+      }).join('\n');
+      await file.writeAsString(newContents);
+    }
   }
 
   Future<void> checkDiff(PluginConfig plugin) async {
