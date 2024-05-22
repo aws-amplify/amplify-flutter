@@ -664,7 +664,7 @@
       this._message = t0;
     },
     CodeUnits: function CodeUnits(t0) {
-      this._string = t0;
+      this.__internal$_string = t0;
     },
     SentinelValue: function SentinelValue() {
     },
@@ -1806,7 +1806,7 @@
     },
     stringReplaceAllFuncUnchecked(receiver, pattern, onMatch, onNonMatch) {
       var t1, t2, startIndex, t3, match, t4, t5;
-      for (t1 = pattern.allMatches$1(0, receiver), t1 = new A._AllMatchesIterator(t1._re, t1.__js_helper$_string, t1.__js_helper$_start), t2 = type$.RegExpMatch, startIndex = 0, t3 = ""; t1.moveNext$0();) {
+      for (t1 = pattern.allMatches$1(0, receiver), t1 = new A._AllMatchesIterator(t1._re, t1._string, t1.__js_helper$_start), t2 = type$.RegExpMatch, startIndex = 0, t3 = ""; t1.moveNext$0();) {
         match = t1.__js_helper$_current;
         if (match == null)
           match = t2._as(match);
@@ -1978,13 +1978,13 @@
     },
     _AllMatchesIterable: function _AllMatchesIterable(t0, t1, t2) {
       this._re = t0;
-      this.__js_helper$_string = t1;
+      this._string = t1;
       this.__js_helper$_start = t2;
     },
     _AllMatchesIterator: function _AllMatchesIterator(t0, t1, t2) {
       var _ = this;
       _._regExp = t0;
-      _.__js_helper$_string = t1;
+      _._string = t1;
       _._nextIndex = t2;
       _.__js_helper$_current = null;
     },
@@ -7389,7 +7389,7 @@
               break;
             case 9:
               // else
-              $async$result = iosVersion;
+              $async$result = "iOS " + iosVersion;
             case 8:
               // join
               $async$goto = 6;
@@ -7468,7 +7468,7 @@
     getLatest() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.String),
-        $async$returnValue, version;
+        $async$returnValue, t1, t2, version;
       var $async$getLatest = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -7483,7 +7483,9 @@
               version = $async$result;
               if (version.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not get latest version"));
-              $async$returnValue = version.stdout;
+              t1 = version.stdout;
+              t2 = A.RegExp_RegExp("\\\\n", false);
+              $async$returnValue = A.stringReplaceAllUnchecked(t1, t2, "");
               // goto return
               $async$goto = 1;
               break;
@@ -8414,10 +8416,10 @@
   };
   A.CodeUnits.prototype = {
     get$length(_) {
-      return this._string.length;
+      return this.__internal$_string.length;
     },
     $index(_, i) {
-      var t1 = this._string;
+      var t1 = this.__internal$_string;
       if (!(i >= 0 && i < t1.length))
         return A.ioore(t1, i);
       return t1.charCodeAt(i);
@@ -9447,7 +9449,7 @@
   };
   A._AllMatchesIterable.prototype = {
     get$iterator(_) {
-      return new A._AllMatchesIterator(this._re, this.__js_helper$_string, this.__js_helper$_start);
+      return new A._AllMatchesIterator(this._re, this._string, this.__js_helper$_start);
     }
   };
   A._AllMatchesIterator.prototype = {
@@ -9457,7 +9459,7 @@
     },
     moveNext$0() {
       var t1, t2, t3, match, nextIndex, _this = this,
-        string = _this.__js_helper$_string;
+        string = _this._string;
       if (string == null)
         return false;
       t1 = _this._nextIndex;
@@ -9493,7 +9495,7 @@
           return true;
         }
       }
-      _this.__js_helper$_string = _this.__js_helper$_current = null;
+      _this._string = _this.__js_helper$_current = null;
       return false;
     },
     $isIterator: 1
@@ -12898,7 +12900,7 @@
         start = 0;
         previous = null;
       }
-      for (t2 = new A.CodeUnits(path)._string, t3 = t2.length, i = start, previousPrevious = null; i < t3; ++i, previousPrevious = previous, previous = codeUnit) {
+      for (t2 = new A.CodeUnits(path).__internal$_string, t3 = t2.length, i = start, previousPrevious = null; i < t3; ++i, previousPrevious = previous, previous = codeUnit) {
         if (!(i >= 0))
           return A.ioore(t2, i);
         codeUnit = t2.charCodeAt(i);
@@ -15067,7 +15069,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "sudo", A._setArrayType(["xcodes", "runtimes", "install", "iOS " + $async$self.iosVersion, "--no-color"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "sudo", A._setArrayType(["xcodes", "runtimes", "install", $async$self.iosVersion, "--no-color"], type$.JSArray_String), true), $async$call$0);
             case 2:
               // returning from await.
               if ($async$result.exitCode !== 0)
