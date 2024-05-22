@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
+import Flutter
 
 class FlutterDataStoreErrorHandler {
     static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult) {

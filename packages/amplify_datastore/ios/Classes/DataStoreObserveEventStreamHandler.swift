@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
+import Flutter
 
 public class DataStoreObserveEventStreamHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?
