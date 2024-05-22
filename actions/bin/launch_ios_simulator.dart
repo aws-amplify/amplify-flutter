@@ -24,7 +24,7 @@ Future<void> launch() async {
     core.info('No runtime found for iOS $iosVersion');
     await installXcodes();
     final versionToUse =
-        iosVersion == 'latest' ? await getLatest() : iosVersion;
+        iosVersion == 'latest' ? await getLatest() : 'iOS $iosVersion';
     await installRuntime(versionToUse);
   }
   runtimeIdentifier = await core.withGroup(
@@ -119,7 +119,7 @@ Future<void> installRuntime(String iosVersion) async {
         'xcodes',
         'runtimes',
         'install',
-        'iOS $iosVersion',
+        iosVersion,
         '--no-color',
       ],
     );
