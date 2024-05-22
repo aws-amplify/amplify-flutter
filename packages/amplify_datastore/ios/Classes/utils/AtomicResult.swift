@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
+import Flutter
 
 // swiftlint:disable identifier_name type_name
 
