@@ -81,7 +81,7 @@ Future<String?> getRuntimeId(String iosVersion) async {
   final runtimes =
       (runtimesJson['runtimes'] as List<Object?>).cast<Map<String, Object?>>();
   final versionRuntime = runtimes.firstWhereOrNull(
-    (runtime) => (runtime['name'] as String).startsWith('iOS $iosVersion'),
+    (runtime) => (runtime['name'] as String).startsWith(iosVersion),
   );
   if (versionRuntime == null) {
     return null;

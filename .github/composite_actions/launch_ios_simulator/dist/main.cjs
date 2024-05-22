@@ -7345,7 +7345,7 @@
     launch$body() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t4, runtimeIdentifier, t1, t2, t3, inputValue, iosVersion, $async$temp1;
+        t4, runtimeIdentifier, t1, t2, t3, inputValue, iosVersionArg, iosVersion;
       var $async$launch = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -7357,46 +7357,46 @@
               t2 = self;
               t3 = type$.JSObject;
               inputValue = A._asString(t3._as(t2.core).getInput("ios-version"));
-              iosVersion = inputValue.length === 0 ? "" : inputValue;
+              iosVersionArg = inputValue.length === 0 ? "" : inputValue;
+              $async$goto = iosVersionArg === "latest" ? 2 : 4;
+              break;
+            case 2:
+              // then
+              $async$goto = 5;
+              return A._asyncAwait(A.getLatest(), $async$launch);
+            case 5:
+              // returning from await.
+              // goto join
+              $async$goto = 3;
+              break;
+            case 4:
+              // else
+              $async$result = "iOS " + iosVersionArg;
+            case 3:
+              // join
+              iosVersion = $async$result;
               t3._as(t2.core).info("Launching simulator for iOS " + iosVersion);
               t4 = type$.nullable_String;
-              $async$goto = 2;
+              $async$goto = 6;
               return A._asyncAwait(A.Core_withGroup(t3._as(t2.core), "Check for existing runtime", new A.launch_closure(iosVersion), t4), $async$launch);
-            case 2:
+            case 6:
               // returning from await.
               runtimeIdentifier = $async$result;
               t1.runtimeIdentifier = runtimeIdentifier;
-              $async$goto = runtimeIdentifier == null ? 3 : 4;
-              break;
-            case 3:
-              // then
-              t3._as(t2.core).info("No runtime found for iOS " + iosVersion);
-              $async$goto = 5;
-              return A._asyncAwait(A.installXcodes(), $async$launch);
-            case 5:
-              // returning from await.
-              $async$temp1 = A;
-              $async$goto = iosVersion === "latest" ? 7 : 9;
+              $async$goto = runtimeIdentifier == null ? 7 : 8;
               break;
             case 7:
               // then
+              t3._as(t2.core).info("No runtime found for iOS " + iosVersion);
+              $async$goto = 9;
+              return A._asyncAwait(A.installXcodes(), $async$launch);
+            case 9:
+              // returning from await.
               $async$goto = 10;
-              return A._asyncAwait(A.getLatest(), $async$launch);
+              return A._asyncAwait(A.installRuntime(iosVersion), $async$launch);
             case 10:
               // returning from await.
-              // goto join
-              $async$goto = 8;
-              break;
-            case 9:
-              // else
-              $async$result = "iOS " + iosVersion;
             case 8:
-              // join
-              $async$goto = 6;
-              return A._asyncAwait($async$temp1.installRuntime($async$result), $async$launch);
-            case 6:
-              // returning from await.
-            case 4:
               // join
               $async$goto = 11;
               return A._asyncAwait(A.Core_withGroup(t3._as(t2.core), "Get runtime ID", new A.launch_closure0(iosVersion), t4), $async$launch);
@@ -15027,7 +15027,7 @@
   };
   A.getRuntimeId_closure.prototype = {
     call$1(runtime) {
-      return B.JSString_methods.startsWith$1(A._asString(type$.Map_of_String_and_nullable_Object._as(runtime).$index(0, "name")), "iOS " + this.iosVersion);
+      return B.JSString_methods.startsWith$1(A._asString(type$.Map_of_String_and_nullable_Object._as(runtime).$index(0, "name")), this.iosVersion);
     },
     $signature: 52
   };
