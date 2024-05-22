@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 import Combine
 
 /// `DataStoreList<ModelType>` is a DataStore-aware custom `Collection` that is capable of loading

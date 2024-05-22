@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import Combine
 
 public typealias WeakAmplifyAsyncThrowingSequenceRef<Element> = WeakRef<AmplifyAsyncThrowingSequence<Element>>
 
 public class AmplifyAsyncThrowingSequence<Element: Sendable>: AsyncSequence, Cancellable {
     public typealias Iterator = AsyncThrowingStream<Element, Error>.Iterator
-    private var asyncStream: AsyncThrowingStream<Element, Error>! = nil
-    private var continuation: AsyncThrowingStream<Element, Error>.Continuation! = nil
+    private let asyncStream: AsyncThrowingStream<Element, Error>
+    private let continuation: AsyncThrowingStream<Element, Error>.Continuation
     private var parent: Cancellable?
 
     public private(set) var isCancelled: Bool = false
@@ -21,9 +20,7 @@ public class AmplifyAsyncThrowingSequence<Element: Sendable>: AsyncSequence, Can
     public init(parent: Cancellable? = nil,
                 bufferingPolicy: AsyncThrowingStream<Element, Error>.Continuation.BufferingPolicy = .unbounded) {
         self.parent = parent
-        asyncStream = AsyncThrowingStream(Element.self, bufferingPolicy: bufferingPolicy, { continuation in
-            self.continuation = continuation
-        })
+        (asyncStream, continuation) = AsyncThrowingStream.makeStream(of: Element.self, bufferingPolicy: bufferingPolicy)
     }
 
     public func makeAsyncIterator() -> Iterator {

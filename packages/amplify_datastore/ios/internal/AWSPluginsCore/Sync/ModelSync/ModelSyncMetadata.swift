@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 public struct ModelSyncMetadata: Model {
     /// The id of the ModelSyncMetada record is the name of the model being synced

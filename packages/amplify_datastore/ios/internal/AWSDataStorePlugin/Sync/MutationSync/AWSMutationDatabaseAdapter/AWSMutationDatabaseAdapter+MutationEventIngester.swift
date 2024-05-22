@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-@_spi(OptionalExtension) import Amplify
 import Combine
 import Foundation
 

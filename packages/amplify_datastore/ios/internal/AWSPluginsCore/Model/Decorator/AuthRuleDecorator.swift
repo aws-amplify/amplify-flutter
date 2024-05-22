@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 public typealias IdentityClaimsDictionary = [String: AnyObject]
 

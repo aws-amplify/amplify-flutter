@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 extension AWSDataStorePlugin: DefaultLogger {
     public static var log: Logger {

@@ -5,9 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
-import AWSPluginsCore
 
 /// Error Handler function typealias
 public typealias DataStoreErrorHandler = (AmplifyError) -> Void

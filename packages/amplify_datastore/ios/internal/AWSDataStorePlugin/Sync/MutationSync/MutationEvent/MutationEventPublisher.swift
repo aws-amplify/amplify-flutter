@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Combine
 
 /// Publishes mutation events to downstream subscribers for subsequent sync to the API.
