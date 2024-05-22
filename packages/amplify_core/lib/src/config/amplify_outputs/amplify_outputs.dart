@@ -2,6 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
+import 'package:meta/meta.dart';
 
 part 'amplify_outputs.g.dart';
 
@@ -13,6 +19,7 @@ part 'amplify_outputs.g.dart';
 class AmplifyOutputs
     with AWSEquatable<AmplifyOutputs>, AWSSerializable, AWSDebuggable {
   /// {@macro amplify_core.amplify_outputs}
+  @internal
   const AmplifyOutputs({
     this.schema,
     required this.version,

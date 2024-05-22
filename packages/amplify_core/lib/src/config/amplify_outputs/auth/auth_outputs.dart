@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 
 part 'auth_outputs.g.dart';
 

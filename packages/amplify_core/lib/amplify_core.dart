@@ -19,18 +19,6 @@ export 'src/category/amplify_categories.dart';
 /// Config
 export 'src/config/amplify_config.dart';
 export 'src/config/amplify_outputs/amplify_outputs.dart';
-export 'src/config/amplify_outputs/analytics/amazon_pinpoint_outputs.dart';
-export 'src/config/amplify_outputs/analytics/analytics_outputs.dart';
-export 'src/config/amplify_outputs/auth/auth_outputs.dart';
-export 'src/config/amplify_outputs/auth/identity_provider.dart';
-export 'src/config/amplify_outputs/auth/mfa.dart';
-export 'src/config/amplify_outputs/auth/oauth_outputs.dart';
-export 'src/config/amplify_outputs/auth/oauth_response_type.dart';
-export 'src/config/amplify_outputs/auth/password_policy.dart';
-export 'src/config/amplify_outputs/data/data_outputs.dart';
-export 'src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
-export 'src/config/amplify_outputs/notifications/notifications_outputs.dart';
-export 'src/config/amplify_outputs/storage/storage_outputs.dart';
 export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;
 export 'src/config/amplify_plugin_registry.dart';
 export 'src/config/analytics/analytics_config.dart';

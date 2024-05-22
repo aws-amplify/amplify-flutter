@@ -3,7 +3,7 @@
 
 import 'dart:convert';
 
-import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/amplify_outputs.dart';
 import 'package:test/test.dart';
 
 import 'test_data.dart';

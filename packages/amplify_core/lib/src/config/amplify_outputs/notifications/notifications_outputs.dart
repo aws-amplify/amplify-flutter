@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
 
 part 'notifications_outputs.g.dart';
 
