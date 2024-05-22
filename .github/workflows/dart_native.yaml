@@ -20,7 +20,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
+          # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
+          - macos-14
           - windows-latest
     runs-on: ${{ matrix.os }}
     steps:
