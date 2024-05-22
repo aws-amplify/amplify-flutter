@@ -107,7 +107,7 @@ Future<String> getLatest() async {
   if (version.exitCode != 0) {
     throw Exception('Could not get latest version');
   }
-  return version.stdout.trim();
+  return version.stdout.replaceAll(RegExp(r'\\n'), '');
 }
 
 /// Installs the iOS runtime for the given [iosVersion].
