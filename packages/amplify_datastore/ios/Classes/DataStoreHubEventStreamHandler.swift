@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AWSDataStorePlugin
 
 public class DataStoreHubEventStreamHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?

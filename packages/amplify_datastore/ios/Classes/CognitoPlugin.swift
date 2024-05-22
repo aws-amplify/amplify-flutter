@@ -3,8 +3,6 @@
 
 import Flutter
 import UIKit
-import Amplify
-import AWSPluginsCore
 
 extension NativeAuthUser: AuthUser { }
 
