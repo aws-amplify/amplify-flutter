@@ -9,7 +9,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'auth.g.dart';
 
 @zAmplifySerializable
-@CognitoUserAttributeKeyConverter()
+@CognitoUserAttributeKeyToUpperCaseConverter()
 class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
   const CognitoAuthConfig({
     this.oAuth,
