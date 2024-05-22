@@ -7,8 +7,6 @@
 
 
 import XCTest
-@testable import Amplify
-@testable import AWSPluginsCore
 @testable import amplify_datastore
 
 class GraphQLResponseDecodeTests: XCTestCase {

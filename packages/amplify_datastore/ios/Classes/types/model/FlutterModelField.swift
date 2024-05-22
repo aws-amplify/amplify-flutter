@@ -3,7 +3,6 @@
 
 import Flutter
 import Foundation
-import Amplify
 
 public struct FlutterModelField {
     public let name: String
