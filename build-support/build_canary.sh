@@ -10,7 +10,7 @@ cd $PROJECT_DIR
 # generate
 flutter create --project-name=amplified_todo .
 flutter pub add amplify_flutter \
-  amplify_datastore:^1.0.0-supports-only-mobile.0 \
+  amplify_datastore:^2.0.0-supports-only-mobile.0 \
   amplify_storage_s3 \
   amplify_analytics_pinpoint \
   amplify_auth_cognito \
