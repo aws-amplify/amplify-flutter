@@ -107,9 +107,8 @@ Future<String> getLatest() async {
   if (version.exitCode != 0) {
     throw Exception('Could not get latest version');
   }
-  final regex = RegExp(r'(iOS \d+\.\d+)');
-  final trimmed = regex.firstMatch(version.stdout);
-  return '"$trimmed"';
+
+  return version.stdout.replaceAll(' (Installed)', '').trim();
 }
 
 /// Installs the iOS runtime for the given [iosVersion].
