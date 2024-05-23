@@ -36,6 +36,7 @@ id '\''kotlin-parcelize'\''' ./android/app/build.gradle
 sed -i '' -e "s/compileSdk .*/compileSdk = 34/" ./android/app/build.gradle
 sed -i '' -e "s/sourceCompatibility .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
+sed -i '' -e '/compileOptions {/{:a;N;/}/{s/\n/&kotlinOptions {\n    jvmTarget = '\''17'\''\n}\n/;b};ba}' ./android/app/build.gradle
 cat ./android/app/build.gradle
 
 sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.1-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
