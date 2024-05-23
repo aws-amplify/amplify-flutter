@@ -12,7 +12,7 @@ Future<void> launch() async {
   final iosVersionArg = core.getInput('ios-version');
   final iosVersion =
       iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
-  core.info('Launching simulator for iOS $iosVersion');
+  core.info('Launching simulator for $iosVersion');
 
   var runtimeIdentifier = await core.withGroup(
     'Check for existing runtime',
@@ -23,7 +23,7 @@ Future<void> launch() async {
     },
   );
   if (runtimeIdentifier == null) {
-    core.info('No runtime found for iOS $iosVersion');
+    core.info('No runtime found for $iosVersion');
     await installXcodes();
     await installRuntime(iosVersion);
   }
