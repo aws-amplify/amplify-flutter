@@ -36,7 +36,7 @@ id '\''kotlin-parcelize'\''' ./android/app/build.gradle
 sed -i '' -e "s/compileSdk .*/compileSdk = 34/" ./android/app/build.gradle
 sed -i '' -e "s/sourceCompatibility .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
-# Update the existing `kotlinOptions` block if it exists
+# TODO(equartey): remove this line after the next stable release (3.22.0 or 4.0)
 sed -i '' -e '/kotlinOptions {/,/}/ s/jvmTarget = .*/jvmTarget = '\''17'\''/' ./android/app/build.gradle
 cat ./android/app/build.gradle
 
