@@ -36,10 +36,8 @@ id '\''kotlin-parcelize'\''' ./android/app/build.gradle
 sed -i '' -e "s/compileSdk .*/compileSdk = 34/" ./android/app/build.gradle
 sed -i '' -e "s/sourceCompatibility .*/sourceCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
 sed -i '' -e "s/targetCompatibility .*/targetCompatibility = JavaVersion.VERSION_17/" ./android/app/build.gradle
-sed -i '' -e '/targetCompatibility = JavaVersion.VERSION_17/a\
-    kotlinOptions {\
-        jvmTarget = '\''17'\''\
-    }' ./android/app/build.gradle
+# Update the existing `kotlinOptions` block if it exists
+sed -i '' -e '/kotlinOptions {/,/}/ s/jvmTarget = .*/jvmTarget = '\''17'\''/' ./android/app/build.gradle
 cat ./android/app/build.gradle
 
 sed -i '' -e "s#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.1-all.zip#" ./android/gradle/wrapper/gradle-wrapper.properties
@@ -50,4 +48,4 @@ sed -i '' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile
 cat ./ios/Podfile
 pod repo update
 
-flutter build $@
+fvm flutter build $@
