@@ -48,4 +48,4 @@ sed -i '' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile
 cat ./ios/Podfile
 pod repo update
 
-fvm flutter build $@
+flutter build $@
