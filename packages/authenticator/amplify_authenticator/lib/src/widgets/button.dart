@@ -53,7 +53,7 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   final focusNode = FocusNode();
 
   late final ValueChanged<bool> focusChanged =
-      updateMaterialState(MaterialState.focused);
+      updateMaterialState(WidgetState.focused);
 
   @override
   void initState() {
