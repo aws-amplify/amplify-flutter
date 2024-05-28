@@ -63,8 +63,7 @@ extension DataStoreError: AmplifyError {
         case .invalidDatabase(let path, _):
             return "Make sure the path \(path) is valid and the device has available storage space."
         case .invalidModelName(let modelName):
-            // TODO: Is this the right command to run to generate models?
-            return "Make sure the model named '\(modelName)' is registered by running `amplify codegen`"
+            return "Make sure the model named '\(modelName)' is registered by running `amplify codegen models`"
         case .invalidOperation(let causedBy):
             return causedBy?.localizedDescription ?? ""
         case .nonUniqueResult:

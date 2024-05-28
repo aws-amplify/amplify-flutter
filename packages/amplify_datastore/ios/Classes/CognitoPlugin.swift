@@ -24,11 +24,8 @@ public class CognitoPlugin: AuthCategoryPlugin {
     
     public func configure(using configuration: Any?) throws {}
     
-    public func reset() async {
-        // TODO: reset plugin -- used for testing
-    }
+    public func reset() async {}
     
-    // TODO: Mirgrate to Async Swift v2
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {
@@ -40,7 +37,6 @@ public class CognitoPlugin: AuthCategoryPlugin {
         }
     }
     
-    // TODO: Migrate to Async Swift v2
     public func getCurrentUser() async throws -> any AuthUser {
         guard let user = currentUser else {
             throw FlutterError(code: "NO_CURRENT_USER", message: "No current user is signed in.", details: nil)

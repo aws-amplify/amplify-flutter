@@ -85,15 +85,10 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
-    // TODO: Mirgrate to Async Swift v2
-    func getLatestAuthToken() async throws -> String {
-        preconditionFailure("method not supported")
-    }
-    
     let flutterAuthProviders: FlutterAuthProviders
     let type: AWSAuthorizationType
-
-//    func getLatestAuthToken() -> Result<String, Error> {
-//        return flutterAuthProviders.getToken(for: type)
-//    }
+    
+    func getLatestAuthToken() async throws -> String {
+        return flutterAuthProviders.getToken(for: type)
+    }
 }
