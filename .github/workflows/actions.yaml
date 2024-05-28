@@ -90,7 +90,7 @@ jobs:
     # since the process of installing new runtimes and building with Xcode can be
     # incredibly slow otherwise.
     # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-    runs-on: macos-14-xl
+    runs-on: macos-14-xlarge
     # Timeout as a stop-gap for further investigating. This action should never need more
     # than 20 minutes to do its work.
     timeout-minutes: 20
