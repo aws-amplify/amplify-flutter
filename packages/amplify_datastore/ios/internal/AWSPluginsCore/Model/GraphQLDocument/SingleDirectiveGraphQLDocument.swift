@@ -8,11 +8,6 @@
 import Amplify
 import Foundation
 
-public enum GraphQLOperationType: String {
-    case mutation
-    case query
-    case subscription
-}
 
 public typealias GraphQLParameterName = String
 
