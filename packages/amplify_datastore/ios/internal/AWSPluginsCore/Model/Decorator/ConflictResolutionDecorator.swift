@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Foundation
 
 /// Adds conflict resolution information onto the document based on the operation type (query or mutation)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 public enum AWSAuthorizationConfiguration {
     case none

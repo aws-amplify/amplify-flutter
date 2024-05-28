@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 public protocol AWSAuthServiceBehavior: AnyObject {
 

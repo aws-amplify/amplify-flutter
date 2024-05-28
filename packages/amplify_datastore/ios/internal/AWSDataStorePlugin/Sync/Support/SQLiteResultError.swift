@@ -7,6 +7,7 @@
 
 import SQLite
 import SQLite3
+import Amplify
 
 /// Checks for specific SQLLite error codes
 /// See https://sqlite.org/rescode.html#primary_result_code_list

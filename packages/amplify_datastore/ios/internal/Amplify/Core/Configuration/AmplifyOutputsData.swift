@@ -189,19 +189,19 @@ public struct AmplifyOutputsData: Codable {
         case address
         case birthdate
         case email
-        case familyName = "family_name"
+        case familyName
         case gender
-        case givenName = "given_name"
+        case givenName
         case locale
-        case middleName = "middle_name"
+        case middleName
         case name
         case nickname
-        case phoneNumber = "phone_number"
+        case phoneNumber
         case picture
-        case preferredUsername = "preferred_username"
+        case preferredUsername
         case profile
         case sub
-        case updatedAt = "updated_at"
+        case updatedAt
         case website
         case zoneinfo
     }

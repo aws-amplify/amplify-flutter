@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Defines the contract for an AuthSession that can vend AWS credentials and store a user ID
 /// (`sub`) for the underlying OIDC-compliant authentication provider such as Cognito user pools.

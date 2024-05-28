@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Helps construct a `SingleDirectiveGraphQLDocument`. Collects instances of the decorators and applies the changes
 /// on the document.

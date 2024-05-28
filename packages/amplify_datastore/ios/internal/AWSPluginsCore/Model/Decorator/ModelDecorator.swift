@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Decorate the GraphQL document with the data from an instance of the model. This is added as a single parameter
 /// called "input" that can be referenced by other decorators to append additional document inputs. This decorator

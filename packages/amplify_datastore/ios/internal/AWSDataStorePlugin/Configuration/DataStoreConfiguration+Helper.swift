@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Amplify
+import AWSPluginsCore
 
 extension DataStoreConfiguration {
 

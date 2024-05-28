@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Custom implementation of Codable for AnyModel stores the instance as its JSON string representation and uses the
 /// ModelRegistry utilities to deserialize it

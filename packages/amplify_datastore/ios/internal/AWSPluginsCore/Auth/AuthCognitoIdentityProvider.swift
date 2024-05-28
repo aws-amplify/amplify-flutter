@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 
 public protocol AuthCognitoIdentityProvider {
     /// Return the most recent Result of fetching the AWS Cognito Identity Pools identity ID

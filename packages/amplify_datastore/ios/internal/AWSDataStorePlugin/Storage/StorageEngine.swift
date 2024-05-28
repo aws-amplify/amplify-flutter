@@ -5,8 +5,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Combine
 import Foundation
+import AWSPluginsCore
 
 typealias StorageEngineBehaviorFactory =
     (Bool,

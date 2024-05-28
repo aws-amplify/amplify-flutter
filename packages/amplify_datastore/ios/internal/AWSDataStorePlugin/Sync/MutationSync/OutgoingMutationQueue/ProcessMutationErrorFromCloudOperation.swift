@@ -5,8 +5,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Combine
 import Foundation
+import AWSPluginsCore
 
 // swiftlint:disable type_body_length file_length
 /// Checks the GraphQL error response for specific error scenarios related to data synchronziation to the local store.
