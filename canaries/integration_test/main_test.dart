@@ -36,7 +36,7 @@ void main() {
   Future<void> performUnauthenticatedActions() async {
     // Upload data to Storage
     await Amplify.Storage.uploadData(
-      data: HttpPayload.string(data),
+      data: StorageDataPayload.string(data),
       path: path,
     ).result;
 
@@ -69,7 +69,7 @@ void main() {
 
     // Upload data to Storage
     await Amplify.Storage.uploadData(
-      data: HttpPayload.string(data),
+      data: StorageDataPayload.string(data),
       path: StoragePath.fromIdentityId(
         (String identityId) => 'private/$identityId/hello',
       ),

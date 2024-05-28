@@ -6,13 +6,13 @@ environment:
   flutter: ">=3.19.0"
 
 dependencies:
-  amplify_analytics_pinpoint: ^1.0.0
-  amplify_api: ^1.0.0
-  amplify_auth_cognito: ^1.0.0
-  amplify_authenticator: ^1.0.0
-  amplify_datastore: ^1.0.0-supports-only-mobile.0
-  amplify_flutter: ^1.0.0
-  amplify_storage_s3: ^1.0.0
+  amplify_analytics_pinpoint: ^2.0.0
+  amplify_api: ^2.0.0
+  amplify_auth_cognito: ^2.0.0
+  amplify_authenticator: ^2.0.0
+  amplify_datastore: ^2.0.0-supports-only-mobile.0
+  amplify_flutter: ^2.0.0
+  amplify_storage_s3: ^2.0.0
   flutter:
     sdk: flutter
 
