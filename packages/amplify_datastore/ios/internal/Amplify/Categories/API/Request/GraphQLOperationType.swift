@@ -6,19 +6,16 @@
 //
 
 /// The type of a GraphQL operation
+public enum GraphQLOperationType {
+    /// A GraphQL Query operation
+    case query
 
-/// TODO(equartey): DO NOT MERGE WITH THIS !!!!
- 
-//public enum GraphQLOperationType {
-//    /// A GraphQL Query operation
-//    case query
-//
-//    /// A GraphQL Mutation operation
-//    case mutation
-//
-//    /// A GraphQL Subscription operation
-//    case subscription
-//}
+    /// A GraphQL Mutation operation
+    case mutation
+
+    /// A GraphQL Subscription operation
+    case subscription
+}
 
 extension GraphQLOperationType: HubPayloadEventNameConvertible {
 
