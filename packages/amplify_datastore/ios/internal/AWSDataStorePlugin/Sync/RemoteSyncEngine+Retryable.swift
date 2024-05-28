@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
 
 /// All methods in this extension must be invoked from workQueue (as in during a `respond` call

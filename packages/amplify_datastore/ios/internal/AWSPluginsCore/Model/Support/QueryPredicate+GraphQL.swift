@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 public typealias GraphQLFilter = [String: Any]
 

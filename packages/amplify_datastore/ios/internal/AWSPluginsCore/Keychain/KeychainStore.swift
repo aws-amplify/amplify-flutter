@@ -76,6 +76,7 @@ public struct KeychainStore: KeychainStoreBehavior {
         var attributes = KeychainStoreAttributes(service: service)
         attributes.accessGroup = accessGroup
         self.init(attributes: attributes)
+        log.verbose("[KeychainStore] Initialized keychain with service=\(service), attributes=\(attributes), accessGroup=\(accessGroup ?? "")")
     }
 
     @_spi(KeychainStore)
@@ -84,12 +85,13 @@ public struct KeychainStore: KeychainStoreBehavior {
     /// - Parameter key: A String key use to look up the value in the Keychain
     /// - Returns: A string value
     public func _getString(_ key: String) throws -> String {
-
+        log.verbose("[KeychainStore] Started retrieving `String` from the store with key=\(key)")
         let data = try _getData(key)
-
         guard let string = String(data: data, encoding: .utf8) else {
+            log.error("[KeychainStore] Unable to create String from Data retrieved")
             throw KeychainStoreError.conversionError("Unable to create String from Data retrieved")
         }
+        log.verbose("[KeychainStore] Successfully retrieved string from the store")
         return string
 
     }
@@ -100,6 +102,7 @@ public struct KeychainStore: KeychainStoreBehavior {
     /// - Parameter key: A String key use to look up the value in the Keychain
     /// - Returns: A data value
     public func _getData(_ key: String) throws -> Data {
+        log.verbose("[KeychainStore] Started retrieving `Data` from the store with key=\(key)")
         var query = attributes.defaultGetQuery()
 
         query[Constants.MatchLimit] = Constants.MatchLimitOne
@@ -113,12 +116,16 @@ public struct KeychainStore: KeychainStoreBehavior {
         switch status {
         case errSecSuccess:
             guard let data = result as? Data else {
+                log.error("[KeychainStore] The keychain item retrieved is not the correct type")
                 throw KeychainStoreError.unknown("The keychain item retrieved is not the correct type")
             }
+            log.verbose("[KeychainStore] Successfully retrieved `Data` from the store with key=\(key)")
             return data
         case errSecItemNotFound:
+            log.verbose("[KeychainStore] No Keychain item found for key=\(key)")
             throw KeychainStoreError.itemNotFound
         default:
+            log.error("[KeychainStore] Error of status=\(status) occurred when attempting to retrieve a Keychain item for key=\(key)")
             throw KeychainStoreError.securityError(status)
         }
     }
@@ -130,10 +137,13 @@ public struct KeychainStore: KeychainStoreBehavior {
     ///   - value: A string value to store in Keychain
     ///   - key: A String key for the value to store in the Keychain
     public func _set(_ value: String, key: String) throws {
+        log.verbose("[KeychainStore] Started setting `String` for key=\(key)")
         guard let data = value.data(using: .utf8, allowLossyConversion: false) else {
+            log.error("[KeychainStore] Unable to create Data from String retrieved for key=\(key)")
             throw KeychainStoreError.conversionError("Unable to create Data from String retrieved")
         }
         try _set(data, key: key)
+        log.verbose("[KeychainStore] Successfully added `String` for key=\(key)")
     }
 
     @_spi(KeychainStore)
@@ -143,34 +153,43 @@ public struct KeychainStore: KeychainStoreBehavior {
     ///   - value: A data value to store in Keychain
     ///   - key: A String key for the value to store in the Keychain
     public func _set(_ value: Data, key: String) throws {
+        log.verbose("[KeychainStore] Started setting `Data` for key=\(key)")
         var getQuery = attributes.defaultGetQuery()
         getQuery[Constants.AttributeAccount] = key
-
+        log.verbose("[KeychainStore] Initialized fetching to decide whether update or add")
         let fetchStatus = SecItemCopyMatching(getQuery as CFDictionary, nil)
         switch fetchStatus {
         case errSecSuccess:
             #if os(macOS)
+            log.verbose("[KeychainStore] Deleting item on MacOS to add an item.")
             SecItemDelete(getQuery as CFDictionary)
             fallthrough
             #else
+            log.verbose("[KeychainStore] Found existing item, updating")
             var attributesToUpdate = [String: Any]()
             attributesToUpdate[Constants.ValueData] = value
 
             let updateStatus = SecItemUpdate(getQuery as CFDictionary, attributesToUpdate as CFDictionary)
             if updateStatus != errSecSuccess {
+                log.error("[KeychainStore] Error updating item to keychain with status=\(updateStatus)")
                 throw KeychainStoreError.securityError(updateStatus)
             }
+            log.verbose("[KeychainStore] Successfully updated `String` in keychain for key=\(key)")
             #endif
         case errSecItemNotFound:
+            log.verbose("[KeychainStore] Unable to find an existing item, creating new item")
             var attributesToSet = attributes.defaultSetQuery()
             attributesToSet[Constants.AttributeAccount] = key
             attributesToSet[Constants.ValueData] = value
 
             let addStatus = SecItemAdd(attributesToSet as CFDictionary, nil)
             if addStatus != errSecSuccess {
+                log.error("[KeychainStore] Error adding item to keychain with status=\(addStatus)")
                 throw KeychainStoreError.securityError(addStatus)
             }
+            log.verbose("[KeychainStore] Successfully added `String` in keychain for key=\(key)")
         default:
+            log.error("[KeychainStore] Error occurred while retrieving data from keychain when deciding to update or add with status=\(fetchStatus)")
             throw KeychainStoreError.securityError(fetchStatus)
         }
     }
@@ -180,19 +199,23 @@ public struct KeychainStore: KeychainStoreBehavior {
     /// This System Programming Interface (SPI) may have breaking changes in future updates.
     /// - Parameter key: A String key to delete the key-value pair
     public func _remove(_ key: String) throws {
+        log.verbose("[KeychainStore] Starting to remove item from keychain with key=\(key)")
         var query = attributes.defaultGetQuery()
         query[Constants.AttributeAccount] = key
 
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
+            log.error("[KeychainStore] Error removing itms from keychain with status=\(status)")
             throw KeychainStoreError.securityError(status)
         }
+        log.verbose("[KeychainStore] Successfully removed item from keychain")
     }
 
     @_spi(KeychainStore)
     /// Removes all key-value pair in the Keychain.
     /// This System Programming Interface (SPI) may have breaking changes in future updates.
     public func _removeAll() throws {
+        log.verbose("[KeychainStore] Starting to remove all items from keychain")
         var query = attributes.defaultGetQuery()
 #if !os(iOS) && !os(watchOS) && !os(tvOS)
         query[Constants.MatchLimit] = Constants.MatchLimitAll
@@ -200,8 +223,10 @@ public struct KeychainStore: KeychainStoreBehavior {
 
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
+            log.error("[KeychainStore] Error removing all items from keychain with status=\(status)")
             throw KeychainStoreError.securityError(status)
         }
+        log.verbose("[KeychainStore] Successfully removed all items from keychain")
     }
 
 }
@@ -241,3 +266,11 @@ extension KeychainStore {
     }
 }
 // swiftlint:enable identifier_name
+
+extension KeychainStore: DefaultLogger {
+    public static var log: Logger {
+        Amplify.Logging.logger(forNamespace: String(describing: self))
+    }
+
+    public nonisolated var log: Logger { Self.log }
+}

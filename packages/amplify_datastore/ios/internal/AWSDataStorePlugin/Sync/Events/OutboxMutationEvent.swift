@@ -5,8 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
-import AWSPluginsCore
 
 /// Used as HubPayload for `OutboxMutationEnqueued` and `OutboxMutationProcessed`
 public struct OutboxMutationEvent {

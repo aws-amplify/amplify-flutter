@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Amplify
-import AWSPluginsCore
 import Combine
 
 // swiftlint:disable type_body_length file_length

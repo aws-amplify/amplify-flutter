@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import Amplify
 
 /// Represents different auth strategies supported by a client
 /// interfacing with an AppSync backend
