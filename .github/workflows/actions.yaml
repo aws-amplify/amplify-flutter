@@ -73,7 +73,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
+          # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
+          - macos-14
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -88,7 +89,8 @@ jobs:
     # It is recommended that all actions requiring a simulator be run on XL runners
     # since the process of installing new runtimes and building with Xcode can be
     # incredibly slow otherwise.
-    runs-on: macos-latest-xl
+    # TODO(equartey): Change to `macos-latest` after github migrates their runners - https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
+    runs-on: macos-14-xlarge
     # Timeout as a stop-gap for further investigating. This action should never need more
     # than 20 minutes to do its work.
     timeout-minutes: 20
@@ -96,8 +98,8 @@ jobs:
       fail-fast: false
       matrix:
         ios-version:
-          - "14.5"
-          - "16"
+          - "15.0"
+          - "latest"
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0
