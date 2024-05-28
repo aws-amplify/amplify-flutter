@@ -53,7 +53,9 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   final focusNode = FocusNode();
 
   late final ValueChanged<bool> focusChanged =
-      updateMaterialState(WidgetState.focused);
+      // TODO(Jordan-Nelson): Update to `WidgetState` when min Flutter version is 3.22 or higher
+      // ignore: deprecated_member_use
+      updateMaterialState(MaterialState.focused);
 
   @override
   void initState() {
