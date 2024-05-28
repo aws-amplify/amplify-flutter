@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Foundation
 
 /// Decorates a GraphQL mutation with a "condition" input or a GraphQL query with a "filter" input.

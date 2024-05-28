@@ -5,6 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
+import AWSPluginsCore
 
 enum InitialSyncOperationEvent {
     /// Published at the start of sync query (full or delta) for a particular Model

@@ -5,7 +5,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Foundation
+import AWSPluginsCore
 
 /// Migrates `MutationSyncMetadata` to the new format.
 ///

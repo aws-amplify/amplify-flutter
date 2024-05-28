@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Foundation
 
 /// A concrete implementation of `SingleDirectiveGraphQLDocument` that represents a subscription operation.

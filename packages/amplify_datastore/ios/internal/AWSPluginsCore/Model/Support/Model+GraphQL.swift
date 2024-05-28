@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 typealias GraphQLInput = [String: Any?]
 

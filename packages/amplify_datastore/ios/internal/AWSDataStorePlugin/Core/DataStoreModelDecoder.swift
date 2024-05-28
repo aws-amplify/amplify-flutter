@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Amplify
 import SQLite
+import AWSPluginsCore
 
 public struct DataStoreModelDecoder: ModelProviderDecoder {
 

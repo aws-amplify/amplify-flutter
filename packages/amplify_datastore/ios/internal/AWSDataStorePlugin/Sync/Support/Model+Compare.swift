@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 // swiftlint:disable cyclomatic_complexity
 extension ModelSchema {

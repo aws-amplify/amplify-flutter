@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Decorate the GraphQLDocument with the value of `ModelIdentifier` for a "delete" mutation or "get" query.
 public struct ModelIdDecorator: ModelBasedGraphQLDocumentDecorator {

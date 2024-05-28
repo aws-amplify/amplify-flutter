@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Plugin specific options type
 ///

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// A concrete implementation of `SingleDirectiveGraphQLDocument` that represents a mutation operation.
 public struct GraphQLMutation: SingleDirectiveGraphQLDocument {

@@ -5,8 +5,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Combine
 import Foundation
+import AWSPluginsCore
 
 // swiftlint:disable type_body_length file_length
 /// Reconciles an incoming model mutation with the stored model. If there is no conflict (e.g., the incoming model has
@@ -335,7 +337,7 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
     }
 
     enum ApplyRemoteModelResult {
-        case applied(RemoteModel, AppliedModel)
+        case applied(RemoteModel)
         case dropped
     }
 
@@ -361,7 +363,7 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
                         promise(.failure(dataStoreError))
                     }
                 case .success:
-                    promise(.success(.applied(remoteModel, remoteModel)))
+                    promise(.success(.applied(remoteModel)))
                 }
             }
         }
@@ -385,13 +387,14 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
                     let anyModel: AnyModel
                     do {
                         anyModel = try savedModel.eraseToAnyModel()
-                        let appliedModel = MutationSync(model: anyModel, syncMetadata: remoteModel.syncMetadata)
-                        promise(.success(.applied(remoteModel, appliedModel)))
                     } catch {
                         let dataStoreError = DataStoreError(error: error)
                         self.notifyDropped(error: dataStoreError)
                         promise(.failure(dataStoreError))
+                        return
                     }
+                    let inProcessModel = MutationSync(model: anyModel, syncMetadata: remoteModel.syncMetadata)
+                    promise(.success(.applied(inProcessModel)))
                 }
             }
         }
@@ -414,15 +417,21 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
         result: ApplyRemoteModelResult,
         mutationType: MutationEvent.MutationType
     ) -> AnyPublisher<Void, DataStoreError> {
-        switch result {
-        case .applied(let remoteModel, let appliedModel):
-            return self.saveMetadata(storageAdapter: storageAdapter, remoteModel: remoteModel, mutationType: mutationType)
-                .map { MutationSync(model: appliedModel.model, syncMetadata: $0) }
-                .map { [weak self] in self?.notify(appliedModel: $0, mutationType: mutationType) }
+        if case let .applied(inProcessModel) = result {
+            return self.saveMetadata(storageAdapter: storageAdapter, remoteModel: inProcessModel, mutationType: mutationType)
+                .handleEvents( receiveOutput: { syncMetadata in
+                    let appliedModel = MutationSync(model: inProcessModel.model, syncMetadata: syncMetadata)
+                    self.notify(savedModel: appliedModel, mutationType: mutationType)
+                }, receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        self.notifyDropped(error: error)
+                    }
+                })
+                .map { _ in () }
                 .eraseToAnyPublisher()
-        case .dropped:
-            return Just(()).setFailureType(to: DataStoreError.self).eraseToAnyPublisher()
+
         }
+        return Just(()).setFailureType(to: DataStoreError.self).eraseToAnyPublisher()
     }
 
     private func saveMetadata(
@@ -431,17 +440,9 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
         mutationType: MutationEvent.MutationType
     ) -> Future<MutationSyncMetadata, DataStoreError> {
         Future { promise in
-            storageAdapter.save(
-                remoteModel.syncMetadata,
-                condition: nil,
-                eagerLoad: self.isEagerLoad
-            ) { result in
-                switch result {
-                case .failure(let error):
-                    self.notifyDropped(error: error)
-                case .success:
-                    self.notifyHub(remoteModel: remoteModel, mutationType: mutationType)
-                }
+            storageAdapter.save(remoteModel.syncMetadata,
+                                condition: nil,
+                                eagerLoad: self.isEagerLoad) { result in
                 promise(result)
             }
         }
@@ -453,46 +454,28 @@ class ReconcileAndLocalSaveOperation: AsynchronousOperation {
         }
     }
 
-    /// Inform the mutationEvents subscribers about the updated model,
-    /// which incorporates lazy loading information if applicable.
-    private func notify(appliedModel: AppliedModel, mutationType: MutationEvent.MutationType) {
-        guard let json = try? appliedModel.model.instance.toJSON() else {
+    private func notify(savedModel: AppliedModel,
+                        mutationType: MutationEvent.MutationType) {
+        let version = savedModel.syncMetadata.version
+
+        // TODO: Dispatch/notify error if we can't erase to any model? Would imply an error in JSON decoding,
+        // which shouldn't be possible this late in the process. Possibly notify global conflict/error handler?
+        guard let json = try? savedModel.model.instance.toJSON() else {
             log.error("Could not notify mutation event")
             return
         }
-
-        let modelIdentifier = appliedModel.model.instance.identifier(schema: modelSchema).stringValue
+        let modelIdentifier = savedModel.model.instance.identifier(schema: modelSchema).stringValue
         let mutationEvent = MutationEvent(modelId: modelIdentifier,
                                           modelName: modelSchema.name,
                                           json: json,
                                           mutationType: mutationType,
-                                          version: appliedModel.syncMetadata.version)
-        mutationEventPublisher.send(.mutationEvent(mutationEvent))
-    }
-
-    /// Inform the remote mutationEvents to Hub event subscribers,
-    /// which only contains information received from AppSync server.
-    private func notifyHub(
-        remoteModel: RemoteModel,
-        mutationType: MutationEvent.MutationType
-    ) {
-        // TODO: Dispatch/notify error if we can't erase to any model? Would imply an error in JSON decoding,
-        // which shouldn't be possible this late in the process. Possibly notify global conflict/error handler?
-        guard let json = try? remoteModel.model.instance.toJSON() else {
-            log.error("Could not notify Hub mutation event")
-            return
-        }
-
-        let modelIdentifier = remoteModel.model.instance.identifier(schema: modelSchema).stringValue
-        let mutationEvent = MutationEvent(modelId: modelIdentifier,
-                                          modelName: modelSchema.name,
-                                          json: json,
-                                          mutationType: mutationType,
-                                          version: remoteModel.syncMetadata.version)
+                                          version: version)
 
         let payload = HubPayload(eventName: HubPayload.EventName.DataStore.syncReceived,
                                  data: mutationEvent)
         Amplify.Hub.dispatch(to: .dataStore, payload: payload)
+
+        mutationEventPublisher.send(.mutationEvent(mutationEvent))
     }
 
     private func notifyFinished() {

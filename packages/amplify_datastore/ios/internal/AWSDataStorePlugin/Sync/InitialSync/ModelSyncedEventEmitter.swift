@@ -5,6 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
+import AWSPluginsCore
 import Combine
 import Foundation
 
@@ -63,7 +65,7 @@ final class ModelSyncedEventEmitter {
         self.syncOrchestratorSink = initialSyncOrchestrator?
             .publisher
             .receive(on: queue)
-            .filter { [weak self] in self?.filterSyncOperationEvent($0) == true }
+            .filter(filterSyncOperationEvent(_:))
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] value in
                     self?.onReceiveSyncOperationEvent(value: value)
@@ -72,7 +74,7 @@ final class ModelSyncedEventEmitter {
         self.reconciliationQueueSink = reconciliationQueue?
             .publisher
             .receive(on: queue)
-            .filter { [weak self] in self?.filterReconciliationQueueEvent($0) == true }
+            .filter(filterReconciliationQueueEvent(_:))
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] value in
                     self?.onReceiveReconciliationEvent(value: value)

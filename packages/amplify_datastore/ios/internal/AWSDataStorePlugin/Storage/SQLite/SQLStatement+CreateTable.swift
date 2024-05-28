@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Foundation
 
 /// Represents a `create table` SQL statement. The table is created based on the `ModelSchema`

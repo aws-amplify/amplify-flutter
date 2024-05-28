@@ -5,6 +5,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Combine
 
 /// Interface for saving and loading MutationEvents from storage

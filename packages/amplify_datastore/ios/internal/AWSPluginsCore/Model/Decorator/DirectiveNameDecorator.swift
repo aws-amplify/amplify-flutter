@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Replaces the directive name of the GraphQL document based on Amplify GraphQL operation types such as "get", "list",
 /// "sync", "create", "update", "delete", "onCreate", "onUpdate", and "onDelete". The GraphQL name is constructed based

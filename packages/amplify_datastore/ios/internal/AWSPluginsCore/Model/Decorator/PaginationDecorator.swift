@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Amplify
 
 /// Decorate the document input with "limit" and "nextToken". Also paginates the selection set with pagination fields.
 public struct PaginationDecorator: ModelBasedGraphQLDocumentDecorator {

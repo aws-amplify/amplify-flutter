@@ -5,7 +5,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import Amplify
 import Combine
+import AWSPluginsCore
 import Foundation
 
 enum DataStoreState {
