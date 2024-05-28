@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import XCTest
+import Amplify
 @testable import amplify_datastore
 
 class QueryPredicateBuilderUnitTests: XCTestCase {

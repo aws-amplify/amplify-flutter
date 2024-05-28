@@ -1,5 +1,7 @@
 import Foundation
 import Flutter
+import Amplify
+import AWSPluginsCore
 import Combine
 
 

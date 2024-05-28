@@ -3,6 +3,7 @@
 
 import Flutter
 import Foundation
+import Amplify
 
 public enum QueryPredicateBuilder {
     static func fromSerializedMap(_ serializedMap: [String: Any]?) throws -> QueryPredicate {

@@ -3,6 +3,7 @@
 
 import Flutter
 import Foundation
+import Amplify
 
 struct FlutterSubscriptionEvent {
     let item: FlutterSerializedModel
