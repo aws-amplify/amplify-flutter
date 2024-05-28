@@ -4,6 +4,8 @@
 import Foundation
 import Flutter
 import UIKit
+import Amplify
+import AWSDataStorePlugin
 import Combine
 
 public struct FlutterHubElement {

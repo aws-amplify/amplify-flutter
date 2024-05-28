@@ -7,6 +7,8 @@
 
 
 import Foundation
+import Amplify
+import AWSPluginsCore
 
 extension GraphQLResponse {
     static var jsonDecoder: JSONDecoder {

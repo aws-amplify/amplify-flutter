@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import XCTest
+import Amplify
+@testable import AWSDataStorePlugin
 @testable import amplify_datastore
 
 class AmplifySerializedModelUnitTests: XCTestCase {

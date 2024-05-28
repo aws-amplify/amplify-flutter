@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
+import Amplify
 
 public struct FlutterAuthRule {
     private var authStrategy: String

@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import Amplify
 
 extension Publisher {
     func toAmplifyAsyncThrowingSequence() -> (AmplifyAsyncThrowingSequence<Output>, AnyCancellable) {

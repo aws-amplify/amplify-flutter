@@ -3,6 +3,8 @@
 
 import Flutter
 import Foundation
+import Amplify
+import AWSPluginsCore
 
 struct FlutterModelSchema {
     let name: String

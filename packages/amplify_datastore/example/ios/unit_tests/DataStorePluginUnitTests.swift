@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import XCTest
+import Amplify
 import Combine
+@testable import AWSDataStorePlugin
 @testable import amplify_datastore
 
 let testSchema: ModelSchema = SchemaData.PostSchema

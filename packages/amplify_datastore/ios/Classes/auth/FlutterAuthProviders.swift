@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
+import Amplify
+import AWSDataStorePlugin
+import AWSPluginsCore
 import Flutter
 
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.

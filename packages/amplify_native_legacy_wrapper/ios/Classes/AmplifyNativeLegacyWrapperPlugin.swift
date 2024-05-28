@@ -3,6 +3,8 @@
 
 import Flutter
 import AmplifyPlugins
+import AWSPluginsCore
+import Amplify
 import UIKit
 
 public class AmplifyNativeLegacyWrapperPlugin: NSObject, FlutterPlugin, LegacyNativePlugin {
