@@ -24,45 +24,24 @@ public class CognitoPlugin: AuthCategoryPlugin {
     
     public func configure(using configuration: Any?) throws {}
     
-    public func reset() async {
-        // TODO: reset plugin -- used for testing
-    }
+    public func reset() async {}
     
-// TODO: Migrate to Async Swift v2
-//    public func fetchAuthSession(
-//        options: AuthFetchSessionRequest.Options?,
-//        listener: ((AmplifyOperation<AuthFetchSessionRequest,
-//                        AuthSession,
-//                        AuthError>.OperationResult)
-//                  -> Void)?
-//    ) -> AuthFetchSessionOperation {
-//        let operation = NativeAuthFetchSessionOperation(
-//            categoryType: .auth,
-//            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
-//            request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
-//            resultListener: listener
-//        )
-//        DispatchQueue.main.async {
-//            self.nativeAuthPlugin.fetchAuthSession { session in
-//                let result = NativeAWSAuthCognitoSession(from: session)
-//                operation.dispatch(result: .success(result))
-//            }
-//        }
-//        return operation
-//    }
-//
-//    public func getCurrentUser() -> AuthUser? {
-//        return currentUser
-//    }
-    
-    // TODO: Mirgrate to Async Swift v2
     public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
-        preconditionFailure("method not supported")
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                self.nativeAuthPlugin.fetchAuthSession { session in
+                    let result = NativeAWSAuthCognitoSession(from: session)
+                    continuation.resume(returning: result)
+                }
+            }
+        }
     }
     
-    // TODO: Migrate to Async Swift v2
     public func getCurrentUser() async throws -> any AuthUser {
-        return currentUser!
+        guard let user = currentUser else {
+            throw FlutterError(code: "NO_CURRENT_USER", message: "No current user is signed in.", details: nil)
+        }
+        return user
     }
     
     public func signUp(username: String, password: String?, options: AuthSignUpRequest.Options?) async throws -> AuthSignUpResult {
