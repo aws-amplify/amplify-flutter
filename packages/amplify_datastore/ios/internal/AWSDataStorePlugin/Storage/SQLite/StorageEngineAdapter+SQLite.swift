@@ -5,10 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
 import SQLite
-import AWSPluginsCore
 
 // swiftlint:disable type_body_length file_length
 /// [SQLite](https://sqlite.org) `StorageEngineAdapter` implementation. This class provides

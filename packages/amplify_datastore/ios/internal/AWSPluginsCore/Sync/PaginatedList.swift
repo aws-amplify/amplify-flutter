@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
 
 public struct PaginatedList<ModelType: Model>: Decodable {

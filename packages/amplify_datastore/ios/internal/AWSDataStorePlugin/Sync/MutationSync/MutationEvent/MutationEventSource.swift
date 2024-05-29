@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 protocol MutationEventSource: AnyObject {
     /// Gets the next available mutation event, marking it as "inProcess" before delivery

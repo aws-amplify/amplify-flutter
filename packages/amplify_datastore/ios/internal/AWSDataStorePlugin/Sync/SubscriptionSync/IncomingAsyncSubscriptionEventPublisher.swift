@@ -5,8 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
-@_spi(WebSocket) import AWSPluginsCore
 import Combine
 import Foundation
 

@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 /// Reconciles incoming sync mutations with the state of the local store, and mutation queue.
 struct RemoteSyncReconciler {

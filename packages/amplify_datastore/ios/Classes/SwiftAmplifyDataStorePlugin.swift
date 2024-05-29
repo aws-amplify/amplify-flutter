@@ -3,9 +3,6 @@
 
 import Flutter
 import UIKit
-import Amplify
-import AWSDataStorePlugin
-import AWSPluginsCore
 import Combine
 
 public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {

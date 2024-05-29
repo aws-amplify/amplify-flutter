@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
 
 /// Tuple-like type that holds a `Model` instance and its `MutationSyncMetadata`.

@@ -35,4 +35,4 @@ flutter:
         package: com.amazonaws.amplify.amplify_datastore
         pluginClass: AmplifyDataStorePlugin
       ios:
-        pluginClass: AmplifyDataStorePlugin
+        pluginClass: SwiftAmplifyDataStorePlugin

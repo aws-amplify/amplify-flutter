@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 extension MutationSyncMetadataMigration {
     public struct MutationSyncMetadataCopy: Model {
