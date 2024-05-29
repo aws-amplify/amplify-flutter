@@ -122,24 +122,26 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
         )
 
         return RetryableGraphQLSubscriptionOperation(
-            requestStream: authTypeProvider.publisher()
-                .map { Optional.some($0) } // map to optional to have nil as element
-                .replaceEmpty(with: nil) // use a nil element to trigger default auth if no auth provided
-                .map { authType in { [weak self] in
-                    guard let self else {
-                        throw APIError.operationError("GraphQL subscription cancelled", "")
-                    }
+            requestStream: AsyncStream { continuation in
+                for authType in authTypeProvider {
+                    continuation.yield({ [weak self] in
+                        guard let self else {
+                            throw APIError.operationError("GraphQL subscription cancelled", "")
+                        }
 
-                    return api.subscribe(request: await IncomingAsyncSubscriptionEventPublisher.makeAPIRequest(
-                        for: modelSchema,
-                        subscriptionType: subscriptionType.subscriptionType,
-                        api: api,
-                        auth: auth,
-                        authType: authType,
-                        awsAuthService: self.awsAuthService
-                    ))
-                }}
-                .eraseToAnyPublisher()
+                        return api.subscribe(request: await IncomingAsyncSubscriptionEventPublisher.makeAPIRequest(
+                            for: modelSchema,
+                            subscriptionType: subscriptionType.subscriptionType,
+                            api: api,
+                            auth: auth,
+                            authType: authType.awsAuthType,
+                            awsAuthService: self.awsAuthService
+                        ))
+                    })
+                }
+                continuation.finish()
+            }
+
         )
     }
 

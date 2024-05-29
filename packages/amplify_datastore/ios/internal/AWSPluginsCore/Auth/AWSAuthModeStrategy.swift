@@ -64,17 +64,21 @@ public protocol AuthorizationTypeIterator {
 }
 
 /// AuthorizationTypeIterator for values of type `AWSAuthorizationType`
-public struct AWSAuthorizationTypeIterator: AuthorizationTypeIterator {
-    public typealias AuthorizationType = AWSAuthorizationType
+public struct AWSAuthorizationTypeIterator: AuthorizationTypeIterator, Sequence, IteratorProtocol {
+    public typealias AuthorizationType = AmplifyAuthorizationType
 
-    private var values: IndexingIterator<[AWSAuthorizationType]>
+    private var values: IndexingIterator<[AmplifyAuthorizationType]>
     private var _count: Int
     private var _position: Int
 
-    public init(withValues values: [AWSAuthorizationType]) {
+    public init(withValues values: [AmplifyAuthorizationType]) {
         self.values = values.makeIterator()
         self._count = values.count
         self._position = 0
+    }
+
+    public init(withValues values: [AmplifyAuthorizationType], valuesOnEmpty defaults: [AmplifyAuthorizationType]) {
+        self.init(withValues: values.isEmpty ? defaults : values)
     }
 
     public var count: Int {
@@ -85,26 +89,13 @@ public struct AWSAuthorizationTypeIterator: AuthorizationTypeIterator {
         _position < _count
     }
 
-    public mutating func next() -> AWSAuthorizationType? {
+    public mutating func next() -> AmplifyAuthorizationType? {
         if let value = values.next() {
             _position += 1
             return value
         }
         
         return nil
-    }
-}
-
-extension AuthorizationTypeIterator {
-    public func publisher() -> AnyPublisher<AuthorizationType, Never> {
-        var it = self
-        return Deferred {
-            var authTypes = [AuthorizationType]()
-            while let authType = it.next() {
-                authTypes.append(authType)
-            }
-            return Publishers.MergeMany(authTypes.map { Just($0) })
-        }.eraseToAnyPublisher()
     }
 }
 
@@ -120,12 +111,12 @@ public class AWSDefaultAuthModeStrategy: AuthModeStrategy {
 
     public func authTypesFor(schema: ModelSchema,
                              operation: ModelOperation) -> AWSAuthorizationTypeIterator {
-        return AWSAuthorizationTypeIterator(withValues: [])
+        return AWSAuthorizationTypeIterator(withValues: [.inferred])
     }
 
     public func authTypesFor(schema: ModelSchema,
                              operations: [ModelOperation]) -> AWSAuthorizationTypeIterator {
-        return AWSAuthorizationTypeIterator(withValues: [])
+        return AWSAuthorizationTypeIterator(withValues: [.inferred])
     }
 }
 
@@ -140,20 +131,18 @@ public class AWSMultiAuthModeStrategy: AuthModeStrategy {
     required public init() {}
 
     private static func defaultAuthTypeFor(authStrategy: AuthStrategy) -> AWSAuthorizationType {
-        var defaultAuthType: AWSAuthorizationType
         switch authStrategy {
         case .owner:
-            defaultAuthType = .amazonCognitoUserPools
+            return .amazonCognitoUserPools
         case .groups:
-            defaultAuthType = .amazonCognitoUserPools
+            return .amazonCognitoUserPools
         case .private:
-            defaultAuthType = .amazonCognitoUserPools
+            return .amazonCognitoUserPools
         case .public:
-            defaultAuthType = .apiKey
+            return .apiKey
         case .custom:
-            defaultAuthType = .function
+            return .function
         }
-        return defaultAuthType
     }
 
     /// Given an auth rule, returns the corresponding AWSAuthorizationType
@@ -247,10 +236,12 @@ public class AWSMultiAuthModeStrategy: AuthModeStrategy {
                 return rule.allow == .public || rule.allow == .custom
             }
         }
-        let applicableAuthTypes = sortedRules.map {
+
+        let applicableAuthTypes: [AmplifyAuthorizationType] = sortedRules.map {
             AWSMultiAuthModeStrategy.authTypeFor(authRule: $0)
-        }
-        return AWSAuthorizationTypeIterator(withValues: applicableAuthTypes)
+        }.map { .designated($0) }
+
+        return AWSAuthorizationTypeIterator(withValues: applicableAuthTypes, valuesOnEmpty: [.inferred])
     }
 
 }
