@@ -89,6 +89,12 @@ struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider
     let type: AWSAuthorizationType
     
     func getLatestAuthToken() async throws -> String {
-        return flutterAuthProviders.getToken(for: type)
+           let result = flutterAuthProviders.getToken(for: type)
+           switch result {
+               case .success(let token):
+                   return token
+               case .failure(let error):
+                   throw error
+           }
     }
 }
