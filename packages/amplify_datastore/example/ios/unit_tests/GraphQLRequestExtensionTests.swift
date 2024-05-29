@@ -3,7 +3,6 @@
 
 
 import XCTest
-@testable import Amplify
 @testable import amplify_datastore
 
 class GraphQLRequestExtensionTests: XCTestCase {
