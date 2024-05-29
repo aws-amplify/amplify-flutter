@@ -5,10 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Combine
 import Foundation
-import AWSPluginsCore
 
 /// Submits outgoing mutation events to the provisioned API
 protocol OutgoingMutationQueueBehavior: AnyObject {

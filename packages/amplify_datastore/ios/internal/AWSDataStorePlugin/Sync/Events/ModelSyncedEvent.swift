@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 /// Hub payload for the `ModelSynced` event.
 public struct ModelSyncedEvent {

@@ -7,7 +7,6 @@
 
 
 import Foundation
-import Amplify
 import Combine
 
 /**
@@ -265,7 +264,7 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
 extension WebSocketClient {
     /// Monitor network status. Disconnect or reconnect when the network drops or comes back online.
     private func startNetworkMonitor() {
-        networkMonitor.publisher.sink(receiveValue: { stateChange in
+        networkMonitor.publisher.sink(receiveValue: { [weak self] stateChange in
             Task { [weak self] in
                 await self?.onNetworkStateChange(stateChange)
             }
@@ -304,7 +303,7 @@ extension WebSocketClient {
             return closeCode
         }
         .compactMap { $0 }
-        .sink(receiveCompletion: { _ in }) { closeCode in
+        .sink(receiveCompletion: { _ in }) { [weak self] closeCode in
             Task { [weak self] in await self?.retryOnCloseCode(closeCode) }
         }
         .store(in: &cancelables)
@@ -319,7 +318,7 @@ extension WebSocketClient {
             }
             return false
         }
-        .sink(receiveCompletion: { _ in }) { _ in
+        .sink(receiveCompletion: { _ in }) { [weak self] _ in
             Task { [weak self] in
                 await self?.retryWithJitter.reset()
             }

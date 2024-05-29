@@ -87,6 +87,12 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     ),
   ];
 
+  final _importsToRemove = [
+    'import Amplify',
+    'import AWSPluginsCore',
+    'import AWSDataStorePlugin',
+  ];
+
   /// Downloads Amplify Swift from GitHub into a temporary directory.
   Future<Directory> _downloadRepository() => _cloneMemo.runOnce(() async {
         final cloneDir =
@@ -132,12 +138,55 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
     return worktreeDir;
   }
 
+  /// Find and replaces the `import` statements in the plugin files.
+  Future<void> _replaceImports(Directory pluginDir) async {
+    final files = await pluginDir.list(recursive: true).toList();
+    for (final file in files) {
+      if (file is! File) {
+        continue;
+      }
+      // Only process Swift files.
+      if (!file.path.endsWith('.swift')) {
+        continue;
+      }
+      final contents = await file.readAsString();
+      // remove the list of import statement for Amplify including line breaks
+      final newContents = contents.split('\n').where((line) {
+        return !_importsToRemove.any((import) => line.contains(import));
+      }).join('\n');
+      await file.writeAsString(newContents);
+    }
+  }
+
+  /// Remove `info.plist` from the plugin files.
+  Future<void> _removePListFiles(Directory pluginDir) async {
+    final files = await pluginDir.list(recursive: true).toList();
+    for (final file in files) {
+      if (file is! File) {
+        continue;
+      }
+      // Only process Info.plist files.
+      if (!file.path.endsWith('Info.plist')) {
+        continue;
+      }
+      await file.delete();
+    }
+  }
+
+  /// Transforms the plugin files to Amplify Flutter requirements.
+  Future<void> _transformPlugin(Directory directory) async {
+    logger
+      ..info('Transforming plugin files...')
+      ..verbose('In ${directory.path}');
+    await _replaceImports(directory);
+    await _removePListFiles(directory);
+  }
+
   /// Sets up the Amplify Swift repo for use later
   Future<void> _setupRepo() async {
     if (_repoCache[branchTarget] != null) {
       return;
     }
-
     final repoDir = await _downloadRepository();
     final repoRef = await _checkoutRepositoryRef(repoDir, branchTarget);
 
@@ -151,9 +200,13 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
       exitError('No cached repo for branch $branchTarget');
     }
 
-    return Directory.fromUri(
+    final pluginDir = Directory.fromUri(
       repoDir.uri.resolve(path),
     );
+
+    await _transformPlugin(pluginDir);
+
+    return pluginDir;
   }
 
   /// Generates the Amplify Swift plugin for [plugin].
@@ -251,6 +304,7 @@ class GenerateAmplifySwiftCommand extends AmplifyCommand with GlobOptions {
 
   @override
   Future<void> run() async {
+    logger.info('Generating Amplify Swift plugins.');
     await super.run();
     switch (isDiff) {
       case true:

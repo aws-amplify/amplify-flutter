@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 public typealias SelectionSet = Tree<SelectionSetField>
 

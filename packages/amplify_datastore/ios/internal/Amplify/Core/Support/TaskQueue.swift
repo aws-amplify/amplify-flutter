@@ -10,12 +10,11 @@ import Foundation
 /// A helper for executing asynchronous work serially.
 public class TaskQueue<Success> {
     typealias Block = @Sendable () async -> Void
-    private var streamContinuation: AsyncStream<Block>.Continuation!
+    private let streamContinuation: AsyncStream<Block>.Continuation
 
     public init() {
-        let stream = AsyncStream<Block>.init { continuation in
-            streamContinuation = continuation
-        }
+        let (stream, continuation) = AsyncStream.makeStream(of: Block.self)
+        self.streamContinuation = continuation
 
         Task {
             for await block in stream {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 public struct AnyModel: Model {
     public let id: String

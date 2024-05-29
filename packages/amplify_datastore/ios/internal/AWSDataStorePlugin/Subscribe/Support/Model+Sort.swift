@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 
 extension Array where Element: Model {
 
