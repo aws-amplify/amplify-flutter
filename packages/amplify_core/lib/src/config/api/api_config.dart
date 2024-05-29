@@ -33,14 +33,14 @@ class ApiConfig extends AmplifyPluginConfigMap {
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);
 
   DataOutputs? toDataOutputs({AWSConfigMap<CognitoAppSyncConfig>? appSync}) {
-    final plugin = awsPlugin?.default$;
+    final plugin = appSync?.default$;
     if (plugin == null) {
       return null;
     }
     final region = plugin.region;
-    final url = plugin.endpoint;
+    final url = plugin.apiUrl;
     final apiKey = plugin.apiKey;
-    final defaultAuthorizationType = plugin.authorizationType;
+    final defaultAuthorizationType = plugin.authMode;
     final modes = appSync?.all.values.map((config) => config.authMode) ?? [];
     final authorizationTypes =
         modes.where((mode) => mode != defaultAuthorizationType).toList();
