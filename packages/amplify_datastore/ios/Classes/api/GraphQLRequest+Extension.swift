@@ -7,7 +7,6 @@
 
 
 import Foundation
-import Amplify
 
 extension GraphQLRequest {
     func toNativeGraphQLRequest() -> NativeGraphQLRequest {

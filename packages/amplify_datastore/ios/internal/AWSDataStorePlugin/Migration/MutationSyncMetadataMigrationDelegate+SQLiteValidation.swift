@@ -5,10 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import Amplify
 import Foundation
 import SQLite
-import AWSPluginsCore
 
 extension SQLiteMutationSyncMetadataMigrationDelegate {
 

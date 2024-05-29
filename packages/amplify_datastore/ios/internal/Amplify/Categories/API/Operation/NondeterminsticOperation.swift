@@ -42,14 +42,15 @@ final class NondeterminsticOperation<T> {
         shouldTryNextOnError: OnError? = nil
     ) {
         var cancellables = Set<AnyCancellable>()
+        let (asyncStream, continuation) = AsyncStream.makeStream(of: Operation.self)
+        operationStream.sink { _ in
+            continuation.finish()
+        } receiveValue: {
+            continuation.yield($0)
+        }.store(in: &cancellables)
+
         self.init(
-            operations: AsyncStream<Operation> { continuation in
-                operationStream.sink { _ in
-                    continuation.finish()
-                } receiveValue: { operation in
-                    continuation.yield(operation)
-                }.store(in: &cancellables)
-            },
+            operations: asyncStream,
             shouldTryNextOnError: shouldTryNextOnError
         )
         self.cancellables = cancellables

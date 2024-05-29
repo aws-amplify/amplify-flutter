@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 import Combine
 
 public struct DataStoreListDecoder: ModelListDecoder {

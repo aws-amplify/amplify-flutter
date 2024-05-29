@@ -11,8 +11,8 @@ public typealias WeakAmplifyAsyncSequenceRef<Element> = WeakRef<AmplifyAsyncSequ
 
 public class AmplifyAsyncSequence<Element: Sendable>: AsyncSequence, Cancellable {
     public typealias Iterator = AsyncStream<Element>.Iterator
-    private var asyncStream: AsyncStream<Element>! = nil
-    private var continuation: AsyncStream<Element>.Continuation! = nil
+    private let asyncStream: AsyncStream<Element>
+    private let continuation: AsyncStream<Element>.Continuation
     private var parent: Cancellable?
 
     public private(set) var isCancelled: Bool = false
@@ -20,9 +20,7 @@ public class AmplifyAsyncSequence<Element: Sendable>: AsyncSequence, Cancellable
     public init(parent: Cancellable? = nil,
                 bufferingPolicy: AsyncStream<Element>.Continuation.BufferingPolicy = .unbounded) {
         self.parent = parent
-        asyncStream = AsyncStream<Element>(Element.self, bufferingPolicy: bufferingPolicy) { continuation in
-            self.continuation = continuation
-        }
+        (asyncStream, continuation) = AsyncStream.makeStream(of: Element.self, bufferingPolicy: bufferingPolicy)
     }
 
     public func makeAsyncIterator() -> Iterator {

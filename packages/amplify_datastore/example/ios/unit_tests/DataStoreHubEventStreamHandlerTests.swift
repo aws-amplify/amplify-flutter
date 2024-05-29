@@ -1,11 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import Flutter
 import XCTest
-import Amplify
 import Combine
-@testable import AWSDataStorePlugin
-@testable import AWSPluginsCore
 @testable import amplify_datastore
 
 let testHubSchema: ModelSchema = SchemaData.PostSchema

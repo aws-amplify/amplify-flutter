@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Amplify
 
 // swiftlint:disable line_length
 
@@ -45,6 +44,8 @@ public enum AWSAuthorizationType: String, AuthorizationMode {
 // swiftlint:enable line_length
 
 extension AWSAuthorizationType: CaseIterable { }
+
+extension AWSAuthorizationType: Codable { }
 
 /// Indicates whether the authotization type requires the auth plugin to operate.
 extension AWSAuthorizationType {
