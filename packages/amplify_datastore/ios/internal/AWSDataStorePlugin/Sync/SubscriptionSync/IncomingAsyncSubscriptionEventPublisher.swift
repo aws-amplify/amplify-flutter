@@ -141,7 +141,6 @@ final class IncomingAsyncSubscriptionEventPublisher: AmplifyCancellable {
                 }
                 continuation.finish()
             }
-
         )
     }
 
