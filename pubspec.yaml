@@ -17,29 +17,29 @@ dependencies:
   async: ^2.10.0
   build_runner: ^2.4.0
   build_web_compilers: ^4.0.0
-  built_value: "^8.6.0"
-  built_value_generator: 8.8.1
+  built_value: ^8.9.2
+  built_value_generator: 8.9.2
   code_builder: 4.10.0
   connectivity_plus: ^6.0.1
   # This must roughly match what's included in `dart format`
   # on stable so that CI checks pass for generated code.
-  dart_style: ^2.3.2
+  dart_style: ^2.3.6
   device_info_plus: ^10.0.1
-  drift: ">=2.14.0 <2.15.0"
-  drift_dev: ">=2.14.0 <2.15.0"
-  ffigen: ^9.0.0
+  drift: ^2.18.0
+  drift_dev: ^2.18.0
+  ffigen: ^12.0.0
   file: ">=6.0.0 <8.0.0"
   flutter_plugin_android_lifecycle: ^2.0.9
   graphs: ^2.1.0
   http: ">=0.13.0 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
-  json_annotation: ">=4.8.1 <4.9.0"
-  json_serializable: 6.7.1
+  json_annotation: ^4.9.0
+  json_serializable: 6.8.0
   mime: ^1.0.0
   oauth2: ^2.0.2
-  package_info_plus: ^6.0.0
-  pigeon: ^11.0.0
-  sqlite3: ">=2.0.0 <2.4.3"
+  package_info_plus: ^8.0.0
+  pigeon: ^19.0.0
+  sqlite3: ^2.4.3
   source_gen: ^1.3.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <5.0.0"
