@@ -168,26 +168,29 @@ final class InitialSyncOperation: AsynchronousOperation {
         let minSyncPageSize = Int(min(syncMaxRecords - recordsReceived, syncPageSize))
         let limit = minSyncPageSize < 0 ? Int(syncPageSize) : minSyncPageSize
         let authTypes = await authModeStrategy.authTypesFor(schema: modelSchema, operation: .read)
-            .publisher()
-            .map { Optional.some($0) } // map to optional to have nil as element
-            .replaceEmpty(with: nil) // use a nil element to trigger default auth if no auth provided
-            .map { authType in { [weak self] in
-                guard let self, let api = self.api else {
-                    throw APIError.operationError("Operation cancelled", "")
-                }
+        let queryRequestsStream = AsyncStream { continuation in
+            for authType in authTypes {
+                continuation.yield({ [weak self] in
+                    guard let self, let api = self.api else {
+                        throw APIError.operationError(
+                            "The initial synchronization process can no longer be accessed or referred to",
+                            "The initial synchronization process may be cancelled or terminated"
+                        )
+                    }
 
-                return try await api.query(request: GraphQLRequest<SyncQueryResult>.syncQuery(
-                    modelSchema: self.modelSchema,
-                    where: self.syncPredicate,
-                    limit: limit,
-                    nextToken: nextToken,
-                    lastSync: lastSyncTime,
-                    authType: authType
-                ))
-            }}
-            .eraseToAnyPublisher()
-
-        switch await RetryableGraphQLOperation(requestStream: authTypes).run() {
+                    return try await api.query(request: GraphQLRequest<SyncQueryResult>.syncQuery(
+                        modelSchema: self.modelSchema,
+                        where: self.syncPredicate,
+                        limit: limit,
+                        nextToken: nextToken,
+                        lastSync: lastSyncTime,
+                        authType: authType.awsAuthType
+                    ))
+                })
+            }
+            continuation.finish()
+        }
+        switch await RetryableGraphQLOperation(requestStream: queryRequestsStream).run() {
         case .success(let graphQLResult):
             await handleQueryResults(lastSyncTime: lastSyncTime, graphQLResult: graphQLResult)
         case .failure(let apiError):

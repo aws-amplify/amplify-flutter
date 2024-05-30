@@ -16,10 +16,10 @@ public final class RetryableGraphQLOperation<Payload: Decodable> {
     private let nondeterminsticOperation: NondeterminsticOperation<GraphQLTask<Payload>.Success>
 
     public init(
-        requestStream: AnyPublisher<() async throws -> GraphQLTask<Payload>.Success, Never>
+        requestStream: AsyncStream<() async throws -> GraphQLTask<Payload>.Success>
     ) {
         self.nondeterminsticOperation = NondeterminsticOperation(
-            operationStream: requestStream,
+            operations: requestStream,
             shouldTryNextOnError: Self.onError(_:)
         )
     }
@@ -80,9 +80,9 @@ public final class RetryableGraphQLSubscriptionOperation<Payload: Decodable> {
     private let nondeterminsticOperation: NondeterminsticOperation<AmplifyAsyncThrowingSequence<SubscriptionEvents>>
 
     public init(
-        requestStream: AnyPublisher<() async throws -> AmplifyAsyncThrowingSequence<SubscriptionEvents>, Never>
+        requestStream: AsyncStream<() async throws -> AmplifyAsyncThrowingSequence<SubscriptionEvents>>
     ) {
-        self.nondeterminsticOperation = NondeterminsticOperation(operationStream: requestStream)
+        self.nondeterminsticOperation = NondeterminsticOperation(operations: requestStream)
     }
 
     deinit {
