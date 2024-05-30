@@ -9,13 +9,13 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/MultiRelatedAttendee.dart';
-import '../../../../lib/models/MultiRelatedMeeting.dart';
-import '../../../../lib/models/MultiRelatedRegistration.dart';
+import '../../../../old_lib/models/MultiRelatedAttendee.dart';
+import '../../../../old_lib/models/MultiRelatedMeeting.dart';
+import '../../../../old_lib/models/MultiRelatedRegistration.dart';
 
-export '../../../../lib/models/MultiRelatedAttendee.dart';
-export '../../../../lib/models/MultiRelatedMeeting.dart';
-export '../../../../lib/models/MultiRelatedRegistration.dart';
+export '../../../../old_lib/models/MultiRelatedAttendee.dart';
+export '../../../../old_lib/models/MultiRelatedMeeting.dart';
+export '../../../../old_lib/models/MultiRelatedRegistration.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

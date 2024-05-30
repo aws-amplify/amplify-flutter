@@ -6,10 +6,10 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import '../old_lib/models/ModelProvider.dart';
 import 'utils/constants.dart';
 import 'utils/model_test_operation_utils.dart';
 

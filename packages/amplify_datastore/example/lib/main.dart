@@ -1,396 +1,230 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
-library sample_app;
-
 import 'dart:async';
 
+import 'package:amplify_api/amplify_api.dart';
+// Amplify Flutter Packages
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-// Uncomment the below line to enable online sync
-// import 'package:amplify_api/amplify_api.dart';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'models/ModelProvider.dart';
-
-part 'event_display_widgets.dart';
-part 'queries_display_widgets.dart';
-part 'save_model_widgets.dart';
+import './models/ModelProvider.dart';
+// Generated in previous step
+import 'amplifyconfiguration.dart';
 
 void main() {
-  runApp(MyApp());
+  AWSLogger().logLevel = LogLevel.verbose;
+  runApp(const MainApp());
 }
 
-final divider = VerticalDivider(
-  color: Colors.white,
-  width: 10,
-);
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
 
-class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MainApp> createState() => _MainAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  List<Post> _posts = <Post>[];
-  List<Comment> _comments = <Comment>[];
-  List<Blog> _blogs = <Blog>[];
-  List<String> _postStreamingData = <String>[];
-  List<String> _blogStreamingData = <String>[];
-  List<String> _commentStreamingData = <String>[];
-  bool _isAmplifyConfigured = false;
-  String _queriesToView = "Post"; //default view
-  Blog? _selectedBlogForNewPost;
-  Post? _selectedPostForNewComment;
-  late Stream<SubscriptionEvent<Post>> postStream;
-  late Stream<SubscriptionEvent<Blog>> blogStream;
-  late Stream<SubscriptionEvent<Comment>> commentStream;
-  late StreamSubscription<DataStoreHubEvent> hubSubscription;
-  bool _listeningToHub = true;
-  late AmplifyDataStore datastorePlugin;
-
-  final _titleController = TextEditingController();
-  final _ratingController = TextEditingController();
-  final _nameController = TextEditingController();
-  final _contentController = TextEditingController();
-  ScrollController _postScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _blogScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-  ScrollController _commentScrollController =
-      ScrollController(initialScrollOffset: 50.0);
-
+class _MainAppState extends State<MainApp> {
   @override
-  void initState() {
+  initState() {
     super.initState();
-    initPlatformState();
+    _configureAmplify();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    try {
-      datastorePlugin = AmplifyDataStore(
+  Future<void> _configureAmplify() async {
+    await Amplify.addPlugins([
+      AmplifyAuthCognito(),
+      AmplifyAPI(
+        options: APIPluginOptions(modelProvider: ModelProvider.instance),
+      ),
+      AmplifyDataStore(
         modelProvider: ModelProvider.instance,
         options: DataStorePluginOptions(
-          errorHandler: ((error) =>
-              {print("Custom ErrorHandler received: " + error.toString())}),
+          authModeStrategy: AuthModeStrategy.multiAuth,
         ),
-      );
-      await Amplify.addPlugin(datastorePlugin);
+      )
+    ]);
 
-      // Configure
-
-      // Uncomment the below lines to enable online sync.
-      // await Amplify.addPlugin(AmplifyAPI());
-      // await Amplify.configure(amplifyconfig);
-
-      // Remove this line when using the lines above for online sync
-      await Amplify.configure("{}");
+    try {
+      await Amplify.configure(amplifyconfig);
     } on AmplifyAlreadyConfiguredException {
-      print(
-          'Amplify was already configured. Looks like app restarted on android.');
+      safePrint(
+          "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
     }
-    listenToHub();
 
-    Amplify.DataStore.observeQuery(
-      Blog.classType,
-    ).listen((QuerySnapshot<Blog> snapshot) {
-      var count = snapshot.items.length;
-      var now = DateTime.now().toIso8601String();
-      bool status = snapshot.isSynced;
-      print(
-          '[Observe Query] Blog snapshot received with $count models, status: $status at $now');
-      setState(() {
-        _blogs = snapshot.items;
-      });
+    await Amplify.DataStore.start();
+
+    Amplify.Hub.listen(HubChannel.DataStore, (event) {
+      // option 1
+      print(event.eventName);
     });
 
     Amplify.DataStore.observeQuery(
-      Post.classType,
-    ).listen((QuerySnapshot<Post> snapshot) {
-      setState(() {
-        _posts = snapshot.items;
-      });
+      TestTableOne.classType,
+    ).listen((QuerySnapshot<TestTableOne> snapshot) {
+      safePrint('Received QuerySnapshot: ${snapshot.items}');
+      // setState(() {
+      // users = snapshot.items;
+      // });
     });
 
-    Amplify.DataStore.observeQuery(
-      Comment.classType,
-    ).listen((QuerySnapshot<Comment> snapshot) {
-      setState(() {
-        _comments = snapshot.items;
-      });
-    });
-
-    // setup streams
-    postStream = Amplify.DataStore.observe(Post.classType);
-    postStream.listen((event) {
-      _postStreamingData.add('Post: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.title) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
-
-    blogStream = Amplify.DataStore.observe(Blog.classType);
-    blogStream.listen((event) {
-      _blogStreamingData.add('Blog: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.name) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
-
-    commentStream = Amplify.DataStore.observe(Comment.classType);
-    commentStream.listen((event) {
-      _commentStreamingData.add('Comment: ' +
-          (event.eventType.toString() == EventType.delete.toString()
-              ? event.item.id
-              : event.item.content) +
-          ', of type: ' +
-          event.eventType.toString());
-    }).onError((error) => print(error));
-
-    setState(() {
-      _isAmplifyConfigured = true;
-    });
+    listenChanges();
   }
 
-  void listenToHub() {
-    setState(() {
-      hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
-        if (msg.type case DataStoreHubEventType.networkStatus) {
-          print('Network status message: $msg');
-          return;
-        }
-        print(msg);
-      });
-      _listeningToHub = true;
-    });
+  StreamSubscription<SubscriptionEvent<Entry>>? stream;
+
+  void listenChanges() {
+    Amplify.DataStore.observeQuery(Entry.classType).listen(
+      (event) {
+        safePrint('Received QuerySnapshot of Entry:' + event.items.toString());
+      },
+    );
   }
 
-  void stopListeningToHub() {
-    hubSubscription.cancel();
-    setState(() {
-      _listeningToHub = false;
-    });
+  void stopListeningChanges() {
+    stream?.cancel();
   }
 
-  savePost(String title, int rating, Blog associatedBlog) async {
+  Future<void> save() async {
     try {
-      Post post = Post(
-          title: title,
-          rating: rating,
-          created: TemporalDateTime.now(),
-          blog: associatedBlog);
-      await Amplify.DataStore.save(post);
-    } catch (e) {
-      print(e);
+      final profileId = UUID.getUUID();
+      final testTableOne = TestTableOne(profile_id: profileId, count: 100);
+      await Amplify.DataStore.save(testTableOne);
+      final testTableTwo = TestTableTwo(profile_id: profileId, count: 101);
+      await Amplify.DataStore.save(testTableTwo);
+      final testTableThree = TestTableThree(profile_id: profileId, count: 102);
+      await Amplify.DataStore.save(testTableThree);
+    } on ApiException catch (e) {
+      safePrint('Mutation failed: $e');
     }
   }
 
-  saveBlog(String name) async {
-    try {
-      Blog blog = Blog(
-        name: name,
-      );
-      await Amplify.DataStore.save(blog);
-    } catch (e) {
-      print(e);
+  final entry = Entry(draftRecordID: 'foo');
+
+  Future<void> test1() async {
+    print('Before: ${entry.draftRecordID}'); // Before: foo
+
+    await Amplify.DataStore.save(entry);
+
+    final resBefore = await Amplify.DataStore.query(Entry.classType,
+        where: Entry.ID.eq(entry.id));
+    print('resBefore: $resBefore'); // resBefore: Entry.draftRecordID = foo
+  }
+
+  Future<void> copyTest() async {
+    // final entry = Entry(draftRecordID: 'foo');
+
+    final newEntry = entry.copyWithModelFieldValues(
+      draftRecordID: const ModelFieldValue.value(null),
+    );
+    print('After: ${newEntry.draftRecordID}'); // After: null
+
+    await Amplify.DataStore.save(newEntry);
+
+    final resAfter = await Amplify.DataStore.query(Entry.classType,
+        where: Entry.ID.eq(entry.id));
+    print('resAfter: ${resAfter}'); // resAfter: Entry.draftRecordID = null
+  }
+
+  Future<void> queryEntry() async {
+    final res = await Amplify.DataStore.query(Entry.classType,
+        where: Entry.ID.eq(entry.modelIdentifier));
+    print('res: $res');
+    if (res[0].draftRecordID != null) {
+      print('draftRecordID: ${res[0].draftRecordID}');
+    } else {
+      print('draftRecordID is null');
     }
   }
 
-  saveComment(String content, Post associatedPost) async {
-    try {
-      Comment comment = Comment(content: content, post: associatedPost);
-      await Amplify.DataStore.save(comment);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deletePost(String id) async {
-    try {
-      _selectedPostForNewComment = null;
-      await Amplify.DataStore.delete(
-          Post(id: id, title: "", rating: 0, created: TemporalDateTime.now()));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deleteBlog(String id) async {
-    try {
-      _selectedBlogForNewPost = null;
-      await Amplify.DataStore.delete(Blog(id: id, name: ""));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  deleteComment(String id) async {
-    try {
-      await Amplify.DataStore.delete(Comment(id: id, content: ""));
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void updateQueriesToView(String value) {
-    setState(() {
-      _queriesToView = value;
-    });
-  }
-
-  void updateSelectedBlogForNewPost(Blog value) {
-    setState(() {
-      _selectedBlogForNewPost = value;
-    });
-  }
-
-  void updateSelectedPostForNewComment(Post value) {
-    setState(() {
-      _selectedPostForNewComment = value;
+  Future<void> subscribe() async {
+    final req = ModelSubscriptions.onCreate(Entry.classType,
+        authorizationMode: APIAuthorizationType.userPools);
+    final sub = Amplify.API.subscribe(req);
+    sub.listen((event) {
+      print("Subscription event: $event");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    executeAfterBuild();
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Best DataStore App Ever',
-            textAlign: TextAlign.center,
+    return Authenticator(
+      child: MaterialApp(
+        builder: Authenticator.builder(),
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Auth & DataStore Playground'),
+            backgroundColor: Colors.purple,
           ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    await Amplify.DataStore.clear();
-                  },
-                  child: Icon(
-                    Icons.clear,
-                    semanticLabel: "Clear",
-                    size: 24.0,
-                  ),
-                )),
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(10.0)),
-
-            // Row for saving blog
-            addBlogWidget(_nameController, _isAmplifyConfigured, saveBlog),
-
-            // Row for saving post
-            addPostWidget(
-              titleController: _titleController,
-              ratingController: _ratingController,
-              isAmplifyConfigured: _isAmplifyConfigured,
-              allBlogs: _blogs,
-              selectedBlog: _selectedBlogForNewPost,
-              saveFn: savePost,
-              updateSelectedBlogForNewPost: updateSelectedBlogForNewPost,
-            ),
-
-            // Row for saving comment
-            addCommentWidget(
-                _contentController,
-                _isAmplifyConfigured,
-                _selectedPostForNewComment,
-                _posts,
-                _selectedPostForNewComment,
-                saveComment,
-                updateSelectedPostForNewComment),
-
-            Padding(padding: EdgeInsets.all(10.0)),
-
-            // Row for query buttons
-            displayQueryButtons(
-                _isAmplifyConfigured, _queriesToView, updateQueriesToView),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-            Text("Listen to DataStore Hub"),
-            Switch(
-              value: _listeningToHub,
-              onChanged: (value) {
-                if (_listeningToHub) {
-                  stopListeningToHub();
-                } else {
-                  listenToHub();
-                }
-              },
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
-            ),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-
-            // Showing relevant queries
-            if (_queriesToView == "Post")
-              getWidgetToDisplayPost(_posts, deletePost, _blogs)
-            else if (_queriesToView == "Blog")
-              getWidgetToDisplayBlog(_blogs, deleteBlog)
-            else if (_queriesToView == "Comment")
-              getWidgetToDisplayComment(_comments, deleteComment, _posts),
-
-            Text(_queriesToView + " Events",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 14)),
-
-            Padding(padding: EdgeInsets.all(5.0)),
-            if (_queriesToView == "Post")
-              getWidgetToDisplayPostEvents(
-                  _postScrollController, _postStreamingData, executeAfterBuild)
-            else if (_queriesToView == "Blog")
-              getWidgetToDisplayBlogEvents(
-                  _blogScrollController, _blogStreamingData, executeAfterBuild)
-            else if (_queriesToView == "Comment")
-              getWidgetToDisplayCommentEvents(_commentScrollController,
-                  _commentStreamingData, executeAfterBuild),
-          ],
-          // replace with any or all query results as needed
+          body: Column(
+            children: [
+              FilledButton(
+                onPressed: () => test1(),
+                child: const Text('test'),
+              ),
+              FilledButton(
+                onPressed: () => copyTest(),
+                child: const Text('copy'),
+              ),
+              FilledButton(
+                onPressed: () => queryEntry(),
+                child: const Text('get entry'),
+              ),
+              FilledButton(
+                onPressed: () => subscribe(),
+                child: const Text('sub'),
+              ),
+              FilledButton(
+                onPressed: () => save(),
+                child: const Text('save'),
+              ),
+              FilledButton(
+                  onPressed: save, child: const Text('create user models')),
+              FilledButton(
+                  onPressed: () async => await Amplify.DataStore.start(),
+                  child: const Text('Start DataStore')),
+              FilledButton(
+                  onPressed: () async => await Amplify.DataStore.stop(),
+                  child: const Text('Stop DataStore')),
+              FilledButton(
+                  onPressed: () async => await Amplify.DataStore.clear(),
+                  child: const Text('Clear DataStore')),
+              OutlinedButton(
+                  onPressed: () async => await Amplify.Auth.signOut(),
+                  child: const Text('Sign out')),
+              // Container(
+              //   height: 300,
+              //   child: TodoWidget(users: users),
+              // )
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: save,
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );
   }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) => executeAfterBuild());
-  }
-
-  Future<void> executeAfterBuild() async {
-    // this code will get executed after the build method
-    // because of the way async functions are scheduled
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (_postScrollController.hasClients)
-        _postScrollController.animateTo(
-            _postScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-      if (_blogScrollController.hasClients)
-        _blogScrollController.animateTo(
-            _blogScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-      if (_commentScrollController.hasClients)
-        _commentScrollController.animateTo(
-            _commentScrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut);
-    });
-  }
 }
+
+// class TodoWidget extends StatelessWidget {
+//   final List<Object> users;
+
+//   TodoWidget({super.key, required this.users});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     print(users);
+//     return ListView.builder(
+//       itemCount: users.length,
+//       itemBuilder: (context, index) {
+//         return ListTile(
+//           title: Text(users[index]?.name ?? ''),
+//           subtitle: Text(users[index]?.friendIDs.toString() ?? ''),
+//         );
+//       },
+//     );
+//   }
+// }

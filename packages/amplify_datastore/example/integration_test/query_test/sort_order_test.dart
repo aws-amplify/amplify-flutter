@@ -4,11 +4,11 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
+import '../../old_lib/models/ModelProvider.dart';
 import '../utils/constants.dart';
 import '../utils/setup_utils.dart';
 import '../utils/sort_order_utils.dart';

@@ -9,15 +9,15 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/HasManyChildBiDirectionalExplicit.dart';
-import '../../../../lib/models/HasManyChildBiDirectionalImplicit.dart';
-import '../../../../lib/models/HasManyParentBiDirectionalExplicit.dart';
-import '../../../../lib/models/HasManyParentBiDirectionalImplicit.dart';
+import '../../../../old_lib/models/HasManyChildBiDirectionalExplicit.dart';
+import '../../../../old_lib/models/HasManyChildBiDirectionalImplicit.dart';
+import '../../../../old_lib/models/HasManyParentBiDirectionalExplicit.dart';
+import '../../../../old_lib/models/HasManyParentBiDirectionalImplicit.dart';
 
-export '../../../../lib/models/HasManyChildBiDirectionalExplicit.dart';
-export '../../../../lib/models/HasManyChildBiDirectionalImplicit.dart';
-export '../../../../lib/models/HasManyParentBiDirectionalExplicit.dart';
-export '../../../../lib/models/HasManyParentBiDirectionalImplicit.dart';
+export '../../../../old_lib/models/HasManyChildBiDirectionalExplicit.dart';
+export '../../../../old_lib/models/HasManyChildBiDirectionalImplicit.dart';
+export '../../../../old_lib/models/HasManyParentBiDirectionalExplicit.dart';
+export '../../../../old_lib/models/HasManyParentBiDirectionalImplicit.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

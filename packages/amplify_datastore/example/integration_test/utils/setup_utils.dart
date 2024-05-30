@@ -5,12 +5,13 @@ import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:amplify_datastore_example/amplifyconfiguration.dart';
-import 'package:amplify_datastore_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
+import '../../old_lib/amplifyconfiguration.dart';
+import '../../old_lib/models/ModelProvider.dart';
+
 const ENABLE_CLOUD_SYNC =
-    bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: false);
+    bool.fromEnvironment('ENABLE_CLOUD_SYNC', defaultValue: true);
 const DATASTORE_READY_EVENT_TIMEOUT = const Duration(minutes: 10);
 const DELAY_TO_CLEAR_DATASTORE = const Duration(seconds: 2);
 const DELAY_FOR_OBSERVE = const Duration(milliseconds: 100);
@@ -19,7 +20,7 @@ const DELAY_FOR_OBSERVE = const Duration(milliseconds: 100);
 /// When [ENABLE_CLOUD_SYNC] environment variable is set to true, it also
 /// configures [AmplifyAPI] and starts DataStore API sync automatically.
 Future<void> configureDataStore({
-  bool enableCloudSync = false,
+  bool enableCloudSync = true,
   ModelProviderInterface? modelProvider,
 }) async {
   if (!Amplify.isConfigured) {
