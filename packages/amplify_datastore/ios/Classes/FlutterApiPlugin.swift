@@ -73,7 +73,9 @@ public class FlutterApiPlugin: APICategoryPlugin
                         return nil
                     case "error":
                         if let payload = event.payloadJson {
-                            return .data(.fromAppSyncSubscriptionErrorResponse(string: payload))
+                            let result: GraphQLResponse<R> = .fromAppSyncSubscriptionErrorResponse(string: payload)
+                            print("result::: \(result)")
+                            return .data(result)
                         }
                     return nil
                     default:
@@ -140,7 +142,9 @@ public class FlutterApiPlugin: APICategoryPlugin
         }
     }
     
-    public func configure(using configuration: Any?) throws { }
+    public func configure(using configuration: Any?) throws {
+      print("configured FlutterApiPlugin!")
+     }
     
     public func apiAuthProviderFactory() -> APIAuthProviderFactory {
         return self.apiAuthFactory

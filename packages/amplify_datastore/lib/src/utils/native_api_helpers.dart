@@ -7,11 +7,25 @@ import 'package:collection/collection.dart';
 /// Convert a [NativeGraphQLResponse] to a [GraphQLResponse]
 GraphQLRequest<String> nativeRequestToGraphQLRequest(
     NativeGraphQLRequest request) {
+  print("Auth mode:: ${request.authMode}");
   return GraphQLRequest<String>(
     document: request.document,
     variables: jsonDecode(request.variablesJson ?? '{}'),
     apiName: request.apiName,
+    authorizationMode: toFlutterAuthMode(request.authMode),
   );
+}
+
+// from auth mode string to ApiAuthorizationType
+APIAuthorizationType toFlutterAuthMode(String? authMode) {
+  switch (authMode) {
+    case 'API_KEY':
+      return APIAuthorizationType.apiKey;
+    case 'AMAZON_COGNITO_USER_POOLS':
+      return APIAuthorizationType.userPools;
+    default:
+      return APIAuthorizationType.apiKey;
+  }
 }
 
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
@@ -49,11 +63,20 @@ void sendNativeStartAckEvent(String subscriptionId) {
 }
 
 /// Send a data event for the given [subscriptionId] and [payloadJson]
-void sendNativeDataEvent(String subscriptionId, String? payloadJson) {
+void sendNativeDataEvent(
+    String subscriptionId, GraphQLResponse<String> response) {
+  final payloadJson = response.hasErrors
+      ? jsonEncode({"errors": response.errors})
+      : jsonEncode(response.data);
+  // final payload = {
+  //   "data": response.data,
+  //   "errors": response.errors,
+  // };
+
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: payloadJson,
-    type: 'data',
+    type: response.hasErrors ? "error" : "data",
   );
   _sendSubscriptionEvent(event);
 }
@@ -70,6 +93,7 @@ void sendNativeErrorEvent(String subscriptionId, String errorPayload) {
 
 /// Send a complete event for the given [subscriptionId]
 void sendNativeCompleteEvent(String subscriptionId) {
+  print("Flutter::: Sending complete event for $subscriptionId");
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     type: 'complete',

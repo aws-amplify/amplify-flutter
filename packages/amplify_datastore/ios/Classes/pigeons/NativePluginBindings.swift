@@ -215,6 +215,7 @@ struct NativeGraphQLRequest {
   var responseType: String? = nil
   var decodePath: String? = nil
   var options: String? = nil
+  var authMode: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLRequest? {
     let document = list[0] as! String
@@ -223,6 +224,7 @@ struct NativeGraphQLRequest {
     let responseType: String? = nilOrValue(list[3])
     let decodePath: String? = nilOrValue(list[4])
     let options: String? = nilOrValue(list[5])
+    let authMode: String? = nilOrValue(list[6])
 
     return NativeGraphQLRequest(
       document: document,
@@ -230,7 +232,8 @@ struct NativeGraphQLRequest {
       variablesJson: variablesJson,
       responseType: responseType,
       decodePath: decodePath,
-      options: options
+      options: options,
+      authMode: authMode
     )
   }
   func toList() -> [Any?] {
@@ -241,6 +244,7 @@ struct NativeGraphQLRequest {
       responseType,
       decodePath,
       options,
+      authMode,
     ]
   }
 }

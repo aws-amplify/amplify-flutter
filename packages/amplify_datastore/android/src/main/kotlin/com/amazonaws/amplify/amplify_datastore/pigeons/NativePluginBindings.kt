@@ -210,7 +210,8 @@ data class NativeGraphQLRequest (
   val variablesJson: String? = null,
   val responseType: String? = null,
   val decodePath: String? = null,
-  val options: String? = null
+  val options: String? = null,
+  val authMode: String? = null
 
 ) {
   companion object {
@@ -222,7 +223,8 @@ data class NativeGraphQLRequest (
       val responseType = list[3] as String?
       val decodePath = list[4] as String?
       val options = list[5] as String?
-      return NativeGraphQLRequest(document, apiName, variablesJson, responseType, decodePath, options)
+      val authMode = list[6] as String?
+      return NativeGraphQLRequest(document, apiName, variablesJson, responseType, decodePath, options, authMode)
     }
   }
   fun toList(): List<Any?> {
@@ -233,6 +235,7 @@ data class NativeGraphQLRequest (
       responseType,
       decodePath,
       options,
+      authMode,
     )
   }
 }

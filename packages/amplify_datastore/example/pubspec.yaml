@@ -15,6 +15,8 @@ dependencies:
   amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_datastore: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_auth_cognito: ^2.0.0
+  amplify_authenticator: ^2.0.0
   flutter_driver:
     sdk: flutter
   integration_test:
