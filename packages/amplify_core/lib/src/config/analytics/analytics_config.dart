@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/amazon_pinpoint_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
 
 export 'pinpoint_config.dart' hide PinpointPluginConfigFactory;
 
@@ -30,4 +32,19 @@ class AnalyticsConfig extends AmplifyPluginConfigMap {
 
   @override
   Map<String, Object?> toJson() => _$AnalyticsConfigToJson(this);
+
+  AnalyticsOutputs? toAnalyticsOutputs() {
+    final plugin = awsPlugin?.pinpointAnalytics;
+    if (plugin == null) {
+      return null;
+    }
+    final awsRegion = plugin.region;
+    final appId = plugin.appId;
+    return AnalyticsOutputs(
+      amazonPinpoint: AmazonPinpointOutputs(
+        awsRegion: awsRegion,
+        appId: appId,
+      ),
+    );
+  }
 }
