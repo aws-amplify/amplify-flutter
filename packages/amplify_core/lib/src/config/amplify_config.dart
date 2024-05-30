@@ -74,6 +74,18 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
     );
   }
 
+  AmplifyOutputs toAmplifyOutputs() {
+    final appSync = auth?.awsPlugin?.appSync;
+    return AmplifyOutputs(
+      version: '1',
+      auth: auth?.toAuthOutputs(),
+      data: api?.toDataOutputs(appSync: appSync),
+      analytics: analytics?.toAnalyticsOutputs(),
+      notifications: notifications?.toNotificationsOutputs(),
+      storage: storage?.toStorageOutputs(),
+    );
+  }
+
   @override
   Map<String, Object?> toJson() => _$AmplifyConfigToJson(this);
 }

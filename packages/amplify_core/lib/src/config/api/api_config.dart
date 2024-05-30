@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
 
 export 'aws_api_config.dart' hide AWSApiPluginConfigFactory;
 
@@ -30,4 +31,25 @@ class ApiConfig extends AmplifyPluginConfigMap {
 
   @override
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);
+
+  DataOutputs? toDataOutputs({AWSConfigMap<CognitoAppSyncConfig>? appSync}) {
+    final plugin = appSync?.default$;
+    if (plugin == null) {
+      return null;
+    }
+    final region = plugin.region;
+    final url = plugin.apiUrl;
+    final apiKey = plugin.apiKey;
+    final defaultAuthorizationType = plugin.authMode;
+    final modes = appSync?.all.values.map((config) => config.authMode) ?? [];
+    final authorizationTypes =
+        modes.where((mode) => mode != defaultAuthorizationType).toList();
+    return DataOutputs(
+      awsRegion: region,
+      url: url,
+      defaultAuthorizationType: defaultAuthorizationType,
+      apiKey: apiKey,
+      authorizationTypes: authorizationTypes,
+    );
+  }
 }
