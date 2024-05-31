@@ -73,20 +73,22 @@ void sendNativeStartAckEvent(String subscriptionId) {
 /// If the response has errors, the event type will be `error`, otherwise `data`
 void sendSubscriptionEvent(
     String subscriptionId, GraphQLResponse<String> response) {
-  final payloadJson = response.hasErrors
-      ? jsonEncode({"errors": response.errors})
-      : response.data;
+  if (response.hasErrors) {
+    final errorPayload = jsonEncode({"errors": response.errors});
+    sendNativeErrorEvent(subscriptionId, errorPayload);
+    return;
+  }
 
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
-    payloadJson: payloadJson,
-    type: response.hasErrors ? "error" : "data",
+    payloadJson: response.data,
+    type: "data",
   );
   _sendSubscriptionEvent(event);
 }
 
 /// Send an error event for the given [subscriptionId] and [errorPayload]
-void sendNativeErrorEvent(String subscriptionId, String errorPayload) {
+void sendNativeErrorEvent(String subscriptionId, String? errorPayload) {
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: errorPayload,
