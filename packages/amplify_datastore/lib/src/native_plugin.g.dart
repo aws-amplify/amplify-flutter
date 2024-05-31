@@ -214,6 +214,7 @@ class NativeGraphQLRequest {
     this.responseType,
     this.decodePath,
     this.options,
+    this.authMode,
   });
 
   String document;
@@ -228,6 +229,8 @@ class NativeGraphQLRequest {
 
   String? options;
 
+  String? authMode;
+
   Object encode() {
     return <Object?>[
       document,
@@ -236,6 +239,7 @@ class NativeGraphQLRequest {
       responseType,
       decodePath,
       options,
+      authMode,
     ];
   }
 
@@ -248,6 +252,7 @@ class NativeGraphQLRequest {
       responseType: result[3] as String?,
       decodePath: result[4] as String?,
       options: result[5] as String?,
+      authMode: result[6] as String?,
     );
   }
 }

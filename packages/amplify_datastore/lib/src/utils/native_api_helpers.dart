@@ -11,7 +11,28 @@ GraphQLRequest<String> nativeRequestToGraphQLRequest(
     document: request.document,
     variables: jsonDecode(request.variablesJson ?? '{}'),
     apiName: request.apiName,
+    authorizationMode: nativeToApiAuthorizationType(request.authMode),
   );
+}
+
+/// Converts the Amplify Swift type [AWSAuthorizationType.value] to [APIAuthorizationType]
+APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
+  switch (authMode) {
+    case 'apiKey':
+      return APIAuthorizationType.apiKey;
+    case 'awsIAM':
+      return APIAuthorizationType.iam;
+    case 'openIDConnect':
+      return APIAuthorizationType.oidc;
+    case 'amazonCognitoUserPools':
+      return APIAuthorizationType.userPools;
+    case 'function':
+      return APIAuthorizationType.userPools;
+    case 'none':
+      return APIAuthorizationType.none;
+    default:
+      return null;
+  }
 }
 
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
@@ -48,12 +69,18 @@ void sendNativeStartAckEvent(String subscriptionId) {
   _sendSubscriptionEvent(event);
 }
 
-/// Send a data event for the given [subscriptionId] and [payloadJson]
-void sendNativeDataEvent(String subscriptionId, String? payloadJson) {
+/// Send a subscription event for the given [subscriptionId] and [GraphQLResponse]
+/// If the response has errors, the event type will be `error`, otherwise `data`
+void sendSubscriptionEvent(
+    String subscriptionId, GraphQLResponse<String> response) {
+  final payloadJson = response.hasErrors
+      ? jsonEncode({"errors": response.errors})
+      : jsonEncode(response.data);
+
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: payloadJson,
-    type: 'data',
+    type: response.hasErrors ? "error" : "data",
   );
   _sendSubscriptionEvent(event);
 }

@@ -126,4 +126,5 @@ class NativeGraphQLRequest {
   String? responseType;
   String? decodePath;
   String? options;
+  String? authMode;
 }
