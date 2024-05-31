@@ -7,7 +7,6 @@ import 'package:collection/collection.dart';
 /// Convert a [NativeGraphQLResponse] to a [GraphQLResponse]
 GraphQLRequest<String> nativeRequestToGraphQLRequest(
     NativeGraphQLRequest request) {
-  print("Auth mode:: ${request.authMode}");
   return GraphQLRequest<String>(
     document: request.document,
     variables: jsonDecode(request.variablesJson ?? '{}'),
@@ -16,15 +15,23 @@ GraphQLRequest<String> nativeRequestToGraphQLRequest(
   );
 }
 
-// from auth mode string to ApiAuthorizationType
-APIAuthorizationType toFlutterAuthMode(String? authMode) {
+/// Converts the Amplify Swift type [AWSAuthorizationType.value] to [APIAuthorizationType]
+APIAuthorizationType? toFlutterAuthMode(String? authMode) {
   switch (authMode) {
-    case 'API_KEY':
+    case 'apiKey':
       return APIAuthorizationType.apiKey;
-    case 'AMAZON_COGNITO_USER_POOLS':
+    case 'awsIAM':
+      return APIAuthorizationType.iam;
+    case 'openIDConnect':
+      return APIAuthorizationType.oidc;
+    case 'amazonCognitoUserPools':
       return APIAuthorizationType.userPools;
+    case 'function':
+      return APIAuthorizationType.userPools;
+    case 'none':
+      return APIAuthorizationType.none;
     default:
-      return APIAuthorizationType.apiKey;
+      return null;
   }
 }
 
@@ -68,10 +75,6 @@ void sendNativeDataEvent(
   final payloadJson = response.hasErrors
       ? jsonEncode({"errors": response.errors})
       : jsonEncode(response.data);
-  // final payload = {
-  //   "data": response.data,
-  //   "errors": response.errors,
-  // };
 
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
