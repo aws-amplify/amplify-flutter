@@ -22,7 +22,7 @@ extension GraphQLRequest {
             variablesJson: variablesJson ?? "{}",
             responseType: String(describing: self.responseType),
             decodePath: self.decodePath,
-            authMode: (datastoreOptions?.authType ?? self.authMode).map { String(describing: $0) }
+            authMode: datastoreOptions?.authType.map { String(describing: $0) }
         )
     }
 }
