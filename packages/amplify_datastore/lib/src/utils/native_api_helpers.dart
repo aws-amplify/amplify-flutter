@@ -27,7 +27,7 @@ APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
     case 'amazonCognitoUserPools':
       return APIAuthorizationType.userPools;
     case 'function':
-      return APIAuthorizationType.userPools;
+      return APIAuthorizationType.function;
     case 'none':
       return APIAuthorizationType.none;
     default:
