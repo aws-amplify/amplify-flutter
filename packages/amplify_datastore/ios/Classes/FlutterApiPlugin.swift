@@ -2,15 +2,13 @@ import Foundation
 import Flutter
 import Combine
 
-
-
 public class FlutterApiPlugin: APICategoryPlugin
 {
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables = AtomicDictionary<AnyCancellable, Void>()
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
@@ -82,7 +80,9 @@ public class FlutterApiPlugin: APICategoryPlugin
                 }
             }
             .toAmplifyAsyncThrowingSequence()
-        cancellables.insert(cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+
+        cancellables.set(value: (), forKey: cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+
         sequence.send(.connection(.connecting))
         DispatchQueue.main.async {
             self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
