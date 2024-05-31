@@ -99,10 +99,13 @@ public class FlutterApiPlugin: APICategoryPlugin
         guard let payload else {
             throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
+        
+        let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions
 
         return GraphQLResponse<R>.fromAppSyncResponse(
             string: payload,
-            decodePath: request.decodePath
+            decodePath: request.decodePath,
+            modelName: datastoreOptions?.modelName
         )
     }
 
