@@ -30,12 +30,6 @@ extension GraphQLResponse {
                 .unknown("Unable to deserialize json data", "Check the event structure.")
             ))
         }
-        
-        // we expect when flutter calls this to provide a modelName
-        guard let modelName = modelName else {
-            return .failure(.transformationError(string, .unknown("Unable to get modelName", "Please provide a modelName")))
-        }
-        
 
         let result: Result<GraphQLResponse<R>, APIError> = toJson(data: data).flatMap {
             fromAppSyncResponse(json: $0, decodePath: decodePath, modelName: modelName)
