@@ -116,7 +116,7 @@ class GraphQLResponseDecodeTests: XCTestCase {
             "a": ["b"]
         ]
         let expectedJson = "{\"a\":[\"b\"]}"
-        let result: Result<String, APIError> = GraphQLResponse<String>.decodeDataPayload(json, modelName: nil)
+        let result: Result<String, APIError> = GraphQLResponse<String>.decodeDataPayload(json, modelName: "Post")
         XCTAssertNoThrow(try result.get())
         XCTAssertEqual(expectedJson, try result.get())
     }
@@ -137,7 +137,7 @@ class GraphQLResponseDecodeTests: XCTestCase {
             "author": "authorId",
         ], modelName: "Post"))
 
-        let result: Result<AnyModel, APIError> = GraphQLResponse<AnyModel>.decodeDataPayload(json, modelName: nil)
+        let result: Result<AnyModel, APIError> = GraphQLResponse<AnyModel>.decodeDataPayload(json, modelName: "Post")
         XCTAssertNoThrow(try result.get())
         XCTAssertEqual(expectedModel.modelName, try result.get().modelName)
         XCTAssertEqual(expectedModel.id, try result.get().id)
@@ -227,7 +227,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
             "author": "authorId",
         ], modelName: "Post"))
 
-        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(json: json, decodePath: "onCreatePost", modelName: nil)
+        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(
+            json: json,
+            decodePath: "onCreatePost",
+            modelName: "Post"
+        )
         XCTAssertNoThrow(try result.get())
         let mutationSync = try! result.get()
         XCTAssertNoThrow(try mutationSync.get())
@@ -244,7 +248,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
             ]
         ]
 
-        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(json: json, decodePath: "onCreatePost", modelName: nil)
+        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(
+            json: json,
+            decodePath: "onCreatePost",
+            modelName: "Post"
+        )
         XCTAssertNoThrow(try result.get())
         let mutationSync = try! result.get()
         XCTAssertThrowsError(try mutationSync.get()) { error in
@@ -283,7 +291,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
             "author": "authorId",
         ], modelName: "Post"))
 
-        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(json: json, decodePath: "onCreatePost", modelName: nil)
+        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(
+            json: json,
+            decodePath: "onCreatePost",
+            modelName: "Post"
+        )
         XCTAssertNoThrow(try result.get())
         let mutationSync = try! result.get()
         XCTAssertThrowsError(try mutationSync.get()) { error in
@@ -305,7 +317,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
             "a": "b"
         ]
 
-        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(json: json, decodePath: "onCreatePost", modelName: nil)
+        let result: Result<GraphQLResponse<MutationSync<AnyModel>>, APIError> = .fromAppSyncResponse(
+            json: json,
+            decodePath: "onCreatePost",
+            modelName: "Post"
+        )
         XCTAssertThrowsError(try result.get()) { error in
             if case .unknown(let description, _, _) = (error as! APIError) {
                 XCTAssertEqual("Failed to get data object or errors from GraphQL response", description)
@@ -325,7 +341,7 @@ class GraphQLResponseDecodeTests: XCTestCase {
         ]
 
         let jsonString = String(data: try! JSONEncoder().encode(json), encoding: .utf8)!
-        let response: GraphQLResponse<AnyModel> = .fromAppSyncResponse(string: jsonString, decodePath: nil)
+        let response: GraphQLResponse<AnyModel> = .fromAppSyncResponse(string: jsonString, decodePath: nil, modelName: "Post")
         XCTAssertNoThrow(try response.get())
         XCTAssertEqual(json.id?.stringValue, try response.get().identifier)
         XCTAssertEqual(json.__typename?.stringValue, try response.get().modelName)
@@ -334,7 +350,7 @@ class GraphQLResponseDecodeTests: XCTestCase {
     func testFromAppSyncResponse_withBrokenJsonString_failWithTransformationError() {
         SchemaData.modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
         let jsonString = "{"
-        let response: GraphQLResponse<AnyModel> = .fromAppSyncResponse(string: jsonString, decodePath: nil)
+        let response: GraphQLResponse<AnyModel> = .fromAppSyncResponse(string: jsonString, decodePath: nil, modelName: "Post")
         XCTAssertThrowsError(try response.get()) { error in
             guard case .transformationError = error as! GraphQLResponseError<AnyModel> else {
                 XCTFail("Should failed with transformationError")
@@ -358,7 +374,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
         ]
 
         let jsonString = String(data: try! JSONEncoder().encode(payloadJson), encoding: .utf8)!
-        let response: GraphQLResponse<MutationSync<AnyModel>> = .fromAppSyncResponse(string: jsonString, decodePath: "onCreatePost")
+        let response: GraphQLResponse<MutationSync<AnyModel>> = .fromAppSyncResponse(
+            string: jsonString,
+            decodePath: "onCreatePost",
+            modelName: "Post"
+        )
         XCTAssertNoThrow(try response.get())
         let mutationSync = try! response.get()
         XCTAssertEqual(payloadJson.onCreatePost?.id?.stringValue, mutationSync.model.identifier)
@@ -368,7 +388,11 @@ class GraphQLResponseDecodeTests: XCTestCase {
     func testFromAppSyncSubscriptionResponse_withWrongJsonString_failWithTransformationError() {
         SchemaData.modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
         let jsonString = "{"
-        let response: GraphQLResponse<MutationSync<AnyModel>> = .fromAppSyncSubscriptionResponse(string: jsonString, decodePath: nil)
+        let response: GraphQLResponse<MutationSync<AnyModel>> = .fromAppSyncSubscriptionResponse(
+            string: jsonString,
+            decodePath: nil,
+            modelName: "Post"
+        )
         XCTAssertThrowsError(try response.get()) { error in
             guard case .transformationError = error as! GraphQLResponseError<MutationSync<AnyModel>> else {
                 XCTFail("Should failed with transformationError")

@@ -100,12 +100,14 @@ public class FlutterApiPlugin: APICategoryPlugin
             throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
         
-        let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions
-        
+        guard let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions else {
+            throw DataStoreError.decodingError("Failed to decode the GraphQLRequest due to a missing options field.", "")
+        }
+
         return GraphQLResponse<R>.fromAppSyncResponse(
             string: payload,
             decodePath: request.decodePath,
-            modelName: datastoreOptions?.modelName
+            modelName: datastoreOptions.modelName
         )
     }
 
@@ -117,12 +119,14 @@ public class FlutterApiPlugin: APICategoryPlugin
             throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
         
-        let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions
+        guard let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions else {
+            throw DataStoreError.decodingError("Failed to decode the GraphQLRequest due to a missing options field.", "")
+        }
 
         return GraphQLResponse<R>.fromAppSyncSubscriptionResponse(
             string: payload,
             decodePath: request.decodePath,
-            modelName: datastoreOptions?.modelName
+            modelName: datastoreOptions.modelName
         )
     }
     
