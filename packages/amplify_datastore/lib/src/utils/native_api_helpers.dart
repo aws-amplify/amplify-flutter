@@ -75,7 +75,7 @@ void sendSubscriptionEvent(
     String subscriptionId, GraphQLResponse<String> response) {
   final payloadJson = response.hasErrors
       ? jsonEncode({"errors": response.errors})
-      : jsonEncode(response.data);
+      : response.data;
 
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
