@@ -106,7 +106,7 @@ class AmplifyDataStore extends DataStorePluginInterface
     if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
-      final nativePlugin = _NativeAmplifyApi(authProviders);
+      final nativePlugin = NativeAmplifyApi(authProviders);
       NativeApiPlugin.setup(nativePlugin);
 
       final nativeBridge = NativeApiBridge();
@@ -288,10 +288,11 @@ class _NativeAmplifyAuthCognito
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
 }
 
-class _NativeAmplifyApi
+@visibleForTesting
+class NativeAmplifyApi
     with AWSDebuggable, AmplifyLoggerMixin
     implements NativeApiPlugin {
-  _NativeAmplifyApi(this._authProviders);
+  NativeAmplifyApi(this._authProviders);
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
