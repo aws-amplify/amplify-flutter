@@ -102,14 +102,10 @@ public class FlutterApiPlugin: APICategoryPlugin
         
         let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions
         
-        guard let modelName = datastoreOptions?.modelName else {
-            throw DataStoreError.decodingError("Request modelName can not be null", "")
-        }
-
         return GraphQLResponse<R>.fromAppSyncResponse(
             string: payload,
             decodePath: request.decodePath,
-            modelName: modelName
+            modelName: datastoreOptions?.modelName
         )
     }
 
@@ -122,15 +118,11 @@ public class FlutterApiPlugin: APICategoryPlugin
         }
         
         let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions
-        
-        guard let modelName = datastoreOptions?.modelName else {
-            throw DataStoreError.decodingError("Request modelName can not be null", "")
-        }
 
         return GraphQLResponse<R>.fromAppSyncSubscriptionResponse(
             string: payload,
             decodePath: request.decodePath,
-            modelName: modelName
+            modelName: datastoreOptions?.modelName
         )
     }
     
