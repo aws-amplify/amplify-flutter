@@ -22,7 +22,7 @@ extension GraphQLResponse {
     public static func fromAppSyncResponse<R: Decodable>(
         string: String,
         decodePath: String?,
-        modelName: String? = nil
+        modelName: String
     ) -> GraphQLResponse<R> {
         guard let data = string.data(using: .utf8) else {
             return .failure(.transformationError(
@@ -44,7 +44,7 @@ extension GraphQLResponse {
     public static func fromAppSyncSubscriptionResponse<R: Decodable>(
         string: String,
         decodePath: String?,
-        modelName: String? = nil
+        modelName: String
     ) -> GraphQLResponse<R> {
         guard let data = string.data(using: .utf8) else {
             return .failure(.transformationError(
@@ -98,7 +98,7 @@ extension GraphQLResponse {
     static func fromAppSyncResponse<R: Decodable>(
         json: JSONValue,
         decodePath: String?,
-        modelName: String?
+        modelName: String
     ) -> Result<GraphQLResponse<R>, APIError> {
         let data = decodePath != nil ? json.value(at: decodePath!) : json
         let errors = json.errors?.asArray
@@ -147,23 +147,17 @@ extension GraphQLResponse {
 
     static func decodeDataPayload<R: Decodable>(
         _ dataPayload: JSONValue,
-        modelName: String?
+        modelName: String
     ) -> Result<R, APIError> {
         if R.self == String.self {
             return encodeDataPayloadToString(dataPayload).map { $0 as! R }
         }
 
-        let dataPayloadWithTypeName = modelName.flatMap {
-            dataPayload.asObject?.merging(
-                ["__typename": .string($0)]
-            ) { a, _ in a }
-        }.map { JSONValue.object($0) } ?? dataPayload
-
         if R.self == AnyModel.self {
-            return decodeDataPayloadToAnyModel(dataPayloadWithTypeName).map { $0 as! R }
+            return decodeDataPayloadToAnyModel(dataPayload, modelName: modelName).map { $0 as! R }
         }
 
-        return fromJson(dataPayloadWithTypeName)
+        return fromJson(dataPayload)
             .flatMap { data in
                 Result<R, Error> { try jsonDecoder.decode(R.self, from: data) }
                     .mapError { APIError.operationError("Could not decode json to type \(R.self)", "", $0)}
@@ -171,29 +165,19 @@ extension GraphQLResponse {
     }
 
     static func decodeDataPayloadToAnyModel(
-        _ dataPayload: JSONValue
+        _ dataPayload: JSONValue,
+        modelName: String
     ) -> Result<AnyModel, APIError> {
-        guard let typeName = dataPayload.__typename?.stringValue else {
-            return .failure(.operationError(
-                "Could not retrieve __typename from object",
-                """
-                Could not retrieve the `__typename` attribute from the return value. Be sure to include __typename in \
-                the selection set of the GraphQL operation. GraphQL:
-                \(dataPayload)
-                """
-            ))
-        }
-
         return encodeDataPayloadToString(dataPayload).flatMap { underlyingModelString in
             do {
                 return .success(.init(try ModelRegistry.decode(
-                    modelName: typeName,
+                    modelName: modelName,
                     from: underlyingModelString,
                     jsonDecoder: jsonDecoder
                 )))
             } catch {
                 return .failure(.operationError(
-                    "Could not decode to \(typeName) with \(underlyingModelString)",
+                    "Could not decode to \(modelName) with \(underlyingModelString)",
                     ""
                 ))
             }
