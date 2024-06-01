@@ -38,12 +38,14 @@ APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
-  final errorJson = jsonEncode(
-      response.errors.whereNotNull().map((e) => e.toJson()).toList());
-  return NativeGraphQLResponse(
-    payloadJson: response.data,
-    errorsJson: errorJson,
-  );
+  final errorJson =
+      response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  final data = jsonDecode(response.data ?? '{}');
+  final payload = jsonEncode({
+    'data': data,
+    'errors': errorJson,
+  });
+  return NativeGraphQLResponse(payloadJson: payload);
 }
 
 /// Returns a connecting event [NativeGraphQLResponse] for the given [subscriptionId]

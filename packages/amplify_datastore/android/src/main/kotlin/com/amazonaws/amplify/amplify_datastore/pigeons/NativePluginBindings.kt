@@ -158,22 +158,19 @@ data class NativeAWSCredentials (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class NativeGraphQLResponse (
-  val payloadJson: String? = null,
-  val errorsJson: String? = null
+  val payloadJson: String? = null
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): NativeGraphQLResponse {
       val payloadJson = list[0] as String?
-      val errorsJson = list[1] as String?
-      return NativeGraphQLResponse(payloadJson, errorsJson)
+      return NativeGraphQLResponse(payloadJson)
     }
   }
   fun toList(): List<Any?> {
     return listOf<Any?>(
       payloadJson,
-      errorsJson,
     )
   }
 }

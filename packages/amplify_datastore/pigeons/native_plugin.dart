@@ -110,7 +110,6 @@ class LegacyCredentialStoreData {
 
 class NativeGraphQLResponse {
   String? payloadJson;
-  String? errorsJson;
 }
 
 class NativeGraphQLSubscriptionResponse {

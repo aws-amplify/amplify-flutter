@@ -22,6 +22,7 @@ public class FlutterApiPlugin: APICategoryPlugin
     
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
         let response = await asyncQuery(nativeRequest: request.toNativeGraphQLRequest())
+        
         return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
     }
     

@@ -152,17 +152,13 @@ class NativeAWSCredentials {
 class NativeGraphQLResponse {
   NativeGraphQLResponse({
     this.payloadJson,
-    this.errorsJson,
   });
 
   String? payloadJson;
 
-  String? errorsJson;
-
   Object encode() {
     return <Object?>[
       payloadJson,
-      errorsJson,
     ];
   }
 
@@ -170,7 +166,6 @@ class NativeGraphQLResponse {
     result as List<Object?>;
     return NativeGraphQLResponse(
       payloadJson: result[0] as String?,
-      errorsJson: result[1] as String?,
     );
   }
 }
