@@ -47,6 +47,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         
         // TODO: shouldn't there be a timeout if there is no start_ack returned in a certain period of time
         let (sequence, cancellable) = nativeSubscriptionEvents
+            .setFailureType(to: Error.self)
             .receive(on: DispatchQueue.global())
             .filter { $0.subscriptionId == subscriptionId }
             .handleEvents(receiveCompletion: {_ in
@@ -79,6 +80,15 @@ public class FlutterApiPlugin: APICategoryPlugin
                         return nil
                 }
             }
+            .flatMap { (event: GraphQLSubscriptionEvent<R>) -> AnyPublisher<GraphQLSubscriptionEvent<R>, Error> in
+                if case .data(.failure(let graphQLResponseError)) = event,
+                   case .error(let errors) = graphQLResponseError,
+                   errors.contains(where: self.isUnauthorizedError(graphQLError:)) {
+                    return Fail(error: graphQLResponseError).eraseToAnyPublisher()
+                }
+                return Just(event).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
             .toAmplifyAsyncThrowingSequence()
 
         cancellables.set(value: (), forKey: cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
@@ -129,7 +139,14 @@ public class FlutterApiPlugin: APICategoryPlugin
             modelName: datastoreOptions.modelName
         )
     }
-    
+
+    private func isUnauthorizedError(graphQLError: GraphQLError) -> Bool {
+        guard case let .string(errorTypeValue) = graphQLError.extensions?["errorType"] else {
+            return false
+        }
+        return errorTypeValue == "Unauthorized"
+    }
+
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {
