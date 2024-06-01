@@ -86,7 +86,7 @@ public class FlutterApiPlugin: APICategoryPlugin
                 if case .data(.failure(let graphQLResponseError)) = event,
                    case .error(let errors) = graphQLResponseError,
                    errors.contains(where: self.isUnauthorizedError(graphQLError:)) {
-                    return Fail(error: graphQLResponseError).eraseToAnyPublisher()
+                    return Fail(error: APIError.operationError("Unauthorized", "", nil)).eraseToAnyPublisher()
                 }
                 return Just(event).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
