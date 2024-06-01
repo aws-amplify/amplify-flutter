@@ -129,10 +129,17 @@ extension GraphQLResponse {
             return nil
         }
 
-        let extensions = errorObject.enumerated().filter { !["message", "locations", "path", "extensions"].contains($0.element.key) }
+        var extensions = errorObject.enumerated().filter { !["message", "locations", "path", "extensions"].contains($0.element.key) }
             .reduce([String: JSONValue]()) { partialResult, item in
                 partialResult.merging([item.element.key: item.element.value]) { $1 }
             }
+
+        if error.message?.stringValue?.contains("Unauthorized") == true {
+            extensions = extensions.merging(
+                ["errorType": "Unauthorized"],
+                uniquingKeysWith: { _, a in a }
+            )
+        }
 
         return (try? jsonEncoder.encode(error))
             .flatMap { try? jsonDecoder.decode(GraphQLError.self, from: $0) }
