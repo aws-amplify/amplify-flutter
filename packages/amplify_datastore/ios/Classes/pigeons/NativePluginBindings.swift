@@ -162,21 +162,17 @@ struct NativeAWSCredentials {
 /// Generated class from Pigeon that represents data sent in messages.
 struct NativeGraphQLResponse {
   var payloadJson: String? = nil
-  var errorsJson: String? = nil
 
   static func fromList(_ list: [Any?]) -> NativeGraphQLResponse? {
     let payloadJson: String? = nilOrValue(list[0])
-    let errorsJson: String? = nilOrValue(list[1])
 
     return NativeGraphQLResponse(
-      payloadJson: payloadJson,
-      errorsJson: errorsJson
+      payloadJson: payloadJson
     )
   }
   func toList() -> [Any?] {
     return [
       payloadJson,
-      errorsJson,
     ]
   }
 }

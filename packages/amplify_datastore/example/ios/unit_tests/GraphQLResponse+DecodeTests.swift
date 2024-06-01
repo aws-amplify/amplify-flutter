@@ -209,14 +209,16 @@ class GraphQLResponseDecodeTests: XCTestCase {
     func testFromAppSyncResponse_withOnlyData_decodePayload() {
         SchemaData.modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
         let json: JSONValue = [
-            "onCreatePost": [
-                "__typename": "Post",
-                "id": "123",
-                "title": "test",
-                "author": "authorId",
-                "_version": 1,
-               "_deleted": nil,
-               "_lastChangedAt": 1707773705221
+            "data": [
+                "onCreatePost": [
+                    "__typename": "Post",
+                    "id": "123",
+                    "title": "test",
+                    "author": "authorId",
+                    "_version": 1,
+                   "_deleted": nil,
+                   "_lastChangedAt": 1707773705221
+                ]
             ]
         ]
 
@@ -269,14 +271,16 @@ class GraphQLResponseDecodeTests: XCTestCase {
     func testFromAppSyncResponse_withDataAndErrors_decodePayload() {
         SchemaData.modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
         let json: JSONValue = [
-            "onCreatePost": [
-                "__typename": "Post",
-                "id": "123",
-                "title": "test",
-                "author": "authorId",
-                "_version": 1,
-               "_deleted": nil,
-               "_lastChangedAt": 1707773705221
+            "data": [
+                "onCreatePost": [
+                    "__typename": "Post",
+                    "id": "123",
+                    "title": "test",
+                    "author": "authorId",
+                    "_version": 1,
+                   "_deleted": nil,
+                   "_lastChangedAt": 1707773705221
+                ],
             ],
             "errors": [
                 ["message": "error1"],
@@ -362,14 +366,16 @@ class GraphQLResponseDecodeTests: XCTestCase {
     func testFromAppSyncSubscriptionResponse_withJsonString_decodeCorrectly() {
         SchemaData.modelSchemaRegistry.registerModels(registry: ModelRegistry.self)
         let payloadJson: JSONValue = [
-            "onCreatePost": [
-                "__typename": "Post",
-                "id": "123",
-                "title": "test",
-                "author": "authorId",
-                "_version": 1,
-               "_deleted": nil,
-               "_lastChangedAt": 1707773705221
+            "data": [
+                "onCreatePost": [
+                    "__typename": "Post",
+                    "id": "123",
+                    "title": "test",
+                    "author": "authorId",
+                    "_version": 1,
+                   "_deleted": nil,
+                   "_lastChangedAt": 1707773705221
+                ]
             ]
         ]
 
@@ -381,8 +387,8 @@ class GraphQLResponseDecodeTests: XCTestCase {
         )
         XCTAssertNoThrow(try response.get())
         let mutationSync = try! response.get()
-        XCTAssertEqual(payloadJson.onCreatePost?.id?.stringValue, mutationSync.model.identifier)
-        XCTAssertEqual(payloadJson.onCreatePost?.__typename?.stringValue, mutationSync.model.modelName)
+        XCTAssertEqual(payloadJson.data?.onCreatePost?.id?.stringValue, mutationSync.model.identifier)
+        XCTAssertEqual(payloadJson.data?.onCreatePost?.__typename?.stringValue, mutationSync.model.modelName)
     }
 
     func testFromAppSyncSubscriptionResponse_withWrongJsonString_failWithTransformationError() {

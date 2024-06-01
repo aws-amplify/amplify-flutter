@@ -100,8 +100,9 @@ extension GraphQLResponse {
         decodePath: String?,
         modelName: String
     ) -> Result<GraphQLResponse<R>, APIError> {
-        let data = decodePath != nil ? json.value(at: decodePath!) : json
+        var data = decodePath != nil ? json.data?.value(at: decodePath!) : json
         let errors = json.errors?.asArray
+        data = data?.isNull == true ? nil : data
         switch (data, errors) {
         case (.some(let data), .none):
             return decodeDataPayload(data, modelName: modelName).map { .success($0) }
