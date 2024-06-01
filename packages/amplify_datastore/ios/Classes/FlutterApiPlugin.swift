@@ -79,6 +79,15 @@ public class FlutterApiPlugin: APICategoryPlugin
                         return nil
                 }
             }
+            .flatMap { (event: GraphQLSubscriptionEvent<R>) -> AnyPublisher<GraphQLSubscriptionEvent<R>, Error> in
+                if case .data(.failure(let graphQLResponseError)) = event,
+                   case .error(let errors) = graphQLResponseError,
+                   errors.contains(where: self.isUnauthorizedError(graphQLError:)) {
+                    return Fail(error: APIError.operationError("Unauthorized", "", nil)).eraseToAnyPublisher()
+                }
+                return Just(event).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
             .toAmplifyAsyncThrowingSequence()
 
         cancellables.set(value: (), forKey: cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
