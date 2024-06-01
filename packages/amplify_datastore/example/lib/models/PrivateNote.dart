@@ -23,11 +23,12 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 
-/** This is an auto generated class representing the Entry type in your schema. */
-class Entry extends amplify_core.Model {
-  static const classType = const _EntryModelType();
+/** This is an auto generated class representing the PrivateNote type in your schema. */
+class PrivateNote extends amplify_core.Model {
+  static const classType = const _PrivateNoteModelType();
   final String id;
-  final String? _draftRecordID;
+  final String? _content;
+  final String? _owner;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -38,14 +39,27 @@ class Entry extends amplify_core.Model {
   @override
   String getId() => id;
   
-  EntryModelIdentifier get modelIdentifier {
-      return EntryModelIdentifier(
+  PrivateNoteModelIdentifier get modelIdentifier {
+      return PrivateNoteModelIdentifier(
         id: id
       );
   }
   
-  String? get draftRecordID {
-    return _draftRecordID;
+  String get content {
+    try {
+      return _content!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String? get owner {
+    return _owner;
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -56,12 +70,13 @@ class Entry extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Entry._internal({required this.id, draftRecordID, createdAt, updatedAt}): _draftRecordID = draftRecordID, _createdAt = createdAt, _updatedAt = updatedAt;
+  const PrivateNote._internal({required this.id, required content, owner, createdAt, updatedAt}): _content = content, _owner = owner, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Entry({String? id, String? draftRecordID}) {
-    return Entry._internal(
+  factory PrivateNote({String? id, required String content, String? owner}) {
+    return PrivateNote._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
-      draftRecordID: draftRecordID);
+      content: content,
+      owner: owner);
   }
   
   bool equals(Object other) {
@@ -71,9 +86,10 @@ class Entry extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Entry &&
+    return other is PrivateNote &&
       id == other.id &&
-      _draftRecordID == other._draftRecordID;
+      _content == other._content &&
+      _owner == other._owner;
   }
   
   @override
@@ -83,9 +99,10 @@ class Entry extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Entry {");
+    buffer.write("PrivateNote {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("draftRecordID=" + "$_draftRecordID" + ", ");
+    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("owner=" + "$_owner" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -93,44 +110,50 @@ class Entry extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Entry copyWith({String? draftRecordID}) {
-    return Entry._internal(
+  PrivateNote copyWith({String? content, String? owner}) {
+    return PrivateNote._internal(
       id: id,
-      draftRecordID: draftRecordID ?? this.draftRecordID);
+      content: content ?? this.content,
+      owner: owner ?? this.owner);
   }
   
-  Entry copyWithModelFieldValues({
-    ModelFieldValue<String?>? draftRecordID
+  PrivateNote copyWithModelFieldValues({
+    ModelFieldValue<String>? content,
+    ModelFieldValue<String?>? owner
   }) {
-    return Entry._internal(
+    return PrivateNote._internal(
       id: id,
-      draftRecordID: draftRecordID == null ? this.draftRecordID : draftRecordID.value
+      content: content == null ? this.content : content.value,
+      owner: owner == null ? this.owner : owner.value
     );
   }
   
-  Entry.fromJson(Map<String, dynamic> json)  
+  PrivateNote.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _draftRecordID = json['draftRecordID'],
+      _content = json['content'],
+      _owner = json['owner'],
       _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'draftRecordID': _draftRecordID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'content': _content, 'owner': _owner, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
-    'draftRecordID': _draftRecordID,
+    'content': _content,
+    'owner': _owner,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<EntryModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<EntryModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<PrivateNoteModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<PrivateNoteModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final DRAFTRECORDID = amplify_core.QueryField(fieldName: "draftRecordID");
+  static final CONTENT = amplify_core.QueryField(fieldName: "content");
+  static final OWNER = amplify_core.QueryField(fieldName: "owner");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Entry";
-    modelSchemaDefinition.pluralName = "Entries";
+    modelSchemaDefinition.name = "PrivateNote";
+    modelSchemaDefinition.pluralName = "PrivateNotes";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -143,29 +166,19 @@ class Entry extends amplify_core.Model {
           amplify_core.ModelOperation.CREATE,
           amplify_core.ModelOperation.UPDATE,
           amplify_core.ModelOperation.DELETE
-        ]),
-      amplify_core.AuthRule(
-        authStrategy: amplify_core.AuthStrategy.PRIVATE,
-        operations: const [
-          amplify_core.ModelOperation.READ,
-          amplify_core.ModelOperation.UPDATE
-        ]),
-      amplify_core.AuthRule(
-        authStrategy: amplify_core.AuthStrategy.PUBLIC,
-        provider: amplify_core.AuthRuleProvider.APIKEY,
-        operations: const [
-          amplify_core.ModelOperation.READ
         ])
-    ];
-    
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["draftRecordID"], name: "entriesByDraftRecordID")
     ];
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Entry.DRAFTRECORDID,
+      key: PrivateNote.CONTENT,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: PrivateNote.OWNER,
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
@@ -186,29 +199,29 @@ class Entry extends amplify_core.Model {
   });
 }
 
-class _EntryModelType extends amplify_core.ModelType<Entry> {
-  const _EntryModelType();
+class _PrivateNoteModelType extends amplify_core.ModelType<PrivateNote> {
+  const _PrivateNoteModelType();
   
   @override
-  Entry fromJson(Map<String, dynamic> jsonData) {
-    return Entry.fromJson(jsonData);
+  PrivateNote fromJson(Map<String, dynamic> jsonData) {
+    return PrivateNote.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Entry';
+    return 'PrivateNote';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Entry] in your schema.
+ * of [PrivateNote] in your schema.
  */
-class EntryModelIdentifier implements amplify_core.ModelIdentifier<Entry> {
+class PrivateNoteModelIdentifier implements amplify_core.ModelIdentifier<PrivateNote> {
   final String id;
 
-  /** Create an instance of EntryModelIdentifier using [id] the primary key. */
-  const EntryModelIdentifier({
+  /** Create an instance of PrivateNoteModelIdentifier using [id] the primary key. */
+  const PrivateNoteModelIdentifier({
     required this.id});
   
   @override
@@ -226,7 +239,7 @@ class EntryModelIdentifier implements amplify_core.ModelIdentifier<Entry> {
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'EntryModelIdentifier(id: $id)';
+  String toString() => 'PrivateNoteModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -234,7 +247,7 @@ class EntryModelIdentifier implements amplify_core.ModelIdentifier<Entry> {
       return true;
     }
     
-    return other is EntryModelIdentifier &&
+    return other is PrivateNoteModelIdentifier &&
       id == other.id;
   }
   

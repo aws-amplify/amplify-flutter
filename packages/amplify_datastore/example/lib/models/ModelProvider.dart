@@ -21,30 +21,50 @@
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'Entry.dart';
+import 'MixedNote.dart';
+import 'PrivateNote.dart';
+import 'PublicNote.dart';
 import 'TestTableOne.dart';
 import 'TestTableThree.dart';
 import 'TestTableTwo.dart';
 
 export 'Entry.dart';
+export 'MixedNote.dart';
+export 'PrivateNote.dart';
+export 'PublicNote.dart';
 export 'TestTableOne.dart';
 export 'TestTableThree.dart';
 export 'TestTableTwo.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "38df56d340eecba1ec258facb026d416";
+  String version = "0e9988bf851b59192767be0867ee2115";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Entry.schema, TestTableOne.schema, TestTableThree.schema, TestTableTwo.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [
+    // Entry.schema,
+    // MixedNote.schema,
+    PrivateNote.schema,
+    //   PublicNote.schema,
+    //   TestTableOne.schema,
+    //   TestTableThree.schema,
+    //   TestTableTwo.schema
+  ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-  
+
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Entry":
         return Entry.classType;
+      case "MixedNote":
+        return MixedNote.classType;
+      case "PrivateNote":
+        return PrivateNote.classType;
+      case "PublicNote":
+        return PublicNote.classType;
       case "TestTableOne":
         return TestTableOne.classType;
       case "TestTableThree":
@@ -52,11 +72,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
       case "TestTableTwo":
         return TestTableTwo.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
-
 
 class ModelFieldValue<T> {
   const ModelFieldValue.value(this.value);

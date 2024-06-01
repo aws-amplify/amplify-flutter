@@ -39,7 +39,7 @@ class _MainAppState extends State<MainApp> {
       ),
       AmplifyDataStore(
         modelProvider: ModelProvider.instance,
-        options: DataStorePluginOptions(
+        options: const DataStorePluginOptions(
           authModeStrategy: AuthModeStrategy.multiAuth,
         ),
       )
@@ -56,7 +56,7 @@ class _MainAppState extends State<MainApp> {
 
     Amplify.Hub.listen(HubChannel.DataStore, (event) {
       // option 1
-      print(event.eventName);
+      print(event.type);
     });
 
     Amplify.DataStore.observeQuery(
@@ -67,8 +67,17 @@ class _MainAppState extends State<MainApp> {
       // users = snapshot.items;
       // });
     });
-
     listenChanges();
+
+    // sub to public model
+    // final req = ModelSubscriptions.onCreate(PublicNote.classType,
+    //     authorizationMode: APIAuthorizationType.apiKey);
+    // final sub = Amplify.API.subscribe(req, onEstablished: () {
+    //   print("PublicNote:: Subscription established");
+    // });
+    // sub.listen((event) {
+    //   print("PublicNote:: Subscription event: $event");
+    // });
   }
 
   StreamSubscription<SubscriptionEvent<Entry>>? stream;
@@ -146,6 +155,21 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
+  Future<void> createPrivateNote() async {
+    final note = PrivateNote(content: "foo");
+    await Amplify.DataStore.save(note);
+  }
+
+  Future<void> createPublicNote() async {
+    final note = PublicNote(content: "foo");
+    await Amplify.DataStore.save(note);
+  }
+
+  Future<void> createMixedNote() async {
+    final note = MixedNote(content: "foo");
+    await Amplify.DataStore.save(note);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Authenticator(
@@ -173,6 +197,18 @@ class _MainAppState extends State<MainApp> {
               FilledButton(
                 onPressed: () => subscribe(),
                 child: const Text('sub'),
+              ),
+              FilledButton(
+                onPressed: () => createPrivateNote(),
+                child: const Text('create private note'),
+              ),
+              FilledButton(
+                onPressed: () => createPublicNote(),
+                child: const Text('create public note'),
+              ),
+              FilledButton(
+                onPressed: () => createMixedNote(),
+                child: const Text('create mixed note'),
               ),
               FilledButton(
                 onPressed: () => save(),
