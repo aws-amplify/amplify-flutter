@@ -22,7 +22,7 @@ extension GraphQLResponse {
     public static func fromAppSyncResponse<R: Decodable>(
         string: String,
         decodePath: String?,
-        modelName: String? = nil
+        modelName: String
     ) -> GraphQLResponse<R> {
         guard let data = string.data(using: .utf8) else {
             return .failure(.transformationError(
@@ -44,7 +44,7 @@ extension GraphQLResponse {
     public static func fromAppSyncSubscriptionResponse<R: Decodable>(
         string: String,
         decodePath: String?,
-        modelName: String? = nil
+        modelName: String
     ) -> GraphQLResponse<R> {
         guard let data = string.data(using: .utf8) else {
             return .failure(.transformationError(
@@ -98,7 +98,7 @@ extension GraphQLResponse {
     static func fromAppSyncResponse<R: Decodable>(
         json: JSONValue,
         decodePath: String?,
-        modelName: String?
+        modelName: String
     ) -> Result<GraphQLResponse<R>, APIError> {
         let data = decodePath != nil ? json.value(at: decodePath!) : json
         let errors = json.errors?.asArray
@@ -128,10 +128,17 @@ extension GraphQLResponse {
             return nil
         }
 
-        let extensions = errorObject.enumerated().filter { !["message", "locations", "path", "extensions"].contains($0.element.key) }
+        var extensions = errorObject.enumerated().filter { !["message", "locations", "path", "extensions"].contains($0.element.key) }
             .reduce([String: JSONValue]()) { partialResult, item in
                 partialResult.merging([item.element.key: item.element.value]) { $1 }
             }
+
+        if error.message?.stringValue?.contains("Unauthorized") == true {
+            extensions = extensions.merging(
+                ["errorType": "Unauthorized"],
+                uniquingKeysWith: { _, a in a }
+            )
+        }
 
         return (try? jsonEncoder.encode(error))
             .flatMap { try? jsonDecoder.decode(GraphQLError.self, from: $0) }
@@ -147,17 +154,17 @@ extension GraphQLResponse {
 
     static func decodeDataPayload<R: Decodable>(
         _ dataPayload: JSONValue,
-        modelName: String?
+        modelName: String
     ) -> Result<R, APIError> {
         if R.self == String.self {
             return encodeDataPayloadToString(dataPayload).map { $0 as! R }
         }
-
-        let dataPayloadWithTypeName = modelName.flatMap {
-            dataPayload.asObject?.merging(
-                ["__typename": .string($0)]
-            ) { a, _ in a }
-        }.map { JSONValue.object($0) } ?? dataPayload
+        
+        /// This is included to allow multi-platform support. Requests that do not have `__typename` 
+        let dataPayloadWithTypeName = (dataPayload.asObject?.merging(
+            ["__typename": .string(modelName)],
+            uniquingKeysWith: { a, _ in a }
+        )).map { JSONValue.object($0) } ?? dataPayload
 
         if R.self == AnyModel.self {
             return decodeDataPayloadToAnyModel(dataPayloadWithTypeName).map { $0 as! R }
@@ -174,16 +181,16 @@ extension GraphQLResponse {
         _ dataPayload: JSONValue
     ) -> Result<AnyModel, APIError> {
         guard let typeName = dataPayload.__typename?.stringValue else {
-            return .failure(.operationError(
-                "Could not retrieve __typename from object",
-                """
-                Could not retrieve the `__typename` attribute from the return value. Be sure to include __typename in \
-                the selection set of the GraphQL operation. GraphQL:
-                \(dataPayload)
-                """
-            ))
-        }
-
+                    return .failure(.operationError(
+                        "Could not retrieve __typename from object",
+                        """
+                        Could not retrieve the `__typename` attribute from the return value. Be sure to include __typename in \
+                        the selection set of the GraphQL operation. GraphQL:
+                        \(dataPayload)
+                        """
+                    ))
+                }
+        
         return encodeDataPayloadToString(dataPayload).flatMap { underlyingModelString in
             do {
                 return .success(.init(try ModelRegistry.decode(
