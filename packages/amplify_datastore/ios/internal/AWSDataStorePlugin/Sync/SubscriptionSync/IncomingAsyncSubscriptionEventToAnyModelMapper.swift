@@ -81,7 +81,7 @@ final class IncomingAsyncSubscriptionEventToAnyModelMapper: Subscriber, AmplifyC
         case .success(let mutationSync):
             modelsFromSubscription.send(.payload(mutationSync))
         case .failure(let failure):
-            log.error(error: failure)
+            log.error(failure.errorDescription)
         }
     }
 

@@ -38,14 +38,19 @@ APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
-  final errorJson =
-      response.errors.whereNotNull().map((e) => e.toJson()).toList();
-  final data = jsonDecode(response.data ?? '{}');
-  final payload = jsonEncode({
-    'data': data,
-    'errors': errorJson,
-  });
+  final payload = _buildPayloadJson(response);
   return NativeGraphQLResponse(payloadJson: payload);
+}
+
+/// Build payloadJson for a [NativeGraphQLResponse] and [NativeGraphQLSubscriptionResponse]
+/// from a [GraphQLResponse]
+String _buildPayloadJson(GraphQLResponse<String> response) {
+  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  final data = jsonDecode(response.data ?? '{}');
+  return jsonEncode({
+    'data': data,
+    'errors': errors,
+  });
 }
 
 /// Returns a connecting event [NativeGraphQLResponse] for the given [subscriptionId]
@@ -75,16 +80,12 @@ void sendNativeStartAckEvent(String subscriptionId) {
 /// If the response has errors, the event type will be `error`, otherwise `data`
 void sendSubscriptionEvent(
     String subscriptionId, GraphQLResponse<String> response) {
-  if (response.hasErrors) {
-    final errorPayload = jsonEncode({"errors": response.errors});
-    sendNativeErrorEvent(subscriptionId, errorPayload);
-    return;
-  }
+  final payload = _buildPayloadJson(response);
 
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
-    payloadJson: response.data,
-    type: "data",
+    payloadJson: payload,
+    type: response.hasErrors ? 'error' : "data",
   );
   _sendSubscriptionEvent(event);
 }
