@@ -9,13 +9,13 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/HasManyChildExplicit.dart';
-import '../../../../lib/models/HasManyChildImplicit.dart';
-import '../../../../lib/models/HasManyParent.dart';
+import '../../../../old_lib/models/HasManyChildExplicit.dart';
+import '../../../../old_lib/models/HasManyChildImplicit.dart';
+import '../../../../old_lib/models/HasManyParent.dart';
 
-export '../../../../lib/models/HasManyChildExplicit.dart';
-export '../../../../lib/models/HasManyChildImplicit.dart';
-export '../../../../lib/models/HasManyParent.dart';
+export '../../../../old_lib/models/HasManyChildExplicit.dart';
+export '../../../../old_lib/models/HasManyChildImplicit.dart';
+export '../../../../old_lib/models/HasManyParent.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

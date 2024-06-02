@@ -9,9 +9,9 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/CpkInventory.dart';
+import '../../../../old_lib/models/CpkInventory.dart';
 
-export '../../../../lib/models/CpkInventory.dart';
+export '../../../../old_lib/models/CpkInventory.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

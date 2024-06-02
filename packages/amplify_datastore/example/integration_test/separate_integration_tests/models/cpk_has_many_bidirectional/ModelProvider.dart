@@ -9,15 +9,15 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/CpkHasManyChildBidirectionalExplicit.dart';
-import '../../../../lib/models/CpkHasManyChildBidirectionalImplicit.dart';
-import '../../../../lib/models/CpkHasManyParentBidirectionalExplicit.dart';
-import '../../../../lib/models/CpkHasManyParentBidirectionalImplicit.dart';
+import '../../../../old_lib/models/CpkHasManyChildBidirectionalExplicit.dart';
+import '../../../../old_lib/models/CpkHasManyChildBidirectionalImplicit.dart';
+import '../../../../old_lib/models/CpkHasManyParentBidirectionalExplicit.dart';
+import '../../../../old_lib/models/CpkHasManyParentBidirectionalImplicit.dart';
 
-export '../../../../lib/models/CpkHasManyChildBidirectionalExplicit.dart';
-export '../../../../lib/models/CpkHasManyChildBidirectionalImplicit.dart';
-export '../../../../lib/models/CpkHasManyParentBidirectionalExplicit.dart';
-export '../../../../lib/models/CpkHasManyParentBidirectionalImplicit.dart';
+export '../../../../old_lib/models/CpkHasManyChildBidirectionalExplicit.dart';
+export '../../../../old_lib/models/CpkHasManyChildBidirectionalImplicit.dart';
+export '../../../../old_lib/models/CpkHasManyParentBidirectionalExplicit.dart';
+export '../../../../old_lib/models/CpkHasManyParentBidirectionalImplicit.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

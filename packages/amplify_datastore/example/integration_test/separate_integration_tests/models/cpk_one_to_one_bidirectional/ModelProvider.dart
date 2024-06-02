@@ -9,13 +9,13 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/CpkOneToOneBidirectionalChildExplicitID.dart';
-import '../../../../lib/models/CpkOneToOneBidirectionalChildImplicitID.dart';
-import '../../../../lib/models/CpkOneToOneBidirectionalParentID.dart';
+import '../../../../old_lib/models/CpkOneToOneBidirectionalChildExplicitID.dart';
+import '../../../../old_lib/models/CpkOneToOneBidirectionalChildImplicitID.dart';
+import '../../../../old_lib/models/CpkOneToOneBidirectionalParentID.dart';
 
-export '../../../../lib/models/CpkOneToOneBidirectionalChildExplicitID.dart';
-export '../../../../lib/models/CpkOneToOneBidirectionalChildImplicitID.dart';
-export '../../../../lib/models/CpkOneToOneBidirectionalParentID.dart';
+export '../../../../old_lib/models/CpkOneToOneBidirectionalChildExplicitID.dart';
+export '../../../../old_lib/models/CpkOneToOneBidirectionalChildImplicitID.dart';
+export '../../../../old_lib/models/CpkOneToOneBidirectionalParentID.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

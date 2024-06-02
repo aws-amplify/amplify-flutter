@@ -9,11 +9,11 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/CpkHasOneUnidirectionalChild.dart';
-import '../../../../lib/models/CpkHasOneUnidirectionalParent.dart';
+import '../../../../old_lib/models/CpkHasOneUnidirectionalChild.dart';
+import '../../../../old_lib/models/CpkHasOneUnidirectionalParent.dart';
 
-export '../../../../lib/models/CpkHasOneUnidirectionalChild.dart';
-export '../../../../lib/models/CpkHasOneUnidirectionalParent.dart';
+export '../../../../old_lib/models/CpkHasOneUnidirectionalChild.dart';
+export '../../../../old_lib/models/CpkHasOneUnidirectionalParent.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

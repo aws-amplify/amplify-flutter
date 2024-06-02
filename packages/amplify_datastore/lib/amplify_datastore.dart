@@ -343,10 +343,13 @@ class _NativeAmplifyApi
 
     final subscription = operation.listen(
         (GraphQLResponse<String> event) =>
-            sendNativeDataEvent(flutterRequest.id, event.data),
-        onError: (error) {
-          // TODO(equartey): verify that error.toString() is the correct payload format. Should match AppSync
-          final errorPayload = error.toString();
+            sendSubscriptionEvent(flutterRequest.id, event),
+        onError: (Object error) {
+          final errorPayload = jsonEncode({
+            'errors': [
+              {'message': error.toString()}
+            ]
+          });
           sendNativeErrorEvent(flutterRequest.id, errorPayload);
         },
         onDone: () => sendNativeCompleteEvent(flutterRequest.id));

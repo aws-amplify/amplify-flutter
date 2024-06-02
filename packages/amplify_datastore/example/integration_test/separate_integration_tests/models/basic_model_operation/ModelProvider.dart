@@ -9,17 +9,17 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/Blog.dart';
-import '../../../../lib/models/Comment.dart';
-import '../../../../lib/models/Post.dart';
-import '../../../../lib/models/PostTags.dart';
-import '../../../../lib/models/Tag.dart';
+import '../../../../old_lib/models/Blog.dart';
+import '../../../../old_lib/models/Comment.dart';
+import '../../../../old_lib/models/Post.dart';
+import '../../../../old_lib/models/PostTags.dart';
+import '../../../../old_lib/models/Tag.dart';
 
-export '../../../../lib/models/Blog.dart';
-export '../../../../lib/models/Comment.dart';
-export '../../../../lib/models/Post.dart';
-export '../../../../lib/models/PostTags.dart';
-export '../../../../lib/models/Tag.dart';
+export '../../../../old_lib/models/Blog.dart';
+export '../../../../old_lib/models/Comment.dart';
+export '../../../../old_lib/models/Post.dart';
+export '../../../../old_lib/models/PostTags.dart';
+export '../../../../old_lib/models/Tag.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

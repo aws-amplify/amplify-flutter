@@ -9,11 +9,11 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/HasOneChild.dart';
-import '../../../../lib/models/HasOneParent.dart';
+import '../../../../old_lib/models/HasOneChild.dart';
+import '../../../../old_lib/models/HasOneParent.dart';
 
-export '../../../../lib/models/HasOneChild.dart';
-export '../../../../lib/models/HasOneParent.dart';
+export '../../../../old_lib/models/HasOneChild.dart';
+export '../../../../old_lib/models/HasOneParent.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override

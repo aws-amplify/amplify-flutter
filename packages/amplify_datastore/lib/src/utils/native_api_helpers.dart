@@ -11,18 +11,41 @@ GraphQLRequest<String> nativeRequestToGraphQLRequest(
     document: request.document,
     variables: jsonDecode(request.variablesJson ?? '{}'),
     apiName: request.apiName,
+    authorizationMode: nativeToApiAuthorizationType(request.authMode),
   );
+}
+
+/// Converts the Amplify Swift type [AWSAuthorizationType.value] to [APIAuthorizationType]
+APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
+  switch (authMode) {
+    case 'apiKey':
+      return APIAuthorizationType.apiKey;
+    case 'awsIAM':
+      return APIAuthorizationType.iam;
+    case 'openIDConnect':
+      return APIAuthorizationType.oidc;
+    case 'amazonCognitoUserPools':
+      return APIAuthorizationType.userPools;
+    case 'function':
+      return APIAuthorizationType.userPools;
+    case 'none':
+      return APIAuthorizationType.none;
+    default:
+      return null;
+  }
 }
 
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
-  final errorJson = jsonEncode(
-      response.errors.whereNotNull().map((e) => e.toJson()).toList());
-  return NativeGraphQLResponse(
-    payloadJson: response.data,
-    errorsJson: errorJson,
-  );
+  final errorJson =
+      response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  final data = jsonDecode(response.data ?? '{}');
+  final payload = jsonEncode({
+    'data': data,
+    'errors': errorJson,
+  });
+  return NativeGraphQLResponse(payloadJson: payload);
 }
 
 /// Returns a connecting event [NativeGraphQLResponse] for the given [subscriptionId]
@@ -48,18 +71,26 @@ void sendNativeStartAckEvent(String subscriptionId) {
   _sendSubscriptionEvent(event);
 }
 
-/// Send a data event for the given [subscriptionId] and [payloadJson]
-void sendNativeDataEvent(String subscriptionId, String? payloadJson) {
+/// Send a subscription event for the given [subscriptionId] and [GraphQLResponse]
+/// If the response has errors, the event type will be `error`, otherwise `data`
+void sendSubscriptionEvent(
+    String subscriptionId, GraphQLResponse<String> response) {
+  if (response.hasErrors) {
+    final errorPayload = jsonEncode({"errors": response.errors});
+    sendNativeErrorEvent(subscriptionId, errorPayload);
+    return;
+  }
+
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
-    payloadJson: payloadJson,
-    type: 'data',
+    payloadJson: response.data,
+    type: "data",
   );
   _sendSubscriptionEvent(event);
 }
 
 /// Send an error event for the given [subscriptionId] and [errorPayload]
-void sendNativeErrorEvent(String subscriptionId, String errorPayload) {
+void sendNativeErrorEvent(String subscriptionId, String? errorPayload) {
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: errorPayload,
@@ -70,6 +101,7 @@ void sendNativeErrorEvent(String subscriptionId, String errorPayload) {
 
 /// Send a complete event for the given [subscriptionId]
 void sendNativeCompleteEvent(String subscriptionId) {
+  print("Flutter::: Sending complete event for $subscriptionId");
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     type: 'complete',

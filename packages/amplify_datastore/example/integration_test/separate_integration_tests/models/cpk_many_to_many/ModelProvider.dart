@@ -9,13 +9,13 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 
-import '../../../../lib/models/CpkManyToManyPost.dart';
-import '../../../../lib/models/CpkManyToManyTag.dart';
-import '../../../../lib/models/CpkPostTags.dart';
+import '../../../../old_lib/models/CpkManyToManyPost.dart';
+import '../../../../old_lib/models/CpkManyToManyTag.dart';
+import '../../../../old_lib/models/CpkPostTags.dart';
 
-export '../../../../lib/models/CpkManyToManyPost.dart';
-export '../../../../lib/models/CpkManyToManyTag.dart';
-export '../../../../lib/models/CpkPostTags.dart';
+export '../../../../old_lib/models/CpkManyToManyPost.dart';
+export '../../../../old_lib/models/CpkManyToManyTag.dart';
+export '../../../../old_lib/models/CpkPostTags.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
