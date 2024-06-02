@@ -91,7 +91,8 @@ void sendSubscriptionEvent(
 }
 
 /// Send an error event for the given [subscriptionId] and [errorPayload]
-void sendNativeErrorEvent(String subscriptionId, String? errorPayload) {
+void sendSubscriptionStreamErrorEvent(
+    String subscriptionId, String? errorPayload) {
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: errorPayload,

@@ -350,7 +350,7 @@ class _NativeAmplifyApi
               {'message': error.toString()}
             ]
           });
-          sendNativeErrorEvent(flutterRequest.id, errorPayload);
+          sendSubscriptionStreamErrorEvent(flutterRequest.id, errorPayload);
         },
         onDone: () => sendNativeCompleteEvent(flutterRequest.id));
 
