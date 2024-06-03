@@ -321,16 +321,26 @@ class _NativeAmplifyApi
 
   @override
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request) async {
-    final flutterRequest = nativeRequestToGraphQLRequest(request);
-    final response = await Amplify.API.mutate(request: flutterRequest).response;
-    return graphQLResponseToNativeResponse(response);
+    try {
+      final flutterRequest = nativeRequestToGraphQLRequest(request);
+      final response =
+          await Amplify.API.mutate(request: flutterRequest).response;
+      return graphQLResponseToNativeResponse(response);
+    } on Exception catch (e) {
+      return handleGraphQLOperationException(e, request);
+    }
   }
 
   @override
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request) async {
-    final flutterRequest = nativeRequestToGraphQLRequest(request);
-    final response = await Amplify.API.query(request: flutterRequest).response;
-    return graphQLResponseToNativeResponse(response);
+    try {
+      final flutterRequest = nativeRequestToGraphQLRequest(request);
+      final response =
+          await Amplify.API.query(request: flutterRequest).response;
+      return graphQLResponseToNativeResponse(response);
+    } on Exception catch (e) {
+      return handleGraphQLOperationException(e, request);
+    }
   }
 
   @override
@@ -345,12 +355,7 @@ class _NativeAmplifyApi
         (GraphQLResponse<String> event) =>
             sendSubscriptionEvent(flutterRequest.id, event),
         onError: (Object error) {
-          final errorPayload = jsonEncode({
-            'errors': [
-              {'message': error.toString()}
-            ]
-          });
-          sendSubscriptionStreamErrorEvent(flutterRequest.id, errorPayload);
+          sendSubscriptionStreamErrorEvent(flutterRequest.id, error);
         },
         onDone: () => sendNativeCompleteEvent(flutterRequest.id));
 

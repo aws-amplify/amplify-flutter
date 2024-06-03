@@ -35,6 +35,40 @@ APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
   }
 }
 
+// TODO(equartey): Migrate string matching to use status codes when available on
+// exceptions to more closely match the behavior of Amplify Swift.
+// In addition to Unauthorized errors, Amplify Swift checks for status codes 401 & 403 for silent failures.
+// https://github.com/aws-amplify/amplify-swift/blob/8534d75277701bb6cb9844cf66d1e2ef2a78c37e/AmplifyPlugins/API/Sources/AWSAPIPlugin/APIError%2BUnauthorized.swift#L41
+//
+/// Transform a exception to an error payload json.
+/// And tag the error to fail silently, allowing DataStore sync to continue.
+String _transformExceptionToErrorPayloadJson(Object e) {
+  final _silentFailExceptions = ["SignedOutException"];
+
+  Map<String, dynamic> error = {
+    'message': "${e.toString()}",
+  };
+  if (e is AmplifyException) {
+    final isUnAuthorized = _silentFailExceptions
+        .any((x) => e.underlyingException?.toString().contains(x) ?? false);
+    // preface the error message with "Unauthorized" if the exception should be silent
+    error['message'] = isUnAuthorized
+        ? "Unauthorized - ${e.message} - ${e.underlyingException}"
+        : error['message'];
+  }
+  var errorPayload = {
+    'errors': [error]
+  };
+  return jsonEncode(errorPayload);
+}
+
+/// Handle GraphQL operation Exceptions and return a [NativeGraphQLResponse]
+NativeGraphQLResponse handleGraphQLOperationException(
+    Exception e, NativeGraphQLRequest request) {
+  final errorPayload = _transformExceptionToErrorPayloadJson(e);
+  return NativeGraphQLResponse(payloadJson: errorPayload);
+}
+
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
@@ -91,8 +125,8 @@ void sendSubscriptionEvent(
 }
 
 /// Send an error event for the given [subscriptionId] and [errorPayload]
-void sendSubscriptionStreamErrorEvent(
-    String subscriptionId, String? errorPayload) {
+void sendSubscriptionStreamErrorEvent(String subscriptionId, Object e) {
+  final errorPayload = _transformExceptionToErrorPayloadJson(e);
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: errorPayload,
