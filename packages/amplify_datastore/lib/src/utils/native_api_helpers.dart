@@ -72,18 +72,35 @@ NativeGraphQLResponse handleGraphQLOperationException(
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
-  final payload = _buildPayloadJson(response);
+  var payload = "";
+  try {
+    payload = _buildPayloadJson(response);
+  } on Exception catch (e) {
+    payload = _handlePayloadException(e);
+  }
   return NativeGraphQLResponse(payloadJson: payload);
 }
 
 /// Build payloadJson for a [NativeGraphQLResponse] and [NativeGraphQLSubscriptionResponse]
 /// from a [GraphQLResponse]
 String _buildPayloadJson(GraphQLResponse<String> response) {
-  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
   final data = jsonDecode(response.data ?? '{}');
+  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
   return jsonEncode({
     'data': data,
     'errors': errors,
+  });
+}
+
+/// Handle payload json parsing exceptions
+String _handlePayloadException(Exception e) {
+  return jsonEncode({
+    'data': {},
+    'errors': [
+      {
+        'message': 'Error parsing payload json: ${e.toString()}',
+      }
+    ],
   });
 }
 
@@ -114,12 +131,20 @@ void sendNativeStartAckEvent(String subscriptionId) {
 /// If the response has errors, the event type will be `error`, otherwise `data`
 void sendSubscriptionEvent(
     String subscriptionId, GraphQLResponse<String> response) {
-  final payload = _buildPayloadJson(response);
+  var payload = "";
+  var hasErrors = response.hasErrors;
+
+  try {
+    payload = _buildPayloadJson(response);
+  } on Exception catch (e) {
+    payload = _handlePayloadException(e);
+    hasErrors = true;
+  }
 
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: payload,
-    type: response.hasErrors ? 'error' : "data",
+    type: hasErrors ? 'error' : "data",
   );
   _sendSubscriptionEvent(event);
 }
