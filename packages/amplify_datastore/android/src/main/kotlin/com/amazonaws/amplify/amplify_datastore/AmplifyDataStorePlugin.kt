@@ -901,6 +901,7 @@ class AmplifyDataStorePlugin :
 
     override fun addApiPlugin(
         authProvidersList: List<String>,
+        endpoints: Map<String, String>,
         callback: (kotlin.Result<Unit>) -> Unit
     ) {
         try {
