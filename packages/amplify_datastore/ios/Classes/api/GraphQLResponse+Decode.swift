@@ -162,7 +162,8 @@ extension GraphQLResponse {
             return encodeDataPayloadToString(dataPayload).map { $0 as! R }
         }
         
-        /// This is included to allow multi-platform support. Requests that do not have `__typename` 
+        /// This allows multi-platform support. Not all platform requests include `__typename`
+        /// in the selection set. This adds it to the response based on the model name for proper decoding.
         let dataPayloadWithTypeName = (dataPayload.asObject?.merging(
             ["__typename": .string(modelName)],
             uniquingKeysWith: { a, _ in a }
