@@ -331,14 +331,13 @@ class _NativeAmplifyApi
     if (apiName == null) {
       throw DataStoreException('No API name provided');
     }
-    final endpoint =
-        endpoints?.firstWhereOrNull((e) => e.keys.first == apiName);
+    final endpoint = endpoints?.firstWhereOrNull((e) => e[apiName] != null);
     if (endpoint == null) {
       throw DataStoreException(
         'No endpoint found for $apiName',
       );
     }
-    return endpoint.values.first.rawValue;
+    return endpoint[apiName]?.name;
   }
 
   @override
