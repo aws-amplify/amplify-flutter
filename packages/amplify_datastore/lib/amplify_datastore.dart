@@ -329,6 +329,11 @@ class _NativeAmplifyApi
   @override
   String? getEndpointAuthorizationType(String? apiName) {
     if (apiName == null) {
+      // If there is only one endpoint, return it.
+      if (endpoints != null && endpoints!.length == 1) {
+        print("Endpoint::: ${endpoints!.first.values.first.name}");
+        return endpoints!.first.values.first.name;
+      }
       throw DataStoreException('No API name provided');
     }
     final endpoint = endpoints?.firstWhereOrNull((e) => e[apiName] != null);

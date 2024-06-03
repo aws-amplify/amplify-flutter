@@ -25,22 +25,20 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     }
 
     public func defaultAuthType(for apiName: String?) throws -> AWSAuthorizationType {
-        guard let apiName = apiName else {
-            let error = DataStoreError.api(APIError.invalidConfiguration(                "Unable to get an endpoint configuration for \(String(describing: apiName))",
-                """
-                Review your API plugin configuration and ensure \(String(describing: apiName)) has a valid configuration.
-                """) )
-            throw error
-        }
         // TODO(equartey): Migrate away from sempahore.
         let semaphore = DispatchSemaphore(value: 0)
-        var authTypeResponse: String?
-        self.nativeApiPlugin.getEndpointAuthorizationType(apiName: apiName) { authType in
-            authTypeResponse = authType
-            semaphore.signal()
-        }
+        let result = Task {
+            return await withCheckedContinuation { continuation in
+                self.nativeApiPlugin.getEndpointAuthorizationType(apiName: apiName) { authType in
+                    defer {
+                        semaphore.signal()
+                    }
+                    continuation.resume(with: authType)
+                }
+            }
+        }.result
         semaphore.wait()
-        
+        print("SWIFT::: AuthType:: \(authTypeResponse)")
         return try stringToAWSAuthType(string: authTypeResponse)
     }
     
@@ -62,6 +60,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     }
     
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
+        let authType = try defaultAuthType()
         let response = await asyncQuery(nativeRequest: request.toNativeGraphQLRequest())
         
         return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
