@@ -9,15 +9,18 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     private let nativeApiPlugin: NativeApiPlugin
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = AtomicDictionary<AnyCancellable, Void>()
+    private var endpoints: [String: String]
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
         nativeApiPlugin: NativeApiPlugin,
-        subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
+        subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>,
+        endpoints: [String: String]
     ) {
         self.apiAuthFactory = apiAuthProviderFactory
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
+        self.endpoints = endpoints
     }
     
     public func defaultAuthType() throws -> AWSAuthorizationType {
@@ -25,23 +28,14 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     }
 
     public func defaultAuthType(for apiName: String?) throws -> AWSAuthorizationType {
-        guard let apiName = apiName else {
-            let error = DataStoreError.api(APIError.invalidConfiguration(                "Unable to get an endpoint configuration for \(String(describing: apiName))",
-                """
-                Review your API plugin configuration and ensure \(String(describing: apiName)) has a valid configuration.
-                """) )
-            throw error
+        if apiName == nil {
+            if self.endpoints.count == 1 {
+                return try stringToAWSAuthType(string: self.endpoints.first?.value)
+            }
+            return try stringToAWSAuthType(string: "")
         }
-        // TODO(equartey): Migrate away from sempahore.
-        let semaphore = DispatchSemaphore(value: 0)
-        var authTypeResponse: String?
-        self.nativeApiPlugin.getEndpointAuthorizationType(apiName: apiName) { authType in
-            authTypeResponse = authType
-            semaphore.signal()
-        }
-        semaphore.wait()
-        
-        return try stringToAWSAuthType(string: authTypeResponse)
+        let authType = self.endpoints[apiName!]
+        return try stringToAWSAuthType(string: authType)
     }
     
     private func stringToAWSAuthType(string: String?) throws -> AWSAuthorizationType {

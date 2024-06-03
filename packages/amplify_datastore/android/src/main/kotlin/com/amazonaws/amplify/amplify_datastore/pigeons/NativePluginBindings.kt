@@ -360,13 +360,6 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback(result)
     }
   }
-  fun getEndpointAuthorizationType(apiNameArg: String?, callback: (String?) -> Unit) {
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType", codec)
-    channel.send(listOf(apiNameArg)) {
-      val result = it as String?
-      callback(result)
-    }
-  }
   fun mutate(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLResponse) -> Unit) {
     val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate", codec)
     channel.send(listOf(requestArg)) {
@@ -542,7 +535,7 @@ private object NativeApiBridgeCodec : StandardMessageCodec() {
  * Generated interface from Pigeon that represents a handler of messages from Flutter.
  */
 interface NativeApiBridge {
-  fun addApiPlugin(authProvidersList: List<String>, callback: (Result<Unit>) -> Unit)
+  fun addApiPlugin(authProvidersList: List<String>, endpoints: Map<String, String>, callback: (Result<Unit>) -> Unit)
   fun sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, callback: (Result<Unit>) -> Unit)
 
   companion object {
@@ -559,7 +552,8 @@ interface NativeApiBridge {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val authProvidersListArg = args[0] as List<String>
-            api.addApiPlugin(authProvidersListArg) { result: Result<Unit> ->
+            val endpointsArg = args[1] as Map<String, String>
+            api.addApiPlugin(authProvidersListArg, endpointsArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(wrapError(error))

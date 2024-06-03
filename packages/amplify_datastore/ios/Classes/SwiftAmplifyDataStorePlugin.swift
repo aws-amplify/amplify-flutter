@@ -80,11 +80,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
         }
     }
     
-    func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void) {
+    func addApiPlugin(authProvidersList: [String], endpoints: [String: String], completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             let authProviders = authProvidersList.compactMap {
                 AWSAuthorizationType(rawValue: $0)
             }
+            
             try Amplify.add(
                 plugin: FlutterApiPlugin(
                     apiAuthProviderFactory: FlutterAuthProviders(
@@ -92,7 +93,8 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                         nativeApiPlugin: nativeApiPlugin
                     ), 
                     nativeApiPlugin: nativeApiPlugin,
-                    subscriptionEventBus: nativeSubscriptionEventBus
+                    subscriptionEventBus: nativeSubscriptionEventBus,
+                    endpoints: endpoints
                 )
             )
             return completion(.success(()))

@@ -106,19 +106,18 @@ class AmplifyDataStore extends DataStorePluginInterface
     if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
-      final endpoints = config.api?.awsPlugin?.all.entries.map((e) {
-        return {
-          e.key: e.value.authorizationType,
-        };
-      }).toList();
-      final nativePlugin = _NativeAmplifyApi(authProviders, endpoints);
+      Map<String, String> endpoints = {};
+      config.api?.awsPlugin?.all.entries.forEach((e) {
+        endpoints[e.key] = e.value.authorizationType.name;
+      });
+      final nativePlugin = _NativeAmplifyApi(authProviders);
       NativeApiPlugin.setup(nativePlugin);
 
       final nativeBridge = NativeApiBridge();
       try {
         final authProvidersList =
             authProviders.keys.map((key) => key.rawValue).toList();
-        await nativeBridge.addApiPlugin(authProvidersList);
+        await nativeBridge.addApiPlugin(authProvidersList, endpoints);
       } on PlatformException catch (e) {
         if (e.code.contains('AmplifyAlreadyConfiguredException') ||
             e.code.contains('AlreadyConfiguredException')) {
@@ -296,7 +295,7 @@ class _NativeAmplifyAuthCognito
 class _NativeAmplifyApi
     with AWSDebuggable, AmplifyLoggerMixin
     implements NativeApiPlugin {
-  _NativeAmplifyApi(this._authProviders, this.endpoints);
+  _NativeAmplifyApi(this._authProviders);
 
   /// The registered [APIAuthProvider] instances.
   final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
@@ -304,8 +303,6 @@ class _NativeAmplifyApi
 
   final Map<String, StreamSubscription<GraphQLResponse<String>>>
       _subscriptionsCache = {};
-
-  final List<Map<String, APIAuthorizationType<AmplifyAuthProvider>>>? endpoints;
 
   @override
   String get runtimeTypeName => '_NativeAmplifyApi';
@@ -324,20 +321,6 @@ class _NativeAmplifyApi
       );
     }
     return authProvider.getLatestAuthToken();
-  }
-
-  @override
-  String? getEndpointAuthorizationType(String? apiName) {
-    if (apiName == null) {
-      throw DataStoreException('No API name provided');
-    }
-    final endpoint = endpoints?.firstWhereOrNull((e) => e[apiName] != null);
-    if (endpoint == null) {
-      throw DataStoreException(
-        'No endpoint found for $apiName',
-      );
-    }
-    return endpoint[apiName]?.name;
   }
 
   @override

@@ -30,8 +30,6 @@ abstract class NativeApiPlugin {
   @async
   String? getLatestAuthToken(String providerName);
 
-  String? getEndpointAuthorizationType(String? apiName);
-
   @async
   NativeGraphQLResponse mutate(NativeGraphQLRequest request);
 
@@ -65,7 +63,8 @@ abstract class NativeAuthBridge {
 @HostApi()
 abstract class NativeApiBridge {
   @async
-  void addApiPlugin(List<String> authProvidersList);
+  void addApiPlugin(
+      List<String> authProvidersList, Map<String, String> endpoints);
 
   @async
   void sendSubscriptionEvent(NativeGraphQLSubscriptionResponse event);

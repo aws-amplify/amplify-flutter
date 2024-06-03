@@ -349,8 +349,6 @@ abstract class NativeApiPlugin {
 
   Future<String?> getLatestAuthToken(String providerName);
 
-  String? getEndpointAuthorizationType(String? apiName);
-
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request);
 
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request);
@@ -378,24 +376,6 @@ abstract class NativeApiPlugin {
               'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null, expected non-null String.');
           final String? output =
               await api.getLatestAuthToken(arg_providerName!);
-          return output;
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType',
-          codec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        channel.setMessageHandler(null);
-      } else {
-        channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final String? arg_apiName = (args[0] as String?);
-          final String? output = api.getEndpointAuthorizationType(arg_apiName);
           return output;
         });
       }
@@ -634,13 +614,15 @@ class NativeApiBridge {
 
   static const MessageCodec<Object?> codec = _NativeApiBridgeCodec();
 
-  Future<void> addApiPlugin(List<String?> arg_authProvidersList) async {
+  Future<void> addApiPlugin(List<String?> arg_authProvidersList,
+      Map<String?, String?> arg_endpoints) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.amplify_datastore.NativeApiBridge.addApiPlugin',
         codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_authProvidersList]) as List<Object?>?;
+        await channel.send(<Object?>[arg_authProvidersList, arg_endpoints])
+            as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
