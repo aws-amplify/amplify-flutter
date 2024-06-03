@@ -360,6 +360,13 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback(result)
     }
   }
+  fun getEndpointAuthorizationType(apiNameArg: String?, callback: (String?) -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType", codec)
+    channel.send(listOf(apiNameArg)) {
+      val result = it as String?
+      callback(result)
+    }
+  }
   fun mutate(requestArg: NativeGraphQLRequest, callback: (NativeGraphQLResponse) -> Unit) {
     val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate", codec)
     channel.send(listOf(requestArg)) {

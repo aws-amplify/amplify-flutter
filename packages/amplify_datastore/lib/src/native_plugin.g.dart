@@ -349,6 +349,8 @@ abstract class NativeApiPlugin {
 
   Future<String?> getLatestAuthToken(String providerName);
 
+  String? getEndpointAuthorizationType(String? apiName);
+
   Future<NativeGraphQLResponse> mutate(NativeGraphQLRequest request);
 
   Future<NativeGraphQLResponse> query(NativeGraphQLRequest request);
@@ -376,6 +378,24 @@ abstract class NativeApiPlugin {
               'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getLatestAuthToken was null, expected non-null String.');
           final String? output =
               await api.getLatestAuthToken(arg_providerName!);
+          return output;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType',
+          codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final String? arg_apiName = (args[0] as String?);
+          final String? output = api.getEndpointAuthorizationType(arg_apiName);
           return output;
         });
       }

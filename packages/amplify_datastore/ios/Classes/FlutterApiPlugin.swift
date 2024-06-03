@@ -2,7 +2,7 @@ import Foundation
 import Flutter
 import Combine
 
-public class FlutterApiPlugin: APICategoryPlugin
+public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
 {
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
@@ -18,6 +18,47 @@ public class FlutterApiPlugin: APICategoryPlugin
         self.apiAuthFactory = apiAuthProviderFactory
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
+    }
+    
+    public func defaultAuthType() throws -> AWSAuthorizationType {
+        try defaultAuthType(for: nil)
+    }
+
+    public func defaultAuthType(for apiName: String?) throws -> AWSAuthorizationType {
+        guard let apiName = apiName else {
+            let error = DataStoreError.api(APIError.invalidConfiguration(                "Unable to get an endpoint configuration for \(String(describing: apiName))",
+                """
+                Review your API plugin configuration and ensure \(String(describing: apiName)) has a valid configuration.
+                """) )
+            throw error
+        }
+        // TODO(equartey): Migrate away from sempahore.
+        let semaphore = DispatchSemaphore(value: 0)
+        var authTypeResponse: String?
+        self.nativeApiPlugin.getEndpointAuthorizationType(apiName: apiName) { authType in
+            authTypeResponse = authType
+            semaphore.signal()
+        }
+        semaphore.wait()
+        
+        return try stringToAWSAuthType(string: authTypeResponse)
+    }
+    
+    private func stringToAWSAuthType(string: String?) throws -> AWSAuthorizationType {
+        switch(string){
+        case .some("apiKey"):
+            return AWSAuthorizationType.apiKey
+        case .some("none"):
+            return AWSAuthorizationType.none
+        case .some("iam"):
+            return AWSAuthorizationType.awsIAM
+        case .some("oidc"):
+            return AWSAuthorizationType.openIDConnect
+        case .some("userPools"):
+            return AWSAuthorizationType.amazonCognitoUserPools
+        default:
+            throw DataStoreError.configuration("No AWSAuthorizationType found from given string", "Please check API configuration")
+        }
     }
     
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {

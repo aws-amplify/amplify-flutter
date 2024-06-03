@@ -374,6 +374,13 @@ class NativeApiPlugin {
       completion(result)
     }
   }
+  func getEndpointAuthorizationType(apiName apiNameArg: String?, completion: @escaping (String?) -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.getEndpointAuthorizationType", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([apiNameArg] as [Any?]) { response in
+      let result: String? = nilOrValue(response)
+      completion(result)
+    }
+  }
   func mutate(request requestArg: NativeGraphQLRequest, completion: @escaping (NativeGraphQLResponse) -> Void) {
     let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.mutate", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([requestArg] as [Any?]) { response in

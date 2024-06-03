@@ -30,6 +30,8 @@ abstract class NativeApiPlugin {
   @async
   String? getLatestAuthToken(String providerName);
 
+  String? getEndpointAuthorizationType(String? apiName);
+
   @async
   NativeGraphQLResponse mutate(NativeGraphQLRequest request);
 
