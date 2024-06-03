@@ -152,17 +152,13 @@ class NativeAWSCredentials {
 class NativeGraphQLResponse {
   NativeGraphQLResponse({
     this.payloadJson,
-    this.errorsJson,
   });
 
   String? payloadJson;
 
-  String? errorsJson;
-
   Object encode() {
     return <Object?>[
       payloadJson,
-      errorsJson,
     ];
   }
 
@@ -170,7 +166,6 @@ class NativeGraphQLResponse {
     result as List<Object?>;
     return NativeGraphQLResponse(
       payloadJson: result[0] as String?,
-      errorsJson: result[1] as String?,
     );
   }
 }
@@ -214,6 +209,7 @@ class NativeGraphQLRequest {
     this.responseType,
     this.decodePath,
     this.options,
+    this.authMode,
   });
 
   String document;
@@ -228,6 +224,8 @@ class NativeGraphQLRequest {
 
   String? options;
 
+  String? authMode;
+
   Object encode() {
     return <Object?>[
       document,
@@ -236,6 +234,7 @@ class NativeGraphQLRequest {
       responseType,
       decodePath,
       options,
+      authMode,
     ];
   }
 
@@ -248,6 +247,7 @@ class NativeGraphQLRequest {
       responseType: result[3] as String?,
       decodePath: result[4] as String?,
       options: result[5] as String?,
+      authMode: result[6] as String?,
     );
   }
 }

@@ -2,15 +2,13 @@ import Foundation
 import Flutter
 import Combine
 
-
-
 public class FlutterApiPlugin: APICategoryPlugin
 {
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables = AtomicDictionary<AnyCancellable, Void>()
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
@@ -24,6 +22,7 @@ public class FlutterApiPlugin: APICategoryPlugin
     
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {
         let response = await asyncQuery(nativeRequest: request.toNativeGraphQLRequest())
+        
         return try decodeGraphQLPayloadJson(request: request, payload: response.payloadJson)
     }
     
@@ -49,6 +48,7 @@ public class FlutterApiPlugin: APICategoryPlugin
         
         // TODO: shouldn't there be a timeout if there is no start_ack returned in a certain period of time
         let (sequence, cancellable) = nativeSubscriptionEvents
+            .setFailureType(to: Error.self)
             .receive(on: DispatchQueue.global())
             .filter { $0.subscriptionId == subscriptionId }
             .handleEvents(receiveCompletion: {_ in
@@ -81,8 +81,19 @@ public class FlutterApiPlugin: APICategoryPlugin
                         return nil
                 }
             }
+            .flatMap { (event: GraphQLSubscriptionEvent<R>) -> AnyPublisher<GraphQLSubscriptionEvent<R>, Error> in
+                if case .data(.failure(let graphQLResponseError)) = event,
+                   case .error(let errors) = graphQLResponseError,
+                   errors.contains(where: self.isUnauthorizedError(graphQLError:)) {
+                    return Fail(error: APIError.operationError("Unauthorized", "", nil)).eraseToAnyPublisher()
+                }
+                return Just(event).setFailureType(to: Error.self).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
             .toAmplifyAsyncThrowingSequence()
-        cancellables.insert(cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+
+        cancellables.set(value: (), forKey: cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+
         sequence.send(.connection(.connecting))
         DispatchQueue.main.async {
             self.nativeApiPlugin.subscribe(request: request.toNativeGraphQLRequest()) { response in
@@ -99,10 +110,15 @@ public class FlutterApiPlugin: APICategoryPlugin
         guard let payload else {
             throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
+        
+        guard let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions else {
+            throw DataStoreError.decodingError("Failed to decode the GraphQLRequest due to a missing options field.", "")
+        }
 
         return GraphQLResponse<R>.fromAppSyncResponse(
             string: payload,
-            decodePath: request.decodePath
+            decodePath: request.decodePath,
+            modelName: datastoreOptions.modelName
         )
     }
 
@@ -113,13 +129,25 @@ public class FlutterApiPlugin: APICategoryPlugin
         guard let payload else {
             throw DataStoreError.decodingError("Request payload could not be empty", "")
         }
+        
+        guard let datastoreOptions = request.options?.pluginOptions as? AWSAPIPluginDataStoreOptions else {
+            throw DataStoreError.decodingError("Failed to decode the GraphQLRequest due to a missing options field.", "")
+        }
 
         return GraphQLResponse<R>.fromAppSyncSubscriptionResponse(
             string: payload,
-            decodePath: request.decodePath
+            decodePath: request.decodePath,
+            modelName: datastoreOptions.modelName
         )
     }
-    
+
+    private func isUnauthorizedError(graphQLError: GraphQLError) -> Bool {
+        guard case let .string(errorTypeValue) = graphQLError.extensions?["errorType"] else {
+            return false
+        }
+        return errorTypeValue == "Unauthorized"
+    }
+
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
             DispatchQueue.main.async {

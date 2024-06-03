@@ -11,18 +11,97 @@ GraphQLRequest<String> nativeRequestToGraphQLRequest(
     document: request.document,
     variables: jsonDecode(request.variablesJson ?? '{}'),
     apiName: request.apiName,
+    authorizationMode: nativeToApiAuthorizationType(request.authMode),
   );
+}
+
+/// Converts the Amplify Swift type [AWSAuthorizationType.value] to [APIAuthorizationType]
+APIAuthorizationType? nativeToApiAuthorizationType(String? authMode) {
+  switch (authMode) {
+    case 'apiKey':
+      return APIAuthorizationType.apiKey;
+    case 'awsIAM':
+      return APIAuthorizationType.iam;
+    case 'openIDConnect':
+      return APIAuthorizationType.oidc;
+    case 'amazonCognitoUserPools':
+      return APIAuthorizationType.userPools;
+    case 'function':
+      return APIAuthorizationType.function;
+    case 'none':
+      return APIAuthorizationType.none;
+    default:
+      return null;
+  }
+}
+
+// TODO(equartey): Migrate string matching to use status codes when available on
+// exceptions to more closely match the behavior of Amplify Swift.
+// In addition to Unauthorized errors, Amplify Swift checks for status codes 401 & 403 for silent failures.
+// https://github.com/aws-amplify/amplify-swift/blob/8534d75277701bb6cb9844cf66d1e2ef2a78c37e/AmplifyPlugins/API/Sources/AWSAPIPlugin/APIError%2BUnauthorized.swift#L41
+//
+/// Transform a exception to an error payload json.
+/// And tag the error to fail silently, allowing DataStore sync to continue.
+String _transformExceptionToErrorPayloadJson(Object e) {
+  final _silentFailExceptions = ["SignedOutException"];
+
+  Map<String, dynamic> error = {
+    'message': "${e.toString()}",
+  };
+  if (e is AmplifyException) {
+    final isUnAuthorized = _silentFailExceptions
+        .any((x) => e.underlyingException?.toString().contains(x) ?? false);
+    // preface the error message with "Unauthorized" if the exception should be silent
+    error['message'] = isUnAuthorized
+        ? "Unauthorized - ${e.message} - ${e.underlyingException}"
+        : error['message'];
+  }
+  var errorPayload = {
+    'errors': [error]
+  };
+  return jsonEncode(errorPayload);
+}
+
+/// Handle GraphQL operation Exceptions and return a [NativeGraphQLResponse]
+NativeGraphQLResponse handleGraphQLOperationException(
+    Exception e, NativeGraphQLRequest request) {
+  final errorPayload = _transformExceptionToErrorPayloadJson(e);
+  return NativeGraphQLResponse(payloadJson: errorPayload);
 }
 
 /// Convert a [GraphQLResponse] to a [NativeGraphQLResponse]
 NativeGraphQLResponse graphQLResponseToNativeResponse(
     GraphQLResponse<String> response) {
-  final errorJson = jsonEncode(
-      response.errors.whereNotNull().map((e) => e.toJson()).toList());
-  return NativeGraphQLResponse(
-    payloadJson: response.data,
-    errorsJson: errorJson,
-  );
+  var payload = "";
+  try {
+    payload = _buildPayloadJson(response);
+  } on Exception catch (e) {
+    payload = _handlePayloadException(e);
+  }
+  return NativeGraphQLResponse(payloadJson: payload);
+}
+
+/// Build payloadJson for a [NativeGraphQLResponse] and [NativeGraphQLSubscriptionResponse]
+/// from a [GraphQLResponse]
+String _buildPayloadJson(GraphQLResponse<String> response) {
+  final data = jsonDecode(response.data ?? '{}');
+  final errors = response.errors.whereNotNull().map((e) => e.toJson()).toList();
+  return jsonEncode({
+    'data': data,
+    'errors': errors,
+  });
+}
+
+/// Handle payload json parsing exceptions
+String _handlePayloadException(Exception e) {
+  return jsonEncode({
+    'data': {},
+    'errors': [
+      {
+        'message': 'Error parsing payload json: ${e.toString()}',
+      }
+    ],
+  });
 }
 
 /// Returns a connecting event [NativeGraphQLResponse] for the given [subscriptionId]
@@ -48,18 +127,31 @@ void sendNativeStartAckEvent(String subscriptionId) {
   _sendSubscriptionEvent(event);
 }
 
-/// Send a data event for the given [subscriptionId] and [payloadJson]
-void sendNativeDataEvent(String subscriptionId, String? payloadJson) {
+/// Send a subscription event for the given [subscriptionId] and [GraphQLResponse]
+/// If the response has errors, the event type will be `error`, otherwise `data`
+void sendSubscriptionEvent(
+    String subscriptionId, GraphQLResponse<String> response) {
+  var payload = "";
+  var hasErrors = response.hasErrors;
+
+  try {
+    payload = _buildPayloadJson(response);
+  } on Exception catch (e) {
+    payload = _handlePayloadException(e);
+    hasErrors = true;
+  }
+
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
-    payloadJson: payloadJson,
-    type: 'data',
+    payloadJson: payload,
+    type: hasErrors ? 'error' : "data",
   );
   _sendSubscriptionEvent(event);
 }
 
 /// Send an error event for the given [subscriptionId] and [errorPayload]
-void sendNativeErrorEvent(String subscriptionId, String errorPayload) {
+void sendSubscriptionStreamErrorEvent(String subscriptionId, Object e) {
+  final errorPayload = _transformExceptionToErrorPayloadJson(e);
   final event = NativeGraphQLSubscriptionResponse(
     subscriptionId: subscriptionId,
     payloadJson: errorPayload,
