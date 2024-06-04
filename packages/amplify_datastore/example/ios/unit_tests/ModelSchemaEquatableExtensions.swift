@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
+@testable import amplify_datastore
 
 extension ModelSchema: Equatable {
     public static func == (lhs: ModelSchema, rhs: ModelSchema) -> Bool {
