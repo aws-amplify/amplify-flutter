@@ -106,6 +106,10 @@ class AmplifyDataStore extends DataStorePluginInterface
     if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
+      Map<String, String> endpoints = {};
+      config.api?.awsPlugin?.all.entries.forEach((e) {
+        endpoints[e.key] = e.value.authorizationType.name;
+      });
       final nativePlugin = _NativeAmplifyApi(authProviders);
       NativeApiPlugin.setup(nativePlugin);
 
@@ -113,7 +117,7 @@ class AmplifyDataStore extends DataStorePluginInterface
       try {
         final authProvidersList =
             authProviders.keys.map((key) => key.rawValue).toList();
-        await nativeBridge.addApiPlugin(authProvidersList);
+        await nativeBridge.addApiPlugin(authProvidersList, endpoints);
       } on PlatformException catch (e) {
         if (e.code.contains('AmplifyAlreadyConfiguredException') ||
             e.code.contains('AlreadyConfiguredException')) {

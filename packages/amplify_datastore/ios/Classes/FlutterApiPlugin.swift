@@ -2,22 +2,57 @@ import Foundation
 import Flutter
 import Combine
 
-public class FlutterApiPlugin: APICategoryPlugin
+public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
 {
     public var key: PluginKey = "awsAPIPlugin"
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = AtomicDictionary<AnyCancellable, Void>()
+    private var endpoints: [String: String]
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
         nativeApiPlugin: NativeApiPlugin,
-        subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
+        subscriptionEventBus: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>,
+        endpoints: [String: String]
     ) {
         self.apiAuthFactory = apiAuthProviderFactory
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
+        self.endpoints = endpoints
+    }
+    
+    public func defaultAuthType() throws -> AWSAuthorizationType {
+        try defaultAuthType(for: nil)
+    }
+
+    public func defaultAuthType(for apiName: String?) throws -> AWSAuthorizationType {
+        if apiName == nil {
+            if self.endpoints.count == 1 {
+                return try stringToAWSAuthType(string: self.endpoints.first?.value)
+            }
+            return try stringToAWSAuthType(string: "")
+        }
+        let authType = self.endpoints[apiName!]
+        return try stringToAWSAuthType(string: authType)
+    }
+    
+    private func stringToAWSAuthType(string: String?) throws -> AWSAuthorizationType {
+        switch(string){
+        case .some("apiKey"):
+            return AWSAuthorizationType.apiKey
+        case .some("none"):
+            return AWSAuthorizationType.none
+        case .some("iam"):
+            return AWSAuthorizationType.awsIAM
+        case .some("oidc"):
+            return AWSAuthorizationType.openIDConnect
+        case .some("userPools"):
+            return AWSAuthorizationType.amazonCognitoUserPools
+        default:
+            throw DataStoreError.configuration("No AWSAuthorizationType found from given string", "Please check API configuration")
+        }
     }
     
     public func query<R>(request: GraphQLRequest<R>) async throws -> GraphQLTask<R>.Success where R : Decodable {

@@ -614,13 +614,15 @@ class NativeApiBridge {
 
   static const MessageCodec<Object?> codec = _NativeApiBridgeCodec();
 
-  Future<void> addApiPlugin(List<String?> arg_authProvidersList) async {
+  Future<void> addApiPlugin(List<String?> arg_authProvidersList,
+      Map<String?, String?> arg_endpoints) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.amplify_datastore.NativeApiBridge.addApiPlugin',
         codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_authProvidersList]) as List<Object?>?;
+        await channel.send(<Object?>[arg_authProvidersList, arg_endpoints])
+            as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',

@@ -9,12 +9,12 @@
 ///
 public extension Amplify {
     enum LogLevel: Int, Codable {
+        case none
         case error
         case warn
         case info
         case debug
         case verbose
-        case none
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()

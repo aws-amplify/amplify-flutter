@@ -29,7 +29,7 @@ final class OSLogWrapper: Logger {
     }
 
     public func error(_ message: @autoclosure () -> String) {
-        guard enabled else { return }
+        guard enabled, logLevel.rawValue >= LogLevel.error.rawValue else { return }
         os_log("%@",
                log: osLog,
                type: OSLogType.error,
@@ -37,7 +37,7 @@ final class OSLogWrapper: Logger {
     }
 
     public func error(error: Error) {
-        guard enabled else { return }
+        guard enabled, logLevel.rawValue >= LogLevel.error.rawValue else { return }
         os_log("%@",
                log: osLog,
                type: OSLogType.error,

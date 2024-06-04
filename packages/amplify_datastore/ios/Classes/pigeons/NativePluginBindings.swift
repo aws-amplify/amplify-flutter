@@ -556,7 +556,7 @@ class NativeApiBridgeCodec: FlutterStandardMessageCodec {
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NativeApiBridge {
-  func addApiPlugin(authProvidersList: [String], completion: @escaping (Result<Void, Error>) -> Void)
+  func addApiPlugin(authProvidersList: [String], endpoints: [String: String], completion: @escaping (Result<Void, Error>) -> Void)
   func sendSubscriptionEvent(event: NativeGraphQLSubscriptionResponse, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -571,7 +571,8 @@ class NativeApiBridgeSetup {
       addApiPluginChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let authProvidersListArg = args[0] as! [String]
-        api.addApiPlugin(authProvidersList: authProvidersListArg) { result in
+        let endpointsArg = args[1] as! [String: String]
+        api.addApiPlugin(authProvidersList: authProvidersListArg, endpoints: endpointsArg) { result in
           switch result {
             case .success:
               reply(wrapResult(nil))
