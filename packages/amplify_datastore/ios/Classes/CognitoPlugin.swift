@@ -3,8 +3,6 @@
 
 import Flutter
 import UIKit
-import Amplify
-import AWSPluginsCore
 
 extension NativeAuthUser: AuthUser { }
 
@@ -22,259 +20,119 @@ public class CognitoPlugin: AuthCategoryPlugin {
         self.nativeAuthPlugin = nativeAuthPlugin
     }
     
-
-    public func signIn(
-        withUrlUrl url: String,
-        callbackUrlScheme: String,
-        preferPrivateSession: NSNumber,
-        browserPackageName: String?
-    ) async -> ([String : String]?, FlutterError?) {
-        preconditionFailure("signIn is not supported")
-    }
-    
-    public func signOut(
-        withUrlUrl url: String,
-        callbackUrlScheme: String,
-        preferPrivateSession: NSNumber,
-        browserPackageName: String?
-    ) async -> FlutterError? {
-        preconditionFailure("signOut is not supported")
-    }
-    
     public let key: PluginKey = "awsCognitoAuthPlugin"
     
     public func configure(using configuration: Any?) throws {}
     
-    public func reset(onComplete: @escaping BasicClosure) {
-        onComplete()
-    }
+    public func reset() async {}
     
-    public func fetchAuthSession(
-        options: AuthFetchSessionRequest.Options?,
-        listener: ((AmplifyOperation<AuthFetchSessionRequest,
-                        AuthSession,
-                        AuthError>.OperationResult)
-                  -> Void)?
-    ) -> AuthFetchSessionOperation {
-        let operation = NativeAuthFetchSessionOperation(
-            categoryType: .auth,
-            eventName: HubPayload.EventName.Auth.fetchSessionAPI,
-            request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
-            resultListener: listener
-        )
-        DispatchQueue.main.async {
-            self.nativeAuthPlugin.fetchAuthSession { session in
-                let result = NativeAWSAuthCognitoSession(from: session)
-                operation.dispatch(result: .success(result))
+    public func fetchAuthSession(options: AuthFetchSessionRequest.Options?) async throws -> any AuthSession {
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                self.nativeAuthPlugin.fetchAuthSession { session in
+                    let result = NativeAWSAuthCognitoSession(from: session)
+                    continuation.resume(returning: result)
+                }
             }
         }
-        return operation
     }
     
-    public func signUp(
-        username: String,
-        password: String?,
-        options: AuthSignUpRequest.Options?,
-        listener: ((AmplifyOperation<AuthSignUpRequest, AuthSignUpResult, AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthSignUpOperation {
-        preconditionFailure("signUp is not supported")
+    public func getCurrentUser() async throws -> any AuthUser {
+        guard let user = currentUser else {
+            throw FlutterError(code: "NO_CURRENT_USER", message: "No current user is signed in.", details: nil)
+        }
+        return user
     }
     
-    public func getCurrentUser() -> AuthUser? {
-        return currentUser
+    public func signUp(username: String, password: String?, options: AuthSignUpRequest.Options?) async throws -> AuthSignUpResult {
+        preconditionFailure("method not supported")
     }
     
-    public func fetchDevices(
-        options: AuthFetchDevicesRequest.Options?,
-        listener: ((AmplifyOperation<AuthFetchDevicesRequest, Array<AuthDevice>, AuthError>.OperationResult)
-                  -> Void)?
-    ) -> AuthFetchDevicesOperation {
-        preconditionFailure("fetchDevices is not supported")
+    public func confirmSignUp(for username: String, confirmationCode: String, options: AuthConfirmSignUpRequest.Options?) async throws -> AuthSignUpResult {
+        preconditionFailure("method not supported")
     }
     
-    public func confirmSignUp(
-        for username: String,
-        confirmationCode: String,
-        options: AuthConfirmSignUpRequest.Options?,
-        listener: ((AmplifyOperation<AuthConfirmSignUpRequest, AuthSignUpResult, AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthConfirmSignUpOperation {
-        preconditionFailure("confirmSignUp is not supported")
+    public func resendSignUpCode(for username: String, options: AuthResendSignUpCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        preconditionFailure("method not supported")
     }
     
-    public func fetchUserAttributes(
-        options: AuthFetchUserAttributesRequest.Options?,
-        listener: ((AmplifyOperation<AuthFetchUserAttributesRequest,
-                        Array<AuthUserAttribute>,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthFetchUserAttributeOperation {
-        preconditionFailure("fetchUserAttributes is not supported")
+    public func signIn(username: String?, password: String?, options: AuthSignInRequest.Options?) async throws -> AuthSignInResult {
+        preconditionFailure("method not supported")
     }
     
-    public func forgetDevice(
-        _ device: AuthDevice?,
-        options: AuthForgetDeviceRequest.Options?,
-        listener: ((AmplifyOperation<AuthForgetDeviceRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthForgetDeviceOperation {
-        preconditionFailure("forgetDevice is not supported")
+    public func signInWithWebUI(presentationAnchor: AuthUIPresentationAnchor?, options: AuthWebUISignInRequest.Options?) async throws -> AuthSignInResult {
+        preconditionFailure("method not supported")
     }
     
-    public func resendSignUpCode(
-        for username: String,
-        options: AuthResendSignUpCodeRequest.Options?,
-        listener: ((AmplifyOperation<AuthResendSignUpCodeRequest,
-                        AuthCodeDeliveryDetails,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthResendSignUpCodeOperation {
-        preconditionFailure("resendSignUpCode is not supported")
+    public func signInWithWebUI(for authProvider: AuthProvider, presentationAnchor: AuthUIPresentationAnchor?, options: AuthWebUISignInRequest.Options?) async throws -> AuthSignInResult {
+        preconditionFailure("method not supported")
     }
     
-    public func update(
-        userAttribute: AuthUserAttribute,
-        options: AuthUpdateUserAttributeRequest.Options?,
-        listener: ((AmplifyOperation<AuthUpdateUserAttributeRequest,
-                        AuthUpdateAttributeResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthUpdateUserAttributeOperation {
-        preconditionFailure("update is not supported")
+    public func confirmSignIn(challengeResponse: String, options: AuthConfirmSignInRequest.Options?) async throws -> AuthSignInResult {
+        preconditionFailure("method not supported")
     }
     
-    public func rememberDevice(
-        options: AuthRememberDeviceRequest.Options?,
-        listener: ((AmplifyOperation<AuthRememberDeviceRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthRememberDeviceOperation {
-        preconditionFailure("rememberDevice is not supported")
+    public func signOut(options: AuthSignOutRequest.Options?) async -> any AuthSignOutResult {
+        preconditionFailure("method not supported")
     }
     
-    public func signIn(
-        username: String?,
-        password: String?,
-        options: AuthSignInRequest.Options?,
-        listener: ((AmplifyOperation<AuthSignInRequest,
-                        AuthSignInResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthSignInOperation {
-        preconditionFailure("signIn is not supported")
+    public func deleteUser() async throws {
+        preconditionFailure("method not supported")
     }
     
-    public func update(
-        userAttributes: [AuthUserAttribute],
-        options: AuthUpdateUserAttributesRequest.Options?,
-        listener: ((AmplifyOperation<AuthUpdateUserAttributesRequest,
-                        Dictionary<AuthUserAttributeKey, AuthUpdateAttributeResult>,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthUpdateUserAttributesOperation {
-        preconditionFailure("update is not supported")
+    public func resetPassword(for username: String, options: AuthResetPasswordRequest.Options?) async throws -> AuthResetPasswordResult {
+        preconditionFailure("method not supported")
     }
     
-    public func signInWithWebUI(
-        presentationAnchor: AuthUIPresentationAnchor,
-        options: AuthWebUISignInRequest.Options?,
-        listener: ((AmplifyOperation<AuthWebUISignInRequest,
-                        AuthSignInResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthWebUISignInOperation {
-        preconditionFailure("signInWithWebUI is not supported")
+    public func confirmResetPassword(for username: String, with newPassword: String, confirmationCode: String, options: AuthConfirmResetPasswordRequest.Options?) async throws {
+        preconditionFailure("method not supported")
     }
     
-    public func resendConfirmationCode(
-        for attributeKey: AuthUserAttributeKey,
-        options: AuthAttributeResendConfirmationCodeRequest.Options?,
-        listener: ((AmplifyOperation<AuthAttributeResendConfirmationCodeRequest,
-                        AuthCodeDeliveryDetails,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthAttributeResendConfirmationCodeOperation {
-        preconditionFailure("resendConfirmationCode is not supported")
+    public func setUpTOTP() async throws -> TOTPSetupDetails {
+        preconditionFailure("method not supported")
     }
     
-    public func signInWithWebUI(
-        for authProvider: AuthProvider,
-        presentationAnchor: AuthUIPresentationAnchor,
-        options: AuthWebUISignInRequest.Options?,
-        listener: ((AmplifyOperation<AuthWebUISignInRequest,
-                        AuthSignInResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthSocialWebUISignInOperation {
-        preconditionFailure("signInWithWebUI is not supported")
+    public func verifyTOTPSetup(code: String, options: VerifyTOTPSetupRequest.Options?) async throws {
+        preconditionFailure("method not supported")
     }
     
-    public func confirm(
-        userAttribute: AuthUserAttributeKey,
-        confirmationCode: String,
-        options: AuthConfirmUserAttributeRequest.Options?,
-        listener: ((AmplifyOperation<AuthConfirmUserAttributeRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthConfirmUserAttributeOperation {
-        preconditionFailure("confirm is not supported")
+    public func fetchUserAttributes(options: AuthFetchUserAttributesRequest.Options?) async throws -> [AuthUserAttribute] {
+        preconditionFailure("method not supported")
     }
     
-    public func confirmSignIn(
-        challengeResponse: String,
-        options: AuthConfirmSignInRequest.Options?,
-        listener: ((AmplifyOperation<AuthConfirmSignInRequest,
-                        AuthSignInResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthConfirmSignInOperation {
-        preconditionFailure("confirmSignIn is not supported")
+    public func update(userAttribute: AuthUserAttribute, options: AuthUpdateUserAttributeRequest.Options?) async throws -> AuthUpdateAttributeResult {
+        preconditionFailure("method not supported")
     }
     
-    public func update(
-        oldPassword: String,
-        to newPassword: String,
-        options: AuthChangePasswordRequest.Options?,
-        listener: ((AmplifyOperation<AuthChangePasswordRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthChangePasswordOperation {
-        preconditionFailure("update is not supported")
+    public func update(userAttributes: [AuthUserAttribute], options: AuthUpdateUserAttributesRequest.Options?) async throws -> [AuthUserAttributeKey : AuthUpdateAttributeResult] {
+        preconditionFailure("method not supported")
     }
     
-    public func signOut(
-        options: AuthSignOutRequest.Options?,
-        listener: ((AmplifyOperation<AuthSignOutRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthSignOutOperation {
-        preconditionFailure("signOut is not supported")
+    public func resendConfirmationCode(forUserAttributeKey userAttributeKey: AuthUserAttributeKey, options: AuthAttributeResendConfirmationCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        preconditionFailure("method not supported")
     }
     
-    public func deleteUser(
-        listener: ((AmplifyOperation<AuthDeleteUserRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthDeleteUserOperation {
-        preconditionFailure("deleteUser is not supported")
+    public func sendVerificationCode(forUserAttributeKey userAttributeKey: AuthUserAttributeKey, options: AuthSendUserAttributeVerificationCodeRequest.Options?) async throws -> AuthCodeDeliveryDetails {
+        preconditionFailure("method not supported")
     }
     
-    public func resetPassword(
-        for username: String,
-        options: AuthResetPasswordRequest.Options?,
-        listener: ((AmplifyOperation<AuthResetPasswordRequest,
-                        AuthResetPasswordResult,
-                        AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthResetPasswordOperation {
-        preconditionFailure("resetPassword is not supported")
+    public func confirm(userAttribute: AuthUserAttributeKey, confirmationCode: String, options: AuthConfirmUserAttributeRequest.Options?) async throws {
+        preconditionFailure("method not supported")
     }
     
-    public func confirmResetPassword(
-        for username: String,
-        with newPassword: String,
-        confirmationCode: String,
-        options: AuthConfirmResetPasswordRequest.Options?,
-        listener: ((AmplifyOperation<AuthConfirmResetPasswordRequest, (), AuthError>.OperationResult)
-                   -> Void)?
-    ) -> AuthConfirmResetPasswordOperation {
-        preconditionFailure("resetPassword is not supported")
+    public func update(oldPassword: String, to newPassword: String, options: AuthChangePasswordRequest.Options?) async throws {
+        preconditionFailure("method not supported")
     }
     
+    public func fetchDevices(options: AuthFetchDevicesRequest.Options?) async throws -> [any AuthDevice] {
+        preconditionFailure("method not supported")
+    }
+    
+    public func forgetDevice(_ device: (any AuthDevice)?, options: AuthForgetDeviceRequest.Options?) async throws {
+        preconditionFailure("method not supported")
+    }
+    
+    public func rememberDevice(options: AuthRememberDeviceRequest.Options?) async throws {
+        preconditionFailure("method not supported")
+    }
 }

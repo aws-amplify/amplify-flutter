@@ -1,17 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import Flutter
 import XCTest
-import Amplify
 import Combine
-@testable import AmplifyPlugins
 @testable import amplify_datastore
 
 let testSchema: ModelSchema = SchemaData.PostSchema
 let amplifySuccessResults: [FlutterSerializedModel] =
     (try! readJsonArray(filePath: "2_results") as! [[String: Any]]).map { serializedModel in
         FlutterSerializedModel.init(
-            map: try! getJSONValue(serializedModel as! [String: Any]),
+            map: try! getJSONValue(serializedModel),
             modelName: serializedModel["__modelName"] as! String
         )
     }

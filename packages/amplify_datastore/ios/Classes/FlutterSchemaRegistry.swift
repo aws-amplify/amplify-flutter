@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import Amplify
 import Foundation
 
 // Contains the set of classes that conforms to the `Model` protocol.

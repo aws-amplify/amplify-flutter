@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
-import AWSCore
 import Combine
 
 struct FlutterOutboxMutationProcessedEvent: FlutterHubEvent {
