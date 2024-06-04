@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
 
 public enum FlutterDataStoreRequestUtils {
     static func getJSONValue(_ jsonDict: [String: Any]) throws -> [String: JSONValue] {

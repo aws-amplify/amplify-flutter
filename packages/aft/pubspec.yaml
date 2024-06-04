@@ -20,6 +20,7 @@ dependencies:
   git: any # override
   glob: ^2.1.0
   graphs: ^2.1.0
+  io: ^1.0.4
   json_annotation: ">=4.8.1 <4.9.0"
   markdown: ^5.0.0
   mason: ^0.1.0-dev.40

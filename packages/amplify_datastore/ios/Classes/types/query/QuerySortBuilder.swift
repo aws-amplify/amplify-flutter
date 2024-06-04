@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
 
 public enum QuerySortBuilder {
     static func fromSerializedList(_ serializedList: [[String: Any]]?) throws -> [QuerySortDescriptor]? {

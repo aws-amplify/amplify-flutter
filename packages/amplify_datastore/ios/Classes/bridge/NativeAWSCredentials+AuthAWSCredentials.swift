@@ -2,17 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import AWSPluginsCore
 
-struct NativeAWSPermanentCredentials: AuthAWSCredentials {
-    let accessKey: String
-    let secretKey: String
+struct NativeAWSPermanentCredentials: AWSCredentials {
+    let accessKeyId: String
+    let secretAccessKey: String
 }
 
-struct NativeAWSTemporaryCredentials: AuthAWSCredentials, AuthAWSTemporaryCredentials {
-    let accessKey: String
-    let secretKey: String
-    let sessionKey: String
+struct NativeAWSTemporaryCredentials: AWSCredentials, AWSTemporaryCredentials {
+    let accessKeyId: String
+    let secretAccessKey: String
+    let sessionToken: String
     let expiration: Date
     
     init(
@@ -21,9 +20,9 @@ struct NativeAWSTemporaryCredentials: AuthAWSCredentials, AuthAWSTemporaryCreden
         sessionToken: String,
         expiration: Date?
     ) {
-        self.accessKey = accessKeyId
-        self.secretKey = secretAccessKey
-        self.sessionKey = sessionToken
+        self.accessKeyId = accessKeyId
+        self.secretAccessKey = secretAccessKey
+        self.sessionToken = sessionToken
         self.expiration = expiration ?? Date.distantFuture
     }
 }
@@ -31,7 +30,7 @@ struct NativeAWSTemporaryCredentials: AuthAWSCredentials, AuthAWSTemporaryCreden
 extension NativeAWSCredentials {
     static private let dateFormatter = ISO8601DateFormatter()
     
-    var asAuthAWSCredentials: AuthAWSCredentials {
+    var asAuthAWSCredentials: AWSCredentials {
         if let sessionKey = sessionToken {
             let expirationStr = expirationIso8601Utc
             let expiration = expirationStr == nil ? nil :
@@ -44,8 +43,8 @@ extension NativeAWSCredentials {
             )
         }
         return NativeAWSPermanentCredentials(
-            accessKey: accessKeyId,
-            secretKey: secretAccessKey
+            accessKeyId: accessKeyId,
+            secretAccessKey: secretAccessKey
         )
     }
 }

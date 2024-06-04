@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AWSPluginsCore
 
 struct NativeAWSAuthCognitoSession: AuthSession,
                                        AuthAWSCredentialsProvider,
@@ -11,7 +9,7 @@ struct NativeAWSAuthCognitoSession: AuthSession,
                                        AuthCognitoIdentityProvider {
     let isSignedIn: Bool
     let identityIdResult: Result<String, AuthError>
-    let awsCredentialsResult: Result<AuthAWSCredentials, AuthError>
+    let awsCredentialsResult: Result<AWSCredentials, AuthError>
     let userSubResult: Result<String, AuthError>
     let cognitoTokensResult: Result<AuthCognitoTokens, AuthError>
     
@@ -31,7 +29,7 @@ struct NativeAWSAuthCognitoSession: AuthSession,
             .failure(.unknown("Could not retrieve AWS credentials", nil))
     }
     
-    public func getAWSCredentials() -> Result<AuthAWSCredentials, AuthError> {
+    public func getAWSCredentials() -> Result<AWSCredentials, AuthError> {
         awsCredentialsResult
     }
     
