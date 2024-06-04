@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
 
 struct FlutterOutboxMutationEnqueuedEvent: FlutterHubEvent {
     var eventName: String

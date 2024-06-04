@@ -19,6 +19,7 @@ import com.amazonaws.amplify.amplify_datastore.pigeons.NativeApiPlugin
 import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthBridge
 import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthPlugin
 import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthUser
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeGraphQLSubscriptionResponse
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterCustomTypeSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
@@ -900,6 +901,7 @@ class AmplifyDataStorePlugin :
 
     override fun addApiPlugin(
         authProvidersList: List<String>,
+        endpoints: Map<String, String>,
         callback: (kotlin.Result<Unit>) -> Unit
     ) {
         try {
@@ -919,6 +921,13 @@ class AmplifyDataStorePlugin :
             LOG.error(e.message)
             callback(kotlin.Result.failure(e))
         }
+    }
+    
+    override fun sendSubscriptionEvent(
+        event: NativeGraphQLSubscriptionResponse,
+        callback: (kotlin.Result<Unit>) -> Unit
+    ) {
+        throw NotImplementedError("Not yet implemented")
     }
 
     override fun configure(

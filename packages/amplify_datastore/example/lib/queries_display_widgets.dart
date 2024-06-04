@@ -119,7 +119,10 @@ Widget getWidgetToDisplayPost(
                   _postsToView[i].rating.toString() +
                   ", blog: " +
                   allBlogs
-                      .firstWhere((blog) => blog.id == _postsToView[i].blog?.id)
+                      .firstWhere(
+                        (blog) => blog.id == _postsToView[i].blog?.id,
+                        orElse: () => Blog(name: "Blog not found"),
+                      )
                       .name,
               style: TextStyle(fontSize: 14.0),
             ),
