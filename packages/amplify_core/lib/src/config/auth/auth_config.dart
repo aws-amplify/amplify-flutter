@@ -6,6 +6,7 @@ import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_response_type.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:meta/meta.dart';
 
 export 'cognito_config.dart' hide CognitoPluginConfigFactory;
 
@@ -79,6 +80,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
   @override
   AuthConfig copy() => AuthConfig(plugins: Map.of(plugins));
 
+  @internal
   AuthOutputs? toAuthOutputs() {
     final plugin = awsPlugin?.auth?.default$;
     final userPool = awsPlugin?.cognitoUserPool?.default$;

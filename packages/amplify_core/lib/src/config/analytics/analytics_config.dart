@@ -4,6 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/analytics/amazon_pinpoint_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
+import 'package:meta/meta.dart';
 
 export 'pinpoint_config.dart' hide PinpointPluginConfigFactory;
 
@@ -33,6 +34,7 @@ class AnalyticsConfig extends AmplifyPluginConfigMap {
   @override
   Map<String, Object?> toJson() => _$AnalyticsConfigToJson(this);
 
+  @internal
   AnalyticsOutputs? toAnalyticsOutputs() {
     final plugin = awsPlugin?.pinpointAnalytics;
     if (plugin == null) {

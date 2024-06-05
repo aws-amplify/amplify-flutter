@@ -3,6 +3,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/rest_api/rest_api_outputs.dart';
+import 'package:meta/meta.dart';
 
 export 'aws_api_config.dart' hide AWSApiPluginConfigFactory;
 
@@ -32,24 +34,59 @@ class ApiConfig extends AmplifyPluginConfigMap {
   @override
   Map<String, Object?> toJson() => _$ApiConfigToJson(this);
 
-  DataOutputs? toDataOutputs({AWSConfigMap<CognitoAppSyncConfig>? appSync}) {
-    final plugin = appSync?.default$;
+  @internal
+  Map<String, DataOutputs>? toDataOutputs({
+    AWSConfigMap<CognitoAppSyncConfig>? appSync,
+  }) {
+    final plugins = _getPlugins(EndpointType.graphQL);
+    if (plugins == null) {
+      return null;
+    }
+    return plugins.map((key, plugin) {
+      final defaultAuthorizationType = plugin.authorizationType;
+      final awsRegion = plugin.region;
+      final url = plugin.endpoint;
+      final allModes = (appSync?.all.values ?? []);
+      final authorizationTypes = allModes
+          .where((plugin) => plugin.apiUrl == url && plugin.region == awsRegion)
+          .map((config) => config.authMode)
+          .where((mode) => mode != defaultAuthorizationType)
+          .toList();
+      final data = DataOutputs(
+        awsRegion: awsRegion,
+        url: url,
+        defaultAuthorizationType: defaultAuthorizationType,
+        apiKey: plugin.apiKey,
+        authorizationTypes: authorizationTypes,
+      );
+      return MapEntry(key, data);
+    });
+  }
+
+  @internal
+  Map<String, RestApiOutputs>? toRestApiOutputs() {
+    final plugins = _getPlugins(EndpointType.rest);
+    if (plugins == null) {
+      return null;
+    }
+    return plugins.map((key, plugin) {
+      final rest = RestApiOutputs(
+        awsRegion: plugin.region,
+        url: plugin.endpoint,
+        authorizationType: plugin.authorizationType,
+        apiKey: plugin.apiKey,
+      );
+      return MapEntry(key, rest);
+    });
+  }
+
+  Map<String, AWSApiConfig>? _getPlugins(EndpointType endpointType) {
+    final plugin = awsPlugin;
     if (plugin == null) {
       return null;
     }
-    final region = plugin.region;
-    final url = plugin.apiUrl;
-    final apiKey = plugin.apiKey;
-    final defaultAuthorizationType = plugin.authMode;
-    final modes = appSync?.all.values.map((config) => config.authMode) ?? [];
-    final authorizationTypes =
-        modes.where((mode) => mode != defaultAuthorizationType).toList();
-    return DataOutputs(
-      awsRegion: region,
-      url: url,
-      defaultAuthorizationType: defaultAuthorizationType,
-      apiKey: apiKey,
-      authorizationTypes: authorizationTypes,
-    );
+    final entries =
+        plugin.all.entries.where((p) => p.value.endpointType == endpointType);
+    return Map<String, AWSApiConfig>.fromEntries(entries);
   }
 }
