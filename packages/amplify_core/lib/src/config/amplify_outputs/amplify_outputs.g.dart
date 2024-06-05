@@ -19,9 +19,11 @@ AmplifyOutputs _$AmplifyOutputsFromJson(Map<String, dynamic> json) =>
       auth: json['auth'] == null
           ? null
           : AuthOutputs.fromJson(json['auth'] as Map<String, dynamic>),
-      data: json['data'] == null
-          ? null
-          : DataOutputs.fromJson(json['data'] as Map<String, dynamic>),
+      data: _dataFromJson(json['data'] as Map<String, Object?>?),
+      restApi: (json['rest_api'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, RestApiOutputs.fromJson(e as Map<String, dynamic>)),
+      ),
       notifications: json['notifications'] == null
           ? null
           : NotificationsOutputs.fromJson(
@@ -45,7 +47,9 @@ Map<String, dynamic> _$AmplifyOutputsToJson(AmplifyOutputs instance) {
   val['version'] = instance.version;
   writeNotNull('analytics', instance.analytics?.toJson());
   writeNotNull('auth', instance.auth?.toJson());
-  writeNotNull('data', instance.data?.toJson());
+  writeNotNull('data', _dataToJson(instance.data));
+  writeNotNull(
+      'rest_api', instance.restApi?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('notifications', instance.notifications?.toJson());
   writeNotNull('storage', instance.storage?.toJson());
   writeNotNull('custom', instance.custom);
