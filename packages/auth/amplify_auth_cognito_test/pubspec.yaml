@@ -25,7 +25,8 @@ dependencies:
   smithy_aws: any
   stream_channel: ^2.0.0
   stream_transform: ^2.0.0
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"
   web_socket_channel: ^2.3.0
   webdriver: ^3.0.0
   worker_bee: any

@@ -11,7 +11,8 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   file: ">=6.0.0 <8.0.0"
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"
   worker_bee: any
 
 dev_dependencies:
