@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 
 part 'amplify_config.g.dart';
 
@@ -74,12 +75,14 @@ class AmplifyConfig with AWSEquatable<AmplifyConfig>, AWSSerializable {
     );
   }
 
+  @internal
   AmplifyOutputs toAmplifyOutputs() {
     final appSync = auth?.awsPlugin?.appSync;
     return AmplifyOutputs(
       version: '1',
       auth: auth?.toAuthOutputs(),
       data: api?.toDataOutputs(appSync: appSync),
+      restApi: api?.toRestApiOutputs(),
       analytics: analytics?.toAnalyticsOutputs(),
       notifications: notifications?.toNotificationsOutputs(),
       storage: storage?.toStorageOutputs(),

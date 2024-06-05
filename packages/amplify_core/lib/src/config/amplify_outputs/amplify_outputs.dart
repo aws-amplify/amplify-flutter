@@ -6,7 +6,9 @@ import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outp
 import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/rest_api/rest_api_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'amplify_outputs.g.dart';
@@ -26,6 +28,7 @@ class AmplifyOutputs
     this.analytics,
     this.auth,
     this.data,
+    this.restApi,
     this.notifications,
     this.storage,
     this.custom,
@@ -47,7 +50,12 @@ class AmplifyOutputs
   final AuthOutputs? auth;
 
   /// {@macro amplify_core.amplify_outputs.data_outputs}
-  final DataOutputs? data;
+  @JsonKey(fromJson: _dataFromJson, toJson: _dataToJson)
+  final Map<String, DataOutputs>? data;
+
+  /// {@macro amplify_core.amplify_outputs.rest_api_outputs}
+  @internal
+  final Map<String, RestApiOutputs>? restApi;
 
   /// {@macro amplify_core.amplify_outputs.notifications_outputs}
   final NotificationsOutputs? notifications;
@@ -61,8 +69,17 @@ class AmplifyOutputs
   final Map<String, dynamic>? custom;
 
   @override
-  List<Object?> get props =>
-      [schema, version, analytics, auth, data, notifications, storage, custom];
+  List<Object?> get props => [
+        schema,
+        version,
+        analytics,
+        auth,
+        data,
+        restApi,
+        notifications,
+        storage,
+        custom,
+      ];
 
   @override
   String get runtimeTypeName => 'AmplifyOutputs';
@@ -71,4 +88,37 @@ class AmplifyOutputs
   Map<String, Object?> toJson() {
     return _$AmplifyOutputsToJson(this);
   }
+}
+
+/// The name of the API plugin when a Gen 2 config is used.
+///
+/// "data" is consistent with the name Gen 2 uses when generating a Gen 1 config.
+/// reference: https://github.com/aws-amplify/amplify-backend/blob/4dd9d5a35c378895d1360c15a3b7ad1f09cc7653/packages/client-config/src/client-config-writer/client_config_to_mobile_legacy_converter.ts#L93
+const _dataPluginName = 'data';
+
+/// Converts a single data json object to a map of [DataOutputs].
+///
+/// This manual mapping is required since the Amplify Outputs schema only supports
+/// a single data object, but Amplify Flutter supports more than 1.
+Map<String, DataOutputs>? _dataFromJson(Map<String, Object?>? object) {
+  if (object == null) return null;
+  return {
+    _dataPluginName: DataOutputs.fromJson(object),
+  };
+}
+
+/// Converts a map of [DataOutputs] to a single data json object.
+///
+/// This manual mapping is required since the Amplify Outputs schema only supports
+/// a single data object, but Amplify Flutter supports more than 1.
+Object? _dataToJson(Map<String, DataOutputs>? outputs) {
+  if (outputs == null) return null;
+  if (outputs.length > 1) {
+    throw ConfigurationError(
+      'Found ${outputs.length} endpoints.'
+      ' Amplify Outputs does not support multiple GraphQL endpoints.',
+    );
+  }
+  final data = outputs[_dataPluginName];
+  return data?.toJson();
 }
