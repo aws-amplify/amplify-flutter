@@ -41,6 +41,57 @@ void main() {
       expect(mappedOutputs.data, null);
       expect(mappedOutputs.notifications, null);
     });
+
+    test('maps config with multiple api plugins', () async {
+      // hand written config for testing purposes.
+      const config = '''
+        {
+          "api": {
+            "plugins": {
+              "awsAPIPlugin": {
+                "data1": {
+                  "endpointType": "GraphQL",
+                  "endpoint": "fake-data-url-1",
+                  "region": "us-east-1",
+                  "authorizationType": "AWS_IAM",
+                  "apiKey": "fake-data-api-key"
+                },
+                "data2": {
+                  "endpointType": "GraphQL",
+                  "endpoint": "fake-data-url-2",
+                  "region": "us-east-1",
+                  "authorizationType": "AWS_IAM",
+                  "apiKey": "fake-data-api-key"
+                },
+                "rest1": {
+                  "endpointType": "REST",
+                  "endpoint": "fake-rest-url-1",
+                  "region": "us-east-1",
+                  "authorizationType": "AWS_IAM",
+                  "apiKey": "fake-data-api-key"
+                },
+                "rest2": {
+                  "endpointType": "REST",
+                  "endpoint": "fake-rest-url-2",
+                  "region": "us-east-1",
+                  "authorizationType": "AWS_IAM",
+                  "apiKey": "fake-data-api-key"
+                }
+              }
+            }
+          }
+        }
+      ''';
+      final configJson = jsonDecode(config) as Map<String, Object?>;
+      final amplifyConfig = AmplifyConfig.fromJson(configJson);
+      final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+      expect(mappedOutputs.data?.length, 2);
+      expect(mappedOutputs.restApi?.length, 2);
+      final dataUrls = mappedOutputs.data?.values.map((d) => d.url);
+      final restUrls = mappedOutputs.restApi?.values.map((d) => d.url);
+      expect(dataUrls, ['fake-data-url-1', 'fake-data-url-2']);
+      expect(restUrls, ['fake-rest-url-1', 'fake-rest-url-2']);
+    });
   });
 }
 
