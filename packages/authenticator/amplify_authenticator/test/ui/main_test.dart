@@ -299,9 +299,9 @@ void main() {
         );
       });
     },
-    // Tests are not expected to pass on Flutter 3.19
+    // Tests are not expected to pass on Flutter 3.19 (Dart 3.3.x)
     // Snapshots were generated with flutter 3.22 which contains
     // UI differences from 3.19.
-    skip: Platform.version.startsWith('3.19'),
+    skip: Platform.version.startsWith('3.3'),
   );
 }
