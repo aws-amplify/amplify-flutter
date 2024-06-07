@@ -40,7 +40,7 @@ void main() async {
 
   group('NativeAmplifyAPI', () {
     group('Query', () {
-      test('Empty Request/Response', () async {
+      test('Should handle empty request/response', () async {
         String document = '';
         Map<String, dynamic> emptyMap = {};
         String payloadJson = '{"data":{},"errors":[]}';
@@ -72,7 +72,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Filled Request/Response', () async {
+      test('Should handle filled request/response', () async {
         String document = 'document';
         String apiName = 'apiName';
         String variable1Key = 'variable1';
@@ -130,7 +130,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Empty Response Parse Exception', () async {
+      test('Should handle empty response parse exception', () async {
         String document = '';
         String data = 'Invalid Json';
         Map<String, dynamic> emptyMap = {};
@@ -190,7 +190,7 @@ void main() async {
         );
       }
 
-      test('AuthModeTypes', () async {
+      test('Should handle all AuthModeTypes', () async {
         await _authModeExpectHelepr('apiKey', APIAuthorizationType.apiKey);
         await _authModeExpectHelepr('awsIAM', APIAuthorizationType.iam);
         await _authModeExpectHelepr('openIDConnect', APIAuthorizationType.oidc);
@@ -201,7 +201,7 @@ void main() async {
         await _authModeExpectHelepr(null, null);
       });
 
-      test('Non-AmplifyException Exception', () async {
+      test('Should handle non-AmplifyException exceptions', () async {
         String document = '';
         String invalidJson = 'INVALID JSON';
         String payloadJson =
@@ -218,7 +218,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('AmplifyException Exception', () async {
+      test('Should handle AmplifyException', () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
@@ -237,26 +237,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('AmplifyException', () async {
-        String exceptionMessage = 'API Exception';
-        String payloadJson =
-            '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
-
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
-          throw NetworkException(exceptionMessage);
-        };
-
-        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
-
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
-
-        NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
-        expect(response.payloadJson, payloadJson);
-      });
-
-      test('Unauthorized AmplifyException', () async {
+      test('Should handle unauthorized AmplifyException - SignedOutException', () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
@@ -277,10 +258,32 @@ void main() async {
         NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
         expect(response.payloadJson, payloadJson);
       });
+
+      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
+        String exceptionMessage = 'Not Authorized to access onDeletePrivateNote on type Subscription';
+        String payloadJson =
+            '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
+
+        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+          throw NetworkException(
+            exceptionMessage,
+            underlyingException: 'Unauthrorized',
+          );
+        };
+
+        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
+
+        NativeGraphQLRequest request = NativeGraphQLRequest(
+          document: '',
+        );
+
+        NativeGraphQLResponse response = await nativeAmplifyApi.query(request);
+        expect(response.payloadJson, payloadJson);
+      });
     });
 
     group('Mutate', () {
-      test('Empty Request/Response', () async {
+      test('Should handle empty request/response', () async {
         String document = '';
         Map<String, dynamic> emptyMap = {};
         String payloadJson = '{"data":{},"errors":[]}';
@@ -312,7 +315,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Filled Request/Response', () async {
+      test('Should handle filled request/response', () async {
         String document = 'document';
         String apiName = 'apiName';
         String authMode = 'apiKey';
@@ -371,7 +374,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Empty Response Parse Exception', () async {
+      test('Should handle empty response parse exception', () async {
         String document = '';
         String data = 'Invalid Json';
         Map<String, dynamic> emptyMap = {};
@@ -405,7 +408,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('AmplifyException Exception', () async {
+      test('Should handle AmplifyException', () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
@@ -424,26 +427,7 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('AmplifyException', () async {
-        String exceptionMessage = 'API Exception';
-        String payloadJson =
-            '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
-
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
-          throw NetworkException(exceptionMessage);
-        };
-
-        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
-
-        NativeGraphQLRequest request = NativeGraphQLRequest(
-          document: '',
-        );
-
-        NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
-        expect(response.payloadJson, payloadJson);
-      });
-
-      test('Unauthorized AmplifyException', () async {
+      test('Should handle unauthorized AmplifyException - SignedOutException', () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
@@ -464,10 +448,32 @@ void main() async {
         NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
         expect(response.payloadJson, payloadJson);
       });
+
+      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
+        String exceptionMessage = 'Not Authorized to access onDeletePrivateNote on type Subscription';
+        String payloadJson =
+            '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
+
+        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+          throw NetworkException(
+            exceptionMessage,
+            underlyingException: 'Unauthrorized',
+          );
+        };
+
+        NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
+
+        NativeGraphQLRequest request = NativeGraphQLRequest(
+          document: '',
+        );
+
+        NativeGraphQLResponse response = await nativeAmplifyApi.mutate(request);
+        expect(response.payloadJson, payloadJson);
+      });
     });
 
     group('Subscribe', () {
-      test('Empty Request/Response', () async {
+      test('Should handle empty request/response', () async {
         String responseType = 'connecting';
         String document = '';
         Map<String, dynamic> emptyMap = {};
@@ -499,7 +505,7 @@ void main() async {
         expect(response.type, responseType);
       });
 
-      test('Filled Request/Response', () async {
+      test('Should handle filled request/response', () async {
         String responseType = 'connecting';
         String document = 'document';
         String apiName = 'apiName';
@@ -550,7 +556,7 @@ void main() async {
         expect(response.type, responseType);
       });
 
-      test('Invalid Request Variables Json Exception', () async {
+      test('Should handle invalid Request variablesJson exception', () async {
         String document = '';
         String invalidJson = 'INVALID JSON';
 
@@ -565,7 +571,7 @@ void main() async {
             throwsA(TypeMatcher<FormatException>()));
       });
 
-      test('API Exception', () async {
+      test('Should handle API exception', () async {
         String exceptionMessage = 'API Exception';
 
         mockAPIPlugin.subscribeMethod = <String>(
@@ -590,7 +596,7 @@ void main() async {
         );
       });
 
-      test('Established/Connected Callback', () async {
+      test('Should handle established/connected callback', () async {
         void Function()? onEstablishedCallback;
 
         mockAPIPlugin.subscribeMethod = <String>(
@@ -632,7 +638,7 @@ void main() async {
         expect(() => onEstablishedCallback?.call(), returnsNormally);
       });
 
-      test('Send Data Event', () async {
+      test('Should handle send data event', () async {
         String data = '{"data1":1,"data2":"data string"}';
         String payloadJson = '{"data":$data,"errors":[]}';
         StreamController? responseController;
@@ -682,7 +688,7 @@ void main() async {
         );
       });
 
-      test('Send Data With Errors Event', () async {
+      test('Should handle send data with errors event', () async {
         String data = '{"data1":1,"data2":"data string"}';
         String errorMessage1 = 'errorsJson1';
         String errorMessage2 = 'errorsJson2';
@@ -739,7 +745,7 @@ void main() async {
         );
       });
 
-      test('Send Data Event Exception', () async {
+      test('Should handle send data event exception', () async {
         String data = 'Invalid Json';
         String payloadJson =
             '{"data":{},"errors":[{"message":"Error parsing payload json: FormatException: Unexpected character (at character 1)\\nInvalid Json\\n^\\n"}]}';
@@ -790,7 +796,7 @@ void main() async {
         );
       });
 
-      test('Send Error Event', () async {
+      test('Should handle send error event', () async {
         String exceptionMessage = 'Intentional Error';
         String errorsJson =
             '{"errors":[{"message":"Exception: $exceptionMessage"}]}';
@@ -837,7 +843,7 @@ void main() async {
         );
       });
 
-      test('Send Done Event', () async {
+      test('Should handle send done event', () async {
         StreamController? responseController;
 
         mockAPIPlugin.subscribeMethod = <String>(
@@ -881,7 +887,7 @@ void main() async {
       });
 
       group('Unubscribe', () {
-        test('Existing Subscription', () async {
+        test('Should handle existing subscription', () async {
           mockAPIPlugin.subscribeMethod = <String>(
             GraphQLRequest mockRequest,
             void Function()? onEstablished,
@@ -899,12 +905,22 @@ void main() async {
           );
 
           await nativeAmplifyApi.unsubscribe(response.subscriptionId);
+
+          expect(
+            () async =>
+                await nativeAmplifyApi.unsubscribe(response.subscriptionId),
+            returnsNormally,
+          );
         });
 
-        test('Fake Subscription', () async {
+        test('Should handle non-existing subscriptions', () async {
           NativeAmplifyApi nativeAmplifyApi = NativeAmplifyApi({});
 
-          await nativeAmplifyApi.unsubscribe('Fake Subscription ID');
+          expect(
+            () async =>
+                await nativeAmplifyApi.unsubscribe('Fake Subscription ID'),
+            returnsNormally,
+          );
         });
       });
     });
