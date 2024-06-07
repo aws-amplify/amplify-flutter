@@ -237,7 +237,8 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - SignedOutException', () async {
+      test('Should handle unauthorized AmplifyException - SignedOutException',
+          () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
@@ -259,8 +260,10 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
-        String exceptionMessage = 'Not Authorized to access onDeletePrivateNote on type Subscription';
+      test('Should handle unauthorized AmplifyException - Unauthrorized',
+          () async {
+        String exceptionMessage =
+            'Not Authorized to access onDeletePrivateNote on type Subscription';
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
 
@@ -427,7 +430,8 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - SignedOutException', () async {
+      test('Should handle unauthorized AmplifyException - SignedOutException',
+          () async {
         String exceptionMessage = 'API Exception';
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
@@ -449,8 +453,10 @@ void main() async {
         expect(response.payloadJson, payloadJson);
       });
 
-      test('Should handle unauthorized AmplifyException - Unauthrorized', () async {
-        String exceptionMessage = 'Not Authorized to access onDeletePrivateNote on type Subscription';
+      test('Should handle unauthorized AmplifyException - Unauthrorized',
+          () async {
+        String exceptionMessage =
+            'Not Authorized to access onDeletePrivateNote on type Subscription';
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
 
