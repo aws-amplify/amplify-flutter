@@ -20,7 +20,7 @@ class DataStorePluginOptions {
 
   /// The custom error handler function that receives an [AmplifyException]
   /// object when DataStore encounters an unhandled error.
-  final Function(AmplifyException)? errorHandler;
+  final void Function(AmplifyException)? errorHandler;
 
   /// The custom conflict handler function that receives an [ConflictData]
   /// object when DataStore encounters a data conflict.
