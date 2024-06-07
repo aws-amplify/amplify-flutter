@@ -41,9 +41,10 @@ class AmplifyDataStore extends DataStorePluginInterface
   @protected
   AmplifyDataStore.emptyConstructor() : super.emptyConstructor();
 
-  static AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
+  static final AmplifyDataStore _instance = AmplifyDataStoreMethodChannel();
   static DataStoreStreamController streamWrapper = DataStoreStreamController();
 
+  @override
   StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
   }
@@ -161,7 +162,7 @@ class AmplifyDataStore extends DataStorePluginInterface
   @override
   Future<void> configureDataStore({
     ModelProviderInterface? modelProvider,
-    Function(AmplifyException)? errorHandler,
+    void Function(AmplifyException)? errorHandler,
     DataStoreConflictHandler? conflictHandler,
     List<DataStoreSyncExpression>? syncExpressions,
     int? syncInterval,
@@ -169,11 +170,13 @@ class AmplifyDataStore extends DataStorePluginInterface
     int? syncPageSize,
     AuthModeStrategy authModeStrategy = AuthModeStrategy.defaultStrategy,
   }) async {
-    ModelProviderInterface provider = modelProvider ?? this.modelProvider!;
+    final provider = modelProvider ?? this.modelProvider!;
     if (provider.modelSchemas.isEmpty) {
-      throw DataStoreException('No modelProvider or modelSchemas found',
-          recoverySuggestion:
-              'Pass in a modelProvider instance while instantiating DataStorePlugin');
+      throw const DataStoreException(
+        'No modelProvider or modelSchemas found',
+        recoverySuggestion:
+            'Pass in a modelProvider instance while instantiating DataStorePlugin',
+      );
     }
     streamWrapper.registerModelsForHub(provider);
     return _instance.configureDataStore(
@@ -189,12 +192,18 @@ class AmplifyDataStore extends DataStorePluginInterface
   }
 
   @override
-  Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where,
-      QueryPagination? pagination,
-      List<QuerySortBy>? sortBy}) async {
-    return _instance.query(modelType,
-        where: where, pagination: pagination, sortBy: sortBy);
+  Future<List<T>> query<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    QueryPagination? pagination,
+    List<QuerySortBy>? sortBy,
+  }) async {
+    return _instance.query(
+      modelType,
+      where: where,
+      pagination: pagination,
+      sortBy: sortBy,
+    );
   }
 
   @override
@@ -208,8 +217,10 @@ class AmplifyDataStore extends DataStorePluginInterface
   }
 
   @override
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where}) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+  }) {
     return _instance.observe(modelType, where: where);
   }
 
@@ -259,26 +270,38 @@ class _NativeAmplifyAuthCognito
       // authSession cannot be typed properly without depending on amplify_auth_cognito
       final authSession = await Amplify.Auth.fetchAuthSession() as dynamic;
       final nativeAuthSession = NativeAuthSession(
-        isSignedIn: authSession.isSignedIn,
-        userSub: authSession.userSubResult.valueOrNull,
-        identityId: authSession.identityIdResult.valueOrNull,
+        // ignore: avoid_dynamic_calls
+        isSignedIn: authSession.isSignedIn as bool,
+        // ignore: avoid_dynamic_calls
+        userSub: authSession.userSubResult.valueOrNull as String?,
+        // ignore: avoid_dynamic_calls
+        identityId: authSession.identityIdResult.valueOrNull as String?,
       );
+      // ignore: avoid_dynamic_calls
       final userPoolTokens = authSession.userPoolTokensResult.valueOrNull;
       if (userPoolTokens != null) {
         nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
-          accessToken: userPoolTokens.accessToken.raw,
-          refreshToken: userPoolTokens.refreshToken,
-          idToken: userPoolTokens.idToken.raw,
+          // ignore: avoid_dynamic_calls
+          accessToken: userPoolTokens.accessToken.raw as String,
+          // ignore: avoid_dynamic_calls
+          refreshToken: userPoolTokens.refreshToken as String,
+          // ignore: avoid_dynamic_calls
+          idToken: userPoolTokens.idToken.raw as String,
         );
       }
+      // ignore: avoid_dynamic_calls
       final awsCredentials = authSession.credentialsResult.valueOrNull;
       if (awsCredentials != null) {
         nativeAuthSession.awsCredentials = NativeAWSCredentials(
-          accessKeyId: awsCredentials.accessKeyId,
-          secretAccessKey: awsCredentials.secretAccessKey,
-          sessionToken: awsCredentials.sessionToken,
+          // ignore: avoid_dynamic_calls
+          accessKeyId: awsCredentials.accessKeyId as String,
+          // ignore: avoid_dynamic_calls
+          secretAccessKey: awsCredentials.secretAccessKey as String,
+          // ignore: avoid_dynamic_calls
+          sessionToken: awsCredentials.sessionToken as String,
           expirationIso8601Utc:
-              awsCredentials.expiration?.toUtc().toIso8601String(),
+              // ignore: avoid_dynamic_calls
+              awsCredentials.expiration?.toUtc().toIso8601String() as String?,
         );
       }
       return nativeAuthSession;

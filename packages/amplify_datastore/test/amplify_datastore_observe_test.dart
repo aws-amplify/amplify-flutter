@@ -8,16 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const MethodChannel dataStoreChannel =
-      MethodChannel('com.amazonaws.amplify/datastore');
+  const dataStoreChannel = MethodChannel('com.amazonaws.amplify/datastore');
 
   // event channels are backed by method channels. However
   // event channels cannot be mocked like method channels.
-  const MethodChannel eventChannel =
+  const eventChannel =
       MethodChannel('com.amazonaws.amplify/datastore_observe_events');
 
-  AmplifyDataStore dataStore =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
+  final dataStore = AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -34,18 +32,18 @@ void main() {
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       dataStoreChannel,
       (MethodCall methodCall) async {
-        expect("setUpObserve", methodCall.method);
+        expect('setUpObserve', methodCall.method);
         return null;
       },
     );
-    var json =
+    final json =
         await getJsonFromFile('observe_api/post_type_success_event.json');
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       dataStoreChannel,
       (MethodCall methodCall) async {
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        await TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
             .handlePlatformMessage(
-          "com.amazonaws.amplify/datastore_observe_events",
+          'com.amazonaws.amplify/datastore_observe_events',
           const StandardMethodCodec().encodeSuccessEnvelope(json),
           (ByteData? data) {},
         );
@@ -54,13 +52,14 @@ void main() {
     );
     dataStore.observe(Post.classType).listen((event) {
       expect(
-          event.item,
-          Post(
-              id: "43036c6b-8044-4309-bddc-262b6c686026",
-              title: "Title 2",
-              rating: 0,
-              created:
-                  TemporalDateTime.fromString("2020-02-20T20:20:20-08:00")));
+        event.item,
+        Post(
+          id: '43036c6b-8044-4309-bddc-262b6c686026',
+          title: 'Title 2',
+          rating: 0,
+          created: TemporalDateTime.fromString('2020-02-20T20:20:20-08:00'),
+        ),
+      );
       expect(event.eventType, EventType.create);
     });
   });
@@ -69,18 +68,18 @@ void main() {
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       dataStoreChannel,
       (MethodCall methodCall) async {
-        expect("setUpObserve", methodCall.method);
+        expect('setUpObserve', methodCall.method);
         return null;
       },
     );
-    var json =
+    final json =
         await getJsonFromFile('observe_api/blog_type_success_event.json');
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
       eventChannel,
       (MethodCall methodCall) async {
-        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        await TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
             .handlePlatformMessage(
-          "com.amazonaws.amplify/datastore_observe_events",
+          'com.amazonaws.amplify/datastore_observe_events',
           const StandardMethodCodec().encodeSuccessEnvelope(json),
           (ByteData? data) {},
         );
@@ -88,7 +87,7 @@ void main() {
       },
     );
     dataStore.observe(Post.classType).listen((event) {
-      fail("No message should ever be received");
+      fail('No message should ever be received');
     });
   });
 }
