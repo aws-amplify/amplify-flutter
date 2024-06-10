@@ -87,6 +87,7 @@ class ModelQueries {
     String? sortDirection,
     String? indexName,
     String? overrideQueryFieldType,
+    String? customQueryName,
     QueryPredicate? where,
     String? apiName,
     APIAuthorizationType? authorizationMode,
@@ -103,6 +104,7 @@ class ModelQueries {
       sortDirection: sortDirection ?? 'DESC',
       indexName: indexName,
       overrideQueryFieldType: overrideQueryFieldType,
+      customQueryName: customQueryName,
     );
   }
 }

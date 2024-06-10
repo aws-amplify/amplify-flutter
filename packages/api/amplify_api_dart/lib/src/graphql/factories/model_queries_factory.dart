@@ -70,6 +70,7 @@ class ModelQueriesFactory {
     String? sortDirection,
     String? indexName,
     String? overrideQueryFieldType,
+    String? customQueryName,
   }) {
     final filter = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
@@ -89,6 +90,7 @@ class ModelQueriesFactory {
       sortDirection: sortDirection,
       indexName: indexName,
       overrideQueryFieldType: overrideQueryFieldType,
+      customQueryName: customQueryName,
     );
   }
 }
