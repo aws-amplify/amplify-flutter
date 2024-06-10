@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_api_dart/src/decorators/web_socket_auth_utils.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/subscriptions_bloc.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/blocs/web_socket_bloc.dart';
+import 'package:amplify_api_dart/src/graphql/web_socket/connection/amplify_web_socket_connection.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_event.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_message_stream_transformer.dart';
@@ -72,16 +73,12 @@ class AmplifyWebSocketService
     );
 
     try {
-      const webSocketProtocols = ['graphql-ws'];
-      final connectionUri = await generateConnectionUri(
-        state.config,
-        state.authProviderRepo,
+      final amplifyWs = AmplifyWebSocket(
+        config: state.config,
+        authProviderRepository: state.authProviderRepo,
       );
 
-      final channel = WebSocketChannel.connect(
-        connectionUri,
-        protocols: webSocketProtocols,
-      );
+      final channel = await amplifyWs.connect();
       sink = channel.sink;
 
       final subscriptionStream = transformStream(channel.stream);
