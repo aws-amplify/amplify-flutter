@@ -971,6 +971,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
+  /// TODO
+  Future<CognitoDevice> getCurrentDevice() async {
+      // TODO: implement getCurrentDevice
+      throw UnimplementedError();
+    }
+
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     final tokens = await stateMachine.getUserPoolTokens();
