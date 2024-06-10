@@ -971,9 +971,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
-  /// TODO
+  /// TODO(hahnandrew): Add docs for corresponding API
   Future<CognitoDevice> getCurrentDevice() async {
-      // TODO(hahnandrew): implement getCurrentDevice, https://github.com/aws-amplify/amplify-flutter/issues/1472
+      // TODO(hahnandrew): Implement getCurrentDevice, https://github.com/aws-amplify/amplify-flutter/issues/1472
       throw UnimplementedError();
     }
 
