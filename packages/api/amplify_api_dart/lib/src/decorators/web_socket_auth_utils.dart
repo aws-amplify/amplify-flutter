@@ -4,6 +4,8 @@
 @internal
 library amplify_api.decorators.web_socket_auth_utils;
 
+import 'dart:convert';
+
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -32,6 +34,9 @@ Future<Uri> generateConnectionUri(
   AWSApiConfig config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
+  final queryParameters = {
+    'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
+  };
   // Conditionally format the URI for a) AppSync domain b) custom domain.
   var endpointUriHost = Uri.parse(config.endpoint).host;
   String path;
@@ -53,6 +58,8 @@ Future<Uri> generateConnectionUri(
     scheme: 'wss',
     host: endpointUriHost,
     path: path,
+  ).replace(
+    queryParameters: queryParameters,
   );
 }
 
