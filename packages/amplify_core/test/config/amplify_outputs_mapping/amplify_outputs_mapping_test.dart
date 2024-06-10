@@ -98,27 +98,15 @@ void main() {
 /// Updates the Gen 1 Config to work around known issues
 ///
 /// Issues:
-/// - https://github.com/aws-amplify/amplify-backend/issues/1547
 /// - https://github.com/aws-amplify/amplify-backend/issues/1551
 Map<String, Object?> updateConfig(Map<String, Object?> config) {
   config as Map<String, dynamic>;
   // ignore: avoid_dynamic_calls
   final cognitoPlugin = (config)['auth']['plugins']['awsCognitoAuthPlugin'];
   // ignore: avoid_dynamic_calls
-  cognitoPlugin['AppSync']['data_AMAZON_COGNITO_USER_POOLS']['AuthMode'] =
-      'AMAZON_COGNITO_USER_POOLS';
-  // ignore: avoid_dynamic_calls
   final defaultAuth = cognitoPlugin['Auth']['Default'] as Map<String, Object?>;
-  defaultAuth['OAuth'] = {
-    'WebDomain': 'fake-domain',
-    'AppClientId': '',
-    'SignInRedirectURI': 'sign-in-redirect-1,sign-in-redirect-2',
-    'SignOutRedirectURI': 'sign-out-redirect-1,sign-out-redirect-2',
-    'Scopes': [
-      'scope-1',
-      'scope-2',
-    ],
-  };
+  final oAuthConfig = defaultAuth['OAuth'] as Map<String, Object?>;
+  oAuthConfig['AppClientId'] = 'fake-client-id';
   defaultAuth['socialProviders'] = [
     'GOOGLE',
     'FACEBOOK',
