@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/mfa.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:meta/meta.dart';
 
 part 'auth_outputs.g.dart';
 
@@ -19,6 +20,7 @@ class AuthOutputs
     required this.awsRegion,
     this.userPoolId,
     this.userPoolClientId,
+    this.appClientSecret,
     this.identityPoolId,
     this.passwordPolicy,
     this.oauth,
@@ -41,6 +43,14 @@ class AuthOutputs
 
   /// The Cognito User Pool Client ID.
   final String? userPoolClientId;
+
+  /// A fixed string that must be used in all API requests to the app client
+  /// if the the app client has one configured.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final String? appClientSecret;
 
   /// The Cognito Identity Pool ID.
   final String? identityPoolId;
