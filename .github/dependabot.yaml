@@ -33,6 +33,27 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+  - package-ecosystem: "npm"
+    directory: "infra-gen2"
+    schedule:
+      interval: "weekly"
+    groups:
+      cdk:
+        patterns:
+          - "aws-amplify"
+          - "@aws-amplify/*"
+          - "aws-cdk"
+          - "aws-cdk-lib"
+          - "constructs"
+      aws-sdk-js:
+        patterns:
+          - "@aws-sdk/*"
+          - "@aws-crypto/*"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "/"
     schedule:
@@ -195,6 +216,20 @@ updates:
       - dependency-name: "amplify_storage_s3_dart"
   - package-ecosystem: "pub"
     directory: "infra"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+      # Ignore all repo packages
+      - dependency-name: "amplify_core"
+      - dependency-name: "aws_common"
+      - dependency-name: "amplify_lints"
+      - dependency-name: "aws_signature_v4"
+  - package-ecosystem: "pub"
+    directory: "infra-gen2"
     schedule:
       interval: "daily"
     ignore:
