@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_example/amplify_outputs/mainInteg.dart';
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -90,6 +91,22 @@ Future<void> configureAmplify() async {
       ),
     ]);
     await Amplify.configure(amplifyconfig);
+  }
+}
+
+Future<void> configureAmplifyGen2() async {
+  if (!Amplify.isConfigured) {
+    await Amplify.addPlugins([
+      AmplifyAuthCognito(
+        secureStorageFactory: AmplifySecureStorage.factoryFrom(
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+        ),
+      ),
+      AmplifyAPI(
+        options: APIPluginOptions(modelProvider: ModelProvider.instance),
+      ),
+    ]);
+    await Amplify.configure(mainInteg);
   }
 }
 

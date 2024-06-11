@@ -1,0 +1,9 @@
+name: infra
+publish_to: none
+
+environment:
+  sdk: ^3.3.0
+
+dependencies:
+  amplify_core: any
+  path: any
