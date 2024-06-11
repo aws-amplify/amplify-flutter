@@ -50,7 +50,7 @@ class AmplifyDataStore extends DataStorePluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     if (config == null) {
@@ -100,15 +100,13 @@ class AmplifyDataStore extends DataStorePluginInterface
     }
 
     final apiPlugin = Amplify.API.plugins.firstOrNull;
-    final gqlConfig = config.api?.awsPlugin?.all.values.firstWhereOrNull(
-      (config) => config.endpointType == EndpointType.graphQL,
-    );
+    final gqlConfig = config.data;
     if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
       Map<String, String> endpoints = {};
-      config.api?.awsPlugin?.all.entries.forEach((e) {
-        endpoints[e.key] = e.value.authorizationType.name;
+      gqlConfig.entries.forEach((e) {
+        endpoints[e.key] = e.value.defaultAuthorizationType.name;
       });
       final nativePlugin = NativeAmplifyApi(authProviders);
       NativeApiPlugin.setup(nativePlugin);

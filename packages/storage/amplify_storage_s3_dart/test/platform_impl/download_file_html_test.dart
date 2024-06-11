@@ -4,6 +4,7 @@
 @TestOn('chrome')
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -30,9 +31,9 @@ void main() {
   group('downloadFile() html implementation', () {
     late StorageS3Service storageS3Service;
     const testKey = 'upload-key.text';
-    const testS3pluginConfig = S3PluginConfig(
-      bucket: 'fake-bucket',
-      region: 'west-2',
+    const testStorageOutputs = StorageOutputs(
+      bucketName: 'fake-bucket',
+      awsRegion: 'west-2',
     );
     final testItem = S3Item(
       path: testKey,
@@ -90,7 +91,7 @@ void main() {
         path: const StoragePath.fromString('public/$testKey'),
         localFile: AWSFile.fromPath('file_name.jpg'),
         options: const StorageDownloadFileOptions(),
-        s3pluginConfig: testS3pluginConfig,
+        storageOutputs: testStorageOutputs,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       );
@@ -129,7 +130,7 @@ void main() {
         ),
         localFile: AWSFile.fromPath('download.jpg'),
         options: options,
-        s3pluginConfig: testS3pluginConfig,
+        storageOutputs: testStorageOutputs,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
       ).result;

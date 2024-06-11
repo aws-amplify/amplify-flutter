@@ -56,7 +56,8 @@ void main() {
 
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
-  );
+    // ignore: invalid_use_of_internal_member
+  ).toAmplifyOutputs();
 
   setUp(() {
     plugin = TestAmplifyPushNotifications(
@@ -204,7 +205,8 @@ void main() {
         () async {
       final config = AmplifyConfig.fromJson(
         jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
-      );
+        // ignore: invalid_use_of_internal_member
+      ).toAmplifyOutputs();
       expect(
         () async => plugin.configure(
           authProviderRepo: authProviderRepo,

@@ -111,24 +111,44 @@ abstract class AmplifyClass {
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
     }
-
-    late AmplifyConfig amplifyConfig;
+    late final AmplifyOutputs amplifyOutputs;
     try {
+      final Map<String, Object?> json;
+      late final AmplifyConfig amplifyConfig;
       try {
-        final json = jsonDecode(configuration) as Map;
-        amplifyConfig = AmplifyConfig.fromJson(json.cast());
+        json = jsonDecode(configuration) as Map<String, Object?>;
       } on Object catch (e) {
         throw ConfigurationError(
           'The provided configuration is not a valid json. '
           'Check underlyingException.',
           recoverySuggestion:
-              'Inspect your amplifyconfiguration.dart and ensure that '
-              'the string is proper json',
+              'Inspect your amplify_output.dart or amplifyconfiguration.dart '
+              'and ensure that the string is proper json',
           underlyingException: e,
         );
       }
-      await _configurePlugins(amplifyConfig);
-      _configCompleter.complete(amplifyConfig.toAmplifyOutputs());
+      try {
+        amplifyOutputs = AmplifyOutputs.fromJson(json);
+      } on Object {
+        try {
+          amplifyConfig = AmplifyConfig.fromJson(json);
+          amplifyOutputs = amplifyConfig.toAmplifyOutputs();
+        } on Object catch (e) {
+          throw ConfigurationError(
+            'The provided configuration can not be decoded to AmplifyOutputs '
+            'or AmplifyConfig. '
+            'Check underlyingException.',
+            recoverySuggestion:
+                'If using Amplify Gen 2 ensure that the json string '
+                'can be decoded to AmplifyOutputs type. '
+                'If using Amplify Gen 1 ensure that the json '
+                'string can be decoded to AmplifyConfig type.',
+            underlyingException: e,
+          );
+        }
+      }
+      await _configurePlugins(amplifyOutputs);
+      _configCompleter.complete(amplifyOutputs);
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
       // that 1) `configure` can be called again and 2) listeners registered
@@ -146,14 +166,14 @@ abstract class AmplifyClass {
       // handled by the developer, but since they are unrelated to
       // configuration, listeners to `Amplify.asyncConfig` should be allowed to
       // proceed with the validated configuration.
-      _configCompleter.complete(amplifyConfig.toAmplifyOutputs());
+      _configCompleter.complete(amplifyOutputs);
       _configCompleter = Completer();
       rethrow;
     }
   }
 
   /// Configures all plugins in topologically-sorted order.
-  Future<void> _configurePlugins(AmplifyConfig config) async {
+  Future<void> _configurePlugins(AmplifyOutputs config) async {
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
     final categories = <Category, AmplifyCategory>{

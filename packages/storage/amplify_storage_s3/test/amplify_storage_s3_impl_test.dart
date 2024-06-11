@@ -12,7 +12,7 @@ import 'test_utils/test_token_provider.dart';
 
 void main() {
   group('AmplifyStorageS3', () {
-    const testConfig = AmplifyConfig(
+    final testConfig = const AmplifyConfig(
       storage: StorageConfig(
         plugins: {
           S3PluginConfig.pluginKey: S3PluginConfig(
@@ -21,7 +21,8 @@ void main() {
           ),
         },
       ),
-    );
+      // ignore: invalid_use_of_internal_member
+    ).toAmplifyOutputs();
     final testAuthProviderRepo = AmplifyAuthProviderRepository()
       ..registerAuthProvider(
         APIAuthorizationType.userPools.authProviderToken,

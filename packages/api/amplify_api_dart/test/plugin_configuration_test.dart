@@ -64,9 +64,13 @@ void main() {
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
   );
+  // ignore: invalid_use_of_internal_member
+  final amplifyOutputs = config.toAmplifyOutputs();
   final configIamWithApiKey = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfigwithapikey) as Map<String, Object?>,
   );
+  // ignore: invalid_use_of_internal_member
+  final amplifyOutputsIamWithApiKey = configIamWithApiKey.toAmplifyOutputs();
 
   group('AmplifyAPI plugin configuration', () {
     test(
@@ -75,7 +79,7 @@ void main() {
       final plugin = AmplifyAPIDart();
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: config,
+        config: amplifyOutputs,
       );
       final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
         APIAuthorizationType.apiKey.authProviderToken,
@@ -89,7 +93,7 @@ void main() {
       final plugin = AmplifyAPIDart();
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: configIamWithApiKey,
+        config: amplifyOutputsIamWithApiKey,
       );
       final apiKeyAuthProvider = authProviderRepo.getAuthProvider(
         APIAuthorizationType.apiKey.authProviderToken,
@@ -104,7 +108,7 @@ void main() {
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: config,
+        config: amplifyOutputs,
       );
       final oidcAuthProvider = authProviderRepo
           .getAuthProvider(APIAuthorizationType.oidc.authProviderToken);
@@ -124,7 +128,7 @@ void main() {
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: config,
+        config: amplifyOutputs,
       );
       final functionAuthProvider = authProviderRepo
           .getAuthProvider(APIAuthorizationType.function.authProviderToken);
@@ -143,7 +147,7 @@ void main() {
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: config,
+        config: amplifyOutputs,
       );
 
       const graphQLDocument = '''query TestQuery {
@@ -169,7 +173,7 @@ void main() {
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
-        config: config,
+        config: amplifyOutputs,
       );
 
       await plugin.get('/items').response;

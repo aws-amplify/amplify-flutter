@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 
 part 'oauth.g.dart';
 
@@ -26,6 +28,46 @@ class CognitoOAuthConfig
     this.signOutUriQueryParameters,
     this.tokenUriQueryParameters,
   });
+
+  @internal
+  factory CognitoOAuthConfig.fromAuthOutputs(AuthOutputs authOutputs) {
+    if (authOutputs.userPoolClientId == null) {
+      throw ConfigurationError('Invalid config: no User Pool Client Id found.');
+    }
+    if (authOutputs.oauth == null) {
+      throw ConfigurationError('Invalid config: no oAuth configuration found.');
+    }
+
+    final appClientId = authOutputs.userPoolClientId!;
+    final appClientSecret = authOutputs.appClientSecret;
+    final scopes = authOutputs.oauth!.scopes;
+    final signInUri = authOutputs.oauth!.signInUri;
+    final signOutUri = authOutputs.oauth!.signOutUri;
+    final signInUriQueryParameters =
+        authOutputs.oauth!.signInUriQueryParameters;
+    final signOutUriQueryParameters =
+        authOutputs.oauth!.signOutUriQueryParameters;
+    final signInRedirectUri = authOutputs.oauth!.redirectSignInUri.join(',');
+    final signOutRedirectUri = authOutputs.oauth!.redirectSignOutUri.join(',');
+    final webDomain = authOutputs.oauth!.domain;
+    final tokenUri = authOutputs.oauth!.tokenUri;
+    final tokenUriQueryParameters = authOutputs.oauth!.tokenUriQueryParameters;
+
+    return CognitoOAuthConfig(
+      appClientId: appClientId,
+      appClientSecret: appClientSecret,
+      scopes: scopes,
+      signInUri: signInUri,
+      signOutUri: signOutUri,
+      signInRedirectUri: signInRedirectUri,
+      signOutRedirectUri: signOutRedirectUri,
+      webDomain: webDomain,
+      signInUriQueryParameters: signInUriQueryParameters,
+      signOutUriQueryParameters: signOutUriQueryParameters,
+      tokenUri: tokenUri,
+      tokenUriQueryParameters: tokenUriQueryParameters,
+    );
+  }
 
   factory CognitoOAuthConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoOAuthConfigFromJson(json);

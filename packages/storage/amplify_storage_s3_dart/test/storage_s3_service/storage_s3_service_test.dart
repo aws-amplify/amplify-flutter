@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
@@ -25,8 +26,8 @@ void main() {
   group('StorageS3Service', () {
     const testBucket = 'bucket1';
     const testRegion = 'west-2';
-    const s3PluginConfig =
-        S3PluginConfig(bucket: testBucket, region: testRegion);
+    const storageOutputs =
+        StorageOutputs(bucketName: testBucket, awsRegion: testRegion);
 
     final pathResolver = TestPathResolver();
     late DependencyManager dependencyManager;
@@ -43,7 +44,7 @@ void main() {
         ..addInstance<S3Client>(s3Client)
         ..addInstance<AWSSigV4Signer>(awsSigV4Signer);
       storageS3Service = StorageS3Service(
-        s3PluginConfig: s3PluginConfig,
+        storageOutputs: storageOutputs,
         pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
         logger: logger,
@@ -53,9 +54,9 @@ void main() {
 
     test('log a warning when should use path style URLs', () {
       StorageS3Service(
-        s3PluginConfig: const S3PluginConfig(
-          bucket: 'bucket.name.has.dots.com',
-          region: 'us-west-2',
+        storageOutputs: const StorageOutputs(
+          bucketName: 'bucket.name.has.dots.com',
+          awsRegion: 'us-west-2',
         ),
         pathResolver: pathResolver,
         credentialsProvider: TestIamAuthProvider(),
@@ -770,8 +771,10 @@ void main() {
         late StorageS3Service pathStyleStorageS3Service;
         const pathStyleBucket = 'bucket.name.has.dots.com';
         const pathStyleRegion = 'west-2';
-        const pathStyleS3PluginConfig =
-            S3PluginConfig(bucket: pathStyleBucket, region: pathStyleRegion);
+        const pathStyleStorageOutputs = StorageOutputs(
+          bucketName: pathStyleBucket,
+          awsRegion: pathStyleRegion,
+        );
         final pathStyleURL = Uri(
           host: 's3.amazonaws.com',
           path: '/bucket.name.has.dots.com/album/1.jpg',
@@ -784,7 +787,7 @@ void main() {
             ..addInstance<S3Client>(MockS3Client())
             ..addInstance<AWSSigV4Signer>(pathStyleAwsSigV4Signer);
           pathStyleStorageS3Service = StorageS3Service(
-            s3PluginConfig: pathStyleS3PluginConfig,
+            storageOutputs: pathStyleStorageOutputs,
             pathResolver: pathResolver,
             credentialsProvider: TestIamAuthProvider(),
             logger: MockAWSLogger(),
@@ -828,7 +831,7 @@ void main() {
                   .having(
                     (o) => o.host,
                     'host',
-                    's3.${pathStyleS3PluginConfig.region}.amazonaws.com',
+                    's3.${pathStyleStorageOutputs.awsRegion}.amazonaws.com',
                   )
                   .having(
                     (o) => o.path,
