@@ -28,5 +28,5 @@ Pod::Spec.new do |s|
   # These are needed to support async/await and ASWebAuthenticationSession
   s.ios.deployment_target = '13.0'
   s.osx.deployment_target = '10.15'
-  s.swift_version = '5.5'
+  s.swift_version = '5.9'
 end

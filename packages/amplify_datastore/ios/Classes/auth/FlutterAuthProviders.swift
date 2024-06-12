@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
-import AmplifyPlugins
-import AWSPluginsCore
 import Flutter
 
 /// A factory of [FlutterAuthProvider] instances. Manages shared state for all providers.
@@ -90,8 +87,14 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
     let flutterAuthProviders: FlutterAuthProviders
     let type: AWSAuthorizationType
-
-    func getLatestAuthToken() -> Result<String, Error> {
-        return flutterAuthProviders.getToken(for: type)
+    
+    func getLatestAuthToken() async throws -> String {
+           let result = flutterAuthProviders.getToken(for: type)
+           switch result {
+               case .success(let token):
+                   return token
+               case .failure(let error):
+                   throw error
+           }
     }
 }

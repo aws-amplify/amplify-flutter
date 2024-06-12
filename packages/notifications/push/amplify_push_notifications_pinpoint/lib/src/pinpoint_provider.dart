@@ -168,21 +168,25 @@ class PinpointProvider implements ServiceProviderClient {
 
   @override
   Future<void> registerDevice(String deviceToken) async {
+    if (!_isInitialized) {
+      _logger.error(
+        'Pinpoint provider not configured.',
+      );
+      return;
+    }
+    _analyticsClient.endpointClient.address = deviceToken;
+    final channelType = _getChannelType();
+    _analyticsClient.endpointClient.channelType = channelType;
+    _analyticsClient.endpointClient.optOut = 'NONE';
     try {
-      if (!_isInitialized) {
-        _logger.error(
-          'Pinpoint provider not configured.',
-        );
-        return;
-      }
-      _analyticsClient.endpointClient.address = deviceToken;
-      final channelType = _getChannelType();
-      _analyticsClient.endpointClient.channelType = channelType;
-      _analyticsClient.endpointClient.optOut = 'NONE';
       await _withUserAgent(
         () async => _analyticsClient.endpointClient.updateEndpoint(),
       );
-    } on AWSHttpException catch (e) {
+      // This is allow offline configuration.
+      // `EndpointClient.updateEndpoint()` catches all exception and convert
+      // them to `AnalyticsException`.
+      // `AnalyticsException` converts `AWSHttpException` to `NetworkException`.
+    } on NetworkException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }
   }

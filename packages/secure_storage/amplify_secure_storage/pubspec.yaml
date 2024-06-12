@@ -1,6 +1,6 @@
 name: amplify_secure_storage
 description: A package for storing secrets, intended for use in Amplify libraries.
-version: 0.5.1
+version: 0.5.2
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/secure_storage/amplify_secure_storage
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues

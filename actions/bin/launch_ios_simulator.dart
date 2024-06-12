@@ -9,8 +9,10 @@ import 'package:collection/collection.dart';
 Future<void> main(List<String> args) => wrapMain(launch);
 
 Future<void> launch() async {
-  final iosVersion = core.getInput('ios-version');
-  core.info('Launching simulator for iOS $iosVersion');
+  final iosVersionArg = core.getInput('ios-version');
+  final iosVersion =
+      iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
+  core.info('Launching simulator for $iosVersion');
 
   var runtimeIdentifier = await core.withGroup(
     'Check for existing runtime',
@@ -21,7 +23,7 @@ Future<void> launch() async {
     },
   );
   if (runtimeIdentifier == null) {
-    core.info('No runtime found for iOS $iosVersion');
+    core.info('No runtime found for $iosVersion');
     await installXcodes();
     await installRuntime(iosVersion);
   }
@@ -79,7 +81,7 @@ Future<String?> getRuntimeId(String iosVersion) async {
   final runtimes =
       (runtimesJson['runtimes'] as List<Object?>).cast<Map<String, Object?>>();
   final versionRuntime = runtimes.firstWhereOrNull(
-    (runtime) => (runtime['name'] as String).startsWith('iOS $iosVersion'),
+    (runtime) => (runtime['name'] as String).startsWith(iosVersion),
   );
   if (versionRuntime == null) {
     return null;
@@ -99,6 +101,16 @@ Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
       }
     });
 
+Future<String> getLatest() async {
+  final version = await exec
+      .exec('/bin/sh', ['-c', r'xcodes runtimes | grep -e "iOS" | tail -n 1']);
+  if (version.exitCode != 0) {
+    throw Exception('Could not get latest version');
+  }
+
+  return version.stdout.replaceAll(' (Installed)', '').trim();
+}
+
 /// Installs the iOS runtime for the given [iosVersion].
 Future<void> installRuntime(String iosVersion) async {
   await core.withGroup('Install runtime', () async {
@@ -108,7 +120,7 @@ Future<void> installRuntime(String iosVersion) async {
         'xcodes',
         'runtimes',
         'install',
-        'iOS $iosVersion',
+        iosVersion,
         '--no-color',
       ],
     );

@@ -3,7 +3,6 @@
 
 import Flutter
 import Foundation
-import Amplify
 
 public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder {
     public typealias IdentifierFormat = ModelIdentifierFormat.Custom

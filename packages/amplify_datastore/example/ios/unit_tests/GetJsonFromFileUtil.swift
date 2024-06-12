@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Amplify
 
 func readJsonMap(filePath: String) throws -> [String: Any] {
     if let object = try readJson(filePath: filePath) as? [String: Any] {

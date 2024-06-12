@@ -29,9 +29,10 @@ xcuserdata
 *.moved-aside
 
 *.pyc
-*sync/
+*sync/*
 Icon?
 .tags*
 
 /Flutter/Generated.xcconfig
 /Flutter/flutter_export_environment.sh
+!internal/*
