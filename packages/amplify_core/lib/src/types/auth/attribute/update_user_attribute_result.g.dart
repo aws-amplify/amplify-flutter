@@ -10,10 +10,19 @@ part of 'update_user_attribute_result.dart';
 
 UpdateUserAttributeResult _$UpdateUserAttributeResultFromJson(
         Map<String, dynamic> json) =>
-    UpdateUserAttributeResult(
-      isUpdated: json['isUpdated'] as bool,
-      nextStep: AuthNextUpdateAttributeStep.fromJson(
-          json['nextStep'] as Map<String, dynamic>),
+    $checkedCreate(
+      'UpdateUserAttributeResult',
+      json,
+      ($checkedConvert) {
+        final val = UpdateUserAttributeResult(
+          isUpdated: $checkedConvert('isUpdated', (v) => v as bool),
+          nextStep: $checkedConvert(
+              'nextStep',
+              (v) => AuthNextUpdateAttributeStep.fromJson(
+                  v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$UpdateUserAttributeResultToJson(

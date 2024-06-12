@@ -34,10 +34,19 @@ final BuiltSet<CognitoSignInMethod> _$CognitoSignInMethodValues =
 
 CognitoSignInDetailsApiBased _$CognitoSignInDetailsApiBasedFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignInDetailsApiBased(
-      username: json['username'] as String,
-      authFlowType: _$JsonConverterFromJson<String, AuthFlowType>(
-          json['authFlowType'], const _AuthFlowTypeSerializer().fromJson),
+    $checkedCreate(
+      'CognitoSignInDetailsApiBased',
+      json,
+      ($checkedConvert) {
+        final val = CognitoSignInDetailsApiBased(
+          username: $checkedConvert('username', (v) => v as String),
+          authFlowType: $checkedConvert(
+              'authFlowType',
+              (v) => _$JsonConverterFromJson<String, AuthFlowType>(
+                  v, const _AuthFlowTypeSerializer().fromJson)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoSignInDetailsApiBasedToJson(
@@ -73,10 +82,19 @@ Json? _$JsonConverterToJson<Json, Value>(
 
 CognitoSignInDetailsHostedUi _$CognitoSignInDetailsHostedUiFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignInDetailsHostedUi(
-      provider: json['provider'] == null
-          ? null
-          : AuthProvider.fromJson(json['provider'] as Map<String, dynamic>),
+    $checkedCreate(
+      'CognitoSignInDetailsHostedUi',
+      json,
+      ($checkedConvert) {
+        final val = CognitoSignInDetailsHostedUi(
+          provider: $checkedConvert(
+              'provider',
+              (v) => v == null
+                  ? null
+                  : AuthProvider.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoSignInDetailsHostedUiToJson(
@@ -95,9 +113,17 @@ Map<String, dynamic> _$CognitoSignInDetailsHostedUiToJson(
 
 CognitoSignInDetailsFederated _$CognitoSignInDetailsFederatedFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignInDetailsFederated(
-      token: json['token'] as String,
-      provider: AuthProvider.fromJson(json['provider'] as Map<String, dynamic>),
+    $checkedCreate(
+      'CognitoSignInDetailsFederated',
+      json,
+      ($checkedConvert) {
+        final val = CognitoSignInDetailsFederated(
+          token: $checkedConvert('token', (v) => v as String),
+          provider: $checkedConvert('provider',
+              (v) => AuthProvider.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoSignInDetailsFederatedToJson(

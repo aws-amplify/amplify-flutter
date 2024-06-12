@@ -10,14 +10,24 @@ part of 'password_protection_settings.dart';
 
 PasswordProtectionSettings _$PasswordProtectionSettingsFromJson(
         Map<String, dynamic> json) =>
-    PasswordProtectionSettings(
-      passwordPolicyMinLength: const _PasswordPolicyMinLengthConverter()
-          .fromJson(json['passwordPolicyMinLength']),
-      passwordPolicyCharacters: (json['passwordPolicyCharacters']
-                  as List<dynamic>?)
-              ?.map((e) => $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
-              .toList() ??
-          const [],
+    $checkedCreate(
+      'PasswordProtectionSettings',
+      json,
+      ($checkedConvert) {
+        final val = PasswordProtectionSettings(
+          passwordPolicyMinLength: $checkedConvert('passwordPolicyMinLength',
+              (v) => const _PasswordPolicyMinLengthConverter().fromJson(v)),
+          passwordPolicyCharacters: $checkedConvert(
+              'passwordPolicyCharacters',
+              (v) =>
+                  (v as List<dynamic>?)
+                      ?.map((e) =>
+                          $enumDecode(_$PasswordPolicyCharactersEnumMap, e))
+                      .toList() ??
+                  const []),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$PasswordProtectionSettingsToJson(

@@ -8,10 +8,18 @@ part of 'cognito_sign_in_with_web_ui_plugin_options.dart';
 
 CognitoSignInWithWebUIPluginOptions
     _$CognitoSignInWithWebUIPluginOptionsFromJson(Map<String, dynamic> json) =>
-        CognitoSignInWithWebUIPluginOptions(
-          isPreferPrivateSession:
-              json['isPreferPrivateSession'] as bool? ?? false,
-          browserPackageName: json['browserPackageName'] as String?,
+        $checkedCreate(
+          'CognitoSignInWithWebUIPluginOptions',
+          json,
+          ($checkedConvert) {
+            final val = CognitoSignInWithWebUIPluginOptions(
+              isPreferPrivateSession: $checkedConvert(
+                  'isPreferPrivateSession', (v) => v as bool? ?? false),
+              browserPackageName:
+                  $checkedConvert('browserPackageName', (v) => v as String?),
+            );
+            return val;
+          },
         );
 
 Map<String, dynamic> _$CognitoSignInWithWebUIPluginOptionsToJson(

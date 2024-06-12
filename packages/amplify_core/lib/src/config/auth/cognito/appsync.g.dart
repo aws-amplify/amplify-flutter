@@ -10,12 +10,28 @@ part of 'appsync.dart';
 
 CognitoAppSyncConfig _$CognitoAppSyncConfigFromJson(
         Map<String, dynamic> json) =>
-    CognitoAppSyncConfig(
-      apiUrl: json['ApiUrl'] as String,
-      region: json['Region'] as String,
-      authMode: $enumDecode(_$APIAuthorizationTypeEnumMap, json['AuthMode']),
-      apiKey: json['ApiKey'] as String?,
-      clientDatabasePrefix: json['ClientDatabasePrefix'] as String,
+    $checkedCreate(
+      'CognitoAppSyncConfig',
+      json,
+      ($checkedConvert) {
+        final val = CognitoAppSyncConfig(
+          apiUrl: $checkedConvert('ApiUrl', (v) => v as String),
+          region: $checkedConvert('Region', (v) => v as String),
+          authMode: $checkedConvert(
+              'AuthMode', (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
+          apiKey: $checkedConvert('ApiKey', (v) => v as String?),
+          clientDatabasePrefix:
+              $checkedConvert('ClientDatabasePrefix', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'apiUrl': 'ApiUrl',
+        'region': 'Region',
+        'authMode': 'AuthMode',
+        'apiKey': 'ApiKey',
+        'clientDatabasePrefix': 'ClientDatabasePrefix'
+      },
     );
 
 Map<String, dynamic> _$CognitoAppSyncConfigToJson(
