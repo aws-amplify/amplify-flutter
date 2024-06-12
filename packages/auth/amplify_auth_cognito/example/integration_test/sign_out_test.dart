@@ -51,11 +51,11 @@ void main() {
 
           // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
-          final authConfig = config.auth!.awsPlugin!.cognitoUserPool!.default$!;
+          final authConfig = config.auth!;
           client = AWSHttpClient()
             ..supportedProtocols = SupportedProtocols.http1;
           cognitoClient = cognito_idp.CognitoIdentityProviderClient(
-            region: authConfig.region,
+            region: authConfig.awsRegion,
           );
           addTearDown(client.close);
 
