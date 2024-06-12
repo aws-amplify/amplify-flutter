@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_core/src/config/amplify_outputs/auth/identity_provider.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_response_type.dart';
 
 part 'oauth_outputs.g.dart';
