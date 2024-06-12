@@ -219,6 +219,7 @@ class SignUpForm extends AuthenticatorForm {
   SignUpForm({
     super.key,
   })  : _includeDefaultFields = true,
+        passwordPolicyWidget = null,
         super._(
           fields: [
             SignUpFormField.username(),
@@ -234,6 +235,7 @@ class SignUpForm extends AuthenticatorForm {
   const SignUpForm.custom({
     super.key,
     required List<SignUpFormField> super.fields,
+    this.passwordPolicyWidget,
   })  : _includeDefaultFields = false,
         super._(
           actions: const [
@@ -244,6 +246,11 @@ class SignUpForm extends AuthenticatorForm {
   /// Controls whether the default form fields are included, based on settings in
   /// the Auth plugin configuration.
   final bool _includeDefaultFields;
+
+  /// Widget to show for displaying a password policy.
+  ///
+  /// Typically a [TextBox]
+  final Widget? passwordPolicyWidget;
 
   @override
   AuthenticatorFormState<SignUpForm> createState() => _SignUpFormState();
