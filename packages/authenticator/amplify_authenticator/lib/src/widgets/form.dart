@@ -303,15 +303,10 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
-    final authConfig = InheritedConfig.of(context)
-        .amplifyConfig
-        ?.auth
-        ?.awsPlugin
-        ?.auth
-        ?.default$;
+    final authConfig = InheritedConfig.of(context).amplifyConfig?.auth;
     final runtimeAttributes = <CognitoUserAttributeKey>{
-      ...?authConfig?.signupAttributes,
-      ...?authConfig?.verificationMechanisms,
+      ...?authConfig?.standardRequiredAttributes,
+      ...?authConfig?.userVerificationTypes,
     };
     if (runtimeAttributes.isEmpty) {
       return const [];
@@ -362,17 +357,17 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         .whereType<SignUpFormField>()
         .toList();
 
-    final hasSmsMfa = authConfig?.mfaTypes?.contains(MfaType.sms) ?? false;
+    final hasSmsMfa = authConfig?.mfaMethods?.contains(MfaMethod.sms) ?? false;
     if (hasSmsMfa && selectedUsernameType != UsernameType.phoneNumber) {
       final mfaConfiguration =
-          authConfig?.mfaConfiguration ?? MfaConfiguration.off;
+          authConfig?.mfaConfiguration ?? MfaEnforcement.off;
       final hasSmsField = runtimeFields.any(
         (f) => f.field == SignUpField.phoneNumber,
       );
-      if (!hasSmsField && mfaConfiguration != MfaConfiguration.off) {
+      if (!hasSmsField && mfaConfiguration != MfaEnforcement.off) {
         runtimeFields.add(
           SignUpFormField.phoneNumber(
-            required: mfaConfiguration == MfaConfiguration.on,
+            required: mfaConfiguration == MfaEnforcement.on,
           ),
         );
       }
@@ -438,19 +433,18 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
     final socialProviders = InheritedConfig.of(context)
         .amplifyConfig
         ?.auth
-        ?.awsPlugin
-        ?.auth
-        ?.default$
-        ?.socialProviders;
+        ?.oauth
+        ?.identityProviders;
+
     if (socialProviders == null || socialProviders.isEmpty) {
       return const [];
     }
 
     // Sort Apple first based off their app guidelines.
     socialProviders.sort((a, b) {
-      if (a == SocialProvider.apple) {
+      if (a == IdentityProvider.apple) {
         return -1;
-      } else if (b == SocialProvider.apple) {
+      } else if (b == IdentityProvider.apple) {
         return 1;
       }
       return a.name.compareTo(b.name);
@@ -460,13 +454,13 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       SocialSignInButtons(
         providers: socialProviders.map((e) {
           switch (e) {
-            case SocialProvider.facebook:
+            case IdentityProvider.facebook:
               return AuthProvider.facebook;
-            case SocialProvider.google:
+            case IdentityProvider.google:
               return AuthProvider.google;
-            case SocialProvider.amazon:
+            case IdentityProvider.amazon:
               return AuthProvider.amazon;
-            case SocialProvider.apple:
+            case IdentityProvider.apple:
               return AuthProvider.apple;
           }
         }).toList(),

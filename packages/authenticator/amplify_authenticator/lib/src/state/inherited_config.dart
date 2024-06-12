@@ -13,7 +13,7 @@ class InheritedConfig extends InheritedWidget {
     required super.child,
   });
 
-  final AmplifyConfig? amplifyConfig;
+  final AmplifyOutputs? amplifyConfig;
   final EdgeInsets padding;
 
   static InheritedConfig of(BuildContext context) {
@@ -58,7 +58,7 @@ class InheritedConfig extends InheritedWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig))
+      ..add(DiagnosticsProperty<AmplifyOutputs?>('config', amplifyConfig))
       ..add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }
