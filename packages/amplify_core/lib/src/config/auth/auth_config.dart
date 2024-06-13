@@ -110,13 +110,19 @@ class AuthConfig extends AmplifyPluginConfigMap {
     final oAuthConfig = plugin?.oAuth;
     final identityProviders =
         plugin?.socialProviders?.map((p) => p.toIdentityProvider()).toList();
-    final oauth = oAuthConfig != null && identityProviders != null
+    final oauth = oAuthConfig != null
         ? OAuthOutputs(
-            identityProviders: identityProviders,
+            identityProviders: identityProviders ?? [],
             domain: oAuthConfig.webDomain,
             scopes: oAuthConfig.scopes,
             redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
+            redirectSignInUriQueryParameters:
+                oAuthConfig.signInUriQueryParameters,
             redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
+            redirectSignOutUriQueryParameters:
+                oAuthConfig.signOutUriQueryParameters,
+            tokenUri: oAuthConfig.tokenUri,
+            tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
             // Amplify Flutter only supports responseType:code
             // "response_type" is set to "code" by `getAuthorizationUrl` from
             // pkg:oauth2
@@ -128,6 +134,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
       awsRegion: region,
       userPoolId: userPool?.poolId,
       userPoolClientId: userPool?.appClientId,
+      appClientSecret: userPool?.appClientSecret,
       identityPoolId: identityPool?.poolId,
       passwordPolicy: passwordPolicy,
       oauth: oauth,
