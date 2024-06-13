@@ -1,10 +1,10 @@
 const amplifyConfig = '''{
-  "UserAgent": "@aws-amplify/client-config/1.0.2",
+  "UserAgent": "@aws-amplify/client-config/1.0.4",
   "Version": "1.0",
   "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
-        "UserAgent": "@aws-amplify/client-config/1.0.2",
+        "UserAgent": "@aws-amplify/client-config/1.0.4",
         "Version": "1.0",
         "CognitoUserPool": {
           "Default": {
@@ -47,7 +47,16 @@ const amplifyConfig = '''{
             ],
             "verificationMechanisms": [
               "EMAIL"
-            ]
+            ],
+            "OAuth": {
+              "WebDomain": "fake-domain",
+              "Scopes": [
+                "scope-1",
+                "scope-2"
+              ],
+              "SignInRedirectURI": "sign-in-redirect-1,sign-in-redirect-2",
+              "SignOutRedirectURI": "sign-out-redirect-1,sign-out-redirect-2"
+            }
           }
         },
         "AppSync": {
@@ -61,7 +70,7 @@ const amplifyConfig = '''{
           "data_AMAZON_COGNITO_USER_POOLS": {
             "ApiUrl": "fake-data-url",
             "Region": "us-east-1",
-            "AuthMode": "AWS_IAM",
+            "AuthMode": "AMAZON_COGNITO_USER_POOLS",
             "ApiKey": "fake-data-api-key",
             "ClientDatabasePrefix": "data_AMAZON_COGNITO_USER_POOLS"
           }
