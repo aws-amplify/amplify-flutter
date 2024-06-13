@@ -4,6 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/identity_provider.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_response_type.dart';
+import 'package:meta/meta.dart';
 
 part 'oauth_outputs.g.dart';
 
@@ -19,7 +20,11 @@ class OAuthOutputs
     required this.domain,
     required this.scopes,
     required this.redirectSignInUri,
+    this.redirectSignInUriQueryParameters,
     required this.redirectSignOutUri,
+    this.redirectSignOutUriQueryParameters,
+    this.tokenUri,
+    this.tokenUriQueryParameters,
     required this.responseType,
   });
 
@@ -38,8 +43,38 @@ class OAuthOutputs
   /// URIs used to redirect after signing in using an identity provider.
   final List<String> redirectSignInUri;
 
+  /// Optional query params in the sign in URI.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final Map<String, String>? redirectSignInUriQueryParameters;
+
   /// URIs used to redirect after signing out.
   final List<String> redirectSignOutUri;
+
+  /// Optional query params in the sign in URI.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final Map<String, String>? redirectSignOutUriQueryParameters;
+
+  /// The OAuth token URI.
+  ///
+  /// Defaults to '/oauth2/token'.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final String? tokenUri;
+
+  /// Optional query params in the OAuth token URI.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final Map<String, String>? tokenUriQueryParameters;
 
   /// {@macro amplify_core.amplify_outputs.oauth_response_type}
   final OAuthResponseType responseType;
