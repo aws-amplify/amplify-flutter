@@ -59,16 +59,16 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       return;
     }
     await file.create();
+    // formatting is important to avoid lint errors
     await file.writeAsString(
       '''
-    const amplifyconfig = \'\'\'{
-      "UserAgent": "aws-amplify-cli/2.0",
-      "Version": "1.0"
-    }\'\'\';
+const amplifyconfig = \'\'\'{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0"
+}\'\'\';
 
-    const amplifyEnvironments = <String, String>{};
-
-    ''',
+const amplifyEnvironments = <String, String>{};
+''',
     );
   }
 
@@ -82,15 +82,15 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       return;
     }
     await file.create();
+// formatting is important to avoid lint errors
     await file.writeAsString(
       '''
-    const amplifyConfig = \'\'\'{
-      "version": "1"
-    }\'\'\';
+const amplifyConfig = \'\'\'{
+  "version": "1"
+}\'\'\';
 
-    const amplifyEnvironments = <String, String>{};
-    
-    ''',
+const amplifyEnvironments = <String, String>{};
+''',
     );
   }
 
