@@ -9,7 +9,14 @@ part of 'cognito_confirm_user_attribute_plugin_options.dart';
 CognitoConfirmUserAttributePluginOptions
     _$CognitoConfirmUserAttributePluginOptionsFromJson(
             Map<String, dynamic> json) =>
-        CognitoConfirmUserAttributePluginOptions();
+        $checkedCreate(
+          'CognitoConfirmUserAttributePluginOptions',
+          json,
+          ($checkedConvert) {
+            final val = CognitoConfirmUserAttributePluginOptions();
+            return val;
+          },
+        );
 
 Map<String, dynamic> _$CognitoConfirmUserAttributePluginOptionsToJson(
         CognitoConfirmUserAttributePluginOptions instance) =>

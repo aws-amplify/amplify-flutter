@@ -8,13 +8,23 @@ part of 's3_get_url_plugin_options.dart';
 
 S3GetUrlPluginOptions _$S3GetUrlPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    S3GetUrlPluginOptions(
-      expiresIn: json['expiresIn'] == null
-          ? const Duration(minutes: 15)
-          : Duration(microseconds: json['expiresIn'] as int),
-      validateObjectExistence:
-          json['validateObjectExistence'] as bool? ?? false,
-      useAccelerateEndpoint: json['useAccelerateEndpoint'] as bool? ?? false,
+    $checkedCreate(
+      'S3GetUrlPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3GetUrlPluginOptions(
+          expiresIn: $checkedConvert(
+              'expiresIn',
+              (v) => v == null
+                  ? const Duration(minutes: 15)
+                  : Duration(microseconds: v as int)),
+          validateObjectExistence: $checkedConvert(
+              'validateObjectExistence', (v) => v as bool? ?? false),
+          useAccelerateEndpoint: $checkedConvert(
+              'useAccelerateEndpoint', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3GetUrlPluginOptionsToJson(

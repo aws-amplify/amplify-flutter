@@ -8,8 +8,16 @@ part of 'api_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ApiConfig _$ApiConfigFromJson(Map<String, dynamic> json) => ApiConfig(
-      plugins: AmplifyPluginRegistry.pluginConfigsFromJson(json['plugins']),
+ApiConfig _$ApiConfigFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'ApiConfig',
+      json,
+      ($checkedConvert) {
+        final val = ApiConfig(
+          plugins: $checkedConvert(
+              'plugins', (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$ApiConfigToJson(ApiConfig instance) => <String, dynamic>{

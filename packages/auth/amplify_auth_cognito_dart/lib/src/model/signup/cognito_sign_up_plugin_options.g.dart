@@ -8,13 +8,24 @@ part of 'cognito_sign_up_plugin_options.dart';
 
 CognitoSignUpPluginOptions _$CognitoSignUpPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignUpPluginOptions(
-      clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      validationData: (json['validationData'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+    $checkedCreate(
+      'CognitoSignUpPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = CognitoSignUpPluginOptions(
+          clientMetadata: $checkedConvert(
+              'clientMetadata',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          validationData: $checkedConvert(
+              'validationData',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoSignUpPluginOptionsToJson(

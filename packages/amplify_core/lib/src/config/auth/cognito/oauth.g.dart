@@ -9,29 +9,56 @@ part of 'oauth.dart';
 // **************************************************************************
 
 CognitoOAuthConfig _$CognitoOAuthConfigFromJson(Map<String, dynamic> json) =>
-    CognitoOAuthConfig(
-      appClientId: json['AppClientId'] as String,
-      appClientSecret: json['AppClientSecret'] as String?,
-      scopes:
-          (json['Scopes'] as List<dynamic>).map((e) => e as String).toList(),
-      signInRedirectUri: json['SignInRedirectURI'] as String,
-      signOutRedirectUri: json['SignOutRedirectURI'] as String,
-      webDomain: json['WebDomain'] as String,
-      signInUri: json['SignInURI'] as String?,
-      signOutUri: json['SignOutURI'] as String?,
-      tokenUri: json['TokenURI'] as String?,
-      signInUriQueryParameters:
-          (json['SignInURIQueryParameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      signOutUriQueryParameters:
-          (json['SignOutURIQueryParameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      tokenUriQueryParameters:
-          (json['TokenURIQueryParameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+    $checkedCreate(
+      'CognitoOAuthConfig',
+      json,
+      ($checkedConvert) {
+        final val = CognitoOAuthConfig(
+          appClientId: $checkedConvert('AppClientId', (v) => v as String),
+          appClientSecret:
+              $checkedConvert('AppClientSecret', (v) => v as String?),
+          scopes: $checkedConvert('Scopes',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          signInRedirectUri:
+              $checkedConvert('SignInRedirectURI', (v) => v as String),
+          signOutRedirectUri:
+              $checkedConvert('SignOutRedirectURI', (v) => v as String),
+          webDomain: $checkedConvert('WebDomain', (v) => v as String),
+          signInUri: $checkedConvert('SignInURI', (v) => v as String?),
+          signOutUri: $checkedConvert('SignOutURI', (v) => v as String?),
+          tokenUri: $checkedConvert('TokenURI', (v) => v as String?),
+          signInUriQueryParameters: $checkedConvert(
+              'SignInURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          signOutUriQueryParameters: $checkedConvert(
+              'SignOutURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          tokenUriQueryParameters: $checkedConvert(
+              'TokenURIQueryParameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'appClientId': 'AppClientId',
+        'appClientSecret': 'AppClientSecret',
+        'scopes': 'Scopes',
+        'signInRedirectUri': 'SignInRedirectURI',
+        'signOutRedirectUri': 'SignOutRedirectURI',
+        'webDomain': 'WebDomain',
+        'signInUri': 'SignInURI',
+        'signOutUri': 'SignOutURI',
+        'tokenUri': 'TokenURI',
+        'signInUriQueryParameters': 'SignInURIQueryParameters',
+        'signOutUriQueryParameters': 'SignOutURIQueryParameters',
+        'tokenUriQueryParameters': 'TokenURIQueryParameters'
+      },
     );
 
 Map<String, dynamic> _$CognitoOAuthConfigToJson(CognitoOAuthConfig instance) {
