@@ -55,34 +55,49 @@ void main() {
       expect(restUrls, ['fake-rest-url-1', 'fake-rest-url-2']);
     });
 
-    test('maps config with all oauth options', () async {
-      final configJson = jsonDecode(oauthConfig) as Map<String, Object?>;
-      final amplifyConfig = AmplifyConfig.fromJson(configJson);
-      final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-      final oauth = mappedOutputs.auth?.oauth as OAuthOutputs;
-      expect(oauth.redirectSignInUri, containsAll([signInUri1, signInUri2]));
-      expect(
-        oauth.redirectSignInUriQueryParameters,
-        {signInQueryParamKey: signInQueryParamValue},
-      );
-      expect(oauth.redirectSignOutUri, containsAll([signOutUri1, signOutUri2]));
-      expect(
-        oauth.redirectSignOutUriQueryParameters,
-        {signOutQueryParamKey: signOutQueryParamValue},
-      );
-      expect(oauth.tokenUri, tokenUri);
-      expect(
-        oauth.tokenUriQueryParameters,
-        {tokenQueryParamKey: tokenQueryParamValue},
-      );
-      expect(oauth.scopes, containsAll([scope1, scope2]));
-    });
+    group('auth', () {
+      test('maps config with all oauth options', () async {
+        final configJson = jsonDecode(oauthConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        final oauth = mappedOutputs.auth?.oauth as OAuthOutputs;
+        expect(oauth.redirectSignInUri, containsAll([signInUri1, signInUri2]));
+        expect(
+          oauth.redirectSignInUriQueryParameters,
+          {signInQueryParamKey: signInQueryParamValue},
+        );
+        expect(
+          oauth.redirectSignOutUri,
+          containsAll([signOutUri1, signOutUri2]),
+        );
+        expect(
+          oauth.redirectSignOutUriQueryParameters,
+          {signOutQueryParamKey: signOutQueryParamValue},
+        );
+        expect(oauth.tokenUri, tokenUri);
+        expect(
+          oauth.tokenUriQueryParameters,
+          {tokenQueryParamKey: tokenQueryParamValue},
+        );
+        expect(oauth.scopes, containsAll([scope1, scope2]));
+      });
 
-    test('maps config with app client secret', () async {
-      final configJson = jsonDecode(clientSecretConfig) as Map<String, Object?>;
-      final amplifyConfig = AmplifyConfig.fromJson(configJson);
-      final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-      expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
+      test('maps config with app client secret', () async {
+        final configJson =
+            jsonDecode(clientSecretConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
+      });
+
+      test('maps config with only the required options for a user pool',
+          () async {
+        final configJson =
+            jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.passwordPolicy, null);
+      });
     });
   });
 }
@@ -196,6 +211,23 @@ const clientSecretConfig = '''{
             "PoolId": "us-east-fake-pool-id",
             "AppClientId": "fake-client-id",
             "AppClientSecret": "$appClientSecret",
+            "Region": "us-east-1"
+          }
+        }
+      }
+    }
+  }
+}''';
+
+/// hand written config with only the minimal required options for a user pool
+const userPoolOnlyConfig = '''{
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "CognitoUserPool": {
+          "Default": {
+            "PoolId": "us-east-fake-pool-id",
+            "AppClientId": "fake-client-id",
             "Region": "us-east-1"
           }
         }
