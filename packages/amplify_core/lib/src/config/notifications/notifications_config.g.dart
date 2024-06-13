@@ -9,8 +9,16 @@ part of 'notifications_config.dart';
 // **************************************************************************
 
 NotificationsConfig _$NotificationsConfigFromJson(Map<String, dynamic> json) =>
-    NotificationsConfig(
-      plugins: AmplifyPluginRegistry.pluginConfigsFromJson(json['plugins']),
+    $checkedCreate(
+      'NotificationsConfig',
+      json,
+      ($checkedConvert) {
+        final val = NotificationsConfig(
+          plugins: $checkedConvert(
+              'plugins', (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$NotificationsConfigToJson(
