@@ -17,6 +17,9 @@ inputs:
   secret-identifier:
     required: true
     description: ARN of secret from AWS Secrets Manger which is a JSON object of app IDs / s3 bucket ARNs
+  needs-gen2-config:
+    required: true
+    description: Whether the E2E workflow needs amplify_outputs from AWS
 
 runs:
   using: "composite"
@@ -41,6 +44,11 @@ runs:
         parse-json-secrets: true
 
     - name: Pull Amplify Configurations
+      shell: bash
+      run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_backend.sh
+
+    - name: Pull Amplify Outputs
+      if: inputs.needs-gen2-config
       shell: bash
       run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_backend.sh
 

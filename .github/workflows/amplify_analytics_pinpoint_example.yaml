@@ -166,6 +166,7 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -174,6 +175,7 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_web_test:
     needs: [test]
     uses: ./.github/workflows/e2e_web.yaml
@@ -182,6 +184,7 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
@@ -190,6 +193,7 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_windows_test:
     needs: [test]
     uses: ./.github/workflows/e2e_windows.yaml
@@ -198,3 +202,4 @@ jobs:
       package-name: amplify_analytics_pinpoint_example
       working-directory: packages/analytics/amplify_analytics_pinpoint/example
       needs-aws-config: true
+      needs-gen2-config: false

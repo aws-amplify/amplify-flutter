@@ -178,6 +178,7 @@ jobs:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -186,6 +187,7 @@ jobs:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_web_test:
     needs: [test]
     uses: ./.github/workflows/e2e_web.yaml
@@ -194,6 +196,7 @@ jobs:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
@@ -202,6 +205,7 @@ jobs:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_windows_test:
     needs: [test]
     uses: ./.github/workflows/e2e_windows.yaml
@@ -210,3 +214,4 @@ jobs:
       package-name: amplify_auth_cognito_example
       working-directory: packages/auth/amplify_auth_cognito/example
       needs-aws-config: true
+      needs-gen2-config: false

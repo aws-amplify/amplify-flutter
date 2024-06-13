@@ -98,6 +98,7 @@ jobs:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -106,6 +107,7 @@ jobs:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_web_test:
     needs: [test]
     uses: ./.github/workflows/e2e_web.yaml
@@ -114,6 +116,7 @@ jobs:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
@@ -122,6 +125,7 @@ jobs:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
       needs-aws-config: true
+      needs-gen2-config: false
   e2e_windows_test:
     needs: [test]
     uses: ./.github/workflows/e2e_windows.yaml
@@ -130,3 +134,4 @@ jobs:
       package-name: amplify_db_common_example
       working-directory: packages/common/amplify_db_common/example
       needs-aws-config: true
+      needs-gen2-config: false

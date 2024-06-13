@@ -1,4 +1,4 @@
-name: infra
+name: infra_gen2
 publish_to: none
 
 environment:

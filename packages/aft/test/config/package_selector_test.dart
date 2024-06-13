@@ -60,6 +60,7 @@ void main() {
           nameSelector.allPaths(repoState),
           matchesPackagePaths([
             'infra',
+            'infra-gen2',
           ]),
         );
       });
