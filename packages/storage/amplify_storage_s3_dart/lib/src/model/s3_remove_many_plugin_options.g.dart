@@ -8,7 +8,14 @@ part of 's3_remove_many_plugin_options.dart';
 
 S3RemoveManyPluginOptions _$S3RemoveManyPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    S3RemoveManyPluginOptions();
+    $checkedCreate(
+      'S3RemoveManyPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3RemoveManyPluginOptions();
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$S3RemoveManyPluginOptionsToJson(
         S3RemoveManyPluginOptions instance) =>

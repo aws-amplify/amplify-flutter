@@ -10,12 +10,21 @@ part of 'auth_code_delivery_details.dart';
 
 AuthCodeDeliveryDetails _$AuthCodeDeliveryDetailsFromJson(
         Map<String, dynamic> json) =>
-    AuthCodeDeliveryDetails(
-      deliveryMedium:
-          $enumDecode(_$DeliveryMediumEnumMap, json['deliveryMedium']),
-      destination: json['destination'] as String?,
-      attributeKey: _$JsonConverterFromJson<String, AuthUserAttributeKey>(
-          json['attributeKey'], const AuthUserAttributeKeyConverter().fromJson),
+    $checkedCreate(
+      'AuthCodeDeliveryDetails',
+      json,
+      ($checkedConvert) {
+        final val = AuthCodeDeliveryDetails(
+          deliveryMedium: $checkedConvert(
+              'deliveryMedium', (v) => $enumDecode(_$DeliveryMediumEnumMap, v)),
+          destination: $checkedConvert('destination', (v) => v as String?),
+          attributeKey: $checkedConvert(
+              'attributeKey',
+              (v) => _$JsonConverterFromJson<String, AuthUserAttributeKey>(
+                  v, const AuthUserAttributeKeyConverter().fromJson)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(

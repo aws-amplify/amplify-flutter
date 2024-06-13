@@ -9,11 +9,19 @@ part of 'cognito_send_user_attribute_verification_code_plugin_options.dart';
 CognitoSendUserAttributeVerificationCodePluginOptions
     _$CognitoSendUserAttributeVerificationCodePluginOptionsFromJson(
             Map<String, dynamic> json) =>
-        CognitoSendUserAttributeVerificationCodePluginOptions(
-          clientMetadata:
-              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ),
+        $checkedCreate(
+          'CognitoSendUserAttributeVerificationCodePluginOptions',
+          json,
+          ($checkedConvert) {
+            final val = CognitoSendUserAttributeVerificationCodePluginOptions(
+              clientMetadata: $checkedConvert(
+                  'clientMetadata',
+                  (v) => (v as Map<String, dynamic>?)?.map(
+                        (k, e) => MapEntry(k, e as String),
+                      )),
+            );
+            return val;
+          },
         );
 
 Map<String, dynamic>

@@ -8,8 +8,16 @@ part of 'auth_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuthConfig _$AuthConfigFromJson(Map<String, dynamic> json) => AuthConfig(
-      plugins: AmplifyPluginRegistry.pluginConfigsFromJson(json['plugins']),
+AuthConfig _$AuthConfigFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'AuthConfig',
+      json,
+      ($checkedConvert) {
+        final val = AuthConfig(
+          plugins: $checkedConvert(
+              'plugins', (v) => AmplifyPluginRegistry.pluginConfigsFromJson(v)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$AuthConfigToJson(AuthConfig instance) =>

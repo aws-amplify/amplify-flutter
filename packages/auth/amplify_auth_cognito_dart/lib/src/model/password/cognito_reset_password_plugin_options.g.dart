@@ -8,10 +8,19 @@ part of 'cognito_reset_password_plugin_options.dart';
 
 CognitoResetPasswordPluginOptions _$CognitoResetPasswordPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoResetPasswordPluginOptions(
-      clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+    $checkedCreate(
+      'CognitoResetPasswordPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = CognitoResetPasswordPluginOptions(
+          clientMetadata: $checkedConvert(
+              'clientMetadata',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoResetPasswordPluginOptionsToJson(
