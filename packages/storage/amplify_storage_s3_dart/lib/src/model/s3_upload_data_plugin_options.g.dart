@@ -8,9 +8,18 @@ part of 's3_upload_data_plugin_options.dart';
 
 S3UploadDataPluginOptions _$S3UploadDataPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    S3UploadDataPluginOptions(
-      getProperties: json['getProperties'] as bool? ?? false,
-      useAccelerateEndpoint: json['useAccelerateEndpoint'] as bool? ?? false,
+    $checkedCreate(
+      'S3UploadDataPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3UploadDataPluginOptions(
+          getProperties:
+              $checkedConvert('getProperties', (v) => v as bool? ?? false),
+          useAccelerateEndpoint: $checkedConvert(
+              'useAccelerateEndpoint', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3UploadDataPluginOptionsToJson(

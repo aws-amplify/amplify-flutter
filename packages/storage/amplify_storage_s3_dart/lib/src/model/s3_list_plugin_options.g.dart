@@ -7,9 +7,17 @@ part of 's3_list_plugin_options.dart';
 // **************************************************************************
 
 S3ListPluginOptions _$S3ListPluginOptionsFromJson(Map<String, dynamic> json) =>
-    S3ListPluginOptions(
-      excludeSubPaths: json['excludeSubPaths'] as bool? ?? false,
-      delimiter: json['delimiter'] as String? ?? '/',
+    $checkedCreate(
+      'S3ListPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3ListPluginOptions(
+          excludeSubPaths:
+              $checkedConvert('excludeSubPaths', (v) => v as bool? ?? false),
+          delimiter: $checkedConvert('delimiter', (v) => v as String? ?? '/'),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3ListPluginOptionsToJson(

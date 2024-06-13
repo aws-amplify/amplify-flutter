@@ -8,10 +8,18 @@ part of 'sign_in_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignInResult _$SignInResultFromJson(Map<String, dynamic> json) => SignInResult(
-      isSignedIn: json['isSignedIn'] as bool,
-      nextStep:
-          AuthNextSignInStep.fromJson(json['nextStep'] as Map<String, dynamic>),
+SignInResult _$SignInResultFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'SignInResult',
+      json,
+      ($checkedConvert) {
+        final val = SignInResult(
+          isSignedIn: $checkedConvert('isSignedIn', (v) => v as bool),
+          nextStep: $checkedConvert('nextStep',
+              (v) => AuthNextSignInStep.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$SignInResultToJson(SignInResult instance) =>
