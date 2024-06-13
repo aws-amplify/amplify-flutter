@@ -66,7 +66,7 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       "Version": "1.0"
     }\'\'\';
 
-    const amplifyEnvironments = <String, String>{};
+    const amplifyEnvironments = <String, String>{};\n
     ''',
     );
   }
@@ -87,7 +87,7 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
       "version": "1"
     }\'\'\';
 
-    const amplifyEnvironments = <String, String>{};
+    const amplifyEnvironments = <String, String>{};\n
     ''',
     );
   }
