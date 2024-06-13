@@ -46,6 +46,11 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
     if (!package.isExample) {
       return;
     }
+    await _createEmptyGen1Config(package);
+    await _createEmptyGen2Config(package);
+  }
+
+  Future<void> _createEmptyGen1Config(PackageInfo package) async {
     final file = File(
       path.join(package.path, 'lib', 'amplifyconfiguration.dart'),
     );
@@ -56,13 +61,34 @@ class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
     await file.create();
     await file.writeAsString(
       '''
-const amplifyconfig = \'\'\'{
-  "UserAgent": "aws-amplify-cli/2.0",
-  "Version": "1.0"
-}\'\'\';
+    const amplifyconfig = \'\'\'{
+      "UserAgent": "aws-amplify-cli/2.0",
+      "Version": "1.0"
+    }\'\'\';
 
-const amplifyEnvironments = <String, String>{};
-''',
+    const amplifyEnvironments = <String, String>{};
+    ''',
+    );
+  }
+
+  Future<void> _createEmptyGen2Config(PackageInfo package) async {
+    final file = File(
+      path.join(package.path, 'lib', 'amplify_outputs.dart'),
+    );
+
+    if (await file.exists() ||
+        !await Directory(path.join(package.path, 'lib')).exists()) {
+      return;
+    }
+    await file.create();
+    await file.writeAsString(
+      '''
+    const amplifyConfig = \'\'\'{
+      "version": "1"
+    }\'\'\';
+
+    const amplifyEnvironments = <String, String>{};
+    ''',
     );
   }
 
