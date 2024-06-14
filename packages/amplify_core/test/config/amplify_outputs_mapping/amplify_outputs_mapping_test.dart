@@ -67,7 +67,7 @@ void main() {
         );
         expect(oauth.signInUri, signInUri);
         expect(
-          oauth.signInUriUriQueryParameters,
+          oauth.signInUriQueryParameters,
           {signInQueryParamKey: signInQueryParamValue},
         );
         expect(

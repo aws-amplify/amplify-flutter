@@ -19,9 +19,8 @@ OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) => OAuthOutputs(
           .map((e) => e as String)
           .toList(),
       signInUri: json['sign_in_uri'] as String?,
-      signInUriUriQueryParameters:
-          (json['sign_in_uri_uri_query_parameters'] as Map<String, dynamic>?)
-              ?.map(
+      signInUriQueryParameters:
+          (json['sign_in_uri_query_parameters'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
       redirectSignOutUri: (json['redirect_sign_out_uri'] as List<dynamic>)
@@ -59,7 +58,7 @@ Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) {
 
   writeNotNull('sign_in_uri', instance.signInUri);
   writeNotNull(
-      'sign_in_uri_uri_query_parameters', instance.signInUriUriQueryParameters);
+      'sign_in_uri_query_parameters', instance.signInUriQueryParameters);
   val['redirect_sign_out_uri'] = instance.redirectSignOutUri;
   writeNotNull('sign_out_uri', instance.signOutUri);
   writeNotNull(

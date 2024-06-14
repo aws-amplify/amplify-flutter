@@ -21,7 +21,7 @@ class OAuthOutputs
     required this.scopes,
     required this.redirectSignInUri,
     this.signInUri,
-    this.signInUriUriQueryParameters,
+    this.signInUriQueryParameters,
     required this.redirectSignOutUri,
     this.signOutUri,
     this.signOutUriQueryParameters,
@@ -57,7 +57,7 @@ class OAuthOutputs
   /// Note: This attribute is not part of the Amplify Outputs schema.
   /// This exists for backwards compatibility with the Gen 1 config.
   @internal
-  final Map<String, String>? signInUriUriQueryParameters;
+  final Map<String, String>? signInUriQueryParameters;
 
   /// URIs used to redirect after signing out.
   final List<String> redirectSignOutUri;
@@ -102,7 +102,7 @@ class OAuthOutputs
         scopes,
         redirectSignInUri,
         signInUri,
-        signInUriUriQueryParameters,
+        signInUriQueryParameters,
         redirectSignOutUri,
         signOutUri,
         signOutUriQueryParameters,

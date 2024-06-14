@@ -120,7 +120,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
             scopes: oAuthConfig.scopes,
             redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
             signInUri: oAuthConfig.signInUri,
-            signInUriUriQueryParameters: oAuthConfig.signInUriQueryParameters,
+            signInUriQueryParameters: oAuthConfig.signInUriQueryParameters,
             redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
             signOutUri: oAuthConfig.signOutUri,
             signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
