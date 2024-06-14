@@ -48,7 +48,7 @@ runs:
       run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_backend.sh
 
     - name: Pull Amplify Outputs
-      if: inputs.needs-gen2-config
+      if: ${{inputs.needs-gen2-config}}
       shell: bash
       run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_gen2_backend.sh
 
