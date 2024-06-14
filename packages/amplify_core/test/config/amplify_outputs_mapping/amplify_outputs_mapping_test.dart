@@ -61,17 +61,22 @@ void main() {
         final amplifyConfig = AmplifyConfig.fromJson(configJson);
         final mappedOutputs = amplifyConfig.toAmplifyOutputs();
         final oauth = mappedOutputs.auth?.oauth as OAuthOutputs;
-        expect(oauth.redirectSignInUri, containsAll([signInUri1, signInUri2]));
         expect(
-          oauth.redirectSignInUriQueryParameters,
+          oauth.redirectSignInUri,
+          containsAll([signInRedirectUri1, signInRedirectUri2]),
+        );
+        expect(oauth.signInUri, signInUri);
+        expect(
+          oauth.signInUriUriQueryParameters,
           {signInQueryParamKey: signInQueryParamValue},
         );
         expect(
           oauth.redirectSignOutUri,
-          containsAll([signOutUri1, signOutUri2]),
+          containsAll([signOutRedirectUri1, signOutRedirectUri2]),
         );
+        expect(oauth.signOutUri, signOutUri);
         expect(
-          oauth.redirectSignOutUriQueryParameters,
+          oauth.signOutUriQueryParameters,
           {signOutQueryParamKey: signOutQueryParamValue},
         );
         expect(oauth.tokenUri, tokenUri);
@@ -142,12 +147,14 @@ const multiApiConfig = '''{
 ''';
 
 const oAuthDomain = 'fake-web-domain-dev.auth.us-east-1.amazoncognito.com';
-const signInUri1 = 'fake-sign-in-uri-1';
-const signInUri2 = 'fake-sign-in-uri-2';
+const signInRedirectUri1 = 'fake-sign-in-redirect-uri-1';
+const signInRedirectUri2 = 'fake-sign-in-redirect-uri-2';
+const signInUri = 'fake-sign-in-uri';
 const signInQueryParamKey = 'fake-sign-in-query-param-key';
 const signInQueryParamValue = 'fake-sign-in-query-param-value';
-const signOutUri1 = 'fake-sign-ou-uri-1';
-const signOutUri2 = 'fake-sign-out-uri-2';
+const signOutRedirectUri1 = 'fake-sign-out-redirect-uri-1';
+const signOutRedirectUri2 = 'fake-sign-out-redirect-uri-2';
+const signOutUri = 'fake-sign-out-uri';
 const signOutQueryParamKey = 'fake-sign-out-query-param-key';
 const signOutQueryParamValue = 'fake-sign-out-query-param-value';
 const tokenUri = 'fake-token-uri';
@@ -175,11 +182,13 @@ const oauthConfig = '''{
             "OAuth": {
               "WebDomain": "$oAuthDomain",
               "AppClientId": "fake-client-id",
-              "SignInRedirectURI": "$signInUri1,$signInUri2",
+              "SignInRedirectURI": "$signInRedirectUri1,$signInRedirectUri2",
+              "SignInURI": "$signInUri",
               "SignInURIQueryParameters": {
                 "$signInQueryParamKey": "$signInQueryParamValue"
               },
-              "SignOutRedirectURI": "$signOutUri1,$signOutUri2",
+              "SignOutRedirectURI": "$signOutRedirectUri1,$signOutRedirectUri2",
+              "SignOutURI": "$signOutUri",
               "SignOutURIQueryParameters": {
                 "$signOutQueryParamKey": "$signOutQueryParamValue"
               },

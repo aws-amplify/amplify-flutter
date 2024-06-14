@@ -119,11 +119,11 @@ class AuthConfig extends AmplifyPluginConfigMap {
             domain: oAuthConfig.webDomain,
             scopes: oAuthConfig.scopes,
             redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
-            redirectSignInUriQueryParameters:
-                oAuthConfig.signInUriQueryParameters,
+            signInUri: oAuthConfig.signInUri,
+            signInUriUriQueryParameters: oAuthConfig.signInUriQueryParameters,
             redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
-            redirectSignOutUriQueryParameters:
-                oAuthConfig.signOutUriQueryParameters,
+            signOutUri: oAuthConfig.signOutUri,
+            signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
             tokenUri: oAuthConfig.tokenUri,
             tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
             // Amplify Flutter only supports responseType:code
