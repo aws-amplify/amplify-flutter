@@ -91,22 +91,24 @@ class AuthConfig extends AmplifyPluginConfigMap {
     }
 
     final passwordSettings = plugin?.passwordProtectionSettings;
-    final requiredCharacters = passwordSettings?.passwordPolicyCharacters ?? [];
-    final passwordPolicy = PasswordPolicy(
-      minLength: passwordSettings?.passwordPolicyMinLength,
-      requireNumbers: requiredCharacters.contains(
-        PasswordPolicyCharacters.requiresNumbers,
-      ),
-      requireLowercase: requiredCharacters.contains(
-        PasswordPolicyCharacters.requiresLowercase,
-      ),
-      requireUppercase: requiredCharacters.contains(
-        PasswordPolicyCharacters.requiresUppercase,
-      ),
-      requireSymbols: requiredCharacters.contains(
-        PasswordPolicyCharacters.requiresSymbols,
-      ),
-    );
+    final passwordPolicy = switch (passwordSettings) {
+      null => null,
+      final PasswordProtectionSettings settings => PasswordPolicy(
+          minLength: settings.passwordPolicyMinLength,
+          requireNumbers: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresNumbers,
+          ),
+          requireLowercase: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresLowercase,
+          ),
+          requireUppercase: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresUppercase,
+          ),
+          requireSymbols: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresSymbols,
+          ),
+        )
+    };
 
     final oAuthConfig = plugin?.oAuth;
     final identityProviders =
