@@ -76,10 +76,10 @@ extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
 }
 
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
-  required AmplifyOutputs? amplifyConfig,
+  required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
 }) {
-  final passwordPolicies = amplifyConfig?.auth?.passwordPolicy;
+  final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
           return inputResolver.resolve(
