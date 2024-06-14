@@ -45,7 +45,7 @@ void main() async {
         Map<String, dynamic> emptyMap = {};
         String payloadJson = '{"data":{},"errors":[]}';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.document, document);
           expect(mockRequest.variables, emptyMap);
           expect(mockRequest.apiName, null);
@@ -54,10 +54,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: null as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: null as T?,
                 errors: [],
               ),
             ),
@@ -91,7 +91,7 @@ void main() async {
             '{"data":$data,"errors":[{"message":"$errorMessage1"},{"message":"$errorMessage2"}]}';
         String authMode = 'apiKey';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.id.length, greaterThan(0));
           expect(mockRequest.document, document);
           expect(mockRequest.variables[variable1Key], variable1Value);
@@ -102,10 +102,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: data as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: data as T?,
                 errors: [
                   GraphQLResponseError(message: errorMessage1),
                   GraphQLResponseError(message: errorMessage2),
@@ -137,7 +137,7 @@ void main() async {
         String payloadJson =
             '{"data":{},"errors":[{"message":"Error parsing payload json: FormatException: Unexpected character (at character 1)\\nInvalid Json\\n^\\n"}]}';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.document, document);
           expect(mockRequest.variables, emptyMap);
           expect(mockRequest.apiName, null);
@@ -146,10 +146,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: data as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: data as T?,
                 errors: [],
               ),
             ),
@@ -168,13 +168,13 @@ void main() async {
         String? authMode,
         APIAuthorizationType? expected,
       ) async {
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.authorizationMode, expected);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: null as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: null as T?,
                 errors: [],
               ),
             ),
@@ -223,7 +223,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(exceptionMessage);
         };
 
@@ -243,7 +243,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(
             exceptionMessage,
             underlyingException: 'SignedOutException',
@@ -267,7 +267,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
 
-        mockAPIPlugin.queryMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.queryMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(
             exceptionMessage,
             underlyingException: 'Unauthrorized',
@@ -291,7 +291,7 @@ void main() async {
         Map<String, dynamic> emptyMap = {};
         String payloadJson = '{"data":{},"errors":[]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.document, document);
           expect(mockRequest.variables, emptyMap);
           expect(mockRequest.apiName, null);
@@ -300,10 +300,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: null as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: null as T?,
                 errors: [],
               ),
             ),
@@ -337,7 +337,7 @@ void main() async {
         String payloadJson =
             '{"data":$data,"errors":[{"message":"$errorMessage1"},{"message":"$errorMessage2"}]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.id.length, greaterThan(0));
           expect(mockRequest.document, document);
           expect(mockRequest.variables[variable1Key], variable1Value);
@@ -348,10 +348,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: data as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: data as T?,
                 errors: [
                   GraphQLResponseError(message: errorMessage1),
                   GraphQLResponseError(message: errorMessage2),
@@ -384,7 +384,7 @@ void main() async {
         String payloadJson =
             '{"data":{},"errors":[{"message":"Error parsing payload json: FormatException: Unexpected character (at character 1)\\nInvalid Json\\n^\\n"}]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           expect(mockRequest.document, document);
           expect(mockRequest.variables, emptyMap);
           expect(mockRequest.apiName, null);
@@ -393,10 +393,10 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          return GraphQLOperation<String>(
-            CancelableOperation<GraphQLResponse<String>>.fromValue(
-              GraphQLResponse<String>(
-                data: data as String?,
+          return GraphQLOperation<T>(
+            CancelableOperation<GraphQLResponse<T>>.fromValue(
+              GraphQLResponse<T>(
+                data: data as T?,
                 errors: [],
               ),
             ),
@@ -416,7 +416,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"API Exception\\"\\n}"}]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(exceptionMessage);
         };
 
@@ -436,7 +436,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"Unauthorized - API Exception - SignedOutException"}]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(
             exceptionMessage,
             underlyingException: 'SignedOutException',
@@ -460,7 +460,7 @@ void main() async {
         String payloadJson =
             '{"errors":[{"message":"NetworkException {\\n  \\"message\\": \\"$exceptionMessage\\",\\n  \\"underlyingException\\": \\"Unauthrorized\\"\\n}"}]}';
 
-        mockAPIPlugin.mutateMethod = <String>(GraphQLRequest mockRequest) {
+        mockAPIPlugin.mutateMethod = <T>(GraphQLRequest mockRequest) {
           throw NetworkException(
             exceptionMessage,
             underlyingException: 'Unauthrorized',
@@ -484,7 +484,7 @@ void main() async {
         String document = '';
         Map<String, dynamic> emptyMap = {};
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
@@ -496,7 +496,7 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           return controller.stream;
         };
 
@@ -525,7 +525,7 @@ void main() async {
         String decodePath = 'decodePath';
         String options = 'options';
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
@@ -539,7 +539,7 @@ void main() async {
           expect(mockRequest.decodePath, null);
           expect(mockRequest.modelType, null);
 
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           return controller.stream;
         };
 
@@ -580,7 +580,7 @@ void main() async {
       test('Should handle API exception', () async {
         String exceptionMessage = 'API Exception';
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
@@ -605,12 +605,12 @@ void main() async {
       test('Should handle established/connected callback', () async {
         void Function()? onEstablishedCallback;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
           onEstablishedCallback = onEstablished;
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           return controller.stream;
         };
 
@@ -649,11 +649,11 @@ void main() async {
         String payloadJson = '{"data":$data,"errors":[]}';
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           responseController = controller;
           return controller.stream;
         };
@@ -703,11 +703,11 @@ void main() async {
 
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           responseController = controller;
           return controller.stream;
         };
@@ -757,11 +757,11 @@ void main() async {
             '{"data":{},"errors":[{"message":"Error parsing payload json: FormatException: Unexpected character (at character 1)\\nInvalid Json\\n^\\n"}]}';
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           responseController = controller;
           return controller.stream;
         };
@@ -809,11 +809,11 @@ void main() async {
 
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           responseController = controller;
           return controller.stream;
         };
@@ -852,11 +852,11 @@ void main() async {
       test('Should handle send done event', () async {
         StreamController? responseController;
 
-        mockAPIPlugin.subscribeMethod = <String>(
+        mockAPIPlugin.subscribeMethod = <T>(
           GraphQLRequest mockRequest,
           void Function()? onEstablished,
         ) {
-          var controller = StreamController<GraphQLResponse<String>>();
+          var controller = StreamController<GraphQLResponse<T>>();
           responseController = controller;
           return controller.stream;
         };
@@ -894,11 +894,11 @@ void main() async {
 
       group('Unubscribe', () {
         test('Should handle existing subscription', () async {
-          mockAPIPlugin.subscribeMethod = <String>(
+          mockAPIPlugin.subscribeMethod = <T>(
             GraphQLRequest mockRequest,
             void Function()? onEstablished,
           ) {
-            var controller = StreamController<GraphQLResponse<String>>();
+            var controller = StreamController<GraphQLResponse<T>>();
             return controller.stream;
           };
 
