@@ -8,7 +8,14 @@ part of 'cognito_sign_out_plugin_options.dart';
 
 CognitoSignOutPluginOptions _$CognitoSignOutPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignOutPluginOptions();
+    $checkedCreate(
+      'CognitoSignOutPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = CognitoSignOutPluginOptions();
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$CognitoSignOutPluginOptionsToJson(
         CognitoSignOutPluginOptions instance) =>

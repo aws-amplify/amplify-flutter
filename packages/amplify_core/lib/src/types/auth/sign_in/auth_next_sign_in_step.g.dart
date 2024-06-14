@@ -9,27 +9,45 @@ part of 'auth_next_sign_in_step.dart';
 // **************************************************************************
 
 AuthNextSignInStep _$AuthNextSignInStepFromJson(Map<String, dynamic> json) =>
-    AuthNextSignInStep(
-      additionalInfo: (json['additionalInfo'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      codeDeliveryDetails: json['codeDeliveryDetails'] == null
-          ? null
-          : AuthCodeDeliveryDetails.fromJson(
-              json['codeDeliveryDetails'] as Map<String, dynamic>),
-      signInStep: $enumDecode(_$AuthSignInStepEnumMap, json['signInStep']),
-      missingAttributes: (json['missingAttributes'] as List<dynamic>?)
-              ?.map((e) =>
-                  const AuthUserAttributeKeyConverter().fromJson(e as String))
-              .toList() ??
-          const [],
-      allowedMfaTypes: (json['allowedMfaTypes'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
-          .toSet(),
-      totpSetupDetails: json['totpSetupDetails'] == null
-          ? null
-          : TotpSetupDetails.fromJson(
-              json['totpSetupDetails'] as Map<String, dynamic>),
+    $checkedCreate(
+      'AuthNextSignInStep',
+      json,
+      ($checkedConvert) {
+        final val = AuthNextSignInStep(
+          additionalInfo: $checkedConvert(
+              'additionalInfo',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          codeDeliveryDetails: $checkedConvert(
+              'codeDeliveryDetails',
+              (v) => v == null
+                  ? null
+                  : AuthCodeDeliveryDetails.fromJson(
+                      v as Map<String, dynamic>)),
+          signInStep: $checkedConvert(
+              'signInStep', (v) => $enumDecode(_$AuthSignInStepEnumMap, v)),
+          missingAttributes: $checkedConvert(
+              'missingAttributes',
+              (v) =>
+                  (v as List<dynamic>?)
+                      ?.map((e) => const AuthUserAttributeKeyConverter()
+                          .fromJson(e as String))
+                      .toList() ??
+                  const []),
+          allowedMfaTypes: $checkedConvert(
+              'allowedMfaTypes',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => $enumDecode(_$MfaTypeEnumMap, e))
+                  .toSet()),
+          totpSetupDetails: $checkedConvert(
+              'totpSetupDetails',
+              (v) => v == null
+                  ? null
+                  : TotpSetupDetails.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {

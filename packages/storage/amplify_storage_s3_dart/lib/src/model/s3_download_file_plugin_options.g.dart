@@ -8,9 +8,18 @@ part of 's3_download_file_plugin_options.dart';
 
 S3DownloadFilePluginOptions _$S3DownloadFilePluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    S3DownloadFilePluginOptions(
-      getProperties: json['getProperties'] as bool? ?? false,
-      useAccelerateEndpoint: json['useAccelerateEndpoint'] as bool? ?? false,
+    $checkedCreate(
+      'S3DownloadFilePluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3DownloadFilePluginOptions(
+          getProperties:
+              $checkedConvert('getProperties', (v) => v as bool? ?? false),
+          useAccelerateEndpoint: $checkedConvert(
+              'useAccelerateEndpoint', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3DownloadFilePluginOptionsToJson(
