@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -14,11 +16,11 @@ class AmplifyStub extends AmplifyClass {
   /// {@macro amplify_integration_test.amplify_stub}
   AmplifyStub() : super.protected();
 
-  AmplifyConfig? _config;
+  AmplifyOutputs? _config;
 
   bool _isConfigured = false;
 
-  final _configCompleter = Completer<AmplifyConfig>();
+  final _configCompleter = Completer<AmplifyOutputs>();
 
   @override
   bool get isConfigured {
@@ -26,7 +28,7 @@ class AmplifyStub extends AmplifyClass {
   }
 
   @override
-  Future<AmplifyConfig> get asyncConfig {
+  Future<AmplifyOutputs> get asyncConfig {
     return _configCompleter.future;
   }
 
@@ -72,13 +74,15 @@ class AmplifyStub extends AmplifyClass {
     }
   }
 
-  AmplifyConfig _parseConfigJson(String configuration) {
+  AmplifyOutputs _parseConfigJson(String configuration) {
     try {
-      return AmplifyConfig.fromJson(
+      return AmplifyOutputs.fromJson(
         jsonDecode(configuration) as Map<String, Object?>,
       );
     } on Exception {
-      return const AmplifyConfig();
+      return const AmplifyOutputs(
+        version: '1',
+      );
     }
   }
 }
