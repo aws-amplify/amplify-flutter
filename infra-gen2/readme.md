@@ -4,7 +4,12 @@ This folder contains the Gen 2 backend definitions for our integration tests.
 
 To create and deploy backends run: `$ dart run tool/deploy_gen2.dart`
 
-This will run the amplify sandbox command in each folder under `/backends`
+This will:
+
+1. Run the amplify sandbox command in each folder under `/backends`
+2. Combine multiple backend outputs for a given category into `amplifyEnvironments`
+3. Copy and distribute the `amplify_outputs.dart` to example apps
+4. Create and upload the config files to respective S3 buckets for CI use
 
 ## Deploying the Infra Stack
 

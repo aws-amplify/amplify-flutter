@@ -115,8 +115,8 @@ void main() {
     if (category.backends.isEmpty) {
       return;
     }
-
     Map<String, String> amplifyEnvironments = {};
+    final categoryName = category.category.name;
     final outputPath = p.join(repoRoot.path, category.defaultOutput);
     final amplifyOutputs = File(p.join(outputPath, 'amplify_outputs.dart'));
 
@@ -125,7 +125,7 @@ void main() {
       amplifyOutputs.createSync(recursive: true);
     }
 
-    print('🏃 Running sandbox deployment for ${category.category}');
+    print('🏃 Running sandbox deployment for $categoryName');
     for (final backend in category.backends) {
       final backendName = backend.name;
       _deployBackend(
@@ -162,13 +162,17 @@ void main() {
       amplifyOutputs,
     );
 
-    final bucketName = _createBucketName(category.category.name);
-    bucketNames.add(bucketName);
+    var bucketName = _createBucketName(categoryName);
 
     /// Check if the S3 bucket exists
-    if (!_s3BucketExists(bucketName)) {
+    final remoteBucketName = _getS3BucketName(bucketName);
+    if (remoteBucketName.isNotEmpty) {
+      bucketName = remoteBucketName;
+      print('🔍 Using existing S3 bucket $bucketName');
+    } else {
       _createS3Bucket(bucketName);
     }
+    bucketNames.add(bucketName);
 
     /// Upload amplify_outputs.dart to S3 bucket
     _uploadAmplifyOutputs(
@@ -176,7 +180,7 @@ void main() {
       amplifyOutputs.path,
     );
 
-    print('✅ Deployment for ${category.category.name} Category complete');
+    print('✅ Deployment for $categoryName Category complete');
   });
 
   print('🎉 All backends deployed successfully!');
@@ -297,20 +301,43 @@ String _createBucketName(String base) {
   return base.toLowerCase() + '-gen2-integ-' + uniqueShort;
 }
 
-bool _s3BucketExists(String bucketName) {
+String _getS3BucketName(String bucketName) {
   final checkBucket = Process.runSync(
     'aws',
     [
       '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
       's3api',
-      'head-bucket',
-      '--bucket',
-      bucketName,
+      'list-buckets',
+      '--query',
+      'Buckets[].Name',
+      '--output',
+      'text',
     ],
     stdoutEncoding: utf8,
     stderrEncoding: utf8,
   );
-  return checkBucket.exitCode == 0;
+
+  if (checkBucket.exitCode != 0) {
+    throw Exception(
+      '❌ Error checking if S3 bucket $bucketName exists: '
+      '${checkBucket.stdout}\n${checkBucket.stderr}',
+    );
+  }
+  String output = checkBucket.stdout as String;
+
+  /// Determine if bucket exists while ignoring the UUID
+  final bucketNameWithoutUUID = bucketName.substring(0, bucketName.length - 8);
+  final uuidMatcher = '[a-f0-9]{8}\$';
+  final pattern = '($bucketNameWithoutUUID)$uuidMatcher';
+
+  List<String> bucketNames = output.split('\t').map((e) => e.trim()).toList();
+  RegExp regex = RegExp(pattern);
+  String matchingBuckets = bucketNames.firstWhere(
+    (name) => regex.hasMatch(name),
+    orElse: () => '',
+  );
+
+  return matchingBuckets;
 }
 
 /// Create an S3 bucket
