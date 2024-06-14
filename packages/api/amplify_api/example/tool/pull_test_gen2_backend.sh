@@ -4,4 +4,4 @@
 
 set -e
 
-npx ampx generate outputs --stack $AFS_GEN2_STACK_ID --profile ${AWS_PROFILE:-default} --format dart \--out-dir lib
+aws s3 cp s3://$AFS_API_GEN2_BUCKET_NAME/amplify_outputs.dart lib/amplify_outputs.dart 

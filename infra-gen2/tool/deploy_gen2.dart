@@ -108,7 +108,8 @@ late final Directory repoRoot = () {
 const pathToBackends = 'infra-gen2/backends';
 
 void main() {
-  print('Deploying Gen 2 backends. This may take a while...');
+  final List<String> bucketNames = [];
+  print('🚀 Deploying Gen 2 backends!');
   infraConfig.forEach((category) {
     /// TODO(equartey): Could be removed when all backends are defined.
     if (category.backends.isEmpty) {
@@ -124,7 +125,7 @@ void main() {
       amplifyOutputs.createSync(recursive: true);
     }
 
-    print('Running sandbox deployment for ${category.category}...');
+    print('🏃 Running sandbox deployment for ${category.category}');
     for (final backend in category.backends) {
       final backendName = backend.name;
       _deployBackend(
@@ -160,7 +161,27 @@ void main() {
       category.sharedOutputs,
       amplifyOutputs,
     );
+
+    final bucketName = _createBucketName(category.category.name);
+    bucketNames.add(bucketName);
+
+    /// Check if the S3 bucket exists
+    if (!_s3BucketExists(bucketName)) {
+      _createS3Bucket(bucketName);
+    }
+
+    /// Upload amplify_outputs.dart to S3 bucket
+    _uploadAmplifyOutputs(
+      bucketName,
+      amplifyOutputs.path,
+    );
+
+    print('✅ Deployment for ${category.category.name} Category complete');
   });
+
+  print('🎉 All backends deployed successfully!');
+
+  print('🪣 S3 Bucket Names: $bucketNames');
 }
 
 /// Deploy Sandbox for a given backend backend
@@ -169,7 +190,8 @@ void _deployBackend(
   AmplifyBackend backend,
   String outputPath,
 ) {
-  print('Deploying ${category.name} ${backend.name}...');
+  print(
+      '🏖️  Deploying ${category.name} ${backend.name}, this may take a while...');
 
   /// Deploy the backend
   final deployBackend = Process.runSync(
@@ -191,14 +213,13 @@ void _deployBackend(
     stderrEncoding: utf8,
   );
   if (deployBackend.exitCode != 0) {
-    stderr.writeln(
-      'Error deploying ${category.name}: '
+    throw Exception(
+      '❌ Error deploying ${category.name}: '
       '${deployBackend.stdout}\n${deployBackend.stderr}',
     );
-    return;
   } else {
     print(
-      '${category.name} ${backend.identifier} successfully deployed',
+      '👍 ${category.name} ${backend.identifier} sandbox deployed',
     );
   }
 }
@@ -211,11 +232,10 @@ void _cacheConfigContents(
 ) {
   /// Ensure the amplify_outputs.dart file exists
   if (!amplifyOutputs.existsSync()) {
-    stderr.writeln(
-      'Error: ${amplifyOutputs.path} does not exist. '
+    throw Exception(
+      '❌ Error: ${amplifyOutputs.path} does not exist. '
       'Please check the deployment logs for more information.',
     );
-    return;
   }
 
   /// cache the config file contents to create environments map
@@ -235,7 +255,7 @@ void _appendEnvironments(
   if (amplifyEnvironments.isEmpty) {
     return;
   }
-  print('Building amplifyEnvironments...');
+  print('👷 Building amplifyEnvironments');
   var amplifyEnvironmentsOutput =
       '\nconst amplifyEnvironments = <String, String>{\n';
   amplifyEnvironments.forEach((key, value) {
@@ -257,7 +277,7 @@ void _copyAmplifyOutputs(
     return;
   }
 
-  print('Copying amplify_outputs.dart to other shared paths...');
+  print('👯 Copying amplify_outputs.dart to other shared paths');
   for (final outputPath in outputPaths) {
     final destination = p.join(repoRoot.path, outputPath);
     final outputFile = File(p.join(destination, 'amplify_outputs.dart'));
@@ -269,4 +289,76 @@ void _copyAmplifyOutputs(
 
     outputFile.writeAsStringSync(amplifyOutputsContents);
   }
+}
+
+/// Create a unique bucket name
+String _createBucketName(String base) {
+  String uniqueShort = uuid().substring(0, 8);
+  return base.toLowerCase() + '-gen2-integ-' + uniqueShort;
+}
+
+bool _s3BucketExists(String bucketName) {
+  final checkBucket = Process.runSync(
+    'aws',
+    [
+      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+      's3api',
+      'head-bucket',
+      '--bucket',
+      bucketName,
+    ],
+    stdoutEncoding: utf8,
+    stderrEncoding: utf8,
+  );
+  return checkBucket.exitCode == 0;
+}
+
+/// Create an S3 bucket
+void _createS3Bucket(String bucketName) {
+  print('🪣 Creating S3 bucket: $bucketName');
+  final createBucket = Process.runSync(
+    'aws',
+    [
+      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+      's3',
+      'mb',
+      's3://$bucketName',
+    ],
+    stdoutEncoding: utf8,
+    stderrEncoding: utf8,
+  );
+  if (createBucket.exitCode != 0) {
+    throw Exception(
+      '❌ Error creating S3 bucket $bucketName: '
+      '${createBucket.stdout}\n${createBucket.stderr}',
+    );
+  }
+  print('👍 S3 bucket $bucketName successfully created');
+}
+
+/// Upload the amplify_outputs.dart file to the S3 bucket
+void _uploadAmplifyOutputs(
+  String bucketName,
+  String pathToAmplifyOutputs,
+) {
+  print('📲 Uploading amplify_outputs.dart to S3 bucket');
+  final downloadRes = Process.runSync(
+    'aws',
+    [
+      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+      's3',
+      'cp',
+      pathToAmplifyOutputs,
+      's3://$bucketName/amplify_outputs.dart'
+    ],
+    stdoutEncoding: utf8,
+    stderrEncoding: utf8,
+  );
+  if (downloadRes.exitCode != 0) {
+    throw Exception(
+      '❌ Error downloading ${bucketName} config from S3: '
+      '${downloadRes.stdout}\n${downloadRes.stderr}',
+    );
+  }
+  print('👍 Amplify Outputs successfully uploaded to S3 bucket');
 }
