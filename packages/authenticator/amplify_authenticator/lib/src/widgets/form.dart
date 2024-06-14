@@ -307,7 +307,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 
   @override
   List<SignUpFormField> runtimeFields(BuildContext context) {
-    final authConfig = InheritedConfig.of(context).amplifyConfig?.auth;
+    final authConfig = InheritedConfig.of(context).amplifyOutputs?.auth;
     final runtimeAttributes = <CognitoUserAttributeKey>{
       ...?authConfig?.standardRequiredAttributes,
       ...?authConfig?.userVerificationTypes,
@@ -435,7 +435,7 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
     }
 
     final socialProviders = InheritedConfig.of(context)
-        .amplifyConfig
+        .amplifyOutputs
         ?.auth
         ?.oauth
         ?.identityProviders;
