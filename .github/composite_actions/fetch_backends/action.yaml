@@ -48,9 +48,12 @@ runs:
       run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_backend.sh
 
     - name: Pull Amplify Outputs
-      if: ${{inputs.needs-gen2-config}}
       shell: bash
-      run: dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_gen2_backend.sh
+      run: |
+        if [[ "${{inputs.needs-gen2-config}}" == true ]]; then
+          dart pub global run aft exec --include=${{ inputs.scope }} -- tool/pull_test_gen2_backend.sh ...
+        fi
+        exit 0
 
     - name: Undo any codegen changes from amplify pull
       shell: bash
