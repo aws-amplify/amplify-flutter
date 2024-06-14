@@ -8,7 +8,14 @@ part of 's3_get_properties_plugin_options.dart';
 
 S3GetPropertiesPluginOptions _$S3GetPropertiesPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    S3GetPropertiesPluginOptions();
+    $checkedCreate(
+      'S3GetPropertiesPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3GetPropertiesPluginOptions();
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$S3GetPropertiesPluginOptionsToJson(
         S3GetPropertiesPluginOptions instance) =>

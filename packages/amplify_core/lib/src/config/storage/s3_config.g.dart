@@ -9,9 +9,16 @@ part of 's3_config.dart';
 // **************************************************************************
 
 S3PluginConfig _$S3PluginConfigFromJson(Map<String, dynamic> json) =>
-    S3PluginConfig(
-      bucket: json['bucket'] as String,
-      region: json['region'] as String,
+    $checkedCreate(
+      'S3PluginConfig',
+      json,
+      ($checkedConvert) {
+        final val = S3PluginConfig(
+          bucket: $checkedConvert('bucket', (v) => v as String),
+          region: $checkedConvert('region', (v) => v as String),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3PluginConfigToJson(S3PluginConfig instance) =>

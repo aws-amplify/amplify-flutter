@@ -8,12 +8,21 @@ part of 'cognito_resend_sign_up_code_plugin_options.dart';
 
 CognitoResendSignUpCodePluginOptions
     _$CognitoResendSignUpCodePluginOptionsFromJson(Map<String, dynamic> json) =>
-        CognitoResendSignUpCodePluginOptions(
-          clientMetadata:
-              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-                    (k, e) => MapEntry(k, e as String),
-                  ) ??
-                  const {},
+        $checkedCreate(
+          'CognitoResendSignUpCodePluginOptions',
+          json,
+          ($checkedConvert) {
+            final val = CognitoResendSignUpCodePluginOptions(
+              clientMetadata: $checkedConvert(
+                  'clientMetadata',
+                  (v) =>
+                      (v as Map<String, dynamic>?)?.map(
+                        (k, e) => MapEntry(k, e as String),
+                      ) ??
+                      const {}),
+            );
+            return val;
+          },
         );
 
 Map<String, dynamic> _$CognitoResendSignUpCodePluginOptionsToJson(

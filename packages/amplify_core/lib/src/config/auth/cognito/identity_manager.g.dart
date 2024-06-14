@@ -10,7 +10,14 @@ part of 'identity_manager.dart';
 
 CognitoIdentityManager _$CognitoIdentityManagerFromJson(
         Map<String, dynamic> json) =>
-    CognitoIdentityManager();
+    $checkedCreate(
+      'CognitoIdentityManager',
+      json,
+      ($checkedConvert) {
+        final val = CognitoIdentityManager();
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$CognitoIdentityManagerToJson(
         CognitoIdentityManager instance) =>

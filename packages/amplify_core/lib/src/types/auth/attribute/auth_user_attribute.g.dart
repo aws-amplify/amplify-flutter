@@ -9,10 +9,19 @@ part of 'auth_user_attribute.dart';
 // **************************************************************************
 
 AuthUserAttribute _$AuthUserAttributeFromJson(Map<String, dynamic> json) =>
-    AuthUserAttribute(
-      userAttributeKey: const AuthUserAttributeKeyConverter()
-          .fromJson(json['userAttributeKey'] as String),
-      value: json['value'] as String,
+    $checkedCreate(
+      'AuthUserAttribute',
+      json,
+      ($checkedConvert) {
+        final val = AuthUserAttribute(
+          userAttributeKey: $checkedConvert(
+              'userAttributeKey',
+              (v) =>
+                  const AuthUserAttributeKeyConverter().fromJson(v as String)),
+          value: $checkedConvert('value', (v) => v as String),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$AuthUserAttributeToJson(AuthUserAttribute instance) =>

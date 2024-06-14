@@ -22,6 +22,7 @@ export 'package:json_annotation/json_annotation.dart'
 const zAmplifySerializable = JsonSerializable(
   includeIfNull: false,
   explicitToJson: true,
+  checked: true,
   converters: [
     AuthUserAttributeKeyConverter(),
     CognitoUserAttributeKeyConverter(),
@@ -46,6 +47,7 @@ const zAwsSerializable = JsonSerializable(
   fieldRename: FieldRename.pascal,
   includeIfNull: false,
   explicitToJson: true,
+  checked: true,
 );
 
 /// Serialization options for [ConfigMap] types.
@@ -54,6 +56,7 @@ const zConfigMapSerializable = JsonSerializable(
   genericArgumentFactories: true,
   ignoreUnannotated: true,
   createToJson: false,
+  checked: true,
 );
 
 /// {@template amplify_flutter.serializable_map}

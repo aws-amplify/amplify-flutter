@@ -117,13 +117,14 @@ abstract class AmplifyClass {
       try {
         final json = jsonDecode(configuration) as Map;
         amplifyConfig = AmplifyConfig.fromJson(json.cast());
-      } on Object {
+      } on Object catch (e) {
         throw ConfigurationError(
           'The provided configuration is not a valid json. '
           'Check underlyingException.',
           recoverySuggestion:
               'Inspect your amplifyconfiguration.dart and ensure that '
               'the string is proper json',
+          underlyingException: e,
         );
       }
       await _configurePlugins(amplifyConfig);
