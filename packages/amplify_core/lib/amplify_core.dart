@@ -19,9 +19,6 @@ export 'src/category/amplify_categories.dart';
 /// Config
 export 'src/config/amplify_config.dart';
 export 'src/config/amplify_outputs/amplify_outputs.dart';
-export 'src/config/amplify_outputs/auth/identity_provider.dart';
-export 'src/config/amplify_outputs/auth/mfa.dart';
-export 'src/config/amplify_outputs/auth/password_policy.dart';
 export 'src/config/amplify_plugin_config.dart' hide UnknownPluginConfigFactory;
 export 'src/config/amplify_plugin_registry.dart';
 export 'src/config/analytics/analytics_config.dart';

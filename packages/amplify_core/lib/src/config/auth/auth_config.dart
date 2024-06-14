@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_response_type.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 import 'package:meta/meta.dart';
 
 export 'cognito_config.dart' hide CognitoPluginConfigFactory;
