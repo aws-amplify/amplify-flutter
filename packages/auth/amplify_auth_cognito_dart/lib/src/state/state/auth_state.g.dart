@@ -7,20 +7,30 @@ part of 'auth_state.dart';
 // **************************************************************************
 
 CredentialStoreData _$CredentialStoreDataFromJson(Map<String, dynamic> json) =>
-    CredentialStoreData(
-      identityId: json['identityId'] as String?,
-      awsCredentials: json['awsCredentials'] == null
-          ? null
-          : AWSCredentials.fromJson(
-              json['awsCredentials'] as Map<String, dynamic>),
-      userPoolTokens: json['userPoolTokens'] == null
-          ? null
-          : CognitoUserPoolTokens.fromJson(
-              json['userPoolTokens'] as Map<String, dynamic>),
-      signInDetails: json['signInDetails'] == null
-          ? null
-          : CognitoSignInDetails.fromJson(
-              json['signInDetails'] as Map<String, dynamic>),
+    $checkedCreate(
+      'CredentialStoreData',
+      json,
+      ($checkedConvert) {
+        final val = CredentialStoreData(
+          identityId: $checkedConvert('identityId', (v) => v as String?),
+          awsCredentials: $checkedConvert(
+              'awsCredentials',
+              (v) => v == null
+                  ? null
+                  : AWSCredentials.fromJson(v as Map<String, dynamic>)),
+          userPoolTokens: $checkedConvert(
+              'userPoolTokens',
+              (v) => v == null
+                  ? null
+                  : CognitoUserPoolTokens.fromJson(v as Map<String, dynamic>)),
+          signInDetails: $checkedConvert(
+              'signInDetails',
+              (v) => v == null
+                  ? null
+                  : CognitoSignInDetails.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CredentialStoreDataToJson(CredentialStoreData instance) {

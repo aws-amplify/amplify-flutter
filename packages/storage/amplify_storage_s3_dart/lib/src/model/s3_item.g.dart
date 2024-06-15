@@ -6,19 +6,28 @@ part of 's3_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-S3Item _$S3ItemFromJson(Map<String, dynamic> json) => S3Item(
-      path: json['path'] as String,
-      size: json['size'] as int?,
-      lastModified: json['lastModified'] == null
-          ? null
-          : DateTime.parse(json['lastModified'] as String),
-      eTag: json['eTag'] as String?,
-      metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const <String, String>{},
-      versionId: json['versionId'] as String?,
-      contentType: json['contentType'] as String?,
+S3Item _$S3ItemFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'S3Item',
+      json,
+      ($checkedConvert) {
+        final val = S3Item(
+          path: $checkedConvert('path', (v) => v as String),
+          size: $checkedConvert('size', (v) => v as int?),
+          lastModified: $checkedConvert('lastModified',
+              (v) => v == null ? null : DateTime.parse(v as String)),
+          eTag: $checkedConvert('eTag', (v) => v as String?),
+          metadata: $checkedConvert(
+              'metadata',
+              (v) =>
+                  (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  ) ??
+                  const <String, String>{}),
+          versionId: $checkedConvert('versionId', (v) => v as String?),
+          contentType: $checkedConvert('contentType', (v) => v as String?),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3ItemToJson(S3Item instance) {

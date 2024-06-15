@@ -8,7 +8,14 @@ part of 'cognito_update_password_plugin_options.dart';
 
 CognitoUpdatePasswordPluginOptions _$CognitoUpdatePasswordPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoUpdatePasswordPluginOptions();
+    $checkedCreate(
+      'CognitoUpdatePasswordPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = CognitoUpdatePasswordPluginOptions();
+        return val;
+      },
+    );
 
 Map<String, dynamic> _$CognitoUpdatePasswordPluginOptionsToJson(
         CognitoUpdatePasswordPluginOptions instance) =>

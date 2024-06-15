@@ -10,9 +10,17 @@ part of 'pinpoint_analytics.dart';
 
 CognitoPinpointAnalyticsConfig _$CognitoPinpointAnalyticsConfigFromJson(
         Map<String, dynamic> json) =>
-    CognitoPinpointAnalyticsConfig(
-      appId: json['AppId'] as String,
-      region: json['Region'] as String,
+    $checkedCreate(
+      'CognitoPinpointAnalyticsConfig',
+      json,
+      ($checkedConvert) {
+        final val = CognitoPinpointAnalyticsConfig(
+          appId: $checkedConvert('AppId', (v) => v as String),
+          region: $checkedConvert('Region', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'appId': 'AppId', 'region': 'Region'},
     );
 
 Map<String, dynamic> _$CognitoPinpointAnalyticsConfigToJson(

@@ -10,11 +10,18 @@ part of 'pinpoint_config.dart';
 
 PinpointPluginConfig _$PinpointPluginConfigFromJson(
         Map<String, dynamic> json) =>
-    PinpointPluginConfig(
-      pinpointAnalytics: PinpointAnalytics.fromJson(
-          json['pinpointAnalytics'] as Map<String, dynamic>),
-      pinpointTargeting: PinpointTargeting.fromJson(
-          json['pinpointTargeting'] as Map<String, dynamic>),
+    $checkedCreate(
+      'PinpointPluginConfig',
+      json,
+      ($checkedConvert) {
+        final val = PinpointPluginConfig(
+          pinpointAnalytics: $checkedConvert('pinpointAnalytics',
+              (v) => PinpointAnalytics.fromJson(v as Map<String, dynamic>)),
+          pinpointTargeting: $checkedConvert('pinpointTargeting',
+              (v) => PinpointTargeting.fromJson(v as Map<String, dynamic>)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$PinpointPluginConfigToJson(
@@ -25,9 +32,16 @@ Map<String, dynamic> _$PinpointPluginConfigToJson(
     };
 
 PinpointAnalytics _$PinpointAnalyticsFromJson(Map<String, dynamic> json) =>
-    PinpointAnalytics(
-      appId: json['appId'] as String,
-      region: json['region'] as String,
+    $checkedCreate(
+      'PinpointAnalytics',
+      json,
+      ($checkedConvert) {
+        final val = PinpointAnalytics(
+          appId: $checkedConvert('appId', (v) => v as String),
+          region: $checkedConvert('region', (v) => v as String),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$PinpointAnalyticsToJson(PinpointAnalytics instance) =>
@@ -37,8 +51,15 @@ Map<String, dynamic> _$PinpointAnalyticsToJson(PinpointAnalytics instance) =>
     };
 
 PinpointTargeting _$PinpointTargetingFromJson(Map<String, dynamic> json) =>
-    PinpointTargeting(
-      region: json['region'] as String,
+    $checkedCreate(
+      'PinpointTargeting',
+      json,
+      ($checkedConvert) {
+        final val = PinpointTargeting(
+          region: $checkedConvert('region', (v) => v as String),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$PinpointTargetingToJson(PinpointTargeting instance) =>

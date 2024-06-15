@@ -7,9 +7,16 @@ part of 's3_data_bytes_range.dart';
 // **************************************************************************
 
 S3DataBytesRange _$S3DataBytesRangeFromJson(Map<String, dynamic> json) =>
-    S3DataBytesRange(
-      start: json['start'] as int,
-      end: json['end'] as int,
+    $checkedCreate(
+      'S3DataBytesRange',
+      json,
+      ($checkedConvert) {
+        final val = S3DataBytesRange(
+          start: $checkedConvert('start', (v) => v as int),
+          end: $checkedConvert('end', (v) => v as int),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3DataBytesRangeToJson(S3DataBytesRange instance) =>

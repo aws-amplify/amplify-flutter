@@ -142,16 +142,25 @@ class CognitoUserPoolTokensBuilder
 
 CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
         Map<String, dynamic> json) =>
-    CognitoUserPoolTokens(
-      signInMethod: json['signInMethod'] == null
-          ? CognitoSignInMethod.default$
-          : const _CognitoSignInMethodSerializer()
-              .fromJson(json['signInMethod'] as String),
-      accessToken: const _JsonWebTokenSerializer()
-          .fromJson(json['accessToken'] as String),
-      refreshToken: json['refreshToken'] as String,
-      idToken:
-          const _JsonWebTokenSerializer().fromJson(json['idToken'] as String),
+    $checkedCreate(
+      'CognitoUserPoolTokens',
+      json,
+      ($checkedConvert) {
+        final val = CognitoUserPoolTokens(
+          signInMethod: $checkedConvert(
+              'signInMethod',
+              (v) => v == null
+                  ? CognitoSignInMethod.default$
+                  : const _CognitoSignInMethodSerializer()
+                      .fromJson(v as String)),
+          accessToken: $checkedConvert('accessToken',
+              (v) => const _JsonWebTokenSerializer().fromJson(v as String)),
+          refreshToken: $checkedConvert('refreshToken', (v) => v as String),
+          idToken: $checkedConvert('idToken',
+              (v) => const _JsonWebTokenSerializer().fromJson(v as String)),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(

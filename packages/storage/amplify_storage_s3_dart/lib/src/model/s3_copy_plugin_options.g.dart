@@ -7,8 +7,16 @@ part of 's3_copy_plugin_options.dart';
 // **************************************************************************
 
 S3CopyPluginOptions _$S3CopyPluginOptionsFromJson(Map<String, dynamic> json) =>
-    S3CopyPluginOptions(
-      getProperties: json['getProperties'] as bool? ?? false,
+    $checkedCreate(
+      'S3CopyPluginOptions',
+      json,
+      ($checkedConvert) {
+        final val = S3CopyPluginOptions(
+          getProperties:
+              $checkedConvert('getProperties', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
     );
 
 Map<String, dynamic> _$S3CopyPluginOptionsToJson(
