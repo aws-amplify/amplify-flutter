@@ -15,9 +15,11 @@ This will:
 
 To deploy the infra stack to your personal account simply run:
 
+`$ npm i`
+
 `$ dart run tool/deploy_gen2.dart`
 
-If this is your first deployment, grab a snack, it will a few minutes for each backend to deploy.
+If this is your first deployment, grab a snack, it will be a few minutes for each backend to deploy.
 
 ## Creating a new backend
 
