@@ -12,6 +12,7 @@ AuthOutputs _$AuthOutputsFromJson(Map<String, dynamic> json) => AuthOutputs(
       awsRegion: json['aws_region'] as String,
       userPoolId: json['user_pool_id'] as String?,
       userPoolClientId: json['user_pool_client_id'] as String?,
+      appClientSecret: json['app_client_secret'] as String?,
       identityPoolId: json['identity_pool_id'] as String?,
       passwordPolicy: json['password_policy'] == null
           ? null
@@ -55,6 +56,7 @@ Map<String, dynamic> _$AuthOutputsToJson(AuthOutputs instance) {
 
   writeNotNull('user_pool_id', instance.userPoolId);
   writeNotNull('user_pool_client_id', instance.userPoolClientId);
+  writeNotNull('app_client_secret', instance.appClientSecret);
   writeNotNull('identity_pool_id', instance.identityPoolId);
   writeNotNull('password_policy', instance.passwordPolicy?.toJson());
   writeNotNull('oauth', instance.oauth?.toJson());

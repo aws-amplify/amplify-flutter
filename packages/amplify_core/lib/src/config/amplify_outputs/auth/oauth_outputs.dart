@@ -20,9 +20,11 @@ class OAuthOutputs
     required this.domain,
     required this.scopes,
     required this.redirectSignInUri,
-    this.redirectSignInUriQueryParameters,
+    this.signInUri,
+    this.signInUriQueryParameters,
     required this.redirectSignOutUri,
-    this.redirectSignOutUriQueryParameters,
+    this.signOutUri,
+    this.signOutUriQueryParameters,
     this.tokenUri,
     this.tokenUriQueryParameters,
     required this.responseType,
@@ -43,22 +45,36 @@ class OAuthOutputs
   /// URIs used to redirect after signing in using an identity provider.
   final List<String> redirectSignInUri;
 
+  /// An optional URI to use when signing in.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final String? signInUri;
+
   /// Optional query params in the sign in URI.
   ///
   /// Note: This attribute is not part of the Amplify Outputs schema.
   /// This exists for backwards compatibility with the Gen 1 config.
   @internal
-  final Map<String, String>? redirectSignInUriQueryParameters;
+  final Map<String, String>? signInUriQueryParameters;
 
   /// URIs used to redirect after signing out.
   final List<String> redirectSignOutUri;
 
-  /// Optional query params in the sign in URI.
+  /// An optional URI to use when signing out.
   ///
   /// Note: This attribute is not part of the Amplify Outputs schema.
   /// This exists for backwards compatibility with the Gen 1 config.
   @internal
-  final Map<String, String>? redirectSignOutUriQueryParameters;
+  final String? signOutUri;
+
+  /// Optional query params in the sign out URI.
+  ///
+  /// Note: This attribute is not part of the Amplify Outputs schema.
+  /// This exists for backwards compatibility with the Gen 1 config.
+  @internal
+  final Map<String, String>? signOutUriQueryParameters;
 
   /// The OAuth token URI.
   ///
@@ -85,7 +101,13 @@ class OAuthOutputs
         domain,
         scopes,
         redirectSignInUri,
+        signInUri,
+        signInUriQueryParameters,
         redirectSignOutUri,
+        signOutUri,
+        signOutUriQueryParameters,
+        tokenUri,
+        tokenUriQueryParameters,
         responseType,
       ];
 
