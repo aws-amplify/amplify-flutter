@@ -62,7 +62,7 @@ abstract class AmplifyClass {
   final AmplifyAuthProviderRepository authProviderRepo =
       AmplifyAuthProviderRepository();
 
-  var _configCompleter = Completer<AmplifyConfig>();
+  var _configCompleter = Completer<AmplifyOutputs>();
   final _addPluginFutures = <Future<void>>[];
 
   /// Adds one plugin at a time. Note: this method can only
@@ -93,7 +93,7 @@ abstract class AmplifyClass {
 
   /// A future when completes when Amplify has been successfully configured.
   @internal
-  Future<AmplifyConfig> get asyncConfig => _configCompleter.future;
+  Future<AmplifyOutputs> get asyncConfig => _configCompleter.future;
 
   /// Configures Amplify with the provided configuration string.
   /// **This method can only be called once**, after all the plugins
@@ -128,7 +128,7 @@ abstract class AmplifyClass {
         );
       }
       await _configurePlugins(amplifyConfig);
-      _configCompleter.complete(amplifyConfig);
+      _configCompleter.complete(amplifyConfig.toAmplifyOutputs());
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
       // that 1) `configure` can be called again and 2) listeners registered
@@ -146,7 +146,7 @@ abstract class AmplifyClass {
       // handled by the developer, but since they are unrelated to
       // configuration, listeners to `Amplify.asyncConfig` should be allowed to
       // proceed with the validated configuration.
-      _configCompleter.complete(amplifyConfig);
+      _configCompleter.complete(amplifyConfig.toAmplifyOutputs());
       _configCompleter = Completer();
       rethrow;
     }

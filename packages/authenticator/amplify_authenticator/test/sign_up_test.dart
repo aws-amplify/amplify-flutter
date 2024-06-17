@@ -21,7 +21,7 @@ void main() {
       final signInPage = SignInPage(tester: tester);
 
       const email = 'test-user@example.com';
-      const password = 'Password123';
+      const password = 'Password123!@#%^';
 
       await signInPage.navigateToSignUp();
 

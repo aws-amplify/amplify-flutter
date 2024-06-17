@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -73,11 +76,10 @@ extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
 }
 
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
-  required AmplifyConfig? amplifyConfig,
+  required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
 }) {
-  final passwordProtectionSettings = amplifyConfig
-      ?.auth?.awsPlugin?.auth?.default$?.passwordProtectionSettings;
+  final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
           return inputResolver.resolve(
@@ -86,23 +88,15 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
           );
         }
         password = password.trim();
-        if (passwordProtectionSettings == null) {
+        if (passwordPolicies == null) {
           return null;
         }
 
-        final unmetReqs = <PasswordPolicyCharacters>[];
-
-        final minLength = passwordProtectionSettings.passwordPolicyMinLength;
+        final minLength = passwordPolicies.minLength;
         final meetsMinLengthRequirement =
             minLength == null || password.length >= minLength;
 
-        final passwordPolicies =
-            passwordProtectionSettings.passwordPolicyCharacters;
-        for (final policy in passwordPolicies) {
-          if (!policy.meetsRequirement(password)) {
-            unmetReqs.add(policy);
-          }
-        }
+        final unmetReqs = _getUnmetPasswordPolicies(password, passwordPolicies);
 
         final error = inputResolver.resolve(
           context,
@@ -116,6 +110,26 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
         );
         return error.isEmpty ? null : error;
       };
+}
+
+List<PasswordPolicyCharacters> _getUnmetPasswordPolicies(
+  String password,
+  PasswordPolicy? policy,
+) {
+  final unmetReqs = <PasswordPolicyCharacters>[];
+  if ((policy?.requireLowercase ?? false) && !password.contains(_lowercase)) {
+    unmetReqs.add(PasswordPolicyCharacters.requiresLowercase);
+  }
+  if ((policy?.requireUppercase ?? false) && !password.contains(_uppercase)) {
+    unmetReqs.add(PasswordPolicyCharacters.requiresUppercase);
+  }
+  if ((policy?.requireNumbers ?? false) && !password.contains(_numeric)) {
+    unmetReqs.add(PasswordPolicyCharacters.requiresNumbers);
+  }
+  if ((policy?.requireSymbols ?? false) && !password.contains(_symbols)) {
+    unmetReqs.add(PasswordPolicyCharacters.requiresSymbols);
+  }
+  return unmetReqs;
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(
