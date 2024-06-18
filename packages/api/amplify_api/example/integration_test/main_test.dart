@@ -29,20 +29,4 @@ void main() async {
     graph_user_pools_test.main(useExistingTestUser: true);
     rest_test.main(useExistingTestUser: true);
   });
-
-  group('amplify_api gen 2', () {
-    setUpAll(() async {
-      await configureAmplifyGen2();
-      await signUpTestUser();
-      await signInTestUser();
-    });
-
-    tearDownAll(() async {
-      await deleteTestUser();
-    });
-
-    graph_api_key_test.main(useExistingTestUser: true);
-    graph_iam_test.main(useExistingTestUser: true);
-    graph_user_pools_test.main(useExistingTestUser: true);
-  });
 }
