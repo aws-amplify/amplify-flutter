@@ -65,5 +65,7 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
+amplify_outputs.dart
+
 team-provider-info.json
 amplifyconfiguration.dart
