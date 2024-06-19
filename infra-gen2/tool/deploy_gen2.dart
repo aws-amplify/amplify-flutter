@@ -42,7 +42,13 @@ const List<AmplifyBackendGroup> infraConfig = [
       'packages/auth/amplify_auth_cognito_dart/example/lib',
       'packages/authenticator/amplify_authenticator/example/lib',
     ],
-    backends: [],
+    backends: [
+      AmplifyBackend(
+        name: 'emailSignIn',
+        identifier: 'emailSignIn',
+        pathToSource: 'infra-gen2/backends/auth/email-sign-in',
+      ),
+    ],
   ),
   AmplifyBackendGroup(
     category: Category.storage,
