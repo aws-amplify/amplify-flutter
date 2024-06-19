@@ -28,9 +28,9 @@ const List<AmplifyBackendGroup> infraConfig = [
     defaultOutput: 'packages/api/amplify_api/example/lib',
     backends: [
       AmplifyBackend(
-        name: 'defaultMultiAuth',
-        identifier: 'defaultMultiAuth',
-        pathToSource: 'infra-gen2/backends/api/defaultMultiAuth',
+        name: 'apiMultiAuth',
+        identifier: 'apiMultiAuth',
+        pathToSource: 'infra-gen2/backends/api/apiMultiAuth',
       ),
     ],
   ),
