@@ -6,6 +6,8 @@ import 'dart:math';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
+import 'package:amplify_api_example/models/gen2/Gen2ModelProvider.dart'
+    as gen2_model_provider;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,15 +33,15 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
       await configureAmplify(useGen1: useGen1);
 
       if (!useExistingTestUser) {
-        await signUpTestUser();
+        await signUpTestUser(useEmail: useGen2);
       }
-      await signInTestUser();
+      await signInTestUser(useEmail: useGen2);
     });
 
     tearDownAll(() async {
       await deleteTestModels();
       if (!useExistingTestUser) {
-        await deleteTestUser();
+        await deleteTestUser(useEmail: useGen2);
       }
     });
 
@@ -459,7 +461,7 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
       });
 
       tearDownAll(() async {
-        await signInTestUser();
+        await signInTestUser(useEmail: useGen2);
       });
     });
 

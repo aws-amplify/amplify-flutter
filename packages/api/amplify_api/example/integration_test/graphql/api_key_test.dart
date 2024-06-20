@@ -55,9 +55,9 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
           late StreamSubscription<ApiHubEvent> hubEventsSubscription;
           setUpAll(() async {
             if (!useExistingTestUser) {
-              await signUpTestUser();
+              await signUpTestUser(useEmail: useGen2);
             }
-            await signInTestUser();
+            await signInTestUser(useEmail: useGen2);
 
             hubEventsController = StreamController.broadcast();
             hubEvents = hubEventsController.stream;

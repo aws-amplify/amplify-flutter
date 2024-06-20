@@ -1,5 +1,8 @@
 {
   "name": "api-multi-auth",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "infra-common": "1.0.0"
+  }
 }

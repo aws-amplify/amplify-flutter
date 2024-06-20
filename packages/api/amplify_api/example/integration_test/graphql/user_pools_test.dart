@@ -19,13 +19,16 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
       if (!useExistingTestUser) {
         await signUpTestUser();
       }
-      await signInTestUser();
+      if (!useExistingTestUser) {
+        await signUpTestUser(useEmail: useGen2);
+      }
+      await signInTestUser(useEmail: useGen2);
     });
 
     tearDownAll(() async {
       await deleteTestModels();
       if (!useExistingTestUser) {
-        await deleteTestUser();
+        await deleteTestUser(useEmail: useGen2);
       }
     });
 
@@ -77,7 +80,7 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
         final nestedGetBlogReq = GraphQLRequest<Blog>(
           document: graphQLDocument,
           modelType: Blog.classType,
-          variables: <String, String>{'id': blogId!},
+          variables: <String, String>{'id': blogId},
           decodePath: getBlog,
           authorizationMode: APIAuthorizationType.userPools,
         );
