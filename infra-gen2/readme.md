@@ -21,6 +21,12 @@ To deploy the infra stack to your personal account simply run:
 
 If this is your first deployment, grab a snack, it will be a few minutes for each backend to deploy.
 
+### Debuggings
+
+The same command can be run with verbose logging
+
+`$ dart run tool/deploy_gen2.dart -v`
+
 ## Creating a new backend
 
 1. Create a new directory for the backend.
