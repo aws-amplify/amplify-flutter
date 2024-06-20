@@ -1,50 +1,6 @@
 import { a, defineData, type ClientSchema } from "@aws-amplify/backend";
 
 const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
-      isDone: a.boolean(),
-    })
-    .authorization((allow) => [allow.owner()]),
-
-  lowerCase: a
-    .model({
-      id: a.id().required(),
-      name: a.string().required(),
-    })
-    .authorization((allow) => [
-      allow.publicApiKey().to(["read"]),
-      allow.guest().to(["read"]),
-      allow.authenticated("identityPool").to(["read"]),
-      allow.authenticated("userPools").to(["read"]),
-      allow.owner().to(["read", "create", "update", "delete"]),
-    ]),
-
-  OwnerOnly: a
-    .model({
-      id: a.id().required(),
-      name: a.string().required(),
-    })
-    .authorization((allow) => [allow.owner()]),
-
-  Sample: a
-    .model({
-      id: a.id().required(),
-      name: a.string(),
-      number: a.integer(),
-      flag: a.boolean(),
-      data: a.datetime(),
-      rootbeer: a.float(),
-    })
-    .authorization((allow) => [
-      allow.publicApiKey(),
-      allow.guest().to(["read"]),
-      allow.authenticated("identityPool").to(["read"]),
-      allow.authenticated("userPools").to(["read"]),
-      allow.owner().to(["read", "create", "update", "delete"]),
-    ]),
-
   Blog: a
     .model({
       id: a.id().required(),
@@ -149,6 +105,43 @@ const schema = a.schema({
     })
     .identifier(["intAsId", "fieldA", "fieldB"])
     .authorization((allow) => [allow.owner()]),
+
+  lowerCase: a
+    .model({
+      id: a.id().required(),
+      name: a.string().required(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+      allow.guest().to(["read"]),
+      allow.authenticated("identityPool").to(["read"]),
+      allow.authenticated("userPools").to(["read"]),
+      allow.owner().to(["read", "create", "update", "delete"]),
+    ]),
+
+  OwnerOnly: a
+    .model({
+      id: a.id().required(),
+      name: a.string().required(),
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Sample: a
+    .model({
+      id: a.id().required(),
+      name: a.string(),
+      number: a.integer(),
+      flag: a.boolean(),
+      date: a.time(),
+      rootbeer: a.float(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+      allow.guest().to(["read"]),
+      allow.authenticated("identityPool").to(["read"]),
+      allow.authenticated("userPools").to(["read"]),
+      allow.owner().to(["read", "create", "update", "delete"]),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
