@@ -104,7 +104,6 @@ const expected = {
               poolId: USERPOOL_ID,
               appClientId: APPCLIENT_ID,
               appClientSecret: APPCLIENT_SECERT,
-              endpoint: OAUTH_DOMAIN,
               region: REGION,
             ),
             'Default': CognitoUserPoolConfig(

@@ -34,6 +34,15 @@ Map<String, Object?> removeDeprecatedKeys(Map<String, Object?> object) {
       'authenticationFlowType',
     ],
   );
+  removeKey(
+    newObject,
+    [
+      'storage',
+      'plugins',
+      'awsS3StoragePlugin',
+      'defaultAccessLevel',
+    ],
+  );
   return newObject;
 }
 

@@ -29,7 +29,6 @@
         "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
         },
