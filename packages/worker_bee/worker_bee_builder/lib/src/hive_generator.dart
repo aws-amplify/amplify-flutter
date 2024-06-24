@@ -39,6 +39,8 @@ class WorkerHiveGenerator extends GeneratorForAnnotation<WorkerHive> {
             ..assignment = literalMap(
               {
                 for (final workerType in workers)
+                  // TODO(Jordan-Nelson): remove use of `withNullability` when min dart version is 3.4 or higher
+                  // ignore: deprecated_member_use
                   workerType.getDisplayString(withNullability: false):
                       Block.of([
                     (workerType.accept(_symbolVisitor) as TypeReference)
