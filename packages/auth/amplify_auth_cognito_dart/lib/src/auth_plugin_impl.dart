@@ -40,6 +40,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/get_device_response.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
@@ -1004,8 +1005,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       throw const DeviceNotTrackedException();
     }
 
+    late GetDeviceResponse resp;
+
     try {
-      final resp = await _cognitoIdp
+      resp = await _cognitoIdp
           .getDevice(
             cognito.GetDeviceRequest(
               deviceKey: deviceKey,
@@ -1013,26 +1016,25 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
             ),
           )
           .result;
-
-      final device = resp.device;
-      final attributes =
-          device.deviceAttributes ?? const <cognito.AttributeType>[];
-
-      return CognitoDevice(
-        id: deviceKey,
-        attributes: {
-          for (final attribute in attributes)
-            attribute.name: attribute.value ?? '',
-        },
-        createdDate: device.deviceCreateDate,
-        lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
-        lastModifiedDate: device.deviceLastModifiedDate,
-      );
     } on Exception catch (error) {
       throw AuthException.fromException(error);
     }
-  }
 
+    final device = resp.device;
+    final attributes =
+        device.deviceAttributes ?? const <cognito.AttributeType>[];
+
+    return CognitoDevice(
+      id: deviceKey,
+      attributes: {
+        for (final attribute in attributes)
+          attribute.name: attribute.value ?? '',
+      },
+      createdDate: device.deviceCreateDate,
+      lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+      lastModifiedDate: device.deviceLastModifiedDate,
+    );
+  }
 
   @override
   Future<List<CognitoDevice>> fetchDevices() async {
