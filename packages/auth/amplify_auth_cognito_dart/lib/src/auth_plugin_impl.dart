@@ -996,7 +996,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   @override
-  Future<CognitoDevice> getCurrentDevice() async {
+  Future<CognitoDevice> fetchCurrentDevice() async {
     final tokens = await stateMachine.getUserPoolTokens();
     final deviceSecrets = await _deviceRepo.get(tokens.username);
     final deviceKey = deviceSecrets?.deviceKey;
@@ -1035,7 +1035,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
 
   // @override
-  // Future<CognitoDevice> getCurrentDevice() async {
+  // Future<CognitoDevice> fetchCurrentDevice() async {
   //   final tokens = await stateMachine.getUserPoolTokens();
   //   final deviceSecrets = await _deviceRepo.get(tokens.username);
   //   final deviceKey = deviceSecrets?.deviceKey;
