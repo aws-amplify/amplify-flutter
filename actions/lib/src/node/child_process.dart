@@ -256,5 +256,5 @@ extension type EventEmitter._(JSObject it) implements JSObject {
 @anonymous
 extension type NodeWriteableStream._(JSObject it) {
   external void write(JSUint8Array chunk,
-      [String? encoding, JSFunction flushCallback]);
+      [String? encoding, JSFunction flushCallback,]);
 }
