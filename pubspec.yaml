@@ -4,7 +4,7 @@ publish_to: none
 # The current constraints for Dart and Flutter SDKs.
 environment:
   sdk: ^3.3.0
-  flutter: '>=3.19.0'
+  flutter: ">=3.19.0"
 
 # Global dependency versions for third-party dependencies of
 # Amplify Flutter projects. These represent the values which
@@ -25,8 +25,8 @@ dependencies:
   # on stable so that CI checks pass for generated code.
   dart_style: ^2.3.2
   device_info_plus: ^10.0.1
-  drift: ">=2.14.0 <2.15.0"
-  drift_dev: ">=2.14.0 <2.15.0"
+  drift: ">=2.18.0 <2.19.0"
+  drift_dev: ">=2.18.0 <2.19.0"
   ffigen: ^9.0.0
   file: ">=6.0.0 <8.0.0"
   flutter_plugin_android_lifecycle: ^2.0.9
