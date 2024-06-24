@@ -1034,44 +1034,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
 
-  // @override
-  // Future<CognitoDevice> fetchCurrentDevice() async {
-  //   final tokens = await stateMachine.getUserPoolTokens();
-  //   final deviceSecrets = await _deviceRepo.get(tokens.username);
-  //   final deviceKey = deviceSecrets?.deviceKey;
-  //   if (deviceSecrets == null || deviceKey == null) {
-  //     throw const DeviceNotTrackedException();
-  //   }
-  //
-  //   try {
-  //     final resp = await _cognitoIdp
-  //         .getDevice(
-  //           cognito.GetDeviceRequest(
-  //             deviceKey: deviceKey,
-  //             accessToken: tokens.accessToken.raw,
-  //           ),
-  //         )
-  //         .result;
-  //
-  //     final device = resp.device;
-  //     final attributes =
-  //         device.deviceAttributes ?? const <cognito.AttributeType>[];
-  //
-  //     return CognitoDevice(
-  //       id: deviceKey,
-  //       attributes: {
-  //         for (final attribute in attributes)
-  //           attribute.name: attribute.value ?? '',
-  //       },
-  //       createdDate: device.deviceCreateDate,
-  //       lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
-  //       lastModifiedDate: device.deviceLastModifiedDate,
-  //     );
-  //   } on AWSHttpException catch (error) {
-  //     throw error.toNetworkException();
-  //   }
-  // }
-
   @override
   Future<List<CognitoDevice>> fetchDevices() async {
     final allDevices = <CognitoDevice>[];
