@@ -32,7 +32,7 @@ void main() {
     return secrets?.deviceKey;
   }
 
-  group('getCurrentDevice expected return value and DeviceNotTrackedException',
+  group('fetchCurrentDevice expected return value and DeviceNotTrackedException',
       () {
     setUp(() async {
       secureStorage = MockSecureStorage();
@@ -63,7 +63,7 @@ void main() {
         () async {
       final currentDeviceKey = await getDeviceKey();
       expect(currentDeviceKey, isNotNull);
-      final currentDevice = await plugin.getCurrentDevice();
+      final currentDevice = await plugin.fetchCurrentDevice();
       expect(currentDeviceKey, currentDevice.id);
     });
 
@@ -72,7 +72,7 @@ void main() {
         () async {
       await plugin.forgetDevice();
       await expectLater(
-        plugin.getCurrentDevice,
+        plugin.fetchCurrentDevice,
         throwsA(isA<DeviceNotTrackedException>()),
       );
     });
@@ -83,7 +83,7 @@ void main() {
   });
 
 
-  group('getCurrentDevice AWSHttpException', () {
+  group('fetchCurrentDevice AWSHttpException', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
       seedStorage(
@@ -112,7 +112,7 @@ void main() {
     test('should throw a NetworkException',
         () async {
         await expectLater(
-          plugin.getCurrentDevice,
+          plugin.fetchCurrentDevice,
           throwsA(isA<NetworkException>()),
       );
     });
