@@ -241,28 +241,34 @@ void main() {
       });
 
       asyncTest('fetchCurrentDevice returns the current device', (_) async {
-          await expectLater(Amplify.Auth.fetchCurrentDevice(), completes);
-          final currentTestDevice = await Amplify.Auth.fetchCurrentDevice();
-          final currentDeviceKey = await getDeviceKey();
-          expect(currentDeviceKey, currentTestDevice.id);
+        await expectLater(Amplify.Auth.fetchCurrentDevice(), completes);
+        final currentTestDevice = await Amplify.Auth.fetchCurrentDevice();
+        final currentDeviceKey = await getDeviceKey();
+        expect(currentDeviceKey, currentTestDevice.id);
       });
 
-      asyncTest('The device from fetchCurrentDevice isnt equal to another device.', (_) async {
-          final previousDeviceKey = await getDeviceKey();
-          await signOutUser();
-          await deleteDevice(cognitoUsername, previousDeviceKey!);
-          await signIn();
-          final newCurrentTestDevice = await Amplify.Auth.fetchCurrentDevice();
-          expect(newCurrentTestDevice.id, isNot(previousDeviceKey));
+      asyncTest(
+          'The device from fetchCurrentDevice isnt equal to another device.',
+          (_) async {
+        final previousDeviceKey = await getDeviceKey();
+        await signOutUser();
+        await deleteDevice(cognitoUsername, previousDeviceKey!);
+        await signIn();
+        final newCurrentTestDevice = await Amplify.Auth.fetchCurrentDevice();
+        expect(newCurrentTestDevice.id, isNot(previousDeviceKey));
       });
 
-      asyncTest('fetchCurrentDevice throws a DeviceNotTrackedException when no device exists.', (_) async {
-          final previousDeviceKey = await getDeviceKey();
-          await signOutUser();
-          await deleteDevice(cognitoUsername, previousDeviceKey!);
-          expect(() async => Amplify.Auth.fetchCurrentDevice(), throwsA(isA<DeviceNotTrackedException>));
+      asyncTest(
+          'fetchCurrentDevice throws a DeviceNotTrackedException when no device exists.',
+          (_) async {
+        final previousDeviceKey = await getDeviceKey();
+        await signOutUser();
+        await deleteDevice(cognitoUsername, previousDeviceKey!);
+        expect(
+          () async => Amplify.Auth.fetchCurrentDevice(),
+          throwsA(isA<DeviceNotTrackedException>),
+        );
       });
-
 
       asyncTest('forgetDevice stops tracking', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
