@@ -398,7 +398,6 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 }
 
 class MockCognitoUser {
-
   factory MockCognitoUser({
     required String username,
     required String password,

@@ -22,7 +22,10 @@ extension type Core._(JSObject it) {
 
   String getRequiredInput(String name) {
     final inputValue = _getInput(name);
-    return inputValue.isEmpty ? (throw StateError('Input "$name" was required but no value was passed')) : inputValue;
+    return inputValue.isEmpty
+        ? (throw StateError(
+            'Input "$name" was required but no value was passed'))
+        : inputValue;
   }
 
   T getTypedInput<T>(
@@ -50,7 +53,7 @@ extension type Core._(JSObject it) {
   external void endGroup();
 
   Future<R> withGroup<R>(
-    String name, 
+    String name,
     Future<R> Function() action,
   ) async {
     startGroup(name);

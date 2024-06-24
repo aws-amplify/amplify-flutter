@@ -70,8 +70,8 @@ extension type ToolCache._(JSObject it) {
   /// @param arch          architecture of the tool.  Optional.
   ///                      Defaults to machine architecture
   Future<String> cacheDir(
-    String sourceDir, 
-    String tool, 
+    String sourceDir,
+    String tool,
     String version, [
     String? arch,
   ]) async {

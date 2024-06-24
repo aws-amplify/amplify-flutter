@@ -31,7 +31,8 @@ void main() {
     return secrets?.deviceKey;
   }
 
-  group('fetchCurrentDevice expected return value and DeviceNotTrackedException',
+  group(
+      'fetchCurrentDevice expected return value and DeviceNotTrackedException',
       () {
     setUp(() async {
       secureStorage = MockSecureStorage();
@@ -81,7 +82,6 @@ void main() {
     });
   });
 
-
   group('fetchCurrentDevice AWSHttpException', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
@@ -108,11 +108,10 @@ void main() {
       repo = stateMachine.getOrCreate<DeviceMetadataRepository>();
     });
 
-    test('should throw a NetworkException',
-        () async {
-        await expectLater(
-          plugin.fetchCurrentDevice,
-          throwsA(isA<NetworkException>()),
+    test('should throw a NetworkException', () async {
+      await expectLater(
+        plugin.fetchCurrentDevice,
+        throwsA(isA<NetworkException>()),
       );
     });
 
