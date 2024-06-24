@@ -14,7 +14,7 @@ dependencies:
   async: ^2.10.0
   aws_common: any
   collection: ^1.15.0
-  drift: ">=2.14.0 <2.15.0"
+  drift: ">=2.18.0 <2.19.0"
   file: ">=6.0.0 <8.0.0"
   git: ^2.2.0
   graphs: ^2.1.0
@@ -31,7 +31,7 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   build_runner: ^2.4.0
-  drift_dev: ">=2.14.0 <2.15.0"
+  drift_dev: ">=2.18.0 <2.19.0"
   json_serializable: 6.7.1
   pub_api_client: ">=2.4.0 <2.7.0" # v2.7.0 introduces a new required field - archive_sha256
   shelf_router_generator: ^1.0.5
