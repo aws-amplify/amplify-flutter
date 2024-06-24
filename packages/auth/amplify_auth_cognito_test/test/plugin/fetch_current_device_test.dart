@@ -10,7 +10,6 @@ import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:smithy/ast.dart';
 import 'package:test/test.dart';
 
 void main() {
