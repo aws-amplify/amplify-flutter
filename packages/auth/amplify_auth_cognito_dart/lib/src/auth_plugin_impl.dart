@@ -31,6 +31,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         ForgotPasswordRequest,
         GetUserAttributeVerificationCodeRequest,
         GetUserRequest,
+        GetDeviceRequest,
         ListDevicesRequest,
         ResendConfirmationCodeRequest,
         UserContextDataType,
@@ -97,6 +98,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   late CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine(
     dependencyManager: dependencies,
   );
+
   StreamSubscription<AuthState>? _stateMachineSubscription;
 
   /// The underlying state machine, for use in subclasses.
@@ -971,10 +973,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
   }
 
-  Future<CognitoDevice> getCurrentDevice() async {
-      throw UnimplementedError();
-    }
-
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     final tokens = await stateMachine.getUserPoolTokens();
@@ -996,6 +994,83 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         )
         .result;
   }
+
+  @override
+  Future<CognitoDevice> getCurrentDevice() async {
+    final tokens = await stateMachine.getUserPoolTokens();
+    final deviceSecrets = await _deviceRepo.get(tokens.username);
+    final deviceKey = deviceSecrets?.deviceKey;
+    if (deviceSecrets == null || deviceKey == null) {
+      throw const DeviceNotTrackedException();
+    }
+
+    try {
+      final resp = await _cognitoIdp
+          .getDevice(
+            cognito.GetDeviceRequest(
+              deviceKey: deviceKey,
+              accessToken: tokens.accessToken.raw,
+            ),
+          )
+          .result;
+
+      final device = resp.device;
+      final attributes =
+          device.deviceAttributes ?? const <cognito.AttributeType>[];
+
+      return CognitoDevice(
+        id: deviceKey,
+        attributes: {
+          for (final attribute in attributes)
+            attribute.name: attribute.value ?? '',
+        },
+        createdDate: device.deviceCreateDate,
+        lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+        lastModifiedDate: device.deviceLastModifiedDate,
+      );
+    } on Exception catch (error) {
+      throw AuthException.fromException(error);
+    }
+  }
+
+
+  // @override
+  // Future<CognitoDevice> getCurrentDevice() async {
+  //   final tokens = await stateMachine.getUserPoolTokens();
+  //   final deviceSecrets = await _deviceRepo.get(tokens.username);
+  //   final deviceKey = deviceSecrets?.deviceKey;
+  //   if (deviceSecrets == null || deviceKey == null) {
+  //     throw const DeviceNotTrackedException();
+  //   }
+  //
+  //   try {
+  //     final resp = await _cognitoIdp
+  //         .getDevice(
+  //           cognito.GetDeviceRequest(
+  //             deviceKey: deviceKey,
+  //             accessToken: tokens.accessToken.raw,
+  //           ),
+  //         )
+  //         .result;
+  //
+  //     final device = resp.device;
+  //     final attributes =
+  //         device.deviceAttributes ?? const <cognito.AttributeType>[];
+  //
+  //     return CognitoDevice(
+  //       id: deviceKey,
+  //       attributes: {
+  //         for (final attribute in attributes)
+  //           attribute.name: attribute.value ?? '',
+  //       },
+  //       createdDate: device.deviceCreateDate,
+  //       lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+  //       lastModifiedDate: device.deviceLastModifiedDate,
+  //     );
+  //   } on AWSHttpException catch (error) {
+  //     throw error.toNetworkException();
+  //   }
+  // }
 
   @override
   Future<List<CognitoDevice>> fetchDevices() async {
