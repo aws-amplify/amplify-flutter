@@ -56,6 +56,8 @@ class WorkerBeeGenerator extends GeneratorForAnnotation<WorkerBee> {
     final requestTypeEl = requestType.element;
     if (requestTypeEl == null || requestTypeEl is! ClassElement) {
       final requestTypeName =
+          // TODO(Jordan-Nelson): remove use of `withNullability` when min dart version is 3.4 or higher
+          // ignore: deprecated_member_use
           requestType.getDisplayString(withNullability: true);
       throw ArgumentError('Could not find element for $requestTypeName.');
     }
