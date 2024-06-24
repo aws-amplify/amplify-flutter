@@ -113,40 +113,8 @@ abstract class AmplifyClass {
     }
     late final AmplifyOutputs amplifyOutputs;
     try {
-      final Map<String, Object?> json;
-      late final AmplifyConfig amplifyConfig;
-      try {
-        json = jsonDecode(configuration) as Map<String, Object?>;
-      } on Object catch (e) {
-        throw ConfigurationError(
-          'The provided configuration is not a valid json. '
-          'Check underlyingException.',
-          recoverySuggestion:
-              'Inspect your amplify_output.dart or amplifyconfiguration.dart '
-              'and ensure that the string is proper json',
-          underlyingException: e,
-        );
-      }
-      try {
-        amplifyOutputs = AmplifyOutputs.fromJson(json);
-      } on Object {
-        try {
-          amplifyConfig = AmplifyConfig.fromJson(json);
-          amplifyOutputs = amplifyConfig.toAmplifyOutputs();
-        } on Object catch (e) {
-          throw ConfigurationError(
-            'The provided configuration can not be decoded to AmplifyOutputs '
-            'or AmplifyConfig. '
-            'Check underlyingException.',
-            recoverySuggestion:
-                'If using Amplify Gen 2 ensure that the json string '
-                'can be decoded to AmplifyOutputs type. '
-                'If using Amplify Gen 1 ensure that the json '
-                'string can be decoded to AmplifyConfig type.',
-            underlyingException: e,
-          );
-        }
-      }
+      final json = _decodeJson(configuration);
+      amplifyOutputs = _parseJsonConfig(json);
       await _configurePlugins(amplifyOutputs);
       _configCompleter.complete(amplifyOutputs);
     } on ConfigurationError catch (e, st) {
@@ -169,6 +137,44 @@ abstract class AmplifyClass {
       _configCompleter.complete(amplifyOutputs);
       _configCompleter = Completer();
       rethrow;
+    }
+  }
+
+  AmplifyOutputs _parseJsonConfig(Map<String, Object?> json) {
+    try {
+      return AmplifyOutputs.fromJson(json);
+    } on Object {
+      try {
+        final amplifyConfig = AmplifyConfig.fromJson(json);
+        return amplifyConfig.toAmplifyOutputs();
+      } on Object catch (e) {
+        throw ConfigurationError(
+          'The provided configuration can not be decoded to AmplifyOutputs '
+          'or AmplifyConfig. '
+          'Check underlyingException.',
+          recoverySuggestion:
+              'If using Amplify Gen 2 ensure that the json string '
+              'can be decoded to AmplifyOutputs type. '
+              'If using Amplify Gen 1 ensure that the json '
+              'string can be decoded to AmplifyConfig type.',
+          underlyingException: e,
+        );
+      }
+    }
+  }
+
+  Map<String, Object?> _decodeJson(String configuration) {
+    try {
+      return jsonDecode(configuration) as Map<String, Object?>;
+    } on Object catch (e) {
+      throw ConfigurationError(
+        'The provided configuration is not a valid json. '
+        'Check underlyingException.',
+        recoverySuggestion:
+            'Inspect your amplify_outputs.dart or amplifyconfiguration.dart '
+            'and ensure that the string is proper json',
+        underlyingException: e,
+      );
     }
   }
 

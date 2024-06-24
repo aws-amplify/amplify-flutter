@@ -64,10 +64,11 @@ final class ConfigurationStateMachine
 
   /// State machine callback for the [Configure] event.
   Future<void> onConfigure(Configure event) async {
-    if (event.config.auth == null) {
+    final authOutputs = event.config.auth;
+    if (authOutputs == null) {
       throw ConfigurationError('No Cognito plugin config available');
     }
-    addInstance(event.config.auth!);
+    addInstance(authOutputs);
     final config = AuthConfiguration.fromAmplifyOutputs(event.config);
     addInstance(config);
 

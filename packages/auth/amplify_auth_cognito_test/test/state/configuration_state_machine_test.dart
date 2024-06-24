@@ -13,7 +13,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-final badConfig = const AmplifyConfig().toAmplifyOutputs();
+const badConfig = AmplifyOutputs(version: '1');
 
 void main() {
   late CognitoAuthStateMachine stateMachine;
@@ -50,7 +50,7 @@ void main() {
 
       expect(
         stateMachine
-            .dispatch(ConfigurationEvent.configure(badConfig))
+            .dispatch(const ConfigurationEvent.configure(badConfig))
             .completed,
         throwsA(isA<ConfigurationError>()),
       );

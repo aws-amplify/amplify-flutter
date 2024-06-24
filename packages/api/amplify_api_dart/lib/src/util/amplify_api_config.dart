@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 const _slash = '/';
@@ -44,35 +43,5 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
       path = path.substring(1);
     }
     return path.split(_slash);
-  }
-}
-
-/// Allows getting desired endpoint more easily.
-@internal
-extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
-  /// Finds the first endpoint matching the type and apiName.
-  EndpointConfig getEndpoint({
-    required EndpointType type,
-    String? apiName,
-  }) {
-    final typeConfigs =
-        entries.where((config) => config.value.endpointType == type);
-    if (apiName != null) {
-      final config = typeConfigs.firstWhere(
-        (config) => config.key == apiName,
-        orElse: () => throw ConfigurationError(
-          'No API endpoint found matching apiName $apiName.',
-        ),
-      );
-      return EndpointConfig(config.key, config.value);
-    }
-    final onlyConfig = typeConfigs.singleOrNull;
-    if (onlyConfig == null) {
-      throw ConfigurationError(
-        'Multiple API endpoints defined. Pass apiName parameter to specify '
-        'which one to use.',
-      );
-    }
-    return EndpointConfig(onlyConfig.key, onlyConfig.value);
   }
 }
