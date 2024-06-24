@@ -259,14 +259,23 @@ void main() {
       });
 
       asyncTest(
-          'fetchCurrentDevice throws a DeviceNotTrackedException when no device exists.',
+        'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotton.',
+        (_) async {
+      expect(await getDeviceState(), DeviceState.remembered);
+      await Amplify.Auth.forgetDevice();
+      expect(
+        () async => Amplify.Auth.fetchCurrentDevice(),
+        throwsA(isA<DeviceNotTrackedException>),
+      );
+      });
+
+      asyncTest(
+          'fetchCurrentDevice throws a SignedOutException when device signs out.',
           (_) async {
-        final previousDeviceKey = await getDeviceKey();
         await signOutUser();
-        await deleteDevice(cognitoUsername, previousDeviceKey!);
         expect(
           () async => Amplify.Auth.fetchCurrentDevice(),
-          throwsA(isA<DeviceNotTrackedException>),
+          throwsA(isA<SignedOutException>),
         );
       });
 
