@@ -104,6 +104,11 @@ Future<List<AuthUserAttribute>> fetchUserAttributes() async {
   return Amplify.Auth.fetchUserAttributes();
 }
 
+
+Future<AuthDevice> fetchCurrentDevice() async {
+  return Amplify.Auth.fetchCurrentDevice();
+}
+
 Future<List<AuthDevice>> fetchDevices() async {
   return Amplify.Auth.fetchDevices();
 }
