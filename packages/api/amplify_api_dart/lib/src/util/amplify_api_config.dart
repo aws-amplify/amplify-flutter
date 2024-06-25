@@ -8,6 +8,8 @@ const _slash = '/';
 
 /// Allows formatting the URL from the config with new paths/query params.
 @internal
+
+// TODO(nikahsn): refactor EndpointConfig to not use AWSApiConfig type
 class EndpointConfig with AWSEquatable<EndpointConfig> {
   // ignore: public_member_api_docs
   const EndpointConfig(this.name, this.config);

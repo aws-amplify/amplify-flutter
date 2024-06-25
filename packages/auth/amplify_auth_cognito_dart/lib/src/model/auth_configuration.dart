@@ -10,6 +10,8 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito.auth_configuration}
 /// Union class for auth configurations of the different types.
 /// {@endtemplate}
+
+// TODO(nikahsn): refactor AuthConfiguration to not use AmplifyConfig types
 class AuthConfiguration with AWSEquatable<AuthConfiguration> {
   const AuthConfiguration._({
     this.userPoolConfig,
