@@ -1376,7 +1376,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     final device = await Amplify.Auth.fetchCurrentDevice();
   ///     safePrint('Device: $device');
   ///   } on AuthException catch (e) {
-  ///     safePrint('Get current device failed with error: $e');
+  ///     safePrint('Fetch current device failed with error: $e');
   ///   }
   /// }
   /// ```
