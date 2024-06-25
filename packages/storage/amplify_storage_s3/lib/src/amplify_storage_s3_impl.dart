@@ -21,7 +21,7 @@ class AmplifyStorageS3 extends AmplifyStorageS3Dart {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     await super.configure(config: config, authProviderRepo: authProviderRepo);

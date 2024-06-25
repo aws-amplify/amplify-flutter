@@ -205,10 +205,10 @@ abstract class AmplifyPushNotifications
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final notificationsConfig = config?.notifications?.awsPlugin;
+    final notificationsConfig = config?.notifications;
     if (notificationsConfig == null) {
       throw const PushNotificationException(
         'No Pinpoint plugin config available',

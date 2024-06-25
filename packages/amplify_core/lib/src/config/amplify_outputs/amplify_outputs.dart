@@ -55,6 +55,7 @@ class AmplifyOutputs
 
   /// {@macro amplify_core.amplify_outputs.rest_api_outputs}
   @internal
+  @JsonKey(includeToJson: false)
   final Map<String, RestApiOutputs>? restApi;
 
   /// {@macro amplify_core.amplify_outputs.notifications_outputs}
@@ -119,6 +120,6 @@ Object? _dataToJson(Map<String, DataOutputs>? outputs) {
       ' Amplify Outputs does not support multiple GraphQL endpoints.',
     );
   }
-  final data = outputs[_dataPluginName];
+  final data = outputs.values.firstOrNull;
   return data?.toJson();
 }
