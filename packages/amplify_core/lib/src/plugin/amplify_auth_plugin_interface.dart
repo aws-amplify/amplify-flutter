@@ -189,6 +189,11 @@ abstract class AuthPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('forgetDevice() has not been implemented.');
   }
 
+  /// {@macro amplify_core.amplify_auth_category.fetch_current_device}
+  Future<AuthDevice> fetchCurrentDevice() {
+    throw UnimplementedError('fetchCurrentDevice() has not been implemented.');
+  }
+
   /// {@macro amplify_core.amplify_auth_category.fetch_devices}
   Future<List<AuthDevice>> fetchDevices() {
     throw UnimplementedError('fetchDevices() has not been implemented.');
