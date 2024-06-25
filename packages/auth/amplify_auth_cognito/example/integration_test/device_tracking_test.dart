@@ -259,7 +259,7 @@ void main() {
       });
 
       asyncTest(
-          'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotton.',
+          'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotten.',
           (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
         await Amplify.Auth.forgetDevice();
