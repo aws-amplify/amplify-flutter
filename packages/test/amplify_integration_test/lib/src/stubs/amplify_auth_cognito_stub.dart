@@ -369,6 +369,13 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }
 
   @override
+  Future<AuthDevice> fetchCurrentDevice() async {
+    throw UnimplementedError(
+      'fetchCurrentDevice is not implemented.',
+    );
+  }
+
+  @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     throw UnimplementedError(
       'forgetDevice is not implemented.',
@@ -391,7 +398,6 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 }
 
 class MockCognitoUser {
-
   factory MockCognitoUser({
     required String username,
     required String password,
