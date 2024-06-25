@@ -72,7 +72,7 @@ void main() {
 class ConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw ConfigurationError('Could not configure');
@@ -82,7 +82,7 @@ class ConfigErrorPlugin extends AnalyticsPluginInterface {
 class NonConfigErrorPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) {
     throw const UnknownException('Could not configure');
@@ -92,7 +92,7 @@ class NonConfigErrorPlugin extends AnalyticsPluginInterface {
 class SuccessPlugin extends AnalyticsPluginInterface {
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     return;
@@ -107,7 +107,7 @@ class AsyncAddPlugin extends AnalyticsPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _configureCompleter.complete();

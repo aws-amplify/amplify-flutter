@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/dom_helper.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
@@ -11,7 +13,7 @@ S3DownloadFileOperation downloadFile({
   required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
+  required StorageOutputs storageOutputs,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
@@ -28,7 +30,7 @@ S3DownloadFileOperation downloadFile({
       path: path,
       localFile: localFile,
       options: options,
-      s3pluginConfig: s3pluginConfig,
+      storageOutputs: storageOutputs,
       storageS3Service: storageS3Service,
     ),
     // In Web the download process is managed by the browser so the operation
@@ -43,7 +45,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   required StoragePath path,
   required AWSFile localFile,
   required StorageDownloadFileOptions options,
-  required S3PluginConfig s3pluginConfig,
+  required StorageOutputs storageOutputs,
   required StorageS3Service storageS3Service,
 }) async {
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
