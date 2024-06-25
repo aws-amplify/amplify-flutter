@@ -36,6 +36,7 @@ const zAmplifyOutputsSerializable = JsonSerializable(
   includeIfNull: false,
   explicitToJson: true,
   fieldRename: FieldRename.snake,
+  checked: true,
   converters: [
     CognitoUserAttributeKeyConverter(),
     CognitoUserAttributeMapConverter(),

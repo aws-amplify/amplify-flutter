@@ -9,9 +9,20 @@ part of 'storage_outputs.dart';
 // **************************************************************************
 
 StorageOutputs _$StorageOutputsFromJson(Map<String, dynamic> json) =>
-    StorageOutputs(
-      awsRegion: json['aws_region'] as String,
-      bucketName: json['bucket_name'] as String,
+    $checkedCreate(
+      'StorageOutputs',
+      json,
+      ($checkedConvert) {
+        final val = StorageOutputs(
+          awsRegion: $checkedConvert('aws_region', (v) => v as String),
+          bucketName: $checkedConvert('bucket_name', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'awsRegion': 'aws_region',
+        'bucketName': 'bucket_name'
+      },
     );
 
 Map<String, dynamic> _$StorageOutputsToJson(StorageOutputs instance) =>
