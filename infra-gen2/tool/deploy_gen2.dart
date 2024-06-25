@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 
 /// This is the source of truth for the infra-gen2 backends
@@ -28,9 +29,9 @@ const List<AmplifyBackendGroup> infraConfig = [
     defaultOutput: 'packages/api/amplify_api/example/lib',
     backends: [
       AmplifyBackend(
-        name: 'defaultMultiAuth',
-        identifier: 'defaultMultiAuth',
-        pathToSource: 'infra-gen2/backends/api/defaultMultiAuth',
+        name: 'apiMultiAuth',
+        identifier: 'apiMultiAuth',
+        pathToSource: 'infra-gen2/backends/api/apiMultiAuth',
       ),
     ],
   ),
@@ -58,7 +59,10 @@ const List<AmplifyBackendGroup> infraConfig = [
 
 const pathToBackends = 'infra-gen2/backends';
 
-void main() {
+void main(List<String> arguments) async {
+  final args = _parseArgs(arguments);
+  final verbose = args.flag('verbose');
+
   final bucketNames = <String>[];
   print('🚀 Deploying Gen 2 backends!');
   for (final backendGroup in infraConfig) {
@@ -79,10 +83,11 @@ void main() {
     print('🏃 Running sandbox deployment for $categoryName');
     for (final backend in backendGroup.backends) {
       final backendName = backend.name;
-      _deployBackend(
+      await _deployBackend(
         backendGroup.category,
         backend,
         amplifyOutputs.path.replaceFirst('amplify_outputs.dart', ''),
+        verbose,
       );
 
       // Skip if there is only one backend
@@ -141,18 +146,31 @@ void main() {
   print('🪣 S3 Bucket Names: $bucketNames');
 }
 
+ArgResults _parseArgs(List<String> args) {
+  final parser = ArgParser()
+    ..addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'Run command in verbose mode',
+      defaultsTo: false,
+    );
+
+  return parser.parse(args);
+}
+
 /// Deploy Sandbox for a given backend backend
-void _deployBackend(
+Future<void> _deployBackend(
   Category category,
   AmplifyBackend backend,
   String outputPath,
-) {
+  bool verbose,
+) async {
   print(
     '🏖️  Deploying ${category.name} ${backend.name}, this may take a while...',
   );
 
   // Deploy the backend
-  final deployBackend = Process.runSync(
+  final process = await Process.start(
     'npx',
     [
       'ampx',
@@ -167,13 +185,20 @@ void _deployBackend(
       '--once',
     ],
     workingDirectory: p.join(repoRoot.path, backend.pathToSource),
-    stdoutEncoding: utf8,
-    stderrEncoding: utf8,
   );
-  if (deployBackend.exitCode != 0) {
+
+  if (verbose) {
+    process.stdout.transform(const SystemEncoding().decoder).listen(print);
+    process.stderr.transform(const SystemEncoding().decoder).listen((data) {
+      print('❌ Error: $data');
+    });
+  }
+
+  final exitCode = await process.exitCode;
+
+  if (exitCode != 0) {
     throw Exception(
-      '❌ Error deploying ${category.name}: '
-      '${deployBackend.stdout}\n${deployBackend.stderr}',
+      '❌ Error deploying ${category.name} ${backend.identifier} sandbox',
     );
   } else {
     print(
