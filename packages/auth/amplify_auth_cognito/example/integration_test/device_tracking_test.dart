@@ -263,9 +263,9 @@ void main() {
           (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
         await Amplify.Auth.forgetDevice();
-        expect(
-          () async => Amplify.Auth.fetchCurrentDevice(),
-          throwsA(isA<DeviceNotTrackedException>),
+        await expectLater(
+          Amplify.Auth.fetchCurrentDevice,
+          throwsA(isA<DeviceNotTrackedException>()),
         );
       });
 
@@ -273,9 +273,9 @@ void main() {
           'fetchCurrentDevice throws a SignedOutException when device signs out.',
           (_) async {
         await signOutUser();
-        expect(
-          () async => Amplify.Auth.fetchCurrentDevice(),
-          throwsA(isA<SignedOutException>),
+        await expectLater(
+          Amplify.Auth.fetchCurrentDevice,
+          throwsA(isA<SignedOutException>()),
         );
       });
 
