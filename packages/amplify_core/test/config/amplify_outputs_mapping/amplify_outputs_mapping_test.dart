@@ -55,34 +55,54 @@ void main() {
       expect(restUrls, ['fake-rest-url-1', 'fake-rest-url-2']);
     });
 
-    test('maps config with all oauth options', () async {
-      final configJson = jsonDecode(oauthConfig) as Map<String, Object?>;
-      final amplifyConfig = AmplifyConfig.fromJson(configJson);
-      final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-      final oauth = mappedOutputs.auth?.oauth as OAuthOutputs;
-      expect(oauth.redirectSignInUri, containsAll([signInUri1, signInUri2]));
-      expect(
-        oauth.redirectSignInUriQueryParameters,
-        {signInQueryParamKey: signInQueryParamValue},
-      );
-      expect(oauth.redirectSignOutUri, containsAll([signOutUri1, signOutUri2]));
-      expect(
-        oauth.redirectSignOutUriQueryParameters,
-        {signOutQueryParamKey: signOutQueryParamValue},
-      );
-      expect(oauth.tokenUri, tokenUri);
-      expect(
-        oauth.tokenUriQueryParameters,
-        {tokenQueryParamKey: tokenQueryParamValue},
-      );
-      expect(oauth.scopes, containsAll([scope1, scope2]));
-    });
+    group('auth', () {
+      test('maps config with all oauth options', () async {
+        final configJson = jsonDecode(oauthConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        final oauth = mappedOutputs.auth?.oauth as OAuthOutputs;
+        expect(
+          oauth.redirectSignInUri,
+          containsAll([signInRedirectUri1, signInRedirectUri2]),
+        );
+        expect(oauth.signInUri, signInUri);
+        expect(
+          oauth.signInUriQueryParameters,
+          {signInQueryParamKey: signInQueryParamValue},
+        );
+        expect(
+          oauth.redirectSignOutUri,
+          containsAll([signOutRedirectUri1, signOutRedirectUri2]),
+        );
+        expect(oauth.signOutUri, signOutUri);
+        expect(
+          oauth.signOutUriQueryParameters,
+          {signOutQueryParamKey: signOutQueryParamValue},
+        );
+        expect(oauth.tokenUri, tokenUri);
+        expect(
+          oauth.tokenUriQueryParameters,
+          {tokenQueryParamKey: tokenQueryParamValue},
+        );
+        expect(oauth.scopes, containsAll([scope1, scope2]));
+      });
 
-    test('maps config with app client secret', () async {
-      final configJson = jsonDecode(clientSecretConfig) as Map<String, Object?>;
-      final amplifyConfig = AmplifyConfig.fromJson(configJson);
-      final mappedOutputs = amplifyConfig.toAmplifyOutputs();
-      expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
+      test('maps config with app client secret', () async {
+        final configJson =
+            jsonDecode(clientSecretConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.appClientSecret, appClientSecret);
+      });
+
+      test('maps config with only the required options for a user pool',
+          () async {
+        final configJson =
+            jsonDecode(userPoolOnlyConfig) as Map<String, Object?>;
+        final amplifyConfig = AmplifyConfig.fromJson(configJson);
+        final mappedOutputs = amplifyConfig.toAmplifyOutputs();
+        expect(mappedOutputs.auth?.passwordPolicy, null);
+      });
     });
   });
 }
@@ -127,12 +147,14 @@ const multiApiConfig = '''{
 ''';
 
 const oAuthDomain = 'fake-web-domain-dev.auth.us-east-1.amazoncognito.com';
-const signInUri1 = 'fake-sign-in-uri-1';
-const signInUri2 = 'fake-sign-in-uri-2';
+const signInRedirectUri1 = 'fake-sign-in-redirect-uri-1';
+const signInRedirectUri2 = 'fake-sign-in-redirect-uri-2';
+const signInUri = 'fake-sign-in-uri';
 const signInQueryParamKey = 'fake-sign-in-query-param-key';
 const signInQueryParamValue = 'fake-sign-in-query-param-value';
-const signOutUri1 = 'fake-sign-ou-uri-1';
-const signOutUri2 = 'fake-sign-out-uri-2';
+const signOutRedirectUri1 = 'fake-sign-out-redirect-uri-1';
+const signOutRedirectUri2 = 'fake-sign-out-redirect-uri-2';
+const signOutUri = 'fake-sign-out-uri';
 const signOutQueryParamKey = 'fake-sign-out-query-param-key';
 const signOutQueryParamValue = 'fake-sign-out-query-param-value';
 const tokenUri = 'fake-token-uri';
@@ -160,11 +182,13 @@ const oauthConfig = '''{
             "OAuth": {
               "WebDomain": "$oAuthDomain",
               "AppClientId": "fake-client-id",
-              "SignInRedirectURI": "$signInUri1,$signInUri2",
+              "SignInRedirectURI": "$signInRedirectUri1,$signInRedirectUri2",
+              "SignInURI": "$signInUri",
               "SignInURIQueryParameters": {
                 "$signInQueryParamKey": "$signInQueryParamValue"
               },
-              "SignOutRedirectURI": "$signOutUri1,$signOutUri2",
+              "SignOutRedirectURI": "$signOutRedirectUri1,$signOutRedirectUri2",
+              "SignOutURI": "$signOutUri",
               "SignOutURIQueryParameters": {
                 "$signOutQueryParamKey": "$signOutQueryParamValue"
               },
@@ -196,6 +220,23 @@ const clientSecretConfig = '''{
             "PoolId": "us-east-fake-pool-id",
             "AppClientId": "fake-client-id",
             "AppClientSecret": "$appClientSecret",
+            "Region": "us-east-1"
+          }
+        }
+      }
+    }
+  }
+}''';
+
+/// hand written config with only the minimal required options for a user pool
+const userPoolOnlyConfig = '''{
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "CognitoUserPool": {
+          "Default": {
+            "PoolId": "us-east-fake-pool-id",
+            "AppClientId": "fake-client-id",
             "Region": "us-east-1"
           }
         }
