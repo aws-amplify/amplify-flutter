@@ -15068,7 +15068,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "sudo", A._setArrayType(["xcodes", "runtimes", "install", $async$self.iosVersion, "--no-color"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "sudo", A._setArrayType(["xcrun", "simctl", "list", "runtimes", "&&", "sudo", "xcodes", "runtimes", "install", $async$self.iosVersion, "--no-color"], type$.JSArray_String), true), $async$call$0);
             case 2:
               // returning from await.
               if ($async$result.exitCode !== 0)
