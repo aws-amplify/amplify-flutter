@@ -180,8 +180,9 @@ void main() {
           ),
           reason: "Server won't close until a valid redirect is performed",
         );
+
         await expectLater(
-          client.get(redirect),
+          () => client.get(redirect),
           throwsA(isA<http.ClientException>()),
           reason: 'Server should be closed after successful redirect',
         );
