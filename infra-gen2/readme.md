@@ -25,9 +25,9 @@ If this is your first deployment, grab a snack, it will be a few minutes for eac
 
 1. Create a new directory for the backend.
 2. Navigate via command line to the directory and run: `$ npm create amplify@latest -y`
-3. Review [NPM Workspaces](#NPM-Workspaces)
+3. Review [NPM Workspaces](#npm-workspaces)
 4. Modify backend as desired.
-5. Add an backend entry to `infraConfig` inside ` tool/deploy_gen2.dart`
+5. Add an backend entry to `infraConfig` inside `tool/deploy_gen2.dart`
 6. Run and deploy backend with `dart run tool/deploy_gen2.dart`
 
 ## Deploying to the CI team account
