@@ -31,6 +31,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         ForgotPasswordRequest,
         GetUserAttributeVerificationCodeRequest,
         GetUserRequest,
+        GetDeviceRequest,
         ListDevicesRequest,
         ResendConfirmationCodeRequest,
         UserContextDataType,
@@ -39,6 +40,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/get_device_response.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
@@ -97,6 +99,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   late CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine(
     dependencyManager: dependencies,
   );
+
   StreamSubscription<AuthState>? _stateMachineSubscription;
 
   /// The underlying state machine, for use in subclasses.
@@ -991,6 +994,46 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
           ),
         )
         .result;
+  }
+
+  @override
+  Future<CognitoDevice> fetchCurrentDevice() async {
+    final tokens = await stateMachine.getUserPoolTokens();
+    final deviceSecrets = await _deviceRepo.get(tokens.username);
+    final deviceKey = deviceSecrets?.deviceKey;
+    if (deviceSecrets == null || deviceKey == null) {
+      throw const DeviceNotTrackedException();
+    }
+
+    late GetDeviceResponse resp;
+
+    try {
+      resp = await _cognitoIdp
+          .getDevice(
+            cognito.GetDeviceRequest(
+              deviceKey: deviceKey,
+              accessToken: tokens.accessToken.raw,
+            ),
+          )
+          .result;
+    } on Exception catch (error) {
+      throw AuthException.fromException(error);
+    }
+
+    final device = resp.device;
+    final attributes =
+        device.deviceAttributes ?? const <cognito.AttributeType>[];
+
+    return CognitoDevice(
+      id: deviceKey,
+      attributes: {
+        for (final attribute in attributes)
+          attribute.name: attribute.value ?? '',
+      },
+      createdDate: device.deviceCreateDate,
+      lastAuthenticatedDate: device.deviceLastAuthenticatedDate,
+      lastModifiedDate: device.deviceLastModifiedDate,
+    );
   }
 
   @override
