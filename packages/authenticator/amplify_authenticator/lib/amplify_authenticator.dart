@@ -32,7 +32,6 @@ import 'package:amplify_authenticator/src/utils/dial_code.dart';
 import 'package:amplify_authenticator/src/utils/dial_code_options.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -644,7 +643,7 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
-  List<String> missingConfigValues(core.AmplifyOutputs? config) {
+  List<String> missingConfigValues(AmplifyOutputs? config) {
     final missingValues = <String>[];
     final cognitoPlugin = config?.auth;
     if (cognitoPlugin == null) {
