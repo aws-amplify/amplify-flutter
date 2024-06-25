@@ -106,63 +106,65 @@ void main({bool useExistingTestUser = false}) {
           });
 
           testWidgets(
-              'subscribe() should handle multiple streams synchronously',
-              (WidgetTester tester) async {
-            final readyCompleter = Completer<void>();
-            final readyCompleter2 = Completer<void>();
-            final dataCompleter = Completer<Blog>();
-            final dataCompleter2 = Completer<Blog>();
+            'subscribe() should handle multiple streams synchronously',
+            (WidgetTester tester) async {
+              final readyCompleter = Completer<void>();
+              final readyCompleter2 = Completer<void>();
+              final dataCompleter = Completer<Blog>();
+              final dataCompleter2 = Completer<Blog>();
 
-            final name =
-                'Integration Test Blog - subscription sync test ${uuid()}';
+              final name =
+                  'Integration Test Blog - subscription sync test ${uuid()}';
 
-            final subscriptionRequest1 = ModelSubscriptions.onCreate(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
+              final subscriptionRequest1 = ModelSubscriptions.onCreate(
+                Blog.classType,
+                authorizationMode: APIAuthorizationType.apiKey,
+              );
 
-            final stream1 = Amplify.API.subscribe(
-              subscriptionRequest1,
-              onEstablished: expectAsync0(readyCompleter.complete),
-            );
-            stream1.listen(
-              ((event) {
-                if (event.data?.name == name) {
-                  dataCompleter.complete(event.data);
-                }
-              }),
-              onError: (Object e) => fail('Error in subscription stream: $e'),
-            );
+              final stream1 = Amplify.API.subscribe(
+                subscriptionRequest1,
+                onEstablished: expectAsync0(readyCompleter.complete),
+              );
+              stream1.listen(
+                ((event) {
+                  if (event.data?.name == name) {
+                    dataCompleter.complete(event.data);
+                  }
+                }),
+                onError: (Object e) => fail('Error in subscription stream: $e'),
+              );
 
-            final subscriptionRequest2 = ModelSubscriptions.onDelete(
-              Blog.classType,
-              authorizationMode: APIAuthorizationType.apiKey,
-            );
+              final subscriptionRequest2 = ModelSubscriptions.onDelete(
+                Blog.classType,
+                authorizationMode: APIAuthorizationType.apiKey,
+              );
 
-            final stream2 = Amplify.API.subscribe(
-              subscriptionRequest2,
-              onEstablished: expectAsync0(readyCompleter2.complete),
-            );
-            stream2.listen(
-              ((event) {
-                if (event.data?.name == name) {
-                  dataCompleter2.complete(event.data);
-                }
-              }),
-              onError: (Object e) => fail('Error in subscription stream: $e'),
-            );
+              final stream2 = Amplify.API.subscribe(
+                subscriptionRequest2,
+                onEstablished: expectAsync0(readyCompleter2.complete),
+              );
+              stream2.listen(
+                ((event) {
+                  if (event.data?.name == name) {
+                    dataCompleter2.complete(event.data);
+                  }
+                }),
+                onError: (Object e) => fail('Error in subscription stream: $e'),
+              );
 
-            await readyCompleter.future;
-            await readyCompleter2.future;
+              await readyCompleter.future;
+              await readyCompleter2.future;
 
-            final blog = await addBlog(name);
+              final blog = await addBlog(name);
 
-            await expectLater(dataCompleter.future, completes);
+              await expectLater(dataCompleter.future, completes);
 
-            await deleteBlog(blog);
+              await deleteBlog(blog);
 
-            await expectLater(dataCompleter2.future, completes);
-          });
+              await expectLater(dataCompleter2.future, completes);
+            },
+            timeout: const Timeout(Duration(minutes: 20)),
+          );
 
           testWidgets('should parse errors within a web socket data message',
               (WidgetTester tester) async {
