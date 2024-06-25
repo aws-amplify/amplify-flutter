@@ -61,6 +61,7 @@ void main() {
       APIAuthorizationType.iam.authProviderToken,
       TestIamAuthProvider(),
     );
+  // TODO(nikahsn): update to use AmplifyOutputs config
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
   );

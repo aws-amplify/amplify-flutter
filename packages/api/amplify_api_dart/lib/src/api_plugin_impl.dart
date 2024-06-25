@@ -123,8 +123,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     _dataConfig?.forEach((key, value) {
       // Check the presence of apiKey (not auth type) because other modes might
       // have a key if not the primary auth mode.
-      if (value.apiKey != null ||
-          value.defaultAuthorizationType == APIAuthorizationType.apiKey ||
+      if (value.defaultAuthorizationType == APIAuthorizationType.apiKey ||
           value.authorizationTypes
               .any((element) => element == APIAuthorizationType.apiKey)) {
         _authProviderRepo.registerAuthProvider(

@@ -25,7 +25,7 @@ const hostedUiConfig = CognitoOAuthConfig(
   signOutRedirectUri: redirectUri,
   webDomain: webDomain,
 );
-
+// TODO(nikahsn): update to use AmplifyOutputs config
 final userPoolOnlyConfig = AmplifyConfig(
   auth: AuthConfig.cognito(
     userPoolConfig: const CognitoUserPoolConfig(

@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3/src/utils/app_path_provider/app_path_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,17 +13,12 @@ import 'test_utils/test_token_provider.dart';
 
 void main() {
   group('AmplifyStorageS3', () {
-    final testConfig = const AmplifyConfig(
-      storage: StorageConfig(
-        plugins: {
-          S3PluginConfig.pluginKey: S3PluginConfig(
-            bucket: '123',
-            region: 'west-2',
-          ),
-        },
-      ),
-      // ignore: invalid_use_of_internal_member
-    ).toAmplifyOutputs();
+    // ignore: invalid_use_of_internal_member
+    const testConfig = AmplifyOutputs(
+      version: '1',
+      storage: StorageOutputs(bucketName: '123', awsRegion: 'west-2'),
+    );
+    // ignore: invalid_use_of_internal_member
     final testAuthProviderRepo = AmplifyAuthProviderRepository()
       ..registerAuthProvider(
         APIAuthorizationType.userPools.authProviderToken,
