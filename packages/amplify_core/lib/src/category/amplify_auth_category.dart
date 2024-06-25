@@ -1359,7 +1359,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// Retrieves the current device.
   ///
   /// For more information about device tracking, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
+  /// [Amplify docs](https://docs.amplify.aws/flutter/build-a-backend/auth/manage-users/manage-devices/#fetch-current-device).
   ///
   /// ## Examples
   ///
