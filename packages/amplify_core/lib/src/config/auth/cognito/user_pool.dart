@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
+import 'package:meta/meta.dart';
 
 part 'user_pool.g.dart';
 
@@ -16,6 +18,29 @@ class CognitoUserPoolConfig
     this.hostedUI,
     this.endpoint,
   });
+
+  @internal
+  factory CognitoUserPoolConfig.fromAuthOutputs(AuthOutputs authOutputs) {
+    if (authOutputs.userPoolId == null) {
+      throw ConfigurationError(
+        'Invalid Cognito User Pool config: No User Pool Id found',
+      );
+    }
+    if (authOutputs.userPoolClientId == null) {
+      throw ConfigurationError(
+        'Invalid Cognito User Pool config: No User Pool Client Id found',
+      );
+    }
+    return CognitoUserPoolConfig(
+      poolId: authOutputs.userPoolId!,
+      appClientId: authOutputs.userPoolClientId!,
+      appClientSecret: authOutputs.appClientSecret,
+      region: authOutputs.awsRegion,
+      hostedUI: authOutputs.oauth == null
+          ? null
+          : CognitoOAuthConfig.fromAuthOutputs(authOutputs),
+    );
+  }
 
   factory CognitoUserPoolConfig.fromJson(Map<String, Object?> json) =>
       _$CognitoUserPoolConfigFromJson(json);

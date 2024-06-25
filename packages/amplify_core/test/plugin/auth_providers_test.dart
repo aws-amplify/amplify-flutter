@@ -42,7 +42,7 @@ class AuthPlugin extends Fake implements AuthPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _authProvider = authProviderRepo.getAuthProvider(
@@ -72,7 +72,7 @@ class ApiPlugin extends Fake implements APIPluginInterface {
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     _authProvider = authProviderRepo.getAuthProvider(
@@ -83,7 +83,7 @@ class ApiPlugin extends Fake implements APIPluginInterface {
 
 void main() {
   group('AuthProviderRepository', () {
-    test('allows plugin interdependenices', () async {
+    test('allows plugin interdependencies', () async {
       final apiPlugin = ApiPlugin();
       final authPlugin = AuthPlugin();
 

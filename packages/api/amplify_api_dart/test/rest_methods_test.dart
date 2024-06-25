@@ -40,11 +40,14 @@ void main() {
         APIAuthorizationType.iam.authProviderToken,
         TestIamAuthProvider(),
       );
+    // TODO(nikahsn): update to use AmplifyOutputs config
     final config = AmplifyConfig.fromJson(
       jsonDecode(amplifyconfig) as Map<String, Object?>,
     );
+    // ignore: invalid_use_of_internal_member
+    final amplifyOutputs = config.toAmplifyOutputs();
     await apiPlugin.configure(
-      config: config,
+      config: amplifyOutputs,
       authProviderRepo: authProviderRepo,
     );
 

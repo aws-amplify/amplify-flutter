@@ -48,8 +48,6 @@ Map<String, dynamic> _$AmplifyOutputsToJson(AmplifyOutputs instance) {
   writeNotNull('analytics', instance.analytics?.toJson());
   writeNotNull('auth', instance.auth?.toJson());
   writeNotNull('data', _dataToJson(instance.data));
-  writeNotNull(
-      'rest_api', instance.restApi?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('notifications', instance.notifications?.toJson());
   writeNotNull('storage', instance.storage?.toJson());
   writeNotNull('custom', instance.custom);

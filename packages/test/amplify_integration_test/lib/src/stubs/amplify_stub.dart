@@ -80,9 +80,8 @@ class AmplifyStub extends AmplifyClass {
         jsonDecode(configuration) as Map<String, Object?>,
       );
     } on Exception {
-      return const AmplifyOutputs(
-        version: '1',
-      );
+      // ignore: invalid_use_of_internal_member
+      return const AmplifyOutputs(version: '1');
     }
   }
 }
