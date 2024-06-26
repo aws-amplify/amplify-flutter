@@ -60,22 +60,6 @@ FormFieldValidator<String> usernameValidator({
   };
 }
 
-extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
-  @visibleForTesting
-  bool meetsRequirement(String value) {
-    switch (this) {
-      case PasswordPolicyCharacters.requiresLowercase:
-        return value.contains(_lowercase);
-      case PasswordPolicyCharacters.requiresUppercase:
-        return value.contains(_uppercase);
-      case PasswordPolicyCharacters.requiresNumbers:
-        return value.contains(_numeric);
-      case PasswordPolicyCharacters.requiresSymbols:
-        return value.contains(_symbols);
-    }
-  }
-}
-
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
