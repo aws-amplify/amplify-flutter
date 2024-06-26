@@ -8,36 +8,59 @@ part of 'oauth_outputs.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) => OAuthOutputs(
-      identityProviders: (json['identity_providers'] as List<dynamic>)
-          .map((e) => $enumDecode(_$IdentityProviderEnumMap, e))
-          .toList(),
-      domain: json['domain'] as String,
-      scopes:
-          (json['scopes'] as List<dynamic>).map((e) => e as String).toList(),
-      redirectSignInUri: (json['redirect_sign_in_uri'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      signInUri: json['sign_in_uri'] as String?,
-      signInUriQueryParameters:
-          (json['sign_in_uri_query_parameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      redirectSignOutUri: (json['redirect_sign_out_uri'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      signOutUri: json['sign_out_uri'] as String?,
-      signOutUriQueryParameters:
-          (json['sign_out_uri_query_parameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      tokenUri: json['token_uri'] as String?,
-      tokenUriQueryParameters:
-          (json['token_uri_query_parameters'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      responseType:
-          $enumDecode(_$OAuthResponseTypeEnumMap, json['response_type']),
+OAuthOutputs _$OAuthOutputsFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'OAuthOutputs',
+      json,
+      ($checkedConvert) {
+        final val = OAuthOutputs(
+          identityProviders: $checkedConvert(
+              'identity_providers',
+              (v) => (v as List<dynamic>)
+                  .map((e) => $enumDecode(_$IdentityProviderEnumMap, e))
+                  .toList()),
+          domain: $checkedConvert('domain', (v) => v as String),
+          scopes: $checkedConvert('scopes',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          redirectSignInUri: $checkedConvert('redirect_sign_in_uri',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          signInUri: $checkedConvert('sign_in_uri', (v) => v as String?),
+          signInUriQueryParameters: $checkedConvert(
+              'sign_in_uri_query_parameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          redirectSignOutUri: $checkedConvert('redirect_sign_out_uri',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          signOutUri: $checkedConvert('sign_out_uri', (v) => v as String?),
+          signOutUriQueryParameters: $checkedConvert(
+              'sign_out_uri_query_parameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          tokenUri: $checkedConvert('token_uri', (v) => v as String?),
+          tokenUriQueryParameters: $checkedConvert(
+              'token_uri_query_parameters',
+              (v) => (v as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  )),
+          responseType: $checkedConvert('response_type',
+              (v) => $enumDecode(_$OAuthResponseTypeEnumMap, v)),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'identityProviders': 'identity_providers',
+        'redirectSignInUri': 'redirect_sign_in_uri',
+        'signInUri': 'sign_in_uri',
+        'signInUriQueryParameters': 'sign_in_uri_query_parameters',
+        'redirectSignOutUri': 'redirect_sign_out_uri',
+        'signOutUri': 'sign_out_uri',
+        'signOutUriQueryParameters': 'sign_out_uri_query_parameters',
+        'tokenUri': 'token_uri',
+        'tokenUriQueryParameters': 'token_uri_query_parameters',
+        'responseType': 'response_type'
+      },
     );
 
 Map<String, dynamic> _$OAuthOutputsToJson(OAuthOutputs instance) {
