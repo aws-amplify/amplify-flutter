@@ -10,12 +10,26 @@ part of 'notifications_outputs.dart';
 
 NotificationsOutputs _$NotificationsOutputsFromJson(
         Map<String, dynamic> json) =>
-    NotificationsOutputs(
-      awsRegion: json['aws_region'] as String,
-      amazonPinpointAppId: json['amazon_pinpoint_app_id'] as String,
-      channels: (json['channels'] as List<dynamic>)
-          .map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
-          .toList(),
+    $checkedCreate(
+      'NotificationsOutputs',
+      json,
+      ($checkedConvert) {
+        final val = NotificationsOutputs(
+          awsRegion: $checkedConvert('aws_region', (v) => v as String),
+          amazonPinpointAppId:
+              $checkedConvert('amazon_pinpoint_app_id', (v) => v as String),
+          channels: $checkedConvert(
+              'channels',
+              (v) => (v as List<dynamic>)
+                  .map((e) => $enumDecode(_$AmazonPinpointChannelEnumMap, e))
+                  .toList()),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'awsRegion': 'aws_region',
+        'amazonPinpointAppId': 'amazon_pinpoint_app_id'
+      },
     );
 
 Map<String, dynamic> _$NotificationsOutputsToJson(

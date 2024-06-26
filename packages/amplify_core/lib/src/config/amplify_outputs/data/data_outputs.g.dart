@@ -8,15 +8,31 @@ part of 'data_outputs.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => DataOutputs(
-      awsRegion: json['aws_region'] as String,
-      url: json['url'] as String,
-      apiKey: json['api_key'] as String?,
-      defaultAuthorizationType: $enumDecode(
-          _$APIAuthorizationTypeEnumMap, json['default_authorization_type']),
-      authorizationTypes: (json['authorization_types'] as List<dynamic>)
-          .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
-          .toList(),
+DataOutputs _$DataOutputsFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'DataOutputs',
+      json,
+      ($checkedConvert) {
+        final val = DataOutputs(
+          awsRegion: $checkedConvert('aws_region', (v) => v as String),
+          url: $checkedConvert('url', (v) => v as String),
+          apiKey: $checkedConvert('api_key', (v) => v as String?),
+          defaultAuthorizationType: $checkedConvert(
+              'default_authorization_type',
+              (v) => $enumDecode(_$APIAuthorizationTypeEnumMap, v)),
+          authorizationTypes: $checkedConvert(
+              'authorization_types',
+              (v) => (v as List<dynamic>)
+                  .map((e) => $enumDecode(_$APIAuthorizationTypeEnumMap, e))
+                  .toList()),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'awsRegion': 'aws_region',
+        'apiKey': 'api_key',
+        'defaultAuthorizationType': 'default_authorization_type',
+        'authorizationTypes': 'authorization_types'
+      },
     );
 
 Map<String, dynamic> _$DataOutputsToJson(DataOutputs instance) {

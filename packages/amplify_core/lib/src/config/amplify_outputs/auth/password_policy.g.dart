@@ -9,12 +9,30 @@ part of 'password_policy.dart';
 // **************************************************************************
 
 PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
-    PasswordPolicy(
-      minLength: json['min_length'] as int?,
-      requireNumbers: json['require_numbers'] as bool? ?? false,
-      requireLowercase: json['require_lowercase'] as bool? ?? false,
-      requireUppercase: json['require_uppercase'] as bool? ?? false,
-      requireSymbols: json['require_symbols'] as bool? ?? false,
+    $checkedCreate(
+      'PasswordPolicy',
+      json,
+      ($checkedConvert) {
+        final val = PasswordPolicy(
+          minLength: $checkedConvert('min_length', (v) => v as int?),
+          requireNumbers:
+              $checkedConvert('require_numbers', (v) => v as bool? ?? false),
+          requireLowercase:
+              $checkedConvert('require_lowercase', (v) => v as bool? ?? false),
+          requireUppercase:
+              $checkedConvert('require_uppercase', (v) => v as bool? ?? false),
+          requireSymbols:
+              $checkedConvert('require_symbols', (v) => v as bool? ?? false),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'minLength': 'min_length',
+        'requireNumbers': 'require_numbers',
+        'requireLowercase': 'require_lowercase',
+        'requireUppercase': 'require_uppercase',
+        'requireSymbols': 'require_symbols'
+      },
     );
 
 Map<String, dynamic> _$PasswordPolicyToJson(PasswordPolicy instance) {
