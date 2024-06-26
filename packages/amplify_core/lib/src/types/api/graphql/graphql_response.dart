@@ -33,10 +33,10 @@ class GraphQLResponse<T> {
 
   @override
   String toString() {
-    if (hasErrors) {
-      final errors = this.errors.map((error) => error.toJson()).toList();
-      return 'GraphQLResponse<$T> error: ${prettyPrintJson(errors)}';
-    }
-    return 'GraphQLResponse<$T> success: ${prettyPrintJson(data)}';
+    final obj = {
+      'data': data,
+      'errors': errors,
+    };
+    return 'GraphQLResponse<$T>: ${prettyPrintJson(obj)}';
   }
 }
