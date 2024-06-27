@@ -34,17 +34,7 @@ Future<Uri> generateConnectionUri(
   AWSApiConfig config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
-  // First, generate auth query parameters.
-  final authorizationHeaders = await _generateAuthorizationHeaders(
-    config,
-    isConnectionInit: true,
-    authRepo: authRepo,
-    body: _emptyBody,
-  );
-  final encodedAuthHeaders =
-      base64.encode(json.encode(authorizationHeaders).codeUnits);
-  final authQueryParameters = {
-    'header': encodedAuthHeaders,
+  final queryParameters = {
     'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
   };
   // Conditionally format the URI for a) AppSync domain b) custom domain.
@@ -69,7 +59,7 @@ Future<Uri> generateConnectionUri(
     host: endpointUriHost,
     path: path,
   ).replace(
-    queryParameters: authQueryParameters,
+    queryParameters: queryParameters,
   );
 }
 
@@ -100,6 +90,19 @@ Future<WebSocketSubscriptionRegistrationMessage>
       config: config,
       authorizationHeaders: authorizationHeaders,
     ),
+  );
+}
+
+/// Authorize WebSocket Connection
+Future<Map<String, String>> authorizeConnection(
+  AWSApiConfig config,
+  AmplifyAuthProviderRepository authRepo,
+) async {
+  return _generateAuthorizationHeaders(
+    config,
+    isConnectionInit: true,
+    authRepo: authRepo,
+    body: _emptyBody,
   );
 }
 
