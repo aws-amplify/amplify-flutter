@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_response_type.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
+import 'package:meta/meta.dart';
 
 export 'cognito_config.dart' hide CognitoPluginConfigFactory;
 
@@ -74,6 +79,75 @@ class AuthConfig extends AmplifyPluginConfigMap {
 
   @override
   AuthConfig copy() => AuthConfig(plugins: Map.of(plugins));
+
+  @internal
+  AuthOutputs? toAuthOutputs() {
+    final plugin = awsPlugin?.auth?.default$;
+    final userPool = awsPlugin?.cognitoUserPool?.default$;
+    final identityPool = awsPlugin?.credentialsProvider?.default$;
+    final region = userPool?.region ?? identityPool?.region;
+    if (region == null) {
+      return null;
+    }
+
+    final passwordSettings = plugin?.passwordProtectionSettings;
+    final passwordPolicy = switch (passwordSettings) {
+      null => null,
+      final PasswordProtectionSettings settings => PasswordPolicy(
+          minLength: settings.passwordPolicyMinLength,
+          requireNumbers: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresNumbers,
+          ),
+          requireLowercase: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresLowercase,
+          ),
+          requireUppercase: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresUppercase,
+          ),
+          requireSymbols: settings.passwordPolicyCharacters.contains(
+            PasswordPolicyCharacters.requiresSymbols,
+          ),
+        )
+    };
+
+    final oAuthConfig = plugin?.oAuth;
+    final identityProviders =
+        plugin?.socialProviders?.map((p) => p.toIdentityProvider()).toList();
+    final oauth = oAuthConfig != null
+        ? OAuthOutputs(
+            identityProviders: identityProviders ?? [],
+            domain: oAuthConfig.webDomain,
+            scopes: oAuthConfig.scopes,
+            redirectSignInUri: oAuthConfig.signInRedirectUri.split(','),
+            signInUri: oAuthConfig.signInUri,
+            signInUriQueryParameters: oAuthConfig.signInUriQueryParameters,
+            redirectSignOutUri: oAuthConfig.signOutRedirectUri.split(','),
+            signOutUri: oAuthConfig.signOutUri,
+            signOutUriQueryParameters: oAuthConfig.signOutUriQueryParameters,
+            tokenUri: oAuthConfig.tokenUri,
+            tokenUriQueryParameters: oAuthConfig.tokenUriQueryParameters,
+            // Amplify Flutter only supports responseType:code
+            // "response_type" is set to "code" by `getAuthorizationUrl` from
+            // pkg:oauth2
+            responseType: OAuthResponseType.code,
+          )
+        : null;
+
+    return AuthOutputs(
+      awsRegion: region,
+      userPoolId: userPool?.poolId,
+      userPoolClientId: userPool?.appClientId,
+      appClientSecret: userPool?.appClientSecret,
+      identityPoolId: identityPool?.poolId,
+      passwordPolicy: passwordPolicy,
+      oauth: oauth,
+      usernameAttributes: plugin?.usernameAttributes,
+      standardRequiredAttributes: plugin?.signupAttributes,
+      userVerificationTypes: plugin?.verificationMechanisms,
+      mfaConfiguration: plugin?.mfaConfiguration?.toMfaEnforcement(),
+      mfaMethods: plugin?.mfaTypes?.map((t) => t.toMfaMethod()).toList(),
+    );
+  }
 
   @override
   Map<String, Object?> toJson() => _$AuthConfigToJson(this);

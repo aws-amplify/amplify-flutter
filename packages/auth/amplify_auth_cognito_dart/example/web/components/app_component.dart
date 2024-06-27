@@ -54,7 +54,7 @@ class AppState {
 /// main app component
 class AppComponent extends StatefulComponent {
   AppState appState = AppState();
-  late AmplifyConfig config;
+  late AmplifyOutputs config;
 
   String? _error;
 
@@ -189,7 +189,7 @@ class AppComponent extends StatefulComponent {
                       );
                     },
                   ),
-                  if (config.auth!.awsPlugin!.auth!.default$!.oAuth != null)
+                  if (config.auth!.oauth != null)
                     ButtonComponent(
                       id: 'hostedUiLogin',
                       innerHtml: 'Login with Hosted UI',

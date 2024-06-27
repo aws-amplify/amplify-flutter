@@ -64,12 +64,12 @@ final class ConfigurationStateMachine
 
   /// State machine callback for the [Configure] event.
   Future<void> onConfigure(Configure event) async {
-    final cognitoConfig = event.config.auth?.awsPlugin;
-    if (cognitoConfig == null) {
+    final authOutputs = event.config.auth;
+    if (authOutputs == null) {
       throw ConfigurationError('No Cognito plugin config available');
     }
-    addInstance(cognitoConfig);
-    final config = AuthConfiguration.fromConfig(cognitoConfig);
+    addInstance(authOutputs);
+    final config = AuthConfiguration.fromAmplifyOutputs(event.config);
     addInstance(config);
 
     final waiters = <Future<void>>[];
@@ -107,14 +107,14 @@ final class ConfigurationStateMachine
 
     waiters.add(manager.loadCredentials());
 
-    await _waitForConfiguration(cognitoConfig, waiters);
+    await _waitForConfiguration(event.config, waiters);
 
     // Setup AnalyticsMetadataType
     await _registerAnalyticsMetadata(config);
   }
 
   Future<void> _waitForConfiguration(
-    CognitoPluginConfig config,
+    AmplifyOutputs config,
     List<Future<void>> futures,
   ) async {
     await Future.wait<void>(futures, eagerError: true);

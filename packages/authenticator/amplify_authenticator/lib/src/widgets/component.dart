@@ -82,7 +82,7 @@ abstract class AuthenticatorComponentState<T extends StatefulWidget>
         ),
       )
       ..add(
-        DiagnosticsProperty<AmplifyConfig>('config', config.amplifyConfig),
+        DiagnosticsProperty<AmplifyOutputs>('config', config.amplifyOutputs),
       );
   }
 }

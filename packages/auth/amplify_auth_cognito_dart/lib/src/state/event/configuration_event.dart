@@ -22,11 +22,11 @@ sealed class ConfigurationEvent
   const ConfigurationEvent._();
 
   /// {@macro amplify_auth_cognito.configuration_event.configure}
-  const factory ConfigurationEvent.configure(AmplifyConfig config) = Configure;
+  const factory ConfigurationEvent.configure(AmplifyOutputs config) = Configure;
 
   /// {@macro amplify_auth_cognito.configuration_event.configure_succeeded}
   const factory ConfigurationEvent.configureSucceeded(
-    CognitoPluginConfig config,
+    AmplifyOutputs config,
   ) = ConfigureSucceeded;
 
   @override
@@ -45,7 +45,7 @@ final class Configure extends ConfigurationEvent {
   const Configure(this.config) : super._();
 
   /// The user's Amplify configuration.
-  final AmplifyConfig config;
+  final AmplifyOutputs config;
 
   @override
   ConfigurationEventType get type => ConfigurationEventType.configure;
@@ -79,7 +79,7 @@ final class ConfigureSucceeded extends ConfigurationEvent {
   const ConfigureSucceeded(this.config) : super._();
 
   /// The Cognito plugin configuration.
-  final CognitoPluginConfig config;
+  final AmplifyOutputs config;
 
   @override
   ConfigurationEventType get type => ConfigurationEventType.configureSucceeded;

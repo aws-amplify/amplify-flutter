@@ -4,6 +4,21 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+class CognitoUserAttributeKeyToUpperCaseConverter
+    extends JsonConverter<CognitoUserAttributeKey, String> {
+  const CognitoUserAttributeKeyToUpperCaseConverter();
+
+  @override
+  CognitoUserAttributeKey fromJson(String json) {
+    return CognitoUserAttributeKey.parse(json);
+  }
+
+  @override
+  String toJson(CognitoUserAttributeKey object) {
+    return object.key.toUpperCase();
+  }
+}
+
 class CognitoUserAttributeKeyConverter
     extends JsonConverter<CognitoUserAttributeKey, String> {
   const CognitoUserAttributeKeyConverter();
@@ -15,7 +30,7 @@ class CognitoUserAttributeKeyConverter
 
   @override
   String toJson(CognitoUserAttributeKey object) {
-    return object.key.toUpperCase();
+    return object.key;
   }
 }
 

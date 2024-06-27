@@ -62,7 +62,7 @@ abstract class AmplifyClass {
   final AmplifyAuthProviderRepository authProviderRepo =
       AmplifyAuthProviderRepository();
 
-  var _configCompleter = Completer<AmplifyConfig>();
+  var _configCompleter = Completer<AmplifyOutputs>();
   final _addPluginFutures = <Future<void>>[];
 
   /// Adds one plugin at a time. Note: this method can only
@@ -93,7 +93,7 @@ abstract class AmplifyClass {
 
   /// A future when completes when Amplify has been successfully configured.
   @internal
-  Future<AmplifyConfig> get asyncConfig => _configCompleter.future;
+  Future<AmplifyOutputs> get asyncConfig => _configCompleter.future;
 
   /// Configures Amplify with the provided configuration string.
   /// **This method can only be called once**, after all the plugins
@@ -111,24 +111,12 @@ abstract class AmplifyClass {
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
     }
-
-    late AmplifyConfig amplifyConfig;
+    late final AmplifyOutputs amplifyOutputs;
     try {
-      try {
-        final json = jsonDecode(configuration) as Map;
-        amplifyConfig = AmplifyConfig.fromJson(json.cast());
-      } on Object catch (e) {
-        throw ConfigurationError(
-          'The provided configuration is not a valid json. '
-          'Check underlyingException.',
-          recoverySuggestion:
-              'Inspect your amplifyconfiguration.dart and ensure that '
-              'the string is proper json',
-          underlyingException: e,
-        );
-      }
-      await _configurePlugins(amplifyConfig);
-      _configCompleter.complete(amplifyConfig);
+      final json = _decodeJson(configuration);
+      amplifyOutputs = _parseJsonConfig(json);
+      await _configurePlugins(amplifyOutputs);
+      _configCompleter.complete(amplifyOutputs);
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
       // that 1) `configure` can be called again and 2) listeners registered
@@ -146,14 +134,52 @@ abstract class AmplifyClass {
       // handled by the developer, but since they are unrelated to
       // configuration, listeners to `Amplify.asyncConfig` should be allowed to
       // proceed with the validated configuration.
-      _configCompleter.complete(amplifyConfig);
+      _configCompleter.complete(amplifyOutputs);
       _configCompleter = Completer();
       rethrow;
     }
   }
 
+  AmplifyOutputs _parseJsonConfig(Map<String, Object?> json) {
+    try {
+      return AmplifyOutputs.fromJson(json);
+    } on Object {
+      try {
+        final amplifyConfig = AmplifyConfig.fromJson(json);
+        return amplifyConfig.toAmplifyOutputs();
+      } on Object catch (e) {
+        throw ConfigurationError(
+          'The provided configuration can not be decoded to AmplifyOutputs '
+          'or AmplifyConfig. '
+          'Check underlyingException.',
+          recoverySuggestion:
+              'If using Amplify Gen 2 ensure that the json string '
+              'can be decoded to AmplifyOutputs type. '
+              'If using Amplify Gen 1 ensure that the json '
+              'string can be decoded to AmplifyConfig type.',
+          underlyingException: e,
+        );
+      }
+    }
+  }
+
+  Map<String, Object?> _decodeJson(String configuration) {
+    try {
+      return jsonDecode(configuration) as Map<String, Object?>;
+    } on Object catch (e) {
+      throw ConfigurationError(
+        'The provided configuration is not a valid json. '
+        'Check underlyingException.',
+        recoverySuggestion:
+            'Inspect your amplify_outputs.dart or amplifyconfiguration.dart '
+            'and ensure that the string is proper json',
+        underlyingException: e,
+      );
+    }
+  }
+
   /// Configures all plugins in topologically-sorted order.
-  Future<void> _configurePlugins(AmplifyConfig config) async {
+  Future<void> _configurePlugins(AmplifyOutputs config) async {
     await Future.wait(_addPluginFutures);
     _addPluginFutures.clear();
     final categories = <Category, AmplifyCategory>{

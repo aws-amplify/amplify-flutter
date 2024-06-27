@@ -65,6 +65,27 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+  - package-ecosystem: "npm"
+    directory: "infra-gen2"
+    schedule:
+      interval: "weekly"
+    groups:
+      cdk:
+        patterns:
+          - "aws-amplify"
+          - "@aws-amplify/*"
+          - "aws-cdk"
+          - "aws-cdk-lib"
+          - "constructs"
+      aws-sdk-js:
+        patterns:
+          - "@aws-sdk/*"
+          - "@aws-crypto/*"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
   - package-ecosystem: "pub"
     directory: "/"
     schedule:
@@ -382,6 +403,9 @@ jobs:
       final needsAwsConfig = File(
         p.join(package.path, 'tool', 'pull_test_backend.sh'),
       ).existsSync();
+      final needsGen2Config = File(
+        p.join(package.path, 'tool', 'pull_test_gen2_backend.sh'),
+      ).existsSync();
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
         workflowContents.write(
@@ -394,6 +418,7 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
       needs-aws-config: $needsAwsConfig
+      needs-gen2-config: $needsGen2Config
 ''',
         );
       }

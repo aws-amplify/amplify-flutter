@@ -94,6 +94,7 @@ jobs:
       package-name: amplify_secure_storage_example
       working-directory: packages/secure_storage/amplify_secure_storage/example
       needs-aws-config: false
+      needs-gen2-config: false
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -102,6 +103,7 @@ jobs:
       package-name: amplify_secure_storage_example
       working-directory: packages/secure_storage/amplify_secure_storage/example
       needs-aws-config: false
+      needs-gen2-config: false
   e2e_web_test:
     needs: [test]
     uses: ./.github/workflows/e2e_web.yaml
@@ -110,6 +112,7 @@ jobs:
       package-name: amplify_secure_storage_example
       working-directory: packages/secure_storage/amplify_secure_storage/example
       needs-aws-config: false
+      needs-gen2-config: false
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
@@ -118,6 +121,7 @@ jobs:
       package-name: amplify_secure_storage_example
       working-directory: packages/secure_storage/amplify_secure_storage/example
       needs-aws-config: false
+      needs-gen2-config: false
   e2e_windows_test:
     needs: [test]
     uses: ./.github/workflows/e2e_windows.yaml
@@ -126,3 +130,4 @@ jobs:
       package-name: amplify_secure_storage_example
       working-directory: packages/secure_storage/amplify_secure_storage/example
       needs-aws-config: false
+      needs-gen2-config: false
