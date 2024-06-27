@@ -1,3 +1,8 @@
+## 2.1.0
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
 ## 2.0.1
 
 - Minor bug fixes and improvements
