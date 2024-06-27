@@ -5,6 +5,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
@@ -46,9 +48,9 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   DependencyManager get dependencies =>
       _dependencyManagerOverride ?? super.dependencies;
 
-  /// The [S3PluginConfig] of the [AmplifyStorageS3Dart] plugin.
+  /// The [StorageOutputs] of the [AmplifyStorageS3Dart] plugin.
   @protected
-  late final S3PluginConfig s3pluginConfig;
+  late final StorageOutputs storageOutputs;
 
   late S3PathResolver _pathResolver;
 
@@ -60,15 +62,13 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final s3PluginConfig = config?.storage?.awsPlugin;
-
-    if (s3PluginConfig == null) {
+    if (config?.storage == null) {
       throw ConfigurationError('No Storage S3 plugin config detected.');
     }
-    s3pluginConfig = s3PluginConfig;
+    storageOutputs = config!.storage!;
 
     final identityProvider = authProviderRepo
         .getAuthProvider(APIAuthorizationType.userPools.authProviderToken);
@@ -107,7 +107,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       ..addInstance<StorageS3Service>(
         StorageS3Service(
           credentialsProvider: credentialsProvider,
-          s3PluginConfig: s3PluginConfig,
+          storageOutputs: storageOutputs,
           pathResolver: _pathResolver,
           logger: logger,
           dependencyManager: dependencies,
@@ -261,7 +261,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       path: path,
       localFile: localFile,
       options: options,
-      s3pluginConfig: s3pluginConfig,
+      storageOutputs: storageOutputs,
       storageS3Service: storageS3Service,
       appPathProvider: _appPathProvider,
       onProgress: onProgress,

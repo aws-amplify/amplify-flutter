@@ -668,7 +668,7 @@ class _ConfirmSignInTextFieldState extends _ConfirmSignInFormFieldState<String>
         );
       case ConfirmSignInField.newPassword:
         return validateNewPassword(
-          amplifyConfig: config.amplifyConfig,
+          amplifyOutputs: config.amplifyOutputs,
           inputResolver: stringResolver.inputs,
         )(context);
       case ConfirmSignInField.confirmNewPassword:
