@@ -1,3 +1,11 @@
+## 2.2.0
+
+### Fixes
+- fix(notifications): allow offline configuration
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
 ## 2.1.0
 
 - Minor bug fixes and improvements
