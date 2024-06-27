@@ -1005,10 +1005,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       throw const DeviceNotTrackedException();
     }
 
-    late GetDeviceResponse resp;
+    late GetDeviceResponse response;
 
     try {
-      resp = await _cognitoIdp
+      response = await _cognitoIdp
           .getDevice(
             cognito.GetDeviceRequest(
               deviceKey: deviceKey,
@@ -1020,7 +1020,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       throw AuthException.fromException(error);
     }
 
-    final device = resp.device;
+    final device = response.device;
     final attributes =
         device.deviceAttributes ?? const <cognito.AttributeType>[];
 
