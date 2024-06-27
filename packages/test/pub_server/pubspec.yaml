@@ -35,5 +35,6 @@ dev_dependencies:
   json_serializable: 6.7.1
   pub_api_client: ">=2.4.0 <2.7.0" # v2.7.0 introduces a new required field - archive_sha256
   shelf_router_generator: ^1.0.5
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"
   yaml_edit: ^2.1.0

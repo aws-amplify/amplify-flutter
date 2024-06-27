@@ -36,4 +36,5 @@ dev_dependencies:
       ref: 923adadacbb95f11d222e6fc6135f6dbb66f84ee
   json_serializable: 6.7.1
   path: any
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"

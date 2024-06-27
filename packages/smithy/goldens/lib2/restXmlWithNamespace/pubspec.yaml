@@ -43,4 +43,5 @@ dev_dependencies:
   build_test: ^2.1.5
   built_value_generator: 8.8.1
   lints: ^2.1.0
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"

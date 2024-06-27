@@ -29,18 +29,18 @@ void main() {
     group('run', () {
       test('echo', () async {
         await check(processManager.run(['echo', 'Hello'])).completes(
-          it()
+          ((it) => it
             ..has((res) => res.exitCode, 'exitCode').equals(0)
-            ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
+            ..has((res) => res.stdout, 'stdout').equals('Hello\n')),
         );
       });
 
       test('pipe', () async {
         final echo = childProcess.spawn('echo', ['Hello']);
         await check(processManager.run(['tee'], pipe: echo)).completes(
-          it()
+          ((it) => it
             ..has((res) => res.exitCode, 'exitCode').equals(0)
-            ..has((res) => res.stdout, 'stdout').equals('Hello\n'),
+            ..has((res) => res.stdout, 'stdout').equals('Hello\n')),
         );
       });
     });
@@ -58,16 +58,19 @@ void main() {
               if (mode != ProcessStartMode.inheritStdio &&
                   mode != ProcessStartMode.detached)
                 // ignore: unawaited_futures
-                it()..emits(it()..deepEquals(expectedOutput)),
+                ((it) => it
+                  ..emits(
+                    ((it) => it..deepEquals(expectedOutput)),
+                  )),
               // ignore: unawaited_futures
-              it()..isDone(),
+              ((it) => it..isDone()),
             ]),
           );
           unawaited(
             check(proc.stderr).withQueue.isDone(),
           );
           check(proc.pid).isGreaterThan(0);
-          await check(proc.exitCode).completes(it()..equals(0));
+          await check(proc.exitCode).completes(((it) => it..equals(0)));
         });
       }
 
@@ -76,15 +79,20 @@ void main() {
         final proc = await processManager.start(['tee'], pipe: echo);
         unawaited(
           check(proc.stdout).withQueue.inOrder([
-            it()
+            ((it) => it
               // ignore: unawaited_futures
-              ..emits(it()..deepEquals(utf8.encode('Hello\n'))),
+              ..emits(
+                (it) => it
+                  ..deepEquals(
+                    utf8.encode('Hello\n'),
+                  ),
+              )),
             // ignore: unawaited_futures
-            it()..isDone(),
+            ((it) => it..isDone()),
           ]),
         );
         unawaited(check(proc.stderr).withQueue.isDone());
-        await check(proc.exitCode).completes(it()..equals(0));
+        await check(proc.exitCode).completes((it) => it..equals(0));
       });
     });
   });

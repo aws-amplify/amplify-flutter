@@ -25,7 +25,7 @@ dependencies:
   fixnum: ^1.0.0
   http: ">=0.13.0 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
-  js: ^0.6.4
+  js: ">=0.6.4 <0.8.0"
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.7.0
   oauth2: ^2.0.2
@@ -50,7 +50,8 @@ dev_dependencies:
   mockito: ^5.0.0
   smithy_codegen:
     path: ../../smithy/smithy_codegen
-  test: ^1.22.1
+  # TODO(equartey): Can be bumped when test_api is bumped to ^0.7.2 in integration_test
+  test: ">=1.25.0 <=1.26.0"
   worker_bee_builder: ">=0.3.0 <0.4.0"
 
 flutter:
