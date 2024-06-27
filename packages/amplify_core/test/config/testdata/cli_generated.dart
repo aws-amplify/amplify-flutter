@@ -83,7 +83,6 @@ const _v4auth = '''
           "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
           },
@@ -190,7 +189,8 @@ const _v4storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION"
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
       }
     }
   }
@@ -269,7 +269,6 @@ const _v5auth = '''
           "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
           },
@@ -376,7 +375,8 @@ const _v5storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION"
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
       }
     }
   }
@@ -455,7 +455,6 @@ const _v6auth = '''
           "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
           },
@@ -562,7 +561,8 @@ const _v6storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION"
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
       }
     }
   }
@@ -641,7 +641,6 @@ const _v7auth = '''
           "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
           },
@@ -748,7 +747,8 @@ const _v7storage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION"
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
       }
     }
   }
@@ -827,7 +827,6 @@ const _vlatestauth = '''
           "CustomEndpoint": {
             "AppClientId": "$APPCLIENT_ID",
             "AppClientSecret": "$APPCLIENT_SECERT",
-            "Endpoint": "$OAUTH_DOMAIN",
             "PoolId": "$USERPOOL_ID",
             "Region": "$REGION"
           },
@@ -934,7 +933,8 @@ const _vlateststorage = '''
     "plugins": {
       "awsS3StoragePlugin": {
         "bucket": "$BUCKET",
-        "region": "$REGION"
+        "region": "$REGION",
+        "defaultAccessLevel": "guest"
       }
     }
   }
