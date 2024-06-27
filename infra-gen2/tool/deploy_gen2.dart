@@ -321,7 +321,7 @@ String? _getS3BucketName(String bucketName) {
   return matchingBuckets.single;
 }
 
-/// Create an S3 bucke
+/// Create an S3 bucket
 void _createS3Bucket(String bucketName) {
   print('🪣 Creating S3 bucket: $bucketName');
   final createBucket = Process.runSync(
