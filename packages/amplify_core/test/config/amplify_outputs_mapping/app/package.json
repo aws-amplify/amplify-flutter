@@ -1,0 +1,23 @@
+{
+    "name": "gen2_test_outputs",
+    "version": "1.0.0",
+    "description": "Used to generate a config for testing purposes",
+    "main": "index.js",
+    "directories": {
+      "lib": "lib",
+      "test": "test"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@aws-amplify/backend": "1.0.3",
+      "@aws-amplify/backend-cli": "1.0.4",
+      "tsx": "^4.10.5",
+      "typescript": "^5.4.5"
+    }
+  }
+  

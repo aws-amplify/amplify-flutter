@@ -5,6 +5,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
@@ -31,13 +33,13 @@ const testDateTimeNowOverride = #_testDateTimeNowOverride;
 class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   factory StorageS3Service({
-    required S3PluginConfig s3PluginConfig,
+    required StorageOutputs storageOutputs,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
   }) {
-    final usePathStyle = s3PluginConfig.bucket.contains('.');
+    final usePathStyle = storageOutputs.bucketName.contains('.');
 
     if (usePathStyle) {
       logger.warn(
@@ -54,7 +56,7 @@ class StorageS3Service {
     );
 
     return StorageS3Service._(
-      s3PluginConfig: s3PluginConfig,
+      storageOutputs: storageOutputs,
       s3ClientConfig: s3ClientConfig,
       pathResolver: pathResolver,
       credentialsProvider: credentialsProvider,
@@ -64,18 +66,18 @@ class StorageS3Service {
   }
 
   StorageS3Service._({
-    required S3PluginConfig s3PluginConfig,
+    required StorageOutputs storageOutputs,
     required smithy_aws.S3ClientConfig s3ClientConfig,
     required S3PathResolver pathResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     required DependencyManager dependencyManager,
-  })  : _s3PluginConfig = s3PluginConfig,
+  })  : _storageOutputs = storageOutputs,
         _defaultS3ClientConfig = s3ClientConfig,
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
             s3.S3Client(
-              region: s3PluginConfig.region,
+              region: storageOutputs.awsRegion,
               credentialsProvider: credentialsProvider,
               s3ClientConfig: s3ClientConfig,
               client: AmplifyHttpClient(dependencyManager)
@@ -94,7 +96,7 @@ class StorageS3Service {
   static final _defaultS3SignerConfiguration =
       sigv4.S3ServiceConfiguration(signPayload: false);
 
-  final S3PluginConfig _s3PluginConfig;
+  final StorageOutputs _storageOutputs;
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
   final S3PathResolver _pathResolver;
@@ -104,7 +106,7 @@ class StorageS3Service {
   final DateTime _serviceStartingTime;
 
   sigv4.AWSCredentialScope get _signerScope => sigv4.AWSCredentialScope(
-        region: _s3PluginConfig.region,
+        region: _storageOutputs.awsRegion,
         service: AWSService.s3,
       );
 
@@ -132,7 +134,7 @@ class StorageS3Service {
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
@@ -159,7 +161,7 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
           ..delimiter = s3PluginOptions.excludeSubPaths
               ? s3PluginOptions.delimiter
@@ -205,7 +207,7 @@ class StorageS3Service {
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
-          bucket: _s3PluginConfig.bucket,
+          bucket: _storageOutputs.bucketName,
           key: resolvedPath,
         ),
         path: resolvedPath,
@@ -242,14 +244,14 @@ class StorageS3Service {
 
     var resolvedPath = await _pathResolver.resolvePath(path: path);
     var host =
-        '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
+        '${_storageOutputs.bucketName}.${_getS3EndpointHost(region: _storageOutputs.awsRegion)}';
     if (_defaultS3ClientConfig.usePathStyle) {
-      host = host.replaceFirst('${_s3PluginConfig.bucket}.', '');
-      resolvedPath = '${_s3PluginConfig.bucket}/$resolvedPath';
+      host = host.replaceFirst('${_storageOutputs.bucketName}.', '');
+      resolvedPath = '${_storageOutputs.bucketName}/$resolvedPath';
     } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
-          .replaceFirst(RegExp('${_s3PluginConfig.region}\\.'), '')
+          .replaceFirst(RegExp('${_storageOutputs.awsRegion}\\.'), '')
           .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
     }
 
@@ -295,7 +297,7 @@ class StorageS3Service {
     final downloadDataTask = S3DownloadTask(
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _storageOutputs.bucketName,
       path: path,
       options: options,
       pathResolver: _pathResolver,
@@ -326,7 +328,7 @@ class StorageS3Service {
       dataPayload,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _storageOutputs.bucketName,
       path: path,
       options: options,
       pathResolver: _pathResolver,
@@ -365,7 +367,7 @@ class StorageS3Service {
       localFile,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _storageOutputs.bucketName,
       path: path,
       options: uploadDataOptions,
       pathResolver: _pathResolver,
@@ -405,8 +407,8 @@ class StorageS3Service {
 
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
-        ..bucket = _s3PluginConfig.bucket
-        ..copySource = '${_s3PluginConfig.bucket}/$sourcePath'
+        ..bucket = _storageOutputs.bucketName
+        ..copySource = '${_storageOutputs.bucketName}/$sourcePath'
         ..key = destinationPath
         ..metadataDirective = s3.MetadataDirective.copy;
     });
@@ -425,7 +427,7 @@ class StorageS3Service {
           ? S3Item.fromHeadObjectOutput(
               await headObject(
                 s3client: _defaultS3Client,
-                bucket: _s3PluginConfig.bucket,
+                bucket: _storageOutputs.bucketName,
                 key: destinationPath,
               ),
               path: destinationPath,
@@ -449,7 +451,7 @@ class StorageS3Service {
 
     await _deleteObject(
       s3client: _defaultS3Client,
-      bucket: _s3PluginConfig.bucket,
+      bucket: _storageOutputs.bucketName,
       key: resolvedPath,
     );
 
@@ -489,7 +491,7 @@ class StorageS3Service {
       );
       final request = s3.DeleteObjectsRequest.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _storageOutputs.bucketName
           // force to use sha256 instead of md5
           ..checksumAlgorithm = s3.ChecksumAlgorithm.sha256
           ..delete = s3.Delete.build((builder) {
@@ -596,7 +598,7 @@ class StorageS3Service {
     for (final record in records) {
       final request = s3.AbortMultipartUploadRequest.build((builder) {
         builder
-          ..bucket = _s3PluginConfig.bucket
+          ..bucket = _storageOutputs.bucketName
           ..key = record.objectKey
           ..uploadId = record.uploadId;
       });

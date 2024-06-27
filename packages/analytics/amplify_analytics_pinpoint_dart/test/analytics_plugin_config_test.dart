@@ -7,6 +7,8 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/amazon_pinpoint_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/analytics/analytics_outputs.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -65,6 +67,13 @@ void main() {
 
     const appId = 'appId';
     const region = 'region';
+    // ignore: invalid_use_of_internal_member
+    const config = AmplifyOutputs(
+      version: '1',
+      analytics: AnalyticsOutputs(
+        amazonPinpoint: AmazonPinpointOutputs(awsRegion: region, appId: appId),
+      ),
+    );
 
     setUpAll(() async {
       mockPathProvider = MockPathProvider();
@@ -80,6 +89,25 @@ void main() {
       Amplify.dependencies.addInstance<AnalyticsClient>(MockAnalyticsClient());
     });
 
+    test('throws ConfigurationError when no analytics config is provided',
+        () async {
+      final plugin = AmplifyAnalyticsPinpointDart(
+        secureStorageFactory: (_) => MockSecureStorage(),
+      );
+
+      await expectLater(
+        plugin.configure(
+          // ignore: invalid_use_of_internal_member
+          config: const AmplifyOutputs(version: '1'),
+          authProviderRepo: AmplifyAuthProviderRepository()
+            ..registerAuthProvider(
+              APIAuthorizationType.iam.authProviderToken,
+              mockAuthProvider,
+            ),
+        ),
+        throwsA(isA<ConfigurationError>()),
+      );
+    });
     test('throws ConfigurationError when negative', () async {
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -91,21 +119,8 @@ void main() {
 
       await expectLater(
         plugin.configure(
-          config: const AmplifyConfig(
-            analytics: AnalyticsConfig(
-              plugins: {
-                PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                  pinpointAnalytics: PinpointAnalytics(
-                    appId: appId,
-                    region: region,
-                  ),
-                  pinpointTargeting: PinpointTargeting(
-                    region: region,
-                  ),
-                ),
-              },
-            ),
-          ),
+          // ignore: invalid_use_of_internal_member
+          config: config,
           authProviderRepo: AmplifyAuthProviderRepository()
             ..registerAuthProvider(
               APIAuthorizationType.iam.authProviderToken,
@@ -126,21 +141,7 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-              ),
-            },
-          ),
-        ),
+        config: config,
         authProviderRepo: AmplifyAuthProviderRepository()
           ..registerAuthProvider(
             APIAuthorizationType.iam.authProviderToken,
@@ -163,21 +164,7 @@ void main() {
       );
 
       await plugin.configure(
-        config: const AmplifyConfig(
-          analytics: AnalyticsConfig(
-            plugins: {
-              PinpointPluginConfig.pluginKey: PinpointPluginConfig(
-                pinpointAnalytics: PinpointAnalytics(
-                  appId: appId,
-                  region: region,
-                ),
-                pinpointTargeting: PinpointTargeting(
-                  region: region,
-                ),
-              ),
-            },
-          ),
-        ),
+        config: config,
         authProviderRepo: AmplifyAuthProviderRepository()
           ..registerAuthProvider(
             APIAuthorizationType.iam.authProviderToken,

@@ -27,7 +27,7 @@ abstract /* base */ class AmplifyPluginInterface {
 
   /// Configures the plugin using the registered [config].
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {}
 

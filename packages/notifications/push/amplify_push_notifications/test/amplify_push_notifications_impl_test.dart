@@ -54,9 +54,11 @@ void main() {
     ..addInstance<PushNotificationsHostApi>(mockPushNotificationsHostApi)
     ..addInstance<AmplifySecureStorage>(mockAmplifySecureStorage);
 
+  // TODO(nikahsn): update to use AmplifyOutputs config
   final config = AmplifyConfig.fromJson(
     jsonDecode(amplifyconfig) as Map<String, Object?>,
-  );
+    // ignore: invalid_use_of_internal_member
+  ).toAmplifyOutputs();
 
   setUp(() {
     plugin = TestAmplifyPushNotifications(
@@ -202,9 +204,11 @@ void main() {
   group('Config failure cases', () {
     test('should throw exception when configuring if there is no appId present',
         () async {
+      // TODO(nikahsn): update to use AmplifyOutputs config
       final config = AmplifyConfig.fromJson(
         jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
-      );
+        // ignore: invalid_use_of_internal_member
+      ).toAmplifyOutputs();
       expect(
         () async => plugin.configure(
           authProviderRepo: authProviderRepo,

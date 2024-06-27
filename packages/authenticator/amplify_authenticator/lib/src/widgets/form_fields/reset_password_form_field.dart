@@ -140,7 +140,7 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
     switch (widget.field) {
       case ResetPasswordField.newPassword:
         return validateNewPassword(
-          amplifyConfig: config.amplifyConfig,
+          amplifyOutputs: config.amplifyOutputs,
           inputResolver: stringResolver.inputs,
         )(context);
       case ResetPasswordField.passwordConfirmation:

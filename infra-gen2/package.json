@@ -1,0 +1,23 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "backends/analytics/*",
+    "backends/api/*",
+    "backends/auth/*",
+    "backends/storage/*"
+  ],
+  "dependencies": {
+    "aws-amplify": "^6.3.6"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.0.3",
+    "@aws-amplify/backend-cli": "^1.0.4",
+    "aws-cdk": "^2.145.0",
+    "aws-cdk-lib": "^2.145.0",
+    "constructs": "^10.3.0",
+    "esbuild": "^0.21.5",
+    "tsx": "^4.15.4",
+    "typescript": "^5.4.5"
+  }
+}

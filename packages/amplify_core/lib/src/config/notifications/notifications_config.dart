@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 
 export 'notifications_pinpoint_config.dart'
     hide NotificationsPinpointPluginConfigFactory;
@@ -32,4 +33,18 @@ class NotificationsConfig extends AmplifyPluginConfigMap {
 
   @override
   Map<String, Object?> toJson() => _$NotificationsConfigToJson(this);
+
+  NotificationsOutputs? toNotificationsOutputs() {
+    final plugin = awsPlugin;
+    if (plugin == null) {
+      return null;
+    }
+    final awsRegion = plugin.region;
+    final amazonPinpointAppId = plugin.appId;
+    return NotificationsOutputs(
+      awsRegion: awsRegion,
+      amazonPinpointAppId: amazonPinpointAppId,
+      channels: [],
+    );
+  }
 }
