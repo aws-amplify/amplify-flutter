@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
+import 'package:meta/meta.dart';
 
 export 's3_config.dart' hide S3PluginConfigFactory;
 
@@ -30,4 +32,18 @@ class StorageConfig extends AmplifyPluginConfigMap {
 
   @override
   Map<String, Object?> toJson() => _$StorageConfigToJson(this);
+
+  @internal
+  StorageOutputs? toStorageOutputs() {
+    final plugin = awsPlugin;
+    if (plugin == null) {
+      return null;
+    }
+    final awsRegion = plugin.region;
+    final bucketName = plugin.bucket;
+    return StorageOutputs(
+      awsRegion: awsRegion,
+      bucketName: bucketName,
+    );
+  }
 }

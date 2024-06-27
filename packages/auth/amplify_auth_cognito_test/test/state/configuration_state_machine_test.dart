@@ -13,7 +13,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-const badConfig = AmplifyConfig();
+const badConfig = AmplifyOutputs(version: '1');
 
 void main() {
   late CognitoAuthStateMachine stateMachine;

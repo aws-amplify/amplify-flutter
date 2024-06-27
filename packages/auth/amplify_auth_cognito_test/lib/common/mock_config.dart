@@ -25,7 +25,7 @@ const hostedUiConfig = CognitoOAuthConfig(
   signOutRedirectUri: redirectUri,
   webDomain: webDomain,
 );
-
+// TODO(nikahsn): update to use AmplifyOutputs config
 final userPoolOnlyConfig = AmplifyConfig(
   auth: AuthConfig.cognito(
     userPoolConfig: const CognitoUserPoolConfig(
@@ -34,7 +34,8 @@ final userPoolOnlyConfig = AmplifyConfig(
       region: testRegion,
     ),
   ),
-);
+).toAmplifyOutputs();
+
 final mockConfig = AmplifyConfig(
   auth: AuthConfig.cognito(
     userPoolConfig: const CognitoUserPoolConfig(
@@ -48,7 +49,7 @@ final mockConfig = AmplifyConfig(
     ),
     hostedUiConfig: hostedUiConfig,
   ),
-);
+).toAmplifyOutputs();
 
 final mockConfigWithPinpoint = AmplifyConfig(
   auth: AuthConfig.cognito(
@@ -57,12 +58,17 @@ final mockConfigWithPinpoint = AmplifyConfig(
       appClientId: testAppClientId,
       region: testRegion,
     ),
-    pinpointAnalyticsConfig: const CognitoPinpointAnalyticsConfig(
-      appId: testPinpointAppId,
-      region: testRegion,
-    ),
   ),
-);
+  analytics: const AnalyticsConfig(
+    plugins: {
+      'awsPinpointAnalyticsPlugin': PinpointPluginConfig(
+        pinpointAnalytics:
+            PinpointAnalytics(appId: testPinpointAppId, region: testRegion),
+        pinpointTargeting: PinpointTargeting(region: testRegion),
+      ),
+    },
+  ),
+).toAmplifyOutputs();
 
 final accessToken = JsonWebToken(
   header: const JsonWebHeader(algorithm: Algorithm.hmacSha256),
@@ -98,7 +104,7 @@ const deviceKey = 'deviceKey';
 const deviceGroupKey = 'deviceGroupKey';
 const devicePassword = 'devicePassword';
 
-final authConfig = AuthConfiguration.fromConfig(mockConfig.auth!.awsPlugin!);
+final authConfig = AuthConfiguration.fromAmplifyOutputs(mockConfig);
 final userPoolConfig = authConfig.userPoolConfig!;
 final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);

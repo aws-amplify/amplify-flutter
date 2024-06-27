@@ -259,7 +259,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
 mixin UsernameAttributes<T extends AuthenticatorForm>
     on AuthenticatorComponentState<T> {
   late final Set<CognitoUserAttributeKey> usernameAttributes = () {
-    final authConfig = config.amplifyConfig?.auth?.awsPlugin?.auth?.default$;
+    final authConfig = config.amplifyOutputs?.auth;
     return <CognitoUserAttributeKey>{...?authConfig?.usernameAttributes};
   }();
 

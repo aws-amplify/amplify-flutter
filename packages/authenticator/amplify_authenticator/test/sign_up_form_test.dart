@@ -1,13 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:convert';
-
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/services/amplify_auth_service.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -169,9 +166,9 @@ void main() {
         'displays message when password does not meet requirements',
         (tester) async {
           await tester.pumpWidget(
-            MockAuthenticatorApp(
+            const MockAuthenticatorApp(
               initialStep: AuthenticatorStep.signUp,
-              config: jsonEncode(passwordReqConfig.toJson()),
+              config: passwordReqConfig,
             ),
           );
           await tester.pumpAndSettle();
@@ -261,8 +258,8 @@ void main() {
 
           // Enter email with trailing space
           await signUpPage.enterUsername('user@example.com ');
-          await signUpPage.enterPassword('Password123');
-          await signUpPage.enterPasswordConfirmation('Password123');
+          await signUpPage.enterPassword('Password123!@#%^');
+          await signUpPage.enterPasswordConfirmation('Password123!@#%^');
 
           await signUpPage.submitSignUp();
           await tester.pumpAndSettle();
@@ -275,20 +272,31 @@ void main() {
   });
 }
 
-final passwordReqConfig = AmplifyConfig(
-  auth: AuthConfig.cognito(
-    usernameAttributes: const [CognitoUserAttributeKey.email],
-    signupAttributes: const [CognitoUserAttributeKey.email],
-    passwordProtectionSettings: const PasswordProtectionSettings(
-      passwordPolicyCharacters: [
-        PasswordPolicyCharacters.requiresSymbols,
-        PasswordPolicyCharacters.requiresUppercase,
-      ],
-      passwordPolicyMinLength: 16,
-    ),
-    verificationMechanisms: const [CognitoUserAttributeKey.email],
-    socialProviders: const [],
-    mfaConfiguration: MfaConfiguration.off,
-    mfaTypes: const [MfaType.sms],
-  ),
-);
+const passwordReqConfig = '''{
+  "auth": {
+    "user_pool_id": "",
+    "aws_region": "",
+    "user_pool_client_id": "",
+    "identity_pool_id": "",
+    "mfa_methods": [
+      "SMS"
+    ],
+    "standard_required_attributes": [
+      "email"
+    ],
+    "username_attributes": [
+      "email"
+    ],
+    "user_verification_types": [
+      "email"
+    ],
+    "mfa_configuration": "NONE",
+    "password_policy": {
+      "min_length": 16,
+      "require_uppercase": true,
+      "require_symbols": true
+    },
+    "unauthenticated_identities_enabled": true
+  },
+  "version": "1"
+}''';
