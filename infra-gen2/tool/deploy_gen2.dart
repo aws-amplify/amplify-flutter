@@ -50,7 +50,7 @@ const List<AmplifyBackendGroup> infraConfig = [
     backends: [
       AmplifyBackend(
         name: 'main',
-        identifier: 'dots-in-name',
+        identifier: 'main',
         pathToSource: 'infra-gen2/backends/storage/main',
       ),
       AmplifyBackend(
