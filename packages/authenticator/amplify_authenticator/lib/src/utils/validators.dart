@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/utils/unmet_password_requirements.dart';
 import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
@@ -59,22 +60,6 @@ FormFieldValidator<String> usernameValidator({
   };
 }
 
-extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
-  @visibleForTesting
-  bool meetsRequirement(String value) {
-    switch (this) {
-      case PasswordPolicyCharacters.requiresLowercase:
-        return value.contains(_lowercase);
-      case PasswordPolicyCharacters.requiresUppercase:
-        return value.contains(_uppercase);
-      case PasswordPolicyCharacters.requiresNumbers:
-        return value.contains(_numeric);
-      case PasswordPolicyCharacters.requiresSymbols:
-        return value.contains(_symbols);
-    }
-  }
-}
-
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
@@ -96,15 +81,15 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
         final meetsMinLengthRequirement =
             minLength == null || password.length >= minLength;
 
-        final unmetReqs = _getUnmetPasswordPolicies(password, passwordPolicies);
+        final unmetCharacterReqs =
+            _getUnmetCharacterRequirements(password, passwordPolicies);
 
         final error = inputResolver.resolve(
           context,
           InputResolverKey.passwordRequirementsUnmet(
-            PasswordProtectionSettings(
-              passwordPolicyMinLength:
-                  meetsMinLengthRequirement ? null : minLength,
-              passwordPolicyCharacters: unmetReqs,
+            UnmetPasswordRequirements(
+              minLength: meetsMinLengthRequirement ? null : minLength,
+              characterRequirements: unmetCharacterReqs,
             ),
           ),
         );
@@ -112,22 +97,22 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
       };
 }
 
-List<PasswordPolicyCharacters> _getUnmetPasswordPolicies(
+List<CharacterRequirements> _getUnmetCharacterRequirements(
   String password,
   PasswordPolicy? policy,
 ) {
-  final unmetReqs = <PasswordPolicyCharacters>[];
+  final unmetReqs = <CharacterRequirements>[];
   if ((policy?.requireLowercase ?? false) && !password.contains(_lowercase)) {
-    unmetReqs.add(PasswordPolicyCharacters.requiresLowercase);
+    unmetReqs.add(CharacterRequirements.requiresLowercase);
   }
   if ((policy?.requireUppercase ?? false) && !password.contains(_uppercase)) {
-    unmetReqs.add(PasswordPolicyCharacters.requiresUppercase);
+    unmetReqs.add(CharacterRequirements.requiresUppercase);
   }
   if ((policy?.requireNumbers ?? false) && !password.contains(_numeric)) {
-    unmetReqs.add(PasswordPolicyCharacters.requiresNumbers);
+    unmetReqs.add(CharacterRequirements.requiresNumbers);
   }
   if ((policy?.requireSymbols ?? false) && !password.contains(_symbols)) {
-    unmetReqs.add(PasswordPolicyCharacters.requiresSymbols);
+    unmetReqs.add(CharacterRequirements.requiresSymbols);
   }
   return unmetReqs;
 }

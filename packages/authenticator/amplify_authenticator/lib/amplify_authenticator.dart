@@ -32,7 +32,6 @@ import 'package:amplify_authenticator/src/utils/dial_code.dart';
 import 'package:amplify_authenticator/src/utils/dial_code_options.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_banner.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +41,6 @@ export 'package:amplify_auth_cognito/amplify_auth_cognito.dart'
 export 'package:amplify_authenticator/src/utils/dial_code.dart' show DialCode;
 export 'package:amplify_authenticator/src/utils/dial_code_options.dart'
     show DialCodeOptions;
-export 'package:amplify_flutter/amplify_flutter.dart'
-    show PasswordProtectionSettings, PasswordPolicyCharacters;
 
 export 'src/enums/enums.dart' show AuthenticatorStep, Gender;
 export 'src/l10n/auth_strings_resolver.dart' hide ButtonResolverKeyType;
@@ -108,7 +105,7 @@ export 'src/widgets/form_field.dart'
 /// import 'package:amplify_flutter/amplify_flutter.dart';
 /// import 'package:flutter/material.dart';
 ///
-/// import 'amplifyconfiguration.dart';
+/// import 'amplify_outputs.dart';
 ///
 /// void main() {
 ///   runApp(const MyApp());
@@ -131,7 +128,7 @@ export 'src/widgets/form_field.dart'
 ///   Future<void> _configureAmplify() async {
 ///     try {
 ///       await Amplify.addPlugin(AmplifyAuthCognito());
-///       await Amplify.configure(amplifyconfig);
+///       await Amplify.configure(amplifyConfig);
 ///     } on Exception catch (e) {
 ///       print('Could not configure Amplify: $e');
 ///     }
@@ -178,7 +175,7 @@ export 'src/widgets/form_field.dart'
 /// ### Forms
 ///
 /// The Authenticator uses your app's Cognito configuration (as defined in your
-/// `amplifyconfiguration.dart` file) to determine which fields are required.
+/// `amplify_outputs.dart` file) to determine which fields are required.
 /// However, you may optionally add on additional fields using a custom form
 /// component. For example, to collect your user's address information on the s
 /// ign up form, use the [SignUpForm.custom] constructor:
@@ -644,20 +641,20 @@ class _AuthenticatorState extends State<Authenticator> {
     });
   }
 
-  List<String> missingConfigValues(core.AmplifyOutputs? config) {
+  List<String> missingConfigValues(AmplifyOutputs? config) {
     final missingValues = <String>[];
     final cognitoPlugin = config?.auth;
     if (cognitoPlugin == null) {
-      return const ['auth.plugins.Auth.Default'];
+      return const ['auth'];
     }
     if (cognitoPlugin.usernameAttributes == null) {
-      missingValues.add('usernameAttributes');
+      missingValues.add('username_attributes');
     }
     if (cognitoPlugin.standardRequiredAttributes == null) {
-      missingValues.add('signupAttributes');
+      missingValues.add('standard_required_attributes');
     }
     if (cognitoPlugin.passwordPolicy == null) {
-      missingValues.add('passwordProtectionSettings');
+      missingValues.add('password_policy');
     }
     return missingValues;
   }
@@ -670,7 +667,7 @@ class _AuthenticatorState extends State<Authenticator> {
           'Encountered problem(s) building the Authenticator due to an invalid config. See below for more info.',
         ),
         ErrorDescription(
-          '\nYour amplifyconfiguration.dart file is missing the following required attributes:'
+          '\nYour amplifyconfiguration.dart or amplify_outputs.dart file is missing the following required attributes:'
           '\n - ${_missingConfigValues.join('\n - ')}',
         ),
         ErrorDescription(
@@ -681,7 +678,7 @@ class _AuthenticatorState extends State<Authenticator> {
           '\nPlease refer to the amplify flutter documentation for more info on how to resolve this and the full list of required attributes.',
         ),
         ErrorDescription(
-          '\nOnce you have added the missing values to your amplifyconfiguration.dart file, you will need to restart your app.',
+          '\nOnce you have added the missing values to your amplifyconfiguration.dart or amplify_outputs.dart file, you will need to restart your app.',
         ),
       ]);
     }
