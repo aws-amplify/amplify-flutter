@@ -3,12 +3,14 @@ import { Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { CfnApp } from "aws-cdk-lib/aws-pinpoint";
 import { Stack } from "aws-cdk-lib/core";
 import { auth } from "./auth/resource";
+import { data } from "./data/resource";
 
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
 const backend = defineBackend({
   auth,
+  data,
 });
 
 const analyticsStack = backend.createStack("analytics-main-stack");

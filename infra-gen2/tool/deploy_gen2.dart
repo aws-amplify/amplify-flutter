@@ -76,7 +76,7 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
       AmplifyBackend(
         name: 'no-unauth-identities',
-        identifier: 'no-unauth-identities',
+        identifier: 'no-unauth-id',
         pathToSource: 'infra-gen2/backends/analytics/no-unauth-identities',
       ),
     ],
