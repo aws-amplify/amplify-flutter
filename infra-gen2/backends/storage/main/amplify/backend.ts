@@ -1,4 +1,5 @@
 import { defineBackend } from "@aws-amplify/backend";
+import * as s3 from "aws-cdk-lib/aws-s3";
 import { auth } from "./auth/resource";
 import { storage } from "./storage/resource";
 
@@ -24,12 +25,12 @@ const backend = defineBackend({
 // };
 
 // custom storage configurations
-// const s3Bucket = backend.storage.resources.bucket;
-// const cfnBucket = s3Bucket.node.defaultChild as s3.CfnBucket;
+const s3Bucket = backend.storage.resources.bucket;
+const cfnBucket = s3Bucket.node.defaultChild as s3.CfnBucket;
 
-// cfnBucket.accelerateConfiguration = {
-//   accelerationStatus: "Enabled",
-// };
+cfnBucket.accelerateConfiguration = {
+  accelerationStatus: "Enabled",
+};
 
 // cfnBucket.corsConfiguration = {
 //   corsRules: [

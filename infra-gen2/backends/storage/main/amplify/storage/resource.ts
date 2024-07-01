@@ -7,10 +7,12 @@ export const storage = defineStorage({
       allow.guest.to(["read", "write", "delete"]),
       allow.authenticated.to(["read", "delete", "write"]),
     ],
-    "protected/*": [
-      allow.guest.to(["read"]),
-      allow.authenticated.to(["read", "delete", "write"]),
+    "protected/{entity_id}/*": [
+      allow.authenticated.to(["read"]),
+      allow.entity("identity").to(["read", "write", "delete"]),
     ],
-    "private/*": [allow.authenticated.to(["read", "delete", "write"])],
+    "private/{entity_id}/*": [
+      allow.entity("identity").to(["read", "write", "delete"]),
+    ],
   }),
 });
