@@ -46,8 +46,19 @@ const List<AmplifyBackendGroup> infraConfig = [
   ),
   AmplifyBackendGroup(
     category: Category.storage,
-    defaultOutput: '',
-    backends: [],
+    defaultOutput: 'packages/storage/amplify_storage_s3/example/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'dots-in-name',
+        pathToSource: 'infra-gen2/backends/storage/main',
+      ),
+      AmplifyBackend(
+        name: 'dots-in-name',
+        identifier: 'dots-in-name',
+        pathToSource: 'infra-gen2/backends/storage/dots-in-name',
+      ),
+    ],
   ),
 ];
 
