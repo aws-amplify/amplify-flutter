@@ -33,7 +33,7 @@ dev_dependencies:
   aws_common: ">=0.7.0 <0.8.0"
   aws_signature_v4: ">=0.6.0 <0.7.0"
   build_runner: ^2.4.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0
