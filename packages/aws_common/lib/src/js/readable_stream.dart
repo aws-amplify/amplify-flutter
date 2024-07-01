@@ -2,13 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+// import 'package:js/js.dart';
+// import 'package:js/js_util.dart' as js_util;
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/src/js/common.dart';
 import 'package:aws_common/src/js/promise.dart';
-import 'package:js/js.dart';
-import 'package:js/js_util.dart' as js_util;
+
 
 /// {@template aws_common.js.readable_stream}
 /// An object containing methods and properties that define how the constructed
@@ -75,30 +78,30 @@ abstract class UnderlyingSource {
     final startFn = start == null
         ? undefined
         : start is Future<void> Function(ReadableStreamController)
-            ? allowInterop((ReadableStreamController controller) {
+            ? ((ReadableStreamController controller) {
                 return Promise.fromFuture(start(controller));
-              })
-            : allowInterop(start);
+              }).jsify()
+            : start.toJS;
     final pullFn = pull == null
         ? undefined
         : pull is Future<void> Function(ReadableStreamController)
-            ? allowInterop((ReadableStreamController controller) {
+            ? ((ReadableStreamController controller) {
                 return Promise.fromFuture(pull(controller));
-              })
-            : allowInterop(pull);
+              }).jsify()
+            : pull.toJS;
     final cancelFn = cancel == null
         ? undefined
         : cancel is Future<void> Function([
             String? reason,
             ReadableStreamController? controller,
           ])
-            ? allowInterop((
+            ? ((
                 String? reason,
                 ReadableStreamController? controller,
               ) {
                 return Promise.fromFuture(cancel(reason, controller));
-              })
-            : allowInterop(cancel);
+              }).jsify()
+            : cancel.toJS;
     return UnderlyingSource._(
       start: startFn,
       pull: pullFn,
@@ -194,7 +197,7 @@ extension PropsReadableStream on ReadableStream {
   /// consumer. The supplied reason argument will be given to the underlying
   /// source, which may or may not use it.
   Future<void> cancel([String? reason]) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
+      globalContext.callMethod('cancel'.toJS, reason.jsify());
 
   /// Creates a reader and locks the stream to it.
   ///
@@ -203,7 +206,7 @@ extension PropsReadableStream on ReadableStream {
   ReadableStreamReader getReader({
     ReadableStreamReaderMode mode = ReadableStreamReaderMode.default$,
   }) =>
-      js_util.callMethod(this, 'getReader', [mode.jsValue]);
+      globalContext.callMethod('getReader'.toJS, mode.jsValue.jsify());
 
   /// Creates a Dart [Stream] from `this`.
   ReadableStreamView get stream =>
@@ -229,7 +232,7 @@ extension PropsReadableStreamReader on ReadableStreamReader {
   /// This property enables you to write code that responds to an end to the
   /// streaming process.
   Future<void> get closed =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
+      (globalContext.getProperty('closed'.toJS));
 
   /// Returns a Promise that resolves when the stream is canceled.
   ///
@@ -237,7 +240,7 @@ extension PropsReadableStreamReader on ReadableStreamReader {
   /// consumer. The supplied reason argument will be given to the underlying
   /// source, which may or may not use it.
   Future<void> cancel([String? reason]) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
+     globalContext.callMethod('cancel'.toJS, reason.jsify());
 
   /// Releases the reader's lock on the stream.
   external void releaseLock();
@@ -269,7 +272,7 @@ extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
   /// Returns a promise providing access to the next chunk in the stream's
   /// internal queue.
   Future<ReadableStreamChunk> read() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
+      globalContext.callMethod('read'.toJS, null);
 }
 
 /// Specifies the type of [ReadableStreamReader] to create.
