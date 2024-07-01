@@ -18,17 +18,17 @@ extension type Process._(JSObject it) {
   external String get version;
 
   /// A string identifying the operating system platform for which the Node.js binary was compiled.
-  /// 
+  ///
   /// See: https://nodejs.org/api/process.html#processplatform
   @JS('platform')
   external String get _platform;
 
   OS get platform => switch (_platform) {
-    'win32' => throw UnsupportedError('Windows is not currently supported'),
-    'darwin' => OS.macOS,
-    'linux' => OS.linux,
-    final unknown => throw StateError('Unknown OS: $unknown'),
-  };
+        'win32' => throw UnsupportedError('Windows is not currently supported'),
+        'darwin' => OS.macOS,
+        'linux' => OS.linux,
+        final unknown => throw StateError('Unknown OS: $unknown'),
+      };
 
   /// The operating system CPU architecture for which the Node.js binary was compiled.
   ///
@@ -37,11 +37,11 @@ extension type Process._(JSObject it) {
   external String get _arch;
 
   Arch get arch => switch (_arch) {
-    'arm64' => Arch.arm64,
-    'x64' => Arch.x64,
-    final unknown => throw StateError('Unknown architecture: $unknown'),
-  };
-  
+        'arm64' => Arch.arm64,
+        'x64' => Arch.x64,
+        final unknown => throw StateError('Unknown architecture: $unknown'),
+      };
+
   @JS('env')
   // Map<String, String?>
   external JSObject get _env;

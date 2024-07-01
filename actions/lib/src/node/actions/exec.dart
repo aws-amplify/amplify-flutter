@@ -45,7 +45,7 @@ extension type Exec._(JSObject it) {
     try {
       final exitCode = await promiseToFuture<int>(
         _exec(
-          commandLine, 
+          commandLine,
           args.map((arg) => arg.toJS).toList().toJS,
           options,
         ),

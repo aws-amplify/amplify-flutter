@@ -8,8 +8,8 @@ import 'package:test/test.dart';
 /// Creates an AST from [shapes].
 SmithyAst createAst(List<Shape> shapes) {
   return SmithyAst(
-    (b) =>
-        b..shapes = ShapeMap({for (final shape in shapes) shape.shapeId: shape}),
+    (b) => b
+      ..shapes = ShapeMap({for (final shape in shapes) shape.shapeId: shape}),
   );
 }
 

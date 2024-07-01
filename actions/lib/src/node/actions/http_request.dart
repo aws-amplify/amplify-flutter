@@ -14,10 +14,11 @@ extension type HttpClient._(JSObject it) {
   @JS('getJson')
   external JSPromise _getJson(String requestUrl, [JSObject headers]);
 
-  Future<Map<String, Object?>> getJson(String requestUrl, {
+  Future<Map<String, Object?>> getJson(
+    String requestUrl, {
     Map<String, String> headers = const {},
-  }  ) async {
-    final jsHeaders = headers.jsify() as JSObject; 
+  }) async {
+    final jsHeaders = headers.jsify() as JSObject;
     final response = await _getJson(requestUrl, jsHeaders).toDart;
     final result = response as TypedResponse<JSObject>;
     if (result.statusCode != 200) {
