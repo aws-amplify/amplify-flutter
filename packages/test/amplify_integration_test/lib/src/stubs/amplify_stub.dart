@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'dart:async';
 import 'dart:convert';
 

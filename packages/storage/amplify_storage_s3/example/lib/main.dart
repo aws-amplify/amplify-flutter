@@ -6,11 +6,12 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'amplify_outputs.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('MyStorageApp');
 
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
 
     try {
       await Amplify.addPlugins([auth, storage]);
-      await Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyConfig);
       _logger.debug('Successfully configured Amplify');
     } on Exception catch (error) {
       _logger.error('Something went wrong configuring Amplify: $error');

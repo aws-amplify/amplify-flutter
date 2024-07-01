@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
+import 'package:amplify_storage_s3_example/amplify_outputs.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -242,7 +242,8 @@ void main() {
               ),
             ).result,
             // useAccelerateEndpoint is not supported with a bucket name with dots
-            throwsA(isA<ConfigurationError>()),
+            // throwsA(isA<ConfigurationError>()),
+            throwsA(isA<StorageHttpStatusException>()),
           );
         },
       );

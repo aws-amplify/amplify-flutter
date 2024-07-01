@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "workspaces": [
+    "infra-common/",
     "backends/analytics/*",
     "backends/api/*",
     "backends/auth/*",
