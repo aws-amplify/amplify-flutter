@@ -12,10 +12,13 @@ class StorageListResult<Item extends StorageItem> {
     this.items, {
     required this.hasNextPage,
     this.nextToken,
+    // this.excludedSubpaths,
   });
 
   /// The objects listed in the current page.
   final List<Item> items;
+
+  // final List<String> excludedSubpaths;
 
   /// Whether has next page that can be listed using [nextToken].
   final bool hasNextPage;

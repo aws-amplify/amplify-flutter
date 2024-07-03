@@ -16,7 +16,10 @@ class StorageListOptions
     this.pageSize = 1000,
     this.nextToken,
     this.pluginOptions,
+    // this.subpathStrategy,
   });
+
+  // final SubpathStrategy subpathStrategy;
 
   /// The number of object to be listed in each page.
   final int pageSize;

@@ -41,10 +41,12 @@ class S3ListPluginOptions extends StorageListPluginOptions {
 
   /// Whether to exclude objects under the sub paths of the path to list. The
   /// default value is `false`.
+  // @Deprecated('use StorageListOptions.subpathStrategy instead')
   final bool excludeSubPaths;
 
   /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
   /// false, this value has no impact on behavior.
+  // @Deprecated('use StorageListOptions.subpathStrategy instead')
   final String delimiter;
 
   /// Whether to list all objects under a given path without pagination. The

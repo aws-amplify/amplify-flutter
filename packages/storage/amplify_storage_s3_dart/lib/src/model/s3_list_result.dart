@@ -57,6 +57,7 @@ class S3ListResult extends StorageListResult<S3Item> {
 }
 
 /// The metadata returned from the Storage S3 plugin `list` API.
+// @Deprecated('use StorageListResult.excludedSubpaths instead')
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
