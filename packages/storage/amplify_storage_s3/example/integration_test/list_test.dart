@@ -71,7 +71,9 @@ void main() {
       });
 
       group('list() with options', () {
-        group('excluding sub paths', () {
+        group(
+            '@Deprecated for StorageListOptions.subpathStrategy, excluding sub paths with excludeSubPaths & delimiter',
+            () {
           testWidgets('default delimiter', (_) async {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
@@ -111,6 +113,44 @@ void main() {
             );
             expect(listResult.metadata.delimiter, '#');
           });
+        });
+
+        group('excluding sub paths with StorageListOptions.subpathStrategy',
+            () {
+          // testWidgets('default delimiter', (_) async {
+          //   final listResult = await Amplify.Storage.list(
+          //     path: StoragePath.fromString('$uniquePrefix/'),
+          //     options: const StorageListOptions(
+          //        subpaths: Subpaths.exclude(delimiter: "-"),
+          //     ),
+          //   ).result as S3ListResult;
+          //
+          //   expect(listResult.items.length, 3);
+          //   expect(listResult.items.first.path, contains('file1.txt'));
+          //
+          //   expect(listResult.metadata.subPaths.length, 1);
+          //   expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
+          //   expect(listResult.metadata.delimiter, '/');
+          // });
+          //
+          // testWidgets('custom delimiter', (_) async {
+          //   final listResult = await Amplify.Storage.list(
+          //     path: StoragePath.fromString('$uniquePrefix/'),
+          //     options: const StorageListOptions(
+          // subpaths: Subpaths.exclude(delimiter: "-"),
+          //     ),
+          //   ).result as S3ListResult;
+          //
+          //   expect(listResult.items.length, 3);
+          //   expect(listResult.items.first.path, contains('file1.txt'));
+          //
+          //   expect(listResult.metadata.subPaths.length, 1);
+          //   expect(
+          //     listResult.metadata.subPaths.first,
+          //     '$uniquePrefix/subdir2#',
+          //   );
+          //   expect(listResult.metadata.delimiter, '-');
+          // });
         });
 
         testWidgets('should respect pageSize limitation', (_) async {

@@ -4,11 +4,11 @@
 // import 'package:amplify_core/amplify_core.dart';
 //
 // /// {@template amplify_core.storage.subpath_strategy}
-// /// Presents .. 
+// /// Presents ..
 // /// {@endtemplate}
-// class StorageSubpathStrategy {
+// class SubpathStrategy {
 //   /// {@macro amplify_core.storage.subpath_strategy}
-//   const StorageSubpathStrategy({
+//   const SubpathStrategy({
 //     required this.path,
 //     this.options,
 //   });
