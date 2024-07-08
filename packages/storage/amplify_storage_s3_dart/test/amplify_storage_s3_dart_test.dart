@@ -99,47 +99,11 @@ void main() {
         );
       });
 
-      // test('should forward default options to StorageS3Service.list() API',
-      //     () async {
-      //   const defaultOptions =
-      //       StorageListOptions(subpathStrategy: SubpathStrategy());
-      //
-      //   when(
-      //     () => storageS3Service.list(
-      //       path: testPath,
-      //       options: defaultOptions,
-      //     ),
-      //   ).thenAnswer(
-      //     (_) async => testResult,
-      //   );
-      //
-      //   final listOperation = storageS3Plugin.list(path: testPath);
-      //
-      //   final capturedOptions = verify(
-      //     () => storageS3Service.list(
-      //       path: testPath,
-      //       options: captureAny<StorageListOptions>(
-      //         named: 'options',
-      //       ),
-      //     ),
-      //   ).captured.last;
-      //
-      //   expect(
-      //     capturedOptions,
-      //     defaultOptions,
-      //   );
-      //
-      //   final result = await listOperation.result;
-      //   expect(
-      //     result,
-      //     testResult,
-      //   );
-      // });
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
         const defaultOptions =
-            StorageListOptions(pluginOptions: S3ListPluginOptions());
+            StorageListOptions(subpaths: SubpathStrategy());
 
         when(
           () => storageS3Service.list(
@@ -173,51 +137,10 @@ void main() {
         );
       });
 
-      // test('should forward options to StorageS3Service.list() API', () async {
-      //   const testOptions = StorageListOptions(
-      //     subpathStrategy: SubpathStrategy.exclude(),
-      //     nextToken: 'next-token-123',
-      //     pageSize: 2,
-      //   );
-      //
-      //   when(
-      //     () => storageS3Service.list(
-      //       path: testPath,
-      //       options: testOptions,
-      //     ),
-      //   ).thenAnswer(
-      //     (_) async => testResult,
-      //   );
-      //
-      //   final listOperation = storageS3Plugin.list(
-      //     path: testPath,
-      //     options: testOptions,
-      //   );
-      //
-      //   final capturedOptions = verify(
-      //     () => storageS3Service.list(
-      //       path: testPath,
-      //       options: captureAny<StorageListOptions>(
-      //         named: 'options',
-      //       ),
-      //     ),
-      //   ).captured.last;
-      //
-      //   expect(
-      //     capturedOptions,
-      //     testOptions,
-      //   );
-      //
-      //   final result = await listOperation.result;
-      //   expect(
-      //     result,
-      //     testResult,
-      //   );
-      // });
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          subpaths: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           pageSize: 2,
         );
@@ -256,7 +179,6 @@ void main() {
           testResult,
         );
       });
-    });
 
     group('getProperties()', () {
       const testKey = 'some-object-key';
