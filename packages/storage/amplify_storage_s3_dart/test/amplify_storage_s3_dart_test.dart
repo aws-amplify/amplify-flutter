@@ -4,6 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -86,11 +87,10 @@ void main() {
     group('list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
+        <String>[],
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromS3CommonPrefixes(
-          commonPrefixes: [],
-        ),
+        metadata: S3ListMetadata.fromS3CommonPrefixes(),
       );
 
       setUpAll(() {
@@ -98,6 +98,43 @@ void main() {
           const StorageListOptions(),
         );
       });
+
+      // test('should forward default options to StorageS3Service.list() API',
+      //     () async {
+      //   const defaultOptions =
+      //       StorageListOptions(subpathStrategy: SubpathStrategy());
+      //
+      //   when(
+      //     () => storageS3Service.list(
+      //       path: testPath,
+      //       options: defaultOptions,
+      //     ),
+      //   ).thenAnswer(
+      //     (_) async => testResult,
+      //   );
+      //
+      //   final listOperation = storageS3Plugin.list(path: testPath);
+      //
+      //   final capturedOptions = verify(
+      //     () => storageS3Service.list(
+      //       path: testPath,
+      //       options: captureAny<StorageListOptions>(
+      //         named: 'options',
+      //       ),
+      //     ),
+      //   ).captured.last;
+      //
+      //   expect(
+      //     capturedOptions,
+      //     defaultOptions,
+      //   );
+      //
+      //   final result = await listOperation.result;
+      //   expect(
+      //     result,
+      //     testResult,
+      //   );
+      // });
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
@@ -135,6 +172,48 @@ void main() {
           testResult,
         );
       });
+
+      // test('should forward options to StorageS3Service.list() API', () async {
+      //   const testOptions = StorageListOptions(
+      //     subpathStrategy: SubpathStrategy.exclude(),
+      //     nextToken: 'next-token-123',
+      //     pageSize: 2,
+      //   );
+      //
+      //   when(
+      //     () => storageS3Service.list(
+      //       path: testPath,
+      //       options: testOptions,
+      //     ),
+      //   ).thenAnswer(
+      //     (_) async => testResult,
+      //   );
+      //
+      //   final listOperation = storageS3Plugin.list(
+      //     path: testPath,
+      //     options: testOptions,
+      //   );
+      //
+      //   final capturedOptions = verify(
+      //     () => storageS3Service.list(
+      //       path: testPath,
+      //       options: captureAny<StorageListOptions>(
+      //         named: 'options',
+      //       ),
+      //     ),
+      //   ).captured.last;
+      //
+      //   expect(
+      //     capturedOptions,
+      //     testOptions,
+      //   );
+      //
+      //   final result = await listOperation.result;
+      //   expect(
+      //     result,
+      //     testResult,
+      //   );
+      // });
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
