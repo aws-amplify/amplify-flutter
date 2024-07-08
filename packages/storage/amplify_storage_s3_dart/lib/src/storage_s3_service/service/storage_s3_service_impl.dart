@@ -10,6 +10,7 @@ import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
+import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
@@ -126,8 +127,8 @@ class StorageS3Service {
     required StoragePath path,
     required StorageListOptions options,
   }) async {
-    final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
-        const S3ListPluginOptions();
+    final s3PluginOptions =
+        options.pluginOptions as SubpathStrategy? ?? const SubpathStrategy();
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
