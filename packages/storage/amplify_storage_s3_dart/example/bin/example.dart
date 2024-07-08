@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:storage_s3_example/common.dart';
 
 Future<void> main() async {

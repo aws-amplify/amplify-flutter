@@ -28,8 +28,6 @@ class S3ListResult extends StorageListResult<S3Item> {
   ) {
     final output = paginatedResult.items;
     final metadata = S3ListMetadata.fromS3CommonPrefixes(
-      // TODO(hahnand): {PDI#delim_change} remove the line following this TODO comment
-      commonPrefixes: output.commonPrefixes?.toList(),
       delimiter: output.delimiter,
     );
     final subPaths = output.commonPrefixes
@@ -73,29 +71,22 @@ class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
   factory S3ListMetadata.fromS3CommonPrefixes({
-    List<s3.CommonPrefix>? commonPrefixes,
     String? delimiter,
   }) {
-    final subPaths = commonPrefixes
-        ?.map((commonPrefix) => commonPrefix.prefix)
-        .whereType<String>()
-        .toList();
-
     return S3ListMetadata._(
-      subPaths: subPaths,
       delimiter: delimiter,
     );
   }
 
   S3ListMetadata._({
+    @Deprecated('use StorageListResult.excludedSubpaths instead')
     List<String>? subPaths,
     this.delimiter,
   }) : subPaths = subPaths ?? const [];
 
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {
-    final subPaths = <String>[...this.subPaths, ...other.subPaths];
-    return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
+    return S3ListMetadata._(delimiter: other.delimiter);
   }
 
   /// Sub paths under the `path` parameter calling the `list` API.
@@ -107,45 +98,3 @@ class S3ListMetadata {
   /// The delimiter used in S3 prefix if any.
   final String? delimiter;
 }
-
-// TODO(hahnand): {PDI#delim_change} supercede S3ListMetadata with following implementation
-/// The metadata returned from the Storage S3 plugin `list` API.
-// class S3ListMetadata {
-//   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
-//   /// properties of the [s3.ListObjectsV2Output].
-//   factory S3ListMetadata.fromS3CommonPrefixes({
-//     // List<s3.CommonPrefix>? commonPrefixes,
-//     String? delimiter,
-//   }) {
-//     // final subPaths = commonPrefixes
-//     //     ?.map((commonPrefix) => commonPrefix.prefix)
-//     //     .whereType<String>()
-//     //     .toList();
-//
-//     return S3ListMetadata._(
-//       // subPaths: subPaths,
-//       delimiter: delimiter,
-//     );
-//   }
-//
-//   S3ListMetadata._({
-//     // List<String>? subPaths,
-//     this.delimiter,
-//   }); //: subPaths = subPaths ?? const [];
-//
-//   /// Merges two instances of [S3ListMetadata] into one.
-//   S3ListMetadata merge(S3ListMetadata other) {
-//     // final subPaths = <String>[...this.subPaths, ...other.subPaths];
-//     // return S3ListMetadata._(subPaths: subPaths, delimiter: other.delimiter);
-//     return S3ListMetadata._(delimiter: other.delimiter);
-//   }
-//
-//   /// Sub paths under the `path` parameter calling the `list` API.
-//   ///
-//   /// This list can be empty.
-//   // @Deprecated('use StorageListResult.excludedSubpaths instead')
-//   // final List<String> subPaths;
-//
-//   /// The delimiter used in S3 prefix if any.
-//   final String? delimiter;
-// }
