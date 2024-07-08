@@ -254,7 +254,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          pluginOptions: S3ListPluginOptions.listAll(),
+          subpaths: SubpathStrategy.listAll(),
         );
 
         const defaultPageSize = 1000;
