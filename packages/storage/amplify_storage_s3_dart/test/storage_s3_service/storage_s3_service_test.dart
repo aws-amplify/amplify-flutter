@@ -168,6 +168,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
+          // pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
           subpaths: SubpathStrategy.exclude(),
         );
         const testSubPaths = [
@@ -211,7 +212,8 @@ void main() {
           options: testOptions,
         );
 
-        expect(result.metadata.subPaths, equals(testSubPaths));
+        // expect(result.metadata.subPaths, equals(testSubPaths));
+        expect(result.excludedSubpaths, equals(testSubPaths));
       });
 
       test(
@@ -252,7 +254,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          subpaths: SubpathStrategy.listAll(),
+          pluginOptions: S3ListPluginOptions.listAll(),
         );
 
         const defaultPageSize = 1000;

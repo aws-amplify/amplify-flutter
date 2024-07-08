@@ -6,6 +6,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+// ignore: depend_on_referenced_packages, implementation_imports
 import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:file_picker/file_picker.dart';
@@ -32,9 +33,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class MyApp extends StatefulWidget {
-  final String title;
-
   const MyApp({super.key, required this.title});
+  final String title;
 
   // This widget is the root of your application.
   @override

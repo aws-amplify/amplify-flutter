@@ -13,7 +13,9 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
 
   const S3ListPluginOptions({
+    @Deprecated('use subpathStrategy.exclude() instead')
     bool excludeSubPaths = false,
+    @Deprecated('use subpathStrategy.exclude(delimiter = ) instead')
     String delimiter = '/',
   }) : this._(
           excludeSubPaths: excludeSubPaths,
