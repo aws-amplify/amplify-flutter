@@ -84,7 +84,7 @@ Future<void> listOperation() async {
   final s3Plugin = Amplify.Storage.getPlugin(AmplifyStorageS3Dart.pluginKey);
   final options = listAll
       ? const StorageListOptions(
-          pluginOptions: S3ListPluginOptions.listAll(),
+          subpaths: SubpathStrategy.listAll(),
         )
       : const StorageListOptions(
           pageSize: pageSize,
@@ -108,7 +108,7 @@ Future<void> listOperation() async {
 
   while (true) {
     stdout.writeln('Listed ${result.items.length} objects.');
-    stdout.writeln('Sub directories: ${result.metadata.subPaths}');
+    stdout.writeln('Sub directories: ${result.excludedSubpaths}');
     result.items.asMap().forEach((index, item) {
       stdout.writeln('$index. path: ${item.path} | size: ${item.size}');
     });
