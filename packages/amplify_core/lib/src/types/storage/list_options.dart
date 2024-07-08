@@ -16,6 +16,7 @@ class StorageListOptions
     this.pageSize = 1000,
     this.nextToken,
     this.pluginOptions,
+    this.subpathStrategy,
   });
 
   /// The number of object to be listed in each page.
@@ -26,6 +27,9 @@ class StorageListOptions
 
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
+
+  /// {@macro amplify_core.storage.list_plugin_options}
+  final StorageListPluginOptions? subpathStrategy;
 
   @override
   List<Object?> get props => [pageSize, nextToken, pluginOptions];

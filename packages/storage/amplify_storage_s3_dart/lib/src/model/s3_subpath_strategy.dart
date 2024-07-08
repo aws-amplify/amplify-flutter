@@ -12,7 +12,7 @@ part 's3_subpath_strategy.g.dart';
 /// {@endtemplate}
 @zAmplifySerializable
 class SubpathStrategy extends StorageListPluginOptions {
-  /// {@macro amplify_core.storage.subpath_strategy}
+  /// {@macro storage.amplify_storage_s3.subpath_strategy}
   const SubpathStrategy({
     bool excludeSubPaths = false,
     String delimiter = '/',
@@ -37,6 +37,7 @@ class SubpathStrategy extends StorageListPluginOptions {
   /// Default constructor syntactic sugar for DX parity
   const SubpathStrategy.include() : this._();
 
+  /// {@macro storage.amplify_storage_s3.subpath_strategy}
   const SubpathStrategy._({
     this.excludeSubPaths = false,
     this.delimiter = '/',
