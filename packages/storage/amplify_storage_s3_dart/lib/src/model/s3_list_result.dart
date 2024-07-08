@@ -70,7 +70,18 @@ class S3ListResult extends StorageListResult<S3Item> {
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
+  @Deprecated('use S3ListResult.fromPaginatedResult instead')
   factory S3ListMetadata.fromS3CommonPrefixes({
+    String? delimiter,
+  }) {
+    return S3ListMetadata._(
+      delimiter: delimiter,
+    );
+  }
+
+  /// Creates a S3ListMetadata from the `delimiter`
+  /// property of the [s3.ListObjectsV2Output].
+  factory S3ListMetadata.fromDelimiter({
     String? delimiter,
   }) {
     return S3ListMetadata._(
