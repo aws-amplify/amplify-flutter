@@ -9,11 +9,9 @@ part 's3_list_plugin_options.g.dart';
 /// The configurable parameters for the Storage S3 plugin `list` API.
 /// {@endtemplate}
 @zAmplifySerializable
-@Deprecated('use subpathStrategy instead')
 class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
 
-  @Deprecated('use subpathStrategy instead')
   const S3ListPluginOptions({
     bool excludeSubPaths = false,
     String delimiter = '/',
@@ -22,17 +20,15 @@ class S3ListPluginOptions extends StorageListPluginOptions {
           delimiter: delimiter,
         );
 
-  @Deprecated('use subpathStrategy instead')
   const S3ListPluginOptions._({
     @Deprecated('use subpathStrategy instead') this.excludeSubPaths = false,
     @Deprecated('use subpathStrategy instead') this.delimiter = '/',
-    @Deprecated('use subpathStrategy instead') this.listAll = false,
+    this.listAll = false,
   });
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
   /// Use this to list all objects without pagination.
-  @Deprecated('use subpathStrategy.listAll instead')
   const S3ListPluginOptions.listAll({
     bool excludeSubPaths = false,
   }) : this._(
@@ -41,7 +37,6 @@ class S3ListPluginOptions extends StorageListPluginOptions {
         );
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
-  @Deprecated('use subpathStrategy.fromJson instead')
   factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3ListPluginOptionsFromJson(json);
 
@@ -61,21 +56,17 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
-  @Deprecated('use subpathStrategy.listAll instead')
   final bool listAll;
 
   @override
-  @Deprecated('use subpathStrategy.props instead')
   List<Object?> get props => [
         excludeSubPaths,
         listAll,
       ];
 
   @override
-  @Deprecated('use subpathStrategy.runtimeTypeName instead')
   String get runtimeTypeName => 'S3ListPluginOptions';
 
   @override
-  @Deprecated('use subpathStrategy.toJson instead')
   Map<String, Object?> toJson() => _$S3ListPluginOptionsToJson(this);
 }
