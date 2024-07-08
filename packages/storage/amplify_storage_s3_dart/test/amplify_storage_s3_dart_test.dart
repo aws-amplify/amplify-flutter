@@ -90,7 +90,7 @@ void main() {
         <String>[],
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromS3CommonPrefixes(),
+        metadata: S3ListMetadata.fromDelimiter(),
       );
 
       setUpAll(() {

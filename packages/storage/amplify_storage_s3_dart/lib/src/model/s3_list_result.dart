@@ -72,6 +72,8 @@ class S3ListMetadata {
   /// properties of the [s3.ListObjectsV2Output].
   @Deprecated('use S3ListResult.fromPaginatedResult instead')
   factory S3ListMetadata.fromS3CommonPrefixes({
+    @Deprecated('use S3ListResult.fromPaginatedResult instead')
+    List<s3.CommonPrefix>? commonPrefixes,
     String? delimiter,
   }) {
     return S3ListMetadata._(
@@ -90,10 +92,8 @@ class S3ListMetadata {
   }
 
   S3ListMetadata._({
-    @Deprecated('use StorageListResult.excludedSubpaths instead')
-    List<String>? subPaths,
     this.delimiter,
-  }) : subPaths = subPaths ?? const [];
+  }) : subPaths = const [];
 
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {
