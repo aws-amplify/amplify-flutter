@@ -28,7 +28,7 @@ class S3ListResult extends StorageListResult<S3Item> {
   ) {
     final output = paginatedResult.items;
     final metadata = S3ListMetadata.fromS3CommonPrefixes(
-      // TODO(hahnand): remove the line following this TODO comment post S3ListMetadata.subPaths deprecation
+      // TODO(hahnand): {PDI#delim_change} remove the line following this TODO comment
       commonPrefixes: output.commonPrefixes?.toList(),
       delimiter: output.delimiter,
     );
@@ -108,8 +108,8 @@ class S3ListMetadata {
   final String? delimiter;
 }
 
-// TODO(hahnand): supercede S3ListMetadata with following implementation once subpaths deprecated and removed: 
-// /// The metadata returned from the Storage S3 plugin `list` API.
+// TODO(hahnand): {PDI#delim_change} supercede S3ListMetadata with following implementation
+/// The metadata returned from the Storage S3 plugin `list` API.
 // class S3ListMetadata {
 //   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
 //   /// properties of the [s3.ListObjectsV2Output].
@@ -149,4 +149,3 @@ class S3ListMetadata {
 //   /// The delimiter used in S3 prefix if any.
 //   final String? delimiter;
 // }
-//
