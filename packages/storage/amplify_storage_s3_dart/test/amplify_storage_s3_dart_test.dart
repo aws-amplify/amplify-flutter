@@ -99,11 +99,10 @@ void main() {
         );
       });
 
-
       test('should forward default options to StorageS3Service.list() API',
           () async {
         const defaultOptions =
-            StorageListOptions(subpaths: SubpathStrategy());
+            StorageListOptions(pluginOptions: S3ListPluginOptions());
 
         when(
           () => storageS3Service.list(
@@ -136,7 +135,6 @@ void main() {
           testResult,
         );
       });
-
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
@@ -179,6 +177,7 @@ void main() {
           testResult,
         );
       });
+    });
 
     group('getProperties()', () {
       const testKey = 'some-object-key';
