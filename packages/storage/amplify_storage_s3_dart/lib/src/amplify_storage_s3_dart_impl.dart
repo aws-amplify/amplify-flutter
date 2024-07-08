@@ -10,6 +10,7 @@ import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart'
     as download_file_impl;
@@ -131,7 +132,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
   }) {
     final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
-      defaultPluginOptions: const S3ListPluginOptions(),
+      defaultPluginOptions: const SubpathStrategy(),
     );
     final s3Options = StorageListOptions(
       pluginOptions: s3PluginOptions,
