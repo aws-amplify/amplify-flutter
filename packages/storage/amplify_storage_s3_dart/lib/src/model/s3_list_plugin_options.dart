@@ -17,10 +17,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
     bool excludeSubPaths = false,
     @Deprecated('use subpathStrategy.exclude(delimiter = ) instead')
     String delimiter = '/',
-  }) : this._(
-          excludeSubPaths: excludeSubPaths,
-          delimiter: delimiter,
-        );
+  }) : this._();
 
   const S3ListPluginOptions._({
     @Deprecated('use subpathStrategy instead') this.excludeSubPaths = false,
@@ -64,10 +61,8 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   final bool listAll;
 
   @override
-  List<Object?> get props => [
-        excludeSubPaths,
-        listAll,
-      ];
+  @Deprecated('use subpathStrategy.props instead')
+  List<Object?> get props => [];
 
   @override
   String get runtimeTypeName => 'S3ListPluginOptions';
