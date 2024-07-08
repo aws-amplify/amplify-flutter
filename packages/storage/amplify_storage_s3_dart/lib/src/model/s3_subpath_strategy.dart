@@ -8,7 +8,7 @@ part 's3_subpath_strategy.g.dart';
 // TODO(hahnand): change json serializable to dart macros when it hits stable & min version includes feature - https://dart.dev/language/macros
 
 /// {@template storage.amplify_storage_s3.subpath_strategy}
-/// The configurable parameters for the Storage S3 plugin `list` API.
+/// The configurable subpath strategy for Storage S3 `list` API.
 /// {@endtemplate}
 @zAmplifySerializable
 class SubpathStrategy extends StorageListPluginOptions {
