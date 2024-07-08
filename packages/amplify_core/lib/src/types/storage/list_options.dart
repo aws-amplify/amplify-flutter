@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/src/types/storage/subpath_strategy.dart';
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_core.storage.list_options}
@@ -17,7 +16,6 @@ class StorageListOptions
     this.pageSize = 1000,
     this.nextToken,
     this.pluginOptions,
-    this.subPaths, // TODO(hahnand): get naming down, change to subpathStrategy?
   });
 
   /// The number of object to be listed in each page.
@@ -28,9 +26,6 @@ class StorageListOptions
 
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
-
-  /// Subpath strategy
-  final SubpathStrategy? subPaths;
 
   @override
   List<Object?> get props => [pageSize, nextToken, pluginOptions];
@@ -43,7 +38,6 @@ class StorageListOptions
         'pageSize': pageSize,
         'nextToken': nextToken,
         'pluginOptions': pluginOptions?.toJson(),
-        'subPaths': subPaths,
       };
 }
 
