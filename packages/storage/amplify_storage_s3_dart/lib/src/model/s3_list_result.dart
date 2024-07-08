@@ -27,7 +27,7 @@ class S3ListResult extends StorageListResult<S3Item> {
     PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
   ) {
     final output = paginatedResult.items;
-    final metadata = S3ListMetadata.fromS3CommonPrefixes(
+    final metadata = S3ListMetadata.fromDelimiter(
       delimiter: output.delimiter,
     );
     final subPaths = output.commonPrefixes
