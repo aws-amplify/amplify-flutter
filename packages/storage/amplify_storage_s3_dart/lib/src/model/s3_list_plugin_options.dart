@@ -23,12 +23,13 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   const S3ListPluginOptions._({
     @Deprecated('use subpathStrategy instead') this.excludeSubPaths = false,
     @Deprecated('use subpathStrategy instead') this.delimiter = '/',
-    this.listAll = false,
+    @Deprecated('use subpathStrategy instead') this.listAll = false,
   });
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
   /// Use this to list all objects without pagination.
+  @Deprecated('use subpathStrategy.listAll instead')
   const S3ListPluginOptions.listAll({
     bool excludeSubPaths = false,
   }) : this._(
@@ -37,6 +38,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
         );
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
+  @Deprecated('use subpathStrategy.fromJson instead')
   factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3ListPluginOptionsFromJson(json);
 
@@ -56,6 +58,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
+  @Deprecated('use subpathStrategy.listAll instead')
   final bool listAll;
 
   @override
