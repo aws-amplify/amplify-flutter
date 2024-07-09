@@ -152,6 +152,34 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     );
   }
 
+  /// S3ListOperation for delim changes
+  S3ListOperation list2({
+    required StoragePath path,
+    StorageListOptions? options,
+  }) {
+    final subpathStrategy = reifyPluginOptions(
+      pluginOptions: options?.subpaths,
+      defaultPluginOptions: const SubpathStrategy(),
+    );
+    final s3Options = StorageListOptions(
+      subpaths: subpathStrategy,
+      nextToken: options?.nextToken,
+      pageSize: options?.pageSize ?? 1000,
+    );
+    final result = storageS3Service.list(
+      path: path,
+      options: s3Options,
+    );
+
+    return S3ListOperation(
+      request: StorageListRequest(
+        path: path,
+        options: options,
+      ),
+      result: result,
+    );
+  }
+
   @override
   S3GetPropertiesOperation getProperties({
     required StoragePath path,

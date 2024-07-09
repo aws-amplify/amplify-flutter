@@ -93,7 +93,7 @@ class S3ListMetadata {
 
   S3ListMetadata._({
     this.delimiter,
-  }) : subPaths = const [];
+  });
 
   /// Merges two instances of [S3ListMetadata] into one.
   S3ListMetadata merge(S3ListMetadata other) {
@@ -104,7 +104,7 @@ class S3ListMetadata {
   ///
   /// This list can be empty.
   @Deprecated('use StorageListResult.excludedSubpaths instead')
-  final List<String> subPaths;
+  final List<String> subPaths = [];
 
   /// The delimiter used in S3 prefix if any.
   final String? delimiter;

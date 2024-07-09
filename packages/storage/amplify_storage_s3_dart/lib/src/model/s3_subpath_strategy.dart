@@ -45,7 +45,7 @@ class SubpathStrategy extends StorageListPluginOptions {
   });
 
   /// Constructor for excludes with optional delimiter arg
-  const SubpathStrategy.exclude({String? delimiter})
+  const SubpathStrategy.exclude({String? delimiter = '/'})
       : this._(
           excludeSubPaths: true,
           delimiter: delimiter,

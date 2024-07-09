@@ -32,7 +32,7 @@ class StorageListOptions
   final StorageListPluginOptions? subpaths;
 
   @override
-  List<Object?> get props => [pageSize, nextToken, pluginOptions];
+  List<Object?> get props => [pageSize, nextToken, pluginOptions, subpaths];
 
   @override
   String get runtimeTypeName => 'StorageListOptions';
@@ -42,6 +42,7 @@ class StorageListOptions
         'pageSize': pageSize,
         'nextToken': nextToken,
         'pluginOptions': pluginOptions?.toJson(),
+        'subpaths': subpaths?.toJson(),
       };
 }
 

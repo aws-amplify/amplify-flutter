@@ -128,7 +128,7 @@ class StorageS3Service {
     required StorageListOptions options,
   }) async {
     final s3PluginOptions =
-        options.pluginOptions as SubpathStrategy? ?? const SubpathStrategy();
+        options.subpaths as SubpathStrategy? ?? const SubpathStrategy();
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
