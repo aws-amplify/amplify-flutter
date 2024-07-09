@@ -101,10 +101,7 @@ void main() {
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
-        const defaultOptions =
-            // StorageListOptions(pluginOptions: S3ListPluginOptions());
-            StorageListOptions(subpaths: SubpathStrategy());
-        // StorageListOptions(pluginOptions: SubpathStrategy());
+        const defaultOptions = StorageListOptions(subpaths: SubpathStrategy());
 
         when(
           () => storageS3Service.list(
@@ -115,35 +112,32 @@ void main() {
           (_) async => testResult,
         );
 
-        // final listOperation = storageS3Plugin.list(path: testPath);
-        // final listOperation = storageS3Plugin.list(path: testPath);
+        final listOperation = storageS3Plugin.list(path: testPath);
 
-        // final capturedOptions = verify(
-        //   () => storageS3Service.list(
-        //     path: testPath,
-        //     options: captureAny<StorageListOptions>(
-        //       named: 'options',
-        //     ),
-        //   ),
-        // ).captured.last;
-        //
-        // expect(
-        //   capturedOptions,
-        //   defaultOptions,
-        // );
-        //
-        // final result = await listOperation.result;
-        // expect(
-        //   result,
-        //   testResult,
-        // );
+        final capturedOptions = verify(
+          () => storageS3Service.list(
+            path: testPath,
+            options: captureAny<StorageListOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          defaultOptions,
+        );
+
+        final result = await listOperation.result;
+        expect(
+          result,
+          testResult,
+        );
       });
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          // pluginOptions: S3ListPluginOptions(),
           subpaths: SubpathStrategy(),
-          // pluginOptions: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           pageSize: 2,
         );
@@ -155,9 +149,9 @@ void main() {
           ),
         ).thenAnswer(
           (_) async => testResult,
-        ); // returns null if not match
+        );
 
-        final listOperation = storageS3Plugin.list2(
+        final listOperation = storageS3Plugin.list(
           path: testPath,
           options: testOptions,
         );

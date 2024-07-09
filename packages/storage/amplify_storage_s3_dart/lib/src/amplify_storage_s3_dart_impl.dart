@@ -136,11 +136,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       defaultPluginOptions: const SubpathStrategy(),
     );
     final s3Options = StorageListOptions(
-      pluginOptions: s3PluginOptions,
+      subpaths: s3PluginOptions,
       nextToken: options?.nextToken,
       pageSize: options?.pageSize ?? 1000,
     );
-
     return S3ListOperation(
       request: StorageListRequest(
         path: path,
@@ -167,17 +166,16 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
       nextToken: options?.nextToken,
       pageSize: options?.pageSize ?? 1000,
     );
-    final result = storageS3Service.list(
-      path: path,
-      options: s3Options,
-    );
 
     return S3ListOperation(
       request: StorageListRequest(
         path: path,
         options: options,
       ),
-      result: result,
+      result: storageS3Service.list(
+        path: path,
+        options: s3Options,
+      ),
     );
   }
 
