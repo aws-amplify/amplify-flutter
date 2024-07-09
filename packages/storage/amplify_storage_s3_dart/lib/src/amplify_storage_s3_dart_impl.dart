@@ -10,7 +10,6 @@ import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.
 import 'package:amplify_db_common_dart/amplify_db_common_dart.dart'
     as db_common;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/platform_impl/download_file/download_file.dart'
     as download_file_impl;
@@ -131,38 +130,14 @@ class AmplifyStorageS3Dart extends StoragePluginInterface
     StorageListOptions? options,
   }) {
     final s3PluginOptions = reifyPluginOptions(
-      // pluginOptions: options?.pluginOptions,
-      pluginOptions: options?.subpaths,
-      defaultPluginOptions: const SubpathStrategy(),
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const S3ListPluginOptions(),
     );
-    final s3Options = StorageListOptions(
-      subpaths: s3PluginOptions,
-      nextToken: options?.nextToken,
-      pageSize: options?.pageSize ?? 1000,
-    );
-    return S3ListOperation(
-      request: StorageListRequest(
-        path: path,
-        options: options,
-      ),
-      result: storageS3Service.list(
-        path: path,
-        options: s3Options,
-      ),
-    );
-  }
 
-  /// S3ListOperation for delim changes
-  S3ListOperation list2({
-    required StoragePath path,
-    StorageListOptions? options,
-  }) {
-    final subpathStrategy = reifyPluginOptions(
-      pluginOptions: options?.subpaths,
-      defaultPluginOptions: const SubpathStrategy(),
-    );
     final s3Options = StorageListOptions(
-      subpaths: subpathStrategy,
+      subpathStrategy:
+          options?.subpathStrategy ?? const SubpathStrategy.include(),
+      pluginOptions: s3PluginOptions,
       nextToken: options?.nextToken,
       pageSize: options?.pageSize ?? 1000,
     );

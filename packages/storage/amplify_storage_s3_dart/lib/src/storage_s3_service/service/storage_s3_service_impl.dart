@@ -10,7 +10,6 @@ import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
     as s3_exception;
-import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/path_resolver/s3_path_resolver.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
@@ -127,8 +126,23 @@ class StorageS3Service {
     required StoragePath path,
     required StorageListOptions options,
   }) async {
-    final s3PluginOptions =
-        options.subpaths as SubpathStrategy? ?? const SubpathStrategy();
+    final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
+        const S3ListPluginOptions();
+
+    // TODO(hahnand): post-deprecation, remove tempDeprecationMigration variables and replace with subpathStrategy variables
+    // `sed -i 's/tempDeprecationMigrationDelimiter/subpathStrategy.delimiter/g; s/tempDeprecationMigrationExcludedSubpaths/subpathStrategy.excludedSubpaths/g' .`
+    final String? tempDeprecationMigrationDelimiter;
+    final bool tempDeprecationMigrationExcludedSubpaths;
+
+    tempDeprecationMigrationExcludedSubpaths =
+        // ignore: deprecated_member_use_from_same_package
+        (options.pluginOptions as S3ListPluginOptions?)?.excludeSubPaths ??
+            (options.subpathStrategy.excludeSubPaths);
+
+    tempDeprecationMigrationDelimiter =
+        // ignore: deprecated_member_use_from_same_package
+        (options.pluginOptions as S3ListPluginOptions?)?.delimiter ??
+            (options.subpathStrategy.delimiter);
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
@@ -139,8 +153,8 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
+          ..delimiter = tempDeprecationMigrationExcludedSubpaths
+              ? tempDeprecationMigrationDelimiter
               : null;
       });
 
@@ -164,8 +178,8 @@ class StorageS3Service {
         builder
           ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
+          ..delimiter = tempDeprecationMigrationExcludedSubpaths
+              ? tempDeprecationMigrationDelimiter
               : null;
       });
 

@@ -13,23 +13,25 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
 
   const S3ListPluginOptions({
-    @Deprecated('use subpathStrategy.exclude() instead')
+    // ignore: avoid_unused_constructor_parameters
     bool excludeSubPaths = false,
-    @Deprecated('use subpathStrategy.exclude(delimiter = ) instead')
+    // ignore: avoid_unused_constructor_parameters
     String delimiter = '/',
   }) : this._();
 
   const S3ListPluginOptions._({
-    @Deprecated('use subpathStrategy instead') this.excludeSubPaths = false,
-    @Deprecated('use subpathStrategy instead') this.delimiter = '/',
-    @Deprecated('use subpathStrategy instead') this.listAll = false,
+    // ignore: deprecated_consistency
+    this.excludeSubPaths = false,
+    // ignore: deprecated_consistency
+    this.delimiter = '/',
+    this.listAll = false,
   });
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   ///
   /// Use this to list all objects without pagination.
-  @Deprecated('use subpathStrategy.listAll instead')
   const S3ListPluginOptions.listAll({
+    @Deprecated('use subpathStrategy.excludeSubPaths instead')
     bool excludeSubPaths = false,
   }) : this._(
           excludeSubPaths: excludeSubPaths,
@@ -37,7 +39,6 @@ class S3ListPluginOptions extends StorageListPluginOptions {
         );
 
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
-  @Deprecated('use subpathStrategy.fromJson instead')
   factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3ListPluginOptionsFromJson(json);
 
@@ -46,8 +47,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   @Deprecated('use subpathStrategy.excludeSubPaths instead')
   final bool excludeSubPaths;
 
-  /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
-  /// false, this value has no impact on behavior.
+  /// The delimiter formerly used to evaluate subpaths, superceded by SubpathStrategy.exclude(delimiter = '/') instead.
   @Deprecated('use subpathStrategy.delimiter instead')
   final String delimiter;
 
@@ -57,12 +57,15 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
-  @Deprecated('use subpathStrategy.listAll instead')
+  // ignore: deprecated_consistency
   final bool listAll;
 
   @override
-  @Deprecated('use subpathStrategy.props instead')
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        // ignore: deprecated_member_use_from_same_package
+        excludeSubPaths,
+        listAll,
+      ];
 
   @override
   String get runtimeTypeName => 'S3ListPluginOptions';

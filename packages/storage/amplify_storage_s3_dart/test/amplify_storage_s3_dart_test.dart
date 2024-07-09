@@ -4,7 +4,6 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/storage/storage_path_from_identity_id.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -84,13 +83,17 @@ void main() {
       dependencyManager.close();
     });
 
-    group('list()', () {
+    group('pre-delim changes list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
         <String>[],
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromDelimiter(),
+        // ignore: deprecated_member_use_from_same_package
+        metadata: S3ListMetadata.fromS3CommonPrefixes(
+          // ignore: deprecated_member_use_from_same_package
+          commonPrefixes: [],
+        ),
       );
 
       setUpAll(() {
@@ -101,7 +104,8 @@ void main() {
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
-        const defaultOptions = StorageListOptions(subpaths: SubpathStrategy());
+        const defaultOptions =
+            StorageListOptions(pluginOptions: S3ListPluginOptions());
 
         when(
           () => storageS3Service.list(
@@ -137,7 +141,106 @@ void main() {
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          subpaths: SubpathStrategy(),
+          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          nextToken: 'next-token-123',
+          pageSize: 2,
+        );
+
+        when(
+          () => storageS3Service.list(
+            path: testPath,
+            options: testOptions,
+          ),
+        ).thenAnswer(
+          (_) async => testResult,
+        );
+
+        final listOperation = storageS3Plugin.list(
+          path: testPath,
+          options: testOptions,
+        );
+
+        final capturedOptions = verify(
+          () => storageS3Service.list(
+            path: testPath,
+            options: captureAny<StorageListOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          testOptions,
+        );
+
+        final result = await listOperation.result;
+        expect(
+          result,
+          testResult,
+        );
+      });
+    });
+
+    group('post-delimiter changes list()', () {
+      const testPath = StoragePath.fromString('some/path');
+      final testResult = S3ListResult(
+        <String>[],
+        <S3Item>[],
+        hasNextPage: false,
+        // ignore: deprecated_member_use_from_same_package
+        metadata: S3ListMetadata.fromS3CommonPrefixes(),
+      );
+
+      setUpAll(() {
+        registerFallbackValue(
+          const StorageListOptions(),
+        );
+      });
+
+      test('should forward default options to StorageS3Service.list() API',
+          () async {
+        const defaultOptions = StorageListOptions(
+          pluginOptions: S3ListPluginOptions(),
+          subpathStrategy: SubpathStrategy.include(),
+        );
+
+        when(
+          () => storageS3Service.list(
+            path: testPath,
+            options: defaultOptions,
+          ),
+        ).thenAnswer(
+          (_) async => testResult,
+        );
+
+        final listOperation = storageS3Plugin.list(path: testPath);
+
+        final capturedOptions = verify(
+          () => storageS3Service.list(
+            path: testPath,
+            options: captureAny<StorageListOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          defaultOptions,
+        );
+
+        final result = await listOperation.result;
+        expect(
+          result,
+          testResult,
+        );
+      });
+
+      test('should forward options to StorageS3Service.list() API', () async {
+        const testOptions = StorageListOptions(
+          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          subpathStrategy: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           pageSize: 2,
         );

@@ -3,7 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -72,22 +71,22 @@ void main() {
       });
 
       group('list() with options', () {
-        group(
-            '@Deprecated for StorageListOptions.subpathStrategy, excluding sub paths with excludeSubPaths & delimiter',
-            () {
+        group('excluding sub paths', () {
           testWidgets('default delimiter', (_) async {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
-                subpaths: SubpathStrategy.exclude(),
+                pluginOptions: S3ListPluginOptions(
+                  excludeSubPaths: true,
+                ),
               ),
             ).result as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.excludedSubpaths.length, 1);
-            expect(listResult.excludedSubpaths.first, '$uniquePrefix/subdir/');
+            expect(listResult.metadata.subPaths.length, 1);
+            expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
             expect(listResult.metadata.delimiter, '/');
           });
 
@@ -95,57 +94,22 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
-                subpaths: SubpathStrategy.exclude(delimiter: '#'),
+                pluginOptions: S3ListPluginOptions(
+                  excludeSubPaths: true,
+                  delimiter: '#',
+                ),
               ),
             ).result as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.excludedSubpaths.length, 1);
+            expect(listResult.metadata.subPaths.length, 1);
             expect(
-              listResult.excludedSubpaths.first,
+              listResult.metadata.subPaths.first,
               '$uniquePrefix/subdir2#',
             );
             expect(listResult.metadata.delimiter, '#');
-          });
-        });
-
-        group('excluding sub paths with StorageListOptions.subpathStrategy',
-            () {
-          testWidgets('default delimiter', (_) async {
-            final listResult = await Amplify.Storage.list(
-              path: StoragePath.fromString('$uniquePrefix/'),
-              options: const StorageListOptions(
-                subpaths: SubpathStrategy.exclude(delimiter: '-'),
-              ),
-            ).result as S3ListResult;
-
-            expect(listResult.items.length, 3);
-            expect(listResult.items.first.path, contains('file1.txt'));
-
-            expect(listResult.excludedSubpaths.length, 1);
-            expect(listResult.excludedSubpaths.first, '$uniquePrefix/subdir/');
-            expect(listResult.metadata.delimiter, '/');
-          });
-
-          testWidgets('custom delimiter', (_) async {
-            final listResult = await Amplify.Storage.list(
-              path: StoragePath.fromString('$uniquePrefix/'),
-              options: const StorageListOptions(
-                subpaths: SubpathStrategy.exclude(delimiter: '-'),
-              ),
-            ).result as S3ListResult;
-
-            expect(listResult.items.length, 3);
-            expect(listResult.items.first.path, contains('file1.txt'));
-
-            expect(listResult.excludedSubpaths.length, 1);
-            expect(
-              listResult.excludedSubpaths.first,
-              '$uniquePrefix/subdir2#',
-            );
-            expect(listResult.metadata.delimiter, '-');
           });
         });
 
@@ -189,7 +153,7 @@ void main() {
           final listResult = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: const StorageListOptions(
-              subpaths: SubpathStrategy.listAll(),
+              pluginOptions: S3ListPluginOptions.listAll(),
             ),
           ).result;
 

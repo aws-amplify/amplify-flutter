@@ -7,7 +7,6 @@ import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_core/src/config/amplify_outputs/storage/storage_outputs.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
-import 'package:amplify_storage_s3_dart/src/model/s3_subpath_strategy.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -97,7 +96,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          subpaths: SubpathStrategy(),
+          pluginOptions: S3ListPluginOptions(),
         );
 
         final testPaginatedResult =
@@ -154,7 +153,7 @@ void main() {
       });
 
       test(
-          'Deprecated for StorageListOptions.subpathStrategy, should attach delimiter to the ListObjectV2Request when options excludeSubPaths is set to true',
+          'should attach delimiter to the ListObjectV2Request when options excludeSubPaths is set to true',
           () async {
         final testS3Objects = [1, 2, 3, 4, 5]
             .map(
@@ -168,8 +167,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          // pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
-          subpaths: SubpathStrategy.exclude(),
+          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
         );
         const testSubPaths = [
           'album#folder1',
@@ -212,8 +210,7 @@ void main() {
           options: testOptions,
         );
 
-        // expect(result.metadata.subPaths, equals(testSubPaths));
-        expect(result.excludedSubpaths, equals(testSubPaths));
+        expect(result.metadata.subPaths, equals(testSubPaths));
       });
 
       test(
@@ -239,6 +236,7 @@ void main() {
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });
+
       test(
           'should invoke S3Object.listObjectV2 with expected parameters and return expected results with listAll is set to true in the options',
           () async {
@@ -254,7 +252,7 @@ void main() {
         const testPath = StoragePath.fromString('album');
         const testOptions = StorageListOptions(
           pageSize: testPageSize,
-          subpaths: SubpathStrategy.listAll(),
+          pluginOptions: S3ListPluginOptions.listAll(),
         );
 
         const defaultPageSize = 1000;
