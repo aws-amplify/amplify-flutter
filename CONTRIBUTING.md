@@ -112,7 +112,7 @@ Some platforms require additional setup. See below for details.
 ```sh
 sudo apt update && sudo apt install libsecret-1-dev libglib2.0-dev
 ```
-For RPM-based Linux distributions such as Fedora, CentOS, or RHEL, you can install libsecret and glib by running the following command:
+For RPM-based Linux distributions such as Fedora, CentOS, or RHEL, you can install `libsecret` and `glib` by running the following command:
 
 ```sh
 sudo dnf update && sudo dnf install libsecret-devel glib2-devel
