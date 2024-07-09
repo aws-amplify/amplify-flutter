@@ -110,9 +110,13 @@ Some platforms require additional setup. See below for details.
 `libsecret` and `glib` are required for some plugins. They can be installed on Debian based linux distributions such as Ubuntu by running the command below.
 
 ```sh
-sudo apt-get update && sudo apt-get install libsecret-1-dev libglib2.0-dev
+sudo apt update && sudo apt install libsecret-1-dev libglib2.0-dev
 ```
+For RPM-based Linux distributions such as Fedora, CentOS, or RHEL, you can install libsecret and glib by running the following command:
 
+```sh
+sudo dnf update && sudo dnf install libsecret-devel glib2-devel
+```
 **VS Code Remote Container**
 
 [VS Code Remote Containers](https://code.visualstudio.com/docs/remote/containers) can be used for linux development. `/devcontainer` contains a Dockerfile that will install the required dependencies.
