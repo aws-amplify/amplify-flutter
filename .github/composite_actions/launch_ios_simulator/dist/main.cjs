@@ -7469,7 +7469,7 @@
     getLatest() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.String),
-        $async$returnValue, t1, version;
+        $async$returnValue, version, t1, t2, t3, debug;
       var $async$getLatest = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -7477,9 +7477,18 @@
           switch ($async$goto) {
             case 0:
               // Function start
+              t1 = self;
+              t2 = type$.JSObject;
+              t3 = type$.JSArray_String;
               $async$goto = 3;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "/bin/sh", A._setArrayType(["-c", 'xcodes runtimes | grep -e "iOS" | tail -n 1'], type$.JSArray_String), true), $async$getLatest);
+              return A._asyncAwait(A.Exec_exec(t2._as(t1.exec), "/bin/sh", A._setArrayType(["-c", "xcodes runtimes"], t3), true), $async$getLatest);
             case 3:
+              // returning from await.
+              debug = $async$result;
+              t2._as(t1.core).info("debug:: " + debug.stdout);
+              $async$goto = 4;
+              return A._asyncAwait(A.Exec_exec(t2._as(t1.exec), "/bin/sh", A._setArrayType(["-c", 'xcodes runtimes | grep -e "iOS" | tail -n 1'], t3), true), $async$getLatest);
+            case 4:
               // returning from await.
               version = $async$result;
               if (version.exitCode !== 0)
@@ -15043,7 +15052,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes@1.5.0", "aria2"], type$.JSArray_String), true), $async$call$0);
             case 2:
               // returning from await.
               if ($async$result.exitCode !== 0)

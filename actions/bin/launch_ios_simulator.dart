@@ -95,7 +95,7 @@ Future<String?> getRuntimeId(String iosVersion) async {
 Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
       final res = await exec.exec(
         'brew',
-        ['install', 'xcodesorg/made/xcodes', 'aria2'],
+        ['install', 'xcodesorg/made/xcodes@1.5.0', 'aria2'],
       );
       if (res.exitCode != 0) {
         throw Exception('Could not install xcodes');
@@ -103,6 +103,8 @@ Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
     });
 
 Future<String> getLatest() async {
+  final debug = await exec.exec('/bin/sh', ['-c', r'xcodes runtimes']);
+  core.info('debug:: ${debug.stdout}');
   final version = await exec
       .exec('/bin/sh', ['-c', r'xcodes runtimes | grep -e "iOS" | tail -n 1']);
   if (version.exitCode != 0) {
