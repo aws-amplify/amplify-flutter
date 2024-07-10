@@ -1,4 +1,6 @@
 import { defineBackend } from "@aws-amplify/backend";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import { v4 as uuidv4 } from "uuid";
 import { auth } from "./auth/resource";
 import { storage } from "./storage/resource";
 
@@ -23,9 +25,13 @@ const backend = defineBackend({
 //   },
 // };
 
-// // custom storage configurations
-// const s3Bucket = backend.storage.resources.bucket;
-// const cfnBucket = s3Bucket.node.defaultChild as s3.CfnBucket;
+// custom storage configurations
+const s3Bucket = backend.storage.resources.bucket;
+const cfnBucket = s3Bucket.node.defaultChild as s3.CfnBucket;
+
+const randomBucketName = `dots.in.name-${uuidv4()}`;
+
+cfnBucket.bucketName = randomBucketName;
 
 // cfnBucket.accelerateConfiguration = {
 //   accelerationStatus: "Suspended",
