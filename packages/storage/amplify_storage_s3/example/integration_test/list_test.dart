@@ -79,6 +79,7 @@ void main() {
                 pluginOptions: S3ListPluginOptions(
                   excludeSubPaths: true,
                 ),
+                subpathStrategy: SubpathStrategy.include(),
               ),
             ).result as S3ListResult;
 
@@ -158,6 +159,7 @@ void main() {
             path: StoragePath.fromString(uniquePrefix),
             options: const StorageListOptions(
               pluginOptions: S3ListPluginOptions.listAll(),
+              subpathStrategy: SubpathStrategy.include(),
             ),
           ).result;
 
