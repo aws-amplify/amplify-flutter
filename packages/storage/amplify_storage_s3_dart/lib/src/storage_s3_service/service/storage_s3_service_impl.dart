@@ -129,6 +129,21 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
 
+    // TODO(hahnand): post-deprecation, remove tempDeprecationMigration variables and replace with subpathStrategy variables
+    // `sed -i 's/tempDeprecationMigrationDelimiter/subpathStrategy.delimiter/g; s/tempDeprecationMigrationExcludedSubpaths/subpathStrategy.excludedSubpaths/g' .`
+    final String? tempDeprecationMigrationDelimiter;
+    final bool tempDeprecationMigrationExcludedSubpaths;
+
+    tempDeprecationMigrationExcludedSubpaths =
+        // ignore: deprecated_member_use_from_same_package
+        (options.pluginOptions as S3ListPluginOptions?)?.excludeSubPaths ??
+            (options.subpathStrategy.excludeSubPaths);
+
+    tempDeprecationMigrationDelimiter =
+        // ignore: deprecated_member_use_from_same_package
+        (options.pluginOptions as S3ListPluginOptions?)?.delimiter ??
+            (options.subpathStrategy.delimiter);
+
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     if (!s3PluginOptions.listAll) {
@@ -138,8 +153,8 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
+          ..delimiter = tempDeprecationMigrationExcludedSubpaths
+              ? tempDeprecationMigrationDelimiter
               : null;
       });
 
@@ -163,8 +178,8 @@ class StorageS3Service {
         builder
           ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
+          ..delimiter = tempDeprecationMigrationExcludedSubpaths
+              ? tempDeprecationMigrationDelimiter
               : null;
       });
 

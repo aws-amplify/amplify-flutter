@@ -11,16 +11,18 @@ part 's3_list_plugin_options.g.dart';
 @zAmplifySerializable
 class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
+
   const S3ListPluginOptions({
+    // ignore: avoid_unused_constructor_parameters
     bool excludeSubPaths = false,
+    // ignore: avoid_unused_constructor_parameters
     String delimiter = '/',
-  }) : this._(
-          excludeSubPaths: excludeSubPaths,
-          delimiter: delimiter,
-        );
+  }) : this._();
 
   const S3ListPluginOptions._({
+    // ignore: deprecated_consistency
     this.excludeSubPaths = false,
+    // ignore: deprecated_consistency
     this.delimiter = '/',
     this.listAll = false,
   });
@@ -29,6 +31,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   ///
   /// Use this to list all objects without pagination.
   const S3ListPluginOptions.listAll({
+    @Deprecated('use subpathStrategy.excludeSubPaths instead')
     bool excludeSubPaths = false,
   }) : this._(
           excludeSubPaths: excludeSubPaths,
@@ -41,10 +44,11 @@ class S3ListPluginOptions extends StorageListPluginOptions {
 
   /// Whether to exclude objects under the sub paths of the path to list. The
   /// default value is `false`.
+  @Deprecated('use subpathStrategy.excludeSubPaths instead')
   final bool excludeSubPaths;
 
-  /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
-  /// false, this value has no impact on behavior.
+  /// The delimiter formerly used to evaluate subpaths, superceded by SubpathStrategy.exclude(delimiter = '/') instead.
+  @Deprecated('use subpathStrategy.delimiter instead')
   final String delimiter;
 
   /// Whether to list all objects under a given path without pagination. The
@@ -53,10 +57,12 @@ class S3ListPluginOptions extends StorageListPluginOptions {
   /// This can be set by using [S3ListPluginOptions.listAll].
   ///
   /// Use with caution if numerous objects are under the given path.
+  // ignore: deprecated_consistency
   final bool listAll;
 
   @override
   List<Object?> get props => [
+        // ignore: deprecated_member_use_from_same_package
         excludeSubPaths,
         listAll,
       ];
