@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import aws.smithy.kotlin.runtime.time.Instant
 import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthPlugin
+import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.auth.AWSCredentials
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthDevice
@@ -43,6 +44,7 @@ import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.auth.result.AuthUpdateAttributeResult
 import com.amplifyframework.core.Action
 import com.amplifyframework.core.Consumer
+import com.amplifyframework.core.configuration.AmplifyOutputsData
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -63,6 +65,11 @@ class NativeAuthPluginWrapper(
     override fun getVersion(): String = BuildConfig.VERSION_NAME
 
     override fun configure(pluginConfiguration: JSONObject?, context: Context) {
+        // No-op
+    }
+
+    @InternalAmplifyApi
+    override fun configure(configuration: AmplifyOutputsData, context: Context) {
         // No-op
     }
 
