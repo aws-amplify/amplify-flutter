@@ -108,6 +108,7 @@ Future<void> listOperation() async {
 
   while (true) {
     stdout.writeln('Listed ${result.items.length} objects.');
+    // ignore: deprecated_member_use
     stdout.writeln('Sub directories: ${result.metadata.subPaths}');
     result.items.asMap().forEach((index, item) {
       stdout.writeln('$index. path: ${item.path} | size: ${item.size}');

@@ -210,6 +210,7 @@ void main() {
           options: testOptions,
         );
 
+        // ignore: deprecated_member_use_from_same_package
         expect(result.metadata.subPaths, equals(testSubPaths));
       });
 

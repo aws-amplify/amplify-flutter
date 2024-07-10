@@ -85,7 +85,9 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.length, 1);
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
             expect(listResult.metadata.delimiter, '/');
           });
@@ -104,8 +106,10 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.length, 1);
             expect(
+              // ignore: deprecated_member_use
               listResult.metadata.subPaths.first,
               '$uniquePrefix/subdir2#',
             );
