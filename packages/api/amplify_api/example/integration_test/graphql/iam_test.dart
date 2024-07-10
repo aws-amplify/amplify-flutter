@@ -6,8 +6,6 @@ import 'dart:math';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
-import 'package:amplify_api_example/models/gen2/Gen2ModelProvider.dart'
-    as gen2_model_provider;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,15 +35,15 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
       }
 
       if (!useExistingTestUser) {
-        await signUpTestUser(useEmail: useGen2);
+        await signUpTestUser();
       }
-      await signInTestUser(useEmail: useGen2);
+      await signInTestUser();
     });
 
     tearDownAll(() async {
       await deleteTestModels();
       if (!useExistingTestUser) {
-        await deleteTestUser(useEmail: useGen2);
+        await deleteTestUser();
       }
     });
 
@@ -343,8 +341,6 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
       testWidgets(
         'should GET a model with custom primary key and complex identifier using model helpers',
         (WidgetTester tester) async {
-          // TODO(equartey): remove when test is reliably skipped
-          if (useGen2) return;
           const name = 'Integration Test CpkParent to fetch';
           final cpkParent = await addCpkParent(name);
           final req = ModelQueries.get(
@@ -356,27 +352,6 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
           expect(res, hasNoGraphQLErrors);
           expect(data, equals(cpkParent));
         },
-        skip: useGen2,
-      );
-
-      testWidgets(
-        'Gen 2 - should GET a model with custom primary key and complex identifier using model helpers',
-        (WidgetTester tester) async {
-          // TODO(equartey): remove when test is reliably skipped
-          if (!useGen2) return;
-          const name = 'Integration Test CpkParent to fetch';
-          final cpkParent = await addCpkParentGen2(name);
-          final req = ModelQueries.get(
-            gen2_model_provider.CpkOneToOneBidirectionalParentCD.classType,
-            cpkParent.modelIdentifier,
-            authorizationMode: APIAuthorizationType.iam,
-          );
-          final res = await Amplify.API.query(request: req).response;
-          final data = res.data;
-          expect(res, hasNoGraphQLErrors);
-          expect(data, equals(cpkParent));
-        },
-        skip: !useGen2,
       );
 
       /// parent: { customId, name } // complex identifier
@@ -386,7 +361,6 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
         'should GET a child and include parent with complex identifier and custom primary key',
         (WidgetTester tester) async {
           // TODO(equartey): remove when test is reliably skipped
-          if (useGen2) return;
           const name = 'Integration Test CpkParent to fetch w child';
           const explicitChildName = 'Explicit child name fetch test';
           const implicitChildName = 'Implicit child name fetch test';
@@ -453,85 +427,6 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
             equals(cpkParent.customId),
           );
         },
-        skip: useGen2,
-      );
-
-      testWidgets(
-        'gen2 - should GET a child and include parent with complex identifier and custom primary key',
-        (WidgetTester tester) async {
-          // TODO(equartey): remove when test is reliably skipped
-          if (!useGen2) return;
-          const name = 'Integration Test CpkParent to fetch w child';
-          const explicitChildName = 'Explicit child name fetch test';
-          const implicitChildName = 'Implicit child name fetch test';
-          // Create test parent, explicit child and implicit child
-          final cpkParent = await addCpkParentGen2(name);
-          final createExplicitChildReq = ModelMutations.create(
-            gen2_model_provider.CpkOneToOneBidirectionalChildExplicitCD(
-              name: explicitChildName,
-              belongsToParent: cpkParent,
-            ),
-            authorizationMode: APIAuthorizationType.iam,
-          );
-          final createImplicitChildReq = ModelMutations.create(
-            gen2_model_provider.CpkOneToOneBidirectionalChildImplicitCD(
-              name: implicitChildName,
-              belongsToParent: cpkParent,
-            ),
-            authorizationMode: APIAuthorizationType.iam,
-          );
-          final explicitChildCreateRes = await Amplify.API
-              .mutate(request: createExplicitChildReq)
-              .response;
-          expect(explicitChildCreateRes, hasNoGraphQLErrors);
-          final createdExplicitChild = explicitChildCreateRes.data!;
-          gen2CpkExplicitChildCache.add(createdExplicitChild);
-          final implicitChildCreateRes = await Amplify.API
-              .mutate(request: createImplicitChildReq)
-              .response;
-          expect(implicitChildCreateRes, hasNoGraphQLErrors);
-          final createdImplicitChild = implicitChildCreateRes.data!;
-          gen2CpkImplicitChildCache.add(createdImplicitChild);
-
-          // Fetch the created children and check responses.
-          final fetchExplicitChildReq = ModelQueries.get(
-            gen2_model_provider
-                .CpkOneToOneBidirectionalChildExplicitCD.classType,
-            createdExplicitChild.modelIdentifier,
-            authorizationMode: APIAuthorizationType.iam,
-          );
-          final fetchExplicitChildRes =
-              await Amplify.API.query(request: fetchExplicitChildReq).response;
-          final fetchedExplicitChild = fetchExplicitChildRes.data;
-          expect(fetchExplicitChildRes, hasNoGraphQLErrors);
-          // Convert to JSON because `_belongsToParent` is private on the model
-          // but present in the converted JSON.
-          final explicitChildJson = fetchedExplicitChild?.toJson();
-          final explicitParentJson =
-              explicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-          expect(
-            explicitParentJson['customId'],
-            equals(cpkParent.customId),
-          );
-          final fetchImplicitChildReq = ModelQueries.get(
-            gen2_model_provider
-                .CpkOneToOneBidirectionalChildImplicitCD.classType,
-            createdImplicitChild.modelIdentifier,
-            authorizationMode: APIAuthorizationType.iam,
-          );
-          final fetchImplicitChildRes =
-              await Amplify.API.query(request: fetchImplicitChildReq).response;
-          final fetchedImplicitChild = fetchImplicitChildRes.data;
-          expect(fetchImplicitChildRes, hasNoGraphQLErrors);
-          final implicitChildJson = fetchedImplicitChild?.toJson();
-          final implicitParentJson =
-              implicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-          expect(
-            implicitParentJson['customId'],
-            equals(cpkParent.customId),
-          );
-        },
-        skip: !useGen2,
       );
     });
 
@@ -564,7 +459,7 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
       });
 
       tearDownAll(() async {
-        await signInTestUser(useEmail: useGen2);
+        await signInTestUser();
       });
     });
 

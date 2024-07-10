@@ -8,10 +8,9 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/amplify_outputs.dart' as amplify_outputs;
 import 'package:amplify_api_example/amplifyconfiguration.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
-import 'package:amplify_api_example/models/gen2/Gen2ModelProvider.dart'
-    as gen2_model_provider;
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const _subscriptionTimeoutInterval = 5;
@@ -26,34 +25,23 @@ final lowerCaseCache = <lowerCase>[];
 final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
 final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
 final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
-final gen2CpkParentCache =
-    <gen2_model_provider.CpkOneToOneBidirectionalParentCD>[];
-final gen2CpkExplicitChildCache =
-    <gen2_model_provider.CpkOneToOneBidirectionalChildExplicitCD>[];
-final gen2CpkImplicitChildCache =
-    <gen2_model_provider.CpkOneToOneBidirectionalChildImplicitCD>[];
 final sampleCache = <Sample>[];
 
 class TestUser {
   TestUser({
-    String? username,
+    String? email,
     String? password,
-  })  : _username = 'testUser${uuid()}',
-        _password = uuid(secure: true);
+  })  : _email = generateEmail(),
+        _password = generatePassword();
 
-  final String _username;
+  final String _email;
   final String _password;
 
-  String get testEmail => '$_username@amazon.com';
-
-  Future<void> signUp({bool useEmail = false}) async {
+  Future<void> signUp() async {
     await signOut();
     final result = await Amplify.Auth.signUp(
-      username: useEmail ? testEmail : _username,
+      username: _email,
       password: _password,
-      options: SignUpOptions(
-        userAttributes: useEmail ? {} : {AuthUserAttributeKey.email: testEmail},
-      ),
     );
     if (!result.isSignUpComplete) {
       throw Exception('Unable to sign up test user.');
@@ -67,11 +55,11 @@ class TestUser {
   }
 
   /// No-op if already signed in.
-  Future<void> signIn({bool useEmail = false}) async {
+  Future<void> signIn() async {
     final session = await Amplify.Auth.fetchAuthSession();
     if (session.isSignedIn) return;
     final result = await Amplify.Auth.signIn(
-      username: useEmail ? testEmail : _username,
+      username: _email,
       password: _password,
     );
     if (!result.isSignedIn) {
@@ -79,9 +67,9 @@ class TestUser {
     }
   }
 
-  Future<void> delete({bool useEmail = false}) async {
+  Future<void> delete() async {
     final session = await Amplify.Auth.fetchAuthSession();
-    if (!session.isSignedIn) await signInTestUser(useEmail: useEmail);
+    if (!session.isSignedIn) await signInTestUser();
     await Amplify.Auth.deleteUser();
     testUser = null;
   }
@@ -99,7 +87,7 @@ Future<void> configureAmplify() async {
         options: APIPluginOptions(modelProvider: ModelProvider.instance),
       ),
     ]);
-    await Amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyConfig);
   }
 }
 
@@ -113,7 +101,7 @@ Future<void> configureAmplifyGen2() async {
       ),
       AmplifyAPI(
         options: APIPluginOptions(
-          modelProvider: gen2_model_provider.Gen2ModelProvider.instance,
+          modelProvider: ModelProvider.instance,
         ),
       ),
     ]);
@@ -121,22 +109,22 @@ Future<void> configureAmplifyGen2() async {
   }
 }
 
-Future<void> signUpTestUser({bool useEmail = false}) async {
+Future<void> signUpTestUser() async {
   await signOutTestUser();
 
   testUser = TestUser();
-  await testUser!.signUp(useEmail: useEmail);
+  await testUser!.signUp();
 }
 
 /// No-op if already signed in.
-Future<void> signInTestUser({bool useEmail = false}) async {
+Future<void> signInTestUser() async {
   if (testUser == null) {
     throw const InvalidStateException(
       'No test user to sign in.',
       recoverySuggestion: 'Ensure test user signed up.',
     );
   }
-  await testUser!.signIn(useEmail: useEmail);
+  await testUser!.signIn();
 }
 
 // No-op if not signed in.
@@ -144,14 +132,14 @@ Future<void> signOutTestUser() async {
   await testUser?.signOut();
 }
 
-Future<void> deleteTestUser({bool useEmail = false}) async {
+Future<void> deleteTestUser() async {
   if (testUser == null) {
     throw const InvalidStateException(
       'No test user to delete.',
       recoverySuggestion: 'Ensure test user signed up.',
     );
   }
-  await testUser!.delete(useEmail: useEmail);
+  await testUser!.delete();
 }
 
 // declare utility which creates blog with title as parameter
@@ -198,23 +186,6 @@ Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
   final cpkParent = response.data;
   expect(cpkParent, isNotNull);
   cpkParentCache.add(cpkParent!);
-  return cpkParent;
-}
-
-Future<gen2_model_provider.CpkOneToOneBidirectionalParentCD> addCpkParentGen2(
-  String name,
-) async {
-  final request = ModelMutations.create(
-    gen2_model_provider.CpkOneToOneBidirectionalParentCD(
-      customId: uuid(),
-      name: name,
-    ),
-    authorizationMode: APIAuthorizationType.iam,
-  );
-  final response = await Amplify.API.mutate(request: request).response;
-  final cpkParent = response.data;
-  expect(cpkParent, isNotNull);
-  gen2CpkParentCache.add(cpkParent!);
   return cpkParent;
 }
 
@@ -336,23 +307,6 @@ Future<CpkOneToOneBidirectionalParentCD?> deleteCpkParent(
   return res.data;
 }
 
-Future<gen2_model_provider.CpkOneToOneBidirectionalParentCD?>
-    deleteCpkParentGen2(
-  gen2_model_provider.CpkOneToOneBidirectionalParentCD cpkParent,
-) async {
-  final request = ModelMutations.deleteById(
-    gen2_model_provider.CpkOneToOneBidirectionalParentCD.classType,
-    cpkParent.modelIdentifier,
-    authorizationMode: APIAuthorizationType.iam,
-  );
-  final res = await Amplify.API.mutate(request: request).response;
-  expect(res.data, isNotNull);
-  gen2CpkParentCache.removeWhere(
-    (cpkParentFromCache) => cpkParentFromCache.customId == cpkParent.customId,
-  );
-  return res.data;
-}
-
 Future<CpkOneToOneBidirectionalChildExplicitCD?> deleteCpkExplicitChild(
   CpkOneToOneBidirectionalChildExplicitCD cpkExplicitChild,
 ) async {
@@ -368,23 +322,6 @@ Future<CpkOneToOneBidirectionalChildExplicitCD?> deleteCpkExplicitChild(
   return res.data;
 }
 
-Future<gen2_model_provider.CpkOneToOneBidirectionalChildExplicitCD?>
-    deleteCpkExplicitChildGen2(
-  gen2_model_provider.CpkOneToOneBidirectionalChildExplicitCD cpkExplicitChild,
-) async {
-  final request = ModelMutations.deleteById(
-    gen2_model_provider.CpkOneToOneBidirectionalChildExplicitCD.classType,
-    cpkExplicitChild.modelIdentifier,
-    authorizationMode: APIAuthorizationType.iam,
-  );
-  final res = await Amplify.API.mutate(request: request).response;
-  expect(res.data, isNotNull);
-  gen2CpkExplicitChildCache.removeWhere(
-    (childFromCache) => childFromCache.id == cpkExplicitChild.id,
-  );
-  return res.data;
-}
-
 Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
   CpkOneToOneBidirectionalChildImplicitCD cpkImplicitChild,
 ) async {
@@ -395,23 +332,6 @@ Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
   cpkImplicitChildCache.removeWhere(
-    (childFromCache) => childFromCache.id == cpkImplicitChild.id,
-  );
-  return res.data;
-}
-
-Future<gen2_model_provider.CpkOneToOneBidirectionalChildImplicitCD?>
-    deleteCpkImplicitChildGen2(
-  gen2_model_provider.CpkOneToOneBidirectionalChildImplicitCD cpkImplicitChild,
-) async {
-  final request = ModelMutations.deleteById(
-    gen2_model_provider.CpkOneToOneBidirectionalChildImplicitCD.classType,
-    cpkImplicitChild.modelIdentifier,
-    authorizationMode: APIAuthorizationType.iam,
-  );
-  final res = await Amplify.API.mutate(request: request).response;
-  expect(res.data, isNotNull);
-  gen2CpkImplicitChildCache.removeWhere(
     (childFromCache) => childFromCache.id == cpkImplicitChild.id,
   );
   return res.data;
@@ -464,9 +384,6 @@ Future<void> deleteTestModels() async {
   await Future.wait(ownerOnlyCache.map(deleteOwnerOnly));
   await Future.wait(lowerCaseCache.map(deleteLowerCase));
   await Future.wait(sampleCache.map(deleteSample));
-  await Future.wait(gen2CpkParentCache.map(deleteCpkParentGen2));
-  await Future.wait(gen2CpkExplicitChildCache.map(deleteCpkExplicitChildGen2));
-  await Future.wait(gen2CpkImplicitChildCache.map(deleteCpkImplicitChildGen2));
 }
 
 /// Wait for subscription established for given request.

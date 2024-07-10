@@ -20,15 +20,15 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
         await configureAmplify();
       }
       if (!useExistingTestUser) {
-        await signUpTestUser(useEmail: useGen2);
+        await signUpTestUser();
       }
-      await signInTestUser(useEmail: useGen2);
+      await signInTestUser();
     });
 
     tearDownAll(() async {
       await deleteTestModels();
       if (!useExistingTestUser) {
-        await deleteTestUser(useEmail: useGen2);
+        await deleteTestUser();
       }
     });
 

@@ -41,17 +41,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
   String getId() => id;
 
   CpkOneToOneBidirectionalChildImplicitCDModelIdentifier get modelIdentifier {
-    try {
-      return CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(
-          id: id, name: _name!);
-    } catch (e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
+    return CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(id: id);
   }
 
   String get name {
@@ -133,18 +123,19 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
   }
 
   CpkOneToOneBidirectionalChildImplicitCD copyWith(
-      {CpkOneToOneBidirectionalParentCD? belongsToParent}) {
+      {String? name, CpkOneToOneBidirectionalParentCD? belongsToParent}) {
     return CpkOneToOneBidirectionalChildImplicitCD._internal(
         id: id,
-        name: name,
+        name: name ?? this.name,
         belongsToParent: belongsToParent ?? this.belongsToParent);
   }
 
   CpkOneToOneBidirectionalChildImplicitCD copyWithModelFieldValues(
-      {ModelFieldValue<CpkOneToOneBidirectionalParentCD?>? belongsToParent}) {
+      {ModelFieldValue<String>? name,
+      ModelFieldValue<CpkOneToOneBidirectionalParentCD?>? belongsToParent}) {
     return CpkOneToOneBidirectionalChildImplicitCD._internal(
         id: id,
-        name: name,
+        name: name == null ? this.name : name.value,
         belongsToParent: belongsToParent == null
             ? this.belongsToParent
             : belongsToParent.value);
@@ -214,7 +205,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
     ];
 
     modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id", "name"], name: null)
+      amplify_core.ModelIndex(fields: const ["id"], name: null)
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
@@ -228,10 +219,7 @@ class CpkOneToOneBidirectionalChildImplicitCD extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: CpkOneToOneBidirectionalChildImplicitCD.BELONGSTOPARENT,
         isRequired: false,
-        targetNames: [
-          'cpkOneToOneBidirectionalChildImplicitCDBelongsToParentCustomId',
-          'cpkOneToOneBidirectionalChildImplicitCDBelongsToParentName'
-        ],
+        targetNames: ['parentID', 'parentName'],
         ofModelName: 'CpkOneToOneBidirectionalParentCD'));
 
     modelSchemaDefinition.addField(
@@ -276,18 +264,13 @@ class CpkOneToOneBidirectionalChildImplicitCDModelIdentifier
     implements
         amplify_core.ModelIdentifier<CpkOneToOneBidirectionalChildImplicitCD> {
   final String id;
-  final String name;
 
-  /**
-   * Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key.
-   * And [name] the sort key.
-   */
+  /** Create an instance of CpkOneToOneBidirectionalChildImplicitCDModelIdentifier using [id] the primary key. */
   const CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(
-      {required this.id, required this.name});
+      {required this.id});
 
   @override
-  Map<String, dynamic> serializeAsMap() =>
-      (<String, dynamic>{'id': id, 'name': name});
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -300,7 +283,7 @@ class CpkOneToOneBidirectionalChildImplicitCDModelIdentifier
 
   @override
   String toString() =>
-      'CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(id: $id, name: $name)';
+      'CpkOneToOneBidirectionalChildImplicitCDModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -309,10 +292,9 @@ class CpkOneToOneBidirectionalChildImplicitCDModelIdentifier
     }
 
     return other is CpkOneToOneBidirectionalChildImplicitCDModelIdentifier &&
-        id == other.id &&
-        name == other.name;
+        id == other.id;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode;
+  int get hashCode => id.hashCode;
 }
