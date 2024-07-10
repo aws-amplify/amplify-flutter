@@ -21,7 +21,7 @@ class S3ListPluginOptions extends StorageListPluginOptions {
 
   const S3ListPluginOptions._({
     // ignore: deprecated_consistency
-    this.excludeSubPaths = false,
+    super.excludeSubPaths,
     // ignore: deprecated_consistency
     this.delimiter = '/',
     this.listAll = false,

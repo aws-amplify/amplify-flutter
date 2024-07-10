@@ -74,9 +74,6 @@ class S3ListResult extends StorageListResult<S3Item> {
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `commonPrefix` and `delimiter`
   /// properties of the [s3.ListObjectsV2Output]. Superceded by StorageListResult.fromPaginatedResult()
-  @Deprecated(
-    'use StorageListResult.fromPaginatedResult or S3ListMetadata.fromDelimiter instead',
-  )
   factory S3ListMetadata.fromS3CommonPrefixes({
     @Deprecated('use StorageListResult.fromPaginatedResult instead')
     List<s3.CommonPrefix>? commonPrefixes,

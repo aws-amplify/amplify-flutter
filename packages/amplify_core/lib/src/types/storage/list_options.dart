@@ -12,12 +12,19 @@ class StorageListOptions
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.storage.list_options}
-  const StorageListOptions({
+  StorageListOptions({
     this.pageSize = 1000,
     this.nextToken,
     this.pluginOptions,
-    this.subpathStrategy = const SubpathStrategy.include(),
-  });
+    required this.subpathStrategy,
+  }) {
+    // ignore: deprecated_member_use_from_same_package
+    if (pluginOptions?.excludeSubPaths != subpathStrategy.excludeSubPaths) {
+      throw ArgumentError(
+        'pluginOptions cannot be required if excludedSubpaths is false.',
+      );
+    }
+  }
 
   /// The number of object to be listed in each page.
   final int pageSize;
@@ -55,6 +62,10 @@ abstract class StorageListPluginOptions
         AWSEquatable<StorageListPluginOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
+  @Deprecated('use subpathStrategy.excludeSubPaths instead')
+  final bool excludeSubPaths;
+
   /// {@macro amplify_core.storage.list_plugin_options}
-  const StorageListPluginOptions();
+  // ignore: deprecated_consistency, sort_constructors_first, avoid_positional_boolean_parameters
+  const StorageListPluginOptions(this.excludeSubPaths);
 }

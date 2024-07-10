@@ -76,6 +76,7 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
+                subpathStrategy: SubpathStrategy.exclude(),
                 pluginOptions: S3ListPluginOptions(
                   excludeSubPaths: true,
                 ),
@@ -85,7 +86,9 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.length, 1);
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
             expect(listResult.metadata.delimiter, '/');
           });
@@ -94,6 +97,7 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
+                subpathStrategy: SubpathStrategy.exclude(delimiter: '#'),
                 pluginOptions: S3ListPluginOptions(
                   excludeSubPaths: true,
                   delimiter: '#',
@@ -104,8 +108,10 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
+            // ignore: deprecated_member_use
             expect(listResult.metadata.subPaths.length, 1);
             expect(
+              // ignore: deprecated_member_use
               listResult.metadata.subPaths.first,
               '$uniquePrefix/subdir2#',
             );
@@ -117,6 +123,7 @@ void main() {
           final listResult = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: const StorageListOptions(
+              subpathStrategy: SubpathStrategy.include(),
               pageSize: 2,
             ),
           ).result;
@@ -129,6 +136,7 @@ void main() {
           var listResult = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: const StorageListOptions(
+              subpathStrategy: SubpathStrategy.include(),
               pageSize: 1,
             ),
           ).result;
@@ -140,6 +148,7 @@ void main() {
           listResult = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: StorageListOptions(
+              subpathStrategy: const SubpathStrategy.include(),
               pageSize: 1,
               nextToken: listResult.nextToken,
             ),
@@ -153,12 +162,69 @@ void main() {
           final listResult = await Amplify.Storage.list(
             path: StoragePath.fromString(uniquePrefix),
             options: const StorageListOptions(
+              subpathStrategy: SubpathStrategy.include(),
               pluginOptions: S3ListPluginOptions.listAll(),
             ),
           ).result;
 
           expect(listResult.items.length, uploadedPaths.length);
           expect(listResult.nextToken, isNull);
+        });
+      });
+    });
+
+    group('testing deprecation prioritization', () {
+      // test cases:
+      // 'subpath information from subpathStrategy & S3ListMetadata should be same',
+      // Should prioritize delim information from subpathStrategy over pluginOptions',
+      // should prioritize excludedsubpath from subpathStrategy over pluginOptions',
+      setUpAll(() async {
+        await configure(amplifyEnvironments['main']!);
+
+        for (final path in uploadedPaths) {
+          await Amplify.Storage.uploadData(
+            path: StoragePath.fromString(path),
+            data: StorageDataPayload.bytes('test content'.codeUnits),
+          ).result;
+        }
+
+        for (final path in uploadedPaths) {
+          addTearDownPath(StoragePath.fromString(path));
+        }
+      });
+
+      group('list() with options', () {
+        group('excluding sub paths', () {
+          testWidgets(
+              'custom delimiters for both subpathstrategy and pluginoption, subpathstrategy\'s delimiter should be prioritized',
+              (_) async {
+            final listResult = await Amplify.Storage.list(
+              path: StoragePath.fromString('$uniquePrefix/'),
+              options: const StorageListOptions(
+                subpathStrategy: SubpathStrategy.exclude(delimiter: 'truthy'),
+                pluginOptions: S3ListPluginOptions(
+                  excludeSubPaths: true,
+                  delimiter: 'falsey',
+                ),
+              ),
+            ).result as S3ListResult;
+
+            expect(listResult.metadata.delimiter, 'truthy');
+          });
+        });
+
+        testWidgets('when listall instantiates plugin options and sets excluded subpaths to false and subpathstrategy.exclude() is used ,it should prioritize subpathstrategy)', (_) async {
+          final listResult = await Amplify.Storage.list(
+            path: StoragePath.fromString(uniquePrefix),
+            options: const StorageListOptions(
+              subpathStrategy: SubpathStrategy.include(),
+              pluginOptions: S3ListPluginOptions.listAll(),
+            ),
+          ).result;
+
+          expect(listResult.items.length, uploadedPaths.length);
+          expect(listResult.nextToken, isNull);
+          listResult.excludedSubpaths.getRange
         });
       });
     });

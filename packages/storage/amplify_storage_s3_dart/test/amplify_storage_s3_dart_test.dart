@@ -83,29 +83,27 @@ void main() {
       dependencyManager.close();
     });
 
-    group('pre-delim changes list()', () {
+    group('list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
         <String>[],
         <S3Item>[],
         hasNextPage: false,
-        // ignore: deprecated_member_use_from_same_package
-        metadata: S3ListMetadata.fromS3CommonPrefixes(
-          // ignore: deprecated_member_use_from_same_package
-          commonPrefixes: [],
-        ),
+        metadata: S3ListMetadata.fromS3CommonPrefixes(),
       );
 
       setUpAll(() {
         registerFallbackValue(
-          const StorageListOptions(),
+          const StorageListOptions(subpathStrategy: SubpathStrategy.include()),
         );
       });
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
-        const defaultOptions =
-            StorageListOptions(pluginOptions: S3ListPluginOptions());
+        const defaultOptions = StorageListOptions(
+          pluginOptions: S3ListPluginOptions(),
+          subpathStrategy: SubpathStrategy.include(),
+        );
 
         when(
           () => storageS3Service.list(
@@ -142,6 +140,7 @@ void main() {
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
           pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          subpathStrategy: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           pageSize: 2,
         );
@@ -182,23 +181,28 @@ void main() {
       });
     });
 
-    group('post-delimiter changes list()', () {
+    group('deprecating behavior, list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
         <String>[],
         <S3Item>[],
         hasNextPage: false,
-        // ignore: deprecated_member_use_from_same_package
         metadata: S3ListMetadata.fromS3CommonPrefixes(),
       );
 
       setUpAll(() {
         registerFallbackValue(
-          const StorageListOptions(),
+          const StorageListOptions(subpathStrategy: SubpathStrategy.include()),
         );
       });
 
-      test('should forward default options to StorageS3Service.list() API',
+      // test cases:
+      // 'subpath information from subpathStrategy & S3ListMetadata should be same',
+      // Should prioritize delim information from subpathStrategy over pluginOptions',
+      // should prioritize excludedsubpath from subpathStrategy over pluginOptions',
+
+      test(
+          'Should prioritize delim information from subpathStrategy over pluginOptions',
           () async {
         const defaultOptions = StorageListOptions(
           pluginOptions: S3ListPluginOptions(),
