@@ -10,7 +10,7 @@ import {
 } from "aws-cdk-lib/aws-appsync";
 import path from "path";
 import url from "url";
-import { inOneYear } from "../../common/expiration";
+import { inOneYear } from "../expiration";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
