@@ -9,21 +9,26 @@ import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/jwt.dart';
 import 'package:amplify_core/amplify_core.dart';
 
+// ignore: public_member_api_docs
 const usernameExistsException = UsernameExistsException(
   'A user with this username already exists.',
 );
 
+// ignore: public_member_api_docs
 const userNotFoundException = UserNotFoundException(
   'The user does not exist.',
 );
 
+// ignore: public_member_api_docs
 const codeMismatchException = CodeMismatchException(
   'Incorrect code. Please try again.',
 );
 
+// ignore: comment_references
 /// A stub of [AmplifyAuthCognito] that creates users in memory.
 class AmplifyAuthCognitoStub extends AuthPluginInterface
     implements AmplifyPluginInterface {
+  // ignore: public_member_api_docs
   AmplifyAuthCognitoStub({
     this.delay = const Duration(milliseconds: 10),
     List<MockCognitoUser> users = const [],
@@ -391,7 +396,6 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 }
 
 class MockCognitoUser {
-
   factory MockCognitoUser({
     required String username,
     required String password,

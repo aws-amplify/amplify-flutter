@@ -97,7 +97,6 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
-                subpathStrategy: SubpathStrategy.include(),
                 pluginOptions: S3ListPluginOptions(
                   excludeSubPaths: true,
                   delimiter: '#',
