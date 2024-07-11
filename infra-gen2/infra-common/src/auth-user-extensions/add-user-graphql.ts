@@ -9,11 +9,7 @@ import {
   SchemaFile,
 } from "aws-cdk-lib/aws-appsync";
 import path from "path";
-import url from "url";
 import { inOneYear } from "../expiration";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export function addUserGraphql(stack: Stack): GraphqlApi {
   const authorizationType = AuthorizationType.API_KEY;
@@ -21,7 +17,7 @@ export function addUserGraphql(stack: Stack): GraphqlApi {
     name: "UserGraphql",
     definition: {
       schema: SchemaFile.fromAsset(
-        path.resolve(__dirname, "user-graphql-schema.graphql")
+        path.resolve(__dirname, "..", "schemas", "user-graphql-schema.graphql")
       ),
     },
     authorizationConfig: {

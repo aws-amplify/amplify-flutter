@@ -8,11 +8,7 @@ import { Key } from "aws-cdk-lib/aws-kms";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
-import url from "url";
 import { Mutable } from "../types";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export function addCustomEmailSenderLambda(
   stack: Stack,
@@ -27,7 +23,12 @@ export function addCustomEmailSenderLambda(
   const lambdaTriggers: Mutable<UserPoolTriggers> = {};
 
   const customEmailSender = new NodejsFunction(stack, "custom-email-sender", {
-    entry: `${__dirname}/lambda-triggers/custom-email-sender.ts`,
+    entry: path.resolve(
+      __dirname,
+      "..",
+      "lambda-triggers",
+      "custom-email-sender.js"
+    ),
     runtime: Runtime.NODEJS_18_X,
     bundling: {
       nodeModules: ["@aws-crypto/client-node"],

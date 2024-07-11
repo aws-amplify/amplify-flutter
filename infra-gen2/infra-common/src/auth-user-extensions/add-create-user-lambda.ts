@@ -7,17 +7,13 @@ import { IUserPool } from "aws-cdk-lib/aws-cognito";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
-import url from "url";
-
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export function addCreateUserLambda(
   stack: Stack,
   { graphQL, userPool }: { graphQL: GraphqlApi; userPool: IUserPool }
 ) {
   const createUserLambda = new NodejsFunction(stack, "create-user", {
-    entry: `${__dirname}/lambda-triggers/create-user.ts`,
+    entry: path.resolve(__dirname, "..", "lambda-triggers", "create-user.js"),
     runtime: Runtime.NODEJS_18_X,
     environment: {
       USER_POOL_ID: userPool.userPoolId,

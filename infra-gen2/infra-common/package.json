@@ -7,6 +7,7 @@
     ".": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && npm run copy-graphql",
+    "copy-graphql": "cp -r ./src/schemas ./dist/schemas"
   }
 }
