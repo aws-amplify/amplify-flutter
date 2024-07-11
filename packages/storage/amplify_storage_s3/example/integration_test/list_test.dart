@@ -79,7 +79,7 @@ void main() {
                 pluginOptions: S3ListPluginOptions(
                   excludeSubPaths: true,
                 ),
-                subpathStrategy: SubpathStrategy.include(),
+                subpathStrategy: SubpathStrategy.exclude(),
               ),
             ).result as S3ListResult;
 
@@ -101,6 +101,7 @@ void main() {
                   excludeSubPaths: true,
                   delimiter: '#',
                 ),
+                subpathStrategy: SubpathStrategy.exclude(delimiter: '#'),
               ),
             ).result as S3ListResult;
 
