@@ -58,6 +58,10 @@ void main(List<String> arguments) async {
   final verbose = args.flag('verbose');
 
   final bucketNames = <String>[];
+
+  print('🏃 Running build for infra-gen2');
+  await _buildProject();
+
   print('🚀 Deploying Gen 2 backends!');
   for (final backendGroup in infraConfig) {
     // TODO(equartey): Could be removed when all backends are defined.
@@ -157,6 +161,16 @@ void main(List<String> arguments) async {
   print('🎉 All backends deployed successfully!');
 
   print('🪣 S3 Bucket Names: $bucketNames');
+}
+
+Future<Process> _buildProject() async {
+  return Process.start(
+    'npm',
+    [
+      'run',
+      'build',
+    ],
+  );
 }
 
 ArgResults _parseArgs(List<String> args) {

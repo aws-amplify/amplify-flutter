@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "build": "npm run build --workspaces --if-present"
+  },
   "workspaces": [
     "infra-common/",
     "backends/analytics/*",
