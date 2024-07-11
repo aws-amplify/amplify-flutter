@@ -180,6 +180,7 @@ Future<Post> addPost(
 Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
   final request = ModelMutations.create(
     CpkOneToOneBidirectionalParentCD(customId: uuid(), name: name),
+    authorizationMode: APIAuthorizationType.iam,
   );
 
   final response = await Amplify.API.mutate(request: request).response;
@@ -298,6 +299,7 @@ Future<CpkOneToOneBidirectionalParentCD?> deleteCpkParent(
   final request = ModelMutations.deleteById(
     CpkOneToOneBidirectionalParentCD.classType,
     cpkParent.modelIdentifier,
+    authorizationMode: APIAuthorizationType.iam,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
@@ -313,6 +315,7 @@ Future<CpkOneToOneBidirectionalChildExplicitCD?> deleteCpkExplicitChild(
   final request = ModelMutations.deleteById(
     CpkOneToOneBidirectionalChildExplicitCD.classType,
     cpkExplicitChild.modelIdentifier,
+    authorizationMode: APIAuthorizationType.iam,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
@@ -328,6 +331,7 @@ Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
   final request = ModelMutations.deleteById(
     CpkOneToOneBidirectionalChildImplicitCD.classType,
     cpkImplicitChild.modelIdentifier,
+    authorizationMode: APIAuthorizationType.iam,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);

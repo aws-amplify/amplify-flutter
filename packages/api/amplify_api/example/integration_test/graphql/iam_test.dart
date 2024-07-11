@@ -346,6 +346,7 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
           final req = ModelQueries.get(
             CpkOneToOneBidirectionalParentCD.classType,
             cpkParent.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
           );
           final res = await Amplify.API.query(request: req).response;
           final data = res.data;
@@ -371,12 +372,14 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
               name: explicitChildName,
               belongsToParent: cpkParent,
             ),
+            authorizationMode: APIAuthorizationType.iam,
           );
           final createImplicitChildReq = ModelMutations.create(
             CpkOneToOneBidirectionalChildImplicitCD(
               name: implicitChildName,
               belongsToParent: cpkParent,
             ),
+            authorizationMode: APIAuthorizationType.iam,
           );
           final explicitChildCreateRes = await Amplify.API
               .mutate(request: createExplicitChildReq)
@@ -396,6 +399,7 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
               ModelQueries.get<CpkOneToOneBidirectionalChildExplicitCD>(
             CpkOneToOneBidirectionalChildExplicitCD.classType,
             createdExplicitChild.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
           );
           final fetchExplicitChildRes =
               await Amplify.API.query(request: fetchExplicitChildReq).response;
@@ -414,6 +418,7 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
               ModelQueries.get<CpkOneToOneBidirectionalChildImplicitCD>(
             CpkOneToOneBidirectionalChildImplicitCD.classType,
             createdImplicitChild.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
           );
           final fetchImplicitChildRes =
               await Amplify.API.query(request: fetchImplicitChildReq).response;
