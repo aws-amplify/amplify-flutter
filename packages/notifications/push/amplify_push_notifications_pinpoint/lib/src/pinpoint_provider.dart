@@ -190,6 +190,15 @@ class PinpointProvider implements ServiceProviderClient {
       // `AnalyticsException` converts `AWSHttpException` to `NetworkException`.
     } on NetworkException catch (e) {
       _logger.error('Network problem when registering device: ', e);
+      // This is to allow configuration if `EndpointClient.updateEndpoint()`
+      // throws UnknownException due to expired token.
+      // the underlying exception is `NotAuthorizedException` with
+      // `Invalid login token. Token expired` message.
+    } on UnknownException catch (e) {
+      _logger.error(
+        'Could not update Pinpoint endpoint to register the device: ',
+        e,
+      );
     }
   }
 

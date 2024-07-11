@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 Future<void> main(List<String> args) => wrapMain(launch);
 
 Future<void> launch() async {
+  await installXcodes();
   final iosVersionArg = core.getInput('ios-version');
   final iosVersion =
       iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
@@ -24,7 +25,6 @@ Future<void> launch() async {
   );
   if (runtimeIdentifier == null) {
     core.info('No runtime found for $iosVersion');
-    await installXcodes();
     await installRuntime(iosVersion);
   }
   runtimeIdentifier = await core.withGroup(
