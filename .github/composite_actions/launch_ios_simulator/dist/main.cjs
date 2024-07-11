@@ -7362,7 +7362,6 @@
               t3 = type$.JSObject;
               inputValue = A._asString(t3._as(t2.core).getInput("ios-version"));
               iosVersionArg = inputValue.length === 0 ? "" : inputValue;
-              t3._as(t2.core).info("debug:: iosVersionArg: " + iosVersionArg);
               $async$goto = iosVersionArg === "latest" ? 3 : 5;
               break;
             case 3:
@@ -7469,7 +7468,7 @@
     getLatest() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.String),
-        $async$returnValue, version, t1, t2, t3, debug;
+        $async$returnValue, t1, version;
       var $async$getLatest = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -7477,18 +7476,9 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              t1 = self;
-              t2 = type$.JSObject;
-              t3 = type$.JSArray_String;
               $async$goto = 3;
-              return A._asyncAwait(A.Exec_exec(t2._as(t1.exec), "/bin/sh", A._setArrayType(["-c", "xcodes runtimes"], t3), true), $async$getLatest);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(self.exec), "/bin/sh", A._setArrayType(["-c", 'xcodes runtimes | grep -e "iOS" | tail -n 1'], type$.JSArray_String), true), $async$getLatest);
             case 3:
-              // returning from await.
-              debug = $async$result;
-              t2._as(t1.core).info("debug:: " + debug.stdout);
-              $async$goto = 4;
-              return A._asyncAwait(A.Exec_exec(t2._as(t1.exec), "/bin/sh", A._setArrayType(["-c", 'xcodes runtimes | grep -e "iOS" | tail -n 1'], t3), true), $async$getLatest);
-            case 4:
               // returning from await.
               version = $async$result;
               if (version.exitCode !== 0)

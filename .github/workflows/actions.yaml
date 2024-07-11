@@ -99,7 +99,7 @@ jobs:
       matrix:
         ios-version:
           - "15.0"
-          - "latest"
+          - "17.5"
     steps:
       - name: Git Checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # 3.6.0

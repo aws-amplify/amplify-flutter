@@ -11,7 +11,6 @@ Future<void> main(List<String> args) => wrapMain(launch);
 Future<void> launch() async {
   await installXcodes();
   final iosVersionArg = core.getInput('ios-version');
-  core.info('debug:: iosVersionArg: $iosVersionArg');
   final iosVersion =
       iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
   core.info('Launching simulator for $iosVersion');
@@ -103,8 +102,6 @@ Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
     });
 
 Future<String> getLatest() async {
-  final debug = await exec.exec('/bin/sh', ['-c', r'xcodes runtimes']);
-  core.info('debug:: ${debug.stdout}');
   final version = await exec
       .exec('/bin/sh', ['-c', r'xcodes runtimes | grep -e "iOS" | tail -n 1']);
   if (version.exitCode != 0) {
