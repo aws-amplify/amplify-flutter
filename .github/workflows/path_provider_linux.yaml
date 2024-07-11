@@ -1,0 +1,48 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: path_provider_linux
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/path_provider_linux.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/**/*.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/test/**/*'
+  pull_request:
+    paths:
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/path_provider_linux.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/**/*.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/test/**/*'
+  schedule:
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
+    with:
+      package-name: path_provider_linux
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+      has-goldens: false

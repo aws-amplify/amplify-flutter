@@ -1,0 +1,102 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: pathproviderexample
+on:
+  push:
+    branches:
+      - main
+      - stable
+    paths:
+      - '.github/workflows/e2e_android.yaml'
+      - '.github/workflows/e2e_ios.yaml'
+      - '.github/workflows/e2e_linux.yaml'
+      - '.github/workflows/e2e_web.yaml'
+      - '.github/workflows/e2e_windows.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/pathproviderexample.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/**/*.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/lib/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/test/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/pubspec.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/e2e_android.yaml'
+      - '.github/workflows/e2e_ios.yaml'
+      - '.github/workflows/e2e_linux.yaml'
+      - '.github/workflows/e2e_web.yaml'
+      - '.github/workflows/e2e_windows.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/pathproviderexample.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/**/*.yaml'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/lib/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example/test/**/*'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/lib/**/*.dart'
+      - 'packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/pubspec.yaml'
+  schedule:
+    - cron: "0 13 * * *" # Everyday at 06:00 PST
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+
+# These permissions are needed to interact with GitHub's OIDC Token endpoint.
+permissions:
+  id-token: write
+  contents: read
+
+# Cancels in-progress job when there is another push to same ref.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      has-goldens: false
+  e2e_android_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_android.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      needs-aws-config: false
+  e2e_ios_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_ios.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      needs-aws-config: false
+  e2e_web_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_web.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      needs-aws-config: false
+  e2e_linux_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_linux.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      needs-aws-config: false
+  e2e_windows_test:
+    needs: [test]
+    uses: ./.github/workflows/e2e_windows.yaml
+    secrets: inherit
+    with:
+      package-name: pathproviderexample
+      working-directory: packages/common/amplify_db_common/example/linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux/example
+      needs-aws-config: false

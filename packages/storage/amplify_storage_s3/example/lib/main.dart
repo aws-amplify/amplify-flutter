@@ -163,7 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
       final result = await Amplify.Storage.list(
         path: const StoragePath.fromString('public/'),
         options: const StorageListOptions(
-          pluginOptions: S3ListPluginOptions.listAll(),
+          pluginOptions: S3ListPluginOptions(
+            excludeSubPaths: true,
+            delimiter: '#',
+          ),
         ),
       ).result;
       setState(() {
