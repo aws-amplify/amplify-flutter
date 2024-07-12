@@ -5,8 +5,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api_example/amplify_outputs.dart' as amplify_outputs;
-import 'package:amplify_api_example/amplifyconfiguration.dart';
+import 'package:amplify_api_example/amplify_outputs.dart' as gen2;
+import 'package:amplify_api_example/amplifyconfiguration.dart' as gen1;
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -87,7 +87,7 @@ Future<void> configureAmplify() async {
         options: APIPluginOptions(modelProvider: ModelProvider.instance),
       ),
     ]);
-    await Amplify.configure(amplifyConfig);
+    await Amplify.configure(gen1.amplifyConfig);
   }
 }
 
@@ -105,8 +105,16 @@ Future<void> configureAmplifyGen2() async {
         ),
       ),
     ]);
-    await Amplify.configure(amplify_outputs.amplifyConfig);
+    final config = _addRestConfig(gen2.amplifyConfig);
+    await Amplify.configure(config);
   }
+}
+
+String _addRestConfig(String config) {
+  final json = jsonDecode(config);
+  // ignore: avoid_dynamic_calls
+  json['rest_api'] = {'multiAuthRest': json['custom']['multiAuthRest']};
+  return jsonEncode(json);
 }
 
 Future<void> signUpTestUser() async {

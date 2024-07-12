@@ -14,7 +14,7 @@ import 'util.dart';
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('amplify_api', () {
+  group('amplify_api gen 1 config', () {
     setUpAll(() async {
       await configureAmplify();
       await signUpTestUser();
@@ -29,18 +29,17 @@ void main() async {
     graph_api_key_test.main(useExistingTestUser: true);
     graph_iam_test.main(useExistingTestUser: true);
     graph_user_pools_test.main(useExistingTestUser: true);
-    rest_test.main(useExistingTestUser: true);
   });
 
-  group('amplify_api gen 2', () {
+  group('amplify_api gen 2 config', () {
     setUpAll(() async {
       await configureAmplifyGen2();
-      await signUpTestUser(useEmail: true);
-      await signInTestUser(useEmail: true);
+      await signUpTestUser();
+      await signInTestUser();
     });
 
     tearDownAll(() async {
-      await deleteTestUser(useEmail: true);
+      await deleteTestUser();
       await Amplify.reset();
     });
 
@@ -56,5 +55,7 @@ void main() async {
       useExistingTestUser: true,
       useGen2: true,
     );
+
+    rest_test.main(useExistingTestUser: true);
   });
 }
