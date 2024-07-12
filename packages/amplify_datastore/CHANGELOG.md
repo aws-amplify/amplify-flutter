@@ -1,3 +1,8 @@
+## 2.2.1
+
+### Fixes
+- fix(datastore): prevent auth plugin from throwing during configuration ([#5132](https://github.com/aws-amplify/amplify-flutter/pull/5132))
+
 ## 2.2.0
 
 ### Features
