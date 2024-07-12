@@ -8,7 +8,11 @@ import 'package:collection/collection.dart';
 
 Future<void> main(List<String> args) => wrapMain(launch);
 
+// TODO(equartey): Refactor to enable downloading of iOS 18 runtimes given
+// Apple's breaking change which `Xcodes` does not yet support.
+// https://github.com/XcodesOrg/xcodes/releases/tag/1.5.0
 Future<void> launch() async {
+  await installXcodes();
   final iosVersionArg = core.getInput('ios-version');
   final iosVersion =
       iosVersionArg == 'latest' ? await getLatest() : 'iOS $iosVersionArg';
@@ -24,7 +28,6 @@ Future<void> launch() async {
   );
   if (runtimeIdentifier == null) {
     core.info('No runtime found for $iosVersion');
-    await installXcodes();
     await installRuntime(iosVersion);
   }
   runtimeIdentifier = await core.withGroup(

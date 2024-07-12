@@ -3,7 +3,7 @@ description: Launches an iOS simulator and caches it for further action runs
 inputs:
   ios-version:
     description: The iOS version
-    default: "latest"
+    default: "17.5"
 runs:
   using: "node16"
   main: "dist/index.mjs"
