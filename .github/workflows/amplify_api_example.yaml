@@ -170,7 +170,6 @@ jobs:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example
       needs-aws-config: true
-      needs-gen2-config: true
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -179,7 +178,6 @@ jobs:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example
       needs-aws-config: true
-      needs-gen2-config: true
   e2e_web_test:
     needs: [test]
     uses: ./.github/workflows/e2e_web.yaml
@@ -188,7 +186,6 @@ jobs:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example
       needs-aws-config: true
-      needs-gen2-config: true
   e2e_linux_test:
     needs: [test]
     uses: ./.github/workflows/e2e_linux.yaml
@@ -197,7 +194,6 @@ jobs:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example
       needs-aws-config: true
-      needs-gen2-config: true
   e2e_windows_test:
     needs: [test]
     uses: ./.github/workflows/e2e_windows.yaml
@@ -206,4 +202,3 @@ jobs:
       package-name: amplify_api_example
       working-directory: packages/api/amplify_api/example
       needs-aws-config: true
-      needs-gen2-config: true

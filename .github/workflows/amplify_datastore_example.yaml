@@ -144,7 +144,6 @@ jobs:
       package-name: amplify_datastore_example
       working-directory: packages/amplify_datastore/example
       needs-aws-config: true
-      needs-gen2-config: false
   e2e_ios_test:
     needs: [test]
     uses: ./.github/workflows/e2e_ios.yaml
@@ -153,4 +152,3 @@ jobs:
       package-name: amplify_datastore_example
       working-directory: packages/amplify_datastore/example
       needs-aws-config: true
-      needs-gen2-config: false

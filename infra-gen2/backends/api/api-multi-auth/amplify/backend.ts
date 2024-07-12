@@ -21,7 +21,8 @@ const backend = defineBackend({
   restApiFunction,
 });
 
-/// REST API
+// Custom REST API
+// https://docs.amplify.aws/react/build-a-backend/add-aws-services/rest-api/set-up-rest-api/
 
 // create a new API stack
 const apiStack = backend.createStack("api-stack");
@@ -92,11 +93,8 @@ const apiRestPolicy = new Policy(apiStack, "RestApiPolicy", {
   ],
 });
 
-// attach the policy to the authenticated and unauthenticated IAM roles
+// attach the policy to the authenticated IAM role. (No guest access)
 backend.auth.resources.authenticatedUserIamRole.attachInlinePolicy(
-  apiRestPolicy
-);
-backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
   apiRestPolicy
 );
 
