@@ -2,7 +2,6 @@ import { defineBackend } from "@aws-amplify/backend";
 import { Stack } from "aws-cdk-lib";
 import {
   AuthorizationType,
-  CognitoUserPoolsAuthorizer,
   Cors,
   LambdaIntegration,
   RestApi,
@@ -54,29 +53,12 @@ const itemsPath = myRestApi.root.addResource("items", {
 });
 
 // add methods you would like to create to the resource path
-itemsPath.addMethod("GET", lambdaIntegration);
-itemsPath.addMethod("POST", lambdaIntegration);
-itemsPath.addMethod("DELETE", lambdaIntegration);
-itemsPath.addMethod("PUT", lambdaIntegration);
-itemsPath.addMethod("PATCH", lambdaIntegration);
-itemsPath.addMethod("HEAD", lambdaIntegration);
+itemsPath.addMethod("ANY", lambdaIntegration);
 
 // add a proxy resource path to the API
 itemsPath.addProxy({
   anyMethod: true,
   defaultIntegration: lambdaIntegration,
-});
-
-// create a new Cognito User Pools authorizer
-const cognitoAuth = new CognitoUserPoolsAuthorizer(apiStack, "CognitoAuth", {
-  cognitoUserPools: [backend.auth.resources.userPool],
-});
-
-// create a new resource path with Cognito authorization
-const booksPath = myRestApi.root.addResource("cognito-auth-path");
-booksPath.addMethod("GET", lambdaIntegration, {
-  authorizationType: AuthorizationType.COGNITO,
-  authorizer: cognitoAuth,
 });
 
 // create a new IAM policy to allow Invoke access to the API
@@ -87,15 +69,29 @@ const apiRestPolicy = new Policy(apiStack, "RestApiPolicy", {
       resources: [
         `${myRestApi.arnForExecuteApi("*", "/items", "dev")}`,
         `${myRestApi.arnForExecuteApi("*", "/items/*", "dev")}`,
-        `${myRestApi.arnForExecuteApi("*", "/cognito-auth-path", "dev")}`,
+      ],
+    }),
+  ],
+});
+/// create a new IAM policy to allow Invoke access to the "GET" API for unauthenticated users
+const apiRestGuestPolicy = new Policy(apiStack, "RestApiGuestPolicy", {
+  statements: [
+    new PolicyStatement({
+      actions: ["execute-api:Invoke"],
+      resources: [
+        `${myRestApi.arnForExecuteApi("GET", "/items", "dev")}`,
+        `${myRestApi.arnForExecuteApi("GET", "/items/*", "dev")}`,
       ],
     }),
   ],
 });
 
-// attach the policy to the authenticated IAM role. (No guest access)
+// attach the policy to the authenticated and unauthenticated IAM roles
 backend.auth.resources.authenticatedUserIamRole.attachInlinePolicy(
   apiRestPolicy
+);
+backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
+  apiRestGuestPolicy
 );
 
 // add outputs to the configuration file
