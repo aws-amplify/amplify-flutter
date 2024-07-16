@@ -180,6 +180,8 @@ class DriftQueuedItemsCompanion extends UpdateCompanion<DriftQueuedItem> {
 
 abstract class _$DriftQueuedItemStore extends GeneratedDatabase {
   _$DriftQueuedItemStore(QueryExecutor e) : super(e);
+  _$DriftQueuedItemStoreManager get managers =>
+      _$DriftQueuedItemStoreManager(this);
   late final $DriftQueuedItemsTable driftQueuedItems =
       $DriftQueuedItemsTable(this);
   @override
@@ -187,4 +189,102 @@ abstract class _$DriftQueuedItemStore extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [driftQueuedItems];
+}
+
+typedef $$DriftQueuedItemsTableInsertCompanionBuilder
+    = DriftQueuedItemsCompanion Function({
+  Value<int> id,
+  required String value,
+});
+typedef $$DriftQueuedItemsTableUpdateCompanionBuilder
+    = DriftQueuedItemsCompanion Function({
+  Value<int> id,
+  Value<String> value,
+});
+
+class $$DriftQueuedItemsTableTableManager extends RootTableManager<
+    _$DriftQueuedItemStore,
+    $DriftQueuedItemsTable,
+    DriftQueuedItem,
+    $$DriftQueuedItemsTableFilterComposer,
+    $$DriftQueuedItemsTableOrderingComposer,
+    $$DriftQueuedItemsTableProcessedTableManager,
+    $$DriftQueuedItemsTableInsertCompanionBuilder,
+    $$DriftQueuedItemsTableUpdateCompanionBuilder> {
+  $$DriftQueuedItemsTableTableManager(
+      _$DriftQueuedItemStore db, $DriftQueuedItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftQueuedItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$DriftQueuedItemsTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$DriftQueuedItemsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> value = const Value.absent(),
+          }) =>
+              DriftQueuedItemsCompanion(
+            id: id,
+            value: value,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String value,
+          }) =>
+              DriftQueuedItemsCompanion.insert(
+            id: id,
+            value: value,
+          ),
+        ));
+}
+
+class $$DriftQueuedItemsTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$DriftQueuedItemStore,
+        $DriftQueuedItemsTable,
+        DriftQueuedItem,
+        $$DriftQueuedItemsTableFilterComposer,
+        $$DriftQueuedItemsTableOrderingComposer,
+        $$DriftQueuedItemsTableProcessedTableManager,
+        $$DriftQueuedItemsTableInsertCompanionBuilder,
+        $$DriftQueuedItemsTableUpdateCompanionBuilder> {
+  $$DriftQueuedItemsTableProcessedTableManager(super.$state);
+}
+
+class $$DriftQueuedItemsTableFilterComposer
+    extends FilterComposer<_$DriftQueuedItemStore, $DriftQueuedItemsTable> {
+  $$DriftQueuedItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get value => $state.composableBuilder(
+      column: $state.table.value,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$DriftQueuedItemsTableOrderingComposer
+    extends OrderingComposer<_$DriftQueuedItemStore, $DriftQueuedItemsTable> {
+  $$DriftQueuedItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get value => $state.composableBuilder(
+      column: $state.table.value,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class _$DriftQueuedItemStoreManager {
+  final _$DriftQueuedItemStore _db;
+  _$DriftQueuedItemStoreManager(this._db);
+  $$DriftQueuedItemsTableTableManager get driftQueuedItems =>
+      $$DriftQueuedItemsTableTableManager(_db, _db.driftQueuedItems);
 }
