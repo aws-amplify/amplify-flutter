@@ -61,8 +61,7 @@ void main() {
         expect(currentDeviceKey, currentDevice.id);
       });
 
-      test(
-          'a DeviceNotTrackedException when current device key is null',
+      test('throw a DeviceNotTrackedException when current device key is null',
           () async {
         await plugin.forgetDevice();
         await expectLater(
@@ -72,8 +71,7 @@ void main() {
       });
     });
 
-    group('should throw',
-        () {
+    group('should throw', () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
           getDevice: () async => throw AWSHttpException(
@@ -83,8 +81,7 @@ void main() {
         plugin.stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
       });
 
-      test('This test should have Cognito GetDevice throw a NetworkException',
-          () async {
+      test('a NetworkException', () async {
         await expectLater(
           plugin.fetchCurrentDevice,
           throwsA(isA<NetworkException>()),
