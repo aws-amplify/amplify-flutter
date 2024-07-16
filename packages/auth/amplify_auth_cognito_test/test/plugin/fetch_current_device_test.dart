@@ -62,7 +62,7 @@ void main() {
       });
 
       test(
-          'This test should throw a DeviceNotTrackedException when current device key is null',
+          'a DeviceNotTrackedException when current device key is null',
           () async {
         await plugin.forgetDevice();
         await expectLater(
