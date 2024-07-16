@@ -52,7 +52,7 @@ void main() {
       });
 
       test(
-          'This test should get the current device, where the current device id is equal to the local device id',
+          'return the current device where the current device id is equal to the local device id',
           () async {
         final secrets = await repo.get(username);
         final currentDeviceKey = secrets?.deviceKey;
