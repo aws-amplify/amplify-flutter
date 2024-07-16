@@ -23,11 +23,6 @@ void main() {
   late DeviceMetadataRepository repo;
   late AmplifyAuthCognitoDart plugin;
 
-  Future<String?> getDeviceKey() async {
-    final secrets = await repo.get(username);
-    return secrets?.deviceKey;
-  }
-
   group('fetchCurrentDevice', () {
     setUp(() async {
       final secureStorage = MockSecureStorage();
@@ -47,7 +42,7 @@ void main() {
       repo = plugin.stateMachine.getOrCreate<DeviceMetadataRepository>();
     });
 
-    group('Cognito GetDevice returns successfully', () {
+    group('Cognito GetDevice returns successfully.', () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
           getDevice: () async => mockDeviceResponse,
@@ -57,16 +52,17 @@ void main() {
       });
 
       test(
-          'should get the current device. current device id should be equal to the local device id',
+          'This test should get the current device, where the current device id is equal to the local device id',
           () async {
-        final currentDeviceKey = await getDeviceKey();
+        final secrets = await repo.get(username);
+        final currentDeviceKey = secrets?.deviceKey;
         expect(currentDeviceKey, isNotNull);
         final currentDevice = await plugin.fetchCurrentDevice();
         expect(currentDeviceKey, currentDevice.id);
       });
 
       test(
-          'should should throw a DeviceNotTrackedException when current device key is null',
+          'This test should throw a DeviceNotTrackedException when current device key is null',
           () async {
         await plugin.forgetDevice();
         await expectLater(
@@ -76,7 +72,8 @@ void main() {
       });
     });
 
-    group('Cognito GetDevice throws AWSHttpException', () {
+    group('This test should have Cognito GetDevice throw a AWSHttpException',
+        () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
           getDevice: () async => throw AWSHttpException(
@@ -86,7 +83,8 @@ void main() {
         plugin.stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
       });
 
-      test('should throw a NetworkException', () async {
+      test('This test should have Cognito GetDevice throw a NetworkException',
+          () async {
         await expectLater(
           plugin.fetchCurrentDevice,
           throwsA(isA<NetworkException>()),
