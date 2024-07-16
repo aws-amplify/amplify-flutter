@@ -42,7 +42,7 @@ void main() {
       repo = plugin.stateMachine.getOrCreate<DeviceMetadataRepository>();
     });
 
-    group('Cognito GetDevice returns successfully.', () {
+    group('should successfully', () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
           getDevice: () async => mockDeviceResponse,
