@@ -21,7 +21,7 @@ void main({bool useExistingTestUser = false}) {
 
   group('REST', () {
     setUpAll(() async {
-      await configureAmplifyGen2();
+      await configureAmplify();
 
       if (!useExistingTestUser) {
         await signUpTestUser();

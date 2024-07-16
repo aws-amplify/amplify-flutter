@@ -16,24 +16,7 @@ void main() async {
 
   group('amplify_api gen 1 config', () {
     setUpAll(() async {
-      await configureAmplify();
-      await signUpTestUser();
-      await signInTestUser();
-    });
-
-    tearDownAll(() async {
-      await deleteTestUser();
-      await Amplify.reset();
-    });
-
-    graph_api_key_test.main(useExistingTestUser: true);
-    graph_iam_test.main(useExistingTestUser: true);
-    graph_user_pools_test.main(useExistingTestUser: true);
-  });
-
-  group('amplify_api gen 2 config', () {
-    setUpAll(() async {
-      await configureAmplifyGen2();
+      await configureAmplify(useGen1: true);
       await signUpTestUser();
       await signInTestUser();
     });
@@ -45,15 +28,38 @@ void main() async {
 
     graph_api_key_test.main(
       useExistingTestUser: true,
-      useGen2: true,
+      useGen1: true,
     );
     graph_iam_test.main(
       useExistingTestUser: true,
-      useGen2: true,
+      useGen1: true,
     );
     graph_user_pools_test.main(
       useExistingTestUser: true,
-      useGen2: true,
+      useGen1: true,
+    );
+  });
+
+  group('amplify_api gen 2 config', () {
+    setUpAll(() async {
+      await configureAmplify();
+      await signUpTestUser();
+      await signInTestUser();
+    });
+
+    tearDownAll(() async {
+      await deleteTestUser();
+      await Amplify.reset();
+    });
+
+    graph_api_key_test.main(
+      useExistingTestUser: true,
+    );
+    graph_iam_test.main(
+      useExistingTestUser: true,
+    );
+    graph_user_pools_test.main(
+      useExistingTestUser: true,
     );
 
     rest_test.main(useExistingTestUser: true);

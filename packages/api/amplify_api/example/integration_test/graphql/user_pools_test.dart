@@ -9,16 +9,13 @@ import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
-void main({bool useExistingTestUser = false, bool useGen2 = false}) {
+void main({bool useExistingTestUser = false, bool useGen1 = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL Cognito User Pools', () {
     setUpAll(() async {
-      if (useGen2) {
-        await configureAmplifyGen2();
-      } else {
-        await configureAmplify();
-      }
+      await configureAmplify(useGen1: useGen1);
+
       if (!useExistingTestUser) {
         await signUpTestUser();
       }

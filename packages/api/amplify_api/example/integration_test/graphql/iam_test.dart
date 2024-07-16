@@ -23,16 +23,12 @@ const _limit = 10000;
 
 const _max = 10000;
 
-void main({bool useExistingTestUser = false, bool useGen2 = false}) {
+void main({bool useExistingTestUser = false, bool useGen1 = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL IAM', () {
     setUpAll(() async {
-      if (useGen2) {
-        await configureAmplifyGen2();
-      } else {
-        await configureAmplify();
-      }
+      await configureAmplify(useGen1: useGen1);
 
       if (!useExistingTestUser) {
         await signUpTestUser();
@@ -361,7 +357,6 @@ void main({bool useExistingTestUser = false, bool useGen2 = false}) {
       testWidgets(
         'should GET a child and include parent with complex identifier and custom primary key',
         (WidgetTester tester) async {
-          // TODO(equartey): remove when test is reliably skipped
           const name = 'Integration Test CpkParent to fetch w child';
           const explicitChildName = 'Explicit child name fetch test';
           const implicitChildName = 'Implicit child name fetch test';

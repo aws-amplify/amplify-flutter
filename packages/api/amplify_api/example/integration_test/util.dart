@@ -75,23 +75,7 @@ class TestUser {
   }
 }
 
-Future<void> configureAmplify() async {
-  if (!Amplify.isConfigured) {
-    await Amplify.addPlugins([
-      AmplifyAuthCognito(
-        secureStorageFactory: AmplifySecureStorage.factoryFrom(
-          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-        ),
-      ),
-      AmplifyAPI(
-        options: APIPluginOptions(modelProvider: ModelProvider.instance),
-      ),
-    ]);
-    await Amplify.configure(gen1.amplifyConfig);
-  }
-}
-
-Future<void> configureAmplifyGen2() async {
+Future<void> configureAmplify({bool useGen1 = false}) async {
   if (!Amplify.isConfigured) {
     await Amplify.addPlugins([
       AmplifyAuthCognito(
@@ -105,8 +89,12 @@ Future<void> configureAmplifyGen2() async {
         ),
       ),
     ]);
-    final config = _addRestConfig(gen2.amplifyConfig);
-    await Amplify.configure(config);
+    if (useGen1) {
+      await Amplify.configure(gen1.amplifyConfig);
+    } else {
+      final config = _addRestConfig(gen2.amplifyConfig);
+      await Amplify.configure(config);
+    }
   }
 }
 
