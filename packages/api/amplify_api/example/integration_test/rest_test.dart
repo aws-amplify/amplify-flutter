@@ -61,14 +61,18 @@ void main({bool useExistingTestUser = false}) {
         skip: zIsWeb,
       );
 
-      testWidgets('should throw a HttpStatusException for POST',
-          (WidgetTester tester) async {
-        final operation = Amplify.API.post(path);
-        await expectLater(
-          operation.response,
-          throwsA(isA<HttpStatusException>()),
-        );
-      });
+      testWidgets(
+        'should throw a HttpStatusException for POST',
+        (WidgetTester tester) async {
+          final operation = Amplify.API.post(path);
+          await expectLater(
+            operation.response,
+            throwsA(isA<HttpStatusException>()),
+          );
+        },
+        // Skip on web because CORS
+        skip: zIsWeb,
+      );
     });
 
     group('authorized user access', () {

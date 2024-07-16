@@ -98,7 +98,7 @@ backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
 backend.addOutput({
   custom: {
     [myRestApi.restApiName]: {
-      url: myRestApi.url,
+      url: myRestApi.url.replace(/\/+$/, ""),
       aws_region: Stack.of(myRestApi).region,
       authorization_type: AuthorizationType.IAM,
     },
