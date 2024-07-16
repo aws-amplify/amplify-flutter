@@ -72,7 +72,7 @@ void main() {
       });
     });
 
-    group('This test should have Cognito GetDevice throw a AWSHttpException',
+    group('should throw',
         () {
       setUp(() async {
         final mockIdp = MockCognitoIdentityProviderClient(
