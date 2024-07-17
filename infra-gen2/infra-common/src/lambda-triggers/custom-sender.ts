@@ -13,11 +13,7 @@ import fetch from "node-fetch";
 // - https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-custom-sms-sender.html#code-examples
 // - https://github.com/aws-samples/amazon-cognito-user-pool-development-and-testing-with-sms-redirected-to-email
 
-const { GRAPHQL_API_ENDPOINT, GRAPHQL_API_KEY, KMS_KEY_ARN } = process.env;
 const { decrypt } = buildClient(CommitmentPolicy.FORBID_ENCRYPT_ALLOW_DECRYPT);
-const keyring = new KmsKeyringNode({
-  keyIds: [KMS_KEY_ARN!],
-});
 
 /**
  * Decrypts `code` using the KMS keyring provided by the environment.
@@ -25,6 +21,10 @@ const keyring = new KmsKeyringNode({
  * @returns The plaintext (decrypted) code.
  */
 const decryptCode = async (code: string): Promise<string> => {
+  const { KMS_KEY_ARN } = process.env;
+  const keyring = new KmsKeyringNode({
+    keyIds: [KMS_KEY_ARN!],
+  });
   const { plaintext } = await decrypt(keyring, Buffer.from(code, "base64"));
   return plaintext.toString("ascii");
 };
@@ -38,6 +38,7 @@ export const decryptAndBroadcastCode = async (
   code: string,
   userAttributes: StringMap
 ): Promise<void> => {
+  const { GRAPHQL_API_ENDPOINT, GRAPHQL_API_KEY } = process.env;
   const plaintextCode = await decryptCode(code!);
   console.log(`Got MFA code for username ${username}: ${plaintextCode}`);
 

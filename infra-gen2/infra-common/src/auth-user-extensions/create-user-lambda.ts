@@ -26,7 +26,6 @@ export function addCreateUserLambda(
     "cognito-idp:AdminSetUserMFAPreference",
     "cognito-idp:AdminUpdateUserAttributes"
   );
-
   const createUserSource = graphQL.addLambdaDataSource(
     "GraphQLApiCreateUserLambda",
     createUserLambda

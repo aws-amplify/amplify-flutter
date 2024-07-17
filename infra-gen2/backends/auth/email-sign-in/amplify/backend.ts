@@ -9,4 +9,10 @@ const backend = defineBackend({
   auth,
 });
 
-addAuthUserExtensions(backend);
+const resources = backend.auth.resources;
+const { userPool, cfnResources } = resources;
+const { stack } = userPool;
+const { cfnUserPool } = cfnResources;
+
+const customOutputs = addAuthUserExtensions(stack, userPool, cfnUserPool);
+backend.addOutput(customOutputs);
