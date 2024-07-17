@@ -12,35 +12,19 @@ void main() {
   testRunner.setupTests();
 
   group('resetPassword', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         late String username;
         late String password;
 
-        Future<void> signIn() async {
-          final otpResult = await getOtpCode(UserAttribute.username(username));
-          final signInRes = await Amplify.Auth.signIn(
-            username: username,
-            password: password,
-          );
-          if (signInRes.nextStep.signInStep ==
-              AuthSignInStep.confirmSignInWithSmsMfaCode) {
-            final confirmSignInRes = await Amplify.Auth.confirmSignIn(
-              confirmationValue: await otpResult.code,
-            );
-            expect(confirmSignInRes.isSignedIn, isTrue);
-          } else {
-            expect(signInRes.isSignedIn, isTrue);
-          }
-        }
-
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
           // create new user for each test
-          username = generateUsername();
+          username = environment.generateUsername();
           password = generatePassword();
 
           await adminCreateUser(
@@ -48,16 +32,27 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
-            enableMfa: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
+            // email/phone attributes must be provided for auto verification.
+            attributes: switch (environment.loginMethod) {
+              LoginMethod.email => {AuthUserAttributeKey.email: username},
+              LoginMethod.phone => {AuthUserAttributeKey.phoneNumber: username},
+              _ => {},
+            },
           );
 
-          await signIn();
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
         });
 
         asyncTest('can reset password', (_) async {
           await signOutUser();
 
-          final otpResult = await getOtpCode(UserAttribute.username(username));
+          final otpResult = await getOtpCode(
+            environment.getLoginAttribute(username),
+          );
           final resetPasswordRes = await Amplify.Auth.resetPassword(
             username: username,
           );
@@ -82,7 +77,10 @@ void main() {
             completes,
           );
 
-          await signIn();
+          await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
         });
       });
     }

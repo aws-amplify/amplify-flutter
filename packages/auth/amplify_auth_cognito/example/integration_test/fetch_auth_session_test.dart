@@ -259,8 +259,8 @@ void main() {
       });
     });
 
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         Future<Map<String, Object?>> getCustomAttributes({
           bool forceRefresh = false,
         }) async {
@@ -273,12 +273,13 @@ void main() {
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
         });
 
         asyncTest('Can force refresh', (_) async {
-          final username = generateUsername();
+          final username = environment.generateUsername();
           final password = generatePassword();
 
           await adminCreateUser(
@@ -286,6 +287,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           final res = await Amplify.Auth.signIn(
@@ -319,15 +321,17 @@ void main() {
         });
 
         asyncTest('force refresh reflects updated email', (_) async {
-          final username = generateUsername();
+          final username = environment.generateUsername();
           final password = generatePassword();
-          final originalEmail = generateEmail();
+          final originalEmail =
+              environment.loginMethod.isEmail ? username : generateEmail();
 
           await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
             attributes: {
               AuthUserAttributeKey.email: originalEmail,
             },
@@ -372,6 +376,8 @@ void main() {
               containsPair('email_verified', false),
             ]),
             reason: 'New email is not yet confirmed',
+            // email is not updated until after confirmation it is an alias.
+            skip: environment.loginMethod.isEmail,
           );
 
           await Amplify.Auth.confirmUserAttribute(

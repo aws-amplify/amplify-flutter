@@ -13,16 +13,17 @@ void main() {
   testRunner.setupTests();
 
   group('deleteUser', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
         });
 
         asyncTest('should delete a confirmed user', (_) async {
-          final username = generateUsername();
+          final username = environment.generateUsername();
           final password = generatePassword();
 
           // Create a confirmed user
@@ -31,6 +32,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           final res = await Amplify.Auth.signIn(
@@ -41,12 +43,16 @@ void main() {
 
           await Amplify.Auth.deleteUser();
 
+          final expectedException = environment.preventUserExistenceErrors
+              ? isA<AuthNotAuthorizedException>()
+              : isA<UserNotFoundException>();
+
           await expectLater(
             Amplify.Auth.signIn(
               username: username,
               password: password,
             ),
-            throwsA(isA<UserNotFoundException>()),
+            throwsA(expectedException),
             reason: 'Subsequent signIn calls should fail',
           );
         });
@@ -54,7 +60,7 @@ void main() {
         asyncTest(
           'fetchAuthSession should show signed out after user deletion',
           (_) async {
-            final username = generateUsername();
+            final username = environment.generateUsername();
             final password = generatePassword();
 
             await adminCreateUser(
@@ -62,6 +68,7 @@ void main() {
               password,
               autoConfirm: true,
               verifyAttributes: true,
+              autoFillAttributes: environment.loginMethod.isUsername,
             );
 
             final res = await Amplify.Auth.signIn(
