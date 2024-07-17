@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Minor bug fixes and improvements
+
 ## 0.6.0
 
 - Minor bug fixes and improvements
