@@ -104,7 +104,8 @@ abstract class StateMachineManager<
     await for (final completer in _eventController.stream) {
       try {
         await dispatch(completer.event, completer).completed;
-      } on Object {
+      } on Object catch (e) {
+        logger.verbose('Failed hard on event: ${completer.event}', e);
         continue;
       }
     }
