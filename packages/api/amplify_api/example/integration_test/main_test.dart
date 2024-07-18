@@ -64,30 +64,4 @@ void main() async {
 
     rest_test.main(useExistingTestUser: true);
   });
-
-  group('amplify_api gen 2', () {
-    setUpAll(() async {
-      await configureAmplifyGen2();
-      await signUpTestUser(useEmail: true);
-      await signInTestUser(useEmail: true);
-    });
-
-    tearDownAll(() async {
-      await deleteTestUser(useEmail: true);
-      await Amplify.reset();
-    });
-
-    graph_api_key_test.main(
-      useExistingTestUser: true,
-      useGen2: true,
-    );
-    graph_iam_test.main(
-      useExistingTestUser: true,
-      useGen2: true,
-    );
-    graph_user_pools_test.main(
-      useExistingTestUser: true,
-      useGen2: true,
-    );
-  });
 }
