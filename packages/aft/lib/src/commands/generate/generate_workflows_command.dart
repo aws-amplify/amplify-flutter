@@ -403,9 +403,6 @@ jobs:
       final needsAwsConfig = File(
         p.join(package.path, 'tool', 'pull_test_backend.sh'),
       ).existsSync();
-      final needsGen2Config = File(
-        p.join(package.path, 'tool', 'pull_test_gen2_backend.sh'),
-      ).existsSync();
       for (final MapEntry(key: platform, value: e2eWorkflow)
           in e2eWorkflows.entries) {
         workflowContents.write(
@@ -418,7 +415,6 @@ jobs:
       package-name: ${package.name}
       working-directory: $repoRelativePath
       needs-aws-config: $needsAwsConfig
-      needs-gen2-config: $needsGen2Config
 ''',
         );
       }
