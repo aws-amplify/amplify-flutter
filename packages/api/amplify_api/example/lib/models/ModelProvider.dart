@@ -22,6 +22,8 @@
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'Blog.dart';
 import 'Comment.dart';
+import 'CpkIntIndexes.dart';
+import 'CpkIntPrimaryKey.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
@@ -32,6 +34,8 @@ import 'lowerCase.dart';
 
 export 'Blog.dart';
 export 'Comment.dart';
+export 'CpkIntIndexes.dart';
+export 'CpkIntPrimaryKey.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
@@ -42,11 +46,13 @@ export 'lowerCase.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "9b304310f45499a1a0cd1d36e4665dcd";
+  String version = "6d07c2f7972c88971866079d13d940b8";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Blog.schema,
     Comment.schema,
+    CpkIntIndexes.schema,
+    CpkIntPrimaryKey.schema,
     CpkOneToOneBidirectionalChildExplicitCD.schema,
     CpkOneToOneBidirectionalChildImplicitCD.schema,
     CpkOneToOneBidirectionalParentCD.schema,
@@ -67,6 +73,10 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Blog.classType;
       case "Comment":
         return Comment.classType;
+      case "CpkIntIndexes":
+        return CpkIntIndexes.classType;
+      case "CpkIntPrimaryKey":
+        return CpkIntPrimaryKey.classType;
       case "CpkOneToOneBidirectionalChildExplicitCD":
         return CpkOneToOneBidirectionalChildExplicitCD.classType;
       case "CpkOneToOneBidirectionalChildImplicitCD":
