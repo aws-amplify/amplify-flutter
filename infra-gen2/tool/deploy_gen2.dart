@@ -127,11 +127,7 @@ void main(List<String> arguments) async {
     // Copy config files to shared paths
     _copyConfigFile(
       backendGroup.sharedOutputs,
-      amplifyOutputs,
-    );
-    _copyConfigFile(
-      backendGroup.sharedOutputs,
-      amplifyConfiguration,
+      [amplifyOutputs, amplifyConfiguration],
     );
 
     // Check if the S3 bucket exists
@@ -148,11 +144,7 @@ void main(List<String> arguments) async {
     // Upload config files to S3 bucket
     _uploadConfigFileToS3(
       bucketName,
-      amplifyOutputs,
-    );
-    _uploadConfigFileToS3(
-      bucketName,
-      amplifyConfiguration,
+      [amplifyOutputs, amplifyConfiguration],
     );
 
     print('✅ Deployment for $categoryName Category complete');
@@ -300,25 +292,27 @@ void _appendEnvironments(
 /// Copy a given config file to a list of shared paths
 void _copyConfigFile(
   List<String> outputPaths,
-  File configFile,
+  List<File> configFiles,
 ) {
   if (outputPaths.length <= 1) {
     return;
   }
 
-  final fileName = configFile.path.split('/').last;
+  for (final configFile in configFiles) {
+    final fileName = configFile.path.split('/').last;
 
-  print('👯 Copying $fileName to other shared paths');
-  for (final outputPath in outputPaths) {
-    final destination = p.join(repoRoot.path, outputPath);
-    final outputFile = File(p.join(destination, fileName));
+    print('👯 Copying $fileName to other shared paths');
+    for (final outputPath in outputPaths) {
+      final destination = p.join(repoRoot.path, outputPath);
+      final outputFile = File(p.join(destination, fileName));
 
-    if (!outputFile.existsSync()) {
-      outputFile.createSync(recursive: true);
+      if (!outputFile.existsSync()) {
+        outputFile.createSync(recursive: true);
+      }
+      final amplifyOutputsContents = configFile.readAsStringSync();
+
+      outputFile.writeAsStringSync(amplifyOutputsContents);
     }
-    final amplifyOutputsContents = configFile.readAsStringSync();
-
-    outputFile.writeAsStringSync(amplifyOutputsContents);
   }
 }
 
@@ -397,29 +391,31 @@ void _createS3Bucket(String bucketName) {
 /// Upload the amplify_outputs.dart file to the S3 bucket
 void _uploadConfigFileToS3(
   String bucketName,
-  File configFile,
+  List<File> configFiles,
 ) {
-  final fileName = configFile.path.split('/').last;
-  print('📲 Uploading $fileName to S3 bucket');
-  final downloadRes = Process.runSync(
-    'aws',
-    [
-      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
-      's3',
-      'cp',
-      configFile.path,
-      's3://$bucketName/$fileName',
-    ],
-    stdoutEncoding: utf8,
-    stderrEncoding: utf8,
-  );
-  if (downloadRes.exitCode != 0) {
-    throw Exception(
-      '❌ Error downloading $bucketName config from S3: '
-      '${downloadRes.stdout}\n${downloadRes.stderr}',
+  for (final configFile in configFiles) {
+    final fileName = configFile.path.split('/').last;
+    print('📲 Uploading $fileName to S3 bucket');
+    final downloadRes = Process.runSync(
+      'aws',
+      [
+        '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+        's3',
+        'cp',
+        configFile.path,
+        's3://$bucketName/$fileName',
+      ],
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
     );
+    if (downloadRes.exitCode != 0) {
+      throw Exception(
+        '❌ Error downloading $bucketName config from S3: '
+        '${downloadRes.stdout}\n${downloadRes.stderr}',
+      );
+    }
+    print('👍 $fileName successfully uploaded to S3 bucket');
   }
-  print('👍 $fileName successfully uploaded to S3 bucket');
 }
 
 /// Generates gen 1 amplifyconfiguration.dart file
