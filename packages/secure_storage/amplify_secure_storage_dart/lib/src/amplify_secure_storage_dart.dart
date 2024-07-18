@@ -64,6 +64,10 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
       );
     };
   }
+
+  // Required to register the plugin on windows and linux platforms.
+  // https://docs.flutter.dev/packages-and-plugins/developing-packages#plugin-platforms
+  static void registerWith() {}
 }
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_worker}
