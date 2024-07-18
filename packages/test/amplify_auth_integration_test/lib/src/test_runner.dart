@@ -123,7 +123,7 @@ const List<EnvironmentInfo> userPoolEnvironments = [
   EnvironmentInfo.withGen1Defaults(name: 'main'),
   EnvironmentInfo.withGen1Defaults(name: 'user-pool-only'),
   EnvironmentInfo.withGen1Defaults(name: 'with-client-secret'),
-  EnvironmentInfo.withGen2Defaults(name: 'emailSignIn'),
+  EnvironmentInfo.withGen2Defaults(name: 'email-sign-in'),
   EnvironmentInfo.withGen2Defaults(
     name: 'phone-sign-in',
     loginMethod: LoginMethod.phone,
