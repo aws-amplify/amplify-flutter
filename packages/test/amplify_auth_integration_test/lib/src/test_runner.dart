@@ -124,6 +124,11 @@ const List<EnvironmentInfo> userPoolEnvironments = [
   EnvironmentInfo.withGen1Defaults(name: 'user-pool-only'),
   EnvironmentInfo.withGen1Defaults(name: 'with-client-secret'),
   EnvironmentInfo.withGen2Defaults(name: 'emailSignIn'),
+  EnvironmentInfo.withGen2Defaults(
+    name: 'phone-sign-in',
+    loginMethod: LoginMethod.phone,
+    deliveryMedium: DeliveryMedium.sms,
+  ),
 ];
 
 /// Environments with a user pool and opt-in device tracking.
