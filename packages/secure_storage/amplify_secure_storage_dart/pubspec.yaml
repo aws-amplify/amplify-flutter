@@ -49,9 +49,8 @@ flutter:
     - lib/src/worker/workers.min.js
     - lib/src/worker/workers.min.js.map
   plugin:
-    implements: amplify_secure_storage_dart
     platforms:
       linux:
-        dartPluginClass: AmplifySecureStorageDart
+        default_package: amplify_secure_storage_dart
       windows:
-        dartPluginClass: AmplifySecureStorageDart
+        default_package: amplify_secure_storage_dart
