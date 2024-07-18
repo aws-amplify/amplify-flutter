@@ -63,7 +63,7 @@ void main() {
           );
           expect(
             resetPasswordRes.nextStep.codeDeliveryDetails?.deliveryMedium,
-            DeliveryMedium.email,
+            environment.deliveryMedium,
           );
 
           password = generatePassword();
