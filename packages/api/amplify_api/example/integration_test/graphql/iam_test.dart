@@ -23,12 +23,12 @@ const _limit = 10000;
 
 const _max = 10000;
 
-void main({bool useExistingTestUser = false}) {
+void main({bool useExistingTestUser = false, bool useGen1 = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL IAM', () {
     setUpAll(() async {
-      await configureAmplify();
+      await configureAmplify(useGen1: useGen1);
 
       if (!useExistingTestUser) {
         await signUpTestUser();
@@ -155,7 +155,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final createdPost = await addPostAndBlog(title, rating);
+        final createdPost = await addPostAndBlog(
+          title,
+          rating,
+        );
 
         final req = ModelQueries.list(
           Post.classType,
@@ -174,7 +177,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final createdPost = await addPostAndBlog(title, rating);
+        final createdPost = await addPostAndBlog(
+          title,
+          rating,
+        );
         final blogId = createdPost.blog?.id;
 
         final req = ModelQueries.list(
@@ -239,7 +245,10 @@ void main({bool useExistingTestUser = false}) {
       testWidgets('should copyWith request', (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final createdPost = await addPostAndBlog(title, rating);
+        final createdPost = await addPostAndBlog(
+          title,
+          rating,
+        );
         final blogId = createdPost.blog?.id;
 
         // Original request with mock id
@@ -297,8 +306,10 @@ void main({bool useExistingTestUser = false}) {
         // First ensure that request will fail without custom headers.
         final reqThatFails = ModelMutations.create(
           Blog(name: testName),
+          authorizationMode: APIAuthorizationType.iam,
         );
-        final failRes = await Amplify.API.query(request: reqThatFails).response;
+        final failRes =
+            await Amplify.API.mutate(request: reqThatFails).response;
         expect(failRes.data, isNull);
         expect(failRes.hasErrors, isTrue);
 
@@ -317,97 +328,106 @@ void main({bool useExistingTestUser = false}) {
           headers: headers,
         );
         final res =
-            await Amplify.API.query(request: reqThatShouldWork).response;
+            await Amplify.API.mutate(request: reqThatShouldWork).response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, testName);
         await deleteBlog(res.data!);
       });
 
       testWidgets(
-          'should GET a model with custom primary key and complex identifier using model helpers',
-          (WidgetTester tester) async {
-        const name = 'Integration Test CpkParent to fetch';
-        final cpkParent = await addCpkParent(name);
-        final req = ModelQueries.get(
-          CpkOneToOneBidirectionalParentCD.classType,
-          cpkParent.modelIdentifier,
-        );
-        final res = await Amplify.API.query(request: req).response;
-        final data = res.data;
-        expect(res, hasNoGraphQLErrors);
-        expect(data, equals(cpkParent));
-      });
+        'should GET a model with custom primary key and complex identifier using model helpers',
+        (WidgetTester tester) async {
+          const name = 'Integration Test CpkParent to fetch';
+          final cpkParent = await addCpkParent(name);
+          final req = ModelQueries.get(
+            CpkOneToOneBidirectionalParentCD.classType,
+            cpkParent.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
+          );
+          final res = await Amplify.API.query(request: req).response;
+          final data = res.data;
+          expect(res, hasNoGraphQLErrors);
+          expect(data, equals(cpkParent));
+        },
+      );
 
       /// parent: { customId, name } // complex identifier
       /// child: { belongsToParent } // references parent by complex identifier
       /// get(child) -> child populated with parent that has customId and name
       testWidgets(
-          'should GET a child and include parent with complex identifier and custom primary key',
-          (WidgetTester tester) async {
-        const name = 'Integration Test CpkParent to fetch w child';
-        const explicitChildName = 'Explicit child name fetch test';
-        const implicitChildName = 'Implicit child name fetch test';
-        // Create test parent, explicit child and implicit child
-        final cpkParent = await addCpkParent(name);
-        final createExplicitChildReq = ModelMutations.create(
-          CpkOneToOneBidirectionalChildExplicitCD(
-            name: explicitChildName,
-            belongsToParent: cpkParent,
-          ),
-        );
-        final createImplicitChildReq = ModelMutations.create(
-          CpkOneToOneBidirectionalChildImplicitCD(
-            name: implicitChildName,
-            belongsToParent: cpkParent,
-          ),
-        );
-        final explicitChildCreateRes =
-            await Amplify.API.mutate(request: createExplicitChildReq).response;
-        expect(explicitChildCreateRes, hasNoGraphQLErrors);
-        final createdExplicitChild = explicitChildCreateRes.data!;
-        cpkExplicitChildCache.add(createdExplicitChild);
-        final implicitChildCreateRes =
-            await Amplify.API.mutate(request: createImplicitChildReq).response;
-        expect(implicitChildCreateRes, hasNoGraphQLErrors);
-        final createdImplicitChild = implicitChildCreateRes.data!;
-        cpkImplicitChildCache.add(createdImplicitChild);
+        'should GET a child and include parent with complex identifier and custom primary key',
+        (WidgetTester tester) async {
+          const name = 'Integration Test CpkParent to fetch w child';
+          const explicitChildName = 'Explicit child name fetch test';
+          const implicitChildName = 'Implicit child name fetch test';
+          // Create test parent, explicit child and implicit child
+          final cpkParent = await addCpkParent(name);
+          final createExplicitChildReq = ModelMutations.create(
+            CpkOneToOneBidirectionalChildExplicitCD(
+              name: explicitChildName,
+              belongsToParent: cpkParent,
+            ),
+            authorizationMode: APIAuthorizationType.iam,
+          );
+          final createImplicitChildReq = ModelMutations.create(
+            CpkOneToOneBidirectionalChildImplicitCD(
+              name: implicitChildName,
+              belongsToParent: cpkParent,
+            ),
+            authorizationMode: APIAuthorizationType.iam,
+          );
+          final explicitChildCreateRes = await Amplify.API
+              .mutate(request: createExplicitChildReq)
+              .response;
+          expect(explicitChildCreateRes, hasNoGraphQLErrors);
+          final createdExplicitChild = explicitChildCreateRes.data!;
+          cpkExplicitChildCache.add(createdExplicitChild);
+          final implicitChildCreateRes = await Amplify.API
+              .mutate(request: createImplicitChildReq)
+              .response;
+          expect(implicitChildCreateRes, hasNoGraphQLErrors);
+          final createdImplicitChild = implicitChildCreateRes.data!;
+          cpkImplicitChildCache.add(createdImplicitChild);
 
-        // Fetch the created children and check responses.
-        final fetchExplicitChildReq =
-            ModelQueries.get<CpkOneToOneBidirectionalChildExplicitCD>(
-          CpkOneToOneBidirectionalChildExplicitCD.classType,
-          createdExplicitChild.modelIdentifier,
-        );
-        final fetchExplicitChildRes =
-            await Amplify.API.query(request: fetchExplicitChildReq).response;
-        final fetchedExplicitChild = fetchExplicitChildRes.data;
-        expect(fetchExplicitChildRes, hasNoGraphQLErrors);
-        // Convert to JSON because `_belongsToParent` is private on the model
-        // but present in the converted JSON.
-        final explicitChildJson = fetchedExplicitChild?.toJson();
-        final explicitParentJson =
-            explicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-        expect(
-          explicitParentJson['customId'],
-          equals(cpkParent.customId),
-        );
-        final fetchImplicitChildReq =
-            ModelQueries.get<CpkOneToOneBidirectionalChildImplicitCD>(
-          CpkOneToOneBidirectionalChildImplicitCD.classType,
-          createdImplicitChild.modelIdentifier,
-        );
-        final fetchImplicitChildRes =
-            await Amplify.API.query(request: fetchImplicitChildReq).response;
-        final fetchedImplicitChild = fetchImplicitChildRes.data;
-        expect(fetchImplicitChildRes, hasNoGraphQLErrors);
-        final implicitChildJson = fetchedImplicitChild?.toJson();
-        final implicitParentJson =
-            implicitChildJson?['belongsToParent'] as Map<String, dynamic>;
-        expect(
-          implicitParentJson['customId'],
-          equals(cpkParent.customId),
-        );
-      });
+          // Fetch the created children and check responses.
+          final fetchExplicitChildReq =
+              ModelQueries.get<CpkOneToOneBidirectionalChildExplicitCD>(
+            CpkOneToOneBidirectionalChildExplicitCD.classType,
+            createdExplicitChild.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
+          );
+          final fetchExplicitChildRes =
+              await Amplify.API.query(request: fetchExplicitChildReq).response;
+          final fetchedExplicitChild = fetchExplicitChildRes.data;
+          expect(fetchExplicitChildRes, hasNoGraphQLErrors);
+          // Convert to JSON because `_belongsToParent` is private on the model
+          // but present in the converted JSON.
+          final explicitChildJson = fetchedExplicitChild?.toJson();
+          final explicitParentJson =
+              explicitChildJson?['belongsToParent'] as Map<String, dynamic>;
+          expect(
+            explicitParentJson['customId'],
+            equals(cpkParent.customId),
+          );
+          final fetchImplicitChildReq =
+              ModelQueries.get<CpkOneToOneBidirectionalChildImplicitCD>(
+            CpkOneToOneBidirectionalChildImplicitCD.classType,
+            createdImplicitChild.modelIdentifier,
+            authorizationMode: APIAuthorizationType.iam,
+          );
+          final fetchImplicitChildRes =
+              await Amplify.API.query(request: fetchImplicitChildReq).response;
+          final fetchedImplicitChild = fetchImplicitChildRes.data;
+          expect(fetchImplicitChildRes, hasNoGraphQLErrors);
+          final implicitChildJson = fetchedImplicitChild?.toJson();
+          final implicitParentJson =
+              implicitChildJson?['belongsToParent'] as Map<String, dynamic>;
+          expect(
+            implicitParentJson['customId'],
+            equals(cpkParent.customId),
+          );
+        },
+      );
     });
 
     group('queries (guest access)', () {
@@ -417,7 +437,10 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should fetch model that allows guest access',
           (WidgetTester tester) async {
-        final req = ModelQueries.list<Blog>(Blog.classType);
+        final req = ModelQueries.list<Blog>(
+          Blog.classType,
+          authorizationMode: APIAuthorizationType.iam,
+        );
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         expect(res, hasNoGraphQLErrors);
@@ -426,7 +449,10 @@ void main({bool useExistingTestUser = false}) {
 
       testWidgets('should get error model that does not allow guest access',
           (WidgetTester tester) async {
-        final req = ModelQueries.list<Comment>(Comment.classType);
+        final req = ModelQueries.list<Comment>(
+          Comment.classType,
+          authorizationMode: APIAuthorizationType.iam,
+        );
         final res = await Amplify.API.query(request: req).response;
         expect(res.data, isNull);
         expect(res.hasErrors, isTrue);
@@ -524,12 +550,17 @@ void main({bool useExistingTestUser = false}) {
             'should emit event when onCreate subscription made with model helper for post (model with parent).',
             (WidgetTester tester) async {
           final title = 'Integration Test post - subscription create ${uuid()}';
-          final subscriptionRequest =
-              ModelSubscriptions.onCreate(Post.classType);
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            Post.classType,
+            authorizationMode: APIAuthorizationType.iam,
+          );
 
           final eventResponse = await establishSubscriptionAndMutate<Post>(
             subscriptionRequest,
-            () => addPostAndBlog(title, 0),
+            () => addPostAndBlog(
+              title,
+              0,
+            ),
             eventFilter: (response) => response.data?.title == title,
           );
           final postFromEvent = eventResponse.data;
@@ -559,8 +590,16 @@ void main({bool useExistingTestUser = false}) {
           final stream = Amplify.API.subscribe(
             subscriptionRequest,
             onEstablished: () {
-              addPost(postTitle1, 3, blog1);
-              addPost(postTitle2, 3, blog2);
+              addPost(
+                postTitle1,
+                3,
+                blog1,
+              );
+              addPost(
+                postTitle2,
+                3,
+                blog2,
+              );
             },
           );
 

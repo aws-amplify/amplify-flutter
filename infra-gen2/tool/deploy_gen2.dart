@@ -31,7 +31,7 @@ const List<AmplifyBackendGroup> infraConfig = [
       AmplifyBackend(
         name: 'apiMultiAuth',
         identifier: 'apiMultiAuth',
-        pathToSource: 'infra-gen2/backends/api/apiMultiAuth',
+        pathToSource: 'infra-gen2/backends/api/api-multi-auth',
       ),
     ],
   ),
@@ -69,6 +69,10 @@ void main(List<String> arguments) async {
   final verbose = args.flag('verbose');
 
   final bucketNames = <String>[];
+
+  print('🏃 Running build for infra-gen2');
+  await _buildProject();
+
   print('🚀 Deploying Gen 2 backends!');
   for (final backendGroup in infraConfig) {
     // TODO(equartey): Could be removed when all backends are defined.
@@ -79,20 +83,32 @@ void main(List<String> arguments) async {
     final categoryName = backendGroup.category.name;
     final outputPath = p.join(repoRoot.path, backendGroup.defaultOutput);
     final amplifyOutputs = File(p.join(outputPath, 'amplify_outputs.dart'));
+    final amplifyConfiguration =
+        File(p.join(outputPath, 'amplifyconfiguration.dart'));
 
     // create the output file if it does not exist
     if (!amplifyOutputs.existsSync()) {
       amplifyOutputs.createSync(recursive: true);
     }
+    if (!amplifyConfiguration.existsSync()) {
+      amplifyConfiguration.createSync(recursive: true);
+    }
 
     print('🏃 Running sandbox deployment for $categoryName');
     for (final backend in backendGroup.backends) {
       final backendName = backend.name;
-      await _deployBackend(
+      final stackID = await _deployBackend(
         backendGroup.category,
         backend,
         amplifyOutputs.path.replaceFirst('amplify_outputs.dart', ''),
         verbose,
+      );
+
+      _generateGen1Config(
+        backendGroup.category,
+        backend,
+        amplifyConfiguration.path.replaceFirst('amplifyconfiguration.dart', ''),
+        stackID,
       );
 
       // Skip if there is only one backend
@@ -119,15 +135,14 @@ void main(List<String> arguments) async {
       );
     }
 
-    // Copy amplify_outputs.dart to shared paths
-    _copyAmplifyOutputs(
+    // Copy config files to shared paths
+    _copyConfigFile(
       backendGroup.sharedOutputs,
-      amplifyOutputs,
+      [amplifyOutputs, amplifyConfiguration],
     );
 
-    var bucketName = _createBucketName(categoryName);
-
     // Check if the S3 bucket exists
+    var bucketName = _createBucketName(categoryName);
     final remoteBucketName = _getS3BucketName(bucketName);
     if (remoteBucketName != null && remoteBucketName.isNotEmpty) {
       bucketName = remoteBucketName;
@@ -137,10 +152,10 @@ void main(List<String> arguments) async {
     }
     bucketNames.add(bucketName);
 
-    // Upload amplify_outputs.dart to S3 bucket
-    _uploadAmplifyOutputs(
+    // Upload config files to S3 bucket
+    _uploadConfigFileToS3(
       bucketName,
-      amplifyOutputs.path,
+      [amplifyOutputs, amplifyConfiguration],
     );
 
     print('✅ Deployment for $categoryName Category complete');
@@ -149,6 +164,16 @@ void main(List<String> arguments) async {
   print('🎉 All backends deployed successfully!');
 
   print('🪣 S3 Bucket Names: $bucketNames');
+}
+
+Future<Process> _buildProject() async {
+  return Process.start(
+    'npm',
+    [
+      'run',
+      'build',
+    ],
+  );
 }
 
 ArgResults _parseArgs(List<String> args) {
@@ -164,7 +189,7 @@ ArgResults _parseArgs(List<String> args) {
 }
 
 /// Deploy Sandbox for a given backend backend
-Future<void> _deployBackend(
+Future<String> _deployBackend(
   Category category,
   AmplifyBackend backend,
   String outputPath,
@@ -193,10 +218,24 @@ Future<void> _deployBackend(
   );
 
   if (verbose) {
-    process.stdout.transform(const SystemEncoding().decoder).listen(print);
     process.stderr.transform(const SystemEncoding().decoder).listen((data) {
       print('❌ Error: $data');
     });
+  }
+
+  var stackID = '';
+
+  // Listen to stdout for stack ID
+  await for (final String line in process.stdout
+      .transform(utf8.decoder)
+      .transform(const LineSplitter())) {
+    if (verbose) {
+      print(line);
+    }
+    // Save Stack ID
+    if (line.contains('Stack:')) {
+      stackID = line.split('Stack:').last.trim();
+    }
   }
 
   final exitCode = await process.exitCode;
@@ -209,6 +248,7 @@ Future<void> _deployBackend(
     print(
       '👍 ${category.name} ${backend.identifier} sandbox deployed',
     );
+    return stackID;
   }
 }
 
@@ -260,26 +300,30 @@ void _appendEnvironments(
   );
 }
 
-/// Copy the amplify_outputs.dart file to other shared paths
-void _copyAmplifyOutputs(
+/// Copy a given config file to a list of shared paths
+void _copyConfigFile(
   List<String> outputPaths,
-  File amplifyOutputs,
+  List<File> configFiles,
 ) {
   if (outputPaths.length <= 1) {
     return;
   }
 
-  print('👯 Copying amplify_outputs.dart to other shared paths');
-  for (final outputPath in outputPaths) {
-    final destination = p.join(repoRoot.path, outputPath);
-    final outputFile = File(p.join(destination, 'amplify_outputs.dart'));
+  for (final configFile in configFiles) {
+    final fileName = configFile.path.split('/').last;
 
-    if (!outputFile.existsSync()) {
-      outputFile.createSync(recursive: true);
+    print('👯 Copying $fileName to other shared paths');
+    for (final outputPath in outputPaths) {
+      final destination = p.join(repoRoot.path, outputPath);
+      final outputFile = File(p.join(destination, fileName));
+
+      if (!outputFile.existsSync()) {
+        outputFile.createSync(recursive: true);
+      }
+      final amplifyOutputsContents = configFile.readAsStringSync();
+
+      outputFile.writeAsStringSync(amplifyOutputsContents);
     }
-    final amplifyOutputsContents = amplifyOutputs.readAsStringSync();
-
-    outputFile.writeAsStringSync(amplifyOutputsContents);
   }
 }
 
@@ -332,7 +376,7 @@ String? _getS3BucketName(String bucketName) {
   return matchingBuckets.single;
 }
 
-/// Create an S3 bucke
+/// Create an S3 bucket
 void _createS3Bucket(String bucketName) {
   print('🪣 Creating S3 bucket: $bucketName');
   final createBucket = Process.runSync(
@@ -356,30 +400,77 @@ void _createS3Bucket(String bucketName) {
 }
 
 /// Upload the amplify_outputs.dart file to the S3 bucket
-void _uploadAmplifyOutputs(
+void _uploadConfigFileToS3(
   String bucketName,
-  String pathToAmplifyOutputs,
+  List<File> configFiles,
 ) {
-  print('📲 Uploading amplify_outputs.dart to S3 bucket');
-  final downloadRes = Process.runSync(
-    'aws',
-    [
-      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
-      's3',
-      'cp',
-      pathToAmplifyOutputs,
-      's3://$bucketName/amplify_outputs.dart',
-    ],
-    stdoutEncoding: utf8,
-    stderrEncoding: utf8,
+  for (final configFile in configFiles) {
+    final fileName = configFile.path.split('/').last;
+    print('📲 Uploading $fileName to S3 bucket');
+    final downloadRes = Process.runSync(
+      'aws',
+      [
+        '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+        's3',
+        'cp',
+        configFile.path,
+        's3://$bucketName/$fileName',
+      ],
+      stdoutEncoding: utf8,
+      stderrEncoding: utf8,
+    );
+    if (downloadRes.exitCode != 0) {
+      throw Exception(
+        '❌ Error downloading $bucketName config from S3: '
+        '${downloadRes.stdout}\n${downloadRes.stderr}',
+      );
+    }
+    print('👍 $fileName successfully uploaded to S3 bucket');
+  }
+}
+
+/// Generates gen 1 amplifyconfiguration.dart file
+void _generateGen1Config(
+  Category category,
+  AmplifyBackend backend,
+  String outputPath,
+  String stack,
+) {
+  print(
+    '📁 Generating gen 1 config file for ${category.name} ${backend.name}...',
   );
-  if (downloadRes.exitCode != 0) {
+
+  // Deploy the backend
+  final process = Process.runSync(
+    'npx',
+    [
+      'ampx',
+      'generate',
+      'outputs',
+      '--format',
+      'dart',
+      '--outputs-version',
+      '0',
+      '--out-dir',
+      outputPath,
+      '--profile=${Platform.environment['AWS_PROFILE'] ?? 'default'}',
+      '--stack',
+      stack,
+      '--debug',
+      'true',
+    ],
+    workingDirectory: p.join(repoRoot.path, backend.pathToSource),
+  );
+
+  if (process.exitCode != 0) {
     throw Exception(
-      '❌ Error downloading $bucketName config from S3: '
-      '${downloadRes.stdout}\n${downloadRes.stderr}',
+      '❌ Error generating gen 1 config file for ${category.name} ${backend.name}:: ${process.stdout}',
+    );
+  } else {
+    print(
+      '👍 Gen 1 config file for ${category.name} ${backend.name} generated',
     );
   }
-  print('👍 Amplify Outputs successfully uploaded to S3 bucket');
 }
 
 class AmplifyBackendGroup {

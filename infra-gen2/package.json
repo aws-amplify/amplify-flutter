@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "build": "npm run build --workspaces --if-present"
+  },
   "workspaces": [
     "infra-common/",
     "backends/analytics/*",
@@ -9,7 +12,8 @@
     "backends/storage/*"
   ],
   "dependencies": {
-    "aws-amplify": "^6.3.6"
+    "aws-amplify": "^6.3.6",
+    "infra-common": "1.0.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.0.3",

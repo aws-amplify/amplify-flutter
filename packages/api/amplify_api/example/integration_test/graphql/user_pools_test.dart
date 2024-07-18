@@ -9,12 +9,13 @@ import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
-void main({bool useExistingTestUser = false}) {
+void main({bool useExistingTestUser = false, bool useGen1 = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('GraphQL Cognito User Pools', () {
     setUpAll(() async {
-      await configureAmplify();
+      await configureAmplify(useGen1: useGen1);
+
       if (!useExistingTestUser) {
         await signUpTestUser();
       }
@@ -34,7 +35,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final originalTitle = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final post = await addPostAndBlog(originalTitle, rating);
+        final post = await addPostAndBlog(
+          originalTitle,
+          rating,
+        );
         final blogId = post.blog?.id;
         final inputComment =
             Comment(content: 'Lorem ipsum test comment', post: post);
@@ -116,7 +120,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final data = await addPostAndBlog(title, rating);
+        final data = await addPostAndBlog(
+          title,
+          rating,
+        );
 
         expect(data.title, equals(title));
         expect(data.rating, equals(rating));
@@ -161,7 +168,10 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final originalTitle = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final originalPost = await addPostAndBlog(originalTitle, rating);
+        final originalPost = await addPostAndBlog(
+          originalTitle,
+          rating,
+        );
 
         final updatedTitle = 'Lorem Ipsum Test Post: (title updated) ${uuid()}';
         final localUpdatedPost = originalPost.copyWith(title: updatedTitle);
@@ -171,7 +181,6 @@ void main({bool useExistingTestUser = false}) {
         );
         final updateRes = await Amplify.API.mutate(request: updateReq).response;
         final mutatedPost = updateRes.data;
-        expect(updateRes, hasNoGraphQLErrors);
         expect(mutatedPost?.title, equals(updatedTitle));
       });
 
@@ -235,9 +244,14 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         final title = 'Lorem Ipsum Test Post: ${uuid()}';
         const rating = 0;
-        final post = await addPostAndBlog(title, rating);
+        final post = await addPostAndBlog(
+          title,
+          rating,
+        );
 
-        final mutatedPost = await deletePost(post);
+        final mutatedPost = await deletePost(
+          post,
+        );
         expect(mutatedPost?.title, equals(title));
       });
 

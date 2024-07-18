@@ -1,8 +1,12 @@
 {
-    "name": "infra-common",
-    "version": "1.0.0",
-    "main": "./src/index.js",
-    "exports": {
-      ".": "./src/index.js"
-    }
+  "name": "infra-common",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
 }
