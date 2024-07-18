@@ -8,6 +8,6 @@
   },
   "scripts": {
     "build": "tsc && npm run copy-graphql",
-    "copy-graphql": "cp -r ./src/schemas ./dist/schemas"
+    "copy-graphql": "cp -r ./src/schemas ./dist"
   }
 }
