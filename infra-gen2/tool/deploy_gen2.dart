@@ -211,16 +211,6 @@ ArgResults _parseArgs(List<String> args) {
   return parser.parse(args);
 }
 
-Future<Process> _buildProject() async {
-  return Process.start(
-    'npm',
-    [
-      'run',
-      'build',
-    ],
-  );
-}
-
 /// Deploy Sandbox for a given backend backend
 Future<String> _deployBackend(
   Category category,
