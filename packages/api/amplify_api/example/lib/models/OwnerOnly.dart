@@ -161,6 +161,10 @@ class OwnerOnly extends amplify_core.Model {
           ])
     ];
 
+    modelSchemaDefinition.indexes = [
+      amplify_core.ModelIndex(fields: const ["id"], name: null)
+    ];
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(

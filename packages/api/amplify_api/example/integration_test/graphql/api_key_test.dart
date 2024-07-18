@@ -10,14 +10,14 @@ import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
-void main({bool useExistingTestUser = false}) {
+void main({bool useExistingTestUser = false, bool useGen1 = false}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group(
     'GraphQL API key',
     () {
       setUpAll(() async {
-        await configureAmplify();
+        await configureAmplify(useGen1: useGen1);
         await signOutTestUser();
       });
 
@@ -52,6 +52,7 @@ void main({bool useExistingTestUser = false}) {
         () {
           late StreamController<ApiHubEvent> hubEventsController;
           late Stream<ApiHubEvent> hubEvents;
+          late StreamSubscription<ApiHubEvent> hubEventsSubscription;
           setUpAll(() async {
             if (!useExistingTestUser) {
               await signUpTestUser();
@@ -60,7 +61,8 @@ void main({bool useExistingTestUser = false}) {
 
             hubEventsController = StreamController.broadcast();
             hubEvents = hubEventsController.stream;
-            Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
+            hubEventsSubscription =
+                Amplify.Hub.listen(HubChannel.Api, hubEventsController.add);
           });
 
           tearDownAll(() async {
@@ -69,6 +71,7 @@ void main({bool useExistingTestUser = false}) {
               await deleteTestUser();
             }
 
+            await hubEventsSubscription.cancel();
             await hubEventsController.close();
             Amplify.Hub.close();
           });

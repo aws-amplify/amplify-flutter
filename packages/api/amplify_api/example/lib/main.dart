@@ -1,7 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_api_example/amplify_outputs.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
@@ -9,8 +12,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-
-import 'amplifyconfiguration.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +61,13 @@ class _MyAppState extends State<MyApp> {
     ]);
 
     try {
-      await Amplify.configure(amplifyconfig);
+      // get custom rest api config from amplifyoutputs.dart
+      final json = jsonDecode(amplifyConfig);
+      // ignore: avoid_dynamic_calls
+      json['rest_api'] = {'multiAuthRest': json['custom']['multiAuthRest']};
+      final configString = jsonEncode(json);
+
+      await Amplify.configure(configString);
     } on AmplifyAlreadyConfiguredException {
       print(
         'Amplify was already configured. Looks like app restarted on android.',
