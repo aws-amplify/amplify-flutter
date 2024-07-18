@@ -1,7 +1,5 @@
 import { defineStorage } from "@aws-amplify/backend";
 
-// trigger integ tests
-
 export const storage = defineStorage({
   name: "Storage Integ Test main",
   access: (allow) => ({
