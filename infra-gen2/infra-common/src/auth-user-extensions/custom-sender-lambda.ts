@@ -24,7 +24,6 @@ export function addCustomSenderLambda(
   const customSenderKmsKey = new Key(stack, "CustomSenderKey", {
     description: `Key for encrypting/decrypting SMS messages sent from ${stack.stackId}`,
     removalPolicy: RemovalPolicy.DESTROY,
-    alias: "emailSender",
   });
 
   const customEmailSender = new NodejsFunction(stack, "custom-email-sender", {
