@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/l10n/instructions_resolver.dart';
 import 'package:flutter/material.dart';
 
 export 'button_resolver.dart';
 export 'dial_code_resolver.dart';
 export 'input_resolver.dart';
+export 'instructions_resolver.dart';
 export 'message_resolver.dart';
 export 'title_resolver.dart';
 
@@ -24,15 +24,15 @@ class AuthStringResolver {
     ButtonResolver? buttons,
     DialCodeResolver? dialCodes,
     InputResolver? inputs,
+    InstructionsResolver? instructions,
     MessageResolver? messages,
     TitleResolver? titles,
-    InstructionsResolver? instructions,
   })  : buttons = buttons ?? const ButtonResolver(),
         dialCodes = dialCodes ?? const DialCodeResolver(),
         inputs = inputs ?? const InputResolver(),
+        instruction = instructions ?? const InstructionsResolver(),
         titles = titles ?? const TitleResolver(),
-        messages = messages ?? const MessageResolver(),
-        instruction = instructions ?? const InstructionsResolver();
+        messages = messages ?? const MessageResolver();
 
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
