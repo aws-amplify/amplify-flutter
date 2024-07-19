@@ -48,9 +48,3 @@ flutter:
   assets:
     - lib/src/worker/workers.min.js
     - lib/src/worker/workers.min.js.map
-  plugin:
-    platforms:
-      linux:
-        default_package: amplify_secure_storage_dart
-      windows:
-        default_package: amplify_secure_storage_dart
