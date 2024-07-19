@@ -49,9 +49,36 @@ export function addCustomSenderLambda(
     sourceArn: cfnUserPool.attrArn,
   });
 
+  const customSmsSender = new NodejsFunction(stack, "custom-sms-sender", {
+    entry: path.resolve(
+      __dirname,
+      "..",
+      "lambda-triggers",
+      "custom-sms-sender.js"
+    ),
+    runtime: Runtime.NODEJS_18_X,
+    bundling: {
+      nodeModules: ["@aws-crypto/client-node"],
+    },
+    environment: {
+      GRAPHQL_API_ENDPOINT: graphQL.graphqlUrl,
+      GRAPHQL_API_KEY: graphQL.apiKey!,
+      KMS_KEY_ARN: customSenderKmsKey.keyArn,
+    },
+  });
+
+  customSmsSender.addPermission("PermitCognitoInvoke", {
+    principal: new ServicePrincipal("cognito-idp.amazonaws.com"),
+    sourceArn: cfnUserPool.attrArn,
+  });
+
   cfnUserPool.lambdaConfig = {
     customEmailSender: {
       lambdaArn: customEmailSender.functionArn,
+      lambdaVersion: "V1_0",
+    },
+    customSmsSender: {
+      lambdaArn: customSmsSender.functionArn,
       lambdaVersion: "V1_0",
     },
     kmsKeyId: customSenderKmsKey.keyArn,
@@ -59,6 +86,9 @@ export function addCustomSenderLambda(
 
   graphQL.grantMutation(customEmailSender);
   customSenderKmsKey.grantDecrypt(customEmailSender);
+
+  graphQL.grantMutation(customSmsSender);
+  customSenderKmsKey.grantDecrypt(customSmsSender);
 
   const mfaCodesTable = new Table(stack, "MFACodesTable", {
     removalPolicy: RemovalPolicy.DESTROY,
