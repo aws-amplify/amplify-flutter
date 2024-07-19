@@ -56,6 +56,7 @@ const pathToBackends = 'infra-gen2/backends';
 void main(List<String> arguments) async {
   final args = _parseArgs(arguments);
   final verbose = args.flag('verbose');
+  final categoryToDeploy = args['category'];
 
   final bucketNames = <String>[];
 
@@ -64,6 +65,10 @@ void main(List<String> arguments) async {
 
   print('🚀 Deploying Gen 2 backends!');
   for (final backendGroup in infraConfig) {
+    if (categoryToDeploy != null &&
+        backendGroup.category.name != categoryToDeploy) {
+      continue;
+    }
     // TODO(equartey): Could be removed when all backends are defined.
     if (backendGroup.backends.isEmpty) {
       continue;
@@ -172,6 +177,13 @@ ArgResults _parseArgs(List<String> args) {
       abbr: 'v',
       help: 'Run command in verbose mode',
       defaultsTo: false,
+    )
+    ..addOption(
+      'category',
+      abbr: 'c',
+      help: 'Specify the category to deploy.',
+      allowed: Category.values.map((e) => e.name).toList(),
+      defaultsTo: null,
     );
 
   return parser.parse(args);
