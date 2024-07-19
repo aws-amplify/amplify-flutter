@@ -7,7 +7,6 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/l10n/instructions_resolver.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_date_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
