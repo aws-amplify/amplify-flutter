@@ -129,6 +129,8 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
 
+    final s3Category = options.subpathStrategy;
+
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
     if (!s3PluginOptions.listAll) {
@@ -138,9 +140,8 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
-              : null;
+          ..delimiter =
+              s3Category.excludeSubPaths ? s3Category.delimiter : null;
       });
 
       try {
@@ -163,9 +164,8 @@ class StorageS3Service {
         builder
           ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
-          ..delimiter = s3PluginOptions.excludeSubPaths
-              ? s3PluginOptions.delimiter
-              : null;
+          ..delimiter =
+              s3Category.excludeSubPaths ? s3Category.delimiter : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;

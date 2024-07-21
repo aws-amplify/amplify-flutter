@@ -76,17 +76,16 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
-                pluginOptions: S3ListPluginOptions(
-                  excludeSubPaths: true,
-                ),
+                pluginOptions: S3ListPluginOptions(),
+                subpathStrategy: SubpathStrategy.exclude(),
               ),
             ).result as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.metadata.subPaths.length, 1);
-            expect(listResult.metadata.subPaths.first, '$uniquePrefix/subdir/');
+            expect(listResult.excludedSubpaths.length, 1);
+            expect(listResult.excludedSubpaths.first, '$uniquePrefix/subdir/');
             expect(listResult.metadata.delimiter, '/');
           });
 
@@ -94,19 +93,17 @@ void main() {
             final listResult = await Amplify.Storage.list(
               path: StoragePath.fromString('$uniquePrefix/'),
               options: const StorageListOptions(
-                pluginOptions: S3ListPluginOptions(
-                  excludeSubPaths: true,
-                  delimiter: '#',
-                ),
+                pluginOptions: S3ListPluginOptions(),
+                subpathStrategy: SubpathStrategy.exclude(delimiter: '#'),
               ),
             ).result as S3ListResult;
 
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.metadata.subPaths.length, 1);
+            expect(listResult.excludedSubpaths.length, 1);
             expect(
-              listResult.metadata.subPaths.first,
+              listResult.excludedSubpaths.first,
               '$uniquePrefix/subdir2#',
             );
             expect(listResult.metadata.delimiter, '#');

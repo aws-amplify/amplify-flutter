@@ -86,11 +86,10 @@ void main() {
     group('list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
+        <String>[],
         <S3Item>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromS3CommonPrefixes(
-          commonPrefixes: [],
-        ),
+        metadata: S3ListMetadata.fromDelimiter(),
       );
 
       setUpAll(() {
@@ -101,8 +100,10 @@ void main() {
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
-        const defaultOptions =
-            StorageListOptions(pluginOptions: S3ListPluginOptions());
+        const defaultOptions = StorageListOptions(
+          pluginOptions: S3ListPluginOptions(),
+          subpathStrategy: SubpathStrategy.include(),
+        );
 
         when(
           () => storageS3Service.list(
@@ -138,7 +139,8 @@ void main() {
 
       test('should forward options to StorageS3Service.list() API', () async {
         const testOptions = StorageListOptions(
-          pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          pluginOptions: S3ListPluginOptions(),
+          subpathStrategy: SubpathStrategy.exclude(),
           nextToken: 'next-token-123',
           pageSize: 2,
         );
