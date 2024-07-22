@@ -164,7 +164,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
 
   // Required to method for endorse dartPluginClass from the pubspec.yaml plugin definition
   // https://github.com/flutter/flutter/issues/152037#issuecomment-2239909463
-  static void register() {
+  static void registerWith() {
     // no-op
   }
 }
