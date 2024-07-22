@@ -42,3 +42,4 @@ flutter:
         dartPluginClass: AmplifySecureStoragePlugin
       web:
         pluginClass: AmplifySecureStoragePlugin
+        fileName: amplify_secure_storage.dart
