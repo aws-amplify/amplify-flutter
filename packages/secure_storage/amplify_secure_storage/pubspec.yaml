@@ -25,21 +25,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pigeon: ^11.0.0
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.amazonaws.amplify.amplify_secure_storage
-        pluginClass: AmplifySecureStoragePlugin
-      ios:
-        pluginClass: AmplifySecureStoragePlugin
-      macos:
-        pluginClass: AmplifySecureStoragePlugin
-      windows:
-        pluginClass: AmplifySecureStoragePlugin
-      linux:
-        pluginClass: AmplifySecureStoragePlugin
-      web:
-        pluginClass: AmplifySecureStoragePlugin
-        fileName: amplify_secure_storage.dart
