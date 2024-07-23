@@ -66,23 +66,21 @@ EndpointConfig createEndpointConfig(
 }) {
   const region = 'us-east-1';
   const apiKey = 'abc-123';
-  late final ApiOutputs config;
-  if (type == ApiType.graphQL) {
-    config = DataOutputs(
-      url: endpoint,
-      awsRegion: region,
-      defaultAuthorizationType: authorizationType,
-      apiKey: apiKey,
-      authorizationTypes: [authorizationType],
-    );
-  } else {
-    config = RestApiOutputs(
-      url: endpoint,
-      awsRegion: region,
-      authorizationType: authorizationType,
-      apiKey: apiKey,
-    );
-  }
-  final endpointConfig = EndpointConfig('api-name', config);
+  final config = switch (type) {
+    ApiType.graphQL => DataOutputs(
+        url: endpoint,
+        awsRegion: region,
+        defaultAuthorizationType: authorizationType,
+        apiKey: apiKey,
+        authorizationTypes: [authorizationType],
+      ),
+    ApiType.rest => RestApiOutputs(
+        url: endpoint,
+        awsRegion: region,
+        authorizationType: authorizationType,
+        apiKey: apiKey,
+      )
+  };
+  final endpointConfig = EndpointConfig('api-name', config as ApiOutputs);
   return endpointConfig;
 }

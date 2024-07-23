@@ -43,9 +43,11 @@ class DataOutputs
   /// List of supported authorization types for AWS AppSync.
   final List<APIAuthorizationType> authorizationTypes;
 
+  /// The GraphQL Api type.
   @override
   ApiType get apiType => ApiType.graphQL;
 
+  /// The default authorization type.
   @override
   APIAuthorizationType<AmplifyAuthProvider> get authorizationType =>
       defaultAuthorizationType;

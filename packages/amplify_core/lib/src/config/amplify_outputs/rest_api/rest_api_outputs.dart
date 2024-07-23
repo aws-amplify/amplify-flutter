@@ -43,6 +43,7 @@ class RestApiOutputs
   @override
   final APIAuthorizationType authorizationType;
 
+  /// The Rest Api type.
   @override
   ApiType get apiType => ApiType.rest;
 
