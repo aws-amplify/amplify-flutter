@@ -32,6 +32,24 @@ cfnBucket.accelerateConfiguration = {
   accelerationStatus: "Enabled",
 };
 
+backend.storage.resources.cfnResources.cfnBucket.corsConfiguration = {
+  corsRules: [
+    {
+      allowedHeaders: ["*"],
+      allowedMethods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
+      allowedOrigins: ["*"],
+      exposedHeaders: [
+        "x-amz-server-side-encryption",
+        "x-amz-request-id",
+        "x-amz-id-2",
+        "ETag",
+        "x-amz-meta-description",
+      ],
+      maxAge: 3000,
+    },
+  ],
+};
+
 // cfnBucket.corsConfiguration = {
 //   corsRules: [
 //     {

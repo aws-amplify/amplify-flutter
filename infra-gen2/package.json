@@ -16,8 +16,8 @@
     "infra-common": "1.0.0"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.0.3",
-    "@aws-amplify/backend-cli": "^1.0.4",
+    "@aws-amplify/backend": "^1.0.4",
+    "@aws-amplify/backend-cli": "^1.2.0",
     "aws-cdk": "^2.145.0",
     "aws-cdk-lib": "^2.145.0",
     "constructs": "^10.3.0",
