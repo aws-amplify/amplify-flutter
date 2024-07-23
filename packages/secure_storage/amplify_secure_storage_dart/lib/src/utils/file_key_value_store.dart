@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -18,7 +19,7 @@ import 'package:path/path.dart' as pkg_path;
 // without bringing in flutter as a dependency to the tests.
 class FileKeyValueStore {
   /// {@macro amplify_secure_storage_dart.file_key_value_store}
-  const FileKeyValueStore({
+  FileKeyValueStore({
     required this.path,
     required this.fileName,
     this.fs = const local_file.LocalFileSystem(),
@@ -31,6 +32,8 @@ class FileKeyValueStore {
   ///
   /// The file will be created if it does not yet exist.
   final String fileName;
+
+  final TaskScheduler _scheduler = TaskScheduler();
 
   @visibleForTesting
   final pkg_file.FileSystem fs;
@@ -47,9 +50,11 @@ class FileKeyValueStore {
     required String key,
     required Object value,
   }) async {
-    final data = await readAll();
-    data[key] = value;
-    return writeAll(data);
+    return _scheduler.schedule(() async {
+      final data = await readAll();
+      data[key] = value;
+      return writeAll(data);
+    });
   }
 
   /// Overwrites the existing data.
@@ -67,25 +72,31 @@ class FileKeyValueStore {
   Future<Object?> readKey({
     required String key,
   }) async {
-    final data = await readAll();
-    return data[key];
+    return _scheduler.schedule(() async {
+      final data = await readAll();
+      return data[key];
+    });
   }
 
   /// Removes a single key from storage.
   Future<void> removeKey({
     required String key,
   }) async {
-    final data = await readAll();
-    data.remove(key);
-    await writeAll(data);
+    return _scheduler.schedule(() async {
+      final data = await readAll();
+      data.remove(key);
+      await writeAll(data);
+    });
   }
 
   /// Returns true if the key exists in storage
   Future<bool> containsKey({
     required String key,
   }) async {
-    final data = await readAll();
-    return data.containsKey(key);
+    return _scheduler.schedule(() async {
+      final data = await readAll();
+      return data.containsKey(key);
+    });
   }
 
   /// Reads all the key-value pairs from storage.
@@ -101,4 +112,38 @@ class FileKeyValueStore {
     }
     return <String, Object>{};
   }
+}
+
+/// A class for processing async tasks one at a time in the order that they are
+/// scheduled.
+class TaskScheduler {
+  final _taskQueue = <Task<dynamic>>[];
+  bool _isProcessing = false;
+  Future<T> schedule<T>(Future<T> Function() task) {
+    final completer = Completer<T>();
+    _taskQueue.add(Task(task, completer));
+    _processTasks();
+    return completer.future;
+  }
+
+  Future<void> _processTasks() async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+    while (_taskQueue.isNotEmpty) {
+      final currentTask = _taskQueue.removeAt(0);
+      try {
+        final result = await currentTask.task();
+        currentTask.completer.complete(result);
+      } on Object catch (e, stackTrace) {
+        currentTask.completer.completeError(e, stackTrace);
+      }
+    }
+    _isProcessing = false;
+  }
+}
+
+class Task<T> {
+  Task(this.task, this.completer);
+  final Future<T> Function() task;
+  final Completer<T> completer;
 }

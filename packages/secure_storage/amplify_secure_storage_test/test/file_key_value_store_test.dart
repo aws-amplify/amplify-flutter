@@ -4,7 +4,6 @@
 @TestOn('vm')
 
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
-import 'package:file/memory.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -14,8 +13,11 @@ void main() {
       storage = FileKeyValueStore(
         path: 'path',
         fileName: 'file',
-        fs: MemoryFileSystem(),
       );
+    });
+
+    tearDown(() async {
+      await storage.file.delete();
     });
 
     test('readKey & writeKey', () async {
@@ -80,6 +82,31 @@ void main() {
       // assert that a non existing key returns false
       final includesKey2 = await storage.containsKey(key: 'key2');
       expect(includesKey2, isFalse);
+    });
+
+    test('parallel writes should occur in the order they are called', () async {
+      final items = List.generate(1000, ((i) => i));
+      final futures = items.map(
+        (i) async => storage.writeKey(key: 'key', value: i),
+      );
+      await Future.wait(futures);
+      final value = await storage.readKey(key: 'key');
+      expect(value, items.last);
+    });
+
+    // Reference: https://github.com/aws-amplify/amplify-flutter/issues/5190
+    test('parallel write/remove operations should not corrupt the file',
+        () async {
+      final items = List.generate(1000, ((i) => i));
+      final futures = items.map(
+        (i) async {
+          if (i % 5 == 1) {
+            await storage.removeKey(key: 'key_${i - 1}');
+          }
+          return storage.writeKey(key: 'key_$i', value: 'value_$i');
+        },
+      );
+      await Future.wait(futures);
     });
   });
 }
