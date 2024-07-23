@@ -3,6 +3,8 @@
 
 @TestOn('vm')
 
+import 'dart:io';
+
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:test/test.dart';
 
@@ -107,6 +109,18 @@ void main() {
         },
       );
       await Future.wait(futures);
+    });
+
+    test('File is cleared when corrupted and can be re-written to', () async {
+      await storage.writeKey(key: 'foo', value: 'value');
+      final value1 = await storage.readKey(key: 'foo');
+      expect(value1, 'value');
+      await storage.file.writeAsString('{invalid json}', mode: FileMode.append);
+      final value2 = await storage.readKey(key: 'foo');
+      expect(value2, null);
+      await storage.writeKey(key: 'foo', value: 'value');
+      final value3 = await storage.readKey(key: 'foo');
+      expect(value3, 'value');
     });
   });
 }

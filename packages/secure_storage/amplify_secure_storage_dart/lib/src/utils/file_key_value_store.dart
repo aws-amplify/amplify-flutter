@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:file/file.dart' as pkg_file;
 import 'package:file/local.dart' as local_file;
 import 'package:meta/meta.dart';
@@ -34,6 +35,8 @@ class FileKeyValueStore {
   final String fileName;
 
   final TaskScheduler _scheduler = TaskScheduler();
+
+  final AWSLogger logger = AWSLogger('FileKeyValueStore');
 
   @visibleForTesting
   final pkg_file.FileSystem fs;
@@ -104,9 +107,18 @@ class FileKeyValueStore {
     if (await file.exists()) {
       final stringMap = await file.readAsString();
       if (stringMap.isNotEmpty) {
-        final Object? data = json.decode(stringMap);
-        if (data is Map) {
-          return data.cast<String, Object>();
+        try {
+          final Object? data = json.decode(stringMap);
+          if (data is Map) {
+            return data.cast<String, Object>();
+          }
+        } on FormatException catch (e) {
+          logger.error(
+            'Cannot read file. The file may be corrupted. '
+            'Clearing file contents. See error for more details. '
+            'Error: $e',
+          );
+          await writeAll({});
         }
       }
     }
