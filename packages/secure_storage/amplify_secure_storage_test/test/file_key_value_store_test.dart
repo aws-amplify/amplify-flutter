@@ -86,29 +86,41 @@ void main() {
       expect(includesKey2, isFalse);
     });
 
-    test('parallel writes should occur in the order they are called', () async {
+    group('parallel operations', () {
       final items = List.generate(1000, ((i) => i));
-      final futures = items.map(
-        (i) async => storage.writeKey(key: 'key', value: i),
-      );
-      await Future.wait(futures);
-      final value = await storage.readKey(key: 'key');
-      expect(value, items.last);
-    });
 
-    // Reference: https://github.com/aws-amplify/amplify-flutter/issues/5190
-    test('parallel write/remove operations should not corrupt the file',
-        () async {
-      final items = List.generate(1000, ((i) => i));
-      final futures = items.map(
-        (i) async {
-          if (i % 5 == 1) {
-            await storage.removeKey(key: 'key_${i - 1}');
-          }
-          return storage.writeKey(key: 'key_$i', value: 'value_$i');
-        },
-      );
-      await Future.wait(futures);
+      test('should occur in the order they are called', () async {
+        final futures = items.map(
+          (i) async => storage.writeKey(key: 'key', value: i),
+        );
+        await Future.wait(futures);
+        final value = await storage.readKey(key: 'key');
+        expect(value, items.last);
+      });
+
+      test('should not result in stale data written to the file', () async {
+        final futures = items.map(
+          (i) async => storage.writeKey(key: 'key_$i', value: i),
+        );
+        await Future.wait(futures);
+        for (final i in items) {
+          final value = await storage.readKey(key: 'key_$i');
+          expect(value, items[i]);
+        }
+      });
+
+      // Reference: https://github.com/aws-amplify/amplify-flutter/issues/5190
+      test('should not corrupt the file', () async {
+        final futures = items.map(
+          (i) async {
+            if (i % 5 == 1) {
+              await storage.removeKey(key: 'key_${i - 1}');
+            }
+            return storage.writeKey(key: 'key_$i', value: 'value_$i');
+          },
+        );
+        await Future.wait(futures);
+      });
     });
 
     test('File is cleared when corrupted and can be re-written to', () async {
