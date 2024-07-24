@@ -11,8 +11,8 @@ Waiter _$WaiterFromJson(Map<String, dynamic> json) => Waiter(
       acceptors: (json['acceptors'] as List<dynamic>)
           .map(AcceptorDefinition.fromJson)
           .toList(),
-      minDelay: json['minDelay'] as int? ?? Waiter.defaultMinDelay,
-      maxDelay: json['maxDelay'] as int? ?? Waiter.defaultMaxDelay,
+      minDelay: (json['minDelay'] as num?)?.toInt() ?? Waiter.defaultMinDelay,
+      maxDelay: (json['maxDelay'] as num?)?.toInt() ?? Waiter.defaultMaxDelay,
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],

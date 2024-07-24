@@ -36,7 +36,7 @@ HttpResponseTestCase _$HttpResponseTestCaseFromJson(
           (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
       appliesTo: $enumDecodeNullable(_$AppliesToEnumMap, json['appliesTo']),
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
     );
 
 Map<String, dynamic> _$HttpResponseTestCaseToJson(

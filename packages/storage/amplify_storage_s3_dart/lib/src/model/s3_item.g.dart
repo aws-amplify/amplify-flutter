@@ -12,7 +12,7 @@ S3Item _$S3ItemFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = S3Item(
           path: $checkedConvert('path', (v) => v as String),
-          size: $checkedConvert('size', (v) => v as int?),
+          size: $checkedConvert('size', (v) => (v as num?)?.toInt()),
           lastModified: $checkedConvert('lastModified',
               (v) => v == null ? null : DateTime.parse(v as String)),
           eTag: $checkedConvert('eTag', (v) => v as String?),
