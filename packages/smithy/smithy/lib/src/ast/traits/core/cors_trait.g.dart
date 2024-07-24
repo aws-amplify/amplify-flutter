@@ -8,7 +8,7 @@ part of 'cors_trait.dart';
 
 CorsTrait _$CorsTraitFromJson(Map<String, dynamic> json) => CorsTrait(
       origin: json['origin'] as String? ?? CorsTrait.defaultOrigin,
-      maxAge: json['maxAge'] as int? ?? CorsTrait.defaultMaxAge,
+      maxAge: (json['maxAge'] as num?)?.toInt() ?? CorsTrait.defaultMaxAge,
       additionalAllowedHeaders:
           (json['additionalAllowedHeaders'] as List<dynamic>?)
                   ?.map((e) => e as String)

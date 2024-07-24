@@ -14,7 +14,7 @@ PasswordPolicy _$PasswordPolicyFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PasswordPolicy(
-          minLength: $checkedConvert('min_length', (v) => v as int?),
+          minLength: $checkedConvert('min_length', (v) => (v as num?)?.toInt()),
           requireNumbers:
               $checkedConvert('require_numbers', (v) => v as bool? ?? false),
           requireLowercase:
