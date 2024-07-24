@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@aws-amplify/backend": "^1.0.3"
+    "@aws-amplify/backend": "^1.0.4"
   }
 }
