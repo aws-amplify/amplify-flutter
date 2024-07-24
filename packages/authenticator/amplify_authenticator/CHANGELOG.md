@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Minor bug fixes and improvements
+
 ## 2.1.0
 
 ### Features

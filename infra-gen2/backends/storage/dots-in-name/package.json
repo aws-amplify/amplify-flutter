@@ -1,8 +1,5 @@
 {
   "name": "dots-in-name",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "@aws-amplify/backend": "^1.0.3"
-  }
+  "main": "index.js"
 }

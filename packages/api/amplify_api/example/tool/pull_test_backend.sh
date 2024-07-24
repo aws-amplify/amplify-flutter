@@ -4,4 +4,5 @@
 
 set -e
 
-APP_ID=$AFS_NEXT_API_APP_ID ../../../../build-support/pull_backend_by_app_id.sh 
+aws s3 cp s3://$AFS_API_GEN2_BUCKET_NAME/amplify_outputs.dart lib/amplify_outputs.dart 
+aws s3 cp s3://$AFS_API_GEN2_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 

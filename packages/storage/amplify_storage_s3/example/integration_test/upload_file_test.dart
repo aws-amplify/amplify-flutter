@@ -429,8 +429,7 @@ void main() {
               ),
             ).result,
             // useAccelerateEndpoint is not supported with a bucket name with dots
-            // throwsA(isA<ConfigurationError>()),
-            throwsA(isA<StorageHttpStatusException>()),
+            throwsA(isA<ConfigurationError>()),
           );
         },
       );

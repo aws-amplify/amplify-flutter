@@ -4,4 +4,4 @@
 
 set -e
 
-aws s3 cp s3://$AFS_STORAGE_BUCKET_NAME/amplifyconfiguration.dart lib/amplifyconfiguration.dart 
+aws s3 cp s3://$AFS_STORAGE_GEN2_BUCKET_NAME/amplify_outputs.dart lib/amplify_outputs.dart 
