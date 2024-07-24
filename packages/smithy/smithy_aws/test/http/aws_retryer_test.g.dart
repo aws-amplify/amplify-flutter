@@ -45,14 +45,16 @@ TestSuiteGiven _$TestSuiteGivenFromJson(Map json) => $checkedCreate(
           ],
         );
         final val = TestSuiteGiven(
-          maxAttempts: $checkedConvert('max_attempts', (v) => v as int),
-          initialRetryTokens:
-              $checkedConvert('initial_retry_tokens', (v) => v as int),
+          maxAttempts:
+              $checkedConvert('max_attempts', (v) => (v as num).toInt()),
+          initialRetryTokens: $checkedConvert(
+              'initial_retry_tokens', (v) => (v as num).toInt()),
           exponentialBase:
               $checkedConvert('exponential_base', (v) => (v as num).toDouble()),
           exponentialPower: $checkedConvert(
               'exponential_power', (v) => (v as num).toDouble()),
-          maxBackoffTime: $checkedConvert('max_backoff_time', (v) => v as int),
+          maxBackoffTime:
+              $checkedConvert('max_backoff_time', (v) => (v as num).toInt()),
         );
         return val;
       },
@@ -96,7 +98,7 @@ TestCaseResponse _$TestCaseResponseFromJson(Map json) => $checkedCreate(
           allowedKeys: const ['status_code'],
         );
         final val = TestCaseResponse(
-          statusCode: $checkedConvert('status_code', (v) => v as int),
+          statusCode: $checkedConvert('status_code', (v) => (v as num).toInt()),
         );
         return val;
       },
@@ -114,8 +116,8 @@ TestCaseExpected _$TestCaseExpectedFromJson(Map json) => $checkedCreate(
         final val = TestCaseExpected(
           outcome: $checkedConvert(
               'outcome', (v) => $enumDecode(_$OutcomeEnumMap, v)),
-          retryQuota: $checkedConvert('retry_quota', (v) => v as int),
-          delay: $checkedConvert('delay', (v) => v as int?),
+          retryQuota: $checkedConvert('retry_quota', (v) => (v as num).toInt()),
+          delay: $checkedConvert('delay', (v) => (v as num?)?.toInt()),
         );
         return val;
       },
