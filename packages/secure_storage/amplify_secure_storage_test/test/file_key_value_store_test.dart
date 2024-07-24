@@ -6,7 +6,6 @@
 import 'dart:io';
 
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
-import 'package:aws_common/aws_common.dart';
 import 'package:file/local.dart';
 import 'package:file/memory.dart';
 import 'package:test/test.dart';
@@ -18,7 +17,6 @@ void main() {
 
   for (final fileSystem in fileSystems) {
     group('FileKeyValueStore (${fileSystem.runtimeType})', () {
-      safePrint(fileSystem.runtimeType);
       setUp(() {
         storage = FileKeyValueStore(
           path: 'path',
