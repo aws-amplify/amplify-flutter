@@ -1,15 +1,5 @@
 {
   "name": "no-unauth-access",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "aws-amplify": "^6.3.8"
-  }
+  "main": "index.js"
 }
