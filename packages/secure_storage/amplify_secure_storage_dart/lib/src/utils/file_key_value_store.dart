@@ -41,12 +41,49 @@ class FileKeyValueStore {
   @visibleForTesting
   final pkg_file.FileSystem fs;
 
+  @visibleForTesting
   File get file => fs.file(
         pkg_path.join(
           path,
           fileName,
         ),
       );
+
+  /// Overwrites the existing data in [file] with the key-value pairs in [data].
+  @visibleForTesting
+  Future<void> writeAll(
+    Map<String, Object> data,
+  ) async {
+    if (!await file.exists()) {
+      await file.create(recursive: true);
+    }
+    final stringMap = json.encode(data);
+    await file.writeAsString(stringMap);
+  }
+
+  /// Reads all the key-value pairs from [file].
+  @visibleForTesting
+  Future<Map<String, Object>> readAll() async {
+    if (await file.exists()) {
+      final stringMap = await file.readAsString();
+      if (stringMap.isNotEmpty) {
+        try {
+          final Object? data = json.decode(stringMap);
+          if (data is Map) {
+            return data.cast<String, Object>();
+          }
+        } on FormatException catch (e) {
+          logger.error(
+            'Cannot read file. The file may be corrupted. '
+            'Clearing file contents. See error for more details. '
+            'Error: $e',
+          );
+          await writeAll({});
+        }
+      }
+    }
+    return <String, Object>{};
+  }
 
   /// Writes a single key to storage.
   Future<void> writeKey({
@@ -58,17 +95,6 @@ class FileKeyValueStore {
       data[key] = value;
       return writeAll(data);
     });
-  }
-
-  /// Overwrites the existing data.
-  Future<void> writeAll(
-    Map<String, Object> data,
-  ) async {
-    if (!await file.exists()) {
-      await file.create(recursive: true);
-    }
-    final stringMap = json.encode(data);
-    await file.writeAsString(stringMap);
   }
 
   /// Reads a single key from storage.
@@ -100,29 +126,6 @@ class FileKeyValueStore {
       final data = await readAll();
       return data.containsKey(key);
     });
-  }
-
-  /// Reads all the key-value pairs from storage.
-  Future<Map<String, Object>> readAll() async {
-    if (await file.exists()) {
-      final stringMap = await file.readAsString();
-      if (stringMap.isNotEmpty) {
-        try {
-          final Object? data = json.decode(stringMap);
-          if (data is Map) {
-            return data.cast<String, Object>();
-          }
-        } on FormatException catch (e) {
-          logger.error(
-            'Cannot read file. The file may be corrupted. '
-            'Clearing file contents. See error for more details. '
-            'Error: $e',
-          );
-          await writeAll({});
-        }
-      }
-    }
-    return <String, Object>{};
   }
 }
 
