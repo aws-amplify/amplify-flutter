@@ -25,7 +25,7 @@ final throwsSignedOutException = throwsA(isA<SignedOutException>());
 void main() {
   final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
   final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
-  const hostedUiKeys = HostedUiKeys(hostedUiConfig);
+  final hostedUiKeys = HostedUiKeys(hostedUiConfig);
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
@@ -250,7 +250,7 @@ void main() {
       test('can sign out in user pool-only mode', () async {
         seedStorage(secureStorage, userPoolKeys: userPoolKeys);
         await plugin.configure(
-          config: userPoolOnlyConfig,
+          config: mockConfigUserPoolOnly,
           authProviderRepo: testAuthRepo,
         );
 

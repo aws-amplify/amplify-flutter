@@ -1253,7 +1253,7 @@ void main() {
     });
     group('User Pool Only Config', () {
       setUp(() {
-        config = userPoolOnlyConfig;
+        config = mockConfigUserPoolOnly;
       });
       group('tokens valid', () {
         setUp(() {
