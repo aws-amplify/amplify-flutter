@@ -1,0 +1,54 @@
+name: amplify_storage_s3_example
+description: Demonstrates how to use the amplify_storage_s3 plugin.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.3.0
+  flutter: ">=3.19.0"
+
+dependencies:
+  amplify_auth_cognito: any
+  amplify_authenticator: any
+  amplify_core: any
+  amplify_flutter: any
+  amplify_secure_storage: any
+  amplify_storage_s3: any
+  amplify_api: any
+  file_picker: any
+  flutter:
+    sdk: flutter
+  path_provider: any
+  cached_network_image: ^3.2.3
+  cupertino_icons: ^1.0.5
+  flutter_riverpod: ^2.1.3
+  go_router: ^14.1.4
+  image_picker: ^1.1.1
+  intl: ^0.19.0
+  path: ^1.8.3
+  riverpod_annotation: ^2.0.1
+  uuid: ^4.4.0
+
+dev_dependencies:
+  amplify_integration_test: any
+  amplify_lints:
+    path: ../../../amplify_lints
+  amplify_test:
+    path: ../../../test/amplify_test
+  aws_common: any
+  drift: ">=2.18.0 <2.19.0"
+  flutter_driver:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  http: ">=0.13.0 <2.0.0"
+  integration_test:
+    sdk: flutter
+  path: any
+  stack_trace: ^1.10.0
+  test: ^1.22.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/amplify.png

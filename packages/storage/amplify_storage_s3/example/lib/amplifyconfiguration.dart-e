@@ -1,0 +1,96 @@
+const amplifyconfig = '''{
+    "UserAgent": "aws-amplify-cli/2.0",
+    "Version": "1.0",
+    "api": {
+        "plugins": {
+            "awsAPIPlugin": {
+                "tripsplannercomplete": {
+                    "endpointType": "GraphQL",
+                    "endpoint": "https://ie5bs5beqzam3kjhfpakwcba3y.appsync-api.us-east-2.amazonaws.com/graphql",
+                    "region": "us-east-2",
+                    "authorizationType": "API_KEY",
+                    "apiKey": "da2-gt3tasnupvgdxey4acppmiii34"
+                }
+            }
+        }
+    },
+    "auth": {
+        "plugins": {
+            "awsCognitoAuthPlugin": {
+                "UserAgent": "aws-amplify-cli/0.1.0",
+                "Version": "0.1.0",
+                "IdentityManager": {
+                    "Default": {}
+                },
+                "CredentialsProvider": {
+                    "CognitoIdentity": {
+                        "Default": {
+                            "PoolId": "us-east-2:5bcd6f45-f807-4281-af85-23a612dc8798",
+                            "Region": "us-east-2"
+                        }
+                    }
+                },
+                "CognitoUserPool": {
+                    "Default": {
+                        "PoolId": "us-east-2_wtYwZ7Iau",
+                        "AppClientId": "26uj85aj4p94ecv64nm3couaho",
+                        "Region": "us-east-2"
+                    }
+                },
+                "Auth": {
+                    "Default": {
+                        "authenticationFlowType": "USER_SRP_AUTH",
+                        "socialProviders": [],
+                        "usernameAttributes": [
+                            "EMAIL"
+                        ],
+                        "signupAttributes": [
+                            "EMAIL"
+                        ],
+                        "passwordProtectionSettings": {
+                            "passwordPolicyMinLength": 8,
+                            "passwordPolicyCharacters": []
+                        },
+                        "mfaConfiguration": "OFF",
+                        "mfaTypes": [
+                            "SMS"
+                        ],
+                        "verificationMechanisms": [
+                            "EMAIL"
+                        ]
+                    }
+                },
+                "AppSync": {
+                    "Default": {
+                        "ApiUrl": "https://ie5bs5beqzam3kjhfpakwcba3y.appsync-api.us-east-2.amazonaws.com/graphql",
+                        "Region": "us-east-2",
+                        "AuthMode": "API_KEY",
+                        "ApiKey": "da2-gt3tasnupvgdxey4acppmiii34",
+                        "ClientDatabasePrefix": "tripsplannercomplete_API_KEY"
+                    },
+                    "tripsplannercomplete_AMAZON_COGNITO_USER_POOLS": {
+                        "ApiUrl": "https://ie5bs5beqzam3kjhfpakwcba3y.appsync-api.us-east-2.amazonaws.com/graphql",
+                        "Region": "us-east-2",
+                        "AuthMode": "AMAZON_COGNITO_USER_POOLS",
+                        "ClientDatabasePrefix": "tripsplannercomplete_AMAZON_COGNITO_USER_POOLS"
+                    }
+                },
+                "S3TransferUtility": {
+                    "Default": {
+                        "Bucket": "tripsplannercompleteadb4731eab3f4dce8b7488450a79fb1c-dev",
+                        "Region": "us-east-2"
+                    }
+                }
+            }
+        }
+    },
+    "storage": {
+        "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "tripsplannercompleteadb4731eab3f4dce8b7488450a79fb1c-dev",
+                "region": "us-east-2",
+                "defaultAccessLevel": "guest"
+            }
+        }
+    }
+}''';

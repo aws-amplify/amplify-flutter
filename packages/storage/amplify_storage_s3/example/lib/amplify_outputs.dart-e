@@ -1,0 +1,5 @@
+const amplifyConfig = '''{
+  "version": "1"
+}''';
+
+const amplifyEnvironments = <String, String>{};
