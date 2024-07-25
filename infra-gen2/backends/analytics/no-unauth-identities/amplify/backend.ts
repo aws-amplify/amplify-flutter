@@ -17,7 +17,7 @@ const analyticsStack = backend.createStack("analytics-main-stack");
 
 // create a Pinpoint app
 const pinpoint = new CfnApp(analyticsStack, "Pinpoint", {
-  name: "analytics-main",
+  name: "analytics-no-unauth-identities",
 });
 
 // create an IAM policy to allow interacting with Pinpoint
