@@ -14,5 +14,10 @@ const { userPool, cfnResources } = resources;
 const { stack } = userPool;
 const { cfnUserPool } = cfnResources;
 
-const customOutputs = addAuthUserExtensions(stack, userPool, cfnUserPool);
+const customOutputs = addAuthUserExtensions({
+  name: "phone-sign-in",
+  stack,
+  userPool,
+  cfnUserPool,
+});
 backend.addOutput(customOutputs);

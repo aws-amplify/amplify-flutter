@@ -8,11 +8,18 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
 
-export function addCreateUserLambda(
-  stack: Stack,
-  { graphQL, userPool }: { graphQL: GraphqlApi; userPool: IUserPool }
-) {
-  const createUserLambda = new NodejsFunction(stack, "create-user", {
+export function addCreateUserLambda({
+  name,
+  stack,
+  graphQL,
+  userPool,
+}: {
+  name: string;
+  stack: Stack;
+  graphQL: GraphqlApi;
+  userPool: IUserPool;
+}) {
+  const createUserLambda = new NodejsFunction(stack, `${name}-createUser`, {
     entry: path.resolve(__dirname, "..", "lambda-triggers", "create-user.js"),
     runtime: Runtime.NODEJS_18_X,
     environment: {
@@ -27,10 +34,10 @@ export function addCreateUserLambda(
     "cognito-idp:AdminUpdateUserAttributes"
   );
   const createUserSource = graphQL.addLambdaDataSource(
-    "GraphQLApiCreateUserLambda",
+    `${name}-GraphQLApiCreateUserLambda`,
     createUserLambda
   );
-  createUserSource.createResolver("MutationCreateUserResolver", {
+  createUserSource.createResolver(`${name}-MutationCreateUserResolver`, {
     typeName: "Mutation",
     fieldName: "createUser",
     requestMappingTemplate: MappingTemplate.lambdaRequest(),

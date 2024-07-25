@@ -8,15 +8,21 @@ import { addUserGraphql } from "./user-graphql";
 
 type AmplifyOutputs = Parameters<BackendBase["addOutput"]>[0];
 
-export const addAuthUserExtensions = (
-  stack: Stack,
-  userPool: IUserPool,
-  cfnUserPool: CfnUserPool
-): AmplifyOutputs => {
+export const addAuthUserExtensions = ({
+  name,
+  stack,
+  userPool,
+  cfnUserPool,
+}: {
+  name: string;
+  stack: Stack;
+  userPool: IUserPool;
+  cfnUserPool: CfnUserPool;
+}): AmplifyOutputs => {
   const graphQL = addUserGraphql(stack);
-  addCustomSenderLambda(stack, { cfnUserPool, graphQL });
-  addCreateUserLambda(stack, { userPool, graphQL });
-  addDeleteUserLambda(stack, { userPool, graphQL });
+  addCustomSenderLambda({ name, stack, cfnUserPool, graphQL });
+  addCreateUserLambda({ name, stack, userPool, graphQL });
+  addDeleteUserLambda({ name, stack, userPool, graphQL });
   return {
     data: {
       aws_region: stack.region,

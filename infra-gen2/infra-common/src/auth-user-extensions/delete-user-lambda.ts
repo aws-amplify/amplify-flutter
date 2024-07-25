@@ -8,11 +8,18 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
 
-export function addDeleteUserLambda(
-  stack: Stack,
-  { graphQL, userPool }: { graphQL: GraphqlApi; userPool: IUserPool }
-) {
-  const deleteUserLambda = new NodejsFunction(stack, "delete-user", {
+export function addDeleteUserLambda({
+  name,
+  stack,
+  graphQL,
+  userPool,
+}: {
+  name: string;
+  stack: Stack;
+  graphQL: GraphqlApi;
+  userPool: IUserPool;
+}) {
+  const deleteUserLambda = new NodejsFunction(stack, `${name}-deleteUser`, {
     entry: path.resolve(__dirname, "..", "lambda-triggers", "delete-user.js"),
     runtime: Runtime.NODEJS_18_X,
     environment: {
@@ -21,10 +28,10 @@ export function addDeleteUserLambda(
   });
   userPool.grant(deleteUserLambda, "cognito-idp:AdminDeleteUser");
   const deleteUserSource = graphQL.addLambdaDataSource(
-    "GraphQLApiDeleteUserLambda",
+    `${name}-GraphQLApiDeleteUserLambda`,
     deleteUserLambda
   );
-  deleteUserSource.createResolver("MutationDeleteUserResolver", {
+  deleteUserSource.createResolver(`${name}-MutationDeleteUserResolver`, {
     typeName: "Mutation",
     fieldName: "deleteUser",
     requestMappingTemplate: MappingTemplate.lambdaRequest(),

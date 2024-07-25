@@ -17,39 +17,50 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import path from "path";
 
-export function addCustomSenderLambda(
-  stack: Stack,
-  { graphQL, cfnUserPool }: { graphQL: GraphqlApi; cfnUserPool: CfnUserPool }
-): NodejsFunction {
-  const customSenderKmsKey = new Key(stack, "CustomSenderKey", {
+export function addCustomSenderLambda({
+  name,
+  stack,
+  graphQL,
+  cfnUserPool,
+}: {
+  name: string;
+  stack: Stack;
+  graphQL: GraphqlApi;
+  cfnUserPool: CfnUserPool;
+}): NodejsFunction {
+  const customSenderKmsKey = new Key(stack, `${name}-CustomSenderKey`, {
     description: `Key for encrypting/decrypting SMS messages sent from ${stack.stackId}`,
     removalPolicy: RemovalPolicy.DESTROY,
   });
 
-  const customEmailSender = new NodejsFunction(stack, "custom-email-sender", {
-    entry: path.resolve(
-      __dirname,
-      "..",
-      "lambda-triggers",
-      "custom-email-sender.js"
-    ),
-    runtime: Runtime.NODEJS_18_X,
-    bundling: {
-      nodeModules: ["@aws-crypto/client-node"],
-    },
-    environment: {
-      GRAPHQL_API_ENDPOINT: graphQL.graphqlUrl,
-      GRAPHQL_API_KEY: graphQL.apiKey!,
-      KMS_KEY_ARN: customSenderKmsKey.keyArn,
-    },
-  });
+  const customEmailSender = new NodejsFunction(
+    stack,
+    `${name}-customEmailSender`,
+    {
+      entry: path.resolve(
+        __dirname,
+        "..",
+        "lambda-triggers",
+        "custom-email-sender.js"
+      ),
+      runtime: Runtime.NODEJS_18_X,
+      bundling: {
+        nodeModules: ["@aws-crypto/client-node"],
+      },
+      environment: {
+        GRAPHQL_API_ENDPOINT: graphQL.graphqlUrl,
+        GRAPHQL_API_KEY: graphQL.apiKey!,
+        KMS_KEY_ARN: customSenderKmsKey.keyArn,
+      },
+    }
+  );
 
   customEmailSender.addPermission("PermitCognitoInvoke", {
     principal: new ServicePrincipal("cognito-idp.amazonaws.com"),
     sourceArn: cfnUserPool.attrArn,
   });
 
-  const customSmsSender = new NodejsFunction(stack, "custom-sms-sender", {
+  const customSmsSender = new NodejsFunction(stack, `${name}-customSmsSender`, {
     entry: path.resolve(
       __dirname,
       "..",
@@ -90,7 +101,7 @@ export function addCustomSenderLambda(
   graphQL.grantMutation(customSmsSender);
   customSenderKmsKey.grantDecrypt(customSmsSender);
 
-  const mfaCodesTable = new Table(stack, "MFACodesTable", {
+  const mfaCodesTable = new Table(stack, `${name}-MFACodesTable`, {
     removalPolicy: RemovalPolicy.DESTROY,
     billingMode: BillingMode.PAY_PER_REQUEST,
     partitionKey: {
@@ -109,7 +120,7 @@ export function addCustomSenderLambda(
   );
 
   // Mutation.createMFACode
-  mfaCodesSource.createResolver("MutationCreateMFACodeResolver", {
+  mfaCodesSource.createResolver(`${name}-MutationCreateMFACodeResolver`, {
     typeName: "Mutation",
     fieldName: "createMFACode",
     requestMappingTemplate: MappingTemplate.dynamoDbPutItem(
@@ -123,7 +134,7 @@ export function addCustomSenderLambda(
   });
 
   // Query.listMFACodes
-  mfaCodesSource.createResolver("QueryListMFACodesResolver", {
+  mfaCodesSource.createResolver(`${name}-QueryListMFACodesResolver`, {
     typeName: "Query",
     fieldName: "listMFACodes",
     requestMappingTemplate: MappingTemplate.dynamoDbScanTable(),
