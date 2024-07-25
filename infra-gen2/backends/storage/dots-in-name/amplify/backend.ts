@@ -20,6 +20,7 @@ const randomBucketName = `dots.in.name-${uuidv4()}`;
 
 cfnBucket.bucketName = randomBucketName;
 
+// required to add the metadata header, which amplify-backend does not support
 backend.storage.resources.cfnResources.cfnBucket.corsConfiguration = {
   corsRules: [
     {
