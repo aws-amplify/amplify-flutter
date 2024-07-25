@@ -5,12 +5,17 @@ import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import '../util.dart';
 
-void main({bool useExistingTestUser = false, bool useGen1 = false}) {
+void main({
+  bool useExistingTestUser = false,
+  bool useGen1 = false,
+  TestUser? testUser,
+}) {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group(
@@ -18,7 +23,7 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
     () {
       setUpAll(() async {
         await configureAmplify(useGen1: useGen1);
-        await signOutTestUser();
+        await signOutTestUser(testUser);
       });
 
       group('queries', () {
@@ -55,9 +60,9 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
           late StreamSubscription<ApiHubEvent> hubEventsSubscription;
           setUpAll(() async {
             if (!useExistingTestUser) {
-              await signUpTestUser();
+              testUser = await signUpTestUser(testUser);
             }
-            await signInTestUser();
+            await signInTestUser(testUser);
 
             hubEventsController = StreamController.broadcast();
             hubEvents = hubEventsController.stream;
@@ -68,7 +73,7 @@ void main({bool useExistingTestUser = false, bool useGen1 = false}) {
           tearDownAll(() async {
             await deleteTestModels();
             if (!useExistingTestUser) {
-              await deleteTestUser();
+              await deleteTestUser(testUser);
             }
 
             await hubEventsSubscription.cancel();

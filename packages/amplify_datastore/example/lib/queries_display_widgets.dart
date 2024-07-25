@@ -175,3 +175,32 @@ Widget getWidgetToDisplayComment(
         }),
   );
 }
+
+Widget getWidgetToDisplayPrivateTodo(
+    List<Model> _todoToView, Function deleteTodo) {
+  return Expanded(
+    child: ListView.builder(
+        itemCount: _todoToView.length,
+        padding: const EdgeInsets.all(16.0),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, i) {
+          return ListTile(
+            title: Text(
+              "${_todoToView[i].toMap()['content']}",
+              style: TextStyle(fontSize: 14.0),
+            ),
+            trailing: IconButton(
+              onPressed: () {
+                print("Deleting ${_todoToView[i].toMap()['content']}}");
+                deleteTodo(_todoToView[i].toMap()['id']);
+              },
+              icon: Icon(
+                Icons.delete_forever,
+                color: Colors.red,
+              ),
+            ),
+          );
+        }),
+  );
+}
