@@ -49,5 +49,5 @@ amplify init \
 --frontend $FRONTEND \
 --providers $PROVIDERS \
 --yes
-echo "$request" | jq -c | amplify add api --headless
+
 amplify push --yes

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifydsinteg",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2025-07-24T18:08:33.994Z",
+      "keyDescription": ""
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authamplifydsinteg22ede1af22ede1af"
+      },
+      {
+        "mode": "AWS_IAM"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      }
+    }
+  }
+}

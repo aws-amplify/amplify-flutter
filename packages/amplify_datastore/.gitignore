@@ -5,3 +5,8 @@
 .pub/
 
 build/
+
+# Allow `amplify init` with preconfigured backend
+# to provision lambdas not supported by headless CLI.
+!example/amplify/
+example/amplify/team-provider-info.json
