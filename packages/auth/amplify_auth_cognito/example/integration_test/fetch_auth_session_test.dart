@@ -361,7 +361,9 @@ void main() {
           };
 
           final verificationCode = await getOtpCode(
-            environment.getLoginAttribute(newAttributeValue),
+            environment.getLoginAttribute(
+              environment.loginMethod.isUsername ? username : newAttributeValue,
+            ),
           );
 
           final attributeRes = await Amplify.Auth.updateUserAttribute(
