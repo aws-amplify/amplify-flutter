@@ -197,6 +197,32 @@ void main() {
       );
     });
 
+    test('flush events timer initialized', () async {
+      when(
+        () => mockAmplifyAuthProviderRepository.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        ),
+      ).thenReturn(awsIamAmplifyAuthProvider);
+      when(
+        () => mockAnalyticsClient.init(
+          pinpointAppId: any(named: 'pinpointAppId'),
+          region: any(named: 'region'),
+          authProvider: any(named: 'authProvider'),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      await pinpointProvider.init(
+        config: notificationsPinpointConfig,
+        authProviderRepo: mockAmplifyAuthProviderRepository,
+        analyticsClient: mockAnalyticsClient,
+      );
+
+      expect(
+        pinpointProvider.autoEventSubmitter.duration,
+        const Duration(seconds: 10),
+      );
+    });
+
     test('identifyUser should run successfully', () async {
       when(
         () => mockAmplifyAuthProviderRepository.getAuthProvider(

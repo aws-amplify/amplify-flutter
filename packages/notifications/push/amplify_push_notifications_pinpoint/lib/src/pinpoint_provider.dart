@@ -27,11 +27,17 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 /// [init] method has to be called before other methods can be used.
 /// Once initialized, it can [registerDevice], [recordNotificationEvent]
 /// & [identifyUser] with Pinpoint.
+///
+/// To release any initialized resources [dispose] should be called.
 /// {@endtemplate}
 class PinpointProvider implements ServiceProviderClient {
   /// {@macro amplify_push_notifications_pinpoint.pinpoint_provider}
 
   late AnalyticsClient _analyticsClient;
+
+  /// Periodic timer for flushing events made public for testing
+  @visibleForTesting
+  late final StoppableTimer autoEventSubmitter;
 
   static const _androidCampaignIdKey = 'pinpoint.campaign.campaign_id';
   static const _androidCampaignActivityIdKey =
@@ -91,6 +97,12 @@ class PinpointProvider implements ServiceProviderClient {
           region: region,
           authProvider: authProvider,
         );
+        
+        autoEventSubmitter = StoppableTimer(
+          duration: const Duration(seconds: 10),
+          callback: _flushEvents,
+          onError: (e) => _logger.warn('Exception in events auto flush', e),
+        );
 
         _isInitialized = true;
       }
@@ -102,6 +114,10 @@ class PinpointProvider implements ServiceProviderClient {
         underlyingException: e,
       );
     }
+  }
+
+  Future<void> _flushEvents() {
+    return _analyticsClient.eventClient.flushEvents();
   }
 
   @override
@@ -273,5 +289,11 @@ class PinpointProvider implements ServiceProviderClient {
       }
       return ChannelType.apns;
     }
+  }
+
+  /// Cleans up and releases resources retained by this object.
+  /// This includes but is not limited to periodic timers for flushing events.
+  void dispose() {
+    autoEventSubmitter.stop();
   }
 }
