@@ -320,11 +320,17 @@ void main() {
           );
         });
 
-        asyncTest('force refresh reflects updated email', (_) async {
+        asyncTest('force refresh reflects updated email/phone', (_) async {
           final username = environment.generateUsername();
           final password = generatePassword();
-          final originalEmail =
-              environment.loginMethod.isEmail ? username : generateEmail();
+          final attributeKey = switch (environment.loginMethod) {
+            LoginMethod.phone => AuthUserAttributeKey.phoneNumber,
+            _ => AuthUserAttributeKey.email
+          };
+          final originalAttributeValue = switch (environment.loginMethod) {
+            LoginMethod.username => generateEmail(),
+            _ => username
+          };
 
           await adminCreateUser(
             username,
@@ -333,7 +339,7 @@ void main() {
             verifyAttributes: true,
             autoFillAttributes: environment.loginMethod.isUsername,
             attributes: {
-              AuthUserAttributeKey.email: originalEmail,
+              attributeKey: originalAttributeValue,
             },
           );
 
@@ -345,18 +351,22 @@ void main() {
 
           expect(
             await getCustomAttributes(),
-            containsPair('email', originalEmail),
+            containsPair(attributeKey.key, originalAttributeValue),
             reason: 'Original email is present in token',
           );
 
-          final newEmail = generateEmail();
+          final newAttributeValue = switch (environment.loginMethod) {
+            LoginMethod.phone => generatePhoneNumber(),
+            _ => generateEmail(),
+          };
+
           final verificationCode = await getOtpCode(
-            UserAttribute.email(newEmail),
+            environment.getLoginAttribute(newAttributeValue),
           );
 
           final attributeRes = await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: newEmail,
+            userAttributeKey: attributeKey,
+            value: newAttributeValue,
           );
           expect(
             attributeRes.nextStep.updateAttributeStep,
@@ -365,33 +375,44 @@ void main() {
 
           expect(
             await getCustomAttributes(),
-            containsPair('email', originalEmail),
+            containsPair(attributeKey.key, originalAttributeValue),
             reason: 'Tokens are not yet refreshed',
           );
 
           expect(
             await getCustomAttributes(forceRefresh: true),
             allOf([
-              containsPair('email', newEmail),
-              containsPair('email_verified', false),
+              containsPair(attributeKey.key, originalAttributeValue),
+              containsPair('${attributeKey.key}_verified', true),
             ]),
-            reason: 'New email is not yet confirmed',
-            // email is not updated until after confirmation it is an alias.
-            skip: environment.loginMethod.isEmail,
+            reason: 'New attribute is not yet confirmed',
+            // attribute is updated immediately if it is not an alias.
+            skip: environment.loginMethod.isUsername,
+          );
+
+          expect(
+            await getCustomAttributes(forceRefresh: true),
+            allOf([
+              containsPair(attributeKey.key, newAttributeValue),
+              containsPair('${attributeKey.key}_verified', false),
+            ]),
+            reason: 'New attribute is not yet confirmed',
+            // attribute is not updated until after confirmation it is an alias.
+            skip: !environment.loginMethod.isUsername,
           );
 
           await Amplify.Auth.confirmUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
+            userAttributeKey: attributeKey,
             confirmationCode: await verificationCode.code,
           );
 
           expect(
             await getCustomAttributes(forceRefresh: true),
             allOf([
-              containsPair('email', newEmail),
-              containsPair('email_verified', true),
+              containsPair(attributeKey.key, newAttributeValue),
+              containsPair('${attributeKey.key}_verified', true),
             ]),
-            reason: 'New email is confirmed',
+            reason: 'New attribute is confirmed',
           );
         });
       });
