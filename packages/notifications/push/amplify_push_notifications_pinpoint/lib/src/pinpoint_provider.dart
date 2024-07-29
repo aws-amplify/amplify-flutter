@@ -97,7 +97,7 @@ class PinpointProvider implements ServiceProviderClient {
           region: region,
           authProvider: authProvider,
         );
-        
+
         autoEventSubmitter = StoppableTimer(
           duration: const Duration(seconds: 10),
           callback: _flushEvents,
