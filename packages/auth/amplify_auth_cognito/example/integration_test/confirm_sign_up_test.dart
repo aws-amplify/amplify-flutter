@@ -46,7 +46,7 @@ void main() {
             expect(signUpResult.isSignUpComplete, false);
             expect(
               signUpResult.nextStep.codeDeliveryDetails?.deliveryMedium,
-              environment.deliveryMedium,
+              environment.confirmationDeliveryMedium,
             );
             expect(signUpResult.userId, isNotNull);
           }
@@ -123,7 +123,7 @@ void main() {
             );
             expect(
               resendResult.codeDeliveryDetails.deliveryMedium,
-              environment.deliveryMedium,
+              environment.confirmationDeliveryMedium,
             );
 
             final confirmResult = await Amplify.Auth.confirmSignUp(

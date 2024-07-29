@@ -55,7 +55,8 @@ class EnvironmentInfo {
     required this.configVersion,
     required this.loginMethod,
     required this.preventUserExistenceErrors,
-    required this.deliveryMedium,
+    required this.confirmationDeliveryMedium,
+    required this.resetPasswordDeliveryMedium,
     required this.mfaEnabled,
   });
 
@@ -66,7 +67,8 @@ class EnvironmentInfo {
     this.configVersion = AmplifyConfigVersion.config,
     this.loginMethod = LoginMethod.username,
     this.preventUserExistenceErrors = false,
-    this.deliveryMedium = DeliveryMedium.sms,
+    this.confirmationDeliveryMedium = DeliveryMedium.sms,
+    this.resetPasswordDeliveryMedium = DeliveryMedium.email,
   });
 
   /// The default env info for gen 2.
@@ -76,7 +78,8 @@ class EnvironmentInfo {
     this.configVersion = AmplifyConfigVersion.outputs,
     this.loginMethod = LoginMethod.email,
     this.preventUserExistenceErrors = true,
-    this.deliveryMedium = DeliveryMedium.email,
+    this.confirmationDeliveryMedium = DeliveryMedium.email,
+    this.resetPasswordDeliveryMedium = DeliveryMedium.email,
   });
 
   /// Whether or not to use the Amplify Outputs config version.
@@ -112,7 +115,10 @@ class EnvironmentInfo {
   final bool preventUserExistenceErrors;
 
   /// The medium used for delivering confirmation codes.
-  final DeliveryMedium deliveryMedium;
+  final DeliveryMedium confirmationDeliveryMedium;
+
+  /// The medium used for delivering reset password codes.
+  final DeliveryMedium resetPasswordDeliveryMedium;
 
   /// Whether or no MFA is enabled for this environment.
   final bool mfaEnabled;
@@ -127,7 +133,8 @@ const List<EnvironmentInfo> userPoolEnvironments = [
   EnvironmentInfo.withGen2Defaults(
     name: 'phone-sign-in',
     loginMethod: LoginMethod.phone,
-    deliveryMedium: DeliveryMedium.sms,
+    confirmationDeliveryMedium: DeliveryMedium.sms,
+    resetPasswordDeliveryMedium: DeliveryMedium.sms,
   ),
 ];
 
