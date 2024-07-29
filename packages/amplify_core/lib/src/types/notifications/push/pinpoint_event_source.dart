@@ -11,8 +11,8 @@
 /// [Journeys](https://docs.aws.amazon.com/pinpoint/latest/userguide/journeys.html)
 /// {@endtemplate}
 enum PinpointEventSource {
-  campaign('campaign'),
-  journey('journey');
+  campaign('_campaign'),
+  journey('_journey');
 
   const PinpointEventSource(this.name);
 
