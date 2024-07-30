@@ -97,7 +97,7 @@ void main() {
     );
 
     await Amplify.addPlugin(api);
-    await Amplify.configure(amplifyconfig);
+    await Amplify.configure(amplifyConfig);
 
     hubEventsController = StreamController.broadcast();
     hubEvents = hubEventsController.stream;

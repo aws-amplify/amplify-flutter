@@ -70,7 +70,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
-  const keys = HostedUiKeys(hostedUiConfig);
+  final keys = HostedUiKeys(hostedUiConfig);
 
   group('HostedUiStateMachine', () {
     late MockOAuthServer server;
@@ -107,10 +107,16 @@ void main() {
       expect(authorizationUri.queryParameters['redirect_uri'], isNotEmpty);
 
       expect(authorizationUri.queryParameters['scope'], isNotNull);
-      expect(authorizationUri.queryParameters['scope'], scopes.join(' '));
+      expect(
+        authorizationUri.queryParameters['scope'],
+        hostedUiConfig.scopes.join(' '),
+      );
 
       expect(authorizationUri.queryParameters['response_type'], 'code');
-      expect(authorizationUri.queryParameters['client_id'], testAppClientId);
+      expect(
+        authorizationUri.queryParameters['client_id'],
+        hostedUiConfig.appClientId,
+      );
 
       expect(authorizationUri.queryParameters['code_challenge'], isNotNull);
       expect(authorizationUri.queryParameters['code_challenge'], isNotEmpty);
