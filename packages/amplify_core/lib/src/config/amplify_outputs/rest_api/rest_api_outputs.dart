@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 
 part 'rest_api_outputs.g.dart';
 
@@ -13,7 +14,8 @@ part 'rest_api_outputs.g.dart';
 /// {@endtemplate}
 @zAmplifyOutputsSerializable
 class RestApiOutputs
-    with AWSEquatable<RestApiOutputs>, AWSSerializable, AWSDebuggable {
+    with AWSEquatable<RestApiOutputs>, AWSSerializable, AWSDebuggable
+    implements ApiOutputs {
   /// {@macro amplify_core.amplify_outputs.rest_api_outputs}
   const RestApiOutputs({
     required this.awsRegion,
@@ -25,17 +27,25 @@ class RestApiOutputs
   factory RestApiOutputs.fromJson(Map<String, Object?> json) =>
       _$RestApiOutputsFromJson(json);
 
-  /// The AWS region of Amazon AWS Gateway resources.
+  /// The AWS region of Amazon API Gateway resources.
+  @override
   final String awsRegion;
 
-  /// The AWS Gateway endpoint URL.
+  /// The Amazon API Gateway endpoint URL.
+  @override
   final String url;
 
-  /// The AppSync API Key.
+  /// The Amazon API Gateway API Key.
+  @override
   final String? apiKey;
 
   /// The authorization type.
+  @override
   final APIAuthorizationType authorizationType;
+
+  /// The Rest Api type.
+  @override
+  ApiType get apiType => ApiType.rest;
 
   @override
   List<Object?> get props => [
