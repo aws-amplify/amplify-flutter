@@ -14,15 +14,16 @@ void main() {
   testRunner.setupTests();
 
   group('confirmSignIn', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments.where((e) => e.mfaEnabled)) {
+      group(environment.name, () {
         late String username;
         late String password;
         late OtpResult otpResult;
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
           username = generateUsername();
@@ -134,7 +135,8 @@ void main() {
 
       asyncTest('includes attributes when setting new password', (_) async {
         await testRunner.configure(
-          environmentName: environmentName,
+          environmentName: environment.name,
+          useAmplifyOutputs: environment.useAmplifyOutputs,
         );
 
         final username = generateUsername();
