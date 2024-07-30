@@ -89,6 +89,8 @@ void main() {
     test('reads existing analytics metadata if analytics is configured',
         () async {
       const testEndpointId = 'testEndpointId';
+      final testPinpointAppId =
+          mockConfigWithPinpoint.analytics!.amazonPinpoint!.appId;
 
       // Add state machine dependencies.
       stateMachine.addInstance(

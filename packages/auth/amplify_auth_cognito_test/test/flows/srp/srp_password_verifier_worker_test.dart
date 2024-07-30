@@ -29,7 +29,7 @@ void main() {
       final message = SrpPasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..poolId = 'us-east-1_$poolName'
           ..parameters = SignInParameters(
             (p) => p
@@ -70,7 +70,7 @@ void main() {
       final message = SrpPasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..poolId = 'us-east-1_$poolName'
           ..parameters = SignInParameters(
             (p) => p
