@@ -7,6 +7,8 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_integration_test/src/test_auth_plugin.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart'
+    as amp_test;
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,11 +17,125 @@ import 'package:stack_trace/stack_trace.dart';
 
 final AWSLogger _logger = AWSLogger().createChild('AuthTestRunner');
 
+/// The version of the Amplify Config available for this environment.
+enum AmplifyConfigVersion {
+  /// Gen 1 Amplify Config
+  config,
+
+  /// Gen 2 Amplify Outputs
+  outputs;
+}
+
+/// The login method for the environment.
+enum LoginMethod {
+  /// Username login
+  username,
+
+  /// Email login
+  email,
+
+  /// Phone number login
+  phone;
+
+  /// Whether or not the login method is username.
+  bool get isUsername => this == LoginMethod.username;
+
+  /// Whether or not the login method is email.
+  bool get isEmail => this == LoginMethod.email;
+
+  /// Whether or not the login method is email.
+  bool get isPhone => this == LoginMethod.phone;
+}
+
+/// Information about the test environment.
+class EnvironmentInfo {
+  /// Creates an environment info object.
+  const EnvironmentInfo({
+    required this.name,
+    required this.configVersion,
+    required this.loginMethod,
+    required this.preventUserExistenceErrors,
+    required this.confirmationDeliveryMedium,
+    required this.resetPasswordDeliveryMedium,
+    required this.mfaEnabled,
+  });
+
+  /// The default env info for the gen 1 CLI.
+  const EnvironmentInfo.withGen1Defaults({
+    required this.name,
+    this.mfaEnabled = true,
+    this.configVersion = AmplifyConfigVersion.config,
+    this.loginMethod = LoginMethod.username,
+    this.preventUserExistenceErrors = false,
+    this.confirmationDeliveryMedium = DeliveryMedium.sms,
+    this.resetPasswordDeliveryMedium = DeliveryMedium.email,
+  });
+
+  /// The default env info for gen 2.
+  const EnvironmentInfo.withGen2Defaults({
+    required this.name,
+    this.mfaEnabled = false,
+    this.configVersion = AmplifyConfigVersion.outputs,
+    this.loginMethod = LoginMethod.email,
+    this.preventUserExistenceErrors = true,
+    this.confirmationDeliveryMedium = DeliveryMedium.email,
+    this.resetPasswordDeliveryMedium = DeliveryMedium.email,
+  });
+
+  /// Whether or not to use the Amplify Outputs config version.
+  bool get useAmplifyOutputs => configVersion == AmplifyConfigVersion.outputs;
+
+  /// Returns the [UserAttribute] for the user.
+  UserAttribute getLoginAttribute(String username) => switch (loginMethod) {
+        LoginMethod.email => UserAttribute.email(username),
+        LoginMethod.phone => UserAttribute.phone(username),
+        LoginMethod.username => UserAttribute.username(username)
+      };
+
+  /// Generates the username based on the login method.
+  String generateUsername() => switch (loginMethod) {
+        LoginMethod.username => amp_test.generateUsername(),
+        LoginMethod.email => amp_test.generateEmail(),
+        LoginMethod.phone => amp_test.generateUSPhoneNumber().toE164(),
+      };
+
+  /// The name of the environment in the config/outputs file.
+  final String name;
+
+  /// The config version.
+  final AmplifyConfigVersion configVersion;
+
+  /// The login method.
+  final LoginMethod loginMethod;
+
+  /// Whether or not the "prevent user existence errors" flag is
+  /// enabled for this backend.
+  ///
+  /// Defaults to false for Amplify Gen 1 and true for Amplify Gen 2
+  final bool preventUserExistenceErrors;
+
+  /// The medium used for delivering confirmation codes.
+  final DeliveryMedium confirmationDeliveryMedium;
+
+  /// The medium used for delivering reset password codes.
+  final DeliveryMedium resetPasswordDeliveryMedium;
+
+  /// Whether or no MFA is enabled for this environment.
+  final bool mfaEnabled;
+}
+
 /// Environments with a user pool and username-based sign in.
-const List<String> userPoolEnvironments = [
-  'main',
-  'user-pool-only',
-  'with-client-secret',
+const List<EnvironmentInfo> userPoolEnvironments = [
+  EnvironmentInfo.withGen1Defaults(name: 'main'),
+  EnvironmentInfo.withGen1Defaults(name: 'user-pool-only'),
+  EnvironmentInfo.withGen1Defaults(name: 'with-client-secret'),
+  EnvironmentInfo.withGen2Defaults(name: 'email-sign-in'),
+  EnvironmentInfo.withGen2Defaults(
+    name: 'phone-sign-in',
+    loginMethod: LoginMethod.phone,
+    confirmationDeliveryMedium: DeliveryMedium.sms,
+    resetPasswordDeliveryMedium: DeliveryMedium.sms,
+  ),
 ];
 
 /// Environments with a user pool and opt-in device tracking.
@@ -42,7 +158,10 @@ abstract interface class TestEnvironment {
 /// 1. At the start of the integration test, call [setupTests].
 ///
 /// ```dart
-/// final AuthTestRunner testRunner = AuthTestRunner(amplifyEnvironments);
+/// final AuthTestRunner testRunner = AuthTestRunner(
+///   config.amplifyEnvironments,
+///   outputs.amplifyEnvironments
+/// );
 ///
 /// void main() {
 ///   testRunner.setupTests();
@@ -67,9 +186,14 @@ abstract interface class TestEnvironment {
 /// {@endtemplate}
 class AuthTestRunner {
   /// {@macro amplify_auth_integration_test.auth_test_runner}
-  const AuthTestRunner(this._amplifyEnvironments);
+  const AuthTestRunner(
+    this._amplifyConfigs,
+    this._amplifyOutputs,
+  );
 
-  final Map<String, String> _amplifyEnvironments;
+  final Map<String, String> _amplifyConfigs;
+
+  final Map<String, String> _amplifyOutputs;
 
   /// Initializes the testing framework.
   void setupTests() {
@@ -97,14 +221,19 @@ class AuthTestRunner {
   /// any state from leaking between tests.
   Future<void> configure({
     String environmentName = 'main',
+    bool useAmplifyOutputs = false,
     List<APIAuthProvider> apiAuthProviders = const [],
     AWSHttpClient? baseClient,
   }) async {
-    final config = _amplifyEnvironments[environmentName]!;
-    final hasApiPlugin = AmplifyConfig.fromJson(
-          jsonDecode(config) as Map<String, dynamic>,
-        ).api?.awsPlugin !=
-        null;
+    final config = useAmplifyOutputs
+        ? _amplifyOutputs[environmentName]!
+        : _amplifyConfigs[environmentName]!;
+    final outputs = useAmplifyOutputs
+        ? AmplifyOutputs.fromJson(jsonDecode(config) as Map<String, dynamic>)
+        : AmplifyConfig.fromJson(
+            jsonDecode(config) as Map<String, dynamic>,
+          ).toAmplifyOutputs();
+    final hasApiPlugin = outputs.data != null;
     final authPlugin = AmplifyAuthTestPlugin(hasApiPlugin: hasApiPlugin);
     await Amplify.addPlugins([
       authPlugin,
@@ -127,7 +256,7 @@ class AuthTestRunner {
 
   /// Whether a test for [environmentName] should be skipped.
   String? shouldSkip(String environmentName) {
-    if (_amplifyEnvironments.containsKey(environmentName)) {
+    if (_amplifyConfigs.containsKey(environmentName)) {
       return null;
     }
     return 'No config found for "$environmentName"';

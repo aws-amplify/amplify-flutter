@@ -13,17 +13,18 @@ void main() {
   testRunner.setupTests();
 
   group('updatePassword', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         late String username;
         late String password;
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
-          username = generateUsername();
+          username = environment.generateUsername();
           password = generatePassword();
 
           await adminCreateUser(
@@ -31,6 +32,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           await signOutUser();

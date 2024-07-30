@@ -28,11 +28,15 @@ void main() {
   late String phoneNumber;
   late String name;
 
-  Future<void> createAndLoginUser() async {
-    username = generateUsername();
+  Future<void> createAndLoginUser([EnvironmentInfo? environment]) async {
+    username = environment?.generateUsername() ?? generateUsername();
     password = generatePassword();
-    email = generateEmail();
-    phoneNumber = generatePhoneNumber();
+    email = environment?.loginMethod == LoginMethod.email
+        ? username
+        : generateEmail();
+    phoneNumber = environment?.loginMethod == LoginMethod.phone
+        ? username
+        : generatePhoneNumber();
     name = generateNameAttribute();
 
     await adminCreateUser(
@@ -40,10 +44,15 @@ void main() {
       password,
       autoConfirm: true,
       verifyAttributes: true,
-      attributes: {
-        AuthUserAttributeKey.name: name,
-        AuthUserAttributeKey.email: email,
-        AuthUserAttributeKey.phoneNumber: phoneNumber,
+      autoFillAttributes: false,
+      attributes: switch (environment?.loginMethod) {
+        LoginMethod.email => {AuthUserAttributeKey.name: name},
+        LoginMethod.phone => {AuthUserAttributeKey.name: name},
+        _ => {
+            AuthUserAttributeKey.email: email,
+            AuthUserAttributeKey.phoneNumber: phoneNumber,
+            AuthUserAttributeKey.name: name,
+          },
       },
     );
 
@@ -67,14 +76,15 @@ void main() {
   }
 
   group('User Attributes', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
-          await createAndLoginUser();
+          await createAndLoginUser(environment);
         });
 
         group('fetchUserAttributes', () {
@@ -84,10 +94,12 @@ void main() {
             expect(
               userAttributes.valueOf(AuthUserAttributeKey.email),
               email,
+              skip: environment.loginMethod.isPhone,
             );
             expect(
               userAttributes.valueOf(AuthUserAttributeKey.phoneNumber),
               phoneNumber,
+              skip: environment.loginMethod.isEmail,
             );
             expect(
               userAttributes.valueOf(AuthUserAttributeKey.name),
