@@ -18,6 +18,8 @@ import 'package:http/testing.dart';
 
 import 'test_runner.dart';
 
+const testUrlScheme = 'authtest';
+
 void main() {
   testRunner.setupTests();
 
