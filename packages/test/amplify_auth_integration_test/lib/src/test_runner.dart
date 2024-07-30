@@ -85,7 +85,7 @@ class EnvironmentInfo {
   /// Whether or not to use the Amplify Outputs config version.
   bool get useAmplifyOutputs => configVersion == AmplifyConfigVersion.outputs;
 
-  /// Returns the [LoginMethod] for the user.
+  /// Returns the [UserAttribute] for the user.
   UserAttribute getLoginAttribute(String username) => switch (loginMethod) {
         LoginMethod.email => UserAttribute.email(username),
         LoginMethod.phone => UserAttribute.phone(username),

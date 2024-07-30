@@ -14,6 +14,8 @@ const { userPool, cfnResources } = resources;
 const { stack } = userPool;
 const { cfnUserPool } = cfnResources;
 
+// Adds infra for creating/deleting users via App Sync and fetching confirmation
+// and MFA codes from App Sync.
 const customOutputs = addAuthUserExtensions({
   name: "phone-sign-in",
   stack,
