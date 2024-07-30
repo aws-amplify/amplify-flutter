@@ -1,7 +1,6 @@
 import { BackendBase } from "@aws-amplify/backend";
 import { Stack } from "aws-cdk-lib";
-import { IRole, Policy } from "aws-cdk-lib/aws-iam";
-import { CfnApp } from "aws-cdk-lib/aws-pinpoint";
+import { IRole } from "aws-cdk-lib/aws-iam";
 import { createAppSyncAPI } from "./data";
 import { createKinesisStream } from "./kinesis";
 import { createPinpointApp } from "./pinpoint";
@@ -9,26 +8,26 @@ import { createPinpointApp } from "./pinpoint";
 type AmplifyOutputs = Parameters<BackendBase["addOutput"]>[0];
 
 export const addAnalyticsExtensions = ({
+  name,
   stack,
   authenticatedRole,
   unauthenticatedRole,
 }: {
+  name: string;
   stack: Stack;
-  pinpoint: CfnApp;
-  pinpointPolicy: Policy;
   authenticatedRole: IRole;
-  unauthenticatedRole: IRole;
+  unauthenticatedRole?: IRole;
 }): AmplifyOutputs => {
   const pinpointApp = createPinpointApp(
-    "analytics-main",
+    name,
     stack,
     authenticatedRole,
     unauthenticatedRole
   );
 
-  const kinesisStream = createKinesisStream(stack, pinpointApp);
+  const kinesisStream = createKinesisStream(name, stack, pinpointApp);
 
-  const graphQLApi = createAppSyncAPI(stack, kinesisStream);
+  const graphQLApi = createAppSyncAPI(name, stack, kinesisStream);
 
   return {
     analytics: {
@@ -36,6 +35,13 @@ export const addAnalyticsExtensions = ({
         app_id: pinpointApp.ref,
         aws_region: Stack.of(pinpointApp).region,
       },
+    },
+    data: {
+      aws_region: stack.region,
+      url: graphQLApi.graphqlUrl,
+      api_key: graphQLApi.apiKey,
+      default_authorization_type: "API_KEY",
+      authorization_types: [],
     },
   };
 };
