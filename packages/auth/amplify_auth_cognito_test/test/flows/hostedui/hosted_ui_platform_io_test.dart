@@ -9,10 +9,7 @@ import 'dart:io';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_auth_cognito_test/common/mock_config.dart';
-import 'package:amplify_auth_cognito_test/common/mock_dispatcher.dart';
-import 'package:amplify_auth_cognito_test/common/mock_hosted_ui.dart';
-import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
+import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:http/http.dart' as http;
@@ -144,7 +141,9 @@ void main() {
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(
-          redirectUri.split(',').firstWhere((uri) => uri.contains('localhost')),
+          hostedUiConfig.signInRedirectUri
+              .split(',')
+              .firstWhere((uri) => uri.contains('localhost')),
         );
         expect(hostedUiPlatform.signInRedirectUri, redirect);
         expect(hostedUiPlatform.signOutRedirectUri, redirect);
