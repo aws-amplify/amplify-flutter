@@ -3,8 +3,12 @@ import * as kinesis from "aws-cdk-lib/aws-kinesis";
 import { CfnApp, CfnEventStream } from "aws-cdk-lib/aws-pinpoint";
 import { Stack } from "aws-cdk-lib/core";
 
-export function createKinesisStream(stack: Stack, pinpointApp: CfnApp) {
-  const kinesisStream = new kinesis.Stream(stack, "KinesisStream", {
+export function createKinesisStream(
+  name: string,
+  stack: Stack,
+  pinpointApp: CfnApp
+) {
+  const kinesisStream = new kinesis.Stream(stack, "KinesisStream" + name, {
     shardCount: 1,
   });
 

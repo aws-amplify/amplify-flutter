@@ -6,13 +6,17 @@ import * as lambda_events from "aws-cdk-lib/aws-lambda-event-sources";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import { RemovalPolicy, Stack } from "aws-cdk-lib/core";
 import path from "path";
-import { inOneYear } from "../auth-user-extensions/expiration";
+import { inOneYear } from "../expiration";
 
-export function createAppSyncAPI(stack: Stack, kinesisStream: Stream) {
+export function createAppSyncAPI(
+  name: string,
+  stack: Stack,
+  kinesisStream: Stream
+) {
   // Create the Records table to store events received from the
   // Kinesis stream.
 
-  const recordsTable = new dynamodb.Table(stack, "RecordsTable", {
+  const recordsTable = new dynamodb.Table(stack, "RecordsTable" + name, {
     removalPolicy: RemovalPolicy.DESTROY,
     billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     partitionKey: {
@@ -25,7 +29,7 @@ export function createAppSyncAPI(stack: Stack, kinesisStream: Stream) {
   // Adapted from: https://github.com/Focus-Otter/appsync-simple-auth-backend
 
   const authorizationType = appsync.AuthorizationType.API_KEY;
-  const graphQLApi = new appsync.GraphqlApi(stack, "GraphQLApi", {
+  const graphQLApi = new appsync.GraphqlApi(stack, "GraphQLApi" + name, {
     name: stack.stackName,
     definition: {
       schema: appsync.SchemaFile.fromAsset(
