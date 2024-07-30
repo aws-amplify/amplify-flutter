@@ -64,6 +64,8 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
       );
     };
   }
+
+  static void registerWith() {}
 }
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_worker}
