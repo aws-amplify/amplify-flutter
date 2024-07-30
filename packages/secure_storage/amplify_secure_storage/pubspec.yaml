@@ -15,6 +15,8 @@ dependencies:
   file: ">=6.0.0 <8.0.0"
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"
   path_provider: ^2.0.0
@@ -34,3 +36,10 @@ flutter:
         pluginClass: AmplifySecureStoragePlugin
       ios:
         pluginClass: AmplifySecureStoragePlugin
+      windows:
+        dartPluginClass: AmplifySecureStorageDart
+      linux:
+        dartPluginClass: AmplifySecureStorageDart
+      web:
+        pluginClass: AmplifySecureStorage
+        fileName: src/amplify_secure_storage.web.dart
