@@ -12,6 +12,7 @@ import 'package:amplify_api_dart/src/graphql/web_socket/state/web_socket_state.d
 import 'package:amplify_api_dart/src/graphql/web_socket/types/connectivity_platform.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/testing.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -68,19 +69,23 @@ void validateSignedRequest(AWSBaseHttpRequest request) {
   );
 }
 
-const testApiKeyConfig = AWSApiConfig(
-  endpointType: EndpointType.graphQL,
-  endpoint: 'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql',
-  region: 'us-east-1',
-  authorizationType: APIAuthorizationType.apiKey,
+const testApiKeyConfig = DataOutputs(
+  url: 'https://abc123.appsync-api.us-east-1.amazonaws.com/graphql',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
+  authorizationTypes: [
+    APIAuthorizationType.apiKey,
+  ],
 );
-const testApiKeyConfigCustomDomain = AWSApiConfig(
-  endpointType: EndpointType.graphQL,
-  endpoint: 'https://foo.bar.aws.dev/graphql ',
-  region: 'us-east-1',
-  authorizationType: APIAuthorizationType.apiKey,
+const testApiKeyConfigCustomDomain = DataOutputs(
+  url: 'https://foo.bar.aws.dev/graphql ',
+  awsRegion: 'us-east-1',
+  defaultAuthorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
+  authorizationTypes: [
+    APIAuthorizationType.apiKey,
+  ],
 );
 
 const expectedApiKeyWebSocketConnectionUrl =

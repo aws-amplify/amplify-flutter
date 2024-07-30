@@ -12,8 +12,8 @@ S3DataBytesRange _$S3DataBytesRangeFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = S3DataBytesRange(
-          start: $checkedConvert('start', (v) => v as int),
-          end: $checkedConvert('end', (v) => v as int),
+          start: $checkedConvert('start', (v) => (v as num).toInt()),
+          end: $checkedConvert('end', (v) => (v as num).toInt()),
         );
         return val;
       },

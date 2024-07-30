@@ -3,6 +3,9 @@
 
 import 'package:amplify_api_dart/src/util/amplify_api_config.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/data/data_outputs.dart';
+import 'package:amplify_core/src/config/amplify_outputs/rest_api/rest_api_outputs.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,7 +37,7 @@ void main() {
       final params = {'foo': 'bar', 'bar': 'baz'};
       final endpointConfig = createEndpointConfig(
         endpoint,
-        type: EndpointType.rest,
+        type: ApiType.rest,
       );
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
       const expected = '$endpoint/$path?foo=bar&bar=baz';
@@ -47,7 +50,7 @@ void main() {
       final params = {'foo': 'bar', 'bar': 'baz'};
       final endpointConfig = createEndpointConfig(
         endpoint,
-        type: EndpointType.rest,
+        type: ApiType.rest,
       );
       final uri = endpointConfig.getUri(path: path, queryParameters: params);
       const expected = '$endpoint$path?foo=bar&bar=baz';
@@ -58,20 +61,26 @@ void main() {
 
 EndpointConfig createEndpointConfig(
   String endpoint, {
-  EndpointType type = EndpointType.graphQL,
+  ApiType type = ApiType.graphQL,
   APIAuthorizationType authorizationType = APIAuthorizationType.apiKey,
 }) {
   const region = 'us-east-1';
   const apiKey = 'abc-123';
-
-  final config = AWSApiConfig(
-    endpointType: type,
-    endpoint: endpoint,
-    region: region,
-    authorizationType: authorizationType,
-    apiKey: apiKey,
-  );
-
-  final endpointConfig = EndpointConfig('GraphQL', config);
+  final config = switch (type) {
+    ApiType.graphQL => DataOutputs(
+        url: endpoint,
+        awsRegion: region,
+        defaultAuthorizationType: authorizationType,
+        apiKey: apiKey,
+        authorizationTypes: [authorizationType],
+      ),
+    ApiType.rest => RestApiOutputs(
+        url: endpoint,
+        awsRegion: region,
+        authorizationType: authorizationType,
+        apiKey: apiKey,
+      )
+  };
+  final endpointConfig = EndpointConfig('api-name', config as ApiOutputs);
   return endpointConfig;
 }

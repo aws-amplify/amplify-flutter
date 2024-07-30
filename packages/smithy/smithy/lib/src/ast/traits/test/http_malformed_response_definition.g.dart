@@ -13,7 +13,7 @@ HttpMalformedResponseDefinition _$HttpMalformedResponseDefinitionFromJson(
           ? null
           : HttpMalformedResponseBodyDefinition.fromJson(
               json['body'] as Map<String, dynamic>),
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       headers: (json['headers'] as Map<String, dynamic>?)?.map(
             (k, e) => MapEntry(k, e as String),
           ) ??
