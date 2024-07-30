@@ -14,7 +14,7 @@ void main() {
 
   group('signIn (SRP)', () {
     for (final environment in userPoolEnvironments) {
-      group(environment, () {
+      group(environment.name, () {
         late String username;
         late String password;
 
