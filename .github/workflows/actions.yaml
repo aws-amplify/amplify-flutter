@@ -39,6 +39,13 @@ jobs:
         with:
           version: 9
 
+      - name: Setup aft
+        shell: bash # Run in bash regardless of platform
+        run: dart pub global activate -spath packages/aft
+
+      - name: aft link
+        run: aft link
+
       - name: Get Packages
         working-directory: actions
         run: dart pub get
@@ -58,6 +65,13 @@ jobs:
         uses: dart-lang/setup-dart@e58aeb62aef51dcc4d0ba8eada7c08092aad5314 # main
         with:
           sdk: 3.3.0
+
+      - name: Setup aft
+        shell: bash # Run in bash regardless of platform
+        run: dart pub global activate -spath packages/aft
+
+      - name: aft link
+        run: aft link
 
       - name: Get Packages
         working-directory: actions

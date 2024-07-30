@@ -36,7 +36,7 @@ void main() {
     test('smoke test', () async {
       stateMachine
           .dispatch(
-            ConfigurationEvent.configure(userPoolOnlyConfig),
+            ConfigurationEvent.configure(mockConfigUserPoolOnly),
           )
           .ignore();
       await expectLater(
@@ -97,7 +97,7 @@ void main() {
       test('customAuthWithSrp requires password', () async {
         stateMachine
             .dispatch(
-              ConfigurationEvent.configure(userPoolOnlyConfig),
+              ConfigurationEvent.configure(mockConfigUserPoolOnly),
             )
             .ignore();
         await expectLater(
@@ -134,7 +134,7 @@ void main() {
       test('customAuthWithoutSrp forbids password', () async {
         stateMachine
             .dispatch(
-              ConfigurationEvent.configure(userPoolOnlyConfig),
+              ConfigurationEvent.configure(mockConfigUserPoolOnly),
             )
             .ignore();
         await expectLater(

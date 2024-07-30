@@ -61,17 +61,12 @@ void main() {
       APIAuthorizationType.iam.authProviderToken,
       TestIamAuthProvider(),
     );
-  // TODO(nikahsn): update to use AmplifyOutputs config
-  final config = AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfig) as Map<String, Object?>,
+  final amplifyOutputs = AmplifyOutputs.fromJson(
+    jsonDecode(amplifyConfig) as Map<String, Object?>,
   );
-  // ignore: invalid_use_of_internal_member
-  final amplifyOutputs = config.toAmplifyOutputs();
-  final configIamWithApiKey = AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfigwithapikey) as Map<String, Object?>,
+  final amplifyOutputsIamWithApiKey = AmplifyOutputs.fromJson(
+    jsonDecode(amplifyConfigIamWithApiKey) as Map<String, Object?>,
   );
-  // ignore: invalid_use_of_internal_member
-  final amplifyOutputsIamWithApiKey = configIamWithApiKey.toAmplifyOutputs();
 
   group('AmplifyAPI plugin configuration', () {
     test(

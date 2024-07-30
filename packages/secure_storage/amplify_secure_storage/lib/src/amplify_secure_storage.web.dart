@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:meta/meta.dart';
 
 /// {@macro amplify_secure_storage.amplify_secure_storage}
@@ -56,4 +57,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
   FutureOr<void> write({required String key, required String value}) {
     return _instance.write(key: key, value: value);
   }
+
+  // no-op
+  static void registerWith(Registrar registrar) {}
 }

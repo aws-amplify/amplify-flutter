@@ -161,4 +161,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
       }
     }
   }
+
+  // no-op
+  static void registerWith() {}
 }

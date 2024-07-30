@@ -17,7 +17,7 @@ S3GetUrlPluginOptions _$S3GetUrlPluginOptionsFromJson(
               'expiresIn',
               (v) => v == null
                   ? const Duration(minutes: 15)
-                  : Duration(microseconds: v as int)),
+                  : Duration(microseconds: (v as num).toInt())),
           validateObjectExistence: $checkedConvert(
               'validateObjectExistence', (v) => v as bool? ?? false),
           useAccelerateEndpoint: $checkedConvert(
