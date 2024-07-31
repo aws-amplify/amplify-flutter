@@ -8,6 +8,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
 import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_push_notifications_pinpoint/src/pinpoint_event_type_source.dart';
 import 'package:amplify_push_notifications_pinpoint/src/pinpoint_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -142,7 +143,7 @@ void main() {
       final properties = res.properties;
       final source = res.source;
       expect(properties.attributes.containsKey('journey_id'), isTrue);
-      expect(source, equals(PinpointEventSource.journey.name));
+      expect(source, equals( PinpointEventTypeSource.journey.name));
     });
 
     test(
@@ -154,7 +155,7 @@ void main() {
       final properties = res.properties;
       final source = res.source;
       expect(properties.attributes.containsKey('campaign_id'), isTrue);
-      expect(source, equals(PinpointEventSource.campaign.name));
+      expect(source, equals(PinpointEventTypeSource.campaign.name));
     });
   });
 
@@ -434,7 +435,7 @@ void main() {
       verify(
         () => mockEventClient.recordEvent(
           eventType:
-              '${PinpointEventSource.campaign.name}.${PinpointEventType.foregroundMessageReceived.name}',
+              '${PinpointEventTypeSource.campaign.name}.${PinpointEventType.foregroundMessageReceived.name}',
           properties: any(named: 'properties'),
         ),
       );

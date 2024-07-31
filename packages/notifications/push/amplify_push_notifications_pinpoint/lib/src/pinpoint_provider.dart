@@ -15,6 +15,7 @@ import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
+import 'package:amplify_push_notifications_pinpoint/src/pinpoint_event_type_source.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 
@@ -225,14 +226,14 @@ class PinpointProvider implements ServiceProviderClient {
   }) {
     final data = notification.data;
     final analyticsProperties = CustomProperties();
-    var source = PinpointEventSource.campaign.name;
+    var source = PinpointEventTypeSource.campaign.name;
     var campaign = <String, String>{};
     var journey = <String, String>{};
     var pinpointData = <Object?, Object?>{};
 
     // Android payload contain pinpoint.campaign.* format
     if (data.containsKey(_androidCampaignIdKey)) {
-      source = PinpointEventSource.campaign.name;
+      source = PinpointEventTypeSource.campaign.name;
       campaign['campaign_id'] = data[_androidCampaignIdKey] as String;
       if (data.containsKey(_androidCampaignActivityIdKey)) {
         campaign['campaign_activity_id'] =
@@ -255,7 +256,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // iOS payload conatin a nested map of pinpoint, campaign, * format
       if (pinpointData.containsKey('campaign')) {
-        source = PinpointEventSource.campaign.name;
+        source = PinpointEventTypeSource.campaign.name;
         campaign = Map<String, String>.from(
           pinpointData['campaign'] as Map<Object?, Object?>,
         );
@@ -263,7 +264,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // Common way of represting journeys both on Android and iOS payloads
       if (pinpointData.containsKey('journey')) {
-        source = PinpointEventSource.journey.name;
+        source = PinpointEventTypeSource.journey.name;
         journey = Map<String, String>.from(
           pinpointData['journey'] as Map<Object?, Object?>,
         );
