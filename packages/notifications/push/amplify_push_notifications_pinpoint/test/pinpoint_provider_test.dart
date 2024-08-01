@@ -143,7 +143,7 @@ void main() {
       final properties = res.properties;
       final source = res.source;
       expect(properties.attributes.containsKey('journey_id'), isTrue);
-      expect(source, equals( PinpointEventTypeSource.journey.name));
+      expect(source, equals(PinpointEventTypeSource.journey.name));
     });
 
     test(
