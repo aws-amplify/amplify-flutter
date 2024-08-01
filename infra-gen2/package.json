@@ -12,17 +12,22 @@
     "backends/storage/*"
   ],
   "dependencies": {
-    "aws-amplify": "^6.3.6",
+    "aws-amplify": "^6.4.3",
     "infra-common": "1.0.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.0.4",
-    "@aws-amplify/backend-cli": "^1.2.0",
-    "aws-cdk": "^2.145.0",
-    "aws-cdk-lib": "^2.145.0",
+    "@aws-amplify/backend-cli": "^1.2.1",
+    "@aws-crypto/client-node": "^4.0.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.614.0",
+    "aws-cdk": "^2.150.0",
+    "aws-cdk-lib": "^2.150.0",
     "constructs": "^10.3.0",
-    "esbuild": "^0.21.5",
-    "tsx": "^4.15.4",
-    "typescript": "^5.4.5"
+    "esbuild": "^0.23.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  },
+  "overrides": {
+    "fast-xml-parser": "^4.4.1"
   }
 }

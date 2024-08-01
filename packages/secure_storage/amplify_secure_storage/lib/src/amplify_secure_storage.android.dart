@@ -32,4 +32,7 @@ class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
   Future<void> removeAll() {
     return _pigeon.removeAll(config.defaultNamespace);
   }
+
+  // no-op
+  static void registerWith() {}
 }

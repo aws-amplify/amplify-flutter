@@ -2,23 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 const _slash = '/';
 
 /// Allows formatting the URL from the config with new paths/query params.
 @internal
-
-// TODO(nikahsn): refactor EndpointConfig to not use AWSApiConfig type
 class EndpointConfig with AWSEquatable<EndpointConfig> {
   // ignore: public_member_api_docs
   const EndpointConfig(this.name, this.config);
 
-  /// The key used in the Amplify configuration file for this config entry.
+  /// The key used in the Amplify Outputs for this config entry.
   final String name;
 
-  /// The value in the Amplify configuration file which as config details.
-  final AWSApiConfig config;
+  /// The value in the Amplify Outputs file which has the config details.
+  final ApiOutputs config;
 
   @override
   List<Object?> get props => [name, config];
@@ -26,7 +26,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// Gets the host with environment path prefix from Amplify config and combines
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
-    final parsed = Uri.parse(config.endpoint);
+    final parsed = Uri.parse(config.url);
 
     final pathSegments =
         path != null ? [...parsed.pathSegments, ..._getSegments(path)] : null;

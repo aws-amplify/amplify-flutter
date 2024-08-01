@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'package:amplify_api_dart/src/decorators/authorize_http_request.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 const _appSyncHostPortion = 'appsync-api';
@@ -31,7 +33,7 @@ const _emptyBody = <String, dynamic>{};
 ///
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection=
 Future<Uri> generateConnectionUri(
-  AWSApiConfig config,
+  ApiOutputs config,
   AmplifyAuthProviderRepository authRepo,
 ) async {
   // First, generate auth query parameters.
@@ -48,7 +50,7 @@ Future<Uri> generateConnectionUri(
     'payload': base64.encode(utf8.encode(json.encode(_emptyBody))),
   };
   // Conditionally format the URI for a) AppSync domain b) custom domain.
-  var endpointUriHost = Uri.parse(config.endpoint).host;
+  var endpointUriHost = Uri.parse(config.url).host;
   String path;
   if (endpointUriHost.contains(_appSyncHostPortion) &&
       endpointUriHost.endsWith(_appSyncHostSuffix)) {
@@ -78,7 +80,7 @@ Future<Uri> generateConnectionUri(
 /// See https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#subscription-registration-message
 Future<WebSocketSubscriptionRegistrationMessage>
     generateSubscriptionRegistrationMessage<T>(
-  AWSApiConfig config, {
+  ApiOutputs config, {
   required String id,
   required AmplifyAuthProviderRepository authRepo,
   required GraphQLRequest<T> request,
@@ -113,21 +115,21 @@ Future<WebSocketSubscriptionRegistrationMessage>
 /// the HTTP request are reformatted and returned. This logic applies for all auth
 /// modes as determined by [authRepo] parameter.
 Future<Map<String, String>> _generateAuthorizationHeaders(
-  AWSApiConfig config, {
+  ApiOutputs config, {
   required bool isConnectionInit,
   required AmplifyAuthProviderRepository authRepo,
   required Map<String, dynamic> body,
   APIAuthorizationType? authorizationMode,
   Map<String, String>? customHeaders,
 }) async {
-  final endpointHost = Uri.parse(config.endpoint).host;
+  final endpointHost = Uri.parse(config.url).host;
   // Create canonical HTTP request to authorize but never send.
   //
   // The canonical request URL is a little different depending on if authorizing
   // connection URI or start message (subscription registration).
   final maybeConnect = isConnectionInit ? '/connect' : '';
   final canonicalHttpRequest = AWSStreamedHttpRequest.post(
-    Uri.parse('${config.endpoint}$maybeConnect'),
+    Uri.parse('${config.url}$maybeConnect'),
     headers: {
       ...?customHeaders,
       ..._requiredHeaders,
