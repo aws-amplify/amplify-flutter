@@ -74,6 +74,12 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     'SOFTWARE_TOKEN_MFA',
   );
 
+  static const emailMfa = ChallengeNameType._(
+    10,
+    'EMAIL_MFA',
+    'EMAIL_MFA',
+  );
+
   /// All values of [ChallengeNameType].
   static const values = <ChallengeNameType>[
     ChallengeNameType.adminNoSrpAuth,
@@ -86,6 +92,7 @@ class ChallengeNameType extends _i1.SmithyEnum<ChallengeNameType> {
     ChallengeNameType.selectMfaType,
     ChallengeNameType.smsMfa,
     ChallengeNameType.softwareTokenMfa,
+    ChallengeNameType.emailMfa,
   ];
 
   static const List<_i1.SmithySerializer<ChallengeNameType>> serializers = [
