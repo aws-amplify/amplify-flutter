@@ -3,7 +3,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Stream } from "aws-cdk-lib/aws-kinesis";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_events from "aws-cdk-lib/aws-lambda-event-sources";
-import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { RemovalPolicy, Stack } from "aws-cdk-lib/core";
 import path from "path";
 import { inOneYear } from "../expiration";
@@ -86,17 +86,24 @@ export function createAppSyncAPI(
   // Create the Kinesis consumer Lambda which will capture events from the
   // Kinesis Data Stream and forward them to AppSync.
 
-  const kinesisConsumer = new lambda_nodejs.NodejsFunction(
-    stack,
-    "kinesis-consumer",
-    {
-      runtime: lambda.Runtime.NODEJS_18_X,
-      environment: {
-        GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
-        GRAPHQL_API_KEY: graphQLApi.apiKey!,
-      },
-    }
+  console.log("PATH ++++++++++++++++++++++++++++++");
+  console.log(
+    path.resolve(__dirname, "..", "lambda-triggers", "kinesis-consumer.js")
   );
+
+  const kinesisConsumer = new NodejsFunction(stack, "kinesis-consumer", {
+    entry: path.resolve(
+      __dirname,
+      "..",
+      "lambda-triggers",
+      "kinesis-consumer.js"
+    ),
+    runtime: lambda.Runtime.NODEJS_20_X,
+    environment: {
+      GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
+      GRAPHQL_API_KEY: graphQLApi.apiKey!,
+    },
+  });
 
   const eventSource = new lambda_events.KinesisEventSource(kinesisStream, {
     startingPosition: lambda.StartingPosition.TRIM_HORIZON,
