@@ -86,8 +86,8 @@ void main() {
     group('list()', () {
       const testPath = StoragePath.fromString('some/path');
       final testResult = S3ListResult(
-        <String>[],
         <S3Item>[],
+        excludedSubpaths: <String>[],
         hasNextPage: false,
         metadata: S3ListMetadata.fromDelimiter(),
       );

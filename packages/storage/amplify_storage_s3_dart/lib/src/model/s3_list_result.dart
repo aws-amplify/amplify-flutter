@@ -39,8 +39,8 @@ class S3ListResult extends StorageListResult<S3Item> {
     final items = output.contents?.map(S3Item.fromS3Object).toList();
 
     return S3ListResult(
-      subPaths ?? <String>[],
       items ?? const <S3Item>[],
+      excludedSubpaths: subPaths ?? <String>[],
       hasNextPage: paginatedResult.hasNext,
       nextToken: paginatedResult.nextContinuationToken,
       metadata: metadata,
@@ -52,13 +52,13 @@ class S3ListResult extends StorageListResult<S3Item> {
     final items = <S3Item>[...this.items, ...other.items];
 
     final mergedSubPaths = <String>[
-      ...excludedSubpaths,
-      ...other.excludedSubpaths,
+      ...excludedSubpaths ?? <String>[],
+      ...other.excludedSubpaths ?? <String>[],
     ];
 
     return S3ListResult(
-      mergedSubPaths,
       items,
+      excludedSubpaths: mergedSubPaths,
       hasNextPage: other.hasNextPage,
       nextToken: other.nextToken,
       metadata: metadata,
