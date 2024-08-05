@@ -7,6 +7,8 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 
 /// {@template amplify_auth_cognito.sign_out_state_machine}
 /// Manages signing out a user and clearing credentials from the local store.
@@ -45,8 +47,14 @@ final class SignOutStateMachine
   /// The Cognito Identity Provider client.
   CognitoIdentityProviderClient get _cognitoIdp => expect();
 
-  /// The Cognito user pool configuration.
-  CognitoUserPoolConfig get _userPoolConfig => expect();
+  AuthOutputs get _authOutputs {
+    final authOutputs = get<AuthOutputs>();
+    if (authOutputs?.userPoolId == null ||
+        authOutputs?.userPoolClientId == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return authOutputs!;
+  }
 
   Future<void> _onInitiate(SignOutInitiate event) async {
     final options = event.options;
@@ -126,8 +134,9 @@ final class SignOutStateMachine
         await _cognitoIdp
             .revokeToken(
               RevokeTokenRequest(
-                clientId: _userPoolConfig.appClientId,
-                clientSecret: _userPoolConfig.appClientSecret,
+                clientId: _authOutputs.userPoolClientId!,
+                // ignore: invalid_use_of_internal_member
+                clientSecret: _authOutputs.appClientSecret,
                 token: tokens.refreshToken,
               ),
             )
