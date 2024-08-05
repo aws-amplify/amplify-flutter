@@ -13,8 +13,8 @@ import 'package:smithy/smithy.dart';
 class S3ListResult extends StorageListResult<S3Item> {
   /// {@macro storage.amplify_storage_s3.list_result}
   S3ListResult(
-    super.excludedSubpaths,
     super.items, {
+    super.excludedSubpaths,
     required super.hasNextPage,
     required this.metadata,
     super.nextToken,
