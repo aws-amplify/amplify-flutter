@@ -29,6 +29,8 @@ import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:async/async.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
@@ -59,11 +61,19 @@ final class SignInStateMachine
   /// Parameters to the flow.
   late SignInParameters parameters;
 
-  /// The configured user pool.
-  late final CognitoUserPoolConfig config = expect();
-
   /// The configured identity pool.
+  // TODO(nikahsn): remove after refactoring CognitoIdentityPoolKeys to use
+  // AmplifyOutputs type
   CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
+
+  AuthOutputs get _authOutputs {
+    final authOutputs = get<AuthOutputs>();
+    if (authOutputs?.userPoolId == null ||
+        authOutputs?.userPoolClientId == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return authOutputs!;
+  }
 
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
@@ -344,7 +354,7 @@ final class SignInStateMachine
           if (_user.deviceSecrets?.deviceKey case final deviceKey?)
             CognitoConstants.challengeParamDeviceKey: deviceKey,
         })
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata)
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
     );
@@ -370,9 +380,10 @@ final class SignInStateMachine
     final workerMessage = SrpPasswordVerifierMessage((b) {
       b
         ..initResult = initResult
-        ..clientId = config.appClientId
-        ..clientSecret = config.appClientSecret
-        ..poolId = config.poolId
+        ..clientId = _authOutputs.userPoolClientId
+        // ignore: invalid_use_of_internal_member
+        ..clientSecret = _authOutputs.appClientSecret
+        ..poolId = _authOutputs.userPoolId
         ..deviceKey = _user.deviceSecrets?.deviceKey
         ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
@@ -394,7 +405,7 @@ final class SignInStateMachine
     _initResult ??= await _initSrp();
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..challengeName = ChallengeNameType.deviceSrpAuth
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
@@ -416,8 +427,9 @@ final class SignInStateMachine
       b
         ..deviceSecrets = _user.deviceSecrets!.build()
         ..initResult = _initResult
-        ..clientId = config.appClientId
-        ..clientSecret = config.appClientSecret
+        ..clientId = _authOutputs.userPoolClientId
+        // ignore: invalid_use_of_internal_member
+        ..clientSecret = _authOutputs.appClientSecret
         ..challengeParameters = BuiltMap(_publicChallengeParameters);
     });
     worker.sink.add(workerMessage);
@@ -432,7 +444,7 @@ final class SignInStateMachine
     _enableMfaType = MfaType.sms;
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
@@ -449,7 +461,7 @@ final class SignInStateMachine
   ) async {
     return RespondToAuthChallengeRequest.build((b) {
       b
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
           CognitoConstants.challengeParamUsername: cognitoUsername,
@@ -490,7 +502,7 @@ final class SignInStateMachine
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.userSrpAuth
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: providedUsername,
           CognitoConstants.challengeParamSrpA:
@@ -509,7 +521,7 @@ final class SignInStateMachine
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.userPasswordAuth
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..authParameters.addAll({
           CognitoConstants.challengeParamUsername: providedUsername,
           CognitoConstants.challengeParamPassword: password,
@@ -562,7 +574,7 @@ final class SignInStateMachine
         ..authFlow = AuthFlowType.customAuth
         ..authParameters[CognitoConstants.challengeParamUsername] =
             providedUsername
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
   }
@@ -641,7 +653,7 @@ final class SignInStateMachine
           // Must be the session from `VerifySoftwareToken`
           CognitoConstants.challengeParamSession: _session!,
         })
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
   }
@@ -663,7 +675,7 @@ final class SignInStateMachine
             _ => throw ArgumentError('Must be either SMS or TOTP'),
           },
         })
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
   }
@@ -681,7 +693,7 @@ final class SignInStateMachine
           CognitoConstants.challengeParamUsername: cognitoUsername,
           CognitoConstants.challengeParamSoftwareTokenMfaCode: event.answer,
         })
-        ..clientId = config.appClientId
+        ..clientId = _authOutputs.userPoolClientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
   }
@@ -789,11 +801,12 @@ final class SignInStateMachine
     initRequest = initRequest.rebuild((b) {
       b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret case final appClientSecret?) {
+      // ignore: invalid_use_of_internal_member
+      if (_authOutputs.appClientSecret case final appClientSecret?) {
         b.authParameters[CognitoConstants.challengeParamSecretHash] =
             computeSecretHash(
           providedUsername,
-          config.appClientId,
+          _authOutputs.userPoolClientId!,
           appClientSecret,
         );
       }
@@ -1003,11 +1016,12 @@ final class SignInStateMachine
         ..clientMetadata.replace(event?.clientMetadata ?? const {})
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
-      if (config.appClientSecret case final appClientSecret?) {
+      // ignore: invalid_use_of_internal_member
+      if (_authOutputs.appClientSecret case final appClientSecret?) {
         b.challengeResponses[CognitoConstants.challengeParamSecretHash] ??=
             computeSecretHash(
           cognitoUsername,
-          config.appClientId,
+          _authOutputs.userPoolClientId!,
           appClientSecret,
         );
       }
