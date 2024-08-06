@@ -1901,8 +1901,8 @@ const Context = __importStar(__nccwpck_require__(6908));
 const Utils = __importStar(__nccwpck_require__(2730));
 // octokit + plugins
 const core_1 = __nccwpck_require__(7425);
-const plugin_rest_endpoint_methods_1 = __nccwpck_require__(8710);
-const plugin_paginate_rest_1 = __nccwpck_require__(9202);
+const plugin_rest_endpoint_methods_1 = __nccwpck_require__(2162);
+const plugin_paginate_rest_1 = __nccwpck_require__(6915);
 exports.context = new Context.Context();
 const baseUrl = Utils.getApiBaseUrl();
 exports.defaults = {
@@ -4886,7 +4886,7 @@ exports.withCustomRequest = withCustomRequest;
 
 /***/ }),
 
-/***/ 9202:
+/***/ 6915:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -5098,7 +5098,7 @@ exports.paginatingEndpoints = paginatingEndpoints;
 
 /***/ }),
 
-/***/ 8710:
+/***/ 2162:
 /***/ ((__unused_webpack_module, exports) => {
 
 
