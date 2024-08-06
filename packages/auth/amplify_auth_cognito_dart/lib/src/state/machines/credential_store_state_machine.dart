@@ -105,7 +105,7 @@ final class CredentialStoreStateMachine
     CognitoUserPoolTokens? userPoolTokens;
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
-      final keys = CognitoUserPoolKeys(userPoolConfig);
+      final keys = CognitoUserPoolKeys(userPoolConfig.appClientId);
       final accessToken = await _secureStorage.read(
         key: keys[CognitoUserPoolKey.accessToken],
       );
@@ -140,7 +140,7 @@ final class CredentialStoreStateMachine
 
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
-      final keys = HostedUiKeys(hostedUiConfig);
+      final keys = HostedUiKeys(hostedUiConfig.appClientId);
       final accessToken = await _secureStorage.read(
         key: keys[HostedUiKey.accessToken],
       );
@@ -174,7 +174,7 @@ final class CredentialStoreStateMachine
     AWSCredentials? awsCredentials;
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
-      final keys = CognitoIdentityPoolKeys(identityPoolConfig);
+      final keys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
       identityId = await _secureStorage.read(
         key: keys[CognitoIdentityPoolKey.identityId],
       );
@@ -239,7 +239,7 @@ final class CredentialStoreStateMachine
 
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
-      final keys = CognitoUserPoolKeys(userPoolConfig);
+      final keys = CognitoUserPoolKeys(userPoolConfig.appClientId);
       if (userPoolTokens != null &&
           userPoolTokens.signInMethod == CognitoSignInMethod.default$) {
         signInDetails as CognitoSignInDetailsApiBased?;
@@ -258,7 +258,7 @@ final class CredentialStoreStateMachine
 
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
-      final keys = HostedUiKeys(hostedUiConfig);
+      final keys = HostedUiKeys(hostedUiConfig.appClientId);
       if (userPoolTokens != null &&
           (userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi)) {
         signInDetails as CognitoSignInDetailsHostedUi?;
@@ -275,7 +275,7 @@ final class CredentialStoreStateMachine
 
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
-      final keys = CognitoIdentityPoolKeys(identityPoolConfig);
+      final keys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
       if (identityId != null) {
         items[keys[CognitoIdentityPoolKey.identityId]] = identityId;
       }
@@ -356,7 +356,8 @@ final class CredentialStoreStateMachine
   Future<void> _migrateDeviceSecrets(String username) async {
     final credentialProvider = get<LegacyCredentialProvider>();
     final authConfig = expect<AuthConfiguration>();
-    final userPoolKeys = CognitoUserPoolKeys(authConfig.userPoolConfig!);
+    final userPoolKeys =
+        CognitoUserPoolKeys(authConfig.userPoolConfig!.appClientId);
     if (credentialProvider == null) return;
     try {
       final legacySecrets = await credentialProvider.fetchLegacyDeviceSecrets(
@@ -439,7 +440,7 @@ final class CredentialStoreStateMachine
 
     final userPoolConfig = authConfig.userPoolConfig;
     if (userPoolConfig != null) {
-      final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
+      final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
       for (final key in userPoolKeys) {
         if (shouldDelete(key)) {
           deletions.add(key);
@@ -449,7 +450,7 @@ final class CredentialStoreStateMachine
 
     final hostedUiConfig = authConfig.hostedUiConfig;
     if (hostedUiConfig != null) {
-      final hostedUiKeys = HostedUiKeys(hostedUiConfig);
+      final hostedUiKeys = HostedUiKeys(hostedUiConfig.appClientId);
       for (final key in hostedUiKeys) {
         if (shouldDelete(key)) {
           deletions.add(key);
@@ -459,7 +460,8 @@ final class CredentialStoreStateMachine
 
     final identityPoolConfig = authConfig.identityPoolConfig;
     if (identityPoolConfig != null) {
-      final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+      final identityPoolKeys =
+          CognitoIdentityPoolKeys(identityPoolConfig.poolId);
       for (final key in identityPoolKeys) {
         if (shouldDelete(key)) {
           deletions.add(key);
