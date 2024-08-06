@@ -67,7 +67,7 @@ final class AvdManager {
   Future<void> _createEmulator() => core.withGroup('Create emulator', () async {
         final targetImage = 'system-images;android-$apiLevel;$target;$abi';
         await _avdmanager(
-          ['create', 'avd', '-n', name, '-k', targetImage],
+          ['--clear-cache', 'create', 'avd', '-n', name, '-k', targetImage],
           stdinCmd: 'echo n',
         );
       });
@@ -83,6 +83,7 @@ final class AvdManager {
             '-restart-when-stalled',
             '-accel', 'on', // Fail if HW accel is unavailable
             '-no-snapshot',
+            '-wipe-data',
             '-verbose',
           ];
           final emulator = await processManager.start(
