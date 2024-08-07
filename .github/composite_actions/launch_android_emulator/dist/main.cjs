@@ -15908,7 +15908,7 @@
             case 4:
               // returning from await.
               $async$goto = 5;
-              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Install/update Android platform (33)", new A.SdkManager__ensureBuildTools_closure4(), t4), $async$_ensureBuildTools$0);
+              return A._asyncAwait(A.Core_withGroup(t2._as(t1.core), "Install/update Android platform (34)", new A.SdkManager__ensureBuildTools_closure4(), t4), $async$_ensureBuildTools$0);
             case 5:
               // returning from await.
               targetTriplet = $async$self.apiLevel.toString$0(0) + ";" + $async$self.target.toString$0(0) + ";" + $async$self.abi.toString$0(0);
@@ -15961,7 +15961,7 @@
                 $async$goto = 1;
                 break;
               }
-              _0_0 = A.ToolCache_find(t2._as(t1.toolCache), "cmdline-tools", "10406996");
+              _0_0 = A.ToolCache_find(t2._as(t1.toolCache), "cmdline-tools", "11076708");
               if (_0_0 != null) {
                 t2._as(t1.core).info("Found cached cmdline-tools install: " + _0_0);
                 // goto return
@@ -15978,7 +15978,7 @@
                 default:
                   t3 = null;
               }
-              downloadUrl = "https://dl.google.com/android/repository/commandlinetools-" + t3 + "-10406996_latest.zip";
+              downloadUrl = "https://dl.google.com/android/repository/commandlinetools-" + t3 + "-11076708_latest.zip";
               t2._as(t1.core).info("Downloading cmdline-tools from " + downloadUrl);
               $async$goto = 3;
               return A._asyncAwait(A.ToolCache_downloadTool(t2._as(t1.toolCache), downloadUrl), $async$call$0);
@@ -15993,7 +15993,7 @@
               extractPath = $async$result;
               t2._as(t1.core).info("Extracted cmdline-tools to " + extractPath);
               $async$goto = 5;
-              return A._asyncAwait(A.ToolCache_cacheDir(t2._as(t1.toolCache), extractPath, "cmdline-tools", "10406996"), $async$call$0);
+              return A._asyncAwait(A.ToolCache_cacheDir(t2._as(t1.toolCache), extractPath, "cmdline-tools", "11076708"), $async$call$0);
             case 5:
               // returning from await.
               toolCachePath = $async$result;
@@ -16021,7 +16021,7 @@
   };
   A.SdkManager__ensureBuildTools_closure1.prototype = {
     call$1(line) {
-      return B.JSString_methods.startsWith$1(A._asString(line), "build-tools;33");
+      return B.JSString_methods.startsWith$1(A._asString(line), "build-tools;34");
     },
     $signature: 1
   };
@@ -16087,10 +16087,10 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait($.$get$SdkManager__sdkmanager().call$1(A._setArrayType(["platforms;android-33"], type$.JSArray_String)), $async$call$0);
+              return A._asyncAwait($.$get$SdkManager__sdkmanager().call$1(A._setArrayType(["platforms;android-34"], type$.JSArray_String)), $async$call$0);
             case 2:
               // returning from await.
-              type$.JSObject._as(self.core).info("Successfully installed platforms;android-33");
+              type$.JSObject._as(self.core).info("Successfully installed platforms;android-34");
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
