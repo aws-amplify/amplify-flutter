@@ -86,11 +86,6 @@ export function createAppSyncAPI(
   // Create the Kinesis consumer Lambda which will capture events from the
   // Kinesis Data Stream and forward them to AppSync.
 
-  console.log("PATH ++++++++++++++++++++++++++++++");
-  console.log(
-    path.resolve(__dirname, "..", "lambda-triggers", "kinesis-consumer.js")
-  );
-
   const kinesisConsumer = new NodejsFunction(stack, "kinesis-consumer", {
     entry: path.resolve(
       __dirname,
