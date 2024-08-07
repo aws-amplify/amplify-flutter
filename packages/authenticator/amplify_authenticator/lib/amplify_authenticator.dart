@@ -554,7 +554,7 @@ class _AuthenticatorState extends State<Authenticator> {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       final context = scaffoldMessengerKey.currentContext;
-      if (mounted && context != null) {
+      if (context != null && context.mounted) {
         final message = resolver.resolve(context, key);
         _logger.info(message);
         _showExceptionBanner(
