@@ -10,10 +10,12 @@
 /// [Campaigns](https://docs.aws.amazon.com/pinpoint/latest/userguide/campaigns.html)
 /// [Journeys](https://docs.aws.amazon.com/pinpoint/latest/userguide/journeys.html)
 /// {@endtemplate}
+@Deprecated('this enum will be private in the next major version')
 enum PinpointEventSource {
   campaign('campaign'),
   journey('journey');
 
+  @Deprecated('this enum will be private in the next major version')
   const PinpointEventSource(this.name);
 
   final String name;

@@ -15,6 +15,7 @@ import 'package:amplify_core/amplify_core.dart';
 // ignore: implementation_imports
 import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
+import 'package:amplify_push_notifications_pinpoint/src/pinpoint_event_type_source.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 
@@ -27,11 +28,17 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 /// [init] method has to be called before other methods can be used.
 /// Once initialized, it can [registerDevice], [recordNotificationEvent]
 /// & [identifyUser] with Pinpoint.
+///
+/// To release any initialized resources [dispose] should be called.
 /// {@endtemplate}
 class PinpointProvider implements ServiceProviderClient {
   /// {@macro amplify_push_notifications_pinpoint.pinpoint_provider}
 
   late AnalyticsClient _analyticsClient;
+
+  /// Periodic timer for flushing events made public for testing
+  @visibleForTesting
+  late final StoppableTimer autoEventSubmitter;
 
   static const _androidCampaignIdKey = 'pinpoint.campaign.campaign_id';
   static const _androidCampaignActivityIdKey =
@@ -92,6 +99,12 @@ class PinpointProvider implements ServiceProviderClient {
           authProvider: authProvider,
         );
 
+        autoEventSubmitter = StoppableTimer(
+          duration: const Duration(seconds: 10),
+          callback: _flushEvents,
+          onError: (e) => _logger.warn('Exception in events auto flush', e),
+        );
+
         _isInitialized = true;
       }
     } on Exception catch (e) {
@@ -102,6 +115,10 @@ class PinpointProvider implements ServiceProviderClient {
         underlyingException: e,
       );
     }
+  }
+
+  Future<void> _flushEvents() {
+    return _analyticsClient.eventClient.flushEvents();
   }
 
   @override
@@ -209,14 +226,14 @@ class PinpointProvider implements ServiceProviderClient {
   }) {
     final data = notification.data;
     final analyticsProperties = CustomProperties();
-    var source = PinpointEventSource.campaign.name;
+    var source = PinpointEventTypeSource.campaign.name;
     var campaign = <String, String>{};
     var journey = <String, String>{};
     var pinpointData = <Object?, Object?>{};
 
     // Android payload contain pinpoint.campaign.* format
     if (data.containsKey(_androidCampaignIdKey)) {
-      source = PinpointEventSource.campaign.name;
+      source = PinpointEventTypeSource.campaign.name;
       campaign['campaign_id'] = data[_androidCampaignIdKey] as String;
       if (data.containsKey(_androidCampaignActivityIdKey)) {
         campaign['campaign_activity_id'] =
@@ -239,7 +256,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // iOS payload conatin a nested map of pinpoint, campaign, * format
       if (pinpointData.containsKey('campaign')) {
-        source = PinpointEventSource.campaign.name;
+        source = PinpointEventTypeSource.campaign.name;
         campaign = Map<String, String>.from(
           pinpointData['campaign'] as Map<Object?, Object?>,
         );
@@ -247,7 +264,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // Common way of represting journeys both on Android and iOS payloads
       if (pinpointData.containsKey('journey')) {
-        source = PinpointEventSource.journey.name;
+        source = PinpointEventTypeSource.journey.name;
         journey = Map<String, String>.from(
           pinpointData['journey'] as Map<Object?, Object?>,
         );
@@ -273,5 +290,11 @@ class PinpointProvider implements ServiceProviderClient {
       }
       return ChannelType.apns;
     }
+  }
+
+  /// Cleans up and releases resources retained by this object.
+  /// This includes but is not limited to periodic timers for flushing events.
+  void dispose() {
+    autoEventSubmitter.stop();
   }
 }
