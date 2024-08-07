@@ -484,7 +484,7 @@ Future<void> forgetSpecificDevice(AuthDevice myDevice) async {
 // #enddocregion forget-specific-device
 
 // #docregion fetch-current-device
-Future<void> fetchCurrentUserDevice() async {
+Future<void> fetchCurrentDevice() async {
   try {
     final device = await Amplify.Auth.fetchCurrentDevice();
     safePrint('Device: $device');
