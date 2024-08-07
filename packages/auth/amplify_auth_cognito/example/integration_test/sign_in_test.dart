@@ -13,18 +13,19 @@ void main() {
   testRunner.setupTests();
 
   group('signIn (SRP)', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         late String username;
         late String password;
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
           // create new user for each test
-          username = generateUsername();
+          username = environment.generateUsername();
           password = generatePassword();
 
           await adminCreateUser(
@@ -32,6 +33,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           await signOutUser();
@@ -73,13 +75,16 @@ void main() {
         asyncTest(
           'should throw a UserNotFoundException with a non-existent user',
           (_) async {
+            final expectedException = environment.preventUserExistenceErrors
+                ? isA<AuthNotAuthorizedException>()
+                : isA<UserNotFoundException>();
             final incorrectUsername = generateUsername();
             await expectLater(
               Amplify.Auth.signIn(
                 username: incorrectUsername,
                 password: password,
               ),
-              throwsA(isA<UserNotFoundException>()),
+              throwsA(expectedException),
             );
           },
         );
@@ -144,7 +149,7 @@ void main() {
                   'Authenticated identity should be the same between sessions',
             );
           },
-          skip: environmentName == 'user-pool-only',
+          skip: environment.name == 'user-pool-only',
         );
       });
     }

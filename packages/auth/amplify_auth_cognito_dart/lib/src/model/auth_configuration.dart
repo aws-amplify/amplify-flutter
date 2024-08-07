@@ -10,6 +10,8 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito.auth_configuration}
 /// Union class for auth configurations of the different types.
 /// {@endtemplate}
+
+// TODO(nikahsn): refactor AuthConfiguration to not use AmplifyConfig types
 class AuthConfiguration with AWSEquatable<AuthConfiguration> {
   const AuthConfiguration._({
     this.userPoolConfig,
@@ -17,6 +19,56 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
     this.hostedUiConfig,
     this.pinpointConfig,
   });
+
+  /// Parses [amplifyOutputs] into the appropriate [AuthConfiguration] type.
+  ///
+  /// {@macro amplify_auth_cognito.auth_configuration}
+  factory AuthConfiguration.fromAmplifyOutputs(AmplifyOutputs amplifyOutputs) {
+    final authOutputs = amplifyOutputs.auth;
+    if (authOutputs == null) {
+      throw ConfigurationError(
+        'Invalid config: No Auth config found',
+      );
+    }
+    CognitoUserPoolConfig? userPoolConfig;
+    if (authOutputs.userPoolId != null &&
+        authOutputs.userPoolClientId != null) {
+      // ignore: invalid_use_of_internal_member
+      userPoolConfig = CognitoUserPoolConfig.fromAuthOutputs(authOutputs);
+    }
+    CognitoIdentityCredentialsProvider? identityPoolConfig;
+    if (authOutputs.identityPoolId != null) {
+      identityPoolConfig = CognitoIdentityCredentialsProvider(
+        poolId: authOutputs.identityPoolId!,
+        region: authOutputs.awsRegion,
+      );
+    }
+    CognitoOAuthConfig? hostedUiConfig;
+    if (authOutputs.userPoolClientId != null && authOutputs.oauth != null) {
+      // ignore: invalid_use_of_internal_member
+      hostedUiConfig = CognitoOAuthConfig.fromAuthOutputs(authOutputs);
+    }
+    if (userPoolConfig == null &&
+        identityPoolConfig == null &&
+        hostedUiConfig == null) {
+      throw ConfigurationError(
+        'Invalid config: No user pool or identity pool found',
+      );
+    }
+    CognitoPinpointAnalyticsConfig? pinpointConfig;
+    if (amplifyOutputs.analytics?.amazonPinpoint != null) {
+      pinpointConfig = CognitoPinpointAnalyticsConfig(
+        appId: amplifyOutputs.analytics!.amazonPinpoint!.appId,
+        region: amplifyOutputs.analytics!.amazonPinpoint!.awsRegion,
+      );
+    }
+    return AuthConfiguration._(
+      userPoolConfig: userPoolConfig,
+      identityPoolConfig: identityPoolConfig,
+      hostedUiConfig: hostedUiConfig,
+      pinpointConfig: pinpointConfig,
+    );
+  }
 
   /// Parses [config] into the appropriate [AuthConfiguration] type.
   ///

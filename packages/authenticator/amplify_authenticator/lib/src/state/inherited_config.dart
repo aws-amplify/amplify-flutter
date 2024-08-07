@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 class InheritedConfig extends InheritedWidget {
   const InheritedConfig({
     super.key,
-    required this.amplifyConfig,
+    required this.amplifyOutputs,
     required this.padding,
     required super.child,
   });
 
-  final AmplifyConfig? amplifyConfig;
+  final AmplifyOutputs? amplifyOutputs;
   final EdgeInsets padding;
 
   static InheritedConfig of(BuildContext context) {
@@ -37,9 +37,9 @@ class InheritedConfig extends InheritedWidget {
 
   @override
   bool updateShouldNotify(InheritedConfig oldWidget) {
-    final updatedConfig = oldWidget.amplifyConfig != amplifyConfig;
+    final updatedConfig = oldWidget.amplifyOutputs != amplifyOutputs;
     if (updatedConfig) {
-      if (oldWidget.amplifyConfig == null) {
+      if (oldWidget.amplifyOutputs == null) {
         return true;
       }
       throw FlutterError.fromParts([
@@ -58,7 +58,7 @@ class InheritedConfig extends InheritedWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty<AmplifyConfig?>('config', amplifyConfig))
+      ..add(DiagnosticsProperty<AmplifyOutputs?>('config', amplifyOutputs))
       ..add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }

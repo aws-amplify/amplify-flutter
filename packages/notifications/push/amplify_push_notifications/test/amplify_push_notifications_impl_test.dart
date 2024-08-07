@@ -54,8 +54,8 @@ void main() {
     ..addInstance<PushNotificationsHostApi>(mockPushNotificationsHostApi)
     ..addInstance<AmplifySecureStorage>(mockAmplifySecureStorage);
 
-  final config = AmplifyConfig.fromJson(
-    jsonDecode(amplifyconfig) as Map<String, Object?>,
+  final config = AmplifyOutputs.fromJson(
+    jsonDecode(amplifyConfig) as Map<String, Object?>,
   );
 
   setUp(() {
@@ -202,8 +202,8 @@ void main() {
   group('Config failure cases', () {
     test('should throw exception when configuring if there is no appId present',
         () async {
-      final config = AmplifyConfig.fromJson(
-        jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
+      final config = AmplifyOutputs.fromJson(
+        jsonDecode(amplifyConfigNoPushNotification) as Map<String, Object?>,
       );
       expect(
         () async => plugin.configure(

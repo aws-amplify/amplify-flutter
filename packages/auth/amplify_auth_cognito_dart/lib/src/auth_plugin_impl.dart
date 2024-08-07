@@ -215,7 +215,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   @override
   Future<void> configure({
-    AmplifyConfig? config,
+    AmplifyOutputs? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     if (config == null) {

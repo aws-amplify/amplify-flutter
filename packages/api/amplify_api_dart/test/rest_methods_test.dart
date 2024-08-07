@@ -40,11 +40,11 @@ void main() {
         APIAuthorizationType.iam.authProviderToken,
         TestIamAuthProvider(),
       );
-    final config = AmplifyConfig.fromJson(
-      jsonDecode(amplifyconfig) as Map<String, Object?>,
+    final amplifyOutputs = AmplifyOutputs.fromJson(
+      jsonDecode(amplifyConfig) as Map<String, Object?>,
     );
     await apiPlugin.configure(
-      config: config,
+      config: amplifyOutputs,
       authProviderRepo: authProviderRepo,
     );
 

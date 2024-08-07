@@ -23,8 +23,8 @@ void main() {
   testRunner.setupTests();
 
   group('signOut', () {
-    for (final environmentName in userPoolEnvironments) {
-      group(environmentName, () {
+    for (final environment in userPoolEnvironments) {
+      group(environment.name, () {
         late String username;
         late String password;
         late AWSHttpClient client;
@@ -46,22 +46,23 @@ void main() {
 
         setUp(() async {
           await testRunner.configure(
-            environmentName: environmentName,
+            environmentName: environment.name,
+            useAmplifyOutputs: environment.useAmplifyOutputs,
           );
 
           // ignore: invalid_use_of_internal_member
           final config = await Amplify.asyncConfig;
-          final authConfig = config.auth!.awsPlugin!.cognitoUserPool!.default$!;
+          final authConfig = config.auth!;
           client = AWSHttpClient()
             ..supportedProtocols = SupportedProtocols.http1;
           cognitoClient = cognito_idp.CognitoIdentityProviderClient(
-            region: authConfig.region,
+            region: authConfig.awsRegion,
           );
           addTearDown(client.close);
 
           await signOutUser();
 
-          username = generateUsername();
+          username = environment.generateUsername();
           password = generatePassword();
 
           await adminCreateUser(
@@ -69,6 +70,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
         });
 
@@ -123,7 +125,7 @@ void main() {
         });
 
         asyncTest('can call sign out after admin delete', (_) async {
-          final username = generateUsername();
+          final username = environment.generateUsername();
           final password = generatePassword();
 
           await adminCreateUser(
@@ -131,6 +133,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           final res = await Amplify.Auth.signIn(
@@ -152,7 +155,7 @@ void main() {
 
         asyncTest('can call sign out after admin delete and session expiration',
             (_) async {
-          final username = generateUsername();
+          final username = environment.generateUsername();
           final password = generatePassword();
 
           await adminCreateUser(
@@ -160,6 +163,7 @@ void main() {
             password,
             autoConfirm: true,
             verifyAttributes: true,
+            autoFillAttributes: environment.loginMethod.isUsername,
           );
 
           final res = await Amplify.Auth.signIn(

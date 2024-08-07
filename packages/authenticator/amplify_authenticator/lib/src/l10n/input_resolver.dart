@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
+import 'package:amplify_authenticator/src/utils/unmet_password_requirements.dart';
 import 'package:flutter/material.dart';
 
 enum InputField {
@@ -50,7 +50,7 @@ enum InputResolverKeyType {
 
 class InputResolverKey {
   const InputResolverKey.passwordRequirementsUnmet(
-    PasswordProtectionSettings requirements,
+    UnmetPasswordRequirements requirements,
   ) : this._(
           InputResolverKeyType.passwordRequirements,
           field: InputField.password,
@@ -64,7 +64,7 @@ class InputResolverKey {
 
   final InputResolverKeyType type;
   final InputField field;
-  final PasswordProtectionSettings? unmetPasswordRequirements;
+  final UnmetPasswordRequirements? unmetPasswordRequirements;
 
   static const usernameTitle = InputResolverKey._(
     InputResolverKeyType.title,
@@ -502,10 +502,10 @@ class InputResolver extends Resolver<InputResolverKey> {
   /// defined in the amplify configuration.
   String passwordRequires(
     BuildContext context,
-    PasswordProtectionSettings requirements,
+    UnmetPasswordRequirements requirements,
   ) {
-    final minLength = requirements.passwordPolicyMinLength;
-    final characterReqs = requirements.passwordPolicyCharacters;
+    final minLength = requirements.minLength;
+    final characterReqs = requirements.characterRequirements;
     if (minLength == null && (characterReqs.isEmpty)) {
       return '';
     }

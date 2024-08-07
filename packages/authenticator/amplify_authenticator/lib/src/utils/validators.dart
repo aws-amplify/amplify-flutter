@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/utils/unmet_password_requirements.dart';
+import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/password_policy.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -56,28 +60,11 @@ FormFieldValidator<String> usernameValidator({
   };
 }
 
-extension PasswordPolicyCharactersX on PasswordPolicyCharacters {
-  @visibleForTesting
-  bool meetsRequirement(String value) {
-    switch (this) {
-      case PasswordPolicyCharacters.requiresLowercase:
-        return value.contains(_lowercase);
-      case PasswordPolicyCharacters.requiresUppercase:
-        return value.contains(_uppercase);
-      case PasswordPolicyCharacters.requiresNumbers:
-        return value.contains(_numeric);
-      case PasswordPolicyCharacters.requiresSymbols:
-        return value.contains(_symbols);
-    }
-  }
-}
-
 FormFieldValidator<String> Function(BuildContext) validateNewPassword({
-  required AmplifyConfig? amplifyConfig,
+  required AmplifyOutputs? amplifyOutputs,
   required InputResolver inputResolver,
 }) {
-  final passwordProtectionSettings = amplifyConfig
-      ?.auth?.awsPlugin?.auth?.default$?.passwordProtectionSettings;
+  final passwordPolicies = amplifyOutputs?.auth?.passwordPolicy;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
           return inputResolver.resolve(
@@ -86,36 +73,48 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
           );
         }
         password = password.trim();
-        if (passwordProtectionSettings == null) {
+        if (passwordPolicies == null) {
           return null;
         }
 
-        final unmetReqs = <PasswordPolicyCharacters>[];
-
-        final minLength = passwordProtectionSettings.passwordPolicyMinLength;
+        final minLength = passwordPolicies.minLength;
         final meetsMinLengthRequirement =
             minLength == null || password.length >= minLength;
 
-        final passwordPolicies =
-            passwordProtectionSettings.passwordPolicyCharacters;
-        for (final policy in passwordPolicies) {
-          if (!policy.meetsRequirement(password)) {
-            unmetReqs.add(policy);
-          }
-        }
+        final unmetCharacterReqs =
+            _getUnmetCharacterRequirements(password, passwordPolicies);
 
         final error = inputResolver.resolve(
           context,
           InputResolverKey.passwordRequirementsUnmet(
-            PasswordProtectionSettings(
-              passwordPolicyMinLength:
-                  meetsMinLengthRequirement ? null : minLength,
-              passwordPolicyCharacters: unmetReqs,
+            UnmetPasswordRequirements(
+              minLength: meetsMinLengthRequirement ? null : minLength,
+              characterRequirements: unmetCharacterReqs,
             ),
           ),
         );
         return error.isEmpty ? null : error;
       };
+}
+
+List<CharacterRequirements> _getUnmetCharacterRequirements(
+  String password,
+  PasswordPolicy? policy,
+) {
+  final unmetReqs = <CharacterRequirements>[];
+  if ((policy?.requireLowercase ?? false) && !password.contains(_lowercase)) {
+    unmetReqs.add(CharacterRequirements.requiresLowercase);
+  }
+  if ((policy?.requireUppercase ?? false) && !password.contains(_uppercase)) {
+    unmetReqs.add(CharacterRequirements.requiresUppercase);
+  }
+  if ((policy?.requireNumbers ?? false) && !password.contains(_numeric)) {
+    unmetReqs.add(CharacterRequirements.requiresNumbers);
+  }
+  if ((policy?.requireSymbols ?? false) && !password.contains(_symbols)) {
+    unmetReqs.add(CharacterRequirements.requiresSymbols);
+  }
+  return unmetReqs;
 }
 
 FormFieldValidator<String> validatePasswordConfirmation(

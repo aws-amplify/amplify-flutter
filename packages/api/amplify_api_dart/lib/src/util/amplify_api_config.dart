@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:meta/meta.dart';
 
 const _slash = '/';
@@ -13,11 +14,11 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   // ignore: public_member_api_docs
   const EndpointConfig(this.name, this.config);
 
-  /// The key used in the Amplify configuration file for this config entry.
+  /// The key used in the Amplify Outputs for this config entry.
   final String name;
 
-  /// The value in the Amplify configuration file which as config details.
-  final AWSApiConfig config;
+  /// The value in the Amplify Outputs file which has the config details.
+  final ApiOutputs config;
 
   @override
   List<Object?> get props => [name, config];
@@ -25,7 +26,7 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
   /// Gets the host with environment path prefix from Amplify config and combines
   /// with [path] and [queryParameters] to return a full [Uri].
   Uri getUri({String? path, Map<String, dynamic>? queryParameters}) {
-    final parsed = Uri.parse(config.endpoint);
+    final parsed = Uri.parse(config.url);
 
     final pathSegments =
         path != null ? [...parsed.pathSegments, ..._getSegments(path)] : null;
@@ -44,35 +45,5 @@ class EndpointConfig with AWSEquatable<EndpointConfig> {
       path = path.substring(1);
     }
     return path.split(_slash);
-  }
-}
-
-/// Allows getting desired endpoint more easily.
-@internal
-extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
-  /// Finds the first endpoint matching the type and apiName.
-  EndpointConfig getEndpoint({
-    required EndpointType type,
-    String? apiName,
-  }) {
-    final typeConfigs =
-        entries.where((config) => config.value.endpointType == type);
-    if (apiName != null) {
-      final config = typeConfigs.firstWhere(
-        (config) => config.key == apiName,
-        orElse: () => throw ConfigurationError(
-          'No API endpoint found matching apiName $apiName.',
-        ),
-      );
-      return EndpointConfig(config.key, config.value);
-    }
-    final onlyConfig = typeConfigs.singleOrNull;
-    if (onlyConfig == null) {
-      throw ConfigurationError(
-        'Multiple API endpoints defined. Pass apiName parameter to specify '
-        'which one to use.',
-      );
-    }
-    return EndpointConfig(onlyConfig.key, onlyConfig.value);
   }
 }

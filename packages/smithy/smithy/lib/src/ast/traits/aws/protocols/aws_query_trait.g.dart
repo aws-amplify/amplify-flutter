@@ -15,7 +15,7 @@ Map<String, dynamic> _$AwsQueryTraitToJson(AwsQueryTrait instance) =>
 AwsQueryErrorTrait _$AwsQueryErrorTraitFromJson(Map<String, dynamic> json) =>
     AwsQueryErrorTrait(
       code: json['code'] as String,
-      httpResponseCode: json['httpResponseCode'] as int,
+      httpResponseCode: (json['httpResponseCode'] as num).toInt(),
     );
 
 Map<String, dynamic> _$AwsQueryErrorTraitToJson(AwsQueryErrorTrait instance) =>

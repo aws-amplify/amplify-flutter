@@ -20,7 +20,7 @@ void main() {
   group('FetchAuthSessionStateMachine', () {
     late CognitoAuthStateMachine stateMachine;
     late SecureStorageInterface secureStorage;
-    late AmplifyConfig config;
+    late AmplifyOutputs config;
     late CognitoAuthSession session;
 
     final newAccessToken = createJwt(
@@ -46,7 +46,7 @@ void main() {
     const newAccessKeyId = 'newAccessKeyId';
     const newSecretAccessKey = 'newSecretAccessKey';
 
-    Future<void> configureAmplify(AmplifyConfig config) async {
+    Future<void> configureAmplify(AmplifyOutputs config) async {
       stateMachine.dispatch(ConfigurationEvent.configure(config)).ignore();
       await stateMachine.stream.whereType<Configured>().first;
     }
@@ -1253,7 +1253,7 @@ void main() {
     });
     group('User Pool Only Config', () {
       setUp(() {
-        config = userPoolOnlyConfig;
+        config = mockConfigUserPoolOnly;
       });
       group('tokens valid', () {
         setUp(() {

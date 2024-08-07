@@ -15,7 +15,7 @@ import 'test_utils/test_token_provider.dart';
 const testPath = StoragePath.fromString('some/path.txt');
 
 void main() {
-  const testConfig = AmplifyConfig(
+  final testConfig = const AmplifyConfig(
     storage: StorageConfig(
       plugins: {
         S3PluginConfig.pluginKey: S3PluginConfig(
@@ -24,7 +24,8 @@ void main() {
         ),
       },
     ),
-  );
+    // ignore: invalid_use_of_internal_member
+  ).toAmplifyOutputs();
 
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(

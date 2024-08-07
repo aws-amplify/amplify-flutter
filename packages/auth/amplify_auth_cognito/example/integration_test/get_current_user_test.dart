@@ -14,22 +14,25 @@ void main() {
   testRunner.setupTests();
 
   group('getCurrentUser', () {
-    for (final environmentName in userPoolEnvironments) {
+    for (final environment in userPoolEnvironments) {
       group('no alias', () {
-        group(environmentName, () {
-          final username = generateUsername();
+        group(environment.name, () {
+          final username = environment.generateUsername();
           final password = generatePassword();
+          late String cognitoUsername;
 
           setUp(() async {
             await testRunner.configure(
-              environmentName: environmentName,
+              environmentName: environment.name,
+              useAmplifyOutputs: environment.useAmplifyOutputs,
             );
 
-            await adminCreateUser(
+            cognitoUsername = await adminCreateUser(
               username,
               password,
               autoConfirm: true,
               verifyAttributes: true,
+              autoFillAttributes: environment.loginMethod.isUsername,
             );
             await signOutUser();
             await Amplify.Auth.signIn(
@@ -40,7 +43,7 @@ void main() {
 
           asyncTest('should return the current user', (_) async {
             final authUser = await Amplify.Auth.getCurrentUser();
-            expect(authUser.username, username);
+            expect(authUser.username, cognitoUsername);
             expect(isValidUserSub(authUser.userId), isTrue);
             expect(
               authUser.signInDetails,
@@ -50,6 +53,7 @@ void main() {
                 authUser.username,
               ),
               reason: 'Should return the same username as AuthUser.username',
+              skip: !environment.loginMethod.isUsername,
             );
           });
 

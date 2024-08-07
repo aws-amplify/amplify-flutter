@@ -13,7 +13,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-const badConfig = AmplifyConfig();
+const badConfig = AmplifyOutputs(version: '1');
 
 void main() {
   late CognitoAuthStateMachine stateMachine;
@@ -89,6 +89,8 @@ void main() {
     test('reads existing analytics metadata if analytics is configured',
         () async {
       const testEndpointId = 'testEndpointId';
+      final testPinpointAppId =
+          mockConfigWithPinpoint.analytics!.amazonPinpoint!.appId;
 
       // Add state machine dependencies.
       stateMachine.addInstance(

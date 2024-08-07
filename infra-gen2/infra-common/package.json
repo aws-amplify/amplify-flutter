@@ -1,0 +1,13 @@
+{
+  "name": "infra-common",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && npm run copy-graphql",
+    "copy-graphql": "cp -r ./src/schemas ./dist"
+  }
+}

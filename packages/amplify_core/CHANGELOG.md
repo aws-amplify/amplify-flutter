@@ -1,3 +1,18 @@
+## 2.3.0
+
+- Minor bug fixes and improvements
+
+## 2.2.0
+
+### Fixes
+- fix(api): GraphQLResponse.toString() include data & errors ([#5079](https://github.com/aws-amplify/amplify-flutter/pull/5079))
+- fix(core): improve amplify configure api error message ([#5021](https://github.com/aws-amplify/amplify-flutter/pull/5021))
+- fix(notifications): allow offline configuration
+- fix: wait for in progress multi part uploads to cancel for `pause` and `cancel`
+
+### Features
+- feat: Support Amplify Gen 2 outputs ([#5073](https://github.com/aws-amplify/amplify-flutter/pull/5073))
+
 ## 2.1.0
 
 ### Features

@@ -9,6 +9,8 @@ library amplify_api.graphql.ws.web_socket_types;
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -100,7 +102,7 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
     required this.authorizationHeaders,
   });
   final GraphQLRequest<dynamic> request;
-  final AWSApiConfig config;
+  final ApiOutputs config;
   final Map<String, String> authorizationHeaders;
 
   @override

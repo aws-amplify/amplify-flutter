@@ -12,6 +12,8 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analyt
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
@@ -54,7 +56,7 @@ class PinpointProvider implements ServiceProviderClient {
 
   @override
   Future<void> init({
-    required NotificationsPinpointPluginConfig config,
+    required NotificationsOutputs config,
     required AmplifyAuthProviderRepository authProviderRepo,
     @visibleForTesting AnalyticsClient? analyticsClient,
   }) async {
@@ -68,8 +70,8 @@ class PinpointProvider implements ServiceProviderClient {
             'No AWSIamAmplifyAuthProvider available. Is Auth category added and configured?',
           );
         }
-        final region = config.region;
-        final appId = config.appId;
+        final region = config.awsRegion;
+        final appId = config.amazonPinpointAppId;
 
         final secureStorageFactory = AmplifySecureStorage.factoryFrom();
 
@@ -188,6 +190,15 @@ class PinpointProvider implements ServiceProviderClient {
       // `AnalyticsException` converts `AWSHttpException` to `NetworkException`.
     } on NetworkException catch (e) {
       _logger.error('Network problem when registering device: ', e);
+      // This is to allow configuration if `EndpointClient.updateEndpoint()`
+      // throws UnknownException due to expired token.
+      // the underlying exception is `NotAuthorizedException` with
+      // `Invalid login token. Token expired` message.
+    } on UnknownException catch (e) {
+      _logger.error(
+        'Could not update Pinpoint endpoint to register the device: ',
+        e,
+      );
     }
   }
 

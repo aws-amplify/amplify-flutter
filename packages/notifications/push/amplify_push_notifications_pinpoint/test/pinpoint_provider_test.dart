@@ -5,6 +5,8 @@
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/amazon_pinpoint_channel.dart';
+import 'package:amplify_core/src/config/amplify_outputs/notifications/notifications_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/src/pinpoint_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,9 +32,10 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final pinpointProvider = PinpointProvider();
   final mockAmplifyAuthProviderRepository = MockAmplifyAuthProviderRepository();
-  const notificationsPinpointConfig = NotificationsPinpointPluginConfig(
-    appId: 'APP_ID',
-    region: 'REGION',
+  const notificationsPinpointConfig = NotificationsOutputs(
+    amazonPinpointAppId: 'APP_ID',
+    awsRegion: 'REGION',
+    channels: [AmazonPinpointChannel.fcm, AmazonPinpointChannel.apns],
   );
   final awsIamAmplifyAuthProvider = MockAWSIamAmplifyAuthProvider();
   final mockAnalyticsClient = MockAnalyticsClient();
@@ -293,6 +296,48 @@ void main() {
 
       when(mockEndpointClient.updateEndpoint)
           .thenThrow(const NetworkException('message'));
+
+      when(
+        () => mockAnalyticsClient.endpointClient,
+      ).thenReturn(mockEndpointClient);
+
+      await expectLater(
+        pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          analyticsClient: mockAnalyticsClient,
+        ),
+        completes,
+      );
+
+      expect(
+        pinpointProvider.registerDevice(
+          '',
+        ),
+        completes,
+      );
+      verify(mockEndpointClient.updateEndpoint);
+    });
+
+    test('registerDevice should run successfully when token is expired',
+        () async {
+      when(
+        () => mockAmplifyAuthProviderRepository.getAuthProvider(
+          APIAuthorizationType.iam.authProviderToken,
+        ),
+      ).thenReturn(awsIamAmplifyAuthProvider);
+      when(
+        () => mockAnalyticsClient.init(
+          pinpointAppId: any(named: 'pinpointAppId'),
+          region: any(named: 'region'),
+          authProvider: any(named: 'authProvider'),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      final mockEndpointClient = MockEndpointClient();
+
+      when(mockEndpointClient.updateEndpoint)
+          .thenThrow(const UnknownException('message'));
 
       when(
         () => mockAnalyticsClient.endpointClient,

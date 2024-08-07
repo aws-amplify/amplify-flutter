@@ -68,7 +68,7 @@ abstract class AuthService {
     required CognitoUserAttributeKey userAttributeKey,
     required String confirmationCode,
   });
-  Future<AmplifyConfig> waitForConfiguration();
+  Future<AmplifyOutputs> waitForConfiguration();
 
   Future<void> rememberDevice();
 
@@ -324,7 +324,7 @@ class AmplifyAuthService
   }
 
   @override
-  Future<AmplifyConfig> waitForConfiguration() async {
+  Future<AmplifyOutputs> waitForConfiguration() async {
     final timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       logger.warn(
         'Amplify is taking longer than expected to configure.'

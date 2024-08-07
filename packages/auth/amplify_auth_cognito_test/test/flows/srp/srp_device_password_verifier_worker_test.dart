@@ -30,7 +30,7 @@ void main() {
       final message = SrpDevicePasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..deviceSecrets = CognitoDeviceSecrets(
             (b) => b
               ..deviceKey = deviceKey
@@ -69,7 +69,7 @@ void main() {
       final message = SrpDevicePasswordVerifierMessage(
         (b) => b
           ..initResult = initResult
-          ..clientId = testAppClientId
+          ..clientId = mockConfig.auth!.userPoolClientId
           ..deviceSecrets = CognitoDeviceSecrets(
             (b) => b
               ..deviceKey = deviceKey
