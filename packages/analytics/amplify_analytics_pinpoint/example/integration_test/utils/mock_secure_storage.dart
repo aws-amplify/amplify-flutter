@@ -16,12 +16,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 SecureStorageInterface setupAndCreateMockPersistedSecuredStorage({
   String? endpointId,
 }) {
-  final json = jsonDecode(amplifyConfig) as Map;
-  final amplifyconfig = AmplifyOutputs.fromJson(json.cast());
-  final pinpointAppId = amplifyconfig.analytics!.amazonPinpoint!.appId;
-  // final main = amplifyEnvironments['main']!;
-  // final environment = jsonDecode(main);
-  // final pinpointAppId = environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
+  final main = amplifyEnvironments['main']!;
+  final environment = jsonDecode(main);
+  // ignore: avoid_dynamic_calls
+  final pinpointAppId = environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
 
   final storage = _MockSecureStorage();
 
