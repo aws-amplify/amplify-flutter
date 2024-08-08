@@ -9,7 +9,6 @@ import 'dart:collection';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     show AuthFlowType;
-import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_auth_cognito_dart.cognito_user_pool_key}
@@ -110,17 +109,16 @@ enum HostedUiKey {
 final class CognitoIdentityPoolKeys
     extends CognitoKeys<CognitoIdentityPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_identity_pool_keys}
-  const CognitoIdentityPoolKeys(this.config);
+  const CognitoIdentityPoolKeys(this.identityPoolId);
 
-  /// The Cognito identity pool configuration, used to determine the key
-  /// prefixes.
-  final CognitoIdentityCredentialsProvider config;
+  /// The Cognito identity pool Id, used to determine the key prefixes.
+  final String identityPoolId;
 
   @override
   List<CognitoIdentityPoolKey> get _values => CognitoIdentityPoolKey.values;
 
   @override
-  String get prefix => config.poolId;
+  String get prefix => identityPoolId;
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
@@ -129,16 +127,16 @@ final class CognitoIdentityPoolKeys
 /// {@endtemplate}
 final class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const CognitoUserPoolKeys(this.config);
+  const CognitoUserPoolKeys(this.userPoolClientId);
 
-  /// The Cognito user pool configuration, used to determine the key prefixes.
-  final CognitoUserPoolConfig config;
+  /// The Cognito user pool client Id, used to determine the key prefixes.
+  final String userPoolClientId;
 
   @override
   List<CognitoUserPoolKey> get _values => CognitoUserPoolKey.values;
 
   @override
-  String get prefix => config.appClientId;
+  String get prefix => userPoolClientId;
 }
 
 /// {@template amplify_auth_cognito.cognito_user_pool_keys}
@@ -147,10 +145,10 @@ final class CognitoUserPoolKeys extends CognitoKeys<CognitoUserPoolKey> {
 /// {@endtemplate}
 final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   /// {@macro amplify_auth_cognito.cognito_user_pool_keys}
-  const CognitoDeviceKeys(this.config, this.username);
+  const CognitoDeviceKeys(this.userPoolClientId, this.username);
 
-  /// The Cognito user pool configuration, used to determine the key prefixes.
-  final CognitoUserPoolConfig config;
+  /// The Cognito user pool client Id, used to determine the key prefixes.
+  final String userPoolClientId;
 
   /// Device keys are tracked by username.
   final String username;
@@ -159,7 +157,7 @@ final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
   List<CognitoDeviceKey> get _values => CognitoDeviceKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.$username';
+  String get prefix => '$userPoolClientId.$username';
 }
 
 /// {@template amplify_auth_cognito.hosted_ui_keys}
@@ -168,16 +166,16 @@ final class CognitoDeviceKeys extends CognitoKeys<CognitoDeviceKey> {
 /// {@endtemplate}
 final class HostedUiKeys extends CognitoKeys<HostedUiKey> {
   /// {@macro amplify_auth_cognito.hosted_ui_keys}
-  const HostedUiKeys(this.config);
+  const HostedUiKeys(this.userPoolClientId);
 
-  /// The Cognito OAuth configuration, used to determine the key prefixes.
-  final CognitoOAuthConfig config;
+  /// The Cognito user pool client Id, used to determine the key prefixes.
+  final String userPoolClientId;
 
   @override
   List<HostedUiKey> get _values => HostedUiKey.values;
 
   @override
-  String get prefix => '${config.appClientId}.hostedUi';
+  String get prefix => '$userPoolClientId.hostedUi';
 }
 
 /// {@template amplify_auth_cognito.cognito_keys}

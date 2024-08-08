@@ -32,7 +32,7 @@ final class HostedUiStateMachine
   String get runtimeTypeName => 'HostedUiStateMachine';
 
   CognitoOAuthConfig get _config => expect();
-  HostedUiKeys get _keys => HostedUiKeys(_config);
+  HostedUiKeys get _keys => HostedUiKeys(_config.appClientId);
   SecureStorageInterface get _secureStorage => getOrCreate();
 
   /// The platform-specific behavior.
@@ -194,7 +194,7 @@ final class HostedUiStateMachine
     // credentials.
     if (_identityPoolConfig != null) {
       await manager.clearCredentials(
-        CognitoIdentityPoolKeys(_identityPoolConfig!),
+        CognitoIdentityPoolKeys(_identityPoolConfig!.poolId),
       );
 
       await manager.loadSession();

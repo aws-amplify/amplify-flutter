@@ -29,7 +29,7 @@ final class ASFContextDataProvider with AWSDebuggable, AWSLoggerMixin {
 
   /// The unique device ID (`DeviceID`).
   Future<String> get _deviceId async {
-    final userPoolKeys = CognitoUserPoolKeys(_userPoolConfig!);
+    final userPoolKeys = CognitoUserPoolKeys(_userPoolConfig!.appClientId);
     var deviceId = await _secureStorage.read(
       key: userPoolKeys[CognitoUserPoolKey.asfDeviceId],
     );

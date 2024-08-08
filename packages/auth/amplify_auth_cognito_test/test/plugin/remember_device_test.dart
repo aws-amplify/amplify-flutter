@@ -17,8 +17,8 @@ enum DeviceState { untracked, tracked, remembered }
 void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
+  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
   final testAuthRepo = AmplifyAuthProviderRepository();
   final mockUpdateDeviceStatusResponse = UpdateDeviceStatusResponse();
 
@@ -44,7 +44,7 @@ void main() {
         secureStorage,
         userPoolKeys: userPoolKeys,
         identityPoolKeys: identityPoolKeys,
-        deviceKeys: CognitoDeviceKeys(userPoolConfig, username),
+        deviceKeys: CognitoDeviceKeys(userPoolConfig.appClientId, username),
       );
       plugin = AmplifyAuthCognitoDart(
         secureStorageFactory: (_) => secureStorage,
