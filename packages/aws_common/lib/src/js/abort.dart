@@ -3,8 +3,11 @@
 
 // ignore_for_file: avoid_classes_with_only_static_members
 
-import 'package:js/js.dart';
-import 'package:js/js_util.dart' as js_util;
+// import 'package:js/js.dart';
+// import 'package:js/js_util.dart' as js_util;
+
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe' as js_interop_unsafe;
 
 /// {@template aws_http.js.abort_signal}
 /// A signal object that allows you to communicate with a DOM request (such as
@@ -29,7 +32,7 @@ extension PropsAbortSignal on AbortSignal {
 
   /// The abort reason, once the signal has aborted.
   String? get reason =>
-      js_util.getProperty<Object?>(this, 'reason')?.toString();
+      globalContext.getProperty('reason'.toJS);
 }
 
 /// {@template aws_http.js.abort_controller}

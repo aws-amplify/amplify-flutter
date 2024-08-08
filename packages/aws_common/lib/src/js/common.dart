@@ -4,10 +4,13 @@
 // ignore_for_file: avoid_classes_with_only_static_members, prefer_void_to_null
 
 import 'dart:async';
-import 'dart:js_util' as js_util;
+// import 'package:js/js.dart';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+
+// import 'dart:js_util' as js_util;
 
 import 'package:aws_common/src/util/recase.dart';
-import 'package:js/js.dart';
 
 /// The JS `undefined`.
 @JS()
@@ -33,33 +36,34 @@ mixin JSEnum on Enum {
 /// Refers to either [window] or the worker's global scope, depending on the
 /// program's execution context.
 @JS()
+
 external GlobalScope get self;
 
 /// Whether the current script is running in a web worker.
-final bool zIsWebWorker = js_util.getProperty<Window?>(self, 'window') == null;
+final bool zIsWebWorker = globalContext.getProperty('window'.toJS) == null;
 
 /// The [Window] object of the current context.
 ///
 /// Throws a [StateError] if unavailable in this context. Use [zIsWebWorker]
 /// to check whether this will throw or not.
 Window get window {
-  final window = js_util.getProperty<Window?>(self, 'window');
+  final window = globalContext.getProperty('window'.toJS);
   if (window == null) {
     throw StateError('window is not available in this context');
   }
-  return window;
+  return window as Window;
 }
 
 /// The [Document] object of the current context.
 ///
 /// Throws a [StateError] if unavailable. Use [zIsWebWorker] to check whether
 /// this will throw or not.
-Document get document {
-  final document = js_util.getProperty<Document?>(self, 'document');
+JSBoxedDartObject get document {
+  final document = globalContext.getProperty('document'.toJS);
   if (document == null) {
     throw StateError('document is not available in this context');
   }
-  return document;
+  return document.toJSBox;
 }
 
 /// {@template aws_common.js.window}
@@ -144,22 +148,22 @@ extension PropsEventTarget on EventTarget {
     String type,
     EventHandler<T> listener,
   ) =>
-      js_util.callMethod(this, 'addEventListener', [
-        type,
-        allowInterop(listener),
-        false,
-      ]);
+      globalContext.callMethod('addEventListener'.toJS,
+        type.toJS,
+        listener.toJS,
+        false.toJS,
+      );
 
   /// Removes [listener] as a callback for events of type [type].
   void removeEventListener<T extends Event>(
     String type,
     EventHandler<T> listener,
   ) =>
-      js_util.callMethod(this, 'removeEventListener', [
-        type,
-        allowInterop(listener),
-        false,
-      ]);
+      globalContext.callMethod('removeEventListener'.toJS, 
+        type.toJS,
+        listener.toJS,
+        false.toJS,
+      );
 }
 
 /// {@template worker_bee.js.interop.global_scope}
@@ -186,10 +190,10 @@ extension PropsGlobalScope on GlobalScope {
     Object? o, [
     List<Object>? transfer,
   ]) =>
-      js_util.callMethod(this, 'postMessage', [
-        js_util.jsify(o),
-        transfer?.map(js_util.jsify).toList(),
-      ]);
+      globalContext.callMethod('postMessage'.toJS, 
+        o.jsify(),
+        transfer?.map((e) => e.jsify()).toList().toJS,
+      );
 }
 
 /// {@template worker_bee.js.interop.message_event}
@@ -203,15 +207,15 @@ abstract class MessageEvent extends Event {}
 extension PropsMessageEvent on MessageEvent {
   /// The data sent by the message emitter.
   Object? get data {
-    final Object? data = js_util.getProperty(this, 'data');
-    return js_util.dartify(data);
+    final Object? data = globalContext.getProperty('data'.toJS);
+    return data;
   }
 
   /// An array of [MessagePort] objects representing the ports associated with
   /// the channel the message is being sent through.
   List<MessagePort> get ports {
-    final Object ports = js_util.getProperty(this, 'ports');
-    return (js_util.dartify(ports) as List).cast<MessagePort>();
+    final Object ports = globalContext.getProperty('ports'.toJS);
+    return ((ports.jsify()) as List).cast<MessagePort>();
   }
 }
 
@@ -248,10 +252,10 @@ extension PropsMessagePort on MessagePort {
     Object? o, [
     List<Object>? transfer,
   ]) =>
-      js_util.callMethod(this, 'postMessage', [
-        js_util.jsify(o),
-        transfer?.map(js_util.jsify).toList(),
-      ]);
+      globalContext.callMethod('postMessage'.toJS,
+        o.jsify(),
+        transfer?.map((e) => e.jsify()).toList().toJS,
+      );
 
   /// Starts the sending of messages queued on the port.
   ///
@@ -314,13 +318,13 @@ extension PropsWorker on Worker {
   /// The error event of the Worker interface fires when an error occurs in the
   /// worker.
   set onError(EventHandler listener) {
-    js_util.setProperty(this, 'onerror', allowInterop(listener));
+    globalContext.setProperty('onerror'.toJS, listener.toJS);
   }
 
   /// The `message` event is fired on a Worker object when the worker's parent
   /// receives a message from its worker.
   set onMessage(EventHandler<MessageEvent> listener) {
-    js_util.setProperty(this, 'onmessage', allowInterop(listener));
+    globalContext.setProperty('onmessage'.toJS, listener.toJS);
   }
 
   /// Sends a message to the worker's inner scope.
