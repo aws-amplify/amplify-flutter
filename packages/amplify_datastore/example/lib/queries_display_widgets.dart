@@ -175,3 +175,29 @@ Widget getWidgetToDisplayComment(
         }),
   );
 }
+
+Widget displaySyncButtons() {
+  return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    VerticalDivider(
+      color: Colors.white,
+      width: 5,
+    ),
+    ElevatedButton.icon(
+        onPressed: () {
+          Amplify.DataStore.start();
+        },
+        label: Icon(Icons.play_arrow)),
+    divider,
+    ElevatedButton.icon(
+        onPressed: () {
+          Amplify.DataStore.stop();
+        },
+        label: Icon(Icons.stop)),
+    divider,
+    ElevatedButton.icon(
+        onPressed: () {
+          Amplify.DataStore.clear();
+        },
+        label: Icon(Icons.delete_sweep)),
+  ]);
+}
