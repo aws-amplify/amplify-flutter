@@ -40,7 +40,7 @@ abstract class HostedUiPlatform implements Closeable {
   CognitoOAuthConfig get config => dependencyManager.expect();
 
   /// The Hosted UI storage keys.
-  late final HostedUiKeys _keys = HostedUiKeys(config);
+  late final HostedUiKeys _keys = HostedUiKeys(config.appClientId);
 
   /// The secure storage plugin.
   SecureStorageInterface get _secureStorage => dependencyManager.getOrCreate();

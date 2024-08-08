@@ -135,9 +135,11 @@ final hostedUiConfig = CognitoOAuthConfig.fromAuthOutputs(mockConfig.auth!);
 final authConfig = AuthConfiguration.fromAmplifyOutputs(mockConfig);
 final userPoolConfig = authConfig.userPoolConfig!;
 final identityPoolConfig = authConfig.identityPoolConfig!;
-final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-final deviceKeys = CognitoDeviceKeys(userPoolConfig, userSub);
-final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
+final deviceKeys =
+    CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, userSub);
+final identityPoolKeys =
+    CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
 final userPoolTokens = CognitoUserPoolTokens(
   accessToken: accessToken,
   idToken: idToken,

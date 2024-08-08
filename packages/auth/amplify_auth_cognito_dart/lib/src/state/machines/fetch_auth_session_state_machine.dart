@@ -56,11 +56,6 @@ final class FetchAuthSessionStateMachine
   /// The registered auth outputs.
   AuthOutputs? get _authConfig => get();
 
-  /// The registered identity pool config
-  // TODO(nikahsn): remove after refactoring CognitoIdentityPoolKeys to use
-  // AmplifyOutputs type
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
-
   /// Invalidates the current session, forcing a refresh on the next retrieval
   /// of credentials.
   ///
@@ -464,7 +459,7 @@ final class FetchAuthSessionStateMachine
     String? existingIdentityId,
     _FederatedIdentity? federatedIdentity,
   }) async {
-    if (_identityPoolConfig == null || _authConfig?.identityPoolId == null) {
+    if (_authConfig?.identityPoolId == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
     try {
@@ -501,7 +496,7 @@ final class FetchAuthSessionStateMachine
       // session expired in an identity pool not supporting unauthenticated
       // access and we should prevent further attempts at refreshing.
       await manager.clearCredentials(
-        CognitoIdentityPoolKeys(_identityPoolConfig!),
+        CognitoIdentityPoolKeys(_authConfig!.identityPoolId!),
       );
       Error.throwWithStackTrace(
         e.toSessionExpired('The AWS credentials could not be retrieved'),
@@ -573,15 +568,20 @@ final class FetchAuthSessionStateMachine
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
-          keys = CognitoUserPoolKeys(expect());
+          if (_authConfig?.userPoolClientId != null) {
+            keys = CognitoUserPoolKeys(_authConfig!.userPoolClientId!);
+          }
+
         case CognitoSignInMethod.hostedUi:
-          keys = HostedUiKeys(expect());
+          if (_authConfig?.userPoolClientId != null) {
+            keys = HostedUiKeys(_authConfig!.userPoolClientId!);
+          }
       }
       await manager.clearCredentials([
         ...keys,
-        if (_identityPoolConfig != null)
+        if (_authConfig?.identityPoolId != null)
           // Clear associated AWS credentials
-          ...CognitoIdentityPoolKeys(_identityPoolConfig!),
+          ...CognitoIdentityPoolKeys(_authConfig!.identityPoolId!),
       ]);
       Error.throwWithStackTrace(
         e.toSessionExpired('The tokens could not be refreshed'),
