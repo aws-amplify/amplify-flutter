@@ -8,10 +8,9 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     private let apiAuthFactory: APIAuthProviderFactory
     private let nativeApiPlugin: NativeApiPlugin
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
-    private var cancellables = AtomicDictionary<AnyCancellable, Void>()
+    private var cancellables = AtomicDictionary<AnyCancellable?, Void>()
     private var endpoints: [String: String]
     private var networkMonitor: AmplifyNetworkMonitor
-    private var reachabilitySubscription: AnyCancellable?
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
@@ -28,13 +27,15 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         // Listen to network events and send a notification to Flutter side when disconnected.
         // This enables Flutter to clean up the websocket/subscriptions.
         do {
-            reachabilitySubscription = try reachabilityPublisher()?.sink(receiveValue: { reachabilityUpdate in
+            let cancellable = try reachabilityPublisher()?.sink(receiveValue: { reachabilityUpdate in
                 if !reachabilityUpdate.isOnline {
                     DispatchQueue.main.async {
                        self.nativeApiPlugin.deviceOffline {}
                    }
                 }
             })
+            cancellables.set(value: (), forKey: cancellable) // the subscription is bind with class instance lifecycle, it should be released when stream is finished or unsubscribed
+
         } catch {
             print("Failed to create reachability publisher: \(error)")
         }
