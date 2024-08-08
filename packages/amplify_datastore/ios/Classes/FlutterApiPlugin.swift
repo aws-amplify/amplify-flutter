@@ -265,9 +265,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     public func patch(request: RESTRequest) async throws -> RESTTask.Success {
         preconditionFailure("method not supported")
     }
-    
-    private var cancellable: AnyCancellable?
-    
+        
     public func reachabilityPublisher(for apiName: String?) throws -> AnyPublisher<ReachabilityUpdate, Never>? {
         return networkMonitor.publisher.compactMap( { event in
             switch event {
