@@ -11,6 +11,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     private var cancellables = AtomicDictionary<AnyCancellable, Void>()
     private var endpoints: [String: String]
     private var networkMonitor: AmplifyNetworkMonitor
+    private var reachabilitySubscription: AnyCancellable?
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
@@ -23,6 +24,20 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         self.nativeSubscriptionEvents = subscriptionEventBus
         self.endpoints = endpoints
         self.networkMonitor = AmplifyNetworkMonitor()
+        
+        // Listen to network events and send a notification to Flutter side when disconnected.
+        // This enables Flutter to clean up the websocket/subscriptions.
+        do {
+            reachabilitySubscription = try reachabilityPublisher()?.sink(receiveValue: { reachabilityUpdate in
+                if !reachabilityUpdate.isOnline {
+                    DispatchQueue.main.async {
+                       self.nativeApiPlugin.deviceOffline {}
+                   }
+                }
+            })
+        } catch {
+            print("Failed to create reachability publisher: \(error)")
+        }
     }
     
     public func defaultAuthType() throws -> AWSAuthorizationType {
@@ -254,24 +269,16 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     private var cancellable: AnyCancellable?
     
     public func reachabilityPublisher(for apiName: String?) throws -> AnyPublisher<ReachabilityUpdate, Never>? {
-        let reachabilityUpdates = PassthroughSubject<ReachabilityUpdate, Never>()
-        
-        // Listen to network events and send a notification to Flutter side when disconnected.
-        // This enables Flutter to clean up the websocket/subscriptions.
-        cancellable = networkMonitor.publisher.sink(receiveValue: {event in
+        return networkMonitor.publisher.compactMap( { event in
             switch event {
                 case (.offline, .online):
-                reachabilityUpdates.send(ReachabilityUpdate(isOnline: true))
+                    return ReachabilityUpdate(isOnline: true)
                 case (.online, .offline):
-                reachabilityUpdates.send(ReachabilityUpdate(isOnline: false))
-                DispatchQueue.main.async {
-                    self.nativeApiPlugin.deviceOffline {}
-                }
+                    return ReachabilityUpdate(isOnline: false)
                 default:
-                    break
+                    return nil
             }
-        })
-        return reachabilityUpdates.eraseToAnyPublisher()
+        }).eraseToAnyPublisher()
     }
     
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {
