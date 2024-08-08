@@ -32,7 +32,7 @@ class DeviceMetadataRepository {
   /// Retrieves the device secrets for [username].
   Future<CognitoDeviceSecrets?> get(String username) async {
     CognitoDeviceSecrets? deviceSecrets;
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig, username);
+    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
     final deviceKey = await _secureStorage.read(
       key: deviceKeys[CognitoDeviceKey.deviceKey],
     );
@@ -61,7 +61,7 @@ class DeviceMetadataRepository {
 
   /// Save the [deviceSecrets] for [username].
   Future<void> put(String username, CognitoDeviceSecrets deviceSecrets) async {
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig, username);
+    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
     await _secureStorage.write(
       key: deviceKeys[CognitoDeviceKey.deviceKey],
       value: deviceSecrets.deviceKey,
@@ -82,7 +82,7 @@ class DeviceMetadataRepository {
 
   /// Clears the device secrets for [username].
   Future<void> remove(String username) async {
-    final deviceKeys = CognitoDeviceKeys(_userPoolConfig, username);
+    final deviceKeys = CognitoDeviceKeys(_userPoolConfig.appClientId, username);
     for (final key in deviceKeys) {
       await _secureStorage.delete(key: key);
     }

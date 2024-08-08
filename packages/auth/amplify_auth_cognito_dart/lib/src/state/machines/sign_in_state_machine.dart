@@ -61,11 +61,6 @@ final class SignInStateMachine
   /// Parameters to the flow.
   late SignInParameters parameters;
 
-  /// The configured identity pool.
-  // TODO(nikahsn): remove after refactoring CognitoIdentityPoolKeys to use
-  // AmplifyOutputs type
-  CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
-
   AuthOutputs get _authOutputs {
     final authOutputs = get<AuthOutputs>();
     if (authOutputs?.userPoolId == null ||
@@ -741,9 +736,9 @@ final class SignInStateMachine
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
-    if (identityPoolConfig case final identityPoolConfig?) {
+    if (_authOutputs.identityPoolId case final identityPoolId?) {
       await manager.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig),
+        CognitoIdentityPoolKeys(identityPoolId),
       );
 
       await manager.loadSession();
