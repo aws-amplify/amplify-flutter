@@ -358,6 +358,10 @@ abstract class NativeApiPlugin {
 
   Future<void> unsubscribe(String subscriptionId);
 
+  Future<void> deviceOffline();
+
+  Future<void> onStop();
+
   static void setup(NativeApiPlugin? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
@@ -458,6 +462,35 @@ abstract class NativeApiPlugin {
           assert(arg_subscriptionId != null,
               'Argument for dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.unsubscribe was null, expected non-null String.');
           await api.unsubscribe(arg_subscriptionId!);
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.deviceOffline',
+          codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          // ignore message
+          await api.deviceOffline();
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.onStop', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          // ignore message
+          await api.onStop();
           return;
         });
       }

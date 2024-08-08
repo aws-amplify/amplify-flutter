@@ -142,11 +142,7 @@ class SubscriptionBloc<T>
   }
 
   Stream<WsSubscriptionState<T>> _complete(SubscriptionComplete event) async* {
-    assert(
-      _currentState is SubscriptionListeningState,
-      'State should always be listening when completed.',
-    );
-    yield (_currentState as SubscriptionListeningState<T>).complete();
+    yield _currentState.complete();
     await close();
   }
 

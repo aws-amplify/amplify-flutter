@@ -401,6 +401,18 @@ class NativeApiPlugin {
       completion()
     }
   }
+  func deviceOffline(completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.deviceOffline", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { _ in
+      completion()
+    }
+  }
+  func onStop(completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.onStop", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { _ in
+      completion()
+    }
+  }
 }
 /// Bridge for calling Amplify from Flutter into Native
 ///
