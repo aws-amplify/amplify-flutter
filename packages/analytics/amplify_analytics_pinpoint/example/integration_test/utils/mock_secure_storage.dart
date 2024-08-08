@@ -18,8 +18,7 @@ SecureStorageInterface setupAndCreateMockPersistedSecuredStorage({
 }) {
   final json = jsonDecode(amplifyConfig) as Map;
   final amplifyconfig = AmplifyOutputs.fromJson(json.cast());
-  final pinpointAppId =
-      amplifyconfig.analytics!.amazonPinpoint!.appId;
+  final pinpointAppId = amplifyconfig.analytics!.amazonPinpoint!.appId;
   // final main = amplifyEnvironments['main']!;
   // final environment = jsonDecode(main);
   // final pinpointAppId = environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
