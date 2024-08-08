@@ -41,6 +41,10 @@ abstract class NativeApiPlugin {
 
   @async
   void unsubscribe(String subscriptionId);
+
+
+  @async
+  void onStop();
 }
 
 /// Bridge for calling Amplify from Flutter into Native
