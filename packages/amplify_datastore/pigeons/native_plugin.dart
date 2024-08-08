@@ -42,7 +42,6 @@ abstract class NativeApiPlugin {
   @async
   void unsubscribe(String subscriptionId);
 
-
   @async
   void onStop();
 }

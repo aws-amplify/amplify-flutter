@@ -376,9 +376,9 @@ class NativeAmplifyApi
     }
   }
 
-
-  // Amplify.DataStore.Stop() callback
-  // Clean up subscriptions on stop.
+  /// Amplify.DataStore.Stop() callback
+  ///
+  /// Clean up subscriptions on stop.
   @override
   Future<void> onStop() async {
     _subscriptionsCache.forEach((subId, _) async {
