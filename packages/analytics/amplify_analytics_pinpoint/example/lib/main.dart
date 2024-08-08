@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
     await Amplify.Analytics.registerGlobalProperties(
       globalProperties: properties,
     );
-    print('registered global properties: $_globalProp');
+    safePrint('registered global properties: $_globalProp');
   }
 
   void _unregisterGlobalProperties() async {
