@@ -376,6 +376,30 @@ class NativeAmplifyApi
     }
   }
 
+  @override
+  Future<void> deviceOffline() async {
+    await notifySubscriptionsDisconnected();
+  }
+
+  Future<void> notifySubscriptionsDisconnected() async {
+    _subscriptionsCache.forEach((subId, _) async {
+      // Send Swift subscriptions an expected error message when network was lost.
+      // Swift side is expecting this string to transform into the correct error type.
+      // This will cause the Sync Engine to stop and in order to recover it later we must
+      // unsubscribe and close the websocket.
+      GraphQLResponseError error = GraphQLResponseError(
+        message: 'FlutterNetworkException - Network disconnected',
+      );
+      sendSubscriptionStreamErrorEvent(subId, error.toJson());
+      // Note: the websocket will still be closing after this line.
+      // There may be a small delay in sync engine recovery if turned back on
+      // within ~60 seconds. This is due to the reconnection logic doing a retry/backoff.
+      // TODO(equartey): To decrease the delay, expose some way to shutdown the web socket
+      // w/o going through the reconnection logic.
+      await unsubscribe(subId);
+    });
+  }
+
   /// Amplify.DataStore.Stop() callback
   ///
   /// Clean up subscriptions on stop.

@@ -10,6 +10,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     private let nativeSubscriptionEvents: PassthroughSubject<NativeGraphQLSubscriptionResponse, Never>
     private var cancellables = AtomicDictionary<AnyCancellable, Void>()
     private var endpoints: [String: String]
+    private var networkMonitor: AmplifyNetworkMonitor
 
     init(
         apiAuthProviderFactory: APIAuthProviderFactory,
@@ -21,6 +22,7 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         self.nativeApiPlugin = nativeApiPlugin
         self.nativeSubscriptionEvents = subscriptionEventBus
         self.endpoints = endpoints
+        self.networkMonitor = AmplifyNetworkMonitor()
     }
     
     public func defaultAuthType() throws -> AWSAuthorizationType {
@@ -122,6 +124,11 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
                    errors.contains(where: self.isUnauthorizedError(graphQLError:)) {
                     return Fail(error: APIError.operationError("Unauthorized", "", nil)).eraseToAnyPublisher()
                 }
+                if case .data(.failure(let graphQLResponseError)) = event,
+                   case .error(let errors) = graphQLResponseError,
+                   errors.contains(where: self.isFlutterNetworkError(graphQLError:)){
+                    return Fail(error: APIError.networkError("FlutterNetworkException", nil, URLError(.networkConnectionLost))).eraseToAnyPublisher()
+                }
                 return Just(event).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -182,6 +189,13 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         }
         return errorTypeValue == "Unauthorized"
     }
+    
+    private func isFlutterNetworkError(graphQLError: GraphQLError) -> Bool {
+        guard case let .string(errorTypeValue) = graphQLError.extensions?["errorType"] else {
+            return false
+        }
+        return errorTypeValue == "FlutterNetworkException"
+    }
 
     func asyncQuery(nativeRequest: NativeGraphQLRequest) async -> NativeGraphQLResponse {
         await withCheckedContinuation { continuation in
@@ -237,13 +251,30 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
         preconditionFailure("method not supported")
     }
     
+    private var cancellable: AnyCancellable?
+    
     public func reachabilityPublisher(for apiName: String?) throws -> AnyPublisher<ReachabilityUpdate, Never>? {
-        preconditionFailure("method not supported")
+        let reachabilityUpdates = PassthroughSubject<ReachabilityUpdate, Never>()
+        
+        // Listen to network events and send a notification to Flutter side when disconnected.
+        // This enables Flutter to clean up the websocket/subscriptions.
+        cancellable = networkMonitor.publisher.sink(receiveValue: {event in
+            switch event {
+                case (.offline, .online):
+                reachabilityUpdates.send(ReachabilityUpdate(isOnline: true))
+                case (.online, .offline):
+                reachabilityUpdates.send(ReachabilityUpdate(isOnline: false))
+                DispatchQueue.main.async {
+                    self.nativeApiPlugin.deviceOffline {}
+                }
+                default:
+                    break
+            }
+        })
+        return reachabilityUpdates.eraseToAnyPublisher()
     }
     
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {
-        return nil
+        return try reachabilityPublisher(for: nil)
     }
-    
-
 }
