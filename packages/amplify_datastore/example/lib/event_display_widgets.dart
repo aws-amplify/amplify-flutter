@@ -56,3 +56,21 @@ Widget getWidgetToDisplayCommentEvents(ScrollController scrollController,
             );
           }));
 }
+
+Widget getWidgetToDisplayAuthTodoEvents(ScrollController scrollController,
+    List<String> streamingData, Future<void> Function() executeAfterBuild) {
+  return SizedBox(
+      height: 100,
+      child: ListView.builder(
+          controller: scrollController,
+          shrinkWrap: true,
+          reverse: true,
+          itemCount: streamingData.length,
+          itemBuilder: (BuildContext context, int index) {
+            executeAfterBuild();
+            return Container(
+              margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+              child: Text(streamingData[index]),
+            );
+          }));
+}
