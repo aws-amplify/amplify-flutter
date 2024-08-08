@@ -26,7 +26,7 @@ void main() {
   late SecureStorageInterface secureStorage;
   late HostedUiPlatform platform;
   late DependencyManager dependencyManager;
-  final keys = HostedUiKeys(hostedUiConfig);
+  final keys = HostedUiKeys(hostedUiConfig.appClientId);
 
   AWSLogger().logLevel = LogLevel.verbose;
 
