@@ -554,7 +554,7 @@ class _AuthenticatorState extends State<Authenticator> {
     final resolver = widget.stringResolver.messages;
     _infoSub = _stateMachineBloc.infoMessages.listen((key) {
       final context = scaffoldMessengerKey.currentContext;
-      if (mounted && context != null) {
+      if (context != null && context.mounted) {
         final message = resolver.resolve(context, key);
         _logger.info(message);
         _showExceptionBanner(
@@ -821,6 +821,8 @@ class _AuthenticatorBody extends StatelessWidget {
       builder: (state, child) {
         if (state is AuthenticatedState) return child;
         return Navigator(
+          // TODO(hahnand): onPopupPage to use onDidRemovePage
+          // ignore: deprecated_member_use
           onPopPage: (_, dynamic __) => true,
           pages: [
             MaterialPage<void>(

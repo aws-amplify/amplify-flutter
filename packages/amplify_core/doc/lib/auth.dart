@@ -483,6 +483,17 @@ Future<void> forgetSpecificDevice(AuthDevice myDevice) async {
 }
 // #enddocregion forget-specific-device
 
+// #docregion fetch-current-device
+Future<void> fetchCurrentDevice() async {
+  try {
+    final device = await Amplify.Auth.fetchCurrentDevice();
+    safePrint('Device: $device');
+  } on AuthException catch (e) {
+    safePrint('Fetch current device failed with error: $e');
+  }
+}
+// #enddocregion fetch-current-device
+
 // #docregion fetch-devices
 Future<void> fetchAllDevices() async {
   try {
