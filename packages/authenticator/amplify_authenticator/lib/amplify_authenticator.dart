@@ -821,6 +821,8 @@ class _AuthenticatorBody extends StatelessWidget {
       builder: (state, child) {
         if (state is AuthenticatedState) return child;
         return Navigator(
+          // TODO(hahnand): onPopupPage to use onDidRemovePage
+          // ignore: deprecated_member_use
           onPopPage: (_, dynamic __) => true,
           pages: [
             MaterialPage<void>(
