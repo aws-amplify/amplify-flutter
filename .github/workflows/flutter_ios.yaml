@@ -64,8 +64,9 @@ jobs:
           xcodebuild \
               -workspace Runner.xcworkspace \
               -scheme Runner \
-              -destination "$XCODEBUILD_DESTINATION" | xcpretty \
-              clean test
+              -destination "$XCODEBUILD_DESTINATION" \ 
+              clean test | xcpretty \
+
         working-directory: ${{ inputs.example-directory }}/ios
 
       - name: Log success/failure
