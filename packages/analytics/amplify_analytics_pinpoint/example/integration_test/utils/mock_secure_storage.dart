@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: avoid_dynamic_calls
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -18,7 +20,6 @@ SecureStorageInterface setupAndCreateMockPersistedSecuredStorage({
 }) {
   final main = amplifyEnvironments['main']!;
   final environment = jsonDecode(main) as Map;
-  // ignore: avoid_dynamic_calls
   final pinpointAppId =
       environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
 
