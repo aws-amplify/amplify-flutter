@@ -375,4 +375,14 @@ class NativeAmplifyApi
       _subscriptionsCache.remove(subscriptionId);
     }
   }
+
+  /// Amplify.DataStore.Stop() callback
+  ///
+  /// Clean up subscriptions on stop.
+  @override
+  Future<void> onStop() async {
+    _subscriptionsCache.forEach((subId, _) async {
+      await unsubscribe(subId);
+    });
+  }
 }

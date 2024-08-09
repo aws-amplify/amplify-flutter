@@ -60,11 +60,12 @@ jobs:
         if: inputs.has-native-tests
         run: |
           set -o pipefail
-          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
-          xcodebuild test \
+          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 15 Pro Max,OS=latest"
+          xcodebuild clean test \
               -workspace Runner.xcworkspace \
               -scheme Runner \
               -destination "$XCODEBUILD_DESTINATION" | xcpretty
+
         working-directory: ${{ inputs.example-directory }}/ios
 
       - name: Log success/failure

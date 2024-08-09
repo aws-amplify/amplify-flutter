@@ -612,6 +612,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                         error: error,
                         flutterResult: flutterResult)
                 case .success():
+                    DispatchQueue.main.async {
+                        self.nativeApiPlugin.onStop {}
+                    }
                     print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
