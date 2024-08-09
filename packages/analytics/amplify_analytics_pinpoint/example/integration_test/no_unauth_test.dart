@@ -4,7 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_analytics_pinpoint_example/amplifyconfiguration.dart';
+import 'package:amplify_analytics_pinpoint_example/amplify_outputs.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

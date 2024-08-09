@@ -71,6 +71,27 @@ const List<AmplifyBackendGroup> infraConfig = [
       ),
     ],
   ),
+  AmplifyBackendGroup(
+    category: Category.analytics,
+    defaultOutput: 'packages/analytics/amplify_analytics_pinpoint/example/lib',
+    backends: [
+      AmplifyBackend(
+        name: 'main',
+        identifier: 'main',
+        pathToSource: 'infra-gen2/backends/analytics/main',
+      ),
+      AmplifyBackend(
+        name: 'no-unauth-access',
+        identifier: 'no-unauth-acc',
+        pathToSource: 'infra-gen2/backends/analytics/no-unauth-access',
+      ),
+      AmplifyBackend(
+        name: 'no-unauth-identities',
+        identifier: 'no-unauth-id',
+        pathToSource: 'infra-gen2/backends/analytics/no-unauth-identities',
+      ),
+    ],
+  ),
 ];
 
 const pathToBackends = 'infra-gen2/backends';
