@@ -19,7 +19,8 @@ SecureStorageInterface setupAndCreateMockPersistedSecuredStorage({
   final main = amplifyEnvironments['main']!;
   final environment = jsonDecode(main) as Map;
   // ignore: avoid_dynamic_calls
-  final pinpointAppId = environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
+  final pinpointAppId =
+      environment['analytics']?['amazon_pinpoint']?['app_id'] as String;
 
   final storage = _MockSecureStorage();
 
