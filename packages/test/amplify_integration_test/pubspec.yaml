@@ -15,7 +15,7 @@ dependencies:
   aws_common: any
   aws_signature_v4: any
   built_collection: ^5.0.0
-  built_value: ^8.6.0
+  built_value: ^8.9.2
   collection: ^1.15.0
   meta: ^1.8.0
   smithy: any
@@ -24,6 +24,6 @@ dependencies:
   test: ^1.22.1
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: ^3.1.0
   build_runner: ^2.4.0
-  built_value_generator: 8.8.1
+  built_value_generator: 8.9.2
