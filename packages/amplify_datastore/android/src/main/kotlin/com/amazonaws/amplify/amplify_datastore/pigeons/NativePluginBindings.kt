@@ -387,6 +387,12 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
       callback()
     }
   }
+  fun onStop(callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.amplify_datastore.NativeApiPlugin.onStop", codec)
+    channel.send(null) {
+      callback()
+    }
+  }
 }
 /**
  * Bridge for calling Amplify from Flutter into Native
