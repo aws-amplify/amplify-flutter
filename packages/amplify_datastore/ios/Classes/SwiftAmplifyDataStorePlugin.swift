@@ -234,6 +234,9 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             onStart(flutterResult: result)
         case "stop":
             onStop(flutterResult: result)
+            DispatchQueue.main.async {
+                self.nativeApiPlugin.onStop {}
+            }
         default:
             result(FlutterMethodNotImplemented)
         }
