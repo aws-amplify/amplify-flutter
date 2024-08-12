@@ -98,7 +98,11 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   }
 
   @override
-  Uri get signInRedirectUri => config.signInRedirectUris.firstWhere(
+  Uri get signInRedirectUri => authOutputs.oauth!.redirectSignInUri
+      .map(
+        Uri.parse,
+      )
+      .firstWhere(
         (uri) =>
             uri.scheme == 'http' &&
             (uri.host == 'localhost' || uri.host == '127.0.0.1'),
@@ -106,7 +110,11 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
       );
 
   @override
-  Uri get signOutRedirectUri => config.signOutRedirectUris.firstWhere(
+  Uri get signOutRedirectUri => authOutputs.oauth!.redirectSignOutUri
+      .map(
+        Uri.parse,
+      )
+      .firstWhere(
         (uri) =>
             uri.scheme == 'http' &&
             (uri.host == 'localhost' || uri.host == '127.0.0.1'),
@@ -202,11 +210,15 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
-    final signInUris = config.signInRedirectUris.where(
-      (uri) =>
-          uri.scheme == 'http' &&
-          (uri.host == 'localhost' || uri.host == '127.0.0.1'),
-    );
+    final signInUris = authOutputs.oauth!.redirectSignInUri
+        .map(
+          Uri.parse,
+        )
+        .where(
+          (uri) =>
+              uri.scheme == 'http' &&
+              (uri.host == 'localhost' || uri.host == '127.0.0.1'),
+        );
     if (signInUris.isEmpty) {
       _noSuitableRedirect(signIn: true);
     }
@@ -274,11 +286,15 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   Future<void> signOut({
     required CognitoSignInWithWebUIPluginOptions options,
   }) async {
-    final signOutUris = config.signOutRedirectUris.where(
-      (uri) =>
-          uri.scheme == 'http' &&
-          (uri.host == 'localhost' || uri.host == '127.0.0.1'),
-    );
+    final signOutUris = authOutputs.oauth!.redirectSignOutUri
+        .map(
+          Uri.parse,
+        )
+        .where(
+          (uri) =>
+              uri.scheme == 'http' &&
+              (uri.host == 'localhost' || uri.host == '127.0.0.1'),
+        );
     if (signOutUris.isEmpty) {
       _noSuitableRedirect(signIn: false);
     }
