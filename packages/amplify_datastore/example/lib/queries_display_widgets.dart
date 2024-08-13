@@ -183,21 +183,27 @@ Widget displaySyncButtons() {
       width: 5,
     ),
     ElevatedButton.icon(
-        onPressed: () {
-          Amplify.DataStore.start();
-        },
-        label: Icon(Icons.play_arrow)),
+      onPressed: () {
+        Amplify.DataStore.start();
+      },
+      icon: Icon(Icons.play_arrow),
+      label: const Text("Start"),
+    ),
     divider,
     ElevatedButton.icon(
-        onPressed: () {
-          Amplify.DataStore.stop();
-        },
-        label: Icon(Icons.stop)),
+      onPressed: () {
+        Amplify.DataStore.stop();
+      },
+      icon: Icon(Icons.stop),
+      label: const Text("Stop"),
+    ),
     divider,
     ElevatedButton.icon(
-        onPressed: () {
-          Amplify.DataStore.clear();
-        },
-        label: Icon(Icons.delete_sweep)),
+      onPressed: () {
+        Amplify.DataStore.clear();
+      },
+      icon: Icon(Icons.delete_sweep),
+      label: const Text("Clear"),
+    ),
   ]);
 }
