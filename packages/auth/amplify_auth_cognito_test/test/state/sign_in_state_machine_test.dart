@@ -186,7 +186,7 @@ void main() {
               ),
           completion(isA<Configured>()),
         );
-        deviceRepo = DeviceMetadataRepository(userPoolConfig, secureStorage);
+        deviceRepo = DeviceMetadataRepository(mockConfig.auth!, secureStorage);
         stateMachine.addInstance<DeviceMetadataRepository>(deviceRepo);
       });
 
