@@ -5,7 +5,7 @@ import Flutter
 import UIKit
 import Combine
 
-public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {    
+public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
     private let bridge: DataStoreBridge
     private let modelSchemaRegistry: FlutterSchemaRegistry
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
@@ -613,9 +613,6 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
                         error: error,
                         flutterResult: flutterResult)
                 case .success():
-                    DispatchQueue.main.async {
-                        self.nativeApiPlugin.onStop {}
-                    }
                     print("Successfully stopped datastore cloud syncing")
                     flutterResult(nil)
                 }
