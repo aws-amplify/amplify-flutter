@@ -268,16 +268,18 @@ public class FlutterApiPlugin: APICategoryPlugin, AWSAPIAuthInformation
     }
         
     public func reachabilityPublisher(for apiName: String?) throws -> AnyPublisher<ReachabilityUpdate, Never>? {
-        return networkMonitor.publisher.compactMap( { event in
-            switch event {
-                case (.offline, .online):
-                    return ReachabilityUpdate(isOnline: true)
-                case (.online, .offline):
-                    return ReachabilityUpdate(isOnline: false)
-                default:
-                    return nil
-            }
-        }).eraseToAnyPublisher()
+        return networkMonitor.publisher
+                .compactMap { event in
+                    switch event {
+                    case (.offline, .online):
+                        return ReachabilityUpdate(isOnline: true)
+                    case (.online, .offline):
+                        return ReachabilityUpdate(isOnline: false)
+                    default:
+                        return nil
+                    }
+                }
+                .eraseToAnyPublisher()
     }
     
     public func reachabilityPublisher() throws -> AnyPublisher<ReachabilityUpdate, Never>? {

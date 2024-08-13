@@ -142,7 +142,7 @@ extension GraphQLResponse {
             )
         }
         
-        if error.message?.stringValue?.contains("FlutterNetworkException") == true {
+        if error.message?.stringValue?.contains("NetworkException") == true {
             extensions = extensions.merging(
                 ["errorType": "FlutterNetworkException"],
                 uniquingKeysWith: { _, a in a }

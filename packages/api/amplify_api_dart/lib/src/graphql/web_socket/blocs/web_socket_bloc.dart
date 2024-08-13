@@ -53,8 +53,10 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     add(const InitEvent());
   }
 
+  final blocId = uuid();
+
   @override
-  String get runtimeTypeName => 'WebSocketBloc';
+  String get runtimeTypeName => 'WebSocketBloc - $blocId';
 
   /// Default timeout response for polling
   static const Duration _pollResponseTimeout = Duration(seconds: 5);
@@ -221,8 +223,11 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       () => _timeout(timeoutDuration),
     );
 
-    final pollTimer =
-        Timer.periodic(_currentState.options.pollInterval, (_) => _poll());
+    final pollTimer = Timer.periodic(
+      _currentState.options.pollInterval,
+      // ignore: invalid_use_of_internal_member
+      (_) => WebSocketOptions.autoReconnect ? _poll() : () {},
+    );
 
     final connectedState = (_currentState as ConnectingState).connected(
       timeoutTimer,
@@ -474,13 +479,28 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Connectivity stream monitors network availability on a hardware level.
   StreamSubscription<ConnectivityStatus> _getConnectivityStream() {
+    var prev = ConnectivityStatus.disconnected;
     return _connectivity.onConnectivityChanged.listen(
       (status) {
-        if (status == ConnectivityStatus.connected) {
+        // ignore: invalid_use_of_internal_member
+        if (!WebSocketOptions.autoReconnect) {
+          // shutdown the socket when autoReconnect is turned off
+          if (status == ConnectivityStatus.disconnected &&
+              prev == ConnectivityStatus.connected) {
+            _shutdownWithException(
+              const NetworkException(
+                'Unable to recover network connection, web socket will close.',
+                recoverySuggestion: 'Check internet connection.',
+              ),
+              StackTrace.current,
+            );
+          }
+        } else if (status == ConnectivityStatus.connected) {
           add(const NetworkFoundEvent());
         } else if (status == ConnectivityStatus.disconnected) {
           add(const NetworkLossEvent());
         }
+        prev = status;
       },
       onError: (Object e, StackTrace st) =>
           logger.error('Error in connectivity stream $e, $st'),

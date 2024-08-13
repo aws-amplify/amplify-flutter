@@ -318,7 +318,8 @@ class _MyAppState extends State<MyApp> {
             displayQueryButtons(
                 _isAmplifyConfigured, _queriesToView, updateQueriesToView),
 
-displaySyncButtons(),
+            // Start/Stop/Clear buttons
+            displaySyncButtons(),
 
             Padding(padding: EdgeInsets.all(5.0)),
             Text("Listen to DataStore Hub"),

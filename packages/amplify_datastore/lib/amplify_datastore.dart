@@ -350,7 +350,9 @@ class NativeAmplifyApi
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
     final flutterRequest = nativeRequestToGraphQLRequest(request);
-
+    // Turn off then default reconnection behavior to allow native side to trigger reconnect
+    // ignore: invalid_use_of_internal_member
+    WebSocketOptions.autoReconnect = false;
     final operation = Amplify.API.subscribe(flutterRequest,
         onEstablished: () => sendNativeStartAckEvent(flutterRequest.id));
 
@@ -382,7 +384,7 @@ class NativeAmplifyApi
   }
 
   Future<void> notifySubscriptionsDisconnected() async {
-    _subscriptionsCache.forEach((subId, _) async {
+    _subscriptionsCache.forEach((subId, stream) async {
       // Send Swift subscriptions an expected error message when network was lost.
       // Swift side is expecting this string to transform into the correct error type.
       // This will cause the Sync Engine to stop and in order to recover it later we must
@@ -397,6 +399,7 @@ class NativeAmplifyApi
       // TODO(equartey): To decrease the delay, expose some way to shutdown the web socket
       // w/o going through the reconnection logic.
       await unsubscribe(subId);
+      await stream.cancel();
     });
   }
 
