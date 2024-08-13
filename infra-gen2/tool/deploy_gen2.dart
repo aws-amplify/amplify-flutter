@@ -53,6 +53,16 @@ const List<AmplifyBackendGroup> infraConfig = [
         identifier: 'phone-sign-in',
         pathToSource: 'infra-gen2/backends/auth/phone-sign-in',
       ),
+      AmplifyBackend(
+        name: 'mfa-optional-sms',
+        identifier: 'mfa-opt-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-optional-sms',
+      ),
+      AmplifyBackend(
+        name: 'mfa-required-sms',
+        identifier: 'mfa-req-sms',
+        pathToSource: 'infra-gen2/backends/auth/mfa-required-sms',
+      ),
     ],
   ),
   AmplifyBackendGroup(
