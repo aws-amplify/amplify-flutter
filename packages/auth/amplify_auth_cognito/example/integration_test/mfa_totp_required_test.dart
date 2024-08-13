@@ -14,9 +14,9 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (TOTP)', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredTotp, () {
+    testRunner.withEnvironment(mfaRequiredTotp, (env) {
       asyncTest('can sign in with TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         await adminCreateUser(

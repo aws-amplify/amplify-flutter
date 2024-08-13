@@ -84,7 +84,7 @@ void main() {
       );
     }
 
-    testRunner.withEnvironment(MfaEnvironment.mfaOptionalTotp, () {
+    testRunner.withEnvironment(mfaOptionalTotp, (env) {
       group('can sign in with TOTP MFA', () {
         asyncTest(
           'w/ no device name',
@@ -96,7 +96,7 @@ void main() {
         );
 
         asyncTest('verifyTotpSetup allows retries', (_) async {
-          final username = generateUsername();
+          final username = env.generateUsername();
           final password = generatePassword();
 
           await adminCreateUser(

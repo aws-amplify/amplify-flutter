@@ -33,12 +33,7 @@ void main() {
             autoConfirm: true,
             verifyAttributes: true,
             autoFillAttributes: environment.loginMethod.isUsername,
-            // email/phone attributes must be provided for auto verification.
-            attributes: switch (environment.loginMethod) {
-              LoginMethod.email => {AuthUserAttributeKey.email: username},
-              LoginMethod.phone => {AuthUserAttributeKey.phoneNumber: username},
-              _ => {},
-            },
+            attributes: environment.getDefaultAttributes(username),
           );
 
           await Amplify.Auth.signIn(
