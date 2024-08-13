@@ -6,7 +6,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-import 'amplifyconfiguration.dart';
+import 'amplify_outputs.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
     ]);
 
     try {
-      await Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyConfig);
       setState(() {
         _amplifyConfigured = true;
       });
@@ -98,6 +98,7 @@ class _MyAppState extends State<MyApp> {
     await Amplify.Analytics.registerGlobalProperties(
       globalProperties: properties,
     );
+    safePrint('registered global properties: $_globalProp');
   }
 
   void _unregisterGlobalProperties() async {
