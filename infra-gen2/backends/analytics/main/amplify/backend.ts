@@ -2,8 +2,6 @@ import { defineBackend } from "@aws-amplify/backend";
 import { addAnalyticsExtensions } from "infra-common";
 import { auth } from "./auth/resource";
 
-// const __dirname = path.resolve();
-
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
