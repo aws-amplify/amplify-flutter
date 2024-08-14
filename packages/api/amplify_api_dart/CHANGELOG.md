@@ -1,3 +1,11 @@
+## 0.5.4
+
+### Fixes
+- fix(datastore): Restart Sync Engine when network on/off ([#5218](https://github.com/aws-amplify/amplify-flutter/pull/5218))
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.5.3
 
 - Minor bug fixes and improvements

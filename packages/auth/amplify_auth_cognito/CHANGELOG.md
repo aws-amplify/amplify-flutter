@@ -1,3 +1,8 @@
+## 2.4.0
+
+### Features
+- feat(Auth): Add fetchCurrentDevice API ([#5251](https://github.com/aws-amplify/amplify-flutter/pull/5251))
+
 ## 2.3.0
 
 - Minor bug fixes and improvements

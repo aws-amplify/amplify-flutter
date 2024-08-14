@@ -1,3 +1,9 @@
+## 2.1.2
+
+### Fixes
+- fix(authenticator): Export InstructionsResolver ([#5169](https://github.com/aws-amplify/amplify-flutter/pull/5169))
+- Minor bug fixes and improvements
+
 ## 2.1.1
 
 - Minor bug fixes and improvements
