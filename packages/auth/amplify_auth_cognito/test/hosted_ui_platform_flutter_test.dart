@@ -26,7 +26,7 @@ void main() {
     setUp(() async {
       secureStorage = MockSecureStorage();
       dependencyManager = DependencyManager()
-        ..addInstance(hostedUiConfig)
+        ..addInstance(mockConfig.auth!)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<NativeAuthBridge>(ThrowingNativeBridge());
       plugin = AmplifyAuthCognito()

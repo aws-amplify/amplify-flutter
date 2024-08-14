@@ -135,14 +135,12 @@ void main() {
         );
         dependencyManager
           ..addInstance(client)
-          ..addInstance(mockConfig)
-          ..addInstance(hostedUiConfig)
+          ..addInstance(mockConfig.auth!)
           ..addInstance<Dispatcher<AuthEvent, AuthState>>(dispatcher);
         final hostedUiPlatform = MockHostedUiPlatform(dependencyManager);
 
         final redirect = Uri.parse(
-          hostedUiConfig.signInRedirectUri
-              .split(',')
+          mockConfig.auth!.oauth!.redirectSignInUri
               .firstWhere((uri) => uri.contains('localhost')),
         );
         expect(hostedUiPlatform.signInRedirectUri, redirect);

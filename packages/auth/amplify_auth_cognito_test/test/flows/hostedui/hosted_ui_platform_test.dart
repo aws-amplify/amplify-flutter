@@ -26,7 +26,7 @@ void main() {
   late SecureStorageInterface secureStorage;
   late HostedUiPlatform platform;
   late DependencyManager dependencyManager;
-  final keys = HostedUiKeys(hostedUiConfig.appClientId);
+  final keys = HostedUiKeys(mockConfig.auth!.userPoolClientId!);
 
   AWSLogger().logLevel = LogLevel.verbose;
 
@@ -35,7 +35,7 @@ void main() {
       server = MockOAuthServer();
       secureStorage = MockSecureStorage();
       dependencyManager = DependencyManager()
-        ..addInstance(hostedUiConfig)
+        ..addInstance(mockConfig.auth!)
         ..addInstance<SecureStorageInterface>(secureStorage)
         ..addInstance<http.Client>(server.httpClient)
         ..addInstance<Dispatcher<AuthEvent, AuthState>>(const MockDispatcher());
@@ -69,7 +69,8 @@ void main() {
       test('missing state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(hostedUiConfig.signInRedirectUri),
+            redirectUri:
+                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
           ),
         );
 
@@ -86,7 +87,8 @@ void main() {
       test('mismatched state throws', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(hostedUiConfig.signInRedirectUri),
+            redirectUri:
+                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
           ),
         );
 
@@ -105,7 +107,8 @@ void main() {
       test('succeeds', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
-            redirectUri: Uri.parse(hostedUiConfig.signInRedirectUri),
+            redirectUri:
+                Uri.parse(mockConfig.auth!.oauth!.redirectSignInUri.first),
           ),
         );
 
