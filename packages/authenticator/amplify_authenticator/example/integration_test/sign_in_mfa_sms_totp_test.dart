@@ -14,10 +14,10 @@ void main() {
   testRunner.setupTests();
 
   group('sign-in-sms-totp-mfa', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaRequiredSmsTotp, () {
+    testRunner.withEnvironment(mfaRequiredSmsTotp, (env) {
       // Scenario: Sign in using a totp code when both SMS and TOTP are enabled
       testWidgets('can select TOTP MFA', (tester) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
 
@@ -121,7 +121,7 @@ void main() {
 
       // Scenario: Sign in using a SMS code when both SMS and TOTP are enabled
       testWidgets('can select SMS MFA', (tester) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generateUSPhoneNumber();
 
