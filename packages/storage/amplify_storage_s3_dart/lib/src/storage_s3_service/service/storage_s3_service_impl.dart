@@ -140,8 +140,9 @@ class StorageS3Service {
           ..prefix = resolvedPath
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter =
-              s3Category.excludeSubPaths ? s3Category.delimiter : null;
+          ..delimiter = subpathStrategy.excludeSubpaths
+              ? subpathStrategy.delimiter
+              : null;
       });
 
       try {
@@ -164,8 +165,9 @@ class StorageS3Service {
         builder
           ..bucket = _storageOutputs.bucketName
           ..prefix = resolvedPath
-          ..delimiter =
-              s3Category.excludeSubPaths ? s3Category.delimiter : null;
+          ..delimiter = subpathStrategy.excludeSubpaths
+              ? subpathStrategy.delimiter
+              : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;
