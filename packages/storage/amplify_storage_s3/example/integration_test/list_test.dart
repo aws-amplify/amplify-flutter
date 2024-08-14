@@ -84,8 +84,8 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.excludedSubpaths?.length, 1);
-            expect(listResult.excludedSubpaths?.first, '$uniquePrefix/subdir/');
+            expect(listResult.excludedSubpaths.length, 1);
+            expect(listResult.excludedSubpaths.first, '$uniquePrefix/subdir/');
             expect(listResult.metadata.delimiter, '/');
           });
 
@@ -101,9 +101,9 @@ void main() {
             expect(listResult.items.length, 3);
             expect(listResult.items.first.path, contains('file1.txt'));
 
-            expect(listResult.excludedSubpaths?.length, 1);
+            expect(listResult.excludedSubpaths.length, 1);
             expect(
-              listResult.excludedSubpaths?.first,
+              listResult.excludedSubpaths.first,
               '$uniquePrefix/subdir2#',
             );
             expect(listResult.metadata.delimiter, '#');
