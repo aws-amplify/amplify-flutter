@@ -307,7 +307,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     }
     await stateMachine.acceptAndComplete(
       CredentialStoreEvent.clearCredentials(
-        CognitoIdentityPoolKeys(identityPoolConfig),
+        CognitoIdentityPoolKeys(identityPoolConfig.poolId),
       ),
     );
   }

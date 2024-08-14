@@ -70,7 +70,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
-  final keys = HostedUiKeys(hostedUiConfig);
+  final keys = HostedUiKeys(hostedUiConfig.appClientId);
 
   group('HostedUiStateMachine', () {
     late MockOAuthServer server;

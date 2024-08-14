@@ -42,7 +42,7 @@ final class SdkManager {
 
   /// The current `compileSdk` used by the repo.
   // TODO(dnys1): Extract from aft.yaml?
-  static const compileSdk = 33;
+  static const compileSdk = 34;
 
   /// The install directory for cmdline-tools.
   ///
@@ -79,7 +79,7 @@ final class SdkManager {
   /// Latest version of the cmdline-tools
   ///
   /// From: https://developer.android.com/studio#command-line-tools-only
-  static const _latestCmdlineToolsVersion = '10406996';
+  static const _latestCmdlineToolsVersion = '11076708';
 
   /// Installs the latest version of cmdline-tools if not already available.
   Future<void> _ensureCmdlineTools() async =>

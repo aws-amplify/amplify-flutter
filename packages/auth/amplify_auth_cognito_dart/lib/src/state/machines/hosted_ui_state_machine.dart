@@ -11,6 +11,8 @@ import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 /// {@template amplify_auth_cognito.hosted_ui_state_machine}
@@ -31,15 +33,19 @@ final class HostedUiStateMachine
   @override
   String get runtimeTypeName => 'HostedUiStateMachine';
 
-  CognitoOAuthConfig get _config => expect();
-  HostedUiKeys get _keys => HostedUiKeys(_config);
+  AuthOutputs get _authOutputs {
+    final authOutputs = get<AuthOutputs>();
+    if (authOutputs?.oauth == null || authOutputs?.userPoolClientId == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return authOutputs!;
+  }
+
+  HostedUiKeys get _keys => HostedUiKeys(_authOutputs.userPoolClientId!);
   SecureStorageInterface get _secureStorage => getOrCreate();
 
   /// The platform-specific behavior.
   HostedUiPlatform get _platform => getOrCreate();
-
-  /// The configured identity pool.
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
 
   @override
   Future<void> resolve(HostedUiEvent event) async {
@@ -192,9 +198,9 @@ final class HostedUiStateMachine
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
-    if (_identityPoolConfig != null) {
+    if (_authOutputs.identityPoolId != null) {
       await manager.clearCredentials(
-        CognitoIdentityPoolKeys(_identityPoolConfig!),
+        CognitoIdentityPoolKeys(_authOutputs.identityPoolId!),
       );
 
       await manager.loadSession();

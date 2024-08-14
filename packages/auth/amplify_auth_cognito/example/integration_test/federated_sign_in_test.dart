@@ -145,7 +145,7 @@ void main() {
       // Clear but do not sign out so that tokens are still valid.
       // ignore: invalid_use_of_protected_member
       await cognitoPlugin.stateMachine.clearCredentials(
-        CognitoUserPoolKeys(userPoolConfig),
+        CognitoUserPoolKeys(userPoolConfig.appClientId),
       );
 
       final session = await cognitoPlugin.federateToIdentityPool(

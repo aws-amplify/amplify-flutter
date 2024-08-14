@@ -23,8 +23,8 @@ void main() {
   final authConfig = AuthConfiguration.fromAmplifyOutputs(mockConfig);
   final userPoolConfig = authConfig.userPoolConfig!;
   final identityPoolConfig = authConfig.identityPoolConfig!;
-  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig);
+  final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
+  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
