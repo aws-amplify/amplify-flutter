@@ -13,9 +13,9 @@ void main() {
   testRunner.setupTests();
 
   group('MFA (SMS + TOTP)', () {
-    testRunner.withEnvironment(MfaEnvironment.mfaOptionalSmsTotp, () {
+    testRunner.withEnvironment(mfaOptionalSmsTotp, (env) {
       asyncTest('can set up TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
 
         // Create user with no phone number.
@@ -87,7 +87,7 @@ void main() {
       });
 
       asyncTest('can select TOTP MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generatePhoneNumber();
 
@@ -289,7 +289,7 @@ void main() {
       });
 
       asyncTest('can select SMS MFA', (_) async {
-        final username = generateUsername();
+        final username = env.generateUsername();
         final password = generatePassword();
         final phoneNumber = generatePhoneNumber();
 
