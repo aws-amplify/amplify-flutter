@@ -1,6 +1,6 @@
 name: amplify_secure_storage_dart
 description: A Dart-only implementation of `amplify_secure_storage`, using `dart:ffi` for Desktop and `dart:html` for Web.
-version: 0.5.1
+version: 0.5.2
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/secure_storage/amplify_secure_storage_dart
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -21,7 +21,7 @@ platforms:
 
 dependencies:
   async: ^2.10.0
-  aws_common: ">=0.7.1 <0.8.0"
+  aws_common: ">=0.7.2 <0.8.0"
   built_collection: ^5.0.0
   built_value: ^8.6.0
   ffi: ^2.0.0
@@ -30,7 +30,7 @@ dependencies:
   meta: ^1.7.0
   path: ">=1.8.0 <2.0.0"
   win32: ">=4.1.2 <6.0.0"
-  worker_bee: ">=0.3.1 <0.4.0"
+  worker_bee: ">=0.3.2 <0.4.0"
 
 dev_dependencies:
   amplify_lints: ">=3.1.0 <3.2.0"
