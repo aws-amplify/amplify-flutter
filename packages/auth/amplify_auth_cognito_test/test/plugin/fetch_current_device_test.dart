@@ -15,7 +15,8 @@ void main() {
   AmplifyLogger().logLevel = LogLevel.verbose;
 
   final userPoolKeys = CognitoUserPoolKeys(userPoolConfig.appClientId);
-  final identityPoolKeys = CognitoIdentityPoolKeys(identityPoolConfig.poolId);
+  final identityPoolKeys =
+      CognitoIdentityPoolKeys(mockConfig.auth!.identityPoolId!);
   final testAuthRepo = AmplifyAuthProviderRepository();
   final mockDevice = DeviceType(deviceKey: deviceKey);
   final mockDeviceResponse = GetDeviceResponse(device: mockDevice);
