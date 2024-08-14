@@ -240,6 +240,45 @@ void main() {
         await expectLater(Amplify.Auth.rememberDevice(), completes);
       });
 
+      asyncTest('fetchCurrentDevice returns the current device', (_) async {
+        await expectLater(Amplify.Auth.fetchCurrentDevice(), completes);
+        final currentTestDevice = await Amplify.Auth.fetchCurrentDevice();
+        final currentDeviceKey = await getDeviceKey();
+        expect(currentDeviceKey, currentTestDevice.id);
+      });
+
+      asyncTest(
+          'The device from fetchCurrentDevice isnt equal to another device.',
+          (_) async {
+        final previousDeviceKey = await getDeviceKey();
+        await signOutUser();
+        await deleteDevice(cognitoUsername, previousDeviceKey!);
+        await signIn();
+        final newCurrentTestDevice = await Amplify.Auth.fetchCurrentDevice();
+        expect(newCurrentTestDevice.id, isNot(previousDeviceKey));
+      });
+
+      asyncTest(
+          'fetchCurrentDevice throws a DeviceNotTrackedException when device is forgotten.',
+          (_) async {
+        expect(await getDeviceState(), DeviceState.remembered);
+        await Amplify.Auth.forgetDevice();
+        await expectLater(
+          Amplify.Auth.fetchCurrentDevice,
+          throwsA(isA<DeviceNotTrackedException>()),
+        );
+      });
+
+      asyncTest(
+          'fetchCurrentDevice throws a SignedOutException when device signs out.',
+          (_) async {
+        await signOutUser();
+        await expectLater(
+          Amplify.Auth.fetchCurrentDevice,
+          throwsA(isA<SignedOutException>()),
+        );
+      });
+
       asyncTest('forgetDevice stops tracking', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
         await Amplify.Auth.forgetDevice();
