@@ -4,7 +4,8 @@
 /// Amplify API for Dart
 library amplify_api_dart;
 
-export 'package:amplify_core/src/types/api/api_types.dart';
+export 'package:amplify_core/src/types/api/api_types.dart'
+    hide WebSocketOptions;
 
 export 'src/api_plugin_impl.dart';
 

@@ -141,7 +141,14 @@ extension GraphQLResponse {
                 uniquingKeysWith: { _, a in a }
             )
         }
-
+        
+        if error.message?.stringValue?.contains("NetworkException") == true {
+            extensions = extensions.merging(
+                ["errorType": "FlutterNetworkException"],
+                uniquingKeysWith: { _, a in a }
+            )
+        }
+        
         return (try? jsonEncoder.encode(error))
             .flatMap { try? jsonDecoder.decode(GraphQLError.self, from: $0) }
             .map {

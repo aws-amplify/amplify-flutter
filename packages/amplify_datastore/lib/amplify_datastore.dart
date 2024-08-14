@@ -350,7 +350,9 @@ class NativeAmplifyApi
   Future<NativeGraphQLSubscriptionResponse> subscribe(
       NativeGraphQLRequest request) async {
     final flutterRequest = nativeRequestToGraphQLRequest(request);
-
+    // Turn off then default reconnection behavior to allow native side to trigger reconnect
+    // ignore: invalid_use_of_internal_member
+    WebSocketOptions.autoReconnect = false;
     final operation = Amplify.API.subscribe(flutterRequest,
         onEstablished: () => sendNativeStartAckEvent(flutterRequest.id));
 
@@ -374,6 +376,28 @@ class NativeAmplifyApi
       await subscription.cancel();
       _subscriptionsCache.remove(subscriptionId);
     }
+  }
+
+  @override
+  Future<void> deviceOffline() async {
+    await _notifySubscriptionsDisconnected();
+  }
+
+  Future<void> _notifySubscriptionsDisconnected() async {
+    _subscriptionsCache.forEach((subId, stream) async {
+      // Send Swift subscriptions an expected error message when network is lost.
+      // Swift side is expecting this string to transform into the correct error type.
+      // This will cause the Sync Engine to enter retry mode and in order to recover it
+      // later we must unsubscribe and close the websocket.
+      GraphQLResponseError error = GraphQLResponseError(
+        message: 'FlutterNetworkException - Network disconnected',
+      );
+      sendSubscriptionStreamErrorEvent(subId, error.toJson());
+      // Note: the websocket will still be closing after this line.
+      // There may be a small delay in shutdown.
+      await unsubscribe(subId);
+      await stream.cancel();
+    });
   }
 
   /// Amplify.DataStore.Stop() callback
