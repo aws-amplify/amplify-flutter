@@ -4,6 +4,7 @@ import { CfnUserPool, IUserPool } from "aws-cdk-lib/aws-cognito";
 import { addCreateUserLambda } from "./create-user-lambda";
 import { addCustomSenderLambda } from "./custom-sender-lambda";
 import { addDeleteUserLambda } from "./delete-user-lambda";
+import { addEnableSmsMfaLambda } from "./enable-sms-mfa-lambda";
 import { addUserGraphql } from "./user-graphql";
 
 type AmplifyOutputs = Parameters<BackendBase["addOutput"]>[0];
@@ -23,6 +24,7 @@ export const addAuthUserExtensions = ({
   addCustomSenderLambda({ name, stack, cfnUserPool, graphQL });
   addCreateUserLambda({ name, stack, userPool, graphQL });
   addDeleteUserLambda({ name, stack, userPool, graphQL });
+  addEnableSmsMfaLambda({ name, stack, userPool, graphQL });
   return {
     data: {
       aws_region: stack.region,
