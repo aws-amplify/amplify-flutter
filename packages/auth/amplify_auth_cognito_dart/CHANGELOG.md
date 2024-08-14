@@ -1,3 +1,11 @@
+## 0.11.4
+
+### Features
+- feat(Auth): Add fetchCurrentDevice API ([#5251](https://github.com/aws-amplify/amplify-flutter/pull/5251))
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.11.3
 
 - Minor bug fixes and improvements

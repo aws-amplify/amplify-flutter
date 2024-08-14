@@ -1,3 +1,9 @@
+## 2.4.0
+
+### Fixes
+- fix(datastore): Clear subscriptions on Stop ([#5253](https://github.com/aws-amplify/amplify-flutter/pull/5253))
+- fix(datastore): Restart Sync Engine when network on/off ([#5218](https://github.com/aws-amplify/amplify-flutter/pull/5218))
+
 ## 2.3.0
 
 - Minor bug fixes and improvements
