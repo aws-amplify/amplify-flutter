@@ -52,7 +52,8 @@ enum AuthCategoryMethod with AmplifyCategoryMethod {
   setMfaPreference('49'),
   getMfaPreference('50'),
   setUpTotp('51'),
-  verifyTotpSetup('52');
+  verifyTotpSetup('52'),
+  fetchCurrentDevice('59');
 
   const AuthCategoryMethod(this.method);
 
