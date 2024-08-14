@@ -64,7 +64,9 @@ export 'src/state_machine/transition.dart';
 export 'src/types/analytics/analytics_types.dart';
 
 /// API
-export 'src/types/api/api_types.dart';
+export 'src/types/api/api_types.dart' hide WebSocketOptions;
+// ignore: invalid_export_of_internal_element
+export 'src/types/api/api_types.dart' show WebSocketOptions;
 
 /// App path provider
 export 'src/types/app_path_provider/app_path_provider.dart';

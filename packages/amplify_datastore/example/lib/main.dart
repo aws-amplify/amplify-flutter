@@ -162,11 +162,12 @@ class _MyAppState extends State<MyApp> {
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
-        if (msg.type case DataStoreHubEventType.networkStatus) {
-          print('Network status message: $msg');
+        final payload = msg.payload;
+        if (payload is NetworkStatusEvent) {
+          print('Network status active: ${payload.active}');
           return;
         }
-        print(msg);
+        print(msg.type);
       });
       _listeningToHub = true;
     });
@@ -316,6 +317,9 @@ class _MyAppState extends State<MyApp> {
             // Row for query buttons
             displayQueryButtons(
                 _isAmplifyConfigured, _queriesToView, updateQueriesToView),
+
+            // Start/Stop/Clear buttons
+            displaySyncButtons(),
 
             Padding(padding: EdgeInsets.all(5.0)),
             Text("Listen to DataStore Hub"),
