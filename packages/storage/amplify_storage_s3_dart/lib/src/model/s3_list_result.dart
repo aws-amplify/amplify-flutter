@@ -27,7 +27,7 @@ class S3ListResult extends StorageListResult<S3Item> {
     PaginatedResult<s3.ListObjectsV2Output, int, String> paginatedResult,
   ) {
     final output = paginatedResult.items;
-    final metadata = S3ListMetadata.fromDelimiter(
+    final metadata = S3ListMetadata(
       delimiter: output.delimiter,
     );
 
@@ -52,13 +52,13 @@ class S3ListResult extends StorageListResult<S3Item> {
     final items = <S3Item>[...this.items, ...other.items];
 
     final mergedSubpaths = <String>[
-      ...excludedSubpaths ,
+      ...excludedSubpaths,
       ...other.excludedSubpaths,
     ];
 
     return S3ListResult(
       items,
-      excludedSubpaths: mergedSubPaths,
+      excludedSubpaths: mergedSubpaths,
       hasNextPage: other.hasNextPage,
       nextToken: other.nextToken,
       metadata: metadata,
@@ -73,15 +73,7 @@ class S3ListResult extends StorageListResult<S3Item> {
 class S3ListMetadata {
   /// Creates a S3ListMetadata from the `delimiter`
   /// properties of the [s3.ListObjectsV2Output].
-  factory S3ListMetadata.fromDelimiter({
-    String? delimiter,
-  }) {
-    return S3ListMetadata._(
-      delimiter: delimiter,
-    );
-  }
-
-  S3ListMetadata._({
+  const S3ListMetadata({
     this.delimiter,
   });
 

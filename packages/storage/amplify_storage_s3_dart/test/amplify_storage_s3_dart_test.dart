@@ -89,7 +89,7 @@ void main() {
         <S3Item>[],
         excludedSubpaths: <String>[],
         hasNextPage: false,
-        metadata: S3ListMetadata.fromDelimiter(),
+        metadata: const S3ListMetadata(),
       );
 
       setUpAll(() {
