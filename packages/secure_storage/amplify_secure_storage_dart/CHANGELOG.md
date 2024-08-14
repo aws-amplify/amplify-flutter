@@ -1,3 +1,8 @@
+## 0.5.2
+
+### Fixes
+- fix(secure_storage): process file system operations one at a time on Windows ([#5195](https://github.com/aws-amplify/amplify-flutter/pull/5195))
+
 ## 0.5.1
 
 - Minor bug fixes and improvements

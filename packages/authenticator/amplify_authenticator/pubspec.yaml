@@ -1,6 +1,6 @@
 name: amplify_authenticator
 description: A prebuilt Sign In and Sign Up experience for the Amplify Auth category
-version: 2.1.1
+version: 2.1.2
 homepage: https://ui.docs.amplify.aws/flutter/connected-components/authenticator
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/authenticator/amplify_authenticator
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -10,11 +10,11 @@ environment:
   flutter: ">=3.19.0"
 
 dependencies:
-  amplify_auth_cognito: ">=2.3.0 <2.4.0"
-  amplify_core: ">=2.3.0 <2.4.0"
-  amplify_flutter: ">=2.3.0 <2.4.0"
+  amplify_auth_cognito: ">=2.4.0 <2.5.0"
+  amplify_core: ">=2.4.0 <2.5.0"
+  amplify_flutter: ">=2.4.0 <2.5.0"
   async: ^2.10.0
-  aws_common: ">=0.7.1 <0.8.0"
+  aws_common: ">=0.7.2 <0.8.0"
   collection: ^1.15.0
   flutter:
     sdk: flutter
@@ -25,7 +25,7 @@ dependencies:
   # TODO(equartey): Remove this once we have our own method of getting the app name
   package_info_plus: ^8.0.0
   qr_flutter: 4.1.0
-  smithy: ">=0.7.1 <0.8.0"
+  smithy: ">=0.7.2 <0.8.0"
   stream_transform: ^2.0.0
   url_launcher: ^6.1.11
 

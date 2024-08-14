@@ -1,3 +1,8 @@
+## 0.6.2
+
+### Chores
+- chore: bump json_annotation dependency to v4.9
+
 ## 0.6.1
 
 - Minor bug fixes and improvements
