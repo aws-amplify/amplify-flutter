@@ -22,6 +22,7 @@ export 'graphql/graphql_response.dart';
 export 'graphql/graphql_response_error.dart';
 export 'graphql/graphql_subscription_operation.dart';
 export 'graphql/graphql_subscription_options.dart';
+export 'graphql/web_socket_options.dart';
 export 'hub/api_hub_event.dart';
 export 'hub/api_subscription_hub_event.dart';
 // Types
