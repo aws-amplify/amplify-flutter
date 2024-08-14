@@ -131,10 +131,9 @@ final mockConfigWithPinpoint = AmplifyOutputs.fromJson(
   jsonDecode(amplifyConfigWithAnalytics) as Map<String, Object?>,
 );
 
-final hostedUiConfig = CognitoOAuthConfig.fromAuthOutputs(mockConfig.auth!);
 final authConfig = AuthConfiguration.fromAmplifyOutputs(mockConfig);
+// TODO(nikahsn): remove after refactoring DeviceMetadataRepository
 final userPoolConfig = authConfig.userPoolConfig!;
-final identityPoolConfig = authConfig.identityPoolConfig!;
 final userPoolKeys = CognitoUserPoolKeys(mockConfig.auth!.userPoolClientId!);
 final deviceKeys =
     CognitoDeviceKeys(mockConfig.auth!.userPoolClientId!, userSub);

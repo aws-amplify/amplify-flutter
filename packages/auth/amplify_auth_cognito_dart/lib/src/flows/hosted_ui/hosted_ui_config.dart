@@ -2,32 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-
-/// Configuration helpers for [CognitoUserPoolConfig].
-extension HostedUiJwks on CognitoUserPoolConfig {
-  /// The JSON Web Key (JWK) URI.
-  ///
-  /// References:
-  /// - https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
-  Uri get jwksUri => Uri.parse(
-        'https://cognito-idp.$region.amazonaws.com/$poolId/.well-known/jwks.json',
-      );
-}
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/oauth_outputs.dart';
 
 /// Configuration helpers for [CognitoOAuthConfig].
 ///
 /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
-extension HostedUiConfig on CognitoOAuthConfig {
-  /// The parsed [webDomain] URI.
+extension HostedUiConfig on OAuthOutputs {
+  /// The parsed [domain] URI.
   ///
-  /// If [webDomain] specifies a scheme, it is honored in requests in the same
+  /// If [domain] specifies a scheme, it is honored in requests in the same
   /// way that it is honored for [signInUri], [tokenUri], and [signOutUri]. If
-  /// no scheme is specified, it defaults to `https` and [webDomain] is
+  /// no scheme is specified, it defaults to `https` and [domain] is
   /// interpreted as a host string.
   Uri get _webDomain {
-    final uri = Uri.parse(webDomain);
+    final uri = Uri.parse(domain);
     if (uri.hasScheme) return uri;
-    return Uri(scheme: 'https', host: webDomain);
+    return Uri(scheme: 'https', host: domain);
   }
 
   /// The sign in URI.
@@ -37,7 +28,9 @@ extension HostedUiConfig on CognitoOAuthConfig {
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/login-endpoint.html
   Uri signInUri([AuthProvider? provider]) {
     Uri baseUri;
+    // ignore: invalid_use_of_internal_member
     if (this.signInUri != null) {
+      // ignore: invalid_use_of_internal_member
       baseUri = Uri.parse(this.signInUri!);
     } else {
       baseUri = _webDomain.replace(path: '/oauth2/authorize');
@@ -45,6 +38,7 @@ extension HostedUiConfig on CognitoOAuthConfig {
     return baseUri.replace(
       queryParameters: <String, String>{
         if (provider != null) 'identity_provider': provider.uriParameter,
+        // ignore: invalid_use_of_internal_member
         ...?signInUriQueryParameters,
       },
     );
@@ -54,12 +48,13 @@ extension HostedUiConfig on CognitoOAuthConfig {
   ///
   /// References:
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/logout-endpoint.html
-  Uri get signOutUri {
+  Uri signOutUri(String userPoolClientId) {
     return _webDomain.replace(
       path: '/logout',
       queryParameters: <String, String>{
+        // ignore: invalid_use_of_internal_member
         ...?signOutUriQueryParameters,
-        'client_id': appClientId,
+        'client_id': userPoolClientId,
       },
     );
   }
@@ -67,12 +62,12 @@ extension HostedUiConfig on CognitoOAuthConfig {
   /// The sign in redirect URI to use.
   ///
   /// Throws a [StateError] if there are no URIs registered.
-  Uri get signInRedirectUri => signInRedirectUris.first;
+  Uri get signInRedirectUri => Uri.parse(redirectSignInUri.first);
 
   /// The sign out redirect URI to use.
   ///
   /// Throws a [StateError] if there are no URIs registered.
-  Uri get signOutRedirectUri => signOutRedirectUris.first;
+  Uri get signOutRedirectUri => Uri.parse(redirectSignOutUri.first);
 
   /// The `token` URI.
   ///
@@ -80,25 +75,16 @@ extension HostedUiConfig on CognitoOAuthConfig {
   /// - https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html
   Uri get tokenUri {
     Uri baseUri;
+    // ignore: invalid_use_of_internal_member
     if (this.tokenUri != null) {
+      // ignore: invalid_use_of_internal_member
       baseUri = Uri.parse(this.tokenUri!);
     } else {
       baseUri = _webDomain.replace(path: '/oauth2/token');
     }
     return baseUri.replace(
+      // ignore: invalid_use_of_internal_member
       queryParameters: tokenUriQueryParameters,
     );
   }
-
-  /// The `revoke` URI.
-  ///
-  /// References:
-  /// - https://docs.aws.amazon.com/cognito/latest/developerguide/revocation-endpoint.html
-  Uri get revocationUri => _webDomain.replace(path: '/oauth2/revoke');
-
-  /// The `userinfo` URI.
-  ///
-  /// References:
-  /// - https://docs.aws.amazon.com/cognito/latest/developerguide/userinfo-endpoint.html
-  Uri get userInfoUri => _webDomain.replace(path: '/oauth2/userInfo');
 }
