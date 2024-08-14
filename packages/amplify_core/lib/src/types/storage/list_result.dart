@@ -16,7 +16,7 @@ class StorageListResult<Item extends StorageItem> {
   });
 
   /// The subpaths that have been excluded
-  final List<String>? excludedSubpaths;
+  final List<String> excludedSubpaths;
 
   /// The objects listed in the current page.
   final List<Item> items;

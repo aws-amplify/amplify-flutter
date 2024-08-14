@@ -249,14 +249,14 @@ class SubpathStrategy with AWSSerializable<Map<String, Object?>> {
   });
 
   /// Constructor for SubpathStrategy for excluding subpaths, option to specify the delimiter
-  const SubpathStrategy.exclude({String? delimiter = '/'})
+  const SubpathStrategy.exclude({String delimiter = '/'})
       : this._(
-          excludeSubPaths: true,
-          delimiter: delimiter ?? '/',
+          excludeSubpaths: true,
+          delimiter: delimiter ,
         );
 
   /// Whether to exclude objects under the sub paths of the path to list.
-  final bool excludeSubPaths;
+  final bool excludeSubpaths;
 
   /// The delimiter to use when evaluating sub paths. If [excludeSubPaths] is
   /// false, this value has no impact on behavior.
@@ -265,7 +265,7 @@ class SubpathStrategy with AWSSerializable<Map<String, Object?>> {
   @override
   Map<String, Object?> toJson() {
     return <String, dynamic>{
-      'excludeSubPaths': excludeSubPaths,
+      'excludeSubpaths': excludeSubpaths,
       'delimiter': delimiter,
     };
   }

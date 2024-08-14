@@ -51,9 +51,9 @@ class S3ListResult extends StorageListResult<S3Item> {
   S3ListResult merge(S3ListResult other) {
     final items = <S3Item>[...this.items, ...other.items];
 
-    final mergedSubPaths = <String>[
-      ...excludedSubpaths ?? <String>[],
-      ...other.excludedSubpaths ?? <String>[],
+    final mergedSubpaths = <String>[
+      ...excludedSubpaths ,
+      ...other.excludedSubpaths,
     ];
 
     return S3ListResult(

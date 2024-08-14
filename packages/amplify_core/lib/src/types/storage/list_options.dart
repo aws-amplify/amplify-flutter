@@ -28,7 +28,7 @@ class StorageListOptions
   /// {@macro amplify_core.storage.list_plugin_options}
   final StorageListPluginOptions? pluginOptions;
 
-  /// Subpathstrategy for specifying storage subpath behavior
+  /// Subpath strategy for specifying storage subpath behavior
   final SubpathStrategy subpathStrategy;
 
   @override

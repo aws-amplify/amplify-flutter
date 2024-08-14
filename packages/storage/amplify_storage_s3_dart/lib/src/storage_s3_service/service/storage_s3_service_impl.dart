@@ -129,7 +129,7 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
         const S3ListPluginOptions();
 
-    final s3Category = options.subpathStrategy;
+    final subpathStrategy = options.subpathStrategy;
 
     final resolvedPath = await _pathResolver.resolvePath(path: path);
 
