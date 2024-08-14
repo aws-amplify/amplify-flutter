@@ -8,6 +8,7 @@ import 'package:meta/meta.dart';
 /// {@template amplify_analytics_pinpoint_dart.stoppable_timer}
 /// A Timer that can be stopped and started again.
 /// {@endtemplate}
+@protected
 class StoppableTimer {
   /// {@macro amplify_analytics_pinpoint_dart.stoppable_timer}
   ///
