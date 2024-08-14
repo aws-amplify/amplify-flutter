@@ -276,7 +276,9 @@ class AuthTestRunner {
 
   /// Runs [body] in a [group] which configures [environment].
   void withEnvironment(
-      EnvironmentInfo environment, void Function(EnvironmentInfo env) body) {
+    EnvironmentInfo environment,
+    void Function(EnvironmentInfo env) body,
+  ) {
     group(environment.name, () {
       setUp(() async {
         await configure(
