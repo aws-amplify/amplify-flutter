@@ -43,6 +43,9 @@ abstract class NativeApiPlugin {
   void unsubscribe(String subscriptionId);
 
   @async
+  void deviceOffline();
+
+  @async
   void onStop();
 }
 
