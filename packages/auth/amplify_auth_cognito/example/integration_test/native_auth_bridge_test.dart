@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,7 @@ void main() {
 
       setUp(() async {
         dependencyManager = DependencyManager()
-          ..addInstance<CognitoOAuthConfig>(hostedUiConfig)
+          ..addInstance<AuthOutputs>(mockConfig.auth!)
           ..addInstance<SecureStorageInterface>(MockSecureStorage())
           ..addInstance<http.Client>(
             MockClient((request) {
@@ -58,7 +59,7 @@ void main() {
                 argPreferprivatesession,
                 argBrowserpackagename,
               ) async {
-                expect(argUrl, contains(hostedUiConfig.webDomain));
+                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
                 expect(argCallbackurlscheme, testUrlScheme);
                 expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
@@ -86,7 +87,7 @@ void main() {
                 argPreferprivatesession,
                 argBrowserpackagename,
               ) async {
-                expect(argUrl, contains(hostedUiConfig.webDomain));
+                expect(argUrl, contains(mockConfig.auth?.oauth?.domain));
                 expect(argCallbackurlscheme, testUrlScheme);
                 expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
