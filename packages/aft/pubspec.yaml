@@ -65,7 +65,7 @@ dependency_overrides:
 
 dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"
-  build_runner: ^2.4.0
+  build_runner: ^2.4.9
   built_value_generator: 8.8.1
   checks: ^0.2.2
   json_serializable: 6.8.0

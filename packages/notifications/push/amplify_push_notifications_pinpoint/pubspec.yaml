@@ -30,9 +30,9 @@ dev_dependencies:
   amplify_secure_storage_dart: ">=0.5.1 <0.6.0"
   amplify_test:
     path: ../../../test/amplify_test
-  aws_common: ">=0.7.1 <0.8.0"
-  aws_signature_v4: ">=0.6.1 <0.7.0"
-  build_runner: ^2.4.0
+  aws_common: ">=0.7.2 <0.8.0"
+  aws_signature_v4: ">=0.6.2 <0.7.0"
+  build_runner: ^2.4.9
   built_value_generator: 8.8.1
   flutter_test:
     sdk: flutter
