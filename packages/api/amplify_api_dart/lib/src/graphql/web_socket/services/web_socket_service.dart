@@ -12,6 +12,8 @@ import 'package:amplify_api_dart/src/graphql/web_socket/types/subscriptions_even
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_message_stream_transformer.dart';
 import 'package:amplify_api_dart/src/graphql/web_socket/types/web_socket_types.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/api_outputs.dart';
 import 'package:async/async.dart';
 import 'package:meta/meta.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -72,15 +74,14 @@ class AmplifyWebSocketService
     );
 
     try {
-      const webSocketProtocols = ['graphql-ws'];
-      final connectionUri = await generateConnectionUri(
+      final protocols = await generateProtocols(
         state.config,
         state.authProviderRepo,
       );
-
+      final connectionUri = await generateConnectionUri(state.config);
       final channel = WebSocketChannel.connect(
         connectionUri,
-        protocols: webSocketProtocols,
+        protocols: protocols,
       );
       sink = channel.sink;
 
@@ -93,6 +94,24 @@ class AmplifyWebSocketService
       logger.error('Web socket error while initializing', e, st);
       rethrow;
     }
+  }
+
+  /// Generates a list of protocols from a [WebSocketState].
+  @visibleForTesting
+  Future<List<String>> generateProtocols(
+    ApiOutputs outputs,
+    AmplifyAuthProviderRepository authRepo,
+  ) async {
+    final authorizationHeaders = await generateAuthorizationHeaders(
+      outputs,
+      isConnectionInit: true,
+      authRepo: authRepo,
+      body: appSyncDefaultPayload,
+    );
+    final encodedAuthHeaders = base64Url.encode(
+      json.encode(authorizationHeaders).codeUnits,
+    );
+    return ['graphql-ws', 'header-$encodedAuthHeaders'];
   }
 
   @override
