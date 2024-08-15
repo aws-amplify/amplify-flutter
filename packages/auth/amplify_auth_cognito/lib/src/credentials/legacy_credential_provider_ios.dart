@@ -14,6 +14,8 @@ import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_prov
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 // ignore: implementation_imports, invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+// ignore: implementation_imports
+import 'package:amplify_core/src/config/amplify_outputs/auth/auth_outputs.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async/async.dart';
 
@@ -28,22 +30,21 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   final CognitoAuthStateMachine _stateMachine;
 
   @override
-  Future<CredentialStoreData?> fetchLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
+  Future<CredentialStoreData?> fetchLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
     CognitoUserPoolTokens? userPoolTokens;
-    if (userPoolConfig != null) {
+    if (authOutputs.userPoolClientId != null) {
       final userPoolStorage = await _getUserPoolStorage();
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final cognitoUserKeys =
+          LegacyCognitoUserKeys(authOutputs.userPoolClientId!);
       final currentUserId = await userPoolStorage.read(
         key: cognitoUserKeys[LegacyCognitoKey.currentUser],
       );
       if (currentUserId != null) {
         final userPoolKeys = LegacyCognitoUserPoolKeys(
           currentUserId,
-          userPoolConfig,
+          authOutputs.userPoolClientId!,
         );
         final accessToken = await userPoolStorage.read(
           key: userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
@@ -56,7 +57,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
         );
         if (accessToken != null && refreshToken != null && idToken != null) {
           // TODO(Jordan-Nelson): fetch sign in method from keychain on iOS
-          final signInMethod = hostedUiConfig != null
+          final signInMethod = authOutputs.oauth != null
               ? CognitoSignInMethod.hostedUi
               : CognitoSignInMethod.default$;
           userPoolTokens = CognitoUserPoolTokens(
@@ -71,10 +72,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
 
     String? identityId;
     AWSCredentials? awsCredentials;
-    final identityPoolId = identityPoolConfig?.poolId;
-    if (identityPoolId != null) {
+    if (authOutputs.identityPoolId != null) {
       final identityPoolStorage = await _getIdentityPoolStorage(
-        identityPoolId,
+        authOutputs.identityPoolId!,
       );
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
       identityId = await identityPoolStorage.read(
@@ -122,21 +122,20 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   }
 
   @override
-  Future<void> deleteLegacyCredentials({
-    CognitoUserPoolConfig? userPoolConfig,
-    CognitoIdentityCredentialsProvider? identityPoolConfig,
-    CognitoOAuthConfig? hostedUiConfig,
-  }) async {
-    if (userPoolConfig != null) {
+  Future<void> deleteLegacyCredentials(
+    AuthOutputs authOutputs,
+  ) async {
+    if (authOutputs.userPoolClientId != null) {
       final userPoolStorage = await _getUserPoolStorage();
-      final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+      final cognitoUserKeys =
+          LegacyCognitoUserKeys(authOutputs.userPoolClientId!);
       final currentUser = await userPoolStorage.read(
         key: cognitoUserKeys[LegacyCognitoKey.currentUser],
       );
       if (currentUser != null) {
         final userPoolKeys = LegacyCognitoUserPoolKeys(
           currentUser,
-          userPoolConfig,
+          authOutputs.userPoolClientId!,
         );
         await userPoolStorage.deleteMany([
           userPoolKeys[LegacyCognitoUserPoolKey.accessToken],
@@ -147,9 +146,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
       }
     }
 
-    final identityPoolId = identityPoolConfig?.poolId;
-    if (identityPoolId != null) {
-      final identityPoolStorage = await _getIdentityPoolStorage(identityPoolId);
+    if (authOutputs.identityPoolId != null) {
+      final identityPoolStorage =
+          await _getIdentityPoolStorage(authOutputs.identityPoolId!);
       const identityPoolKeys = LegacyCognitoIdentityPoolKeys();
       await identityPoolStorage.deleteMany([
         identityPoolKeys[LegacyCognitoIdentityPoolKey.identityId],
@@ -162,20 +161,21 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   }
 
   @override
-  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
-    if (userPoolConfig == null) return null;
+  Future<LegacyDeviceDetails?> fetchLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
+    if (authOutputs.userPoolClientId == null) return null;
     final userPoolStorage = await _getUserPoolStorage();
-    final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+    final cognitoUserKeys =
+        LegacyCognitoUserKeys(authOutputs.userPoolClientId!);
     final currentUserId = await userPoolStorage.read(
       key: cognitoUserKeys[LegacyCognitoKey.currentUser],
     );
-    if (currentUserId == null) return null;
+    if (currentUserId == null || authOutputs.userPoolId == null) return null;
     final keys = LegacyDeviceSecretKeys(
       currentUserId,
-      userPoolConfig,
+      authOutputs.userPoolId!,
     );
     final deviceKey = await userPoolStorage.read(
       key: keys[LegacyDeviceSecretKey.id],
@@ -187,7 +187,7 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
       key: keys[LegacyDeviceSecretKey.group],
     );
 
-    final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
+    final asfKeys = LegacyAsfDeviceKeys(currentUserId, authOutputs.userPoolId!);
     final asfDeviceId = await userPoolStorage.read(
       key: asfKeys[LegacyAsfDeviceKey.id],
     );
@@ -201,19 +201,20 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   }
 
   @override
-  Future<void> deleteLegacyDeviceSecrets({
-    required String username,
-    CognitoUserPoolConfig? userPoolConfig,
-  }) async {
-    if (userPoolConfig == null) return;
+  Future<void> deleteLegacyDeviceSecrets(
+    String username,
+    AuthOutputs authOutputs,
+  ) async {
+    if (authOutputs.userPoolClientId == null) return;
     final userPoolStorage = await _getUserPoolStorage();
-    final cognitoUserKeys = LegacyCognitoUserKeys(userPoolConfig);
+    final cognitoUserKeys =
+        LegacyCognitoUserKeys(authOutputs.userPoolClientId!);
     final currentUserId = await userPoolStorage.read(
       key: cognitoUserKeys[LegacyCognitoKey.currentUser],
     );
-    if (currentUserId == null) return;
-    final keys = LegacyDeviceSecretKeys(currentUserId, userPoolConfig);
-    final asfKeys = LegacyAsfDeviceKeys(currentUserId, userPoolConfig);
+    if (currentUserId == null || authOutputs.userPoolId == null) return;
+    final keys = LegacyDeviceSecretKeys(currentUserId, authOutputs.userPoolId!);
+    final asfKeys = LegacyAsfDeviceKeys(currentUserId, authOutputs.userPoolId!);
     await userPoolStorage.deleteMany([
       keys[LegacyDeviceSecretKey.id],
       keys[LegacyDeviceSecretKey.secret],
